@@ -16,6 +16,24 @@
       "revId": "021d0fd80c3a7628a55be4086504eb0c6c2e46aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "M26KeJlw",
+        "filename": "sdklib2/src/main/java/com/android/sdklib/io/FileOp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2012-12-13T22:31:40Z",
+      "side": 1,
+      "message": "Probably, though I think this is used pretty heavily by the testing infrastructure for the sdk manager, so I think it\u0027s an issue for Raphael to consider.",
+      "parentUuid": "M1IjfstQ",
+      "revId": "021d0fd80c3a7628a55be4086504eb0c6c2e46aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
