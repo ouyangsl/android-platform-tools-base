@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "M75JTbQU",
+        "filename": ".idea/dictionaries/tnorbye.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2012-12-13T06:06:05Z",
+      "side": 1,
+      "message": "you want to stick to this file name?",
+      "revId": "6bdf19b66b34179c270d3406029c2f0353082c9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "M77KWqao",
+        "filename": ".idea/gradle.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2012-12-13T06:06:05Z",
+      "side": 1,
+      "message": "expected path?",
+      "revId": "6bdf19b66b34179c270d3406029c2f0353082c9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "M7-KgIfo",
+        "filename": ".idea/libraries/junit3.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2012-12-13T06:06:05Z",
+      "side": 1,
+      "message": "check",
+      "revId": "6bdf19b66b34179c270d3406029c2f0353082c9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
