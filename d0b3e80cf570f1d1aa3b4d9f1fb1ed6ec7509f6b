@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "M20KOSjo",
+        "filename": "assetstudio/src/com/android/assetstudiolib/Util.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2012-12-13T22:18:34Z",
+      "side": 0,
+      "message": "I made this CL a separate CL from all the other warnings fixes since it touches a bunch of files, but shouldn\u0027t have to be reviewed carefully; it was a one click refactoring to apply the fix. The next file contains more individually applied fixes to a variety of issues.",
+      "revId": "d0b3e80cf570f1d1aa3b4d9f1fb1ed6ec7509f6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
