@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "M1IjfstQ",
+        "filename": "sdklib2/src/main/java/com/android/sdklib/io/FileOp.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2012-12-13T22:27:04Z",
+      "side": 1,
+      "message": "Can we delete whatever is in there that is in guava\u0027s Files?",
+      "revId": "021d0fd80c3a7628a55be4086504eb0c6c2e46aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
