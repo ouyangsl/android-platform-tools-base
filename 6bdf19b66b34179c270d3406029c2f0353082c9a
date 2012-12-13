@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "M1BIncyM",
+        "filename": ".idea/dictionaries/tnorbye.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2012-12-13T18:32:14Z",
+      "side": 1,
+      "message": "hmm yeah we should change this.",
+      "parentUuid": "M75JTbQU",
+      "revId": "6bdf19b66b34179c270d3406029c2f0353082c9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "M77KWqao",
         "filename": ".idea/gradle.xml",
         "patchSetId": 1
@@ -65,6 +83,24 @@
       "writtenOn": "2012-12-13T18:31:30Z",
       "side": 1,
       "message": "Ugh. It seems to autodetect it. I deleted this earlier and I see that it\u0027s back; perhaps added from path. I did another remove and checked in. Hopefully if Xav adds a prebuilt for Gradle it can just point to that so it stops looking at the path (?).",
+      "parentUuid": "M77KWqao",
+      "revId": "6bdf19b66b34179c270d3406029c2f0353082c9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "M1DI271U",
+        "filename": ".idea/gradle.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2012-12-13T18:32:14Z",
+      "side": 1,
+      "message": "err this is annoying. We\u0027re going to move to using the gradle wrapper. Let\u0027s check this in for now and see if I can change it later.",
       "parentUuid": "M77KWqao",
       "revId": "6bdf19b66b34179c270d3406029c2f0353082c9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
