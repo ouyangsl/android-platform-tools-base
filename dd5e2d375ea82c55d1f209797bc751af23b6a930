@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "M1EZMesU",
+        "filename": ".idea/codeStyleSettings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2012-12-18T05:24:05Z",
+      "side": 1,
+      "message": "This makes it use \\n on windows too for new files.",
+      "revId": "dd5e2d375ea82c55d1f209797bc751af23b6a930",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
