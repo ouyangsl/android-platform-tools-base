@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "M.0dWjvc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2012-12-19T02:02:20Z",
+      "side": 1,
+      "message": "typo in manifest.",
+      "revId": "343ba9dc70fe8a3fe837f26bd4d8bd835d964fea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
