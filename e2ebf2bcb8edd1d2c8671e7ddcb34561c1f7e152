@@ -16,6 +16,24 @@
       "revId": "e2ebf2bcb8edd1d2c8671e7ddcb34561c1f7e152",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NFp08ZOk",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/WrongCallDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2012-12-20T23:30:42Z",
+      "side": 1,
+      "message": "No, it does not, good catch!",
+      "parentUuid": "NFj1WkCs",
+      "revId": "e2ebf2bcb8edd1d2c8671e7ddcb34561c1f7e152",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
