@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "NLzMaaHY",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2012-12-21T22:29:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "NFo2a73U",
+      "revId": "b31f9e7d8a412ce8ad03836d2f09baa2f7025d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "NFs2cd2c",
         "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "NL9MulJI",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2012-12-21T22:29:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "NFs2cd2c",
+      "revId": "b31f9e7d8a412ce8ad03836d2f09baa2f7025d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "NFo2wr.Q",
         "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2012-12-21T22:24:28Z",
       "side": 1,
       "message": "Is this just doing a s.toString.trim().equalsIgnoreCase(t)?",
+      "revId": "b31f9e7d8a412ce8ad03836d2f09baa2f7025d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NL-MrkH8",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2012-12-21T22:29:51Z",
+      "side": 1,
+      "message": "Yes, without creating garbage",
+      "parentUuid": "NFo2wr.Q",
       "revId": "b31f9e7d8a412ce8ad03836d2f09baa2f7025d18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
