@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "NTZXuZOA",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2012-12-27T21:56:21Z",
+      "side": 1,
+      "message": "I always wanted to ask this, but keep forgetting: what does the prefix FN stand for?",
+      "revId": "cda66874f450e1784b8e07df2daef66a7191a27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
