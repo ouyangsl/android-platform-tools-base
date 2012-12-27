@@ -16,6 +16,24 @@
       "revId": "cda66874f450e1784b8e07df2daef66a7191a27f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "NQZYS2hU",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2012-12-27T22:01:32Z",
+      "side": 1,
+      "message": "There\u0027s a definition of the prefixes at the top of the SdkConstants class --\n\n * \u003cli\u003e\u003ccode\u003eOS_\u003c/code\u003e OS path constant. These paths are different depending on the platform.\u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eFN_\u003c/code\u003e File name constant.\u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eFD_\u003c/code\u003e Folder name constant.\u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eTAG_\u003c/code\u003e XML element tag name\u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eATTR_\u003c/code\u003e XML attribute name\u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eVALUE_\u003c/code\u003e XML attribute value\u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eCLASS_\u003c/code\u003e Class name\u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eDOT_\u003c/code\u003e File name extension, including the dot \u003c/li\u003e\n * \u003cli\u003e\u003ccode\u003eEXT_\u003c/code\u003e File name extension, without the dot \u003c/li\u003e",
+      "parentUuid": "NTZXuZOA",
+      "revId": "cda66874f450e1784b8e07df2daef66a7191a27f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
