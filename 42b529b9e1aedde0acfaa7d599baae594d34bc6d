@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "NYo1XNCk",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/WrongCaseDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-01-02T18:04:53Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be tagged with [WrongCaseDetector]? Or is it an artifact of what you are doing in line 25?",
+      "revId": "42b529b9e1aedde0acfaa7d599baae594d34bc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "NYm2T0AY",
         "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/WrongCaseDetector.java",
         "patchSetId": 1
