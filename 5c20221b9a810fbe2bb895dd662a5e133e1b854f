@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "NoqNFRGY",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-01-03T18:08:29Z",
+      "side": 1,
+      "message": "it\u0027s",
+      "revId": "5c20221b9a810fbe2bb895dd662a5e133e1b854f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
