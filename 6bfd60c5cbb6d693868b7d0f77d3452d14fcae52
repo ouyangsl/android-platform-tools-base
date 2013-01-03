@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "No9OpNHw",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/XmlTestRunListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-03T22:57:23Z",
+      "side": 1,
+      "message": "I extracted this to be able to override it.",
+      "revId": "6bfd60c5cbb6d693868b7d0f77d3452d14fcae52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "No3O-CLE",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/XmlTestRunListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-03T22:57:23Z",
+      "side": 1,
+      "message": "This is kinda crappy but I need a cleaner test suite due to how gradle does its reporting. Happy to discuss this change.",
+      "revId": "6bfd60c5cbb6d693868b7d0f77d3452d14fcae52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "No5O8DLw",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/XmlTestRunListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-03T22:57:23Z",
+      "side": 1,
+      "message": "Same thing here. I want to combine the test name + the device name in case where the same test runs on several device.",
+      "revId": "6bfd60c5cbb6d693868b7d0f77d3452d14fcae52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
