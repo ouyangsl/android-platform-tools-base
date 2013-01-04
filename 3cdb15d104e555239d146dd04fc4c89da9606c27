@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Ns-KDBmE",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-01-04T22:05:47Z",
+      "side": 1,
+      "message": "Rename to PROP_DEVICE_MODEL to be consistent with the 3 constants above.",
+      "revId": "3cdb15d104e555239d146dd04fc4c89da9606c27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
