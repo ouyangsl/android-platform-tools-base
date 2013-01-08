@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N3Vr.QSo",
+        "filename": "build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-08T02:47:02Z",
+      "side": 1,
+      "message": "You could do\n\nproject.buildDir \u003d project.file(\"$project.rootDir/../../out/host/common/tools/base/$project.name\")\n\nor even project.rootProject.file(\"../../out/host/...\")",
+      "revId": "7a5dc07d42dcac713a373dd6d551edc050e47595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N3bqXdfg",
+        "filename": "gradlew",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-08T02:47:02Z",
+      "side": 1,
+      "message": "can we share the same cache folder between tools/base and tools/build?\n\nIf not you should put it in out/host/common/tools/base/.gradle to be safe.",
+      "revId": "7a5dc07d42dcac713a373dd6d551edc050e47595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
