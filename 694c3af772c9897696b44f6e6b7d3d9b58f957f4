@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N8nadCGA",
+        "filename": "build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-01-08T23:37:22Z",
+      "side": 1,
+      "message": "I see some value in doing it the allprojects{...} way, since it covers both cases (this project but also the subprojects). Also I changed the behavior in I21c3c4445 to use ANDROID_HOST_OUT if defined. \n\nRest is fine.",
+      "revId": "694c3af772c9897696b44f6e6b7d3d9b58f957f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
