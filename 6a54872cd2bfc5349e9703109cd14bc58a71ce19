@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N8s0.Ho8",
+        "filename": "build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-01-09T21:04:33Z",
+      "side": 1,
+      "message": "Note that we need to do this first. This way the apply plugin java will compute all its paths relative to this buildDir.",
+      "revId": "6a54872cd2bfc5349e9703109cd14bc58a71ce19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
