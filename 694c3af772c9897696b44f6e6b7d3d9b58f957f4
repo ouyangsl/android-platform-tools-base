@@ -16,6 +16,24 @@
       "revId": "694c3af772c9897696b44f6e6b7d3d9b58f957f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N89jG4Zg",
+        "filename": "build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-09T02:27:48Z",
+      "side": 1,
+      "message": "the only issue is that the name of the root project is \"base\" so you get out/host/common/tools/base/base which does not map to what you would have inside tools/base if you didn\u0027t change the outDir.",
+      "parentUuid": "N8nadCGA",
+      "revId": "694c3af772c9897696b44f6e6b7d3d9b58f957f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
