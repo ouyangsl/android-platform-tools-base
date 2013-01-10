@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N8wdjodY",
+        "filename": ".idea/libraries/guava_tools.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-10T05:06:40Z",
+      "side": 1,
+      "message": "we should have a single $TOOLS and make everything relative to that (when we move prebuilts/tools to tools/prebuilts)",
+      "revId": "4d48601874839c9ab90db53fa94bed0414778b37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
