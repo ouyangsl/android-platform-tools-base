@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N8RPyB2M",
+        "filename": "build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-10T00:45:33Z",
+      "side": 1,
+      "message": "4 spaces.",
+      "revId": "0a9f9eecbae0a5a7f51b553647806223b64ab9ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N8dOc-xw",
+        "filename": "build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-10T00:45:33Z",
+      "side": 1,
+      "message": "This is the wrong folder. It should be tools/base/build\nbut then the code below is wrong. You\u0027d have to put project.parent.buildDir/../$project.name",
+      "revId": "0a9f9eecbae0a5a7f51b553647806223b64ab9ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
