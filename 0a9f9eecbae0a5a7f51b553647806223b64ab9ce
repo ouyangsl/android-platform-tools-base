@@ -33,6 +33,23 @@
       "revId": "0a9f9eecbae0a5a7f51b553647806223b64ab9ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N8XOv0yw",
+        "filename": "build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-10T00:47:04Z",
+      "side": 1,
+      "message": "This is the root project so $buildDir is enough.",
+      "revId": "0a9f9eecbae0a5a7f51b553647806223b64ab9ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
