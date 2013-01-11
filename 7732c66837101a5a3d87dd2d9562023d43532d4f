@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "N89VWmiw",
+        "filename": "build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-11T01:54:23Z",
+      "side": 1,
+      "message": "why are you putting ..?\n\nyou want this under buildDir",
+      "revId": "7732c66837101a5a3d87dd2d9562023d43532d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "N8zVWBis",
+        "filename": "build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-11T01:54:23Z",
+      "side": 1,
+      "message": "same here.",
+      "revId": "7732c66837101a5a3d87dd2d9562023d43532d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
