@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "N8nwiN1g",
+        "filename": "build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-01-11T06:20:50Z",
+      "side": 1,
+      "message": "Hmm if we do that, I fail to see the point of using /tools/base/build as the root buildDir. \n\nE.g this current CL gives us:\n  out/host/.../tools/base/build/\u003cprojectName\u003e/...\n  out/host/.../tools/base/reports\n  out/host/.../tools/base/results\n\nIf we don\u0027t put the .., we\u0027ll end up with:\n  out/host/.../tools/base/build/\u003cprojectName\u003e/...\n  out/host/.../tools/base/build/reports\n  out/host/.../tools/base/build/results\n\nSince there\u0027s nothing else generated in rootProject.buildDir, we might as well not put the /build/, which is what I used initially:\n  out/host/.../tools/base/\u003cprojectName\u003e/...\n  out/host/.../tools/base/reports\n  out/host/.../tools/base/results\n\nThe only issue with that is the (unlikely?) scenario where we create a project named \"reports\" or \"results\" later. In this case the actual test results and reports will be mixed with the similarly-named project build files.  I don\u0027t think these are project names we\u0027re ever likely to choose (especially since we don\u0027t use plural project names.)",
+      "parentUuid": "N89VWmiw",
+      "revId": "7732c66837101a5a3d87dd2d9562023d43532d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "N8zVWBis",
         "filename": "build.gradle",
         "patchSetId": 4
