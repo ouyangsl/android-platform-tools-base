@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "OJGSbPiQ",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/res/values/styles2.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-01-12T19:30:09Z",
+      "side": 1,
+      "message": "This is just a testfile, and I left the comment in that was provided with the sample to reproduce; however, I think it\u0027s clear form the context (in ApiDetector) that there\u0027s nothing special about 11. (And the unit test using this file actually places the file in multiple different folders, including -v9, -v11 and -v14.)",
+      "parentUuid": "OJpxXxfA",
+      "revId": "9f6b9c4c60fd33b713684ed72a996daa822f65ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "OJrxUAew",
         "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/ApiDetector.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-01-12T14:11:07Z",
       "side": 1,
       "message": "Add a check that name!\u003dnull ?",
+      "revId": "9f6b9c4c60fd33b713684ed72a996daa822f65ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OJMT6UjQ",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/ApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-01-12T19:30:09Z",
+      "side": 1,
+      "message": "Both arguments to ApiLookup#getFieldVersion are marked @NonNull, so the IDE should warn if name could be null. (And it\u0027s not possible since owner and name are always set as a pair.)",
+      "parentUuid": "OJrxUAew",
       "revId": "9f6b9c4c60fd33b713684ed72a996daa822f65ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
