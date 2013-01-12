@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "ODakcpRw",
+        "filename": "build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-01-12T01:04:49Z",
+      "side": 1,
+      "message": "So what\u0027s the consensus here? I\u0027d like to move on and do the same for the other dirs (swt, build).",
+      "parentUuid": "N8nwiN1g",
+      "revId": "7732c66837101a5a3d87dd2d9562023d43532d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "N8zVWBis",
         "filename": "build.gradle",
         "patchSetId": 4
