@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OJpxXxfA",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/res/values/styles2.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1018310
+      },
+      "writtenOn": "2013-01-12T14:11:07Z",
+      "side": 1,
+      "message": "I don\u0027t know if this should be mentioned, but the differentiator isn\u0027t only -v11 in general. It could be any version in which new android: attributes have been added.",
+      "revId": "9f6b9c4c60fd33b713684ed72a996daa822f65ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OJrxUAew",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/ApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1018310
+      },
+      "writtenOn": "2013-01-12T14:11:07Z",
+      "side": 1,
+      "message": "Add a check that name!\u003dnull ?",
+      "revId": "9f6b9c4c60fd33b713684ed72a996daa822f65ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
