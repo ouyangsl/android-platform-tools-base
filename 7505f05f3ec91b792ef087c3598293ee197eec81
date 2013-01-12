@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OJKeJSIA",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/ApiDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-01-12T21:52:43Z",
+      "side": 0,
+      "message": "The source range for these fields all reverted to showing just the name because these errors are once again generated from the .class file analysis (which has less accurate position information than the source AST)",
+      "revId": "7505f05f3ec91b792ef087c3598293ee197eec81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
