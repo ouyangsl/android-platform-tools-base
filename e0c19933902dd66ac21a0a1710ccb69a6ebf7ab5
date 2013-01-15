@@ -16,6 +16,24 @@
       "revId": "e0c19933902dd66ac21a0a1710ccb69a6ebf7ab5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OPgQSllw",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/res/layout/inefficient_weight.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-01-15T00:25:00Z",
+      "side": 1,
+      "message": "Yeah -- in unit tests *datafiles* I actually don\u0027t enforce it one way or the other to make sure that the tools can handle both (these mimic user files)",
+      "parentUuid": "OOC2kWQw",
+      "revId": "e0c19933902dd66ac21a0a1710ccb69a6ebf7ab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
