@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OOC2kWQw",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/res/layout/inefficient_weight.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-15T00:18:35Z",
+      "side": 1,
+      "message": "mix of space and tabs in this file?",
+      "revId": "e0c19933902dd66ac21a0a1710ccb69a6ebf7ab5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
