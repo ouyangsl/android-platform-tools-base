@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OUZF9vKg",
+        "filename": "sdklib/.project",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-01-16T19:25:49Z",
+      "side": 1,
+      "message": "Renamed this for consistency with SdkUiLib. And also because it reads better in Eclipse IMHO.",
+      "revId": "cd042b4180efa40ee8299b7d93db6a8c0bf82fbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
