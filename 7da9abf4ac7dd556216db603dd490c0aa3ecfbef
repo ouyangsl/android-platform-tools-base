@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OvFU5lkE",
+        "filename": "common/src/main/java/com/android/utils/SdkUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-01-23T02:02:42Z",
+      "side": 1,
+      "message": "NonNull or string \u003d\u003d null?",
+      "revId": "7da9abf4ac7dd556216db603dd490c0aa3ecfbef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
