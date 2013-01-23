@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "OvRZg-Jo",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/ManifestTypoDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-01-23T18:12:14Z",
+      "side": 0,
+      "message": "I didn\u0027t spot this in the earlier review but controlling which specific issue is enabled isn\u0027t necessary when the detector only reports a single issue; this is typically done (for example in the manifest order detector) when there are multiple issues reported, and we want each test to focus on a single one.",
+      "revId": "8bf3f62c7ae6f105956b70bc96573555ad01b59e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
