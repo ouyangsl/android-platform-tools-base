@@ -34,6 +34,24 @@
       "revId": "a0385848214feba50e87ef9fd7cd1cf45ae62300",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "OvDWBegU",
+        "filename": "common/src/main/java/com/android/utils/SdkUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-01-23T01:53:05Z",
+      "side": 1,
+      "message": "Ah ok.\nYeah, \"\" -\u003e 0 sounds good.",
+      "parentUuid": "Ovb.9R9E",
+      "revId": "a0385848214feba50e87ef9fd7cd1cf45ae62300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
