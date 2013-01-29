@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PCjiA6c0",
+        "filename": "manifmerger/src/test/java/com/android/manifmerger/ManifestMergerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-01-29T23:25:00Z",
+      "side": 1,
+      "message": "whitespace here.",
+      "revId": "68493dc2a4749d2260542115b9c21fc8815f61f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
