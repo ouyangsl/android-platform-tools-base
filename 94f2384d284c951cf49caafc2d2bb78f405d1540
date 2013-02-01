@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PDkYqiYA",
+        "filename": "sdk_common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-01T00:43:40Z",
+      "side": 1,
+      "message": "Is this comment still valid?",
+      "revId": "94f2384d284c951cf49caafc2d2bb78f405d1540",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PDiYnjbk",
+        "filename": "sdk_common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-01T00:43:40Z",
+      "side": 1,
+      "message": "check if valid",
+      "revId": "94f2384d284c951cf49caafc2d2bb78f405d1540",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
