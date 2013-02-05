@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "PfmdgbJo",
+        "filename": "build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-05T21:43:23Z",
+      "side": 1,
+      "message": "I guess the project is implied here, for some reason, but yes.\n\nSo when you say \"version\" it applies it to the iterator object (in this case the project).\n\nNote that the reason I put the project in the function params is that I can\u0027t seem to create a function in each project scope so I have a global one instead that receives the existing project)",
+      "parentUuid": "Pf2ZRUAc",
+      "revId": "bf1f5bf144d96431ca23a905e66014584c2f1617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "Pf6YyaOw",
         "filename": "common/build.gradle",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2013-02-05T21:38:47Z",
       "side": 1,
       "message": "where do \"project.configurations.runtime\" come from? Is that going to be all the dependencies listed at the beginning, including or excluding their transitive dependencies?",
+      "revId": "bf1f5bf144d96431ca23a905e66014584c2f1617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PfqdxhGs",
+        "filename": "common/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-05T21:43:23Z",
+      "side": 1,
+      "message": "The runtime configuration is created by the java plugin.\n\nIt\u0027s the object configured with\ndependencies {\n   runtime ...\n}\n\nNote that it extends the \"compile\" configuration object so what you put in \ndependencies {\n   compile ...\n}\n\ngets in there too.\n\nThe file collection does not include the transitive dependencies.",
+      "parentUuid": "Pf6YyaOw",
       "revId": "bf1f5bf144d96431ca23a905e66014584c2f1617",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
