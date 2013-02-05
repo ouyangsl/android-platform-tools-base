@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Pf2ZRUAc",
+        "filename": "build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-05T21:38:47Z",
+      "side": 1,
+      "message": "I guess this creates the version property in the current scope? Shouldn\u0027t it be project.version \u003d ... though?",
+      "revId": "bf1f5bf144d96431ca23a905e66014584c2f1617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Pf6YyaOw",
+        "filename": "common/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-05T21:38:47Z",
+      "side": 1,
+      "message": "where do \"project.configurations.runtime\" come from? Is that going to be all the dependencies listed at the beginning, including or excluding their transitive dependencies?",
+      "revId": "bf1f5bf144d96431ca23a905e66014584c2f1617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
