@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PkNJ6ZOE",
+        "filename": "sdklib/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-06T22:39:51Z",
+      "side": 1,
+      "message": "we also need to copy lint/cli/etc/lint[.bat] and jobb/etc/jobb[.bat], maybe both in the same dest/etc directory.",
+      "revId": "b69aac4b648d9d83c9523b83b8301864c8dccfc3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
