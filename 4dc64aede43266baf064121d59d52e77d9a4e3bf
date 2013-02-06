@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PhEeLRHc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-06T18:26:04Z",
+      "side": 1,
+      "message": "Should we check that the revision match the folder? Or is the folder name somewhat flexible?\n\nNot sure how enforced the folder name is for things like platforms.\n\nIf the folder name is not strictly enforced, then we should have an API somewhere to return the list of build-tools, like we have one to return the list of IAndroidTarget.",
+      "revId": "4dc64aede43266baf064121d59d52e77d9a4e3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
