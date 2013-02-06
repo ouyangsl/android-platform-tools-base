@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PhOHMgDQ",
+        "filename": "jobb/etc/manifest.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-06T01:09:01Z",
+      "side": 0,
+      "message": "Do you need a prebuiltJar.manifest.attributes(\"Main-Class\": ...) in the jobb/build.gradle?",
+      "revId": "d7eedab0f4802fc783a8336412547ae496ebdd24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PhGECsE4",
+        "filename": "manifmerger/etc/manifest.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-06T01:09:01Z",
+      "side": 0,
+      "message": "Do I have a main in the manifmerger? Since it\u0027s a lib and we won\u0027t actually use it as a command-line tool, I should probably remove it",
+      "revId": "d7eedab0f4802fc783a8336412547ae496ebdd24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

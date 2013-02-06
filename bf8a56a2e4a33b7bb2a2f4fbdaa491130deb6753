@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PhGHZkOw",
+        "filename": "lint/cli/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-06T01:09:01Z",
+      "side": 1,
+      "message": "Might be a bit too complex right now, but we could probably scan the class files to find which one matches the main(argv) signature or use a specific annotation.",
+      "revId": "bf8a56a2e4a33b7bb2a2f4fbdaa491130deb6753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
