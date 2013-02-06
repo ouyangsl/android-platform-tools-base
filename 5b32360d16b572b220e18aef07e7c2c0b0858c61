@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PhGG08IE",
+        "filename": "sdklib/test.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-06T01:12:47Z",
+      "side": 1,
+      "message": "remove this whole section, we\u0027re never going to release this on maven.",
+      "revId": "5b32360d16b572b220e18aef07e7c2c0b0858c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
