@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PpaB1NMI",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/logcat/LogCatMessage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-02-07T23:48:42Z",
+      "side": 1,
+      "message": "Maybe add @NonNull or @Nullable on these parameters, as well as on the getters.",
+      "revId": "c16f6c76d74467367151c43d38e8facd67441c08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PpYAv2KY",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/logcat/LogCatReceiverTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-02-07T23:48:42Z",
+      "side": 1,
+      "message": "I\u0027m not very familiar with SynchronizedSet; will this actually lock the mLIsteners array while you are using an iterator on it? If not, you might as well take out the SynchronizedSet wrapped, and just add synchronized (mListeners) on your add, remove and iterator calls, right?",
+      "revId": "c16f6c76d74467367151c43d38e8facd67441c08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
