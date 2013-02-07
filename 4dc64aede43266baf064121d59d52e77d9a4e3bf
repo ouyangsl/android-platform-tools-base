@@ -16,6 +16,24 @@
       "revId": "4dc64aede43266baf064121d59d52e77d9a4e3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Ppb1Mf5E",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-07T22:36:11Z",
+      "side": 1,
+      "message": "The name is flexible. I\u0027ll add the API in the next CL.",
+      "parentUuid": "PhEeLRHc",
+      "revId": "4dc64aede43266baf064121d59d52e77d9a4e3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
