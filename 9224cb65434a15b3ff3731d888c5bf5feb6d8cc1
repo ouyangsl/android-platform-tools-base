@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PpYC0uII",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/DeviceMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-02-07T23:36:03Z",
+      "side": 1,
+      "message": "This looks like unused code? Missing logging or something?",
+      "revId": "9224cb65434a15b3ff3731d888c5bf5feb6d8cc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
