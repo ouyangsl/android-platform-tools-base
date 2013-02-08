@@ -33,6 +33,24 @@
       "revId": "c16f6c76d74467367151c43d38e8facd67441c08",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PpMFTpDc",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/logcat/LogCatReceiverTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-08T00:30:28Z",
+      "side": 1,
+      "message": "Yes, you are correct, SynchronizedSet doesn\u0027t help in the case of iteration.",
+      "parentUuid": "PpYAv2KY",
+      "revId": "c16f6c76d74467367151c43d38e8facd67441c08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
