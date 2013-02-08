@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PrFa9FLQ",
+        "filename": "ddmlib/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-08T01:25:22Z",
+      "side": 1,
+      "message": "Not needed. brought in through \u0027:common\u0027",
+      "revId": "c21e6909403f3ef1d9d2b4f499beedb805233412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
