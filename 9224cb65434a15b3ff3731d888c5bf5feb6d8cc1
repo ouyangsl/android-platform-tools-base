@@ -16,6 +16,24 @@
       "revId": "9224cb65434a15b3ff3731d888c5bf5feb6d8cc1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PpOHCYOk",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/DeviceMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-08T00:17:18Z",
+      "side": 1,
+      "message": "Looks like it. I\u0027ll delete it, I\u0027m not sure why there are no warnings about this unused code.",
+      "parentUuid": "PpYC0uII",
+      "revId": "9224cb65434a15b3ff3731d888c5bf5feb6d8cc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
