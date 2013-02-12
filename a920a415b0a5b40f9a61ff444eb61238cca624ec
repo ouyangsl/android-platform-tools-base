@@ -71,6 +71,23 @@
     },
     {
       "key": {
+        "uuid": "PzGWCcAw",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1250,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-12T17:05:27Z",
+      "side": 1,
+      "message": "Note for Xav: one suggestion here is that if the SDK Manager is loading an older local install that doesn\u0027t have build-tools, we could simply generate a \"fake\" build-tool-info with revision 0.0.0 that points to the current platform-tools binaries. The only benefit is if that simplifies handling from the builders.",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "PzNz0BeY",
         "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
         "patchSetId": 4
@@ -151,6 +168,24 @@
       "writtenOn": "2013-02-12T03:11:40Z",
       "side": 1,
       "message": "@NonNull instead of cannot be null.",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzAWR-Fg",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-12T17:05:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "PzNzNJbY",
       "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
