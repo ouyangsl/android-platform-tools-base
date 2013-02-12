@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PzFw9lbk",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "maybe mark code with @Deprecated and javadoc with @deprecated",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzDxf.Qs",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "Did you want {@link PathId} instead of BuildInfo?",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzJyYzdY",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "Guava has a Objects.toStringHelper that might be of use here.",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzNz0BeY",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "s/list/map?",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzDzaWXM",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "Maybe use @NonNull instead of \"Cannot be null\",",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzJzTrVo",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "also throws if platforms is a file",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzNzNJbY",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "@NonNull instead of cannot be null.",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzJyB7V4",
+        "filename": "sdklib/src/test/java/com/android/sdklib/SdkManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "Will the .exe in the path mean that this test will fail on unix?",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzNx7ZWo",
+        "filename": "sdklib/src/test/java/com/android/sdklib/SdkManagerTest7.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-12T03:11:40Z",
+      "side": 1,
+      "message": "2013",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
