@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "PzCDrQ3A",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/JavaScriptInterfaceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-02-12T23:35:26Z",
+      "side": 1,
+      "message": "obsolete comment; it does this now",
+      "revId": "3e1d4fd063747d35d9844d522458b7e5511ee050",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
