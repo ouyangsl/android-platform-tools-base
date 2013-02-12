@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "PzLzHiRA",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-12T05:01:23Z",
+      "side": 1,
+      "message": "Good catch. Actually that comment (and the others below) was carried over from IAndroidTarget. I need to clean it up.",
+      "parentUuid": "PzFw9lbk",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "PzDxf.Qs",
         "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
         "patchSetId": 4
@@ -104,6 +122,24 @@
     },
     {
       "key": {
+        "uuid": "PzNzWxb8",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-12T05:01:23Z",
+      "side": 1,
+      "message": "Thanks. I\u0027ll clean up all these comments. That was a copy-paste of the loadPlatforms.",
+      "parentUuid": "PzJzTrVo",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "PzNzNJbY",
         "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
         "patchSetId": 4
@@ -138,6 +174,24 @@
     },
     {
       "key": {
+        "uuid": "PzDzcGd0",
+        "filename": "sdklib/src/test/java/com/android/sdklib/SdkManagerTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-12T05:01:23Z",
+      "side": 1,
+      "message": "Yes indeed! I should add that to the cleanPath method.",
+      "parentUuid": "PzJyB7V4",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "PzNx7ZWo",
         "filename": "sdklib/src/test/java/com/android/sdklib/SdkManagerTest7.java",
         "patchSetId": 4
@@ -149,6 +203,24 @@
       "writtenOn": "2013-02-12T03:11:40Z",
       "side": 1,
       "message": "2013",
+      "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "PzBzZXe0",
+        "filename": "sdklib/src/test/java/com/android/sdklib/SdkManagerTest7.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-02-12T05:01:23Z",
+      "side": 1,
+      "message": "Meh, that stuff is so last year, + or - 1 :-)",
+      "parentUuid": "PzNx7ZWo",
       "revId": "a920a415b0a5b40f9a61ff444eb61238cca624ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
