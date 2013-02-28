@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "QX0n8RWo",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/build/SignedJarBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-28T02:15:29Z",
+      "side": 1,
+      "message": "Update the javadoc to reflect that this is only used to count what is written.",
+      "revId": "8c19390127248b5bb29f147166c19e85a9b97e2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QX2n3gYc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/build/SignedJarBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-28T02:15:29Z",
+      "side": 1,
+      "message": "tabs instead of spaces.",
+      "revId": "8c19390127248b5bb29f147166c19e85a9b97e2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QXwnyTZc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/build/SignedJarBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-28T02:15:29Z",
+      "side": 1,
+      "message": "tabs here. please use spaces.\n\nThere\u0027s also quite a few trailing whitespaces to remove.",
+      "revId": "8c19390127248b5bb29f147166c19e85a9b97e2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QXwlAjbc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/build/SignedJarBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-28T02:15:29Z",
+      "side": 1,
+      "message": "\u003e100 cols here. please hard wrap at 100.",
+      "revId": "8c19390127248b5bb29f147166c19e85a9b97e2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
