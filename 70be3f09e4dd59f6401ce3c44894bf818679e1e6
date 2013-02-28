@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "QX5K8olk",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/build/SignedJarBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-02-28T22:47:54Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be\n    \"SHA1with\" + mKey.getAlgorithm()\nlike at lines 263 and 273?",
+      "revId": "70be3f09e4dd59f6401ce3c44894bf818679e1e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
