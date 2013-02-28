@@ -16,6 +16,24 @@
       "revId": "115e0148100478dde1f30ede02c2f65d38ab7929",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QaPqfqew",
+        "filename": "lint/libs/lint_api/src/main/java/com/android/tools/lint/client/api/DefaultConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-02-28T16:48:53Z",
+      "side": 1,
+      "message": "That\u0027s correct.",
+      "parentUuid": "QXc4S92w",
+      "revId": "115e0148100478dde1f30ede02c2f65d38ab7929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
