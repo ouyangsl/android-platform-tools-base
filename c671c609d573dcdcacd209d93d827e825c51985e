@@ -16,6 +16,24 @@
       "revId": "c671c609d573dcdcacd209d93d827e825c51985e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QaDpGgYY",
+        "filename": "lint/libs/lint_api/src/main/java/com/android/tools/lint/client/api/DefaultConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-02-28T18:16:29Z",
+      "side": 1,
+      "message": "Yes; that should work just fine, but I\u0027ve updated it to just use the existing id string from the XML attribute lookup instead.",
+      "parentUuid": "QXbmEJwM",
+      "revId": "c671c609d573dcdcacd209d93d827e825c51985e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
