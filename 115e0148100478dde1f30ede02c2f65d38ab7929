@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "QXc4S92w",
+        "filename": "lint/libs/lint_api/src/main/java/com/android/tools/lint/client/api/DefaultConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-28T06:28:10Z",
+      "side": 1,
+      "message": "So I assume this makes sure that the writer always writes out \u0027/\u0027, but the reader can handle both forward and backward slashes.",
+      "revId": "115e0148100478dde1f30ede02c2f65d38ab7929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
