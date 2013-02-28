@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "QXbmEJwM",
+        "filename": "lint/libs/lint_api/src/main/java/com/android/tools/lint/client/api/DefaultConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-02-28T17:12:02Z",
+      "side": 1,
+      "message": "will this be printing out an iterable?",
+      "revId": "c671c609d573dcdcacd209d93d827e825c51985e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
