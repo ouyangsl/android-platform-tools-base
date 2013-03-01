@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Qdqwmw8M",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/WrongIdDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-01T00:01:48Z",
+      "side": 1,
+      "message": "This comment is wrong, I\u0027ll fix it prior to checkin",
+      "revId": "a85eb3fec8a6885c31c62df0be88e9debf050eff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "QdswjD7M",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/WrongIdDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-01T00:01:48Z",
+      "side": 1,
+      "message": "oops. I\u0027ll fix the line wrapping.",
+      "revId": "a85eb3fec8a6885c31c62df0be88e9debf050eff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
