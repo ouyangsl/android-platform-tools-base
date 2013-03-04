@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Qo5N6zPs",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/TextViewDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-03-04T23:16:04Z",
+      "side": 1,
+      "message": "maybe add a link to the bug report, unless you plan on fixing it relatively soon.",
+      "revId": "359a7b86a9967916c0b41c1ec0db2b452ae8cf62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
