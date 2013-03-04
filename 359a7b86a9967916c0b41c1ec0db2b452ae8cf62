@@ -16,6 +16,24 @@
       "revId": "359a7b86a9967916c0b41c1ec0db2b452ae8cf62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "Qo3Nk6FU",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/TextViewDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-04T23:19:27Z",
+      "side": 1,
+      "message": "That\u0027s just the thing; I don\u0027t have a bug report. Somebody complained on Google+ that setting this attribute has the undesirable side effect of killing onClick attributes; when I asked Roman if he knew anything about this (we had discussed textIsSelectable before, in the context of adding them to the default templates) he mentioned he had also seen some weirdness around these, but didn\u0027t have details.\n\nI should dig deeper, but since I\u0027m swamped with some other work I figured it was better to just disable this check until I know more. (It\u0027s actively suggesting users set an attribute that apparently isn\u0027t always the right thing.)",
+      "parentUuid": "Qo5N6zPs",
+      "revId": "359a7b86a9967916c0b41c1ec0db2b452ae8cf62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
