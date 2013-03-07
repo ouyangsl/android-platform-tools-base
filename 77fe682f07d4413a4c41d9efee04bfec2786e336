@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RPOaDvkA",
+        "filename": "legacy/archquery/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-07T21:15:53Z",
+      "side": 1,
+      "message": "Unless you strongly object I\u0027m renaming this to \"archquery\" so that it matches the jar name we had before. It\u0027s legacy after all.",
+      "revId": "77fe682f07d4413a4c41d9efee04bfec2786e336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
