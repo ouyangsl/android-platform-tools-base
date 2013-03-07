@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RJj.qI3w",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/CloneArtifactsPlugin.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-07T18:34:33Z",
+      "side": 1,
+      "message": "empty else block intentional?",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RJr.109s",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/DownloadArtifactsTask.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-07T18:34:33Z",
+      "side": 1,
+      "message": "Typo",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RJn.VCzM",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/DownloadArtifactsTask.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-07T18:34:33Z",
+      "side": 1,
+      "message": "Also a typo... perhaps these were intentionally shortened?",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RJj944zs",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/java/com/android/build/gradle/buildsrc/PomHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-07T18:34:33Z",
+      "side": 1,
+      "message": "We also have methods in XmlUtils for this",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RJp9m15w",
+        "filename": "sdklib/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-07T18:34:33Z",
+      "side": 1,
+      "message": "mkdirs?",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
