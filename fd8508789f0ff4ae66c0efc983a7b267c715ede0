@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "RJh8jp8o",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/CloneArtifactsPlugin.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-07T19:14:41Z",
+      "side": 1,
+      "message": "I\u0027ll remove it in another CL.",
+      "parentUuid": "RJj.qI3w",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "RJr.109s",
         "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/DownloadArtifactsTask.groovy",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2013-03-07T18:34:33Z",
       "side": 1,
       "message": "Typo",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RJv8ZG5M",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/DownloadArtifactsTask.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-07T19:14:41Z",
+      "side": 1,
+      "message": "actually no, I want to keep it the same length at SKIPPED and DWNLOAD",
+      "parentUuid": "RJr.109s",
       "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "RJp8W12I",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/DownloadArtifactsTask.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-07T19:14:41Z",
+      "side": 1,
+      "message": "yup.",
+      "parentUuid": "RJn.VCzM",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "RJj944zs",
         "filename": "misc/distrib_plugins/buildSrc/src/main/java/com/android/build/gradle/buildsrc/PomHandler.java",
         "patchSetId": 7
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "RJmLu0kQ",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/java/com/android/build/gradle/buildsrc/PomHandler.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-07T19:14:41Z",
+      "side": 1,
+      "message": "yeah but I don\u0027t want this to depend on anything since it\u0027s used to build the library that has XmlUtils :)",
+      "parentUuid": "RJj944zs",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "RJp9m15w",
         "filename": "sdklib/build.gradle",
         "patchSetId": 7
@@ -81,6 +153,24 @@
       "writtenOn": "2013-03-07T18:34:33Z",
       "side": 1,
       "message": "mkdirs?",
+      "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RJuIBghM",
+        "filename": "sdklib/build.gradle",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-07T19:14:41Z",
+      "side": 1,
+      "message": "well I should. But sdklib depends on other projects so I think they own task will be run first which will create the top dir.\nI\u0027ll fix it in another CL to be safe.",
+      "parentUuid": "RJp9m15w",
       "revId": "fd8508789f0ff4ae66c0efc983a7b267c715ede0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
