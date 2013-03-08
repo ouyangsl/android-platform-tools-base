@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RRITBCic",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/DistributionPlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-08T06:13:24Z",
+      "side": 1,
+      "message": "Groovy suggestion: I personally prefer an explicit return keyword.",
+      "revId": "054eac009940634d68fd5b29ab0b3f183cb3a16b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
