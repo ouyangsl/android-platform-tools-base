@@ -16,6 +16,24 @@
       "revId": "054eac009940634d68fd5b29ab0b3f183cb3a16b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "RWujVMzg",
+        "filename": "misc/distrib_plugins/buildSrc/src/main/groovy/com/android/build/gradle/buildsrc/DistributionPlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-08T19:14:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "RRITBCic",
+      "revId": "054eac009940634d68fd5b29ab0b3f183cb3a16b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
