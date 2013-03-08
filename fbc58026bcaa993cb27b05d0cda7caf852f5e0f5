@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RREc8JNQ",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/TranslationDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-08T17:04:46Z",
+      "side": 1,
+      "message": "I will fix this line wrap before checking in",
+      "revId": "fbc58026bcaa993cb27b05d0cda7caf852f5e0f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
