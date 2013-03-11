@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RYiOK1GI",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/PluralsDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2013-03-11T18:19:30Z",
+      "side": 1,
+      "message": "i wish you ran on dalvik; then i could provide you with this data :-(",
+      "revId": "bd78e052ed39a6f95711ca1c5bcb86c51a0f728b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
