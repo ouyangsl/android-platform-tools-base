@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "RZCEXKFc",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/PluralsDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-11T18:49:42Z",
+      "side": 1,
+      "message": "I completely forgot to come back and write the issue explanation here (and link to http://developer.android.com/guide/topics/resources/string-resource.html#Plurals ). I\u0027ll add this on the shuttle tonight.",
+      "revId": "bd78e052ed39a6f95711ca1c5bcb86c51a0f728b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "RYiOK1GI",
         "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/PluralsDetector.java",
         "patchSetId": 1
