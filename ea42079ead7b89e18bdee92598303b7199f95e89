@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RZJ4BPRU",
+        "filename": "lint/libs/lint_checks/src/main/java/com/android/tools/lint/checks/IconDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-03-11T15:00:45Z",
+      "side": 1,
+      "message": "s/as/and\ns/.9png/.9.png",
+      "revId": "ea42079ead7b89e18bdee92598303b7199f95e89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
