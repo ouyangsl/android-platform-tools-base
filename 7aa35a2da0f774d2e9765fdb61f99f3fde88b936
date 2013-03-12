@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RgRDukkI",
+        "filename": "ninepatch/build.gradle",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-12T22:09:42Z",
+      "side": 1,
+      "message": "this is not for the build but for the rendering in ADT.",
+      "revId": "7aa35a2da0f774d2e9765fdb61f99f3fde88b936",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
