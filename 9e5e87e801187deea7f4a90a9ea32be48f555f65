@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "RvEMiObI",
+        "filename": "sdklib/src/test/java/com/android/sdklib/internal/build/DebugKeyProviderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-15T21:13:30Z",
+      "side": 1,
+      "message": "Is that for the DST change? In this case the threshold should be 2, I guess 5 will do.",
+      "revId": "9e5e87e801187deea7f4a90a9ea32be48f555f65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
