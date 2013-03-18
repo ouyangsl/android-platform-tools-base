@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "R4KKdfk0",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/ManifestMergerTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-18T21:52:39Z",
+      "side": 1,
+      "message": "Honestly I\u0027d rather we don\u0027t change code just for the sake of changing it. Switching existing stuff to guava doesn\u0027t bring us anything except it might insert a typo.",
+      "revId": "df2877db4c0b997b30f373e949da88dd313f3532",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "R4OKnhps",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/ManifestMergerTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-18T21:52:39Z",
+      "side": 1,
+      "message": "I thought you didn\u0027t like the \"!boolean\" form.",
+      "revId": "df2877db4c0b997b30f373e949da88dd313f3532",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "R4AKtSno",
+        "filename": "manifest-merger/src/main/java/com/android/manifmerger/Main.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-18T21:52:39Z",
+      "side": 1,
+      "message": "\u003e 100 cols",
+      "revId": "df2877db4c0b997b30f373e949da88dd313f3532",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
