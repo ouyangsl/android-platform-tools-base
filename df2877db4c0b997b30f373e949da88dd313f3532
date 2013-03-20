@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "R4AXnFDU",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/ManifestMergerTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-20T22:28:01Z",
+      "side": 1,
+      "message": "yeah but we have apparently move to it, and IJ offered me to fix it so...",
+      "parentUuid": "R4OKnhps",
+      "revId": "df2877db4c0b997b30f373e949da88dd313f3532",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "R4AKtSno",
         "filename": "manifest-merger/src/main/java/com/android/manifmerger/Main.java",
         "patchSetId": 3
