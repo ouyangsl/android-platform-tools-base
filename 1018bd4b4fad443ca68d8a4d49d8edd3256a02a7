@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "SGZ646WA",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/AaptExecTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-21T03:31:45Z",
+      "side": 1,
+      "message": "setNoCrunch implies a negative mode of action whereas usecrunch is a positive mode of action. It\u0027s a tad confusing what this is going to do.",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SKzdO2H8",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/GetBuildToolsTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-21T03:31:45Z",
+      "side": 1,
+      "message": "Since that\u0027s likely to be useful somewhere else, I\u0027ve added a method to the sdk manager to return the highest build tool. \nThere could potentially be preview versions of build-tools and the automatic choice should probably be to get the highest \"release\" version.",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SK-cvAJM",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-21T03:31:45Z",
+      "side": 1,
+      "message": "thanks, good catch.",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SK9cy-Pk",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-21T03:31:45Z",
+      "side": 1,
+      "message": "100 cols",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
