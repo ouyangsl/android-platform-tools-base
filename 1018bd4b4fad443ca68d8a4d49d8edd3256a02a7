@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "SNiw0U7Y",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/AaptExecTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-21T19:24:03Z",
+      "side": 1,
+      "message": "that\u0027s because crunching is the default behavior of aapt while it has a flag to not do any crunching. So the default here is true as well.",
+      "parentUuid": "SGZ646WA",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "SKzdO2H8",
         "filename": "legacy/ant-tasks/src/main/java/com/android/ant/GetBuildToolsTask.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2013-03-21T03:31:45Z",
       "side": 1,
       "message": "Since that\u0027s likely to be useful somewhere else, I\u0027ve added a method to the sdk manager to return the highest build tool. \nThere could potentially be preview versions of build-tools and the automatic choice should probably be to get the highest \"release\" version.",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SNqwAQ3U",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/GetBuildToolsTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-21T19:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "SKzdO2H8",
       "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "SNuwGS5M",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1286,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-21T19:24:03Z",
+      "side": 1,
+      "message": "thank IntelliJ :)",
+      "parentUuid": "SK-cvAJM",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "SK9cy-Pk",
         "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2013-03-21T03:31:45Z",
       "side": 1,
       "message": "100 cols",
+      "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SNowDB4I",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1297,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-21T19:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "SK9cy-Pk",
       "revId": "1018bd4b4fad443ca68d8a4d49d8edd3256a02a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
