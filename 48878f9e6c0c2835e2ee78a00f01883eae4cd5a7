@@ -16,6 +16,24 @@
       "revId": "48878f9e6c0c2835e2ee78a00f01883eae4cd5a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SbvqN4SY",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-03-22T22:32:20Z",
+      "side": 1,
+      "message": "I thought about it, but it\u0027s already got a catch for a potential NPE and a return statement. That kind of seems designed to catch this.",
+      "parentUuid": "Sbpd.hu4",
+      "revId": "48878f9e6c0c2835e2ee78a00f01883eae4cd5a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
