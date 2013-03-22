@@ -33,6 +33,24 @@
       "revId": "efdf4896f4fa53af9f647920a5b3f82259f74ce7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SbjRdsFo",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/GetBuildToolsTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-03-22T17:26:15Z",
+      "side": 1,
+      "message": "Actually here this is fine. This will throw an exception which will stop the Ant build with the right error message.",
+      "parentUuid": "SV0tShUA",
+      "revId": "efdf4896f4fa53af9f647920a5b3f82259f74ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
