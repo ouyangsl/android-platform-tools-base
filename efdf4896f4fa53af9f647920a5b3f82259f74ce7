@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "SV2tNwaI",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/DexExecTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-22T04:06:23Z",
+      "side": 1,
+      "message": "printf leftover from debugging?",
+      "revId": "efdf4896f4fa53af9f647920a5b3f82259f74ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "SV0tShUA",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/GetBuildToolsTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-03-22T04:06:23Z",
+      "side": 1,
+      "message": "Forgot to mention it earlier: here too you want to guard for NumberFormatException, unless you really really trust that version string.",
+      "revId": "efdf4896f4fa53af9f647920a5b3f82259f74ce7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
