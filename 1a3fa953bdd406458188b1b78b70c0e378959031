@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "SbBYe-B8",
+        "filename": "files/devices.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-03-22T14:43:02Z",
+      "side": 1,
+      "message": "Is this correct?? The technical specs page for the Nexus 7 just says 7\"; if it was 7.3 I would think they would say that since they are accurate on the other devices (e.g. for Nexus 10 it says 10.0055). I also searched around and saw some other sizes which point to 7\" rather than 7.27.\n\nI also found a couple of screen dimension physical sizes listing the screen size as 151mm * 94mm -- which, if my simple geometry is right (sqrt(151*151 + 94*94) / 2.54) works out to 7.03 inches.",
+      "revId": "1a3fa953bdd406458188b1b78b70c0e378959031",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
