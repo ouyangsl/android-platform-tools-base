@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TBQYTgBQ",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-05T23:06:42Z",
+      "side": 1,
+      "message": "Converting file:// URLs to URIs is really messy; apparently the right way to do it is this:\n\nFile f;\ntry {\n  f \u003d new File(url.toURI());\n} catch(URISyntaxException e) {\n  f \u003d new File(url.getPath());\n}\n\nin order to handle spaces and whatnots.\n\nhttp://weblogs.java.net/blog/kohsuke/archive/2007/04/how_to_convert.html",
+      "revId": "9f5d03a719215a42d2bdd62d30ddd015772dc766",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
