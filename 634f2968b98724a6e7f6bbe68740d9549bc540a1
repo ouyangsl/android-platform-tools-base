@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TFxFNDIE",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergeConsumer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-08T22:05:19Z",
+      "side": 1,
+      "message": "@NonNull on this and the other methods with parameters?",
+      "revId": "634f2968b98724a6e7f6bbe68740d9549bc540a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TFzFraLw",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-08T22:05:19Z",
+      "side": 1,
+      "message": "@Nullable on aaptRunner?",
+      "revId": "634f2968b98724a6e7f6bbe68740d9549bc540a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
