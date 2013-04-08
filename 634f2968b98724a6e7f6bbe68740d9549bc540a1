@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "TFxH87C0",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergeConsumer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-08T22:38:17Z",
+      "side": 1,
+      "message": "yeah I already added this in the next CL.",
+      "parentUuid": "TFxFNDIE",
+      "revId": "634f2968b98724a6e7f6bbe68740d9549bc540a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TFzFraLw",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2013-04-08T22:05:19Z",
       "side": 1,
       "message": "@Nullable on aaptRunner?",
+      "revId": "634f2968b98724a6e7f6bbe68740d9549bc540a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TF-EQQJg",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-08T22:38:17Z",
+      "side": 1,
+      "message": "oh yeah",
+      "parentUuid": "TFzFraLw",
       "revId": "634f2968b98724a6e7f6bbe68740d9549bc540a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
