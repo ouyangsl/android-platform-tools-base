@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TRb1Lf9s",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T18:21:30Z",
+      "side": 1,
+      "message": "s/blog/blob/.\n\n(Ditto in the previous javadoc, and 2 lines down)",
+      "revId": "da6d5b7257db2e15b2cd3ab4e2d66f6c1bc01314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
