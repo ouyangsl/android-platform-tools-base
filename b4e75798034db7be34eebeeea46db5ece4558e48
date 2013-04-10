@@ -2,6 +2,380 @@
   "comments": [
     {
       "key": {
+        "uuid": "TRV1NG4A",
+        "filename": ".idea/misc.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "should probably set this to com.android.annotations.NonNull too?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRb1aXyw",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataFile.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "should the body of this for loop just call init(item) instead? (in case it\u0027s overridden in a subclass and does more than just setSource and mItems.put?)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRd04C9k",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataFile.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "instead of \"DataFile\" use this.getClass().getSimpleName() such that subclasses print the right type?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRR1sM.I",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "Can you explain this?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRX1h9.k",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "(same question here -- not sure why only last item is reset)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRV1muwM",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedAssetWriter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "annotation on replacedBy?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRd1RKxE",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "SdkConstants.TAG_ITEM",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRT2ID2s",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "SdkConstants.ATTR_NAME",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRR2NU3s",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "SdkConstants.ATTR_PARENT",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRX2Sl5o",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "For symmetry, should probably add this as ATTR_VALUE (which we for some odd reason don\u0027t have) in SdkConstants",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRV2X24g",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "SdkConstants.ATTR_TYPE",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRf1U5wI",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "SdkConstants.ANDROID_NS_NAME_PREFIX",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRZ1XowY",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "Perhaps we should have a shared empty instance? (these aren\u0027t going to be modified right?)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRZ2YQ7Y",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "@Nullable",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRf2lB-Q",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "is getAbsolutePath() necessary here? I think it does some expensive things. It would be better if we just make sure to use getAbsolutePath() when creating the root resource folder parents, such that all children inside can just be appended to the raw absolute path. Even if there are symlinks inside the resource folder, I don\u0027t think we need those resolved to the raw location here?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TQGJMtk0",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "Instead of @android: use SdkConstants.ANDROID_PREFIX. There\u0027s also NEW_ID_PREFIX for @+id (and we already know this is an id) so you can avoid an extra concatenation in the common case.",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRZ3KA5Y",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "I think it would read better if this was singular rather than plural",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRf3Xxzs",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "mMerger instead of mConsumer?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRd3Uizo",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "do you need to null check map here?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRT3D74I",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "I see you\u0027re synchronizing access on mItems here but not in the method above -- is that intentional?\n\nPerhaps rather than a synchronized primitive we should go with a read/write lock instead, such that the merger grabs a write lock, and all these read accesses use a readlock; that would allow many readers which I suspect is the intended common case?\n\n(Actually... now that I think about it... we probably don\u0027t read from multiple threads at the same time. The common case will be one where the layout editor is reading while the project updater after a compile is writing, so we just need synchronization between the two. So then a synchronized would be adequate?)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRR3Is5k",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "I\u0027m assuming all this logic is just the stuff in the old resource repository without modifications, right? (Not reading carefully)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRb03-7o",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "This could probably be a Collection rather than a list.\n\nI know that there are recommendations in Effective Java etc to never return internal data structures and always make defensive copies -- but given that we are the primary consumers of this interface, and that speed is important, perhaps we can just expose the datastructures directly? (e.g. return mItems.keySet()).\n\nAnd, if assertions are enabled (LintUtils.assertionsEnabled()), we can wrap the result in an unmodifiable collection. That way, with assertions enabled, any attempt to illegally modify the data by the client would be caught.",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TLzb7NgE",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ValueXmlHelper.java",
         "patchSetId": 5
@@ -13,6 +387,40 @@
       "writtenOn": "2013-04-10T05:42:23Z",
       "side": 1,
       "message": "This was just moved out of the ValueResourceParser with no modifications.",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRX3kVzM",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ValueResourceParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "s/parser/parse/",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRR3fE1s",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 1,
+      "message": "Instead of making an intermediate list, replace this and the next line with \n\n  Iterator\u003cString\u003e iterator \u003d Iterators.forArray(folderSegments);\n\n(from Guava)",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

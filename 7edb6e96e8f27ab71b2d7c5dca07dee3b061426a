@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TRb3NP7I",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ValueResourceParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:28:14Z",
+      "side": 0,
+      "message": "FYI I believe these methods are used in ADT so will need a corresponding CL to replace",
+      "revId": "7edb6e96e8f27ab71b2d7c5dca07dee3b061426a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
