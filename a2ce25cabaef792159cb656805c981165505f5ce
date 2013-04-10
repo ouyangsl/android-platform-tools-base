@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TRf1aJ-s",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/BuiltinIssueRegistry.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:59:19Z",
+      "side": 1,
+      "message": "You have to bump this up to 151 when adding 2 new checks",
+      "revId": "a2ce25cabaef792159cb656805c981165505f5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRd1Xa9M",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-10T16:59:19Z",
+      "side": 1,
+      "message": "Maybe change this to Category.ICONS",
+      "revId": "a2ce25cabaef792159cb656805c981165505f5ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
