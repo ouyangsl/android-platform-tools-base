@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TLzb7NgE",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ValueXmlHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T05:42:23Z",
+      "side": 1,
+      "message": "This was just moved out of the ValueResourceParser with no modifications.",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
