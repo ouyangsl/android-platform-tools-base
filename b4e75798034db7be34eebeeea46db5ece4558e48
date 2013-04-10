@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "TRT32T8w",
+        "filename": ".idea/misc.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "ah yeah, somehow this was done automatically after I selected an option in the IDE. I\u0027ll edit this one.",
+      "parentUuid": "TRV1NG4A",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRb1aXyw",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataFile.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "should the body of this for loop just call init(item) instead? (in case it\u0027s overridden in a subclass and does more than just setSource and mItems.put?)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRX0A18I",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataFile.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "I should make them final actually. This is kinda crappy, but I ran into a init order bug when this code was in the constructor (added a test for it, coming soon).",
+      "parentUuid": "TRb1aXyw",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "TRb3pv.k",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataFile.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "hmm yeah but it would be useful to know the class of the instance doesn\u0027t implement toString",
+      "parentUuid": "TRd04C9k",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRR1sM.I",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "Can you explain this?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRZ3mgxc",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "I\u0027ll add to the javadoc.",
+      "parentUuid": "TRR1sM.I",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "TRf3zR9M",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "actually this might be wrong. I have to check it out.",
+      "parentUuid": "TRX1h9.k",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRV1muwM",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedAssetWriter.java",
         "patchSetId": 5
@@ -98,6 +188,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "annotation on replacedBy?",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRd3wC8o",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedAssetWriter.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRV1muwM",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "TRR0kM3M",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done. Note that this is a copy from the previous ValueResourceParser so it\u0027s not my fault ;)\n(well I did write that too but it was looooooong ago)",
+      "parentUuid": "TRd1RKxE",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRT2ID2s",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
         "patchSetId": 5
@@ -132,6 +258,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "SdkConstants.ATTR_NAME",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRV0euxw",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRT2ID2s",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "TRb0SXw0",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRR2NU3s",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRX2Sl5o",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
         "patchSetId": 5
@@ -166,6 +328,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "For symmetry, should probably add this as ATTR_VALUE (which we for some odd reason don\u0027t have) in SdkConstants",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRV3P23k",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRX2Sl5o",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "TRZ0Po.c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRV2X24g",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRf1U5wI",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
         "patchSetId": 5
@@ -200,6 +398,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "SdkConstants.ANDROID_NS_NAME_PREFIX",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRR3FU1w",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRf1U5wI",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "TRT0fbxw",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "hmm if it was immutable that would be fine, but it\u0027s not so this is risky.",
+      "parentUuid": "TRZ1XowY",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRZ2YQ7Y",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
         "patchSetId": 5
@@ -234,6 +468,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "@Nullable",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRR2u85M",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRZ2YQ7Y",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "TRT2pL4w",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "hmm maybe.",
+      "parentUuid": "TRf2lB-Q",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TQGJMtk0",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
         "patchSetId": 5
@@ -274,6 +544,24 @@
     },
     {
       "key": {
+        "uuid": "TRX2jt6s",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TQGJMtk0",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRZ3KA5Y",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
         "patchSetId": 5
@@ -285,6 +573,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "I think it would read better if this was singular rather than plural",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRV2oe4Q",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRZ3KA5Y",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -325,6 +631,24 @@
     },
     {
       "key": {
+        "uuid": "TRZ25Y9c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRd3Uizo",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRT3D74I",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
         "patchSetId": 5
@@ -336,6 +660,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "I see you\u0027re synchronizing access on mItems here but not in the method above -- is that intentional?\n\nPerhaps rather than a synchronized primitive we should go with a read/write lock instead, such that the merger grabs a write lock, and all these read accesses use a readlock; that would allow many readers which I suspect is the intended common case?\n\n(Actually... now that I think about it... we probably don\u0027t read from multiple threads at the same time. The common case will be one where the layout editor is reading while the project updater after a compile is writing, so we just need synchronization between the two. So then a synchronized would be adequate?)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRR2XEzw",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Actually I think we should use a read/write lock instead. We want to lock in the Consumer.start() method and release in Consumer.end(). Otherwise we\u0027re synchronizing around each item update instead of the full update which could have side effect. I think it\u0027s better to lock for the full update (which should be fast enough as all items have been updated).\n\nalthough... ResourceItem are shared between the resourcemerger and the repo. Let\u0027s talk live about this.",
+      "parentUuid": "TRT3D74I",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -359,6 +701,24 @@
     },
     {
       "key": {
+        "uuid": "TRX2cV1w",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "yeah a lot of it is just copy paste.",
+      "parentUuid": "TRR3Is5k",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TRb03-7o",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
         "patchSetId": 5
@@ -370,6 +730,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "This could probably be a Collection rather than a list.\n\nI know that there are recommendations in Effective Java etc to never return internal data structures and always make defensive copies -- but given that we are the primary consumers of this interface, and that speed is important, perhaps we can just expose the datastructures directly? (e.g. return mItems.keySet()).\n\nAnd, if assertions are enabled (LintUtils.assertionsEnabled()), we can wrap the result in an unmodifiable collection. That way, with assertions enabled, any attempt to illegally modify the data by the client would be caught.",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRZ2CA-c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceRepository.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "yeah. hmm we should move that assertionEnabled in common.",
+      "parentUuid": "TRb03-7o",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -421,6 +799,24 @@
       "writtenOn": "2013-04-10T16:28:14Z",
       "side": 1,
       "message": "Instead of making an intermediate list, replace this and the next line with \n\n  Iterator\u003cString\u003e iterator \u003d Iterators.forArray(folderSegments);\n\n(from Guava)",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRT177zs",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T17:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "TRR3fE1s",
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
