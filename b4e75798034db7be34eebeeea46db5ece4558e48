@@ -16,6 +16,23 @@
       "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TL-b83vY",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/ResourceRepositoryTest2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-10T05:43:17Z",
+      "side": 1,
+      "message": "This is a copy of the ResourceRepositoryTest in ...common.resources adapted for the new repo.",
+      "revId": "b4e75798034db7be34eebeeea46db5ece4558e48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
