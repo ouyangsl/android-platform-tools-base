@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TReDPHEw",
+        "filename": "sdk-common/.classpath",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-04-10T22:28:42Z",
+      "side": 1,
+      "message": "already present here from a different CL",
+      "revId": "d8ded6ae95be554745cf319511d9d033f5f85f8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
