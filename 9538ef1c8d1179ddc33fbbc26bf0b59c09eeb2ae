@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TRcYK.Jc",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-04-11T21:21:03Z",
+      "side": 1,
+      "message": "That constant is actually needed by the unit test in https://android-review.googlesource.com/#/c/55627/",
+      "revId": "9538ef1c8d1179ddc33fbbc26bf0b59c09eeb2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TRQYFAIc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-04-11T21:21:03Z",
+      "side": 1,
+      "message": "This is the actual bug, the other changes are just boilerplate code to collect verbose output for the unit test in case of failure.",
+      "revId": "9538ef1c8d1179ddc33fbbc26bf0b59c09eeb2ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
