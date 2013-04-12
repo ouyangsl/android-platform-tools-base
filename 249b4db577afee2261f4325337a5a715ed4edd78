@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TTDaS.Es",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/updater/UpdaterData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-12T23:10:38Z",
+      "side": 1,
+      "message": "I feel like we should almost force them to say \"yes\".",
+      "revId": "249b4db577afee2261f4325337a5a715ed4edd78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
