@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TTBbFPFw",
+        "filename": "sdklib/src/test/java/com/android/sdklib/SdkManagerTestCase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-04-12T22:56:51Z",
+      "side": 1,
+      "message": "s/filename/filepath",
+      "revId": "da5a714d0070fb77120ab4ca110886eaef0e19f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
