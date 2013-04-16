@@ -34,6 +34,24 @@
       "revId": "67f9c2d1e31cc7e06a291fa362eddfa90373034f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TXkeosIQ",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-16T01:39:20Z",
+      "side": 1,
+      "message": "yeah it\u0027s empty.",
+      "parentUuid": "TXofKqJU",
+      "revId": "67f9c2d1e31cc7e06a291fa362eddfa90373034f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
