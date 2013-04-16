@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TXmemjKU",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/updater/UpdaterData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-16T03:33:00Z",
+      "side": 1,
+      "message": "missing carriage return?",
+      "revId": "46c4c93a4f3502808e29e1e009d51efcb80a3229",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
