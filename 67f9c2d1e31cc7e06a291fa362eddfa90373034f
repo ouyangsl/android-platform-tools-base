@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TXoeY6LU",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-04-16T00:51:38Z",
+      "side": 1,
+      "message": "if qualifiers cannot be null, what is its value for default resources? If it is the empty string, wouldn\u0027t the following concatenation result in \"folderName-\"?",
+      "revId": "67f9c2d1e31cc7e06a291fa362eddfa90373034f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
