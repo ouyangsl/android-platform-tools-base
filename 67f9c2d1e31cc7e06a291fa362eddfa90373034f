@@ -16,6 +16,24 @@
       "revId": "67f9c2d1e31cc7e06a291fa362eddfa90373034f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TXofKqJU",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-16T01:09:34Z",
+      "side": 1,
+      "message": "I think it\u0027s empty for default resources, and therefore the concatenation won\u0027t be performed",
+      "parentUuid": "TXoeY6LU",
+      "revId": "67f9c2d1e31cc7e06a291fa362eddfa90373034f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
