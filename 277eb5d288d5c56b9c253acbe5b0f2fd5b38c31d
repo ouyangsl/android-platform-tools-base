@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "TeM2j-T0",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/rtl/rtl.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-17T17:34:24Z",
+      "side": 1,
+      "message": "This is testing that lint is *suppressing* (ignoring) the error in the next tag. The next tag is using \"right\", which should be flagged, but it also specifies the special element tools:ignore\u003d\"RtlHardcoded\", which causes the error to not be displayed. This is used by the quickfix (etc) to let you suppress errors you disagree with or want to ignore for now.",
+      "parentUuid": "TeG3j8Zo",
+      "revId": "277eb5d288d5c56b9c253acbe5b0f2fd5b38c31d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "TeK3kCaE",
         "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/rtl/target17nortl.xml",
         "patchSetId": 3
