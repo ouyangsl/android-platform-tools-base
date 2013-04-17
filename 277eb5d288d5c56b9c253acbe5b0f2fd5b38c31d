@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TeG3j8Zo",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/rtl/rtl.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1005088
+      },
+      "writtenOn": "2013-04-17T17:29:19Z",
+      "side": 1,
+      "message": "Dont understand the comment",
+      "revId": "277eb5d288d5c56b9c253acbe5b0f2fd5b38c31d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TeK3kCaE",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/rtl/target17nortl.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1005088
+      },
+      "writtenOn": "2013-04-17T17:29:19Z",
+      "side": 1,
+      "message": "Name of the file is \"target17nortl.xml\"  but targetSdkVersion is 18 here",
+      "revId": "277eb5d288d5c56b9c253acbe5b0f2fd5b38c31d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TeM3xPV4",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/rtl/target17rtl.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1005088
+      },
+      "writtenOn": "2013-04-17T17:29:19Z",
+      "side": 1,
+      "message": "Ditto my comment on \"target17nortl.xml\"",
+      "revId": "277eb5d288d5c56b9c253acbe5b0f2fd5b38c31d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TeA2m9VU",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RtlDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1005088
+      },
+      "writtenOn": "2013-04-17T17:29:19Z",
+      "side": 1,
+      "message": "only \"-ldrtl\" makes sense (even if the Configuration can support \"-ldltr\" but this is quite odd to me)",
+      "revId": "277eb5d288d5c56b9c253acbe5b0f2fd5b38c31d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
