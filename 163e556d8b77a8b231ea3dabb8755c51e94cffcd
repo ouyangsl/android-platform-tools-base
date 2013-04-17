@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TeFBt5Dw",
+        "filename": "misc/screenshot2/src/main/java/com/android/screenshot/Screenshot.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-04-17T22:11:54Z",
+      "side": 1,
+      "message": "do we still need to support this alternative?",
+      "revId": "163e556d8b77a8b231ea3dabb8755c51e94cffcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
