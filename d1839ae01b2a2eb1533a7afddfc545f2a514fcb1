@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "TeK0PqeY",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-17T14:26:35Z",
+      "side": 1,
+      "message": "Remove this second sentence; apparently, apps no longer get rejected for this (it is now automatically fixed server side instead), but I still think having the check there makes sense so people can have cleaner manifests.",
+      "revId": "d1839ae01b2a2eb1533a7afddfc545f2a514fcb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TeI0S5Q0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-04-17T14:26:35Z",
+      "side": 1,
+      "message": "Add in ).addMoreInfo(\"http://developer.android.com/tools/publishing/preparing.html#publishing-configure\")",
+      "revId": "d1839ae01b2a2eb1533a7afddfc545f2a514fcb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
