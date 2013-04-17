@@ -16,6 +16,24 @@
       "revId": "163e556d8b77a8b231ea3dabb8755c51e94cffcd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "TeHMUskw",
+        "filename": "misc/screenshot2/src/main/java/com/android/screenshot/Screenshot.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-04-17T23:23:32Z",
+      "side": 1,
+      "message": "Yeah, I agree. What I\u0027d like to do is to remove this code from every single standalone tool (ddms, hv, screenshot, uiautomator) and put it in a single place.",
+      "parentUuid": "TeFBt5Dw",
+      "revId": "163e556d8b77a8b231ea3dabb8755c51e94cffcd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
