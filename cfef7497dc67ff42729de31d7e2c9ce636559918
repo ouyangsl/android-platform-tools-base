@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "UAOWfcKM",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ShellEnabledDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002621
+      },
+      "writtenOn": "2013-04-25T13:57:24Z",
+      "side": 1,
+      "message": "should this be IShellEnabledDevice for consistency?",
+      "revId": "cfef7497dc67ff42729de31d7e2c9ce636559918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
