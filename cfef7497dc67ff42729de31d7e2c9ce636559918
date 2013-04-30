@@ -16,6 +16,24 @@
       "revId": "cfef7497dc67ff42729de31d7e2c9ce636559918",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "UQKhPv.k",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ShellEnabledDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-04-30T01:12:34Z",
+      "side": 1,
+      "message": "maybe... ;)",
+      "parentUuid": "UAOWfcKM",
+      "revId": "cfef7497dc67ff42729de31d7e2c9ce636559918",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
