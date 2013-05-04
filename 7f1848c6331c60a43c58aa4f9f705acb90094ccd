@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "UQF187Mc",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergeWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-05-04T02:12:49Z",
+      "side": 1,
+      "message": "I think I might need to throw InterruptedException here.",
+      "revId": "7f1848c6331c60a43c58aa4f9f705acb90094ccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
