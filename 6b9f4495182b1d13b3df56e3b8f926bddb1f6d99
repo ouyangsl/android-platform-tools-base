@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "UVfAH3l4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Device.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-05-07T17:33:47Z",
+      "side": 1,
+      "message": "I moved this from some similar code in RenderPreview which was manipulating the variables later. Now that it just needs to be returned I can simplify it a bit; I\u0027ll upload a cleaner CL.",
+      "revId": "6b9f4495182b1d13b3df56e3b8f926bddb1f6d99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
