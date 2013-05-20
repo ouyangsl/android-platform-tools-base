@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "UyZyR6Q0",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Client.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-05-20T14:33:12Z",
+      "side": 1,
+      "message": "The only reason to do this is that we have apps whose heap dump exceeds 270M. The MAX_BUF_SIZE has to be atleast twice the size of the heapdump.",
+      "revId": "9b2a494ad3502027e32a9a9eb27ac6d74f6c00ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
