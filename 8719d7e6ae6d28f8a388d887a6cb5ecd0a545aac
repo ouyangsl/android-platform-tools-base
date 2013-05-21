@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "Uye167TE",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/build/SignedJarBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-05-21T18:24:29Z",
+      "side": 1,
+      "message": "You don\u0027t need the flush() as close should call flush()",
+      "revId": "8719d7e6ae6d28f8a388d887a6cb5ecd0a545aac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
