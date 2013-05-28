@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "VA3PXqLk",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-05-28T19:49:54Z",
+      "side": 1,
+      "message": "Will this cause issues with 12.x? Should everyone use 13?",
+      "revId": "b278403cf4328844d50f88a2ebfd44df9fe89ee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
