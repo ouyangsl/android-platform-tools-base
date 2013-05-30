@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d4915a3_a401a87f",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/client/api/LintClient.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-05-30T18:42:59Z",
+      "side": 1,
+      "message": "For Studio this is handled in https://android-review.googlesource.com/#/c/59760/",
+      "revId": "f97a4fc29268c7f0ad4bd9434e30c5feff19c683",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
