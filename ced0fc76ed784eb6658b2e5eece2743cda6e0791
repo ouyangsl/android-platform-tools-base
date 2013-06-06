@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d879d2a_8b1004cf",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-06-06T18:23:26Z",
+      "side": 1,
+      "message": "This is actually the default flavor, not merely the source set folder name.",
+      "revId": "ced0fc76ed784eb6658b2e5eece2743cda6e0791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d879d2a_cb4e7ced",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-06-06T18:23:26Z",
+      "side": 1,
+      "message": "I think we want to keep this, because I don\u0027t think we should remove existing Ant project generation -- we still support Ant as a builder, and Gradle support is pre-1.0 at this point. I won\u0027t otherwise comment on removing Ant support in this file, but please let it do both.",
+      "revId": "ced0fc76ed784eb6658b2e5eece2743cda6e0791",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
