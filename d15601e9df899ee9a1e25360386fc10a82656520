@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a042103_bc05015c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-06-13T23:16:47Z",
+      "side": 1,
+      "message": "Can you have it create a Gradle wrapper, too? You can just copy it over from $ANDROID_HOME/tools/templates/gradle/wrapper.",
+      "revId": "d15601e9df899ee9a1e25360386fc10a82656520",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
