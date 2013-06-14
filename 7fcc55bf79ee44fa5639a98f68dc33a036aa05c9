@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a583140_c8d58f0a",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/IRemoteAndroidTestRunner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1010199
+      },
+      "writtenOn": "2013-06-14T03:59:23Z",
+      "side": 1,
+      "message": "This addition needs removed. Units are specified by the caller now.",
+      "revId": "7fcc55bf79ee44fa5639a98f68dc33a036aa05c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
