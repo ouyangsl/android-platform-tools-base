@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ad591ff_5afdf528",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/LayoutLibrary.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-20T22:07:28Z",
+      "side": 1,
+      "message": "Should put a constant",
+      "revId": "c7513fea68dd20424ffb3dcb3f815a82738a9c64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
