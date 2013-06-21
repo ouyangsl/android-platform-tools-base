@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8ab421fd_1c3c7596",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-21T20:15:43Z",
+      "side": 1,
+      "message": "yeah I can update that.",
+      "parentUuid": "2a9c1583_211b8e7e",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a9c1583_e13fe6c0",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2013-06-21T17:22:48Z",
       "side": 1,
       "message": "BTW, I was looking at what checkFileForAndroidRes does, and I saw this line:\n\nAssetSet.java#isValidSourceFile:\n\n!parent.equals(sourceFolder)\n\nThere is a warning there that says \"Please don\u0027t use equals as it doesn\u0027t honor case sensitivity on Mac\".",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ab421fd_3c3f318f",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-21T20:15:43Z",
+      "side": 1,
+      "message": "I don\u0027t see that warning.\n\nAll those file comparison are coming from files that are read through the File API so I would guess (hope?) that they will always the return the same  upper/lower case combination.\n\nIs there a utility method somewhere to do better comparison?",
+      "parentUuid": "2a9c1583_a160bee1",
       "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
