@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "8ab421fd_3cce1158",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-21T21:19:18Z",
+      "side": 1,
+      "message": "(Note: the toCanonicalPath referred to above isn\u0027t the horrible File#getCanonicalPath which resolves symlinks and changes to absolute paths etc, it\u0027s a local utility method in FileUtil which does some simple string cleanups to make sure we don\u0027t have one path ending with / and the other not etc, such that they can be properly compared), then they do simple string case insensitive comparisons.\n\nHowever, for our usage it\u0027s probably overkill. I suspect equals will work fine for our case, since we only deal with files whose names we originally get from parent#listFiles().  \n\nThe problem is that OSX has a case insensitive file system, but one which remembers case. Thus, if  new File(\"/tmp/Abc\").exists() is true, then new File(\"/tmp/ABC\").exists() is also true even if new File(\"/tmp/Abc\").equals(new File(\"/tmp/ABC\") is false since they just do (case sensitive) path string compares.",
+      "parentUuid": "8ab421fd_fc7d492b",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ab421fd_3c0851e2",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceSet.java",
         "patchSetId": 3
