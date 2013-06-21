@@ -86,6 +86,23 @@
       "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ab421fd_3c0851e2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceSet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-21T20:33:56Z",
+      "side": 1,
+      "message": "Hmmm.... does that mean that if the user has a different file in this directory than one of the expected types, it will throw an exception? That happened to some people this week (the below code threw an NPE when folderType above as null); one user had an .mp3 file here.\n\nThat seems a bit severe -- shouldn\u0027t we just emit a warning instead? It\u0027s particularly bad for the resource set when used as part of project resources where this exception will disable all further processing so the resource repository won\u0027t be initialized. (That won\u0027t matter when we switch to a PSI based repository: https://android-review.googlesource.com/#/c/60364/",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
