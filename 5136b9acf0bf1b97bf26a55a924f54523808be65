@@ -121,6 +121,24 @@
       "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ab421fd_bca581ab",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceSet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-21T20:48:53Z",
+      "side": 1,
+      "message": "yeah actually I should remove, this, I had put that a file ago to provide a better error, but the fix in DataMerger will actually ignore those file.\n\nNote that it\u0027s not about the file extension, it\u0027s about the folder name. I\u0027ll remove this.",
+      "parentUuid": "8ab421fd_3c0851e2",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
