@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "8ab421fd_3ce3b1f4",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-06-21T20:44:01Z",
+      "side": 1,
+      "message": "It is an IntelliJ inspection that suggests the use of FileUtil.filesEquals. You are probably not seeing it since you don\u0027t have IntelliJ (for plugin development) open.\n\nTheir replacement seems to just do:\n\n    path1 \u003d toCanonicalPath(path1);\n    path2 \u003d toCanonicalPath(path2);\n    return PATH_HASHING_STRATEGY.equals(path1, path2);\n\nI haven\u0027t checked whether this is actually any better.",
+      "parentUuid": "8ab421fd_3c3f318f",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ab421fd_3c0851e2",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceSet.java",
         "patchSetId": 3
