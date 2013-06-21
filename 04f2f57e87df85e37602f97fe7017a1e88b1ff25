@@ -16,6 +16,24 @@
       "revId": "04f2f57e87df85e37602f97fe7017a1e88b1ff25",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ab421fd_7c38193f",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ValueResourceParser2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-21T21:42:36Z",
+      "side": 1,
+      "message": "yeah but it\u0027s problematic. The exception is meant to receive 2 DataItems that have been added to their DataFile.\nIn this case we are before the DataFile receives the item...",
+      "parentUuid": "8ab421fd_3c005179",
+      "revId": "04f2f57e87df85e37602f97fe7017a1e88b1ff25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
