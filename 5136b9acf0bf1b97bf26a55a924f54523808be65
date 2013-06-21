@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "8ab421fd_fc7d492b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-21T20:59:35Z",
+      "side": 1,
+      "message": "Yeah reading the doc, getCanonincalPath will return a unique file per file (not per path).\n\nHowever I don\u0027t want to use canonicalpath.\n\nJava7 has a new class to handle this crap....",
+      "parentUuid": "8ab421fd_3ce3b1f4",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ab421fd_3c0851e2",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceSet.java",
         "patchSetId": 3
