@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ab421fd_3c005179",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ValueResourceParser2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-21T21:29:06Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be a DuplicateDataException?",
+      "revId": "04f2f57e87df85e37602f97fe7017a1e88b1ff25",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
