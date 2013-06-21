@@ -143,6 +143,24 @@
     },
     {
       "key": {
+        "uuid": "8ab421fd_bc1d81d6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-21T21:39:45Z",
+      "side": 1,
+      "message": "Isn\u0027t FileUtil in IJ though?\n\nI\u0027m aware of the problem you mention in the last paragraph, but as I said all the files that we are looking at were created through File.listFiles() so I think they should all be consistent.",
+      "parentUuid": "8ab421fd_3cce1158",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ab421fd_3c0851e2",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceSet.java",
         "patchSetId": 3
