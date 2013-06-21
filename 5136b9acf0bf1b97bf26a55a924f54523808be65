@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a9c1583_211b8e7e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 515,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-06-21T17:22:48Z",
+      "side": 1,
+      "message": "There is no return value here, so maybe rephrase as \"Updates the fileValidity parameter\". Also consider changing the method name?",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a9c1583_e13fe6c0",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-06-21T17:22:48Z",
+      "side": 1,
+      "message": "incomplete?",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a9c1583_a160bee1",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-06-21T17:22:48Z",
+      "side": 1,
+      "message": "BTW, I was looking at what checkFileForAndroidRes does, and I saw this line:\n\nAssetSet.java#isValidSourceFile:\n\n!parent.equals(sourceFolder)\n\nThere is a warning there that says \"Please don\u0027t use equals as it doesn\u0027t honor case sensitivity on Mac\".",
+      "revId": "5136b9acf0bf1b97bf26a55a924f54523808be65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
