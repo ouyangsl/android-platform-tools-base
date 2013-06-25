@@ -34,6 +34,24 @@
       "revId": "4e40d4e3d91a5b2a4bf28a3d6c9605841d34ec43",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_c296e641",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002621
+      },
+      "writtenOn": "2013-06-25T19:01:34Z",
+      "side": 1,
+      "message": "you need  EasyMock.eq(0L)\n\nwith just \u00270\u0027, EasyMock is trying to match an int argument and not finding it",
+      "parentUuid": "8afc21ee_c2f266d2",
+      "revId": "4e40d4e3d91a5b2a4bf28a3d6c9605841d34ec43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
