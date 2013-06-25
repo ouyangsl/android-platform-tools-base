@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8afc21ee_9f255785",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunnerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002621
+      },
+      "writtenOn": "2013-06-25T17:12:07Z",
+      "side": 1,
+      "message": "I think this should be EasyMock.eq(expectedCmd). EasyMock doesn\u0027t handle cases of using a mixture of matchers (eg EasyMock.eq, etc) with  other variables",
+      "revId": "4e40d4e3d91a5b2a4bf28a3d6c9605841d34ec43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
