@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8afc21ee_d646a48b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "Suggestion: \"Malformed Device Admin\".",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_b64b1894",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "This also ensures that it can be activated. Thus, I\u0027d say \"Ensures that Device Admins are well-formed and can be activated/deactivated\" or even drop the activated/deactivated part. I\u0027d drop the uninstalled part: it\u0027s redundant -- any deactivated Device Admin can be uninstalled.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_16512c40",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "Again, activated/deactivated. I\u0027d drop uninstalled.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_f655a02b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "Typo: It should be android.app.action.DEVICE_ADMIN_ENABLED.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_563bb4f3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "receiver, not service.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_3638a8f5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "What are the other categories available? The fact that you can\u0027t activate a Device Admin is not a security issue.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_16280ca2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "There may be multiple intent-filter elements. If none of them match, then it\u0027s a warning. When I say match, I mean it has to have at least one \u003caction\u003e with android.app.action.DEVICE_ADMIN_ENABLED, and cannot have any \u003cdata\u003e elements.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_b632f80f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T18:11:13Z",
+      "side": 1,
+      "message": "Suggestion: Also check that no \u003cdata\u003e elements are present inside the \u003cintent-filter\u003e. Otherwise the filter will not match an Intent with the android.app.action.DEVICE_ADMIN_ENABLED action without any data in the Intent.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
