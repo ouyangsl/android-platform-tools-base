@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6ac0cdbf_43fdc652",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1010925
+      },
+      "writtenOn": "2013-06-26T18:22:50Z",
+      "side": 1,
+      "message": "You mention \u0027uninstalled\u0027 here, maybe bring this language in line with whatever changes you make after considering Alex\u0027s suggestions.",
+      "revId": "cb88fce39cd601780b2a4147510be71f5ccc08dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8afc21ee_d646a48b",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
         "patchSetId": 1
