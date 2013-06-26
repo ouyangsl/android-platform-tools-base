@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea891da9_9f8c5386",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:51:23Z",
+      "side": 1,
+      "message": "Suggestion: \"Add lint rule to flag malformed device admin receivers.\"",
+      "revId": "18ad9e7e4ded8c0d4ef2ebc3f8835b7ffdbcc0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea891da9_bf6677fd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:51:23Z",
+      "side": 1,
+      "message": "I guess my comment was misleading. What I meant was that what you\u0027re checking with that !\u003cboolean var here\u003e condition here is whether you\u0027ve already encountered the required intent filter (the one that matches an Intent with the desired action and no data). Thus, my suggestion/nit was to better express that by introducing a more precisely named local variable (at the beginning of the method, called, say, requiredIntentFilterFound) and checking the state of that variable here. This block would then update the value of the variable by means of combining foundAction (which will now be local to this block) and dataFound.",
+      "revId": "18ad9e7e4ded8c0d4ef2ebc3f8835b7ffdbcc0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea891da9_7f4dcf78",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:51:23Z",
+      "side": 1,
+      "message": "I would still suggest using a slightly more precise language along the lines of \"You must add an intent filter for action ...\" or, even better, \"You must have an intent filter for action ...\".\nWhat I\u0027m afraid of is that that, in its current form, this hint might nudge developers to blindly add the action to an already existing intent filter, instead of thinking a bit longer and doing the right thing.",
+      "revId": "18ad9e7e4ded8c0d4ef2ebc3f8835b7ffdbcc0e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
