@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ac0cdbf_0632bcc5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "Suggestion: \"Add lint rule to flag malformed device admin receivers.\"",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ac0cdbf_663f308e",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/deviceadmin.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "Suggestion: Add a test case for correct action, but with data element.",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ac0cdbf_c6c4248b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "Tiny nit: Java naming conventions say this should be called \"deviceAdmin\" (if it were a method, it would be OK to be isDeviceAdmin). To maintain readability, consider  haveEnableAction -\u003e enableActionPresent/Found, and haveData -\u003e dataPresent/Found.",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ac0cdbf_26ba58f8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "Tiny nit: A better condition would be \u0026\u0026 !requiredIntentFilterPresent. Perhaps haveEnableAction should be local to this block, and requiredIntentFilterPresent would be declared on the third line of this method?",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ac0cdbf_e6bfa0e7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "Nit: \"android.app.action.DEVICE_ADMIN_ENABLED\".equals(name) is safer.",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ac0cdbf_a6200875",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "Nit: \"android.app.device_admin\".equals(name) is safer.",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ac0cdbf_66b45008",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "Suggestion: Check for context.isEnabled(DEVICE_ADMIN) at the beginning of this method and exit early if necessary.",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ac0cdbf_e62a0053",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-06-26T21:12:10Z",
+      "side": 1,
+      "message": "To be more precise: \"You must add an intent filter for action android.app.action.DEVICE_ADMIN_ENABLED\".\nAlso, is the \"you must ...\" language consistent with other warnings, or shall this be more impersonal, e.g., \"Device Admin receiver must have an intent filter for action ...\"?",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
