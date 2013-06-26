@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8afc21ee_56df34fb",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunnerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1002621
+      },
+      "writtenOn": "2013-06-26T00:05:02Z",
+      "side": 1,
+      "message": "need 0L here too",
+      "revId": "368cc38296973cd8029877f6cc8ce64769708db2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8afc21ee_f6f92075",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunnerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1002621
+      },
+      "writtenOn": "2013-06-26T00:05:02Z",
+      "side": 1,
+      "message": "my first piece of advice was wrong, remove the EasyMock.eq( here. Not sure why though",
+      "revId": "368cc38296973cd8029877f6cc8ce64769708db2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
