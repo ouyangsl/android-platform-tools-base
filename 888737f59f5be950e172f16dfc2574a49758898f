@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "0a859189_000f063f",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/deviceadmin.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-26T21:34:44Z",
+      "side": 1,
+      "message": "that should be covered by the case above (lines 26-37)",
+      "parentUuid": "6ac0cdbf_663f308e",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ac0cdbf_c6c4248b",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2013-06-26T21:12:10Z",
       "side": 1,
       "message": "Tiny nit: Java naming conventions say this should be called \"deviceAdmin\" (if it were a method, it would be OK to be isDeviceAdmin). To maintain readability, consider  haveEnableAction -\u003e enableActionPresent/Found, and haveData -\u003e dataPresent/Found.",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea891da9_1ffda3ee",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-26T21:34:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ac0cdbf_c6c4248b",
       "revId": "888737f59f5be950e172f16dfc2574a49758898f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "ea891da9_5f072b2a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-26T21:34:44Z",
+      "side": 1,
+      "message": "The point of this check is to ensure that if we have *multiple* intent filters present where one of them is valid (e.g. no data), and a later one specifies data, we don\u0027t then clear the \"haveEnableAction\" state and report a problem later on.",
+      "parentUuid": "6ac0cdbf_26ba58f8",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ac0cdbf_e6bfa0e7",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
         "patchSetId": 2
@@ -81,6 +135,24 @@
       "writtenOn": "2013-06-26T21:12:10Z",
       "side": 1,
       "message": "Nit: \"android.app.action.DEVICE_ADMIN_ENABLED\".equals(name) is safer.",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea891da9_bfed9745",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-26T21:34:44Z",
+      "side": 1,
+      "message": "getAttributeNS is supposed to return the empty string if the attribute does not exist (http://www.w3.org/2003/01/dom2-javadoc/org/w3c/dom/Element.html#getAttributeNS_java.lang.String__java.lang.String_)",
+      "parentUuid": "6ac0cdbf_e6bfa0e7",
       "revId": "888737f59f5be950e172f16dfc2574a49758898f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +193,24 @@
     },
     {
       "key": {
+        "uuid": "ea891da9_dff25b20",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-26T21:34:44Z",
+      "side": 1,
+      "message": "isEnabled is more expensive than the other computations here, and usually true, which is why it\u0027s delayed until we\u0027re pretty certain we have an error",
+      "parentUuid": "6ac0cdbf_66b45008",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ac0cdbf_e62a0053",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
         "patchSetId": 2
@@ -132,6 +222,24 @@
       "writtenOn": "2013-06-26T21:12:10Z",
       "side": 1,
       "message": "To be more precise: \"You must add an intent filter for action android.app.action.DEVICE_ADMIN_ENABLED\".\nAlso, is the \"you must ...\" language consistent with other warnings, or shall this be more impersonal, e.g., \"Device Admin receiver must have an intent filter for action ...\"?",
+      "revId": "888737f59f5be950e172f16dfc2574a49758898f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea891da9_fff71f0d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestOrderDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-26T21:34:44Z",
+      "side": 1,
+      "message": "The error message tone in lint errors probably isn\u0027t very consistent; there are several other error messages with \"you must\" in them, but it would be great to get a doc writer to help go through and sanitize all the error messages.",
+      "parentUuid": "6ac0cdbf_e62a0053",
       "revId": "888737f59f5be950e172f16dfc2574a49758898f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
