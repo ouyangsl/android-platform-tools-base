@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea891da9_a2758003",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-27T16:34:30Z",
+      "side": 1,
+      "message": "This is showing up as a new class but it\u0027s just the ManifestOrderDetector renamed, no other changes. Git didn\u0027t mark it as a rename since I left an old skeleton ManifestOrderDetector.java in place.",
+      "revId": "4fd34c8e01a3e3503814bf26675eeccb6f03abdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
