@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2cb179_2867ab58",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceSet.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-27T22:29:45Z",
+      "side": 1,
+      "message": "so doing this, means that we have a ResourceItem for the attr inside and they\u0027ll get written into the merge file as a top-level attr resource which is not what we want.",
+      "revId": "f93cde4934dc97ab5872716c0cabb2075eede292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a2cb179_6861a340",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/ResourceMergerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-27T22:29:45Z",
+      "side": 1,
+      "message": "this is wrong. This one should not be \"created\" it\u0027s actually a reference to an existing attribute!",
+      "revId": "f93cde4934dc97ab5872716c0cabb2075eede292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a2cb179_a8d55bae",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/ResourceMergerTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-06-27T22:29:45Z",
+      "side": 1,
+      "message": "This one should be created, but not written!",
+      "revId": "f93cde4934dc97ab5872716c0cabb2075eede292",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
