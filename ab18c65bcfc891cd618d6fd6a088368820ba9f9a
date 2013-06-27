@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2cb179_6b2fddf6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ValueResourceParser2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-27T23:54:36Z",
+      "side": 1,
+      "message": "Can use SdkConstants.ANDROID_NS_NAME_PREFIX and ANDROID_NS_NAME_PREFIX_LEN",
+      "revId": "ab18c65bcfc891cd618d6fd6a088368820ba9f9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
