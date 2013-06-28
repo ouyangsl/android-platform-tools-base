@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2cb179_0e3bcff4",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-28T16:05:04Z",
+      "side": 1,
+      "message": "The point of the optional cache is that the theme selection dialog will call this method for every single @style found in the project, so by having a cache it doesn\u0027t have to repeatedly walk up the parent chain; if it has determined that a local parent is already a theme (or not a theme), it can end the search at the first parent level for each one of those children rather than continuing up the chain.",
+      "revId": "fa5bc1fb4d2c67d7b2e1f5c7adfeb015079a8c1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
