@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2cb179_1d721f57",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ValueResourceParser2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-06-29T18:17:46Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be better to just use getNamedItem(ATTR_FORMAT) ?\n\nnit: doublespace",
+      "revId": "070a732546b91770b2218ad2f07cfc0fcfa6f21c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
