@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a2cb179_8fec1683",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-07-01T18:09:17Z",
+      "side": 1,
+      "message": "The logic here (with successfulOps etc) is a straightforward copy of Guava\u0027s ByteStreams.copy, except using Input/Output streams rather than the InputSupplier indirection, and of course the main point of the copy: Inserting extra bytes into the output before closing the file.\n\nThe point of all of this is to have very little extra overhead for the copy: We don\u0027t need to first copy the file, and then open it again to append to it; we do it all in one shot.",
+      "revId": "1039bf5629e9e6337ba3863287c546adbf5aaf05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
