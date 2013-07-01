@@ -16,6 +16,24 @@
       "revId": "5fd63223106fa5f7ea0e4c6385322192663a5053",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a2cb179_084adc6e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/LayoutLibrary.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2013-07-01T22:43:15Z",
+      "side": 1,
+      "message": "I hadn\u0027t done that since it\u0027s relative to layoutlib.jar and I wanted to make their location independent.\nAdded a TODO.",
+      "parentUuid": "0a2cb179_efa2f289",
+      "revId": "5fd63223106fa5f7ea0e4c6385322192663a5053",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
