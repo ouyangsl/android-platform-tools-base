@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27b2905c_5ab3e9d8",
+        "filename": "misc/screenshot2/.settings/org.eclipse.jdt.core.prefs",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-07-12T20:52:03Z",
+      "side": 1,
+      "message": "intentional \\r\\n\u0027s?  Maybe just copy one of the other org.eclipse.jdt.core.prefs such that this project also picks up all our compiler settings.",
+      "revId": "a350c77bb93317058dbe2b99edb467c18ac965e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
