@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c777f47c_f6bf4095",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/LayoutLibrary.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2013-07-15T21:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c777f47c_d6cde486",
+      "revId": "42374ff3a13649417de033a076e52d7c35fd9381",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c777f47c_16d83c41",
         "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/LayoutLibrary.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-07-15T21:22:20Z",
       "side": 1,
       "message": "just do\nnew File(f.getParen(), FN_ICU_JAR)",
+      "revId": "42374ff3a13649417de033a076e52d7c35fd9381",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c777f47c_16d59ce2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/LayoutLibrary.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2013-07-15T21:43:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c777f47c_16d83c41",
       "revId": "42374ff3a13649417de033a076e52d7c35fd9381",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
