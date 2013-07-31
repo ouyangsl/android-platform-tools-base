@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3741b7d_b50a2071",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-07-31T22:06:49Z",
+      "side": 1,
+      "message": "I\u0027d title it as \"Copy template files from sdk.git to tools/base.git\"",
+      "revId": "b2d87bc52bfd843649c014264d8db80ef42f761d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3741b7d_751168a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-07-31T22:06:49Z",
+      "side": 1,
+      "message": "Rephrase as just: The AS build script that bundles the templates inside AS, and the SDK build script that bundles the templates within the tools folder will be updated in subsequent CL\u0027s to reflect the new path for the templates.",
+      "revId": "b2d87bc52bfd843649c014264d8db80ef42f761d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
