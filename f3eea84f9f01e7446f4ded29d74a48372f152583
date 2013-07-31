@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "335e57fe_7be6bbfc",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/Call.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2013-07-31T23:52:04Z",
+      "side": 1,
+      "message": "Since formatter is used later, I\u0027d assume it is non-null. If that\u0027s the case, please annotate it with @NonNull",
+      "revId": "f3eea84f9f01e7446f4ded29d74a48372f152583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "335e57fe_fbb00bf7",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/MethodInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2013-07-31T23:52:04Z",
+      "side": 1,
+      "message": "Something I don\u0027t understand: in some classes, fields start with \"m\", but not here. Is this a loose naming convention? or should the \"m\" prefix should be added here?",
+      "revId": "f3eea84f9f01e7446f4ded29d74a48372f152583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
