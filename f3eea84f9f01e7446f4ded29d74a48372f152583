@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d3741b7d_185ce983",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/Call.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-07-31T23:56:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "335e57fe_7be6bbfc",
+      "revId": "f3eea84f9f01e7446f4ded29d74a48372f152583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "335e57fe_fbb00bf7",
         "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/MethodInfo.java",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2013-07-31T23:52:04Z",
       "side": 1,
       "message": "Something I don\u0027t understand: in some classes, fields start with \"m\", but not here. Is this a loose naming convention? or should the \"m\" prefix should be added here?",
+      "revId": "f3eea84f9f01e7446f4ded29d74a48372f152583",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3741b7d_b8e3f590",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/MethodInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-07-31T23:56:39Z",
+      "side": 1,
+      "message": "public fields don\u0027t need the prefix, but private fields do.\n\nThis is ofcourse when you are in the AOSP sources, IntelliJ sources follow IntelliJ style (my always).\n\nLook for Field Naming Conventions here: http://s.android.com/source/code-style.html#java-style-rules",
+      "parentUuid": "335e57fe_fbb00bf7",
       "revId": "f3eea84f9f01e7446f4ded29d74a48372f152583",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
