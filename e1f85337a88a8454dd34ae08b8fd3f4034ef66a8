@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "587128c6_02234bc0",
+        "filename": "templates/projects/NewAndroidApplication/globals.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-05T20:47:29Z",
+      "side": 0,
+      "message": "You can look for other variables to eliminate. You\u0027ll won\u0027t need mavenUrl, and maybe not any of the ones following it.",
+      "revId": "e1f85337a88a8454dd34ae08b8fd3f4034ef66a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
