@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d84ef881_45862a10",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/build.gradle.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2013-08-05T20:55:03Z",
+      "side": 1,
+      "message": "i\u0027m assuming this will be refactored later?",
+      "revId": "61b0a46de1c918aa47bfa158ffb0febd511e39aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
