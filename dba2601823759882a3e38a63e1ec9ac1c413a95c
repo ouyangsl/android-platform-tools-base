@@ -16,6 +16,24 @@
       "revId": "dba2601823759882a3e38a63e1ec9ac1c413a95c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "183ed0ea_08c18b38",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/Call.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-07T14:50:37Z",
+      "side": 1,
+      "message": "Maybe you can make them (int) deltas relative to a fixed (long) minimum (shared by all the Calls) ?",
+      "parentUuid": "183ed0ea_4231b41b",
+      "revId": "dba2601823759882a3e38a63e1ec9ac1c413a95c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
