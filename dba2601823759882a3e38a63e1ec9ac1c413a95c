@@ -34,6 +34,24 @@
       "revId": "dba2601823759882a3e38a63e1ec9ac1c413a95c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "183ed0ea_e86d4700",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/Call.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-08-07T16:12:18Z",
+      "side": 1,
+      "message": "The trace data only sends 4 bytes, so an integer should be fine for the time values (but not when doing any processing on them). So I resorted to storing them as ints, but parsing them as longs.",
+      "parentUuid": "183ed0ea_08c18b38",
+      "revId": "dba2601823759882a3e38a63e1ec9ac1c413a95c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
