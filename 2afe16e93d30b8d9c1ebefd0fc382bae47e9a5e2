@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "589e886d_7a91ed9c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-08T21:23:13Z",
+      "side": 1,
+      "message": "Ensure that c is lowercase?",
+      "revId": "2afe16e93d30b8d9c1ebefd0fc382bae47e9a5e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
