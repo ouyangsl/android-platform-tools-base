@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "385e34fe_9eb29d00",
+        "filename": "templates/activities/FullscreenActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-08-14T21:51:15Z",
+      "side": 1,
+      "message": "I\u0027m not sure what to do here. ADT shares these templates so the old style is necessary to make them work in ADT. I could just not create a new style of dependency tag, but given the future versions that will appear, I think it\u0027s useful.",
+      "parentUuid": "787b4c60_227fae6d",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "787b4c60_02df0a52",
         "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "385e34fe_98be35ab",
+        "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-08-14T21:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "787b4c60_02df0a52",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "787b4c60_82cb1a8f",
         "filename": "templates/gradle-projects/NewAndroidApplication/root/build.gradle.ftl",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2013-08-14T17:09:24Z",
       "side": 1,
       "message": "Perhaps we should consider a more generalized mechanism for this? You\u0027d have to build in a lot of support in the Freemarker template expansion, so maybe it\u0027s much more trouble than it\u0027s worth, but in a perfect world, you could pass in a list of dependencies and it could iterate over them in a loop and drop them in. I guess that\u0027s an awful lot of code for a little thing.",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "385e34fe_deac15a2",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-08-14T21:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "787b4c60_82cb1a8f",
       "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
