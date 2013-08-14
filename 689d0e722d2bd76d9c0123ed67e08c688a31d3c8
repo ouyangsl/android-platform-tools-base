@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "385e34fe_412028b2",
+        "filename": "templates/activities/FullscreenActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-14T22:22:41Z",
+      "side": 1,
+      "message": "Oh, have you tested these templates in ADT? I didn\u0027t catch the fact that you were modifying templates for both. I was under the impression that ADT would just barf if it hit a dependency it didn\u0027t understand.",
+      "parentUuid": "385e34fe_9eb29d00",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "787b4c60_02df0a52",
         "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
         "patchSetId": 1
