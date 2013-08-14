@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "385e34fe_a12d8477",
+        "filename": "templates/activities/FullscreenActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-08-14T22:33:18Z",
+      "side": 1,
+      "message": "ADT does an explicit check for the support library name and skips processing the tag if it doesn\u0027t match. So unknown dependencies are a no-op.",
+      "parentUuid": "385e34fe_412028b2",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "787b4c60_02df0a52",
         "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
         "patchSetId": 1
