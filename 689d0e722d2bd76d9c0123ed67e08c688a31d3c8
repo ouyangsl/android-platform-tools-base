@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "787b4c60_227fae6d",
+        "filename": "templates/activities/FullscreenActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-14T17:09:24Z",
+      "side": 1,
+      "message": "We need both these? I\u0027m confused.",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "787b4c60_02df0a52",
+        "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-14T17:09:24Z",
+      "side": 1,
+      "message": "I\u0027m not sure we want to open four files on the completion of this wizard. Pick what\u0027s most important.",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "787b4c60_82cb1a8f",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-14T17:09:24Z",
+      "side": 1,
+      "message": "Perhaps we should consider a more generalized mechanism for this? You\u0027d have to build in a lot of support in the Freemarker template expansion, so maybe it\u0027s much more trouble than it\u0027s worth, but in a perfect world, you could pass in a list of dependencies and it could iterate over them in a loop and drop them in. I guess that\u0027s an awful lot of code for a little thing.",
+      "revId": "689d0e722d2bd76d9c0123ed67e08c688a31d3c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
