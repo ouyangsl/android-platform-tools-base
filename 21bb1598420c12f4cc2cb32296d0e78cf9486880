@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f83c9ca4_b4e8489e",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-08-16T19:00:47Z",
+      "side": 1,
+      "message": "Seems like too many places use sdk.dir string as is. It is also defined in gradle/util/LocalProperties.java. We should fix that in a later CL.",
+      "revId": "21bb1598420c12f4cc2cb32296d0e78cf9486880",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
