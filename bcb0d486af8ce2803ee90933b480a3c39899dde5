@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f83c9ca4_1dfa1ff5",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/viz/CallHierarchyRenderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-16T23:19:48Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be int i \u003d percent * QUANTIZED_COLORS.length / 100 ?",
+      "revId": "bcb0d486af8ce2803ee90933b480a3c39899dde5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
