@@ -16,6 +16,24 @@
       "revId": "bcb0d486af8ce2803ee90933b480a3c39899dde5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad4bc472_131756b9",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/viz/CallHierarchyRenderer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-08-19T22:10:10Z",
+      "side": 1,
+      "message": "Yes, I should use the above rather than assuming 10.",
+      "parentUuid": "f83c9ca4_1dfa1ff5",
+      "revId": "bcb0d486af8ce2803ee90933b480a3c39899dde5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
