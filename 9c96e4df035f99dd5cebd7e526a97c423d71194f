@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2da354b4_5f06d72f",
+        "filename": "common/src/main/java/com/android/utils/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-22T18:58:27Z",
+      "side": 1,
+      "message": "mStringBuilder?",
+      "revId": "9c96e4df035f99dd5cebd7e526a97c423d71194f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2da354b4_7f0b9b36",
+        "filename": "common/src/main/java/com/android/utils/HtmlBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-22T18:58:27Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "9c96e4df035f99dd5cebd7e526a97c423d71194f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
