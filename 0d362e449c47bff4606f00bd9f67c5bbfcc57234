@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2da354b4_9ff2ffc8",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/viz/TimeUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2013-08-22T19:23:46Z",
+      "side": 1,
+      "message": "Super minor little nit: \"humanizeTime\". It may sound funny but I think of it as \"make time human\". What do you think about \"makeTimeHumanReadable\"? Completely up to you.",
+      "revId": "0d362e449c47bff4606f00bd9f67c5bbfcc57234",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
