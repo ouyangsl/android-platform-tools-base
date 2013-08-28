@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32581541_9749ee62",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/HandleProfiling.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-08-28T23:10:31Z",
+      "side": 1,
+      "message": "Jeff - would you be able to make sure that the VM returns these codes for MPRQ? (It is not critical though).",
+      "revId": "ea6d38015bc381f069b4903ec94fc855abed9f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
