@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32581541_b72072c3",
+        "filename": "templates/gradle-projects/NewAndroidApplication/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-29T00:05:39Z",
+      "side": 1,
+      "message": "You need more logic to keep from stomping on already-existing ignore files.",
+      "revId": "94fc259455250b649db3b4fe7a8e283422c962fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32581541_971d6e85",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/project_ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-29T00:05:39Z",
+      "side": 1,
+      "message": "Why have separate project-level and module-level ignores? It seems really complicated.",
+      "revId": "94fc259455250b649db3b4fe7a8e283422c962fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32581541_f73dcaf2",
+        "filename": "templates/gradle-projects/NewAndroidLibrary/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-08-29T00:05:39Z",
+      "side": 1,
+      "message": "Why doesn\u0027t this get a module-level ignore like applications?",
+      "revId": "94fc259455250b649db3b4fe7a8e283422c962fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
