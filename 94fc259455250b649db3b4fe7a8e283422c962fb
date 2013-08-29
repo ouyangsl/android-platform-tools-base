@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "32581541_02537e14",
+        "filename": "templates/gradle-projects/NewAndroidApplication/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-29T00:13:11Z",
+      "side": 1,
+      "message": "This is only added in the new project templates where we don\u0027t worry about stomping existing files. The Manifest file above is using \u003cinstantiate\u003e rather than \u003cmerge\u003e (as it does do in the activity template where it has to worry about existing projects), the styles file below is using \u003ccopy\u003e, etc.",
+      "parentUuid": "32581541_b72072c3",
+      "revId": "94fc259455250b649db3b4fe7a8e283422c962fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32581541_971d6e85",
         "filename": "templates/gradle-projects/NewAndroidApplication/root/project_ignore",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "32581541_82fe4e99",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/project_ignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-29T00:13:11Z",
+      "side": 1,
+      "message": "The reason for this is that we don\u0027t want to add \"build\" to the .gitignore file, since that will potentially ignore a valid user directory named \"build\", say src/com/gradle/tools/build/...    And unfortunately, build isn\u0027t at the root directory, so we can\u0027t just use \"/build\". So, what we do is put all the ignore rules in .gitignore at the root of the project, and then add a .gitignore file in each module where we just suppress /build/.  The alternative was to put some hack like /*/build in the root .gitignore, but that won\u0027t work if modules are nested further down etc, and filtering build/ correctly is pretty important.",
+      "parentUuid": "32581541_971d6e85",
+      "revId": "94fc259455250b649db3b4fe7a8e283422c962fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "32581541_f73dcaf2",
         "filename": "templates/gradle-projects/NewAndroidLibrary/recipe.xml.ftl",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2013-08-29T00:05:39Z",
       "side": 1,
       "message": "Why doesn\u0027t this get a module-level ignore like applications?",
+      "revId": "94fc259455250b649db3b4fe7a8e283422c962fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32581541_c297a63c",
+        "filename": "templates/gradle-projects/NewAndroidLibrary/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-29T00:13:11Z",
+      "side": 1,
+      "message": "The variable ${projectOut} seems to be misnamed; it\u0027s really referring to a project (whereas $topOut} refers to the project). This is more apparent in the NewAndoridApplication where the template says this:\n\n\u003c#if makeIgnore\u003e\n    \u003ccopy from\u003d\"project_ignore\"\n            to\u003d\"${escapeXmlAttribute(topOut)}/.gitignore\" /\u003e\n    \u003ccopy from\u003d\"module_ignore\"\n            to\u003d\"${escapeXmlAttribute(projectOut)}/.gitignore\" /\u003e\n\u003c/#if\u003e\n\nas you can see it\u0027s copying the project gitignore into $topOut, and the module one into $projectOut.",
+      "parentUuid": "32581541_f73dcaf2",
       "revId": "94fc259455250b649db3b4fe7a8e283422c962fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
