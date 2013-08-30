@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3239f501_43c8986b",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-30T03:20:22Z",
+      "side": 1,
+      "message": "I\u0027d remove the \u003d false part here; it\u0027s guaranteed by the JVM spec (and the boolean right before i, mForceNoDecor is handled that way. If it was my code I\u0027d rip out the \u003dnull field assignments too, but that\u0027s touching code outside this CL.)",
+      "revId": "056c5843df7ff580718f4fefcaf455ba4a8d8feb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3239f501_23cd947b",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-08-30T03:20:22Z",
+      "side": 1,
+      "message": "maybe use the is* convention for Java getters instead of \"has\", e.g. isRtlSupported (and to make the getter symmetric, setRtlSupported)",
+      "revId": "056c5843df7ff580718f4fefcaf455ba4a8d8feb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
