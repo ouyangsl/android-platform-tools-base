@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7299ad82_d8766595",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2013-09-01T01:01:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3239f501_43c8986b",
+      "revId": "056c5843df7ff580718f4fefcaf455ba4a8d8feb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3239f501_23cd947b",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderParams.java",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2013-08-30T03:20:22Z",
       "side": 1,
       "message": "maybe use the is* convention for Java getters instead of \"has\", e.g. isRtlSupported (and to make the getter symmetric, setRtlSupported)",
+      "revId": "056c5843df7ff580718f4fefcaf455ba4a8d8feb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7299ad82_f87329a2",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderParams.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2013-09-01T01:01:11Z",
+      "side": 1,
+      "message": "I was going with the what the framework (specifically, View.java) used for the same functionality.\nAnyway, changed.",
+      "parentUuid": "3239f501_23cd947b",
       "revId": "056c5843df7ff580718f4fefcaf455ba4a8d8feb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
