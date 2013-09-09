@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27661513_a1486439",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-09-09T23:26:48Z",
+      "side": 1,
+      "message": "Something I hadn\u0027t been paying attention to in your previous CLs is that if you mark parameters as Nullable or NotNull, IJ\u0027s runtime null checking will kick in for you and you get syntax coloring of potential problems as well.",
+      "revId": "45f6e0e5e8d5ebae37864392d7c9d789d9d2330c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27661513_a10dc4fa",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-09-09T23:26:48Z",
+      "side": 1,
+      "message": "If it\u0027s not the same artifact, you could do something based on string ordering of the ID if you like.",
+      "revId": "45f6e0e5e8d5ebae37864392d7c9d789d9d2330c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
