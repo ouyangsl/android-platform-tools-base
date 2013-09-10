@@ -16,6 +16,24 @@
       "revId": "ed3b24f8a38b6b60328e441d94afdbce51de2764",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c768d904_894129ba",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/viz/CallHierarchyRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-10T23:23:13Z",
+      "side": 1,
+      "message": "Actually this seems to work fine for now. Maybe you can look at it visually tomorrow and see if things need to change.",
+      "parentUuid": "c768d904_c977a13f",
+      "revId": "ed3b24f8a38b6b60328e441d94afdbce51de2764",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
