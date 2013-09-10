@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c768d904_c977a13f",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/viz/CallHierarchyRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-10T23:18:54Z",
+      "side": 1,
+      "message": "you could also have two different sets if you don\u0027t want to compromise for the middle ground; then on the studio side there\u0027s a call to decide which one to use",
+      "revId": "ed3b24f8a38b6b60328e441d94afdbce51de2764",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
