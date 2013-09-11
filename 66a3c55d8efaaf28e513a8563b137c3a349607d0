@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7e845cc_bcdfe123",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/viz/TraceViewCanvas.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-11T22:22:52Z",
+      "side": 1,
+      "message": "totally nit picky, but I prefer \"call\" and \"unit\" over \"c\" and \"u\" etc, especially in parameters (only for loop indices i/j/k and mathematical vars like x and y)",
+      "revId": "66a3c55d8efaaf28e513a8563b137c3a349607d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
