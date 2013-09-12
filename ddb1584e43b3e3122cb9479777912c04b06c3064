@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e78cfd4a_54a7a4b0",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-12T00:53:17Z",
+      "side": 1,
+      "message": "Just to be on the safe side, use String.format(Locale.US, \"%d....\" instead.\n\n(In some locales %d will be printed using commas when the version number reaches 1000 etc. Not super likely, but better safe than sorry :-) )",
+      "revId": "ddb1584e43b3e3122cb9479777912c04b06c3064",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
