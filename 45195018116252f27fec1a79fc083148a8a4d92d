@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "277c55f0_4f39befe",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/viz/CallHierarchyRenderer.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-12T18:58:18Z",
+      "side": 1,
+      "message": "If it\u0027s really a constant it should be LAYOUT_TIME_UNITS",
+      "revId": "45195018116252f27fec1a79fc083148a8a4d92d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
