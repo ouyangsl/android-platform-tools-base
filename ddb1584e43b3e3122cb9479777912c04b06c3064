@@ -16,6 +16,24 @@
       "revId": "ddb1584e43b3e3122cb9479777912c04b06c3064",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e78cfd4a_9492ece2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-09-12T01:12:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e78cfd4a_54a7a4b0",
+      "revId": "ddb1584e43b3e3122cb9479777912c04b06c3064",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
