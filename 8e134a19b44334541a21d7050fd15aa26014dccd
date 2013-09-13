@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27645599_37f3c283",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/VmTraceData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-13T20:22:17Z",
+      "side": 1,
+      "message": "toLowerCase(Locale.US) ? I\u0027m not certain; if this is searching user strings, then perhaps toLowerCase() is correct (though maybe in that case you should explicitly write it as toLowerCase(Locale.getDefault()).\n\nTry adding a unit test, and in a Turkish locale search for something with capital I. (See XmlUtilsTest#testFormatFloatValueLocale for a locale-specific unit test.)",
+      "revId": "8e134a19b44334541a21d7050fd15aa26014dccd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
