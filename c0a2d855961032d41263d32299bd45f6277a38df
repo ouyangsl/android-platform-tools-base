@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7aa05ea_12482cd9",
+        "filename": "files/devices.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-14T02:40:05Z",
+      "side": 1,
+      "message": "I need to double check some of this data with the DeviceConfig app. These are values I hand edited from the tech specs on http://www.google.com/nexus/7/",
+      "revId": "c0a2d855961032d41263d32299bd45f6277a38df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
