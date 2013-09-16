@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7aa05ea_53411365",
+        "filename": "files/devices.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-16T14:12:26Z",
+      "side": 1,
+      "message": "Tabs. Sigh.",
+      "revId": "9e32231cabdb39718f917700c0d626c66a1a644e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
