@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7aa05ea_56ed81e5",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-09-16T15:52:30Z",
+      "side": 1,
+      "message": "I\u0027ll have more to say as I look at the rest of the file in detail, but off the top of my head I\u0027d say use Java enums and EnumSet (which uses a bitmask implementation internally and is pretty efficient) instead of doing C-style binary arithmetic.",
+      "revId": "66b2abd8adf1d64efe48ca217db1b67f761e50fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
