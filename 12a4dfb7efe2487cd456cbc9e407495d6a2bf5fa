@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a7468540_1edf6b58",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-17T20:57:19Z",
+      "side": 1,
+      "message": "yep, should have been caller, thanks",
+      "parentUuid": "a7468540_9880d2b8",
+      "revId": "12a4dfb7efe2487cd456cbc9e407495d6a2bf5fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7468540_980d328a",
         "filename": "sdk-common/src/test/java/com/android/ide/common/res2/MergedResourceWriterTest.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "a7468540_de6de3c3",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/MergedResourceWriterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-17T20:57:19Z",
+      "side": 1,
+      "message": "Nice; I\u0027m surprised IntelliJ didn\u0027t flag this",
+      "parentUuid": "a7468540_980d328a",
+      "revId": "12a4dfb7efe2487cd456cbc9e407495d6a2bf5fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7468540_989a92f9",
         "filename": "sdk-common/src/test/java/com/android/ide/common/res2/MergedResourceWriterTest.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2013-09-17T20:52:21Z",
       "side": 1,
       "message": "Is the 5 just \"file:/\"\u0027s length()? Since you are anyway using it just for new URL(urlString), do you still need to do this?",
+      "revId": "12a4dfb7efe2487cd456cbc9e407495d6a2bf5fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7468540_9e7c3b74",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/MergedResourceWriterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-17T20:57:19Z",
+      "side": 1,
+      "message": "This is stripping out the \"From:\" prefix (createPathComment actually makes \"From: file:/foo/bar\".) I\u0027ll add a comment.",
+      "parentUuid": "a7468540_989a92f9",
       "revId": "12a4dfb7efe2487cd456cbc9e407495d6a2bf5fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
