@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7468540_f85f164d",
+        "filename": "templates/activities/SettingsActivity/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-17T20:50:01Z",
+      "side": 1,
+      "message": "Dumb question since I haven\u0027t really payed close attention:\nAre these templates not used by Eclipse?\nOr has Eclipse been taught how to use these new types of dependencies?",
+      "revId": "124a8e393930288ca51a2aaa308e716077462d8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
