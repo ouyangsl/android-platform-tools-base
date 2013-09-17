@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7468540_9880d2b8",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-17T20:52:21Z",
+      "side": 1,
+      "message": "grammar, or just s/called/caller?",
+      "revId": "12a4dfb7efe2487cd456cbc9e407495d6a2bf5fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7468540_980d328a",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/MergedResourceWriterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-17T20:52:21Z",
+      "side": 1,
+      "message": "missing }",
+      "revId": "12a4dfb7efe2487cd456cbc9e407495d6a2bf5fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7468540_989a92f9",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/MergedResourceWriterTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-17T20:52:21Z",
+      "side": 1,
+      "message": "Is the 5 just \"file:/\"\u0027s length()? Since you are anyway using it just for new URL(urlString), do you still need to do this?",
+      "revId": "12a4dfb7efe2487cd456cbc9e407495d6a2bf5fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
