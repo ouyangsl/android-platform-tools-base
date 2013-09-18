@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64356bd1_b5dd0afc",
+        "filename": "common/src/test/java/com/android/utils/SdkUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-18T19:40:14Z",
+      "side": 1,
+      "message": "optional: also add Windows paths.",
+      "revId": "8d0da48d9e34d3d83230b47a0722710fa4028aa3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
