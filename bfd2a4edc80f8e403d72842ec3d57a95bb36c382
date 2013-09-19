@@ -1,0 +1,616 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c42537aa_42562035",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "I\u0027m assuming you meant to delete all this?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_2f089ea9",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Unless we\u0027re trying to keep the API compatible, I think this (and any other path references) should use File instead of String to make to make the file separator clear",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_7b5e6a25",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Maybe annotate return value with @NonNull",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_22343405",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "File",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_af500e82",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "delete?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_db7c3674",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectProperties.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Out of curiosity, what\u0027s different about these property files -- why don\u0027t we just use the Java one too? (If we really do need it, maybe rename the method to something more specific to discourage use, e.g. parsePackagePropFile)\n\n(And if there\u0027s a common need to do general property parsing in many places, maybe we should put a utility in SdkUtils which does all the setup work and just returns a map).",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_1b3e3e9d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/IListDescription.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Are we still doing the I prefix thing for interfaces? (In the framework I only see 16 interfaces whose name start with an I prefix, and I see \u003e 350 public interfaces.)    I thought we were really only doing the I prefix thing because a lot of our code was in Eclipse.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_afbb6e60",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/PackageParserUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "The javadoc here is identical to on the previous method (I figured it would say somethin about not including previews or something like that)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_92033163",
+        "filename": "sdklib/src/main/java/com/android/sdklib/io/FileOp.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Totally random comment -- but I wonder if \"FileSystem\" wouldn\u0027t be a better name for this class? fileSystem.deleteFile, fileSystem.mkdir, ... (FileOp would be FileSystem, FileOp would be LocalFileSystem.)  The name might convey better what I think is the intent -- that you can make fake filesystem, memory filesystems, etc ? You can even abstract it on top of other file systems, such as the SDK manager running in Studio, where there already is a filesystem on top of the normal one (VFS).",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_1becfee8",
+        "filename": "sdklib/src/main/java/com/android/sdklib/io/FileOp.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Maybe add @NonNull on the return value (since that\u0027s a nice improvement over just calling listFiles which can return null)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_ef3cd6f4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAddonPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "After looking up the name and version info, can the rest of this information be computed lazily? After all most of the information won\u0027t be used for a majority of the targets.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_96532ded",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAddonPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Use Guava splitter? Iterator\u003cString\u003e libraries \u003d Splitter.on(\u0027;\u0027).split(librariesValue).iterator();",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_d66095a6",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAddonPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Should we have a DOT_IMG in SdkConstants?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_ef25f6ce",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAndroidVersionPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "@NonNull on return value?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_3620f95e",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalDocPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Is this all 0/null because it doesn\u0027t apply, or because we don\u0027t have the information? I can imagine that documentation might at least have a license, and possibly a description and api level?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_3b846207",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalExtraPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Maybe add @NonNull on this and getExtraPath too since the constructor implies it?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_dbaf9673",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "it just falls through here -- is that okay because all client code will call setPackage() here first ?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_f296fd97",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "just making sure you meant to leave this in",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_5b03a691",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "nitpick maybe move this into each try block (and join with each declaration) so there\u0027s no variable reuse?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_bb2972f8",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Same comment as for the add ons earlier -- can this stuff be computed lazily since for most targets we only care about names and api levels?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_db81d6bd",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformToolPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "same comment as for docs -- no license etc?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_92d1f1a6",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "I saw Scott had a comment about using Enums and EnumSets here, which might be a good idea. It would also let \"int getType()\" methods I saw somewhere in the other classes return a specific type enum instead. \n\nYou could also make the enum instances have some fields; in particular, each type could have the corresponding folder name (instead of the static map you\u0027re using below), so e.g. PackageType.SYS_IMAGE.getFolderName() \u003d\u003d FD.SYSTEM_IMAGES",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_d9468655",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "it was when I saw this line that I went up and wrote the comment about enum sets :-)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_72832d9b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "I personally prefer assertions over Guava\u0027s Preconditions since assertions have zero overhead in production (the entire statement is ignored when the class is loaded). Your call whether you want this check done at all times. With enumsets it\u0027s slightly less likely that somebody would pass the wrong values into this method :-)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_ae5db2f2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "it looks like this is doing the same check as the preconditions call above?\nIf you want to do this, I (nitpick alert) prefer using an if statement when the number of cases is this small.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_59de165c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "assert existing.size() \u003c\u003d 1?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_9267b123",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Use List\u003c intead of ArrayList\u003c here? Or are you using ArrayList only methods below?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_f9c4a287",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "another vote for enum sets here :-)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_59a616b7",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "It looks like each and every one of these methods opens up with\n    File someDir : mFileOp.listFiles(collectionDir)\n    if (someDir.isDirectory() ...\n\nThat means that when we\u0027re initializing more than one of them (I\u0027m assuming we do that in the IDE?) we\u0027re iterating over all the folders (calling listFiles repeatedly, and calling isDirectory on the same files over and over).\n\nIf this is indeed needed by nearly all of them, maybe just pull out the listFiles call up to here, and put all the directories in a list, and then pass that list to all the scan() methods -- they can then search in there just by names. (In fact, better yet make the file list a map from name to file so they don\u0027t even have to search.)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_92357107",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "To be tooootally nitpicky on that comment, I think that for quicksort, a sorted array isn\u0027t necessarily a no-op; in fact with a naive pivot selection a sorted array has the worst case scenario. But I believe the JDK quicksort algorithm does more smart stuff to avoid that case (using a random pivot or something).  In any case I totally agree that we should sort to be safe and these are small arrays.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_522f09b1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "I think I saw elsewhere that this method is @NonNull so no need to null check result",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_ceafd673",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Should we move the SdkConstants.androidCmdName() method out of SdkConstants, where it doesn\u0027t really belong, and place it in here locally instead?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0444af55_ee75fa38",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Is this a common occurrence? Do we need to validate a tools install beyond the presence of a properties file?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42537aa_39846a07",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "I would drop the \"TS\" suffix here, to match what is in File (and because I don\u0027t like capitalized acronyms, and dropping it is a simple way to get around that instead of Ts)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "646c8bf1_7ae7595b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "You can just use Guava instead -- Files.getChecksum(file, new Adler32) or Files.getChecksum(file, new CRC32())",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64356bd1_f22f1dfc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSysImgPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T22:26:55Z",
+      "side": 1,
+      "message": "Use File instead of String  for paths (I see it\u0027s overriding an API so it\u0027s a general comment)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
