@@ -376,6 +376,24 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_f7e860d6",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-19T23:09:04Z",
+      "side": 1,
+      "message": "One more comment on this; I\u0027m using enums and enumsets in various places in lint, such as the \"Scope\" class (com.android.tools.lint.detector.api.Scope). In it, I also define a bunch of constants at the bottom, so there is an ALL enum set which includes everything, as well as a couple of common keys used by the various detectors.",
+      "parentUuid": "64356bd1_92d1f1a6",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42537aa_d9468655",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
         "patchSetId": 12
