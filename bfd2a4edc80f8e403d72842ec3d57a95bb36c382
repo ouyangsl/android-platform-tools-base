@@ -291,6 +291,24 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_1a4df943",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:25:10Z",
+      "side": 1,
+      "message": "BTW, all the tests in LocalSdk except the first one fail here. So this is definitely missing code.",
+      "parentUuid": "0444af55_dbaf9673",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64356bd1_f296fd97",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
         "patchSetId": 12
@@ -797,6 +815,23 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "Use File instead of String  for paths (I see it\u0027s overriding an API so it\u0027s a general comment)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046bcfdd_1a02d9d5",
+        "filename": "sdklib/src/test/java/com/android/sdklib/io/MockFileOp.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:25:10Z",
+      "side": 1,
+      "message": "BTW, You might also want to consider IJ\u0027s approach of actually have real files on the file system. I can imagine you could easily create a sample SDK structure inside src/test/resources, and use that instead of mocking the file system.\n\nJust a thought, I feel like it\u0027ll help remove the entire IFileOp hierarchy.",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
