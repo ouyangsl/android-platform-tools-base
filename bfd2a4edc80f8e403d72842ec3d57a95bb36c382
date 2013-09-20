@@ -394,6 +394,74 @@
     },
     {
       "key": {
+        "uuid": "e47f9b95_36b6d8ef",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "I didn\u0027t find an users of this method alone in tools/base. If that is accurate, then remove this and move its contents to the constructor below.\n\nAlso, I\u0027d recommend making the location of the SDK immutable. For a different location, just ask clients to construct a new SDK. You can eliminate a few methods if you do so.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47c57a6_55ceec7b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "This comment might be obsolete - it is used in a few other locations, and not used in any unit tests.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47c57a6_15d8743c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "Mark as @VisibleForTesting",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046bcfdd_972c8409",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "redundant assertion since it is marked NonNull.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42537aa_d9468655",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
         "patchSetId": 12
@@ -462,6 +530,40 @@
     },
     {
       "key": {
+        "uuid": "e47f9b95_3693381c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "condition is always true, see line 445. I\u0027d also move this line into the above if block.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e47f9b95_16e4fc93",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "Not sure why you\u0027d convert the list to an array here. I\u0027d keep it a list or change the @return doc above.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64356bd1_9267b123",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
         "patchSetId": 12
@@ -496,6 +598,24 @@
     },
     {
       "key": {
+        "uuid": "c47c57a6_750e88bb",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "+1. Can\u0027t really follow all the bitmasking going on in the lines below.",
+      "parentUuid": "c42537aa_f9c4a287",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42537aa_59a616b7",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
         "patchSetId": 12
@@ -513,6 +633,23 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_172f14b2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "Curious if this legacy handling is still needed? I assume someone installing this new version of tools will be forced to have the build tools.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64356bd1_92357107",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
         "patchSetId": 12
@@ -524,6 +661,23 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "To be tooootally nitpicky on that comment, I think that for quicksort, a sorted array isn\u0027t necessarily a no-op; in fact with a naive pivot selection a sorted array has the worst case scenario. But I believe the JDK quicksort algorithm does more smart stuff to avoid that case (using a random pivot or something).  In any case I totally agree that we should sort to be safe and these are small arrays.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47c57a6_b5f42043",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "IJ warns me that hash is marked nullable here, but AndroidTargetHash.isPlatform receives a NonNull arg.",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -609,6 +763,23 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "You can just use Guava instead -- Files.getChecksum(file, new Adler32) or Files.getChecksum(file, new CRC32())",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e47f9b95_f9f29317",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 1092,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-20T00:12:56Z",
+      "side": 1,
+      "message": "equals should also check the class type, this would equal a File otherwise.",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
