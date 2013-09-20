@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_bac16d3d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Oh yeah, I forgot to delete these. Done.",
+      "parentUuid": "c42537aa_42562035",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64356bd1_2f089ea9",
         "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
         "patchSetId": 12
@@ -30,6 +48,24 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "Unless we\u0027re trying to keep the API compatible, I think this (and any other path references) should use File instead of String to make to make the file separator clear",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046bcfdd_7aa1959c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "I agree with you, which is why LocalSdk uses File. I am however not going to change SdkManager. Eventually my goal is to get rid of it and all the places where it is called, which will eventually fix the issue.",
+      "parentUuid": "64356bd1_2f089ea9",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c47c57a6_38f1e515",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0444af55_7b5e6a25",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42537aa_22343405",
         "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
         "patchSetId": 12
@@ -64,6 +118,24 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "File",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47c57a6_d8f55102",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Not in this CL, as explained above.",
+      "parentUuid": "c42537aa_22343405",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_da8f8129",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64356bd1_af500e82",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0444af55_db7c3674",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectProperties.java",
         "patchSetId": 12
@@ -98,6 +188,24 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "Out of curiosity, what\u0027s different about these property files -- why don\u0027t we just use the Java one too? (If we really do need it, maybe rename the method to something more specific to discourage use, e.g. parsePackagePropFile)\n\n(And if there\u0027s a common need to do general property parsing in many places, maybe we should put a utility in SdkUtils which does all the setup work and just returns a map).",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47c57a6_78351deb",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectProperties.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "As for why, I think the comment explains clearly that this method is pretty unfortunate and shouldn\u0027t have existed in the first place when Property.load/save() does it just fine. But it\u0027s there, and the add-on loading code uses it (except I need a stream rather than an abstract file) and for legacy/compatibility reason I\u0027m not focusing on changing all the calls to this method.",
+      "parentUuid": "0444af55_db7c3674",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_3aef9da1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/IListDescription.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "It\u0027s always been my convention to use the I prefix for interfaces and this has been the convention in the tools since we started back in 2007. I don\u0027t see any reason to stop using it, especially in the sdklib project that supports that convention.",
+      "parentUuid": "0444af55_1b3e3e9d",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64356bd1_afbb6e60",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/PackageParserUtils.java",
         "patchSetId": 12
@@ -132,6 +258,24 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "The javadoc here is identical to on the previous method (I figured it would say somethin about not including previews or something like that)",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e47f9b95_b9e89bc3",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/PackageParserUtils.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64356bd1_afbb6e60",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "e47f9b95_99991f78",
+        "filename": "sdklib/src/main/java/com/android/sdklib/io/FileOp.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0444af55_1becfee8",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64356bd1_ef3cd6f4",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAddonPkgInfo.java",
         "patchSetId": 12
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "e47f9b95_798a0317",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAddonPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "I\u0027m just moving the existing parsing code, not changing it.\nHowever what I want to change in a latter CL is do the parseAddonProperty upfront. It\u0027s just reading a prop file, and caching it would give us most of the attributes that IAndroidTarget is used for.\nAs for IAndroidTarget, it\u0027s a bag of everything and the kitchen sink which could indeed be restructured to be more lazy but that\u0027s for another time.",
+      "parentUuid": "64356bd1_ef3cd6f4",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42537aa_96532ded",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAddonPkgInfo.java",
         "patchSetId": 12
@@ -200,6 +380,24 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "Use Guava splitter? Iterator\u003cString\u003e libraries \u003d Splitter.on(\u0027;\u0027).split(librariesValue).iterator();",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046bcfdd_1a1979f1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAddonPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "I\u0027m just moving the existing code, not changing it.",
+      "parentUuid": "c42537aa_96532ded",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -240,6 +438,24 @@
     },
     {
       "key": {
+        "uuid": "e47f9b95_f975b338",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalAndroidVersionPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64356bd1_ef25f6ce",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42537aa_3620f95e",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalDocPkgInfo.java",
         "patchSetId": 12
@@ -257,6 +473,24 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_da778108",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalDocPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "null/0 here means to use whatever comes from the Property object and not override it.",
+      "parentUuid": "c42537aa_3620f95e",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0444af55_3b846207",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalExtraPkgInfo.java",
         "patchSetId": 12
@@ -268,6 +502,24 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "Maybe add @NonNull on this and getExtraPath too since the constructor implies it?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e47f9b95_5992a74a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalExtraPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0444af55_3b846207",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -309,6 +561,24 @@
     },
     {
       "key": {
+        "uuid": "c47c57a6_f8adadc5",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "I\u0027m not done with that part but there\u0027s already enough material in this CL that I don\u0027t want to do it all at once.",
+      "parentUuid": "0444af55_dbaf9673",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64356bd1_f296fd97",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
         "patchSetId": 12
@@ -337,6 +607,24 @@
       "writtenOn": "2013-09-19T22:26:55Z",
       "side": 1,
       "message": "nitpick maybe move this into each try block (and join with each declaration) so there\u0027s no variable reuse?",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046bcfdd_da60e138",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Agreed, this could be revisited. Right now I just moved the existing code into the new class.",
+      "parentUuid": "0444af55_5b03a691",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -440,6 +728,24 @@
       "writtenOn": "2013-09-20T00:12:56Z",
       "side": 1,
       "message": "This comment might be obsolete - it is used in a few other locations, and not used in any unit tests.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47c57a6_d866b1c3",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSdk.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c47c57a6_55ceec7b",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -821,6 +1127,24 @@
     },
     {
       "key": {
+        "uuid": "046bcfdd_fa5da583",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalSysImgPkgInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "It\u0027s not an actual file path.",
+      "parentUuid": "64356bd1_f22f1dfc",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "046bcfdd_1a02d9d5",
         "filename": "sdklib/src/test/java/com/android/sdklib/io/MockFileOp.java",
         "patchSetId": 12
@@ -832,6 +1156,24 @@
       "writtenOn": "2013-09-20T00:25:10Z",
       "side": 1,
       "message": "BTW, You might also want to consider IJ\u0027s approach of actually have real files on the file system. I can imagine you could easily create a sample SDK structure inside src/test/resources, and use that instead of mocking the file system.\n\nJust a thought, I feel like it\u0027ll help remove the entire IFileOp hierarchy.",
+      "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47c57a6_585381ed",
+        "filename": "sdklib/src/test/java/com/android/sdklib/io/MockFileOp.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-20T01:16:12Z",
+      "side": 1,
+      "message": "That\u0027s already what the SdkManagerTestCase does -- construct an actual sdk install. Although it\u0027s fine for larger tests, I find it overkill to do lightweight small tests.",
+      "parentUuid": "046bcfdd_1a02d9d5",
       "revId": "bfd2a4edc80f8e403d72842ec3d57a95bb36c382",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
