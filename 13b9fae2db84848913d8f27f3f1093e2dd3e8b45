@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "04258fee_b6eb96d1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-24T18:43:17Z",
+      "side": 1,
+      "message": "no big deal but I see a several calls to getLocalSdk() here -- extract as local variable?",
+      "revId": "13b9fae2db84848913d8f27f3f1093e2dd3e8b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4195bc0_6f8e61f2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-09-24T18:43:17Z",
+      "side": 1,
+      "message": "I see that it\u0027s the same for the existing code, so I\u0027ll just add a meta comment that I\u0027ve made for all the builder-library code too, which is that we should get rid of all the getAbsolutePath calls and just use getPath; and only in places where we take in a path from the user (e.g. command line switch or path variable or envvar or whatever) do we take the absolute path.",
+      "revId": "13b9fae2db84848913d8f27f3f1093e2dd3e8b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64cbab66_e27466cd",
         "filename": "sdklib/src/test/java/com/android/sdklib/local/LocalSdkTest.java",
         "patchSetId": 1
