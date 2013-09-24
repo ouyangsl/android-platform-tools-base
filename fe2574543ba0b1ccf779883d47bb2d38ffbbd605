@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4195bc0_8ceacb5b",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/vmtrace/VmTraceParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-09-24T17:11:41Z",
+      "side": 1,
+      "message": "The bug was using getInt() instead of get(). See comment at line 244.",
+      "revId": "fe2574543ba0b1ccf779883d47bb2d38ffbbd605",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
