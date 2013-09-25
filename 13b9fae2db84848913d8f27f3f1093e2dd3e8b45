@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "04a82f8f_c9de9527",
+        "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-09-25T23:01:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04258fee_b6eb96d1",
+      "revId": "13b9fae2db84848913d8f27f3f1093e2dd3e8b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4195bc0_6f8e61f2",
         "filename": "sdklib/src/main/java/com/android/sdklib/local/LocalPlatformPkgInfo.java",
         "patchSetId": 1
