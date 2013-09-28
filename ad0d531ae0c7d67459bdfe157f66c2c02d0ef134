@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "641c8bfb_a9e3e98c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TypoDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-09-28T00:10:36Z",
+      "side": 1,
+      "message": "Break out of the loop as well?",
+      "revId": "ad0d531ae0c7d67459bdfe157f66c2c02d0ef134",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c42c5730_c46de8bf",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TypoDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-09-28T00:10:36Z",
+      "side": 1,
+      "message": "Same comment as above. Can this be consolidated with the above code instead of duplicating it?",
+      "revId": "ad0d531ae0c7d67459bdfe157f66c2c02d0ef134",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
