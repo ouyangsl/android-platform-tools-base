@@ -16,6 +16,24 @@
       "revId": "2f5f2ae74c4b51fd015139e74f12249354ff4148",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2120c5dd_71592a60",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-10-04T22:52:39Z",
+      "side": 1,
+      "message": "I\u0027ll add the \u0027+\u0027 coordinate to all the fields, but it doesn\u0027t make a lot of sense to support things like:\n\ncom.android.support:appcompat-v7:0.+.6\n\nOh well... I\u0027ll also use MIN_VALUE since that seems more in line with the current direction of the code. Initially it made more sense for the plus revision to be preferred, but I think more specific revisions should take precedence.",
+      "parentUuid": "c116098f_857462ca",
+      "revId": "2f5f2ae74c4b51fd015139e74f12249354ff4148",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
