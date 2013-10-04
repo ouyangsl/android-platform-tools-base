@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c116098f_857462ca",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-04T22:47:17Z",
+      "side": 1,
+      "message": "It looks to me like the Gradle coordinate itself is more flexible than just \"+\" as the entire version (e.g. we\u0027re using 0.5.+ as a dependency in Gradle projects, and I see an example in the Gradle documentation of a junit dependency on 4.+).\n\nHowever, it\u0027s fine for us not to support that yet in this class. But in that case, you should probably tweak this try catch to throw an illegal argument exception if any of the groups are +.\n\nMaybe add a TODO that longer term we may want to compare each individual component here (matcher.group(1), matcher.group(2) and matcher.group(3) individually to see if they\u0027re \"+\", and if so, set that major/minor/micro int to PLUS_REV. Of course, that will probably require some tweaks to the version comparison methods (unless perhaps you define PLUS_REV as Integer.MIN_VALUE instead of MAX_VALUE?).",
+      "revId": "2f5f2ae74c4b51fd015139e74f12249354ff4148",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
