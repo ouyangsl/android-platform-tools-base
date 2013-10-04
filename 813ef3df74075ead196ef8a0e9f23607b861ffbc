@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2120c5dd_f19cfa66",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-10-04T22:20:25Z",
+      "side": 1,
+      "message": "It\u0027s a Gradle thing. I\u0027ve done the refactoring and tested it through a project creation.",
+      "parentUuid": "81109196_230acaa9",
+      "revId": "813ef3df74075ead196ef8a0e9f23607b861ffbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81109196_c3f49669",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "e1194dc0_4c1bb3e8",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-10-04T22:20:25Z",
+      "side": 1,
+      "message": "The pattern works as advertised. Matcher has some weird behavior though.",
+      "parentUuid": "81109196_c3f49669",
+      "revId": "813ef3df74075ead196ef8a0e9f23607b861ffbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81109196_033a2e4a",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2013-10-04T22:05:57Z",
       "side": 1,
       "message": "I\u0027m a little confused by this; don\u0027t you still need to set the major and minor versions?\n\nFor example, the Android Gradle plugin is at 0.5.7, and we\u0027re recommending 0.5.+ as the coordinate. Shouldn\u0027t that have major\u003d0, minor\u003d5 and revision\u003d+?",
+      "revId": "813ef3df74075ead196ef8a0e9f23607b861ffbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2120c5dd_71800af6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-10-04T22:20:25Z",
+      "side": 1,
+      "message": "This handles the case where the coordinate looks like:\n\n\"com.android.support:appcompat-v7:+\"\n\nSo there are no minor/major versions to set. This syntax (and I\u0027m not sure we should be using it, thus I had the original CL resolve to the highest available library version) says \"give me any version that you have\"",
+      "parentUuid": "81109196_033a2e4a",
       "revId": "813ef3df74075ead196ef8a0e9f23607b861ffbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
