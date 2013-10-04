@@ -34,6 +34,24 @@
       "revId": "2f5f2ae74c4b51fd015139e74f12249354ff4148",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a113d59f_8795888b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-04T23:21:23Z",
+      "side": 1,
+      "message": "Yeah, I don\u0027t think we have to support 0.+.6 -- basically, the plus must be the last qualifier, but it can appear as a major, minor or micro number: +, 4.+, 0.5.+",
+      "parentUuid": "2120c5dd_71592a60",
+      "revId": "2f5f2ae74c4b51fd015139e74f12249354ff4148",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
