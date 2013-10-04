@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81109196_230acaa9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-04T22:05:57Z",
+      "side": 1,
+      "message": "Out of curiosity, does Maven support the + syntax, or is that a Gradle enhancement on top of what Maven supports? If it\u0027s a Gradle thing, maybe we should rename the class to GradleCoordinate?",
+      "revId": "813ef3df74075ead196ef8a0e9f23607b861ffbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81109196_c3f49669",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-04T22:05:57Z",
+      "side": 1,
+      "message": "I didn\u0027t review this very carefully, but since there are comprehensive unit tests, I\u0027m assuming this continues to work?\n\nSpeaking of that -- since there are tests, you should probably add a few new cases with the new plus syntax.",
+      "revId": "813ef3df74075ead196ef8a0e9f23607b861ffbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81109196_033a2e4a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/MavenCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-04T22:05:57Z",
+      "side": 1,
+      "message": "I\u0027m a little confused by this; don\u0027t you still need to set the major and minor versions?\n\nFor example, the Android Gradle plugin is at 0.5.7, and we\u0027re recommending 0.5.+ as the coordinate. Shouldn\u0027t that have major\u003d0, minor\u003d5 and revision\u003d+?",
+      "revId": "813ef3df74075ead196ef8a0e9f23607b861ffbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
