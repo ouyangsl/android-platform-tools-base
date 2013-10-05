@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c116098f_4838bfaf",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "tweak this to reflect new syntax?",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81109196_864aac5a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "are the spaces between the REV and the \u003d here intentional?",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c116098f_a8ca1393",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "Use List intead of ArrayList on the LHS",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81109196_e6472051",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "Maybe add @NonNull on these?",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a113d59f_c7a820b8",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "!myRevisions.isEmpty() instead of the \u003e 0 comparison (because I think we have an IntelliJ warning on which will flag that if you don\u0027t)",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c116098f_08c3677c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "Just List on the LHS",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a113d59f_27293469",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "nit -- space between while and (",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c116098f_28290369",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "\u003d\u003d here is dangerous since i is an Integer and PLUS_REV is an int.\n\nSimplest fix is probably to change your for loop to autoboxing:\nfor (int i :  myRevisions)",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81109196_2685b860",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "I usually write concatenation loops like this:\n  for (integer i : myRevisions) {\n      if (revision.getLength() \u003e 0) {\n          revision.append(\u0027.\u0027);\n       }\n       revision.append((i \u003d\u003d PLUS_REV) ? \u0027+\u0027 : i);\n       if (i \u003d\u003d PLUS_REV) {\n           break;\n      }\n  }\n\nNow you don\u0027t need to delete the character. \n\nAlso -- perhaps rather than breaking here, you can break processing when *parsing* ? E.g. if you see a plus, you bail out of your regexp matching loop? Then you know myRevisions will always automatically end on a plus rev if present.",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a113d59f_4738b0af",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-05T01:04:50Z",
+      "side": 1,
+      "message": "If they\u0027re ints, it might be clearer to just write these two lines as:\nint delta \u003d myRevisions.get(i) - that.myRevisions.get(i);\nif (delta !\u003d 0) {\n    return delta;\n}",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
