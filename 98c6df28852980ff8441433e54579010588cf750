@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "012581ee_fc0fadf1",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-07T02:05:02Z",
+      "side": 1,
+      "message": "Yes -- see Effective Java, Item 52",
+      "parentUuid": "012581ee_3b4f8f9b",
+      "revId": "98c6df28852980ff8441433e54579010588cf750",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "81109196_e6472051",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
         "patchSetId": 6
