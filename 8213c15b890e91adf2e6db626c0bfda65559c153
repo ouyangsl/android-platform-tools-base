@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e88e4e1_9e09ec45",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergeWriter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-14T23:50:33Z",
+      "side": 1,
+      "message": "No, this prevents the catch clause right below it from matching (which would wrap a consumer exception in a consumer exception)",
+      "parentUuid": "be4e9480_276e892e",
+      "revId": "8213c15b890e91adf2e6db626c0bfda65559c153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e76dcc6_567cb2bd",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2013-10-14T22:01:17Z",
       "side": 1,
       "message": "Can currentFile ever be non-null?",
+      "revId": "8213c15b890e91adf2e6db626c0bfda65559c153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e76dcc6_dcc8e165",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-10-14T23:50:33Z",
+      "side": 1,
+      "message": "Yes; it will be non null if an exception happens in the above for loop (typically on the adoptNode call)",
+      "parentUuid": "7e76dcc6_567cb2bd",
       "revId": "8213c15b890e91adf2e6db626c0bfda65559c153",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
