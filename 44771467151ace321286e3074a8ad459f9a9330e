@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e4b9073_cd13611d",
+        "filename": "templates/gradle-projects/NewAndroidApplication/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-10-14T21:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "414e9957_26c8ac64",
+      "revId": "44771467151ace321286e3074a8ad459f9a9330e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "414e9957_46c5b049",
         "filename": "templates/gradle-projects/NewAndroidApplication/template.xml",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7e489c78_ecf3bf19",
+        "filename": "templates/gradle-projects/NewAndroidApplication/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-10-14T21:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "414e9957_46c5b049",
+      "revId": "44771467151ace321286e3074a8ad459f9a9330e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6149dd4c_f98648a9",
         "filename": "templates/gradle-projects/NewAndroidApplication/template.xml",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2013-10-11T02:42:27Z",
       "side": 1,
       "message": "this should be changed back (app_package, not package), probably same copy issue as above?",
+      "revId": "44771467151ace321286e3074a8ad459f9a9330e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e4b9073_ad102511",
+        "filename": "templates/gradle-projects/NewAndroidApplication/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-10-14T21:17:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6149dd4c_f98648a9",
       "revId": "44771467151ace321286e3074a8ad459f9a9330e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
