@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fe0bac5e_ecf38219",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1014491
+      },
+      "writtenOn": "2013-10-18T23:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e2678f9_8da00589",
+      "revId": "f3525a0750670d2ec8c26062ad6fe788555a96a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9efab080_92381cae",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3e02a442_e9c6d0e8",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1014491
+      },
+      "writtenOn": "2013-10-18T23:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9efab080_92381cae",
+      "revId": "f3525a0750670d2ec8c26062ad6fe788555a96a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ef7bc99_b12558bb",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2013-10-18T19:27:40Z",
       "side": 1,
       "message": "Could we add a simple test for this class/method? It would go into src/test/java/, and this class looks like it would be simple enough to test. Thanks!",
+      "revId": "f3525a0750670d2ec8c26062ad6fe788555a96a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe0bac5e_0cfb66f0",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1014491
+      },
+      "writtenOn": "2013-10-18T23:15:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ef7bc99_b12558bb",
       "revId": "f3525a0750670d2ec8c26062ad6fe788555a96a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
