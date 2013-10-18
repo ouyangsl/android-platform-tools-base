@@ -16,6 +16,24 @@
       "revId": "1cb74050d3cdcd277274599f6486b30b1d9a1502",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe0bac5e_cc4b1e5e",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1014491
+      },
+      "writtenOn": "2013-10-18T23:22:07Z",
+      "side": 1,
+      "message": "Needs to be package private in order to test it :)",
+      "parentUuid": "def0a8a0_b8e89667",
+      "revId": "1cb74050d3cdcd277274599f6486b30b1d9a1502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
