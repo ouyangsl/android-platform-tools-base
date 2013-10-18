@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "def0a8a0_b8e89667",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-10-18T23:20:44Z",
+      "side": 1,
+      "message": "nit: private static?",
+      "revId": "1cb74050d3cdcd277274599f6486b30b1d9a1502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
