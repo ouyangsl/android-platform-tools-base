@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e3de04c_a0cc5a0a",
+        "filename": "templates/activities/LoginActivity/root/res/menu/activity_login.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2013-10-23T19:29:36Z",
+      "side": 1,
+      "message": "indentation is off here",
+      "revId": "25f7b638ca373949297eef06a5170a8be72f3452",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
