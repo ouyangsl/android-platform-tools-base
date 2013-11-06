@@ -67,6 +67,24 @@
       "revId": "1e7c38f4dd46df20dce46a412726e6873a83e195",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "decee94a_b50e42b7",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-11-06T17:11:55Z",
+      "side": 1,
+      "message": "These should be settable from project structure. If you can specify this at the global level as well, though, it\u0027s pretty confusing.",
+      "parentUuid": "becbf53b_11f16c51",
+      "revId": "1e7c38f4dd46df20dce46a412726e6873a83e195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
