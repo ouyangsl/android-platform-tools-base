@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "becbf53b_254ea286",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-11-06T22:51:05Z",
+      "side": 1,
+      "message": "s/overwrite/override/",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ee0e5ae_55b35cf4",
         "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
         "patchSetId": 2
@@ -30,6 +47,23 @@
       "writtenOn": "2013-11-06T22:46:43Z",
       "side": 1,
       "message": "I\u0027m not sure what \"incubating parallel mode\" means.",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "becbf53b_458ace51",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-11-06T22:51:05Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t like this part. The problem is that these settings shouldn\u0027t be saved as part of the project inside git, whereas the above settings should be. So we are making it easy for the users to get confused.\n\nMy vote would be to remove this section entirely, but I\u0027m ok if others think this is acceptable.",
       "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
