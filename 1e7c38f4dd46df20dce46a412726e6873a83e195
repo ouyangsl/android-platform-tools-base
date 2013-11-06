@@ -33,6 +33,40 @@
       "revId": "1e7c38f4dd46df20dce46a412726e6873a83e195",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "decee94a_553efea6",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-06T15:25:01Z",
+      "side": 1,
+      "message": "Do you know what the defaults are?\n\nAlso, isn\u0027t there some issue where it will only reuse the daemon process for builds if the memory settings match? (I can\u0027t remember the details)",
+      "revId": "1e7c38f4dd46df20dce46a412726e6873a83e195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "becbf53b_11f16c51",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-06T15:25:01Z",
+      "side": 1,
+      "message": "In the IDE, do we pass override values for these?\n\n(Also, I wonder if we should do something smart when we\u0027re importing, similar to how we (will) look at local.properties\u0027 sdk.dir. If the user is providing proxy settings here, and not in the IDE, should we state that they differ (and offer to push values in either direction) ?",
+      "revId": "1e7c38f4dd46df20dce46a412726e6873a83e195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
