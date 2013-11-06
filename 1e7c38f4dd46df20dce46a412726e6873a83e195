@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "becbf53b_916d5c4b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-11-06T15:06:47Z",
+      "side": 1,
+      "message": "Not a big deal, but in general, git commit messages should be in imperative mood. e.g. I\u0027d have rephrased this as \"Create gradle.properties when creating a new Android app\".\n\nFor more info, see http://www.mediawiki.org/wiki/Gerrit/Commit_message_guidelines\n\nThe problem with the current phrasing is that it is very ambiguous whether the code was already doing what you are saying the subject, or you\u0027ve just changed it to do that.",
+      "revId": "1e7c38f4dd46df20dce46a412726e6873a83e195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "becbf53b_b16ad82e",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-11-06T15:06:47Z",
+      "side": 1,
+      "message": "How do these affect the settings in the IDE?",
+      "revId": "1e7c38f4dd46df20dce46a412726e6873a83e195",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
