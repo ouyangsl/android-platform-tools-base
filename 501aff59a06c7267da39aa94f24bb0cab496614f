@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "decee94a_bb6ab32e",
+        "filename": "templates/activities/MasterDetailFlow/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-06T20:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "decee94a_7b6d2b8d",
+      "revId": "501aff59a06c7267da39aa94f24bb0cab496614f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "decee94a_bbc95341",
         "filename": "templates/activities/MasterDetailFlow/root/src/app_package/ContentDetailActivity.java.ftl",
         "patchSetId": 1
