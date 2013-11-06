@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ee0e5ae_55b35cf4",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-11-06T22:46:43Z",
+      "side": 1,
+      "message": "I\u0027m not sure what \"incubating parallel mode\" means.",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
