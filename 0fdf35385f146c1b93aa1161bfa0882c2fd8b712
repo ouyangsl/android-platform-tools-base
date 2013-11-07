@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "7e5dfd5e_62530c2e",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-11-07T17:29:23Z",
+      "side": 1,
+      "message": "we should probably just skip this. This is not finished on the gradle side and we haven\u0027t made test on our side.",
+      "parentUuid": "3ee0e5ae_55b35cf4",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "becbf53b_458ace51",
         "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
         "patchSetId": 2
@@ -64,6 +82,24 @@
       "writtenOn": "2013-11-06T22:51:05Z",
       "side": 1,
       "message": "Hmm, I don\u0027t like this part. The problem is that these settings shouldn\u0027t be saved as part of the project inside git, whereas the above settings should be. So we are making it easy for the users to get confused.\n\nMy vote would be to remove this section entirely, but I\u0027m ok if others think this is acceptable.",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e570543_a071a070",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-11-07T17:29:23Z",
+      "side": 1,
+      "message": "It might be worth it to at least have a URL pointing people to more configuration options (and where to store them).",
+      "parentUuid": "becbf53b_458ace51",
       "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
