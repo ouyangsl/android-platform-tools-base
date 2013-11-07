@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e570543_a0f7e042",
+        "filename": "templates/gradle-projects/NewAndroidApplication/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2013-11-07T18:06:47Z",
+      "side": 1,
+      "message": "Yes, I found out it happens, and it sucks. The templates need to change to allow project-level files that do not change when adding modules. gradle.properties and local.properties are the use case.",
+      "parentUuid": "1ec5e123_546284ef",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "becbf53b_254ea286",
         "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
         "patchSetId": 2
@@ -71,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "de65092b_7d4e0b87",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2013-11-07T18:06:47Z",
+      "side": 1,
+      "message": "We can have a warning that is incubating and a link to the doc. We already have \"parallel\" builds in the IDE settings. We could either remove both (in this file and IDE) or keep both, but keep consistency. Some users have been using \u0027parallel builds\u0027 already without problems.",
+      "parentUuid": "7e5dfd5e_62530c2e",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "becbf53b_458ace51",
         "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
         "patchSetId": 2
@@ -100,6 +136,24 @@
       "side": 1,
       "message": "It might be worth it to at least have a URL pointing people to more configuration options (and where to store them).",
       "parentUuid": "becbf53b_458ace51",
+      "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_22b474ba",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/gradle.properties.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2013-11-07T18:06:47Z",
+      "side": 1,
+      "message": "The URL is at the top of the file. I agree, we can remove this section.",
+      "parentUuid": "3e570543_a071a070",
       "revId": "0fdf35385f146c1b93aa1161bfa0882c2fd8b712",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
