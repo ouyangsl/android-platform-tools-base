@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ed09d0f_c144c263",
+        "filename": "templates/gradle-projects/NewAndroidProject/recipe.xml.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2013-11-11T18:00:14Z",
+      "side": 1,
+      "message": "tabs to spaces (here and below)",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
