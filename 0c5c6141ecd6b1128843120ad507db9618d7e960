@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7e5dfd5e_d05c5431",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CheckPermissionDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T17:20:11Z",
+      "side": 1,
+      "message": "The name.\n\nThis is all because of a lint limitation. Lint check of Java code can take two approaches:\n(1) check the bytecode. This is highly accurate, but writing the checks is harder, and more severely, (a) bytecode does not have accurate source information (just line numbers) so it\u0027s sometimes hard to map it back to the user\u0027s source code, and (b) in Studio/IntelliJ there is no background compilation, so we don\u0027t have bytecode until the project is built (potentially much later), and we want these checks running in the background.\n(2) check the AST. The abstract source tree we have in lint has a very serious limitation: It is *just* an AST; it does not have type attribution in the way a compiler does (e.g. it doesn\u0027t have a classpath, use import statements to deduce method bindings etc).\n\nI plan to replace the AST being used in lint with a much better one (IntelliJ\u0027s PSI), where we get the advantages without the disadvantages. However, that\u0027s not there yet.\n\nSo, what this code is doing right now is finding all methods named checkUriPermission, checkCallingPermission, etc -- and if it finds any of these, it assumes it\u0027s the context methods and flags them. That\u0027s alright since these methods have unique names that aren\u0027t used anywhere else.\n\nHowever, checkPermission is a more general name, and in fact that method is defined in many other places in the framework -- some of them with void return values, meaning they definitely aren\u0027t expected to do something with the result. \n\nSo what this code is doing is special casing checkPermission. If it\u0027s that specific call, it will try a little harder to see if it\u0027s the one we care about. Lint has a \"resolve\" method; that one can ask the surrounding lint implementation to try to resolve a call. Lint itself cannot perform this check, but inside IntelliJ/Studio we can, so this code will only return non-null there. So in effect, everywhere else, this code will be a no-op, and calls to checkPermission won\u0027t be flagged.\n\nIn IntelliJ, the resolve method call will return the place the method is actually inherited from, which turns out to be ContextWrapper, not Context, when called from an Activity.  The main goal of this code is to *not* return true if the checkPermission call is on for example PackageManager. Or even any of the user\u0027s own app; \"checkPermission\" is a generic-enough name that it could be referring to something else, whereas for the other names it seems much less likely.",
+      "parentUuid": "3e570543_25fbd560",
+      "revId": "0c5c6141ecd6b1128843120ad507db9618d7e960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de65092b_20ca9fdd",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CheckPermissionDetector.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-11T16:51:51Z",
       "side": 1,
       "message": "I\u0027m not entirely sure how this method works, but I think it might be wrong. What it should be doing is checking whether the method being invoked is Context.check* (or its override), but it doesn\u0027t appear to be doing that. For example, I think the following code inside a Service won\u0027t be flagged:\n\npublic int onStartCommand(Intent intent, int flags, int startId) {\n    checkPermission(\"android.permission.INTERNET\");\n    ...\n}\n\nMy suspicion is based on the fact that, if you correctly check for Context.check* methods, you won\u0027t need to have a special case for ContextWrapper -- it doesn\u0027t add any new check* methods.",
+      "revId": "0c5c6141ecd6b1128843120ad507db9618d7e960",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_70ce28a0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CheckPermissionDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T17:20:11Z",
+      "side": 1,
+      "message": "Again, that\u0027s because IntelliJ\u0027s resolve method will point to the ContextWrapper implementation.  I verified that the above code (with additional parameters supplied to checkPermission) when used inside a Service does get flagged.",
+      "parentUuid": "de65092b_20ca9fdd",
       "revId": "0c5c6141ecd6b1128843120ad507db9618d7e960",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
