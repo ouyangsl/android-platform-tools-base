@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ecb9165_625cd62f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T22:36:15Z",
+      "side": 1,
+      "message": "I don\u0027t think this will detect the use of SSLEngine. You can either flag getting an instance (SSLContext.createSSLEngine) or using one (SSLEngine.wrap or .unwrap).",
+      "revId": "d8c119d5adb5e27d8dcf23cc91ef69e5e4c40edd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
