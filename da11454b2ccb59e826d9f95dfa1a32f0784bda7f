@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e570543_e57d5dce",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/bytecode/PrngWorkaround.java.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "This is just unit test data. (This text file is copied into a test project, then lint is run on it, the goal being to check that when lint encounters code with the workaround copied into it, it will identify it).",
+      "parentUuid": "7e5dfd5e_d021f488",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e5dfd5e_10a40ccd",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-11T17:29:50Z",
       "side": 1,
       "message": "https",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e570543_894bdbee",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e5dfd5e_10a40ccd",
       "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "de65092b_065fbcaa",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e570543_e5a8bd0c",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e570543_25691555",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2013-11-11T17:29:50Z",
       "side": 1,
       "message": "Suggestion: \"Looks for calls to JCA primitives that may be affected by SecureRandom vulnerability.\"",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_bb5c2130",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e570543_25691555",
       "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "7e5dfd5e_dbb91501",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e5dfd5e_303f90cc",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e5dfd5e_108fec60",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
         "patchSetId": 3
@@ -98,6 +188,24 @@
       "writtenOn": "2013-11-11T17:29:50Z",
       "side": 1,
       "message": "\"real randomness\" -\u003e \"cryptographically secure RNG\"",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de65092b_8680ec9a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e5dfd5e_108fec60",
       "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "7e5dfd5e_369e687c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de65092b_86df4c7d",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de65092b_46fd34e2",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
         "patchSetId": 3
@@ -132,6 +258,24 @@
       "writtenOn": "2013-11-11T17:29:50Z",
       "side": 1,
       "message": "This can be more precise: Android 4.3 and older.",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e570543_6985a7a8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-11T19:57:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de65092b_46fd34e2",
       "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
