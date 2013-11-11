@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e5dfd5e_d021f488",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/bytecode/PrngWorkaround.java.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "This is an outdated version of the workaround. See the blog post. Also, why include this file in this CL at all?",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_10a40ccd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "https",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e570543_e5a8bd0c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "How about \"Weak RNG\"?",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e570543_25691555",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "Suggestion: \"Looks for calls to JCA primitives that may be affected by SecureRandom vulnerability.\"",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_303f90cc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "\"Key generation, signing, encryption, and random number generation may not receive cryptographically strong values due to improper initialization of the underlying PRNG on Android 4.3 and below.\n\nIf you application relies on cryptographically secure random number generation you should ...\"",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_108fec60",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "\"real randomness\" -\u003e \"cryptographically secure RNG\"",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de65092b_86df4c7d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "Please add: (1) javax.crypto.Signature (ideally only if used to generate signatures -- i.e., invokes \"initSign\" methods), (2) javax.crypto.Cipher (ideally only if init invoked with opmode WRAP_MODE or ENCRYPT_MODE), (3) javax.net.ssl.SSLEngine.",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de65092b_46fd34e2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecureRandomGeneratorDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T17:29:50Z",
+      "side": 1,
+      "message": "This can be more precise: Android 4.3 and older.",
+      "revId": "da11454b2ccb59e826d9f95dfa1a32f0784bda7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
