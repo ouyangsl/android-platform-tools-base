@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "9ecb9165_a2517ef5",
+        "filename": "templates/gradle-projects/NewAndroidModule/template.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-12T15:40:08Z",
+      "side": 1,
+      "message": "Is this setting surfaced to the user in the wizard, or is it just programmatic at this point? If it\u0027s shown to the user, does this actually enable proguard, or just control whether we copy in a default proguard file? (I wonder if we shouldn\u0027t also name it something like \"Enable ProGuard in release builds\". (Note capitalization of ProGuard by the way.)",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ecb9165_c24e8252",
+        "filename": "templates/gradle-projects/NewAndroidProject/recipe.xml.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-12T15:40:08Z",
+      "side": 1,
+      "message": "What is $TEMPLATEDIR? It looks slightly different from normal freemarker invocation ($TEMPLATEDIR vs ${TEMPLATEDIR}), and the naming convention is different; should probably be ${templateDir}.",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ed09d0f_c144c263",
         "filename": "templates/gradle-projects/NewAndroidProject/recipe.xml.ftl",
         "patchSetId": 4
@@ -13,6 +47,40 @@
       "writtenOn": "2013-11-11T18:00:14Z",
       "side": 1,
       "message": "tabs to spaces (here and below)",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de13499f_a4c6c250",
+        "filename": "templates/gradle-projects/NewAndroidProject/root/gradle.properties.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-12T15:40:08Z",
+      "side": 1,
+      "message": "perhaps something like \"Set gradle settings which apply to all modules here\" ?",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de13499f_84c3c640",
+        "filename": "templates/gradle-projects/NewAndroidProject/root/local.properties.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-12T15:40:08Z",
+      "side": 1,
+      "message": "maybe we should change \"must\" to \"should\" here?",
       "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
