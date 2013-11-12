@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3e570543_381c93c2",
+        "filename": "templates/gradle-projects/NewAndroidModule/template.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-12T16:22:29Z",
+      "side": 1,
+      "message": "It\u0027s only programmatic at this point. And yes, it controls both the proguard config in the build.gradle file as well as creation of the default proguard rules. I\u0027ll fix the capitalization.",
+      "parentUuid": "9ecb9165_a2517ef5",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ecb9165_c24e8252",
         "filename": "templates/gradle-projects/NewAndroidProject/recipe.xml.ftl",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "side": 1,
       "message": "I see now that this is something which has always been there. Let\u0027s clean this up in a subsequent CL (switching from a special syntax in path variables to using the normal freemarker machinery for substituting variables).",
       "parentUuid": "9ecb9165_c24e8252",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_a64b61ee",
+        "filename": "templates/gradle-projects/NewAndroidProject/recipe.xml.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-12T16:22:29Z",
+      "side": 1,
+      "message": "Yeah, I came across it while trying to find how to get the template directory. My guess is that it\u0027s left over from ADT. I\u0027ll clean it up eventually.",
+      "parentUuid": "be105596_433d46a5",
       "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -88,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "7e5dfd5e_e655598b",
+        "filename": "templates/gradle-projects/NewAndroidProject/root/gradle.properties.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-12T16:22:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de13499f_a4c6c250",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de13499f_84c3c640",
         "filename": "templates/gradle-projects/NewAndroidProject/root/local.properties.ftl",
         "patchSetId": 4
@@ -99,6 +153,24 @@
       "writtenOn": "2013-11-12T15:40:08Z",
       "side": 1,
       "message": "maybe we should change \"must\" to \"should\" here?",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e570543_1819cfd1",
+        "filename": "templates/gradle-projects/NewAndroidProject/root/local.properties.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-12T16:22:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de13499f_84c3c640",
       "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
