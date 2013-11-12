@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "be105596_433d46a5",
+        "filename": "templates/gradle-projects/NewAndroidProject/recipe.xml.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-12T15:44:27Z",
+      "side": 1,
+      "message": "I see now that this is something which has always been there. Let\u0027s clean this up in a subsequent CL (switching from a special syntax in path variables to using the normal freemarker machinery for substituting variables).",
+      "parentUuid": "9ecb9165_c24e8252",
+      "revId": "63d53aeff4a7b2373f2cdc3cf39053249428f843",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ed09d0f_c144c263",
         "filename": "templates/gradle-projects/NewAndroidProject/recipe.xml.ftl",
         "patchSetId": 4
