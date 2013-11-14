@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dee2691a_6ca4fbcd",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-11-14T22:25:35Z",
+      "side": 0,
+      "message": "I think it\u0027s good to have it here but turned off by default. Makes it easier for devs to turn it on for a quick debug session.",
+      "revId": "affcb5c40225edc9d8c9875a947a50e03d883d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
