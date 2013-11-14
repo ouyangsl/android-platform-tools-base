@@ -16,6 +16,24 @@
       "revId": "affcb5c40225edc9d8c9875a947a50e03d883d9b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dee2691a_ece46b03",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-14T22:32:40Z",
+      "side": 0,
+      "message": "I agree with that in principle, but we shouldn\u0027t have it there until we actually make debugging work (this is the debug build type after all). I totally agree that we should put more defaults (commented out etc) into the default gradle file. This one is probably lower on the priority than say signing configurations putting in default version codes based on vcs, etc.",
+      "parentUuid": "dee2691a_6ca4fbcd",
+      "revId": "affcb5c40225edc9d8c9875a947a50e03d883d9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
