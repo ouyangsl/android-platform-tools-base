@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "9e08f1da_8e2b6b95",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-18T22:13:28Z",
+      "side": 1,
+      "message": "We tend to use the VALUE_ prefix for constants that are meant to be used as values in an XML attribute, e.g. when we code generate\n   showAsAction\u003d\"true\"\nthat would be\n  setAttribute(ATTR_SHOW_AS_ACTION, VALUE_TRUE)\n\nI didn\u0027t see where these constants were used, so I just thought I\u0027d mention this in case they\u0027re meant to be used in a different way.",
+      "revId": "e43061ec29d09d091c7affb6a47b9cfa854a4617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe71ed53_1c7021b1",
         "filename": "templates/other/AppWidget/recipe.xml.ftl",
         "patchSetId": 2
