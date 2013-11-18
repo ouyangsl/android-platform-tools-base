@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5e64b999_3c7c0945",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-18T22:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e64b999_9ca975ab",
+      "revId": "e43061ec29d09d091c7affb6a47b9cfa854a4617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e08f1da_8e2b6b95",
         "filename": "common/src/main/java/com/android/SdkConstants.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9e08f1da_4ea4b3cd",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-18T22:35:04Z",
+      "side": 1,
+      "message": "They\u0027re actually no longer used. They were going to be used in the gradle build file, but re-architecting made them obsolete.",
+      "parentUuid": "9e08f1da_8e2b6b95",
+      "revId": "e43061ec29d09d091c7affb6a47b9cfa854a4617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe71ed53_1c7021b1",
         "filename": "templates/other/AppWidget/recipe.xml.ftl",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2013-11-18T22:03:11Z",
       "side": 1,
       "message": "trailing space",
+      "revId": "e43061ec29d09d091c7affb6a47b9cfa854a4617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e08f1da_4e52f3f9",
+        "filename": "templates/other/AppWidget/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-18T22:35:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe71ed53_1c7021b1",
       "revId": "e43061ec29d09d091c7affb6a47b9cfa854a4617",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
