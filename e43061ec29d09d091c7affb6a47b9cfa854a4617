@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e64b999_9ca975ab",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-18T22:03:11Z",
+      "side": 1,
+      "message": "wrong package",
+      "revId": "e43061ec29d09d091c7affb6a47b9cfa854a4617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe71ed53_1c7021b1",
+        "filename": "templates/other/AppWidget/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-18T22:03:11Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "e43061ec29d09d091c7affb6a47b9cfa854a4617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
