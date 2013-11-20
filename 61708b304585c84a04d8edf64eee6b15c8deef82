@@ -52,6 +52,23 @@
       "revId": "61708b304585c84a04d8edf64eee6b15c8deef82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe71ed53_9e7e3bc8",
+        "filename": "templates/activities/FullscreenActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-11-20T02:49:14Z",
+      "side": 1,
+      "message": "I think we also need to use this in a couple of layouts where there is a tools:context reference to the activity. It\u0027s also using the dot relative package name right now.",
+      "revId": "61708b304585c84a04d8edf64eee6b15c8deef82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
