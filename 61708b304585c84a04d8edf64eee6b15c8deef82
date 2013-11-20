@@ -16,6 +16,24 @@
       "revId": "61708b304585c84a04d8edf64eee6b15c8deef82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe71ed53_1eb32bf6",
+        "filename": "templates/activities/BlankActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-20T02:02:33Z",
+      "side": 1,
+      "message": "In the current version of studio it looks like it always gets expanded anyway? I haven\u0027t actually seen the behavior where it truncates the package names.",
+      "parentUuid": "9e08f1da_95c41378",
+      "revId": "61708b304585c84a04d8edf64eee6b15c8deef82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
