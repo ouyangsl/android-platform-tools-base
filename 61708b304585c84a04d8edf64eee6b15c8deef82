@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e08f1da_95c41378",
+        "filename": "templates/activities/BlankActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2013-11-20T01:49:41Z",
+      "side": 1,
+      "message": "Can we do something better here, basically only insert the package name if it differs from the manifest? It leads to much cleaner code for the 90% case where Java package \u003d app package",
+      "revId": "61708b304585c84a04d8edf64eee6b15c8deef82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
