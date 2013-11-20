@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e08f1da_eb6e4b19",
+        "filename": "templates/activities/LoginActivity/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-20T22:16:23Z",
+      "side": 1,
+      "message": "Nitpick: tabs (here and below)",
+      "revId": "1a9cb99a616d4da1bbadc6bff4651686a6d8d19d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "deaa69eb_0c177760",
+        "filename": "templates/activities/LoginActivity/root/res/values/styles.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-20T22:16:23Z",
+      "side": 1,
+      "message": "Nitpick: spaces (here and below)",
+      "revId": "1a9cb99a616d4da1bbadc6bff4651686a6d8d19d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "deaa69eb_6ce39bf5",
+        "filename": "templates/activities/LoginActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-11-20T22:16:23Z",
+      "side": 1,
+      "message": "Since this won\u0027t work in Eclipse (due to the dependency on GMSCore) we should use format 4.",
+      "revId": "1a9cb99a616d4da1bbadc6bff4651686a6d8d19d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
