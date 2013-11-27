@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3bafe99_be6b9132",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-11-27T23:22:51Z",
+      "side": 1,
+      "message": "Why are we continuing to not use enums in new code?\n\nIf this is part of a long term strategy, then please explain that and let us know what specifically you want (or not want) reviewed.",
+      "revId": "a94266d5e3fa33c167616609920b862a5b3f9422",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
