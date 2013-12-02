@@ -16,6 +16,24 @@
       "revId": "0c9a027c489554370c8a197afa560d26f931b49c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83025a40_1731bc0b",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-02T19:10:55Z",
+      "side": 0,
+      "message": "We\u0027ll generate xxhdpi assets for things that don\u0027t require stencils (which is all asset types \u003e API11) and it\u0027s a no-op for things that need stencils.",
+      "parentUuid": "632006df_2e7ab3a0",
+      "revId": "0c9a027c489554370c8a197afa560d26f931b49c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
