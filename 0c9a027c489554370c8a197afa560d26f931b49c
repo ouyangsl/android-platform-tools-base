@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "632006df_2e7ab3a0",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-02T19:05:26Z",
+      "side": 0,
+      "message": "Does this mean we\u0027re going to generate xxhdpi assets for all generator types now? Or will the new null check in getStencilImage below make this a no-op for any asset  types that we don\u0027t have stencils for anyway?\n\n(Btw, Roman, it would be cool to get xxxhdpi stencils for launcher icons since we\u0027re using those on some devices now!)",
+      "revId": "0c9a027c489554370c8a197afa560d26f931b49c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
