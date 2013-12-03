@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "832b3ac2_46e9c3d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-03T20:41:45Z",
+      "side": 1,
+      "message": "Could you also add a description to the commit that explain the what/why we are doing this?",
+      "revId": "a9f88c3e7c7073b0feb5489f819cdd37547d492c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
