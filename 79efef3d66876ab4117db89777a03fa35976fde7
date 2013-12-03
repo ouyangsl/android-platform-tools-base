@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "632006df_08151c57",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/XmlTestRunListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1002621
+      },
+      "writtenOn": "2013-12-03T20:31:27Z",
+      "side": 1,
+      "message": "nit: \u003e 100 columns",
+      "revId": "79efef3d66876ab4117db89777a03fa35976fde7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
