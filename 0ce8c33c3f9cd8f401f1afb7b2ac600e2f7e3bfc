@@ -34,6 +34,24 @@
       "revId": "0ce8c33c3f9cd8f401f1afb7b2ac600e2f7e3bfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "832b3ac2_816a8501",
+        "filename": "manifest-merger/src/main/java/com/android/manifmerger/MergerXmlUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-03T22:14:55Z",
+      "side": 1,
+      "message": "Seems to me like one size does not fit all. Depends on context.\n\nSo... suggestion: IIRC this is used to report errors via the FileAndLine holder class. Maybe modify the class to get a File instead of String and then inject an adapter that can transform the file into a string depending on the how the logging is used.",
+      "parentUuid": "832b3ac2_a18a29fe",
+      "revId": "0ce8c33c3f9cd8f401f1afb7b2ac600e2f7e3bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
