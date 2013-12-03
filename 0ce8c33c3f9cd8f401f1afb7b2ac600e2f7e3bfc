@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03dcaa2e_c673f8be",
+        "filename": "manifest-merger/src/main/java/com/android/manifmerger/MergerXmlUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-03T04:36:38Z",
+      "side": 1,
+      "message": "In general I think it\u0027s better if we use getPath() in most places instead of getAbsolutePath(), and only call getAbsolutePaths when absolutely necessary (e.g. when we\u0027re given a relative file name with no obvious anchor).",
+      "revId": "0ce8c33c3f9cd8f401f1afb7b2ac600e2f7e3bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
