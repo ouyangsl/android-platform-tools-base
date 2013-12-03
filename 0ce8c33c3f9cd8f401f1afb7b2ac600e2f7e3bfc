@@ -16,6 +16,24 @@
       "revId": "0ce8c33c3f9cd8f401f1afb7b2ac600e2f7e3bfc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "832b3ac2_a18a29fe",
+        "filename": "manifest-merger/src/main/java/com/android/manifmerger/MergerXmlUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-12-03T21:54:39Z",
+      "side": 1,
+      "message": "Are we going to be able to reliably resolve the path in a different context, though? The manifest merger is executed from within the Gradle plugin, and it\u0027s being parsed in Studio.",
+      "parentUuid": "03dcaa2e_c673f8be",
+      "revId": "0ce8c33c3f9cd8f401f1afb7b2ac600e2f7e3bfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
