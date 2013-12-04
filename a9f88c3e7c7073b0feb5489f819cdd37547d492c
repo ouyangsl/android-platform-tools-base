@@ -16,6 +16,24 @@
       "revId": "a9f88c3e7c7073b0feb5489f819cdd37547d492c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63a3a6b3_24de6a81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-04T17:45:25Z",
+      "side": 1,
+      "message": "Rather than rebase the whole thing, I added a comment in Change-Id: I4c56270f007bc66c42e4590b60b76e6f3b9b9a1e",
+      "parentUuid": "832b3ac2_46e9c3d7",
+      "revId": "a9f88c3e7c7073b0feb5489f819cdd37547d492c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
