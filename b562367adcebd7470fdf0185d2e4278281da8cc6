@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "839eda6a_7424a640",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/TextReporter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-04T00:29:27Z",
+      "side": 1,
+      "message": "nice :)\n\nminor nitpick though - barely seems to indicate that the # of variants should be quite small, but it is true as long as it is below 50%. If you can come up with a better name (this is already good) that\u0027d be great, if not this is fine.",
+      "revId": "b562367adcebd7470fdf0185d2e4278281da8cc6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
