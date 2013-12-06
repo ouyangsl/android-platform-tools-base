@@ -33,6 +33,24 @@
       "revId": "81c8030acedce4d89b61eab22507865897d5ce63",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_81503ef1",
+        "filename": "build-system/changelog.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T19:43:55Z",
+      "side": 1,
+      "message": "I see you committed this so filed https://android-review.googlesource.com/71683",
+      "parentUuid": "2330ce7d_f96d338d",
+      "revId": "81c8030acedce4d89b61eab22507865897d5ce63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
