@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a31cbefb_9a38adb7",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "If there are many combinations of enum sets that are going to be used very frequently, you could consider adding constants for these in the PkgType class. \n\nFor example in the lint Scope enum, I have these constants (and others) at the bottom:\n\n    /** All scopes: running lint on a project will check these scopes */\n    public static final EnumSet\u003cScope\u003e ALL \u003d EnumSet.allOf(Scope.class);\n    /** Scope-set used for detectors which are affected by a single resource file */\n    public static final EnumSet\u003cScope\u003e RESOURCE_FILE_SCOPE \u003d EnumSet.of(RESOURCE_FILE);\n    /** Scope-set used for analyzing individual class files and all resource files */\n    public static final EnumSet\u003cScope\u003e CLASS_AND_ALL_RESOURCE_FILES \u003d\n            EnumSet.of(ALL_RESOURCE_FILES, CLASS_FILE);\n...",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2330ce7d_363178d6",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/LocalSdkParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "I think it would be better to avoid using bitmasks here and instead just make your #parseSdk method\u0027s int parseFilter parameter be an EnumSet\u003cPkgType\u003e. Then all your parseFilter \u0026 constant calls can be replaced by eg. .parseFilter.contains(PkgType.PKG_DOCS) -- which behind the scenes will just become the exact same bit operation. \n\nYou could also replace all the if statements by a single for loop through the enum set, and then have a switch on the enum constants to dispatch to the right handler method.",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a31cbefb_fa43e92c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "@NonNull",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_5bf0e37c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "Probably cleaner to just do\n\nint delta \u003d getType().compareTo(o);\nif (delta !\u003d 0) {\n   return delta;\n}\n\nsince enums already implement Comparable based on the declaration order. (And it looks like the getIntValue values already match the declaration order.)",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_1bfa5b5b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalPkgInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "same comment as earlier -- just use the enum\u0027s compareTo method",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2330ce7d_d63e04a4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "@NonNull on parameter here and the other methods that take an enum set",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_db24f344",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "you can switch on enums too (unless you deliberately wanted to switch to an if-else style here)",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_bb232738",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "It looks like there were a of calls that had a PkgType and wanted to look up the LocalPkgInfo; maybe overload this method with a method that takes just a PkgType, and that method can just return getPkgsInfos(EnumSet.of(filter)); would clean up usages not just in this class but maybe in clients too?",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_9b1e6bed",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T15:53:10Z",
+      "side": 1,
+      "message": "use a switch statement on the filter here",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
