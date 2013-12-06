@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "a31cbefb_a0aa1e9b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T21:15:16Z",
+      "side": 1,
+      "message": "It\u0027s not a flaw; it\u0027s deliberately spec\u0027ed that way. The order is defined, and that\u0027s often useful (for example, you can define the planets, and then iterate over them in a predictable way rather than having to add an ordinal int yourself and do manual sorting.\n\nIn fact there\u0027s an ordinal method on enums too you can use if you need to map these to an order (but typically you don\u0027t need to).",
+      "parentUuid": "2330ce7d_1c157d56",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c34d3211_1bfa5b5b",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalPkgInfo.java",
         "patchSetId": 3
@@ -258,6 +276,24 @@
       "side": 1,
       "message": "No, I want to make it explicit to clients they are creating a temporary object just for the sake of simplifying a bit check operation, and that the whole thing comes at a price.",
       "parentUuid": "c34d3211_bb232738",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2330ce7d_5c2a1564",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T21:15:16Z",
+      "side": 1,
+      "message": "In that case, make constants for the filters that you want such that there is no extra price. (That extra price is hidden anyway in all the places in this class where you\u0027re calling getPkgsInfos and doing the enumset wrapping yourself)",
+      "parentUuid": "c34d3211_8144bed2",
       "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
