@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34d3211_7b2a7fab",
+        "filename": "templates/gradle-projects/NewAndroidApplication/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-12-06T17:35:10Z",
+      "side": 1,
+      "message": "Maybe we could add a comment saying it\u0027s set from build.gradle?",
+      "revId": "94c0328b48444f9d275ef8d13fdee962ba6bacb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
