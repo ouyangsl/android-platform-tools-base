@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "2330ce7d_fce20146",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/LocalSdkParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "I\u0027m not changing the legacy LocalSdkParser.",
+      "parentUuid": "2330ce7d_363178d6",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a31cbefb_fa43e92c",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2013-12-06T15:53:10Z",
       "side": 1,
       "message": "@NonNull",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a31cbefb_5d444f8a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a31cbefb_fa43e92c",
       "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "2330ce7d_1c157d56",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "It\u0027s actually another flaw in Java Enums\u0027 implementation (which they are full of) that their compareTo() be final and depend on declaration order. That\u0027s imho a bad practice as it means an innocent reshuffle of a few enum declaration can have unseen consequences. If order is important, it should have to be explicitly declared as such.",
+      "parentUuid": "c34d3211_5bf0e37c",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c34d3211_1bfa5b5b",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalPkgInfo.java",
         "patchSetId": 3
@@ -81,6 +135,24 @@
       "writtenOn": "2013-12-06T15:53:10Z",
       "side": 1,
       "message": "same comment as earlier -- just use the enum\u0027s compareTo method",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a31cbefb_dd385f0a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalPkgInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "same reply as the other one. enum\u0027s fixed order is just plain wrong.",
+      "parentUuid": "c34d3211_1bfa5b5b",
       "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "c34d3211_014f4efa",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2330ce7d_d63e04a4",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c34d3211_db24f344",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
         "patchSetId": 3
@@ -115,6 +205,24 @@
       "writtenOn": "2013-12-06T15:53:10Z",
       "side": 1,
       "message": "you can switch on enums too (unless you deliberately wanted to switch to an if-else style here)",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_615e52ae",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "I tried using swich(enum) and for some reason I was getting an error, I realize now it\u0027s because I left the PkgType in the case selector. I must prefer switch so I reverted this.",
+      "parentUuid": "c34d3211_db24f344",
       "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "c34d3211_8144bed2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "No, I want to make it explicit to clients they are creating a temporary object just for the sake of simplifying a bit check operation, and that the whole thing comes at a price.",
+      "parentUuid": "c34d3211_bb232738",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c34d3211_9b1e6bed",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
         "patchSetId": 3
@@ -149,6 +275,24 @@
       "writtenOn": "2013-12-06T15:53:10Z",
       "side": 1,
       "message": "use a switch statement on the filter here",
+      "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34d3211_21412ac1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2013-12-06T20:54:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c34d3211_9b1e6bed",
       "revId": "2d09d5952dcb7e657345d723459cbe20b49df4ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
