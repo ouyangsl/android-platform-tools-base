@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34d3211_611bb28d",
+        "filename": "build-system/changelog.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T19:25:01Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "81c8030acedce4d89b61eab22507865897d5ce63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2330ce7d_f96d338d",
+        "filename": "build-system/changelog.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-06T19:25:01Z",
+      "side": 1,
+      "message": "plus\n- Revamped lint integration. Lint is now run as part of the check task, and will analyze all variants and then merge the results and create a report which lists which variants each error applies to (unless an error applies to all variants). You can also run lint on a specific variant, e.g. lintDebug or lintFreeRelease. Lint will no longer report errors in AAR libraries. This version of the plugin also picks up some new lint checks.",
+      "revId": "81c8030acedce4d89b61eab22507865897d5ce63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
