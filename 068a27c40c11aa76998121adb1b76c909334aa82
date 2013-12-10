@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "83809a7a_a4b02c12",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-10T03:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83e41a52_0d24743e",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83e41a52_4d167cd5",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-12-10T01:53:40Z",
       "side": 1,
       "message": "final?",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_6001c7ca",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-10T03:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83e41a52_4d167cd5",
       "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "83e41a52_a0fbcf95",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-10T03:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83809a7a_215deed7",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43eea235_54af2a7a",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2013-12-10T01:53:40Z",
       "side": 1,
       "message": "maybe name variable \"type\" instead of \"at\" ?",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_94a09212",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-10T03:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43eea235_54af2a7a",
       "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "83e41a52_80f84b9a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-10T03:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43eea235_148ac200",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83809a7a_41e83299",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
         "patchSetId": 1
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "83e41a52_e0b157ee",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-10T03:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83809a7a_41e83299",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83e41a52_6d8c20da",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
         "patchSetId": 1
@@ -115,6 +223,24 @@
       "writtenOn": "2013-12-10T01:53:40Z",
       "side": 1,
       "message": "if myArtifactType \u003d\u003d null \u0026\u0026 o.myArtifactType !\u003d null this should also set isEqual \u003d false right?\n\nBut at a higher level do we really want to enforce that artifact types match? I\u0027m not sure where we\u0027re using this method, but I would think that if this is used to answer queries like \"is this coordinate representing the appcompat library\", it should only check the group id -- both appcompat.v19 and appcompat.v9@aar should return true etc. Up to you.",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_60c6e754",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-10T03:13:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83e41a52_6d8c20da",
       "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
