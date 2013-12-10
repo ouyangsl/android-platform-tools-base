@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83e41a52_0d24743e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-10T01:53:40Z",
+      "side": 1,
+      "message": "If you got this list from a spec somewhere, maybe add a doc pointer here for future reference in case we want to make sure it stays up to date with newly added artifact types",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_4d167cd5",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-10T01:53:40Z",
+      "side": 1,
+      "message": "final?",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83809a7a_215deed7",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-10T01:53:40Z",
+      "side": 1,
+      "message": "Mark @Nullable (param and return value). Maybe call this method getType or getArtifactType instead? (That\u0027s the naming convention used for some of our other tools/base enums, such as ResourceFolderType, ResourceType, etc.)",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_54af2a7a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-10T01:53:40Z",
+      "side": 1,
+      "message": "maybe name variable \"type\" instead of \"at\" ?",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_148ac200",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-10T01:53:40Z",
+      "side": 1,
+      "message": "Does this pattern also match artifact type \"maven-plugin\" ? (Doesn\u0027t look like \\w+ would, but I don\u0027t know if that\u0027s a real artifact type; hadn\u0027t seen it before your enum above).",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83809a7a_41e83299",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-10T01:53:40Z",
+      "side": 1,
+      "message": "instead of toLowerCase (which if left should be toLowerCase(Locale.US)), make the fromString method call String#equalsIgnoreCase()",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_6d8c20da",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-10T01:53:40Z",
+      "side": 1,
+      "message": "if myArtifactType \u003d\u003d null \u0026\u0026 o.myArtifactType !\u003d null this should also set isEqual \u003d false right?\n\nBut at a higher level do we really want to enforce that artifact types match? I\u0027m not sure where we\u0027re using this method, but I would think that if this is used to answer queries like \"is this coordinate representing the appcompat library\", it should only check the group id -- both appcompat.v19 and appcompat.v9@aar should return true etc. Up to you.",
+      "revId": "068a27c40c11aa76998121adb1b76c909334aa82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
