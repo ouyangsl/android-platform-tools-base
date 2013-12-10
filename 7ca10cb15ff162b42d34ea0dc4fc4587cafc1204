@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "43eea235_f38e5812",
+        "filename": "templates/activities/LoginActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c326124f_53af647a",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83217a33_197eeb3e",
         "filename": "templates/activities/LoginActivity/root/AndroidManifest.xml.ftl",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "Shouldn\u0027t this be @integer/google_play_services_version ?",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_d3687480",
+        "filename": "templates/activities/LoginActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83217a33_197eeb3e",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "43eea235_1e5adc6a",
+        "filename": "templates/activities/LoginActivity/root/res/layout/activity_login.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Studio seems to think this is standard indentation",
+      "parentUuid": "c326124f_73ace084",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3295620_f4377866",
         "filename": "templates/activities/LoginActivity/root/res/layout/activity_login.xml.ftl",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "per latest changes, this should be ${packageName}.${activityClass}",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_9041c2c3",
+        "filename": "templates/activities/LoginActivity/root/res/layout/activity_login.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_f4377866",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "83e41a52_b0ea065c",
+        "filename": "templates/activities/LoginActivity/root/res/layout/fragment_login.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83217a33_99b75bbf",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83217a33_f9b217d0",
         "filename": "templates/activities/LoginActivity/root/res/layout/fragment_login.xml",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "standard indentation",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_de4fd4a8",
+        "filename": "templates/activities/LoginActivity/root/res/layout/fragment_login.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "removed this, but according to Studio this *is* standard indentation ...",
+      "parentUuid": "83217a33_f9b217d0",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "43eea235_7e7688ef",
+        "filename": "templates/activities/LoginActivity/root/res/layout/fragment_login.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "removed this",
+      "parentUuid": "83217a33_b9bc9fa1",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3295620_f49c5810",
         "filename": "templates/activities/LoginActivity/root/res/layout/fragment_login.xml",
         "patchSetId": 2
@@ -132,6 +258,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "shouldn\u0027t this be at the activity-level? e.g. if you try to login with G+ you\u0027d see this progress bar as well? or does G+ require showing a modal dialog?",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_ef9ae05b",
+        "filename": "templates/activities/LoginActivity/root/res/layout/fragment_login.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_f49c5810",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "03f02a0e_0339f2b9",
+        "filename": "templates/activities/LoginActivity/root/res/values/dimens.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_94a1644b",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c326124f_d37ff43e",
         "filename": "templates/activities/LoginActivity/root/res/values/styles.xml",
         "patchSetId": 2
@@ -166,6 +328,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "see note in manifest about appcompat inclusion",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_2fbcc8c0",
+        "filename": "templates/activities/LoginActivity/root/res/values/styles.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "I don\u0027t see a note in the manifest ... ?",
+      "parentUuid": "c326124f_d37ff43e",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "83e41a52_8fdfd424",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "moved into the activity",
+      "parentUuid": "83217a33_f9dbf705",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c326124f_f38470f7",
         "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
         "patchSetId": 2
@@ -200,6 +398,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "should pass container, false as the 2nd and 3rd args",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_be6f7014",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "moved into the activity",
+      "parentUuid": "c326124f_f38470f7",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -223,6 +439,24 @@
     },
     {
       "key": {
+        "uuid": "83e41a52_0f0c6401",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "got rid of this",
+      "parentUuid": "e3295620_b45820c2",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83217a33_99d0bbe4",
         "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
         "patchSetId": 2
@@ -234,6 +468,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "also at this point maybe the Google+ login button should be hidden?",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_6f01b0ca",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "got rid of this",
+      "parentUuid": "83217a33_99d0bbe4",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -257,6 +509,24 @@
     },
     {
       "key": {
+        "uuid": "43eea235_5e7f44c4",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83217a33_79e84799",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3295620_d4803c9d",
         "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
         "patchSetId": 2
@@ -268,6 +538,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "code style, open braces not on a separate line",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_3e7c00ce",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/EmailLoginFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_d4803c9d",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -291,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "83809a7a_b0fb0664",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83217a33_397baf4f",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3295620_1468f44e",
         "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
         "patchSetId": 2
@@ -302,6 +608,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "remove this block. this is automatically handled as of API 16",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03f02a0e_e33de6a5",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_1468f44e",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -325,6 +649,24 @@
     },
     {
       "key": {
+        "uuid": "83e41a52_efe300fa",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_3465f077",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83217a33_d9add36e",
         "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
         "patchSetId": 2
@@ -336,6 +678,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "the UX for this is a little odd... if you previously had signed in and open the activity, it\u0027ll briefly flash and then close. Maybe it should remain open and allow signing out? not sure, i guess this is app-specific behavior. perhaps leave it as a todo?",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_3e9360ce",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83217a33_d9add36e",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -359,6 +719,24 @@
     },
     {
       "key": {
+        "uuid": "43eea235_9ea0ac12",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c326124f_53744460",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83217a33_f96d378d",
         "filename": "templates/activities/LoginActivity/root/src/app_package/PlusBaseActivity.java.ftl",
         "patchSetId": 2
@@ -370,6 +748,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "needs light JavaDoc",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83e41a52_5e7c64ce",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/PlusBaseActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83217a33_f96d378d",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -393,6 +789,24 @@
     },
     {
       "key": {
+        "uuid": "83809a7a_cab8d761",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/PlusBaseActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_d4327c79",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83217a33_9962fb9c",
         "filename": "templates/activities/LoginActivity/root/src/app_package/PlusBaseActivity.java.ftl",
         "patchSetId": 2
@@ -404,6 +818,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "move to the top, and use mFoo convention",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43eea235_2ba2044e",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/PlusBaseActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83217a33_9962fb9c",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -427,6 +859,24 @@
     },
     {
       "key": {
+        "uuid": "43eea235_be86508c",
+        "filename": "templates/activities/LoginActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_54750c13",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3295620_f44e98fc",
         "filename": "templates/activities/LoginActivity/template.xml",
         "patchSetId": 2
@@ -438,6 +888,24 @@
       "writtenOn": "2013-12-06T20:13:50Z",
       "side": 1,
       "message": "rename to Google+ Login Activity ? Or add a template parameter \"with Google+\" default checked?",
+      "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83809a7a_50e8fa98",
+        "filename": "templates/activities/LoginActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1034453
+      },
+      "writtenOn": "2013-12-10T23:52:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3295620_f44e98fc",
       "revId": "7ca10cb15ff162b42d34ea0dc4fc4587cafc1204",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
