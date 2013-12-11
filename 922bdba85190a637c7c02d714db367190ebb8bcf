@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "632c867b_a86f1b14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-11T15:20:35Z",
+      "side": 1,
+      "message": "Eventually for eclipse -\u003e gradle in eclipse as well :)\n\nI wonder if all of this should be in a folder adt-to-gradle rather than eclipse-import.",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "632c867b_c8644f3b",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-11T15:20:35Z",
+      "side": 1,
+      "message": "Shouldn\u0027t the UI be out of this?",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8337bac2_ec6123e9",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-11T15:20:35Z",
+      "side": 1,
+      "message": "I thought AIDL \u0026 RS were handled?",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "632c867b_e8691310",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-11T15:20:35Z",
+      "side": 1,
+      "message": "done? maybe review this list again?",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a332fed0_8d68a57f",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-11T15:20:35Z",
+      "side": 1,
+      "message": "This should be a parameter?",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
