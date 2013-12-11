@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "632c867b_71318ad5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-11T21:00:21Z",
+      "side": 1,
+      "message": "Just amend to move the Fixes line above the Change-Id.",
+      "revId": "9e31d88bf7ce8d1e45c666fa6a765d7e5b6f6cbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
