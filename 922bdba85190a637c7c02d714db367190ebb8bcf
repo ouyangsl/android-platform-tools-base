@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8337bac2_ac548b40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-11T15:37:45Z",
+      "side": 1,
+      "message": "Yes, that\u0027s one of the changes I\u0027m making (in fact I\u0027m not even tying in adt/eclipse, I\u0027m calling it gradle-import to basically read in data from a set of projects and generate gradle outputs, whether that input is from ADT, Maven, Makefiles, or raw sources.",
+      "parentUuid": "632c867b_a86f1b14",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "632c867b_c8644f3b",
         "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2013-12-11T15:20:35Z",
       "side": 1,
       "message": "Shouldn\u0027t the UI be out of this?",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "632c867b_4b7e993f",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-11T15:37:45Z",
+      "side": 1,
+      "message": "Yes it is (that part is in Studio, obsolete TODO)",
+      "parentUuid": "632c867b_c8644f3b",
       "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "a332fed0_b06780fd",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-11T15:37:45Z",
+      "side": 1,
+      "message": "Yep, obsolete TODO, I implemented that :-)",
+      "parentUuid": "8337bac2_ec6123e9",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "632c867b_e8691310",
         "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "8337bac2_cc59bf77",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-11T15:37:45Z",
+      "side": 1,
+      "message": "Yep, done",
+      "parentUuid": "632c867b_e8691310",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a332fed0_8d68a57f",
         "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2013-12-11T15:20:35Z",
       "side": 1,
       "message": "This should be a parameter?",
+      "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "632c867b_6b7b5d4e",
+        "filename": "eclipse-import/src/main/java/com/android/tools/gradle/eclipse/EclipseImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-11T15:37:45Z",
+      "side": 1,
+      "message": "Or, we should upstream it from Studio and define it in base, perhaps SdkConstants.",
+      "parentUuid": "a332fed0_8d68a57f",
       "revId": "922bdba85190a637c7c02d714db367190ebb8bcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
