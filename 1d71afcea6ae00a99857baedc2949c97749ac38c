@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08abe757_253eaed9",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "Consider move the above comment below the statement. It took me a second to understand what that referred to in \"I did *that* here\".\n\nAlso, nitpick: first person style for comments?",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e87933b6_546a6c7a",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "Personally, I like a top level build.gradle that has the Maven repository for the Android plugin. That way, you need to change the gradle plugin version in a single place as opposed to each of the modules.\n\n\nBut I do realize that our wizards don\u0027t generate that structure..",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "486b1fdd_77d9b00c",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "Unhandled files instead of Migrated files? These are files that haven\u0027t been migrated.",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "486b1fdd_f7ef009b",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "if so, manually move..",
+      "range": {
+        "startLine": 70,
+        "startChar": 18,
+        "endLine": 70,
+        "endChar": 21
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "087da79f_95fc8456",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "I don\u0027t know if the UI exposes this, but based on a comment somewhere else, maybe you could just say that the option \"replaceJars\u003dfalse\" might be of use in such a case.",
+      "range": {
+        "startLine": 80,
+        "startChar": 15,
+        "endLine": 80,
+        "endChar": 25
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "486b1fdd_b763c874",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "I don\u0027t know if we need to mention that maybe they\u0027ve made modifications to the library.",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "087da79f_15b714be",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "suggestion: s/MSG_MOVED/MSG_FOLDER_STRUCTURE",
+      "range": {
+        "startLine": 108,
+        "startChar": 24,
+        "endLine": 108,
+        "endChar": 33
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "486b1fdd_976fa443",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "are these modules, or just files?",
+      "range": {
+        "startLine": 209,
+        "startChar": 25,
+        "endLine": 209,
+        "endChar": 32
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "486b1fdd_77869091",
+        "filename": "gradle-import/src/main/test/com/android/tools/gradle/eclipse/GradleImportTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T01:09:33Z",
+      "side": 1,
+      "message": "delete this line as I think its already used in a couple of places.",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
