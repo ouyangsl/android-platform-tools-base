@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "28aeeb65_46de52a9",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T01:55:11Z",
+      "side": 1,
+      "message": "I agree with that. I\u0027ll double check with Xav that this is okay first since I think he set up the way we\u0027re doing it for other projects now.",
+      "parentUuid": "e87933b6_546a6c7a",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "486b1fdd_77d9b00c",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
         "patchSetId": 7
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "28aeeb65_86cbeae2",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T01:55:11Z",
+      "side": 1,
+      "message": "Good point. I changed it to \"Ignored Files\".",
+      "parentUuid": "486b1fdd_77d9b00c",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "486b1fdd_f7ef009b",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
         "patchSetId": 7
@@ -64,6 +100,30 @@
       "writtenOn": "2013-12-12T01:09:33Z",
       "side": 1,
       "message": "if so, manually move..",
+      "range": {
+        "startLine": 70,
+        "startChar": 18,
+        "endLine": 70,
+        "endChar": 21
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28aeeb65_6686ee91",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T01:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "486b1fdd_f7ef009b",
       "range": {
         "startLine": 70,
         "startChar": 18,
@@ -99,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "a82f3bb4_c2766266",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T01:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "087da79f_95fc8456",
+      "range": {
+        "startLine": 80,
+        "startChar": 15,
+        "endLine": 80,
+        "endChar": 25
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "486b1fdd_b763c874",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
         "patchSetId": 7
@@ -110,6 +194,24 @@
       "writtenOn": "2013-12-12T01:09:33Z",
       "side": 1,
       "message": "I don\u0027t know if we need to mention that maybe they\u0027ve made modifications to the library.",
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28aeeb65_2667963f",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T01:55:11Z",
+      "side": 1,
+      "message": "That\u0027s probably not going to be common (for the libraries we\u0027re migrating).",
+      "parentUuid": "486b1fdd_b763c874",
       "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -139,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "08abe757_859e82d0",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T01:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "087da79f_15b714be",
+      "range": {
+        "startLine": 108,
+        "startChar": 24,
+        "endLine": 108,
+        "endChar": 33
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "486b1fdd_976fa443",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
         "patchSetId": 7
@@ -150,6 +276,30 @@
       "writtenOn": "2013-12-12T01:09:33Z",
       "side": 1,
       "message": "are these modules, or just files?",
+      "range": {
+        "startLine": 209,
+        "startChar": 25,
+        "endLine": 209,
+        "endChar": 32
+      },
+      "revId": "1d71afcea6ae00a99857baedc2949c97749ac38c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08abe757_a59b7edf",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportSummary.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T01:55:11Z",
+      "side": 1,
+      "message": "they are modules; we list the ignored files grouped by module name, e.g. App: [list], Lib1: [file1, file2], etc.",
+      "parentUuid": "486b1fdd_976fa443",
       "range": {
         "startLine": 209,
         "startChar": 25,
