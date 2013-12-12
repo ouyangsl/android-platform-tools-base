@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "28aeeb65_6f6d611f",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T18:52:44Z",
+      "side": 1,
+      "message": "That was just nitpicking, so if you find it useful, feel free to leave it in!",
+      "parentUuid": "a82f3bb4_88c11bd0",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08abe757_ebef059b",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
         "patchSetId": 4
