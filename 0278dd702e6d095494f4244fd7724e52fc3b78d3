@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "08abe757_8efbff94",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T18:47:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a82f3bb4_45689c10",
+      "range": {
+        "startLine": 103,
+        "startChar": 23,
+        "endLine": 103,
+        "endChar": 25
+      },
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a82f3bb4_e8f707fe",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2013-12-12T17:14:52Z",
       "side": 1,
       "message": "I don\u0027t know if this comment is really needed here..",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a82f3bb4_88c11bd0",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T18:47:35Z",
+      "side": 1,
+      "message": "It\u0027s been invaluable in my testing to uncomment it, but I can remove that; it should be somewhat obvious for others if needing this later.",
+      "parentUuid": "a82f3bb4_e8f707fe",
       "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "a82f3bb4_88d8fbb9",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T18:47:35Z",
+      "side": 1,
+      "message": "Correct, I want to add a panel to the studio wizard which asks for the workspace location if it\u0027s needed. This is unlikely for now, but I\u0027ll remove the assert.",
+      "parentUuid": "08abe757_ebef059b",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a82f3bb4_c8f0430c",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
         "patchSetId": 4
@@ -70,6 +130,24 @@
       "writtenOn": "2013-12-12T17:14:52Z",
       "side": 1,
       "message": "It would be great if we used whatever build tools were available in the SDK rather than using a constant which is likely to go out of date.",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28aeeb65_af6cb94e",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T18:47:35Z",
+      "side": 1,
+      "message": "I\u0027ll do that. I\u0027ll also add a note to the summary if you\u0027re using pre-19 build tools, since those are needed for correct operation of gradle.",
+      "parentUuid": "a82f3bb4_c8f0430c",
       "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -110,6 +188,24 @@
     },
     {
       "key": {
+        "uuid": "28aeeb65_0f062d77",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T18:47:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8762fc5_7386a091",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28c50b24_2ec687e6",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
         "patchSetId": 4
@@ -121,6 +217,24 @@
       "writtenOn": "2013-12-12T17:14:52Z",
       "side": 1,
       "message": "I\u0027m not sure if it fits here, but while unit testing pure Java libs, you might need a dependency on JUnit. I don\u0027t know how prevalent that is though.",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08abe757_6ed9e30c",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T18:47:35Z",
+      "side": 1,
+      "message": "Unit testing isn\u0027t working well; I have a TODO to implement that properly (I need to take existing instrumentation tests projects, which were separate in ADT, and migrate them into the main project and move resources to the instrumentationTest folder, migrate some stuff into the gradle file etc.\n\nIf I see a junit[-version].jar, what gradle dependency should I replace it with? http://gradleplease.appspot.com/ doesn\u0027t return something which looks canonical/official.",
+      "parentUuid": "28c50b24_2ec687e6",
       "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
