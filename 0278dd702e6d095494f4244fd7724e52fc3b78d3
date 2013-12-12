@@ -274,6 +274,24 @@
       "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08abe757_ae635b74",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-12T18:54:31Z",
+      "side": 1,
+      "message": "Thanks. In that case I\u0027ll defer this for the other test import work.",
+      "parentUuid": "08abe757_8e13ffdf",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
