@@ -238,6 +238,24 @@
       "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08abe757_8e13ffdf",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-12T18:51:18Z",
+      "side": 1,
+      "message": "Something like the following would be a good start:\n  testCompile \u0027junit:junit:4.+\u0027\n\nAlso, that means that you want to think about compile vs testCompile.",
+      "parentUuid": "08abe757_6ed9e30c",
+      "revId": "0278dd702e6d095494f4244fd7724e52fc3b78d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
