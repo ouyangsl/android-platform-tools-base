@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28c8ab74_f65420b1",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/RenderSecurityManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-13T19:53:10Z",
+      "side": 1,
+      "message": "double indent?",
+      "revId": "acb83bc745f9cc33f8b919b353eff9f7909ab1b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
