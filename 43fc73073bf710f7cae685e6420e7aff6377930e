@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8973b5d_220ee301",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2013-12-17T02:54:45Z",
+      "side": 1,
+      "message": "Should this be defined in the template.xml or globals.xml.ftl?",
+      "revId": "43fc73073bf710f7cae685e6420e7aff6377930e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
