@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8954fbe_fb664f40",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-12-19T18:38:43Z",
+      "side": 1,
+      "message": "Integrate in the loop below?",
+      "range": {
+        "startLine": 936,
+        "startChar": 30,
+        "endLine": 936,
+        "endChar": 45
+      },
+      "revId": "e99a5ba4c127041dd432ffd3ed85a4d1b1fdbd7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e89853f7_dffdffdd",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 937,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-12-19T18:38:43Z",
+      "side": 1,
+      "message": "should also depend on lintCompile just to be future-proof.",
+      "revId": "e99a5ba4c127041dd432ffd3ed85a4d1b1fdbd7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
