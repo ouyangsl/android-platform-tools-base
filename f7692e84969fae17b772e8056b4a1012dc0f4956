@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8954fbe_3b7997de",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2013-12-19T18:43:53Z",
+      "side": 1,
+      "message": "this is wrong. lint itself should depend on lintcompile.\n\norder is not guaranteed, and anyway you put lint before lintcompile ;)",
+      "revId": "f7692e84969fae17b772e8056b4a1012dc0f4956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
