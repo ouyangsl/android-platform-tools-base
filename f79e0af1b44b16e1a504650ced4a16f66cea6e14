@@ -73,6 +73,24 @@
       "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8649bc8_94cc3c73",
+        "filename": "templates/gradle-projects/NewAndroidModule/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-20T16:23:52Z",
+      "side": 1,
+      "message": "I don\u0027t think that underscore is actually there; I think it\u0027s a gerrit bug. I saw the same thing in my own CL. And even now when I\u0027m clicking on the line the underscore disappears.",
+      "parentUuid": "088cc7b8_3229b671",
+      "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
