@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8649bc8_6976f1ed",
+        "filename": "common/src/main/java/com/android/utils/XmlUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-20T04:08:55Z",
+      "side": 1,
+      "message": "indentation is wrong for adt",
+      "range": {
+        "startLine": 229,
+        "startChar": 16,
+        "endLine": 229,
+        "endChar": 22
+      },
+      "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "088cc7b8_37ab680b",
+        "filename": "common/src/main/java/com/android/utils/XmlUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-20T04:08:55Z",
+      "side": 1,
+      "message": "maybe start this method with\nif (escapedAttrValue.indexOf(\u0027\u0026\u0027) \u003d\u003d -1) {\n    return escapedAttrValue;\n}",
+      "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8649bc8_a952c950",
+        "filename": "common/src/test/java/com/android/utils/XmlUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-20T04:08:55Z",
+      "side": 1,
+      "message": "indentation",
+      "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
