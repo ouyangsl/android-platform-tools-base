@@ -91,6 +91,24 @@
       "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "685e23ff_e735ccbc",
+        "filename": "templates/gradle-projects/NewAndroidModule/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-20T16:24:23Z",
+      "side": 1,
+      "message": "Yeah it seems to be some sort of \"caret\". Try clicking next to it on the same line!",
+      "parentUuid": "a8649bc8_94cc3c73",
+      "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
