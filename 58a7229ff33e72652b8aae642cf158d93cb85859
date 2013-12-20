@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "884ef754_f491f633",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1021618
+      },
+      "writtenOn": "2013-12-20T17:28:20Z",
+      "side": 1,
+      "message": "IMO use of enum here is wrong. Maven plugins can add their own packaging. Like http://mojo.codehaus.org/rpm-maven-plugin/usage.html - it has \"rpm\" artifact.",
+      "range": {
+        "startLine": 46,
+        "startChar": 14,
+        "endLine": 46,
+        "endChar": 26
+      },
+      "revId": "58a7229ff33e72652b8aae642cf158d93cb85859",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
