@@ -56,6 +56,23 @@
       "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "088cc7b8_3229b671",
+        "filename": "templates/gradle-projects/NewAndroidModule/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2013-12-20T16:07:50Z",
+      "side": 1,
+      "message": "Is the underscore in the first col expected?",
+      "revId": "f79e0af1b44b16e1a504650ced4a16f66cea6e14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
