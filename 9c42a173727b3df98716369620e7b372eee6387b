@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6df1d54f_c3c7c87e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-12-30T19:07:05Z",
+      "side": 1,
+      "message": "The wording could be tightened up. Maybe \"Should explicitly set android:allowBackup. It\u0027s true by default, which has security implications for application data\". Also, the bit about \"security implications\" is kind of vague and would leave me wondering what to do.",
+      "revId": "9c42a173727b3df98716369620e7b372eee6387b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dec497b_24de7ca4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2013-12-30T19:07:05Z",
+      "side": 1,
+      "message": "The word \"should\" implies a recommendation, but the rest of the wording implies a requirement. Does the wording need to be stronger? Also, use a semicolon or a period; this is a run-on sentence.",
+      "revId": "9c42a173727b3df98716369620e7b372eee6387b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
