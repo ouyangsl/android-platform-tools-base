@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8dec497b_6714860e",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-30T22:57:06Z",
+      "side": 1,
+      "message": "No - if there are any errors in the compilation unit whatsoever, we just ignore the whole file. Basically, we rely on *other* tools (typically javac) to let the user know there are errors in the file. (Before this, when using lint in for example Eclipse, you\u0027d get double markers -- one set from Eclipse, the other set from lint -- for every single error).",
+      "parentUuid": "8dec497b_2468bc0b",
+      "revId": "59883b0c547f39bd7a2ccdb1e48925c6f2d2ad26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8dec497b_8452e851",
         "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-12-30T19:33:28Z",
       "side": 1,
       "message": "This will catch things like OutOfMemoryError. Is that intentional?",
+      "revId": "59883b0c547f39bd7a2ccdb1e48925c6f2d2ad26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dec497b_470982f4",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2013-12-30T22:57:06Z",
+      "side": 1,
+      "message": "Yeah, basically lint will ignore files completely if it can\u0027t parse it in an error free way. (It will then log a lint internal error on the next line.)",
+      "parentUuid": "8dec497b_8452e851",
       "revId": "59883b0c547f39bd7a2ccdb1e48925c6f2d2ad26",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
