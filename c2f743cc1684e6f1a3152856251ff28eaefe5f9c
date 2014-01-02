@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd01e1f4_7e69ad12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-02T23:00:58Z",
+      "side": 1,
+      "message": "nit - outputs",
+      "range": {
+        "startLine": 10,
+        "startChar": 9,
+        "endLine": 10,
+        "endChar": 15
+      },
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8649bc8_9dcff166",
+        "filename": "build-system/builder/src/main/java/com/android/builder/VariantConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-02T23:00:58Z",
+      "side": 1,
+      "message": "What about order - since it looks like they are put in a list below, should you sort the fields by name here, or use an order-preserving map here (linked hash map for example) ?",
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6df1d54f_d4765ced",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-02T23:00:58Z",
+      "side": 1,
+      "message": "As mentioned elsewhere, maybe use an order preserving map here?",
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
