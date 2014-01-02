@@ -56,6 +56,63 @@
       "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6df1d54f_5435ac0b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-02T23:05:58Z",
+      "side": 1,
+      "message": "(hopefully if order matters, a putAll from one ordered map to another will preserve the order?)",
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6df1d54f_34610822",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-02T23:05:58Z",
+      "side": 1,
+      "message": "indexed syntax - %1$s, %2$s, ...",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6df1d54f_b44cf8b1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/ProductFlavorDsl.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-02T23:05:58Z",
+      "side": 1,
+      "message": "indexed syntax here and below",
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
