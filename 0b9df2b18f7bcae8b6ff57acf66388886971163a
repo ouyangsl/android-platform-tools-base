@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d3f15b6_d0589cbe",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-03T02:32:18Z",
+      "side": 1,
+      "message": "typo, will add missing space between by and Gradle",
+      "revId": "0b9df2b18f7bcae8b6ff57acf66388886971163a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
