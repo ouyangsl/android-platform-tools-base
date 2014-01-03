@@ -141,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "6d0ab515_783d41a5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-03T00:24:04Z",
+      "side": 1,
+      "message": "Ok -- but it\u0027s useful beyond translations too; it makes the code easier to read (you don\u0027t have to count %s\u0027s to see which parameter is used for a particular instance) and it makes the string easier to edit (e.g. you can move parts around without worrying about all the other keys shifting)",
+      "parentUuid": "cd01e1f4_018c8e6a",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6df1d54f_b44cf8b1",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/ProductFlavorDsl.groovy",
         "patchSetId": 2
