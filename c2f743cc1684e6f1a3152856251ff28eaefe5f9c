@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "a8649bc8_fd862db6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/VariantConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-03T00:11:27Z",
+      "side": 1,
+      "message": "order doesn\u0027t actually matter but we could sort it by name yes.",
+      "parentUuid": "a8649bc8_9dcff166",
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6df1d54f_d4765ced",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
         "patchSetId": 2
@@ -87,6 +105,30 @@
       "writtenOn": "2014-01-02T23:05:58Z",
       "side": 1,
       "message": "indexed syntax - %1$s, %2$s, ...",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd01e1f4_018c8e6a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-03T00:11:27Z",
+      "side": 1,
+      "message": "I was going to, but this will never gets translated.",
+      "parentUuid": "6df1d54f_34610822",
       "range": {
         "startLine": 101,
         "startChar": 30,
