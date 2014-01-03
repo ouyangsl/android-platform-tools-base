@@ -189,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "6d3f15b6_30eec873",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-03T03:03:15Z",
+      "side": 1,
+      "message": "Yeah, the Groovy syntax is even better!",
+      "parentUuid": "ad102d3f_1ad4fdd2",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 32
+      },
+      "revId": "c2f743cc1684e6f1a3152856251ff28eaefe5f9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6df1d54f_b44cf8b1",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/ProductFlavorDsl.groovy",
         "patchSetId": 2
