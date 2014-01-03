@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8dd609da_54992264",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-03T22:20:07Z",
+      "side": 1,
+      "message": "you need a carriage return (and a blank line) after the first sentence.",
+      "range": {
+        "startLine": 7,
+        "startChar": 9,
+        "endLine": 7,
+        "endChar": 15
+      },
+      "revId": "228000c3b5f63f4b6d2760ed86b753e02ec21c06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d7db99f_383a45fc",
+        "filename": "build-system/gradle/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-03T22:20:07Z",
+      "side": 1,
+      "message": "hmm is this going to affect what gets uploaded to maven central?",
+      "range": {
+        "startLine": 119,
+        "startChar": 13,
+        "endLine": 119,
+        "endChar": 20
+      },
+      "revId": "228000c3b5f63f4b6d2760ed86b753e02ec21c06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
