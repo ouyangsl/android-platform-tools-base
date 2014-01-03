@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d0ab515_58eb9dd3",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-01-03T00:35:41Z",
+      "side": 1,
+      "message": "Empty check not necessary here.",
+      "revId": "fde3adb7da37d7bb16fde3084f10ae02e4ee775c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
