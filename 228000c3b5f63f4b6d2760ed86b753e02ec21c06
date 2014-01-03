@@ -45,6 +45,30 @@
       "revId": "228000c3b5f63f4b6d2760ed86b753e02ec21c06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d7db99f_bb0f2f45",
+        "filename": "build-system/gradle/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1021789
+      },
+      "writtenOn": "2014-01-03T22:30:58Z",
+      "side": 1,
+      "message": "I suspect so. It does get published locally. If that is an issue I can dump all the test zips to a separate directory and manually pick them up.",
+      "parentUuid": "0d7db99f_383a45fc",
+      "range": {
+        "startLine": 119,
+        "startChar": 13,
+        "endLine": 119,
+        "endChar": 20
+      },
+      "revId": "228000c3b5f63f4b6d2760ed86b753e02ec21c06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
