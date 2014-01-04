@@ -22,6 +22,30 @@
       "revId": "466b37e29f53910db3da43bda0da2a8aca0df235",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d7db99f_be415d53",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-04T00:32:38Z",
+      "side": 1,
+      "message": "Is there a way to know if a project is an NDK project other than looking at the .project file for a C nature?\n\nPerhaps \"$prj/jni/Android.mk\".exists() \"",
+      "parentUuid": "0dc2191e_eda96577",
+      "range": {
+        "startLine": 316,
+        "startChar": 22,
+        "endLine": 316,
+        "endChar": 35
+      },
+      "revId": "466b37e29f53910db3da43bda0da2a8aca0df235",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
