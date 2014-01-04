@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dc2191e_eda96577",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-04T00:26:09Z",
+      "side": 1,
+      "message": "hmm it\u0027s possible they just don\u0027t use the integration. Shouldn\u0027t we still do the same work?",
+      "range": {
+        "startLine": 316,
+        "startChar": 22,
+        "endLine": 316,
+        "endChar": 35
+      },
+      "revId": "466b37e29f53910db3da43bda0da2a8aca0df235",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
