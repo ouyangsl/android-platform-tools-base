@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d80bdc3_85b1accb",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-06T21:02:51Z",
+      "side": 1,
+      "message": "Do you want this?",
+      "range": {
+        "startLine": 398,
+        "startChar": 30,
+        "endLine": 398,
+        "endChar": 31
+      },
+      "revId": "58f9dfb7791333162ec25c45b900fcca66586592",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
