@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "add10de4_153876ea",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 949,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-06T18:34:37Z",
+      "side": 1,
+      "message": "missing \"return false;\", otherwise will generate an invalid command below",
+      "revId": "4d1b2afe63a6d050319c5f7c5c08fee55e0a90ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dd609da_da4a1970",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-06T18:34:37Z",
+      "side": 1,
+      "message": "This entire block can be simplified if you use Integer.getInteger to read the system property. (I\u0027m also curious if when you do that, you can reduce the additional refactoring introduced below as well).",
+      "revId": "4d1b2afe63a6d050319c5f7c5c08fee55e0a90ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dd609da_5a57091c",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-06T18:34:37Z",
+      "side": 1,
+      "message": "for new code, we require the use of @NonNull and @Nullable annotations. In this particular case, I want to avoid the check for null \u0026 empty both here and in the caller.",
+      "revId": "4d1b2afe63a6d050319c5f7c5c08fee55e0a90ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
