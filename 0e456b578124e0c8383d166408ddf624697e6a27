@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad266df6_8d9005bf",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-07T06:21:39Z",
+      "side": 1,
+      "message": "should this skip directories? (e.g. modifying children at level 2 could update modified timestamp of parent dir, right? or is that fine?)",
+      "revId": "0e456b578124e0c8383d166408ddf624697e6a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
