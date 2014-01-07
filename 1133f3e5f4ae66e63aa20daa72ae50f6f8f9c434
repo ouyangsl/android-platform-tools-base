@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad266df6_8aa3cbc7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-07T00:54:43Z",
+      "side": 1,
+      "message": "rebasing shouldn\u0027t be part of the commit message. That is just workflow.",
+      "revId": "1133f3e5f4ae66e63aa20daa72ae50f6f8f9c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dd609da_86cf589b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-07T00:54:43Z",
+      "side": 1,
+      "message": "It is possible that this was discussed at a meeting, but since I\u0027m missing any context of what this does, could you expand on what this project is and what the goals are in the commit message?",
+      "revId": "1133f3e5f4ae66e63aa20daa72ae50f6f8f9c434",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
