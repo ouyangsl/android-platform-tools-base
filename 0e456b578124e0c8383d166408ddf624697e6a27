@@ -16,6 +16,24 @@
       "revId": "0e456b578124e0c8383d166408ddf624697e6a27",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d25f1ed_aabfaf91",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-07T06:29:55Z",
+      "side": 1,
+      "message": "That\u0027s actually one of the issues this tries to solve -- Windows and Linux don\u0027t behave the same way here and there\u0027s a \"leaky abstraction\" in that File.lastModified is not consistent accros platforms.\nThis will do for now and I may revise it when studio takes full advantage of this like Eclipse/ADT does.",
+      "parentUuid": "ad266df6_8d9005bf",
+      "revId": "0e456b578124e0c8383d166408ddf624697e6a27",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
