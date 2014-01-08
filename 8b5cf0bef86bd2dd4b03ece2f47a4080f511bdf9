@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d76fd12_c9705523",
+        "filename": "gradle-import/src/main/test/com/android/tools/gradle/eclipse/GradleImportTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2709,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-08T19:08:30Z",
+      "side": 1,
+      "message": "FYI here\u0027s the list of windows path reserved chars:\nhttp://msdn.microsoft.com/en-us/library/aa365247(VS.85).aspx\n\u003c (less than)\n\u003e (greater than)\n: (colon)\n\" (double quote)\n/ (forward slash)\n\\ (backslash)\n| (vertical bar or pipe)\n? (question mark)\n* (asterisk)",
+      "range": {
+        "startLine": 2709,
+        "startChar": 45,
+        "endLine": 2709,
+        "endChar": 49
+      },
+      "revId": "8b5cf0bef86bd2dd4b03ece2f47a4080f511bdf9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
