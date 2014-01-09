@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dd1393f_cf62c12f",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-09T19:46:27Z",
+      "side": 1,
+      "message": "please don\u0027t generate and catch npes. Just check for null from Integer.getInteger.",
+      "revId": "9e19d3bb355395f22a22bc869d90848e42ca01c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd1393f_6f7a8dd3",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-09T19:46:27Z",
+      "side": 1,
+      "message": "Is this still generated? I don\u0027t think Integer.getInt does this?",
+      "revId": "9e19d3bb355395f22a22bc869d90848e42ca01c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
