@@ -16,6 +16,24 @@
       "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dd43d2d_007d2794",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-09T22:39:32Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ve been trying to keep my changes from spilling too much. I thinking I\u0027ll probably just revert these side-effect changes and ensure back-compatibility at a higher level",
+      "parentUuid": "2dd43d2d_fd565845",
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
