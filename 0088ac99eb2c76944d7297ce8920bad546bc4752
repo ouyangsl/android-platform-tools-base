@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6def1500_dfe02742",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-10T05:32:05Z",
+      "side": 1,
+      "message": "If you\u0027ve already got a good idea of what needs to be changed, go for it! :) I was trying to move slowly on these, but it has sort of avalanched already.",
+      "parentUuid": "0dd1393f_21df09a4",
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdcac190_a8253f3f",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
         "patchSetId": 1
@@ -65,6 +83,30 @@
       "writtenOn": "2014-01-10T00:44:38Z",
       "side": 1,
       "message": "Do we really need this? It\u0027s like calling getLocation().\nWe were trying to get rid of string paths after all...",
+      "range": {
+        "startLine": 239,
+        "startChar": 18,
+        "endLine": 239,
+        "endChar": 25
+      },
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dea89ed_a0030426",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-10T05:32:05Z",
+      "side": 1,
+      "message": "There\u0027s lots of legacy code that requires string paths. I can change them to getLocation().getPath() for now.",
+      "parentUuid": "cdcac190_a8253f3f",
       "range": {
         "startLine": 239,
         "startChar": 18,
@@ -94,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "8dea89ed_80192094",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-10T05:32:05Z",
+      "side": 1,
+      "message": "I\u0027ll leave that to you, since this is your class. I\u0027ll revert this for now.",
+      "parentUuid": "cdcac190_c8207b31",
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dd1393f_41ca05df",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
         "patchSetId": 1
@@ -105,6 +165,30 @@
       "writtenOn": "2014-01-10T00:44:38Z",
       "side": 1,
       "message": "I\u0027d prefer to leave this at line 638 in the \"specific querying\" section",
+      "range": {
+        "startLine": 291,
+        "startChar": 28,
+        "endLine": 291,
+        "endChar": 38
+      },
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dea89ed_60163c64",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-10T05:32:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dd1393f_41ca05df",
       "range": {
         "startLine": 291,
         "startChar": 28,
