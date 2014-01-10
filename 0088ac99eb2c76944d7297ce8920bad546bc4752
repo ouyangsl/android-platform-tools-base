@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "0dd1393f_32b079e6",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T18:50:58Z",
+      "side": 1,
+      "message": "I\u0027m totally fine with this CL as-is and doing further work in another CL. I\u0027ll offer to do that after yours is accepted and merged, to prevent conflicts.",
+      "parentUuid": "6def1500_dfe02742",
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdcac190_a8253f3f",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
         "patchSetId": 1
@@ -119,6 +137,30 @@
     },
     {
       "key": {
+        "uuid": "0dd1393f_92c18d3e",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T18:50:58Z",
+      "side": 1,
+      "message": "Actually no, you were right. One benefit of this way is that otherwise each caller needs to test if getLocation() is null before doing a getPath(), so let\u0027s keep it that way.\nHowever I\u0027d suggest adding a comment stating clients should use the File API (via getLocation()) instead of the String API when possible.",
+      "parentUuid": "8dea89ed_a0030426",
+      "range": {
+        "startLine": 239,
+        "startChar": 18,
+        "endLine": 239,
+        "endChar": 25
+      },
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdcac190_c8207b31",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
         "patchSetId": 1
@@ -148,6 +190,24 @@
       "side": 1,
       "message": "I\u0027ll leave that to you, since this is your class. I\u0027ll revert this for now.",
       "parentUuid": "cdcac190_c8207b31",
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdcac190_3242b957",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T18:50:58Z",
+      "side": 1,
+      "message": "I like your change. Simply remove line 250: since it sets the variable to null, the later test does nothing.",
+      "parentUuid": "8dea89ed_80192094",
       "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
