@@ -119,6 +119,24 @@
       "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd1393f_6d96107b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-10T19:51:31Z",
+      "side": 1,
+      "message": "Hm. That shifts the burden to all the clients of the library to check the result for a really unexpected scenario. \n\nConstructing a partly initialized SDK manager sounds like a pretty specialized usage to me, and in that case the code could simply pass a non-null marker file (such as \"new File(\"nonexistent\") in as the location instead of null, since files don\u0027t actually have to exist).",
+      "parentUuid": "cdcac190_d234a512",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
