@@ -16,6 +16,24 @@
       "revId": "86526e220d7d52f7bf6b2e9f6e23f98881c857f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8dea89ed_20c5d475",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-10T14:02:28Z",
+      "side": 1,
+      "message": "ah yeah... hmm",
+      "parentUuid": "cdcac190_3cca90de",
+      "revId": "86526e220d7d52f7bf6b2e9f6e23f98881c857f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
