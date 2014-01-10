@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2dd43d2d_e708fdf3",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-10T19:02:31Z",
+      "side": 1,
+      "message": "Still using wrong import style for ADT",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dd43d2d_67fd0d87",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-10T19:02:31Z",
+      "side": 1,
+      "message": "add @Deprecated ?",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dd43d2d_a7c4454d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-10T19:02:31Z",
+      "side": 1,
+      "message": "Isn\u0027t getLocation a File? In that case this should be\nString toolsLib \u003d new File(myLocalSdk.getLocation(), SdkConstants.OS_SDK_TOOLS_LIB_EMULATOR_FOLDER).\n\nI\u0027m guessing the above works because it\u0027s a string concatenation expression, which winds up calling toString on the File object, but better to treat it as a file directly.",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd1393f_d225c53e",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1452,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-10T19:02:31Z",
+      "side": 1,
+      "message": "use comma instead; new File(myLocalSdk.getLocation, imageSysDir)",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdcac190_f2b7a104",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-10T19:02:31Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd1393f_d256e593",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-10T19:02:31Z",
+      "side": 1,
+      "message": "I saw the comments on patch 1 around this. I think we should at a minimum mark it as @Deprecated. But I think we should also get away from it because in IntelliJ String path methods tend to refer to system independent paths.\n\nAnd it\u0027s probably better to make its return value @NonNull. It shouldn\u0027t be possible to construct partly-initialized Sdk managers, right? If this is only a problem during initialization, maybe have it throw an exception instead, if a call to initialize must be made in addition to the constructor.\n\nAlternatively, have this method initialize itself lazily if necessary.",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
