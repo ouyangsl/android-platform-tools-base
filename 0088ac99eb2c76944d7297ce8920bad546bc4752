@@ -34,6 +34,86 @@
       "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd1393f_21df09a4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T00:44:38Z",
+      "side": 1,
+      "message": "Suggestion: get rid of this one and replace the callers by\n\n  AvdManager.getInstance(sdkManager.getLocalSdk(), log)\n\nLooking from Eclipse/ADT, I see only 1 call in UpdaterData and 5 calls in sdkamanger.Main().\n\nI can do that for you in another CL if you prefer.",
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdcac190_a8253f3f",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T00:44:38Z",
+      "side": 1,
+      "message": "Do we really need this? It\u0027s like calling getLocation().\nWe were trying to get rid of string paths after all...",
+      "range": {
+        "startLine": 239,
+        "startChar": 18,
+        "endLine": 239,
+        "endChar": 25
+      },
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdcac190_c8207b31",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T00:44:38Z",
+      "side": 1,
+      "message": "You might not want line 250 in this case.",
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dd1393f_41ca05df",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T00:44:38Z",
+      "side": 1,
+      "message": "I\u0027d prefer to leave this at line 638 in the \"specific querying\" section",
+      "range": {
+        "startLine": 291,
+        "startChar": 28,
+        "endLine": 291,
+        "endChar": 38
+      },
+      "revId": "0088ac99eb2c76944d7297ce8920bad546bc4752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
