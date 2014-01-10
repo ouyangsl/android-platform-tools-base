@@ -101,6 +101,24 @@
       "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdcac190_d234a512",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-10T19:47:17Z",
+      "side": 1,
+      "message": "You can create an \"empty\" LocalSdk object without a location path. My rationale was that LocalSdk should be held into some kind of singleton and the code creating it might not know the sdk path yet, in which case it could do a new LocalSdk() and then _later_ call LocalSdk.setLocation(non-null-path).\n\nI think a @Deprecated here would be a good idea indeed, but keep the @Nullable. OTOH a client class such as AndroidSdkData knows it always has a valid path and can offer a @NonNull getPath() wrapper method.",
+      "parentUuid": "0dd1393f_d256e593",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
