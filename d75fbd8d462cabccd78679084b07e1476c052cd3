@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d4251dd_2ee4b7fd",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-13T19:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd43d2d_e708fdf3",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2dd43d2d_67fd0d87",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-01-10T19:02:31Z",
       "side": 1,
       "message": "add @Deprecated ?",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2dd43d2d_19eb59d5",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-13T19:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd43d2d_67fd0d87",
       "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "2dd43d2d_b9da2535",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-13T19:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd43d2d_a7c4454d",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0dd1393f_d225c53e",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "cdcac190_08630935",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1452,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-13T19:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0dd1393f_d225c53e",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdcac190_f2b7a104",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2014-01-10T19:02:31Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdcac190_e867ad3c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1458,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-01-13T19:43:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdcac190_f2b7a104",
       "revId": "d75fbd8d462cabccd78679084b07e1476c052cd3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
