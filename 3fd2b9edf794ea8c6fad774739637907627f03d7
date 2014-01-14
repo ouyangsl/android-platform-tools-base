@@ -34,6 +34,24 @@
       "revId": "3fd2b9edf794ea8c6fad774739637907627f03d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d1635de_ede56d01",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GroovyGradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-14T19:10:49Z",
+      "side": 1,
+      "message": "To be clear -- this is in lint code which lives outside of IntelliJ (and can run from Gradle, and within Eclipse, and so on).\n\nThe real parsing here is done by Groovy. In Gradle we have access to Groovy, so we\u0027re letting Groovy itself create the AST; what we have here is a simple AST visitor which looks for closure method calls and passes them to a lint rule which just looks for specific attributes (such that that attribute-checking can be shared between the different Groovy parsing backends.)\n\nThis is a much smaller domain than what you\u0027re doing -- maintaining a full view of the file, preserving whitespace, potentially writing values back out, dealing with unexpected patterns, etc. \n\nThis code isn\u0027t really equivalent to that -- and as you can see we\u0027re talking about 30 lines of code, and a similar amount in Studio.  \n\nIn Studio, note that lint runs repeatedly in the background while the user is editing - so it\u0027s important for it *not* to build up intermediate data structures, but to simply and cheaply visit the PSI.",
+      "parentUuid": "2d30bd7d_eafd4f56",
+      "revId": "3fd2b9edf794ea8c6fad774739637907627f03d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
