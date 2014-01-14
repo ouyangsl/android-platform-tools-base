@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d30bd7d_2a5907e8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GroovyGradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-01-14T18:11:33Z",
+      "side": 1,
+      "message": "I\u0027m unhappy that we\u0027re building up parallel infrastructure here to parse Grade/Groovy files when I\u0027ve already done a lot of work in tools.idea.gradle.parser, and work on one side won\u0027t benefit from work done on the other. This will become more important when we try to do more validation and assistance within the IDE. I\u0027m not sure exactly what that would be outside the context of lint, but perhaps beefed autocompletion and errors when editing build.gradle files, better validation and errors in project structure, more error checking when you open projects (though I realize this will be accessible from the plugin), etc. We will have error checking and reporting happening in so many places now that it\u0027s going to get really chaotic.",
+      "revId": "3fd2b9edf794ea8c6fad774739637907627f03d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
