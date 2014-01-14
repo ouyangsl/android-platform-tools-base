@@ -16,6 +16,24 @@
       "revId": "3fd2b9edf794ea8c6fad774739637907627f03d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d30bd7d_eafd4f56",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GroovyGradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-01-14T18:20:28Z",
+      "side": 1,
+      "message": "Actually, just having noticed your similar CL for adding lint support in IntelliJ, now some of this similar code lives in three places.",
+      "parentUuid": "2d30bd7d_2a5907e8",
+      "revId": "3fd2b9edf794ea8c6fad774739637907627f03d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
