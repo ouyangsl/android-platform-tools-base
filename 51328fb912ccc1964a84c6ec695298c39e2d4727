@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3229fe85_6edb4f96",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-17T22:55:46Z",
+      "side": 1,
+      "message": "Use getPath() instead of getAbsolutePath(). If it\u0027s important for the device manager to have an absolute path, you could throw in an assert sdkLocation.isAbsolute() here to make it clear to clients that they should pass in an absolute path. (Calling getAbsolutePath on a relative path won\u0027t help; it will prepend the process current directory which is unlikely to be the right prefix for the relative path.)",
+      "revId": "51328fb912ccc1964a84c6ec695298c39e2d4727",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
