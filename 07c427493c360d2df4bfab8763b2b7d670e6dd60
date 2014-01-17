@@ -16,6 +16,24 @@
       "revId": "07c427493c360d2df4bfab8763b2b7d670e6dd60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5244b256_efcaa15a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-17T23:20:32Z",
+      "side": 1,
+      "message": "I\u0027m sentimental.",
+      "parentUuid": "5244b256_aff5b99f",
+      "revId": "07c427493c360d2df4bfab8763b2b7d670e6dd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
