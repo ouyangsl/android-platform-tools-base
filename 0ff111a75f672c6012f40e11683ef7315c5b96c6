@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd43a132_d4d872ba",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RtlDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-17T16:35:54Z",
+      "side": 0,
+      "message": "Basically none of the attributes are in lowercase, so all this special handling to deal with left vs Left isn\u0027t necessary.",
+      "revId": "0ff111a75f672c6012f40e11683ef7315c5b96c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
