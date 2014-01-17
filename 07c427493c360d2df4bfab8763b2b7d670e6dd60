@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5244b256_aff5b99f",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-17T23:19:45Z",
+      "side": 1,
+      "message": "Out of curiosity, why are you leaving this field in if it\u0027s no longer used?",
+      "revId": "07c427493c360d2df4bfab8763b2b7d670e6dd60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
