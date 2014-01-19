@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3229fe85_7750c227",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultSdkParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-19T05:49:55Z",
+      "side": 1,
+      "message": "I missed that usage. Sounds like the new LocalSdk should do all the work that is duplicated here.",
+      "revId": "46419f53d8b1638a74f1981d48f1b3c3ab5fb835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
