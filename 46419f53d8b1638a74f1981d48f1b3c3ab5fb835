@@ -16,6 +16,47 @@
       "revId": "46419f53d8b1638a74f1981d48f1b3c3ab5fb835",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3229fe85_c23d72d0",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultSdkParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-20T19:29:30Z",
+      "side": 1,
+      "message": "This code here provides an abstraction so that we can use either an SDK or the prebuilts in the platform.",
+      "parentUuid": "3229fe85_7750c227",
+      "revId": "46419f53d8b1638a74f1981d48f1b3c3ab5fb835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5244b256_98dc79ff",
+        "filename": "build-system/builder/src/main/java/com/android/builder/PlatformSdkParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-20T19:29:30Z",
+      "side": 1,
+      "message": "This is used only on the platform which doesn\u0027t support Windows, so this is really not necessary. We can add an assert at the top it needed to ensure we don\u0027t run this on windows.",
+      "range": {
+        "startLine": 63,
+        "startChar": 28,
+        "endLine": 63,
+        "endChar": 41
+      },
+      "revId": "46419f53d8b1638a74f1981d48f1b3c3ab5fb835",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
