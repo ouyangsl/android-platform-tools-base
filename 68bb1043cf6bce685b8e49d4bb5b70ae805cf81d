@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b25ece29_d323fe87",
+        "filename": "templates/other/PlusOneFragment/recipe.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:28:29Z",
+      "side": 1,
+      "message": "since you don\u0027t really need app compat, depend on support-v4 instead?",
+      "revId": "68bb1043cf6bce685b8e49d4bb5b70ae805cf81d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
