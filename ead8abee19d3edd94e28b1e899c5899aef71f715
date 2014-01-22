@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b25ece29_73b45200",
+        "filename": "templates/activities/LoginActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "Hm, maybe in addition to READ_CONTACTS we should request READ_PROFILE? See ContactsContract.Profile and my S.O. answer on this: http://stackoverflow.com/questions/2112965/how-to-get-the-android-devices-primary-e-mail-address/2175688#2175688",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f23206f0_60b6ba71",
+        "filename": "templates/activities/LoginActivity/root/res/layout/activity_login.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "indentation as we discussed in person",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f23206f0_20c0b2c9",
+        "filename": "templates/activities/LoginActivity/root/res/layout/activity_login.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "?android:textAppearanceSmall instead. also why small text size here?",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1226bab5_c130d2cf",
+        "filename": "templates/activities/LoginActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "G+ --\u003e Google+",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f23206f0_e0a18a21",
+        "filename": "templates/activities/LoginActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "G+ --\u003e Google+",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b25ece29_d3a41ecb",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "should extend ActionBarActivity if minSdk \u003c 14 IMO. See BlankActivity code.",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f23206f0_a0ab82ff",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "tabs to spaces throughout the CL",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b25ece29_73133245",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/LoginActivity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "I\u0027d limit this to the user\u0027s profile... see http://stackoverflow.com/questions/2112965/how-to-get-the-android-devices-primary-e-mail-address/2175688#2175688.\n\nI don\u0027t think showing all contact emails is all that useful for login.",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f23206f0_80d886c1",
+        "filename": "templates/activities/LoginActivity/root/src/app_package/PlusBaseActivity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-01-22T21:21:18Z",
+      "side": 1,
+      "message": "should extend ActionBarActivity only if minSdk \u003c 14 IMO. Take a look at BlankActivity.",
+      "revId": "ead8abee19d3edd94e28b1e899c5899aef71f715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
