@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92bf0a8c_ef45d589",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-01-23T16:43:35Z",
+      "side": 1,
+      "message": "typo in commit message; will fix before checking in",
+      "revId": "aa77a09c6cb2fe5dad7a9a64989078cef67f6daf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
