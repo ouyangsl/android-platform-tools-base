@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f265a62a_5ad7d58d",
+        "filename": "build-system/builder/src/main/java/com/android/builder/compiling/BuildConfigGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "JavaWriter.close throws IOException. If, for whatever reason, this method throws an exception, \"out\" (the FileWriter) won\u0027t get closed. Closeables.closeQuietly FTW!",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f265a62a_bacb89e6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "No need to check for null. Closeables.closeQuietly already does that.\n\nSame in line 433.",
+      "range": {
+        "startLine": 389,
+        "startChar": 23,
+        "endLine": 389,
+        "endChar": 27
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f265a62a_9ac84deb",
+        "filename": "build-system/gradle/src/fromGradle/groovy/com/android/build/gradle/internal/test/report/TestReport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "No need to check for null.",
+      "range": {
+        "startLine": 133,
+        "startChar": 27,
+        "endLine": 133,
+        "endChar": 39
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f265a62a_fac501d1",
+        "filename": "common/src/main/java/com/android/xml/AndroidManifest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "No need to check for null.",
+      "range": {
+        "startLine": 217,
+        "startChar": 28,
+        "endLine": 217,
+        "endChar": 29
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92bf0a8c_52acc53b",
+        "filename": "common/src/main/java/com/android/xml/AndroidManifest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "No need to check for null.",
+      "range": {
+        "startLine": 397,
+        "startChar": 28,
+        "endLine": 397,
+        "endChar": 29
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92bf0a8c_528365a7",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/xml/AndroidManifestParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "if \"parse\" throws exception, InputStream does not get closed.",
+      "range": {
+        "startLine": 611,
+        "startChar": 20,
+        "endLine": 611,
+        "endChar": 23
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "72b456b0_f774ca14",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectProperties.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "No need to check for null.",
+      "range": {
+        "startLine": 471,
+        "startChar": 28,
+        "endLine": 471,
+        "endChar": 29
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f265a62a_3a877990",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectPropertiesWorkingCopy.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-24T00:49:51Z",
+      "side": 1,
+      "message": "No need to check for null before calling Closeables.closeQuietly",
+      "range": {
+        "startLine": 207,
+        "startChar": 36,
+        "endLine": 207,
+        "endChar": 37
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
