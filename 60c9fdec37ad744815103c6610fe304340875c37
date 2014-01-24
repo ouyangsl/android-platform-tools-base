@@ -108,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "72b456b0_7d0d1b05",
+        "filename": "build-system/builder/src/main/java/com/android/builder/compiling/BuildConfigGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-24T17:31:10Z",
+      "side": 1,
+      "message": "I\u0027m changing this file in the next CL I\u0027ll fix this (actually going to close it since it\u0027s important the Gradle daemon doesn\u0027t leak opened files).",
+      "parentUuid": "72b456b0_e2772a17",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f265a62a_bacb89e6",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
         "patchSetId": 3
