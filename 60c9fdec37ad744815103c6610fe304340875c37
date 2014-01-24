@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "72b456b0_f7c84aeb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/compiling/BuildConfigGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-24T01:14:37Z",
+      "side": 1,
+      "message": "hmm yeah, but this is a writer not a reader, so I kinda want to know if it fails. The exception will break the Task and the build will fail (appropriately imo)",
+      "parentUuid": "f265a62a_5ad7d58d",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 17
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f265a62a_bacb89e6",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
         "patchSetId": 3
@@ -53,6 +77,30 @@
       "writtenOn": "2014-01-24T00:49:51Z",
       "side": 1,
       "message": "No need to check for null. Closeables.closeQuietly already does that.\n\nSame in line 433.",
+      "range": {
+        "startLine": 389,
+        "startChar": 23,
+        "endLine": 389,
+        "endChar": 27
+      },
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f265a62a_3a3c99f8",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-24T01:14:37Z",
+      "side": 1,
+      "message": "!",
+      "parentUuid": "f265a62a_bacb89e6",
       "range": {
         "startLine": 389,
         "startChar": 23,
