@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "92346a08_e4445435",
+        "filename": ".idea/inspectionProfiles/Project_Default.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-01-24T01:13:01Z",
+      "side": 1,
+      "message": "did you mean to modify this file?",
+      "revId": "60c9fdec37ad744815103c6610fe304340875c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f265a62a_5ad7d58d",
         "filename": "build-system/builder/src/main/java/com/android/builder/compiling/BuildConfigGenerator.java",
         "patchSetId": 3
