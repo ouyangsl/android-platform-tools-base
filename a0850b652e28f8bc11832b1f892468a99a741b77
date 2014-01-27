@@ -22,6 +22,30 @@
       "revId": "a0850b652e28f8bc11832b1f892468a99a741b77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fa0681_356672ff",
+        "filename": "build-system/builder/src/main/java/com/android/builder/VariantConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-27T17:59:08Z",
+      "side": 1,
+      "message": "yeah it\u0027s a bit crappy but I didn\u0027t want to create a new class (and new instances) to encapsulate this. This is strictly internal usage.",
+      "parentUuid": "d2f7c297_71b5b0b1",
+      "range": {
+        "startLine": 1358,
+        "startChar": 5,
+        "endLine": 1358,
+        "endChar": 7
+      },
+      "revId": "a0850b652e28f8bc11832b1f892468a99a741b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
