@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2f7c297_71b5b0b1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/VariantConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1358,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-01-27T05:51:13Z",
+      "side": 1,
+      "message": "I\u0027m thinking that this list is used by the plug-in itself and not exposed to external clients (e.g. Studio) by the model. \n\nThe reason for this comment is that if usage of the list is not controlled (e.g. anybody using the model can access it) it would be error prone to check for  instanceof String or instanceof ClassField when iterating through the elements. \n\nAlso, since we are dealing with Object, it would be difficult to change the contract of the elements returned (e.g. add another/remove types of returned elements) since static typing would not be able to help. A more type-safe data structure could be better.\n\nBut if this is used only inside the plug-in, ignore whatever I mentioned :-)\n\n(sorry for the verbose comment, couldn\u0027t make it shorter!)",
+      "range": {
+        "startLine": 1358,
+        "startChar": 5,
+        "endLine": 1358,
+        "endChar": 7
+      },
+      "revId": "a0850b652e28f8bc11832b1f892468a99a741b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
