@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f213e69e_6d602de0",
+        "filename": "remote-tests/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-01-28T21:04:15Z",
+      "side": 1,
+      "message": "we should try to get this value automatically instead of hard-coding it here.",
+      "range": {
+        "startLine": 3,
+        "startChar": 25,
+        "endLine": 3,
+        "endChar": 26
+      },
+      "revId": "297320008b1afd2d387976bed41066d20e64a81a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
