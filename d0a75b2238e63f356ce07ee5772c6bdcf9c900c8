@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52811216_0d3c35f8",
+        "filename": "sdklib/src/main/java/com/android/sdklib/util/GrabProcessOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-29T18:53:43Z",
+      "side": 1,
+      "message": "You only need to close the outer wrapper (here the BuferredReader) and it will close the underlying stream for you so the 2 new close() operations aren\u0027t doing anything. It\u0027s a misleading placebo effect.\nConsequently I\u0027d strongly suggest to remove them.\n\nTry adding something like this before/after the close and check the FD\u0027s useCount in a debugger. At least on Windows it\u0027s actually closed properly right away:\n\n InputStream es \u003d process.getErrorStream();\n if (es instanceof FileInputStream) {\n   FileInputStream fis \u003d (FileInputStream) es;\n   try {\n     FileDescriptor fd \u003d fis.getFD();\n   } catch (IOException e) {\n   }\n }",
+      "revId": "d0a75b2238e63f356ce07ee5772c6bdcf9c900c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92870a29_d2a1dab8",
+        "filename": "sdklib/src/main/java/com/android/sdklib/util/GrabProcessOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-01-29T18:53:43Z",
+      "side": 1,
+      "message": "We could try to call process.destroy() at this point, after the waitFor().\n\ntry {\n  process.waitFor();\n  process.destroy();\n} catch (Throwable ignore) {\n}\n\nLooking at the private ProcessImpl.java, that _might_ do what you want. Note that it\u0027s platform specific.",
+      "revId": "d0a75b2238e63f356ce07ee5772c6bdcf9c900c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
