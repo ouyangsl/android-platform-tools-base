@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52811216_d3c71750",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Reporter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-01-30T17:10:23Z",
+      "side": 1,
+      "message": "typo: no",
+      "revId": "4de7dea3eb95fab39da65107c9a2d33c53ca4e39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2b4c6fd_597444a1",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Reporter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-01-30T17:10:23Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "4de7dea3eb95fab39da65107c9a2d33c53ca4e39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
