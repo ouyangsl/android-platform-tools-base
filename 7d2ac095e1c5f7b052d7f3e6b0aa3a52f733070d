@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2dfc254_9ad63190",
+        "filename": "templates/gradle-projects/NewJavaLibrary/root/build.gradle.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-02-03T18:49:22Z",
+      "side": 1,
+      "message": "Don\u0027t include .aar files in plain Java projects.",
+      "revId": "7d2ac095e1c5f7b052d7f3e6b0aa3a52f733070d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
