@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "721616de_2c6dab5c",
+        "filename": "templates/other/PlusOneFragment/recipe.xml.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-02-04T19:35:53Z",
+      "side": 1,
+      "message": "nit: tabs",
+      "range": {
+        "startLine": 4,
+        "startChar": 1,
+        "endLine": 4,
+        "endChar": 2
+      },
+      "revId": "c08b0eb2b9101aea83997556507c9452c0ffdcb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
