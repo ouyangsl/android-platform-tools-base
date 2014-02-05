@@ -16,6 +16,24 @@
       "revId": "a7a383ca252613e8c4c397e6dd5022a4af579e6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92db8aac_498041df",
+        "filename": "templates/projects/NewAndroidApplication/root/res/values-v14/styles_ics.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-02-05T21:29:10Z",
+      "side": 1,
+      "message": "Since we want this out quickly, I\u0027m going to punt on that for a future cleanup (since it involves more conditional logic in the templates)",
+      "parentUuid": "32a1fe0c_5780e6de",
+      "revId": "a7a383ca252613e8c4c397e6dd5022a4af579e6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
