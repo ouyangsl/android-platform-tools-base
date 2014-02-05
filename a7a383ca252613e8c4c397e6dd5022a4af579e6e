@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32a1fe0c_5780e6de",
+        "filename": "templates/projects/NewAndroidApplication/root/res/values-v14/styles_ics.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-05T21:25:41Z",
+      "side": 1,
+      "message": "We should probably modify the default recipe file to not instantiate the -v11 and -v14 styles files if appCompat. No need to redefine the app base theme to the same parent.",
+      "revId": "a7a383ca252613e8c4c397e6dd5022a4af579e6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
