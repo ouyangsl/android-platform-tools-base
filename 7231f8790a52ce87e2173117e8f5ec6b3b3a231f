@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32cadede_ef5811c9",
+        "filename": "templates/other/PlusOneFragment/template.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-02-06T22:14:28Z",
+      "side": 1,
+      "message": "Oh sorry for the last minute request - can you change this to \"Fragment (with +1 Button)\"",
+      "revId": "7231f8790a52ce87e2173117e8f5ec6b3b3a231f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
