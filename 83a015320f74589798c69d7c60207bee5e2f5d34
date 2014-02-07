@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123a3aa9_9c6531f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-07T23:04:14Z",
+      "side": 1,
+      "message": "Just a thought: Maybe this needs to be flagged just once. Something in the lines of: \"We notice you have assertions in multiple places in your project, and these won\u0027t work on Android\"",
+      "revId": "83a015320f74589798c69d7c60207bee5e2f5d34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
