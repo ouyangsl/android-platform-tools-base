@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "af83c5c3_88bbfbc6",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-10T18:53:48Z",
+      "side": 1,
+      "message": "My interpretation of what the code does is:\n\n - mVersionCheck \u003d\u003e mIsSupportedVersion. This is set once while creating adb.\n - If it is not a supported version, then it doesn\u0027t bother with starting adb.",
+      "parentUuid": "af83c5c3_c8458331",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f94d1fd_fde8478e",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
         "patchSetId": 1
