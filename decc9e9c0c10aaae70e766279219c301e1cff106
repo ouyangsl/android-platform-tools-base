@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "af83c5c3_c8458331",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-10T18:45:25Z",
+      "side": 1,
+      "message": "In that case can you explain why mVersionCheck\u003dfalse means we shouldn\u0027t call startAdb?",
+      "parentUuid": "af83c5c3_686797fc",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f94d1fd_fde8478e",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
         "patchSetId": 1
