@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f8d4df2_60f81264",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-10T18:24:31Z",
+      "side": 1,
+      "message": "This is not related to this change, but if startAdb is really just a version check, it should probably be renamed.",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f94d1fd_fde8478e",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-10T18:24:31Z",
+      "side": 1,
+      "message": "If this is just for logging maybe use a separator of \", \" instead of \" \" such that we can more easily debug spaces-in-paths issues",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f97d503_bea0790c",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-10T18:24:31Z",
+      "side": 1,
+      "message": "Change \"valid integer\" to \"valid port number\" ?",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
