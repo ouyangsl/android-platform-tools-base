@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "af83c5c3_686797fc",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-10T18:32:41Z",
+      "side": 1,
+      "message": "no, startAdb actually starts adb.",
+      "parentUuid": "6f8d4df2_60f81264",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f94d1fd_fde8478e",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "cf48f97a_49408525",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-10T18:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f94d1fd_fde8478e",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f97d503_bea0790c",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2014-02-10T18:24:31Z",
       "side": 1,
       "message": "Change \"valid integer\" to \"valid port number\" ?",
+      "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af83c5c3_e87ac78f",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-10T18:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f97d503_bea0790c",
       "revId": "decc9e9c0c10aaae70e766279219c301e1cff106",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
