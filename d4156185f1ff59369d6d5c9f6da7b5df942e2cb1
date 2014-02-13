@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f9e016b_206d748a",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-02-13T22:30:31Z",
+      "side": 1,
+      "message": "Since this refers to modules by name, should it be called after we re-name the modules to be unique in the destination directory?",
+      "range": {
+        "startLine": 645,
+        "startChar": 12,
+        "endLine": 645,
+        "endChar": 32
+      },
+      "revId": "d4156185f1ff59369d6d5c9f6da7b5df942e2cb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
