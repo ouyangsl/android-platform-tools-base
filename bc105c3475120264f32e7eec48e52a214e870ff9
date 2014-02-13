@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f9e016b_20aad452",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-13T22:32:38Z",
+      "side": 1,
+      "message": "conversion",
+      "revId": "bc105c3475120264f32e7eec48e52a214e870ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afcbc564_4cb620e3",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ManifestMergerSourceLinkTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-13T22:32:38Z",
+      "side": 1,
+      "message": "2014?",
+      "revId": "bc105c3475120264f32e7eec48e52a214e870ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
