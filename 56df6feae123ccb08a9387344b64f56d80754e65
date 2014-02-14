@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f816916_aaf94f9c",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-14T18:30:19Z",
+      "side": 1,
+      "message": "I haven\u0027t tested this, but it seems like we wouldn\u0027t need a list on the right, e.g.\ninclude: \u0027*.jar\u0027\ninstead of\ninclude: [\u0027*.jar\u0027]\n?",
+      "revId": "56df6feae123ccb08a9387344b64f56d80754e65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
