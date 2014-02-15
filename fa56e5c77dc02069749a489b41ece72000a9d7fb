@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fea81ed_774848a2",
+        "filename": ".idea/libraries/builder_model.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-15T00:06:35Z",
+      "side": 0,
+      "message": "we were using a prebuilt here, but now that this code is in the same git repository we can just have a module dependency instead",
+      "revId": "fa56e5c77dc02069749a489b41ece72000a9d7fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
