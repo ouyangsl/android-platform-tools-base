@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afdf457e_055e1462",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/client/api/DefaultConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-02-19T17:24:26Z",
+      "side": 1,
+      "message": "Do we have to worry about absolute paths on Windows, like C:\\foo\\bar or \\\\FOO\\bar? You\u0027re dealing in relative paths here, but...",
+      "revId": "7eb042e5963bf235deb759028191ea640b5f4156",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
