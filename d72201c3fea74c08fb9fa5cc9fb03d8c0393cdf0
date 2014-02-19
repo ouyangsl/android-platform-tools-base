@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cff9d9ff_c17d4695",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-19T18:30:55Z",
+      "side": 1,
+      "message": "s/synchronizd/synchronized/",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "revId": "d72201c3fea74c08fb9fa5cc9fb03d8c0393cdf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "effcddee_2519948f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-19T18:30:55Z",
+      "side": 1,
+      "message": "Just as an fyi, I see that readLines() is sometimes called from a static synchronized block, and sometimes a non-static synchronized block. (See getAvdName(), getNetworkStatus() etc)",
+      "revId": "d72201c3fea74c08fb9fa5cc9fb03d8c0393cdf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cff9d9ff_a1d0fa40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-19T18:30:55Z",
+      "side": 1,
+      "message": "Could you also detail the changes in the synchronization policies that this commit does? I see that the synchronized keywords have been moved around, but would be good to have an idea of what your intention is.\n\n(It seems like this is mostly around handling of sEmulators)",
+      "revId": "d72201c3fea74c08fb9fa5cc9fb03d8c0393cdf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "effcddee_c508b0f8",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/EmulatorConsole.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-19T18:30:55Z",
+      "side": 1,
+      "message": "suggestion: @GuardedBy(\"sEmulators\")\n\n(see comment at line 204 for more info).",
+      "revId": "d72201c3fea74c08fb9fa5cc9fb03d8c0393cdf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ff0510e_6623a4b9",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/EmulatorConsole.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-19T18:30:55Z",
+      "side": 1,
+      "message": "suggestion: For code that we start modifying, we\u0027d like to use the nullability annotations. It would be great if you could annotate these methods as @NonNull or @Nullable depending on the return values.\n\nThere are also @GuardedBy annotations that make it explicit whether this method should be guarded by a lock when called. You could do that as well.\n\nLastly, depending on what you are trying to do, you could also add asserts:\n  assert Thread.holdsLock(EmulatorConsole.class)\n  assert Thread.holdsLock(this);\nThese aren\u0027t used in ddmlib, but it might help you.",
+      "revId": "d72201c3fea74c08fb9fa5cc9fb03d8c0393cdf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
