@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef713d8d_ba5209a7",
+        "filename": "templates/activities/BlankActivity/root/src/app_package/DrawerActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-02-21T14:22:39Z",
+      "side": 1,
+      "message": "so applicationPackage can be null? can you describe the exact behavior of this parameter?",
+      "revId": "cd72cc18cb2958171138e9eb976fd4ce53babc95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
