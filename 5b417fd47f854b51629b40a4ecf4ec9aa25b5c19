@@ -22,6 +22,30 @@
       "revId": "5b417fd47f854b51629b40a4ecf4ec9aa25b5c19",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c3ac1c3_ba15f599",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-02-25T19:54:54Z",
+      "side": 1,
+      "message": "Yes, it should. As well as the gradle versions 1.10 and 1.11 for min and max.",
+      "parentUuid": "1c217195_18076977",
+      "range": {
+        "startLine": 1304,
+        "startChar": 31,
+        "endLine": 1304,
+        "endChar": 60
+      },
+      "revId": "5b417fd47f854b51629b40a4ecf4ec9aa25b5c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
