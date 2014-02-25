@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c217195_18076977",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1304,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-02-25T19:34:11Z",
+      "side": 1,
+      "message": "this should be 0.9 too I think. @alex can you confirm?",
+      "range": {
+        "startLine": 1304,
+        "startChar": 31,
+        "endLine": 1304,
+        "endChar": 60
+      },
+      "revId": "5b417fd47f854b51629b40a4ecf4ec9aa25b5c19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
