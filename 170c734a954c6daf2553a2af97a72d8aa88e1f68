@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3cfb9535_581ba559",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 9
+      },
+      "lineNbr": 1610,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-02-25T01:20:31Z",
+      "side": 1,
+      "message": "ugh not sure how it got there. I\u0027ll fix in the next CL.",
+      "parentUuid": "3cfb9535_adfb8927",
+      "range": {
+        "startLine": 1610,
+        "startChar": 4,
+        "endLine": 1610,
+        "endChar": 8
+      },
+      "revId": "170c734a954c6daf2553a2af97a72d8aa88e1f68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cf89137_43805a9d",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
         "patchSetId": 9
