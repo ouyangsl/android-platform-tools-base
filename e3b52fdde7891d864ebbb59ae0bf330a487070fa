@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cf6894a_d9457333",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/DependenciesImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-02-25T01:10:07Z",
+      "side": 1,
+      "message": "consider simplifying with : \n\nboolean customArtifact \u003d jarDep instanceof ClassifiedJarDependency\n  \u0026\u0026 ((ClassifiedJarDependency)jarDep).getClassifier() !\u003d null;",
+      "revId": "e3b52fdde7891d864ebbb59ae0bf330a487070fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
