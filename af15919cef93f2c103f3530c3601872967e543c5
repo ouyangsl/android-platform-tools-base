@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc35c5d3_75e322f9",
+        "filename": "templates/other/BlankFragment/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-25T23:06:52Z",
+      "side": 1,
+      "message": "\"Fragment Layout Name\" such that it is distinguishable from the layoutName parameter?",
+      "revId": "af15919cef93f2c103f3530c3601872967e543c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
