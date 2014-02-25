@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cfb9535_937d8e95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-25T02:46:13Z",
+      "side": 1,
+      "message": "grammar, missing is/was.",
+      "range": {
+        "startLine": 16,
+        "startChar": 1,
+        "endLine": 16,
+        "endChar": 15
+      },
+      "revId": "4b166b55ee6560ff42f434cb61e34f40f361df49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cf6894a_948692bb",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/EmulatorConsole.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-25T02:46:13Z",
+      "side": 1,
+      "message": "Generally we put the annotation first, so:\n\n  @Nullable \n  public static EmulatorConsole getConsole()",
+      "range": {
+        "startLine": 208,
+        "startChar": 19,
+        "endLine": 208,
+        "endChar": 27
+      },
+      "revId": "4b166b55ee6560ff42f434cb61e34f40f361df49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cfb9535_13917e85",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/EmulatorConsole.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-25T02:46:13Z",
+      "side": 1,
+      "message": "I\u0027d remove the @param and @return if they are obvious.",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 255,
+        "endChar": 14
+      },
+      "revId": "4b166b55ee6560ff42f434cb61e34f40f361df49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cf89137_5796d439",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/EmulatorConsole.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-02-25T02:46:13Z",
+      "side": 1,
+      "message": "Add annotation:\n\n   @NonNull\n   private static",
+      "range": {
+        "startLine": 257,
+        "startChar": 4,
+        "endLine": 257,
+        "endChar": 11
+      },
+      "revId": "4b166b55ee6560ff42f434cb61e34f40f361df49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
