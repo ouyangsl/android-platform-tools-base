@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bce78593_1693acff",
+        "filename": "common/src/test/java/com/android/utils/PositionXmlParserTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-02-26T22:53:38Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "c5bd2e6c7a211deab5e894db07adbc8db1385b48",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
