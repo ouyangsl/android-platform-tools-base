@@ -22,6 +22,53 @@
       "revId": "865f79bf8825114cf7792764d6039be3ebff95fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cfb9535_86877c4e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/ScreenSizeQualifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-02-26T19:24:09Z",
+      "side": 1,
+      "message": "I\u0027ve written a couple of test cases already. Will complete and submit another patch.",
+      "parentUuid": "7cf18d4f_7400b096",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 29
+      },
+      "revId": "865f79bf8825114cf7792764d6039be3ebff95fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cfb9535_06cdaca2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/ScreenSizeQualifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-02-26T19:24:09Z",
+      "side": 1,
+      "message": "I have not been able to find a case where this method was called with an invalid ScreenSize (index \u003d -1), which is the default.  I\u0027m not sure what the right behaviour here should be.",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 26
+      },
+      "revId": "865f79bf8825114cf7792764d6039be3ebff95fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
