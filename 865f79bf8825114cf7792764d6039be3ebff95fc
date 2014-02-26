@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cf18d4f_7400b096",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/ScreenSizeQualifier.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-02-26T16:14:09Z",
+      "side": 1,
+      "message": "we should write test for these, in case we add more screen size later.",
+      "range": {
+        "startLine": 76,
+        "startChar": 19,
+        "endLine": 76,
+        "endChar": 29
+      },
+      "revId": "865f79bf8825114cf7792764d6039be3ebff95fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
