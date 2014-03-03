@@ -22,6 +22,30 @@
       "revId": "4e5289af6c0303f6f60e1771b968131c49696ae2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc6ce5f1_3affa1d2",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-03T23:32:30Z",
+      "side": 1,
+      "message": "Until it is I don\u0027t dare to update this :-)  (Note that as soon as somebody installs 19.0.3 it will know that\u0027s the highest - it takes the max of the above number and the highest version found in the sdk area).",
+      "parentUuid": "fc32ddef_806406f9",
+      "range": {
+        "startLine": 117,
+        "startChar": 66,
+        "endLine": 117,
+        "endChar": 67
+      },
+      "revId": "4e5289af6c0303f6f60e1771b968131c49696ae2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
