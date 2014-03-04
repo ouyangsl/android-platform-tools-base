@@ -1,0 +1,231 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c66ed13_1fbac49e",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "doc?",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c66ed13_5f6d9c88",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "Add a comment that this corresponds to\nhttp://developer.android.com/reference/android/app/ActionBar.html#NAVIGATION_MODE_STANDARD\n\nditto for the other constants here which correspond to platform APIs",
+      "range": {
+        "startLine": 24,
+        "startChar": 28,
+        "endLine": 24,
+        "endChar": 52
+      },
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c66ed13_ff611094",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "nit - space before {.\n\nDoes this corerspond to an API class in the framework? (If so, document it)",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc76f9c4_48072b76",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "nit - space after comma",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c66ed13_7fa9805f",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "Are these API numbers referring to the layoutlib version number, or Android platform APIs?",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c66ed13_df58cce9",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "Annotate @NonNull",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_aa459333",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "Annotate @Nullable",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_6ae3fbf8",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "@NonNull",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_aaa91374",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IProjectCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "Since we\u0027re adding a method to the interface, this now requires clients to be updated, right? So we should update Bridge#API_CURRENT to 11 such that any attempt to load this layoutlib in an older ADT/Studio will fail. (By the way I\u0027m not certain that we\u0027ve implemented a version compatibility check in Studio saying you need a newer version the way we have in ADT; we should check that.)\n\nAlso, add @Nullable on this method? (And perhaps retroactively on some of the other methods in this interface.)",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c66ed13_dfc3ec23",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderParams.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "@Nullable (and perhaps retroactively on some of the other methods?)",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc76f9c4_88df83a6",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "Maybe add to the documentation for this method that this will only return view infos inside the layout itself (e.g. none of the ViewInfos will return true from ViewInfo#isSystemUi), and that to obtain ViewInfos for the system UI surrounding the layout, callers can use {@link #getSystemRootViews}",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_0afb6793",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "@Nullable (and perhaps retroactively on some of the other methods?)",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_eac86b66",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-04T20:32:59Z",
+      "side": 1,
+      "message": "Don\u0027t capitalize acronyms (e.g. should be isSystemUi). However, isSystemView might be a better name anyway (to correspond to the getRootViews, ViewInfo etc naming pattern.)",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
