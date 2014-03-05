@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cb929a9_502b6299",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "We don\u0027t put our username in todos. I don\u0027t remember why, but we just don\u0027t do it.\n\nhttp://source.android.com/source/code-style.html#use-todo-comments",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 16
+      },
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cae3566_3b07ab77",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "shoud be mRecords",
+      "range": {
+        "startLine": 84,
+        "startChar": 50,
+        "endLine": 84,
+        "endChar": 57
+      },
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_495e43b0",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "We use upper case for enum (and public constants)",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 13
+      },
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc76f9c4_8b9bf35f",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "we have com.android.annotations.NonNull and com.android.annotations.Nullable, you should use them everywhere as applicable (IJ can be configured to use those by default).",
+      "range": {
+        "startLine": 118,
+        "startChar": 28,
+        "endLine": 118,
+        "endChar": 33
+      },
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb929a9_b0f3be0e",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "We have a logger interface that ties into the Gradle logger API. we should use that one instead.",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb929a9_5000421f",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "m prefix here and below.",
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb929a9_30ffced2",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "Should that be a constant?",
+      "range": {
+        "startLine": 80,
+        "startChar": 39,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cd641da_376b4008",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlStringUtils.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-05T23:23:11Z",
+      "side": 1,
+      "message": "Can we put this in com.android.utils.XmlUtils?",
+      "range": {
+        "startLine": 24,
+        "startChar": 19,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "955aa7f2b8dac1701cf33fdeb6453b9e49a9b719",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
