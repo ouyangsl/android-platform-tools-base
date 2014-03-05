@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dc76f9c4_9c0d849a",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c66ed13_1fbac49e",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c66ed13_5f6d9c88",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2014-03-04T20:32:59Z",
       "side": 1,
       "message": "Add a comment that this corresponds to\nhttp://developer.android.com/reference/android/app/ActionBar.html#NAVIGATION_MODE_STANDARD\n\nditto for the other constants here which correspond to platform APIs",
+      "range": {
+        "startLine": 24,
+        "startChar": 28,
+        "endLine": 24,
+        "endChar": 52
+      },
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_3e5ea82a",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c66ed13_5f6d9c88",
       "range": {
         "startLine": 24,
         "startChar": 28,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "1c7df19f_de6e94d2",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Done.\nThis doesn\u0027t correspond to any API in the framework. In framework, it\u0027s just a boolean - showHomeAsUp. I want to extend this to enable NavigationDrawer also and hence the enum.",
+      "parentUuid": "7c66ed13_ff611094",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc76f9c4_48072b76",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2014-03-04T20:32:59Z",
       "side": 1,
       "message": "nit - space after comma",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c66ed13_02c90b68",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc76f9c4_48072b76",
       "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "1c7df19f_7ecf40a2",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Probably don\u0027t need it here since all the functions are added in API 11. I\u0027ll add the since to ProjectCallback",
+      "parentUuid": "7c66ed13_7fa9805f",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c66ed13_df58cce9",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2014-03-04T20:32:59Z",
       "side": 1,
       "message": "Annotate @NonNull",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_9ebb3cee",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Those annotations are not available in layoutlib-api project.",
+      "parentUuid": "7c66ed13_df58cce9",
       "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "dc76f9c4_dcc45cd7",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "1c7df19f_aa459333",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c7df19f_6ae3fbf8",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
         "patchSetId": 1
@@ -144,6 +276,24 @@
     },
     {
       "key": {
+        "uuid": "dc76f9c4_5c94ccb6",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "1c7df19f_6ae3fbf8",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c7df19f_aaa91374",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IProjectCallback.java",
         "patchSetId": 1
@@ -155,6 +305,24 @@
       "writtenOn": "2014-03-04T20:32:59Z",
       "side": 1,
       "message": "Since we\u0027re adding a method to the interface, this now requires clients to be updated, right? So we should update Bridge#API_CURRENT to 11 such that any attempt to load this layoutlib in an older ADT/Studio will fail. (By the way I\u0027m not certain that we\u0027ve implemented a version compatibility check in Studio saying you need a newer version the way we have in ADT; we should check that.)\n\nAlso, add @Nullable on this method? (And perhaps retroactively on some of the other methods in this interface.)",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc76f9c4_bc2ba0aa",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IProjectCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "I had done that, then for some reason, I had to remove it. And forgot to add it back.\n\nAnd since @Nullable isn\u0027t available in layoutlib-api, I\u0027d have to add a dependency to a some other project like tools-common, or create yet another annotation for the purpose.",
+      "parentUuid": "1c7df19f_aaa91374",
       "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -195,6 +363,24 @@
     },
     {
       "key": {
+        "uuid": "7c66ed13_f3cf0769",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc76f9c4_88df83a6",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c7df19f_0afb6793",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
         "patchSetId": 1
@@ -223,6 +409,24 @@
       "writtenOn": "2014-03-04T20:32:59Z",
       "side": 1,
       "message": "Don\u0027t capitalize acronyms (e.g. should be isSystemUi). However, isSystemView might be a better name anyway (to correspond to the getRootViews, ViewInfo etc naming pattern.)",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc76f9c4_75875b01",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-05T01:04:44Z",
+      "side": 1,
+      "message": "I remembered the rule, but Ui didn\u0027t look pleasing to the eye and I thought I\u0027d make an exception. Anyway, changed to isSystemView",
+      "parentUuid": "1c7df19f_eac86b66",
       "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
