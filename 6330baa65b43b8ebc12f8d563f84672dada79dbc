@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "9c348108_21a10e8f",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-06T18:42:33Z",
+      "side": 1,
+      "message": "Sorry, I\u0027m not following: If a library has a debug manifest, and a flavor manifest, how should it be passed in here?",
+      "parentUuid": "dca43989_b8f39d0e",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c7df19f_ddb0cd6d",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
         "patchSetId": 15
