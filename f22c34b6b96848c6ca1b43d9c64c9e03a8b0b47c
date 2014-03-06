@@ -46,6 +46,54 @@
       "revId": "f22c34b6b96848c6ca1b43d9c64c9e03a8b0b47c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c348108_159d2409",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T23:26:50Z",
+      "side": 1,
+      "message": "1. not so far.\n2. yes, my bet. I somehow forgot to transform it into a Builder and immutable class.",
+      "parentUuid": "fca73d88_0475ab9c",
+      "range": {
+        "startLine": 87,
+        "startChar": 26,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "f22c34b6b96848c6ca1b43d9c64c9e03a8b0b47c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c398d00_e399ec1c",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T23:26:50Z",
+      "side": 1,
+      "message": "my neither, but it takes little effort to make it from the ground up, and a lot more if we need to later.",
+      "parentUuid": "7c398d00_e0f56264",
+      "range": {
+        "startLine": 87,
+        "startChar": 26,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "f22c34b6b96848c6ca1b43d9c64c9e03a8b0b47c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
