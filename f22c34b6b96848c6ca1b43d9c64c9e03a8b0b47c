@@ -22,6 +22,30 @@
       "revId": "f22c34b6b96848c6ca1b43d9c64c9e03a8b0b47c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c398d00_e0f56264",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-06T22:26:51Z",
+      "side": 1,
+      "message": "I\u0027m not convinced we\u0027ll gain much doing multi-threading in the merger itself, we we could at least load all the manifests in parallel. What\u0027s your plan Jerome?",
+      "parentUuid": "fca73d88_0475ab9c",
+      "range": {
+        "startLine": 87,
+        "startChar": 26,
+        "endLine": 87,
+        "endChar": 77
+      },
+      "revId": "f22c34b6b96848c6ca1b43d9c64c9e03a8b0b47c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
