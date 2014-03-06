@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "9c348108_ea709b1c",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-06T22:24:59Z",
+      "side": 1,
+      "message": "A published library represents a single variant with a single manifests (ie its multiple manifests have been merged together when the aar was created).",
+      "parentUuid": "9c348108_21a10e8f",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c7df19f_ddb0cd6d",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
         "patchSetId": 15
