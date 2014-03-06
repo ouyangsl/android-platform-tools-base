@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fca73d88_adfb6527",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-06T05:56:50Z",
+      "side": 1,
+      "message": "Is this not private only for testing? If so, consider adding a @VisibleForTesting",
+      "range": {
+        "startLine": 80,
+        "startChar": 24,
+        "endLine": 80,
+        "endChar": 30
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fca73d88_b3a0a2b5",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-06T05:56:50Z",
+      "side": 1,
+      "message": "I\u0027m a bit confused about the use of synchronized. It seems to be there in some places and not in others. Could you maybe document what data is actually being synchronized. (Is this actually called from multiple threads anyway?)\n\nPersonally, I also use @GuardedBy annotation on the field, but that is upto you.",
+      "range": {
+        "startLine": 253,
+        "startChar": 4,
+        "endLine": 253,
+        "endChar": 16
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_789bc760",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-06T05:56:50Z",
+      "side": 1,
+      "message": "FYI, libraries may themselves have flavors \u0026 build types. (Doesn\u0027t have to be supported in this CL if it isn\u0027t).",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c7df19f_ddb0cd6d",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-06T05:56:50Z",
+      "side": 1,
+      "message": "public? maybe package private with a @VisibleForTesting?",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 10
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fca73d88_b37662e6",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-06T05:56:50Z",
+      "side": 1,
+      "message": "nit: not sure exactly what is going on here, but it seems odd that a method named compareTo would log errors.",
+      "range": {
+        "startLine": 365,
+        "startChar": 24,
+        "endLine": 365,
+        "endChar": 29
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fca73d88_0deb9960",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ActionRecorderTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-06T05:56:50Z",
+      "side": 1,
+      "message": "all caps for static finals",
+      "range": {
+        "startLine": 38,
+        "startChar": 32,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
