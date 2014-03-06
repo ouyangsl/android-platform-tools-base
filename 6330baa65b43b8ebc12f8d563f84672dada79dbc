@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1cab3158_ebc5c54b",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T17:20:39Z",
+      "side": 1,
+      "message": "ah yes, I did not know it also existed in Android land... cool !",
+      "parentUuid": "fca73d88_adfb6527",
+      "range": {
+        "startLine": 80,
+        "startChar": 24,
+        "endLine": 80,
+        "endChar": 30
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fca73d88_b3a0a2b5",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
         "patchSetId": 15
@@ -36,6 +60,30 @@
       "writtenOn": "2014-03-06T05:56:50Z",
       "side": 1,
       "message": "I\u0027m a bit confused about the use of synchronized. It seems to be there in some places and not in others. Could you maybe document what data is actually being synchronized. (Is this actually called from multiple threads anyway?)\n\nPersonally, I also use @GuardedBy annotation on the field, but that is upto you.",
+      "range": {
+        "startLine": 253,
+        "startChar": 4,
+        "endLine": 253,
+        "endChar": 16
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb929a9_d0cd12fe",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T17:20:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fca73d88_b3a0a2b5",
       "range": {
         "startLine": 253,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5cb929a9_90c79ada",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T17:20:39Z",
+      "side": 1,
+      "message": "i.c. well so far, I expect gradle to give me the properly ordered list. would that work for you in the IDE too ?",
+      "parentUuid": "1c7df19f_789bc760",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c7df19f_ddb0cd6d",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
         "patchSetId": 15
@@ -82,6 +154,30 @@
       "writtenOn": "2014-03-06T05:56:50Z",
       "side": 1,
       "message": "public? maybe package private with a @VisibleForTesting?",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 10
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb929a9_b0c41ed6",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T17:20:39Z",
+      "side": 1,
+      "message": "no I expect anyone to be able to have access to results and logs.",
+      "parentUuid": "1c7df19f_ddb0cd6d",
       "range": {
         "startLine": 55,
         "startChar": 4,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5cb929a9_708a269a",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T17:20:39Z",
+      "side": 1,
+      "message": "yes I hesitated with making the method void and throw exceptions with an explanation when things differ. I guess I want to have a trace why the comparison failed. I expect this will change with IDE requirements for instance, so maybe I leave a TODO for now and come back to it one you and I have a better idea how the Manifest Merger will integrate in Intellij. wdyt ?",
+      "parentUuid": "fca73d88_b37662e6",
+      "range": {
+        "startLine": 365,
+        "startChar": 24,
+        "endLine": 365,
+        "endChar": 29
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fca73d88_0deb9960",
         "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ActionRecorderTest.java",
         "patchSetId": 15
@@ -128,6 +248,30 @@
       "writtenOn": "2014-03-06T05:56:50Z",
       "side": 1,
       "message": "all caps for static finals",
+      "range": {
+        "startLine": 38,
+        "startChar": 32,
+        "endLine": 38,
+        "endChar": 41
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cab3158_abcfcd69",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ActionRecorderTest.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-06T17:20:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fca73d88_0deb9960",
       "range": {
         "startLine": 38,
         "startChar": 32,
