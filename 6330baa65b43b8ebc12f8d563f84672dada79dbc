@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fca73d88_ee1b90cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 15
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-06T18:31:38Z",
+      "side": 1,
+      "message": "just FYI, you need to have an empty line after the first commit message line.\n\nAlso all line should be hard wrapped around 70 col.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 3
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fca73d88_adfb6527",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
         "patchSetId": 15
@@ -131,6 +154,30 @@
       "side": 1,
       "message": "i.c. well so far, I expect gradle to give me the properly ordered list. would that work for you in the IDE too ?",
       "parentUuid": "1c7df19f_789bc760",
+      "range": {
+        "startLine": 42,
+        "startChar": 41,
+        "endLine": 42,
+        "endChar": 53
+      },
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dca43989_b8f39d0e",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-06T18:31:38Z",
+      "side": 1,
+      "message": "When we do the merge we do it once for each variant of a given app. In this case the variant depends on a very specific variant for each library, so it\u0027s fine that it\u0027s a single File for each library.",
+      "parentUuid": "5cb929a9_90c79ada",
       "range": {
         "startLine": 42,
         "startChar": 41,
