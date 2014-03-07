@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cd641da_00c6f057",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/AbstractResourceRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-07T17:23:15Z",
+      "side": 1,
+      "message": "Nit: Is this just a reasonably large number? Or is there a rationale?",
+      "range": {
+        "startLine": 264,
+        "startChar": 40,
+        "endLine": 264,
+        "endChar": 42
+      },
+      "revId": "fd7fd31238c09b6f96657be232214fcc22175b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
