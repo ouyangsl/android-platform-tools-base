@@ -22,6 +22,30 @@
       "revId": "fd7fd31238c09b6f96657be232214fcc22175b28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_f82b51a9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/AbstractResourceRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T18:17:13Z",
+      "side": 1,
+      "message": "Yep, that\u0027s it. A reasonable number. This says that you\u0027d have a chain of 20 resource alias indirections. I\u0027ve never seen more than 2-3.",
+      "parentUuid": "9cd641da_00c6f057",
+      "range": {
+        "startLine": 264,
+        "startChar": 40,
+        "endLine": 264,
+        "endChar": 42
+      },
+      "revId": "fd7fd31238c09b6f96657be232214fcc22175b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
