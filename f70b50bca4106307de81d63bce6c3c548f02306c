@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc4c9db4_4639c354",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/LayoutBoundChunkBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T22:49:10Z",
+      "side": 1,
+      "message": "add a comment or pointer to the significance of these letters.",
+      "revId": "f70b50bca4106307de81d63bce6c3c548f02306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_f4cfd868",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/NinePatchChunkBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T22:49:10Z",
+      "side": 1,
+      "message": "same comment request.",
+      "revId": "f70b50bca4106307de81d63bce6c3c548f02306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_ecfb9326",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T22:49:10Z",
+      "side": 1,
+      "message": "would be nice to include a link a png file format reference.",
+      "revId": "f70b50bca4106307de81d63bce6c3c548f02306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
