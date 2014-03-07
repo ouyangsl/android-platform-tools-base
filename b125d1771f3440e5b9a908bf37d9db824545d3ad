@@ -1,0 +1,316 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c526d52_67ff9cd1",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AaptOptions.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "Instead of naming this option based on whether it\u0027s performed in Java, perhaps reverse the logic to \"aaptPngCrunch\" defaulting to false?",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_27300400",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/JavaPngCruncher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "@NonNull,@NonNull?.",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_592b6499",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/JavaPngCruncher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "Should this method just pass the IOException to the caller, in case the caller needs to know if there was a failure? (Or at least change return value to boolean to pass true/false based on success?)",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_8787504e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/Chunk.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "is this just for debugging?",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_d44a949c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/Chunk.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "nit - double space",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_d94bf447",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/LayoutBoundChunkBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "or allocate(4 * Integer.SIZE/8) to make it clear what that second number is",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_cf779da5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/NinePatchException.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "Is this format trying to be compatible with exactly what aapt had?\n\nIf not the error format I\u0027ve been trying to use elsewhere (see MergingException#getMessage) is\nfile:line:column: severity: Message\nwhere :line:column and :line are optional, and Severity is \"Error\" or \"Warning\".\n\nWe have a special recognizer for errors of that form in the gradle output window (along with various patterns to match aapt\u0027s many varied output formats).\n\nSo this would be\n/full/path/to/image.png: Error: 9-patch image malformed: .... and so on)",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_ef2b8160",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "I know you\u0027re masking after the shift, but maybe switch \u003e\u003e to \u003e\u003e\u003e for clarity",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_871c70fa",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "This looks a little suspicious -- you might want parens around second comparison (if not put parentheses around the first two to make it clear that\u0027s what you really intended)",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_278be4c5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "in a future CL we may want to optimize this - seems like we should be able to optimize this lookup with a hash of some sort; I suspect most images will contain the same colors repeated a lot, especially in adjacent pixels. Obviously only if this is performance critical code, but given that it\u0027s iterating over all colors in all pixels of the image it seems like it would be.",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_6794bcb7",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "\u003e\u003e\u003e instead of \u003e\u003e again. Code already works correctly since it\u0027s masked, but I think it\u0027s slightly clearer that we don\u0027t want to pull in the sign bit.",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_b9470893",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "remove some spaces here? (looks like it was previously aligned with the statements above, but surround-by-if ruined it)",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_cfaf9d78",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "Maybe point to http://en.wikipedia.org/wiki/Luma_(video) for this formula?",
+      "range": {
+        "startLine": 364,
+        "startChar": 71,
+        "endLine": 364,
+        "endChar": 78
+      },
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_7ce8ce21",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "I\u0027ll probably want to steal this for a lint PNG validator check!",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_120edc4f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "I\u0027m a little lost in this code - so just checking that this assertion will always be true, even in invalid PNGs? Or is it possible for an indexed (invalid) PNG to specify a color index outside of its declared palette and then hit this assertion?",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_4f226d35",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "the naming of this method, and others in this class, aren\u0027t very Javaesque - are you trying to stay faithful to the aapt code to keep future porting updates simpler? If not, get_horizontal_ticks \u003d\u003e getHorizontalTicks :-)",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_9c1b1a59",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "What does this location represent?",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_b2a610d2",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/BasePngTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-07T23:58:21Z",
+      "side": 1,
+      "message": "\\o/",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
