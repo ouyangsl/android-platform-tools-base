@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "fc4c9db4_f0a088b6",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "done and in the other files too.",
+      "parentUuid": "9c348108_1046d23e",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c398d00_c6af9678",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
         "patchSetId": 15
@@ -53,6 +71,24 @@
       "writtenOn": "2014-03-07T00:29:38Z",
       "side": 1,
       "message": "s/generate/generates",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_78d90168",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c398d00_c6af9678",
       "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "fc4c9db4_30167032",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dca43989_e5988dec",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c398d00_a6ac1285",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
         "patchSetId": 15
@@ -87,6 +141,24 @@
       "writtenOn": "2014-03-07T00:29:38Z",
       "side": 1,
       "message": "s/on/to/",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_58debd51",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c398d00_a6ac1285",
       "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -110,6 +182,24 @@
     },
     {
       "key": {
+        "uuid": "fc4c9db4_d0246c96",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dca43989_857199f6",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dca43989_855c396b",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
         "patchSetId": 15
@@ -121,6 +211,24 @@
       "writtenOn": "2014-03-07T00:29:38Z",
       "side": 1,
       "message": "nit - no space before the : here and below",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_b021e084",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dca43989_855c396b",
       "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -191,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "7c526d52_18bba5ef",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "I am not sure that\u0027s worth the trouble for such a short lived process and it\u0027s hard to predict a good size that would fit all element types.",
+      "parentUuid": "7c398d00_66cfaa47",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c348108_5087ba00",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
         "patchSetId": 15
@@ -202,6 +328,24 @@
       "writtenOn": "2014-03-07T00:29:38Z",
       "side": 1,
       "message": "nullness annotations here? (I noticed you added them on the parent class)",
+      "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_78b0e107",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-07T16:53:45Z",
+      "side": 1,
+      "message": "yep, forgot that one.",
+      "parentUuid": "9c348108_5087ba00",
       "revId": "6330baa65b43b8ebc12f8d563f84672dada79dbc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
