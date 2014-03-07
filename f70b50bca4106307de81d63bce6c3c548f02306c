@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fc4c9db4_99b32ccc",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/LayoutBoundChunkBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-07T23:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc4c9db4_4639c354",
+      "revId": "f70b50bca4106307de81d63bce6c3c548f02306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc586570_f4cfd868",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/NinePatchChunkBuilder.java",
         "patchSetId": 7
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bc586570_af8d096e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/NinePatchChunkBuilder.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-07T23:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc586570_f4cfd868",
+      "revId": "f70b50bca4106307de81d63bce6c3c548f02306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c526d52_ecfb9326",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
         "patchSetId": 7
@@ -47,6 +83,24 @@
       "writtenOn": "2014-03-07T22:49:10Z",
       "side": 1,
       "message": "would be nice to include a link a png file format reference.",
+      "revId": "f70b50bca4106307de81d63bce6c3c548f02306c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_19c71c34",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-07T23:21:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c526d52_ecfb9326",
       "revId": "f70b50bca4106307de81d63bce6c3c548f02306c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
