@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c526d52_92382c02",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AaptOptions.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "yeah that\u0027s probably a good idea.",
+      "parentUuid": "7c526d52_67ff9cd1",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c526d52_27300400",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/JavaPngCruncher.java",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-07T23:58:21Z",
       "side": 1,
       "message": "@NonNull,@NonNull?.",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_61a94560",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/JavaPngCruncher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c526d52_27300400",
       "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bc586570_015969eb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/JavaPngCruncher.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "I want to throw the exception but the base interface shouldn\u0027t throw an exception that\u0027s specific to an implementation, no? This is why I wrapped it in an IOException.\n\nThat said InterruptedException in the interface is specific to the other implementation...",
+      "parentUuid": "fc4c9db4_592b6499",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c526d52_8787504e",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/Chunk.java",
         "patchSetId": 8
@@ -64,6 +118,24 @@
       "writtenOn": "2014-03-07T23:58:21Z",
       "side": 1,
       "message": "is this just for debugging?",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c526d52_8dfad1df",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/Chunk.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "it\u0027s used in toString but it could be useful in general.",
+      "parentUuid": "7c526d52_8787504e",
       "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "fc4c9db4_37f81f94",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/Chunk.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc586570_d44a949c",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc4c9db4_d94bf447",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/LayoutBoundChunkBuilder.java",
         "patchSetId": 8
@@ -98,6 +188,24 @@
       "writtenOn": "2014-03-07T23:58:21Z",
       "side": 1,
       "message": "or allocate(4 * Integer.SIZE/8) to make it clear what that second number is",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_d7c57b4c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/LayoutBoundChunkBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc4c9db4_d94bf447",
       "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "bc586570_e160b569",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/NinePatchException.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Do we have a Utils to generate these messages? If not, we absolutely should.\nThe trick here is that this is going to get encapsulated anyway, so we\u0027d need to figure out a way to fix this.\n\nWhat about the multi line stuff?",
+      "parentUuid": "bc586570_cf779da5",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc586570_ef2b8160",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
         "patchSetId": 8
@@ -132,6 +258,24 @@
       "writtenOn": "2014-03-07T23:58:21Z",
       "side": 1,
       "message": "I know you\u0027re masking after the shift, but maybe switch \u003e\u003e to \u003e\u003e\u003e for clarity",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_240e3b50",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done, and in other places too.",
+      "parentUuid": "bc586570_ef2b8160",
       "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "fc4c9db4_973db3f2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c526d52_871c70fa",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c526d52_278be4c5",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
         "patchSetId": 8
@@ -166,6 +328,24 @@
       "writtenOn": "2014-03-07T23:58:21Z",
       "side": 1,
       "message": "in a future CL we may want to optimize this - seems like we should be able to optimize this lookup with a hash of some sort; I suspect most images will contain the same colors repeated a lot, especially in adjacent pixels. Obviously only if this is performance critical code, but given that it\u0027s iterating over all colors in all pixels of the image it seems like it would be.",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc4c9db4_f731971a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Yeah I thought we could maybe use a SparseIntMap thingie.",
+      "parentUuid": "7c526d52_278be4c5",
       "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -206,6 +386,24 @@
     },
     {
       "key": {
+        "uuid": "fc4c9db4_52de9983",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc4c9db4_b9470893",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc586570_cfaf9d78",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
         "patchSetId": 8
@@ -217,6 +415,30 @@
       "writtenOn": "2014-03-07T23:58:21Z",
       "side": 1,
       "message": "Maybe point to http://en.wikipedia.org/wiki/Luma_(video) for this formula?",
+      "range": {
+        "startLine": 364,
+        "startChar": 71,
+        "endLine": 364,
+        "endChar": 78
+      },
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_4457ef1d",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc586570_cfaf9d78",
       "range": {
         "startLine": 364,
         "startChar": 71,
@@ -263,6 +485,24 @@
     },
     {
       "key": {
+        "uuid": "bc586570_c442df5a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "ah good question. the assert is in the original aapt code. I should probably remove it.",
+      "parentUuid": "7c526d52_120edc4f",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc586570_4f226d35",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
         "patchSetId": 8
@@ -280,6 +520,24 @@
     },
     {
       "key": {
+        "uuid": "bc586570_2440fb50",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "yes I was staying close to aapt but I should just rename it now.",
+      "parentUuid": "bc586570_4f226d35",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc4c9db4_9c1b1a59",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
         "patchSetId": 8
@@ -291,6 +549,24 @@
       "writtenOn": "2014-03-07T23:58:21Z",
       "side": 1,
       "message": "What does this location represent?",
+      "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc586570_a4fa4bdf",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-08T01:41:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc4c9db4_9c1b1a59",
       "revId": "b125d1771f3440e5b9a908bf37d9db824545d3ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
