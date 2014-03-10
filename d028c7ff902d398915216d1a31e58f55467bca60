@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cf1d5a2_3db65b07",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "in this file, lots of i-1 style and lots of i - 1 style. I know Google force the i - 1 with spaces, not sure about android but it should be consistent.",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_fdb04f6d",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "the whole code is a bit un-natural. \n\ncould it not be ? \n\nPngProcessor processor \u003d new PngProcessor();\nByteUtils byteUtils \u003d processor.read(from);\n\nPngWriter writer \u003d new PngWriter(to);\nwriter.setXXX.\n\nwriter.write(byteUtils);",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_3ab65d07",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "Preconditions.checkArgument() on both for early failure",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_dd28ebaf",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "this method is really long, it would help understanding if you could break in into smaller methods.",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_e2c42ed7",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "why copying the entire file into memory, it seems it would be less prone to OOM to have chunks saving themselves to an OutputStream/Writer interface ?",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_9da66fd2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "this really seem to access a lof of Chunk\u0027s internal (getData(), getCrc32()). this should be moved into Chunk class itself.",
+      "range": {
+        "startLine": 103,
+        "startChar": 16,
+        "endLine": 103,
+        "endChar": 26
+      },
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_3ab5bdd2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "what do these 3 x 4 means ? One is the chunk signature, one is the CRC ?",
+      "range": {
+        "startLine": 136,
+        "startChar": 35,
+        "endLine": 136,
+        "endChar": 36
+      },
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_1a8c4123",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:02:40Z",
+      "side": 1,
+      "message": "I personally like Optional\u003c\u003e a lot. forces all users to check for existence on the getter. (I tend to forget : if xxx !\u003d null a lot...",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
