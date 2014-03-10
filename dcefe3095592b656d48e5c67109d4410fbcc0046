@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cda0934_7f09cff8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-03-10T17:33:35Z",
+      "side": 1,
+      "message": "This if statement isn\u0027t strictly necessary.",
+      "revId": "dcefe3095592b656d48e5c67109d4410fbcc0046",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
