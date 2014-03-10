@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cf1d5a2_b87c16cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T23:08:17Z",
+      "side": 1,
+      "message": "Remove WIP before checking in. I also like to capitalize my commit message summaries, but that\u0027s up to you.",
+      "revId": "4257ae1b679655668688cd083ee43e126519b816",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_88874a4e",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T23:08:17Z",
+      "side": 1,
+      "message": "I presume IntelliJ suggested the name here but I think \"logger\" is better than iLogger. (As I mentioned in a different CL ILogger is named that way because we used to prefix interfaces with I.)",
+      "revId": "4257ae1b679655668688cd083ee43e126519b816",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
