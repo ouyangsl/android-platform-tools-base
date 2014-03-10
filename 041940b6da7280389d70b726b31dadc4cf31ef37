@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf7d997_3752f3a5",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "Instead of the above @SuppressWarnings, return Collections.emptyList(); here.",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_18e1eae9",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "nitpick - use \"whether\" instead of \"if\" here",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_1529b79a",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "add {@link # NAVIGATION_MODE_STANDARD}, {@link # NAVIGATION_MODE_LIST} or {@link #NAVIGATION_MODE_TABS}",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_f8f4dea0",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "\", or null\"",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_55b68f07",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "Add \"Never null\". (I think I already asked you earlier and we don\u0027t have access to the nullness annotations here right?)",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_951be758",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "insert \"the\" between \"only\" and \"views\"",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_d779ef0b",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "case\u003d\u003ecases",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_f8cfbe68",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "insert \"a\" between \"is\" and \"merge\"",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_b8ac1685",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "\", but {@link #getRootViews} and {@link #getSystemRootViews} share some view infos, so modifying one result can affect the other.\"",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_d5c8bf66",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:35:47Z",
+      "side": 1,
+      "message": "remove @return tag (or duplicate the above documentation line into it)",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
