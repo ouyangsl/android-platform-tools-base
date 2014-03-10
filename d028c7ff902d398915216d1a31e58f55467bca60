@@ -309,6 +309,24 @@
       "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_8ab3becb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T23:00:25Z",
+      "side": 1,
+      "message": "When the information is recorded on the APIs this way, we can statically determine whether accessor code is correct; we don\u0027t need to check that over and over again at runtime.\n\nBut we do have that option. In IntelliJ, at buildtime, they run an annotation processor which inserts code in every single method which checks that @NotNull parameters really are not null on entry, and that all return values really are not null if the return value is marked @NotNull.",
+      "parentUuid": "dcf7d997_a5219284",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
