@@ -329,6 +329,24 @@
     },
     {
       "key": {
+        "uuid": "1ceed1c6_8d48014d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IProjectCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T21:23:18Z",
+      "side": 1,
+      "message": "I talked to Xav regarding this. We should update the API version once it is final so that if there are any other changes, we need not update the API level again.\n\nTill then the additional methods will not be called until Layoutlib has the ActionBar capability. The capability will only be present in the layoutlib having the final version of the API, which will force an update to Studio/ADT.\n\nAlso, since, these methods are part of the project callback, Studio/ADT don\u0027t call them directly. So, we should be safe.",
+      "parentUuid": "dc76f9c4_bc2ba0aa",
+      "revId": "ad91f47b62856ffd424030402c817bc95a580d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c66ed13_dfc3ec23",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderParams.java",
         "patchSetId": 1
