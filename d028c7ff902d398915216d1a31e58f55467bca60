@@ -153,6 +153,24 @@
       "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_1a5281a5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T18:08:58Z",
+      "side": 1,
+      "message": "Just FYI in the tools we\u0027re relying heavily on null annotations (@NonNull, @Nullable, and the excellent support in IntelliJ to flag these). Thus this field should be annotated @Nullable, and any usage which doesn\u0027t check will get flagged.",
+      "parentUuid": "dcf7d997_1a8c4123",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
