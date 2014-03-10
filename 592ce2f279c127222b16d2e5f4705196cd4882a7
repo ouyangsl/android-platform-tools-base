@@ -1,0 +1,366 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cf1d5a2_03d33c15",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/AutomatedBuildTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "you should create another array and iterate over it. Why are you running this test only on the last project (which you didn\u0027t add). It seems arbitrary.\n\nAlso with this new mode, we probably should extract methods that loop on the project list for the other types too.",
+      "range": {
+        "startLine": 134,
+        "startChar": 29,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_23d598d5",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/BuildTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "Should use @NonNull (use com.android.annotations.NonNull/Nullable)",
+      "range": {
+        "startLine": 75,
+        "startChar": 43,
+        "endLine": 75,
+        "endChar": 49
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_2052b0a5",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/BuildTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "When we call it from gradle we won\u0027t use a file, we\u0027ll add JVM arguments to the build call. I would extend runTaskOnProject to receive a map of (arg, value) pairs and pass it through the tooling api.",
+      "range": {
+        "startLine": 78,
+        "startChar": 51,
+        "endLine": 78,
+        "endChar": 68
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_03aa1c67",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "expected is first, then actual.",
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_e070a81c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "we should also prevent people from creating one. Look in VariantManager.checkName()\n\nThis will ensure that no one creates a build type called \"translate\" when translation mode is not enabled. This would succeed at first and then fail when translation mode is enabled, which would be confusing.",
+      "range": {
+        "startLine": 278,
+        "startChar": 38,
+        "endLine": 278,
+        "endChar": 47
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_63968031",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "why create a string that only contains another string? Also, I\u0027d write this more java like:\n\n    if (TRANSLATE.equals(variantData.variantConfiguration.fullName))\n\nActually what you want to test is the build type not the full name, otherwise you\u0027ll miss it when there are flavors.\nSo you need to use:\n\n    if (TRANSLATE.equals(variantData.variantConfiguration.buildType.name))",
+      "range": {
+        "startLine": 674,
+        "startChar": 15,
+        "endLine": 674,
+        "endChar": 57
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_43226435",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "missing whitespace around \u003d. Same 2 lines below.",
+      "range": {
+        "startLine": 675,
+        "startChar": 44,
+        "endLine": 675,
+        "endChar": 45
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_20e63098",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResIdUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "missing header.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_00b1746f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResIdUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "could be final.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 11
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_03c7bc33",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResIdUtil.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "Should use @NonNull on this, and all other applicable args.",
+      "range": {
+        "startLine": 19,
+        "startChar": 32,
+        "endLine": 19,
+        "endChar": 38
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_00ffb416",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "missing header",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_c0a64c3c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "This seems like the wrong way to do this. We should inject this custom behavior in the ResourceMerger.",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_e0fb8826",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "This should not be all upper case.",
+      "range": {
+        "startLine": 73,
+        "startChar": 24,
+        "endLine": 73,
+        "endChar": 38
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_de2bc160",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "should use the ILogger interface",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_e076e8e6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "Do you really not care about non default values?",
+      "range": {
+        "startLine": 90,
+        "startChar": 44,
+        "endLine": 90,
+        "endChar": 57
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_a047c092",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/StrResWrapper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:46:34Z",
+      "side": 1,
+      "message": "In your current mechanism because the merge is incremental, you\u0027re going to end up rewrapping the same string multiple times.",
+      "range": {
+        "startLine": 162,
+        "startChar": 20,
+        "endLine": 162,
+        "endChar": 65
+      },
+      "revId": "592ce2f279c127222b16d2e5f4705196cd4882a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
