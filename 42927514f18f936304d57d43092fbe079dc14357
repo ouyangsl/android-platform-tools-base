@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cf1d5a2_38d5c6d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:46:17Z",
+      "side": 1,
+      "message": "The first line of the commit message should be a summary of the CL, and should be at most 65 characters long (and I think it looks better if it\u0027s capitalized as well). Then there should be a blank line, and then the remainder of the description of the CL (at most 70 characters wide).",
+      "revId": "42927514f18f936304d57d43092fbe079dc14357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_38002696",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T22:46:17Z",
+      "side": 1,
+      "message": "This doesn\u0027t look quite right - substring\u0027s to-parameter is exclusive, so that \"-1\" isn\u0027t supposed to be there is it?",
+      "revId": "42927514f18f936304d57d43092fbe079dc14357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
