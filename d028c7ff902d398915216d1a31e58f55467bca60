@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_3e4dbd09",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:56:43Z",
+      "side": 1,
+      "message": "yeah the original code seems inconsistent. I\u0027m fixing it.",
+      "parentUuid": "3cf1d5a2_3db65b07",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_fdb04f6d",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-10T18:02:40Z",
       "side": 1,
       "message": "the whole code is a bit un-natural. \n\ncould it not be ? \n\nPngProcessor processor \u003d new PngProcessor();\nByteUtils byteUtils \u003d processor.read(from);\n\nPngWriter writer \u003d new PngWriter(to);\nwriter.setXXX.\n\nwriter.write(byteUtils);",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_4308a488",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:56:43Z",
+      "side": 1,
+      "message": "Yeah it\u0027s kinda crappy.\n\nbut returning it from read or passing it to write feel weird too. It\u0027s not like it\u0027s the result of the read or where to write to.\n\ni\u0027ve been toying with the idea of just using a ThreadLocal and using it inside both the processor and the writer so that it\u0027s independent from the API.",
+      "parentUuid": "9c2ba1c2_fdb04f6d",
       "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "dcf7d997_149b75a6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:56:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_3ab65d07",
+      "range": {
+        "startLine": 86,
+        "startChar": 15,
+        "endLine": 86,
+        "endChar": 16
+      },
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_dd28ebaf",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
         "patchSetId": 11
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "3cf1d5a2_03169ca4",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:56:43Z",
+      "side": 1,
+      "message": "It\u0027s long because it\u0027s ported from the cpp version of aapt and I\u0027d like to keep it close for now.",
+      "parentUuid": "9c2ba1c2_dd28ebaf",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf1d5a2_e2c42ed7",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
         "patchSetId": 11
@@ -87,6 +165,24 @@
       "writtenOn": "2014-03-10T18:02:40Z",
       "side": 1,
       "message": "why copying the entire file into memory, it seems it would be less prone to OOM to have chunks saving themselves to an OutputStream/Writer interface ?",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_d4772da5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:56:43Z",
+      "side": 1,
+      "message": "Those are typically small images, and I like just using Files.write() but you\u0027re right. I\u0027ll fix this.",
+      "parentUuid": "3cf1d5a2_e2c42ed7",
       "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -127,6 +223,30 @@
       "writtenOn": "2014-03-10T18:02:40Z",
       "side": 1,
       "message": "what do these 3 x 4 means ? One is the chunk signature, one is the CRC ?",
+      "range": {
+        "startLine": 136,
+        "startChar": 35,
+        "endLine": 136,
+        "endChar": 36
+      },
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_346951d0",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngWriter.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T20:56:43Z",
+      "side": 1,
+      "message": "I should move this to the chunk.",
+      "parentUuid": "dcf7d997_3ab5bdd2",
       "range": {
         "startLine": 136,
         "startChar": 35,
