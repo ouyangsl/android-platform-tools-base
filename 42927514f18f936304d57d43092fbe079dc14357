@@ -33,6 +33,24 @@
       "revId": "42927514f18f936304d57d43092fbe079dc14357",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_0a106ed6",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-10T23:09:32Z",
+      "side": 1,
+      "message": "After reviewing your other CLs I see you fixed this in a later CL so I\u0027ll just +2 this CL.",
+      "parentUuid": "3cf1d5a2_38002696",
+      "revId": "42927514f18f936304d57d43092fbe079dc14357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
