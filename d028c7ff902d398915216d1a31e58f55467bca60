@@ -327,6 +327,24 @@
       "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcfadd80_529b5460",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-10T23:19:31Z",
+      "side": 1,
+      "message": "This only works for libraries that are built by IJ, which is not the case of the gradle plugin or some of its library (like this one -- Builder). We should find a way to run the static analysis and break the build somehow.",
+      "parentUuid": "dcf7d997_8ab3becb",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
