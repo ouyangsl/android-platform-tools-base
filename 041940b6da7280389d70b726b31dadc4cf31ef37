@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dcf7d997_eada42ff",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_3752f3a5",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf1d5a2_18e1eae9",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-10T22:35:47Z",
       "side": 1,
       "message": "nitpick - use \"whether\" instead of \"if\" here",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_08299a9a",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf1d5a2_18e1eae9",
       "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_e82526be",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2ba1c2_1529b79a",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf1d5a2_f8f4dea0",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
         "patchSetId": 6
@@ -64,6 +118,24 @@
       "writtenOn": "2014-03-10T22:35:47Z",
       "side": 1,
       "message": "\", or null\"",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_4afb965f",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf1d5a2_f8f4dea0",
       "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_4852722f",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2ba1c2_55b68f07",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_951be758",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
         "patchSetId": 6
@@ -98,6 +188,24 @@
       "writtenOn": "2014-03-10T22:35:47Z",
       "side": 1,
       "message": "insert \"the\" between \"only\" and \"views\"",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_f8769ee6",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2ba1c2_951be758",
       "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "3cf1d5a2_5857f246",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_d779ef0b",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf1d5a2_f8cfbe68",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
         "patchSetId": 6
@@ -132,6 +258,24 @@
       "writtenOn": "2014-03-10T22:35:47Z",
       "side": 1,
       "message": "insert \"a\" between \"is\" and \"merge\"",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_2a00ca95",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf1d5a2_f8cfbe68",
       "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "3cf1d5a2_385ca669",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf1d5a2_b8ac1685",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_d5c8bf66",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
         "patchSetId": 6
@@ -166,6 +328,24 @@
       "writtenOn": "2014-03-10T22:35:47Z",
       "side": 1,
       "message": "remove @return tag (or duplicate the above documentation line into it)",
+      "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_8a057ea8",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-10T23:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2ba1c2_d5c8bf66",
       "revId": "041940b6da7280389d70b726b31dadc4cf31ef37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
