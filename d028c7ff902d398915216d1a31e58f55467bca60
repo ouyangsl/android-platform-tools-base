@@ -171,6 +171,24 @@
       "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_a5219284",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/TickException.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T18:53:14Z",
+      "side": 1,
+      "message": "yes but those yellow (or red !)  lines are ignorable. As long as we don\u0027t have checkNotNull unit test that would fail, I think the annotation is relying a bit too much on the engineer to do the right thing. Neither Gerrit or unit tests will flag those, it\u0027s a bit insufficient,. As a reviewer I fee unconfident to ensure there are no easy potential NPE lurking since I cannot check it myself outside of doing what the IDE does, checking all callers etc etc...",
+      "parentUuid": "dcf7d997_1a5281a5",
+      "revId": "d028c7ff902d398915216d1a31e58f55467bca60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
