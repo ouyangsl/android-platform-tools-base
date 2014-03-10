@@ -33,6 +33,24 @@
       "revId": "4257ae1b679655668688cd083ee43e126519b816",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf1d5a2_6bb5b6f6",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-10T23:23:42Z",
+      "side": 1,
+      "message": "good this is a past practice. I did not like much I in front of interfaces. I standardized everything on \"logger\", \"mLogger\".",
+      "parentUuid": "9c2ba1c2_88874a4e",
+      "revId": "4257ae1b679655668688cd083ee43e126519b816",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
