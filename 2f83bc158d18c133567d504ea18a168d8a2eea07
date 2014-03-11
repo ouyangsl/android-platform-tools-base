@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_4b3eecf0",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlAttribute.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-11T01:00:40Z",
+      "side": 1,
+      "message": "no, just old habits, sometimes I had an explanation for the failure.",
+      "parentUuid": "dcf7d997_97380702",
+      "revId": "2f83bc158d18c133567d504ea18a168d8a2eea07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf1d5a2_b85d36b4",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_0b2cf4c1",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-11T01:00:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf1d5a2_b85d36b4",
+      "revId": "2f83bc158d18c133567d504ea18a168d8a2eea07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcf7d997_6a3ad2e1",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2014-03-10T22:52:49Z",
       "side": 1,
       "message": "or (attributeName.indexOf(\u0027:\u0027) \u003d\u003d -1) since we never need a full string comparison on this",
+      "revId": "2f83bc158d18c133567d504ea18a168d8a2eea07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_7fe8eb21",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-11T01:00:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_6a3ad2e1",
       "revId": "2f83bc158d18c133567d504ea18a168d8a2eea07",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
