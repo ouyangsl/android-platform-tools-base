@@ -33,6 +33,24 @@
       "revId": "76a9fa7b9c683b7ed24ac5a992315f7ed9b1e447",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_e67436a3",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-11T19:33:51Z",
+      "side": 1,
+      "message": "I mostly used a long because File.length() returns a long as well.",
+      "parentUuid": "dcf7d997_232910b2",
+      "revId": "76a9fa7b9c683b7ed24ac5a992315f7ed9b1e447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
