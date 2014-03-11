@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf7d997_c3380c03",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T19:19:18Z",
+      "side": 1,
+      "message": "\u003e\u003d. No big deal obviously :-)",
+      "revId": "76a9fa7b9c683b7ed24ac5a992315f7ed9b1e447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_232910b2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/PngProcessor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T19:19:18Z",
+      "side": 1,
+      "message": "long? If 64 bits isn\u0027t large enough to hold the size of the PNG the cruncher is going to have quite a job ahead of itself! And the APK might have some issues getting uploaded to the play store :-)",
+      "revId": "76a9fa7b9c683b7ed24ac5a992315f7ed9b1e447",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
