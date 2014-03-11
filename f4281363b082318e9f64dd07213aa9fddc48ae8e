@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf7d997_a366a033",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T19:13:44Z",
+      "side": 1,
+      "message": "This is unrelated to the case-insensitive fix. I noticed that all matched qualifiers get checked *twice*; first when they are matched in the above checkAndSet (which means it won\u0027t get into the if-body and increment the counter), and then a second time the next iteration through the while loop, which is unnecessary work (and could potentially allow us to match an invalid configuration like values-en-rES-rUS which would clobber the first region code with the second.) I added a new test to verify that this no longer returns a valid folder configuration (it used to).",
+      "revId": "f4281363b082318e9f64dd07213aa9fddc48ae8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
