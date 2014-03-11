@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c2ba1c2_576e8f8a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ViewHolderDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-11T16:11:09Z",
+      "side": 1,
+      "message": "On a related note, I had to read through http://www.doubleencore.com/2013/05/layout-inflation-as-intended/ to understand the parameters to inflate() call. The case as described in the blog post would also make a good lint check (after confirming w/ some in framework that the post is accurate).",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "58087d1126c032ee16899c94114b92694a677e5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
