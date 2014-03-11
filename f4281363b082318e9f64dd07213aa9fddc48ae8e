@@ -39,6 +39,30 @@
       "revId": "f4281363b082318e9f64dd07213aa9fddc48ae8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_bdbfe9b0",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/RegionQualifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T20:00:23Z",
+      "side": 1,
+      "message": "Correct. The letters are guaranteed to be ASCII A-Z. (The letter combinations from ISO 3166-1 to be exact.)",
+      "parentUuid": "fce81dcd_11c4362c",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 41
+      },
+      "revId": "f4281363b082318e9f64dd07213aa9fddc48ae8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
