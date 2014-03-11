@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf7d997_d15e12d6",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "an",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_c068f27c",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "I think preconditions are good for things like ensuring that numbers are in an allowed range and so on.\n\nI\u0027m not really sold on explicit null checks, since I find that NullPointerExceptions are pretty much always pinpointing them pretty directly) so it just adds noise to the code (the VM will check it anyway!)\n\nBut with that, I promise I will never mention it in any future code reviews for you :-)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_63d5b1d4",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "iLogger :-)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_20f58e9b",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "Meta issue: should use a consistent error format here such that the error recognizers in Studio (and elsewhere) can easily map this into hyperlinks to warp to the relevant location. See sdk-common MergingException (and MergingExceptionTest) for examples of the format I\u0027ve been trying to use in most places. We *can* handle other formats, but it requires special cases in Studio. (We have many special cases already to deal with aapt\u0027s many error output formats.)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_f1bcee9c",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "use positional syntax (%1$s, %2$s, %3$d)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_31c79634",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "ditto (and elsewhere in this file, won\u0027t repeat each time)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_608ca624",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "totally up to you, but I think the code would be more readable if you used shorter variable names (e.g. decisionTreeRecord \u003d\u003e record, actionRecorder \u003d\u003e recorder, actionType \u003d\u003e action) because you would then avoid some of the line wrapping. (The inner classes also add a bit of verbosity and line length; you could statically import the inner classes such that you can just refer to DecisionTreeRecord here instead of ActionRecorder.DecisionTreeRecord for example.)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_c34765db",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "It looks like this would all fit on one line?",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf7d997_b180a69e",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "if we\u0027re going to be comparing to these strings in a loop, should we pull them out as constants? Better yet, maybe add a new field to the NodeOperationType, getXmlName(), which is statically initialized with the right constant value expected in the XML, regardless of what the field is renamed to in the future.\n\nSee for example the ResourceType enum for places where we\u0027re doing this.",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_40c7e232",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "I mentioned something similar in the review, but how would you feel about importing the inner class such that you can simply look at Result.ERROR? (I even prefer to import constants since I think that helps readability even further.)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_20c46e2c",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/PostValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "unrelated to your change, but you may want to use a different prefix than android: and tools: in one or more of the tests to ensure that the code is doing proper namespace lookup and not any magic prefix: matching.",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_60d5c6d4",
+        "filename": "common/src/main/java/com/android/utils/XmlUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T21:23:55Z",
+      "side": 1,
+      "message": "these two methods probably belong in SdkUtils rather than XmlUtils",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
