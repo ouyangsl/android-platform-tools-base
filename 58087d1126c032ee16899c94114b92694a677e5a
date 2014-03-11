@@ -22,6 +22,30 @@
       "revId": "58087d1126c032ee16899c94114b92694a677e5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_a3517928",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ViewHolderDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-11T20:33:20Z",
+      "side": 1,
+      "message": "(that\u0027s a good idea -- I\u0027ve pinged adamp for his thoughts on this)",
+      "parentUuid": "9c2ba1c2_576e8f8a",
+      "range": {
+        "startLine": 59,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 23
+      },
+      "revId": "58087d1126c032ee16899c94114b92694a677e5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
