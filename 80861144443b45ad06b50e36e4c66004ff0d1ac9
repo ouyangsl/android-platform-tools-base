@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dcf7d997_48527ea6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-11T16:08:04Z",
+      "side": 1,
+      "message": "Acknowledged.",
+      "parentUuid": "9c2ba1c2_95d48789",
+      "revId": "80861144443b45ad06b50e36e4c66004ff0d1ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf1d5a2_388b06c6",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-10T23:02:36Z",
       "side": 1,
       "message": "Not related to this CL, but I think \"mILogger\" is a bit of a mouthful; I think \"mLogger\" would be better. I\u0027m guessing IntelliJ suggested this based on the type of the field; the \"I\" prefix of Logger is a leftover from our ADT days when we followed the Eclipse convention of prefixing interfaces with an I.",
+      "revId": "80861144443b45ad06b50e36e4c66004ff0d1ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_463d43a1",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-11T16:08:04Z",
+      "side": 1,
+      "message": "agreed. fixed in the initial CL.",
+      "parentUuid": "3cf1d5a2_388b06c6",
       "revId": "80861144443b45ad06b50e36e4c66004ff0d1ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "dcf7d997_c85dceb3",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-11T16:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_2aa1ea8e",
+      "revId": "80861144443b45ad06b50e36e4c66004ff0d1ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_95612720",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2014-03-10T23:02:36Z",
       "side": 1,
       "message": "nullness annotations?",
+      "revId": "80861144443b45ad06b50e36e4c66004ff0d1ac9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_7f9b8b60",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-11T16:08:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2ba1c2_95612720",
       "revId": "80861144443b45ad06b50e36e4c66004ff0d1ac9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
