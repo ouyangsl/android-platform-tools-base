@@ -16,6 +16,29 @@
       "revId": "f4281363b082318e9f64dd07213aa9fddc48ae8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_11c4362c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/RegionQualifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-11T19:35:33Z",
+      "side": 1,
+      "message": "String.toUpper with Locale? Or is that not needed since we know we\u0027ve matched the particular pattern?",
+      "range": {
+        "startLine": 47,
+        "startChar": 30,
+        "endLine": 47,
+        "endChar": 41
+      },
+      "revId": "f4281363b082318e9f64dd07213aa9fddc48ae8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
