@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_60c821eb",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_d15e12d6",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_c068f27c",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-11T21:23:55Z",
       "side": 1,
       "message": "I think preconditions are good for things like ensuring that numbers are in an allowed range and so on.\n\nI\u0027m not really sold on explicit null checks, since I find that NullPointerExceptions are pretty much always pinpointing them pretty directly) so it just adds noise to the code (the VM will check it anyway!)\n\nBut with that, I promise I will never mention it in any future code reviews for you :-)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fce81dcd_cd906e84",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "I usually use Preconditions only in constructor when the pointer is not dereferenced there. Otherwise, the NPE can happen much much later from a code path that has nothing to do with the one that badly initialized the object.\n\nIt\u0027s to fail fast basically and have a clear stacktrace of the culprit. \nhaving said that, of course, I should not check xmlDocument since it\u0027s dereferenced but I just do it for consistency here...",
+      "parentUuid": "9c2ba1c2_c068f27c",
       "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_c0946db9",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fce81dcd_63d5b1d4",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_20f58e9b",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2014-03-11T21:23:55Z",
       "side": 1,
       "message": "Meta issue: should use a consistent error format here such that the error recognizers in Studio (and elsewhere) can easily map this into hyperlinks to warp to the relevant location. See sdk-common MergingException (and MergingExceptionTest) for examples of the format I\u0027ve been trying to use in most places. We *can* handle other formats, but it requires special cases in Studio. (We have many special cases already to deal with aapt\u0027s many error output formats.)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_009685bd",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "yes logging is still a mess at this point. I started working on it a bit in a subsequent CL but I think we should sit down with you and Siva and discuss an appropriate consistent logging format.",
+      "parentUuid": "9c2ba1c2_20f58e9b",
       "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9cb9e1da_ad4a559b",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_f1bcee9c",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcf7d997_31c79634",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2014-03-11T21:23:55Z",
       "side": 1,
       "message": "ditto (and elsewhere in this file, won\u0027t repeat each time)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_2080e96a",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcf7d997_31c79634",
       "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_204bc9a2",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PostValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c2ba1c2_608ca624",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fce81dcd_c34765db",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
         "patchSetId": 2
@@ -132,6 +258,24 @@
       "writtenOn": "2014-03-11T21:23:55Z",
       "side": 1,
       "message": "It looks like this would all fit on one line?",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c2ba1c2_6055c137",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "yes but I find it more readable like that.",
+      "parentUuid": "fce81dcd_c34765db",
       "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "9c2ba1c2_03ea0f18",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "I thought about it but got lazy... I did it my way now... we can always add the right constant later if we start renaming.",
+      "parentUuid": "dcf7d997_b180a69e",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_40c7e232",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
         "patchSetId": 2
@@ -166,6 +328,24 @@
       "writtenOn": "2014-03-11T21:23:55Z",
       "side": 1,
       "message": "I mentioned something similar in the review, but how would you feel about importing the inner class such that you can simply look at Result.ERROR? (I even prefer to import constants since I think that helps readability even further.)",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_c810576b",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "ah !, Google code style prohibit inner class imports. I guess it\u0027s fine in Android. \n+1",
+      "parentUuid": "9c2ba1c2_40c7e232",
       "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -189,6 +369,42 @@
     },
     {
       "key": {
+        "uuid": "fce81dcd_ed21aa83",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/PostValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "yes it\u0027s in the plan. I have some in XmlLoaderTest already but I will add some system-test with such weird prefixes",
+      "parentUuid": "9c2ba1c2_20c46e2c",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_883adfde",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/PostValidatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "yes it\u0027s in the plan. I have some in XmlLoaderTest already but I will add some system-test with such weird prefixes",
+      "parentUuid": "9c2ba1c2_20c46e2c",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c2ba1c2_60d5c6d4",
         "filename": "common/src/main/java/com/android/utils/XmlUtils.java",
         "patchSetId": 2
@@ -200,6 +416,24 @@
       "writtenOn": "2014-03-11T21:23:55Z",
       "side": 1,
       "message": "these two methods probably belong in SdkUtils rather than XmlUtils",
+      "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_c81bf784",
+        "filename": "common/src/main/java/com/android/utils/XmlUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-12T04:49:11Z",
+      "side": 1,
+      "message": "Done + added tests",
+      "parentUuid": "9c2ba1c2_60d5c6d4",
       "revId": "55d97d5088558f39d527b4c32aea9f1f8d48f198",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
