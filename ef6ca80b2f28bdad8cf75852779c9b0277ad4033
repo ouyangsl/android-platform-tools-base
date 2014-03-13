@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cb9e1da_75570d47",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:37:09Z",
+      "side": 1,
+      "message": "The \"2\" suffix here is just a temporary thing until we get rid of the older one, right? If not I think we should use a different package instead.",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_19daafb7",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:37:09Z",
+      "side": 1,
+      "message": "You don\u0027t need the \"this.\" prefix when assigning fields in Android since we have the m prefix. (Which I\u0027m not a fan of btw. But we\u0027re stuck with it, and part of the justification for the m prefix is precisely to avoid this.-prefixes and bugs resulting from accidentally omitting them.)",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb3e9f9_c0e91425",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:37:09Z",
+      "side": 1,
+      "message": "This import is suspicious. Just a temporary import before you replaced your key lookup with a generic variable below?",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_d5661935",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:37:09Z",
+      "side": 1,
+      "message": "ATTR_PACKAGE (from SdkConstants)",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_799483b7",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:37:09Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
