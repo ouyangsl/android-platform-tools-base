@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cb9e1da_558e8869",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "ATTR_NAME from SdkConstants",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb3e9f9_80639cec",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "ATTR_NAME (from SdkConstants)",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_959820a9",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "ATTR_NAME etc etc below",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_d569b8d0",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "nullness annotations?",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_956f40ce",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlAttribute.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "\", use\" ?",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_bc7449a2",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "Use positional format specifiers",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_fc6ec1d1",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb3e9f9_a0242095",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_dccca5a9",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "positional syntax. I see some more so I won\u0027t repeat that for each.",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_35c3d479",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:53:32Z",
+      "side": 1,
+      "message": "missing newline after { ?",
+      "revId": "e9e67d8e3da631dde0d29225cc07f1b534349321",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
