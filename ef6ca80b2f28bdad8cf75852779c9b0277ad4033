@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cb3e9f9_2b6471f7",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-13T20:35:47Z",
+      "side": 1,
+      "message": "that\u0027s right, we will retire the old code once we achieve the same feature level.",
+      "parentUuid": "9cb9e1da_75570d47",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cc8f574_19daafb7",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-13T18:37:09Z",
       "side": 1,
       "message": "You don\u0027t need the \"this.\" prefix when assigning fields in Android since we have the m prefix. (Which I\u0027m not a fan of btw. But we\u0027re stuck with it, and part of the justification for the m prefix is precisely to avoid this.-prefixes and bugs resulting from accidentally omitting them.)",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cc5f15c_3557701f",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-13T20:35:47Z",
+      "side": 1,
+      "message": "yeah so I will do worse, use m prefix (which I don\u0027t like either but...) and use this so my visual code recognition is not impaired...",
+      "parentUuid": "3cc8f574_19daafb7",
       "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5cb3e9f9_4b69a5ce",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-13T20:35:47Z",
+      "side": 1,
+      "message": "yes deleted in the meantime, sorry.",
+      "parentUuid": "5cb3e9f9_c0e91425",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cb9e1da_d5661935",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
         "patchSetId": 1
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "5cb3e9f9_eb7199b0",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-13T20:35:47Z",
+      "side": 1,
+      "message": "this will be deleted in the next CL, after chatting with @xav, we decided to add 4 more system attributes...",
+      "parentUuid": "9cb9e1da_d5661935",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cc8f574_799483b7",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
         "patchSetId": 1
@@ -81,6 +153,24 @@
       "writtenOn": "2014-03-13T18:37:09Z",
       "side": 1,
       "message": "ditto",
+      "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_ff2b1360",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-13T20:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cc8f574_799483b7",
       "revId": "ef6ca80b2f28bdad8cf75852779c9b0277ad4033",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
