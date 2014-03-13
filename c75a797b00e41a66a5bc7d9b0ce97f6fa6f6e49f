@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cb9e1da_352cb5c2",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ActionRecorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:46:19Z",
+      "side": 1,
+      "message": "this. prefix not necessary (I described this in more detail in another CL, I won\u0027t repeat that anywhere else I see that now since there are several pending reviews)",
+      "revId": "c75a797b00e41a66a5bc7d9b0ce97f6fa6f6e49f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_15e97025",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:46:19Z",
+      "side": 1,
+      "message": "placeholders",
+      "revId": "c75a797b00e41a66a5bc7d9b0ce97f6fa6f6e49f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cb3e9f9_4030a400",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:46:19Z",
+      "side": 1,
+      "message": "mKeyValues",
+      "revId": "c75a797b00e41a66a5bc7d9b0ce97f6fa6f6e49f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_3943eb84",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:46:19Z",
+      "side": 1,
+      "message": "\"@\" is an unfortunate prefix to use for placeholders in Android resource files, since it is an extremely common valid prefix (@string/app_name etc). What about ${} instead?",
+      "revId": "c75a797b00e41a66a5bc7d9b0ce97f6fa6f6e49f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cc8f574_9c130d76",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:46:19Z",
+      "side": 1,
+      "message": "should be static, and probably use constant naming: PATTERN",
+      "revId": "c75a797b00e41a66a5bc7d9b0ce97f6fa6f6e49f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_35467471",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:46:19Z",
+      "side": 1,
+      "message": "assuming we pick a more unique substitution character, I wonder if you might want to do a (if xmlAttribute.getValue().indexOf(\u0027@\u0027) !\u003d -1) first to avoid creating matchers on every single attribute, and only doing it if it looks like it can contain a substitution parameter.",
+      "revId": "c75a797b00e41a66a5bc7d9b0ce97f6fa6f6e49f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb9e1da_7540ec51",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/PlaceholderHandlerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-13T18:46:19Z",
+      "side": 1,
+      "message": "nit - double space",
+      "revId": "c75a797b00e41a66a5bc7d9b0ce97f6fa6f6e49f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
