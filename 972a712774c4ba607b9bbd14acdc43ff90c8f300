@@ -22,6 +22,30 @@
       "revId": "972a712774c4ba607b9bbd14acdc43ff90c8f300",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb49dfd_b09360cf",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-14T22:52:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb49dfd_9046246f",
+      "range": {
+        "startLine": 26,
+        "startChar": 54,
+        "endLine": 26,
+        "endChar": 56
+      },
+      "revId": "972a712774c4ba607b9bbd14acdc43ff90c8f300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
