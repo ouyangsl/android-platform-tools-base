@@ -16,6 +16,24 @@
       "revId": "52285f00f86cab1ad1e018206efe8d69aa37ea6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbf69de_a6fe98d2",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T22:07:50Z",
+      "side": 1,
+      "message": "Maybe my comment wasn\u0027t very clear.\n\nThis is a String. Guava defines an actual Charset.\n\nThere are places/APIs where you have to specify a String as the encoding (this CL updates some of those).\n\nWhat I meant with the above comment is that there are many places where you have a choice -- encoding string or actual charset, and in *that* case you should go for the Charset.\n\nFor example, when creating a String from a byte[], you have these two options:\n\nString(byte[] bytes, int offset, int length, Charset charset)\nString(byte[] bytes, int offset, int length, String charsetName)\n\nThe comment above encourages you to use Charsets.UTF_8 with the first method, rather than SdkConstants.UTF_8 with the second.",
+      "parentUuid": "fcb49dfd_704838a4",
+      "revId": "52285f00f86cab1ad1e018206efe8d69aa37ea6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
