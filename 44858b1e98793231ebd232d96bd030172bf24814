@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcb1990e_a49a085b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/Update.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-14T19:30:06Z",
+      "side": 1,
+      "message": "nit: Typically, you\u0027d do result.addNewPkg(remote). That way, only updateresult knows about the internal details.",
+      "range": {
+        "startLine": 65,
+        "startChar": 32,
+        "endLine": 65,
+        "endChar": 35
+      },
+      "revId": "44858b1e98793231ebd232d96bd030172bf24814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
