@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcb49dfd_704838a4",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-03-14T22:03:42Z",
+      "side": 1,
+      "message": "This should probably be named CHARSET_UTF_8.\n\nDon\u0027t we have a guava dependency on all parts that eventually use SdkConstants? Then this definition seems quite unnecessary.",
+      "revId": "52285f00f86cab1ad1e018206efe8d69aa37ea6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
