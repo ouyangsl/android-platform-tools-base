@@ -22,6 +22,30 @@
       "revId": "5896894f5973c6a2f4e70401edf8ec18af0a92c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbf69de_46b1fc6e",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ManifestMerger2Test.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-14T23:04:19Z",
+      "side": 1,
+      "message": "yes, done.",
+      "parentUuid": "fcb49dfd_901f4473",
+      "range": {
+        "startLine": 46,
+        "startChar": 13,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "5896894f5973c6a2f4e70401edf8ec18af0a92c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
