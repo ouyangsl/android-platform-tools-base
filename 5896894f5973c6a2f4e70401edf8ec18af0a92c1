@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcb49dfd_901f4473",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ManifestMerger2Test.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-14T20:49:15Z",
+      "side": 1,
+      "message": "should that be \"..._with_specific_prefix?",
+      "range": {
+        "startLine": 46,
+        "startChar": 13,
+        "endLine": 46,
+        "endChar": 55
+      },
+      "revId": "5896894f5973c6a2f4e70401edf8ec18af0a92c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
