@@ -16,6 +16,24 @@
       "revId": "b52fb509bb702bf5ec4262b9170a2f40ca93b0bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbf69de_2b71311f",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlDocument.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-14T21:54:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb49dfd_f08b280b",
+      "revId": "b52fb509bb702bf5ec4262b9170a2f40ca93b0bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
