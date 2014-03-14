@@ -34,6 +34,75 @@
       "revId": "52285f00f86cab1ad1e018206efe8d69aa37ea6b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbf69de_e626d046",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/CollectingOutputReceiver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-14T22:47:35Z",
+      "side": 1,
+      "message": "Charsets.UTF_8",
+      "range": {
+        "startLine": 62,
+        "startChar": 53,
+        "endLine": 62,
+        "endChar": 65
+      },
+      "revId": "52285f00f86cab1ad1e018206efe8d69aa37ea6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbf69de_c61bcc00",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/MultiLineReceiver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-14T22:47:35Z",
+      "side": 1,
+      "message": "Charsets.UTF_8",
+      "range": {
+        "startLine": 57,
+        "startChar": 53,
+        "endLine": 57,
+        "endChar": 65
+      },
+      "revId": "52285f00f86cab1ad1e018206efe8d69aa37ea6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb49dfd_8b4839ee",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/log/EventLogParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-14T22:47:35Z",
+      "side": 1,
+      "message": "Charsets.UTF_8",
+      "range": {
+        "startLine": 428,
+        "startChar": 71,
+        "endLine": 428,
+        "endChar": 83
+      },
+      "revId": "52285f00f86cab1ad1e018206efe8d69aa37ea6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
