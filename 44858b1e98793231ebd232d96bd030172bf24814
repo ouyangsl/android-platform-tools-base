@@ -22,6 +22,30 @@
       "revId": "44858b1e98793231ebd232d96bd030172bf24814",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbf69de_4029e499",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/Update.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-03-14T19:34:04Z",
+      "side": 1,
+      "message": "It started as an internal class so direct access was ok but I should indeed change that.",
+      "parentUuid": "dcb1990e_a49a085b",
+      "range": {
+        "startLine": 65,
+        "startChar": 32,
+        "endLine": 65,
+        "endChar": 35
+      },
+      "revId": "44858b1e98793231ebd232d96bd030172bf24814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
