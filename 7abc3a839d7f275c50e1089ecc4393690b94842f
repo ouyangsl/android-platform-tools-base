@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cbf69de_bdbea7b3",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Warning.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T19:19:03Z",
+      "side": 1,
+      "message": "It can\u0027t be null currently but I added explicit checks in case a new client is written which doesn\u0027t enforce it at construction time",
+      "parentUuid": "fcc1fd52_f470981c",
+      "range": {
+        "startLine": 127,
+        "startChar": 30,
+        "endLine": 127,
+        "endChar": 38
+      },
+      "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc1fd52_740ac8b7",
         "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/client/api/JavaParser.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-03-14T01:46:43Z",
       "side": 1,
       "message": "Grammar: \"not a or final\"",
+      "range": {
+        "startLine": 39,
+        "startChar": 25,
+        "endLine": 39,
+        "endChar": 26
+      },
+      "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb49dfd_e2a0028d",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/client/api/JavaParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T19:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcc1fd52_740ac8b7",
       "range": {
         "startLine": 39,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5cbf69de_1df5939a",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/client/api/JavaParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T19:19:03Z",
+      "side": 1,
+      "message": "It\u0027s allowed to be empty (the check in the ECJ implementation should be masked by an isEmpty() call at the beginning of the method)",
+      "parentUuid": "5cb3e9f9_e077f35b",
+      "range": {
+        "startLine": 62,
+        "startChar": 48,
+        "endLine": 62,
+        "endChar": 54
+      },
+      "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cda0934_d35d74b3",
         "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/JavaContext.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2014-03-14T01:46:43Z",
       "side": 1,
       "message": "nit: indentation",
+      "range": {
+        "startLine": 62,
+        "startChar": 6,
+        "endLine": 62,
+        "endChar": 8
+      },
+      "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcb1990e_213f0a36",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/JavaContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T19:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cda0934_d35d74b3",
       "range": {
         "startLine": 62,
         "startChar": 6,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "dcb1990e_c17f46f0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IconDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T19:19:03Z",
+      "side": 1,
+      "message": "Fixed. I have no idea how that happened; I invoked Optimize Imports for the entire package in the project view and it did this. Even re-running it in this file causes the same issue. I fixed it manually.",
+      "parentUuid": "fcc1fd52_d441dcc6",
+      "range": {
+        "startLine": 70,
+        "startChar": 15,
+        "endLine": 70,
+        "endChar": 18
+      },
+      "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cc5f15c_89e82923",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SharedPrefsDetector.java",
         "patchSetId": 2
@@ -134,6 +254,24 @@
     },
     {
       "key": {
+        "uuid": "5cbf69de_bd95872d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SharedPrefsDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T19:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cc5f15c_89e82923",
+      "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cb3e9f9_60d5a3d4",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringFormatDetector.java",
         "patchSetId": 2
@@ -145,6 +283,24 @@
       "writtenOn": "2014-03-14T01:46:43Z",
       "side": 1,
       "message": "//$NON-NLS-1$ ?",
+      "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbf69de_3daa9768",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringFormatDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-14T19:19:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cb3e9f9_60d5a3d4",
       "revId": "7abc3a839d7f275c50e1089ecc4393690b94842f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
