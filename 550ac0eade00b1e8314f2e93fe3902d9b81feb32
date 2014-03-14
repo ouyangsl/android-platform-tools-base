@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcb1990e_b0febed2",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/12_alias_dup.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-14T23:11:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb49dfd_652f5cb9",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 47
+      },
+      "revId": "550ac0eade00b1e8314f2e93fe3902d9b81feb32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcb49dfd_452c60c2",
         "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/13_service_dup.xml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-03-14T20:44:38Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 27
+      },
+      "revId": "550ac0eade00b1e8314f2e93fe3902d9b81feb32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcb1990e_30262eca",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/13_service_dup.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-14T23:11:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcb49dfd_452c60c2",
       "range": {
         "startLine": 14,
         "startChar": 2,
