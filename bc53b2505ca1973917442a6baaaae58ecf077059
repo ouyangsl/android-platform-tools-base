@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cbf69de_c0084ff8",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-15T05:36:54Z",
+      "side": 1,
+      "message": "I can\u0027t think of a suitable name for this method. Any ideas?\n\nYou can check its implementation in the ResourceResolver class.",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 33
+      },
+      "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
