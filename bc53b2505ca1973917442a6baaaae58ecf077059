@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fcb49dfd_dc34c2f5",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-17T16:33:25Z",
+      "side": 1,
+      "message": "suggestion: add a comment on why the default theme is the same as the current theme",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cbf69de_c0084ff8",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
         "patchSetId": 1
@@ -18,6 +41,29 @@
         "startChar": 16,
         "endLine": 70,
         "endChar": 33
+      },
+      "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcb1990e_781018d8",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-17T16:33:25Z",
+      "side": 1,
+      "message": "force seems to be a way to only allow non-null 1st argument. Why not just make it @NotNull, and provide a separate remove or reset method?\n\nAs far as the name goes, hard to say without understanding this a bit better (what is the difference between this and just theme inheritance, and why do we stop at exactly two?)",
+      "range": {
+        "startLine": 132,
+        "startChar": 68,
+        "endLine": 132,
+        "endChar": 73
       },
       "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
