@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fcb49dfd_1c57ca47",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-17T17:49:29Z",
+      "side": 1,
+      "message": "It\u0027s essentially a rename. With introduction of primary and secondary theme, \"current\" theme makes little sense. There are two themes that shall be used for rendering of the resources: primary and secondary. There\u0027s a default theme and a temporary theme. the \"force\" parameter in the method below determines which of the two will be the primary.\n\nHowever, I\u0027ll add a comment to clarify this in the next patch.",
+      "parentUuid": "fcb49dfd_dc34c2f5",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cbf69de_c0084ff8",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2014-03-17T16:33:25Z",
       "side": 1,
       "message": "force seems to be a way to only allow non-null 1st argument. Why not just make it @NotNull, and provide a separate remove or reset method?\n\nAs far as the name goes, hard to say without understanding this a bit better (what is the difference between this and just theme inheritance, and why do we stop at exactly two?)",
+      "range": {
+        "startLine": 132,
+        "startChar": 68,
+        "endLine": 132,
+        "endChar": 73
+      },
+      "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcb49dfd_3764dff6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-17T17:49:29Z",
+      "side": 1,
+      "message": "The use case is when Theme.Holo.Light.DarkActionBar is the default theme. When rendering the Action Bar widgets, the primary theme is set as Theme.Holo with Theme.Holo.Light.DarkActionBar serving as the secondary (though it will not be needed in this case). Theme inheritance on the other hand, is when one theme inherits from the other always.\n\nTheoretically, this method should support N levels. However, it not used that often. Hence we stop at two.\n\nI kept the method signature to match Resources.Theme.applyStyle(int themeResourceId, boolean force) in the framework.",
+      "parentUuid": "dcb1990e_781018d8",
       "range": {
         "startLine": 132,
         "startChar": 68,
