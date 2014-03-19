@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fccd7da7_34a7459f",
+        "filename": "templates/gradle-projects/NewAndroidModule/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-19T20:19:39Z",
+      "side": 1,
+      "message": "for consistency, \"Application\" ? Or \"Other\"?",
+      "revId": "36bfac4d441181cd0d8872923dfcf644b47e419d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0da9ba_bb869f50",
+        "filename": "templates/other/Notification/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-19T20:19:39Z",
+      "side": 1,
+      "message": "Seems like this should be \"other\" or \"UI Component\" or something",
+      "revId": "36bfac4d441181cd0d8872923dfcf644b47e419d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
