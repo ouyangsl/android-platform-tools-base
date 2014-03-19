@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c3d0d4c_e084a28d",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-19T23:31:05Z",
+      "side": 1,
+      "message": "we\u0027ll have to figure out the proper way to populate. The latest API may not be installed in the SDK.",
+      "range": {
+        "startLine": 298,
+        "startChar": 41,
+        "endLine": 298,
+        "endChar": 48
+      },
+      "revId": "9e82d981acd8068b3f0830804e98c74357c47f76",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
