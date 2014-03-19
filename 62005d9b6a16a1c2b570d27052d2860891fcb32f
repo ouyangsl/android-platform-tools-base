@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cefcdff_7fc37b79",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-19T22:53:29Z",
+      "side": 1,
+      "message": "s/returned/returns/",
+      "range": {
+        "startLine": 205,
+        "startChar": 48,
+        "endLine": 205,
+        "endChar": 56
+      },
+      "revId": "62005d9b6a16a1c2b570d27052d2860891fcb32f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cf4c9d0_d85161a2",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-19T22:53:29Z",
+      "side": 1,
+      "message": "can you model the fact that the default value is the value of the minsdkVersion?",
+      "range": {
+        "startLine": 392,
+        "startChar": 41,
+        "endLine": 392,
+        "endChar": 57
+      },
+      "revId": "62005d9b6a16a1c2b570d27052d2860891fcb32f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
