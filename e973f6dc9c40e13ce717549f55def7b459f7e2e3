@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc29fd1f_7aea711a",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "remove @param tag (or document it)",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc81454e_f58a12c0",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "You may want to use Long.decode(s) instead of Integer.decode(s).\n\nI can\u0027t remember the details, only that we ran into cases where in Android we\u0027d have 0xFFFFFFFF and it couldn\u0027t be decoded with Integer.decode.\n\nAh yes here\u0027s a comment from a relevant code snippet where we\u0027re validating hex colors coming from Android:\n\n      // Can\u0027t use Integer.decode since it will overflow for values like 0xff4861ec.\n      // Use Long.decode instead, but reject values larger than what will fit in an integer\n      Long l \u003d Long.decode(s);",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc29fd1f_5a14555d",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "FYI we have similar code in Studio (to validate that your @dimen resources are in the right range), and it looks like this (this returns null if the value is NOT correct)\n\n    try {\n      // Can\u0027t use Integer.decode since it will overflow for values like 0xff4861ec.\n      // Use Long.decode instead, but reject values larger than what will fit in an integer\n      Long l \u003d Long.decode(s);\n      if (l \u003e\u003d 0x100000000L || l \u003c\u003d -0xffffffffL) {\n        return null;\n      }\n    }\n    catch (NumberFormatException e) {\n      return null;\n    }",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc81454e_957f06f1",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "same Long.decode issue here",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc29fd1f_1a0edd4f",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "Use AndroidManifest.ATTRIBUTE_GLESVERSION here and elsewhere",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc29fd1f_3a0b9940",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "AndroidManifest.ATTRIBUTE_REQUIRED (below too)",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c8b4d70_732f1ab9",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "SdkConstants.VALUE_TRUE",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc81454e_1574760e",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "maybe better with\nMissing one of the key attributes \u0027%1$s\u0027 on element %2$s at %3$s\n?",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c8b4d70_f6dd3886",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-20T23:14:24Z",
+      "side": 1,
+      "message": "ATTR_NAME (from SdkConstants)",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
