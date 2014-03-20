@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc6a2564_0ac77b33",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-03-20T22:57:20Z",
+      "side": 1,
+      "message": "I\u0027d change the message to 67077: Fix for Navigation Drawer activity recipe\n\nPrimarily so that someone looking over the git log doesn\u0027t have to read the commit message.",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 9
+      },
+      "revId": "e3c8d122659dc4f378449a9dfdfd83e58736ad10",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
