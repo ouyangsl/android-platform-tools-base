@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cee8935_2887aa4f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:51:32Z",
+      "side": 1,
+      "message": "Still a minor grammar issue here (\"will now change\", not \"will now changes\") but no big deal",
+      "revId": "58c27cebbb559c43a01524a4906c728d96a5d23b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
