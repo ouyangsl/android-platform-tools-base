@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcfc9dee_3cc9b169",
+        "filename": "templates/activities/BlankActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-21T14:44:36Z",
+      "side": 1,
+      "message": "i would rename this to navigationDrawerLayout or something like that",
+      "range": {
+        "startLine": 47,
+        "startChar": 66,
+        "endLine": 47,
+        "endChar": 82
+      },
+      "revId": "7508588623702fb3031a02dc68741ada73e68ce4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cf0910e_5dd0fb06",
+        "filename": "templates/activities/BlankActivity/root/src/app_package/NavigationDrawerFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-21T14:44:36Z",
+      "side": 1,
+      "message": "ditto re: variable name",
+      "range": {
+        "startLine": 93,
+        "startChar": 27,
+        "endLine": 93,
+        "endChar": 43
+      },
+      "revId": "7508588623702fb3031a02dc68741ada73e68ce4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf3951c_9e8b9d0c",
+        "filename": "templates/activities/BlankActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-21T14:44:36Z",
+      "side": 1,
+      "message": "ditto re: variable name",
+      "range": {
+        "startLine": 84,
+        "startChar": 12,
+        "endLine": 84,
+        "endChar": 28
+      },
+      "revId": "7508588623702fb3031a02dc68741ada73e68ce4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
