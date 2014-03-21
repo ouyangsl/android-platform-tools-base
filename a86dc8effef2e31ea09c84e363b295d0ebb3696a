@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c5e35d0_4daeea13",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:49:39Z",
+      "side": 1,
+      "message": "I\u0027ll update this as soon as the support-annotations are available so I can test it",
+      "revId": "a86dc8effef2e31ea09c84e363b295d0ebb3696a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c5e35d0_4d134ab4",
+        "filename": "build-system/tests/extractAnnotations/libs/support-annotations-19.1.0.jar",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:49:39Z",
+      "side": 1,
+      "message": "I will remove this file before checking in and replace it with a dependency on the android-support-annotations library",
+      "revId": "a86dc8effef2e31ea09c84e363b295d0ebb3696a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
