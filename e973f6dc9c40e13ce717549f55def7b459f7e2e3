@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bcdf857e_4bbdcd95",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc29fd1f_7aea711a",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc81454e_f58a12c0",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-20T23:14:24Z",
       "side": 1,
       "message": "You may want to use Long.decode(s) instead of Integer.decode(s).\n\nI can\u0027t remember the details, only that we ran into cases where in Android we\u0027d have 0xFFFFFFFF and it couldn\u0027t be decoded with Integer.decode.\n\nAh yes here\u0027s a comment from a relevant code snippet where we\u0027re validating hex colors coming from Android:\n\n      // Can\u0027t use Integer.decode since it will overflow for values like 0xff4861ec.\n      // Use Long.decode instead, but reject values larger than what will fit in an integer\n      Long l \u003d Long.decode(s);",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c5e35d0_4f9905ee",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "yes I will overflow for anything above Integer.MAX_INTEGER which is 2^31-1, I guess I was expecting versions will not get that high :)",
+      "parentUuid": "bc81454e_f58a12c0",
       "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bcdf857e_0bcaa537",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "yes looks very similar, in this case, I need to print a useful error message.",
+      "parentUuid": "fc29fd1f_5a14555d",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc81454e_957f06f1",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2014-03-20T23:14:24Z",
       "side": 1,
       "message": "same Long.decode issue here",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_4be4adc3",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/AttributeModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc81454e_957f06f1",
       "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "bcdf857e_ab261945",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc29fd1f_1a0edd4f",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc29fd1f_3a0b9940",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
         "patchSetId": 4
@@ -98,6 +188,24 @@
       "writtenOn": "2014-03-20T23:14:24Z",
       "side": 1,
       "message": "AndroidManifest.ATTRIBUTE_REQUIRED (below too)",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_6bf6d170",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc29fd1f_3a0b9940",
       "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "bcdf857e_cb21dd31",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestModel.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c8b4d70_732f1ab9",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc81454e_1574760e",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
         "patchSetId": 4
@@ -138,6 +264,24 @@
     },
     {
       "key": {
+        "uuid": "5cee8935_688257eb",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc81454e_1574760e",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c8b4d70_f6dd3886",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
         "patchSetId": 4
@@ -149,6 +293,24 @@
       "writtenOn": "2014-03-20T23:14:24Z",
       "side": 1,
       "message": "ATTR_NAME (from SdkConstants)",
+      "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c5e35d0_cf56554a",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T16:26:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c8b4d70_f6dd3886",
       "revId": "e973f6dc9c40e13ce717549f55def7b459f7e2e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
