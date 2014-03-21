@@ -50,6 +50,24 @@
       "revId": "234efe6c4aa4fc363e87d256724e7b3da3cb3e0c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_fcce2949",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-03-21T19:47:38Z",
+      "side": 1,
+      "message": "I do not see any regressions - only #testOptions and #testReplaceJar are failing and they fail without my change.",
+      "parentUuid": "5cee8935_8e9b63a5",
+      "revId": "234efe6c4aa4fc363e87d256724e7b3da3cb3e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
