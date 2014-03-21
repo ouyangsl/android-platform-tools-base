@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3c5e35d0_a02d2614",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c5e35d0_efe5518b",
+      "range": {
+        "startLine": 268,
+        "startChar": 22,
+        "endLine": 268,
+        "endChar": 46
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c5e35d0_cf073577",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
         "patchSetId": 1
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "bcdf857e_1c04ade0",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcdf857e_ebb781b5",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cee8935_8846bb3c",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
         "patchSetId": 1
@@ -82,6 +130,30 @@
       "writtenOn": "2014-03-21T16:07:55Z",
       "side": 1,
       "message": "it looks like this should be annotated with @Input too. If you run the build and then only change the dependencies, you\u0027ll want this task to run again in case this value change.\n\nAlso I really don\u0027t like groovy style method definition and I always keep my syntax closer to java than groovy. up to you.",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_5cfe3584",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cee8935_8846bb3c",
       "range": {
         "startLine": 131,
         "startChar": 8,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "3c5e35d0_c0062279",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/ApiDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cee8935_e8f147bc",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 37
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cee8935_28d4cf0b",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/JarRewriter.java",
         "patchSetId": 1
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "bcdf857e_e99b0662",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/JarRewriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:42:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cee8935_28d4cf0b",
+      "range": {
+        "startLine": 45,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cf3951c_9ed39d49",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/TypedefCollector.java",
         "patchSetId": 1
@@ -151,6 +271,30 @@
       "writtenOn": "2014-03-21T17:38:21Z",
       "side": 1,
       "message": "@SuppressWarnings(\"UseOfSystemOutOrSystemErr\")",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 11
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_49c67258",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/TypedefCollector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T21:42:50Z",
+      "side": 1,
+      "message": "In the next patch I\u0027ve removed the System.out.println\u0027s and replaced them with calls to Extractor#warning()",
+      "parentUuid": "3cf3951c_9ed39d49",
       "range": {
         "startLine": 80,
         "startChar": 4,
