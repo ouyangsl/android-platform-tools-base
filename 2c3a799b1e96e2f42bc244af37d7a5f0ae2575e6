@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c5e35d0_efe5518b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T16:07:55Z",
+      "side": 1,
+      "message": "can you just move this before the bundle. all the pre-bundle task are defined before it. it\u0027s just more consistent.\nthere\u0027s a big bundle.dependsOn statement above, just add extract to it.",
+      "range": {
+        "startLine": 268,
+        "startChar": 22,
+        "endLine": 268,
+        "endChar": 46
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c5e35d0_cf073577",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T16:07:55Z",
+      "side": 1,
+      "message": "we\u0027re doing the same for the compile task, we should look at refactoring this somehow. Maybe as a method on VariantData",
+      "range": {
+        "startLine": 391,
+        "startChar": 21,
+        "endLine": 391,
+        "endChar": 31
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_ebb781b5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T16:07:55Z",
+      "side": 1,
+      "message": "if it\u0027s optional and the field could be null you\u0027ll need to add @Optional",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cee8935_8846bb3c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T16:07:55Z",
+      "side": 1,
+      "message": "it looks like this should be annotated with @Input too. If you run the build and then only change the dependencies, you\u0027ll want this task to run again in case this value change.\n\nAlso I really don\u0027t like groovy style method definition and I always keep my syntax closer to java than groovy. up to you.",
+      "range": {
+        "startLine": 131,
+        "startChar": 8,
+        "endLine": 131,
+        "endChar": 29
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cee8935_e8f147bc",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/ApiDatabase.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T16:07:55Z",
+      "side": 1,
+      "message": "the gradle plugin code doesn\u0027t use m prefix on fields. I prefer to keep it consistent in this module and it would interfere with groovy\u0027s auto-setter/getter mechanism (I do realize this is a java class, but I\u0027ve changed some classes from java to groovy or the other way around to it\u0027s just easier to stay consistent)",
+      "range": {
+        "startLine": 37,
+        "startChar": 31,
+        "endLine": 37,
+        "endChar": 37
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cee8935_28d4cf0b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/JarRewriter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T16:07:55Z",
+      "side": 1,
+      "message": "that comment seems specific when the class is fairly generic?",
+      "range": {
+        "startLine": 45,
+        "startChar": 3,
+        "endLine": 45,
+        "endChar": 14
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
