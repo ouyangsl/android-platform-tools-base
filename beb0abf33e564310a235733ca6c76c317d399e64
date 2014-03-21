@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fcfc9dee_bc51412c",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/BaseTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-21T00:38:02Z",
+      "side": 1,
+      "message": "for ( i in 0..5 ) {\n    file \u003d file.getParentFile();\n}\n\nMight be cleaner to read?",
+      "revId": "beb0abf33e564310a235733ca6c76c317d399e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
