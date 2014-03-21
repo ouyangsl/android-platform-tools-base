@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c5e35d0_b56a4a01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T18:28:43Z",
+      "side": 1,
+      "message": "s/changes/change/",
+      "revId": "234efe6c4aa4fc363e87d256724e7b3da3cb3e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_d19eae0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T18:28:43Z",
+      "side": 1,
+      "message": "s/sugested/suggested/",
+      "revId": "234efe6c4aa4fc363e87d256724e7b3da3cb3e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cee8935_8e9b63a5",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T18:28:43Z",
+      "side": 1,
+      "message": "there\u0027s a unit test which checks import into existing (in GradleImportTest) -- does that need updating after this?",
+      "revId": "234efe6c4aa4fc363e87d256724e7b3da3cb3e0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
