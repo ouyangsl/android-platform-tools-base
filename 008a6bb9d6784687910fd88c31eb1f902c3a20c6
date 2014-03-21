@@ -22,6 +22,30 @@
       "revId": "008a6bb9d6784687910fd88c31eb1f902c3a20c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cf0910e_60aeec13",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-21T22:53:32Z",
+      "side": 1,
+      "message": "seems like you looked at Patch 1 rather than Patch 2. I deleted it.",
+      "parentUuid": "5cee8935_2b87a44f",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 2
+      },
+      "revId": "008a6bb9d6784687910fd88c31eb1f902c3a20c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
