@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cee8935_2b87a44f",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T22:44:03Z",
+      "side": 1,
+      "message": "is this temporary? I\u0027d either remove or add a comment as to why it\u0027s commented.",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 2
+      },
+      "revId": "008a6bb9d6784687910fd88c31eb1f902c3a20c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
