@@ -39,6 +39,30 @@
       "revId": "beb0abf33e564310a235733ca6c76c317d399e64",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c5e35d0_4ff58534",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/BaseTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-21T15:28:01Z",
+      "side": 1,
+      "message": "Yes, it still works from the command line.\n\nWhat this diff does is simply to check if the returned file actually exists. And only if it doesn\u0027t does it to something different than before. \n\n(I basically extract out half of that long getParentFile() chain into a temporary variable. If the full chain doesn\u0027t find its file, then I *also* try relative to that file in the middle.  \n\nI also extracted out the relative path into a temporary variable such that I can test the same thing both from the previous full parent dir, and the new middle parent dir.\n\n(I figured it was good to have the tests work out of the box instead of having to set the parent dir.  I did something similar a while back with sdk-common tests because I found I often had to go and set the run directory; once for each and every single test class in there (and IntelliJ only keeps the last 5 run configs, so if you jump between more than 5 different ones, it keeps losing your run config settings.)",
+      "parentUuid": "bcdf857e_0b1bc55a",
+      "range": {
+        "startLine": 45,
+        "startChar": 30,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "beb0abf33e564310a235733ca6c76c317d399e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
