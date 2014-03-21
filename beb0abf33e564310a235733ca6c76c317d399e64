@@ -16,6 +16,29 @@
       "revId": "beb0abf33e564310a235733ca6c76c317d399e64",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcdf857e_0b1bc55a",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/BaseTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-21T15:23:19Z",
+      "side": 1,
+      "message": "will that still work from the command line? You can make it work in the IDE if you change the current working dir of the test to be the module instead of the root project\u0027s folder.",
+      "range": {
+        "startLine": 45,
+        "startChar": 30,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "beb0abf33e564310a235733ca6c76c317d399e64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
