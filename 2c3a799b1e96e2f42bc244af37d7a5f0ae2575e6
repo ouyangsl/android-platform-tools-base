@@ -137,6 +137,29 @@
       "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf3951c_9ed39d49",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/TypedefCollector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-21T17:38:21Z",
+      "side": 1,
+      "message": "@SuppressWarnings(\"UseOfSystemOutOrSystemErr\")",
+      "range": {
+        "startLine": 80,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 11
+      },
+      "revId": "2c3a799b1e96e2f42bc244af37d7a5f0ae2575e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
