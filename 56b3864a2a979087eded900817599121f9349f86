@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c0d61ec_62a70c9e",
+        "filename": "templates/activities/EmptyActivity/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-24T22:12:24Z",
+      "side": 1,
+      "message": "this is where my concern for bug 12923002 was... why do we need this?",
+      "range": {
+        "startLine": 5,
+        "startChar": 16,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "56b3864a2a979087eded900817599121f9349f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c0d61ec_a28be40b",
+        "filename": "templates/activities/EmptyActivity/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-24T22:12:24Z",
+      "side": 1,
+      "message": "we should probably remove this and the dimens file below and go with something more inline in this super simple activity template",
+      "revId": "56b3864a2a979087eded900817599121f9349f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcf999ff_3549c050",
+        "filename": "templates/activities/EmptyActivity/root/res/layout/activity_simple.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-24T22:12:24Z",
+      "side": 1,
+      "message": "i\u0027d remove this padding since this is a dead simple activity and we want to generate as little code as possible",
+      "revId": "56b3864a2a979087eded900817599121f9349f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c0d61ec_22ad1480",
+        "filename": "templates/activities/EmptyActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1012833
+      },
+      "writtenOn": "2014-03-24T22:12:24Z",
+      "side": 1,
+      "message": "we should probably drop this down to as low as possible, even if we don\u0027t actually want people to have to worry about APIs before Eclair",
+      "revId": "56b3864a2a979087eded900817599121f9349f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
