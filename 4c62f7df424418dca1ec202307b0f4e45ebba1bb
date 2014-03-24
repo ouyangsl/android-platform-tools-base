@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9cb2c15a_b07031f2",
+        "filename": "templates/activities/GoogleMapsActivity/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-24T23:13:17Z",
+      "side": 1,
+      "message": "I copied this from the other templates. I can fix them all – would you like me to do that in a separate CL?",
+      "parentUuid": "dcf999ff_8f16c5a2",
+      "range": {
+        "startLine": 4,
+        "startChar": 59,
+        "endLine": 4,
+        "endChar": 60
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cb7cd4c_73a41aca",
         "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3ca1d50c_eeec9fe8",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-24T23:13:17Z",
+      "side": 1,
+      "message": "Do you mean that the instructions aren\u0027t needed, or the instruction tag isn\u0027t needed, or that this comment isn\u0027t needed?\n\nRemoved ldap.",
+      "parentUuid": "9c0d61ec_5fa0e30c",
+      "range": {
+        "startLine": 3,
+        "startChar": 33,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c0d61ec_9f70bbf2",
         "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
         "patchSetId": 1
@@ -83,6 +131,30 @@
       "writtenOn": "2014-03-24T17:51:01Z",
       "side": 1,
       "message": "isn\u0027t the key based on the signing key? If that\u0027s the case we should put 2 versions of that file under src/debug/res and src/release/res",
+      "range": {
+        "startLine": 16,
+        "startChar": 35,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ca1d50c_0e492b50",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-24T23:13:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure how to implement this when the template environment only exposes \"resDir\" (not \"debugResDir\" and \"releaseResDir\").\n\nAlso, does the ant tool support debug/release variants like Gradle?",
+      "parentUuid": "9c0d61ec_9f70bbf2",
       "range": {
         "startLine": 16,
         "startChar": 35,
