@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cb7cd4c_73a41aca",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-24T14:29:48Z",
+      "side": 1,
+      "message": "oops - typo. should be: \"the resource file merger does not merge comments.\"",
+      "range": {
+        "startLine": 3,
+        "startChar": 33,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
