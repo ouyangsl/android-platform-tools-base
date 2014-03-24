@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cb2c15a_bab77068",
+        "filename": "templates/activities/FullscreenActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-24T20:52:16Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbcc931_12494a50",
+        "filename": "templates/activities/LoginActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-24T20:52:16Z",
+      "side": 1,
+      "message": "do we need both a \u003ccategory\u003e element as well as a root tag? What would happen if they were different?\n\n(I also notice that some of them don\u0027t have this, they only have the \u003ccategory\u003e element)",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cb7cd4c_84f97663",
+        "filename": "templates/activities/LoginActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-24T20:52:16Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbcc931_72f89695",
+        "filename": "templates/activities/MasterDetailFlow/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-24T20:52:16Z",
+      "side": 1,
+      "message": "How are these category strings used? Are they the actual display names for the UI categories?\n\nIt might make sense to treat them as keys (e.g. in the sense that they should never change), and then we could potentially change the display names in the UI. That way, if some third party template in an AAR decides to start using the category \"UI Components\", it will continue to be in the same group as our current UI Components templates, even if we change their display name to \"UI Elements\" or something like that.\n\nIt might make sense to allow a template to apply to multiple categories. Not sure if we\u0027d express that with multiple \u003ccategory\u003e tags, or a comma separated list.\n\nBut that way, a template which applies to more than one category can appear in each menu. For example, the Login with G+ Fragment template could both appear in a \"Fragments\" menu, as well as a \"Play Services\" menu, and perhaps even \"G+\" or \"Login\" categories if we have multiple there.",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb2c15a_7aaea813",
+        "filename": "templates/gradle-projects/NewAndroidProject/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-24T20:52:16Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cb2c15a_dad994c4",
+        "filename": "templates/other/AppWidget/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-24T20:52:16Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbcc931_f2ec86e8",
+        "filename": "templates/other/ListFragment/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-24T20:52:16Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
