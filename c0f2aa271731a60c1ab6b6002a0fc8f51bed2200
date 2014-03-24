@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cbcc931_729d3608",
+        "filename": "templates/activities/FullscreenActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-24T21:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cb2c15a_bab77068",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cbcc931_12494a50",
         "filename": "templates/activities/LoginActivity/template.xml",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9cb2c15a_fdf1f2bb",
+        "filename": "templates/activities/LoginActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-24T21:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cbcc931_12494a50",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cb7cd4c_84f97663",
         "filename": "templates/activities/LoginActivity/template.xml",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2014-03-24T20:52:16Z",
       "side": 1,
       "message": "ditto",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cbcc931_12902af0",
+        "filename": "templates/activities/LoginActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-24T21:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cb7cd4c_84f97663",
       "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "9cb2c15a_3dd41a0c",
+        "filename": "templates/gradle-projects/NewAndroidProject/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-24T21:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cb2c15a_7aaea813",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cb2c15a_dad994c4",
         "filename": "templates/other/AppWidget/template.xml",
         "patchSetId": 2
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "5cbcc931_928a5abf",
+        "filename": "templates/other/AppWidget/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-24T21:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cb2c15a_dad994c4",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cbcc931_f2ec86e8",
         "filename": "templates/other/ListFragment/template.xml",
         "patchSetId": 2
@@ -115,6 +205,24 @@
       "writtenOn": "2014-03-24T20:52:16Z",
       "side": 1,
       "message": "trailing space",
+      "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cb7cd4c_9f2fffa3",
+        "filename": "templates/other/ListFragment/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-24T21:16:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cbcc931_f2ec86e8",
       "revId": "c0f2aa271731a60c1ab6b6002a0fc8f51bed2200",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
