@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "dcf999ff_8f16c5a2",
+        "filename": "templates/activities/GoogleMapsActivity/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-24T17:51:01Z",
+      "side": 1,
+      "message": "Please don\u0027t use dynamic dependencies like this. Use the most recent one. Or at least make it 19.+",
+      "range": {
+        "startLine": 4,
+        "startChar": 59,
+        "endLine": 4,
+        "endChar": 60
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cb7cd4c_73a41aca",
         "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
         "patchSetId": 1
@@ -18,6 +41,53 @@
         "startChar": 33,
         "endLine": 3,
         "endChar": 34
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c0d61ec_5fa0e30c",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-24T17:51:01Z",
+      "side": 1,
+      "message": "Most people won\u0027t look at the result of the merge, and instead look at the source files, so this isn\u0027t really needed.\n\nAlso, remove your ldap.",
+      "parentUuid": "7cb7cd4c_73a41aca",
+      "range": {
+        "startLine": 3,
+        "startChar": 33,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c0d61ec_9f70bbf2",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-24T17:51:01Z",
+      "side": 1,
+      "message": "isn\u0027t the key based on the signing key? If that\u0027s the case we should put 2 versions of that file under src/debug/res and src/release/res",
+      "range": {
+        "startLine": 16,
+        "startChar": 35,
+        "endLine": 16,
+        "endChar": 48
       },
       "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
