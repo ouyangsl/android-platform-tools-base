@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cbcc931_9851d9a3",
+        "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-24T23:45:10Z",
+      "side": 1,
+      "message": "While you\u0027re here, could you remove whitespace?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "40d17971fa4615d987d56566834d57b0a94a1532",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
