@@ -144,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "fc1f3d43_eafe63d3",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-25T22:15:05Z",
+      "side": 1,
+      "message": "Normal comments don\u0027t get added by the resource file merger. Maybe my NOTE above isn\u0027t clearly worded enough. The resource file merger only adds ELEMENT_NODE DOM types (i.e., not COMMENT_NODE)\n\nThe tag is used here as a marker. The resource file merger won\u0027t re-append an element if it has the same \"name\" attribute. If we simply append comments, we\u0027d end up with multiple of the same comments unless we key it off the text of the comment (yuck?).\n\nI changed it to a \u003cstring\u003e tag, since the instructions tag doesn\u0027t compile (diff with Patch Set 4).\n\nThe user *will* see this comment, as the final step of the template recipe is to open this file. In Studio, the line with \"TODO\" will be highlighted in bright blue.",
+      "parentUuid": "3c78f56e_fc09e1c2",
+      "range": {
+        "startLine": 3,
+        "startChar": 33,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c0d61ec_9f70bbf2",
         "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
         "patchSetId": 1
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "It\u0027s possible for us to create the debug/release source sets on disk through the templates. The \"projectOut\" (legacy from ADT) Freemarker variable holds the module root path so that could be used to generate these res dirs: \n\n\u003cglobal id\u003d\"debugResDir\" value\u003d\"${projectOut}/src/debug/res\" /\u003e\n\nObviously this would not work if the debug res dir has been remapped in the build.gradle. I can expose some of the SourceProvider stuff through template functions (i.e. getResDir(\u003cVariantName\u003e)) but that seems a little heavy handed.",
       "parentUuid": "3c3d559f_b4dda887",
+      "range": {
+        "startLine": 16,
+        "startChar": 35,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc1f3d43_8a2a4f94",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-25T22:15:05Z",
+      "side": 1,
+      "message": "Happy to use the projectOut pattern if you think that\u0027s stable enough.",
+      "parentUuid": "39fba735_9e247dc3",
       "range": {
         "startLine": 16,
         "startChar": 35,
