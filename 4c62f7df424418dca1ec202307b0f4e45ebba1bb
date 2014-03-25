@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "3c78f56e_fc09e1c2",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-25T19:34:24Z",
+      "side": 1,
+      "message": "I don\u0027t even know what the instructions tag is, but what I meant is the whole wrapping of comment to defeat the merger limitations. This is because no one will read the merged resources. So just put a normal comment.",
+      "parentUuid": "9c0d61ec_5fa0e30c",
+      "range": {
+        "startLine": 3,
+        "startChar": 33,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c0d61ec_9f70bbf2",
         "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
         "patchSetId": 1
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "I\u0027m not sure how to implement this when the template environment only exposes \"resDir\" (not \"debugResDir\" and \"releaseResDir\").\n\nAlso, does the ant tool support debug/release variants like Gradle?",
       "parentUuid": "9c0d61ec_9f70bbf2",
+      "range": {
+        "startLine": 16,
+        "startChar": 35,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c3d559f_b4dda887",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-25T19:34:24Z",
+      "side": 1,
+      "message": "Josiah can you comment on this? we\u0027d need the ADT output to be different but it would be really good in Gradle if we could have two different keys.",
+      "parentUuid": "3ca1d50c_0e492b50",
       "range": {
         "startLine": 16,
         "startChar": 35,
