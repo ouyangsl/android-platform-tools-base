@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cdba1ac_6910a5d8",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-25T00:52:00Z",
+      "side": 1,
+      "message": "nit - did you intend this blank line?",
+      "revId": "015531e847f21729f0231a3455c6707def1f3c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cd5a977_a7212a32",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-25T00:52:00Z",
+      "side": 1,
+      "message": "is it possible for all the attributes to be in the tools uri namespace, such that your extraAttributeNames list is empty when printed as an error below?",
+      "revId": "015531e847f21729f0231a3455c6707def1f3c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcd6a580_aa856fb1",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ToolsInstructionsCleaner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-25T00:52:00Z",
+      "side": 1,
+      "message": "That error message isn\u0027t entirely clear to me; maybe change to state that the attribute is not allowed on the given element?",
+      "revId": "015531e847f21729f0231a3455c6707def1f3c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cd5a977_87386653",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-25T00:52:00Z",
+      "side": 1,
+      "message": "nit: end sentence with question mark or begin with \"Determines whether we should ....\"",
+      "revId": "015531e847f21729f0231a3455c6707def1f3c37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
