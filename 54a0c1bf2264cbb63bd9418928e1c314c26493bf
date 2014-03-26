@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "19f8a337_bd2cdfc2",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1c3954_f86c758f",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc1c3954_d867b9a8",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-26T14:52:05Z",
       "side": 1,
       "message": "Current best practice is that the GoogleApiClient should be connected in onStart and disconnected in onStop - ie. service bindings should not be managed in onResume/onPause.\n\nNote that this will require you to track whether an intent is in progress to resolve connection errors, otherwise you will fire multiple intents on orientation changes.\n\nYou will also need to conditionally call connect() in onActivityResult (if !mGoogleApiClient.isConnecting()) because onStart() will not be called after an account chooser is displayed.",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ec937b_41d5f283",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1c3954_d867b9a8",
       "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "19f8a337_5d727bfb",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1f3d43_3949b350",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc1c3954_385fedd3",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2014-03-26T14:52:05Z",
       "side": 1,
       "message": "Since this activity has no sensible state without a connection, onConnectionSuspended should call mGoogleApiClient.connect() to get a new resolution intent.",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19f8a337_3d67af3d",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc1c3954_385fedd3",
       "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "19f8a337_1d6cf31b",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1f3d43_b9e76302",
+      "range": {
+        "startLine": 132,
+        "startChar": 12,
+        "endLine": 132,
+        "endChar": 34
+      },
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1f3d43_b9b923d0",
         "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
         "patchSetId": 1
@@ -104,6 +200,24 @@
       "writtenOn": "2014-03-26T14:52:05Z",
       "side": 1,
       "message": "\"Enable Google Play Games Services\"",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f904af03_5c895da1",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1f3d43_b9b923d0",
       "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "99ec937b_61e0f663",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c23318f_7a687d4e",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc1f3d43_d9bedfb4",
         "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
         "patchSetId": 1
@@ -138,6 +270,24 @@
       "writtenOn": "2014-03-26T14:52:05Z",
       "side": 1,
       "message": "\"Enable Google Drive APIs\"",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19f8a337_dd944bb8",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1f3d43_d9bedfb4",
       "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "19f8a337_bda17f14",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c23318f_da2df113",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c23318f_1a4869ec",
         "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
         "patchSetId": 1
@@ -172,6 +340,24 @@
       "writtenOn": "2014-03-26T14:52:05Z",
       "side": 1,
       "message": "\"Enable Google Wallet Instant Buy APIs\"",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f904af03_3c8e91ab",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T16:11:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c23318f_1a4869ec",
       "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
