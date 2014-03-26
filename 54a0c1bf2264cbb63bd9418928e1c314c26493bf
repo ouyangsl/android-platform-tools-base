@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "392487a3_19b76fba",
+        "filename": "templates/activities/GooglePlayServicesActivity/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-26T18:12:31Z",
+      "side": 1,
+      "message": "If this is target only at Android Studio, this global can be omitted.\n\nIf it\u0027s targeted at AS/ADT then it must read:\n\n\u003cglobal id\u003d\"resOut\" value\u003d\"${resDir}\" /\u003e",
+      "range": {
+        "startLine": 6,
+        "startChar": 31,
+        "endLine": 6,
+        "endChar": 34
+      },
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c23318f_512f27b8",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/res/values-sw600dp/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-26T18:12:31Z",
+      "side": 1,
+      "message": "Did you mean to put some padding in here?",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc1c3954_f86c758f",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 1
@@ -182,6 +222,29 @@
         "startChar": 12,
         "endLine": 132,
         "endChar": 34
+      },
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "392487a3_f9e4b3c6",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-26T18:12:31Z",
+      "side": 1,
+      "message": "You should specify minApi and minBuildApi, especially since your Activity file doesn\u0027t import supportlib",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 15
       },
       "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
