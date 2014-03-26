@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39fba735_64dd9e84",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1043519
+      },
+      "writtenOn": "2014-03-26T22:06:22Z",
+      "side": 1,
+      "message": "\u0027Called when the Activity is made invisible\u0027",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39fba735_41397402",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1043519
+      },
+      "writtenOn": "2014-03-26T22:06:22Z",
+      "side": 1,
+      "message": "Typo - double period at the end of line.",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
