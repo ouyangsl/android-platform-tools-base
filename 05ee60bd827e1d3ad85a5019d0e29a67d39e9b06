@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99ec937b_64bc84e5",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T18:11:52Z",
+      "side": 1,
+      "message": "Yes, my fault. Fixed on the patch set 3.",
+      "parentUuid": "590f7b24_372fd80c",
+      "range": {
+        "startLine": 150,
+        "startChar": 12,
+        "endLine": 150,
+        "endChar": 34
+      },
+      "revId": "05ee60bd827e1d3ad85a5019d0e29a67d39e9b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c23318f_ce0c529e",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2014-03-26T17:01:44Z",
       "side": 1,
       "message": "This call to startResolutionForResult needs to guard against orientation changes.  If the orientation of the device is changed while a resolution intent is being displayed, it will result in multiple intents being fired.",
+      "revId": "05ee60bd827e1d3ad85a5019d0e29a67d39e9b06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f904af03_9fc8f791",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T18:11:52Z",
+      "side": 1,
+      "message": "Created a boolean flag to avoid starting resolution activities if we\u0027re waiting from another.",
+      "parentUuid": "1c23318f_ce0c529e",
       "revId": "05ee60bd827e1d3ad85a5019d0e29a67d39e9b06",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
