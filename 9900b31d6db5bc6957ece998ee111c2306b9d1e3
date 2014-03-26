@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19218395_b5c5202d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-26T23:56:21Z",
+      "side": 1,
+      "message": "It looks like you used the tools/idea project to edit these files, which ended up with the wrong import style and indentation etc. Best to edit these files from the tools/adt project instead.",
+      "revId": "9900b31d6db5bc6957ece998ee111c2306b9d1e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19218395_75fae85b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-26T23:56:21Z",
+      "side": 1,
+      "message": "I don\u0027t think we need a separate issue type for this; there\u0027s already the IDE_SUPPORT issue which is intended for things like this (it used to flag problems with assigning the .projectDir property, though I removed that now that we support it properly.\n\nFor issues that are specific to being able to support the project inside the IDE, I think IDE_SUPPORT is adequate; we only need a separate issue if we really need to be able to suppress these issues individually (suppress one type but not another), or if we need a lengthy explanation. (It\u0027s fine to combine multiple types of explanations for an issue; see the API detector for example.)",
+      "revId": "9900b31d6db5bc6957ece998ee111c2306b9d1e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
