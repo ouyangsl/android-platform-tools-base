@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c23318f_427bd34b",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1043519
+      },
+      "writtenOn": "2014-03-26T20:41:19Z",
+      "side": 1,
+      "message": "Typo \u0027is_in_resolution\u0027.",
+      "range": {
+        "startLine": 37,
+        "startChar": 53,
+        "endLine": 37,
+        "endChar": 68
+      },
+      "revId": "8c5df189d6bb8492afe8856e446d28f7e7fb771d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590f7b24_a0f5e09d",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1043519
+      },
+      "writtenOn": "2014-03-26T20:41:19Z",
+      "side": 1,
+      "message": "I don\u0027t think onRestoreInstanceState gets called when your Activity is first created, so I think mIsInResolution would be uninitialised on the first pass.  I think best practice is to restore instance state in onCreate unless you need to rely on onStart being called first.",
+      "revId": "8c5df189d6bb8492afe8856e446d28f7e7fb771d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "392487a3_9fcebf6c",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1043519
+      },
+      "writtenOn": "2014-03-26T20:41:19Z",
+      "side": 1,
+      "message": "\u0027If there is an existing resolution error being displayed or a resolution\u0027",
+      "revId": "8c5df189d6bb8492afe8856e446d28f7e7fb771d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
