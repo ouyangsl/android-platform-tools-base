@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19f8a337_a0c27420",
+        "filename": "templates/activities/GooglePlayServicesActivity/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T21:58:55Z",
+      "side": 1,
+      "message": "Template works fine on ADT, made the required change.",
+      "parentUuid": "392487a3_19b76fba",
+      "range": {
+        "startLine": 6,
+        "startChar": 31,
+        "endLine": 6,
+        "endChar": 34
+      },
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c23318f_512f27b8",
         "filename": "templates/activities/GooglePlayServicesActivity/root/res/values-sw600dp/dimens.xml",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2014-03-26T18:12:31Z",
       "side": 1,
       "message": "Did you mean to put some padding in here?",
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f904af03_5fa26f95",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/res/values-sw600dp/dimens.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T21:58:55Z",
+      "side": 1,
+      "message": "I think we can skip all res/*dimens.xml values, the template doesn\u0027t have a layout component. Removing these resources.",
+      "parentUuid": "1c23318f_512f27b8",
       "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -240,6 +282,30 @@
       "writtenOn": "2014-03-26T18:12:31Z",
       "side": 1,
       "message": "You should specify minApi and minBuildApi, especially since your Activity file doesn\u0027t import supportlib",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 15
+      },
+      "revId": "54a0c1bf2264cbb63bd9418928e1c314c26493bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ec937b_a4f5ec9d",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T21:58:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "392487a3_f9e4b3c6",
       "range": {
         "startLine": 6,
         "startChar": 4,
