@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99ec937b_84b428d8",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T21:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c23318f_427bd34b",
+      "range": {
+        "startLine": 37,
+        "startChar": 53,
+        "endLine": 37,
+        "endChar": 68
+      },
+      "revId": "8c5df189d6bb8492afe8856e446d28f7e7fb771d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "590f7b24_a0f5e09d",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 4
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "f904af03_ffb01bd8",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T21:58:41Z",
+      "side": 1,
+      "message": "Moved restoring state to onCreate.",
+      "parentUuid": "590f7b24_a0f5e09d",
+      "revId": "8c5df189d6bb8492afe8856e446d28f7e7fb771d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "392487a3_9fcebf6c",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2014-03-26T20:41:19Z",
       "side": 1,
       "message": "\u0027If there is an existing resolution error being displayed or a resolution\u0027",
+      "revId": "8c5df189d6bb8492afe8856e446d28f7e7fb771d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ec937b_64b924cc",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-26T21:58:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "392487a3_9fcebf6c",
       "revId": "8c5df189d6bb8492afe8856e446d28f7e7fb771d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
