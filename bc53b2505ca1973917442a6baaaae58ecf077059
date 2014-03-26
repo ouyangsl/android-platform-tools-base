@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "39fba735_a4a166bb",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-26T23:25:06Z",
+      "side": 1,
+      "message": "The old one is already deprecated. However, I\u0027ve added a comment to clarify.",
+      "parentUuid": "bc0ea5b3_de5145a2",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 30
+      },
+      "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cbf69de_c0084ff8",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
         "patchSetId": 1
@@ -155,6 +179,30 @@
       "side": 1,
       "message": "I would rename force to something like \u0027useAsPrimaryTheme\u0027",
       "parentUuid": "fcb49dfd_3764dff6",
+      "range": {
+        "startLine": 132,
+        "startChar": 68,
+        "endLine": 132,
+        "endChar": 73
+      },
+      "revId": "bc53b2505ca1973917442a6baaaae58ecf077059",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39fba735_64159e25",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-26T23:25:06Z",
+      "side": 1,
+      "message": "I\u0027ve changed the name to applyStyle, to match what framework is using. Also, I\u0027ve renamed force as per your suggestion.",
+      "parentUuid": "bc0ea5b3_fe33e974",
       "range": {
         "startLine": 132,
         "startChar": 68,
