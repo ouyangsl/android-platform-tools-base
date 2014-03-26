@@ -2,6 +2,143 @@
   "comments": [
     {
       "key": {
+        "uuid": "392487a3_e59400b8",
+        "filename": "templates/activities/GooglePlayServicesActivity/globals.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "${manifestDir}",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "392487a3_05981ce8",
+        "filename": "templates/activities/GooglePlayServicesActivity/globals.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "${srcDir}",
+      "range": {
+        "startLine": 5,
+        "startChar": 31,
+        "endLine": 5,
+        "endChar": 34
+      },
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "392487a3_a59e08d2",
+        "filename": "templates/activities/GooglePlayServicesActivity/recipe.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "19.+ for consistency with all of the other templates.",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 65
+      },
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590f7b24_66e00064",
+        "filename": "templates/activities/GooglePlayServicesActivity/recipe.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "4.2.42",
+      "range": {
+        "startLine": 4,
+        "startChar": 63,
+        "endLine": 4,
+        "endChar": 69
+      },
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19218395_15e73454",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "${packageName}.${activityClass}",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19218395_5506cc3d",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "I think you\u0027re missing a closing \"\u003e\" for the activity tag.",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590f7b24_069824e8",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "This is really nice. :)",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39fba735_64dd9e84",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 5
@@ -30,6 +167,63 @@
       "writtenOn": "2014-03-26T22:06:22Z",
       "side": 1,
       "message": "Typo - double period at the end of line.",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19218395_d543fc5e",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "Log.e, yeah?",
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "392487a3_2565582a",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "let\u0027s use the \"Google\" category.",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 10,
+        "endChar": 31
+      },
+      "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "392487a3_253e78ec",
+        "filename": "templates/activities/GooglePlayServicesActivity/template_play_services_activity.png",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-26T23:35:54Z",
+      "side": 1,
+      "message": "I\u0027ll whip up an icon for the template and send to you.",
       "revId": "a93029228f05744cc4b287b560cdefe06a104f91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
