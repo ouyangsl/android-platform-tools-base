@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "590f7b24_8fb7a06a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-27T21:34:39Z",
+      "side": 1,
+      "message": "isn\u0027t that supposed to be conditional on the dependency being there?",
+      "range": {
+        "startLine": 220,
+        "startChar": 22,
+        "endLine": 220,
+        "endChar": 46
+      },
+      "revId": "e2d1713313c9394a9735741237e16c84fbf7dd5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590f7b24_0fa3902d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-27T21:34:39Z",
+      "side": 1,
+      "message": "you don\u0027t need this line since it\u0027s implied by the next one.",
+      "range": {
+        "startLine": 398,
+        "startChar": 13,
+        "endLine": 398,
+        "endChar": 22
+      },
+      "revId": "e2d1713313c9394a9735741237e16c84fbf7dd5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b935d7d3_15c176d1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/ApiDatabase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-27T21:34:39Z",
+      "side": 1,
+      "message": "is that different from the file in platform-tools that\u0027s a single file with \"since\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 65,
+        "endLine": 35,
+        "endChar": 84
+      },
+      "revId": "e2d1713313c9394a9735741237e16c84fbf7dd5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b935d7d3_b5af4a0e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/JarRewriter.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-27T21:34:39Z",
+      "side": 1,
+      "message": "missing something?",
+      "range": {
+        "startLine": 46,
+        "startChar": 36,
+        "endLine": 46,
+        "endChar": 40
+      },
+      "revId": "e2d1713313c9394a9735741237e16c84fbf7dd5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
