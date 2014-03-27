@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f91d8f5d_43e29044",
+        "filename": "templates/activities/GooglePlayServicesActivity/recipe.xml.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-03-27T17:50:08Z",
+      "side": 1,
+      "message": "Is this used? I don\u0027t see any app compat classes in the activity.java?",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 61
+      },
+      "revId": "a383da20b181a7c86edbd3acf8f61e0a200874c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19218395_44397802",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 6
