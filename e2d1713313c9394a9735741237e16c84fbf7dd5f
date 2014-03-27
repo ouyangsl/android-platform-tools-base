@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b935d7d3_3803516d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-27T22:08:53Z",
+      "side": 1,
+      "message": "long term we might need to change it back to this because we\u0027ll do dependency resolution lazily instead of when the project is configured.\n\nSo up to you really.",
+      "parentUuid": "590f7b24_cadc6635",
+      "range": {
+        "startLine": 220,
+        "startChar": 22,
+        "endLine": 220,
+        "endChar": 46
+      },
+      "revId": "e2d1713313c9394a9735741237e16c84fbf7dd5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "590f7b24_0fa3902d",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
         "patchSetId": 3
