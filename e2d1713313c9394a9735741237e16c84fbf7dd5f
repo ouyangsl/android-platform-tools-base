@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "590f7b24_cadc6635",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-27T21:54:35Z",
+      "side": 1,
+      "message": "Ah yes, I implemented this such that the task is always there, but it does no work if the annotations aren\u0027t there (the task execute quits early). Instead I\u0027ll change it such that the task isn\u0027t even created in that case.",
+      "parentUuid": "590f7b24_8fb7a06a",
+      "range": {
+        "startLine": 220,
+        "startChar": 22,
+        "endLine": 220,
+        "endChar": 46
+      },
+      "revId": "e2d1713313c9394a9735741237e16c84fbf7dd5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "590f7b24_0fa3902d",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
         "patchSetId": 3
@@ -59,6 +83,30 @@
       "writtenOn": "2014-03-27T21:34:39Z",
       "side": 1,
       "message": "is that different from the file in platform-tools that\u0027s a single file with \"since\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 65,
+        "endLine": 35,
+        "endChar": 84
+      },
+      "revId": "e2d1713313c9394a9735741237e16c84fbf7dd5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590f7b24_0aaede7b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/ApiDatabase.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-27T21:54:35Z",
+      "side": 1,
+      "message": "yeah; the one we use in platform-tools is for lint, and everything is in internal name format (java/lang/String/ etc). This one is the format of the API descriptor file, such as prebuilts/sdk/api/19.txt",
+      "parentUuid": "b935d7d3_15c176d1",
       "range": {
         "startLine": 35,
         "startChar": 65,
