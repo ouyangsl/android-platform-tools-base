@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f904af03_623a324b",
+        "filename": "templates/activities/GooglePlayServicesActivity/recipe.xml.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-27T17:52:34Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "f91d8f5d_43e29044",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 61
+      },
+      "revId": "a383da20b181a7c86edbd3acf8f61e0a200874c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19218395_44397802",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 6
@@ -36,6 +60,24 @@
       "writtenOn": "2014-03-27T17:47:48Z",
       "side": 1,
       "message": "I think we should remove this comment.  If the activity is usable without a GoogleApiClient connection the developer would need to make more changes than removing this line to accommodate that case.",
+      "revId": "a383da20b181a7c86edbd3acf8f61e0a200874c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f904af03_422f360b",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1043386
+      },
+      "writtenOn": "2014-03-27T17:52:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19218395_44397802",
       "revId": "a383da20b181a7c86edbd3acf8f61e0a200874c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
