@@ -22,6 +22,30 @@
       "revId": "7f59031cc4555108109f6d2d49e3f476743469f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "590f7b24_2a908281",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/XmlDocumentTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-03-27T21:45:14Z",
+      "side": 1,
+      "message": "unattended mistake. it\u0027s back now.",
+      "parentUuid": "1c23318f_3880c86b",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 2,
+        "endChar": 32
+      },
+      "revId": "7f59031cc4555108109f6d2d49e3f476743469f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
