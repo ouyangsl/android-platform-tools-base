@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19218395_44397802",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1043519
+      },
+      "writtenOn": "2014-03-27T17:47:48Z",
+      "side": 1,
+      "message": "I think we should remove this comment.  If the activity is usable without a GoogleApiClient connection the developer would need to make more changes than removing this line to accommodate that case.",
+      "revId": "a383da20b181a7c86edbd3acf8f61e0a200874c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
