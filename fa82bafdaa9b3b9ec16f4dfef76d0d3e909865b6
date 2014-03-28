@@ -45,6 +45,29 @@
       "revId": "fa82bafdaa9b3b9ec16f4dfef76d0d3e909865b6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d948cb7a_976fb4cd",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-28T23:10:39Z",
+      "side": 1,
+      "message": "see comment in other file. You should implement getDefaultTheme here. There\u0027s no reason to implement a deprecated method.",
+      "range": {
+        "startLine": 129,
+        "startChar": 30,
+        "endLine": 129,
+        "endChar": 45
+      },
+      "revId": "fa82bafdaa9b3b9ec16f4dfef76d0d3e909865b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
