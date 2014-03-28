@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "194fc37f_54adba69",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/xml/XmlPrettyPrinter.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-28T23:26:44Z",
+      "side": 1,
+      "message": "I\u0027m going to fix this inconsistent formatting",
+      "revId": "09fe0074cf41cd13983fa069a473dbd280c29b65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
