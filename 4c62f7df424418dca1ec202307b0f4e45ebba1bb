@@ -284,6 +284,30 @@
       "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b935d7d3_26c32e4c",
+        "filename": "templates/activities/GoogleMapsActivity/root/res/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1042208
+      },
+      "writtenOn": "2014-03-28T00:02:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc1f3d43_8a2a4f94",
+      "range": {
+        "startLine": 16,
+        "startChar": 35,
+        "endLine": 16,
+        "endChar": 48
+      },
+      "revId": "4c62f7df424418dca1ec202307b0f4e45ebba1bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
