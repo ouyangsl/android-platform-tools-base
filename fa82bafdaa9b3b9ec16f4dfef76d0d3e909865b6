@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f94bcf71_b80e214d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-28T23:10:02Z",
+      "side": 1,
+      "message": "typo on \"there\"?",
+      "range": {
+        "startLine": 60,
+        "startChar": 49,
+        "endLine": 60,
+        "endChar": 54
+      },
+      "revId": "fa82bafdaa9b3b9ec16f4dfef76d0d3e909865b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "194fc37f_d4be4ae1",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-03-28T23:10:02Z",
+      "side": 1,
+      "message": "I think it should be the other way around. Since this code ships with the IDE, you want to:\n\ngetDefaultTheme is the one that returns null and is overriden in the ResourceResolver. \n\nIn this class getCurrentTheme() returns getDefaultTheme() for backward compatibility.",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 30
+      },
+      "revId": "fa82bafdaa9b3b9ec16f4dfef76d0d3e909865b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
