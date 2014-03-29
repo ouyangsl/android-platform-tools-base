@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f94bcf71_98500549",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-29T00:08:33Z",
+      "side": 1,
+      "message": "Does this mean that it should have the logical effect of prepending something into the list returned by getAllThemes?",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d948cb7a_57725cfb",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-29T00:08:33Z",
+      "side": 1,
+      "message": "Should this have the logical effect of returning getAllThemes to the singleton list (getDefaultTheme) ?",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "194fc37f_7f53ef33",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-29T00:08:33Z",
+      "side": 1,
+      "message": "the default implementation above returns null -- does this need to check to make sure we don\u0027t hit an NPE here?",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f94bcf71_3867d13d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-03-29T00:08:33Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
