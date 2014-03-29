@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d948cb7a_52582a4c",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-29T00:33:42Z",
+      "side": 1,
+      "message": "if useAsPrimary is true then prepending, else appending.",
+      "parentUuid": "f94bcf71_98500549",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d948cb7a_57725cfb",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2014-03-29T00:08:33Z",
       "side": 1,
       "message": "Should this have the logical effect of returning getAllThemes to the singleton list (getDefaultTheme) ?",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d948cb7a_324dae8e",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-29T00:33:42Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "d948cb7a_57725cfb",
       "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f94bcf71_b3df6228",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-29T00:33:42Z",
+      "side": 1,
+      "message": "I thought about that, but the default implementation is always overridden by the ResourceResolver, which never returns null and hence I omitted it. I\u0027ll add it back if it matters.",
+      "parentUuid": "194fc37f_7f53ef33",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f94bcf71_3867d13d",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2014-03-29T00:08:33Z",
       "side": 1,
       "message": "ditto",
+      "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d948cb7a_b2407e53",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-03-29T00:33:42Z",
+      "side": 1,
+      "message": "ditto :)",
+      "parentUuid": "f94bcf71_3867d13d",
       "revId": "6a5381a57ea6ffa77469838b4bd0d74297ee634c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
