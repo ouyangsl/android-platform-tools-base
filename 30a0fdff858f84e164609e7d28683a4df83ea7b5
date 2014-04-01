@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9a74f88_d3ce7ef8",
+        "filename": "build-system/builder/src/main/java/com/android/builder/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-01T21:38:49Z",
+      "side": 1,
+      "message": "debug",
+      "range": {
+        "startLine": 364,
+        "startChar": 32,
+        "endLine": 364,
+        "endChar": 36
+      },
+      "revId": "30a0fdff858f84e164609e7d28683a4df83ea7b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b92f97b4_a8fb3f90",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/ManifestDependencyImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-01T21:38:49Z",
+      "side": 1,
+      "message": "missing empty line.",
+      "range": {
+        "startLine": 53,
+        "startChar": 5,
+        "endLine": 53,
+        "endChar": 13
+      },
+      "revId": "30a0fdff858f84e164609e7d28683a4df83ea7b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99349308_a7a7eecf",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ProcessAppManifest2.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-01T21:38:49Z",
+      "side": 1,
+      "message": "empty line above + indent below.",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 6
+      },
+      "revId": "30a0fdff858f84e164609e7d28683a4df83ea7b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
