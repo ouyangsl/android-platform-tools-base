@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79399f00_15dfdef1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-02T22:14:20Z",
+      "side": 1,
+      "message": "too vague a term. If you want to make it thread safe, make it so. If its not, document what isn\u0027t. You\u0027ll thank yourself when you come back to this in a few months.",
+      "range": {
+        "startLine": 145,
+        "startChar": 61,
+        "endLine": 145,
+        "endChar": 83
+      },
+      "revId": "89f130b25851d4831632ec77ac2b53f7351f1779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79399f00_35b942cd",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-02T22:14:20Z",
+      "side": 1,
+      "message": "@GuardedBy(\"mLocalPackages\")",
+      "range": {
+        "startLine": 172,
+        "startChar": 50,
+        "endLine": 172,
+        "endChar": 64
+      },
+      "revId": "89f130b25851d4831632ec77ac2b53f7351f1779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79399f00_9533eed4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-02T22:14:20Z",
+      "side": 1,
+      "message": "@GuardedBy(\"mLocalPackages\")",
+      "range": {
+        "startLine": 177,
+        "startChar": 50,
+        "endLine": 177,
+        "endChar": 62
+      },
+      "revId": "89f130b25851d4831632ec77ac2b53f7351f1779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9a44b89_ec763f62",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSdk.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-02T22:14:20Z",
+      "side": 1,
+      "message": "@GuardedBy(\"mCachedTargets\")\n\nSuggestion: I see that you have multiple locks, if possible, I\u0027d just use a single lock. I don\u0027t know if this code warrants such fine grained locking.",
+      "range": {
+        "startLine": 181,
+        "startChar": 39,
+        "endLine": 181,
+        "endChar": 53
+      },
+      "revId": "89f130b25851d4831632ec77ac2b53f7351f1779",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
