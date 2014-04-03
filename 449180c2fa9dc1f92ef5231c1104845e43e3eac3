@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "59da1b34_85c1e6d3",
+        "filename": "build-system/builder/src/main/java/com/android/builder/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-03T21:08:15Z",
+      "side": 1,
+      "message": "true.",
+      "parentUuid": "79527f52_dea115bb",
+      "range": {
+        "startLine": 203,
+        "startChar": 19,
+        "endLine": 203,
+        "endChar": 35
+      },
+      "revId": "449180c2fa9dc1f92ef5231c1104845e43e3eac3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "995d7362_1f06eb3c",
         "filename": "build-system/builder/src/main/java/com/android/builder/sdk/DefaultSdkLoader.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2014-04-03T01:37:14Z",
       "side": 1,
       "message": "I think you can just do ImmutableList.copyOf(repositories)",
+      "range": {
+        "startLine": 184,
+        "startChar": 66,
+        "endLine": 184,
+        "endChar": 71
+      },
+      "revId": "449180c2fa9dc1f92ef5231c1104845e43e3eac3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79d51fff_206d6a1c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/sdk/DefaultSdkLoader.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-03T21:08:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "995d7362_1f06eb3c",
       "range": {
         "startLine": 184,
         "startChar": 66,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "59da1b34_a5a50a33",
+        "filename": "build-system/builder/src/main/java/com/android/builder/sdk/TargetInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-03T21:08:15Z",
+      "side": 1,
+      "message": "SdkInfo is generic information about the sdk (where the repos are, version of platform-tools, etc..). This is the same value for all projects using this SDK.\n\nTarget info will be different per module as they could be using a different compileSdkVersion and/or build-tools version.",
+      "parentUuid": "b9587770_00f96a97",
+      "range": {
+        "startLine": 35,
+        "startChar": 35,
+        "endLine": 35,
+        "endChar": 48
+      },
+      "revId": "449180c2fa9dc1f92ef5231c1104845e43e3eac3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79527f52_bec70155",
         "filename": "build-system/builder/src/main/java/com/android/builder/sdk/TargetInfo.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2014-04-03T01:37:14Z",
       "side": 1,
       "message": "incorrect or missing?",
+      "range": {
+        "startLine": 45,
+        "startChar": 15,
+        "endLine": 45,
+        "endChar": 36
+      },
+      "revId": "449180c2fa9dc1f92ef5231c1104845e43e3eac3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79d51fff_40726efb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/sdk/TargetInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-03T21:08:15Z",
+      "side": 1,
+      "message": "hmm weird. not sure where this is coming from.",
+      "parentUuid": "79527f52_bec70155",
       "range": {
         "startLine": 45,
         "startChar": 15,
@@ -128,6 +224,30 @@
       "writtenOn": "2014-04-03T16:39:45Z",
       "side": 1,
       "message": "Not sure why we are checking TEST_SDK_DIR here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 20,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "449180c2fa9dc1f92ef5231c1104845e43e3eac3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d910cb97_8643cc5f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/SdkHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-03T21:08:15Z",
+      "side": 1,
+      "message": "I\u0027ll add a comment.",
+      "parentUuid": "391ac7b4_664dee8d",
       "range": {
         "startLine": 93,
         "startChar": 20,
