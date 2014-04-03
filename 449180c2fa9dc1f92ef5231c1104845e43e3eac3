@@ -114,6 +114,29 @@
       "revId": "449180c2fa9dc1f92ef5231c1104845e43e3eac3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "391ac7b4_664dee8d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/SdkHandler.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-03T16:39:45Z",
+      "side": 1,
+      "message": "Not sure why we are checking TEST_SDK_DIR here.",
+      "range": {
+        "startLine": 93,
+        "startChar": 20,
+        "endLine": 93,
+        "endChar": 32
+      },
+      "revId": "449180c2fa9dc1f92ef5231c1104845e43e3eac3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
