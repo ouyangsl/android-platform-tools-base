@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19734325_da2d7177",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T17:03:59Z",
+      "side": 1,
+      "message": "Looks like you edited this from the tools/idea project rather than tools/base? The import styles are different (ditto for indentation below)",
+      "revId": "1b8b0466439164c970827e13bbb7a5fc81fc4d2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
