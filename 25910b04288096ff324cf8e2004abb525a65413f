@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "59a69bd4_54f88a5b",
+        "filename": "templates/other/AidlFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a69bd4_d4e13a40",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59a69bd4_142a0295",
         "filename": "templates/other/AndroidManifest/root/AndroidManifest.xml.ftl",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "19734325_4235135a",
+        "filename": "templates/other/AndroidManifest/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a69bd4_142a0295",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19734325_42b7d303",
         "filename": "templates/other/AssetsFolder/recipe.xml.ftl",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2014-04-07T22:41:56Z",
       "side": 1,
       "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9b4affd_e23da2a1",
+        "filename": "templates/other/AssetsFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19734325_42b7d303",
       "revId": "25910b04288096ff324cf8e2004abb525a65413f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -104,6 +158,24 @@
     },
     {
       "key": {
+        "uuid": "59a69bd4_745dceaf",
+        "filename": "templates/other/JavaFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9b4affd_62e99222",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9b4affd_42f69602",
         "filename": "templates/other/JniFolder/recipe.xml.ftl",
         "patchSetId": 1
@@ -115,6 +187,24 @@
       "writtenOn": "2014-04-07T22:41:56Z",
       "side": 1,
       "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a69bd4_d4a7fa59",
+        "filename": "templates/other/JniFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9b4affd_42f69602",
       "revId": "25910b04288096ff324cf8e2004abb525a65413f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -138,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "f9b4affd_22ddca2e",
+        "filename": "templates/other/ResFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a69bd4_3497467a",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19734325_82ec6be7",
         "filename": "templates/other/ResFolder/template.xml",
         "patchSetId": 1
@@ -149,6 +257,24 @@
       "writtenOn": "2014-04-07T22:41:56Z",
       "side": 1,
       "message": "\"Resource\" instead of \"Res\" perhaps?",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19734325_e277df14",
+        "filename": "templates/other/ResFolder/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19734325_82ec6be7",
       "revId": "25910b04288096ff324cf8e2004abb525a65413f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -172,6 +298,24 @@
     },
     {
       "key": {
+        "uuid": "f9b4affd_020beef5",
+        "filename": "templates/other/ResourcesFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a69bd4_9479729c",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19734325_420b53f4",
         "filename": "templates/other/ResourcesFolder/template.xml",
         "patchSetId": 1
@@ -183,6 +327,24 @@
       "writtenOn": "2014-04-07T22:41:56Z",
       "side": 1,
       "message": "maybe change to \"Java Resource (not Android Resource) files\" so people realize this isn\u0027t the same thing and look a little more closely. I think it\u0027s really really unlikely people will use this. Almost to the point that we may not want to include it. Android has its own way to load resources like this (the assets and res/raw folders), I always assumed this was more of a Gradle plain Java support inheritance",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9b4affd_c204e6e4",
+        "filename": "templates/other/ResourcesFolder/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19734325_420b53f4",
       "revId": "25910b04288096ff324cf8e2004abb525a65413f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -206,6 +368,24 @@
     },
     {
       "key": {
+        "uuid": "19734325_e2f0bf47",
+        "filename": "templates/other/RsFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a69bd4_34c98695",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59a69bd4_f4bb1eec",
         "filename": "templates/other/RsFolder/template.xml",
         "patchSetId": 1
@@ -217,6 +397,24 @@
       "writtenOn": "2014-04-07T22:41:56Z",
       "side": 1,
       "message": "capitalize Script",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19734325_02febb18",
+        "filename": "templates/other/RsFolder/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-07T23:07:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a69bd4_f4bb1eec",
       "revId": "25910b04288096ff324cf8e2004abb525a65413f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
