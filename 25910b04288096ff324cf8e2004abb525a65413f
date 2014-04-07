@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59a69bd4_d4e13a40",
+        "filename": "templates/other/AidlFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a69bd4_142a0295",
+        "filename": "templates/other/AndroidManifest/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "Probably don\u0027t need to specify allowBackup in any non-default-sourceset manifest. (And probably shouldn\u0027t: If the user then changes the default in one of the files it will conflict with all the others.)",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19734325_42b7d303",
+        "filename": "templates/other/AssetsFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a69bd4_54a52ac5",
+        "filename": "templates/other/AssetsFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "manifestOut -- I wonder if we should rename that variable, or add a new one, which reflects what that directory really is: sourceSetRoot",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19734325_02479b3c",
+        "filename": "templates/other/AssetsFolder/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "Longer term, it would be great if the PSI differ could handle whitespace comparisons such that we can have formatted Groovy code here in the templates too",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9b4affd_62e99222",
+        "filename": "templates/other/JavaFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9b4affd_42f69602",
+        "filename": "templates/other/JniFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a69bd4_3497467a",
+        "filename": "templates/other/ResFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19734325_82ec6be7",
+        "filename": "templates/other/ResFolder/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "\"Resource\" instead of \"Res\" perhaps?",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a69bd4_9479729c",
+        "filename": "templates/other/ResourcesFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "tab",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19734325_420b53f4",
+        "filename": "templates/other/ResourcesFolder/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "maybe change to \"Java Resource (not Android Resource) files\" so people realize this isn\u0027t the same thing and look a little more closely. I think it\u0027s really really unlikely people will use this. Almost to the point that we may not want to include it. Android has its own way to load resources like this (the assets and res/raw folders), I always assumed this was more of a Gradle plain Java support inheritance",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a69bd4_34c98695",
+        "filename": "templates/other/RsFolder/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "tabs",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a69bd4_f4bb1eec",
+        "filename": "templates/other/RsFolder/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T22:41:56Z",
+      "side": 1,
+      "message": "capitalize Script",
+      "revId": "25910b04288096ff324cf8e2004abb525a65413f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
