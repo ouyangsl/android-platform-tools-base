@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59a69bd4_0e7c3394",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-07T20:45:38Z",
+      "side": 1,
+      "message": "maybe rename to getModuleLocations?",
+      "revId": "9445b64659d13de1d2127640d0afa3d06189b683",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
