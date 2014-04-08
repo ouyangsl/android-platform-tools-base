@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19d1833f_bbeb4fce",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-08T14:52:18Z",
+      "side": 1,
+      "message": "@GuardedBy(\"this\")",
+      "range": {
+        "startLine": 153,
+        "startChar": 33,
+        "endLine": 153,
+        "endChar": 37
+      },
+      "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39d4872d_1cc91d95",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/LibraryDependencyImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-08T14:52:18Z",
+      "side": 1,
+      "message": "This is used as a key in a map, so confirm that the default hashCode implementation does what you\u0027d expect.",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 34
+      },
+      "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79ba7fef_7e17e9d3",
+        "filename": "build-system/tests/libsTest/lib2/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-08T14:52:18Z",
+      "side": 1,
+      "message": "I don\u0027t know if it is possible with the test infrastructure, but it would probably help if you verify that there is a cache hit and a cache miss.",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 11
+      },
+      "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
