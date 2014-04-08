@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "19d1833f_bb8fcf15",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-08T15:35:05Z",
+      "side": 1,
+      "message": "this can be all replaced with \nObjects.hashcode(mSourceFile, mBuildToolsRevision);",
+      "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19d1833f_bbeb4fce",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
         "patchSetId": 3
@@ -18,6 +35,29 @@
         "startChar": 33,
         "endLine": 153,
         "endChar": 37
+      },
+      "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39d4872d_3c2e1973",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-08T15:35:05Z",
+      "side": 1,
+      "message": "replace with boolean newItem \u003d item \u003d\u003d null and delete the assignment below, it clarifies better the intent.",
+      "range": {
+        "startLine": 220,
+        "startChar": 26,
+        "endLine": 220,
+        "endChar": 31
       },
       "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
