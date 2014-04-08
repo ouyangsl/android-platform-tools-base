@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "79ba7fef_be55818e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-04-08T14:58:43Z",
+      "side": 1,
+      "message": "mMap is used in synchronized context in \"getItem\", but not here. My understanding is that synchronized variables need to be, well, synchronized, on every read/write access. Also by adding \"Guardedby(this)\" we are implying that.",
+      "range": {
+        "startLine": 231,
+        "startChar": 16,
+        "endLine": 231,
+        "endChar": 21
+      },
+      "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39d4872d_1cc91d95",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/LibraryDependencyImpl.java",
         "patchSetId": 3
