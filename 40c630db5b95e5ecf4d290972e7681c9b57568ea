@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "19d1833f_fb6e6787",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-08T15:34:05Z",
+      "side": 1,
+      "message": "You are correct, this should be synchronized as well. Findbugs will probably complain.",
+      "parentUuid": "79ba7fef_be55818e",
+      "range": {
+        "startLine": 231,
+        "startChar": 16,
+        "endLine": 231,
+        "endChar": 21
+      },
+      "revId": "40c630db5b95e5ecf4d290972e7681c9b57568ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39d4872d_1cc91d95",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/LibraryDependencyImpl.java",
         "patchSetId": 3
