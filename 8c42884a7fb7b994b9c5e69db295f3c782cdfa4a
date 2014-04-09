@@ -16,6 +16,24 @@
       "revId": "8c42884a7fb7b994b9c5e69db295f3c782cdfa4a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9fbcfcb_9833e574",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/Actions.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-09T15:51:22Z",
+      "side": 1,
+      "message": "yes I am using 1 based line and column numbers. in XmlDocument, there is a getNodePosition which \"adapts\" the one returned from lower level. That method is only used for display purposes. \n\nYou can still get 0:0 as a position when the xml was inserted from either a system property injection or a placeholder injection when there was no xml element it originated from. There is also implied uses-permission which get automatically added when using a library in an application targeting a newer SDK. Basically anything that came from the merger tool itself rather than one of its input file will be tagged with 0:0. \n\ndoes that clarify ?",
+      "parentUuid": "39d4872d_3dfbb029",
+      "revId": "8c42884a7fb7b994b9c5e69db295f3c782cdfa4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
