@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39d4872d_3dfbb029",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/Actions.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-09T00:14:53Z",
+      "side": 1,
+      "message": "You\u0027re displaying 1-based line numbers, right? \n\nE.g. the first character in a file are at 1:1. I\u0027m asking since I believe we use 0-based indices internally in the XML parser and elsewhere, and I thought I saw them passed through (and some errors initialized with 0, 0) so I was expecting either a +1 at the call site, or better yet use 0-based positions everywhere and simply convert to +1 at the display site, here.",
+      "revId": "8c42884a7fb7b994b9c5e69db295f3c782cdfa4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
