@@ -16,6 +16,24 @@
       "revId": "cd0ce5421de925ac1cb3594eb54b6d9dca9b763b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b933177e_eba7a18b",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/OrphanXmlElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-09T17:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9fbcfcb_249a92a1",
+      "revId": "cd0ce5421de925ac1cb3594eb54b6d9dca9b763b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
