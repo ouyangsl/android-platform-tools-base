@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19ffc3b9_286a6347",
+        "filename": "templates/gradle-projects/ImportExistingProject/template.xml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-09T00:25:15Z",
+      "side": 1,
+      "message": "revision could be \"1\" here, but no biggie :-) I see we\u0027ve used \"4\" in many other new templates recently, probably just from cut \u0026 paste. This is the revision of this specific template, which you increase each time the template is changed.",
+      "revId": "e192985e99314463a0607e6dfc7a0d147be9be15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
