@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "79efdfff_f929cba0",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/Actions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-09T16:44:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19ffc3b9_c8274f43",
+      "revId": "4074efc30e694212288566bd52c6534a43869b3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19ffc3b9_c8506fa0",
         "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PositionImpl.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-04-09T00:22:43Z",
       "side": 1,
       "message": "should these literal strings be defined as constants somewhere (e.g. in the place they\u0027re put in as attributes?)",
+      "revId": "4074efc30e694212288566bd52c6534a43869b3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9fbcfcb_330f724c",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PositionImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-09T16:44:16Z",
+      "side": 1,
+      "message": "yes and cleaned up a bit but adding some static methods to read/write from/to Xml.",
+      "parentUuid": "19ffc3b9_c8506fa0",
       "revId": "4074efc30e694212288566bd52c6534a43869b3c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
