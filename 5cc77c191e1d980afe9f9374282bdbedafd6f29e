@@ -22,6 +22,30 @@
       "revId": "5cc77c191e1d980afe9f9374282bdbedafd6f29e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ead3ed_97ff2ccf",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-09T00:10:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d4872d_bd8580af",
+      "range": {
+        "startLine": 76,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 76
+      },
+      "revId": "5cc77c191e1d980afe9f9374282bdbedafd6f29e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
