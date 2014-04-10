@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79027fbc_98e45591",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-10T15:30:23Z",
+      "side": 1,
+      "message": "that could end up being a super long line. It\u0027s probably fine for now, but we may want to revisit this later.",
+      "range": {
+        "startLine": 221,
+        "startChar": 28,
+        "endLine": 221,
+        "endChar": 86
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f97e6f24_4099de19",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29_uses_perm_selector.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-10T15:30:23Z",
+      "side": 1,
+      "message": "maxSdkVersion doesn\u0027t belong in uses-permission. Do you have it there on purpose?",
+      "range": {
+        "startLine": 46,
+        "startChar": 65,
+        "endLine": 46,
+        "endChar": 89
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996f3376_bdf0f7b8",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29_uses_perm_selector.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-10T15:30:23Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 59,
+        "startChar": 29,
+        "endLine": 59,
+        "endChar": 42
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996f3376_5dd69b18",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29b_uses_perm_invalidSelector.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-10T15:30:23Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 46,
+        "startChar": 72,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
