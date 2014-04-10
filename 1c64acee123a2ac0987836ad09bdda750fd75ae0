@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79027fbc_5bdd972d",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-10T16:05:41Z",
+      "side": 1,
+      "message": "yes we need to revisit all error messages I think.",
+      "parentUuid": "79027fbc_98e45591",
+      "range": {
+        "startLine": 221,
+        "startChar": 28,
+        "endLine": 221,
+        "endChar": 86
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f97e6f24_4099de19",
         "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29_uses_perm_selector.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-04-10T15:30:23Z",
       "side": 1,
       "message": "maxSdkVersion doesn\u0027t belong in uses-permission. Do you have it there on purpose?",
+      "range": {
+        "startLine": 46,
+        "startChar": 65,
+        "endLine": 46,
+        "endChar": 89
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79027fbc_7be05be7",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29_uses_perm_selector.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-10T16:05:41Z",
+      "side": 1,
+      "message": "well according to http://developer.android.com/guide/topics/manifest/uses-permission-element.html\nit is part of it.\nI does not need to make sense, i just need one attribute that comes from one particular library to pass the test.",
+      "parentUuid": "f97e6f24_4099de19",
       "range": {
         "startLine": 46,
         "startChar": 65,
@@ -82,6 +130,30 @@
       "writtenOn": "2014-04-10T15:30:23Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 46,
+        "startChar": 72,
+        "endLine": 46,
+        "endChar": 85
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79027fbc_bb0af3ee",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29b_uses_perm_invalidSelector.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-04-10T16:05:41Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "996f3376_5dd69b18",
       "range": {
         "startLine": 46,
         "startChar": 72,
