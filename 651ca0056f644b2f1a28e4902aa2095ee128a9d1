@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f97e6f24_73cf0ff5",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/archives/ArchiveInstaller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-10T20:41:44Z",
+      "side": 1,
+      "message": "Minor nitpick: If it is only unit tests that rely on this, it seems like only the unit tests should sort the data before comparing.",
+      "range": {
+        "startLine": 1094,
+        "startChar": 45,
+        "endLine": 1094,
+        "endChar": 49
+      },
+      "revId": "651ca0056f644b2f1a28e4902aa2095ee128a9d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
