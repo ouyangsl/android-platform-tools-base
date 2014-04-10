@@ -22,6 +22,30 @@
       "revId": "651ca0056f644b2f1a28e4902aa2095ee128a9d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "996f3376_d58a5f55",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/archives/ArchiveInstaller.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1094,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-04-10T20:56:24Z",
+      "side": 1,
+      "message": "I don\u0027t really like the idea of having different behaviors for unit tests vs normal code, it means it wouldn\u0027t be testing the real thing anymore.\nAs a nitpick/side-effect, I like having the prop files sorted on disk, I think it\u0027s neater when I\u0027m looking at them (albeit rarely and only for debug purposes.)",
+      "parentUuid": "f97e6f24_73cf0ff5",
+      "range": {
+        "startLine": 1094,
+        "startChar": 45,
+        "endLine": 1094,
+        "endChar": 49
+      },
+      "revId": "651ca0056f644b2f1a28e4902aa2095ee128a9d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
