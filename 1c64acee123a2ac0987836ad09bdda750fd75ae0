@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "79027fbc_3bff0380",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29_uses_perm_selector.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-10T16:08:29Z",
+      "side": 1,
+      "message": "oh, i didn\u0027t realize there was this option. How do we merge this?",
+      "parentUuid": "79027fbc_7be05be7",
+      "range": {
+        "startLine": 46,
+        "startChar": 65,
+        "endLine": 46,
+        "endChar": 89
+      },
+      "revId": "1c64acee123a2ac0987836ad09bdda750fd75ae0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "996f3376_bdf0f7b8",
         "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/29_uses_perm_selector.xml",
         "patchSetId": 1
