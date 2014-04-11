@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59bcdb31_ef04a1e4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/-sdk-repository-10.xsd",
+        "patchSetId": 2
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-04-11T03:30:25Z",
+      "side": 1,
+      "message": "grrrr tabs :-(",
+      "revId": "7b053c562a156f8aa778bb2f229ada19ebb6c06d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99b2d35a_17e2dcb8",
+        "filename": "sdklib/src/test/java/com/android/sdklib/testdata/repository_sample_10.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-04-11T03:30:25Z",
+      "side": 1,
+      "message": "Note how this archive specifies a jvm 32-bit on a 64-bit host.",
+      "revId": "7b053c562a156f8aa778bb2f229ada19ebb6c06d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
