@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79851f89_0352b02c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/sources/SdkRepoSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-14T18:40:30Z",
+      "side": 1,
+      "message": "The changes in this file are unrelated to findbugs?",
+      "revId": "bd8f5110767b50ae86a05c0d919862cc99a001b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
