@@ -16,6 +16,24 @@
       "revId": "bd8f5110767b50ae86a05c0d919862cc99a001b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79851f89_0338f0ad",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/sources/SdkRepoSource.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-04-14T18:57:47Z",
+      "side": 1,
+      "message": "This was reported by findbugs for this class.",
+      "parentUuid": "79851f89_0352b02c",
+      "revId": "bd8f5110767b50ae86a05c0d919862cc99a001b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
