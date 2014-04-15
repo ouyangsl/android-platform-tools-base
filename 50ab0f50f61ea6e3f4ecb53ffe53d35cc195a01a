@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b964f7c8_80a87a6e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/PreDexCache.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-15T16:11:02Z",
+      "side": 1,
+      "message": "no need for volatile?",
+      "range": {
+        "startLine": 244,
+        "startChar": 12,
+        "endLine": 244,
+        "endChar": 20
+      },
+      "revId": "50ab0f50f61ea6e3f4ecb53ffe53d35cc195a01a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
