@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45586f41_91f1fe06",
+        "filename": "templates/other/BlankFragment/root/src/app_package/BlankFragment.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-04-17T18:49:39Z",
+      "side": 1,
+      "message": "This variable no longer defined... I believe you don\u0027t need to qualify the class in the JavaDoc - import should work just fine.",
+      "range": {
+        "startLine": 14,
+        "startChar": 26,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "35edfc9a6b0c9cc1f27a5e25d480467dbcc173e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
