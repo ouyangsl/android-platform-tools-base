@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "45586f41_aed82327",
+        "filename": "templates/other/BlankFragment/globals.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-04-17T18:22:13Z",
+      "side": 1,
+      "message": "I do not see where this is used in this changelist.",
+      "range": {
+        "startLine": 4,
+        "startChar": 16,
+        "endLine": 4,
+        "endChar": 23
+      },
+      "revId": "178f5ef6be4461f3451ef8ef8df04315ce9ea361",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c51d3f5e_2352f499",
+        "filename": "templates/other/BlankFragment/root/src/app_package/BlankFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-04-17T18:22:13Z",
+      "side": 1,
+      "message": "Matter of taste, but to me using \u003c#if useSupport\u003e and else would be more obvious (would not require looking into another file to see the value of the SupportPackage var).",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 45
+      },
+      "revId": "178f5ef6be4461f3451ef8ef8df04315ce9ea361",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
