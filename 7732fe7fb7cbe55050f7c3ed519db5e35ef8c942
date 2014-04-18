@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "255d3b32_539ca75e",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/TextResourceValue.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-18T21:00:01Z",
+      "side": 1,
+      "message": "shouldn\u0027t you call the super that receives the value? This way you don\u0027t have to change mValue to protected.",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 14
+      },
+      "revId": "7732fe7fb7cbe55050f7c3ed519db5e35ef8c942",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e54ec381_7f5acf2e",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/TextResourceValue.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-18T21:00:01Z",
+      "side": 1,
+      "message": "mValue is in the super class, you don\u0027t need to include it here.",
+      "range": {
+        "startLine": 55,
+        "startChar": 36,
+        "endLine": 55,
+        "endChar": 42
+      },
+      "revId": "7732fe7fb7cbe55050f7c3ed519db5e35ef8c942",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
