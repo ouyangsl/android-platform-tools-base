@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "856c27f2_2ec51f40",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-21T18:29:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e54ec381_ae013bd1",
+      "revId": "9836f0b2002ab070902926ba78e306a625109f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "255d3b32_1cfd21d6",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-04-18T18:30:21Z",
       "side": 1,
       "message": "Note: You can put backquotes around words to cause them to be formatted as code; this is used when generating HTML reports, when displaying the explanation in the IDE in a stylable-text widget, etc.  (Similarly, you can use *\u0027s to make words bold.) So here I would write performClick as `performClick`.",
+      "revId": "9836f0b2002ab070902926ba78e306a625109f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "856c27f2_4ea17395",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-21T18:29:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "255d3b32_1cfd21d6",
       "revId": "9836f0b2002ab070902926ba78e306a625109f69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "658813e3_56827240",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-21T18:29:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "255d3b32_dc3c29e2",
+      "revId": "9836f0b2002ab070902926ba78e306a625109f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e54ec381_2ec8ab2f",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2014-04-18T18:30:21Z",
       "side": 1,
       "message": "nit - maybe rename this from get* to find* to indicate that it\u0027s searching for things that are not necessarily expected to be there? Ditto for getMethod above.",
+      "revId": "9836f0b2002ab070902926ba78e306a625109f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "658813e3_f6862652",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-21T18:29:10Z",
+      "side": 1,
+      "message": "Makes sense. Thanks!",
+      "parentUuid": "e54ec381_2ec8ab2f",
       "revId": "9836f0b2002ab070902926ba78e306a625109f69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
