@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "856c27f2_2e72ff26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-21T18:40:01Z",
+      "side": 1,
+      "message": "ppc was in arch.",
+      "range": {
+        "startLine": 16,
+        "startChar": 44,
+        "endLine": 16,
+        "endChar": 47
+      },
+      "revId": "8d97c171bf67813de0d8a6060418e668189f891f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
