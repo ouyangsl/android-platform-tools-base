@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "658813e3_36f7aeb0",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/-sdk-addon-7.xsd",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-21T18:33:36Z",
+      "side": 1,
+      "message": "22.6.4",
+      "range": {
+        "startLine": 67,
+        "startChar": 51,
+        "endLine": 67,
+        "endChar": 58
+      },
+      "revId": "9259eb1e8fd8c385fcd94c224a567a08b79994a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
