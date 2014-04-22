@@ -22,6 +22,30 @@
       "revId": "aa4d45bfd067debcb52ee15a08e108adebd2d24f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5a4cb87_52e4ca71",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IncludeDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-22T16:28:14Z",
+      "side": 1,
+      "message": "Because we add an error on *each* attribute that is in violation. So first we determine if there are any, and in the second pass we report issues on each such attribute. (Can\u0027t do it in a single pass since we first need to know if width or height appeared.)",
+      "parentUuid": "253e1beb_62fdd8d5",
+      "range": {
+        "startLine": 95,
+        "startChar": 41,
+        "endLine": 95,
+        "endChar": 51
+      },
+      "revId": "aa4d45bfd067debcb52ee15a08e108adebd2d24f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
