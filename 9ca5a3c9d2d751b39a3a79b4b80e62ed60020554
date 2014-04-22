@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5a4cb87_cc1fbe75",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultBuildType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-22T18:26:48Z",
+      "side": 1,
+      "message": "If we\u0027re using the setter javadocs for Groovy property documentation, perhaps we should avoid mentioning \"sets\" in these docs? Just starts with \"Whether\"; that way it works for both getters and setters?",
+      "revId": "9ca5a3c9d2d751b39a3a79b4b80e62ed60020554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5aa4352_5f4cd386",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultBuildType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-22T18:26:48Z",
+      "side": 1,
+      "message": "APK?",
+      "revId": "9ca5a3c9d2d751b39a3a79b4b80e62ed60020554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5aa4352_7f518f1d",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultBuildType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-22T18:26:48Z",
+      "side": 1,
+      "message": "RenderScript?",
+      "revId": "9ca5a3c9d2d751b39a3a79b4b80e62ed60020554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45b4efaf_7d78bb9f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultBuildType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-22T18:26:48Z",
+      "side": 1,
+      "message": "ProGuard",
+      "revId": "9ca5a3c9d2d751b39a3a79b4b80e62ed60020554",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
