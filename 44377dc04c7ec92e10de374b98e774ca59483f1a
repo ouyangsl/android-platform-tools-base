@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "85fd0775_e61f2675",
+        "filename": "templates/other/AidlFile/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-23T00:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5620b22_7cb1edd0",
+      "revId": "44377dc04c7ec92e10de374b98e774ca59483f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2557fb42_c09e54dd",
         "filename": "templates/other/AidlFile/template.xml",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2014-04-23T00:40:05Z",
       "side": 1,
       "message": "I think the style is to start AIDL interfaces with an \"I\", right? So maybe \"IMyAidlInterface\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 17,
+        "endLine": 16,
+        "endChar": 32
+      },
+      "revId": "44377dc04c7ec92e10de374b98e774ca59483f1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2557fb42_abb18120",
+        "filename": "templates/other/AidlFile/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-23T00:52:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2557fb42_c09e54dd",
       "range": {
         "startLine": 16,
         "startChar": 17,
