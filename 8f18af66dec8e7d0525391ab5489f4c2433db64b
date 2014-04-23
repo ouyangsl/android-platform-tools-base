@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2557fb42_4b78a508",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/EmulatorConsole.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-23T01:22:56Z",
+      "side": 1,
+      "message": "Most close() implementations accept being called repeatedly (e.g. it\u0027s usually safe to call close on an already closed resource). Maybe do that here too? (e.g. exit early if mPort \u003d\u003d -1.)",
+      "revId": "8f18af66dec8e7d0525391ab5489f4c2433db64b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
