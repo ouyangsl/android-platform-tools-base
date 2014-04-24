@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5e8dfcd_70465866",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/DeviceConnector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T19:02:07Z",
+      "side": 1,
+      "message": "Use File for the local path? I\u0027m assuming the remote path is always a Unix file path.",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5e8dfcd_1037d4fa",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultBuildType.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T19:02:07Z",
+      "side": 1,
+      "message": "testCoverageEnabled instead of \"instrumented\" ?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5e8dfcd_305a102e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T19:02:07Z",
+      "side": 1,
+      "message": "extract as local method and call from the two places where this is needed?\n\nAlso, is there any chance multiple simultaneous tests will clobber the same file? Maybe another identifier into the name?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85b427df_2ebb9fd6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T19:02:07Z",
+      "side": 1,
+      "message": "Would it be possible to only do this work if coverage is enabled?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5e5abf4_04631c54",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoPlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T19:02:07Z",
+      "side": 1,
+      "message": "remove empty doc?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85b427df_4ea7f3ad",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T19:02:07Z",
+      "side": 1,
+      "message": "maybe add a comment to the getJavaSources method to make it clear that updates there need to be updated here as well. Or better yet, have this method call getJavaSources() and then remove the offending directories instead? (or extract the bulk of getJavaSources and supply a flag, \"includeGenerated\", which determined whether those dirs should be included, and then have this method and getJavaSources call that method instead.",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5e5abf4_040a3c84",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T19:02:07Z",
+      "side": 1,
+      "message": "maybe coverage-instrumented-classes?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
