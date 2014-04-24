@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "65b9f3d7_9fb5bbd6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:45:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5e5abf4_c4b13420",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85998785_d223a40a",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-04-24T17:52:23Z",
       "side": 1,
       "message": "This looks tangentially related to the export checks in SecurityDetector. Those checks also check whether there is a permission protecting the element; I\u0027m not very familiar with this security issue, so just wanted to bring this up to see if you think this is something this check should do as well?",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5c40363_38f4c53a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:45:56Z",
+      "side": 1,
+      "message": "The vulnerability is explained here:\n\nhttp://securityintelligence.com/wp-content/uploads/2013/12/android-collapses-into-fragments.pdf\n\nI don\u0027t think we should be exporting PreferenceActivities, permissions or not, because it seems quite dangerous (at least up until API level 19).",
+      "parentUuid": "85998785_d223a40a",
       "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "65b9f3d7_fffeb77d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:45:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5c40363_f5097890",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85998785_32f4f03a",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2014-04-24T17:52:23Z",
       "side": 1,
       "message": "|| activityClassName.isEmpty())\n\nDOM\u0027s getAttributeNS is never supposed to return null; it\u0027s supposed to return an empty string if the attribute is not set. The reason lint has null checks in many places for this is that when running inside some versions of Eclipse, the Eclipse DOM implementation would in some circumstances return null.",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85998785_35f4da3a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:45:56Z",
+      "side": 1,
+      "message": "Oh, I didn\u0027t realize. Thank you!",
+      "parentUuid": "85998785_32f4f03a",
       "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "85998785_55f95e31",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:45:56Z",
+      "side": 1,
+      "message": "Done. Should we try to conglomerate all these \u0027util\u0027 sorts of functions in one place maybe? It seems like there\u0027s a decent amount of duplication across detectors, and I imagine part of that is because it\u0027s hard for people to find what\u0027s already been implemented.",
+      "parentUuid": "65b9f3d7_5ccb3185",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65b9f3d7_7cd0f530",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2014-04-24T17:52:23Z",
       "side": 1,
       "message": "instead of this, use ClassContext.getFqcn",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85998785_d50c6ea3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:45:56Z",
+      "side": 1,
+      "message": "Yup, didn\u0027t know that existed, thanks.",
+      "parentUuid": "65b9f3d7_7cd0f530",
       "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
