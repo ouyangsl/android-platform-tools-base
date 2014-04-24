@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "85b427df_8eb66bc8",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/DeviceConnector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-24T19:10:16Z",
+      "side": 1,
+      "message": "That would break the ddmlib API.",
+      "parentUuid": "c5e8dfcd_70465866",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5e8dfcd_1037d4fa",
         "filename": "build-system/builder/src/main/java/com/android/builder/DefaultBuildType.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2014-04-24T19:02:07Z",
       "side": 1,
       "message": "testCoverageEnabled instead of \"instrumented\" ?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5e8dfcd_f05348f0",
+        "filename": "build-system/builder/src/main/java/com/android/builder/DefaultBuildType.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-24T19:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5e8dfcd_1037d4fa",
       "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c5e8dfcd_30edb0df",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-24T19:10:16Z",
+      "side": 1,
+      "message": "You cannot run different tests on a device at the same time.",
+      "parentUuid": "c5e8dfcd_305a102e",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85b427df_2ebb9fd6",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2014-04-24T19:02:07Z",
       "side": 1,
       "message": "Would it be possible to only do this work if coverage is enabled?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5e8dfcd_700e5807",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-24T19:10:16Z",
+      "side": 1,
+      "message": "no, it would be too late. adding the plugin is not a huge amount of work.",
+      "parentUuid": "85b427df_2ebb9fd6",
       "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "85b427df_4e75334e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-24T19:10:16Z",
+      "side": 1,
+      "message": "getJavaSources returns a mix of File and FileCollection, which is not what I want here. This is why I had to dup it.\n\nI\u0027ll see what I can do.",
+      "parentUuid": "85b427df_4ea7f3ad",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5e5abf4_040a3c84",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
         "patchSetId": 5
@@ -115,6 +205,24 @@
       "writtenOn": "2014-04-24T19:02:07Z",
       "side": 1,
       "message": "maybe coverage-instrumented-classes?",
+      "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5e8dfcd_10e8b4c6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-24T19:10:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5e5abf4_040a3c84",
       "revId": "ef981cbce888b992841722c8c9152e8e5e930df5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
