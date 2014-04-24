@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "85998785_55c79ed8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:55:26Z",
+      "side": 1,
+      "message": "Oh, sorry, maybe not. I\u0027ll take it out of the commit message!",
+      "parentUuid": "e5c40363_15bd1459",
+      "revId": "e7973adb20bc5ab81e16884c9ce9b695f7b9f973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5c40363_d5239c0a",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-04-24T18:14:00Z",
       "side": 1,
       "message": "Just checking -- classNode.interfaces can never be null right? The ASM docs aren\u0027t very good about documenting their null policy so in most places I\u0027ve added defensive checks.",
+      "revId": "e7973adb20bc5ab81e16884c9ce9b695f7b9f973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85998785_95b0267d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T21:55:26Z",
+      "side": 1,
+      "message": "The documentation doesn\u0027t say, but I assumed it\u0027d just be an empty list if there were none. I\u0027ll add a null check just in case.",
+      "parentUuid": "e5c40363_d5239c0a",
       "revId": "e7973adb20bc5ab81e16884c9ce9b695f7b9f973",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
