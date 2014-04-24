@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a5e5abf4_c4b13420",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T18:15:16Z",
+      "side": 1,
+      "message": "(nit: -ties instead of -tys)",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85998785_d223a40a",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
         "patchSetId": 1
