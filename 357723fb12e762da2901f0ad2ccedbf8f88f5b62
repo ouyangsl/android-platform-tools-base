@@ -16,6 +16,24 @@
       "revId": "357723fb12e762da2901f0ad2ccedbf8f88f5b62",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "659e536e_f1b7c86f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AddJavascriptInterfaceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-04-24T19:13:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85b427df_23781808",
+      "revId": "357723fb12e762da2901f0ad2ccedbf8f88f5b62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
