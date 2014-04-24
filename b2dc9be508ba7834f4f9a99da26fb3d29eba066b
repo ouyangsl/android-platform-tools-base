@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85b427df_fd5de3a6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-24T15:51:29Z",
+      "side": 1,
+      "message": "FILE_COVERAGE_EC",
+      "range": {
+        "startLine": 160,
+        "startChar": 51,
+        "endLine": 160,
+        "endChar": 59
+      },
+      "revId": "b2dc9be508ba7834f4f9a99da26fb3d29eba066b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5e8dfcd_5f724f27",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-24T15:51:29Z",
+      "side": 1,
+      "message": "nit: unrelated to this CL, but I guess mDevice or just device would\u0027ve been better.",
+      "range": {
+        "startLine": 107,
+        "startChar": 12,
+        "endLine": 107,
+        "endChar": 19
+      },
+      "revId": "b2dc9be508ba7834f4f9a99da26fb3d29eba066b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85b427df_3dc2fbc9",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/TestData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-24T15:51:29Z",
+      "side": 1,
+      "message": "curious if instrumentation is always only going to be for code coverage.",
+      "range": {
+        "startLine": 56,
+        "startChar": 12,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "b2dc9be508ba7834f4f9a99da26fb3d29eba066b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5e8dfcd_bf26f31b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoExtension.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-24T15:51:29Z",
+      "side": 1,
+      "message": "remove or document empty javadoc",
+      "revId": "b2dc9be508ba7834f4f9a99da26fb3d29eba066b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5e5abf4_3e210539",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoExtension.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-24T15:51:29Z",
+      "side": 1,
+      "message": "is this just setting a default that can be overridden in the build.gradle?",
+      "range": {
+        "startLine": 22,
+        "startChar": 11,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "b2dc9be508ba7834f4f9a99da26fb3d29eba066b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
