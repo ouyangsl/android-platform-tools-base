@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5c40363_15bd1459",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T18:14:00Z",
+      "side": 1,
+      "message": "Is there an external document / reference for \"GAR\" ?",
+      "revId": "e7973adb20bc5ab81e16884c9ce9b695f7b9f973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5c40363_d5239c0a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T18:14:00Z",
+      "side": 1,
+      "message": "Just checking -- classNode.interfaces can never be null right? The ASM docs aren\u0027t very good about documenting their null policy so in most places I\u0027ve added defensive checks.",
+      "revId": "e7973adb20bc5ab81e16884c9ce9b695f7b9f973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
