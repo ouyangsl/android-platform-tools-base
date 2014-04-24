@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a5e5abf4_0435dc60",
+        "filename": "templates/other/AidlFile/root/src/app_package/interface.aidl.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-24T18:53:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5e8dfcd_e2eaa2c0",
+      "revId": "87c909e53167e1b21a96beff4fb1cd989f1b8bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c5e8dfcd_a207bae5",
         "filename": "templates/other/LayoutResourceFile/root/res/layout.xml.ftl",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-04-24T16:48:36Z",
       "side": 1,
       "message": "Please remove this blank line.\n\n(Yes, IntelliJ had this here -- but I had actually meant to go and find out where this template lived and delete it :-)  )",
+      "revId": "87c909e53167e1b21a96beff4fb1cd989f1b8bd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5e5abf4_449604f9",
+        "filename": "templates/other/LayoutResourceFile/root/res/layout.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-04-24T18:53:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5e8dfcd_a207bae5",
       "revId": "87c909e53167e1b21a96beff4fb1cd989f1b8bd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
