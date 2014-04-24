@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85998785_d223a40a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T17:52:23Z",
+      "side": 1,
+      "message": "This looks tangentially related to the export checks in SecurityDetector. Those checks also check whether there is a permission protecting the element; I\u0027m not very familiar with this security issue, so just wanted to bring this up to see if you think this is something this check should do as well?",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5c40363_f5097890",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T17:52:23Z",
+      "side": 1,
+      "message": "Use getFqcn as the name.",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85998785_32f4f03a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T17:52:23Z",
+      "side": 1,
+      "message": "|| activityClassName.isEmpty())\n\nDOM\u0027s getAttributeNS is never supposed to return null; it\u0027s supposed to return an empty string if the attribute is not set. The reason lint has null checks in many places for this is that when running inside some versions of Eclipse, the Eclipse DOM implementation would in some circumstances return null.",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65b9f3d7_5ccb3185",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T17:52:23Z",
+      "side": 1,
+      "message": "this looks like it duplicates the code in SecurityDetector; maybe just make that one package protected (actually, public static is fine) and call that one instead.",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65b9f3d7_7cd0f530",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-24T17:52:23Z",
+      "side": 1,
+      "message": "instead of this, use ClassContext.getFqcn",
+      "revId": "79a6bc56c6dba609e808f9543c3bcaede415d535",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
