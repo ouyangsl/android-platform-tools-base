@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "250d3bbc_2a0dbf9c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/compiling/DependencyFileProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-25T23:55:46Z",
+      "side": 1,
+      "message": "stale comment?",
+      "range": {
+        "startLine": 33,
+        "startChar": 57,
+        "endLine": 34,
+        "endChar": 17
+      },
+      "revId": "1e106c6449161fad3b09bd7fc1c4bd703fb6dc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "250d3bbc_6ab1777f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/compiling/DependencyFileProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-25T23:55:46Z",
+      "side": 1,
+      "message": "Note that the signatures for both above methods have changed.\nPersonally, I prefer to not include the arguments inside javadoc links, that way they don\u0027t have to be updated in such cases.",
+      "range": {
+        "startLine": 37,
+        "startChar": 59,
+        "endLine": 37,
+        "endChar": 63
+      },
+      "revId": "1e106c6449161fad3b09bd7fc1c4bd703fb6dc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "250d3bbc_8afb8b9a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/AidlProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-25T23:55:46Z",
+      "side": 1,
+      "message": "incomplete",
+      "range": {
+        "startLine": 96,
+        "startChar": 52,
+        "endLine": 96,
+        "endChar": 55
+      },
+      "revId": "1e106c6449161fad3b09bd7fc1c4bd703fb6dc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5fb7fcc_67bbecb2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/AidlProcessor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-25T23:55:46Z",
+      "side": 1,
+      "message": "Seem if FileOp.makeRelative or similar methods in GradleImport or lint.Reporter can be reused (i don\u0027t know if you can depend on any of those).",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "1e106c6449161fad3b09bd7fc1c4bd703fb6dc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5fb7fcc_871a6801",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/compiler/SourceSearcher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-25T23:55:46Z",
+      "side": 1,
+      "message": "confirm that this should be file and not file.getParent()",
+      "range": {
+        "startLine": 60,
+        "startChar": 24,
+        "endLine": 60,
+        "endChar": 28
+      },
+      "revId": "1e106c6449161fad3b09bd7fc1c4bd703fb6dc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "250d3bbc_cd4abd3a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-25T23:55:46Z",
+      "side": 1,
+      "message": "@GuardedBy, also check if you need the same for parcelableList",
+      "range": {
+        "startLine": 73,
+        "startChar": 29,
+        "endLine": 73,
+        "endChar": 47
+      },
+      "revId": "1e106c6449161fad3b09bd7fc1c4bd703fb6dc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "250d3bbc_2a8fffd6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-04-25T23:55:46Z",
+      "side": 1,
+      "message": "doesn\u0027t seem like this can return null",
+      "range": {
+        "startLine": 124,
+        "startChar": 28,
+        "endLine": 124,
+        "endChar": 32
+      },
+      "revId": "1e106c6449161fad3b09bd7fc1c4bd703fb6dc2e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
