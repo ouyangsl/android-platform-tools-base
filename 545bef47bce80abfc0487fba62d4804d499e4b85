@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2581bb17_9602f26c",
+        "filename": "templates/activities/GoogleMapsActivity/root/debugRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-25T16:03:23Z",
+      "side": 1,
+      "message": "what is this? This makes no sense and should be removed. we don\u0027t want extra strings in there just for the sake of having a comment in a generated file that no one will read.\n\nJust put the comment in this file normally and be done with it.\n\nextra strings won\u0027t be translated, will trigger lint warning and generally will pollute the project.",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 77
+      },
+      "revId": "545bef47bce80abfc0487fba62d4804d499e4b85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
