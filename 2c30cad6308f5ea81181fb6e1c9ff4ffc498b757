@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "05caf7dd_cc1443a7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ClickableViewAccessibilityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-29T17:53:09Z",
+      "side": 1,
+      "message": "Doh, I didn\u0027t mean to include this comment at all; I started porting this one and then realized Shannon was working on a revision to this detector so I abandoned my port for now. Will remove.",
+      "parentUuid": "45d06f88_4ee847c8",
+      "range": {
+        "startLine": 87,
+        "startChar": 10,
+        "endLine": 87,
+        "endChar": 16
+      },
+      "revId": "2c30cad6308f5ea81181fb6e1c9ff4ffc498b757",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25d53b79_272a5ae4",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ViewConstructorDetector.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-04-29T17:48:40Z",
       "side": 1,
       "message": "Can subtypes of Context or AttributeSet be acceptable here?",
+      "range": {
+        "startLine": 109,
+        "startChar": 13,
+        "endLine": 109,
+        "endChar": 19
+      },
+      "revId": "2c30cad6308f5ea81181fb6e1c9ff4ffc498b757",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45d06f88_f17c7a94",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ViewConstructorDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-29T17:53:09Z",
+      "side": 1,
+      "message": "I don\u0027t think so; this constructor is what the layout renderer/editor looks for when inflating layouts dynamically; if they were subtypes of these it wouldn\u0027t know how to manufacture values to supply to the constructor when instantiating them.",
+      "parentUuid": "25d53b79_272a5ae4",
       "range": {
         "startLine": 109,
         "startChar": 13,
