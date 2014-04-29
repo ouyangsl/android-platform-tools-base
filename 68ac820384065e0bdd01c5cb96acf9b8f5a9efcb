@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c5fc5fef_5033bce8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-29T01:31:44Z",
+      "side": 1,
+      "message": "it\u0027s a good question...",
+      "parentUuid": "c5fc5fef_d024ecd3",
+      "revId": "68ac820384065e0bdd01c5cb96acf9b8f5a9efcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05f3d71b_528584b4",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.groovy",
         "patchSetId": 5
@@ -47,6 +65,24 @@
       "writtenOn": "2014-04-29T01:15:49Z",
       "side": 1,
       "message": "seems like clients could be reading state out of this list without holding the synchronization block? If it really needs to be written to and read at the same time, I think there are some concurrent collections which might be better.",
+      "revId": "68ac820384065e0bdd01c5cb96acf9b8f5a9efcb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8508a7da_ceec43e5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-04-29T01:31:44Z",
+      "side": 1,
+      "message": "it\u0027ll only be read after all the thread calling processFile have been finished.",
+      "parentUuid": "8508a7da_ce7283c0",
       "revId": "68ac820384065e0bdd01c5cb96acf9b8f5a9efcb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
