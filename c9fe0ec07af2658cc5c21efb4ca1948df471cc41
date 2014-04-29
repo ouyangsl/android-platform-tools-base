@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "05caf7dd_6f61c163",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 802,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-29T18:36:16Z",
+      "side": 1,
+      "message": "Yep, I missed this one",
+      "parentUuid": "45d06f88_eb0dad09",
+      "revId": "c9fe0ec07af2658cc5c21efb4ca1948df471cc41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05caf7dd_69b0a1e2",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppCompatResourceDetector.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2014-04-29T16:53:29Z",
       "side": 1,
       "message": "Do you want to write that explanation now or is this for later?",
+      "range": {
+        "startLine": 59,
+        "startChar": 19,
+        "endLine": 59,
+        "endChar": 24
+      },
+      "revId": "c9fe0ec07af2658cc5c21efb4ca1948df471cc41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5c37fc9_4a631754",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppCompatResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-29T18:36:16Z",
+      "side": 1,
+      "message": "I meant to do it; fixed in updated patch.",
+      "parentUuid": "05caf7dd_69b0a1e2",
       "range": {
         "startLine": 59,
         "startChar": 19,
