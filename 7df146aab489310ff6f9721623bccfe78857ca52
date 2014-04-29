@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5c37fc9_64dc4af3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ResourcePrefixDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-29T15:34:47Z",
+      "side": 1,
+      "message": "Doing this cleanly will require some lint infrastructure changes. I\u0027ve been meaning to do those in anyway but it will be in a separate CL.",
+      "revId": "7df146aab489310ff6f9721623bccfe78857ca52",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
