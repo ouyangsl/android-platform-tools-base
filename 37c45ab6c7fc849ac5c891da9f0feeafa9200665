@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4af15c4f_7422f03f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/BuiltinIssueRegistry.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-04-30T18:56:56Z",
+      "side": 0,
+      "message": "This line was always causing merge conflicts when multiple parallel lint checks were being reviewed and checked in. It\u0027s now a slightly higher capacity, such that it only needs to bumped periodically, which should help reduce these merging conflicts.",
+      "revId": "37c45ab6c7fc849ac5c891da9f0feeafa9200665",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
