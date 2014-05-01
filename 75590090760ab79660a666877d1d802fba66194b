@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a587c41_ab5ff59d",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/ResourceContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-01T19:07:24Z",
+      "side": 1,
+      "message": "wrong comment; should say \"resource files\". (Its subclass, XmlContext, is for XML resource files specifically.)",
+      "revId": "75590090760ab79660a666877d1d802fba66194b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
