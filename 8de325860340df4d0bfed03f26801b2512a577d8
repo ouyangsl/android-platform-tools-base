@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa2f388b_2ec9c733",
+        "filename": "sdk-common/src/main/java/com/android/builder/signing/KeystoreHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-01T19:22:20Z",
+      "side": 1,
+      "message": "this package should be updated too. All the classes in sdk-common are under com.android.ide.common",
+      "range": {
+        "startLine": 17,
+        "startChar": 20,
+        "endLine": 17,
+        "endChar": 27
+      },
+      "revId": "8de325860340df4d0bfed03f26801b2512a577d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
