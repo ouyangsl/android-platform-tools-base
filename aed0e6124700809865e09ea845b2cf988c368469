@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a3f9cb5_251684af",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlDocument.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-01T20:21:42Z",
+      "side": 1,
+      "message": "minSdkVersion may not be an integer; for SDK preview platforms, it will be a String codename instead.",
+      "revId": "aed0e6124700809865e09ea845b2cf988c368469",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
