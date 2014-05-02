@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0a520423_40fe124c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-05-02T18:49:18Z",
+      "side": 1,
+      "message": "I have no idea how that got there. Thanks.",
+      "parentUuid": "aa481879_cc692336",
+      "revId": "fdd33f7998be840a7eab8028e1c3a3794de1afea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a520423_b5218abe",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6a71c0c6_aec36b18",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-05-02T18:49:18Z",
+      "side": 1,
+      "message": "Okay, done. :) Thanks for letting me know about that issue.",
+      "parentUuid": "0a520423_b5218abe",
+      "revId": "fdd33f7998be840a7eab8028e1c3a3794de1afea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a520423_f5170260",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2014-05-02T01:57:00Z",
       "side": 1,
       "message": "wrong indentation",
+      "revId": "fdd33f7998be840a7eab8028e1c3a3794de1afea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a520423_200316a6",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-05-02T18:49:18Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "0a520423_f5170260",
       "revId": "fdd33f7998be840a7eab8028e1c3a3794de1afea",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
