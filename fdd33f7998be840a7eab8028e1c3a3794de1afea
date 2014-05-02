@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa481879_cc692336",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-02T01:57:00Z",
+      "side": 1,
+      "message": "nit - extraneous ); at the end",
+      "revId": "fdd33f7998be840a7eab8028e1c3a3794de1afea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a520423_b5218abe",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-02T01:57:00Z",
+      "side": 1,
+      "message": "it would be great if you could do this via an AST visitor instead of a bytecode check such that it can work in Studio/IntelliJ and Eclipse w/o compile-on-save enabled",
+      "revId": "fdd33f7998be840a7eab8028e1c3a3794de1afea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a520423_f5170260",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-02T01:57:00Z",
+      "side": 1,
+      "message": "wrong indentation",
+      "revId": "fdd33f7998be840a7eab8028e1c3a3794de1afea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
