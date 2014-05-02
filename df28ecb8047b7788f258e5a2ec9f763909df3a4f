@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa481879_cc480397",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SignatureOrSystemDetector.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-02T02:22:36Z",
+      "side": 1,
+      "message": "one more thing - can you change this to insert the node as a scope:\ncontext.report(ISSUE, attribute, context.getLocation(attribute), message, null);\n\nThat will make the suppress facility work (tools:ignore\u003d\"\u003cid\u003e\" to suppress this issue). Can you also double check that the other lint detectors you\u0027ve submitted (thanks again!) do the same thing -- pass in the DOM node for XML as the second parameter, or the method node for byte code -- the lint driver uses it to search for suppress annotations (in bytecode) and tools:ignore attribute (in XML) etc.",
+      "revId": "df28ecb8047b7788f258e5a2ec9f763909df3a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
