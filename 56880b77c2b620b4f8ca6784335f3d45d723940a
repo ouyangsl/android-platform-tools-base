@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa481879_491c05cf",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InvalidPackageDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-05-02T00:37:49Z",
+      "side": 1,
+      "message": "Do we expect more of these? It may be good to extract them into a static immutable set.",
+      "range": {
+        "startLine": 269,
+        "startChar": 20,
+        "endLine": 269,
+        "endChar": 75
+      },
+      "revId": "56880b77c2b620b4f8ca6784335f3d45d723940a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
