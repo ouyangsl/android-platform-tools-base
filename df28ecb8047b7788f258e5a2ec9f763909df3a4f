@@ -16,6 +16,24 @@
       "revId": "df28ecb8047b7788f258e5a2ec9f763909df3a4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa481879_6c410f6e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SignatureOrSystemDetector.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-05-02T02:25:45Z",
+      "side": 1,
+      "message": "Ah, got it! I\u0027m fairly certain the other lint detectors I\u0027ve written don\u0027t do that, so I\u0027ll submit that in another CL in a moment.",
+      "parentUuid": "aa481879_cc480397",
+      "revId": "df28ecb8047b7788f258e5a2ec9f763909df3a4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
