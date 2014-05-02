@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a520423_b53aaae0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SignatureOrSystemDetector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-02T01:59:22Z",
+      "side": 1,
+      "message": "It would probably be more efficient to implement this using getApplicableAttributes and return PROTECTION_LEVEL from there. That way you will only be called if somebody sets this attribute, which seems a lot less likely than permission. (You can always get the corresponding permission element back using attribute.getOwnerElement()",
+      "revId": "b1052ca571ecfc7236ae9349f0b07379c71ee23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
