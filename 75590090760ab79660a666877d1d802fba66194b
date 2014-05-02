@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0a520423_4dc64adf",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Detector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-02T16:22:55Z",
+      "side": 1,
+      "message": "wrong comment? same as the interface above.",
+      "range": {
+        "startLine": 329,
+        "startChar": 8,
+        "endLine": 329,
+        "endChar": 75
+      },
+      "revId": "75590090760ab79660a666877d1d802fba66194b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a587c41_ab5ff59d",
         "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/ResourceContext.java",
         "patchSetId": 1
