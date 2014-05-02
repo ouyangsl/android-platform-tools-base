@@ -16,6 +16,24 @@
       "revId": "b1052ca571ecfc7236ae9349f0b07379c71ee23c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a520423_15fbbe9a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SignatureOrSystemDetector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-05-02T02:15:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a520423_b53aaae0",
+      "revId": "b1052ca571ecfc7236ae9349f0b07379c71ee23c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
