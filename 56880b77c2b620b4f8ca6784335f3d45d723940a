@@ -22,6 +22,30 @@
       "revId": "56880b77c2b620b4f8ca6784335f3d45d723940a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa481879_2cc677de",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InvalidPackageDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-02T02:01:11Z",
+      "side": 1,
+      "message": "There probably won\u0027t be more; I don\u0027t plan on supporting every single library out there that does these things, only the really common ones.\n\nOne big disadvantage of a static set is that they cause repeated work for the garbage collector, since all statics become root pointers for the GC to consider, whereas conditional code like this has no downside or performance impact unless the issue is actually found, which is hopefully normally not the case.",
+      "parentUuid": "aa481879_491c05cf",
+      "range": {
+        "startLine": 269,
+        "startChar": 20,
+        "endLine": 269,
+        "endChar": 75
+      },
+      "revId": "56880b77c2b620b4f8ca6784335f3d45d723940a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
