@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a2fd4b4_ab3df9dc",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-05T18:18:51Z",
+      "side": 1,
+      "message": "can you add a deprecation warning similar to the ones below.",
+      "range": {
+        "startLine": 402,
+        "startChar": 13,
+        "endLine": 402,
+        "endChar": 33
+      },
+      "revId": "8e8f00c30901227f8522c270b6d5e2c00edb0034",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
