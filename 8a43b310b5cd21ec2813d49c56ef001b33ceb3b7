@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a346007_3e90f785",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/NdkAppPlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-06T23:41:20Z",
+      "side": 1,
+      "message": "use getBuildType().getName() and match it with model.buildtypes.name",
+      "range": {
+        "startLine": 97,
+        "startChar": 28,
+        "endLine": 97,
+        "endChar": 40
+      },
+      "revId": "8a43b310b5cd21ec2813d49c56ef001b33ceb3b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
