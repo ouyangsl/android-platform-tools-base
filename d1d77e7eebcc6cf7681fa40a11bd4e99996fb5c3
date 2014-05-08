@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca138c9f_6af8132e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-08T19:05:41Z",
+      "side": 1,
+      "message": "It looks like you opened/edited these files from the tools/idea project, where we\u0027re using the IntelliJ coding style with wildcard imports etc.\n\nInstead, the tools/base libraries should be edited with the tools/base project, which is configured with the AOSP coding style and import orders).\n\nIt looks like all your indents are already correct so it\u0027s just a matter of running the organize import actions again and renaming the fields.",
+      "revId": "d1d77e7eebcc6cf7681fa40a11bd4e99996fb5c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca138c9f_0af35f55",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-08T19:05:41Z",
+      "side": 1,
+      "message": "in the tools/base project the field prefix is just \"m\" (and for statics, \"s\") instead of my and our.",
+      "revId": "d1d77e7eebcc6cf7681fa40a11bd4e99996fb5c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
