@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a21c030_cd4bc96a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-05-12T16:49:18Z",
+      "side": 1,
+      "message": "Ah, okay, done.",
+      "parentUuid": "8aba749a_616b2a71",
+      "revId": "7bafcf81c663f3b621d73653ee41bc2acca84b16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a346007_f42a39e1",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-05-06T17:53:11Z",
       "side": 1,
       "message": "This is dangerous. This is a part of the lint API that needs some work to make it clearer. Basically, holding on to an XmlContext is dangerous because you\u0027re only supposed to touch it during its lifecycle -- e.g. the visitor methods, and the beforeCheckFile and afterCheckFile methods.\n\nIn Eclipse, as well as in Studio and IntelliJ, the lint infrastructure (or more specifically, the LintClient implementations in each IDE) will acquire access to the model (in the case of Eclipse) and a read lock on the PSI (in the case of IntelliJ/Studio) which allows you to access the DOM. Accessing it outside of that boundary can lead to exceptions or incorrect results.\n\nI\u0027m thinking I should add some sort of explicit \"dispose\" call on the Context which the infrastructure will use and then check during unit tests such that any invalid access in after project hooks etc are caught.\n\nIn any case, the right way to do it is to create a light-weight location *handle* while processing the file, and if you later conclude there is an error here, you get the full location by calling resolve on the handle.\n\nThus, your map from FQN to PossibleReport should be a map from FQN to Location.Handle instead. Create a Location.Handle by calling xmlContext.createLocationHandle(node). To get a location later, just call resolve() on the handle. Let me know if you have any questions. (There should be a lot of examples if you do find usages on XmlContext#createLocationHandle.)",
+      "revId": "7bafcf81c663f3b621d73653ee41bc2acca84b16",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a21c030_0d7781b1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-05-12T16:49:18Z",
+      "side": 1,
+      "message": "All done. But won\u0027t this not work with the lint suppression because we\u0027re not passing in the node itself?",
+      "parentUuid": "6a346007_f42a39e1",
       "revId": "7bafcf81c663f3b621d73653ee41bc2acca84b16",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
