@@ -22,6 +22,30 @@
       "revId": "435900d4bf3d6003734b723eef0e3131db6d15fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea9db0d4_7086ce02",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/SigningReportTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-05-14T01:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a6a7464_73b712c5",
+      "range": {
+        "startLine": 129,
+        "startChar": 86,
+        "endLine": 129,
+        "endChar": 88
+      },
+      "revId": "435900d4bf3d6003734b723eef0e3131db6d15fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
