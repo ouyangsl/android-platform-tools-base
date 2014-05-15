@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a4e2058_139927f5",
+        "filename": "common/src/main/java/com/android/io/NonClosingInputStream.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-05-15T20:03:27Z",
+      "side": 1,
+      "message": "Moving this class from sdklib to sdk-common so that I can use it both dvlib and sdklib.",
+      "revId": "5b49ae005cfb1c8fb95acf5fb76d26304eebbd6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a4e2058_137207f7",
+        "filename": "device_validator/dvlib/src/main/resources/com/android/dvlib/devices-2.xsd",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-05-15T20:03:27Z",
+      "side": 1,
+      "message": "Changes to devices-v2 xsd are actually made in the next CL. This CL just tests we can have 2 versions and load them properly.",
+      "revId": "5b49ae005cfb1c8fb95acf5fb76d26304eebbd6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
