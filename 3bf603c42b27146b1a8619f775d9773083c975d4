@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a78446e_71840f82",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-15T20:53:37Z",
+      "side": 1,
+      "message": "The doc needs to be updated",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a4e2058_6e53669d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-15T20:53:37Z",
+      "side": 1,
+      "message": "Lets make this a top level enum class instead. Maybe add a javadoc stating that this represents one of the possible return values of {@link ViewInfo#getViewType())",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca71cc8d_b47135bf",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-15T20:53:37Z",
+      "side": 1,
+      "message": "Use javadoc /** */ instead of line comments",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a78446e_91560b3a",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-15T20:53:37Z",
+      "side": 1,
+      "message": "Is this ever used? In other words, are there scenarios where you don\u0027t know if it\u0027s a user or a system view?",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
