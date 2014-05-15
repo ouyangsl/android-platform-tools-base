@@ -16,6 +16,24 @@
       "revId": "d77db76d5850b65877340a7ba6e093b819c1a836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca71cc8d_9e229a07",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-15T19:21:40Z",
+      "side": 0,
+      "message": "it didn\u0027t show up as used. I\u0027ll add the comment (there was no warning).",
+      "parentUuid": "0a78446e_53e71b4a",
+      "revId": "d77db76d5850b65877340a7ba6e093b819c1a836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

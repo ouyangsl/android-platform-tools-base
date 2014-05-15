@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ca71cc8d_bebbd663",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-15T19:21:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a4e2058_307c613f",
+      "revId": "18e4abe7009bdcac9e8ca4c482d5838ac272ba81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a78446e_40873f87",
         "filename": "layoutlib-api/src/main/java/com/android/resources/UiMode.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "0a78446e_d675d950",
+        "filename": "layoutlib-api/src/main/java/com/android/resources/UiMode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-15T19:21:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a78446e_40873f87",
+      "revId": "18e4abe7009bdcac9e8ca4c482d5838ac272ba81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a4e2058_f0af396a",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2014-05-15T18:16:50Z",
       "side": 1,
       "message": "nit - this could just be a string \"2\" since we don\u0027t do any numerical comparisons on it and just care about an exact match right? (so you don\u0027t need the Integer valueOf conversions etc)",
+      "revId": "18e4abe7009bdcac9e8ca4c482d5838ac272ba81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a78446e_f66ad56b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-15T19:21:40Z",
+      "side": 1,
+      "message": "that\u0027s true.",
+      "parentUuid": "6a4e2058_f0af396a",
       "revId": "18e4abe7009bdcac9e8ca4c482d5838ac272ba81",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
