@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a78446e_53e71b4a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-15T18:16:50Z",
+      "side": 0,
+      "message": "I\u0027m using this method in Studio.  This is done when a ResourceFile is moved from one folder to another (and the repository is incrementally updated). Does it need to be removed or did it just show up as unused in the tools/base project?  In some cases I add the following on the method declaration:\n\n@SuppressWarnings(\"UnusedDeclaration\") // Used in Studio",
+      "revId": "d77db76d5850b65877340a7ba6e093b819c1a836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
