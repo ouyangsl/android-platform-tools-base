@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6a4e2058_a936286c",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-05-15T22:34:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a78446e_71840f82",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a4e2058_6e53669d",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-05-15T20:53:37Z",
       "side": 1,
       "message": "Lets make this a top level enum class instead. Maybe add a javadoc stating that this represents one of the possible return values of {@link ViewInfo#getViewType())",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a4e2058_c98fecd8",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-05-15T22:34:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a4e2058_6e53669d",
       "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3ff1cc50_805bf666",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-05-15T22:34:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca71cc8d_b47135bf",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a78446e_91560b3a",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2014-05-15T20:53:37Z",
       "side": 1,
       "message": "Is this ever used? In other words, are there scenarios where you don\u0027t know if it\u0027s a user or a system view?",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ff1cc50_23a2f455",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-05-15T22:34:33Z",
+      "side": 1,
+      "message": "Not at the moment. But wanted a capture all kind of option. Since enums can be expanded, we can also do that later when its actually needed.\n\nI prefer to leave it there. Let me know if you want me to remove it.",
+      "parentUuid": "0a78446e_91560b3a",
       "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
