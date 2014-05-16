@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca71cc8d_6941834a",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-16T04:29:46Z",
+      "side": 1,
+      "message": "I don\u0027t think we have this name yet. I\u0027d put a comment or something.",
+      "range": {
+        "startLine": 310,
+        "startChar": 51,
+        "endLine": 310,
+        "endChar": 57
+      },
+      "revId": "e733fe84bfd178c67f45057f5ca5ab6b2f5634e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a4e2058_c809a190",
+        "filename": "device_validator/dvlib/src/main/resources/com/android/dvlib/devices-2.xsd",
+        "patchSetId": 6
+      },
+      "lineNbr": 892,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-16T04:29:46Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 892,
+        "startChar": 44,
+        "endLine": 892,
+        "endChar": 50
+      },
+      "revId": "e733fe84bfd178c67f45057f5ca5ab6b2f5634e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
