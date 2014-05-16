@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "6a4e2058_28f94863",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-16T18:27:19Z",
+      "side": 1,
+      "message": "I wonder if we should abandon the index for now. At least for explicit user searches in the project structure dialog (IntelliJ might be using it for other stuff, like highlighting unknown repository artifacts in the editor in the background etc. where they really do need to persist the queries.)\n\nI looked into the maven central search APIs for this lint check, and they\u0027re both simple and fast. Take a look at http://search.maven.org/#api .\n\n For example, to search for any artifact named \"guava\", use\nhttp://search.maven.org/solrsearch/select?q\u003da:\"guava\"\u0026rows\u003d20\u0026wt\u003djson\n\nTo mimic searching in the Maven Central search box, just use q: instead of a:, which is probably what we\u0027d want where we\u0027re not certain what kind of thing we\u0027re searching for (artifact, group, etc):\nhttp://search.maven.org/solrsearch/select?q\u003dguava\u0026rows\u003d20\u0026wt\u003djson\n\nFor me, the result is nearly instant (under a second). And is delivered as json, which is super easy to parse.\n\nIf the index is out of date, or in my case, for some reason missing (see issue 69629), it might be better to rely on up to date direct searches.",
+      "parentUuid": "dff7d045_bd7dffc2",
+      "range": {
+        "startLine": 465,
+        "startChar": 32,
+        "endLine": 465,
+        "endChar": 48
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fffad42e_447bc299",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
         "patchSetId": 3
