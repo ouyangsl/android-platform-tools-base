@@ -93,6 +93,99 @@
       "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dff7d045_bd7dffc2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-05-16T16:57:54Z",
+      "side": 1,
+      "message": "It of course wouldn\u0027t defeat the purpose of the check if the index were kept up-to-date, but I just had a look at the code, and by my reading of it, the index is never automatically updated. You can update it manually via Preferences \u003e Maven  \u003e Repositories (there\u0027s an update button), but we\u0027ve removed that panel from Android Studio (it\u0027s part of the Maven preferences which otherwise don\u0027t apply), so you can\u0027t even get at it. We should perhaps revisit that, but nevertheless it\u0027s unfortunate that this index gets built, by default, at very great expense and is then left to go stale unless you manually kick it via an obscure setting. Perhaps I should rethink my use of it in the dependencies dialog (there\u0027s already a bug filed against me about it being stale). It\u0027s a shame because the net-based lookup of dependencies, at least with the default settings for repositories, is TERRIBLY slow -- on the order of 10+ seconds per lookup.",
+      "parentUuid": "dff7d045_dd544bdb",
+      "range": {
+        "startLine": 465,
+        "startChar": 32,
+        "endLine": 465,
+        "endChar": 48
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fffad42e_447bc299",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-05-16T16:57:54Z",
+      "side": 1,
+      "message": "I often prefer String.format for this sort of thing though it\u0027s more a matter of personal style.",
+      "range": {
+        "startLine": 468,
+        "startChar": 14,
+        "endLine": 468,
+        "endChar": 20
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dff7d045_bd585f65",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-05-16T16:57:54Z",
+      "side": 1,
+      "message": "Nit: you could have one try-catch block for both UnsupportedEncodingExceptions.",
+      "range": {
+        "startLine": 472,
+        "startChar": 15,
+        "endLine": 472,
+        "endChar": 16
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fffad42e_44486272",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-05-16T16:57:54Z",
+      "side": 1,
+      "message": "Couldn\u0027t you just use a regex to parse this? Something on the order of \"response\".*\"v\":\\w*\"([^\"]+)\". You could then pull out the value via the group in the regex.\n\nI suppose it\u0027s a valid point whether the regex is easier to read and more maintainable than Java code ;)",
+      "range": {
+        "startLine": 521,
+        "startChar": 20,
+        "endLine": 521,
+        "endChar": 28
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
