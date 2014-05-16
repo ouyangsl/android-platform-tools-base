@@ -157,6 +157,24 @@
       "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca71cc8d_00f9c3e9",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ViewInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-05-16T00:28:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca71cc8d_c570bd63",
+      "revId": "3bf603c42b27146b1a8619f775d9773083c975d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
