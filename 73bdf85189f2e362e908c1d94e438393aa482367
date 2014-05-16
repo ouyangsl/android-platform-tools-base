@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a4e2058_59eae513",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Speed.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-05-16T14:46:43Z",
+      "side": 1,
+      "message": "Is there an official meaning for these values? The difference between SLOW and REALLY_SLOW isn\u0027t really apparent, other than one is slower than the other ;)",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fffad42e_a1bdd8f1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-05-16T14:46:43Z",
+      "side": 1,
+      "message": "It would be nice in the IntelliJ usage of this check to use the built-in index instead of going out to MavenCentral -- the index is there, we may as well use it, and it would be fast enough that we could consider running this check a lot more often. Perhaps rework this architecture to generalize the mechanism for getting the latest version?",
+      "range": {
+        "startLine": 465,
+        "startChar": 32,
+        "endLine": 465,
+        "endChar": 48
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
