@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dff7d045_7def77da",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Speed.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-16T14:56:49Z",
+      "side": 1,
+      "message": "There isn\u0027t an official meaning. It\u0027s currently not used, but my thinking was that the *automatic* running of certain checks would be gated on the runtime performance of the checks. For example, checks which are marked as slow, shouldn\u0027t run in the editor, at least not in modes where the user is asking for less analysis (take a look at Hector the Inspector in the bottom right corner of IntelliJ). Similarly, I can imagine running certain checks less often; e.g. the fast checks basically every few keystrokes, but slower ones maybe only on file save, and really slow ones only when explicitly requested.\n\nP.S. Hector the Inspector? Yes! http://blogs.jetbrains.com/yole/archives/000083.html",
+      "parentUuid": "6a4e2058_59eae513",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fffad42e_a1bdd8f1",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2014-05-16T14:46:43Z",
       "side": 1,
       "message": "It would be nice in the IntelliJ usage of this check to use the built-in index instead of going out to MavenCentral -- the index is there, we may as well use it, and it would be fast enough that we could consider running this check a lot more often. Perhaps rework this architecture to generalize the mechanism for getting the latest version?",
+      "range": {
+        "startLine": 465,
+        "startChar": 32,
+        "endLine": 465,
+        "endChar": 48
+      },
+      "revId": "73bdf85189f2e362e908c1d94e438393aa482367",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dff7d045_dd544bdb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-16T14:56:49Z",
+      "side": 1,
+      "message": "Having it use an index would slightly defeat the purpose of this check, which is to see if there are any new available versions available (I don\u0027t know how often the Maven index is kept up to date in IntelliJ). Note that the check is disabled by default, so this is typically something people would run occasionally with \nenable \"NewerVersionAvailable\".\n\nThere is a separate lint check which is much faster which uses a hardcoded list of dependencies as well as checking local maven repositories; that\u0027s where we make sure you\u0027re using the latest build tools, the latest play services etc. That check would be really useful with the maven index. It would be straightforward to let the IntelliJ subclass of this detector consult the index for its enabled, quick look up of dependencies.",
+      "parentUuid": "fffad42e_a1bdd8f1",
       "range": {
         "startLine": 465,
         "startChar": 32,
