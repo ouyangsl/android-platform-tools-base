@@ -22,6 +22,30 @@
       "revId": "e250128cb10b51c9b459c40e64adf38e40fd0561",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff965405_e8071c7c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-22T22:46:23Z",
+      "side": 1,
+      "message": "Yes. Octal number support is idiotic.\n\nI didn\u0027t make a general lint rule to flag this in Java files because lint tends to only check Android-specific issues, not general Java issues (and IntelliJ already has an octal warning if I recall correctly). It seems particularly likely to cause problems here in build.gradle since users are tempted to do things in version codes (see the associated issue)",
+      "parentUuid": "ff965405_280f44c2",
+      "range": {
+        "startLine": 182,
+        "startChar": 13,
+        "endLine": 182,
+        "endChar": 22
+      },
+      "revId": "e250128cb10b51c9b459c40e64adf38e40fd0561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
