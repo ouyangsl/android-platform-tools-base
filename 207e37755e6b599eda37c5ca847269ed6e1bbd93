@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfa05c5b_029a6ee6",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-22T18:42:31Z",
+      "side": 1,
+      "message": "Only changed the local file, not proguard-android.txt since that files is in the SDK distribution and would need to be updated there as well.",
+      "revId": "207e37755e6b599eda37c5ca847269ed6e1bbd93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
