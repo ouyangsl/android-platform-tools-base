@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff965405_5241246b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-22T17:24:39Z",
+      "side": 1,
+      "message": "will do; I usually place id: synopsis instead, but in this instance the synopsis for that bug covers something slightly different (intellij writing BOM files into files rather than us failing to handle BOM files correctly at build time)",
+      "parentUuid": "9f9d5828_db547384",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 15
+      },
+      "revId": "f66bc93645cd863fc1d262db433f3a22f11ecf19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f9d5828_3bb477be",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/Extractor.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9f9d5828_9b67cb62",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/annotations/Extractor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-22T17:24:39Z",
+      "side": 1,
+      "message": "will fix",
+      "parentUuid": "9f9d5828_3bb477be",
+      "range": {
+        "startLine": 688,
+        "startChar": 67,
+        "endLine": 688,
+        "endChar": 69
+      },
+      "revId": "f66bc93645cd863fc1d262db433f3a22f11ecf19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f9d5828_1b017b9d",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-05-22T17:18:52Z",
       "side": 1,
       "message": "For my knowledge: Do we now have static imports at the top?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "f66bc93645cd863fc1d262db433f3a22f11ecf19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff965405_72422076",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-22T17:24:39Z",
+      "side": 1,
+      "message": "Yes -- this is the default formatting order in tools/base. It looks like somebody edited this file from the tools/idea project instead (note how there are wildcards in the before-version.)",
+      "parentUuid": "9f9d5828_1b017b9d",
       "range": {
         "startLine": 36,
         "startChar": 0,
