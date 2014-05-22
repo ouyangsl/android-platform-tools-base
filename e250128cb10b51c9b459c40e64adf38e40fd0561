@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff965405_280f44c2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-05-22T22:35:20Z",
+      "side": 1,
+      "message": "Irrelevant to this CL, but isn\u0027t this common in most languages?",
+      "range": {
+        "startLine": 182,
+        "startChar": 13,
+        "endLine": 182,
+        "endChar": 22
+      },
+      "revId": "e250128cb10b51c9b459c40e64adf38e40fd0561",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
