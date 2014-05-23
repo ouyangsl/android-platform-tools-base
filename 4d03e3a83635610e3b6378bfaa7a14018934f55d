@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fb46caf_6b231d44",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ProductFlavor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-23T20:39:59Z",
+      "side": 1,
+      "message": "If this is an int, we can\u0027t pass a codename back to the IDE if that\u0027s what the user chose, right?",
+      "revId": "4d03e3a83635610e3b6378bfaa7a14018934f55d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
