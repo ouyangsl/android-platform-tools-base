@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff7f3495_e50980fd",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-05-23T16:37:46Z",
+      "side": 1,
+      "message": "could you also describe what this is used for?",
+      "range": {
+        "startLine": 229,
+        "startChar": 65,
+        "endLine": 229,
+        "endChar": 74
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff965405_0ae358f1",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-05-23T16:37:46Z",
+      "side": 1,
+      "message": "s/we/the",
+      "range": {
+        "startLine": 230,
+        "startChar": 72,
+        "endLine": 230,
+        "endChar": 74
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff7f3495_c55c84d2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-05-23T16:37:46Z",
+      "side": 1,
+      "message": "Could you confirm that this should be api - 1 and not just api?\n\nIf value \u003d\u003d KITKAT, this will return AndroidVersion(18, \"KITKAT\"), which seems wrong?",
+      "range": {
+        "startLine": 269,
+        "startChar": 38,
+        "endLine": 269,
+        "endChar": 41
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff7f3495_05b6fcc5",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/sdk/SdkVersionInfoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-05-23T16:37:46Z",
+      "side": 1,
+      "message": "According to http://developer.android.com/guide/topics/manifest/uses-sdk-element.html, ics \u003d 14?",
+      "range": {
+        "startLine": 93,
+        "startChar": 21,
+        "endLine": 93,
+        "endChar": 23
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
