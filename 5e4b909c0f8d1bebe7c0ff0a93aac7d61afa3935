@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ffad7469_89245dcf",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-23T20:15:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff7f3495_e50980fd",
+      "range": {
+        "startLine": 229,
+        "startChar": 65,
+        "endLine": 229,
+        "endChar": 74
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff965405_0ae358f1",
         "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-05-23T16:37:46Z",
       "side": 1,
       "message": "s/we/the",
+      "range": {
+        "startLine": 230,
+        "startChar": 72,
+        "endLine": 230,
+        "endChar": 74
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fb46caf_ab37d5ce",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-23T20:15:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff965405_0ae358f1",
       "range": {
         "startLine": 230,
         "startChar": 72,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1fb968aa_ca3003dc",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/sdk/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-23T20:15:42Z",
+      "side": 1,
+      "message": "I think that\u0027s correct. My impression of how preview platforms work is that they continue to use the previous API number since the new API number is not ready yet. That\u0027s why in a bunch of code in the ADT and Studio plugins you\u0027ll see logic where we +1 the API level if it\u0027s a preview platform to get to the \"anticipated\" version number. For example, for honeycomb we had a preview platform, and the code to deal with \"should we assume tablet by default?\" would want the number returned to be the one eventually used for honeycomb (11), not the number returned by IAndroidTarget#getVersion().getApiLevel() (10).",
+      "parentUuid": "ff7f3495_c55c84d2",
+      "range": {
+        "startLine": 269,
+        "startChar": 38,
+        "endLine": 269,
+        "endChar": 41
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff7f3495_05b6fcc5",
         "filename": "sdk-common/src/test/java/com/android/ide/common/sdk/SdkVersionInfoTest.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2014-05-23T16:37:46Z",
       "side": 1,
       "message": "According to http://developer.android.com/guide/topics/manifest/uses-sdk-element.html, ics \u003d 14?",
+      "range": {
+        "startLine": 93,
+        "startChar": 21,
+        "endLine": 93,
+        "endChar": 23
+      },
+      "revId": "5e4b909c0f8d1bebe7c0ff0a93aac7d61afa3935",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffad7469_c984954e",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/sdk/SdkVersionInfoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-23T20:15:42Z",
+      "side": 1,
+      "message": "Same thing here -- if we\u0027re passing in IceCreamSandwich, that\u0027s assumed to be a preview platform (since it\u0027s we\u0027re using a codename),  which means 14 hasn\u0027t been released yet, and the api level is 13.",
+      "parentUuid": "ff7f3495_05b6fcc5",
       "range": {
         "startLine": 93,
         "startChar": 21,
