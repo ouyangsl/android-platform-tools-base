@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f26e4f9_8d62c591",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-05-27T22:23:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf4cdcb3_e2944261",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "a3952e2d822be05a711c4dd8cc117d6a808ad185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf4cdcb3_02984e93",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 1
@@ -42,6 +66,24 @@
         "endLine": 919,
         "endChar": 94
       },
+      "revId": "a3952e2d822be05a711c4dd8cc117d6a808ad185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfed10cb_9cb5d1bb",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-05-27T22:23:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf4cdcb3_02984e93",
       "revId": "a3952e2d822be05a711c4dd8cc117d6a808ad185",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
