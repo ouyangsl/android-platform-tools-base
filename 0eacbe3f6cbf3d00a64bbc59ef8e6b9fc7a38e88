@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7f26e4f9_53fb4ee0",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ApiVersion.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "good point.",
+      "parentUuid": "9ff71899_34f79670",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f26e4f9_ca8b0359",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/TestManifestGenerator.java",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "7f26e4f9_d3061e39",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/TestManifestGenerator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "Done. sort of.",
+      "parentUuid": "7f26e4f9_ca8b0359",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfed10cb_81956a2a",
         "filename": "build-system/builder/src/main/java/com/android/builder/testing/SimpleTestRunner.java",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2014-05-27T21:22:16Z",
       "side": 1,
       "message": "%1$s, %2$s, %3$s?  (though I see that this is in code you just moved)",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff71899_25aac260",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/SimpleTestRunner.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "it\u0027s not translated but sure.",
+      "parentUuid": "dfed10cb_81956a2a",
       "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "9ff71899_850e1696",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/ProductFlavorDsl.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "9ff71899_5f57dbff",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f26e4f9_aa9def88",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ApiVersionImpl.java",
         "patchSetId": 6
@@ -98,6 +170,24 @@
       "writtenOn": "2014-05-27T21:31:57Z",
       "side": 1,
       "message": "perhaps also add equals() on this method?",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfed10cb_87e0da5e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ApiVersionImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "This is only used to serialize it.",
+      "parentUuid": "7f26e4f9_aa9def88",
       "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +211,24 @@
     },
     {
       "key": {
+        "uuid": "9ff71899_85e0d65e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ProductFlavorImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfed10cb_e1bf0e97",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dfed10cb_a1dce6f2",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ProductFlavorImpl.java",
         "patchSetId": 6
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "9ff71899_25ebe245",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ProductFlavorImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "yeah. This is supposed to represent exactly what\u0027s in the flavors, not what the APK will contain.\n\nHowever for the case where the preview is used, we override it to use the preview codename.",
+      "parentUuid": "dfed10cb_a1dce6f2",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff71899_3faacfa9",
         "filename": "common/src/main/java/com/android/xml/AndroidManifest.java",
         "patchSetId": 6
@@ -149,6 +275,24 @@
       "writtenOn": "2014-05-27T21:31:57Z",
       "side": 1,
       "message": "annotate return as @Nullable? I assume you\u0027re using an Object rather than ApiVersion here is to avoid a reverse dependency. Should we move ApiVersion up to common?",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff71899_a5d6b27f",
+        "filename": "common/src/main/java/com/android/xml/AndroidManifest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T23:43:27Z",
+      "side": 1,
+      "message": "It\u0027s part of the model, so let\u0027s not move it.",
+      "parentUuid": "9ff71899_3faacfa9",
       "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
