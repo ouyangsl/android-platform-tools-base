@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f26e4f9_6d3cb101",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/NdkAppPlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T22:30:53Z",
+      "side": 1,
+      "message": "maybe tie this to the creation of the other BT.\n\nwhenObjectadded { -\u003e ... }",
+      "range": {
+        "startLine": 79,
+        "startChar": 16,
+        "endLine": 79,
+        "endChar": 21
+      },
+      "revId": "dc32aaaa7934ab4ea4807f040aed5b63abb8b5f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
