@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf4cdcb3_e2944261",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T21:56:56Z",
+      "side": 1,
+      "message": "need an empty line after this one.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 53
+      },
+      "revId": "a3952e2d822be05a711c4dd8cc117d6a808ad185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf4cdcb3_02984e93",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-27T21:56:56Z",
+      "side": 1,
+      "message": "nit: whitespace inconsistency",
+      "range": {
+        "startLine": 919,
+        "startChar": 75,
+        "endLine": 919,
+        "endChar": 94
+      },
+      "revId": "a3952e2d822be05a711c4dd8cc117d6a808ad185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
