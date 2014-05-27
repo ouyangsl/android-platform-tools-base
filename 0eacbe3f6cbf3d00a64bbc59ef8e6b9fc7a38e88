@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ff71899_34f79670",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ApiVersion.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:22:16Z",
+      "side": 1,
+      "message": "(in AndroidVersion this is called getApiString() instead). The other method names are identical, so this would be a nice symmetry.",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f26e4f9_ca8b0359",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/TestManifestGenerator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:22:16Z",
+      "side": 1,
+      "message": "I think this should be \nmTargetSdkVersion !\u003d null ? mTargetSdkVersion : mMinSdkVersion !\u003d null ? mMinSdkVersion : \"1\"\n\n(e.g. use minSdkVersion if targetSdkVersion is not set)",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfed10cb_81956a2a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/SimpleTestRunner.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:22:16Z",
+      "side": 1,
+      "message": "%1$s, %2$s, %3$s?  (though I see that this is in code you just moved)",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfed10cb_619afe59",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/SimpleTestRunner.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:22:16Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
