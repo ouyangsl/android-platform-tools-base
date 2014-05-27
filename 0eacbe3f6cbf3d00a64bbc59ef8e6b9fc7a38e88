@@ -67,6 +67,91 @@
       "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff71899_5f57dbff",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/ProductFlavorDsl.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:31:57Z",
+      "side": 1,
+      "message": "instead of relying on exceptions for control flow maybe add a \nif (!targetSdkVersion.isEmpty() \u0026\u0026 Character.isDigit(targetSdkVersion.charAt(0))\ncheck at the beginning and in the else clause initialize as code name. Then a number format exception would be an error condition (since it means you\u0027ve entered an invalid code name as well as an invalid api number.)",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f26e4f9_aa9def88",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ApiVersionImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:31:57Z",
+      "side": 1,
+      "message": "perhaps also add equals() on this method?",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfed10cb_e1bf0e97",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ProductFlavorImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:31:57Z",
+      "side": 1,
+      "message": "Accidentally capitalized V?",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dfed10cb_a1dce6f2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ProductFlavorImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:31:57Z",
+      "side": 1,
+      "message": "The client of the flavor is responsible for using minSdkVersion as a fallback if targetSdkVersion isn\u0027t set on it, right?",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ff71899_3faacfa9",
+        "filename": "common/src/main/java/com/android/xml/AndroidManifest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-27T21:31:57Z",
+      "side": 1,
+      "message": "annotate return as @Nullable? I assume you\u0027re using an Object rather than ApiVersion here is to avoid a reverse dependency. Should we move ApiVersion up to common?",
+      "revId": "0eacbe3f6cbf3d00a64bbc59ef8e6b9fc7a38e88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
