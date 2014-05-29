@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fc5a077_a8142313",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-29T22:24:12Z",
+      "side": 1,
+      "message": "typo here (youPfr)",
+      "revId": "6f36b1d614a6395d54ccf7f218d478b281691973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fc5a077_c8c2b73a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-29T22:24:12Z",
+      "side": 1,
+      "message": "Is this the vulnerability this helps guard against?\nhttp://securityintelligence.com/new-vulnerability-android-framework-fragment-injection/#.U4eyrWRdWPc\nIf so, let\u0027s add a .addMoreInfo(\"\u003curl\u003e\") here",
+      "revId": "6f36b1d614a6395d54ccf7f218d478b281691973",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
