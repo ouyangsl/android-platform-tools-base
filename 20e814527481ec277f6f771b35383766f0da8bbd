@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fbaacee_78e94120",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/LintGradleProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-29T04:01:47Z",
+      "side": 1,
+      "message": "again? can\u0027t we put this in a central location?",
+      "range": {
+        "startLine": 423,
+        "startChar": 11,
+        "endLine": 424,
+        "endChar": 69
+      },
+      "revId": "20e814527481ec277f6f771b35383766f0da8bbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
