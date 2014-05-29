@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fbaacee_32abe078",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/BuiltinIssueRegistry.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-29T22:19:31Z",
+      "side": 1,
+      "message": "FYI you no longer need to bump this number for each new rule; I\u0027ve added a little bit of padding, as well as a unit test (rather than a runtime assertion) for making sure it\u0027s adequate now.",
+      "revId": "1d1587d21d7556c0dfbc5ece54b3325d45fb2d68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7fc0a468_d4aed472",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CipherGetInstanceDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-29T22:19:31Z",
+      "side": 1,
+      "message": "Is there a link to more information we can add here as a .addMoreInfo(url) ? \n\nOr better yet, can we make the error message say what to do (e.g. which algorithm do we recommend, or can they add something after the AES part to use a better mode?",
+      "revId": "1d1587d21d7556c0dfbc5ece54b3325d45fb2d68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fc5a077_68e04be3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CipherGetInstanceDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-29T22:19:31Z",
+      "side": 1,
+      "message": "(same comment here -- would be great if we can tell them what to use)",
+      "revId": "1d1587d21d7556c0dfbc5ece54b3325d45fb2d68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
