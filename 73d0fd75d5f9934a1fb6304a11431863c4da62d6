@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff8c944a_02395aeb",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/AndroidSourceSet.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-29T00:40:18Z",
+      "side": 1,
+      "message": "We should just remove this. It\u0027s useless and it returns the same as getJava()",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 43
+      },
+      "revId": "73d0fd75d5f9934a1fb6304a11431863c4da62d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa38cb4_599d1710",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/AndroidSourceSet.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-05-29T00:40:18Z",
+      "side": 1,
+      "message": "Same here. It\u0027s not even all the sources.",
+      "range": {
+        "startLine": 92,
+        "startChar": 30,
+        "endLine": 92,
+        "endChar": 42
+      },
+      "revId": "73d0fd75d5f9934a1fb6304a11431863c4da62d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
