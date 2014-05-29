@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fa8888f_d8f2e107",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 1054,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-05-29T00:39:26Z",
+      "side": 1,
+      "message": "Nit: align parameters",
+      "range": {
+        "startLine": 1054,
+        "startChar": 34,
+        "endLine": 1054,
+        "endChar": 35
+      },
+      "revId": "259e13b92a229c8758369831d2726f83aacfc0c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fa8888f_f8efa520",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 1075,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-05-29T00:39:26Z",
+      "side": 1,
+      "message": "Nit: align parameters",
+      "range": {
+        "startLine": 1075,
+        "startChar": 41,
+        "endLine": 1075,
+        "endChar": 42
+      },
+      "revId": "259e13b92a229c8758369831d2726f83aacfc0c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
