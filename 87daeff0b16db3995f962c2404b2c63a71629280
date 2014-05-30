@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fc5a077_76aee988",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/MavenCoordinates.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-30T20:34:53Z",
+      "side": 1,
+      "message": "How does this relate to the GradleCoordinate class in sdk-common?",
+      "revId": "87daeff0b16db3995f962c2404b2c63a71629280",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
