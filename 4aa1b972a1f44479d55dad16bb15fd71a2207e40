@@ -22,6 +22,30 @@
       "revId": "4aa1b972a1f44479d55dad16bb15fd71a2207e40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfcdbca8_ae354bfc",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-05-31T00:42:10Z",
+      "side": 1,
+      "message": "n/m, I see the \u0027quotes\u0027 now. Sorry about that.",
+      "parentUuid": "9fcab88f_c20dfc9b",
+      "range": {
+        "startLine": 34,
+        "startChar": 62,
+        "endLine": 34,
+        "endChar": 76
+      },
+      "revId": "4aa1b972a1f44479d55dad16bb15fd71a2207e40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
