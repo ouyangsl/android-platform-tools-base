@@ -46,6 +46,30 @@
       "revId": "4aa1b972a1f44479d55dad16bb15fd71a2207e40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfcdbca8_092799d9",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-05-31T03:18:32Z",
+      "side": 1,
+      "message": "Yep, Freemarker makes this code pretty ugly. The intent here is that if the string is \"50\" we insert 50, and if the insert is \"ABC\" we insert \"ABC\". In other words the Groovy literal is either an int or a String depending on whether the string value in this variable is a string (starts with digits) or not.",
+      "parentUuid": "bfcdbca8_ae354bfc",
+      "range": {
+        "startLine": 34,
+        "startChar": 62,
+        "endLine": 34,
+        "endChar": 76
+      },
+      "revId": "4aa1b972a1f44479d55dad16bb15fd71a2207e40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
