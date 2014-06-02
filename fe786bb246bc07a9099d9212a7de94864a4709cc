@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5fc5a077_a733282d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-02T23:31:25Z",
+      "side": 1,
+      "message": "same here: createMergeManifest",
+      "range": {
+        "startLine": 88,
+        "startChar": 19,
+        "endLine": 88,
+        "endChar": 33
+      },
+      "revId": "fe786bb246bc07a9099d9212a7de94864a4709cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fc5a077_27471885",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
         "patchSetId": 7
