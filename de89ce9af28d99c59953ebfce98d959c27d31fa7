@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fc5a077_47b9ecd9",
+        "filename": "sdklib/src/main/java/com/android/sdklib/IAndroidTarget.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-02T22:42:37Z",
+      "side": 0,
+      "message": "nitpick: when I add annotations in older code, I still keep the comment. That\u0027s because when looking at javadocs I generally rely on the comment first. YMMV.",
+      "revId": "de89ce9af28d99c59953ebfce98d959c27d31fa7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
