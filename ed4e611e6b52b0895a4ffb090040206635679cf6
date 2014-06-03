@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7f33447f_7df27079",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-03T00:21:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dffef0bb_27d729cd",
+      "range": {
+        "startLine": 714,
+        "startChar": 28,
+        "endLine": 714,
+        "endChar": 40
+      },
+      "revId": "ed4e611e6b52b0895a4ffb090040206635679cf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fc5a077_eafa05dc",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-02T23:42:13Z",
       "side": 1,
       "message": "same here?",
+      "range": {
+        "startLine": 729,
+        "startChar": 19,
+        "endLine": 729,
+        "endChar": 31
+      },
+      "revId": "ed4e611e6b52b0895a4ffb090040206635679cf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f33447f_9debb489",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 729,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-03T00:21:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc5a077_eafa05dc",
       "range": {
         "startLine": 729,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7f33447f_fd0520a9",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-03T00:21:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f33447f_c269570c",
+      "range": {
+        "startLine": 731,
+        "startChar": 15,
+        "endLine": 731,
+        "endChar": 26
+      },
+      "revId": "ed4e611e6b52b0895a4ffb090040206635679cf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f33447f_a281b374",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "5fc5a077_6aab9577",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-03T00:21:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f33447f_a281b374",
+      "range": {
+        "startLine": 779,
+        "startChar": 46,
+        "endLine": 779,
+        "endChar": 49
+      },
+      "revId": "ed4e611e6b52b0895a4ffb090040206635679cf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f33447f_8236ef1c",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2014-06-02T23:42:13Z",
       "side": 1,
       "message": "we should mention in the warnings that this will be removed in 1.0",
+      "range": {
+        "startLine": 174,
+        "startChar": 51,
+        "endLine": 174,
+        "endChar": 61
+      },
+      "revId": "ed4e611e6b52b0895a4ffb090040206635679cf6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f33447f_7d0910b9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-03T00:21:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f33447f_8236ef1c",
       "range": {
         "startLine": 174,
         "startChar": 51,
