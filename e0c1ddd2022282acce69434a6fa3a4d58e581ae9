@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f33447f_f9944d2d",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-06-03T23:30:19Z",
+      "side": 1,
+      "message": "Why do we copyDir on \"gradlew\" twice?",
+      "revId": "e0c1ddd2022282acce69434a6fa3a4d58e581ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_7be6fb50",
+        "filename": "gradle-import/src/main/test/com/android/tools/gradle/eclipse/GradleImportTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 3153,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-06-03T23:30:19Z",
+      "side": 1,
+      "message": "Is there a better place we could put this? GradleUtil is unfortunately in tools/adt/idea, not in tools/base.",
+      "revId": "e0c1ddd2022282acce69434a6fa3a4d58e581ae9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
