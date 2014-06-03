@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf505ca5_7f182b8e",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/LintUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-03T15:22:46Z",
+      "side": 1,
+      "message": "can\u0027t you use the FullRevision.compareTo method here?",
+      "range": {
+        "startLine": 1064,
+        "startChar": 28,
+        "endLine": 1064,
+        "endChar": 36
+      },
+      "revId": "fe5cad8a43b7ded4f735ce3aadc9e367ac9d8eb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
