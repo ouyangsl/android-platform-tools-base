@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bfcdbca8_c5429d21",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantFactory.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-06-03T00:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc5a077_a733282d",
+      "range": {
+        "startLine": 88,
+        "startChar": 19,
+        "endLine": 88,
+        "endChar": 33
+      },
+      "revId": "fe786bb246bc07a9099d9212a7de94864a4709cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fc5a077_27471885",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-02T23:31:03Z",
       "side": 1,
       "message": "we should keep the create###task method name like all the other methods.\n\nAlso no need for ;",
+      "range": {
+        "startLine": 108,
+        "startChar": 19,
+        "endLine": 108,
+        "endChar": 34
+      },
+      "revId": "fe786bb246bc07a9099d9212a7de94864a4709cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfcdbca8_0549b547",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-06-03T00:03:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fc5a077_27471885",
       "range": {
         "startLine": 108,
         "startChar": 19,
