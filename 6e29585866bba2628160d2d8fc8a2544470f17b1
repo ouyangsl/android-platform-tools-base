@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f162cdd_3865e958",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-03T22:49:35Z",
+      "side": 1,
+      "message": "FYI the convention for directory names is to use FD_ as a prefix (just like FN_ is used as a prefix for file names)",
+      "revId": "6e29585866bba2628160d2d8fc8a2544470f17b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
