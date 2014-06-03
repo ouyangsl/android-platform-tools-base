@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5fc5a077_6a95d559",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/BuiltinIssueRegistry.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1047770
+      },
+      "writtenOn": "2014-06-03T00:06:23Z",
+      "side": 1,
+      "message": "Ok",
+      "parentUuid": "3fbaacee_32abe078",
+      "revId": "1d1587d21d7556c0dfbc5ece54b3325d45fb2d68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fc0a468_d4aed472",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CipherGetInstanceDetector.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-05-29T22:19:31Z",
       "side": 1,
       "message": "Is there a link to more information we can add here as a .addMoreInfo(url) ? \n\nOr better yet, can we make the error message say what to do (e.g. which algorithm do we recommend, or can they add something after the AES part to use a better mode?",
+      "revId": "1d1587d21d7556c0dfbc5ece54b3325d45fb2d68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dffef0bb_e2de9f74",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CipherGetInstanceDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1047770
+      },
+      "writtenOn": "2014-06-03T00:06:23Z",
+      "side": 1,
+      "message": "I don\u0027t really have a good link for this, plenty of stackoverflow posts about it but that probably wouldn\u0027t be a good link for lint to give. I could link to a wiki about different block cipher modes which explains why ECB is not a good choice(http://en.wikipedia.org/wiki/Block_cipher_modes_of_operation#Electronic_codebook_.28ECB.29). Yeah the coder can add something after AES to be more specific. My understanding is the default is \"AES/ECB/PKCS7Padding\" and not specifying the cipher mode will leave it as ECB, if they specified \"AES/CBC/PKCS7Padding\" they would not be using the more insecure method, but I don\u0027t know if it is a good suggestion to give as I have no background in crypto.",
+      "parentUuid": "7fc0a468_d4aed472",
       "revId": "1d1587d21d7556c0dfbc5ece54b3325d45fb2d68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
