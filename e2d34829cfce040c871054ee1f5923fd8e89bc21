@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fc5a077_4af7b16e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-03T00:26:10Z",
+      "side": 1,
+      "message": "why?\n\nThis might be better on BuildType anyway.",
+      "range": {
+        "startLine": 409,
+        "startChar": 4,
+        "endLine": 409,
+        "endChar": 29
+      },
+      "revId": "e2d34829cfce040c871054ee1f5923fd8e89bc21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dffef0bb_22b957db",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 2056,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-03T00:26:10Z",
+      "side": 1,
+      "message": "shrinkTask.conventionMapping.rDir \u003d { variantData.processResourcesTask.getSourceOutputDir() }\n\nYou\u0027ll also need to call\nshrinkTask.dependsOn variantData.procesSResourceTask",
+      "range": {
+        "startLine": 2056,
+        "startChar": 12,
+        "endLine": 2056,
+        "endChar": 22
+      },
+      "revId": "e2d34829cfce040c871054ee1f5923fd8e89bc21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dffef0bb_62ae2f89",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 2062,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-03T00:26:10Z",
+      "side": 1,
+      "message": "shrinkTask.conventionMapping.mergedManifest \u003d { variantData.manifestProcessorTask.getManifestOutputTask }",
+      "range": {
+        "startLine": 2062,
+        "startChar": 12,
+        "endLine": 2062,
+        "endChar": 22
+      },
+      "revId": "e2d34829cfce040c871054ee1f5923fd8e89bc21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
