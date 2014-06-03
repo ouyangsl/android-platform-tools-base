@@ -16,6 +16,24 @@
       "revId": "6e29585866bba2628160d2d8fc8a2544470f17b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f33447f_99be61eb",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-06-03T23:02:46Z",
+      "side": 1,
+      "message": "So what was confusing to me is that some folders have trailing slashes and some don\u0027t. It looked like there was a pattern of FD_ constants not having them and _FOLDER constants having them.\n\nTo resolve, I\u0027ll move both constants into the FD_ area and not include a trailing slash on either.",
+      "parentUuid": "3f162cdd_3865e958",
+      "revId": "6e29585866bba2628160d2d8fc8a2544470f17b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
