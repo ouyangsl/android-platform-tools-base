@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f33447f_244e0882",
+        "filename": "build-system/gradle/src/fromGradle/groovy/com/android/build/gradle/internal/test/report/CodePanelRenderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-04T00:40:34Z",
+      "side": 1,
+      "message": "wrong header. Look at other files in this folder.",
+      "range": {
+        "startLine": 2,
+        "startChar": 10,
+        "endLine": 2,
+        "endChar": 53
+      },
+      "revId": "e94c595d7f38fc83f10964db91f19fe3b910f364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_3b864302",
+        "filename": "build-system/gradle/src/fromGradle/groovy/com/android/build/gradle/internal/test/report/ErroringAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-04T00:40:34Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 2,
+        "startChar": 13,
+        "endLine": 2,
+        "endChar": 53
+      },
+      "revId": "e94c595d7f38fc83f10964db91f19fe3b910f364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f33447f_c43f1cd1",
+        "filename": "build-system/gradle/src/fromGradle/groovy/com/android/build/gradle/internal/test/report/HtmlReportRenderer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-04T00:40:34Z",
+      "side": 1,
+      "message": "and here.",
+      "range": {
+        "startLine": 2,
+        "startChar": 20,
+        "endLine": 2,
+        "endChar": 53
+      },
+      "revId": "e94c595d7f38fc83f10964db91f19fe3b910f364",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
