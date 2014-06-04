@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f1b2808_96187d8f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/CipherGetInstanceDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-06-04T21:58:44Z",
+      "side": 1,
+      "message": "RSA is normally supported only in ECB mode. I suggest making this detector only about *symmetric* block ciphers (drop RSA from the list).",
+      "range": {
+        "startLine": 68,
+        "startChar": 53,
+        "endLine": 68,
+        "endChar": 56
+      },
+      "revId": "0303e16c9bc9c99ca9780e8b22b6902e36af07a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
