@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f162cdd_781b568c",
+        "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-05T14:42:01Z",
+      "side": 1,
+      "message": "or/and a flag to point to extra local jars? That way we can put 1.jar and 2.jar (or maybe api-generator-data-1.jar and api-generator-data-2.jar) somewhere other than the official Android SDKs for use only by this build script.",
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_d835c2fb",
+        "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-05T14:42:01Z",
+      "side": 1,
+      "message": "this will use the default system encoding; probably better to use UTF-8 instead -- new PrintStream(outFile, false, \"UTF-8\")\n\n(I see now that this was already there in the previous version)",
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f33447f_de0121d2",
+        "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-05T14:42:01Z",
+      "side": 1,
+      "message": "+ System.exit(1) to fail build since something is wrong?",
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
