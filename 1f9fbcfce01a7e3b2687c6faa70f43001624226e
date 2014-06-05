@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f162cdd_0e5bf468",
+        "filename": "misc/api-generator/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-05T22:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f162cdd_b8c24e39",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 28
+      },
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f162cdd_78cd9667",
         "filename": "misc/api-generator/build.gradle",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-05T16:29:04Z",
       "side": 1,
       "message": "this will add this entry to the manifest of the jar packaged in the SDK tools. In your case you want the normal jar to contain it so just write\n\njar.mainfest....\n\nsince \u0027jar\u0027 is the default jar task used by the java plugin (sdkJar is a custom one setup by the sdk-java-lib plugin)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 6
+      },
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf505ca5_5730ab1f",
+        "filename": "misc/api-generator/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-05T22:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f162cdd_78cd9667",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7f33447f_a7fc4c52",
+        "filename": "misc/api-generator/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-05T22:09:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf505ca5_79da80a9",
+      "range": {
+        "startLine": 18,
+        "startChar": 1,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f162cdd_781b568c",
         "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
         "patchSetId": 1
@@ -82,6 +154,24 @@
       "writtenOn": "2014-06-05T14:42:01Z",
       "side": 1,
       "message": "or/and a flag to point to extra local jars? That way we can put 1.jar and 2.jar (or maybe api-generator-data-1.jar and api-generator-data-2.jar) somewhere other than the official Android SDKs for use only by this build script.",
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_0e70d4ec",
+        "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-05T22:09:14Z",
+      "side": 1,
+      "message": "Done differently.\nWe can now invoke this like this:\n\napi-generator.jar --min-api 1 api-versions.xml /path/to/your/sdk\n\nor\n\napi-generator.jar --min-api 2 api-versions.xml prebuilts/sdk/%/android.jar  path/to/older/ones/%/android.jar\n\nIn the pattern, % gets replaced by the API level we\u0027re looking for, and we can append as many patterns as wanted. So this should be reasonably flexible yet still simple.",
+      "parentUuid": "3f162cdd_781b568c",
       "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "bf505ca5_f740d76a",
+        "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-05T22:09:14Z",
+      "side": 1,
+      "message": "Done, and indeed I just took whatever was there as-is, changing only the minimum.",
+      "parentUuid": "3f162cdd_d835c2fb",
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f33447f_de0121d2",
         "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
         "patchSetId": 1
@@ -116,6 +224,24 @@
       "writtenOn": "2014-06-05T14:42:01Z",
       "side": 1,
       "message": "+ System.exit(1) to fail build since something is wrong?",
+      "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_ae81a874",
+        "filename": "misc/api-generator/src/main/java/com/android/apigenerator/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-05T22:09:14Z",
+      "side": 1,
+      "message": "I don\u0027t like embedding exit() calls in functions, it\u0027s a recipe for confusion as a program grows and exits unexpectedly. Instead I\u0027m returning a boolean and call exit() from the main, where this is ok.",
+      "parentUuid": "7f33447f_de0121d2",
       "revId": "1f9fbcfce01a7e3b2687c6faa70f43001624226e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
