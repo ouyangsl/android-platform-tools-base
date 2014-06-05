@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f162cdd_38307e1f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/MergeManifests.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-05T17:54:25Z",
+      "side": 1,
+      "message": "include key and sort by key",
+      "range": {
+        "startLine": 72,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 66
+      },
+      "revId": "a8876e294ba5ee84c56673d2dfefddbc7264492c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_582d32c8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ProcessManifest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-05T17:54:25Z",
+      "side": 1,
+      "message": "add key and sort by key.",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 38
+      },
+      "revId": "a8876e294ba5ee84c56673d2dfefddbc7264492c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
