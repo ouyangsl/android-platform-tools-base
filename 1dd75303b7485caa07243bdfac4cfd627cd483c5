@@ -22,6 +22,30 @@
       "revId": "1dd75303b7485caa07243bdfac4cfd627cd483c5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf505ca5_f7269740",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/MergeManifests.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-06-05T21:43:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f33447f_6443a226",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 47
+      },
+      "revId": "1dd75303b7485caa07243bdfac4cfd627cd483c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
