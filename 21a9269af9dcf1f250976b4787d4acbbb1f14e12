@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf505ca5_57ed0bd9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/NdkExtension.groovy",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-05T21:07:13Z",
+      "side": 1,
+      "message": "we shouldn\u0027t need this, We should get it from the other DSL object (it does mean we need to re-organize the extensions)",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 33
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf505ca5_f7145714",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/NdkPlugin.groovy",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-05T21:07:13Z",
+      "side": 1,
+      "message": "what is this about? I\u0027m not sure how it\u0027ll work when this is applied before/after the main plugin.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 88
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_ce0f3c02",
+        "filename": "build-system/tests/ndkJniLib2/app/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-05T21:07:13Z",
+      "side": 1,
+      "message": "do we need a copy of this sample? It doesn\u0027t use the new plugin?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f162cdd_ee148014",
+        "filename": "build-system/tests/ndkSanAngeles2/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-05T21:07:13Z",
+      "side": 1,
+      "message": "I really think this should be under android {}",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 13
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
