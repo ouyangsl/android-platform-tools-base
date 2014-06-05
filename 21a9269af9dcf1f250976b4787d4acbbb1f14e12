@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3f162cdd_8ee064ad",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/NdkExtension.groovy",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-06-05T21:35:40Z",
+      "side": 1,
+      "message": "It\u0027s necessary at the moment to support the use case where android plugin is not applied.  There is code to forward the settings in android{} so that the user do not have to set it twice.\nI will reconsider how to reorganize the logic when we decide how we want to support the no-android-plugin use case.",
+      "parentUuid": "bf505ca5_57ed0bd9",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 61,
+        "endChar": 33
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf505ca5_f7145714",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/NdkPlugin.groovy",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-05T21:07:13Z",
       "side": 1,
       "message": "what is this about? I\u0027m not sure how it\u0027ll work when this is applied before/after the main plugin.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 66,
+        "endChar": 88
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f33447f_674de480",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/NdkPlugin.groovy",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-06-05T21:35:40Z",
+      "side": 1,
+      "message": "This is just a container of directory set, similar to how other containers are created for the baseExtension.  Maybe I am doing it wrong, but the sourceSet are not configured at this point.  It is used later in NdkConfigurationAction.",
+      "parentUuid": "bf505ca5_f7145714",
       "range": {
         "startLine": 66,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bf505ca5_171ea3f7",
+        "filename": "build-system/tests/ndkJniLib2/app/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-06-05T21:35:40Z",
+      "side": 1,
+      "message": "This is my mistake.  It should be using the new plugin, but the change was lost somehow.  I will fix it.",
+      "parentUuid": "3f162cdd_ce0f3c02",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f162cdd_ee148014",
         "filename": "build-system/tests/ndkSanAngeles2/build.gradle",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2014-06-05T21:07:13Z",
       "side": 1,
       "message": "I really think this should be under android {}",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 13
+      },
+      "revId": "21a9269af9dcf1f250976b4787d4acbbb1f14e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f33447f_646ac2f8",
+        "filename": "build-system/tests/ndkSanAngeles2/build.gradle",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-06-05T21:35:40Z",
+      "side": 1,
+      "message": "So do you mean something like:\nandroid {\n  ndk {}\n}\n?\nOr even use the current interface where it\u0027s under defaultConfig?\nHow should this work if the ndk plugin is applied on its own without the android plugin?  Would we still use android{}?",
+      "parentUuid": "3f162cdd_ee148014",
       "range": {
         "startLine": 12,
         "startChar": 0,
