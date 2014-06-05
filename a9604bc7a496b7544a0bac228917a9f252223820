@@ -16,6 +16,24 @@
       "revId": "a9604bc7a496b7544a0bac228917a9f252223820",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf505ca5_f7e3f73f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-06-05T19:57:24Z",
+      "side": 1,
+      "message": "Ah, good catch. Thanks!",
+      "parentUuid": "bf505ca5_79e040ac",
+      "revId": "a9604bc7a496b7544a0bac228917a9f252223820",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
