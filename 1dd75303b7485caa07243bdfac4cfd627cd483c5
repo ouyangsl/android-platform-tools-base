@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f33447f_6443a226",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/MergeManifests.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-05T19:54:19Z",
+      "side": 1,
+      "message": "SGTM but maybe move as utility method in parent class so that you have only one implementation?",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 47
+      },
+      "revId": "1dd75303b7485caa07243bdfac4cfd627cd483c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
