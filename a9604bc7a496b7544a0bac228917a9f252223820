@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf505ca5_79e040ac",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-05T14:45:15Z",
+      "side": 1,
+      "message": "That final part of the URL doesn\u0027t seem to be necessary; it doesn\u0027t work as an anchor (probably some sort of session id); this seems to work as well\nhttp://securityintelligence.com/new-vulnerability-android-framework-fragment-injection",
+      "revId": "a9604bc7a496b7544a0bac228917a9f252223820",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
