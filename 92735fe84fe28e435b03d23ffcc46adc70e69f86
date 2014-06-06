@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf505ca5_0828c40f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-06T21:23:38Z",
+      "side": 0,
+      "message": "Aren\u0027t runtime checked languages awesome?",
+      "revId": "92735fe84fe28e435b03d23ffcc46adc70e69f86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
