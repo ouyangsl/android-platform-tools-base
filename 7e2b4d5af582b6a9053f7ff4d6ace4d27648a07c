@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df2c3030_2327e8d9",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunner.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-06T16:40:42Z",
+      "side": 1,
+      "message": "BTW, could you point to where these options are documented?",
+      "range": {
+        "startLine": 256,
+        "startChar": 16,
+        "endLine": 256,
+        "endChar": 29
+      },
+      "revId": "7e2b4d5af582b6a9053f7ff4d6ace4d27648a07c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
