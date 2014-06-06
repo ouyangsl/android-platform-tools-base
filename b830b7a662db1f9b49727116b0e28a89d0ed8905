@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df4350e0_e5f578ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-06T15:53:02Z",
+      "side": 1,
+      "message": "for future reference, all changes have to be done in the idea133 branch. You can see setup instructions here: \n\nhttp://tools.android.com/build\n\nI think we should be able to cherry pick this change into idea133.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "b830b7a662db1f9b49727116b0e28a89d0ed8905",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f1b2808_2fe6ef7c",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-06T15:53:02Z",
+      "side": 1,
+      "message": "please annotate return value with nullability annotations: e.g.:\n\n@NonNull\nprivate String getRunOptions()",
+      "range": {
+        "startLine": 252,
+        "startChar": 12,
+        "endLine": 252,
+        "endChar": 18
+      },
+      "revId": "b830b7a662db1f9b49727116b0e28a89d0ed8905",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f1b2808_8fba9b57",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunner.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-06T15:53:02Z",
+      "side": 1,
+      "message": "Please annotate argument with @NonNull or @Nullable depending on whether this should work with a null argument. e.g.:\n\npublic void setRunOptions(@NonNull String options)\n\nIf you are going to allow null values, then the change in line 212 has to be able to handle null.",
+      "range": {
+        "startLine": 256,
+        "startChar": 30,
+        "endLine": 256,
+        "endChar": 36
+      },
+      "revId": "b830b7a662db1f9b49727116b0e28a89d0ed8905",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
