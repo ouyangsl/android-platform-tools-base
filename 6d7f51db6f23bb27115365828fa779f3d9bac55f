@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf505ca5_715ff09d",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlElement.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-07T05:41:12Z",
+      "side": 1,
+      "message": "Longer term we may want to check for accidental prefix conflicts here -- e.g. if  manifest #1 maps an attribute \"xmlns:app\" to \"namespace1\", and another maps \"xmlns:app\" to \"namespace2\", then we need to remap the prefixes in the merged document when we merge attributes from these two documents. Note that this isn\u0027t an error - we just can\u0027t blindly reuse the XML prefix that was used in the original source document, we have to pick a unique new value and use that.",
+      "revId": "6d7f51db6f23bb27115365828fa779f3d9bac55f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
