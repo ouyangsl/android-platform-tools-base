@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f33447f_08d8a4ac",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-07T00:31:28Z",
+      "side": 0,
+      "message": "wow, Groovy compiled a \"\u003e\" comparison between Integer and ApiVersion, an interface that isn\u0027t even marked Comparable? \n\nWe need both unit tests and some sort of Groovy lint. Did IntelliJ at least flag this in the editor? If so I believe it\u0027s possible to run their inspections from the command line (inspect.sh).",
+      "revId": "e61300254abd929ed6832b86c811dc3b727802e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
