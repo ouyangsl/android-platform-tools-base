@@ -16,6 +16,24 @@
       "revId": "e61300254abd929ed6832b86c811dc3b727802e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff749443_71639298",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-07T00:33:55Z",
+      "side": 0,
+      "message": "I think it may be tied to the def above instead of explicitly saying int (which would probably fail compilation)",
+      "parentUuid": "7f33447f_08d8a4ac",
+      "revId": "e61300254abd929ed6832b86c811dc3b727802e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
