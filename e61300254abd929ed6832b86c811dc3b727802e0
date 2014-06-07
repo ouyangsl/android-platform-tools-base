@@ -34,6 +34,24 @@
       "revId": "e61300254abd929ed6832b86c811dc3b727802e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff749443_546684a9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-07T01:34:20Z",
+      "side": 0,
+      "message": "yes -- I\u0027m just wondering how it\u0027s looking at this code with a \"\u003e\" comparison, and inserts an (Integer) cast on that object. It can\u0027t be an Integer. Integer is final, so no object implementing the ApiVersion interface could possibly match.",
+      "parentUuid": "ff749443_71639298",
+      "revId": "e61300254abd929ed6832b86c811dc3b727802e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
