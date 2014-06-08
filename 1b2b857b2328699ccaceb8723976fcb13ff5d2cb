@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f33447f_1e93fed5",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-08T15:53:52Z",
+      "side": 1,
+      "message": "Is this class accessible from the IDE? If not, is it possible to store these constants where they would be accessible?",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "1b2b857b2328699ccaceb8723976fcb13ff5d2cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
