@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff5d74d3_3babab78",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunner.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-09T23:50:44Z",
+      "side": 1,
+      "message": "Since cs is an internal link, I don\u0027t want this in AOSP.\n\nCould we do:\n\n/**\n * Sets run options for the am instrument command.\n * See com/android/commands/am/Am.java for full list of options.\n */",
+      "range": {
+        "startLine": 259,
+        "startChar": 15,
+        "endLine": 259,
+        "endChar": 17
+      },
+      "revId": "8172a2ac93e958b2408bc5bc0d8f8c043a1b07bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
