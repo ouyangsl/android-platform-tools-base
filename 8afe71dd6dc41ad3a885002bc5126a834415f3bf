@@ -33,6 +33,24 @@
       "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f696874_50e3e2f0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-06-09T21:39:55Z",
+      "side": 1,
+      "message": "This takes precedence, yes, but I\u0027m not getting that warning for + in the Gradle plugin even without this change.",
+      "parentUuid": "ff749443_3deabbc3",
+      "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
