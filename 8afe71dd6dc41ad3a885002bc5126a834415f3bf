@@ -51,6 +51,24 @@
       "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bffcdced_6256f238",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-09T22:31:09Z",
+      "side": 1,
+      "message": "That\u0027s because that check is off by default. But if it\u0027s enabled, we should flag it on this dependency as well.  (It\u0027s off by default since we still generate dependencies that way, and it seems wrong to flag code the way we currently do it, but I believe the plan is for us to change this soon.)",
+      "parentUuid": "1f696874_50e3e2f0",
+      "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
