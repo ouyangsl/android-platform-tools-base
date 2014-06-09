@@ -87,6 +87,24 @@
       "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bffcdced_30527096",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-09T23:57:23Z",
+      "side": 1,
+      "message": "Yeah, let\u0027s turn it on -- I don\u0027t remember why I did that and it doesn\u0027t seem right. It was probably because at the time we were heavily updating our plugin and we really wanted people to stay up to date on it - but I should have taken that out when I turned the rule off by default.",
+      "parentUuid": "ff5d74d3_3b388bbf",
+      "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
