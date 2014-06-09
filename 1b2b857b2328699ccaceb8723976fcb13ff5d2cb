@@ -22,6 +22,30 @@
       "revId": "1b2b857b2328699ccaceb8723976fcb13ff5d2cb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f646c99_48101f6e",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-09T16:38:07Z",
+      "side": 1,
+      "message": "Yes this is part of the builder-model and will be accessible when we update the prebuilt.",
+      "parentUuid": "7f33447f_1e93fed5",
+      "range": {
+        "startLine": 40,
+        "startChar": 31,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "1b2b857b2328699ccaceb8723976fcb13ff5d2cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
