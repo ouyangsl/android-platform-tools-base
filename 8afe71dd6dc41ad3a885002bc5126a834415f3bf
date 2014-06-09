@@ -69,6 +69,24 @@
       "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff5d74d3_3b388bbf",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-06-09T23:44:47Z",
+      "side": 1,
+      "message": "The checked-in version of the code explicitly disables this check for the Gradle plugin, as you can see on the left. Would you like to turn it on?",
+      "parentUuid": "bffcdced_6256f238",
+      "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
