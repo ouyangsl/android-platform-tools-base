@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff749443_1ded7fda",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-09T14:32:12Z",
+      "side": 1,
+      "message": "wrong indent",
+      "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff749443_3deabbc3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-09T14:32:12Z",
+      "side": 1,
+      "message": "This mean we won\u0027t check and warn for plus syntax in the gradle plugin, right?",
+      "revId": "8afe71dd6dc41ad3a885002bc5126a834415f3bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
