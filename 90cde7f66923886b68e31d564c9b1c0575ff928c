@@ -16,6 +16,24 @@
       "revId": "90cde7f66923886b68e31d564c9b1c0575ff928c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff5d74d3_23893d13",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-06-10T03:46:50Z",
+      "side": 1,
+      "message": "Rahhh, IJ keeps doing this. I must not have the right settings.",
+      "parentUuid": "ff5d74d3_e3b805d9",
+      "revId": "90cde7f66923886b68e31d564c9b1c0575ff928c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
