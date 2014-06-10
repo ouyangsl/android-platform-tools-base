@@ -34,6 +34,24 @@
       "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f696874_f041b170",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PreDex.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-10T16:19:39Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "1f696874_7c2efd81",
+      "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
