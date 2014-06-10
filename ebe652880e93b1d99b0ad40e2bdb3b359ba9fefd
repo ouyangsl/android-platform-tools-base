@@ -16,6 +16,24 @@
       "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f696874_7c2efd81",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PreDex.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-06-10T04:12:22Z",
+      "side": 1,
+      "message": "I took it from the release 14 function comment :\n\nhttps://code.google.com/p/guava-libraries/source/browse/guava/src/com/google/common/hash/HashFunction.java?name\u003drelease14#187",
+      "parentUuid": "1f696874_564f5aa1",
+      "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
