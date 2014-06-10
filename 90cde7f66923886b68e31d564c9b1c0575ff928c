@@ -34,6 +34,24 @@
       "revId": "90cde7f66923886b68e31d564c9b1c0575ff928c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff5d74d3_813ca94f",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-10T16:50:41Z",
+      "side": 1,
+      "message": "This happens if you open these files from the tools/idea project instead of the tools/base project. Basically code style settings are per project, not per module, so the tools/base project has the AOSP codestyle set up, whereas the tools/idea project has the IntelliJ plugin codestyle setup.",
+      "parentUuid": "ff5d74d3_23893d13",
+      "revId": "90cde7f66923886b68e31d564c9b1c0575ff928c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
