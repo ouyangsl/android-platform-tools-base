@@ -22,6 +22,30 @@
       "revId": "db3478c66acf088f9d5e8376b0115a014e71ea46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f696874_46a4872c",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/DeviceConnector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-06-10T18:35:45Z",
+      "side": 1,
+      "message": "pointed to the fact we already depend on the ddmlib package.",
+      "parentUuid": "bffcdced_19279ca7",
+      "range": {
+        "startLine": 93,
+        "startChar": 20,
+        "endLine": 93,
+        "endChar": 28
+      },
+      "revId": "db3478c66acf088f9d5e8376b0115a014e71ea46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
