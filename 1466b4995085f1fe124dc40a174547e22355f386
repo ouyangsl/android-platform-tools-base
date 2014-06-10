@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f696874_81e6ee4d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 2460,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-10T00:42:41Z",
+      "side": 1,
+      "message": "FYI SdkConstants.VALUE_TRUE",
+      "revId": "1466b4995085f1fe124dc40a174547e22355f386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
