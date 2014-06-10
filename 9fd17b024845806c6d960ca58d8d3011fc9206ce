@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bffcdced_197b1c9b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-10T17:48:15Z",
+      "side": 1,
+      "message": "nit: rename to PROPERTY_APK_LOCATION_OVERRIDE",
+      "range": {
+        "startLine": 172,
+        "startChar": 55,
+        "endLine": 172,
+        "endChar": 85
+      },
+      "revId": "9fd17b024845806c6d960ca58d8d3011fc9206ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
