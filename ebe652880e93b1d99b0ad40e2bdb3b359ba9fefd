@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "ff5d74d3_57abd376",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PreDex.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-10T18:28:18Z",
+      "side": 1,
+      "message": "It turns out this is what the old method used to do. \n\nFrom my understanding of this code, we simply hash the path to the file to ensure that dex files with the same base name have different hash codes, such that /a/b/c/d/Name.dex and /e/f/g/h/Name.dex will end up as something like Name-15343.dex and Name-6232.dex. Whether we use UTF-16LE or -8  as the way we feed bytes from the filename path probably doesn\u0027t matter much; I would have thought UTF-8 would be faster (since UTF-8 is typically half the length of a UTF-16 representation of the same string) but given that the old code apparently used UTF-16 this seems like a reasonable change.",
+      "parentUuid": "bffcdced_c6ea7340",
+      "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bffcdced_86a4eb2d",
         "filename": "legacy/ant-tasks/src/main/java/com/android/ant/DexExecTask.java",
         "patchSetId": 2
