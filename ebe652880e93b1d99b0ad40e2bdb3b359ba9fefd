@@ -52,6 +52,47 @@
       "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bffcdced_c6ea7340",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PreDex.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-10T17:37:03Z",
+      "side": 1,
+      "message": "I\u0027m not sure I grasp how this changes the hashString method. it says it encodes the characters but we\u0027re using this for a filename. is UTF16 a good choice here?",
+      "parentUuid": "1f696874_7c2efd81",
+      "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bffcdced_86a4eb2d",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/DexExecTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-06-10T17:37:03Z",
+      "side": 1,
+      "message": "this should match the pre-dex code in the previous file.",
+      "range": {
+        "startLine": 177,
+        "startChar": 41,
+        "endLine": 177,
+        "endChar": 59
+      },
+      "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
