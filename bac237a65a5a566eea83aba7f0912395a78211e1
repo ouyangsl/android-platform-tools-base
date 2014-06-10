@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f696874_9cde5174",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-10T02:16:35Z",
+      "side": 1,
+      "message": "Just nitpicking, but I don\u0027t like the way the args are formatted now. Could we instead do the following:\n\n StringBuilder sb \u003d new StringBuilder(\"am instrument -w\")\n if (!mRunOptions.isEmpty()) {\n   sb.append(mRunOptions)\n }\n sb.append(\"-r \");\n ...",
+      "range": {
+        "startLine": 212,
+        "startChar": 48,
+        "endLine": 212,
+        "endChar": 54
+      },
+      "revId": "bac237a65a5a566eea83aba7f0912395a78211e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
