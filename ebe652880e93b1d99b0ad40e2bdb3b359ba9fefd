@@ -111,6 +111,30 @@
       "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff5d74d3_d4c81eed",
+        "filename": "legacy/ant-tasks/src/main/java/com/android/ant/DexExecTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-06-10T21:55:05Z",
+      "side": 1,
+      "message": "yes, good catch.",
+      "parentUuid": "bffcdced_86a4eb2d",
+      "range": {
+        "startLine": 177,
+        "startChar": 41,
+        "endLine": 177,
+        "endChar": 59
+      },
+      "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
