@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f696874_564f5aa1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PreDex.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-10T00:41:02Z",
+      "side": 1,
+      "message": "Did you really mean to use 16LE here? We\u0027re using UTF-8 pretty much everywhere else for all our files. I realize this is just for the filename itself - but utf8 seems like a reasonable way to represent a string?",
+      "revId": "ebe652880e93b1d99b0ad40e2bdb3b359ba9fefd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
