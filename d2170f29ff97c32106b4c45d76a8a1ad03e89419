@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf713c8e_c8ea9f40",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1342,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-12T22:15:55Z",
+      "side": 1,
+      "message": "We should remove GradleImport.CURRENT_BUILD_TOOLS_VERSION and use this one instead",
+      "revId": "d2170f29ff97c32106b4c45d76a8a1ad03e89419",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
