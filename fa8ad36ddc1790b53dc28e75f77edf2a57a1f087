@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f6328c5_b9d4d256",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-12T20:19:23Z",
+      "side": 1,
+      "message": "the issue ID should by convention look like this: MisplacedStatement. (It appears inside @SuppressLint annotations, //suppress statement comments as well as in [brackets] in command line error messages to help users suppress issues by id.",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f6328c5_d900a625",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-12T20:19:23Z",
+      "side": 1,
+      "message": "you have to update com.android.build.gradle.tasks.GroovyGradleDetector too in order for this to work when lint is run from the gradle plugin",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f6328c5_9922aec0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-12T20:19:23Z",
+      "side": 1,
+      "message": "(DId you find a reference for this, or is it by inference? If you have a reference it would be great to point to it here in the comments (and possibly as addMoreInfo(url) on the issue above (we can attach multiple urls).)",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f6328c5_f9cc8aa0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-12T20:19:23Z",
+      "side": 1,
+      "message": "We should check this for false positives by running it over all the gradle unit tests. That\u0027s how I generally test new lint checks, and more often than not it turns out that it\u0027s not a bug in lint but a legitimate bug in the code :-)",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
