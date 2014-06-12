@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df74307d_fe7f1582",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/.GradleImport.java.swp",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-12T18:01:42Z",
+      "side": 1,
+      "message": "Didn\u0027t mean to check this in; fixed patch coming",
+      "revId": "fc8f960aafeda65c3acdaddd6206c12906442a2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
