@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f6328c5_d68dd5b4",
+        "filename": "gradle-import/src/main/test/com/android/tools/gradle/eclipse/GradleImportTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-12T20:02:10Z",
+      "side": 1,
+      "message": "typo, will fix",
+      "revId": "a13938f236747684e0c1d1102be9329393864cda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
