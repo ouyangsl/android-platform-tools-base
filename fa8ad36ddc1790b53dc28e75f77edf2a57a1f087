@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bf713c8e_633b6cbe",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-06-12T23:17:45Z",
+      "side": 1,
+      "message": "Right, I think I messed this up during a renaming. Done.",
+      "parentUuid": "1f6328c5_b9d4d256",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f6328c5_d900a625",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-06-12T20:19:23Z",
       "side": 1,
       "message": "you have to update com.android.build.gradle.tasks.GroovyGradleDetector too in order for this to work when lint is run from the gradle plugin",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f49844c_158756c1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-06-12T23:17:45Z",
+      "side": 1,
+      "message": "Right, I missed that. Done.",
+      "parentUuid": "1f6328c5_d900a625",
       "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "df74307d_2a1223e7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-06-12T23:17:45Z",
+      "side": 1,
+      "message": "More by inference. It\u0027s discussed in the Gradle docs, but they\u0027re not written in a way that would be useful to link to here, as they discuss intermediate Gradle API objects that you\u0027ll understand only when you\u0027re staring at the Javadoc for them.\n\nBy the way, if you have suggestions about better wording for any of the error messages, I\u0027d like to hear it. I wasn\u0027t super happy with the wording on a lot of it but wasn\u0027t quite sure what to do with it.",
+      "parentUuid": "1f6328c5_9922aec0",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f6328c5_f9cc8aa0",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2014-06-12T20:19:23Z",
       "side": 1,
       "message": "We should check this for false positives by running it over all the gradle unit tests. That\u0027s how I generally test new lint checks, and more often than not it turns out that it\u0027s not a bug in lint but a legitimate bug in the code :-)",
+      "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f49844c_f5a1f251",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-06-12T23:17:45Z",
+      "side": 1,
+      "message": "Good suggestion. It passes the buildTest target in tools/base/gradle.",
+      "parentUuid": "1f6328c5_f9cc8aa0",
       "revId": "fa8ad36ddc1790b53dc28e75f77edf2a57a1f087",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
