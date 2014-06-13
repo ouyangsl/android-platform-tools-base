@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f49844c_78f25979",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-06-13T00:42:04Z",
+      "side": 1,
+      "message": "Nit: I know this code is already in, but in general, would it have been worth asserting here, if we got a constant but didn\u0027t know it\u0027s instance type?",
+      "revId": "435f333953189b1ad9e68bd707de9e192a43b891",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
