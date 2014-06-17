@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0452fd22_da167562",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-17T18:53:30Z",
+      "side": 1,
+      "message": "wrong comment, will fix",
+      "revId": "a7e012bb762dcda368e9eceb5103faf1ba060802",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
