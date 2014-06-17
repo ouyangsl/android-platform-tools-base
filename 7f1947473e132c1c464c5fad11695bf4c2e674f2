@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "448dd5f1_a30ce4ca",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-17T21:47:47Z",
+      "side": 1,
+      "message": "Just use Files.write(xmlDocument.prettyPrint(), out, Charsets.UTF8)",
+      "revId": "7f1947473e132c1c464c5fad11695bf4c2e674f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
