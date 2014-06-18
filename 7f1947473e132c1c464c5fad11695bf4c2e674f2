@@ -16,6 +16,24 @@
       "revId": "7f1947473e132c1c464c5fad11695bf4c2e674f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6471f9c6_0d0e2154",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-06-18T20:49:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "448dd5f1_a30ce4ca",
+      "revId": "7f1947473e132c1c464c5fad11695bf4c2e674f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
