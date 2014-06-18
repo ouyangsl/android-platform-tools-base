@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "04c59d23_4ee7537a",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ChunkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-18T17:57:00Z",
+      "side": 1,
+      "message": "I only need the getString(ByteBuffer, int) method, which is already public.  Do you think it would be better to access it through an existing public subclass of ChunkHandler, e.g. HandleViewDebug.getString(...), or create my own subclass?  The latter seems like overkill, but if I used HandleViewDebug and its visibility was later changed, that would break my code.",
+      "parentUuid": "64d659dd_206d3486",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 6
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2492a112_54a10a50",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-18T16:28:07Z",
       "side": 1,
       "message": "One pattern we follow in all new code is to annotate parameters with @NonNull or @Nullable.\n\nYou\u0027ll see this heavily used inside IntelliJ code, or in new code in perflib. We should add those annotations for all reference parameters.",
+      "range": {
+        "startLine": 396,
+        "startChar": 21,
+        "endLine": 396,
+        "endChar": 25
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04c59d23_11308e0b",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-18T17:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2492a112_54a10a50",
       "range": {
         "startLine": 396,
         "startChar": 21,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "44db1506_93879eff",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-18T17:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2492a112_b48f36d6",
+      "range": {
+        "startLine": 422,
+        "startChar": 34,
+        "endLine": 422,
+        "endChar": 47
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64d659dd_00b590b9",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "04c59d23_31358afc",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-18T17:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64d659dd_00b590b9",
+      "range": {
+        "startLine": 424,
+        "startChar": 90,
+        "endLine": 424,
+        "endChar": 116
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04975d03_480f3093",
         "filename": "perflib/src/main/java/com/android/tools/perflib/allocations/AllocationsParser.java",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2014-06-18T16:28:07Z",
       "side": 1,
       "message": "We don\u0027t include author headers in our code, so remove it here, and you can also setup your IDE to not include this header. IntelliJ puts this in by default I think.",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24e0e1ae_cf4d7da9",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/allocations/AllocationsParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-18T17:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04975d03_480f3093",
       "range": {
         "startLine": 31,
         "startChar": 14,
