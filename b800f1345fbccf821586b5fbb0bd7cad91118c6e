@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64d659dd_206d3486",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ChunkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-18T16:28:07Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to expose this class. We can figure out what methods needs to be exposed.",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 6
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2492a112_54a10a50",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-18T16:28:07Z",
+      "side": 1,
+      "message": "One pattern we follow in all new code is to annotate parameters with @NonNull or @Nullable.\n\nYou\u0027ll see this heavily used inside IntelliJ code, or in new code in perflib. We should add those annotations for all reference parameters.",
+      "range": {
+        "startLine": 396,
+        "startChar": 21,
+        "endLine": 396,
+        "endChar": 25
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2492a112_b48f36d6",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-18T16:28:07Z",
+      "side": 1,
+      "message": "generally, we don\u0027t need comments for such methods. We are mostly looking for comments that explain \"why\" something is the way it is rather than exactly what it is doing, especially if the method is trivial.\n\nSo I\u0027d just delete this comment.",
+      "range": {
+        "startLine": 422,
+        "startChar": 34,
+        "endLine": 422,
+        "endChar": 47
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64d659dd_00b590b9",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-18T16:28:07Z",
+      "side": 1,
+      "message": "style violation: methods can\u0027t be in the same line:\n\n foo {\n   statement\n }",
+      "range": {
+        "startLine": 424,
+        "startChar": 90,
+        "endLine": 424,
+        "endChar": 116
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04975d03_480f3093",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/allocations/AllocationsParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-18T16:28:07Z",
+      "side": 1,
+      "message": "We don\u0027t include author headers in our code, so remove it here, and you can also setup your IDE to not include this header. IntelliJ puts this in by default I think.",
+      "range": {
+        "startLine": 31,
+        "startChar": 14,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "b800f1345fbccf821586b5fbb0bd7cad91118c6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
