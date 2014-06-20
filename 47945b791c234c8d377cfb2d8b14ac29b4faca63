@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "442075de_2e2633de",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/HandleHeap.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-20T15:24:52Z",
+      "side": 1,
+      "message": "Hey Rebecca - Sorry I should\u0027ve noticed this earlier, but we need a bit of restructuring here. Doing it this way means that existing clients (Eclipse, DDMS, ..) will break unless they set the allocation tracking handler, which would mean they\u0027d require a dependency on perflib. I\u0027ll come talk to you about what we should do, but it looks like we\u0027d might end up not moving allocation parser into perflib but continue to keep it inside ddmlib. (Moving out into a separate AllocationsParser class is fine, it just has to be in ddmlib).",
+      "range": {
+        "startLine": 385,
+        "startChar": 67,
+        "endLine": 385,
+        "endChar": 95
+      },
+      "revId": "47945b791c234c8d377cfb2d8b14ac29b4faca63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
