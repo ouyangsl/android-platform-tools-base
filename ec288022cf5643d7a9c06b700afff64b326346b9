@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "442075de_6205daa9",
+        "filename": "ddmlib/ddmlib.iml",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T20:25:20Z",
+      "side": 1,
+      "message": "Deleted because resources folder no longer necessary.",
+      "parentUuid": "442075de_f766aaf6",
+      "range": {
+        "startLine": 8,
+        "startChar": 65,
+        "endLine": 8,
+        "endChar": 77
+      },
+      "revId": "ec288022cf5643d7a9c06b700afff64b326346b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "242541ef_36b846d5",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-20T19:10:33Z",
       "side": 1,
       "message": "public qualifier not needed anymore?",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 10
+      },
+      "revId": "ec288022cf5643d7a9c06b700afff64b326346b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "442075de_d7b8c660",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T20:25:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "242541ef_36b846d5",
       "range": {
         "startLine": 122,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "242541ef_0167bef4",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationsParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T20:25:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "242541ef_f687cefd",
+      "range": {
+        "startLine": 34,
+        "startChar": 9,
+        "endLine": 34,
+        "endChar": 26
+      },
+      "revId": "ec288022cf5643d7a9c06b700afff64b326346b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "442075de_f7eb4ac4",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationsParser.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2014-06-20T19:10:33Z",
       "side": 1,
       "message": "Once you make the above change, mapFile won\u0027t be called from this file. If it is called only from the tests, you can just move this into the test. If it is also called from Studio, then we can expose a separate utility method called mapFile from a different utility class.",
+      "range": {
+        "startLine": 42,
+        "startChar": 28,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "ec288022cf5643d7a9c06b700afff64b326346b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "642bb9c3_524065c4",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationsParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T20:25:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442075de_f7eb4ac4",
       "range": {
         "startLine": 42,
         "startChar": 28,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "442075de_02c05e5d",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T20:25:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "242541ef_56b33ad8",
+      "range": {
+        "startLine": 394,
+        "startChar": 21,
+        "endLine": 394,
+        "endChar": 60
+      },
+      "revId": "ec288022cf5643d7a9c06b700afff64b326346b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "242541ef_b61276e5",
         "filename": "ddmlib/src/test/java/com/android/ddmlib/allocations/AllocationsParserTest.java",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2014-06-20T19:10:33Z",
       "side": 1,
       "message": "I think you are doing the following:\n - the test file creator writes out test files, which are saved in resources\n - this test then reads those files and parses and tests them.\n\nI\u0027d do the following:\n - move the creator methods into this class itself.\n - make the creator return a buffer instead of a file\n - in each test, first call them method to create a test case, get the buffer, then validate your expectation.\n\nI think that\u0027ll allow us to not check in these .alloc files, and maybe that means that we don\u0027t need the resources folder as well.\n\n(With these tests we can be assured that your encoder and decoder are in sync, which doesn\u0027t guarantee that everything received from the device can be decoded. Yet, this is a significant improvement because we now have some tests!)",
+      "range": {
+        "startLine": 38,
+        "startChar": 38,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "ec288022cf5643d7a9c06b700afff64b326346b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "242541ef_21480292",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/allocations/AllocationsParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T20:25:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "242541ef_b61276e5",
       "range": {
         "startLine": 38,
         "startChar": 38,
