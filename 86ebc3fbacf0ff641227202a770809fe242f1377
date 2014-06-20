@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "442075de_dd5aa7aa",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationsParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T21:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4db2937_3d02ef2c",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 30
+      },
+      "revId": "86ebc3fbacf0ff641227202a770809fe242f1377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04df5d24_5e9b3564",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2014-06-20T21:02:55Z",
       "side": 1,
       "message": "annotate as @NonNull",
+      "range": {
+        "startLine": 423,
+        "startChar": 52,
+        "endLine": 423,
+        "endChar": 78
+      },
+      "revId": "86ebc3fbacf0ff641227202a770809fe242f1377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04df5d24_de36656d",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 423,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T21:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04df5d24_5e9b3564",
       "range": {
         "startLine": 423,
         "startChar": 52,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "04df5d24_fe33217a",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T21:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442075de_bd66d3a7",
+      "range": {
+        "startLine": 427,
+        "startChar": 11,
+        "endLine": 427,
+        "endChar": 37
+      },
+      "revId": "86ebc3fbacf0ff641227202a770809fe242f1377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4db2937_7d3557fb",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2014-06-20T21:02:55Z",
       "side": 1,
       "message": "@Nullable?",
+      "range": {
+        "startLine": 723,
+        "startChar": 11,
+        "endLine": 723,
+        "endChar": 23
+      },
+      "revId": "86ebc3fbacf0ff641227202a770809fe242f1377",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "442075de_dd65875b",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-06-20T21:14:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4db2937_7d3557fb",
       "range": {
         "startLine": 723,
         "startChar": 11,
