@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4e5b1f4_bb39a75e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ResourceUsageAnalyzer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-22T21:01:19Z",
+      "side": 1,
+      "message": "TODO: we should also override visitMethodInsn and check for owner android/content/res/Resources and method name getIdentifier with desc (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)I and use that to also mark reachable the given name and type. Note that the name can start with package and type/ instead of the type being specified in the second and third parameters, e.g. package:type/entry.",
+      "revId": "d9a11317c38fb283623ea5f196a99b8303d1a476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
