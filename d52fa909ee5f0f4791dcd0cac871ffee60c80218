@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4c1c553_375f7253",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ByteBufferUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-23T18:47:32Z",
+      "side": 1,
+      "message": "public?",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 8
+      },
+      "revId": "d52fa909ee5f0f4791dcd0cac871ffee60c80218",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4c40963_5ec7a923",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ChunkHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-06-23T18:47:32Z",
+      "side": 0,
+      "message": "Since this method was public, I\u0027d continue to keep it here, but just call out to ByteBufferUtil.getString() in its implementation.",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 10
+      },
+      "revId": "869070c7677a5ad2ce5ce71a84e6c581698a1f5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
