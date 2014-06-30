@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64865967_6e55e62a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-06-30T14:48:24Z",
+      "side": 1,
+      "message": "I might leave a simple comment here why this extra block of logic is necessary",
+      "revId": "d440f0f9dbf8f8c17f1962a0be83d03b83c2129d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
