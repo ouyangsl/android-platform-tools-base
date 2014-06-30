@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c47e2525_4cb83fb2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-06-30T15:54:10Z",
+      "side": 1,
+      "message": "AndroidTargetHash already defines this constant (but doesn\u0027t expose it); maybe just make that one public and reference it here.",
+      "range": {
+        "startLine": 50,
+        "startChar": 30,
+        "endLine": 50,
+        "endChar": 58
+      },
+      "revId": "d440f0f9dbf8f8c17f1962a0be83d03b83c2129d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64865967_6e55e62a",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
         "patchSetId": 2
