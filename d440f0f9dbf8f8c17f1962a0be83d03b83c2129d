@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "448b1570_ad63da22",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-06-30T16:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c47e2525_4cb83fb2",
+      "range": {
+        "startLine": 50,
+        "startChar": 30,
+        "endLine": 50,
+        "endChar": 58
+      },
+      "revId": "d440f0f9dbf8f8c17f1962a0be83d03b83c2129d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64865967_6e55e62a",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2014-06-30T14:48:24Z",
       "side": 1,
       "message": "I might leave a simple comment here why this extra block of logic is necessary",
+      "revId": "d440f0f9dbf8f8c17f1962a0be83d03b83c2129d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c47e2525_4c859f7f",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-06-30T16:38:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64865967_6e55e62a",
       "revId": "d440f0f9dbf8f8c17f1962a0be83d03b83c2129d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
