@@ -16,6 +16,24 @@
       "revId": "b2f7db22f3dd7fdb36860e8fbd5d243727eb7208",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4464f599_1c234511",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-01T14:21:39Z",
+      "side": 1,
+      "message": "Hi Raphael, \nHere\u0027s the scenario: Your build.gradle contains \"compileSdkVersion \u0027android-L\u0027\" but you don\u0027t have the L Preview SDK installed. For example, somebody might have sent you a project which tests the new L features, but you haven\u0027t updated your own SDK yet.\n\nWhen you Gradle sync, the build fails stating that it cannot find platform android-L. \n\nWe have a quickfix now which offers to automatically install missing platforms (and build tools and local Maven repositories) on a build failure, so you just click the \"Install Android L\" link in the build output, and it runs through a little mini-license-acceptance dialog and then installs the missing package.\n\nThis feature was developed to work for all the non-preview platforms (18, 19, ...) but when we tested it with L, it didn\u0027t work, and Alex traced it down to the code below.",
+      "parentUuid": "045e7dcf_f553e224",
+      "revId": "b2f7db22f3dd7fdb36860e8fbd5d243727eb7208",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
