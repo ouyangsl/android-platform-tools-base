@@ -34,6 +34,24 @@
       "revId": "b2f7db22f3dd7fdb36860e8fbd5d243727eb7208",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "646f3977_7d827f7a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-07-01T14:30:09Z",
+      "side": 1,
+      "message": "The fix here is less than ideal because it means you\u0027re creating a case-sensitive folder name when installing a package. I\u0027d very much like to avoid that since it means we\u0027d have different behavior on different platforms (e.g. win vs mac/linux.) The point of the sanitize method here is to make the name uniform and remove characters that might not be safe for the file system.\n\nInstead from what you said I\u0027d guess the code that looks for the platform is not properly dealing with the L being on android-l -- what code does that? If it\u0027s using the LocalSdk platform scanner then I\u0027d rather fix that part. If code doing the check is not using the LocalSdk scanner, than it should so that we don\u0027t end up reimplementing the sdk scan logic in multiple places (not to mention that we all wanted to have a single LocalSdk singleton to avoid parsing folders multiple times, and we have just that now, so we should be using it.)\n\nRemember that the platform folder name is NOT fixed. It can be anything so that $SDK/platforms/whatever/ is a perfectly valid install path for android-L as long as it contains a source.properties with the right info. Historically we used to name the platform folder name using the \"marketing\" name of the platform (e.g. \"android-2.2\" instead of \"android-10\") which is why it can be anything and doesn\u0027t matter -- it only matters that it be under SDK/platforms/ and the source.props indicates what it is.",
+      "parentUuid": "4464f599_1c234511",
+      "revId": "b2f7db22f3dd7fdb36860e8fbd5d243727eb7208",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
