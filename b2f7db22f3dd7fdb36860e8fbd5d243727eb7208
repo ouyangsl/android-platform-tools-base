@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "045e7dcf_f553e224",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-07-01T13:17:28Z",
+      "side": 1,
+      "message": "Note that on Windows you\u0027ll run into issues if there\u0027s already an \"android-l\" (lower case) folder, it would conflict with \"android-L\".\nIt would be interesting to know what this is fixing -- without details on the real issue, my guess is something later tries to access the file system in case-sensitive way, which isn\u0027t ideal.",
+      "revId": "b2f7db22f3dd7fdb36860e8fbd5d243727eb7208",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
