@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4462542_12cccc6a",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Reporter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-07T17:03:53Z",
+      "side": 1,
+      "message": "Hardcoding IDE-specific quickfixes in here is kind of gross. Is there no better way to do this?\n\nI see it was already doing this for ADT, though, just in a different file that\u0027s edited in this CL.",
+      "range": {
+        "startLine": 418,
+        "startChar": 26,
+        "endLine": 418,
+        "endChar": 36
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cafddd_d7584334",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/LintUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-07T17:03:53Z",
+      "side": 1,
+      "message": "Why not just use a regex?",
+      "range": {
+        "startLine": 1089,
+        "startChar": 25,
+        "endLine": 1089,
+        "endChar": 38
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c6c9d8_b3779b55",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppCompatCallDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-07T17:03:53Z",
+      "side": 1,
+      "message": "or String.format. This could be extracted out as a constant Pattern instead of recompiling the regex every time.",
+      "range": {
+        "startLine": 161,
+        "startChar": 25,
+        "endLine": 161,
+        "endChar": 45
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cafddd_77acef8c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-07T17:03:53Z",
+      "side": 1,
+      "message": "Instead of writing such custom parsers, can we extract the error messages out into parameterized constant strings and use String.format to generate them and regex to parse them? Like what you did in AppCompatCallDetector.",
+      "range": {
+        "startLine": 516,
+        "startChar": 16,
+        "endLine": 516,
+        "endChar": 28
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4462542_72b99062",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/JavaPerformanceDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-07T17:03:53Z",
+      "side": 1,
+      "message": "A regex would be cleaner.",
+      "range": {
+        "startLine": 569,
+        "startChar": 25,
+        "endLine": 569,
+        "endChar": 40
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
