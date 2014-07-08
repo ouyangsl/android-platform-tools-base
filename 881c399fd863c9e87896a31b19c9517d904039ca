@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4462542_07a565d6",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1048063
+      },
+      "writtenOn": "2014-07-08T07:27:42Z",
+      "side": 1,
+      "message": "One thing I forgot to ask - this method checks for matches separately on the class and method names. This struck me as slightly confusing (e.g., the line \"java.lang.Integer.valueOf\" in a stack trace is matched by \"Integer\" and by \"valueOf\" but not by \"Integer.valueOf\") but I didn\u0027t want to change it without knowing if there\u0027s a reason for doing the filtering this way.",
+      "range": {
+        "startLine": 215,
+        "startChar": 19,
+        "endLine": 215,
+        "endChar": 25
+      },
+      "revId": "881c399fd863c9e87896a31b19c9517d904039ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
