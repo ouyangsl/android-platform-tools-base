@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "84326dd1_5181e33a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-08T14:50:33Z",
+      "side": 1,
+      "message": "will do",
+      "parentUuid": "e43969b5_a17006f0",
+      "range": {
+        "startLine": 210,
+        "startChar": 52,
+        "endLine": 210,
+        "endChar": 56
+      },
+      "revId": "788956fa1ce0772759db8b6d27649ba86723b48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4c051c0_52b90a62",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "643739c4_6861968e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-08T14:50:33Z",
+      "side": 1,
+      "message": "this is quite a bit cheaper than using a regexp. Note that the 99% scenario for this method is to be used with names that don\u0027t contain any of these characters. String.replace(char,char) will in that case not do anything - it will iterate through the chars, not find the target and then just return self. A regexp will require construction of a matcher and various regexp state etc.\n\n(This method runs in the background while editing in the IDE so I tend to do even minor optimizations like this).",
+      "parentUuid": "a4c051c0_52b90a62",
+      "range": {
+        "startLine": 212,
+        "startChar": 38,
+        "endLine": 212,
+        "endChar": 45
+      },
+      "revId": "788956fa1ce0772759db8b6d27649ba86723b48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4c051c0_32b28e84",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-07-08T01:44:51Z",
       "side": 1,
       "message": "Won\u0027t this always return -1 since all occurrences were replaced in the above statement.",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 24
+      },
+      "revId": "788956fa1ce0772759db8b6d27649ba86723b48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "643739c4_e8ad8676",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-08T14:50:33Z",
+      "side": 1,
+      "message": "yes, I first wrote these 3 lines, then remembered that I needed to worry about - and : as well, so I added the above triple-replace chain and then forgot to remote this one and the test still passed :-)",
+      "parentUuid": "a4c051c0_32b28e84",
       "range": {
         "startLine": 213,
         "startChar": 17,
