@@ -16,6 +16,29 @@
       "revId": "412e1a734b9f66393ce6594be3d075aa395df0a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4c051c0_58080945",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-08T18:50:08Z",
+      "side": 1,
+      "message": "Since this is a copy, I\u0027d just add a note describing where/how you got the copy. e.g. \"Forked from platform/art/hprof @ git-SHA.\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 7
+      },
+      "revId": "412e1a734b9f66393ce6594be3d075aa395df0a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
