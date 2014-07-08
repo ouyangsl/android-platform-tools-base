@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04267d9c_06857a80",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-08T18:25:30Z",
+      "side": 1,
+      "message": "can the \"rc\" version appear anywhere but at the last position?",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "643739c4_c11b3d5d",
+        "filename": "templates/activities/BlankActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-08T18:25:30Z",
+      "side": 1,
+      "message": "will this work in ADT too? Or have we bundled the templates into ADT now ?",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
