@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "c4462542_87c23516",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-08T14:28:53Z",
+      "side": 1,
+      "message": "Actually, after seeing how it is used in the other CL, I think the \"First\" is unnecessary here. getAllocationSite() might be sufficient.",
+      "range": {
+        "startLine": 188,
+        "startChar": 18,
+        "endLine": 188,
+        "endChar": 40
+      },
+      "revId": "881c399fd863c9e87896a31b19c9517d904039ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4462542_07a565d6",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2014-07-08T07:27:42Z",
       "side": 1,
       "message": "One thing I forgot to ask - this method checks for matches separately on the class and method names. This struck me as slightly confusing (e.g., the line \"java.lang.Integer.valueOf\" in a stack trace is matched by \"Integer\" and by \"valueOf\" but not by \"Integer.valueOf\") but I didn\u0027t want to change it without knowing if there\u0027s a reason for doing the filtering this way.",
+      "range": {
+        "startLine": 215,
+        "startChar": 19,
+        "endLine": 215,
+        "endChar": 25
+      },
+      "revId": "881c399fd863c9e87896a31b19c9517d904039ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84326dd1_31438f57",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-08T14:28:53Z",
+      "side": 1,
+      "message": "I agree with you, I think it is safe to change it. I suspect that was an oversight.",
+      "parentUuid": "c4462542_07a565d6",
       "range": {
         "startLine": 215,
         "startChar": 19,
