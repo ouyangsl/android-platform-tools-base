@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e43969b5_a17006f0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-08T01:44:51Z",
+      "side": 1,
+      "message": "nit - maybe add \u0027dash\u0027 to the comment also.",
+      "range": {
+        "startLine": 210,
+        "startChar": 52,
+        "endLine": 210,
+        "endChar": 56
+      },
+      "revId": "788956fa1ce0772759db8b6d27649ba86723b48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4c051c0_52b90a62",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-08T01:44:51Z",
+      "side": 1,
+      "message": "nit - I\u0027m not sure using replace thrice or using replaceAll(\"[.:-]\", \"_\") is more efficient/readable. As a bonus, using a regex adds a smiley to the code.\n\nAlso, since I\u0027m going to be using this same method to normalise names, should we have this in a common place? It\u0027s a small piece of code, so may not be worth it.",
+      "range": {
+        "startLine": 212,
+        "startChar": 38,
+        "endLine": 212,
+        "endChar": 45
+      },
+      "revId": "788956fa1ce0772759db8b6d27649ba86723b48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4c051c0_32b28e84",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/DuplicateResourceDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-08T01:44:51Z",
+      "side": 1,
+      "message": "Won\u0027t this always return -1 since all occurrences were replaced in the above statement.",
+      "range": {
+        "startLine": 213,
+        "startChar": 17,
+        "endLine": 213,
+        "endChar": 24
+      },
+      "revId": "788956fa1ce0772759db8b6d27649ba86723b48b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
