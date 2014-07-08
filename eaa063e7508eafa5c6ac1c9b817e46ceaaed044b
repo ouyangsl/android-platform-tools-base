@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "04267d9c_a9539925",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-07-08T18:33:29Z",
+      "side": 1,
+      "message": "No, but it doesn\u0027t have to read \"rc\" http://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm states that the last component is a \"Qualifier\" which may be a string such as \"rc\" or \"beta\" etc. If we ever use a different syntax, we\u0027ll have to update this definition.",
+      "parentUuid": "04267d9c_06857a80",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "643739c4_c11b3d5d",
         "filename": "templates/activities/BlankActivity/recipe.xml.ftl",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-07-08T18:25:30Z",
       "side": 1,
       "message": "will this work in ADT too? Or have we bundled the templates into ADT now ?",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "643739c4_8188650f",
+        "filename": "templates/activities/BlankActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-07-08T18:33:29Z",
+      "side": 1,
+      "message": "We now ship unified templates for ADT/Studio, but ADT ignores dependency tags in the recipe file.",
+      "parentUuid": "643739c4_c11b3d5d",
       "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
