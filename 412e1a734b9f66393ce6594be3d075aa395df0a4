@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04267d9c_09b58dd2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-08T18:48:10Z",
+      "side": 1,
+      "message": "Should probably include a link to where this came from\nhttps://android.googlesource.com/platform/dalvik/+/froyo/hit/src/com/android/hit\nas well as the exact revision you copied (in case there are future changes there; it will make migrating in changes easier).",
+      "revId": "412e1a734b9f66393ce6594be3d075aa395df0a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
