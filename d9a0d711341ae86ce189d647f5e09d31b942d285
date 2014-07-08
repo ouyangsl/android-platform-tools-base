@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "643739c4_356d3bd4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-08T03:35:37Z",
+      "side": 1,
+      "message": "I\u0027d reword this as:\n\n\"[alloc-tracker] Minor changes to enable sorting by allocation site\"\n\nJust looking for the most precise and concise description of the change.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "d9a0d711341ae86ce189d647f5e09d31b942d285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84326dd1_5f8e4f6b",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-08T03:35:37Z",
+      "side": 1,
+      "message": "would getFirstAllocationSite() be better?",
+      "range": {
+        "startLine": 96,
+        "startChar": 38,
+        "endLine": 96,
+        "endChar": 62
+      },
+      "revId": "d9a0d711341ae86ce189d647f5e09d31b942d285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4462542_ecff6042",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-08T03:35:37Z",
+      "side": 1,
+      "message": "@Nullable\n(no need to change the other methods here, just the ones you are editing)",
+      "range": {
+        "startLine": 186,
+        "startChar": 4,
+        "endLine": 186,
+        "endChar": 10
+      },
+      "revId": "d9a0d711341ae86ce189d647f5e09d31b942d285",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
