@@ -81,6 +81,24 @@
       "revId": "6bb678b7dde1459ef42ebfd890e18efba500b88c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e73894_02512a47",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-09T15:34:34Z",
+      "side": 1,
+      "message": "Agreed that multi-module should be the default.",
+      "parentUuid": "99e73894_62eeb6d8",
+      "revId": "6bb678b7dde1459ef42ebfd890e18efba500b88c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

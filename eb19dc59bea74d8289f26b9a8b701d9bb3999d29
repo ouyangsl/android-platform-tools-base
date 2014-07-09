@@ -34,6 +34,24 @@
       "revId": "eb19dc59bea74d8289f26b9a8b701d9bb3999d29",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e43969b5_f99ac25f",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-09T15:34:34Z",
+      "side": 0,
+      "message": "Yes, please keep local.properties. We like it because it helps ensure repeatable builds by nailing down the location of the SDK and not relying on it to be specified via external state.",
+      "parentUuid": "e4224989_08002768",
+      "revId": "eb19dc59bea74d8289f26b9a8b701d9bb3999d29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
