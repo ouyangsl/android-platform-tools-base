@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99e73894_c508ec92",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-09T18:18:00Z",
+      "side": 1,
+      "message": "Ah, this is a really nice approach!",
+      "revId": "4551a654bfee4143dd79b1d9f9f36c5122034eb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
