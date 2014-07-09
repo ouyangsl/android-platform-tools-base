@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e43969b5_36cc596b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 1022047
+      },
+      "writtenOn": "2014-07-09T00:55:48Z",
+      "side": 1,
+      "message": "Sounds good.  I was having a mental block on a proper name when writing that.",
+      "parentUuid": "442cf57a_aeeba342",
+      "range": {
+        "startLine": 519,
+        "startChar": 28,
+        "endLine": 519,
+        "endChar": 29
+      },
+      "revId": "6bb678b7dde1459ef42ebfd890e18efba500b88c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e474097d_21996963",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
         "patchSetId": 4
@@ -36,6 +60,24 @@
       "writtenOn": "2014-07-08T20:00:41Z",
       "side": 1,
       "message": "How do you feel about the idea of adding a command-line flag to let users specify single-module structure (the old way) or multi-module (this way)? I realize multi-module is the default created by Android Studio, but I wonder if there are existing users of this who like the simpler single-module structure it generates.",
+      "revId": "6bb678b7dde1459ef42ebfd890e18efba500b88c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e73894_62eeb6d8",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 1022047
+      },
+      "writtenOn": "2014-07-09T00:55:48Z",
+      "side": 1,
+      "message": "I now regret not going multi-module when I wrote the original code.  I can see some value in keeping the single-module structure as an option, and I will take a look at adjusting the code, but I think multi-module should be default.",
+      "parentUuid": "e474097d_21996963",
       "revId": "6bb678b7dde1459ef42ebfd890e18efba500b88c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

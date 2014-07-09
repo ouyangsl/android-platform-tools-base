@@ -16,6 +16,24 @@
       "revId": "eb19dc59bea74d8289f26b9a8b701d9bb3999d29",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4224989_08002768",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/project/ProjectCreator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1022047
+      },
+      "writtenOn": "2014-07-09T00:55:48Z",
+      "side": 0,
+      "message": "I initially had it in my head that the file was a hold-over from Ant, and as the environment variable ANDROID_HOME is now sufficient for specifying the SDK folder, I thought it would be one less file to fuss with.  I\u0027ll add it back if you think it is still important.",
+      "parentUuid": "2431c1d1_ca9b631b",
+      "revId": "eb19dc59bea74d8289f26b9a8b701d9bb3999d29",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
