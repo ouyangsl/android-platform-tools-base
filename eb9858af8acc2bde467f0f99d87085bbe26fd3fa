@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e4224989_2eb24beb",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T17:21:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e73894_c51eac7f",
+      "revId": "eb9858af8acc2bde467f0f99d87085bbe26fd3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79ec447a_c1922202",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 4
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "390f2c26_370a38f6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T17:21:53Z",
+      "side": 1,
+      "message": "Yeah, the map is guaranteed to have an entry for each ResourceType. see ResourceRepository#doGetConfiguredResources() which is the source of the map.",
+      "parentUuid": "e4224989_eed03332",
+      "revId": "eb9858af8acc2bde467f0f99d87085bbe26fd3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99e73894_45429c55",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 4
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "390f2c26_f72e007b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T17:21:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e73894_45429c55",
+      "revId": "eb9858af8acc2bde467f0f99d87085bbe26fd3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "390f2c26_37cfd897",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 4
@@ -87,6 +141,24 @@
       "writtenOn": "2014-07-09T16:49:03Z",
       "side": 1,
       "message": "Let\u0027s refactor out this \"res \u003d map.get(styleName)\" logic, since it\u0027s duplicated here and above.",
+      "revId": "eb9858af8acc2bde467f0f99d87085bbe26fd3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e73894_a5b048dd",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T17:21:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390f2c26_37cfd897",
       "revId": "eb9858af8acc2bde467f0f99d87085bbe26fd3fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
