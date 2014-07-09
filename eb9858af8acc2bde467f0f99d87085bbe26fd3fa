@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79ec447a_c1922202",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T15:52:45Z",
+      "side": 1,
+      "message": "IntelliJ now inlines the argument name. So, this now appears as \"isFrameworkAttr: false\". With the comment alongside, this appears as \"isFrameworkAttr: false /*isFrameworkAttr*/\" which doesn\u0027t look nice.",
+      "range": {
+        "startLine": 238,
+        "startChar": 62,
+        "endLine": 238,
+        "endChar": 67
+      },
+      "revId": "eb9858af8acc2bde467f0f99d87085bbe26fd3fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
