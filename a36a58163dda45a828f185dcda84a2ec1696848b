@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d9045004_8512e8be",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T21:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9045004_45c9805f",
+      "range": {
+        "startLine": 289,
+        "startChar": 7,
+        "endLine": 289,
+        "endChar": 18
+      },
+      "revId": "a36a58163dda45a828f185dcda84a2ec1696848b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9045004_05d37811",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-09T21:05:01Z",
       "side": 1,
       "message": "@Nullable? (Do we not have those annotations here?) If not, you might want to note that in the javadoc.",
+      "range": {
+        "startLine": 293,
+        "startChar": 16,
+        "endLine": 293,
+        "endChar": 20
+      },
+      "revId": "a36a58163dda45a828f185dcda84a2ec1696848b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9015cf5_ef3e2944",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T21:25:16Z",
+      "side": 1,
+      "message": "Done.\n\nNo annotations available here.",
+      "parentUuid": "d9045004_05d37811",
       "range": {
         "startLine": 293,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d9045004_85b9c86a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T21:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9015cf5_6fb1f915",
+      "range": {
+        "startLine": 597,
+        "startChar": 46,
+        "endLine": 597,
+        "endChar": 53
+      },
+      "revId": "a36a58163dda45a828f185dcda84a2ec1696848b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9f75445_71e56068",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2014-07-09T21:05:01Z",
       "side": 1,
       "message": "quite nitpicky, but I try to avoid methods that mutate arguments as much as possible. In this case, you can easily rewrite as:\n  mReverseFrameworkStyles \u003d createReverseStyleMap(styleMap.keySet())\n\nand have the function allocate and return the object.",
+      "range": {
+        "startLine": 598,
+        "startChar": 16,
+        "endLine": 598,
+        "endChar": 41
+      },
+      "revId": "a36a58163dda45a828f185dcda84a2ec1696848b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f75445_0cd39f11",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T21:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9f75445_71e56068",
       "range": {
         "startLine": 598,
         "startChar": 16,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b9015cf5_caf0fbff",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T21:25:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9045004_a5616460",
+      "range": {
+        "startLine": 619,
+        "startChar": 20,
+        "endLine": 619,
+        "endChar": 32
+      },
+      "revId": "a36a58163dda45a828f185dcda84a2ec1696848b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9015cf5_af5ee1cc",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 6
@@ -128,6 +248,30 @@
       "writtenOn": "2014-07-09T21:05:01Z",
       "side": 1,
       "message": "This seems identical to what the above method is doing (module passing in the styleMap arg). You might be able to extract out the method:\n  reverseStyles \u003d getReverseStyleMap(styleMap)",
+      "range": {
+        "startLine": 622,
+        "startChar": 28,
+        "endLine": 622,
+        "endChar": 41
+      },
+      "revId": "a36a58163dda45a828f185dcda84a2ec1696848b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9015cf5_6f49f998",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-09T21:25:16Z",
+      "side": 1,
+      "message": "I had only one part written in the earlier patch. When adding this, I forgot about that and rewrote it.",
+      "parentUuid": "b9015cf5_af5ee1cc",
       "range": {
         "startLine": 622,
         "startChar": 28,
