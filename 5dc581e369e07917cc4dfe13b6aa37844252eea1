@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9045004_b98f48d8",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-10T17:21:59Z",
+      "side": 1,
+      "message": "I don\u0027t think so. The JVM doesn\u0027t mark static fields as roots, it marks classes loaded by the system classloader as roots, and obviously anything they hold through static fields is forever reachable.",
+      "revId": "5dc581e369e07917cc4dfe13b6aa37844252eea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f75445_55c807eb",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Field.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-10T17:21:59Z",
+      "side": 1,
+      "message": "nit: final? Same below.",
+      "revId": "5dc581e369e07917cc4dfe13b6aa37844252eea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
