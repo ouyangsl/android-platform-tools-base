@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "7988c4e2_a4694c32",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-10T17:53:40Z",
+      "side": 1,
+      "message": "Ah, sorry. I meant \"\\s\", or even \"\\s+\" which matches spaces, tabs, and newlines.\n\nBut looking at it now, I think \"previewSeparator\" here is actually for outputting, not for parsing a regex, which probably explains why my question doesn\u0027t make any sense",
+      "parentUuid": "19526823_a907f937",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "643739c4_c11b3d5d",
         "filename": "templates/activities/BlankActivity/recipe.xml.ftl",
         "patchSetId": 2
