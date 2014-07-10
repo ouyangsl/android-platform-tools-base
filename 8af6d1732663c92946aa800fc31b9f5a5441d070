@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "598dc0f1_6076d2ea",
+        "filename": "templates/other/DisplayNotification/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-10T18:41:47Z",
+      "side": 1,
+      "message": "Nit: Mixed tabs/spaces? (Or is this just an artifact of gerrit?)",
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3992cc12_ff111f6f",
+        "filename": "templates/other/DisplayNotification/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-10T18:41:47Z",
+      "side": 1,
+      "message": "Nit: Same here - tabs vs. spaces?",
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
