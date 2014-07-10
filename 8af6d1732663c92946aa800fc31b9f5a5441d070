@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f92594a9_93a90402",
+        "filename": "templates/other/DisplayNotification/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-07-10T18:56:29Z",
+      "side": 1,
+      "message": "No, this is an artifact of Sublime. I\u0027ll fix it",
+      "parentUuid": "598dc0f1_6076d2ea",
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3992cc12_ff111f6f",
         "filename": "templates/other/DisplayNotification/root/AndroidManifest.xml.ftl",
         "patchSetId": 1
