@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9f75445_d096656d",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-10T17:22:25Z",
+      "side": 1,
+      "message": "Why not simply initialize the type map in a static {...} block?",
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f75445_502a5569",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Value.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-10T17:22:25Z",
+      "side": 1,
+      "message": "nit: final?",
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
