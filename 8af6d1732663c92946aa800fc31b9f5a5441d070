@@ -37,6 +37,46 @@
     },
     {
       "key": {
+        "uuid": "598dc0f1_037ef034",
+        "filename": "templates/other/DisplayNotification/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2014-07-10T19:16:01Z",
+      "side": 1,
+      "message": "Extra newline here",
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "598dc0f1_236e947e",
+        "filename": "templates/other/DisplayNotification/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2014-07-10T19:16:01Z",
+      "side": 1,
+      "message": "This particular activity needs to always be exported for display intent to work",
+      "range": {
+        "startLine": 16,
+        "startChar": 32,
+        "endLine": 16,
+        "endChar": 42
+      },
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3992cc12_ff111f6f",
         "filename": "templates/other/DisplayNotification/root/AndroidManifest.xml.ftl",
         "patchSetId": 1
@@ -48,6 +88,75 @@
       "writtenOn": "2014-07-10T18:41:47Z",
       "side": 1,
       "message": "Nit: Same here - tabs vs. spaces?",
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3992cc12_dfb69bc4",
+        "filename": "templates/other/DisplayNotification/root/res/layout/activity_display.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2014-07-10T19:16:01Z",
+      "side": 1,
+      "message": "I was wondering which device id could make sense where. wear is probably fine but this does go inside of a notification card. May not be worth worrying about that aspect for the moment and just letting it full-screen. There is in fact a custom display option that full screens the card anyway.",
+      "range": {
+        "startLine": 8,
+        "startChar": 31,
+        "endLine": 8,
+        "endChar": 35
+      },
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "598dc0f1_e35aecb4",
+        "filename": "templates/other/DisplayNotification/root/src/app_package/StubActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2014-07-10T19:16:01Z",
+      "side": 1,
+      "message": "nice!",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7988c4e2_ead2bb0b",
+        "filename": "templates/other/DisplayNotification/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2014-07-10T19:16:01Z",
+      "side": 1,
+      "message": "What do you think about focussing on the display activity aspect a bit more:\n\n\"Create an Activity to display inside a custom display notification and a BroadcastReceiver to post it\"",
+      "range": {
+        "startLine": 6,
+        "startChar": 17,
+        "endLine": 6,
+        "endChar": 94
+      },
       "revId": "8af6d1732663c92946aa800fc31b9f5a5441d070",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
