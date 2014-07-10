@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3992cc12_ff003fd2",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-10T18:59:28Z",
+      "side": 1,
+      "message": "Ok, the code that I deleted here, created STATIC roots for all of them. Agree with you we shouldn\u0027t need them, but no idea why that code was there. I\u0027m sure our tests will cover this case :)",
+      "parentUuid": "d9045004_b98f48d8",
+      "revId": "5dc581e369e07917cc4dfe13b6aa37844252eea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9f75445_55c807eb",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Field.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2014-07-10T17:21:59Z",
       "side": 1,
       "message": "nit: final? Same below.",
+      "revId": "5dc581e369e07917cc4dfe13b6aa37844252eea1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3992cc12_3fcea769",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Field.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-10T18:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9f75445_55c807eb",
       "revId": "5dc581e369e07917cc4dfe13b6aa37844252eea1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
