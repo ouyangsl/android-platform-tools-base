@@ -2,6 +2,299 @@
   "comments": [
     {
       "key": {
+        "uuid": "f9f75445_35ad7b1f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "s/bytes/byte",
+      "range": {
+        "startLine": 9,
+        "startChar": 65,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7988c4e2_013fca41",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "grammar. Maybe \"As a result, some references weren\u0027t found\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7988c4e2_819afa1e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "3",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 9
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7988c4e2_417b92fe",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "enums instead?",
+      "range": {
+        "startLine": 113,
+        "startChar": 25,
+        "endLine": 113,
+        "endChar": 28
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9045004_99124cbf",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "any particular reason for these extra lines in between? (I only ask because you could use the extra lines to indicate grouping)",
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7988c4e2_a1693e32",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 135,
+        "startChar": 4,
+        "endLine": 135,
+        "endChar": 11
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f75445_10884d60",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "I image eventually we\u0027d want to clean up more of this code later if the IDE will use it for parsing..(I saw some printfs as well)",
+      "range": {
+        "startLine": 200,
+        "startChar": 17,
+        "endLine": 200,
+        "endChar": 26
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f75445_d068a5bd",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "You can use Guava\u0027s UnsignedInts.toLong",
+      "range": {
+        "startLine": 229,
+        "startChar": 31,
+        "endLine": 229,
+        "endChar": 37
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9f75445_300469e5",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "BTW, there seems to be a prevalent problem through out that we use ints for sizes (and indeed for anything the spec says is u4). I can\u0027t imagine this will be a problem, but just something to keep in mind (if you ever end up printing out ids, they could be -ve which would look odd).",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 492,
+        "endChar": 11
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9045004_5c0a72f6",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "nit: Sounds a little bit odd to read a stream from a closure. It seems like you can just create this stream inside the call() method, and then it would appear as if the closure is only reading data[].",
+      "range": {
+        "startLine": 607,
+        "startChar": 30,
+        "endLine": 607,
+        "endChar": 36
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7988c4e2_411152b7",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "2014",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9045004_19d4fc7e",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "statics have an s Prefix: sIdSize",
+      "range": {
+        "startLine": 34,
+        "startChar": 23,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9045004_f9d0308c",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "sTypeMap",
+      "range": {
+        "startLine": 36,
+        "startChar": 38,
+        "endLine": 36,
+        "endChar": 46
+      },
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9f75445_d096656d",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
         "patchSetId": 5
@@ -13,6 +306,29 @@
       "writtenOn": "2014-07-10T17:22:25Z",
       "side": 1,
       "message": "Why not simply initialize the type map in a static {...} block?",
+      "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7988c4e2_81e51a6b",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T17:44:40Z",
+      "side": 1,
+      "message": "I wonder if (this \u003d\u003d OBJECT) would describe your intention better than (mSize \u003d\u003d 0).",
+      "range": {
+        "startLine": 62,
+        "startChar": 15,
+        "endLine": 62,
+        "endChar": 25
+      },
       "revId": "96819f175549a8ccf47a4dd33a8ed8c5dfd46a9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
