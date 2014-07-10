@@ -37,6 +37,23 @@
     },
     {
       "key": {
+        "uuid": "d9045004_26a31724",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-10T14:56:49Z",
+      "side": 1,
+      "message": "Just curious, should we be using a generic whitespace separator here? Or is \"space\" chosen on purpose?",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "643739c4_c11b3d5d",
         "filename": "templates/activities/BlankActivity/recipe.xml.ftl",
         "patchSetId": 2
