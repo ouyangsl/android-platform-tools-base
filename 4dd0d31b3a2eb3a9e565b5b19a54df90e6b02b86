@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "396bacde_405dc424",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/HprofParserTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-10T23:44:55Z",
+      "side": 1,
+      "message": "I\u0027d add a file along with the test data indicating how you obtained the hprof and whether there are any special requirements in order to generate it. Right now you only have 1 test that just tests the hierarchy, and if that is all you want from the test data, then you could just mention something to the effect of \"..hprof dump from any android app would do..\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 54,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "4dd0d31b3a2eb3a9e565b5b19a54df90e6b02b86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
