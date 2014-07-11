@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "396bacde_cb87b5fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-11T01:22:43Z",
+      "side": 1,
+      "message": "continuously",
+      "range": {
+        "startLine": 7,
+        "startChar": 37,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "16a71bc5c7e271162d92001ab09b4d5ba31ec643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1980a8c3_0a2ccb80",
+        "filename": "build-system/builder/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-11T01:22:43Z",
+      "side": 1,
+      "message": "not sure if this line is needed here. I don\u0027t think perflib should be a dependency for the builder.",
+      "range": {
+        "startLine": 16,
+        "startChar": 22,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "16a71bc5c7e271162d92001ab09b4d5ba31ec643",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
