@@ -22,6 +22,30 @@
       "revId": "4dd0d31b3a2eb3a9e565b5b19a54df90e6b02b86",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f97cb4a5_9ed7c1d2",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/HprofParserTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-11T00:04:54Z",
+      "side": 1,
+      "message": "Good idea, I\u0027ve modified the existing readme file. The plan is to add more tests and keep using the same hprof file and test all the aspects of the parsing.",
+      "parentUuid": "396bacde_405dc424",
+      "range": {
+        "startLine": 35,
+        "startChar": 54,
+        "endLine": 35,
+        "endChar": 61
+      },
+      "revId": "4dd0d31b3a2eb3a9e565b5b19a54df90e6b02b86",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
