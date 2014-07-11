@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1980a8c3_aa8a7707",
+        "filename": "perflib/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-11T01:59:09Z",
+      "side": 1,
+      "message": "Xav - would this end up causing one of your scripts to upload this jar to Maven Central? If so, we should probably remove it..",
+      "range": {
+        "startLine": 26,
+        "startChar": 36,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "933ea48cd5a3819b74b71fa841c835de581d9738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
