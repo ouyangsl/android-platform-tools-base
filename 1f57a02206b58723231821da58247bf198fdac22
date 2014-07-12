@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1980a8c3_ece3a4e5",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/HprofParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-12T00:47:40Z",
+      "side": 1,
+      "message": "Adding a comment (same as in your commit message) here would help newbs like me.\n\n  // test for the creation of an Enum class which covers static values, fields of type references, strings and primitive values",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 38
+      },
+      "revId": "1f57a02206b58723231821da58247bf198fdac22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1980a8c3_6c41d41d",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/HprofParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-12T00:47:40Z",
+      "side": 1,
+      "message": "JVM details ignoramus here: Is it a commonly known thing that $VALUES of an Enum is equivalent to its values() method?",
+      "range": {
+        "startLine": 75,
+        "startChar": 60,
+        "endLine": 75,
+        "endChar": 66
+      },
+      "revId": "1f57a02206b58723231821da58247bf198fdac22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9a7f088_47109027",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/HprofParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-12T00:47:40Z",
+      "side": 1,
+      "message": "curious why \"blocked\"?",
+      "range": {
+        "startLine": 87,
+        "startChar": 15,
+        "endLine": 87,
+        "endChar": 22
+      },
+      "revId": "1f57a02206b58723231821da58247bf198fdac22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
