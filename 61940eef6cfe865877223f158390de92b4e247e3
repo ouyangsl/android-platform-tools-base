@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9a7f088_98690533",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T14:53:15Z",
+      "side": 1,
+      "message": "Nitpick: ddmlib does not know anything about AllocationsViewPanel, so I\u0027d try and rephrase this commit message in more general terms first.\n\nYou can then say something like.. \"e.g. Android Studio\u0027s AllocationViewPanel knows...\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 20
+      },
+      "revId": "61940eef6cfe865877223f158390de92b4e247e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9a7f088_18767517",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T14:53:15Z",
+      "side": 1,
+      "message": "s/filterByAllocatedClass/allocatedClassMatches(String pattern, Locale locale)\n\nThe name \u0027filter\u0027 was probably not the best but it worked because of the implicit knowledge that this was being used in the context of a table. When you split it out even further, the names aren\u0027t that appropriate anymore, especially so for the next method.",
+      "range": {
+        "startLine": 221,
+        "startChar": 19,
+        "endLine": 221,
+        "endChar": 41
+      },
+      "revId": "61940eef6cfe865877223f158390de92b4e247e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79bfe48c_86a3db85",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T14:53:15Z",
+      "side": 1,
+      "message": "This API just sounds a little bit odd. Lets discuss why we need this.",
+      "range": {
+        "startLine": 225,
+        "startChar": 11,
+        "endLine": 225,
+        "endChar": 23
+      },
+      "revId": "61940eef6cfe865877223f158390de92b4e247e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79bfe48c_06684b6d",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T14:53:15Z",
+      "side": 1,
+      "message": "locale",
+      "range": {
+        "startLine": 226,
+        "startChar": 33,
+        "endLine": 226,
+        "endChar": 36
+      },
+      "revId": "61940eef6cfe865877223f158390de92b4e247e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
