@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "196c2814_2a628719",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "This should describe what a Dominators object represents. As a high level comment I\u0027m not sure Dominators needs to be able to have an instance. The calculate method could be static, take the Heap and return the map. If later we want to add more things to the Dominators calculation. It could still be static from Heap to a Dominators object. More like a factory method?\n\nAnd I think it would look even better if we can ask a heap for its dominators.",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19434882_2163c8e6",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 1
@@ -41,6 +64,29 @@
         "startChar": 18,
         "endLine": 43,
         "endChar": 25
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d965302b_dd80ff70",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "rename to immediateDominators?",
+      "range": {
+        "startLine": 43,
+        "startChar": 46,
+        "endLine": 43,
+        "endChar": 50
       },
       "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -94,6 +140,52 @@
     },
     {
       "key": {
+        "uuid": "f9683404_bee41db3",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "Nit: End all comments with \".\"",
+      "range": {
+        "startLine": 58,
+        "startChar": 95,
+        "endLine": 58,
+        "endChar": 96
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9683404_9ea96114",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be named topoSort?",
+      "range": {
+        "startLine": 59,
+        "startChar": 31,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "393e4ceb_e28728fe",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 1
@@ -117,6 +209,23 @@
     },
     {
       "key": {
+        "uuid": "196c2814_2a49e799",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this method be part of the TopologicalSortVisitor class?",
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f93f54e6_201d8400",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 1
@@ -133,6 +242,92 @@
         "startChar": 19,
         "endLine": 123,
         "endChar": 27
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d965302b_6873eb65",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "Not sure my suggestion is worth it, but just a though: If this gets too expensive we could remove the map accesses for the intersection computation altogether by returning an instance wrapper here, with the topo depth and it\u0027s dominator. then we don\u0027t need to look up in topSort nor in idom to get the next dominator.",
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "795d245f_dc96416d",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/SyntheticHeap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "Initially this name made me thing of this as a Heap, or a MockHeap, but it\u0027s more like a builder. Should we call this HeapUtils or HeapFactory or HeapBuilder?",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39572c43_372e7818",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/SyntheticHeap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "I\u0027d call this addReference to stay in the same heap nomenclature space.",
+      "range": {
+        "startLine": 56,
+        "startChar": 25,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39572c43_779f5010",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/VisitorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-14T21:39:09Z",
+      "side": 1,
+      "message": "This is not using the class SyntheticHeap, so this comment my be confusing. I\u0027d just remove the word \"synthetic\" from this comment",
+      "range": {
+        "startLine": 34,
+        "startChar": 24,
+        "endLine": 34,
+        "endChar": 33
       },
       "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
