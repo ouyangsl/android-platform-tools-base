@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "196c2814_ebed3125",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Expanded on the javadoc and made the entry point static. Yes, Dominators will probably evolve into a factory.\n\nI\u0027ll integrate Heap and Dominators in a follow-up CL. I wasn\u0027t planning on exposing dominators from Heap, but use them under the covers to compute retained sizes and have Instance offer a getRetainedSize().",
+      "parentUuid": "196c2814_2a628719",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 10
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19434882_2163c8e6",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 1
@@ -130,6 +154,30 @@
       "side": 1,
       "message": "Done. The paper uses \u0027doms\u0027, but I don\u0027t think we\u0027re losing readability with mDominatorMap.",
       "parentUuid": "19434882_2163c8e6",
+      "range": {
+        "startLine": 43,
+        "startChar": 46,
+        "endLine": 43,
+        "endChar": 50
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9683404_9e4de1ac",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Renamed after Siva\u0027s suggestion.",
+      "parentUuid": "d965302b_dd80ff70",
       "range": {
         "startLine": 43,
         "startChar": 46,
@@ -259,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "196c2814_a5cfe861",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9683404_bee41db3",
+      "range": {
+        "startLine": 58,
+        "startChar": 95,
+        "endLine": 58,
+        "endChar": 96
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f9683404_9ea96114",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 1
@@ -270,6 +342,30 @@
       "writtenOn": "2014-07-14T21:39:09Z",
       "side": 1,
       "message": "Shouldn\u0027t this be named topoSort?",
+      "range": {
+        "startLine": 59,
+        "startChar": 31,
+        "endLine": 59,
+        "endChar": 38
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d965302b_68a48b5b",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Wikipedia (http://en.wikipedia.org/wiki/Topological_sorting) says topsort is a valid abbreviation :)",
+      "parentUuid": "f9683404_9ea96114",
       "range": {
         "startLine": 59,
         "startChar": 31,
@@ -346,6 +442,24 @@
     },
     {
       "key": {
+        "uuid": "d965302b_830aa8f3",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Like this?",
+      "parentUuid": "196c2814_2a49e799",
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f93f54e6_201d8400",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 1
@@ -410,6 +524,24 @@
     },
     {
       "key": {
+        "uuid": "196c2814_1036dcfa",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Noted, but let\u0027s not optimize yet -- I want to see how fast this is on regular heap dumps, and depending on that go for Lengauer-Tarjan directly.",
+      "parentUuid": "d965302b_6873eb65",
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "795d245f_dc96416d",
         "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/SyntheticHeap.java",
         "patchSetId": 1
@@ -421,6 +553,30 @@
       "writtenOn": "2014-07-14T21:39:09Z",
       "side": 1,
       "message": "Initially this name made me thing of this as a Heap, or a MockHeap, but it\u0027s more like a builder. Should we call this HeapUtils or HeapFactory or HeapBuilder?",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d965302b_a30a4440",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/SyntheticHeap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Yes, it was meant as a HeapBuilder.",
+      "parentUuid": "795d245f_dc96416d",
       "range": {
         "startLine": 36,
         "startChar": 13,
@@ -456,6 +612,30 @@
     },
     {
       "key": {
+        "uuid": "d965302b_63e2ec38",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/SyntheticHeap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39572c43_372e7818",
+      "range": {
+        "startLine": 56,
+        "startChar": 25,
+        "endLine": 56,
+        "endChar": 32
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39572c43_779f5010",
         "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/VisitorsTest.java",
         "patchSetId": 1
@@ -467,6 +647,30 @@
       "writtenOn": "2014-07-14T21:39:09Z",
       "side": 1,
       "message": "This is not using the class SyntheticHeap, so this comment my be confusing. I\u0027d just remove the word \"synthetic\" from this comment",
+      "range": {
+        "startLine": 34,
+        "startChar": 24,
+        "endLine": 34,
+        "endChar": 33
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9683404_de80f970",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/VisitorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-14T22:56:10Z",
+      "side": 1,
+      "message": "Removed, but the last two unit tests do use SyntheticHeap/HeapBuilder.",
+      "parentUuid": "39572c43_779f5010",
       "range": {
         "startLine": 34,
         "startChar": 24,
