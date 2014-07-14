@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9a7f088_1867552a",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationsParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T15:39:40Z",
+      "side": 1,
+      "message": "Rather than adding to the same file, I suspect we need to specify a container (such as a zip file with multiple entries and a manifest).",
+      "range": {
+        "startLine": 120,
+        "startChar": 12,
+        "endLine": 120,
+        "endChar": 18
+      },
+      "revId": "6c18355c22440ce018417246c0011d704e205d22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
