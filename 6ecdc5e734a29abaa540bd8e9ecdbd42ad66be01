@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1980a8c3_e45ad862",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/ManifestDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-14T15:47:37Z",
+      "side": 1,
+      "message": "Nit: Perhaps we can change these names to more explicitly describe the behavior under test?\n\nAs far as I can tell...\n\ntestAllowBackupOk -\u003e testAllowBackupWhen...?\n\ntestAllowBackupOk2 -\u003e testAllowBackupWithMinBuildApi4?\n\ntestAllowBackupOk3 -\u003e testAllowBackupOnLibraryProjects?",
+      "revId": "6ecdc5e734a29abaa540bd8e9ecdbd42ad66be01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
