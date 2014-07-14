@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19434882_2163c8e6",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T21:15:09Z",
+      "side": 1,
+      "message": "Unless \u0027idom\u0027 is something from the paper referenced above, I\u0027d just have it as mDom or mDominatorMap",
+      "range": {
+        "startLine": 43,
+        "startChar": 46,
+        "endLine": 43,
+        "endChar": 50
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f93f54e6_60b2ecd2",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T21:15:09Z",
+      "side": 1,
+      "message": "nit: use Map instead of HashMap",
+      "range": {
+        "startLine": 43,
+        "startChar": 18,
+        "endLine": 43,
+        "endChar": 25
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_22159017",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T21:15:09Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 26
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19434882_615dd025",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T21:15:09Z",
+      "side": 1,
+      "message": "@NonNull return",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 10
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "393e4ceb_e28728fe",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T21:15:09Z",
+      "side": 1,
+      "message": "Is this guaranteed to complete? Does it make sense to add an upper bound on the iteration count?",
+      "range": {
+        "startLine": 71,
+        "startChar": 15,
+        "endLine": 71,
+        "endChar": 22
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f93f54e6_201d8400",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-14T21:15:09Z",
+      "side": 1,
+      "message": "doesn\u0027t seem to be read back?",
+      "range": {
+        "startLine": 123,
+        "startChar": 19,
+        "endLine": 123,
+        "endChar": 27
+      },
+      "revId": "cc7fb37995a73f209377a382849d707c665b1d59",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
