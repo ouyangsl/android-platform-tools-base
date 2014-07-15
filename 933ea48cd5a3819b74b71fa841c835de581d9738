@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "d9e8d0cd_f0c0a811",
+        "filename": "perflib/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-15T17:19:32Z",
+      "side": 1,
+      "message": "This is only needed if we want to release this jar file as an SDK jar like other standalone tool. Since we are mostly going to ship this as part of studio, I don\u0027t think this is needed here.",
+      "range": {
+        "startLine": 2,
+        "startChar": 15,
+        "endLine": 2,
+        "endChar": 27
+      },
+      "revId": "933ea48cd5a3819b74b71fa841c835de581d9738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79d0c40f_70765e18",
+        "filename": "perflib/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-15T17:19:32Z",
+      "side": 1,
+      "message": "We should use the default as much as possible for source folders (src/main/resources in this case.)",
+      "range": {
+        "startLine": 19,
+        "startChar": 27,
+        "endLine": 19,
+        "endChar": 40
+      },
+      "revId": "933ea48cd5a3819b74b71fa841c835de581d9738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1980a8c3_aa8a7707",
         "filename": "perflib/build.gradle",
         "patchSetId": 3
@@ -13,6 +59,30 @@
       "writtenOn": "2014-07-11T01:59:09Z",
       "side": 1,
       "message": "Xav - would this end up causing one of your scripts to upload this jar to Maven Central? If so, we should probably remove it..",
+      "range": {
+        "startLine": 26,
+        "startChar": 36,
+        "endLine": 26,
+        "endChar": 43
+      },
+      "revId": "933ea48cd5a3819b74b71fa841c835de581d9738",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79d0c40f_3095b6f0",
+        "filename": "perflib/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-15T17:19:32Z",
+      "side": 1,
+      "message": "Yes we should remove this.",
+      "parentUuid": "1980a8c3_aa8a7707",
       "range": {
         "startLine": 26,
         "startChar": 36,
