@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9e8d0cd_8b865956",
+        "filename": "perflib/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-15T17:46:54Z",
+      "side": 1,
+      "message": "BTW, these lines are only needed if you are remapping them. Since we don\u0027t have any resources in src/main, this is probably not needed. For test resources, I think src/test/resources is the default, so you again don\u0027t need it.\n\nSo you might be able to remove the sourceSets section entirely.",
+      "range": {
+        "startLine": 18,
+        "startChar": 36,
+        "endLine": 18,
+        "endChar": 45
+      },
+      "revId": "7cf1dcf49789067da6f835c9bf91c188118d4c70",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
