@@ -16,6 +16,24 @@
       "revId": "6ecdc5e734a29abaa540bd8e9ecdbd42ad66be01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99cbb865_457c3c90",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/ManifestDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-15T01:20:24Z",
+      "side": 1,
+      "message": "I\u0027ve been using the convention in the lint unit tests that tests which end with \"Ok\" are testing that there are no false positives (e.g. testing a scenario where there are no errors and the expected output is \"No warnings.\". The first line inside the test generally contains a comment explaining the scenario that the test is enforcing (or if it\u0027s a regression test, a pointer to the corresponding issue).",
+      "parentUuid": "1980a8c3_e45ad862",
+      "revId": "6ecdc5e734a29abaa540bd8e9ecdbd42ad66be01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
