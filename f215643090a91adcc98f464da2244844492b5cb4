@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "643739c4_0842da72",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Reporter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-15T01:05:00Z",
+      "side": 1,
+      "message": "This is done such that HTML reports, generated from Gradle for example, can alert users to the fact that an automated-resolution is available in the IDE (the report contains a note stating that a quickfix is available). This is particularly useful for cases where the fix is non-trivial, such as for UseCompoundDrawable, where a user may try to read the explanation to figure out what to do, rather than to simply look for the quickfix to have it resolved automatically.\n\nThat reminds me. I should port the fix for use compound drawable from ADT to Studio.",
+      "parentUuid": "c4462542_12cccc6a",
+      "range": {
+        "startLine": 418,
+        "startChar": 26,
+        "endLine": 418,
+        "endChar": 36
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04cafddd_d7584334",
         "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/LintUtils.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-07T17:03:53Z",
       "side": 1,
       "message": "Why not just use a regex?",
+      "range": {
+        "startLine": 1089,
+        "startChar": 25,
+        "endLine": 1089,
+        "endChar": 38
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84326dd1_1105aba9",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/LintUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1089,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-15T01:05:00Z",
+      "side": 1,
+      "message": "For performance reasons; this code runs during code editing, so lint attempts to be as low overhead as possible. There are many cases where pattern matching is best achieved by regular expressions (e.g. with optional parts, with grouping etc), but this code is straightforward enough that it doesn\u0027t warrant it.",
+      "parentUuid": "04cafddd_d7584334",
       "range": {
         "startLine": 1089,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d9e8d0cd_fc6889bd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppCompatCallDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-15T01:05:00Z",
+      "side": 1,
+      "message": "The disadvantage of that would be the need to create and parse the pattern unconditionally on class load; here we only do it if an actual error is found",
+      "parentUuid": "e4c6c9d8_b3779b55",
+      "range": {
+        "startLine": 161,
+        "startChar": 25,
+        "endLine": 161,
+        "endChar": 45
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04cafddd_77acef8c",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2014-07-07T17:03:53Z",
       "side": 1,
       "message": "Instead of writing such custom parsers, can we extract the error messages out into parameterized constant strings and use String.format to generate them and regex to parse them? Like what you did in AppCompatCallDetector.",
+      "range": {
+        "startLine": 516,
+        "startChar": 16,
+        "endLine": 516,
+        "endChar": 28
+      },
+      "revId": "f215643090a91adcc98f464da2244844492b5cb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9e8d0cd_bc9c4191",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-15T01:05:00Z",
+      "side": 1,
+      "message": "I\u0027ve added a note to look into that later.  I\u0027ve also beefed up the unit testing support now where the lint testing infrastructure passes every reported error back to the detector test, so the detector tests can verify that all the strings coming out of the detector are passed through the parsing methods and produce matches, so that will catch cases where strings are updated without the parser being updated.",
+      "parentUuid": "04cafddd_77acef8c",
       "range": {
         "startLine": 516,
         "startChar": 16,
