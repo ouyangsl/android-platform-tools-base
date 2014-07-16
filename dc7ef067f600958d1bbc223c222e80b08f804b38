@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "19c8a874_7f438377",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-16T00:28:09Z",
+      "side": 1,
+      "message": "Do we need the \"\u003cInstance\u003e\"  explicitly ?",
+      "range": {
+        "startLine": 64,
+        "startChar": 36,
+        "endLine": 64,
+        "endChar": 44
+      },
+      "revId": "dc7ef067f600958d1bbc223c222e80b08f804b38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9c1b053_7d2d4b17",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-16T00:28:09Z",
+      "side": 1,
+      "message": "Any reason why you parse this number instead of writing 0xB0EDFFA0?",
+      "range": {
+        "startLine": 102,
+        "startChar": 70,
+        "endLine": 102,
+        "endChar": 78
+      },
+      "revId": "dc7ef067f600958d1bbc223c222e80b08f804b38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9c1b053_287713ae",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-16T00:28:09Z",
+      "side": 1,
+      "message": "This mentions it being a weak reference, I\u0027m not sure I understand why it is relevant that it is a weak reference, and it doesn\u0027t test that it is one either. Should we have an special case in the dominator calculation for weak references?",
+      "range": {
+        "startLine": 103,
+        "startChar": 64,
+        "endLine": 103,
+        "endChar": 71
+      },
+      "revId": "dc7ef067f600958d1bbc223c222e80b08f804b38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
