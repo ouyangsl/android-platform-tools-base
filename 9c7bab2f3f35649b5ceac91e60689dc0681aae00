@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "990e58b4_ca1ce305",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-16T23:41:10Z",
+      "side": 1,
+      "message": "we should also check that buildToolInfo.getRevision() is \u003e\u003d 21.0.0 since that\u0027s likely when aapt will start supporting this.\n\nIf it\u0027s lower, we might want to output a warning saying that the feature is disabled, and asking the dev to increase the buildToolRevision to 21.0.0+",
+      "range": {
+        "startLine": 1060,
+        "startChar": 12,
+        "endLine": 1060,
+        "endChar": 26
+      },
+      "revId": "9c7bab2f3f35649b5ceac91e60689dc0681aae00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
