@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19c8a874_7d0c68a1",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-16T16:43:42Z",
+      "side": 1,
+      "message": "No, I changed SENTINEL_ROOT to be an Instance.",
+      "parentUuid": "19c8a874_7f438377",
+      "range": {
+        "startLine": 64,
+        "startChar": 36,
+        "endLine": 64,
+        "endChar": 44
+      },
+      "revId": "dc7ef067f600958d1bbc223c222e80b08f804b38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9c1b053_7d2d4b17",
         "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "79c52478_f97557dc",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-16T16:43:42Z",
+      "side": 1,
+      "message": "None.",
+      "parentUuid": "d9c1b053_7d2d4b17",
+      "range": {
+        "startLine": 102,
+        "startChar": 70,
+        "endLine": 102,
+        "endChar": 78
+      },
+      "revId": "dc7ef067f600958d1bbc223c222e80b08f804b38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9c1b053_287713ae",
         "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-07-16T00:28:09Z",
       "side": 1,
       "message": "This mentions it being a weak reference, I\u0027m not sure I understand why it is relevant that it is a weak reference, and it doesn\u0027t test that it is one either. Should we have an special case in the dominator calculation for weak references?",
+      "range": {
+        "startLine": 103,
+        "startChar": 64,
+        "endLine": 103,
+        "endChar": 71
+      },
+      "revId": "dc7ef067f600958d1bbc223c222e80b08f804b38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59ba20ef_f8e8b1cc",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-16T16:43:42Z",
+      "side": 1,
+      "message": "Rephrased. It\u0027s not relevant for the purpose of this test, it was just an instance I singled out in the heap.\n\nAnd yes, I think WeakReferences will need special casing / filtering for (i) paths to GC roots and (ii) retained size. For example, we may want to compute the retained size of a cache-like object by excluding its weak ref\u0027ed contents. Let\u0027s see what features we need first.",
+      "parentUuid": "d9c1b053_287713ae",
       "range": {
         "startLine": 103,
         "startChar": 64,
