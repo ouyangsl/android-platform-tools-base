@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d97e1025_5268d46e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantOutputData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-17T20:39:47Z",
+      "side": 1,
+      "message": "not sure why you have the last 2 statements",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 20
+      },
+      "revId": "cc9d7cbe9acfa87587c32adb9b35db44738ea1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
