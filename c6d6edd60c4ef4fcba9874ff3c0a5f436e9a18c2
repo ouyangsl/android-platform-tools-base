@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "990e58b4_6d15115b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GenerateBuildConfig.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-17T00:18:45Z",
+      "side": 1,
+      "message": "lieu",
+      "range": {
+        "startLine": 111,
+        "startChar": 62,
+        "endLine": 111,
+        "endChar": 66
+      },
+      "revId": "c6d6edd60c4ef4fcba9874ff3c0a5f436e9a18c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9e2901a_6c707b18",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GenerateBuildConfig.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-17T00:18:45Z",
+      "side": 1,
+      "message": "yeah last I checked this wasn\u0027t possible with the lib. Is that still the case if we move to the latest? Probably fine for now but having an associated javadoc telling you to use APP_ID would be nice.",
+      "range": {
+        "startLine": 112,
+        "startChar": 57,
+        "endLine": 112,
+        "endChar": 85
+      },
+      "revId": "c6d6edd60c4ef4fcba9874ff3c0a5f436e9a18c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
