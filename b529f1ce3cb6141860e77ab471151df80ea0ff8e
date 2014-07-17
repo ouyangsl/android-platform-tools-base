@@ -16,6 +16,24 @@
       "revId": "b529f1ce3cb6141860e77ab471151df80ea0ff8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9711454_d0412223",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ClassField.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-17T19:46:34Z",
+      "side": 1,
+      "message": "That\u0027s fine because you\u0027re only adding to it. It\u0027s not something we\u0027re using inside studio anyway.",
+      "parentUuid": "f9711454_ed2565c9",
+      "revId": "b529f1ce3cb6141860e77ab471151df80ea0ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
