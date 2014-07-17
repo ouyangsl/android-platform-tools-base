@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9711454_ed2565c9",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ClassField.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010199
+      },
+      "writtenOn": "2014-07-17T18:08:44Z",
+      "side": 1,
+      "message": "I didn\u0027t expose the ability to generate instances which include these fields in an overload to `AndroidBuilder.createClassField` but I can.\n\nAlso, public API change :(",
+      "revId": "b529f1ce3cb6141860e77ab471151df80ea0ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
