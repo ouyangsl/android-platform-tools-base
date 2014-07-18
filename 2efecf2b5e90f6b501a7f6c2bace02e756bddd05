@@ -34,6 +34,24 @@
       "revId": "2efecf2b5e90f6b501a7f6c2bace02e756bddd05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9ef5430_97325c25",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-18T17:52:50Z",
+      "side": 1,
+      "message": "Ah, good to know. I didn\u0027t realize we used this style in the ADT codebase.",
+      "parentUuid": "1975083e_15ab1378",
+      "revId": "2efecf2b5e90f6b501a7f6c2bace02e756bddd05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
