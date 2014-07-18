@@ -16,6 +16,24 @@
       "revId": "2efecf2b5e90f6b501a7f6c2bace02e756bddd05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1975083e_15ab1378",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-07-18T03:38:18Z",
+      "side": 1,
+      "message": "I\u0027d rather keep them. This code is common to ADT and IntelliJ. Opening this in Eclipse will result in a warning, whereas there\u0027s little harm when opened in IntelliJ.",
+      "parentUuid": "39ee4c35_a2912045",
+      "revId": "2efecf2b5e90f6b501a7f6c2bace02e756bddd05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
