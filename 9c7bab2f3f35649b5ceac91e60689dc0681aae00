@@ -22,6 +22,30 @@
       "revId": "9c7bab2f3f35649b5ceac91e60689dc0681aae00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79e44451_24e4fc3f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-07-18T00:18:07Z",
+      "side": 1,
+      "message": "Done. I think the right version is 23.0.0+, and throw exception instead of warning to make it more visible.",
+      "parentUuid": "990e58b4_ca1ce305",
+      "range": {
+        "startLine": 1060,
+        "startChar": 12,
+        "endLine": 1060,
+        "endChar": 26
+      },
+      "revId": "9c7bab2f3f35649b5ceac91e60689dc0681aae00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
