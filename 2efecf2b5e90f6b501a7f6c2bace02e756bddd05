@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39ee4c35_a2912045",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ActionBarCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-07-18T00:45:09Z",
+      "side": 1,
+      "message": "My understanding is these $NON-NLS-1$ tags are obsolete and no longer required. Can they be removed here?",
+      "revId": "2efecf2b5e90f6b501a7f6c2bace02e756bddd05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
