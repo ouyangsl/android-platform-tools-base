@@ -22,6 +22,30 @@
       "revId": "cc9d7cbe9acfa87587c32adb9b35db44738ea1b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9ef5430_894d1c52",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantOutputData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-18T20:46:30Z",
+      "side": 1,
+      "message": "This code was moved from BaseVariantData as-is. In the next CL or two that gets completely changed.",
+      "parentUuid": "d97e1025_5268d46e",
+      "range": {
+        "startLine": 53,
+        "startChar": 15,
+        "endLine": 53,
+        "endChar": 20
+      },
+      "revId": "cc9d7cbe9acfa87587c32adb9b35db44738ea1b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
