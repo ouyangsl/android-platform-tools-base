@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "191c281e_9c7bad98",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-21T14:34:59Z",
+      "side": 1,
+      "message": "I guess you might want to assert that expected.isEmpty() at the end of the loop.",
+      "range": {
+        "startLine": 503,
+        "startChar": 25,
+        "endLine": 503,
+        "endChar": 31
+      },
+      "revId": "b92c730a19be539159607d9eaca4454314743831",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
