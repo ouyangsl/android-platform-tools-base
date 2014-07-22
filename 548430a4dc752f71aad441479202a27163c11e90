@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "79b2845d_0b0ab1f5",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Heap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-22T22:21:50Z",
+      "side": 1,
+      "message": "BTW, depending on whether you guys think this will all be rewritten or not, it might be a good idea to start annotating references with @NonNull or @Nullable.",
+      "range": {
+        "startLine": 158,
+        "startChar": 11,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b2845d_2b9df58b",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
         "patchSetId": 2
@@ -64,6 +87,29 @@
         "startChar": 21,
         "endLine": 192,
         "endChar": 24
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39bc8c31_09675d29",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-22T22:21:50Z",
+      "side": 1,
+      "message": "I\u0027ll defer to your judgement, but I can\u0027t really tell how you came up with these numbers, but it seems a little fragile. Do you expect these to change to you tweak your algorithms?\n\nIt seems like a better check would be to compare the retained sizes for different objects. Then you can kind of say that no matter how you change the algorithm, you expect those relations to hold true. With the current approach, it is not clear how someone else should come up with the correct number..it might end up just being asserting that the value matches whatever the algorithm prints out :)",
+      "range": {
+        "startLine": 117,
+        "startChar": 25,
+        "endLine": 117,
+        "endChar": 28
       },
       "revId": "548430a4dc752f71aad441479202a27163c11e90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
