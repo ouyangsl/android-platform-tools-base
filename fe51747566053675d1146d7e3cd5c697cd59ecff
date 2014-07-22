@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99d65881_6d36f1fb",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-22T23:48:09Z",
+      "side": 1,
+      "message": "umm, no better way?",
+      "range": {
+        "startLine": 361,
+        "startChar": 50,
+        "endLine": 361,
+        "endChar": 56
+      },
+      "revId": "fe51747566053675d1146d7e3cd5c697cd59ecff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59d06088_4b33190a",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-22T23:48:09Z",
+      "side": 1,
+      "message": "why not just\n  assertNotNull(\"Unable to determine version code\", versionCode)",
+      "range": {
+        "startLine": 409,
+        "startChar": 26,
+        "endLine": 409,
+        "endChar": 42
+      },
+      "revId": "fe51747566053675d1146d7e3cd5c697cd59ecff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59d06088_0b3921ec",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-22T23:48:09Z",
+      "side": 1,
+      "message": "\"Unexpected version code for split: \" + entry.getKey()",
+      "range": {
+        "startLine": 412,
+        "startChar": 25,
+        "endLine": 412,
+        "endChar": 39
+      },
+      "revId": "fe51747566053675d1146d7e3cd5c697cd59ecff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
