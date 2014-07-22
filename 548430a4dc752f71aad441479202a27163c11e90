@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b2845d_2b9df58b",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-22T22:17:51Z",
+      "side": 1,
+      "message": "Make sure you run the autoformatter, which I believe will de-inline this java doc?",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 7
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59b7804c_2a121374",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-22T22:17:51Z",
+      "side": 1,
+      "message": "it looks weird to call a getter expecting the side effects. computeDominatorMap?",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 23
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39bc8c31_c9b8b567",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-07-22T22:17:51Z",
+      "side": 1,
+      "message": "Nit: I\u0027d move the dom inside the for to limit its scope",
+      "range": {
+        "startLine": 192,
+        "startChar": 21,
+        "endLine": 192,
+        "endChar": 24
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
