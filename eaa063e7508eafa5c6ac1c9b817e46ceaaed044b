@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "d9461042_60effa8d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-23T22:47:07Z",
+      "side": 1,
+      "message": "this should probably be startsWith rather than contains? (in case there are unexpected words that contain \"rc\" that don\u0027t mean preview (e.g. \"March Release\" or something like that where there is an \"rc\" in march)",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9461042_00c9d637",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-23T22:47:07Z",
+      "side": 1,
+      "message": "same comment as below -- only check last element?",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04267d9c_06857a80",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
         "patchSetId": 2
@@ -31,6 +65,24 @@
       "side": 1,
       "message": "No, but it doesn\u0027t have to read \"rc\" http://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm states that the last component is a \"Qualifier\" which may be a string such as \"rc\" or \"beta\" etc. If we ever use a different syntax, we\u0027ll have to update this definition.",
       "parentUuid": "04267d9c_06857a80",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f93914b5_81922a90",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-23T22:47:07Z",
+      "side": 1,
+      "message": "ok, so then this should just return !mRevisions.isEmpty() \u0026\u0026 mRevisions.get(mRevisions.size() - 1).isPreview() right?",
+      "parentUuid": "04267d9c_a9539925",
       "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -84,6 +136,23 @@
       "side": 1,
       "message": "Ah, sorry. I meant \"\\s\", or even \"\\s+\" which matches spaces, tabs, and newlines.\n\nBut looking at it now, I think \"previewSeparator\" here is actually for outputting, not for parsing a regex, which probably explains why my question doesn\u0027t make any sense",
       "parentUuid": "19526823_a907f937",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "193d089f_22e5f6ad",
+        "filename": "templates/activities/AndroidTVActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-23T22:47:07Z",
+      "side": 1,
+      "message": "should that be buildApi rather than targetApi?? Or are they always the same now with the new wizard? (But if adding the module to an existing project it\u0027s possible that targetSdk\u003d20 and compileSdk\u003d19 right?",
       "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
