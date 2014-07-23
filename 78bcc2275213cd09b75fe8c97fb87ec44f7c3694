@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59b7804c_57261b1b",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-07-23T00:19:48Z",
+      "side": 1,
+      "message": "Maybe add an assert aapt.exists() with the message that this test requires build tools 20.0.0",
+      "range": {
+        "startLine": 361,
+        "startChar": 13,
+        "endLine": 361,
+        "endChar": 17
+      },
+      "revId": "78bcc2275213cd09b75fe8c97fb87ec44f7c3694",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
