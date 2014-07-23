@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79b2845d_1dddd67e",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-23T00:10:53Z",
+      "side": 1,
+      "message": "I don\u0027t really want to do a full SDK parsing.",
+      "parentUuid": "99d65881_6d36f1fb",
+      "range": {
+        "startLine": 361,
+        "startChar": 50,
+        "endLine": 361,
+        "endChar": 56
+      },
+      "revId": "fe51747566053675d1146d7e3cd5c697cd59ecff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59d06088_4b33190a",
         "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "39bc8c31_9bef0e8d",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-23T00:10:53Z",
+      "side": 1,
+      "message": "oh yeah, I copy pasted this from production code and didn\u0027t update this.",
+      "parentUuid": "59d06088_4b33190a",
+      "range": {
+        "startLine": 409,
+        "startChar": 26,
+        "endLine": 409,
+        "endChar": 42
+      },
+      "revId": "fe51747566053675d1146d7e3cd5c697cd59ecff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59d06088_0b3921ec",
         "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2014-07-22T23:48:09Z",
       "side": 1,
       "message": "\"Unexpected version code for split: \" + entry.getKey()",
+      "range": {
+        "startLine": 412,
+        "startChar": 25,
+        "endLine": 412,
+        "endChar": 39
+      },
+      "revId": "fe51747566053675d1146d7e3cd5c697cd59ecff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59b7804c_9706c3aa",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-07-23T00:10:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d06088_0b3921ec",
       "range": {
         "startLine": 412,
         "startChar": 25,
