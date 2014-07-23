@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "193d089f_1d0e9f57",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-07-23T23:14:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9461042_60effa8d",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9461042_00c9d637",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-07-23T22:47:07Z",
       "side": 1,
       "message": "same comment as below -- only check last element?",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f93914b5_c132727b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-07-23T23:14:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9461042_00c9d637",
       "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -83,6 +119,24 @@
       "side": 1,
       "message": "ok, so then this should just return !mRevisions.isEmpty() \u0026\u0026 mRevisions.get(mRevisions.size() - 1).isPreview() right?",
       "parentUuid": "04267d9c_a9539925",
+      "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "193d089f_bd4cab8a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/GradleCoordinate.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-07-23T23:14:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f93914b5_81922a90",
       "revId": "eaa063e7508eafa5c6ac1c9b817e46ceaaed044b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
