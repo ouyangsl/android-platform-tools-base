@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f93914b5_f9c2c2cb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1017944
+      },
+      "writtenOn": "2014-07-24T15:20:05Z",
+      "side": 1,
+      "message": "The change to have Project Structure not generate dynamic versions is on-deck and is waiting for a couple of Josiah\u0027s CLs to be merged.",
+      "range": {
+        "startLine": 152,
+        "startChar": 12,
+        "endLine": 152,
+        "endChar": 26
+      },
+      "revId": "4b9cb78e632b0197af6ebc6d084c2a83af9397fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
