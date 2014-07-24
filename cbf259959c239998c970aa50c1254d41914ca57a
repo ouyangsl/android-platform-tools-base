@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "193d089f_5ca01fbe",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/rtl/#relative.xml#",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-24T21:53:14Z",
+      "side": 0,
+      "message": "This is an Emacs backup file which should not have been checked in",
+      "revId": "cbf259959c239998c970aa50c1254d41914ca57a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
