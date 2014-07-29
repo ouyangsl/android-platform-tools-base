@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36f65b4a_70278718",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-29T21:48:49Z",
+      "side": 1,
+      "message": "typo?",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "560aef14_42f723ab",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-29T21:48:49Z",
+      "side": 1,
+      "message": "wrong import style (did you edit from the tools/idea project instead of tools/base?)",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36f65b4a_b0c2afcb",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-29T21:48:49Z",
+      "side": 1,
+      "message": "This library is only used in Studio for now so feel free to just remove the deprecated method",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "560aef14_62a10794",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-29T21:48:49Z",
+      "side": 1,
+      "message": "Am I understanding correctly that this allows module names to really be files (e.g. foo/bar/baz) and this will convert this to something like :foo:bar:baz?)\n\nCould you just do \u0027:\u0027+moduleName.replace(File.separatorChar,\u0027:\u0027) ?\n\nWill the module name really be a path separated by File.separator, or is there any chance that it will be for example a Gradle file separator (/ even on Windows) ?",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
