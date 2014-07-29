@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "36f65b4a_eb4def4f",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Heap.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-29T17:27:29Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "79b2845d_0b0ab1f5",
+      "range": {
+        "startLine": 158,
+        "startChar": 11,
+        "endLine": 158,
+        "endChar": 21
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79b2845d_2b9df58b",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-22T22:17:51Z",
       "side": 1,
       "message": "Make sure you run the autoformatter, which I believe will de-inline this java doc?",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 7
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "560aef14_2718c40b",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-29T17:27:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b2845d_2b9df58b",
       "range": {
         "startLine": 180,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7615332e_16e3ad3b",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-29T17:27:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59b7804c_2a121374",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 23
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39bc8c31_c9b8b567",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "36f65b4a_2bd9973e",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-29T17:27:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39bc8c31_c9b8b567",
+      "range": {
+        "startLine": 192,
+        "startChar": 21,
+        "endLine": 192,
+        "endChar": 24
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "39bc8c31_09675d29",
         "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
         "patchSetId": 2
@@ -105,6 +201,30 @@
       "writtenOn": "2014-07-22T22:21:50Z",
       "side": 1,
       "message": "I\u0027ll defer to your judgement, but I can\u0027t really tell how you came up with these numbers, but it seems a little fragile. Do you expect these to change to you tweak your algorithms?\n\nIt seems like a better check would be to compare the retained sizes for different objects. Then you can kind of say that no matter how you change the algorithm, you expect those relations to hold true. With the current approach, it is not clear how someone else should come up with the correct number..it might end up just being asserting that the value matches whatever the algorithm prints out :)",
+      "range": {
+        "startLine": 117,
+        "startChar": 25,
+        "endLine": 117,
+        "endChar": 28
+      },
+      "revId": "548430a4dc752f71aad441479202a27163c11e90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36f65b4a_2bb3d7d5",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-07-29T17:27:29Z",
+      "side": 1,
+      "message": "These values are temporary as long as we don\u0027t have a proper way to determine class sizes. I expect we\u0027ll change our minds a couple of times about the proper formula/method, so I want to see the test break.\n\nAs the code matures, I agree it\u0027s better to move to less brittle assertions. There\u0027s a little bit of manual investigation required to come up with those, note I left a TODO to even double-check that 29,598 is the correct number of nodes :) I punted on these until we have a semi-decent way of inspecting the heap dump, so that I can compare with MAT or YourKit, instead of evaluating expressions in the debugger...",
+      "parentUuid": "39bc8c31_09675d29",
       "range": {
         "startLine": 117,
         "startChar": 25,
