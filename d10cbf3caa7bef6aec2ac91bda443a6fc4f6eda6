@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f974b47c_fd78e945",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-07-29T22:30:49Z",
+      "side": 1,
+      "message": "Yes. Should be \"subproject\".",
+      "parentUuid": "36f65b4a_70278718",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "560aef14_42f723ab",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-07-29T21:48:49Z",
       "side": 1,
       "message": "wrong import style (did you edit from the tools/idea project instead of tools/base?)",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_7d65b993",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-07-29T22:30:49Z",
+      "side": 1,
+      "message": "Will fix.",
+      "parentUuid": "560aef14_42f723ab",
       "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "f974b47c_fda7098f",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1127,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-07-29T22:30:49Z",
+      "side": 1,
+      "message": "I want this change to be independent from the corresponding Studio change...",
+      "parentUuid": "36f65b4a_b0c2afcb",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "560aef14_62a10794",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2014-07-29T21:48:49Z",
       "side": 1,
       "message": "Am I understanding correctly that this allows module names to really be files (e.g. foo/bar/baz) and this will convert this to something like :foo:bar:baz?)\n\nCould you just do \u0027:\u0027+moduleName.replace(File.separatorChar,\u0027:\u0027) ?\n\nWill the module name really be a path separated by File.separator, or is there any chance that it will be for example a Gradle file separator (/ even on Windows) ?",
+      "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f974b47c_5db71dc0",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/ImportModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-07-29T22:30:49Z",
+      "side": 1,
+      "message": "I feel like java.io.File is more reliable. The path uses platform-dependent separator.",
+      "parentUuid": "560aef14_62a10794",
       "revId": "d10cbf3caa7bef6aec2ac91bda443a6fc4f6eda6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
