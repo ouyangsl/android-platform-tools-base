@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "766373f2_299e6d13",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PreferenceActivityDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-31T22:11:52Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "d9d21fe05772be7dd4e671d59b826e5e7dc8031b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
