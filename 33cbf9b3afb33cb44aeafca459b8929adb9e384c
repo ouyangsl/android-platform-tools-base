@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "365d7b32_6776d2b3",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-31T21:56:25Z",
+      "side": 1,
+      "message": "@NonNull",
+      "revId": "33cbf9b3afb33cb44aeafca459b8929adb9e384c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56582f41_68c4637b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-31T21:56:25Z",
+      "side": 1,
+      "message": "@NonNull",
+      "revId": "33cbf9b3afb33cb44aeafca459b8929adb9e384c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56582f41_e8b73310",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/BuildTypeImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-31T21:56:25Z",
+      "side": 1,
+      "message": "nit - null initialization not needed (guaranteed by language)",
+      "revId": "33cbf9b3afb33cb44aeafca459b8929adb9e384c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "365d7b32_a793aa96",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/MergeManifests.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-31T21:56:25Z",
+      "side": 1,
+      "message": "nit - remove blank line?",
+      "revId": "33cbf9b3afb33cb44aeafca459b8929adb9e384c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
