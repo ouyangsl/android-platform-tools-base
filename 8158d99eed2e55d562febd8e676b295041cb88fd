@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56582f41_68490379",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-31T21:52:29Z",
+      "side": 1,
+      "message": "allows",
+      "revId": "8158d99eed2e55d562febd8e676b295041cb88fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56582f41_e83cd3dd",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PlaceholderHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-07-31T21:52:29Z",
+      "side": 1,
+      "message": "not related to your change but this (as a constant) should be named PATTERN (or if you think of it as mutable (I can\u0027t remember if it is), using the static naming, sPattern)",
+      "revId": "8158d99eed2e55d562febd8e676b295041cb88fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
