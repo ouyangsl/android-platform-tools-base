@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3692db12_19fbbb24",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:27:42Z",
+      "side": 1,
+      "message": "Nit: I couldn\u0027t tell from the name that this was doing as much as it is. Maybe \"initProjectAndFileEncodings\"? or \"readEncodingPreferences\"?\n\nJust mentioning this in case it sparks anything, but \"initEncoding\" is also fine.",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "968387c4_9ce6dd75",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:27:42Z",
+      "side": 1,
+      "message": "Nit: It may be useful to have a comment that gives a concrete example of the  name and value you\u0027re searching for here. Something like\n\n\"An example entry of an encoding preference is encoding/???\u003d?????\"",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "968387c4_dccb05da",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:27:42Z",
+      "side": 1,
+      "message": "Should this boolean be set later in the logic flow? In case an exception is thrown after we set this but before we set mDefaultEncoding?",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3692db12_39db1fb4",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:27:42Z",
+      "side": 1,
+      "message": "Is this method tested anywhere?",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "968387c4_7c8e79b4",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:27:42Z",
+      "side": 1,
+      "message": "Wow, this is kind of scary, that there are special case files. How do we know there aren\u0027t any other files we have to worry about?",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7688d3e2_95bd5455",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:27:42Z",
+      "side": 1,
+      "message": "Why do we always write xml files out as UTF-8 but not other files? Especially, the comment above this section says we can use the source XML\u0027s prologue to figure out the encoding but as far as I tell we just ignore it and always write UTF-8.",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
