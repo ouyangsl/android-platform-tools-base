@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76d613dd_71347868",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/33b_uses_sdk_minsdk_conflict.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-08-02T01:48:01Z",
+      "side": 1,
+      "message": "the comment mentions 1 and 4, but its not used in the code",
+      "range": {
+        "startLine": 47,
+        "startChar": 77,
+        "endLine": 47,
+        "endChar": 78
+      },
+      "revId": "25a0535969872be391fd801977282b2f6a21d334",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
