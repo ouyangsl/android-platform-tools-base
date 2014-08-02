@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7688d3e2_f5a1401b",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/OverdrawDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:31:30Z",
+      "side": 1,
+      "message": "What about more detail here, like \"testNullBackgroundIssuesNoLintWarnings\"? Is there a reason these test names are so short, like maybe there\u0027s a convention I\u0027m missing?",
+      "revId": "0e717433b51a8f5501f219ffdf12d296b9a7f937",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7688d3e2_d5cbdcd9",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/overdraw/res/layout/null.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-02T01:31:30Z",
+      "side": 1,
+      "message": "Nit: Maybe call this null-background.xml?",
+      "revId": "0e717433b51a8f5501f219ffdf12d296b9a7f937",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
