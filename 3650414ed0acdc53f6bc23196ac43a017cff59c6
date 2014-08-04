@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "968387c4_ac912c45",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-04T17:03:26Z",
+      "side": 1,
+      "message": "This matches all the other init* methods in this class",
+      "parentUuid": "3692db12_19fbbb24",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "968387c4_9ce6dd75",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/EclipseProject.java",
         "patchSetId": 3
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "7688d3e2_9600fa26",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-04T17:03:26Z",
+      "side": 1,
+      "message": "It\u0027s deliberately set at the beginning precisely in case an exception is thrown; in that case we don\u0027t want to keep trying over and over (since this method is called repeatedly). If we can\u0027t read in a proper charset once, this method should return null from that point forward.",
+      "parentUuid": "968387c4_dccb05da",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3692db12_39db1fb4",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
         "patchSetId": 3
@@ -64,6 +100,24 @@
       "writtenOn": "2014-08-02T01:27:42Z",
       "side": 1,
       "message": "Is this method tested anywhere?",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3692db12_1ed2bc94",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1455,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-04T17:03:26Z",
+      "side": 1,
+      "message": "Yes, by all the tests :-) (GradleImportTest imports a dozen projects, and in each imported project copyDir is used to recursively transfer resource and source directories; it\u0027s also used to copy binaries like the gradle wrapper and so on)",
+      "parentUuid": "3692db12_39db1fb4",
       "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "3692db12_5e9da4e3",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1479,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-04T17:03:26Z",
+      "side": 1,
+      "message": "If there are any, we\u0027ll have to handle them here. I\u0027m not aware of any.\n\nBasically, in Gradle, we\u0027re using UTF-8 for both Java source files as well as for XML resources, so we need to migrate all source files that may have other encodings during the import. Property files however have a *defined* encoding (see http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html ) that isn\u0027t UTF-8, so we should leave those files alone. We obviously also leave binary files alone, as well as assets.",
+      "parentUuid": "968387c4_7c8e79b4",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7688d3e2_95bd5455",
         "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
         "patchSetId": 3
@@ -98,6 +170,24 @@
       "writtenOn": "2014-08-02T01:27:42Z",
       "side": 1,
       "message": "Why do we always write xml files out as UTF-8 but not other files? Especially, the comment above this section says we can use the source XML\u0027s prologue to figure out the encoding but as far as I tell we just ignore it and always write UTF-8.",
+      "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "968387c4_4cac2074",
+        "filename": "gradle-import/src/main/java/com/android/tools/gradle/eclipse/GradleImport.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1534,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-04T17:03:26Z",
+      "side": 1,
+      "message": "We\u0027re always *writing* files as UTF-8 (for non XML files we call copyTextFileWithEncoding; the encoding we\u0027re passing in is used to *read* the file; the method always *writes* as UTF-8).  XML files are treated specially here only because they\u0027re the only file type that specifies their encoding in the file itself (for other files, it\u0027s specified by Eclipse metadata files externally), and for XML files we need to not only read in the file in a special way, we also need to modify the contents such that the contents doesn\u0027t specify the previous encoding (say iso-latin-1) even though the file contents are written in UTF-8.",
+      "parentUuid": "7688d3e2_95bd5455",
       "revId": "3650414ed0acdc53f6bc23196ac43a017cff59c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
