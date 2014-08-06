@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16431782_b2e0ba58",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/69_remove_uses.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-06T22:54:48Z",
+      "side": 1,
+      "message": "This test will fail, right?",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "4c804e7ec5e6b4364310ea88838887950b4d0a39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
