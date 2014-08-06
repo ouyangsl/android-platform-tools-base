@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6684304_8aa757d9",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-06T00:43:41Z",
+      "side": 1,
+      "message": "Nit: Missing right parens",
+      "revId": "7570641bf35ee76a00a3b02afb837ba2b0fea2f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
