@@ -22,6 +22,30 @@
       "revId": "b87cea30fb00746868255dc8f29f87a3eb3827c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6684304_37482b44",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-06T17:15:24Z",
+      "side": 1,
+      "message": "Yes, but as agreed offline, it will be in a separate change as it requires some version specific mappings and unification with HPROF heap IDs.",
+      "parentUuid": "16aeb765_2f10c924",
+      "range": {
+        "startLine": 187,
+        "startChar": 20,
+        "endLine": 187,
+        "endChar": 27
+      },
+      "revId": "b87cea30fb00746868255dc8f29f87a3eb3827c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
