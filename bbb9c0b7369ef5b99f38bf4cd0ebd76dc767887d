@@ -1,0 +1,429 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96fd4775_181e0dfc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "It looks like you\u0027ve edited this file from the tools/idea project rather than tools/base? The tools/idea project uses the code style we use in the Android plugin, which follows IntelliJ\u0027s coding conventions (2-space indent etc), whereas in tools/base we use the Android code style: 4-space indent, m/s for field prefixes, etc.",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6624b22_19ed6bd9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "nit: trailing space",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96fd4775_184badea",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "private?",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16431782_2aeef490",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "this and all the other fields need to use the Android coding style \"m\" prefix: mProcessed, mNode, mBucket, etc.",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16aeb765_fae0319f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "switch type to Element (so you can do attribute lookup directly)",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a7bf88_5ef05574",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "switch type to Element",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16431782_ec9d498c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "Consider adding this method @NonNull (and the various parameters and return values in this class with @NonNull and @Nullable from com.android.annotations as needed)",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56390f00_95dbeeb1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "For all string.format parameters we use the numbered format:\n\"%1$s-%2$d\"",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f63f63e6_5743342b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "nit - missing space before !\u003d",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d665ff2a_da3485cc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "just to make sure I understand: this method looks at the children of the children of the RelativeLayout, right?",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16aeb765_9a06ddac",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "!text.isEmpty()",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d665ff2a_5a423525",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "typo",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a7bf88_1efadd52",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "private?",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6624b22_79661f2f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "node.getTagName().equals(VIEW_INCLUDE)",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96fd4775_fb898314",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "node.getTagName().equals(VIEW)",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f63f63e6_f73400cc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "just do\n   node.getAttributeNodeNS(ANDROID_URI, key)\ninstead; that should replace the full body of this method, so once you\u0027ve done that you can just inline this call to the various users.",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76345307_8dfac4d7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "node.hasAttributeNS(ANDROID_URI, key)",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6624b22_d956533e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "VALUE_TRUE",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16431782_2c6a91b3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "Collections.singleton",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6a7bf88_bed5c9cb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "nit - Map instead of HashMap on the left hand side",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d665ff2a_3a1ad960",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "space before :",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6624b22_59440380",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6624b22_9935fb12",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "StringBuilder instead of StringBuffer",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96fd4775_dbbc7fa3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "or better yet, make LayoutNode\u0027s toString() call getNodeTextId(), and then you can replace this whole block with\ngrowNodes \u003d Joiner.on(\", \").join(canGrowRight);",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96fd4775_5bca4f2c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-06T20:45:26Z",
+      "side": 1,
+      "message": "%1$s can overlap %2$s if %3$s grows due to localized text expansion",
+      "revId": "bbb9c0b7369ef5b99f38bf4cd0ebd76dc767887d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
