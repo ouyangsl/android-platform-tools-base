@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16aeb765_2f10c924",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-06T15:34:21Z",
+      "side": 1,
+      "message": "Would it be possible to define the list of heaps as an enum, and use an EnumMap instead? All the API\u0027s now use an int for the heap id, and I have no idea what those map to.",
+      "range": {
+        "startLine": 187,
+        "startChar": 20,
+        "endLine": 187,
+        "endChar": 27
+      },
+      "revId": "b87cea30fb00746868255dc8f29f87a3eb3827c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
