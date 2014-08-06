@@ -34,6 +34,24 @@
       "revId": "7039713460cf7eae10c554de3522d60afd617112",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6624b22_7c6f2d79",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-06T21:14:54Z",
+      "side": 0,
+      "message": "What\u0027s the difference between the two, though?",
+      "parentUuid": "f63f63e6_b7b718d8",
+      "revId": "7039713460cf7eae10c554de3522d60afd617112",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
