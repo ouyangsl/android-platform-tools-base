@@ -16,6 +16,24 @@
       "revId": "7039713460cf7eae10c554de3522d60afd617112",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f63f63e6_b7b718d8",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-08-06T21:08:26Z",
+      "side": 0,
+      "message": "there used to be an \"old\" ManifestMerger which we keep around for compatibility reasons. at some point, I will delete the old one and do a giant CL to rename everything.",
+      "parentUuid": "96fd4775_3bb82b63",
+      "revId": "7039713460cf7eae10c554de3522d60afd617112",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
