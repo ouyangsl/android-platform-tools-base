@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96fd4775_3bb82b63",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-06T20:56:06Z",
+      "side": 0,
+      "message": "Just curious - what is a ManifestMerger2, vs. a ManifestMerger?",
+      "revId": "7039713460cf7eae10c554de3522d60afd617112",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
