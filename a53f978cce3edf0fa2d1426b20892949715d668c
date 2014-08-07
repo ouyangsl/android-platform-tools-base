@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6dbe336_0657a03b",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-07T21:45:25Z",
+      "side": 1,
+      "message": "!isEmpty",
+      "range": {
+        "startLine": 218,
+        "startChar": 106,
+        "endLine": 218,
+        "endChar": 116
+      },
+      "revId": "a53f978cce3edf0fa2d1426b20892949715d668c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56202fde_e2054a31",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AllocationInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-07T21:45:25Z",
+      "side": 1,
+      "message": "you could do:\n\n if (length \u003e 0) {\n   matchingFrames \u003d Lists.newArrayListWithExpectedSize(length)\n   ...\n } else {\n   return Collections.emptyList()\n }",
+      "range": {
+        "startLine": 230,
+        "startChar": 22,
+        "endLine": 230,
+        "endChar": 28
+      },
+      "revId": "a53f978cce3edf0fa2d1426b20892949715d668c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
