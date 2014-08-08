@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16c87774_255f3822",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-08T20:52:44Z",
+      "side": 1,
+      "message": "whitespace here and below.",
+      "range": {
+        "startLine": 1542,
+        "startChar": 0,
+        "endLine": 1542,
+        "endChar": 8
+      },
+      "revId": "06298fbad950ac3a21662f90a6bb820c1e6d0d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16c87774_a57268af",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1556,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-08T20:52:44Z",
+      "side": 1,
+      "message": "we shouldn\u0027t write to tmp. We should write these files under the buildDir. This should probably be under buildDir/intermediates/tmp/something.\n\nThis means this should be provided by Gradle.",
+      "range": {
+        "startLine": 1556,
+        "startChar": 28,
+        "endLine": 1556,
+        "endChar": 71
+      },
+      "revId": "06298fbad950ac3a21662f90a6bb820c1e6d0d7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
