@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6c4c362_38c92591",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1002621
+      },
+      "writtenOn": "2014-08-08T18:19:32Z",
+      "side": 1,
+      "message": "executeShellCommand is a synchronous command - why is the latch needed?\n\nWhy not just use IDevice#getPropertyCacheOrSync",
+      "range": {
+        "startLine": 347,
+        "startChar": 7,
+        "endLine": 360,
+        "endChar": 9
+      },
+      "revId": "7e1fd6eddecc8281978dc03617e4864a42bd0544",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
