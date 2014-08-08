@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56202fde_febe7ee8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/WebViewDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-08T14:33:53Z",
+      "side": 1,
+      "message": "This line is the fix for the crash. The below changes just improves the error message shown to the user a bit (e.g. pointing out which parent attribute has the wrap content and providing a message on that secondary location.)",
+      "revId": "ab7620eadde03ad73cf674530b4347bb6cf4a7bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
