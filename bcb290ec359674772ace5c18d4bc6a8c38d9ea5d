@@ -22,6 +22,23 @@
       "revId": "bcb290ec359674772ace5c18d4bc6a8c38d9ea5d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16ab179f_3e3de945",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Client.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-08-11T17:43:36Z",
+      "side": 1,
+      "message": "is this needed? It looks like clientReady() calls this before deciding to send an HPIF, and this CL removes that call.",
+      "revId": "bcb290ec359674772ace5c18d4bc6a8c38d9ea5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
