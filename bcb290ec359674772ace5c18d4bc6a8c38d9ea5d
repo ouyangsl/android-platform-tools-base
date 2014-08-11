@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36a65bd4_dfeefb64",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Client.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-11T17:42:03Z",
+      "side": 1,
+      "message": "maybe initializeHeapUpdateTracking() and if you don\u0027t expect this to be called by anyone else (they should be using setHeapUpdateEnabled?), then maybe make it package private?",
+      "range": {
+        "startLine": 454,
+        "startChar": 16,
+        "endLine": 454,
+        "endChar": 40
+      },
+      "revId": "bcb290ec359674772ace5c18d4bc6a8c38d9ea5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
