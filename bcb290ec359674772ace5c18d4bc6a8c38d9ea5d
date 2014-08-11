@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b6ca4b8f_530ae4b2",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Client.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-11T18:54:30Z",
+      "side": 1,
+      "message": "Done. I went for initializeHeapUpdateStatus and made it package private. (The update refers to it being tracked, so it sounded redundant). Yes, this function is to keep previous functionality. It\u0027s weird as it only initializes heapInfo even though it should probably initialize both. However, initializing both did show some issues in ddms and it was beyond the scope of the change.",
+      "parentUuid": "36a65bd4_dfeefb64",
+      "range": {
+        "startLine": 454,
+        "startChar": 16,
+        "endLine": 454,
+        "endChar": 40
+      },
+      "revId": "bcb290ec359674772ace5c18d4bc6a8c38d9ea5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16ab179f_3e3de945",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/Client.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2014-08-11T17:43:36Z",
       "side": 1,
       "message": "is this needed? It looks like clientReady() calls this before deciding to send an HPIF, and this CL removes that call.",
+      "revId": "bcb290ec359674772ace5c18d4bc6a8c38d9ea5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6d0433d_95286470",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Client.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-11T18:54:30Z",
+      "side": 1,
+      "message": "Yes, it\u0027s still needed. It\u0027s called from DDMS :-/",
+      "parentUuid": "16ab179f_3e3de945",
       "revId": "bcb290ec359674772ace5c18d4bc6a8c38d9ea5d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
