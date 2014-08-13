@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "766ff376_72662ea4",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-13T19:33:09Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should limit this to File objects. It would be more difficult to later change this if we want in memory parsing of small heap dumps. We could take a DataInput here? See my other comment...",
+      "range": {
+        "startLine": 132,
+        "startChar": 23,
+        "endLine": 132,
+        "endChar": 27
+      },
+      "revId": "7928d0abd0f4d358c3677ca2b2c5ba4799d2ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b64deb11_7d0d8ac8",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-13T19:33:09Z",
+      "side": 1,
+      "message": "nit: Double space before \"V\" and no . at the end. here and below",
+      "range": {
+        "startLine": 142,
+        "startChar": 60,
+        "endLine": 142,
+        "endChar": 67
+      },
+      "revId": "7928d0abd0f4d358c3677ca2b2c5ba4799d2ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "766ff376_72114e6f",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-13T19:33:09Z",
+      "side": 1,
+      "message": "use UnsignedBytes.toInt",
+      "range": {
+        "startLine": 235,
+        "startChar": 8,
+        "endLine": 235,
+        "endChar": 14
+      },
+      "revId": "7928d0abd0f4d358c3677ca2b2c5ba4799d2ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b67b2b36_6073b8b6",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-13T19:33:09Z",
+      "side": 1,
+      "message": "omg: https://codereview.appspot.com/5271042/",
+      "revId": "7928d0abd0f4d358c3677ca2b2c5ba4799d2ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "766ff376_d2e7daf9",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-13T19:33:09Z",
+      "side": 1,
+      "message": "UnsignedInts.toLong",
+      "revId": "7928d0abd0f4d358c3677ca2b2c5ba4799d2ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b67b2b36_209b7098",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/io/HprofBuffer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-13T19:33:09Z",
+      "side": 1,
+      "message": "One high level comment: Is there a reason why we don\u0027t use the DataInput interface instead of this one? The method to get one of the two implementations based on the size of the file could be written somewhere else, and in fact I\u0027m not sure the SimpleMappedBuffer has any added benefit? Is there a performance hit in using a MultiMapped one with only one shard?\n\nIf not, then that would simplify a lot the code.",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 33
+      },
+      "revId": "7928d0abd0f4d358c3677ca2b2c5ba4799d2ff8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
