@@ -22,6 +22,30 @@
       "revId": "7e1fd6eddecc8281978dc03617e4864a42bd0544",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f62cc32f_6a0ffb52",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/RemoteAndroidTestRunner.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1052388
+      },
+      "writtenOn": "2014-08-14T18:38:31Z",
+      "side": 1,
+      "message": "I\u0027m essentially reusing the same implementation as in IDevice#getPropertyCacheOrSync however I don\u0027t directly call it because I don\u0027t have an instance of IDevice. \n\nI don\u0027t want to refactor RemoteAndroidTestRunner to depend on IDevice instead of IShellEnabledDevice because that will break compatibility for everyone that uses RemoteAndroidTestRunner already.",
+      "parentUuid": "f6c4c362_38c92591",
+      "range": {
+        "startLine": 347,
+        "startChar": 7,
+        "endLine": 360,
+        "endChar": 9
+      },
+      "revId": "7e1fd6eddecc8281978dc03617e4864a42bd0544",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
