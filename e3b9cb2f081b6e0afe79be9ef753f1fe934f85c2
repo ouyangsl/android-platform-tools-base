@@ -22,6 +22,69 @@
       "revId": "e3b9cb2f081b6e0afe79be9ef753f1fe934f85c2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b64deb11_678ad00a",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/io/MemoryMappedFileBuffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-14T18:55:03Z",
+      "side": 1,
+      "message": "is this only @VisibleForTesting?",
+      "revId": "e3b9cb2f081b6e0afe79be9ef753f1fe934f85c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6540bb2_690c015d",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/io/MemoryMappedFileBuffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-14T18:55:03Z",
+      "side": 1,
+      "message": "I\u0027d remove either mBufferWidth or mBufferSize.. Leaning towards removing mBufferWidth as \"width\" sounds weird to me for this purpose.",
+      "range": {
+        "startLine": 48,
+        "startChar": 8,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "e3b9cb2f081b6e0afe79be9ef753f1fe934f85c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d657bfb2_0ab53fce",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/io/MemoryMappedFileBuffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-14T18:55:03Z",
+      "side": 1,
+      "message": "s/BUFFER_SIZE/mBufferSize/",
+      "range": {
+        "startLine": 165,
+        "startChar": 30,
+        "endLine": 165,
+        "endChar": 41
+      },
+      "revId": "e3b9cb2f081b6e0afe79be9ef753f1fe934f85c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
