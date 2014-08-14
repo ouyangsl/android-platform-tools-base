@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6540bb2_c68de4b6",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-14T18:25:28Z",
+      "side": 1,
+      "message": "I\u0027d add the nullability annotations in all the new code, such as here and in the HprofBuffer.",
+      "range": {
+        "startLine": 134,
+        "startChar": 23,
+        "endLine": 134,
+        "endChar": 34
+      },
+      "revId": "e3b9cb2f081b6e0afe79be9ef753f1fe934f85c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
