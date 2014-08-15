@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7680d379_c71e1253",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-08-15T21:45:13Z",
+      "side": 1,
+      "message": "Our formatting is 4-spaces per tab. The file previously looked fine and this makes the diff harder to read than necessary.",
+      "revId": "da913b1449216de796299a2dc5970e01f35e7894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7680d379_6738e6be",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-08-15T21:45:13Z",
+      "side": 1,
+      "message": "how do we know which of ro.display vs ro.emulator is the right one?",
+      "revId": "da913b1449216de796299a2dc5970e01f35e7894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6432b33_2b9eb987",
+        "filename": "sdklib/src/test/java/com/android/sdklib/devices/DeviceManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-08-15T21:45:13Z",
+      "side": 1,
+      "message": "Not sure if this is the proper place but can you add a test that exposes the dedupping issue?",
+      "revId": "da913b1449216de796299a2dc5970e01f35e7894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
