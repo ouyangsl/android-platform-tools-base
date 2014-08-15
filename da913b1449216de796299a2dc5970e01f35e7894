@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b695ebbe_beecb5dd",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-08-15T22:34:46Z",
+      "side": 1,
+      "message": "Our formatting is 4-spaces per tab, but diverging it from its source makes it harder to find bugs, like the one this change is fixing.",
+      "parentUuid": "7680d379_c71e1253",
+      "revId": "da913b1449216de796299a2dc5970e01f35e7894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7680d379_6738e6be",
         "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3663bbc5_771ed0c6",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-08-15T22:34:46Z",
+      "side": 1,
+      "message": "This file is almost exactly the same as in the android wear repository, where their team is responsible to maintain it. So, I\u0027m just acting like a dumb copy paste machine here.",
+      "parentUuid": "7680d379_6738e6be",
+      "revId": "da913b1449216de796299a2dc5970e01f35e7894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b6432b33_2b9eb987",
         "filename": "sdklib/src/test/java/com/android/sdklib/devices/DeviceManagerTest.java",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2014-08-15T21:45:13Z",
       "side": 1,
       "message": "Not sure if this is the proper place but can you add a test that exposes the dedupping issue?",
+      "revId": "da913b1449216de796299a2dc5970e01f35e7894",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3663bbc5_b7bce857",
+        "filename": "sdklib/src/test/java/com/android/sdklib/devices/DeviceManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-08-15T22:34:46Z",
+      "side": 1,
+      "message": "I\u0027ll take a look at it a bit later, if that\u0027s okay.",
+      "parentUuid": "b6432b33_2b9eb987",
       "revId": "da913b1449216de796299a2dc5970e01f35e7894",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
