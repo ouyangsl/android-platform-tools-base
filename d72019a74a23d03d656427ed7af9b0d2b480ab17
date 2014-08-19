@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "933559d4_52702957",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/RelativeOverlapDetectorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-19T19:18:19Z",
+      "side": 1,
+      "message": "nit - 2014",
+      "revId": "d72019a74a23d03d656427ed7af9b0d2b480ab17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "360c9b77_0f61a515",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-19T19:18:19Z",
+      "side": 1,
+      "message": "missing aosp copyright",
+      "revId": "d72019a74a23d03d656427ed7af9b0d2b480ab17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3344ad56_5e1ef953",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-19T19:18:19Z",
+      "side": 1,
+      "message": "use backticks around the attribute names; in HTML reports that will be shown using \u003ccode\u003e:  `toEndOf`/`toStartOf`",
+      "revId": "d72019a74a23d03d656427ed7af9b0d2b480ab17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3344ad56_7e409d1f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-19T19:18:19Z",
+      "side": 1,
+      "message": "Perhaps handle theme references too, e.g. ? as in\n\u003cImageView android:src\u003d\"?attr/searchViewCloseIcon\" .../\u003e\n?\n\nYou could replace the above text.isEmpty() check with just\nif (text.startsWith(PREFIX_RESOURCE_REF) || text.startsWith(PREFIX_THEME_REF)) {\n\n(those constants are in SdkConstants)",
+      "revId": "d72019a74a23d03d656427ed7af9b0d2b480ab17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16f157a2_ee209ffe",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-19T19:18:19Z",
+      "side": 1,
+      "message": "Nit: Use getTagName() instead of getNodeName()",
+      "revId": "d72019a74a23d03d656427ed7af9b0d2b480ab17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16f157a2_4ec733dd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-19T19:18:19Z",
+      "side": 1,
+      "message": "It\u0027s cleaner to use mNode.hasAttributeNS instead. The attribute (if defined) isn\u0027t allowed by aapt to be empty.",
+      "revId": "d72019a74a23d03d656427ed7af9b0d2b480ab17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
