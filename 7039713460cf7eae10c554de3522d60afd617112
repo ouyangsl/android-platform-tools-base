@@ -52,6 +52,24 @@
       "revId": "7039713460cf7eae10c554de3522d60afd617112",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d33271f0_e6cd226d",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/ManifestMerger2.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-08-20T16:21:08Z",
+      "side": 0,
+      "message": "lots of difference, old one was very limited in features, new one is based on a model where we define how xml elements are merged, so it\u0027s more reusable to merge any xml, and has more features with regards to control, overriding, removing xml nodes.",
+      "parentUuid": "b6624b22_7c6f2d79",
+      "revId": "7039713460cf7eae10c554de3522d60afd617112",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
