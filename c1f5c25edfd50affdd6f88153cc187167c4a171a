@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7371c5c6_39d6cf30",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/NdkLibrarySpecification.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T16:33:09Z",
+      "side": 1,
+      "message": "missing header.",
+      "range": {
+        "startLine": 1,
+        "startChar": 33,
+        "endLine": 1,
+        "endChar": 41
+      },
+      "revId": "c1f5c25edfd50affdd6f88153cc187167c4a171a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
