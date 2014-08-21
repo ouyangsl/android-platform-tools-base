@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f393f515_dd3d4bd8",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T16:26:58Z",
+      "side": 1,
+      "message": "you should probably test if the tested config is a library, in which case you do want to package it, right?",
+      "range": {
+        "startLine": 331,
+        "startChar": 16,
+        "endLine": 331,
+        "endChar": 83
+      },
+      "revId": "d506335f0b9307b8fe1741a568064d54c12e0142",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
