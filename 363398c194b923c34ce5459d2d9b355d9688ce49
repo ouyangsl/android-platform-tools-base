@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33b90dab_67311274",
+        "filename": "build-system/tests/ndkStl/build.gradle",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T16:32:34Z",
+      "side": 1,
+      "message": "should use com.android.application to be future-proof.",
+      "range": {
+        "startLine": 13,
+        "startChar": 19,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "363398c194b923c34ce5459d2d9b355d9688ce49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
