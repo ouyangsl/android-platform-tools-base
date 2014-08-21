@@ -22,6 +22,30 @@
       "revId": "2346d09052683d8894133159970747bde0a3da2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d34c31b5_3fc76382",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfigurationAction.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-08-21T17:28:47Z",
+      "side": 1,
+      "message": "Yes, that\u0027s correct.  Right now it\u0027s in the gradle-dev branch, so I wasn\u0027t worried about that.",
+      "parentUuid": "13432982_e1360067",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "2346d09052683d8894133159970747bde0a3da2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
