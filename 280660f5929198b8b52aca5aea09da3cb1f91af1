@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13aec965_46e2d265",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/InvokeManifestMerger.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T16:29:15Z",
+      "side": 1,
+      "message": "if you\u0027re not going to do an incremental version of it, you should just extend DefaultTask",
+      "range": {
+        "startLine": 34,
+        "startChar": 35,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "280660f5929198b8b52aca5aea09da3cb1f91af1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
