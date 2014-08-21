@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "938399c4_a8927f8e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-08-21T03:34:18Z",
+      "side": 1,
+      "message": "replace with splits",
+      "range": {
+        "startLine": 296,
+        "startChar": 40,
+        "endLine": 296,
+        "endChar": 77
+      },
+      "revId": "bb5840b81b225cf3773dd7ffdb3343581f387b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7388e5e2_8483e8b2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-08-21T03:34:18Z",
+      "side": 1,
+      "message": "same, use the local variable \"splits\"",
+      "range": {
+        "startLine": 416,
+        "startChar": 40,
+        "endLine": 416,
+        "endChar": 77
+      },
+      "revId": "bb5840b81b225cf3773dd7ffdb3343581f387b43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
