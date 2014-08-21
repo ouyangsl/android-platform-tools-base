@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "333e6deb_62c79826",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "put a comment that it\u0027s a workaround.",
+      "range": {
+        "startLine": 1052,
+        "startChar": 12,
+        "endLine": 1052,
+        "endChar": 23
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73346507_642b2407",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "use camelCase",
+      "range": {
+        "startLine": 1074,
+        "startChar": 28,
+        "endLine": 1074,
+        "endChar": 52
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73346507_447ee0f0",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "put a TODO that it\u0027s a workaround.",
+      "range": {
+        "startLine": 1133,
+        "startChar": 12,
+        "endLine": 1133,
+        "endChar": 58
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "333e6deb_221f50f8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 1200,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "you should use project.file() which should convert to windows path as needed.\nsame below.",
+      "range": {
+        "startLine": 1200,
+        "startChar": 16,
+        "endLine": 1200,
+        "endChar": 69
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3a41d88_e67f402d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/VariantOutput.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "Simplify and rename to Split.",
+      "range": {
+        "startLine": 44,
+        "startChar": 22,
+        "endLine": 44,
+        "endChar": 35
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3a41d88_a6bb88a7",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApkVariantOutputData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "I think it\u0027s create to return a immutable list. I think for the internal API it\u0027s not super useful, but we should do this on the API class (in the api package).",
+      "range": {
+        "startLine": 72,
+        "startChar": 11,
+        "endLine": 72,
+        "endChar": 24
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "333e6deb_2283d0b4",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "CamelCase",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 37
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "333e6deb_8278dc01",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "no clear if the switch is at 20 or 21...",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 22
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73346507_c452f049",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PackageSplitRes.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "if you\u0027re not doing an incremental version, just extend DefaultTask (or our BaseTask)",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3a41d88_461ad408",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "comment that it\u0027s a workaround to not forget to remove it.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 22
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "333e6deb_82f3bc4b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/SplitZipAlign.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-08-21T23:26:58Z",
+      "side": 1,
+      "message": "remove.",
+      "range": {
+        "startLine": 35,
+        "startChar": 1,
+        "endLine": 35,
+        "endChar": 30
+      },
+      "revId": "631287ff66bd88bc7720a027c4deceb39dc183f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
