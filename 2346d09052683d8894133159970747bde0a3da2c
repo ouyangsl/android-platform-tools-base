@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13432982_e1360067",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfigurationAction.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-08-21T17:24:20Z",
+      "side": 1,
+      "message": "this does not exist in 2.0 so that mean this code cannot be checked in unless we actually force an upgrade to 2.1, right ?",
+      "range": {
+        "startLine": 29,
+        "startChar": 42,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "2346d09052683d8894133159970747bde0a3da2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
