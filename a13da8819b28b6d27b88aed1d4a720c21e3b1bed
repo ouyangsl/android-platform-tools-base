@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3a7d188_1ec5fdd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-21T23:13:58Z",
+      "side": 1,
+      "message": "nit: merges, declarations",
+      "revId": "a13da8819b28b6d27b88aed1d4a720c21e3b1bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3685504_759748c5",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataMerger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-21T23:13:58Z",
+      "side": 1,
+      "message": "perhaps \"merging\" instead of \"handling\", e.g.\n  needsManualMerge(...)\n  handleManualMerge(...)",
+      "revId": "a13da8819b28b6d27b88aed1d4a720c21e3b1bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33b90dab_415b9630",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-21T23:13:58Z",
+      "side": 1,
+      "message": "do we still care about //$NON-NLS-1$ in tools/base?",
+      "revId": "a13da8819b28b6d27b88aed1d4a720c21e3b1bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33b90dab_615c9a2b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-21T23:13:58Z",
+      "side": 1,
+      "message": "nit - double blank line",
+      "revId": "a13da8819b28b6d27b88aed1d4a720c21e3b1bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3685504_15641426",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-21T23:13:58Z",
+      "side": 1,
+      "message": "will this work correctly if the format is specified on the second child?",
+      "revId": "a13da8819b28b6d27b88aed1d4a720c21e3b1bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
