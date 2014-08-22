@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53076152_9af30a4c",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-08-22T21:44:47Z",
+      "side": 1,
+      "message": "Should we use an absolute version here instead of +?",
+      "revId": "e804f127fddbdb75a6fd97da85321f111040facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
