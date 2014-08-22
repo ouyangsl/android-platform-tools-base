@@ -16,6 +16,24 @@
       "revId": "e804f127fddbdb75a6fd97da85321f111040facd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33b3cdfb_cb08554e",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-08-22T21:46:04Z",
+      "side": 1,
+      "message": "If we had an absolute version to use, yes. Play services ships every couple of weeks, so anything we bake in here goes out of date quickly. The merging system should auto-update to the latest version installed on the system.",
+      "parentUuid": "53076152_9af30a4c",
+      "revId": "e804f127fddbdb75a6fd97da85321f111040facd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
