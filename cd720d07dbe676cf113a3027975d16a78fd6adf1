@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33b3cdfb_4b644527",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/io/HprofBufferTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-08-22T22:47:00Z",
+      "side": 1,
+      "message": "Suggestion, please use a temp file, otherwise this leaves a \"f\" file in my tools/base folder:\n        File f \u003d File.createTempFile(\"test_vm\", \".tmp\");\n        f.deleteOnExit();",
+      "revId": "cd720d07dbe676cf113a3027975d16a78fd6adf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
