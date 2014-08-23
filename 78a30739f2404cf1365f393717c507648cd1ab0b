@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33b3cdfb_cc66aba3",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T04:59:29Z",
+      "side": 1,
+      "message": "I have no clue if actively calling a gc after these would help.",
+      "range": {
+        "startLine": 264,
+        "startChar": 51,
+        "endLine": 264,
+        "endChar": 59
+      },
+      "revId": "78a30739f2404cf1365f393717c507648cd1ab0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
