@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53076152_061b43d5",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "Overall, this solution LGTM. I\u0027m curious though about your thoughts on changing the API the following way:\n\n public Future\u003cString\u003e getSystemProperty(String name)\n\nI think this has the following benefits:\n- using a Future immediately implies that the call has some non negligible latency\n- we could deprecate all the other getProperty calls above.\n- the fact that there is a cache then becomes an implementation detail\n- the callee gets to decide how much he wants to wait. If you want it right away, you can just do future.get(1, TimeUnit.MILLISECONDS) or something like that.\n\nMost of the rest of the implementation will still remain the same, we\u0027d just use Guava\u0027s SettableFuture internally, and set it when we actually receive the property.",
+      "range": {
+        "startLine": 215,
+        "startChar": 18,
+        "endLine": 215,
+        "endChar": 34
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33b3cdfb_2ca1e77f",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "nit: it is not a frequency, so maybe FETCH_BACKOFF_TIME",
+      "range": {
+        "startLine": 30,
+        "startChar": 30,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33b3cdfb_acb417bb",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "I know this code already existed, but if you interested, you could add a small test with a few patterns for this GetPropReceiver. If not, I\u0027ll add it in a subsequent CL.",
+      "range": {
+        "startLine": 32,
+        "startChar": 33,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53076152_66bb2f60",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "Maps.newHashMapWithExpectedSize(20), also in line 41",
+      "range": {
+        "startLine": 35,
+        "startChar": 50,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53076152_46c0abc6",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "for code that we touch, we try to add nullabilty annotations, so here and everywhere else where you have reference parameters or return values, mark them as @NonNull or @Nullable. You\u0027ll immediately notice the benefit if you are using IntelliJ, not sure about Eclipse.",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 44,
+        "endChar": 42
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f169a2_ff30401c",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 171,
+        "startChar": 4,
+        "endLine": 171,
+        "endChar": 16
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f169a2_bf36b817",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "You probably don\u0027t want to set it here, maybe closer to where you are actually fetching.",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 26
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f169a2_5ad1a268",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "Could we add Guang\u0027s comment about the types of properties, and enforce that only ro.* properties are read through the other API? We could throw an IllegalArgumentException if the name doesn\u0027t start with ro.",
+      "range": {
+        "startLine": 181,
+        "startChar": 53,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13f169a2_9adb0a89",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-23T05:49:12Z",
+      "side": 1,
+      "message": "!isEmpty()",
+      "range": {
+        "startLine": 217,
+        "startChar": 27,
+        "endLine": 217,
+        "endChar": 37
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
