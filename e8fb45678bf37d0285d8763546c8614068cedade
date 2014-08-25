@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13c88974_ca85b34c",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/io/MemoryMappedFileBuffer.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-25T17:11:44Z",
+      "side": 1,
+      "message": "Maybe add a comment here indicating that this eventually needs to be unmapped() to release resources in certain scenarios.",
+      "range": {
+        "startLine": 73,
+        "startChar": 11,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "e8fb45678bf37d0285d8763546c8614068cedade",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
