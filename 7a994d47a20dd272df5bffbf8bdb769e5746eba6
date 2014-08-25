@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3c4d562_f8308d1c",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/ApiDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-25T14:24:34Z",
+      "side": 1,
+      "message": "Here we\u0027re adding additional (existing) data files which contain references to attributes like labelFor and testIsSelectable; without the fix in the ApiDetector, this test fails with an additional 4 unused attribute warnings on those attributes.",
+      "revId": "7a994d47a20dd272df5bffbf8bdb769e5746eba6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
