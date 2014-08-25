@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33a82d90_434a86e9",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/io/MemoryMappedFileBuffer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-25T19:00:14Z",
+      "side": 1,
+      "message": "BTW, a comment on another CL reminded me of this. This reason this method exists is very similar to http://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html#dispose(), and dispose() in general is a more common name (see Disposer/Disposable classes in IntelliJ). So dispose() might be a better name here. Not a big deal tho.",
+      "range": {
+        "startLine": 89,
+        "startChar": 16,
+        "endLine": 89,
+        "endChar": 21
+      },
+      "revId": "dce677dd01c92eda7f77569248ff3c13720f48fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
