@@ -22,6 +22,30 @@
       "revId": "b604de3a1d190ba32950b577b72563ce298315b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3d0553d_816dbdd1",
+        "filename": ".idea/libraries/trove4j_1_1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-08-26T23:19:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13d4092d_cbf4f5a5",
+      "range": {
+        "startLine": 7,
+        "startChar": 5,
+        "endLine": 7,
+        "endChar": 12
+      },
+      "revId": "b604de3a1d190ba32950b577b72563ce298315b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
