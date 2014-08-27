@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "13d4092d_f39b2721",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-08-27T01:48:26Z",
+      "side": 1,
+      "message": "what do you think about using a state pattern to implement this?\n\nHave different actions depending on cache state, unpopulated, populated, and fetching?",
+      "parentUuid": "53076152_061b43d5",
+      "range": {
+        "startLine": 215,
+        "startChar": 18,
+        "endLine": 215,
+        "endChar": 34
+      },
+      "revId": "122471619b7d51276b13cd637b0cda909a9a69f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33b3cdfb_2ca1e77f",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
         "patchSetId": 1
