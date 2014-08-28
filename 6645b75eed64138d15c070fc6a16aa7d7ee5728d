@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d357d1b2_c7e8805f",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-28T23:07:30Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33ee6d35_22d99006",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
         "patchSetId": 4
@@ -64,6 +87,52 @@
         "startChar": 26,
         "endLine": 225,
         "endChar": 42
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53e9212a_23507440",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-28T23:07:30Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 69,
+        "startChar": 16,
+        "endLine": 69,
+        "endChar": 19
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3541db2_4ce5933e",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-28T23:07:30Z",
+      "side": 1,
+      "message": "instead of a List\u003cPropFuture\u003e, we could do with a Map\u003cString,SettableFuture\u003e, so you don\u0027t need the class, and multiple requests for the same property don\u0027t duplicate items.",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 28
       },
       "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
