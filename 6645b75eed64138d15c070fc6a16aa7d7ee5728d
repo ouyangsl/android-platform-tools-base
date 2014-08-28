@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33ee6d35_22d99006",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-28T22:25:11Z",
+      "side": 1,
+      "message": "@Nullable",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 10
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3541db2_89c13d14",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-28T22:25:11Z",
+      "side": 1,
+      "message": "Is it possible for us to deprecate this method in favor of the getPropertyAsync below? Within that method we determine whether the requested property is read only or not, and handle it appropriately.",
+      "range": {
+        "startLine": 186,
+        "startChar": 19,
+        "endLine": 186,
+        "endChar": 41
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33ee6d35_02144cd6",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-28T22:25:11Z",
+      "side": 1,
+      "message": "No need for Async in the method name since a Future\u003c\u003e return value indicates that..but since that conflicts with getProperty, I\u0027d recommend changing this to getSystemProperty() instead.\n\nAlso, @NonNull return",
+      "range": {
+        "startLine": 225,
+        "startChar": 26,
+        "endLine": 225,
+        "endChar": 42
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
