@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d37ef124_00c2f63f",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-08-28T21:28:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ee6d35_df487b78",
+      "range": {
+        "startLine": 98,
+        "startChar": 30,
+        "endLine": 98,
+        "endChar": 45
+      },
+      "revId": "ba8d4b98b9d67dfd000799cb48a28c9a05637805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d37ef124_0cdb1727",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-08-28T18:24:20Z",
       "side": 1,
       "message": "This shouldn\u0027t happen if the dump is not malformed right? If that\u0027s the case we should log it when it does.",
+      "range": {
+        "startLine": 118,
+        "startChar": 20,
+        "endLine": 118,
+        "endChar": 26
+      },
+      "revId": "ba8d4b98b9d67dfd000799cb48a28c9a05637805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f35a15dc_71af031a",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-08-28T21:28:45Z",
+      "side": 1,
+      "message": "This is how \u0027null\u0027 field values are represented. The id is 0, the lookup returns null, but it\u0027s not an error.",
+      "parentUuid": "d37ef124_0cdb1727",
       "range": {
         "startLine": 118,
         "startChar": 20,
