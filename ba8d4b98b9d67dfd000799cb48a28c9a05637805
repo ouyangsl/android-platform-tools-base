@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33ee6d35_df487b78",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-28T18:24:20Z",
+      "side": 1,
+      "message": "This should be named getStaticFieldValues",
+      "range": {
+        "startLine": 98,
+        "startChar": 30,
+        "endLine": 98,
+        "endChar": 45
+      },
+      "revId": "ba8d4b98b9d67dfd000799cb48a28c9a05637805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d37ef124_0cdb1727",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-08-28T18:24:20Z",
+      "side": 1,
+      "message": "This shouldn\u0027t happen if the dump is not malformed right? If that\u0027s the case we should log it when it does.",
+      "range": {
+        "startLine": 118,
+        "startChar": 20,
+        "endLine": 118,
+        "endChar": 26
+      },
+      "revId": "ba8d4b98b9d67dfd000799cb48a28c9a05637805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
