@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d37ef124_e97d52f3",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-08-29T03:49:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d357d1b2_c7e8805f",
+      "range": {
+        "startLine": 65,
+        "startChar": 12,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33ee6d35_22d99006",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2014-08-28T22:25:11Z",
       "side": 1,
       "message": "@Nullable",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 10
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f35a15dc_f9ac31bf",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-08-29T03:49:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ee6d35_22d99006",
       "range": {
         "startLine": 176,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b3f97d00_3e0ec5c9",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-08-29T03:49:01Z",
+      "side": 1,
+      "message": "I had considered this, but worried if the ro.* naming convention is a standard across Android devices. However upon further consideration, ddmlib is already littered with references to specific properties so should be a safe change to make",
+      "parentUuid": "b3541db2_89c13d14",
+      "range": {
+        "startLine": 186,
+        "startChar": 19,
+        "endLine": 186,
+        "endChar": 41
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33ee6d35_02144cd6",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2014-08-28T22:25:11Z",
       "side": 1,
       "message": "No need for Async in the method name since a Future\u003c\u003e return value indicates that..but since that conflicts with getProperty, I\u0027d recommend changing this to getSystemProperty() instead.\n\nAlso, @NonNull return",
+      "range": {
+        "startLine": 225,
+        "startChar": 26,
+        "endLine": 225,
+        "endChar": 42
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d37ef124_c9f73636",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-08-29T03:49:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ee6d35_02144cd6",
       "range": {
         "startLine": 225,
         "startChar": 26,
@@ -128,6 +224,30 @@
       "writtenOn": "2014-08-28T23:07:30Z",
       "side": 1,
       "message": "instead of a List\u003cPropFuture\u003e, we could do with a Map\u003cString,SettableFuture\u003e, so you don\u0027t need the class, and multiple requests for the same property don\u0027t duplicate items.",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 28
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3f97d00_be4495dc",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-08-29T03:49:01Z",
+      "side": 1,
+      "message": "Wouldn\u0027t multiple requests for same property each need their own Future?",
+      "parentUuid": "b3541db2_4ce5933e",
       "range": {
         "startLine": 110,
         "startChar": 12,
