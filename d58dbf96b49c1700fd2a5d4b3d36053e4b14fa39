@@ -45,6 +45,30 @@
       "revId": "d58dbf96b49c1700fd2a5d4b3d36053e4b14fa39",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d31511f5_9d93a749",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-08-29T21:27:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f35a15dc_dc6843fd",
+      "range": {
+        "startLine": 170,
+        "startChar": 75,
+        "endLine": 170,
+        "endChar": 91
+      },
+      "revId": "d58dbf96b49c1700fd2a5d4b3d36053e4b14fa39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
