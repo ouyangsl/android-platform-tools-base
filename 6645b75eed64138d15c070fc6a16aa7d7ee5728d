@@ -257,6 +257,30 @@
       "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d37ef124_c7f4fda5",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-29T15:14:01Z",
+      "side": 1,
+      "message": "No, the property itself doesn\u0027t change, so they can all share the same Future. (for volatile properties they could, but not sure if we can guarantee the timing anyway).\n\nOnce a future is set, you can do multiple get() on it to retrieve the same value.",
+      "parentUuid": "b3f97d00_be4495dc",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 28
+      },
+      "revId": "6645b75eed64138d15c070fc6a16aa7d7ee5728d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
