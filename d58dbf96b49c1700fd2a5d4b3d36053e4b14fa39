@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d37ef124_27c2a140",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/DeviceMonitor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-29T16:38:41Z",
+      "side": 1,
+      "message": "this get() would stop the execution, and is probably not needed right?",
+      "range": {
+        "startLine": 495,
+        "startChar": 13,
+        "endLine": 495,
+        "endChar": 16
+      },
+      "revId": "d58dbf96b49c1700fd2a5d4b3d36053e4b14fa39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f35a15dc_dc6843fd",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-08-29T16:38:41Z",
+      "side": 1,
+      "message": "getSystemProperty",
+      "range": {
+        "startLine": 170,
+        "startChar": 75,
+        "endLine": 170,
+        "endChar": 91
+      },
+      "revId": "d58dbf96b49c1700fd2a5d4b3d36053e4b14fa39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
