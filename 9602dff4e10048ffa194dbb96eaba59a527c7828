@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93df197f_88087bbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-08-29T17:01:42Z",
+      "side": 1,
+      "message": "Wow, I\u0027m surprised we still use that code. In the IDE we have a different abstraction (which we keep around and only update when the manifest filestamp has changed). In particular we read the various data we need all in one shot (minSdkVersion packageName, versionCode etc) and keep that around.",
+      "revId": "9602dff4e10048ffa194dbb96eaba59a527c7828",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
