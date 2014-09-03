@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f04e8b81_24d56724",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/BuiltinIssueRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-03T23:58:48Z",
+      "side": 1,
+      "message": "Can you bump this number up to 198 now? Without that I worry that the BuiltinIssueRegistry test will fail.",
+      "revId": "c0a93f737a0999d215e18f6f84b5dd543be015fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
