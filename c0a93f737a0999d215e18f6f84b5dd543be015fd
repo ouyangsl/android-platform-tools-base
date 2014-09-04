@@ -16,6 +16,24 @@
       "revId": "c0a93f737a0999d215e18f6f84b5dd543be015fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7071bbc6_dc89c1d8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/BuiltinIssueRegistry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-09-04T00:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f04e8b81_24d56724",
+      "revId": "c0a93f737a0999d215e18f6f84b5dd543be015fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
