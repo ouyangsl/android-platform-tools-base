@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d07987b6_fd86fbc7",
+        "filename": "sdk-common/src/test/resources/testData/resources/declareStyleable/base/values/values.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-04T13:56:30Z",
+      "side": 1,
+      "message": "maybe also try with this top level attribute being defined after the declare styleabe, which aapt allows, e.g. an additional attribute \"bar2\" here:\n\n    \u003cattr name\u003d\"bar1\" format\u003d\"boolean\"/\u003e\n\n    \u003cdeclare-styleable name\u003d\"foo\"\u003e\n        \u003cattr name\u003d\"bar\" format\u003d\"boolean\" /\u003e\n        \u003cattr name\u003d\"bar1\"/\u003e\n        \u003cattr name\u003d\"bar2\"/\u003e\n    \u003c/declare-styleable\u003e\n\n    \u003cattr name\u003d\"bar2\" format\u003d\"boolean\"/\u003e",
+      "revId": "2c26383dcd0552f5df21135d6e35e7b9e264489c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
