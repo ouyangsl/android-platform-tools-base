@@ -16,6 +16,24 @@
       "revId": "2c26383dcd0552f5df21135d6e35e7b9e264489c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7071bbc6_e2897cd8",
+        "filename": "sdk-common/src/test/resources/testData/resources/declareStyleable/base/values/values.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-04T17:05:26Z",
+      "side": 1,
+      "message": "I actually don\u0027t follow references or check that the attr are defined somewhere, so I probably don\u0027t care about this here.\n\nThe new tests to use format inside the declare-styleable were useful as these are handled separately during the merge.",
+      "parentUuid": "d07987b6_fd86fbc7",
+      "revId": "2c26383dcd0552f5df21135d6e35e7b9e264489c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
