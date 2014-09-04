@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50583741_63f2394b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-04T13:58:54Z",
+      "side": 1,
+      "message": "nit: t in wrong place",
+      "revId": "1fc138b367506d22d2059d0b199e236360b31dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50583741_03f93d28",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-04T13:58:54Z",
+      "side": 1,
+      "message": "nit - merge nested if\u0027s (IntelliJ has an intention for it btw, place caret on outer if)",
+      "revId": "1fc138b367506d22d2059d0b199e236360b31dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
