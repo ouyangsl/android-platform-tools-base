@@ -33,6 +33,24 @@
       "revId": "1fc138b367506d22d2059d0b199e236360b31dba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306bc3de_9dd9032e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-04T17:03:59Z",
+      "side": 1,
+      "message": "I\u0027ll do it in another CLs.",
+      "parentUuid": "50583741_03f93d28",
+      "revId": "1fc138b367506d22d2059d0b199e236360b31dba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
