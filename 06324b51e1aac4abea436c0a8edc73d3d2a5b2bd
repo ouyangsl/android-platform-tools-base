@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f07ccba5_3bd55f24",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/BatteryFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-04T16:52:30Z",
+      "side": 1,
+      "message": "FETCH_ is long and this is int..I\u0027d make them consistent",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50667713_81fe80cc",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/BatteryFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-04T16:52:30Z",
+      "side": 1,
+      "message": "BTW, just so you know, the way the API is defined, you return null in case of errors. You can actually propagate errors back to the callees by doing future.setException() instead of future.set(). This would allow you to propagate all of these exceptions..which only matters if you can do something with those at the callee (I don\u0027t know if you have a UI that can make use of those errors).",
+      "range": {
+        "startLine": 198,
+        "startChar": 25,
+        "endLine": 198,
+        "endChar": 41
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10979f03_92b48c07",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-04T16:52:30Z",
+      "side": 1,
+      "message": "I forgot about this in the previous CL, but inside interfaces, you don\u0027t need the public qualifier.",
+      "range": {
+        "startLine": 548,
+        "startChar": 4,
+        "endLine": 548,
+        "endChar": 10
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10979f03_32a9f8ad",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-04T16:52:30Z",
+      "side": 1,
+      "message": "no need for public",
+      "range": {
+        "startLine": 575,
+        "startChar": 4,
+        "endLine": 575,
+        "endChar": 10
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b076d3c3_535e045c",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-04T16:52:30Z",
+      "side": 1,
+      "message": "doesn\u0027t match param name, I\u0027d either document this, or if it is obvious, remove it..",
+      "range": {
+        "startLine": 583,
+        "startChar": 14,
+        "endLine": 583,
+        "endChar": 25
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f07ccba5_3b5c7f26",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-04T16:52:30Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 587,
+        "startChar": 67,
+        "endLine": 587,
+        "endChar": 75
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b076d3c3_f385d084",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-04T16:52:30Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 587,
+        "startChar": 4,
+        "endLine": 587,
+        "endChar": 10
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
