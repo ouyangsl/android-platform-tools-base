@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "50391700_a0b6ba10",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/BatteryFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-05T20:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f07ccba5_3bd55f24",
+      "range": {
+        "startLine": 38,
+        "startChar": 25,
+        "endLine": 38,
+        "endChar": 28
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50667713_81fe80cc",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/BatteryFetcher.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-09-04T16:52:30Z",
       "side": 1,
       "message": "BTW, just so you know, the way the API is defined, you return null in case of errors. You can actually propagate errors back to the callees by doing future.setException() instead of future.set(). This would allow you to propagate all of these exceptions..which only matters if you can do something with those at the callee (I don\u0027t know if you have a UI that can make use of those errors).",
+      "range": {
+        "startLine": 198,
+        "startChar": 25,
+        "endLine": 198,
+        "endChar": 41
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50391700_00c4c675",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/BatteryFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-05T20:50:31Z",
+      "side": 1,
+      "message": "Cool. These exceptions are important to tradefed recovery handling, will do.\n\nBTW when will ddmlib transition to java7 so I could do multi-exception catch blocks?",
+      "parentUuid": "50667713_81fe80cc",
       "range": {
         "startLine": 198,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "90baaf9a_b46c0d43",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-05T20:50:31Z",
+      "side": 1,
+      "message": "Understood but I added public to be consistent with the other methods here.\n\nPersonally I dislike this aspect of the java spec, and always prefer to explicitly label interface methods as public",
+      "parentUuid": "10979f03_92b48c07",
+      "range": {
+        "startLine": 548,
+        "startChar": 4,
+        "endLine": 548,
+        "endChar": 10
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10979f03_32a9f8ad",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "50391700_4041ae23",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-05T20:50:31Z",
+      "side": 1,
+      "message": "see rationale above. I can remove the public if you feel strongly about it",
+      "parentUuid": "10979f03_32a9f8ad",
+      "range": {
+        "startLine": 575,
+        "startChar": 4,
+        "endLine": 575,
+        "endChar": 10
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b076d3c3_535e045c",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2014-09-04T16:52:30Z",
       "side": 1,
       "message": "doesn\u0027t match param name, I\u0027d either document this, or if it is obvious, remove it..",
+      "range": {
+        "startLine": 583,
+        "startChar": 14,
+        "endLine": 583,
+        "endChar": 25
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50391700_a0287a6f",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-05T20:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b076d3c3_535e045c",
       "range": {
         "startLine": 583,
         "startChar": 14,
@@ -156,6 +276,30 @@
         "startChar": 4,
         "endLine": 587,
         "endChar": 10
+      },
+      "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90baaf9a_7411b5b9",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-05T20:50:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f07ccba5_3b5c7f26",
+      "range": {
+        "startLine": 587,
+        "startChar": 67,
+        "endLine": 587,
+        "endChar": 75
       },
       "revId": "06324b51e1aac4abea436c0a8edc73d3d2a5b2bd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
