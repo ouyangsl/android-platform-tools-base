@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0684b04_afe06530",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-09-08T18:47:34Z",
+      "side": 1,
+      "message": "I am not sure about the local Id. In its documentation it says \"another id\" but it\u0027s unclear what it is local to. After looking some more I realized that it is just the index into this mDominatorMap private array. I might be completely wrong, but couldn\u0027t we just have the dominator of an instance in the instance itself? So this line would become something like:\n\nref.setDominator(Snapshot.SENTINEL_ROOT);\n\nIt was a map from instance to instance, so if we have the original instance it would just work. and we don\u0027t need to keep a separate array for it nor the new id. After all the dominator is something that does belong in the model itself.",
+      "range": {
+        "startLine": 73,
+        "startChar": 34,
+        "endLine": 73,
+        "endChar": 44
+      },
+      "revId": "fc3d9fb556ac742c0960d1feef5aaceba37788c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
