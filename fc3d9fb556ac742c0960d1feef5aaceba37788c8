@@ -22,6 +22,30 @@
       "revId": "fc3d9fb556ac742c0960d1feef5aaceba37788c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10f15fa2_94cc8c70",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-09-09T17:47:40Z",
+      "side": 1,
+      "message": "The local id is the topological sort rank - previously there was a map keeping them, but it was both wasteful (if using HashMap) and inefficient. There are many lookups done below, in the inner loop, between the ranks of fingerA and fingerB, so I decided to push this rank into the nodes as mLocalId. It might be useful for other use cases, because having a numbering of the nodes in [1..N] allows for arrays instead of maps - and I did that with the dominator map.\n\nI can push the dominators into the model, sure. But I don\u0027t see how I can not use the topological ranks?",
+      "parentUuid": "f0684b04_afe06530",
+      "range": {
+        "startLine": 73,
+        "startChar": 34,
+        "endLine": 73,
+        "endChar": 44
+      },
+      "revId": "fc3d9fb556ac742c0960d1feef5aaceba37788c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
