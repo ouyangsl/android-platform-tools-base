@@ -22,6 +22,30 @@
       "revId": "49a130e6206728e84931edef93e825d9ce0c93b5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702b7bc3_8c6f6737",
+        "filename": "build-system/gradle/src/device-test/groovy/com/android/build/gradle/DeviceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-09-09T22:53:26Z",
+      "side": 1,
+      "message": "Sorry, seems i have misunderstood \"device test\" from your previous comment. Will reimplement.",
+      "parentUuid": "302583ef_70980664",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "49a130e6206728e84931edef93e825d9ce0c93b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
