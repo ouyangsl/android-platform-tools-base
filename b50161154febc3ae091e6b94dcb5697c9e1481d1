@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0f7b398_ab2b296b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1759,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "you should use @NonNull, @Nullable annotation on parameters.",
+      "range": {
+        "startLine": 1759,
+        "startChar": 24,
+        "endLine": 1759,
+        "endChar": 28
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b04973a6_ed126771",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 8
+      },
+      "lineNbr": 1172,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "I would do an assert or a runtime exception. It\u0027s not something that should be called when we are in pure split mode and it\u0027s better to fail rather than do nothing I think.",
+      "range": {
+        "startLine": 1171,
+        "startChar": 8,
+        "endLine": 1172,
+        "endChar": 80
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f7b398_2ba579a5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 8
+      },
+      "lineNbr": 1186,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "better error handling please? :)",
+      "range": {
+        "startLine": 1186,
+        "startChar": 0,
+        "endLine": 1186,
+        "endChar": 41
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f7b398_cbaf957c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 8
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "what input is this? shouldn\u0027t it be per variant?",
+      "range": {
+        "startLine": 1195,
+        "startChar": 25,
+        "endLine": 1195,
+        "endChar": 68
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b04973a6_8d5da328",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 8
+      },
+      "lineNbr": 1206,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "we should make this more generic (and not specific to density splits, but also include ABI), in which case we should call this \u003cvariantName\u003e_splits.json",
+      "range": {
+        "startLine": 1206,
+        "startChar": 21,
+        "endLine": 1206,
+        "endChar": 68
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0edabca_96712d5f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 8
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "I think this task should at least depend on the packagesplitres task above.",
+      "range": {
+        "startLine": 1210,
+        "startChar": 22,
+        "endLine": 1210,
+        "endChar": 30
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f7b398_2bc9f93b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "Should be ApkOutput",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 31
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f7b398_0bf7dd6b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "SplitApkOutput",
+      "range": {
+        "startLine": 78,
+        "startChar": 30,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f7b398_cbecb59b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 149,
+        "startChar": 29,
+        "endLine": 149,
+        "endChar": 33
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0edabca_561b450a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T18:44:41Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 162,
+        "startChar": 53,
+        "endLine": 162,
+        "endChar": 57
+      },
+      "revId": "b50161154febc3ae091e6b94dcb5697c9e1481d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
