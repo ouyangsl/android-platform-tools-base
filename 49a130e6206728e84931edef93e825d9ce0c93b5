@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "302583ef_70980664",
+        "filename": "build-system/gradle/src/device-test/groovy/com/android/build/gradle/DeviceTest.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-09T22:44:20Z",
+      "side": 1,
+      "message": "You probably don\u0027t want this in here. This means it\u0027s only built when a device is connected (the goal is to build a project and upload it and its tests to a device and run the tests there).\n\nYou actually probably want to look at ManualBuildTest which manually builds a project and then inspect the result of the test to make sure that the build was correct.\n\nIn particular you can look at using aapt to ensure the local was added.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "49a130e6206728e84931edef93e825d9ce0c93b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
