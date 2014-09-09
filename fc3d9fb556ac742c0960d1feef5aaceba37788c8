@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b04973a6_81ea8cc2",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-09-09T22:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70029b43_1a6281e4",
+      "range": {
+        "startLine": 73,
+        "startChar": 34,
+        "endLine": 73,
+        "endChar": 44
+      },
+      "revId": "fc3d9fb556ac742c0960d1feef5aaceba37788c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70029b43_da6759ed",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "writtenOn": "2014-09-09T18:12:00Z",
       "side": 1,
       "message": "Shoudln\u0027t this be in the Snapshot class?",
+      "range": {
+        "startLine": 151,
+        "startChar": 26,
+        "endLine": 151,
+        "endChar": 47
+      },
+      "revId": "fc3d9fb556ac742c0960d1feef5aaceba37788c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f7b398_9f9ca3e6",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-09-09T22:49:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70029b43_da6759ed",
       "range": {
         "startLine": 151,
         "startChar": 26,
