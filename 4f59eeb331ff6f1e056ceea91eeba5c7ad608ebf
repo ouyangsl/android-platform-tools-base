@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b0f7b398_eee7fff5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/OverrideConcreteDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-09T18:48:12Z",
+      "side": 1,
+      "message": "yes, will fix",
+      "parentUuid": "30574343_ccdccbf8",
+      "range": {
+        "startLine": 49,
+        "startChar": 12,
+        "endLine": 49,
+        "endChar": 20
+      },
+      "revId": "4f59eeb331ff6f1e056ceea91eeba5c7ad608ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30574343_ecd38fe2",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/OverrideConcreteDetector.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-09-09T17:14:34Z",
       "side": 1,
       "message": "typo",
+      "range": {
+        "startLine": 129,
+        "startChar": 77,
+        "endLine": 129,
+        "endChar": 80
+      },
+      "revId": "4f59eeb331ff6f1e056ceea91eeba5c7ad608ebf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0f7b398_cee4c3f4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/OverrideConcreteDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-09T18:48:12Z",
+      "side": 1,
+      "message": "will fix",
+      "parentUuid": "30574343_ecd38fe2",
       "range": {
         "startLine": 129,
         "startChar": 77,
