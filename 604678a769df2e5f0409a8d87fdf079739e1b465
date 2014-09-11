@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70b9bbd7_e2d9bc2c",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-09-11T18:03:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0e8a7cd_bf3b53e0",
+      "range": {
+        "startLine": 448,
+        "startChar": 49,
+        "endLine": 448,
+        "endChar": 57
+      },
+      "revId": "604678a769df2e5f0409a8d87fdf079739e1b465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0168b8e_f867b0ec",
         "filename": "build-system/gradle/src/device-test/groovy/com/android/build/gradle/DeviceTest.java",
         "patchSetId": 20
@@ -36,6 +60,30 @@
       "writtenOn": "2014-09-11T01:22:14Z",
       "side": 1,
       "message": "since you have it in manual testing, you should remove it from here, unless you think it\u0027s important that you need to also install it on a device?",
+      "range": {
+        "startLine": 71,
+        "startChar": 13,
+        "endLine": 71,
+        "endChar": 28
+      },
+      "revId": "604678a769df2e5f0409a8d87fdf079739e1b465",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70b9bbd7_82cba058",
+        "filename": "build-system/gradle/src/device-test/groovy/com/android/build/gradle/DeviceTest.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-09-11T18:03:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0168b8e_f867b0ec",
       "range": {
         "startLine": 71,
         "startChar": 13,
