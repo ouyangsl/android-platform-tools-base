@@ -1,0 +1,418 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "306bc3de_58f2874a",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"Used to determine if the client is currently in a resolution state or is waiting for a resolution intent to return.\"",
+      "range": {
+        "startLine": 53,
+        "startChar": 7,
+        "endLine": 54,
+        "endChar": 47
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_b6a2a0c7",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"Restores the activity state.\" --\u003e \"Restores any activity state, if it exists.\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 45,
+        "endLine": 59,
+        "endChar": 73
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306bc3de_78f74b39",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"starting\" --\u003e \"created\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 35,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_b6870055",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"need\" --\u003e \"needs\"",
+      "range": {
+        "startLine": 71,
+        "startChar": 37,
+        "endLine": 71,
+        "endChar": 41
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306bc3de_b81643b1",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"activities\" --\u003e \"activity\"",
+      "range": {
+        "startLine": 74,
+        "startChar": 7,
+        "endLine": 74,
+        "endChar": 17
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306bc3de_1873af24",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"gets invisible\" --\u003e \"is no longer visible\"",
+      "range": {
+        "startLine": 120,
+        "startChar": 28,
+        "endLine": 120,
+        "endChar": 42
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_ddd01f8b",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"invisible\" --\u003e \"is no longer visible\"\n\n(\"invisible\" is a weird word to use when talking about activities, IMO... it makes it sound like the activity is still there and is just hidden from the user... but really the activity is gone because the user navigated to a different activity, or turned off the device screen, etc.)",
+      "range": {
+        "startLine": 121,
+        "startChar": 49,
+        "endLine": 121,
+        "endChar": 58
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306bc3de_f81b5bd1",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"Called when\" --\u003e \"Called when the\"",
+      "range": {
+        "startLine": 170,
+        "startChar": 7,
+        "endLine": 170,
+        "endChar": 19
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_fd588368",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"is trying to connect but failed\" --\u003e \"has failed to connect\"",
+      "range": {
+        "startLine": 179,
+        "startChar": 44,
+        "endLine": 179,
+        "endChar": 75
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "306bc3de_38f9d328",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"started before\" --\u003e \"already been started\"",
+      "range": {
+        "startLine": 198,
+        "startChar": 24,
+        "endLine": 198,
+        "endChar": 38
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_36c69086",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "Should these be javadoc comments (\"/** ... */\")?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 2
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_3d7afbc9",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "This should be indented by 4 spaces.",
+      "range": {
+        "startLine": 25,
+        "startChar": 1,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_7d7473dc",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"might\" --\u003e \"will likely\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 72,
+        "endLine": 35,
+        "endChar": 77
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_5d6faf0a",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"copy, your\" --\u003e \"copy. Your\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 46,
+        "endLine": 35,
+        "endChar": 57
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_9d88679d",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "\"and can\" --\u003e \"and you can\"\n\n...although the sentence is still pretty weird and should probably be structured a bit more...",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_d6b64412",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "This should be a javadoc comment (\"/** ... */)?",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_16334ce1",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "The most recent version of Google Play Services requires minApi 9 (Gingerbread)... is there a reason why the minApi is set to 7 here? Maybe we should ask someone about this.",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 19
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_7622d894",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-11T21:19:54Z",
+      "side": 1,
+      "message": "Trailing space.",
+      "range": {
+        "startLine": 77,
+        "startChar": 14,
+        "endLine": 77,
+        "endChar": 15
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
