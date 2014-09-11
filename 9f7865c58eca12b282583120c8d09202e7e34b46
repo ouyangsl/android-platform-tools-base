@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "101a3fb4_63baea5b",
+        "filename": "ddmlib/.classpath",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T16:27:10Z",
+      "side": 1,
+      "message": "what is this? Someone build with Eclipse still?\n\nMore seriously, is this just fixing a missing dependency in Eclipse, or are you adding a new one? if the latter, you need to update build.gradle too.",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 103
+      },
+      "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
