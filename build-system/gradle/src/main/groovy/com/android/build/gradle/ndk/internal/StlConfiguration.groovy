@@ -20,7 +20,11 @@ import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.tasks.Copy;
+<<<<<<< HEAD   (716bc3 Merge "Removes final so SyncService can be mocked in tests.")
 import org.gradle.nativeplatform.internal.DefaultSharedLibraryBinarySpec
+=======
+import org.gradle.nativebinaries.internal.DefaultSharedLibraryBinarySpec;
+>>>>>>> BRANCH (3bd1f2 Merge "Move to Gradle 2.1" into idea133)
 
 /**
  * Configuration to setup STL for NDK.

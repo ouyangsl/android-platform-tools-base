@@ -16,14 +16,17 @@
 
 package com.android.build.gradle.ndk.internal;
 
-import com.android.annotations.Nullable;
 import com.android.builder.model.AndroidProject;
 import com.google.common.base.Joiner;
 
+<<<<<<< HEAD   (716bc3 Merge "Removes final so SyncService can be mocked in tests.")
 import org.gradle.nativeplatform.BuildType;
 import org.gradle.nativeplatform.NativeBinary;
 import org.gradle.nativeplatform.SharedLibraryBinary;
 import org.gradle.nativeplatform.platform.Platform;
+=======
+import org.gradle.nativebinaries.NativeBinary;
+>>>>>>> BRANCH (3bd1f2 Merge "Move to Gradle 2.1" into idea133)
 
 import java.io.File;
 

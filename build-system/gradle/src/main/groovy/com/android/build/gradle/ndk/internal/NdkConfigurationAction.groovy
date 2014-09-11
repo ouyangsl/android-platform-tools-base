@@ -25,9 +25,15 @@ import org.gradle.api.Project
 import org.gradle.language.base.FunctionalSourceSet
 import org.gradle.language.c.CSourceSet
 import org.gradle.language.cpp.CppSourceSet
+<<<<<<< HEAD   (716bc3 Merge "Removes final so SyncService can be mocked in tests.")
 import org.gradle.nativeplatform.internal.DefaultSharedLibraryBinarySpec
 import org.gradle.language.c.tasks.CCompile
 import org.gradle.language.cpp.tasks.CppCompile
+=======
+import org.gradle.nativebinaries.internal.DefaultSharedLibraryBinarySpec
+import org.gradle.nativebinaries.language.c.tasks.CCompile
+import org.gradle.nativebinaries.language.cpp.tasks.CppCompile
+>>>>>>> BRANCH (3bd1f2 Merge "Move to Gradle 2.1" into idea133)
 
 /**
  * Configure settings used by the native binaries.
@@ -73,8 +79,12 @@ class NdkConfigurationAction implements Action<Project> {
             }
         }
         project.libraries.getByName(ndkExtension.getModuleName()) {
+<<<<<<< HEAD   (716bc3 Merge "Removes final so SyncService can be mocked in tests.")
             binaries.withType(DefaultSharedLibraryBinarySpec) {
                     DefaultSharedLibraryBinarySpec binary ->
+=======
+            binaries.withType(DefaultSharedLibraryBinarySpec) { DefaultSharedLibraryBinarySpec binary ->
+>>>>>>> BRANCH (3bd1f2 Merge "Move to Gradle 2.1" into idea133)
                 sourceIfExist(binary, projectSourceSet, "mainC")
                 sourceIfExist(binary, projectSourceSet, "mainCpp")
 

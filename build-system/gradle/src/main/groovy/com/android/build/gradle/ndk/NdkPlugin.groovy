@@ -36,8 +36,13 @@ import org.gradle.api.specs.Spec
 import org.gradle.configuration.project.ProjectConfigurationActionContainer
 import org.gradle.internal.Actions
 import org.gradle.internal.reflect.Instantiator
+<<<<<<< HEAD   (716bc3 Merge "Removes final so SyncService can be mocked in tests.")
 import org.gradle.nativeplatform.internal.DefaultSharedLibraryBinarySpec
 import org.gradle.nativeplatform.internal.DefaultStaticLibraryBinarySpec
+=======
+import org.gradle.nativebinaries.internal.DefaultSharedLibraryBinarySpec
+import org.gradle.nativebinaries.internal.DefaultStaticLibraryBinarySpec
+>>>>>>> BRANCH (3bd1f2 Merge "Move to Gradle 2.1" into idea133)
 
 import javax.inject.Inject
 
