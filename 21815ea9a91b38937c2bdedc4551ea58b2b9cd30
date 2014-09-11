@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0168b8e_b8841851",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/DeviceConnector.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T01:18:53Z",
+      "side": 1,
+      "message": "it being a basic interface in a supposedly simple library, I\u0027m wondering if we should return something more standard.\n\nThe reason is that if you have an implementation of this interface that depends on a particular implementation of PropGetter, but is used by a newer plugin that provides a different version of PropGetter you\u0027ll get a problem (all gradle plugins share a single class path)\n\nAlso we should discuss this since there are already methods to return density, abis, etc...",
+      "range": {
+        "startLine": 110,
+        "startChar": 1,
+        "endLine": 110,
+        "endChar": 58
+      },
+      "revId": "21815ea9a91b38937c2bdedc4551ea58b2b9cd30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
