@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50d597fe_e9c36d6d",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T01:09:03Z",
+      "side": 1,
+      "message": "the build.gradle of the test uses 19.1.0 so you should use the same one here.",
+      "range": {
+        "startLine": 349,
+        "startChar": 50,
+        "endLine": 349,
+        "endChar": 59
+      },
+      "revId": "415126319e28bf30120690d59a8448f505a0c389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
