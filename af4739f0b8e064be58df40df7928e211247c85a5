@@ -46,6 +46,30 @@
       "revId": "af4739f0b8e064be58df40df7928e211247c85a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702b7bc3_e837e662",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/HandleNativeHeap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-11T21:37:42Z",
+      "side": 1,
+      "message": "Ah, ok, thanks for the clarification.",
+      "parentUuid": "f0c4cb62_69158dd4",
+      "range": {
+        "startLine": 176,
+        "startChar": 11,
+        "endLine": 176,
+        "endChar": 17
+      },
+      "revId": "af4739f0b8e064be58df40df7928e211247c85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
