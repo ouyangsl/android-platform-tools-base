@@ -22,6 +22,30 @@
       "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0168b8e_82df2273",
+        "filename": "ddmlib/.classpath",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-11T19:15:33Z",
+      "side": 1,
+      "message": "I\u0027m a dinosaur. Tradefed development is still done using Eclipse. I\u0027ll accept volunteers if someone wants to convert tradefed to use gradle :)\n\nThis is just making eclipse classpath match gradle - not a new dependency. I just wanted to run ddmlib tests in eclipse",
+      "parentUuid": "101a3fb4_63baea5b",
+      "range": {
+        "startLine": 9,
+        "startChar": 34,
+        "endLine": 9,
+        "endChar": 103
+      },
+      "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
