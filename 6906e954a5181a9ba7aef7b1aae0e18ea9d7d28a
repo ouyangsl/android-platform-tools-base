@@ -46,6 +46,30 @@
       "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_2bc62986",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1052388
+      },
+      "writtenOn": "2014-09-11T17:30:11Z",
+      "side": 1,
+      "message": "Do you want me to introduce ddmlib dependency on com.android.sdklib project?\n\n\nI simply want the ability to read whatever is under the \"ro.build.version.sdk\" prop from RemoteAndroidTestRunner. Alternatively, I can elevate one of the getProperty methods to IShellEnabledDevice instead?",
+      "parentUuid": "90cb8f65_a854ffdf",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 14
+      },
+      "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
