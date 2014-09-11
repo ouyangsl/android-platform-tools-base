@@ -118,6 +118,30 @@
       "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_5a417571",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-11T18:09:37Z",
+      "side": 1,
+      "message": "Ah I remember this now. Xav refactored this IShellEnabledDevice out of IDevice and made RemoteAndroidTestRunner use IShellEnabledDevice. See Id95e9013a9011e206f826ab8068f051f393cc34a. I\u0027ll let Xav review this further. I think this was done so that gradle can use these test runners as well.",
+      "parentUuid": "f0168b8e_9caf8b69",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 14
+      },
+      "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
