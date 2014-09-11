@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "306bc3de_389d53e1",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/HandleNativeHeap.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-11T21:25:58Z",
+      "side": 1,
+      "message": "sorry not following this. Does this mean that this is incompatible with previous versions of the platform i.e., if you connect to API 20 instead of 21, would it work?",
+      "range": {
+        "startLine": 176,
+        "startChar": 11,
+        "endLine": 176,
+        "endChar": 17
+      },
+      "revId": "af4739f0b8e064be58df40df7928e211247c85a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
