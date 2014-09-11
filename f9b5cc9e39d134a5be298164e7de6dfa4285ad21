@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10df9f24_e706303f",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ProductFlavor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T01:04:55Z",
+      "side": 1,
+      "message": "According to attrs_manifest.xml the maxVersion is strictly an integer.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 14
+      },
+      "revId": "f9b5cc9e39d134a5be298164e7de6dfa4285ad21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50d597fe_496299e5",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T01:04:55Z",
+      "side": 1,
+      "message": "might want to call this checkMaxsdkVersion, I thought it could check any version (min, target, max) at first.\n\nAlso if we don\u0027t have test that tests for min/target we should add them anyway",
+      "range": {
+        "startLine": 496,
+        "startChar": 17,
+        "endLine": 496,
+        "endChar": 32
+      },
+      "revId": "f9b5cc9e39d134a5be298164e7de6dfa4285ad21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50d597fe_49cb798b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T01:04:55Z",
+      "side": 1,
+      "message": "We can\u0027t do this.\n\nthe maxSdkVersion is an integer. If we have an override (ie preview mode), we should remove the maxSdkVersion if there\u0027s one.",
+      "range": {
+        "startLine": 211,
+        "startChar": 24,
+        "endLine": 211,
+        "endChar": 42
+      },
+      "revId": "f9b5cc9e39d134a5be298164e7de6dfa4285ad21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
