@@ -70,6 +70,30 @@
       "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b46fdf_1a753ddb",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-11T17:37:30Z",
+      "side": 1,
+      "message": "Ah, sorry no, we should introduce that dependency. I just saw Xav\u0027s comment and responded to that. Now that I read this CL, I\u0027m not actually sure why this API needs to be here as its use is not in this CL. Do the callees only have IShellEnabledDevice and not an IDevice?",
+      "parentUuid": "90cb8f65_2bc62986",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 14
+      },
+      "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
