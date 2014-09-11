@@ -22,6 +22,30 @@
       "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_a854ffdf",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-11T01:32:21Z",
+      "side": 1,
+      "message": "There is a com.android.sdklib.AndroidVersion class that should be returned instead.",
+      "parentUuid": "f0168b8e_58afe4b4",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 14
+      },
+      "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
