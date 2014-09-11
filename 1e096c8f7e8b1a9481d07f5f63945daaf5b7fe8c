@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70b9bbd7_68a90bad",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T19:46:16Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 85
+      },
+      "revId": "1e096c8f7e8b1a9481d07f5f63945daaf5b7fe8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4cb62_5b45fb5d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T19:46:16Z",
+      "side": 1,
+      "message": "put comment explaining why we need to move this here only for test.",
+      "range": {
+        "startLine": 183,
+        "startChar": 12,
+        "endLine": 183,
+        "endChar": 100
+      },
+      "revId": "1e096c8f7e8b1a9481d07f5f63945daaf5b7fe8c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
