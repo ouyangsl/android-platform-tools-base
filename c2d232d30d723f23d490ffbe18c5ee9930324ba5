@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90cb8f65_16e50cee",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1312,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-09-11T22:04:54Z",
+      "side": 1,
+      "message": "Do we still need this here?",
+      "range": {
+        "startLine": 1312,
+        "startChar": 18,
+        "endLine": 1312,
+        "endChar": 31
+      },
+      "revId": "c2d232d30d723f23d490ffbe18c5ee9930324ba5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
