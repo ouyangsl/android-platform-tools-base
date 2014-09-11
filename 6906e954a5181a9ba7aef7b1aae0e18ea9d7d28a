@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0168b8e_58afe4b4",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T01:24:00Z",
+      "side": 1,
+      "message": "if we\u0027re going to add this to the official API, we may want at supporting devices running previews, where the API level is a codename.",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 14
+      },
+      "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
