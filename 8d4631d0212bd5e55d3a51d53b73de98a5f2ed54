@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0168b8e_99e2fd60",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ProductFlavor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-11T17:41:55Z",
+      "side": 1,
+      "message": "We should fix the rest of the Flavor/BuildType API to use integer rather than int (and we need to do this before 1.0)",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 11
+      },
+      "revId": "8d4631d0212bd5e55d3a51d53b73de98a5f2ed54",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
