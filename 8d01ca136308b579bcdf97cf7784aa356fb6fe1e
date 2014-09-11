@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "30b3c3fb_7d5c6f27",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/ManualBuildTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-09-11T22:50:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90cb8f65_361bf00b",
+      "range": {
+        "startLine": 448,
+        "startChar": 50,
+        "endLine": 448,
+        "endChar": 56
+      },
+      "revId": "8d01ca136308b579bcdf97cf7784aa356fb6fe1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70b9bbd7_2ec9db3b",
         "filename": "build-system/tests/pseudolocalized/build.gradle",
         "patchSetId": 21
@@ -36,6 +60,30 @@
       "writtenOn": "2014-09-11T22:31:18Z",
       "side": 1,
       "message": "actually this needs to be 21.0.0, sorry. Otherwise it\u0027s not going to compile either. This means that this will not work until we have a final 21.0.0 build tools.\n\nWe might want to sit on this CL until we can have it, otherwise the test will always fail on our server.",
+      "range": {
+        "startLine": 13,
+        "startChar": 23,
+        "endLine": 13,
+        "endChar": 30
+      },
+      "revId": "8d01ca136308b579bcdf97cf7784aa356fb6fe1e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702b7bc3_ab3b28e0",
+        "filename": "build-system/tests/pseudolocalized/build.gradle",
+        "patchSetId": 21
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-09-11T22:50:08Z",
+      "side": 1,
+      "message": "Done.\nAre there any estimations when build tools v21 are expected?",
+      "parentUuid": "70b9bbd7_2ec9db3b",
       "range": {
         "startLine": 13,
         "startChar": 23,
