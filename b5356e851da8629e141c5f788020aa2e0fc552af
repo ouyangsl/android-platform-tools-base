@@ -22,6 +22,30 @@
       "revId": "b5356e851da8629e141c5f788020aa2e0fc552af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90cb8f65_b7061af0",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-12T21:58:50Z",
+      "side": 1,
+      "message": "really really shouldn\u0027t.",
+      "parentUuid": "709e1b6e_0004f034",
+      "range": {
+        "startLine": 224,
+        "startChar": 27,
+        "endLine": 224,
+        "endChar": 45
+      },
+      "revId": "b5356e851da8629e141c5f788020aa2e0fc552af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
