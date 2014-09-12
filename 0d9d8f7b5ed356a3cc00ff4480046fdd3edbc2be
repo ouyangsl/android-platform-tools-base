@@ -22,6 +22,30 @@
       "revId": "0d9d8f7b5ed356a3cc00ff4480046fdd3edbc2be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "702b7bc3_f74b433b",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/PropertyFetcherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-12T23:24:55Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "709e1b6e_20d01466",
+      "range": {
+        "startLine": 125,
+        "startChar": 22,
+        "endLine": 125,
+        "endChar": 30
+      },
+      "revId": "0d9d8f7b5ed356a3cc00ff4480046fdd3edbc2be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
