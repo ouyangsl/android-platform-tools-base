@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709e1b6e_0004f034",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-12T21:39:51Z",
+      "side": 1,
+      "message": "can this be null ?",
+      "range": {
+        "startLine": 224,
+        "startChar": 27,
+        "endLine": 224,
+        "endChar": 45
+      },
+      "revId": "b5356e851da8629e141c5f788020aa2e0fc552af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
