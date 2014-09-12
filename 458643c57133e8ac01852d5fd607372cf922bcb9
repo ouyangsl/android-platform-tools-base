@@ -417,6 +417,30 @@
     },
     {
       "key": {
+        "uuid": "90cb8f65_9cc93df3",
+        "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1050224
+      },
+      "writtenOn": "2014-09-12T19:57:12Z",
+      "side": 1,
+      "message": "Agreed.  There is also the added complexity of play services version.  if you arent on \u003e\u003d5, cloudsave be there.",
+      "parentUuid": "90cb8f65_16334ce1",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 19
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90cb8f65_7622d894",
         "filename": "templates/activities/GooglePlayServicesActivity/template.xml",
         "patchSetId": 2
