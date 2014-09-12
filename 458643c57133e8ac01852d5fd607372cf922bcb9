@@ -255,6 +255,30 @@
     },
     {
       "key": {
+        "uuid": "9099cf85_d8e745f6",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1050224
+      },
+      "writtenOn": "2014-09-12T19:55:38Z",
+      "side": 1,
+      "message": "oh these are definitely cloudsave though.  nice",
+      "parentUuid": "90cb8f65_36c69086",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 2
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90b46fdf_3d7afbc9",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
         "patchSetId": 2
