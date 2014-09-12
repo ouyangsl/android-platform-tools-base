@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0c4cb62_57aa2774",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-12T03:35:18Z",
+      "side": 1,
+      "message": "Is the 1 minute because that is how long the cached thread pool keeps a thread alive?",
+      "range": {
+        "startLine": 12,
+        "startChar": 36,
+        "endLine": 12,
+        "endChar": 44
+      },
+      "revId": "2fa4a1a37ec504917d7f16bc826064b0d7f3bd3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4cb62_f7b253e4",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-12T03:35:18Z",
+      "side": 1,
+      "message": "Assuming the 1 minute is because of the default keep alive limit set by the cached thread pool, could we get away with using Executors.newSingleThreadExecutor() instead? We are anyway restricting this to just one active fetch at any time..",
+      "range": {
+        "startLine": 95,
+        "startChar": 58,
+        "endLine": 95,
+        "endChar": 77
+      },
+      "revId": "2fa4a1a37ec504917d7f16bc826064b0d7f3bd3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
