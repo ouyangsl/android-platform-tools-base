@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709e1b6e_20d01466",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/PropertyFetcherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-12T21:33:07Z",
+      "side": 0,
+      "message": "My fault really, but if you can maybe make the comment for this one and the test below to follow the same style as the method comment for the other tests above.",
+      "range": {
+        "startLine": 125,
+        "startChar": 22,
+        "endLine": 125,
+        "endChar": 30
+      },
+      "revId": "0d9d8f7b5ed356a3cc00ff4480046fdd3edbc2be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

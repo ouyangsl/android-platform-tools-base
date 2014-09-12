@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709e1b6e_60da1c86",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-12T21:33:07Z",
+      "side": 1,
+      "message": "no daemon here?",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 18
+      },
+      "revId": "ace59bf26ec9f28fbb51cadb069229a4fc45f9a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
