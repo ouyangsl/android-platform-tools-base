@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f0c4cb62_6fe57aed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-13T00:29:32Z",
+      "side": 1,
+      "message": "Could we extract out the important info from that bug to this commit message. In particular, it would be great if this commit message said something along the lines of:\n\n - some relevant info about what is going on now.\n - we need to change the API to add support for additional states reported by Junit4\n - but we are doing it in a way that older Junit3 runners continue to work, but the clients (Eclipse, Studio) need to be updated along with this CL\n\nThe last point is important because otherwise this will break the build when submitted. So we should have the Eclipse \u0026 Studio CL\u0027s up at the same time. I looked at Studio\u0027s implementation of ITestRunListener, and it seems fairly straightforward, but it might be good for us to make sure that it works properly with both Junit3 and 4 before submitting this.",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "101a3fb4_63baea5b",
         "filename": "ddmlib/.classpath",
         "patchSetId": 3
@@ -42,6 +65,29 @@
         "startChar": 34,
         "endLine": 9,
         "endChar": 103
+      },
+      "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0933369_74ae5eb7",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/ITestRunListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-13T00:29:32Z",
+      "side": 1,
+      "message": "I thought you were going to mark this deprecated? I imagine testError will be called for Junit4 and testFailed for Junit3? Or are both applicable? (the code in the next file calls both..)",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 26
       },
       "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
