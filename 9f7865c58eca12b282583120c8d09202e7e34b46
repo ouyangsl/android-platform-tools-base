@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "709e1b6e_3a184065",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-13T01:01:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0c4cb62_6fe57aed",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "101a3fb4_63baea5b",
         "filename": "ddmlib/.classpath",
         "patchSetId": 3
@@ -83,6 +107,30 @@
       "writtenOn": "2014-09-13T00:29:32Z",
       "side": 1,
       "message": "I thought you were going to mark this deprecated? I imagine testError will be called for Junit4 and testFailed for Junit3? Or are both applicable? (the code in the next file calls both..)",
+      "range": {
+        "startLine": 78,
+        "startChar": 16,
+        "endLine": 78,
+        "endChar": 26
+      },
+      "revId": "9f7865c58eca12b282583120c8d09202e7e34b46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_ba2b506b",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/ITestRunListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-13T01:01:09Z",
+      "side": 1,
+      "message": "Its the opposite actually. testError and testFailure called when executing a JUnit3-based remote runner. testFailure,testAssumptionFailure,testIgnored called when using a JUnit4 based runner.\n\nI\u0027m conflicted calling \u0027testError\u0027 deprecated. It should still be called as long as we want to support JUnit3",
+      "parentUuid": "b0933369_74ae5eb7",
       "range": {
         "startLine": 78,
         "startChar": 16,
