@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "b0933369_459b6e21",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:05:38Z",
+      "side": 1,
+      "message": "Maybe SplitApkMatcher.computeBestSplit(splitApks, density, abis)",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0c4cb62_36e83bc5",
         "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
         "patchSetId": 3
