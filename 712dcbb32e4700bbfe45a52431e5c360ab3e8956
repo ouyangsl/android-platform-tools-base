@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709e1b6e_130607af",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/InstallUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "I don\u0027t know if at this point you have all the information that the IDE has, but there is a similar class here: https://cs.corp.google.com/#android/tools/adt/idea/android/src/com/android/tools/idea/run/LaunchCompatibility.java\u0026l\u003d81\n\nWe can either refactor that out to common, or you can have this duplicate but just look at that code to check whether you need to handle any more cases. \n\nThere is also a test which should try out a few features: https://cs.corp.google.com/#android/tools/adt/idea/android/testSrc/com/android/tools/idea/run/LaunchCompatibilityTest.java",
+      "range": {
+        "startLine": 38,
+        "startChar": 26,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_731593d4",
+        "filename": "common/src/main/java/com/android/build/FilteredOutput.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "Alternative suggestion: SplitArtifact",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 31
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4cb62_36e83bc5",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "I see how this is list is obtained, but we should probably specify the priority order a little better.",
+      "range": {
+        "startLine": 35,
+        "startChar": 14,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0933369_851ab601",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "one question for you: right now we have density and abi filters, and i know we\u0027ll eventually have locale filters. Do you see it growing any further? If it is going to be just a few, then it seems fine to list them out as arguments, if not it would make sense to create an interface for a filter/split axis, and pass in a list of the filtered axes.\n\nThis would also impact the complexity of the filtering code below if you have to add 2 or more axes..",
+      "range": {
+        "startLine": 39,
+        "startChar": 33,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4cb62_16297f72",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "should it return Universal in such a case? If not, should we just make the api have a Density argument (rather than int density above)?",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 38
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4cb62_16cdff6a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "nit: Maybe the following would read better for lines 70-78:\n   boolean isUniversalDensityMatch \u003d densityFilter \u003d\u003d null;\n   if (densityFilter !\u003d null \u0026\u0026 !densityFilter.equals(densityValue)) {\n      continue;\n   }",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 43
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0933369_65fcea4c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "a density match",
+      "range": {
+        "startLine": 80,
+        "startChar": 34,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_539b2f21",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "you can replace 84-90 with:\n int levelMatch \u003d abis.indexOf(abiFilter)\n if (levelMatch \u003d\u003d -1) {\n    levelMatch \u003d MAX_VALUE;\n }",
+      "range": {
+        "startLine": 84,
+        "startChar": 26,
+        "endLine": 84,
+        "endChar": 31
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4cb62_768e3326",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-14T20:03:41Z",
+      "side": 1,
+      "message": "that is going to be tough. Here we are saying that if there is a density match, but no abi matches (say abi filter was arm only and we are running x86), the above code would not set the universalDensityMatch. So it won\u0027t really behave the way you want..",
+      "range": {
+        "startLine": 121,
+        "startChar": 56,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
