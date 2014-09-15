@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "709e1b6e_04e87bc4",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/InstallUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-15T16:03:46Z",
+      "side": 1,
+      "message": "That\u0027s very interesting. We should look at moving this in sdk-common and start using in Gradle. I\u0027ll do that after 0.13 though.",
+      "parentUuid": "709e1b6e_130607af",
+      "range": {
+        "startLine": 38,
+        "startChar": 26,
+        "endLine": 38,
+        "endChar": 45
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "709e1b6e_731593d4",
         "filename": "common/src/main/java/com/android/build/FilteredOutput.java",
         "patchSetId": 3
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "b0933369_b787e354",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-15T16:03:46Z",
+      "side": 1,
+      "message": "Done, with SplitOutput",
+      "parentUuid": "b0933369_459b6e21",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0c4cb62_36e83bc5",
         "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
         "patchSetId": 3
@@ -82,6 +130,30 @@
       "writtenOn": "2014-09-14T20:03:41Z",
       "side": 1,
       "message": "I see how this is list is obtained, but we should probably specify the priority order a little better.",
+      "range": {
+        "startLine": 35,
+        "startChar": 14,
+        "endLine": 35,
+        "endChar": 18
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0933369_f7916b8d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-15T16:03:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0c4cb62_36e83bc5",
       "range": {
         "startLine": 35,
         "startChar": 14,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "f0c4cb62_fcc6a152",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-15T16:03:46Z",
+      "side": 1,
+      "message": "We can\u0027t have the method take a density arg in case some devices do have a custom density, but it\u0027s true that we should return the universal version instead.",
+      "parentUuid": "f0c4cb62_16297f72",
+      "range": {
+        "startLine": 45,
+        "startChar": 22,
+        "endLine": 45,
+        "endChar": 38
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0c4cb62_16cdff6a",
         "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
         "patchSetId": 3
@@ -163,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "f0c4cb62_1ca51da2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-15T16:03:46Z",
+      "side": 1,
+      "message": "I\u0027m not sure about \"read better\" :)\n\nI added some comments actually and this make it harder to explain.",
+      "parentUuid": "f0c4cb62_16cdff6a",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 43
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0933369_65fcea4c",
         "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
         "patchSetId": 3
@@ -174,6 +294,30 @@
       "writtenOn": "2014-09-14T20:03:41Z",
       "side": 1,
       "message": "a density match",
+      "range": {
+        "startLine": 80,
+        "startChar": 34,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_0465db96",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-15T16:03:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0933369_65fcea4c",
       "range": {
         "startLine": 80,
         "startChar": 34,
@@ -220,6 +364,30 @@
       "writtenOn": "2014-09-14T20:03:41Z",
       "side": 1,
       "message": "that is going to be tough. Here we are saying that if there is a density match, but no abi matches (say abi filter was arm only and we are running x86), the above code would not set the universalDensityMatch. So it won\u0027t really behave the way you want..",
+      "range": {
+        "startLine": 121,
+        "startChar": 56,
+        "endLine": 122,
+        "endChar": 38
+      },
+      "revId": "712dcbb32e4700bbfe45a52431e5c360ab3e8956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_a4afaf68",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/InstallHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-15T16:03:46Z",
+      "side": 1,
+      "message": "My comment doesn\u0027t make a lot of sense, but I\u0027m not sure what you are trying to say either.\n\nThe best choice is hard to figure out. It will actually depend on the number of assets vs the size of native code. Hard to figure out but both are compatible anyway.",
+      "parentUuid": "f0c4cb62_768e3326",
       "range": {
         "startLine": 121,
         "startChar": 56,
