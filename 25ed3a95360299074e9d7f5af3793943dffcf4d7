@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709e1b6e_48037176",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/ITestRunListener.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T22:19:10Z",
+      "side": 1,
+      "message": "stale?",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "25ed3a95360299074e9d7f5af3793943dffcf4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0933369_5eefb4d3",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/ITestRunListener.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T22:19:10Z",
+      "side": 1,
+      "message": "maybe also note that this is what is called even for Junit3 errors (if you think its relevant).",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 58,
+        "endChar": 14
+      },
+      "revId": "25ed3a95360299074e9d7f5af3793943dffcf4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06fc739_f8315920",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/InstrumentationResultParser.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T22:19:10Z",
+      "side": 1,
+      "message": "might be worth noting here too that we map error -\u003e failure..if you think it is relevant.",
+      "range": {
+        "startLine": 469,
+        "startChar": 29,
+        "endLine": 469,
+        "endChar": 39
+      },
+      "revId": "25ed3a95360299074e9d7f5af3793943dffcf4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_1307de3c",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/TestRunResult.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T22:19:10Z",
+      "side": 1,
+      "message": "Naively, I was expecting that somewhere this would be reset, but it only seems to be accumulated. So I\u0027m not entirely sure how it would work if a caller calls it multiple times..",
+      "range": {
+        "startLine": 123,
+        "startChar": 54,
+        "endLine": 123,
+        "endChar": 56
+      },
+      "revId": "25ed3a95360299074e9d7f5af3793943dffcf4d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
