@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0933369_4841be23",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/InstallUtils.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T21:08:19Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 3
+      },
+      "revId": "b62004875c4131ba729ac94606aa9923147f800a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_25b8185b",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T21:08:19Z",
+      "side": 1,
+      "message": "getProperty is nullable, so you probably want to handle that.",
+      "range": {
+        "startLine": 997,
+        "startChar": 32,
+        "endLine": 997,
+        "endChar": 43
+      },
+      "revId": "b62004875c4131ba729ac94606aa9923147f800a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06fc739_4d0d510d",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T21:08:19Z",
+      "side": 1,
+      "message": "most preferred.",
+      "range": {
+        "startLine": 599,
+        "startChar": 27,
+        "endLine": 599,
+        "endChar": 47
+      },
+      "revId": "b62004875c4131ba729ac94606aa9923147f800a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_05d4f47c",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-15T21:08:19Z",
+      "side": 1,
+      "message": "Returns the density bucket of the device screen.\n\nAlso remove the redundant @return",
+      "range": {
+        "startLine": 606,
+        "startChar": 7,
+        "endLine": 607,
+        "endChar": 28
+      },
+      "revId": "b62004875c4131ba729ac94606aa9923147f800a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
