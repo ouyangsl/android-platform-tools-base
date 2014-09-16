@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90c0ef69_434fac4a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/SplitOutputMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-16T17:30:34Z",
+      "side": 1,
+      "message": "remove duplicate lines",
+      "range": {
+        "startLine": 37,
+        "startChar": 5,
+        "endLine": 37,
+        "endChar": 6
+      },
+      "revId": "251382cec6085b400d57472f1a3f0d16bdf5e526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0b1730f_8125be12",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/SplitOutputMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-16T17:30:34Z",
+      "side": 1,
+      "message": "does the order matter anymore?",
+      "range": {
+        "startLine": 41,
+        "startChar": 37,
+        "endLine": 41,
+        "endChar": 62
+      },
+      "revId": "251382cec6085b400d57472f1a3f0d16bdf5e526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90c0ef69_a311e829",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/build/SplitOutputMatcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-09-16T17:30:34Z",
+      "side": 1,
+      "message": "I think you just want the max versionCode, so just Collections.max",
+      "range": {
+        "startLine": 83,
+        "startChar": 20,
+        "endLine": 83,
+        "endChar": 24
+      },
+      "revId": "251382cec6085b400d57472f1a3f0d16bdf5e526",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
