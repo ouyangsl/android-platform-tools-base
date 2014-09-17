@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0fb47cc_0ac1df65",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "can you add to the javadoc what this is supposed to contain?",
+      "range": {
+        "startLine": 997,
+        "startChar": 41,
+        "endLine": 997,
+        "endChar": 47
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0fe8bbb_f412e62e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "I feel like we should change this somehow and use an interface giving access to the main apk + splits.",
+      "range": {
+        "startLine": 86,
+        "startChar": 21,
+        "endLine": 86,
+        "endChar": 39
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0fb47cc_6aa3b3ce",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "I know why you need it but... ugh. We should fix this.",
+      "range": {
+        "startLine": 87,
+        "startChar": 22,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0fe8bbb_b40c6e12",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/SimpleTestRunner.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "this should be passed to the constructor, not the runTest method to not pollute the API with a temp workaround.",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0fb47cc_8a26efa4",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/TestRunner.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "see comment in the implementation class.",
+      "range": {
+        "startLine": 57,
+        "startChar": 21,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0fb47cc_0a331fe2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 10
+      },
+      "lineNbr": 1857,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "whitespace",
+      "range": {
+        "startLine": 1857,
+        "startChar": 0,
+        "endLine": 1857,
+        "endChar": 8
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300d83bc_dc8389b3",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "ApkOutput",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 31
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0fe8bbb_b4c58e48",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "no m in this project (I know, annoying and confusing)",
+      "range": {
+        "startLine": 58,
+        "startChar": 31,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0fe8bbb_74d03603",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-17T18:59:13Z",
+      "side": 1,
+      "message": "SplitApkOutput",
+      "range": {
+        "startLine": 78,
+        "startChar": 30,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
