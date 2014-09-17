@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "10ab1f9f_923bcc02",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-17T20:21:05Z",
+      "side": 1,
+      "message": "This should be \"private\"... I see no reason why it should be protected as it isn\u0027t accessed anywhere outside of the class (and likely wouldn\u0027t be even if the app grew in size).",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 13
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "306bc3de_58f2874a",
         "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/activity.java.ftl",
         "patchSetId": 2
@@ -225,6 +248,29 @@
         "startChar": 24,
         "endLine": 198,
         "endChar": 38
+      },
+      "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70137bdc_2f202db6",
+        "filename": "templates/activities/GooglePlayServicesActivity/root/src/app_package/eventservice.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1053298
+      },
+      "writtenOn": "2014-09-17T20:21:05Z",
+      "side": 1,
+      "message": "\"your email address\" --\u003e \"your email address and product name\"\n\nEmail address isn\u0027t the only required field... product name is also required. Other than those two, all other fields are optional.",
+      "range": {
+        "startLine": 22,
+        "startChar": 26,
+        "endLine": 22,
+        "endChar": 90
       },
       "revId": "458643c57133e8ac01852d5fd607372cf922bcb9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
