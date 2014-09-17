@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b0f893d3_09b0cdda",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0fb47cc_0ac1df65",
+      "range": {
+        "startLine": 997,
+        "startChar": 41,
+        "endLine": 997,
+        "endChar": 47
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0fe8bbb_f412e62e",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2014-09-17T18:59:13Z",
       "side": 1,
       "message": "I feel like we should change this somehow and use an interface giving access to the main apk + splits.",
+      "range": {
+        "startLine": 86,
+        "startChar": 21,
+        "endLine": 86,
+        "endChar": 39
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0fe8bbb_1a06c9ae",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "punted to the next CL.",
+      "parentUuid": "f0fe8bbb_f412e62e",
       "range": {
         "startLine": 86,
         "startChar": 21,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "300d83bc_b3f6c33a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "this is really temporary until we put the functionality in ddmlib. What about I add a TODO to remember to remove it in the near future.",
+      "parentUuid": "d0fb47cc_6aa3b3ce",
+      "range": {
+        "startLine": 87,
+        "startChar": 22,
+        "endLine": 87,
+        "endChar": 34
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0fe8bbb_b40c6e12",
         "filename": "build-system/builder/src/main/java/com/android/builder/testing/SimpleTestRunner.java",
         "patchSetId": 10
@@ -82,6 +154,30 @@
       "writtenOn": "2014-09-17T18:59:13Z",
       "side": 1,
       "message": "this should be passed to the constructor, not the runTest method to not pollute the API with a temp workaround.",
+      "range": {
+        "startLine": 41,
+        "startChar": 26,
+        "endLine": 41,
+        "endChar": 33
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300d83bc_d30a5786",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/SimpleTestRunner.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0fe8bbb_b40c6e12",
       "range": {
         "startLine": 41,
         "startChar": 26,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "10479fed_61b970c9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 10
+      },
+      "lineNbr": 1857,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0fb47cc_0a331fe2",
+      "range": {
+        "startLine": 1857,
+        "startChar": 0,
+        "endLine": 1857,
+        "endChar": 8
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "300d83bc_dc8389b3",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
         "patchSetId": 10
@@ -151,6 +271,30 @@
       "writtenOn": "2014-09-17T18:59:13Z",
       "side": 1,
       "message": "ApkOutput",
+      "range": {
+        "startLine": 40,
+        "startChar": 22,
+        "endLine": 40,
+        "endChar": 31
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0fe8bbb_5a87a1c4",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "300d83bc_dc8389b3",
       "range": {
         "startLine": 40,
         "startChar": 22,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "b0f893d3_49e365ad",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0fe8bbb_b4c58e48",
+      "range": {
+        "startLine": 58,
+        "startChar": 31,
+        "endLine": 58,
+        "endChar": 42
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0fe8bbb_74d03603",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
         "patchSetId": 10
@@ -197,6 +365,30 @@
       "writtenOn": "2014-09-17T18:59:13Z",
       "side": 1,
       "message": "SplitApkOutput",
+      "range": {
+        "startLine": 78,
+        "startChar": 30,
+        "endLine": 78,
+        "endChar": 44
+      },
+      "revId": "3a741e8a8c1036ba88b2b5813817fc7511cdab21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0fe8bbb_9a7d19f1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/APKOutput.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-17T23:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0fe8bbb_74d03603",
       "range": {
         "startLine": 78,
         "startChar": 30,
