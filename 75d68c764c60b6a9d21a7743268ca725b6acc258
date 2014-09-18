@@ -22,6 +22,30 @@
       "revId": "75d68c764c60b6a9d21a7743268ca725b6acc258",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10479fed_1291dcd1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-18T01:37:19Z",
+      "side": 1,
+      "message": "Yes it\u0027s something we need to look at.\n\nRight now we return the full ProductFlavor and SigningConfig through the variant API, and this can have both side effects (like thinking you can adjust the signing config on a variant when it affects all the variants using it), and no effect at all (you change the merged flavor but it\u0027s a property that the tasks have already copied and it\u0027ll have no impact.\n\nWe need to fix both. I had filed https://code.google.com/p/android/issues/detail?id\u003d76313 to track it.",
+      "parentUuid": "7021bb30_198cab24",
+      "range": {
+        "startLine": 379,
+        "startChar": 32,
+        "endLine": 379,
+        "endChar": 46
+      },
+      "revId": "75d68c764c60b6a9d21a7743268ca725b6acc258",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
