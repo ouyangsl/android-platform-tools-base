@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7021bb30_198cab24",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-09-18T00:59:05Z",
+      "side": 1,
+      "message": "DefaultSigningConfig and SigningConfigDsl are not immutable.  Theoretically, someone can downcast the signing config and modify it.  This doesn\u0027t seem too likely, so I might be being paranoid.  Is this a concern?",
+      "range": {
+        "startLine": 379,
+        "startChar": 32,
+        "endLine": 379,
+        "endChar": 46
+      },
+      "revId": "75d68c764c60b6a9d21a7743268ca725b6acc258",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
