@@ -10,6 +10,7 @@ import com.android.ddmlib.ShellCommandUnresponsiveException;
 import com.android.ddmlib.TimeoutException;
 import com.android.utils.ILogger;
 import com.google.common.collect.Lists;
+import com.android.ide.common.deployment.SplitUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -159,5 +160,15 @@ public class FakeDevice extends DeviceConnector {
 
     public int getWidth() {
         return 480;
+    }
+
+    public SplitUtils.PropGetter getPropGetter() {
+        return new SplitUtils.PropGetter() {
+            private static final String PROP_DEVICE_DENSITY = "ro.sf.lcd_density";
+            public String getProp(String propName) {
+                if (PROP_DEVICE_DENSITY.equals(propName)) return "160";
+                return null;
+            }
+        };
     }
 }

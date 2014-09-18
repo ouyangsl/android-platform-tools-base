@@ -18,7 +18,11 @@ package com.android.build.gradle.internal.variant;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
+<<<<<<< HEAD   (393734 First version of pure split support)
 import com.android.build.gradle.api.ApkOutput;
+=======
+import com.android.build.gradle.api.APKOutput;
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 import com.android.build.gradle.tasks.PackageApplication;
 import com.android.build.gradle.tasks.SplitZipAlign;
 import com.android.build.gradle.tasks.ZipAlign;
@@ -65,12 +69,25 @@ public class ApkVariantOutputData extends BaseVariantOutputData {
 
     @NonNull
     @Override
+<<<<<<< HEAD   (393734 First version of pure split support)
     public ImmutableList<ApkOutput> getOutputFiles() {
         ImmutableList.Builder<ApkOutput> outputs = ImmutableList.builder();
         if (packageSplitResourcesTask != null) {
             outputs.addAll(packageSplitResourcesTask.getOutputFiles());
         }
         outputs.add(new ApkOutput.MainApkOutput(getOutputFile()));
+=======
+    public ImmutableList<APKOutput> getOutputFiles() {
+        ImmutableList.Builder<APKOutput> outputs = ImmutableList.builder();
+        if (splitZipAlign != null) {
+            outputs.addAll(splitZipAlign.getOutputFiles());
+        } else {
+            if (packageSplitResourcesTask != null) {
+                outputs.addAll(packageSplitResourcesTask.getOutputFiles());
+            }
+        }
+        outputs.add(new APKOutput.MainAPKOutput(getOutputFile()));
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
         return outputs.build();
     }
 

@@ -27,6 +27,7 @@ import com.android.ddmlib.NullOutputReceiver;
 import com.android.ddmlib.testrunner.ITestRunListener;
 import com.android.ddmlib.testrunner.RemoteAndroidTestRunner;
 import com.android.ddmlib.testrunner.TestIdentifier;
+import com.android.ide.common.deployment.SplitUtils;
 import com.android.utils.ILogger;
 
 import java.io.BufferedReader;
@@ -130,7 +131,14 @@ public class SimpleTestCallable implements Callable<Boolean> {
                     args.add("-r");
                     args.add(testedApk.getAbsolutePath());
                     // for now, do a simple java exec adb
+<<<<<<< HEAD   (393734 First version of pure split support)
                     for (File split : splitApks) {
+=======
+                    SplitUtils splitUtils = new SplitUtils();
+
+                    List<File> filteredAPKs = splitUtils.filter(device.getPropGetter(), splitApks);
+                    for (File split : filteredAPKs) {
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
                         args.add(split.getAbsolutePath());
                     }
                     ProcessBuilder processBuilder = new ProcessBuilder(args);

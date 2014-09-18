@@ -20,6 +20,7 @@ import com.android.annotations.NonNull;
 import com.android.ddmlib.IDevice;
 import com.android.ddmlib.IShellEnabledDevice;
 import com.android.ddmlib.TimeoutException;
+import com.android.ide.common.deployment.SplitUtils;
 import com.android.utils.ILogger;
 import com.google.common.annotations.Beta;
 
@@ -112,4 +113,7 @@ public abstract class DeviceConnector implements IShellEnabledDevice {
     public abstract int getHeight();
 
     public abstract int getWidth();
+
+    @NonNull
+    public abstract SplitUtils.PropGetter getPropGetter();
 }

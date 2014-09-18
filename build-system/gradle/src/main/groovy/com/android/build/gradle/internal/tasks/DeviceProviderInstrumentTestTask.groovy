@@ -66,7 +66,7 @@ public class DeviceProviderInstrumentTestTask extends BaseTask implements Androi
         boolean success = false;
         try {
             success = testRunner.runTests(project.name, flavor,
-                    testApk, new TestDataImpl(testVariantData),
+                    testApk, getAdbExec(), new TestDataImpl(testVariantData),
                     deviceProvider.devices,
                     deviceProvider.getMaxThreads(),
                     deviceProvider.getTimeout(),

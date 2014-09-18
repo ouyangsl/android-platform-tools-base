@@ -18,7 +18,11 @@ package com.android.build.gradle.internal.variant;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
+<<<<<<< HEAD   (393734 First version of pure split support)
 import com.android.build.gradle.api.ApkOutput;
+=======
+import com.android.build.gradle.api.APKOutput;
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 import com.google.common.collect.ImmutableList;
 
 import org.gradle.api.tasks.bundling.Zip;
@@ -46,8 +50,13 @@ public class LibVariantOutputData extends BaseVariantOutputData {
     }
 
     @Override
+<<<<<<< HEAD   (393734 First version of pure split support)
     public ImmutableList<ApkOutput> getOutputFiles() {
         return ImmutableList.<ApkOutput>of(new ApkOutput.MainApkOutput(getOutputFile()));
+=======
+    public ImmutableList<APKOutput> getOutputFiles() {
+        return ImmutableList.<APKOutput>of(new APKOutput.MainAPKOutput(getOutputFile()));
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
     }
 
     @NonNull

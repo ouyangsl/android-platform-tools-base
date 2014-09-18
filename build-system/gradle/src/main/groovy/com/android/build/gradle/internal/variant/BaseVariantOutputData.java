@@ -19,7 +19,11 @@ package com.android.build.gradle.internal.variant;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.build.SplitOutput;
+<<<<<<< HEAD   (393734 First version of pure split support)
 import com.android.build.gradle.api.ApkOutput;
+=======
+import com.android.build.gradle.api.APKOutput;
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 import com.android.build.gradle.internal.StringHelper;
 import com.android.build.gradle.tasks.ManifestProcessorTask;
 import com.android.build.gradle.tasks.PackageSplitRes;
@@ -78,7 +82,11 @@ public abstract class BaseVariantOutputData implements SplitOutput {
     @NonNull
     public abstract File getOutputFile();
 
+<<<<<<< HEAD   (393734 First version of pure split support)
     public abstract ImmutableList<ApkOutput> getOutputFiles();
+=======
+    public abstract ImmutableList<APKOutput> getOutputFiles();
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 
     @NonNull
     public String getFullName() {

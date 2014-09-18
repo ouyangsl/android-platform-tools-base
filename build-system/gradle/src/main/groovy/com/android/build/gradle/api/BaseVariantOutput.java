@@ -44,7 +44,11 @@ public interface BaseVariantOutput {
     void setOutputFile(@NonNull File outputFile);
 
     @NonNull
+<<<<<<< HEAD   (393734 First version of pure split support)
     ImmutableList<ApkOutput> getOutputFiles();
+=======
+    ImmutableList<APKOutput> getOutputFiles();
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 
     /**
      * Returns the Android Resources processing task.

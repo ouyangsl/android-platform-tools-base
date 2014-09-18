@@ -3,6 +3,7 @@ apply plugin: 'clone-artifacts'
 
 dependencies {
     compile project(':base:ddmlib')
+    compile project(':base:sdk-common')
 }
 
 group = 'com.android.tools.build'

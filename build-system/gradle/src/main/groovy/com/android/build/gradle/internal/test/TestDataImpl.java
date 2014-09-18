@@ -19,7 +19,11 @@ package com.android.build.gradle.internal.test;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.build.SplitOutput;
+<<<<<<< HEAD   (393734 First version of pure split support)
 import com.android.build.gradle.api.ApkOutput;
+=======
+import com.android.build.gradle.api.APKOutput;
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 import com.android.build.gradle.internal.variant.BaseVariantData;
 import com.android.build.gradle.internal.variant.TestVariantData;
 import com.android.build.gradle.internal.variant.TestedVariantData;
@@ -29,6 +33,10 @@ import com.android.builder.testing.TestData;
 import com.android.ide.common.build.SplitOutputMatcher;
 
 import java.io.File;
+<<<<<<< HEAD   (393734 First version of pure split support)
+=======
+import java.lang.reflect.Array;
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,8 +127,13 @@ public class TestDataImpl implements TestData {
         BaseVariantData<?> testedVariantData2 = (BaseVariantData) testedVariantData;
 
         ArrayList<File> splits = new ArrayList<File>();
+<<<<<<< HEAD   (393734 First version of pure split support)
         for (ApkOutput apkOutput : testedVariantData2.getOutputs().get(0).getOutputFiles()) {
             if (apkOutput.getType() == ApkOutput.OutputType.SPLIT) {
+=======
+        for (APKOutput apkOutput : testedVariantData2.getOutputs().get(0).getOutputFiles()) {
+            if (apkOutput.getType() == APKOutput.OutputType.SPLIT) {
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
                 splits.add(apkOutput.getOutputFile());
             }
         }

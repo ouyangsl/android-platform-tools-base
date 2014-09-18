@@ -37,6 +37,7 @@ public interface TestRunner {
      * @param projectName
      * @param variantName
      * @param testApk
+     * @param adbExec path to the adb tool executable.
      * @param testData
      * @param deviceList
      * @param maxThreads the max number of threads to run in parallel. 0 means unlimited.
@@ -53,6 +54,7 @@ public interface TestRunner {
             @NonNull  String projectName,
             @NonNull  String variantName,
             @NonNull  File testApk,
+            @NonNull  File adbExec,
             @NonNull  TestData testData,
             @NonNull  List<? extends DeviceConnector> deviceList,
                       int maxThreads,

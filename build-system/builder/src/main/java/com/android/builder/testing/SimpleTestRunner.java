@@ -45,6 +45,7 @@ public class SimpleTestRunner implements TestRunner {
             @NonNull String projectName,
             @NonNull String variantName,
             @NonNull File testApk,
+            @NonNull File adbExec,
             @NonNull TestData testData,
             @NonNull List<? extends DeviceConnector> deviceList,
                      int maxThreads,
@@ -75,7 +76,11 @@ public class SimpleTestRunner implements TestRunner {
                     }
 
                     executor.execute(new SimpleTestCallable(device, projectName, variantName,
+<<<<<<< HEAD   (393734 First version of pure split support)
                             testApk, testedApk, testData.getSplitApks(), mAdbExec, testData,
+=======
+                            testApk, testedApk, testData.getSplitApks(), adbExec, testData,
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
                             resultsDir, coverageDir, timeout, logger));
                 }
             }

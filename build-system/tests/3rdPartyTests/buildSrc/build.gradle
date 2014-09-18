@@ -7,4 +7,5 @@ repositories {
 
 dependencies {
     compile 'com.android.tools.build:builder-test-api:0.13.0'
+    compile 'com.android.tools:sdk-common:0.13.0'
 }

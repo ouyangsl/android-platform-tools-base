@@ -15,7 +15,11 @@
  */
 package com.android.build.gradle.tasks
 
+<<<<<<< HEAD   (393734 First version of pure split support)
 import com.android.build.gradle.api.ApkOutput
+=======
+import com.android.build.gradle.api.APKOutput
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
 import com.android.build.gradle.internal.dependency.SymbolFileProviderImpl
 import com.android.build.gradle.internal.dsl.AaptOptionsImpl
 import com.android.build.gradle.internal.tasks.IncrementalTask
@@ -118,6 +122,7 @@ public class ProcessAndroidResources extends IncrementalTask {
             String resOutputBaseName = resOutBaseNameFile.getName();
             final Pattern pattern = Pattern.compile("${resOutputBaseName}_([h|x|d|p|i|m]*)(.*)")
 
+<<<<<<< HEAD   (393734 First version of pure split support)
             List<ApkOutput> variantOutputList = new ArrayList<ApkOutput>();
             for (File f : resOutBaseDirectory.listFiles()) {
 
@@ -126,6 +131,16 @@ public class ProcessAndroidResources extends IncrementalTask {
                     ApkOutput variantOutput = new ApkOutput.SplitApkOutput(
                             ApkOutput.OutputType.SPLIT,
                             ApkOutput.SplitType.DENSITY,
+=======
+            List<APKOutput> variantOutputList = new ArrayList<APKOutput>();
+            for (File f : resOutBaseDirectory.listFiles()) {
+
+                Matcher matcher = pattern.matcher(f.getName());
+                if (matcher.matches()) {
+                    APKOutput variantOutput = new APKOutput.SplitAPKOutput(
+                            APKOutput.OutputType.SPLIT,
+                            APKOutput.SplitType.DENSITY,
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
                             matcher.group(1),
                             matcher.group(2),
                             f)

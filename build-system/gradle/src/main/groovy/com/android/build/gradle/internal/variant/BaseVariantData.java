@@ -120,7 +120,12 @@ public abstract class BaseVariantData<T extends BaseVariantOutputData> {
 
         // eventually, this will require a more open ended comparison.
         mSplitHandlingPolicy =
+<<<<<<< HEAD   (393734 First version of pure split support)
                 variantConfiguration.getMinSdkVersion() != null
+=======
+                basePlugin.getExtension().getGeneratePureSplits()
+                    && variantConfiguration.getMinSdkVersion() != null
+>>>>>>> BRANCH (bb7d26 added preliminary support for selecting split APKs)
                         && variantConfiguration.getMinSdkVersion().getApiString().equals("L")
                     ? SplitHandlingPolicy.RELEASE_21_AND_AFTER_POLICY
                     : SplitHandlingPolicy.PRE_21_POLICY;
