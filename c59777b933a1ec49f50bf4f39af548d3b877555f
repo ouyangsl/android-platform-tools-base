@@ -22,6 +22,30 @@
       "revId": "c59777b933a1ec49f50bf4f39af548d3b877555f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "301bc308_7ddb4f36",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/testrunner/TestRunResult.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-18T19:28:31Z",
+      "side": 1,
+      "message": "yeah this class is not intended to be thread safe. All the test* callbacks need to be called in order for example. I\u0027ve added docs to that effect",
+      "parentUuid": "90c0ef69_ab9d33e2",
+      "range": {
+        "startLine": 120,
+        "startChar": 15,
+        "endLine": 120,
+        "endChar": 33
+      },
+      "revId": "c59777b933a1ec49f50bf4f39af548d3b877555f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
