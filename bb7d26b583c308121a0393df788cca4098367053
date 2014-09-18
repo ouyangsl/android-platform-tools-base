@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "906aaf64_b09a60ea",
+        "filename": "build-system/builder-test-api/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-18T22:25:13Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 39
+      },
+      "revId": "bb7d26b583c308121a0393df788cca4098367053",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0712b54_41b56262",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-18T22:25:13Z",
+      "side": 1,
+      "message": "String getProperty(String)",
+      "range": {
+        "startLine": 186,
+        "startChar": 11,
+        "endLine": 186,
+        "endChar": 48
+      },
+      "revId": "bb7d26b583c308121a0393df788cca4098367053",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
