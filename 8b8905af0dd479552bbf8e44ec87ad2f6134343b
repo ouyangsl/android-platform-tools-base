@@ -34,6 +34,24 @@
       "revId": "8b8905af0dd479552bbf8e44ec87ad2f6134343b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b04df311_102792d5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-19T21:11:30Z",
+      "side": 1,
+      "message": "just use NO_FILTER \u003d null value so the code is easy to understand (in a subsequent CL).",
+      "parentUuid": "f05a0bdc_3f807771",
+      "revId": "8b8905af0dd479552bbf8e44ec87ad2f6134343b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
