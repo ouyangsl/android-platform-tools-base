@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7021bb30_4dfed978",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-19T20:46:30Z",
+      "side": 1,
+      "message": "could you replace null with a static called something like DEFAULT_INSTANCE and have consuming code check that variable rather than checking null ? \nso that null can still be an error...",
+      "revId": "8b8905af0dd479552bbf8e44ec87ad2f6134343b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
