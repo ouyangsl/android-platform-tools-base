@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b04df311_2a949feb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-19T22:39:37Z",
+      "side": 1,
+      "message": "nope.",
+      "parentUuid": "f05a0bdc_8b785101",
+      "range": {
+        "startLine": 29,
+        "startChar": 41,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "67f188e08278f391f9aebd60409d92b3a9ba4862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d057c7b2_aade6b75",
         "filename": "build-system/tests/3rdPartyTests/buildSrc/src/main/java/com/android/tests/basic/buildscript/FakeDevice.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "901c6ffc_74e608bf",
+        "filename": "build-system/tests/3rdPartyTests/buildSrc/src/main/java/com/android/tests/basic/buildscript/FakeDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-19T22:39:37Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "d057c7b2_aade6b75",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 67
+      },
+      "revId": "67f188e08278f391f9aebd60409d92b3a9ba4862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f05a0bdc_4b733924",
         "filename": "build-system/tests/densitySplitInL/build.gradle",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2014-09-19T16:25:59Z",
       "side": 1,
       "message": "we should just use the same sample (densitySplit) and have a L+ flavor.",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "67f188e08278f391f9aebd60409d92b3a9ba4862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b04df311_10ed526a",
+        "filename": "build-system/tests/densitySplitInL/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-09-19T22:39:37Z",
+      "side": 1,
+      "message": "delayed until 21 is released.",
+      "parentUuid": "f05a0bdc_4b733924",
       "range": {
         "startLine": 15,
         "startChar": 2,
