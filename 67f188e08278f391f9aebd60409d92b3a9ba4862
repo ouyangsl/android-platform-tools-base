@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f05a0bdc_8b785101",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-19T16:25:59Z",
+      "side": 1,
+      "message": "is this import still needed?",
+      "range": {
+        "startLine": 29,
+        "startChar": 41,
+        "endLine": 29,
+        "endChar": 51
+      },
+      "revId": "67f188e08278f391f9aebd60409d92b3a9ba4862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d057c7b2_aade6b75",
+        "filename": "build-system/tests/3rdPartyTests/buildSrc/src/main/java/com/android/tests/basic/buildscript/FakeDevice.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-19T16:25:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is strictly needed, but it doesn\u0027t matter.",
+      "range": {
+        "startLine": 165,
+        "startChar": 8,
+        "endLine": 165,
+        "endChar": 67
+      },
+      "revId": "67f188e08278f391f9aebd60409d92b3a9ba4862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f05a0bdc_4b733924",
+        "filename": "build-system/tests/densitySplitInL/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-19T16:25:59Z",
+      "side": 1,
+      "message": "we should just use the same sample (densitySplit) and have a L+ flavor.",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 25
+      },
+      "revId": "67f188e08278f391f9aebd60409d92b3a9ba4862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
