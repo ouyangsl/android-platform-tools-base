@@ -16,6 +16,24 @@
       "revId": "8b8905af0dd479552bbf8e44ec87ad2f6134343b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f05a0bdc_3f807771",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-19T20:54:16Z",
+      "side": 1,
+      "message": "This is the density filter. null is a correct value (no filter).\n\nnull shouldn\u0027t be an error. Am I missing a different use case?",
+      "parentUuid": "7021bb30_4dfed978",
+      "revId": "8b8905af0dd479552bbf8e44ec87ad2f6134343b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
