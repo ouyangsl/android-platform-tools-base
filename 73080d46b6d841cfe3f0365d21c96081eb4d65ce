@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "700d3be9_8eda471f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/CustomTestRunListener.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-22T22:05:43Z",
+      "side": 1,
+      "message": "seems like we should implement testAssumptionFailure and do the same implementation as this method (add failed test to mFailedTests)",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "73080d46b6d841cfe3f0365d21c96081eb4d65ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
