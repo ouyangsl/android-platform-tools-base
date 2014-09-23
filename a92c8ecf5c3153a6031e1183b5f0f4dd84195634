@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30bca331_18a049bf",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-23T17:27:27Z",
+      "side": 1,
+      "message": "just replace with mDirectLibs.contains(mTestedOutput)",
+      "range": {
+        "startLine": 663,
+        "startChar": 16,
+        "endLine": 663,
+        "endChar": 29
+      },
+      "revId": "a92c8ecf5c3153a6031e1183b5f0f4dd84195634",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
