@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70b29b5d_e5495e7a",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Queries.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-09-23T18:12:42Z",
+      "side": 1,
+      "message": "Add a comment describing this query, saying that the returned classes belong to \"first\" and that they are matched only by name.",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 10
+      },
+      "revId": "50995637fb5f6687eed945d104f0f4734a0eb43d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30bca331_430786ed",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/QueriesTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-09-23T18:12:42Z",
+      "side": 1,
+      "message": "Nit: not sure testing for null class loaders is part of this test? As it\u0027s not clear for the reader why we are testing this here. A separate test?",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 18
+      },
+      "revId": "50995637fb5f6687eed945d104f0f4734a0eb43d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
