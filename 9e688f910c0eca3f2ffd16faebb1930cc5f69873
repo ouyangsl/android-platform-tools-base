@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d01507f5_28e17334",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/CustomTestRunListener.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-23T04:16:58Z",
+      "side": 1,
+      "message": "whitespace.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 4
+      },
+      "revId": "9e688f910c0eca3f2ffd16faebb1930cc5f69873",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
