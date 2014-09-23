@@ -16,11 +16,19 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
+<<<<<<< HEAD   (890717 Merge "Update changelog for gradle 0.13.1" into studio-1.0-d)
           <root url="jar://$MODULE_DIR$/../../../../prebuilts/tools/common/m2/repository/org/gradle/gradle-tooling-api/2.2-20140916220025+0000/gradle-tooling-api-2.2-20140916220025+0000.jar!/" />
+=======
+          <root url="jar://$MODULE_DIR$/../../../../prebuilts/tools/common/m2/repository/org/gradle/gradle-tooling-api/2.1/gradle-tooling-api-2.1.jar!/" />
+>>>>>>> BRANCH (1228a9 Merge "move code to build gradle project to module." into st)
         </CLASSES>
         <JAVADOC />
         <SOURCES>
+<<<<<<< HEAD   (890717 Merge "Update changelog for gradle 0.13.1" into studio-1.0-d)
           <root url="jar://$MODULE_DIR$/../../../../prebuilts/tools/common/m2/repository/org/gradle/gradle-tooling-api/2.2-20140916220025+0000/gradle-tooling-api-2.2-20140916220025+0000-sources.jar!/" />
+=======
+          <root url="jar://$MODULE_DIR$/../../../../prebuilts/tools/common/m2/repository/org/gradle/gradle-tooling-api/2.1/gradle-tooling-api-2.1-sources.jar!/" />
+>>>>>>> BRANCH (1228a9 Merge "move code to build gradle project to module." into st)
         </SOURCES>
       </library>
     </orderEntry>
