@@ -21,7 +21,6 @@ import static com.android.SdkConstants.FN_LOCAL_PROPERTIES;
 import com.android.SdkConstants;
 import com.android.annotations.Nullable;
 import com.android.build.gradle.ndk.NdkExtension;
-import com.android.builder.model.AndroidProject;
 import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -29,17 +28,21 @@ import com.google.common.io.Closeables;
 
 import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Project;
+<<<<<<< HEAD   (cb9acc Merge "Fixed infinite loop in case of invalid circular resou)
 import org.gradle.nativeplatform.BuildType;
 import org.gradle.nativeplatform.platform.Platform;
+=======
+import org.gradle.nativebinaries.platform.Platform;
+>>>>>>> BRANCH (bc98a6 Merge "Add tasks to create gdb.setup and gdbserver for debug)
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Locale;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
@@ -241,16 +244,6 @@ public class NdkHandler {
     public String getSysroot(Platform platform) {
         return ndkDirectory + "/platforms/" + ndkExtension.getCompileSdkVersion()
                 + "/arch-" + ARCHITECTURE_STRING.get(platform.getName());
-    }
-
-    /**
-     * Return the output directory for a BuildType and Platform.
-     */
-    public File getOutputDirectory(BuildType buildType, Platform platform) {
-        return new File(
-                project.getBuildDir() + "/" + AndroidProject.FD_INTERMEDIATES + "/binaries/",
-                ndkExtension.getModuleName() + "SharedLibrary/" + buildType.getName() + "/lib/" +
-                        platform.getName());
     }
 
     /**

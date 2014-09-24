@@ -18,6 +18,7 @@ package com.android.build.gradle.ndk.internal
 
 import com.android.build.gradle.api.AndroidSourceDirectorySet
 import com.android.build.gradle.ndk.NdkExtension
+import com.android.build.gradle.tasks.GdbSetupTask
 import com.android.builder.core.BuilderConstants
 import com.android.builder.model.AndroidProject
 import org.gradle.api.Action
@@ -26,9 +27,17 @@ import org.gradle.language.base.ProjectSourceSet
 import org.gradle.language.base.FunctionalSourceSet
 import org.gradle.language.c.CSourceSet
 import org.gradle.language.cpp.CppSourceSet
+<<<<<<< HEAD   (cb9acc Merge "Fixed infinite loop in case of invalid circular resou)
 import org.gradle.nativeplatform.internal.DefaultSharedLibraryBinarySpec
 import org.gradle.language.c.tasks.CCompile
 import org.gradle.language.cpp.tasks.CppCompile
+=======
+import org.gradle.api.Task
+import org.gradle.api.tasks.Copy
+import org.gradle.nativebinaries.internal.DefaultSharedLibraryBinarySpec
+import org.gradle.nativebinaries.language.c.tasks.CCompile
+import org.gradle.nativebinaries.language.cpp.tasks.CppCompile
+>>>>>>> BRANCH (bc98a6 Merge "Add tasks to create gdb.setup and gdbserver for debug)
 
 /**
  * Configure settings used by the native binaries.
@@ -126,6 +135,7 @@ class NdkConfigurationAction implements Action<Project> {
                 }
 
                 StlConfiguration.apply(ndkHandler, ndkExtension.getStl(), project, binary)
+
                 NativeToolSpecificationFactory.create(ndkHandler, buildType, targetPlatform).apply(binary)
 
                 // Add flags defined in NdkExtension
@@ -137,6 +147,10 @@ class NdkConfigurationAction implements Action<Project> {
                 }
                 for (String ldLibs : ndkExtension.getLdLibs()) {
                     linker.args "-l$ldLibs"
+                }
+
+                if (buildType.name.equals(BuilderConstants.DEBUG)) {
+                    setupNdkGdbDebug(project, binary)
                 }
             }
         }
@@ -158,5 +172,30 @@ class NdkConfigurationAction implements Action<Project> {
                 binary.source(sourceSet.cpp)
             }
         }
+    }
+
+    /**
+     * Setup tasks to create gdb.setup and copy gdbserver for NDK debugging.
+     */
+    private void setupNdkGdbDebug(Project project, DefaultSharedLibraryBinarySpec binary) {
+        Task copyGdbServerTask = project.tasks.create(
+                name: binary.namingScheme.getTaskName("copy", "GdbServer"),
+                type: Copy) {
+            from(new File(
+                    ndkHandler.getPrebuiltDirectory(binary.targetPlatform),
+                    "gdbserver/gdbserver"))
+            into(new File(project.buildDir, NdkNamingScheme.getOutputDirectoryName(binary)))
+        }
+        binary.builtBy copyGdbServerTask
+
+        Task createGdbSetupTask = project.tasks.create(
+                name: binary.namingScheme.getTaskName("create", "Gdbsetup"),
+                type: GdbSetupTask) { def task ->
+            task.ndkHandler = this.ndkHandler
+            task.extension = ndkExtension
+            task.binary = binary
+            task.outputDir = new File(project.buildDir, NdkNamingScheme.getOutputDirectoryName(binary))
+        }
+        binary.builtBy createGdbSetupTask
     }
 }
