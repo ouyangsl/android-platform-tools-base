@@ -142,6 +142,30 @@
       "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f074cb7c_1ba303cf",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1014814
+      },
+      "writtenOn": "2014-09-24T22:08:42Z",
+      "side": 1,
+      "message": "how big of a change would it be to make getApiLevel return a String. \n\nA class like AndroidVersion seems like more than what we need here...",
+      "parentUuid": "90b46fdf_5a417571",
+      "range": {
+        "startLine": 70,
+        "startChar": 11,
+        "endLine": 70,
+        "endChar": 14
+      },
+      "revId": "6906e954a5181a9ba7aef7b1aae0e18ea9d7d28a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
