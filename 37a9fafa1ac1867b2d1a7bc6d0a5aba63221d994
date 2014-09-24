@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7080db79_5522ac09",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDeviceProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-24T01:10:54Z",
+      "side": 1,
+      "message": "don\u0027t need those extra parentheses.",
+      "range": {
+        "startLine": 85,
+        "startChar": 42,
+        "endLine": 85,
+        "endChar": 96
+      },
+      "revId": "37a9fafa1ac1867b2d1a7bc6d0a5aba63221d994",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
