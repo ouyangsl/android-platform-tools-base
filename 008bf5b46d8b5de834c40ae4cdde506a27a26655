@@ -16,6 +16,24 @@
       "revId": "008bf5b46d8b5de834c40ae4cdde506a27a26655",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "704e1b58_a5cf36c7",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-25T22:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d071878d_6e1fd3c0",
+      "revId": "008bf5b46d8b5de834c40ae4cdde506a27a26655",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
