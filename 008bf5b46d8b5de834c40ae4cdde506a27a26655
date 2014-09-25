@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d071878d_6e1fd3c0",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-25T01:25:53Z",
+      "side": 1,
+      "message": "remove or document?",
+      "revId": "008bf5b46d8b5de834c40ae4cdde506a27a26655",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
