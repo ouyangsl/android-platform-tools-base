@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7037fbc3_ac780b9a",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AaptOptions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "this is in place of the java-base cruncher right?\nso default is synchronous aapt-based one, and with this you enable the new one?",
+      "range": {
+        "startLine": 40,
+        "startChar": 12,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "502cb77a_884a576f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/tasks/BooleanLatch.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "change.",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 30
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9032afd1_99c5477b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/tasks/Job.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "change",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 30
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7037fbc3_ac456b31",
+        "filename": "build-system/builder/src/main/java/com/android/builder/tasks/WorkQueue.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "change",
+      "range": {
+        "startLine": 20,
+        "startChar": 3,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7037fbc3_cc0c5f14",
+        "filename": "build-system/builder/src/main/java/com/android/builder/tasks/WorkQueue.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "we have an ExecutorSingleton that is used for all our multi-threading, providing a single threadpool to try to avoid each task running its own thread pool. Do you think we could use it somehow?",
+      "range": {
+        "startLine": 127,
+        "startChar": 8,
+        "endLine": 127,
+        "endChar": 32
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9032afd1_599d8f86",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/NinePatchAaptProcessorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "don\u0027t you want to throw this to break the test?",
+      "range": {
+        "startLine": 150,
+        "startChar": 12,
+        "endLine": 150,
+        "endChar": 32
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9032afd1_99170737",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/NinePatchAsyncAaptProcessTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "should be android-21 as it\u0027s what the SDK normally contains on a normal install.",
+      "range": {
+        "startLine": 69,
+        "startChar": 55,
+        "endLine": 69,
+        "endChar": 64
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7037fbc3_4c078f3b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/BuildTypeData.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "refactoring gone wrong?",
+      "range": {
+        "startLine": 24,
+        "startChar": 67,
+        "endLine": 24,
+        "endChar": 75
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9032afd1_5e35750b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-27T00:47:26Z",
+      "side": 1,
+      "message": "same here?",
+      "range": {
+        "startLine": 364,
+        "startChar": 26,
+        "endLine": 364,
+        "endChar": 34
+      },
+      "revId": "50203528b921e09dc27f4f1ad467ceffd00ed6f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
