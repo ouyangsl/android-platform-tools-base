@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7037fbc3_e3568e08",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidArtifact.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T16:08:42Z",
+      "side": 1,
+      "message": "Actually I want to differentiate between a lack of filters and a list of no-filters. It might not be super useful, but I think it\u0027s worth having.\n\nFor instance you have some computing intensive features and you create a Java implementation for it and a arm-only native code for it. You want to be able to package a version without the native code (ie some filters but no ABI to package).",
+      "parentUuid": "7037fbc3_58b3c9e9",
+      "range": {
+        "startLine": 97,
+        "startChar": 5,
+        "endLine": 97,
+        "endChar": 13
+      },
+      "revId": "c70cc530f9d7598aa20dfd3ba033032ba116c1e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "502cb77a_9ce9b5d2",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
         "patchSetId": 1
