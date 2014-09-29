@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90f63048_2270b0fb",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "should use BasePlugin.displayWarning The goal of this method is to provide better parsable output for the IDE.",
+      "range": {
+        "startLine": 1187,
+        "startChar": 20,
+        "endLine": 1187,
+        "endChar": 41
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50f83838_1d475399",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 2521,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "I would say shrinked rather than compressed as it might be misunderstood for zip-type compression.",
+      "range": {
+        "startLine": 2521,
+        "startChar": 95,
+        "endLine": 2521,
+        "endChar": 104
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70fb7c34_2151c824",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ShrinkResources.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "don\u0027t. it\u0027s deprecated, but do bring an error if it\u0027s used with the old merger.",
+      "range": {
+        "startLine": 85,
+        "startChar": 10,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90f63048_c235841b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ShrinkResources.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "should use the getter to access all @Input in order to use conventionmapping.",
+      "range": {
+        "startLine": 94,
+        "startChar": 64,
+        "endLine": 94,
+        "endChar": 74
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90f63048_85cf86bb",
+        "filename": "build-system/tests/libsTest/app/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "weird indentation",
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90f63048_25de7a6f",
+        "filename": "build-system/tests/libsTest/app/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "don\u0027t you need to enable proguard as well?",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50f83838_a0171465",
+        "filename": "build-system/tests/shrink/.gitignore",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "we have one inside tests/",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50f83838_e03e3cb0",
+        "filename": "build-system/tests/shrink/src/main/java/test/pkg/ResourceReferences.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-09-29T20:53:54Z",
+      "side": 1,
+      "message": "(we\u0027re not very good at this in the other samples, but) I\u0027d like to have the package name reflect the name of the test for when one day we actually run these projects on device and we use these results in our junit report.",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
