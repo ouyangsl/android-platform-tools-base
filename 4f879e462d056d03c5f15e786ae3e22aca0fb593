@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70fb7c34_441742eb",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 1187,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f63048_2270b0fb",
+      "range": {
+        "startLine": 1187,
+        "startChar": 20,
+        "endLine": 1187,
+        "endChar": 41
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50f83838_1d475399",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2014-09-29T20:53:54Z",
       "side": 1,
       "message": "I would say shrinked rather than compressed as it might be misunderstood for zip-type compression.",
+      "range": {
+        "startLine": 2521,
+        "startChar": 95,
+        "endLine": 2521,
+        "endChar": 104
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90f63048_28ebef39",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 2521,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "Grammatically that should probably be shrunk rather than shrinked so to avoid the whole issue I went with -stripped :-)",
+      "parentUuid": "50f83838_1d475399",
       "range": {
         "startLine": 2521,
         "startChar": 95,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "50f83838_a31efef8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ShrinkResources.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70fb7c34_2151c824",
+      "range": {
+        "startLine": 85,
+        "startChar": 10,
+        "endLine": 85,
+        "endChar": 58
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90f63048_c235841b",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ShrinkResources.groovy",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2014-09-29T20:53:54Z",
       "side": 1,
       "message": "should use the getter to access all @Input in order to use conventionmapping.",
+      "range": {
+        "startLine": 94,
+        "startChar": 64,
+        "endLine": 94,
+        "endChar": 74
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50f83838_6339167b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ShrinkResources.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f63048_c235841b",
       "range": {
         "startLine": 94,
         "startChar": 64,
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "90f63048_a8325f2f",
+        "filename": "build-system/tests/libsTest/app/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "This section was checked in by mistake. I started making a test case here and then created a whole separate test project instead (\"shrink\").",
+      "parentUuid": "90f63048_85cf86bb",
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90f63048_25de7a6f",
         "filename": "build-system/tests/libsTest/app/build.gradle",
         "patchSetId": 5
@@ -122,6 +236,30 @@
       "writtenOn": "2014-09-29T20:53:54Z",
       "side": 1,
       "message": "don\u0027t you need to enable proguard as well?",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 31
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50f83838_4365fa8a",
+        "filename": "build-system/tests/libsTest/app/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f63048_25de7a6f",
       "range": {
         "startLine": 11,
         "startChar": 16,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "70fb7c34_e46bee5c",
+        "filename": "build-system/tests/shrink/.gitignore",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50f83838_a0171465",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 6
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50f83838_e03e3cb0",
         "filename": "build-system/tests/shrink/src/main/java/test/pkg/ResourceReferences.java",
         "patchSetId": 5
@@ -168,6 +330,30 @@
       "writtenOn": "2014-09-29T20:53:54Z",
       "side": 1,
       "message": "(we\u0027re not very good at this in the other samples, but) I\u0027d like to have the package name reflect the name of the test for when one day we actually run these projects on device and we use these results in our junit report.",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "4f879e462d056d03c5f15e786ae3e22aca0fb593",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70fb7c34_c478f234",
+        "filename": "build-system/tests/shrink/src/main/java/test/pkg/ResourceReferences.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-29T22:27:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50f83838_e03e3cb0",
       "range": {
         "startLine": 1,
         "startChar": 8,
