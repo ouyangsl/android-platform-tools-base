@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3033c4f6_cc800f87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-30T19:34:37Z",
+      "side": 1,
+      "message": "Nitpick, and totally up to you, but since the first line has to be 65 chars the syntax I usually use here is to just list the issue id followed by a colon followed by the issue synopsis (e.g. \"67913: Master/Details template isn\u0027t...\".)",
+      "revId": "1a83512e8c8117e09620347ad040d6a97fff6da9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d01fc743_b8a4c190",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-30T19:34:37Z",
+      "side": 1,
+      "message": "Add a newline after the first git line.",
+      "revId": "1a83512e8c8117e09620347ad040d6a97fff6da9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "301e645a_1a163d3e",
+        "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-09-30T19:34:37Z",
+      "side": 1,
+      "message": "it looks like most of the templates are using \"lt\" rather than \"\u003c\" (and le and gt and ge for \u003c\u003d,\u003e and \u003e\u003d); just checking; does \u003c actually work (probably since we\u0027ve updated to more recent versions of freemarker) ? If so maybe we should clean up the older templates to use the more readable operators.)",
+      "revId": "1a83512e8c8117e09620347ad040d6a97fff6da9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
