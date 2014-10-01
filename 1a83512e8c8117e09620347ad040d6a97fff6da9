@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "502678b6_b6f3ce7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-10-01T17:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3033c4f6_cc800f87",
+      "revId": "1a83512e8c8117e09620347ad040d6a97fff6da9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d01fc743_b8a4c190",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "502678b6_96f0d271",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-10-01T17:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d01fc743_b8a4c190",
+      "revId": "1a83512e8c8117e09620347ad040d6a97fff6da9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "301e645a_1a163d3e",
         "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2014-09-30T19:34:37Z",
       "side": 1,
       "message": "it looks like most of the templates are using \"lt\" rather than \"\u003c\" (and le and gt and ge for \u003c\u003d,\u003e and \u003e\u003d); just checking; does \u003c actually work (probably since we\u0027ve updated to more recent versions of freemarker) ? If so maybe we should clean up the older templates to use the more readable operators.)",
+      "revId": "1a83512e8c8117e09620347ad040d6a97fff6da9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "502678b6_d69ada47",
+        "filename": "templates/activities/MasterDetailFlow/recipe.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-10-01T17:10:10Z",
+      "side": 1,
+      "message": "It works this way, but based on the doc (href\u003d\"http://freemarker.org/docs/dgui_template_exp.html#dgui_template_exp_comparison) it looks like it would not have worked if the logic were inverted, since \u003e would be misinterpreted.\nIf you think it preferable I can use lt; here instead to be consistent.",
+      "parentUuid": "301e645a_1a163d3e",
       "revId": "1a83512e8c8117e09620347ad040d6a97fff6da9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
