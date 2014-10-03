@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30666437_1e154aae",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-10-03T17:57:35Z",
+      "side": 1,
+      "message": "Like I said earlier, Xav created this IShellEnabledDevice that only supports shell commands. Xav - why did you need this in the first place?\n\nAtleast given the current name of IShellEnabledDevice, I don\u0027t know if moving getSystemProp here makes sense.",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "25af45f8257e090be57a739e902f88e58dfec4b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
