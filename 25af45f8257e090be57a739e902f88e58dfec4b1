@@ -22,6 +22,30 @@
       "revId": "25af45f8257e090be57a739e902f88e58dfec4b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30fbc487_ecd26b0d",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1052388
+      },
+      "writtenOn": "2014-10-03T18:30:27Z",
+      "side": 1,
+      "message": "Xav\u0027s CL for ref: Id95e9013a9011e206f826ab8068f051f393cc34a\n\nTechnically getSystemProp executes a shell command. However, I don\u0027t want to re-implement exciting functionality into RemoteAndroidTestRunner nor do I want to revert Xav\u0027s CL to reintroduce dependency on the full IDevice interface.",
+      "parentUuid": "30666437_1e154aae",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "25af45f8257e090be57a739e902f88e58dfec4b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
