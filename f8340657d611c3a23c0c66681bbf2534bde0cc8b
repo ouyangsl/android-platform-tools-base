@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30a8245b_ebdf0290",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:30:49Z",
+      "side": 1,
+      "message": "update this.",
+      "range": {
+        "startLine": 564,
+        "startChar": 42,
+        "endLine": 564,
+        "endChar": 58
+      },
+      "revId": "f8340657d611c3a23c0c66681bbf2534bde0cc8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30fbc487_ac418333",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:30:49Z",
+      "side": 1,
+      "message": "update this.",
+      "range": {
+        "startLine": 645,
+        "startChar": 38,
+        "endLine": 645,
+        "endChar": 50
+      },
+      "revId": "f8340657d611c3a23c0c66681bbf2534bde0cc8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "706c5c15_6a7abfaf",
+        "filename": "common/src/main/java/com/android/build/SplitData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:30:49Z",
+      "side": 1,
+      "message": "I think getIdentifier is probably enough",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 36
+      },
+      "revId": "f8340657d611c3a23c0c66681bbf2534bde0cc8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30a8245b_aba6ea4a",
+        "filename": "common/src/main/java/com/android/build/SplitData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:30:49Z",
+      "side": 1,
+      "message": "getType?",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "f8340657d611c3a23c0c66681bbf2534bde0cc8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
