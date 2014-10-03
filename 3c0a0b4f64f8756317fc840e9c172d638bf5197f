@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50ee78c7_b04b9622",
+        "filename": "testutils/src/main/java/com/android/testutils/TestUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T17:43:49Z",
+      "side": 1,
+      "message": "the goal of this method is to find the location, so you shouldn\u0027t use a absolute path that only works on your machine :)",
+      "range": {
+        "startLine": 47,
+        "startChar": 33,
+        "endLine": 47,
+        "endChar": 114
+      },
+      "revId": "3c0a0b4f64f8756317fc840e9c172d638bf5197f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
