@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30666437_913cab5c",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/33b_uses_sdk_minsdk_conflict.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:36:45Z",
+      "side": 1,
+      "message": "the comment seems wrong since you put minSdkVersion\u003d2 just in the next line :)",
+      "range": {
+        "startLine": 19,
+        "startChar": 37,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "6ff0538ef7513e8d1e6464981488c37db9a4ccbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f1bca1_14d41c4e",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/33b_uses_sdk_minsdk_conflict.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:36:45Z",
+      "side": 1,
+      "message": "comment is wrong, app is minSdk 2",
+      "range": {
+        "startLine": 34,
+        "startChar": 31,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "6ff0538ef7513e8d1e6464981488c37db9a4ccbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50ee78c7_f32408a6",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/33b_uses_sdk_minsdk_conflict.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:36:45Z",
+      "side": 1,
+      "message": "you mean 8 for this lib :)",
+      "range": {
+        "startLine": 47,
+        "startChar": 67,
+        "endLine": 47,
+        "endChar": 79
+      },
+      "revId": "6ff0538ef7513e8d1e6464981488c37db9a4ccbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50ee78c7_133394ec",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/33b_uses_sdk_minsdk_conflict.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:36:45Z",
+      "side": 1,
+      "message": "and here you mean 10 :)",
+      "range": {
+        "startLine": 60,
+        "startChar": 65,
+        "endLine": 60,
+        "endChar": 74
+      },
+      "revId": "6ff0538ef7513e8d1e6464981488c37db9a4ccbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f1bca1_f4ecf026",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/data2/33b_uses_sdk_minsdk_conflict.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-03T18:36:45Z",
+      "side": 1,
+      "message": "so you have a single test that accepts 2 libs through override and rejects one.\n\nAre you sure that rejecting the 3rd one won\u0027t ever hide issues in accepting the first 2? I\u0027d write 2 different tests, I think.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 7
+      },
+      "revId": "6ff0538ef7513e8d1e6464981488c37db9a4ccbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
