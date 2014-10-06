@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0268cf7_d154534e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-10-06T04:54:13Z",
+      "side": 1,
+      "message": "Nit: this fields are automatically initialized with null. Any reason for explicitly doing that? I\u0027ve seen other classes in this CL not doing it.",
+      "range": {
+        "startLine": 42,
+        "startChar": 40,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3014a487_649deaca",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-10-06T04:54:13Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 93
+      },
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5017588b_25f76e3a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-10-06T04:54:13Z",
+      "side": 1,
+      "message": "Minor suggestion: Guava\u0027s Objects.equals simplifies checking if two nullable objects are equal.",
+      "range": {
+        "startLine": 419,
+        "startChar": 19,
+        "endLine": 419,
+        "endChar": 25
+      },
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0268cf7_71476798",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-10-06T04:54:13Z",
+      "side": 1,
+      "message": "Minor suggestion: Guava\u0027s Objects.hashCode(Object[]) makes it easier to write hashCode method (e.g. no need to check for null.)",
+      "range": {
+        "startLine": 503,
+        "startChar": 26,
+        "endLine": 503,
+        "endChar": 27
+      },
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5017588b_c5113ac2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/api/ImmutableFlavorList.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-10-06T04:54:13Z",
+      "side": 1,
+      "message": "Suggestion: add @Deprecated.\nSomething I like about Guava\u0027s ImmutableList (which extends java.util.List) is that all the methods that change state are also deprecated. IMHO, that is a nice detail, because the IDE will flag such methods, in addition to the exception thrown at run-time.",
+      "range": {
+        "startLine": 119,
+        "startChar": 19,
+        "endLine": 119,
+        "endChar": 22
+      },
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
