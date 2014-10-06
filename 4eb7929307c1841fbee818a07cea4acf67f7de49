@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3014a487_ea3b63bd",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-06T17:00:00Z",
+      "side": 1,
+      "message": "yeah I don\u0027t know why it\u0027s like that.",
+      "parentUuid": "f0268cf7_d154534e",
+      "range": {
+        "startLine": 42,
+        "startChar": 40,
+        "endLine": 42,
+        "endChar": 44
+      },
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3014a487_649deaca",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2014-10-06T04:54:13Z",
       "side": 1,
       "message": "remove?",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 93
+      },
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0268cf7_671de5d1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-06T17:00:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3014a487_649deaca",
       "range": {
         "startLine": 181,
         "startChar": 8,
@@ -105,6 +153,24 @@
       "writtenOn": "2014-10-06T16:33:52Z",
       "side": 1,
       "message": "I find the name including Immutable a little misleading. There is no provision on these classes on the actual implementation of interfaces like BaseConfig. For this class to really be immutable, it would require an immutable BaseConfig to be used in the constructor. At the very least it should be threadsafe as users of an immutable object usually do not synchronize on accesses to it. This could lead to threading issues.\n\nMaybe all these classes should be renamed with a name pattern like ReadOnlyBaseConfig or ReadOnlyBaseConfigFacade that make no synchronization promises. I suppose another would be to synchronize all methods of the class.",
+      "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5017588b_8b3e31af",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/api/ImmutableBaseConfig.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-06T17:00:00Z",
+      "side": 1,
+      "message": "Yes, I agree. It was called ReadOnly... in a previous patch and renamed it later,but I\u0027ve been thinking the same thing since.",
+      "parentUuid": "f0268cf7_4771c182",
       "revId": "4eb7929307c1841fbee818a07cea4acf67f7de49",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
