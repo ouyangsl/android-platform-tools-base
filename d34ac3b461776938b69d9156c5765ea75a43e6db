@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f0cbec63_e86e079d",
+        "filename": "templates/gradle-projects/NewAndroidProject/root/gradle.properties.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-10-06T20:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0d0a811_e41ab48e",
+      "revId": "d34ac3b461776938b69d9156c5765ea75a43e6db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70dffc23_bea3590c",
         "filename": "templates/gradle-projects/NewAndroidProject/root/gradle.properties.ftl",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-10-06T19:53:11Z",
       "side": 1,
       "message": "trailing space",
+      "revId": "d34ac3b461776938b69d9156c5765ea75a43e6db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0cbec63_086c0ba3",
+        "filename": "templates/gradle-projects/NewAndroidProject/root/gradle.properties.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-10-06T20:23:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70dffc23_bea3590c",
       "revId": "d34ac3b461776938b69d9156c5765ea75a43e6db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
