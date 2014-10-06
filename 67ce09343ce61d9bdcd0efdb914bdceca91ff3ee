@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0268cf7_f484e568",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-06T15:47:25Z",
+      "side": 1,
+      "message": "We should probably expose the whole mItems map, not just the values, because it seems plausible that clients would need to know which keys/attributes are being set to these styles, and whether it\u0027s in the framework namespace or not.\n\nBut on the other hand, we shouldn\u0027t expose the very internal detail that the map keys are Pair\u003cString,Boolean\u003e, so let\u0027s make a more dedicated holder class to replace the pair instead and refactor the class to use it.",
+      "revId": "67ce09343ce61d9bdcd0efdb914bdceca91ff3ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
