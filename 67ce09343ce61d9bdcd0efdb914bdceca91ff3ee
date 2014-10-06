@@ -16,6 +16,24 @@
       "revId": "67ce09343ce61d9bdcd0efdb914bdceca91ff3ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0bfc88a_e3c88e60",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-10-06T15:56:00Z",
+      "side": 1,
+      "message": "The name is already part of the ResourceValue, should the isFrameworkAttr also just be a property of the ResourceValue?",
+      "parentUuid": "f0268cf7_f484e568",
+      "revId": "67ce09343ce61d9bdcd0efdb914bdceca91ff3ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
