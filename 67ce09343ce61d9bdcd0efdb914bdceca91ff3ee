@@ -70,6 +70,24 @@
       "revId": "67ce09343ce61d9bdcd0efdb914bdceca91ff3ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b9d0ac_a1ecd225",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-10-06T16:36:13Z",
+      "side": 1,
+      "message": "can we have 2 fields in ResourceValue then:\nisKeyFramework\nisValueFramework\n?",
+      "parentUuid": "5017588b_08ca47da",
+      "revId": "67ce09343ce61d9bdcd0efdb914bdceca91ff3ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
