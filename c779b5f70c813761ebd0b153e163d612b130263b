@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0d0a811_4aa8c76d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Storage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-06T23:54:45Z",
+      "side": 1,
+      "message": "Hmmmm. To be pedantic, this isn\u0027t quite right; GB and GiB are slightly different. 1 GB \u003d 1000^3, 1 GiB \u003d 1024^3. Therefore, we could introduce new units instead, GB, MB and KB here, with base 1000^n instead.\n\nBut I do realize that these units are often treated as synonyms for the \"i\"-versions, so perhaps that\u0027s the intent here with these display names?",
+      "revId": "c779b5f70c813761ebd0b153e163d612b130263b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
