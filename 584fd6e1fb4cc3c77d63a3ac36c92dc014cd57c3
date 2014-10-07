@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0b988d9_fff07772",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/ApkOutput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-07T16:36:24Z",
+      "side": 1,
+      "message": "implements SplitOutput?",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 31
+      },
+      "revId": "584fd6e1fb4cc3c77d63a3ac36c92dc014cd57c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e904d0_c58a1076",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/ApkOutput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-07T16:36:24Z",
+      "side": 1,
+      "message": "use of() instead.",
+      "range": {
+        "startLine": 111,
+        "startChar": 17,
+        "endLine": 111,
+        "endChar": 20
+      },
+      "revId": "584fd6e1fb4cc3c77d63a3ac36c92dc014cd57c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0aed491_3b5da3ec",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/api/BaseVariantOutputImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-07T16:36:24Z",
+      "side": 1,
+      "message": "should we detect the split case and throw an exception, since this only make sense when there are no splits?",
+      "range": {
+        "startLine": 52,
+        "startChar": 15,
+        "endLine": 52,
+        "endChar": 54
+      },
+      "revId": "584fd6e1fb4cc3c77d63a3ac36c92dc014cd57c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e904d0_85472897",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/AndroidArtifactOutputImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-07T16:36:24Z",
+      "side": 1,
+      "message": "since this is serialized, make a copy in the constructor. Same below.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 21
+      },
+      "revId": "584fd6e1fb4cc3c77d63a3ac36c92dc014cd57c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0aed491_fb424b02",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantOutputData.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-07T16:36:24Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 70,
+        "startChar": 29,
+        "endLine": 70,
+        "endChar": 36
+      },
+      "revId": "584fd6e1fb4cc3c77d63a3ac36c92dc014cd57c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e904d0_30cf70bd",
+        "filename": "common/src/main/java/com/android/build/SplitOutput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-07T16:36:24Z",
+      "side": 1,
+      "message": "@nonNull?",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 14
+      },
+      "revId": "584fd6e1fb4cc3c77d63a3ac36c92dc014cd57c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
