@@ -16,6 +16,24 @@
       "revId": "c779b5f70c813761ebd0b153e163d612b130263b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0b988d9_7801d872",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Storage.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1006444
+      },
+      "writtenOn": "2014-10-07T23:30:15Z",
+      "side": 1,
+      "message": "When I asked J about this, he pointed me at http://en.wikipedia.org/wiki/Binary_prefix which lists GB, KB, and MB as acceptable synonyms for GiB, MiB, and KiB. He also made the point that we don\u0027t use GiB when reporting real device specifications, even though that\u0027s what we mean. Feel free to discuss.",
+      "parentUuid": "d0d0a811_4aa8c76d",
+      "revId": "c779b5f70c813761ebd0b153e163d612b130263b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
