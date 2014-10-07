@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0b988d9_e8b0bb53",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/Capability.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-07T19:14:43Z",
+      "side": 1,
+      "message": "I thought we were going to abandon Capability enums and instead go to a public boolean supports(int capability) method (with predefined ints like CAPABILITY_PREFERENCES_RENDERING \u003d 15;\n\n?",
+      "revId": "363f4f5dec31c2ecf4ee4c2b9e03e0e1c133f85f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e904d0_361da88d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/SessionParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-07T19:14:43Z",
+      "side": 1,
+      "message": "I wonder if we shouldn\u0027t introduce a Key concept instead such that we can have typed values. Take a look at either com.android.tools.idea.wizard.ScopedStateStore.Key or  com.intellij.openapi.util.UserDataHolder. The idea being that we define a Key\u003cT\u003e class, and then our lookup method can be something like \n\n\u003cT\u003e T get(Key\u003cT\u003e key) { }\n\nThat way you can have typed put/gets like this:\n\n    Key\u003cDevice\u003e DEVICE_DEFINITION_KEY \u003d ...\n    ...\n    Device device \u003d state.get(DEVICE_DEFINITION_KEY);\n\nNo cast!",
+      "revId": "363f4f5dec31c2ecf4ee4c2b9e03e0e1c133f85f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
