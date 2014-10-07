@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "10116099_6f065c8d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/Capability.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-07T21:24:47Z",
+      "side": 1,
+      "message": "That makes sense for cases where we can run on an older IDE. This cannot run on older IDEs anyway, since we\u0027re incrementing the API version. So, this should be cleaner. I\u0027ve added that in the next CL.",
+      "parentUuid": "d0b988d9_e8b0bb53",
+      "revId": "363f4f5dec31c2ecf4ee4c2b9e03e0e1c133f85f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30e904d0_361da88d",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/SessionParams.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2014-10-07T19:14:43Z",
       "side": 1,
       "message": "I wonder if we shouldn\u0027t introduce a Key concept instead such that we can have typed values. Take a look at either com.android.tools.idea.wizard.ScopedStateStore.Key or  com.intellij.openapi.util.UserDataHolder. The idea being that we define a Key\u003cT\u003e class, and then our lookup method can be something like \n\n\u003cT\u003e T get(Key\u003cT\u003e key) { }\n\nThat way you can have typed put/gets like this:\n\n    Key\u003cDevice\u003e DEVICE_DEFINITION_KEY \u003d ...\n    ...\n    Device device \u003d state.get(DEVICE_DEFINITION_KEY);\n\nNo cast!",
+      "revId": "363f4f5dec31c2ecf4ee4c2b9e03e0e1c133f85f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30fbc487_1379cb36",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/SessionParams.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-07T21:24:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30e904d0_361da88d",
       "revId": "363f4f5dec31c2ecf4ee4c2b9e03e0e1c133f85f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
