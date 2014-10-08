@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30e904d0_597fc4d8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1971,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-08T01:44:52Z",
+      "side": 1,
+      "message": "test and reuse jacocoAgentJar?",
+      "range": {
+        "startLine": 1971,
+        "startChar": 28,
+        "endLine": 1971,
+        "endChar": 81
+      },
+      "revId": "84e811c982fa4201a1ef0d1f2b586aea7e0115c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50c5985b_35ca10db",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 2476,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-08T01:44:52Z",
+      "side": 1,
+      "message": "don\u0027t put your name next to todo",
+      "range": {
+        "startLine": 2476,
+        "startChar": 20,
+        "endLine": 2476,
+        "endChar": 27
+      },
+      "revId": "84e811c982fa4201a1ef0d1f2b586aea7e0115c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
