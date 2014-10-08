@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "10e6c0ff_d0348a01",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-10-08T22:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0b988d9_91c3e763",
+      "range": {
+        "startLine": 228,
+        "startChar": 32,
+        "endLine": 228,
+        "endChar": 50
+      },
+      "revId": "49b40074788ba58f10c6b720e495a11c1b153a85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50c5985b_d5147cb4",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-10-08T01:40:38Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 234,
+        "startChar": 32,
+        "endLine": 234,
+        "endChar": 50
+      },
+      "revId": "49b40074788ba58f10c6b720e495a11c1b153a85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0992c84_1548b6a9",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-10-08T22:17:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50c5985b_d5147cb4",
       "range": {
         "startLine": 234,
         "startChar": 32,
