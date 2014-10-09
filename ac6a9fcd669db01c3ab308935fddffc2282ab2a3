@@ -153,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "f0820c18_04f16a74",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T18:43:47Z",
+      "side": 1,
+      "message": "IntelliJ bug - it confuses codestyle settings when same file open in two projects.\n\nAlready fixed.",
+      "parentUuid": "90a8f091_be6265f7",
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50c2f81e_25521960",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
         "patchSetId": 6
@@ -224,6 +242,30 @@
     },
     {
       "key": {
+        "uuid": "508af82f_330150dd",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T18:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "508af82f_10428ada",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 21
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d09ee86b_1748bca9",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
         "patchSetId": 6
@@ -235,6 +277,30 @@
       "writtenOn": "2014-10-09T17:23:33Z",
       "side": 1,
       "message": "why is this called find? why not just getItem? would make finding this method easier, is also does not perform any expensive find operation so find seems misleading",
+      "range": {
+        "startLine": 81,
+        "startChar": 29,
+        "endLine": 81,
+        "endChar": 37
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30974456_f5424a02",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T18:43:47Z",
+      "side": 1,
+      "message": "I was going with the similarity to names already present.\n\nDone.",
+      "parentUuid": "d09ee86b_1748bca9",
       "range": {
         "startLine": 81,
         "startChar": 29,
@@ -270,6 +336,30 @@
     },
     {
       "key": {
+        "uuid": "90a8f091_1ea9b122",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T18:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d09ee86b_b751b05c",
+      "range": {
+        "startLine": 93,
+        "startChar": 16,
+        "endLine": 93,
+        "endChar": 24
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d09ee86b_d75e346b",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
         "patchSetId": 6
@@ -281,6 +371,30 @@
       "writtenOn": "2014-10-09T17:20:59Z",
       "side": 1,
       "message": "can we add a getResourceType() that throws a exception with a explanation of why its not used in this class",
+      "range": {
+        "startLine": 134,
+        "startChar": 4,
+        "endLine": 134,
+        "endChar": 5
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30974456_359852db",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T18:43:47Z",
+      "side": 1,
+      "message": "For StyleResourceValue, the type is style. For items, it\u0027s null. We can\u0027t start throwing exceptions since the method is called by layoutlib (bridgecontext) when resolving resources.",
+      "parentUuid": "d09ee86b_d75e346b",
       "range": {
         "startLine": 134,
         "startChar": 4,
