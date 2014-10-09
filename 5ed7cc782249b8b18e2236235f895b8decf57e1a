@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70761c14_8f373d04",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/SessionParams.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T23:46:58Z",
+      "side": 1,
+      "message": "instanceof is risky with equals. Maybe make Key final. IDEs tend to auto-generate equals methods which does this.getClass \u003d\u003d obj.getClass() instead. (This is because equals is required to be symmetric.)",
+      "revId": "5ed7cc782249b8b18e2236235f895b8decf57e1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70761c14_4f7545bd",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/SessionParamsFlags.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T23:46:58Z",
+      "side": 1,
+      "message": "thinking out loud: the arbitrary property support is useful as a fallback in the future to pass extra metadata, but since we are also rev\u0027ing the API, should we build more direct API support for it instead?\n\nIt might be useful to let layoutlib query peek at the root tag of the layout. That way we don\u0027t hardcode this for preferences, but layoutlib can look at it to decide not just to to render preferences but other XML resources too (appwidgets etc).",
+      "revId": "5ed7cc782249b8b18e2236235f895b8decf57e1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
