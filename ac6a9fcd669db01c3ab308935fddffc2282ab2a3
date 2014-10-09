@@ -22,6 +22,30 @@
       "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "508af82f_b061b6ae",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T16:01:27Z",
+      "side": 1,
+      "message": "Yes, you can have the same attribute name in difference namespaces:\n\n\u003citem name\u003d\"foo\"\u003ebar\u003c/item\u003e\n\u003citem name\u003d\"android:foo\"\u003efoobar\u003c/item\u003e",
+      "parentUuid": "50c2f81e_25521960",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 21
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
