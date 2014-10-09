@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f0992c84_d952e4a6",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T17:34:55Z",
+      "side": 1,
+      "message": "This is not public API, but for layoutlib-api internal use. Which reminds me to add a public API for isFrameworkAttr",
+      "parentUuid": "90a8f091_5e4c198d",
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50c2f81e_009eeb3d",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
         "patchSetId": 6
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "f0820c18_04e7aae8",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T17:34:55Z",
+      "side": 1,
+      "message": "This is not a public API. This can be changed in future without affecting LayoutLib capability. So, this should be okay.",
+      "parentUuid": "50c2f81e_009eeb3d",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 46
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30974456_323308ed",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
         "patchSetId": 6
@@ -70,6 +112,24 @@
       "writtenOn": "2014-10-09T17:12:06Z",
       "side": 1,
       "message": "maybe append \": res\"",
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0992c84_39f7703a",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-09T17:34:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30974456_323308ed",
       "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
