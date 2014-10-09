@@ -69,6 +69,58 @@
       "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "508af82f_906e7a6e",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-10-09T17:13:08Z",
+      "side": 1,
+      "message": "Ah, I didn\u0027t know that creating a LocalDirInfo was expensive. It may be worth adding that information to the MapComparator header comment, up to you!",
+      "parentUuid": "f0992c84_e14ff0fb",
+      "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30974456_12d52cfc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-10-09T17:13:08Z",
+      "side": 1,
+      "message": "I\u0027m still a bit unclear how to reason about this class - my main question is, when should I create a MapComparator instead of a LocalDirInfo? Any time I want to put something into a map? I\u0027m still not confident I can tell when a MapComparator would be compared against a LocalDirInfo.",
+      "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90a8f091_3e57551d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-10-09T17:13:08Z",
+      "side": 1,
+      "message": "Nit: Worth refactoring this into a static method so we only have to maintain it in one place?",
+      "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
