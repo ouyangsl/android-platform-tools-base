@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90a8f091_649a307d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/Bridge.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T23:42:03Z",
+      "side": 1,
+      "message": "let\u0027s not add this and make the bridge return a complete set of features it supports; instead, let\u0027s just add \npublic boolean supports(int capability) { \nsuch that the API can just delegate the method directly to the bridge. Then each bridge (assuming they support features cumulatively) can just\n    return capability \u003c\u003d MY_LAST_SUPPORTED_FEATURE;",
+      "revId": "dd32eb1f4fa8de6227cdfc1668e5b83b9e06e789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70761c14_af0dd957",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/LayoutLibrary.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T23:42:03Z",
+      "side": 1,
+      "message": "use symbolic name for whatever the last feature supported in that release is (along with \u003c\u003d instead of \u003c)",
+      "revId": "dd32eb1f4fa8de6227cdfc1668e5b83b9e06e789",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
