@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10116099_6f6befe3",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalAddonPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-10-09T01:47:31Z",
+      "side": 0,
+      "message": "Nit: Perhaps update this to 2014 (and in other files too)?",
+      "revId": "33a6cd99de08adc3d800eb4eef45c8e62c80f82c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

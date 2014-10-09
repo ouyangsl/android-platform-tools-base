@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10116099_6fb92ff4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalAddonPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-10-09T01:47:31Z",
+      "side": 1,
+      "message": "What does \"many abi possible\" mean?",
+      "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0820c18_501884e2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-10-09T01:47:31Z",
+      "side": 1,
+      "message": "Why would we compare a LocalDirInfo with a MapComparator?",
+      "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
