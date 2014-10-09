@@ -180,6 +180,7 @@ public class VariantManager {
     }
 
     public void createTasksForVariantData(TaskContainer tasks, BaseVariantData variantData) {
+<<<<<<< HEAD   (41ff38 Merge "Replace jni dir with C/C++ dir in SourceProvider.    )
         if (variantData.getVariantConfiguration().getType() == VariantConfiguration.Type.TEST) {
             ProductFlavorData defaultConfigData = basePlugin.getDefaultConfigData();
             GradleVariantConfiguration testVariantConfig = variantData.getVariantConfiguration();
@@ -231,6 +232,65 @@ public class VariantManager {
                         assembleTask.setGroup("Build");
 
                         tasks.getByName("assemble").dependsOn(assembleTask);
+=======
+        if (variantData.getVariantConfiguration().getType()
+                == GradleVariantConfiguration.Type.TEST) {
+            ProductFlavorData defaultConfigData = basePlugin.getDefaultConfigData();
+            GradleVariantConfiguration testVariantConfig = variantData.getVariantConfiguration();
+            BaseVariantData testedVariantData = (BaseVariantData) ((TestVariantData) variantData)
+                    .getTestedVariantData();
+
+            // If the variant being tested is a library variant, VariantDependencies must be
+            // computed the tasks for the tested variant is created.  Therefore, the
+            // VariantDependencies is computed here instead of when the VariantData was created.
+            VariantDependencies variantDep = VariantDependencies.compute(
+                    project, testVariantConfig.getFullName(),
+                    false /*publishVariant*/,
+                    variantFactory.isLibrary(),
+                    defaultConfigData.getTestProvider(),
+                    testedVariantData.getVariantConfiguration().getType()
+                            == VariantConfiguration.Type.LIBRARY ?
+                            testedVariantData.getVariantDependency() : null);
+            variantData.setVariantDependency(variantDep);
+
+            basePlugin.resolveDependencies(variantDep);
+            testVariantConfig.setDependencies(variantDep);
+            basePlugin.createTestApkTasks((TestVariantData) variantData);
+        } else {
+            if (productFlavors.isEmpty()) {
+                variantFactory.createTasks(
+                        variantData,
+                        buildTypes.get(
+                                variantData.getVariantConfiguration().getBuildType().getName())
+                                .getAssembleTask());
+            } else {
+                variantFactory.createTasks(variantData, null);
+
+                // setup the task dependencies
+                // build type
+                buildTypes.get(variantData.getVariantConfiguration().getBuildType().getName())
+                        .getAssembleTask().dependsOn(variantData.assembleVariantTask);
+
+                // each flavor
+                GradleVariantConfiguration variantConfig = variantData.getVariantConfiguration();
+                for (GroupableProductFlavorDsl flavor : variantConfig.getProductFlavors()) {
+                    productFlavors.get(flavor.getName()).getAssembleTask()
+                            .dependsOn(variantData.assembleVariantTask);
+                }
+
+                Task assembleTask = null;
+                // assembleTask for this flavor(dimension), created on demand if needed.
+                if (variantConfig.getProductFlavors().size() > 1) {
+                    String name = StringHelper.capitalize(variantConfig.getFlavorName());
+                    assembleTask = project.getTasks().findByName("assemble" + name);
+                    if (assembleTask == null) {
+                        assembleTask = project.getTasks().create("assemble" + name);
+                        assembleTask.setDescription(
+                                "Assembles all builds for flavor combination: " + name);
+                        assembleTask.setGroup("Build");
+
+                        project.getTasks().getByName("assemble").dependsOn(assembleTask);
+>>>>>>> BRANCH (c7da4b Merge "Refactor variantManager for changes in gradle-dev" in)
                     }
                 }
                 // flavor combo
