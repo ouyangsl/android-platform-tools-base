@@ -164,6 +164,29 @@
     },
     {
       "key": {
+        "uuid": "d09ee86b_1748bca9",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-10-09T17:23:33Z",
+      "side": 1,
+      "message": "why is this called find? why not just getItem? would make finding this method easier, is also does not perform any expensive find operation so find seems misleading",
+      "range": {
+        "startLine": 81,
+        "startChar": 29,
+        "endLine": 81,
+        "endChar": 37
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d09ee86b_b751b05c",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
         "patchSetId": 6
