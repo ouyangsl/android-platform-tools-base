@@ -22,6 +22,30 @@
       "revId": "f4a6bdb1f13a4b8d901eed80fa2b8985024c440b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "508af82f_93a6841d",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-10-09T20:49:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10940050_f4bdeeaa",
+      "range": {
+        "startLine": 239,
+        "startChar": 27,
+        "endLine": 239,
+        "endChar": 34
+      },
+      "revId": "f4a6bdb1f13a4b8d901eed80fa2b8985024c440b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
