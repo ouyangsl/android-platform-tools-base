@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "10116099_aff687a0",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalAddonPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-10-09T01:59:17Z",
+      "side": 1,
+      "message": "That there can be more than one :)\nA change I made to the repository a couple months ago allows an addon to have more than one system-image, e.g. one for arm and one for x86. Before we needed to create 2 addons each with a single system image.",
+      "parentUuid": "10116099_6fb92ff4",
+      "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0820c18_501884e2",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-10-09T01:47:31Z",
       "side": 1,
       "message": "Why would we compare a LocalDirInfo with a MapComparator?",
+      "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0992c84_e14ff0fb",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalDirInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-10-09T01:59:17Z",
+      "side": 1,
+      "message": "See comment on #230.\nThe calling code uses something like:\n  enummap.containsEntry(key, obj\u003dFile instance)\n\nbut the map contains LocalDirInfo which wrap a File with some metadata. The problem is that map.contains() will eventually call obj.Equals() instead of the equals of the object in the map.\n\nCreating a LocalDirInfo is expensive (it computes the metadata) so instead to do comparisons I create a cheaper MapComparator object which is just a File wrapper that knows how to compare to a LocalDirInfo.\n\nI changed both equals() methods since equality needs to be symmetric although the one in #219 isn\u0027t called in this case (the core of the bug is that I had missed this symmetry and this fixes it.)",
+      "parentUuid": "f0820c18_501884e2",
       "revId": "daf76be83dcf3ced0df489b9d039ea2c68eb84d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

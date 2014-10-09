@@ -16,6 +16,24 @@
       "revId": "33a6cd99de08adc3d800eb4eef45c8e62c80f82c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0992c84_a16ec86d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalAddonPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1001100
+      },
+      "writtenOn": "2014-10-09T01:59:17Z",
+      "side": 0,
+      "message": "No. We don\u0027t update license dates in existing files.\nWhen you create a new file, you\u0027re supposed to put the right year. After, you leave it as-is. Otherwise we would get tons of irrelevant CLs.",
+      "parentUuid": "10116099_6f6befe3",
+      "revId": "33a6cd99de08adc3d800eb4eef45c8e62c80f82c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
