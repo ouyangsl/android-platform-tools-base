@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "90a8f091_7e51dd23",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T17:12:06Z",
+      "side": 1,
+      "message": "it would be great to include our nullness annotations on the various layoutlib api methods. I guess we\u0027re missing a dependency to be able to do it. Perhaps we should extract those annotations into a separate small library? With source retention it shouldn\u0027t affect compatibility for older layoutlib bridge implementations.",
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90a8f091_5e4c198d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T17:12:06Z",
+      "side": 1,
+      "message": "shouldn\u0027t we just have two getters instead (for each of these two return values)",
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30974456_323308ed",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T17:12:06Z",
+      "side": 1,
+      "message": "maybe append \": res\"",
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90a8f091_be6265f7",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T17:12:06Z",
+      "side": 1,
+      "message": "wrong import style for tools/base",
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50c2f81e_25521960",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
         "patchSetId": 6
@@ -37,6 +105,30 @@
       "side": 1,
       "message": "Yes, you can have the same attribute name in difference namespaces:\n\n\u003citem name\u003d\"foo\"\u003ebar\u003c/item\u003e\n\u003citem name\u003d\"android:foo\"\u003efoobar\u003c/item\u003e",
       "parentUuid": "50c2f81e_25521960",
+      "range": {
+        "startLine": 33,
+        "startChar": 18,
+        "endLine": 33,
+        "endChar": 21
+      },
+      "revId": "ac6a9fcd669db01c3ab308935fddffc2282ab2a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "508af82f_10428ada",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-09T17:12:06Z",
+      "side": 1,
+      "message": "let\u0027s use our own local value holder class here. I\u0027m on a mission to get rid of non-necessary uses of com.android.util.Pair!",
+      "parentUuid": "508af82f_b061b6ae",
       "range": {
         "startLine": 33,
         "startChar": 18,
