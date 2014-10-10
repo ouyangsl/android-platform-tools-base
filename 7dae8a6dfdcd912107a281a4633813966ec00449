@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d038a85e_e1f6e63b",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "we should also check that the type is FULL",
+      "range": {
+        "startLine": 573,
+        "startChar": 26,
+        "endLine": 573,
+        "endChar": 52
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10f960d6_a3f55a97",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "test the main outputFile is a MAIN.",
+      "range": {
+        "startLine": 618,
+        "startChar": 30,
+        "endLine": 618,
+        "endChar": 36
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_618e568d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/ApkOutputFile.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "create other class for model usage.",
+      "range": {
+        "startLine": 52,
+        "startChar": 13,
+        "endLine": 52,
+        "endChar": 26
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10f960d6_63b762cd",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/MainApkOutputFile.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "fix",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 30
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_014d0ab9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/AndroidArtifactOutputImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "we shouldn\u0027t do that in the model. We should probably check when we build the model and fail there rather that pass something to the IDE that will fail there. It\u0027ll be easier to provide context info for the error.",
+      "range": {
+        "startLine": 64,
+        "startChar": 7,
+        "endLine": 64,
+        "endChar": 75
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10f960d6_c375f66f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApkVariantOutputData.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 43,
+        "startChar": 12,
+        "endLine": 43,
+        "endChar": 22
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10f960d6_e370f281",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibVariantOutputData.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30fca4c4_a4de821d",
+        "filename": "build-system/tests/regular/densitySplitWithOldMerger/build.gradle",
+        "patchSetId": 13
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "fix import",
+      "range": {
+        "startLine": 50,
+        "startChar": 23,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_616f366c",
+        "filename": "common/src/main/java/com/android/build/MainOutputFile.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "fix",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_4176b246",
+        "filename": "common/src/main/java/com/android/build/VariantOutput.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-10T17:07:59Z",
+      "side": 1,
+      "message": "fix?",
+      "range": {
+        "startLine": 25,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 55
+      },
+      "revId": "7dae8a6dfdcd912107a281a4633813966ec00449",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
