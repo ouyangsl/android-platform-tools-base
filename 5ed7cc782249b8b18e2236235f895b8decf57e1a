@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "90a630d2_df327be7",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/SessionParams.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-10T01:17:21Z",
+      "side": 1,
+      "message": "Effective Java advised against equating getClass(), saying it becomes harder to subclass if needed to just add helper methods. I thought about making it final, but then thought that there isn\u0027t really much harm in allowing subclasses.\n\nI\u0027ll do it your way.",
+      "parentUuid": "70761c14_8f373d04",
+      "revId": "5ed7cc782249b8b18e2236235f895b8decf57e1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70761c14_4f7545bd",
         "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/SessionParamsFlags.java",
         "patchSetId": 9
@@ -30,6 +48,24 @@
       "writtenOn": "2014-10-09T23:46:58Z",
       "side": 1,
       "message": "thinking out loud: the arbitrary property support is useful as a fallback in the future to pass extra metadata, but since we are also rev\u0027ing the API, should we build more direct API support for it instead?\n\nIt might be useful to let layoutlib query peek at the root tag of the layout. That way we don\u0027t hardcode this for preferences, but layoutlib can look at it to decide not just to to render preferences but other XML resources too (appwidgets etc).",
+      "revId": "5ed7cc782249b8b18e2236235f895b8decf57e1a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d09c2886_41d33213",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/SessionParamsFlags.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-10T01:17:21Z",
+      "side": 1,
+      "message": "I\u0027ve changed this property to be root tag.",
+      "parentUuid": "70761c14_4f7545bd",
       "revId": "5ed7cc782249b8b18e2236235f895b8decf57e1a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
