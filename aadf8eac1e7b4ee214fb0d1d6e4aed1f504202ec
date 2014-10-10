@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70d45c2e_766f106c",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-10-10T10:50:30Z",
+      "side": 1,
+      "message": "why is there this check if there is an assert for this already at the top of the method?",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 17
+      },
+      "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
