@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10f960d6_37eac0b2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Hardware.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-11T01:57:56Z",
+      "side": 1,
+      "message": "I\u0027m a pretty big fan of using the File class to pass around paths (since it makes the API less ambiguous; in IntelliJ they have to make a distinction between system paths and system independent paths; some APIs use one, and some use the other, and we\u0027ve had a number of Windows specific bugs about it.\n\nTake a look at go/files-howto for a bunch of background on this.\n\n(This comment is mostly for the API; using Strings internally etc is totally fine. And obviously for *persistence* we\u0027d pick one, by convention /, and then convert to File.separatorChar when creating the File to return.)",
+      "revId": "9b25a3c57932a18b288d7dd1d3f44fa2ec4531ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
