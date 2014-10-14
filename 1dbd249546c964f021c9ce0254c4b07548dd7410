@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "901b9006_a016a0ec",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T14:26:26Z",
+      "side": 1,
+      "message": "You don\u0027t need this constant - File.separator already exists and is a String (FIle.separatorChar exists because it\u0027s more efficient in most cases -- see below)",
+      "revId": "1dbd249546c964f021c9ce0254c4b07548dd7410",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_55ae5e2b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T14:26:26Z",
+      "side": 1,
+      "message": "String.replaceAll actually takes a regexp as the first parameter. That\u0027s fine here since / doesn\u0027t need to be escaped (going the other way from \\ to / would be problematic), but it\u0027s less efficient than calling\nString.replace(CharSequence, CharSequence) which also actually replaces every single occurrence (the name replaceAll on the regexp method may suggest that it\u0027s the only one which does it, but replace was added later and had to use a different name to avoid parameter ambiguity).\n\nActually, since we are always replacing one character with another, just use replace(char, char) instead - File.separatorChar is already a char so just change your canonical separator to a char. (If you grep in our source base you\u0027ll find a lot of direct string.replace(separatorChar, \u0027/\u0027) calls -- I see 40 in just the android plugin -- so I think it\u0027s clear enough without needing to create constants for it.",
+      "revId": "1dbd249546c964f021c9ce0254c4b07548dd7410",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "901b9006_c01b9415",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Hardware.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T14:26:26Z",
+      "side": 1,
+      "message": "@Nullable on the parameter?",
+      "revId": "1dbd249546c964f021c9ce0254c4b07548dd7410",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "901b9006_600168a1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Hardware.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T14:26:26Z",
+      "side": 1,
+      "message": "I know this is not new to your change, but perhaps just use  Guava\u0027s \u0026\u0026 Objects.equal(mSkinPath, hw.skinPath) here?",
+      "revId": "1dbd249546c964f021c9ce0254c4b07548dd7410",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
