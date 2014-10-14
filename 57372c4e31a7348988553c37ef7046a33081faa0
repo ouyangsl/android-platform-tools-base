@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10f960d6_e238e379",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Hardware.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T18:32:49Z",
+      "side": 1,
+      "message": "Looks like you might be compiling with Java 7/8? I don\u0027t think this one is available in JDK 6 so switch this import to com.google.common.base.Objects (and then the method name changes from equals to equal)",
+      "revId": "57372c4e31a7348988553c37ef7046a33081faa0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
