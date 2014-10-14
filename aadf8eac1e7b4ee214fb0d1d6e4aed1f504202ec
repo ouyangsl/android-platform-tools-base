@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "901b9006_46223c99",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-14T22:01:44Z",
+      "side": 1,
+      "message": "There are multiple places in layoutlib-api that I\u0027ve seen similar code. I just didn\u0027t want to touch something, under the assumption that there must have been a reason to do this.",
+      "parentUuid": "d038a85e_de892bb6",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 17
+      },
+      "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d038a85e_a90aef45",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
         "patchSetId": 9
@@ -66,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "901b9006_86185469",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-14T22:01:44Z",
+      "side": 1,
+      "message": "We strip out the android: part from the name, before creating an ItemResourceValue.",
+      "parentUuid": "d038a85e_a90aef45",
+      "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d038a85e_49fb23dd",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
         "patchSetId": 9
@@ -77,6 +119,24 @@
       "writtenOn": "2014-10-14T20:08:10Z",
       "side": 1,
       "message": "I think the + syntax for Strings is a bit cleaner than .concat. \n\nAlso, use SdkConstants.PREFIX_ANDROID",
+      "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70753c3d_cef6633c",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-14T22:01:44Z",
+      "side": 1,
+      "message": "layoutlib-api doesn\u0027t depend on tools-common, and hence can\u0027t use SdkConstants. Also, this method is only for diagnostic purposes.\n\nChanged to \u0027+\u0027",
+      "parentUuid": "d038a85e_49fb23dd",
       "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
