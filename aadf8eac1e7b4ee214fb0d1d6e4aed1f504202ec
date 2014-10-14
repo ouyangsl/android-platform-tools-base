@@ -22,6 +22,64 @@
       "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_de892bb6",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T20:08:10Z",
+      "side": 1,
+      "message": "Deepanshu, I\u0027m assuming this is to make the code fail gracefully? However, note that we tend to run the IDE with assertions enabled so this will fail above anyway.",
+      "parentUuid": "70d45c2e_766f106c",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 17
+      },
+      "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_a90aef45",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T20:08:10Z",
+      "side": 1,
+      "message": "\u0026\u0026 !name.startsWith(\"android:\") ?",
+      "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_49fb23dd",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/StyleResourceValue.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-14T20:08:10Z",
+      "side": 1,
+      "message": "I think the + syntax for Strings is a bit cleaner than .concat. \n\nAlso, use SdkConstants.PREFIX_ANDROID",
+      "revId": "aadf8eac1e7b4ee214fb0d1d6e4aed1f504202ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
