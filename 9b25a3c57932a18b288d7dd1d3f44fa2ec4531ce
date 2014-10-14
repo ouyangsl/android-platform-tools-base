@@ -16,6 +16,24 @@
       "revId": "9b25a3c57932a18b288d7dd1d3f44fa2ec4531ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d038a85e_547e6508",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Hardware.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-10-14T01:35:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10f960d6_37eac0b2",
+      "revId": "9b25a3c57932a18b288d7dd1d3f44fa2ec4531ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
