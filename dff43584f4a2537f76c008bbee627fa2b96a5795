@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "104ec00c_6115e0ac",
+        "filename": "build-system/tests/.gitignore",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-10-14T00:27:48Z",
+      "side": 1,
+      "message": "What is this .gitignore for?",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "dff43584f4a2537f76c008bbee627fa2b96a5795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
