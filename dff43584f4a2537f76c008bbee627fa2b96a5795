@@ -22,6 +22,30 @@
       "revId": "dff43584f4a2537f76c008bbee627fa2b96a5795",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "901b9006_a03d40e8",
+        "filename": "build-system/tests/.gitignore",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-14T02:49:18Z",
+      "side": 1,
+      "message": "to avoid including .iml coming from the test projects. I cannot put it in build-system/ as it would impact all the projects there that do have valid iml files.\n\nBTW I think we had one there before, but it got lost when I moved the tests folders around.",
+      "parentUuid": "104ec00c_6115e0ac",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "dff43584f4a2537f76c008bbee627fa2b96a5795",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
