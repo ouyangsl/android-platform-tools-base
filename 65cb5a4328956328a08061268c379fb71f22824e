@@ -45,6 +45,30 @@
       "revId": "65cb5a4328956328a08061268c379fb71f22824e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9069d076_ed6fa1ec",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-10-15T17:20:52Z",
+      "side": 1,
+      "message": "ignore the new views part, :-)",
+      "parentUuid": "d06fc874_6cb413c7",
+      "range": {
+        "startLine": 470,
+        "startChar": 27,
+        "endLine": 470,
+        "endChar": 38
+      },
+      "revId": "65cb5a4328956328a08061268c379fb71f22824e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
