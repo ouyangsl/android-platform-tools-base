@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5072f858_87b6fa5d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/JackTask.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-15T22:42:22Z",
+      "side": 1,
+      "message": "I know there is the amount of memory at disposal issue, but it would be nice that jack/jill provided an API that could be invoked in Process rather than spawning a new one...",
+      "revId": "3bdd23d7583603ea0839d49c25d56bff83115533",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
