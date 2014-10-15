@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f06a0c65_0ddd55ee",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-10-15T17:00:05Z",
+      "side": 1,
+      "message": "is that supposed to say \"text view is a text view\"?",
+      "range": {
+        "startLine": 467,
+        "startChar": 65,
+        "endLine": 467,
+        "endChar": 69
+      },
+      "revId": "65cb5a4328956328a08061268c379fb71f22824e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
