@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70f37c1b_1e9aed00",
+        "filename": "common/src/main/java/com/android/build/OutputFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2014-10-16T17:06:41Z",
+      "side": 1,
+      "message": "Looks good to me, but just a thought that might clean up a bit the code is to use a Map here, Maps are supported by the reproxier so this, or a new method could be Map\u003cString, FilterData\u003e getFiltersMap(). This would avoid the current duplication of looping through this collection and asking for a filter type.  I don\u0027t know this code very well so don\u0027t know if it is the right suggestion.",
+      "revId": "472b51d34b0cf29210d5f85d864cb3aa56e0a932",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
