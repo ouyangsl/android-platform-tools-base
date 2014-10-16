@@ -104,6 +104,24 @@
       "revId": "476972c90d208be23187c05edbb798f60f9167a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0218832_21ecc051",
+        "filename": "layoutlib-api/src/main/java/com/android/resources/Density.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-16T16:37:27Z",
+      "side": 1,
+      "message": "We support all numbers; that\u0027s what issue 71436 is about (we accidentally broke it in the gradle build system).",
+      "parentUuid": "90ee3033_1f62e3b1",
+      "revId": "476972c90d208be23187c05edbb798f60f9167a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
