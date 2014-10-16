@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "305824e5_19ed9720",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/nexus.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2014-10-16T02:25:53Z",
+      "side": 1,
+      "message": "560dpi",
+      "range": {
+        "startLine": 812,
+        "startChar": 33,
+        "endLine": 812,
+        "endChar": 39
+      },
+      "revId": "1bbde630c1279627733640db1d5613448c7bafd0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
