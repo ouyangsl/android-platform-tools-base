@@ -16,6 +16,24 @@
       "revId": "472b51d34b0cf29210d5f85d864cb3aa56e0a932",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0e42853_15012474",
+        "filename": "common/src/main/java/com/android/build/OutputFile.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-16T17:21:18Z",
+      "side": 1,
+      "message": "we will potentially add more fields to the data structure and Maps are expensive memory wise.\nthanks for the review.",
+      "parentUuid": "70f37c1b_1e9aed00",
+      "revId": "472b51d34b0cf29210d5f85d864cb3aa56e0a932",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
