@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90ee3033_bf2db788",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-16T14:05:15Z",
+      "side": 1,
+      "message": "typo",
+      "revId": "476972c90d208be23187c05edbb798f60f9167a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0e42853_27819e89",
+        "filename": "device_validator/dvlib/src/main/resources/com/android/dvlib/devices-1.xsd",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-16T14:05:15Z",
+      "side": 1,
+      "message": "Do we need to update devices-1.xsd? I figured we\u0027d just update devices-2.xsd (and any device file using newer values need to use xmlns:d\u003d\"http://schemas.android.com/sdk/devices/2\". I just updated the nexus.xml file with that value in my Nexus 6/9 changes yesterday to be able to access the new ABI enum value.",
+      "revId": "476972c90d208be23187c05edbb798f60f9167a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "901b9006_8f229b96",
+        "filename": "layoutlib-api/src/main/java/com/android/resources/Density.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-16T14:05:15Z",
+      "side": 1,
+      "message": "19?\n\nIt\u0027s weird because I think \u003cN\u003e-dpi really should be available on all platforms (see issue 71436).",
+      "revId": "476972c90d208be23187c05edbb798f60f9167a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
