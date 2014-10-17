@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9058f01b_8fa89520",
+        "filename": "build-system/tests/regular/proguard/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-17T21:08:49Z",
+      "side": 1,
+      "message": "tabs.",
+      "range": {
+        "startLine": 43,
+        "startChar": 5,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "9acbb1ed0aa7df6bc855db587f1d296f2157ab08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
