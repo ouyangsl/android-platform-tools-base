@@ -16,6 +16,24 @@
       "revId": "3bdd23d7583603ea0839d49c25d56bff83115533",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "708ffcad_fe79e1ba",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/JackTask.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-17T15:57:19Z",
+      "side": 1,
+      "message": "yeah totally want to do that with them.",
+      "parentUuid": "5072f858_87b6fa5d",
+      "revId": "3bdd23d7583603ea0839d49c25d56bff83115533",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
