@@ -339,7 +339,7 @@ public abstract class BasePlugin {
 
     private void createExtension() {
         def buildTypeContainer = project.container(DefaultBuildType,
-                new BuildTypeFactory(instantiator,  project, project.getLogger()))
+                new BuildTypeFactory(instantiator, project, project.getLogger()))
         def productFlavorContainer = project.container(GroupableProductFlavorDsl,
                 new GroupableProductFlavorFactory(instantiator, project, project.getLogger()))
         def signingConfigContainer = project.container(SigningConfig,
@@ -411,7 +411,10 @@ public abstract class BasePlugin {
         project.afterEvaluate {
             createAndroidTasks(false)
         }
+<<<<<<< HEAD   (dcb9fb Merge "77638: Warn/error if xmlns:android is the wrong value)
 
+=======
+>>>>>>> BRANCH (5c9e79 Merge "Refactor BasePlugin for changes in gradle-dev" into s)
     }
 
     protected void setBaseExtension(@NonNull BaseExtension extension) {
