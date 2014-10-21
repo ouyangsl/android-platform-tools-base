@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5e75e92_027ecaa0",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-21T04:02:55Z",
+      "side": 1,
+      "message": "is this correct ? looks like if multidex is false, it will always trigger the exception.",
+      "revId": "7b824a0a17b87a0df1df7d7ac9f6be9292db3958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
