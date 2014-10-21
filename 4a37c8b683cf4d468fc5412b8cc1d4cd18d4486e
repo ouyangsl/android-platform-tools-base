@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30202482_2d089595",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-21T00:13:48Z",
+      "side": 1,
+      "message": "I would do at least 2 tests:\n\n- First make sure that 2 runs in a row just find most (all?) tasks up-to-date.\n\n- We need to test all our tasks to see if they are in fact re-run, but the trick is that the first one that re-runs could potentially have a different output and hide whether the next one runs due to a build-tools change or an input change.\n\nIf you run with --info it says why the tasks runs again. We should grep for that.",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "4a37c8b683cf4d468fc5412b8cc1d4cd18d4486e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30202482_4df4f165",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-21T00:13:48Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to do it at the file level.\nThe builder has the buildtoolsInfo and from that it can find anything.\n\nThis change makes the API more cumbersome where you always have to tell it which tool to use, when it\u0027s encapsulated in buildToolsInfo.\n\nI\u0027d do\n\n@Input\nString getBuildToolsVersion() {\n  plugin.ensureTargetSetup()\n\n  builder.targetInfo.buildTools.revision.toString()\n}\n\nThat\u0027s probably enough to detect changes. Yes it won\u0027t handle actual exe changes, but that shouldn\u0027t matter since we already release a new version number when we update them.",
+      "range": {
+        "startLine": 59,
+        "startChar": 3,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "4a37c8b683cf4d468fc5412b8cc1d4cd18d4486e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
