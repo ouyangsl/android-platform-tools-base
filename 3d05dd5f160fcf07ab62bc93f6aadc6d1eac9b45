@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70261c9e_ecd3df93",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1650,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-21T00:00:04Z",
+      "side": 1,
+      "message": "space after if (same below)",
+      "range": {
+        "startLine": 1650,
+        "startChar": 12,
+        "endLine": 1650,
+        "endChar": 15
+      },
+      "revId": "3d05dd5f160fcf07ab62bc93f6aadc6d1eac9b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "101de04d_a64668eb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-21T00:00:04Z",
+      "side": 1,
+      "message": "you should include these inputs here too.",
+      "range": {
+        "startLine": 1666,
+        "startChar": 8,
+        "endLine": 1666,
+        "endChar": 54
+      },
+      "revId": "3d05dd5f160fcf07ab62bc93f6aadc6d1eac9b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30202482_6dd0cd05",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1681,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-21T00:00:04Z",
+      "side": 1,
+      "message": "don\u0027t delete it. Since it should be in the build folder, it\u0027s better to keep there in case you want to debug what was passed to dex.",
+      "range": {
+        "startLine": 1680,
+        "startChar": 12,
+        "endLine": 1681,
+        "endChar": 35
+      },
+      "revId": "3d05dd5f160fcf07ab62bc93f6aadc6d1eac9b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "101de04d_06565c9c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1685,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-21T00:00:04Z",
+      "side": 1,
+      "message": "I would just make a method that receives all the inputs, the command list array and just either add the input on the command line, or create the file and pass it.",
+      "range": {
+        "startLine": 1685,
+        "startChar": 20,
+        "endLine": 1685,
+        "endChar": 41
+      },
+      "revId": "3d05dd5f160fcf07ab62bc93f6aadc6d1eac9b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30202482_8d898909",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1691,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-21T00:00:04Z",
+      "side": 1,
+      "message": "This works, or you might want to just use guava\u0027s Files.write()",
+      "range": {
+        "startLine": 1691,
+        "startChar": 8,
+        "endLine": 1691,
+        "endChar": 34
+      },
+      "revId": "3d05dd5f160fcf07ab62bc93f6aadc6d1eac9b45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
