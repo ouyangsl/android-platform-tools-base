@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "150232f8_8a4313df",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-10-22T00:20:29Z",
+      "side": 1,
+      "message": "I got two tests doing more or less the above. \n-  when doing two builds in a row, I see a couple of tasks invalidated because \u0027Task has not declared any outputs\u0027 (:preBuild,:prepareDebugDependencies, etc)\n- our tasks are being invalidated by the buildToolsVersion property change and there\u0027s a nice message in the output.\n\nThere\u0027s something not hermetic about the setup though, because the tests pass only when run separately - I still have some work to do.",
+      "parentUuid": "30202482_2d089595",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "4a37c8b683cf4d468fc5412b8cc1d4cd18d4486e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30202482_4df4f165",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.groovy",
         "patchSetId": 2
