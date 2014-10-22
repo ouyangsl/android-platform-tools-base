@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1549527c_469634da",
+        "filename": "build-system/gradle/src/build-test/groovy/com/android/build/gradle/AutomatedBuildTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-22T18:06:56Z",
+      "side": 0,
+      "message": "why is is removed from the tests ?",
+      "revId": "fefd9a87e6447fc967987a5a8f5c72ffc0798429",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
