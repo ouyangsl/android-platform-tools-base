@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "354c968a_f30a7a45",
+        "filename": "templates/activities/._AndroidTVActivity",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-10-22T16:55:59Z",
+      "side": 1,
+      "message": "Is this file actually supposed to be included?",
+      "revId": "4e3259078b64918079efe6dafecce7fe7aa3b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "150232f8_e4c1abb9",
+        "filename": "templates/activities/AndroidTVActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-10-22T16:55:59Z",
+      "side": 1,
+      "message": "Missing \u003e",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 16
+      },
+      "revId": "4e3259078b64918079efe6dafecce7fe7aa3b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "354c968a_73456a72",
+        "filename": "templates/activities/AndroidTVActivity/root/res/values/themes.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-10-22T16:55:59Z",
+      "side": 1,
+      "message": "Remove comment?",
+      "revId": "4e3259078b64918079efe6dafecce7fe7aa3b009",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
