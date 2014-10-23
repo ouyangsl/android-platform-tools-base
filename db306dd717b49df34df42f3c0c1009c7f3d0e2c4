@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9592a210_422b94a7",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-23T04:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58de6f4_836f60ed",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 27
+      },
+      "revId": "db306dd717b49df34df42f3c0c1009c7f3d0e2c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9592a210_3f7a27e6",
         "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-10-23T02:53:51Z",
       "side": 1,
       "message": "remove :)",
+      "range": {
+        "startLine": 179,
+        "startChar": 15,
+        "endLine": 180,
+        "endChar": 1
+      },
+      "revId": "db306dd717b49df34df42f3c0c1009c7f3d0e2c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9592a210_e20f484d",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-23T04:57:59Z",
+      "side": 1,
+      "message": "sigh.",
+      "parentUuid": "9592a210_3f7a27e6",
       "range": {
         "startLine": 179,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9592a210_222690e2",
+        "filename": "build-system/tests/regular/densitySplitInL/src/main/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-23T04:57:59Z",
+      "side": 1,
+      "message": "no idea how that happened.",
+      "parentUuid": "b58de6f4_a3870435",
+      "range": {
+        "startLine": 3,
+        "startChar": 28,
+        "endLine": 3,
+        "endChar": 39
+      },
+      "revId": "db306dd717b49df34df42f3c0c1009c7f3d0e2c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f583dec2_bc5de16f",
         "filename": "build-system/tests/regular/densitySplitInL/src/release/res/values/strings.xml",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2014-10-23T02:53:51Z",
       "side": 1,
       "message": "same?",
+      "range": {
+        "startLine": 3,
+        "startChar": 34,
+        "endLine": 3,
+        "endChar": 39
+      },
+      "revId": "db306dd717b49df34df42f3c0c1009c7f3d0e2c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9592a210_82219ccb",
+        "filename": "build-system/tests/regular/densitySplitInL/src/release/res/values/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-23T04:57:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f583dec2_bc5de16f",
       "range": {
         "startLine": 3,
         "startChar": 34,
