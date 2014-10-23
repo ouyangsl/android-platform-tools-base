@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9592a210_25e1baa8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/DependenciesImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T16:32:51Z",
+      "side": 1,
+      "message": "no, it asks for new JarFile(aarFile) to be done outside the try block, which is silly because it can throw an exception too.",
+      "parentUuid": "9592a210_e23c280a",
+      "revId": "f962c28eabf6f753f1b5491daaf63952a865ec68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b58de6f4_66b82af0",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/DependenciesImpl.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2014-10-23T14:00:44Z",
       "side": 1,
       "message": "Have we spec\u0027ed that an .aar is really a .jar file with a different extension, rather than a .zip file with a different extension? I\u0027m not sure if there are any distinctions between the two other than the presence of a manifest file (and possibly some file attributes like execute permissions may not be preserved, though maybe that\u0027s more my memory of the jar utility being written in java not being able to preserve them than actually a format difference).\n\n(If we\u0027re really just promising that .aar is a .zip file then just substitute these calls with the super classes ZipFile and ZipEntry.)",
+      "revId": "f962c28eabf6f753f1b5491daaf63952a865ec68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9592a210_05f83659",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/DependenciesImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T16:32:51Z",
+      "side": 1,
+      "message": "I\u0027ll change it to ZipFile/Entry.",
+      "parentUuid": "b58de6f4_66b82af0",
       "revId": "f962c28eabf6f753f1b5491daaf63952a865ec68",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
