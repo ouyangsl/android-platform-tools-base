@@ -22,6 +22,30 @@
       "revId": "4e483507afd64da739327918052729f1b56439bb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9592a210_c239e4c5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/DependenciesImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T04:47:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58de6f4_43b158d8",
+      "range": {
+        "startLine": 209,
+        "startChar": 68,
+        "endLine": 209,
+        "endChar": 71
+      },
+      "revId": "4e483507afd64da739327918052729f1b56439bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
