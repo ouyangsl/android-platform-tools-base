@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f583dec2_0cfb7859",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-10-23T16:35:37Z",
+      "side": 1,
+      "message": "FYI, for commit messages, always have a single line (max 65 chars), followed by a blank line, followed by the full description (max 70 chars per line)",
+      "revId": "9938fa6d627300f6dea3ccc7921725d8628cce2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
