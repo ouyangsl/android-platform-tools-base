@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35a1f65e_1ce175a8",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T21:07:16Z",
+      "side": 1,
+      "message": "you should add a assetNotNull(model.getAaptOptions())",
+      "range": {
+        "startLine": 261,
+        "startChar": 50,
+        "endLine": 261,
+        "endChar": 72
+      },
+      "revId": "8fbe7fd9af2603964bd6c005ec3d9cb0e04f5783",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
