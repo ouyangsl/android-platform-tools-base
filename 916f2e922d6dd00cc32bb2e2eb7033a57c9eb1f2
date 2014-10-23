@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b58de6f4_e053c263",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/AaptOptionsImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:23:53Z",
+      "side": 1,
+      "message": "ignoreAssets",
+      "range": {
+        "startLine": 35,
+        "startChar": 19,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "916f2e922d6dd00cc32bb2e2eb7033a57c9eb1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9592a210_1fce43ed",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/AaptOptionsImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:23:53Z",
+      "side": 1,
+      "message": "so actually this shouldn\u0027t be part of the model. Can you remove it?\nKeep it in the internal implementation class (the one used by the DSL) but remove it from the model and this implementation.",
+      "range": {
+        "startLine": 42,
+        "startChar": 20,
+        "endLine": 42,
+        "endChar": 45
+      },
+      "revId": "916f2e922d6dd00cc32bb2e2eb7033a57c9eb1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
