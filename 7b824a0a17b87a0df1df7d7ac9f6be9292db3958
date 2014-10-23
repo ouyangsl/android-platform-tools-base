@@ -16,6 +16,24 @@
       "revId": "7b824a0a17b87a0df1df7d7ac9f6be9292db3958",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b58de6f4_a0137aca",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T01:55:25Z",
+      "side": 1,
+      "message": "checkState breaks if the boolean is false.\n\nso it\u0027ll break if multidex is true and build tools is too low, which is what I want.",
+      "parentUuid": "f5e75e92_027ecaa0",
+      "revId": "7b824a0a17b87a0df1df7d7ac9f6be9292db3958",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
