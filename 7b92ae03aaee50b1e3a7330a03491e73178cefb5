@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9592a210_f36398b5",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AaptOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T18:47:10Z",
+      "side": 0,
+      "message": "removing this means that you have to remove the @Override in AaptOptionsImpl (in the dsl package).",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 39
+      },
+      "revId": "7b92ae03aaee50b1e3a7330a03491e73178cefb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
