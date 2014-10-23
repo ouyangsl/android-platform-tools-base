@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f583dec2_7c1f59cd",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ProductFlavorCombo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:33:08Z",
+      "side": 1,
+      "message": "should be @nonNull and final",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "fe65e925156e2a4d35d8ed1e05d0fa2d672fb036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9592a210_dfe0db54",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ProductFlavorCombo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:33:08Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 40,
+        "startChar": 30,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "fe65e925156e2a4d35d8ed1e05d0fa2d672fb036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9592a210_ffdd9f97",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ProductFlavorCombo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:33:08Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 44,
+        "startChar": 30,
+        "endLine": 44,
+        "endChar": 38
+      },
+      "revId": "fe65e925156e2a4d35d8ed1e05d0fa2d672fb036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f583dec2_9c249d23",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ProductFlavorCombo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:33:08Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 10
+      },
+      "revId": "fe65e925156e2a4d35d8ed1e05d0fa2d672fb036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b58de6f4_23d8d480",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ProductFlavorCombo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:33:08Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 65,
+        "startChar": 11,
+        "endLine": 65,
+        "endChar": 15
+      },
+      "revId": "fe65e925156e2a4d35d8ed1e05d0fa2d672fb036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b58de6f4_03dfd068",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ProductFlavorCombo.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:33:08Z",
+      "side": 1,
+      "message": "createFlavorCombo? createComboList? createCombinations?\n\nI like the last one.\n\nalso more @NonNull on return and params",
+      "range": {
+        "startLine": 75,
+        "startChar": 43,
+        "endLine": 75,
+        "endChar": 58
+      },
+      "revId": "fe65e925156e2a4d35d8ed1e05d0fa2d672fb036",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
