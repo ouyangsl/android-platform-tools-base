@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b58de6f4_e30f4c4d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-23T02:44:25Z",
+      "side": 1,
+      "message": "as discussed we should keep 2.1 as the min, and add 2.2 as the list of supported versions.",
+      "range": {
+        "startLine": 200,
+        "startChar": 53,
+        "endLine": 200,
+        "endChar": 63
+      },
+      "revId": "a3376a5c305f0a004ae313ad56b8b949f194d5a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
