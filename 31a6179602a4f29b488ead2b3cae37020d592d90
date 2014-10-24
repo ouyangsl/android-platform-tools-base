@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7580cec4_c5a24438",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:22:11Z",
+      "side": 0,
+      "message": "keep these three lines as all method below them are to be removed in 1.0",
+      "range": {
+        "startLine": 408,
+        "startChar": 3,
+        "endLine": 410,
+        "endChar": 29
+      },
+      "revId": "31a6179602a4f29b488ead2b3cae37020d592d90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
