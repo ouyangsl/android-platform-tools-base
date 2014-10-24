@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (492f71 Merge "resolve merge conflicts of ac1419d to gradle-dev." in)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -279,3 +280,5 @@ public class NdkHandler {
         return supports64Bits() ? ALL_ABI : ABI32;
     }
 }
+=======
+>>>>>>> BRANCH (9d82b0 Merge "Remove NdkPlugin" into studio-1.0-dev)

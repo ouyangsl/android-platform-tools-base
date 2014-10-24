@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (492f71 Merge "resolve merge conflicts of ac1419d to gradle-dev." in)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -65,3 +66,5 @@ class GdbSetupTask extends DefaultTask {
         Files.write(sb.toString(), gdbSetupFile, Charsets.UTF_8)
     }
 }
+=======
+>>>>>>> BRANCH (9d82b0 Merge "Remove NdkPlugin" into studio-1.0-dev)

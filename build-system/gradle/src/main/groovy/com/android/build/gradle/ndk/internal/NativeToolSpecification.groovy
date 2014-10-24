@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (492f71 Merge "resolve merge conflicts of ac1419d to gradle-dev." in)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -31,3 +32,5 @@ interface NativeToolSpecification {
 
     public void apply(NativeBinary binary);
 }
+=======
+>>>>>>> BRANCH (9d82b0 Merge "Remove NdkPlugin" into studio-1.0-dev)
