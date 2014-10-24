@@ -22,6 +22,30 @@
       "revId": "31a6179602a4f29b488ead2b3cae37020d592d90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75244ea4_204d4336",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-24T22:58:07Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "7580cec4_c5a24438",
+      "range": {
+        "startLine": 408,
+        "startChar": 3,
+        "endLine": 410,
+        "endChar": 29
+      },
+      "revId": "31a6179602a4f29b488ead2b3cae37020d592d90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
