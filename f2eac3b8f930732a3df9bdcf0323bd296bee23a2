@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7580cec4_6560102f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1664,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:38:49Z",
+      "side": 1,
+      "message": "that should probably throw an exception!",
+      "range": {
+        "startLine": 1664,
+        "startChar": 10,
+        "endLine": 1664,
+        "endChar": 40
+      },
+      "revId": "f2eac3b8f930732a3df9bdcf0323bd296bee23a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "157792c2_0208344b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:38:49Z",
+      "side": 1,
+      "message": "we should have a single static at the top. I\u0027m already using one for multidex.",
+      "range": {
+        "startLine": 1666,
+        "startChar": 8,
+        "endLine": 1666,
+        "endChar": 71
+      },
+      "revId": "f2eac3b8f930732a3df9bdcf0323bd296bee23a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "157792c2_8221a4cb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1669,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:38:49Z",
+      "side": 1,
+      "message": "shouldn\u0027t be needed. Gradle creates the folder for you.",
+      "range": {
+        "startLine": 1669,
+        "startChar": 12,
+        "endLine": 1669,
+        "endChar": 44
+      },
+      "revId": "f2eac3b8f930732a3df9bdcf0323bd296bee23a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7580cec4_e53c200a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:38:49Z",
+      "side": 1,
+      "message": "it\u0027s sort of pointless to show this since the command line will be output as verbose anyway, and now that it\u0027s much simpler due to the single input, there\u0027s not need to display it.",
+      "range": {
+        "startLine": 1674,
+        "startChar": 12,
+        "endLine": 1674,
+        "endChar": 83
+      },
+      "revId": "f2eac3b8f930732a3df9bdcf0323bd296bee23a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7580cec4_454874a6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1675,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:38:49Z",
+      "side": 1,
+      "message": "dx usage output shows that it\u0027s \"--input-list\u003d\u003cfile\u003e\"",
+      "range": {
+        "startLine": 1675,
+        "startChar": 12,
+        "endLine": 1675,
+        "endChar": 87
+      },
+      "revId": "f2eac3b8f930732a3df9bdcf0323bd296bee23a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "157792c2_e73c2a0a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/Dex.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:38:49Z",
+      "side": 1,
+      "message": "this should be setup in BasePlugin like we do other. It works here too, but having everything in the same place (which we\u0027ll have to move somewhere at some point ) is better.\n\nAlso the tmp folder should be specific per variant so tmp/${variantData.fullName}/",
+      "range": {
+        "startLine": 59,
+        "startChar": 27,
+        "endLine": 59,
+        "endChar": 84
+      },
+      "revId": "f2eac3b8f930732a3df9bdcf0323bd296bee23a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
