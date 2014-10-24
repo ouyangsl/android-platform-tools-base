@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35a1f65e_a380595a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T16:20:08Z",
+      "side": 1,
+      "message": "it\u0027s better to associate this with the variant manager or the variant factory (for compatibility with the newer plugin). Also, I\u0027d call this validateModel()",
+      "range": {
+        "startLine": 476,
+        "startChar": 19,
+        "endLine": 476,
+        "endChar": 30
+      },
+      "revId": "4711245fc8a5e6f8e5a0d0b2d0d39735c922325c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
