@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7580cec4_451e34cf",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-24T22:27:58Z",
+      "side": 1,
+      "message": "this should be a single call to builder.getAidlExe() that\u0027s the same logic used internally in the builder to find aidl when we run it. Same for all the other task/exe.",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 82
+      },
+      "revId": "ae71c2edf06b4b9d544036c50ecbc847922b6f95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
