@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3533b6f6_1664d9bd",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 1051269
+      },
+      "writtenOn": "2014-10-24T14:08:31Z",
+      "side": 1,
+      "message": "Remove whitespace",
+      "range": {
+        "startLine": 1657,
+        "startChar": 34,
+        "endLine": 1657,
+        "endChar": 35
+      },
+      "revId": "751924034f76ac7861eafcdbc10dec1a6b985fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7529ae84_445867f8",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1662,
+      "author": {
+        "id": 1051269
+      },
+      "writtenOn": "2014-10-24T14:08:31Z",
+      "side": 1,
+      "message": "Space after if",
+      "range": {
+        "startLine": 1662,
+        "startChar": 8,
+        "endLine": 1662,
+        "endChar": 10
+      },
+      "revId": "751924034f76ac7861eafcdbc10dec1a6b985fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "159eb222_21d8ca80",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 1051269
+      },
+      "writtenOn": "2014-10-24T14:08:31Z",
+      "side": 1,
+      "message": "Space after if",
+      "range": {
+        "startLine": 1668,
+        "startChar": 12,
+        "endLine": 1668,
+        "endChar": 14
+      },
+      "revId": "751924034f76ac7861eafcdbc10dec1a6b985fc0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
