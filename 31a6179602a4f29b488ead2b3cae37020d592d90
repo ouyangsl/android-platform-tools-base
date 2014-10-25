@@ -46,6 +46,30 @@
       "revId": "31a6179602a4f29b488ead2b3cae37020d592d90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95e0e2b0_32ecae4e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-25T00:57:44Z",
+      "side": 0,
+      "message": "wait did you put back the useOldManifestMerger? I meant to only put back the STOPSHIP comments above.",
+      "parentUuid": "75244ea4_204d4336",
+      "range": {
+        "startLine": 408,
+        "startChar": 3,
+        "endLine": 410,
+        "endChar": 29
+      },
+      "revId": "31a6179602a4f29b488ead2b3cae37020d592d90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
