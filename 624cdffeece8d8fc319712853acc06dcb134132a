@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95e0e2b0_98bfb9a2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 1954,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-25T19:44:38Z",
+      "side": 1,
+      "message": "/dextmp/ -\u003e /tmp/dex/",
+      "range": {
+        "startLine": 1954,
+        "startChar": 86,
+        "endLine": 1954,
+        "endChar": 92
+      },
+      "revId": "624cdffeece8d8fc319712853acc06dcb134132a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7580cec4_bd5de06f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 1955,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-25T19:44:38Z",
+      "side": 1,
+      "message": "config var is already variantData.variantConfiguration",
+      "range": {
+        "startLine": 1955,
+        "startChar": 24,
+        "endLine": 1955,
+        "endChar": 56
+      },
+      "revId": "624cdffeece8d8fc319712853acc06dcb134132a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95e0e2b0_588b91fe",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/Dex.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-25T19:44:38Z",
+      "side": 1,
+      "message": "You know, this reads a little bit werid. Because it\u0027s @Output but the name contains input. I\u0027d just say tmpFolder (we have this in other tasks).\n\nAlso it shouldn\u0027t be marked with @output anyway. If the content of the folder change it doesn\u0027t matter and shouldn\u0027t trigger redoing the task. Since we always reuse the folder for writing temp file, it doesn\u0027t matter if it changes.",
+      "range": {
+        "startLine": 57,
+        "startChar": 9,
+        "endLine": 57,
+        "endChar": 24
+      },
+      "revId": "624cdffeece8d8fc319712853acc06dcb134132a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
