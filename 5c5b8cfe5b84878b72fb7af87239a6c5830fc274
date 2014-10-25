@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95e0e2b0_7890d52b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-25T19:47:02Z",
+      "side": 1,
+      "message": "I would call into validateModel() into the factory which is where the actual logic exist. This way you don\u0027t have to check if it\u0027s a library or not.",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 227,
+        "endChar": 41
+      },
+      "revId": "5c5b8cfe5b84878b72fb7af87239a6c5830fc274",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
