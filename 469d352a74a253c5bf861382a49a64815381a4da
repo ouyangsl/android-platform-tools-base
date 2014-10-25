@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d5d6dada_855e72e6",
+        "filename": "build-system/tests/regular/libProguard/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-10-25T21:11:35Z",
+      "side": 1,
+      "message": "minify is used as a verb, so you don\u0027t need the Enabled suffix..",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "469d352a74a253c5bf861382a49a64815381a4da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
