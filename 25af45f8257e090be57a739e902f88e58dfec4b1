@@ -46,6 +46,30 @@
       "revId": "25af45f8257e090be57a739e902f88e58dfec4b1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35cf3649_b57ba214",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IShellEnabledDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-27T17:51:48Z",
+      "side": 1,
+      "message": "This interface is used in our Gradle API. What\u0027s the reason to move this in there?",
+      "parentUuid": "30fbc487_ecd26b0d",
+      "range": {
+        "startLine": 28,
+        "startChar": 17,
+        "endLine": 28,
+        "endChar": 36
+      },
+      "revId": "25af45f8257e090be57a739e902f88e58dfec4b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
