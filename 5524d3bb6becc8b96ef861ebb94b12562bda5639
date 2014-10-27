@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95b9c2ac_2d053980",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 10
+      },
+      "lineNbr": 2495,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-27T22:50:00Z",
+      "side": 1,
+      "message": "I guess it\u0027s useful because proguard doesn\u0027t give you direct access to this but it\u0027s a bit messy to put this in there.",
+      "range": {
+        "startLine": 2495,
+        "startChar": 20,
+        "endLine": 2495,
+        "endChar": 40
+      },
+      "revId": "5524d3bb6becc8b96ef861ebb94b12562bda5639",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
