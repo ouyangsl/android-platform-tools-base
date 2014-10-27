@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7580cec4_53583bf8",
+        "filename": "build-system/gradle/src/device-test/groovy/com/android/build/gradle/DeviceTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-27T17:07:01Z",
+      "side": 1,
+      "message": "replace \u003c with M",
+      "revId": "fddb7bcdc215571cef527da173575c3b2c92c7fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5d6dada_cb848932",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/JackTask.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-27T17:07:01Z",
+      "side": 1,
+      "message": "remove extra space.",
+      "revId": "fddb7bcdc215571cef527da173575c3b2c92c7fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d5d6dada_8b58c14b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/JackTask.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-27T17:07:01Z",
+      "side": 1,
+      "message": "add a space :)",
+      "revId": "fddb7bcdc215571cef527da173575c3b2c92c7fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
