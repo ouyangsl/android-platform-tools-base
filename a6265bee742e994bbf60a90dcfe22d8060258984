@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d55dfa60_628aecf8",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/BuildType.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-28T21:44:11Z",
+      "side": 1,
+      "message": "should isPseudolocalizeEnabled() to be consisten.",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 28
+      },
+      "revId": "a6265bee742e994bbf60a90dcfe22d8060258984",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
