@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b552464f_fb3cebb7",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/AaptProcess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-28T23:42:39Z",
+      "side": 1,
+      "message": "code style says to always use curly brace and new line for return.",
+      "range": {
+        "startLine": 161,
+        "startChar": 69,
+        "endLine": 161,
+        "endChar": 75
+      },
+      "revId": "b093e6ed6130830269a3af3110a29c6d05057a15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b552464f_db3927c6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/AaptProcess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-28T23:42:39Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 176,
+        "startChar": 45,
+        "endLine": 176,
+        "endChar": 51
+      },
+      "revId": "b093e6ed6130830269a3af3110a29c6d05057a15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
