@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95570241_1abd59df",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/AaptProcess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-29T02:59:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b552464f_fb3cebb7",
+      "range": {
+        "startLine": 161,
+        "startChar": 69,
+        "endLine": 161,
+        "endChar": 75
+      },
+      "revId": "b093e6ed6130830269a3af3110a29c6d05057a15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b552464f_db3927c6",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/AaptProcess.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-10-28T23:42:39Z",
       "side": 1,
       "message": "same here.",
+      "range": {
+        "startLine": 176,
+        "startChar": 45,
+        "endLine": 176,
+        "endChar": 51
+      },
+      "revId": "b093e6ed6130830269a3af3110a29c6d05057a15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "154a3299_f0952617",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/AaptProcess.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-10-29T02:59:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b552464f_db3927c6",
       "range": {
         "startLine": 176,
         "startChar": 45,
