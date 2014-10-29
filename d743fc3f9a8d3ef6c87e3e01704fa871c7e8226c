@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "756c4e15_b6fa8852",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-10-29T15:13:11Z",
+      "side": 1,
+      "message": "I\u0027d suggest adding another parameter to render() to invalidate the size. And when I say add another parameter, I mean add another method that takes the extra argument.",
+      "revId": "d743fc3f9a8d3ef6c87e3e01704fa871c7e8226c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
