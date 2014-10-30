@@ -45,6 +45,30 @@
       "revId": "eca3934e89269d3400ab353906362c119b9bf043",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35701618_04a176b2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-30T23:19:09Z",
+      "side": 1,
+      "message": "we might want search for any java file instead.\n\nActually another option is to use @SKipWhenEmpty on the task. I just remembered this.\nhttp://www.gradle.org/docs/current/javadoc/org/gradle/api/tasks/SkipWhenEmpty.html",
+      "parentUuid": "f582fe17_2d4ad981",
+      "range": {
+        "startLine": 126,
+        "startChar": 25,
+        "endLine": 126,
+        "endChar": 31
+      },
+      "revId": "eca3934e89269d3400ab353906362c119b9bf043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
