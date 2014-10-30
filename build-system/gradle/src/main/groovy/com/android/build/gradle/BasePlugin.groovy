@@ -202,9 +202,15 @@ import static java.io.File.separator
 public abstract class BasePlugin {
     public final static String DIR_BUNDLES = "bundles";
 
+<<<<<<< HEAD   (00b6e2 Merge "Revert change 112053." into studio-1.0-dev automerge:)
     private static final String GRADLE_MIN_VERSION = "2.3-20141027230029+0000"
     public static final String GRADLE_TEST_VERSION = "2.3-20141027230029+0000"
     public static final String[] GRADLE_SUPPORTED_VERSIONS = [ GRADLE_MIN_VERSION ]
+=======
+    private static final String GRADLE_MIN_VERSION = "2.1"
+    public static final String GRADLE_TEST_VERSION = "2.1"
+    public static final String[] GRADLE_SUPPORTED_VERSIONS = [ GRADLE_MIN_VERSION, "2.2" ]
+>>>>>>> BRANCH (1c4a7a Merge "0.14 is compatible with 2.2" into studio-1.0-dev)
 
     public static final String INSTALL_GROUP = "Install"
 
