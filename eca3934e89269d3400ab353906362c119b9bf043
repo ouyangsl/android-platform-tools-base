@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d587ba27_ef335534",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-10-31T00:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d587ba27_6c34d382",
+      "range": {
+        "startLine": 112,
+        "startChar": 49,
+        "endLine": 114,
+        "endChar": 25
+      },
+      "revId": "eca3934e89269d3400ab353906362c119b9bf043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f582fe17_2d4ad981",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.groovy",
         "patchSetId": 2
@@ -60,6 +84,54 @@
       "side": 1,
       "message": "we might want search for any java file instead.\n\nActually another option is to use @SKipWhenEmpty on the task. I just remembered this.\nhttp://www.gradle.org/docs/current/javadoc/org/gradle/api/tasks/SkipWhenEmpty.html",
       "parentUuid": "f582fe17_2d4ad981",
+      "range": {
+        "startLine": 126,
+        "startChar": 25,
+        "endLine": 126,
+        "endChar": 31
+      },
+      "revId": "eca3934e89269d3400ab353906362c119b9bf043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1594f24f_f4016e28",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-10-31T00:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f582fe17_2d4ad981",
+      "range": {
+        "startLine": 126,
+        "startChar": 25,
+        "endLine": 126,
+        "endChar": 31
+      },
+      "revId": "eca3934e89269d3400ab353906362c119b9bf043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d587ba27_72f66ef4",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-10-31T00:14:28Z",
+      "side": 1,
+      "message": "Changed it to look for java files. If we skipped the task, then we would not create the empty coverage file which would cause the report task to fail.",
+      "parentUuid": "35701618_04a176b2",
       "range": {
         "startLine": 126,
         "startChar": 25,
