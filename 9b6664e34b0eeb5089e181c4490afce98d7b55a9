@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "15b23212_5e92f161",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultBuildType.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-10-31T22:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55a82aa2_ddc84be3",
+      "range": {
+        "startLine": 31,
+        "startChar": 20,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "9b6664e34b0eeb5089e181c4490afce98d7b55a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f582fe17_94690969",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/BuildTypeImpl.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "55a82aa2_5199c450",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/BuildTypeImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-10-31T22:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f582fe17_94690969",
+      "range": {
+        "startLine": 37,
+        "startChar": 20,
+        "endLine": 37,
+        "endChar": 34
+      },
+      "revId": "9b6664e34b0eeb5089e181c4490afce98d7b55a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "95a622d2_198b5b00",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.groovy",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2014-10-31T21:11:57Z",
       "side": 1,
       "message": "and here.",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 26
+      },
+      "revId": "9b6664e34b0eeb5089e181c4490afce98d7b55a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15b23212_9e14f936",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1045708
+      },
+      "writtenOn": "2014-10-31T22:44:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95a622d2_198b5b00",
       "range": {
         "startLine": 79,
         "startChar": 12,
