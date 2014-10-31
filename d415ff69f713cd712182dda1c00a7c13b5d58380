@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f582fe17_71f107fa",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/BuildType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-31T19:42:08Z",
+      "side": 1,
+      "message": "pseudolocalize is a verb so it doesn\u0027t work with enabled next to it.\n\nHow about pseudoLocalesEnabled?",
+      "range": {
+        "startLine": 61,
+        "startChar": 12,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "d415ff69f713cd712182dda1c00a7c13b5d58380",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95a622d2_1370dc7f",
+        "filename": "build-system/tests/regular/pseudolocalized/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-10-31T19:42:08Z",
+      "side": 1,
+      "message": "tabs here",
+      "revId": "d415ff69f713cd712182dda1c00a7c13b5d58380",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
