@@ -22,6 +22,30 @@
       "revId": "18cdad9917df34dd2d8bec6b15df32770dfc5a9e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f582fe17_d1a2b309",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/GenerateApkDataTask.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-10-31T20:40:10Z",
+      "side": 1,
+      "message": "Do you mean plugin.extension.buildToolsRevision?",
+      "parentUuid": "f582fe17_5f3fafde",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 57
+      },
+      "revId": "18cdad9917df34dd2d8bec6b15df32770dfc5a9e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
