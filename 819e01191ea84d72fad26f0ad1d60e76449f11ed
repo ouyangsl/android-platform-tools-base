@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15b23212_d00020a1",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-11-04T18:03:32Z",
+      "side": 1,
+      "message": "nit - move this below render(long) and make render(long) call this one with false. It makes it easier to see that other render methods are just convenience overrides.",
+      "revId": "819e01191ea84d72fad26f0ad1d60e76449f11ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
