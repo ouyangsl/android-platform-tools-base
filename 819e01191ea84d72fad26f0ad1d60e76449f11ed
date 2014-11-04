@@ -16,6 +16,24 @@
       "revId": "819e01191ea84d72fad26f0ad1d60e76449f11ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75d44e2e_1c8c7d3d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1054756
+      },
+      "writtenOn": "2014-11-04T18:25:21Z",
+      "side": 1,
+      "message": "Good point. I\u0027ll move it.\n\nWon\u0027t making render(timeout) to call this method cause a problem if a version of layoutlib that doesn\u0027t support it is used?",
+      "parentUuid": "15b23212_d00020a1",
+      "revId": "819e01191ea84d72fad26f0ad1d60e76449f11ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
