@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15e07212_74c83e5e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-04T22:24:38Z",
+      "side": 1,
+      "message": "I think we want a different way to store this. We want to only use this if there is no other files defined. So we probably want to dynamically add this in the proguard task setup.\n\nThis is because the DSL only lets us add config files, not remove old ones, and we don\u0027t want this file to be added to existing project that have other config files setup.",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 88
+      },
+      "revId": "c7dbafeacae1f60f7fa079070f82f3a89175b995",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
