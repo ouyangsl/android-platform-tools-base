@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5e59e1c_58cfb535",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 1264,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-04T00:59:34Z",
+      "side": 1,
+      "message": "should be abi/${config.dirName}",
+      "range": {
+        "startLine": 1264,
+        "startChar": 63,
+        "endLine": 1264,
+        "endChar": 67
+      },
+      "revId": "2da8f3e5bfffb530149168ef91f95dfb885148bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15b23212_93df4767",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 1288,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-04T00:59:34Z",
+      "side": 1,
+      "message": "s/fullName/dirName/",
+      "range": {
+        "startLine": 1288,
+        "startChar": 80,
+        "endLine": 1288,
+        "endChar": 84
+      },
+      "revId": "2da8f3e5bfffb530149168ef91f95dfb885148bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55d10a3e_0a7b07ee",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-04T00:59:34Z",
+      "side": 1,
+      "message": "do you need to provide this? If you do it\u0027s be safer to put BasePlugin.this?",
+      "range": {
+        "startLine": 1293,
+        "startChar": 12,
+        "endLine": 1293,
+        "endChar": 17
+      },
+      "revId": "2da8f3e5bfffb530149168ef91f95dfb885148bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15b23212_331cf38e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GenerateSplitAbiRes.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-04T00:59:34Z",
+      "side": 1,
+      "message": "This should be @Input\n\n@Nested only works on classes that define their own @Input/@Output.",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 11
+      },
+      "revId": "2da8f3e5bfffb530149168ef91f95dfb885148bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5e59e1c_f80b09c5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GenerateSplitAbiRes.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-04T00:59:34Z",
+      "side": 1,
+      "message": "should use getSplits() in case you use convention mapping. Just safer even if you don\u0027t (in case you start using it later).",
+      "range": {
+        "startLine": 61,
+        "startChar": 28,
+        "endLine": 61,
+        "endChar": 34
+      },
+      "revId": "2da8f3e5bfffb530149168ef91f95dfb885148bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15b23212_930d0757",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-04T00:59:34Z",
+      "side": 1,
+      "message": "use getters here too.",
+      "range": {
+        "startLine": 122,
+        "startChar": 25,
+        "endLine": 122,
+        "endChar": 39
+      },
+      "revId": "2da8f3e5bfffb530149168ef91f95dfb885148bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
