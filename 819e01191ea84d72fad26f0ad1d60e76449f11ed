@@ -34,6 +34,24 @@
       "revId": "819e01191ea84d72fad26f0ad1d60e76449f11ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f5e59e1c_3ce97e13",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/RenderSession.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2014-11-04T18:36:05Z",
+      "side": 1,
+      "message": "No, for older layoutlibs, render(long) will be overriden and the implementation here won\u0027t matter. In newer layoutlibs, we can override only render(long, boolean)",
+      "parentUuid": "75d44e2e_1c8c7d3d",
+      "revId": "819e01191ea84d72fad26f0ad1d60e76449f11ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
