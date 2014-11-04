@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75d9ae6e_749cc0fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-04T18:50:51Z",
+      "side": 1,
+      "message": "Reference issue 78697 here?",
+      "revId": "011651877116918b99c411e092f76978fa536744",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75d9ae6e_f4f55031",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-04T18:50:51Z",
+      "side": 1,
+      "message": "also copy \"useJack\" ?",
+      "revId": "011651877116918b99c411e092f76978fa536744",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
