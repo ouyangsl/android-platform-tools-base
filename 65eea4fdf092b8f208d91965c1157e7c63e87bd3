@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b564069b_8879376c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 2802,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-05T21:59:26Z",
+      "side": 1,
+      "message": "This is the actual bug fix",
+      "revId": "65eea4fdf092b8f208d91965c1157e7c63e87bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "755e0ed1_4643323c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ShrinkResources.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-05T21:59:26Z",
+      "side": 1,
+      "message": "The changes in this file just makes the error message get displayed only once since for a splits-build, the multiline message kept spamming the output",
+      "revId": "65eea4fdf092b8f208d91965c1157e7c63e87bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "755e0ed1_6640ae2e",
+        "filename": "build-system/tests/manual/shrink/abisplits/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-05T21:59:26Z",
+      "side": 1,
+      "message": "I\u0027ll remove this commented out block before submitting",
+      "revId": "65eea4fdf092b8f208d91965c1157e7c63e87bd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
