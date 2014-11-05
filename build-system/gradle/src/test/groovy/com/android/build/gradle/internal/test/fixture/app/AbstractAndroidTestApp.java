@@ -33,7 +33,11 @@ import java.util.NoSuchElementException;
 public abstract class AbstractAndroidTestApp implements AndroidTestApp {
     private Multimap<String, TestSourceFile> sourceFiles = ArrayListMultimap.create();
 
+<<<<<<< HEAD   (c49f84 Merge "Removed java png cruncher." into studio-1.0-dev autom)
     protected void addFiles(TestSourceFile... files) {
+=======
+    protected void addFiles(TestSourceFile ... files) {
+>>>>>>> BRANCH (228bb3 Merge "Migrate changes made in gradle-dev back to studio-1.0)
         for (TestSourceFile file : files) {
             sourceFiles.put(file.getName(), file);
         }

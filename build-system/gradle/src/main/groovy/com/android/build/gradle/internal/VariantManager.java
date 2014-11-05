@@ -501,9 +501,13 @@ public class VariantManager implements VariantModel {
     }
 
     /**
+<<<<<<< HEAD   (c49f84 Merge "Removed java png cruncher." into studio-1.0-dev autom)
      * Creates VariantData for non-flavored build. This means assembleDebug, assembleRelease, and
      * other assemble<Type> are directly building the <type> build instead of all build of the given
      * <type>.
+=======
+     * Creates VariantData for a specified list of product flavor.
+>>>>>>> BRANCH (228bb3 Merge "Migrate changes made in gradle-dev back to studio-1.0)
      *
      * This will create VariantData for all build types of the given flavors.
      *
