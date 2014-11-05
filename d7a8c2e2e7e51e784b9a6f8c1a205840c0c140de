@@ -70,6 +70,30 @@
       "revId": "d7a8c2e2e7e51e784b9a6f8c1a205840c0c140de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5572ea58_90795a6c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-05T20:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5572ea58_6d82d590",
+      "range": {
+        "startLine": 466,
+        "startChar": 8,
+        "endLine": 466,
+        "endChar": 53
+      },
+      "revId": "d7a8c2e2e7e51e784b9a6f8c1a205840c0c140de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
