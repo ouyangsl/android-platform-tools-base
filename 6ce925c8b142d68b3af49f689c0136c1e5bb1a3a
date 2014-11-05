@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9542a2da_1f51e3a2",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/DslTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-05T01:03:30Z",
+      "side": 1,
+      "message": "I\u0027d suggest using the following to make it easier to update version number:\n    compileSdkVersion $GradleProjectTestRule.DEFAULT_COMPILE_SDK_VERSION\n    buildToolsVersion \"$GradleProjectTestRule.DEFAULT_BUILD_TOOL_VERSION\"",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 30
+      },
+      "revId": "6ce925c8b142d68b3af49f689c0136c1e5bb1a3a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
