@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5572ea58_d6a03ab1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-05T22:15:36Z",
+      "side": 1,
+      "message": "don\u0027t need that ;",
+      "range": {
+        "startLine": 282,
+        "startChar": 21,
+        "endLine": 282,
+        "endChar": 22
+      },
+      "revId": "90c852a5c9b7d53d0c9895c25793b9d3325ce312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
