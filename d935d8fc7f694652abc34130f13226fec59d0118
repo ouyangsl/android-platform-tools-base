@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "357f3623_66c8b25e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ResourceUsageAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1000,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-05T23:09:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75752e3d_7d54c393",
+      "range": {
+        "startLine": 1000,
+        "startChar": 33,
+        "endLine": 1000,
+        "endChar": 37
+      },
+      "revId": "d935d8fc7f694652abc34130f13226fec59d0118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "357f3623_5b00ef9e",
         "filename": "build-system/tests/manual/shrink/src/main/res/layout/used1.xml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-11-05T22:40:43Z",
       "side": 1,
       "message": "isn\u0027t something missing from these? it should need the normal layout attribute?\n\nI realize it probably doesn\u0027t matter for the test but it looks weird so maybe put a comment about it?",
+      "range": {
+        "startLine": 6,
+        "startChar": 5,
+        "endLine": 6,
+        "endChar": 46
+      },
+      "revId": "d935d8fc7f694652abc34130f13226fec59d0118",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "357f3623_86c59e47",
+        "filename": "build-system/tests/manual/shrink/src/main/res/layout/used1.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-05T23:09:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "357f3623_5b00ef9e",
       "range": {
         "startLine": 6,
         "startChar": 5,
