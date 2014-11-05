@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f533de7c_cbc65d74",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GenerateSplitAbiRes.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-05T01:01:52Z",
+      "side": 1,
+      "message": "did you test this instead of putting input?",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 46,
+        "endChar": 11
+      },
+      "revId": "bc3769966c03fdf04b65b5f17e463bdafb13be90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
