@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "75752e3d_ce42e3db",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-05T19:21:56Z",
+      "side": 1,
+      "message": "Why would you allow null here, instead of an empty collection? Is this a pattern we follow everywhere? (I guess this is item 43 in Effective Java)",
+      "range": {
+        "startLine": 324,
+        "startChar": 57,
+        "endLine": 324,
+        "endChar": 66
+      },
+      "revId": "2d87705533b127c919df94ba2a985eedc10a0104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d586da64_7436260a",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
         "patchSetId": 1
