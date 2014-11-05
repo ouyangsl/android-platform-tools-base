@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5572ea58_cde669c3",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-05T19:28:14Z",
+      "side": 1,
+      "message": "mostly because what I pass can be null already, but you\u0027re right that I should clean that up as well.",
+      "parentUuid": "75752e3d_ce42e3db",
+      "range": {
+        "startLine": 324,
+        "startChar": 57,
+        "endLine": 324,
+        "endChar": 66
+      },
+      "revId": "2d87705533b127c919df94ba2a985eedc10a0104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d586da64_7436260a",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2014-11-05T18:48:03Z",
       "side": 1,
       "message": "it seems to me that this dexIndex could become a method variable passed to the generateDexName() method as a parameter.",
+      "revId": "2d87705533b127c919df94ba2a985eedc10a0104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "357f3623_0c51d7a2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-05T19:28:14Z",
+      "side": 1,
+      "message": "yeah now that it is self contain to this call, I can do that.",
+      "parentUuid": "d586da64_7436260a",
       "revId": "2d87705533b127c919df94ba2a985eedc10a0104",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
