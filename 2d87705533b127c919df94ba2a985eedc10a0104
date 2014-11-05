@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d586da64_7436260a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-05T18:48:03Z",
+      "side": 1,
+      "message": "it seems to me that this dexIndex could become a method variable passed to the generateDexName() method as a parameter.",
+      "revId": "2d87705533b127c919df94ba2a985eedc10a0104",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
