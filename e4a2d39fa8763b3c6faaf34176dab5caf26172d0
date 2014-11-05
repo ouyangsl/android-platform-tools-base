@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75752e3d_5167760b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-05T19:59:31Z",
+      "side": 0,
+      "message": "I understand that this looks very strange (I will add a comment).  doApply is actually used in gradle-dev.",
+      "range": {
+        "startLine": 280,
+        "startChar": 29,
+        "endLine": 280,
+        "endChar": 30
+      },
+      "revId": "e4a2d39fa8763b3c6faaf34176dab5caf26172d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
