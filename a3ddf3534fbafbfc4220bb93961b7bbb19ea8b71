@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75752e3d_9d3e4fe1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 2276,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-05T22:19:22Z",
+      "side": 1,
+      "message": "we should just add a method in AndroidTargetHash that finds the API level for the hash whether it\u0027s a platform or an addon.",
+      "range": {
+        "startLine": 2276,
+        "startChar": 34,
+        "endLine": 2276,
+        "endChar": 44
+      },
+      "revId": "a3ddf3534fbafbfc4220bb93961b7bbb19ea8b71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
