@@ -46,6 +46,30 @@
       "revId": "d7a8c2e2e7e51e784b9a6f8c1a205840c0c140de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5572ea58_6d82d590",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-05T19:47:00Z",
+      "side": 1,
+      "message": "See the AndroidTargetHash class (and preferably use it rather than custom parsing here)",
+      "parentUuid": "357f3623_0f1a298f",
+      "range": {
+        "startLine": 466,
+        "startChar": 8,
+        "endLine": 466,
+        "endChar": 53
+      },
+      "revId": "d7a8c2e2e7e51e784b9a6f8c1a205840c0c140de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
