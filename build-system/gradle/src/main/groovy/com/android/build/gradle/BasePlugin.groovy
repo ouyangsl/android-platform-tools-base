@@ -3438,7 +3438,7 @@ public abstract class BasePlugin {
 
     /**
      * Returns a plugin that is an instance of BasePlugin.  Returns null if a BasePlugin cannot
-     * be found, and throws an InvalidUserCodeException if more than one is found.
+     * be found.
      */
     public static BasePlugin findBasePlugin(Project project) {
         BasePlugin plugin = project.plugins.findPlugin(AppPlugin)
@@ -3446,10 +3446,13 @@ public abstract class BasePlugin {
             return plugin
         }
         plugin = project.plugins.findPlugin(LibraryPlugin)
+<<<<<<< HEAD   (c49f84 Merge "Removed java png cruncher." into studio-1.0-dev autom)
         if (plugin != null) {
             return plugin
         }
         plugin = project.plugins.findPlugin(BaseComponentModelPlugin)
+=======
+>>>>>>> BRANCH (228bb3 Merge "Migrate changes made in gradle-dev back to studio-1.0)
         return plugin
     }
 

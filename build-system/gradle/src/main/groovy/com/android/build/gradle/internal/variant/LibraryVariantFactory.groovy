@@ -70,6 +70,8 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
 
     private Task assembleDefault
 
+    private Task assembleDefault;
+
     public LibraryVariantFactory(@NonNull BasePlugin basePlugin,
             @NonNull LibraryExtension extension) {
         this.extension = extension
