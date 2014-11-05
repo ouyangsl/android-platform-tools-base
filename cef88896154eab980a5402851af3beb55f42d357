@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "357f3623_41a3203d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 8
+      },
+      "lineNbr": 2276,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-05T23:59:38Z",
+      "side": 1,
+      "message": "this is good but how about we just put this whole logic in AndroidTargetHash so we can potentially reuse it somewhere else?",
+      "range": {
+        "startLine": 2276,
+        "startChar": 12,
+        "endLine": 2276,
+        "endChar": 65
+      },
+      "revId": "cef88896154eab980a5402851af3beb55f42d357",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
