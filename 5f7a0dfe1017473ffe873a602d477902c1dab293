@@ -45,6 +45,30 @@
       "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5572ea58_a29be4d5",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/fixture/GradleProjectTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-06T02:02:04Z",
+      "side": 1,
+      "message": "I\u0027d rather we don\u0027t move everything to groovy. Groovy will compile anything and fail at runtime which is not awesome.",
+      "parentUuid": "b564069b_eb646d43",
+      "range": {
+        "startLine": 90,
+        "startChar": 24,
+        "endLine": 90,
+        "endChar": 39
+      },
+      "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
