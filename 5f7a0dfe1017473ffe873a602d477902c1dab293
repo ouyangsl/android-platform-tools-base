@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "755e0ed1_09478d16",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/fixture/GradleProjectTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-06T01:25:21Z",
+      "side": 1,
+      "message": "Nit: new File(buildDir, \"tests\") ?",
+      "range": {
+        "startLine": 82,
+        "startChar": 64,
+        "endLine": 82,
+        "endChar": 94
+      },
+      "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b564069b_eb646d43",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/fixture/GradleProjectTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-06T01:25:21Z",
+      "side": 1,
+      "message": "If you moved this file to Groovy (which should \"just work\" with some luck), this becomes just root.deleteDir().",
+      "range": {
+        "startLine": 90,
+        "startChar": 24,
+        "endLine": 90,
+        "endChar": 39
+      },
+      "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
