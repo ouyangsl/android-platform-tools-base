@@ -69,6 +69,30 @@
       "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "357f3623_6c3df002",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/fixture/GradleProjectTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-06T02:08:45Z",
+      "side": 1,
+      "message": "There\u0027s a trade-off there, I think in the case of test code it\u0027s worth it. There\u0027s not a big difference between a test failing and not compiling. And the GDK (dir.deleteDir()), closures (for \"inner functions\") and groovy assertions bring a lot of value.",
+      "parentUuid": "5572ea58_a29be4d5",
+      "range": {
+        "startLine": 90,
+        "startChar": 24,
+        "endLine": 90,
+        "endChar": 39
+      },
+      "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
