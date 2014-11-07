@@ -22,6 +22,30 @@
       "revId": "b3b4fb570a7f18285da188d9b574792accd6cc1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "553aeaa9_2d8c0d90",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/multidex/RetraceMainDexList.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-07T16:43:41Z",
+      "side": 1,
+      "message": "from the comment above it does not seem so, I would say the \u003d\u003dnull test below is not necessary but let @xav clarify...",
+      "parentUuid": "35473640_4c6ebf9d",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "b3b4fb570a7f18285da188d9b574792accd6cc1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
