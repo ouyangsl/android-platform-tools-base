@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "753d2e9e_284dd735",
+        "filename": "build-system/tests/regular/basicEspresso/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-11-07T19:42:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95a622d2_39961f23",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 24
+      },
+      "revId": "30b7d490f2d512a87619b5cb3133386d72beec19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55a82aa2_7da6d720",
         "filename": "build-system/tests/regular/basicEspresso/src/main/assets/notice.txt",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "753d2e9e_484a231f",
+        "filename": "build-system/tests/regular/basicEspresso/src/main/assets/notice.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-11-07T19:42:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55a82aa2_7da6d720",
+      "range": {
+        "startLine": 2,
+        "startChar": 4,
+        "endLine": 2,
+        "endChar": 24
+      },
+      "revId": "30b7d490f2d512a87619b5cb3133386d72beec19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f582fe17_d45381aa",
         "filename": "build-system/tests/regular/basicEspresso/src/main/res/raw/notice.txt",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-10-31T21:13:42Z",
       "side": 1,
       "message": "remove this file, not needed for the sample and it\u0027s big.",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 2,
+        "endChar": 18
+      },
+      "revId": "30b7d490f2d512a87619b5cb3133386d72beec19",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35473640_957a66e7",
+        "filename": "build-system/tests/regular/basicEspresso/src/main/res/raw/notice.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-11-07T19:42:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f582fe17_d45381aa",
       "range": {
         "startLine": 2,
         "startChar": 3,
