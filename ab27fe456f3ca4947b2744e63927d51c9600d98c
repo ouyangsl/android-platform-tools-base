@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a025ff8_5b784365",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ApiTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-07T23:35:40Z",
+      "side": 1,
+      "message": "as xav mentioned, it should probably be something that doesn\u0027t collide with a gradle task name e.g. create",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 18
+      },
+      "revId": "ab27fe456f3ca4947b2744e63927d51c9600d98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da152730_99449b12",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-07T23:35:40Z",
+      "side": 1,
+      "message": "could use stripIndent to allow the multiline string to be indented with the rest of the code.",
+      "revId": "ab27fe456f3ca4947b2744e63927d51c9600d98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da152730_598de312",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-07T23:35:40Z",
+      "side": 1,
+      "message": "nit: push declaration down to just before first use.",
+      "range": {
+        "startLine": 77,
+        "startChar": 30,
+        "endLine": 77,
+        "endChar": 36
+      },
+      "revId": "ab27fe456f3ca4947b2744e63927d51c9600d98c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
