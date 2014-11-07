@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35473640_2033326b",
+        "filename": "build-system/tests/regular/basicEspresso/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T20:23:47Z",
+      "side": 1,
+      "message": "Can we wait until it\u0027s present in the support lib. I\u0027d rather not check some random jars in here :(",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "745b41c8bc887ef36d7af7502f6918d4df4ccfaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
