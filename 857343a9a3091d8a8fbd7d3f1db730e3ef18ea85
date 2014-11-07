@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fa102b40_5ad27562",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/ApkInfoParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T23:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b52c067c_51c00625",
+      "revId": "857343a9a3091d8a8fbd7d3f1db730e3ef18ea85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1544f239_853a36b8",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/ApkInfoParser.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2014-11-07T23:06:17Z",
       "side": 1,
       "message": "move this to a static final field.",
+      "revId": "857343a9a3091d8a8fbd7d3f1db730e3ef18ea85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa102b40_3ad7c152",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/ApkInfoParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T23:16:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1544f239_853a36b8",
       "revId": "857343a9a3091d8a8fbd7d3f1db730e3ef18ea85",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
