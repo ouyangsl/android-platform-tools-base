@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1544f239_34261657",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultBuildType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T20:22:24Z",
+      "side": 1,
+      "message": "I think it makes more sense to put this in the getter. Basically this should override the behavior even if we do:\n\nsetTestCoverageEnabled(true)\nsetDebuggable(false)",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "1ba13255e4ab4680d39587c10fb78020b1dcdc97",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
