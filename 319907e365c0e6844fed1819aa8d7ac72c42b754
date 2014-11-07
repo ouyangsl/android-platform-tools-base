@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "958aa29b_b3cdd0c3",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/DeviceConnector.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-07T04:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d54eda55_a559f6d9",
+      "range": {
+        "startLine": 61,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 50
+      },
+      "revId": "319907e365c0e6844fed1819aa8d7ac72c42b754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d54eda55_256ee66e",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d5809a7b_c46e10f1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/SimpleTestCallable.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-07T04:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d54eda55_256ee66e",
+      "range": {
+        "startLine": 120,
+        "startChar": 25,
+        "endLine": 120,
+        "endChar": 104
+      },
+      "revId": "319907e365c0e6844fed1819aa8d7ac72c42b754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b55326fc_d39a467a",
         "filename": "build-system/tests/manual/3rdPartyTests/buildSrc/src/main/java/com/android/tests/basic/buildscript/FakeDevice.java",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2014-11-07T01:11:09Z",
       "side": 1,
       "message": "missing space",
+      "range": {
+        "startLine": 84,
+        "startChar": 10,
+        "endLine": 84,
+        "endChar": 13
+      },
+      "revId": "319907e365c0e6844fed1819aa8d7ac72c42b754",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b585e68b_e39a2c7a",
+        "filename": "build-system/tests/manual/3rdPartyTests/buildSrc/src/main/java/com/android/tests/basic/buildscript/FakeDevice.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-07T04:38:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b55326fc_d39a467a",
       "range": {
         "startLine": 84,
         "startChar": 10,
