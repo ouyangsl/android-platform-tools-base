@@ -70,6 +70,30 @@
       "revId": "b3b4fb570a7f18285da188d9b574792accd6cc1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15c152c3_655b9d7a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/multidex/RetraceMainDexList.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T17:03:00Z",
+      "side": 1,
+      "message": "I moved the field below. It\u0027s never going to be null, though it\u0027s coming through convention mapping, so it wouldn\u0027t hurt to test for it. I\u0027ll fix this.",
+      "parentUuid": "753d2e9e_14859c96",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 34
+      },
+      "revId": "b3b4fb570a7f18285da188d9b574792accd6cc1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
