@@ -22,6 +22,30 @@
       "revId": "745b41c8bc887ef36d7af7502f6918d4df4ccfaf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35473640_60db7aa3",
+        "filename": "build-system/tests/regular/basicEspresso/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-11-07T20:27:21Z",
+      "side": 1,
+      "message": "How about changing it to androidTestCompile \u0027com.jakewharton.espresso:espresso:1.1-r3\u0027 ? :)\n\nAnyway, I\u0027m fine waiting. This CL is linked from the bug, if people want to see a working example.",
+      "parentUuid": "35473640_2033326b",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "745b41c8bc887ef36d7af7502f6918d4df4ccfaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
