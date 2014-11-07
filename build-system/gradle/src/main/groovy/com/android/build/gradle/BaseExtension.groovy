@@ -30,8 +30,8 @@ import com.android.build.gradle.internal.dsl.DexOptionsImpl
 import com.android.build.gradle.internal.dsl.LintOptionsImpl
 import com.android.build.gradle.internal.dsl.PackagingOptionsImpl
 import com.android.build.gradle.internal.dsl.ProductFlavorDsl
-import com.android.build.gradle.internal.test.TestOptions
 import com.android.build.gradle.internal.dsl.Splits
+import com.android.build.gradle.internal.test.TestOptions
 import com.android.builder.core.BuilderConstants
 import com.android.builder.core.DefaultBuildType
 import com.android.builder.core.DefaultProductFlavor
@@ -81,8 +81,11 @@ public abstract class BaseExtension {
 
     private String defaultPublishConfig = "release"
     private boolean publishNonDefault = false
+<<<<<<< HEAD   (0ab295 Merge "Fix checking for app dependencies." into studio-1.0-d)
 
     NdkLibrarySpecification ndkLib
+=======
+>>>>>>> BRANCH (2abc5c Merge "Set default language level to 7 if using compileSdkVe)
     private boolean useNewNativePlugin = false
 
     private Closure<Void> variantFilter
@@ -252,6 +255,7 @@ public abstract class BaseExtension {
     void compileOptions(Action<CompileOptions> action) {
         plugin.checkTasksAlreadyCreated()
         action.execute(compileOptions)
+        compileOptions.setExplicitly = true
     }
 
     void packagingOptions(Action<PackagingOptionsImpl> action) {
