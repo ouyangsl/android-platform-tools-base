@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35473640_d2d7a451",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1719,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T18:24:14Z",
+      "side": 1,
+      "message": "Is this the right thing to do? We may want to merge those files instead, which would require an extra step/task to do so.\n\nLet\u0027s keep it that way but we might want to change this in the future.",
+      "range": {
+        "startLine": 1719,
+        "startChar": 7,
+        "endLine": 1719,
+        "endChar": 54
+      },
+      "revId": "438553a968f0c2a3f9af68b2dc73d462782d2595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "753d2e9e_e2f68ea2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T18:24:14Z",
+      "side": 1,
+      "message": "should be private field.",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 8
+      },
+      "revId": "438553a968f0c2a3f9af68b2dc73d462782d2595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1544f239_ae57171b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T18:24:14Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 49,
+        "endChar": 8
+      },
+      "revId": "438553a968f0c2a3f9af68b2dc73d462782d2595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35473640_b22058c7",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/multidex/CreateManifestKeepList.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-07T18:24:14Z",
+      "side": 1,
+      "message": "why don\u0027t you use Files.readLines here?",
+      "range": {
+        "startLine": 64,
+        "startChar": 15,
+        "endLine": 64,
+        "endChar": 72
+      },
+      "revId": "438553a968f0c2a3f9af68b2dc73d462782d2595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
