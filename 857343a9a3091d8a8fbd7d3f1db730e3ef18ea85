@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b52c067c_51c00625",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/ApkInfoParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-07T23:06:17Z",
+      "side": 1,
+      "message": "consider using Objecs.toStringHelper for consistent object display.",
+      "revId": "857343a9a3091d8a8fbd7d3f1db730e3ef18ea85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1544f239_853a36b8",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/ApkInfoParser.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-07T23:06:17Z",
+      "side": 1,
+      "message": "move this to a static final field.",
+      "revId": "857343a9a3091d8a8fbd7d3f1db730e3ef18ea85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
