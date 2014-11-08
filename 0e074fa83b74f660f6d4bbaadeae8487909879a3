@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a025ff8_0f9cb541",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-08T02:31:40Z",
+      "side": 1,
+      "message": "I\u0027m not sure whether this should be spun out. Perhaps into a subclass-able equivalent to GradleProjectTestRule?",
+      "range": {
+        "startLine": 176,
+        "startChar": 25,
+        "endLine": 176,
+        "endChar": 36
+      },
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
