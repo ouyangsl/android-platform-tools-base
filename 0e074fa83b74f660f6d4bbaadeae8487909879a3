@@ -2,6 +2,126 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a4c838a_4a219711",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T22:59:17Z",
+      "side": 1,
+      "message": "add .stripIndent()\n\nActually, are these necessary?",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 15
+      },
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a497f7c_ecae1fa9",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T22:59:17Z",
+      "side": 1,
+      "message": "Is it necessary to have compile dependencies on a fileTree instead of project?",
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c838a_980fe59e",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T22:59:17Z",
+      "side": 1,
+      "message": "It\u0027s cleaner to remove the file from app. \nAndroidTestApp app \u003d new HelloWorldApp()\napp.removeFile(app.getFile(\"HelloWorld.java\"));\nSee https://android-review.googlesource.com/#/c/111813/5/build-system/gradle/src/integ-test/groovy/com/android/build/gradle/model/ComponentModelSourceSetIntegTest.groovy",
+      "range": {
+        "startLine": 115,
+        "startChar": 36,
+        "endLine": 115,
+        "endChar": 37
+      },
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a497f7c_a6760843",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T22:59:17Z",
+      "side": 1,
+      "message": "Remove blank lines.",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 0
+      },
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4f777e_d4b76a58",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T22:59:17Z",
+      "side": 1,
+      "message": "Add a comment saying this code is extracting classes.jar from the aar.",
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4f777e_7491d6b4",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T22:59:17Z",
+      "side": 1,
+      "message": "Is the filename unknown? Why is the check \"startsWith\" instead of exact match?",
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a025ff8_0f9cb541",
         "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
         "patchSetId": 1
@@ -13,6 +133,30 @@
       "writtenOn": "2014-11-08T02:31:40Z",
       "side": 1,
       "message": "I\u0027m not sure whether this should be spun out. Perhaps into a subclass-able equivalent to GradleProjectTestRule?",
+      "range": {
+        "startLine": 176,
+        "startChar": 25,
+        "endLine": 176,
+        "endChar": 36
+      },
+      "revId": "0e074fa83b74f660f6d4bbaadeae8487909879a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4f777e_54fa5a1f",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T22:59:17Z",
+      "side": 1,
+      "message": "I am not convinced that we really need separate gradle projects, but if we do, GradleProjectTestRule can be changed to support multiple projects.",
+      "parentUuid": "1a025ff8_0f9cb541",
       "range": {
         "startLine": 176,
         "startChar": 25,
