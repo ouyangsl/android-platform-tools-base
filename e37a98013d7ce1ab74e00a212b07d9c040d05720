@@ -91,6 +91,69 @@
       "revId": "e37a98013d7ce1ab74e00a212b07d9c040d05720",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4f777e_eed053d7",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/AndroidTestResourcesTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T20:41:06Z",
+      "side": 1,
+      "message": "Sorry, I should have shown this to you earlier.  Another way to create files is to add them to the app.  Take a look at https://android-review.googlesource.com/#/c/111813/5/build-system/gradle/src/integ-test/groovy/com/android/build/gradle/model/ComponentModelSourceSetIntegTest.groovy\n\nLet me know if you have any preference on either methods.",
+      "revId": "e37a98013d7ce1ab74e00a212b07d9c040d05720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a497f7c_2972e90c",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/AndroidTestResourcesTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T20:41:06Z",
+      "side": 1,
+      "message": "Use static variable from GradleProjectTestRule unless you mean to use this specific version.\n    compileSdkVersion $GradleProjectTestRule.DEFAULT_COMPILE_SDK_VERSION\n    buildToolsVersion \"$GradleProjectTestRule.DEFAULT_BUILD_TOOL_VERSION\"",
+      "range": {
+        "startLine": 104,
+        "startChar": 40,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "e37a98013d7ce1ab74e00a212b07d9c040d05720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c838a_588ded12",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/AndroidTestResourcesTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-10T20:41:06Z",
+      "side": 1,
+      "message": "Do you mean library?",
+      "range": {
+        "startLine": 114,
+        "startChar": 39,
+        "endLine": 114,
+        "endChar": 50
+      },
+      "revId": "e37a98013d7ce1ab74e00a212b07d9c040d05720",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
