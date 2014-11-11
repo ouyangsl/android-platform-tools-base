@@ -93,6 +93,30 @@
       "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac51b23_34b018d2",
+        "filename": "build-system/gradle/src/test/groovy/com/android/build/gradle/internal/test/fixture/GradleProjectTestRule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-11T02:34:34Z",
+      "side": 1,
+      "message": "Yes, for tests that\u0027s probably fine.",
+      "parentUuid": "357f3623_6c3df002",
+      "range": {
+        "startLine": 90,
+        "startChar": 24,
+        "endLine": 90,
+        "endChar": 39
+      },
+      "revId": "5f7a0dfe1017473ffe873a602d477902c1dab293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
