@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a4f777e_4ed1a28a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-11T01:51:53Z",
+      "side": 1,
+      "message": "Should there be a method to overwrite the build file, but with the repositories preamble included?",
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac51b23_11abae6c",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/common/fixture/app/AbstractAndroidTestApp.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-11T01:51:53Z",
+      "side": 1,
+      "message": "nit: consistency. I\u0027m not opposed to most arguments of non-trivial being final.",
+      "range": {
+        "startLine": 57,
+        "startChar": 51,
+        "endLine": 57,
+        "endChar": 56
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
