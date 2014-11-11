@@ -16,6 +16,24 @@
       "revId": "e2847c48b9b877371687a76dafb9a92afdbac06d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dabfe78a_23f8e68b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ExportedDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1044940
+      },
+      "writtenOn": "2014-11-11T22:07:22Z",
+      "side": 1,
+      "message": "SecurityDetector is slightly different. It passes if a service/receiver/provider is implicitly not exported because it has permissions listed under it. This just checks that android:exported is set at all.\n\nSecurityDetector also doesn\u0027t currently check activities.",
+      "parentUuid": "dabfe78a_9db813ea",
+      "revId": "e2847c48b9b877371687a76dafb9a92afdbac06d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
