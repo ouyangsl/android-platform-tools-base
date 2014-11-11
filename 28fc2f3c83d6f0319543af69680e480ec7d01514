@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba8dd3f4_a0237a45",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/AndroidTestResourcesTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-11T10:40:26Z",
+      "side": 1,
+      "message": "I don\u0027t think the quote should be here. Or the backslash at the end?",
+      "range": {
+        "startLine": 66,
+        "startChar": 44,
+        "endLine": 66,
+        "endChar": 46
+      },
+      "revId": "28fc2f3c83d6f0319543af69680e480ec7d01514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da88c7e4_0154aa47",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/AndroidTestResourcesTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-11T10:40:26Z",
+      "side": 1,
+      "message": "I don\u0027t think you are cleaning and rebuilding between tests, and you probably should if you change the build file.",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 24
+      },
+      "revId": "28fc2f3c83d6f0319543af69680e480ec7d01514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da88c7e4_4172b204",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/AndroidTestResourcesTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-11T10:40:26Z",
+      "side": 1,
+      "message": "Can you move this to a constant in GradleProjectTestRule?",
+      "range": {
+        "startLine": 121,
+        "startChar": 34,
+        "endLine": 121,
+        "endChar": 56
+      },
+      "revId": "28fc2f3c83d6f0319543af69680e480ec7d01514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
