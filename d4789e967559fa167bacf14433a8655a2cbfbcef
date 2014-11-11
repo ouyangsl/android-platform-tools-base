@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa83cbc2_22c76e24",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-11T10:16:46Z",
+      "side": 1,
+      "message": "This fixes an unrelated problem: when I ran lint on a large set of projects (to look for false positives in the new lint check) the HTML Reports contained a lot of lint warnings that Gradle projects should be lint checked with Gradle -- even though I had explicitly turned off that warning. That\u0027s what this part fixes.",
+      "revId": "d4789e967559fa167bacf14433a8655a2cbfbcef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba8dd3f4_2019aa1c",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Warning.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-11T10:16:46Z",
+      "side": 1,
+      "message": "Another unrelated bug, also discovered when looking for false positives. In files with many warnings on the same line (such as a strings.xml file without newlines) the infrastructure would sometimes fail because it makes sure that warnings must not equal. Here we add in column checking to disambiguate them.",
+      "revId": "d4789e967559fa167bacf14433a8655a2cbfbcef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
