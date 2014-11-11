@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabfe78a_9db813ea",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ExportedDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1057683
+      },
+      "writtenOn": "2014-11-11T20:42:23Z",
+      "side": 1,
+      "message": "Does SecurityDetector already do this? I did some testing, and while it does check it, it doesn\u0027t seem to detect errors in our configuration.",
+      "revId": "e2847c48b9b877371687a76dafb9a92afdbac06d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
