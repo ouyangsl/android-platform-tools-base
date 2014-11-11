@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba8dd3f4_20b52a74",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-11T10:47:07Z",
+      "side": 1,
+      "message": "Why do we need a method like this inside a test class? All such logic should be in the @Rule class.",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 191,
+        "endChar": 27
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba8dd3f4_80b0b685",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-11T10:47:07Z",
+      "side": 1,
+      "message": "[\"-i\", \"-u\"] as String[]",
+      "range": {
+        "startLine": 201,
+        "startChar": 46,
+        "endLine": 201,
+        "endChar": 69
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
