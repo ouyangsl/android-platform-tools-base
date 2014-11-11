@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a4f777e_58c5e468",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1360,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-11T19:32:39Z",
+      "side": 1,
+      "message": "2.2 is final, and compatible with 0.14. Just embed 2.2 directly, this way we don\u0027t have to change it in a week or 2.",
+      "range": {
+        "startLine": 1360,
+        "startChar": 65,
+        "endLine": 1360,
+        "endChar": 68
+      },
+      "revId": "f53cb78e9fc5b57b26dd12c952e92ab6b3e83120",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
