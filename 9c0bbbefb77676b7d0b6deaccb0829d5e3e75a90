@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aabf756_4ef5072d",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/common/fixture/GradleTestProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-12T01:11:29Z",
+      "side": 1,
+      "message": "nit: exists",
+      "revId": "9c0bbbefb77676b7d0b6deaccb0829d5e3e75a90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
