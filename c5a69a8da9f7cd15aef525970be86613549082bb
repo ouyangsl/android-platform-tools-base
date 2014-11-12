@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4d63af_dce80dbc",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ResourceUsageAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-12T17:28:54Z",
+      "side": 1,
+      "message": "why don\u0027t you just use the copy constructor?",
+      "range": {
+        "startLine": 313,
+        "startChar": 52,
+        "endLine": 313,
+        "endChar": 78
+      },
+      "revId": "c5a69a8da9f7cd15aef525970be86613549082bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
