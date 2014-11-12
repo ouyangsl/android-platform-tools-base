@@ -68,6 +68,30 @@
       "revId": "28fc2f3c83d6f0319543af69680e480ec7d01514",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa8035b_6d780d66",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/AndroidTestResourcesTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-12T17:13:58Z",
+      "side": 1,
+      "message": "Note that we already have com.android.builder.model.AndroidProject.FD_GENERATED",
+      "parentUuid": "da88c7e4_4172b204",
+      "range": {
+        "startLine": 121,
+        "startChar": 34,
+        "endLine": 121,
+        "endChar": 56
+      },
+      "revId": "28fc2f3c83d6f0319543af69680e480ec7d01514",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
