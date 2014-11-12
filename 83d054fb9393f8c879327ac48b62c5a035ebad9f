@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5aabf756_4b63b93c",
+        "filename": "build-system/integration-test/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-12T00:40:53Z",
+      "side": 1,
+      "message": "done.  Created integrationTest and connectedIntegrationTest.",
+      "parentUuid": "ba8dd3f4_6036d28c",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 81
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da88c7e4_219beed6",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-11-11T10:25:01Z",
       "side": 1,
       "message": "~/:(\\S+)\\s+UP-TO-DATE/",
+      "range": {
+        "startLine": 33,
+        "startChar": 54,
+        "endLine": 33,
+        "endChar": 95
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aabf756_8b769143",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-12T00:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da88c7e4_219beed6",
       "range": {
         "startLine": 33,
         "startChar": 54,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a4f777e_5cf393ff",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-12T00:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da88c7e4_41a07204",
+      "range": {
+        "startLine": 36,
+        "startChar": 89,
+        "endLine": 36,
+        "endChar": 90
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da88c7e4_a1c4deca",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2014-11-11T10:25:01Z",
       "side": 1,
       "message": "$GradleTestProject.DEFAULT_COMPILE_SDK_VERSION? We should use the same versions unless there\u0027s a good reason not to.",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 24
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aaefb66_0f7dcd54",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-12T00:40:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da88c7e4_a1c4deca",
       "range": {
         "startLine": 55,
         "startChar": 22,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5aabf756_eb9b8500",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-12T00:40:53Z",
+      "side": 1,
+      "message": "I don\u0027t think the code you suggested is doing the same thing...",
+      "parentUuid": "ba8dd3f4_801436e6",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 35
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba8dd3f4_80e99695",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2014-11-11T10:25:01Z",
       "side": 1,
       "message": "Nit: assert affectedTasks.contains(task), \"Expecting task $task to be invalidated.\"",
+      "range": {
+        "startLine": 93,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 49
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4f777e_1c7abbaa",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/BuildToolsTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-12T00:40:53Z",
+      "side": 1,
+      "message": "I am ignoring this for now.  We should spend a bit of time discussing our assert style.  We have multiple options including Java style assert, Groovy style assert, Hamcrest, and Truth(go/truth).\nI would lean toward Truth.",
+      "parentUuid": "ba8dd3f4_80e99695",
       "range": {
         "startLine": 93,
         "startChar": 12,
@@ -168,6 +312,30 @@
       "writtenOn": "2014-11-11T01:51:53Z",
       "side": 1,
       "message": "nit: consistency. I\u0027m not opposed to most arguments of non-trivial being final.",
+      "range": {
+        "startLine": 57,
+        "startChar": 51,
+        "endLine": 57,
+        "endChar": 56
+      },
+      "revId": "83d054fb9393f8c879327ac48b62c5a035ebad9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aabf756_a5929e29",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/common/fixture/app/AbstractAndroidTestApp.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-12T00:40:53Z",
+      "side": 1,
+      "message": "final is necessary only because the variable is used in the Predicate.",
+      "parentUuid": "7ac51b23_11abae6c",
       "range": {
         "startLine": 57,
         "startChar": 51,
