@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3aa8035b_6d5fade3",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-12T17:15:39Z",
+      "side": 1,
+      "message": "obsolete comment?",
+      "range": {
+        "startLine": 44,
+        "startChar": 3,
+        "endLine": 44,
+        "endChar": 64
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba8dd3f4_20b52a74",
         "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
         "patchSetId": 2
