@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7adfdb23_18fffdc1",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/DependencyCheckerTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-13T21:56:08Z",
+      "side": 1,
+      "message": "I fine with it this way but we should put a comment in this method, so that if one day we want to add more than one build command it makes more sense.",
+      "parentUuid": "7adfdb23_47f9a4e0",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ae6dfff_5ef8918c",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
         "patchSetId": 2
@@ -144,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "fa990b84_d212c4c3",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-13T21:56:08Z",
+      "side": 1,
+      "message": "It\u0027s tricky because for flavor support (for which I\u0027d like to see more tests), the task name will be different. I think it\u0027s better to keep it that way.",
+      "parentUuid": "1ae6dfff_e101c22a",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fab4abdf_fdbb23b2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
         "patchSetId": 2
@@ -203,6 +251,30 @@
       "side": 1,
       "message": "I don\u0027t think there\u0027s a simple way to avoid being careful that all the tests actually do something, but this is reasonable. If it were in a superclass then you have to inherit from it, which is less obvious than the empty test.",
       "parentUuid": "7adfdb23_67d78051",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa990b84_b22c6009",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-13T21:56:08Z",
+      "side": 1,
+      "message": "I agree. I\u0027d prefer to keep it that way. Long term I wand to expand on these tests and not just build, but also manually check the output more.",
+      "parentUuid": "3ac2c357_fdd79bc9",
       "range": {
         "startLine": 40,
         "startChar": 3,
