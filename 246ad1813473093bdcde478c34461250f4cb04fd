@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7adfdb23_47f9a4e0",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/DependencyCheckerTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T18:48:44Z",
+      "side": 1,
+      "message": "For tests with only assembleDebug, should assembleDebug be ran in the test or setup code?\nRunning in the test makes more sense if you look at it individually.  Running in the setup makes the pattern more consistent and easier to add additional tests.",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ae6dfff_5ef8918c",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
         "patchSetId": 2
@@ -25,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_d722be99",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T18:48:44Z",
+      "side": 1,
+      "message": "I would say it\u0027s the common case only because of how our tests are structured in the past.  Hiding information in tests should be avoided.  Perhaps we can put the setup code in the GradleTestProject, but make it explicit that we are running that code.  e.g. add \"executeOnSetup\" method.  Do you think it\u0027s worth it though?  The amount of code save is not very significant.",
+      "parentUuid": "1ae6dfff_5ef8918c",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fab4abdf_fdbb23b2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
         "patchSetId": 2
@@ -36,6 +83,30 @@
       "writtenOn": "2014-11-13T16:24:32Z",
       "side": 1,
       "message": "This can be extracted to an abstract superclass, to spare us the boilerplate in the common case. So that in most cases you only need to define the rule, and you inherit the empty test for free.",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_67d78051",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T18:48:44Z",
+      "side": 1,
+      "message": "I would again argue that it\u0027s only the common case because of how our tests are structured in the past and we should not obscure the tasks that are executed by the tests.",
+      "parentUuid": "fab4abdf_fdbb23b2",
       "range": {
         "startLine": 40,
         "startChar": 3,
