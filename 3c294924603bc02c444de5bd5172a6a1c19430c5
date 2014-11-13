@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da2b67c1_6c7313d9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/BuildTypeDsl.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-13T16:53:16Z",
+      "side": 1,
+      "message": "should probably use getDefaultProguardFile(String filename)  to be more descriptive.",
+      "range": {
+        "startLine": 147,
+        "startChar": 73,
+        "endLine": 147,
+        "endChar": 75
+      },
+      "revId": "3c294924603bc02c444de5bd5172a6a1c19430c5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
