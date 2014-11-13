@@ -22,6 +22,52 @@
       "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac5b75b_5ec5e968",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T19:21:35Z",
+      "side": 1,
+      "message": "Please use the builder to construct the GradleTestProject.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 91
+      },
+      "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ac2c357_9a85cd9a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T19:21:35Z",
+      "side": 1,
+      "message": "Not sure if others will agree with me.  I think it\u0027s better to just write the code here instead of putting it in BUILD_GRADLE_ANDROID_SECTION.  The code is not that long.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 64
+      },
+      "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
