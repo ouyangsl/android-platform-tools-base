@@ -25,6 +25,98 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_ddeadf0a",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T19:31:22Z",
+      "side": 1,
+      "message": "I don\u0027t think you have gave me a firm answer yet.  Is it not possible to use \"compile project\" instead of fileTree to have the same test coverage?",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 67
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_678ce0c7",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T19:31:22Z",
+      "side": 1,
+      "message": "Is this necessary for the test?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ac2c357_3df913e2",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T19:31:22Z",
+      "side": 1,
+      "message": "use fixture.name",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 66
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ac2c357_bd0fe34f",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-13T19:31:22Z",
+      "side": 1,
+      "message": "Should be possible to use GradleTestProject instead of creating a new JavaProject now.  Let me know if that\u0027s not the case.",
+      "range": {
+        "startLine": 164,
+        "startChar": 25,
+        "endLine": 164,
+        "endChar": 36
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba8dd3f4_20b52a74",
         "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
         "patchSetId": 2
