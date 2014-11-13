@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_9d66a7c7",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/DependencyCheckerTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T19:49:44Z",
+      "side": 1,
+      "message": "I think this way is best.",
+      "parentUuid": "7adfdb23_47f9a4e0",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ae6dfff_5ef8918c",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
         "patchSetId": 2
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_3d6e73f5",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T19:49:44Z",
+      "side": 1,
+      "message": "I prefer this being explicit, rather than inherited.",
+      "parentUuid": "3ac2c357_d722be99",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fab4abdf_fdbb23b2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
         "patchSetId": 2
@@ -107,6 +155,30 @@
       "side": 1,
       "message": "I would again argue that it\u0027s only the common case because of how our tests are structured in the past and we should not obscure the tasks that are executed by the tests.",
       "parentUuid": "fab4abdf_fdbb23b2",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ac2c357_fdd79bc9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T19:49:44Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s a simple way to avoid being careful that all the tests actually do something, but this is reasonable. If it were in a superclass then you have to inherit from it, which is less obvious than the empty test.",
+      "parentUuid": "7adfdb23_67d78051",
       "range": {
         "startLine": 40,
         "startChar": 3,
