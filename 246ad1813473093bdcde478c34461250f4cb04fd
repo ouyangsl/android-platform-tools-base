@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ae6dfff_5ef8918c",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-13T16:24:32Z",
+      "side": 1,
+      "message": "project itself is a TestRule, we should be able to move this common setup code to it\u0027s implementation. So that if you don\u0027t call .dontBuild() on GradleTestProject.builder(), it will automatically create the directory and build the project (which seems to be common case).",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fab4abdf_fdbb23b2",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-13T16:24:32Z",
+      "side": 1,
+      "message": "This can be extracted to an abstract superclass, to spare us the boilerplate in the common case. So that in most cases you only need to define the rule, and you inherit the empty test for free.",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 42,
+        "endChar": 5
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
