@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ac5b75b_a90245a6",
+        "filename": "build-system/docs/src/fromGradle/docs/css/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:05:36Z",
+      "side": 1,
+      "message": "It would be nice to format this, even if it is currently unchanged.",
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac5b75b_e9f19d74",
+        "filename": "build-system/docs/src/fromGradle/docs/css/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:05:36Z",
+      "side": 1,
+      "message": "Is a copyright notice needed?",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 15
+      },
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ac5b75b_69190d1c",
+        "filename": "build-system/docs/src/fromGradle/docs/css/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:05:36Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 206,
+        "startChar": 7,
+        "endLine": 206,
+        "endChar": 8
+      },
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ac2c357_fdc15bb9",
+        "filename": "build-system/docs/src/fromGradle/samples/announce/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:05:36Z",
+      "side": 1,
+      "message": "What is this for?",
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
