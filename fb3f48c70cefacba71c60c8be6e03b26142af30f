@@ -68,6 +68,30 @@
       "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_580a6515",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-13T21:59:24Z",
+      "side": 1,
+      "message": "I agree. It\u0027s not obvious what\u0027s going on when reading the test if you have to go look for constants somewhere else.",
+      "parentUuid": "3ac2c357_9a85cd9a",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 64
+      },
+      "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
