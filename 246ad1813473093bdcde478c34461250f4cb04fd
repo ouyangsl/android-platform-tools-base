@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "1ae6dfff_e101c22a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-13T19:55:16Z",
+      "side": 1,
+      "message": "Then maybe extract it to a method on project, project.cleanAndAssemble() so that if ever change the set of tasks to execute everywhere, it\u0027s easy to change.",
+      "parentUuid": "3ac2c357_3d6e73f5",
+      "range": {
+        "startLine": 37,
+        "startChar": 16,
+        "endLine": 37,
+        "endChar": 50
+      },
+      "revId": "246ad1813473093bdcde478c34461250f4cb04fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fab4abdf_fdbb23b2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/MultiDexTest.groovy",
         "patchSetId": 2
