@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_68d74b51",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:45:30Z",
+      "side": 1,
+      "message": "The original failure was only apparent using compile file or compile filetree.",
+      "parentUuid": "3ac2c357_ddeadf0a",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 67
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7adfdb23_678ce0c7",
         "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
         "patchSetId": 2
@@ -59,6 +83,30 @@
       "writtenOn": "2014-11-13T19:31:22Z",
       "side": 1,
       "message": "Is this necessary for the test?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_d269f468",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:45:30Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "7adfdb23_678ce0c7",
       "range": {
         "startLine": 90,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_28e473bb",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ac2c357_3df913e2",
+      "range": {
+        "startLine": 123,
+        "startChar": 17,
+        "endLine": 123,
+        "endChar": 66
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ac2c357_bd0fe34f",
         "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
         "patchSetId": 2
@@ -105,6 +177,30 @@
       "writtenOn": "2014-11-13T19:31:22Z",
       "side": 1,
       "message": "Should be possible to use GradleTestProject instead of creating a new JavaProject now.  Let me know if that\u0027s not the case.",
+      "range": {
+        "startLine": 164,
+        "startChar": 25,
+        "endLine": 164,
+        "endChar": 36
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ac2c357_48e9af92",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:45:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ac2c357_bd0fe34f",
       "range": {
         "startLine": 164,
         "startChar": 25,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "3afba387_d2a58442",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:45:30Z",
+      "side": 1,
+      "message": "Using gradleTestProject directly.",
+      "parentUuid": "ba8dd3f4_20b52a74",
+      "range": {
+        "startLine": 191,
+        "startChar": 20,
+        "endLine": 191,
+        "endChar": 27
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba8dd3f4_80b0b685",
         "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
         "patchSetId": 2
@@ -151,6 +271,30 @@
       "writtenOn": "2014-11-11T10:47:07Z",
       "side": 1,
       "message": "[\"-i\", \"-u\"] as String[]",
+      "range": {
+        "startLine": 201,
+        "startChar": 46,
+        "endLine": 201,
+        "endChar": 69
+      },
+      "revId": "d5a3edddcaf0add3f77c8884b9f2eed74b2c2128",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ac2c357_88e3c7b0",
+        "filename": "build-system/gradle/src/integ-test/groovy/com/android/build/gradle/ProguardAarPackagingTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-13T20:45:30Z",
+      "side": 1,
+      "message": "refactored.",
+      "parentUuid": "ba8dd3f4_80b0b685",
       "range": {
         "startLine": 201,
         "startChar": 46,
