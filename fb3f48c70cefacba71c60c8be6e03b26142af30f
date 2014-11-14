@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "da9e076c_4b68d917",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T02:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac5b75b_5ec5e968",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 91
+      },
+      "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa313b2_9fa4bf19",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T02:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ae9e3cf_1fd7e703",
+      "range": {
+        "startLine": 95,
+        "startChar": 39,
+        "endLine": 95,
+        "endChar": 45
+      },
+      "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ac2c357_9a85cd9a",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
         "patchSetId": 4
@@ -82,6 +130,54 @@
       "writtenOn": "2014-11-13T21:59:24Z",
       "side": 1,
       "message": "I agree. It\u0027s not obvious what\u0027s going on when reading the test if you have to go look for constants somewhere else.",
+      "parentUuid": "3ac2c357_9a85cd9a",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 64
+      },
+      "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa313b2_5f9b37d5",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T02:57:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7adfdb23_580a6515",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 64
+      },
+      "revId": "fb3f48c70cefacba71c60c8be6e03b26142af30f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa313b2_7fa0fb04",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T02:57:08Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "3ac2c357_9a85cd9a",
       "range": {
         "startLine": 107,
