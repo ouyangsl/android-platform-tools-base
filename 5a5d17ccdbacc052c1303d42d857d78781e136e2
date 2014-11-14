@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ae9e3cf_e2238244",
+        "filename": "build-system/docs/src/fromGradle/docs/css/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-14T14:19:05Z",
+      "side": 1,
+      "message": "I ran it through a formatter now :)",
+      "parentUuid": "5ac5b75b_a90245a6",
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ac5b75b_e9f19d74",
         "filename": "build-system/docs/src/fromGradle/docs/css/base.css",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2014-11-13T20:05:36Z",
       "side": 1,
       "message": "Is a copyright notice needed?",
+      "range": {
+        "startLine": 1,
+        "startChar": 2,
+        "endLine": 1,
+        "endChar": 15
+      },
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fab4abdf_83fd647e",
+        "filename": "build-system/docs/src/fromGradle/docs/css/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-14T14:19:05Z",
+      "side": 1,
+      "message": "I don\u0027t think so, it\u0027s in src/fromGradle dir and there\u0027s a matching README file that explains it was copied from Gradle and what the copyright is.",
+      "parentUuid": "5ac5b75b_e9f19d74",
       "range": {
         "startLine": 1,
         "startChar": 2,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "3ae9e3cf_2259ead6",
+        "filename": "build-system/docs/src/fromGradle/docs/css/base.css",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-14T14:19:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ac5b75b_69190d1c",
+      "range": {
+        "startLine": 206,
+        "startChar": 7,
+        "endLine": 206,
+        "endChar": 8
+      },
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ac2c357_fdc15bb9",
         "filename": "build-system/docs/src/fromGradle/samples/announce/build.gradle",
         "patchSetId": 5
@@ -76,6 +142,24 @@
       "writtenOn": "2014-11-13T20:05:36Z",
       "side": 1,
       "message": "What is this for?",
+      "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ae9e3cf_c2268657",
+        "filename": "build-system/docs/src/fromGradle/samples/announce/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-14T14:19:05Z",
+      "side": 1,
+      "message": "It\u0027s not needed, I massaged the gradle file a bit more and got rid of it.",
+      "parentUuid": "3ac2c357_fdc15bb9",
       "revId": "5a5d17ccdbacc052c1303d42d857d78781e136e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
