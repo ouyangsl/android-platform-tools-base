@@ -22,6 +22,30 @@
       "revId": "ec9872ae51db5b6febdb84c916541b2f9a1096dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba7cf3f1_8e29ff2a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T22:35:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "baa313b2_aa122374",
+      "range": {
+        "startLine": 119,
+        "startChar": 17,
+        "endLine": 119,
+        "endChar": 22
+      },
+      "revId": "ec9872ae51db5b6febdb84c916541b2f9a1096dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
