@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a972356_8f073940",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/ProguardAarPackagingTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-14T18:01:12Z",
+      "side": 1,
+      "message": "Please use @NonNull / @Nullable everywhere you can. IJ is really about telling you when you\u0027re passing something that could be null to a method that doesn\u0027t expect a null object.",
+      "range": {
+        "startLine": 129,
+        "startChar": 52,
+        "endLine": 129,
+        "endChar": 63
+      },
+      "revId": "f4c8d596aad502621d40a1ab05d703c0c329a291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
