@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "baa313b2_ff822b5c",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/ProguardAarPackagingTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T03:10:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da9e076c_344bfe89",
+      "range": {
+        "startLine": 30,
+        "startChar": 36,
+        "endLine": 30,
+        "endChar": 43
+      },
+      "revId": "7c0082a07f8590106d970cd9bc9460f6e9ac75de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7adfdb23_5868a517",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/ProguardAarPackagingTest.groovy",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7adfdb23_1e20c28f",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/ProguardAarPackagingTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T03:10:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7adfdb23_5868a517",
+      "range": {
+        "startLine": 33,
+        "startChar": 36,
+        "endLine": 33,
+        "endChar": 51
+      },
+      "revId": "7c0082a07f8590106d970cd9bc9460f6e9ac75de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "baa313b2_70a110b0",
         "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/ProguardAarPackagingTest.groovy",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2014-11-13T22:44:22Z",
       "side": 1,
       "message": "Perhaps rename to JavaApp?  App may not be a good name, but at least it won\u0027t be confused with GradleTestProject.\n\nAlso, consider just writing the file directly instead of create a new class.  It\u0027s seems clearer when you have only one file.  You can just do something like:\nlibInJarFixture.file(\"src/main/java/com/example/libinjar/LibInJar.java\") \u003c\u003c \"\"\"\n    ......\n\"\"\"",
+      "range": {
+        "startLine": 146,
+        "startChar": 25,
+        "endLine": 146,
+        "endChar": 36
+      },
+      "revId": "7c0082a07f8590106d970cd9bc9460f6e9ac75de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_fed4f6f9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/application/ProguardAarPackagingTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-11-14T03:10:28Z",
+      "side": 1,
+      "message": "Moved directly in as inner class was getting pointlessly small.",
+      "parentUuid": "baa313b2_70a110b0",
       "range": {
         "startLine": 146,
         "startChar": 25,
