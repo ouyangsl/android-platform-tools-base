@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a73f723_6e8203db",
+        "filename": "build-system/tests/regular/combinedAbiDensityPureSplits/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-15T00:41:15Z",
+      "side": 1,
+      "message": "Use this?\n    buildToolsVersion \u003d rootProject.ext.buildToolsVersion",
+      "range": {
+        "startLine": 23,
+        "startChar": 24,
+        "endLine": 23,
+        "endChar": 101
+      },
+      "revId": "1895410207bb881ddfa085ba754600d35e5ffe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8d1b44_b818b667",
         "filename": "build-system/tests/regular/ndkJniPureSplitLib/build.gradle",
         "patchSetId": 1
@@ -25,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a73f723_ee92732a",
+        "filename": "build-system/tests/regular/ndkJniPureSplitLib/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-15T00:41:15Z",
+      "side": 1,
+      "message": "The change should be done in app/build.gradle with \"buildToolsVersion \u003d rootProject.ext.buildToolsVersion\"",
+      "parentUuid": "7a8d1b44_b818b667",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "1895410207bb881ddfa085ba754600d35e5ffe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a73f723_2e6e4bf5",
         "filename": "build-system/tests/regular/pseudolocalized/build.gradle",
         "patchSetId": 1
@@ -36,6 +83,30 @@
       "writtenOn": "2014-11-15T00:32:52Z",
       "side": 1,
       "message": "Not sure if this will fix it but it\u0027s currently failing.",
+      "range": {
+        "startLine": 2,
+        "startChar": 4,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "1895410207bb881ddfa085ba754600d35e5ffe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ab25f12_7e092d9c",
+        "filename": "build-system/tests/regular/pseudolocalized/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-15T00:41:15Z",
+      "side": 1,
+      "message": "Pretty sure it won\u0027t.  It\u0027s already checking the environment variable as you can see below.  I will take a look at it.",
+      "parentUuid": "5a73f723_2e6e4bf5",
       "range": {
         "startLine": 2,
         "startChar": 4,
