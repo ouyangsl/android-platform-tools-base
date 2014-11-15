@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a73f723_4e1627b6",
+        "filename": "build-system/tests/regular/combinedAbiDensityPureSplits/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1021789
+      },
+      "writtenOn": "2014-11-15T01:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a73f723_6e8203db",
+      "range": {
+        "startLine": 23,
+        "startChar": 24,
+        "endLine": 23,
+        "endChar": 101
+      },
+      "revId": "1895410207bb881ddfa085ba754600d35e5ffe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a8d1b44_b818b667",
         "filename": "build-system/tests/regular/ndkJniPureSplitLib/build.gradle",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "7a8d1b44_0e31800a",
+        "filename": "build-system/tests/regular/ndkJniPureSplitLib/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1021789
+      },
+      "writtenOn": "2014-11-15T01:03:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a73f723_ee92732a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "1895410207bb881ddfa085ba754600d35e5ffe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a73f723_2e6e4bf5",
         "filename": "build-system/tests/regular/pseudolocalized/build.gradle",
         "patchSetId": 1
@@ -107,6 +155,30 @@
       "side": 1,
       "message": "Pretty sure it won\u0027t.  It\u0027s already checking the environment variable as you can see below.  I will take a look at it.",
       "parentUuid": "5a73f723_2e6e4bf5",
+      "range": {
+        "startLine": 2,
+        "startChar": 4,
+        "endLine": 2,
+        "endChar": 21
+      },
+      "revId": "1895410207bb881ddfa085ba754600d35e5ffe6b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ab25f12_215b8a42",
+        "filename": "build-system/tests/regular/pseudolocalized/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1021789
+      },
+      "writtenOn": "2014-11-15T01:03:18Z",
+      "side": 1,
+      "message": "updated to match others.",
+      "parentUuid": "1ab25f12_7e092d9c",
       "range": {
         "startLine": 2,
         "startChar": 4,
