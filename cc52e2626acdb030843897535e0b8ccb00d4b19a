@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aa857a2_7d19376a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/test/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-11-16T22:57:57Z",
+      "side": 1,
+      "message": "I suggest we make this method private (and call it doExecute?) - the execute(...) and executeAndReturnModel(...) methods form a nicer API for tests then a boolean argument.",
+      "range": {
+        "startLine": 324,
+        "startChar": 4,
+        "endLine": 324,
+        "endChar": 10
+      },
+      "revId": "cc52e2626acdb030843897535e0b8ccb00d4b19a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
