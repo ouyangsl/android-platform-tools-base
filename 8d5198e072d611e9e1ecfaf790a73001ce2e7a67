@@ -16,6 +16,24 @@
       "revId": "8d5198e072d611e9e1ecfaf790a73001ce2e7a67",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa974b5c_656400bf",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-16T18:59:40Z",
+      "side": 1,
+      "message": "We already have a type, it\u0027s ClassField (which granted isn\u0027t great for resValue). \nThe problem here is that the list contains either ClassField (for actual values), or Strings (for comments).",
+      "parentUuid": "fa974b5c_85b5c4c3",
+      "revId": "8d5198e072d611e9e1ecfaf790a73001ce2e7a67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
