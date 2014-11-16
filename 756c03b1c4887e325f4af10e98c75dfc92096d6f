@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9abf2fde_7da5af12",
+        "filename": ".idea/modules.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-16T01:00:53Z",
+      "side": 1,
+      "message": "blame IJ 14 on this ?!?",
+      "range": {
+        "startLine": 33,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 9
+      },
+      "revId": "756c03b1c4887e325f4af10e98c75dfc92096d6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
