@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa974b5c_85b5c4c3",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1666,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-16T16:32:53Z",
+      "side": 1,
+      "message": "can you add a comment that this should be more typed. I think we should have a ResValue type with a ResType enum (VARIANT_TYPE, BUILT_TYPE).\nthis method can then be changed to List\u003cResValue\u003e. I can do that in a subsequent CL so assign it to me.",
+      "revId": "8d5198e072d611e9e1ecfaf790a73001ce2e7a67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
