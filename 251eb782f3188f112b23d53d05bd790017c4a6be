@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aa857a2_3d13afca",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-17T11:50:26Z",
+      "side": 1,
+      "message": "typo in circular",
+      "revId": "251eb782f3188f112b23d53d05bd790017c4a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa153bc_60b8724a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RelativeOverlapDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-17T11:50:26Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "251eb782f3188f112b23d53d05bd790017c4a6be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
