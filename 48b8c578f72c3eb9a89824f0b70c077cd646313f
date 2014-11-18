@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2db728_e9723d86",
+        "filename": "build-system/gradle/build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-18T19:08:56Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to keep this.",
+      "range": {
+        "startLine": 87,
+        "startChar": 1,
+        "endLine": 87,
+        "endChar": 15
+      },
+      "revId": "48b8c578f72c3eb9a89824f0b70c077cd646313f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
