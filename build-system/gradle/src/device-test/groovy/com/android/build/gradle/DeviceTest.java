@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (e63ab1 Merge "Add --minimal-main-dex for legacy multidex mode." int)
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
@@ -211,3 +212,5 @@ public class DeviceTest extends BuildTest {
         }
     }
 }
+=======
+>>>>>>> BRANCH (dd434f Merge "Migrate all non manual build test to integration-test)
