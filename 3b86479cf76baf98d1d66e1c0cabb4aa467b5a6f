@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a30bb7e_c58164d6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/LibraryExtension.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-18T18:31:00Z",
+      "side": 1,
+      "message": "Sorry, use of BasePlugin is intentional for gradle-dev.  The new plugin shares the extension with our current one.  It seems to still work just because we are using groovy.",
+      "range": {
+        "startLine": 38,
+        "startChar": 21,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "3b86479cf76baf98d1d66e1c0cabb4aa467b5a6f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
