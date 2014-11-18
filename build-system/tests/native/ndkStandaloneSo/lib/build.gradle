@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (f31b4d Merge "Ensure that file deletion incremental logic use prope)
 apply plugin: 'com.android.native'
 
 model {
@@ -6,3 +7,5 @@ model {
         moduleName "hello-jni"
     }
 }
+=======
+>>>>>>> BRANCH (5aae48 Merge changes I2231ba66,I89dcd18f into studio-1.0-dev autome)
