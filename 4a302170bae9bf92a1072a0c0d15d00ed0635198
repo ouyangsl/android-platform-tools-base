@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ad56f7b_566e1a9f",
+        "filename": "build-system/integration-test/samples/densitySplit/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-19T22:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad66b81_9e138dfd",
+      "range": {
+        "startLine": 23,
+        "startChar": 32,
+        "endLine": 23,
+        "endChar": 83
+      },
+      "revId": "4a302170bae9bf92a1072a0c0d15d00ed0635198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad66b81_7e0df9d5",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da69a7a3_1f3e8bff",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-19T22:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad66b81_7e0df9d5",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 73
+      },
+      "revId": "4a302170bae9bf92a1072a0c0d15d00ed0635198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ad56f7b_50a6224e",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2014-11-19T20:56:10Z",
       "side": 1,
       "message": "Collections.singletonMap?",
+      "range": {
+        "startLine": 62,
+        "startChar": 31,
+        "endLine": 62,
+        "endChar": 77
+      },
+      "revId": "4a302170bae9bf92a1072a0c0d15d00ed0635198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad56f7b_163dc2b1",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-19T22:26:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ad56f7b_50a6224e",
       "range": {
         "startLine": 62,
         "startChar": 31,
