@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a55ffac_c0c61f26",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1295,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-19T16:40:55Z",
+      "side": 1,
+      "message": "please keep using the new method here.",
+      "range": {
+        "startLine": 1295,
+        "startChar": 56,
+        "endLine": 1295,
+        "endChar": 67
+      },
+      "revId": "0372418fe1e86886aa2113a5782c3b82c3c9bb4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
