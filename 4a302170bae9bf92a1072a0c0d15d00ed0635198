@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad66b81_9e138dfd",
+        "filename": "build-system/integration-test/samples/densitySplit/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-19T20:56:10Z",
+      "side": 1,
+      "message": "Since it\u0027s a samples, it\u0027s not great to put this in.\n\nAlso we control how the samples is run so this is not really needed. That said, we should output a warning when using density splits and build tools \u003c 21 as the behavior is not great.",
+      "range": {
+        "startLine": 23,
+        "startChar": 32,
+        "endLine": 23,
+        "endChar": 83
+      },
+      "revId": "4a302170bae9bf92a1072a0c0d15d00ed0635198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad66b81_7e0df9d5",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-19T20:56:10Z",
+      "side": 1,
+      "message": "don\u0027t do that here, do it in setup. Did you mean to build the release versions as well?",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 73
+      },
+      "revId": "4a302170bae9bf92a1072a0c0d15d00ed0635198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ad56f7b_50a6224e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-19T20:56:10Z",
+      "side": 1,
+      "message": "Collections.singletonMap?",
+      "range": {
+        "startLine": 62,
+        "startChar": 31,
+        "endLine": 62,
+        "endChar": 77
+      },
+      "revId": "4a302170bae9bf92a1072a0c0d15d00ed0635198",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
