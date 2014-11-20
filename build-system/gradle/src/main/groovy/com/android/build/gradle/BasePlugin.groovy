@@ -205,9 +205,15 @@ import static java.io.File.separator
 public abstract class BasePlugin {
     public final static String DIR_BUNDLES = "bundles";
 
+<<<<<<< HEAD   (1ae605 Merge "Support AndroidTestApp from GradleTestProject" into s)
     private static final String GRADLE_MIN_VERSION = "2.3-20141027230029+0000"
     public static final String GRADLE_TEST_VERSION = "2.3-20141027230029+0000"
     public static final String[] GRADLE_SUPPORTED_VERSIONS = [ GRADLE_MIN_VERSION, "2.2" ]
+=======
+    private static final String GRADLE_MIN_VERSION = "2.1"
+    public static final String GRADLE_TEST_VERSION = "2.2"
+    public static final String[] GRADLE_SUPPORTED_VERSIONS = [ GRADLE_MIN_VERSION, "2.2", "2.2.1" ]
+>>>>>>> BRANCH (07fde4 Merge "Update version to 0.14.4" into studio-1.0-dev automer)
 
     public static final String INSTALL_GROUP = "Install"
 
@@ -3460,9 +3466,11 @@ public abstract class BasePlugin {
 
                     // cannot throw this yet, since depending on a secondary artifact in an
                     // Android app will trigger getting the main APK as well.
-//                    throw new GradleException(
-//                            "Dependency ${name} on project ${project.name} resolves to an APK archive which is not supported" +
-//                                    " as a compilation dependency. File: " + artifact.file)
+                    throw new GradleException(
+                            "Dependency ${name} on project ${project.name} resolves to an APK"
+                                    + " archive which is not supported"
+                                    + " as a compilation dependency. File: "
+                                    + artifact.file)
                 }
             }
 
