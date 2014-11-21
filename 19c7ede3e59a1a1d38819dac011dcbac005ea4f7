@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf586542_17cbbe2e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DslTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-21T22:24:59Z",
+      "side": 1,
+      "message": "what\u0027s foo2?\n\nAlso wouldn\u0027t the property access fail anyway and then we never get here?",
+      "range": {
+        "startLine": 95,
+        "startChar": 94,
+        "endLine": 95,
+        "endChar": 98
+      },
+      "revId": "19c7ede3e59a1a1d38819dac011dcbac005ea4f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
