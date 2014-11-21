@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf3f85b4_d3c66654",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 3467,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-21T18:07:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff5e5d2a_8dd685cf",
+      "range": {
+        "startLine": 3467,
+        "startChar": 11,
+        "endLine": 3467,
+        "endChar": 16
+      },
+      "revId": "a93d7e25a527c01c597f65f66820d1bcdb831f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f5d6134_ea960753",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-11-21T17:11:45Z",
       "side": 1,
       "message": "we should output a better error here. It should include the full artifact address, and explain the problem in more details since people won\u0027t understand where this directory comes from.",
+      "range": {
+        "startLine": 3474,
+        "startChar": 15,
+        "endLine": 3474,
+        "endChar": 73
+      },
+      "revId": "a93d7e25a527c01c597f65f66820d1bcdb831f43",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f5d6134_8db445f5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 3474,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-21T18:07:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f5d6134_ea960753",
       "range": {
         "startLine": 3474,
         "startChar": 15,
