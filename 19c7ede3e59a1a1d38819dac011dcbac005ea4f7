@@ -22,6 +22,30 @@
       "revId": "19c7ede3e59a1a1d38819dac011dcbac005ea4f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f97cd02_ed4e5134",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DslTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-21T22:47:50Z",
+      "side": 1,
+      "message": "yes we would have failed the test but given a wrong message !\n\nI want to be make sure that yes the property access worked AND we got the right value back.",
+      "parentUuid": "bf586542_17cbbe2e",
+      "range": {
+        "startLine": 95,
+        "startChar": 94,
+        "endLine": 95,
+        "endChar": 98
+      },
+      "revId": "19c7ede3e59a1a1d38819dac011dcbac005ea4f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
