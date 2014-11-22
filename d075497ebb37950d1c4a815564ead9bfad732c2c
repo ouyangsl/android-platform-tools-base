@@ -22,6 +22,30 @@
       "revId": "d075497ebb37950d1c4a815564ead9bfad732c2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa1d55e_90224417",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/library/DslTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-11-22T01:27:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f9ed122_fe935d60",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 11
+      },
+      "revId": "d075497ebb37950d1c4a815564ead9bfad732c2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
