@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f9ed122_fe935d60",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/library/DslTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-11-22T00:05:34Z",
+      "side": 1,
+      "message": "nit: rename flavor to something other than \u0027foo\u0027 to get better test on the error message.",
+      "range": {
+        "startLine": 99,
+        "startChar": 8,
+        "endLine": 99,
+        "endChar": 11
+      },
+      "revId": "d075497ebb37950d1c4a815564ead9bfad732c2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
