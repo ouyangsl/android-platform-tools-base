@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa1d55e_f19dcaf6",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1059803
+      },
+      "writtenOn": "2014-11-24T04:22:01Z",
+      "side": 1,
+      "message": "Avoid calling Objects.hashCode(objects) for a single arg, as this will create a new Object[] array every time it is called. In addition, this method is deprecated in favor of java.util.Objects.hash(objects).\n\nAdvise using java.util.Objects.hashCode(object) if this source is Java-7, or just hand-code this simple computation.\n\nAlso consider hand-coding the hashCode in Field.",
+      "range": {
+        "startLine": 181,
+        "startChar": 42,
+        "endLine": 181,
+        "endChar": 44
+      },
+      "revId": "fc8f9dd23bfc0dd527fc37f8c09fddb8d3222df8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
