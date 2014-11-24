@@ -22,6 +22,30 @@
       "revId": "fc8f9dd23bfc0dd527fc37f8c09fddb8d3222df8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fc2091f_103baa61",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2014-11-24T19:04:10Z",
+      "side": 1,
+      "message": "We can\u0027t use Java 7 yet, so I reverted to simply calling hashCode on mClassName.",
+      "parentUuid": "3fa1d55e_f19dcaf6",
+      "range": {
+        "startLine": 181,
+        "startChar": 42,
+        "endLine": 181,
+        "endChar": 44
+      },
+      "revId": "fc8f9dd23bfc0dd527fc37f8c09fddb8d3222df8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
