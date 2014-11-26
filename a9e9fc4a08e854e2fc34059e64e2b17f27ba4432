@@ -16,6 +16,24 @@
       "revId": "a9e9fc4a08e854e2fc34059e64e2b17f27ba4432",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f692905_afdce571",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ResourceUsageAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-11-26T19:21:40Z",
+      "side": 1,
+      "message": "(Chatted offline: this is specific to actual letters and will return false for various non formatting characters like _).",
+      "parentUuid": "5f692905_69d5ad77",
+      "revId": "a9e9fc4a08e854e2fc34059e64e2b17f27ba4432",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
