@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f692905_69d5ad77",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/ResourceUsageAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 998,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-11-26T18:29:00Z",
+      "side": 1,
+      "message": "why not renaming hasEscapedLetters into hasNonFormattingChars. EscapedLetters seem to carry a different meaning to me.",
+      "revId": "a9e9fc4a08e854e2fc34059e64e2b17f27ba4432",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
