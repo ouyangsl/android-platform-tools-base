@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff99fd83_357e9ada",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/Main.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-12-01T17:53:04Z",
+      "side": 1,
+      "message": "I extracted this bug fix part out in a separate CL:\nhttps://android-review.googlesource.com/#/c/116905/",
+      "parentUuid": "fa83cbc2_22c76e24",
+      "revId": "d4789e967559fa167bacf14433a8655a2cbfbcef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba8dd3f4_2019aa1c",
         "filename": "lint/cli/src/main/java/com/android/tools/lint/Warning.java",
         "patchSetId": 1
