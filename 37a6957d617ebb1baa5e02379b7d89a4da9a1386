@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fcb3196_ad35517d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-12-02T23:47:29Z",
+      "side": 1,
+      "message": "I don\u0027t have context here but we have some helper methods to sort devices for presentation, e.g. HardwareConfigHelper#sortNexusList. Take a look at DeviceMenuAction which is where the devices for the layout editor\u0027s Device menu are sorted.",
+      "revId": "37a6957d617ebb1baa5e02379b7d89a4da9a1386",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
