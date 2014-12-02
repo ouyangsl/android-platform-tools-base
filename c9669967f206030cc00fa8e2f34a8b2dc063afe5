@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fb555f8_b0da4076",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PackagingOptionsTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-02T02:14:34Z",
+      "side": 0,
+      "message": "Removing this unnecessary print and splitting the test into two, but this it just cleanup and has nothing to do with Truth.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "c9669967f206030cc00fa8e2f34a8b2dc063afe5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fb555f8_653cfc04",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PackagingOptionsTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-02T02:14:34Z",
+      "side": 1,
+      "message": "Future version should have a shortcut that looks like: assertAbout(zipFile()).that...",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 34
+      },
+      "revId": "41a91fc8e3aea065176da4f5c9d4c4274af8c141",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
