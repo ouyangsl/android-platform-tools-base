@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1fcb3196_4760de2a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-02T22:42:39Z",
+      "side": 1,
+      "message": "Is there suppose to be a test like that for densitySplitInL in ManualBuildTest?",
+      "parentUuid": "5fd1293e_f892ede2",
+      "revId": "006e7716c002fed650c8e1fdaf56704bd0a0e44b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fcb3196_56b1b2d4",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/utils/ApkHelper.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2014-12-02T20:13:33Z",
       "side": 1,
       "message": "add /* versionName */ after null so we know what this null represents.",
+      "revId": "006e7716c002fed650c8e1fdaf56704bd0a0e44b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fd1293e_befd7d15",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/utils/ApkHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-02T22:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fcb3196_56b1b2d4",
       "revId": "006e7716c002fed650c8e1fdaf56704bd0a0e44b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "1fcb3196_67b75a5b",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/utils/ApkHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-02T22:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fce35a4_fa466180",
+      "revId": "006e7716c002fed650c8e1fdaf56704bd0a0e44b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fd1293e_98b8996c",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/utils/SdkHelper.java",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2014-12-02T20:13:33Z",
       "side": 1,
       "message": "the revision should not be hardcoded.\n\ntake the code from :\nhttps://cs.corp.google.com/#android/tools/base/build-system/builder/src/test/java/com/android/builder/png/NinePatchAaptProcessorTest.java\u0026q\u003dNinePatchAaptProcessorTest.java\u0026l\u003d98\n\nand make all current similar code use this new facility.",
+      "revId": "006e7716c002fed650c8e1fdaf56704bd0a0e44b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fd1293e_9e02c179",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/utils/SdkHelper.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-02T22:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fd1293e_98b8996c",
       "revId": "006e7716c002fed650c8e1fdaf56704bd0a0e44b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
