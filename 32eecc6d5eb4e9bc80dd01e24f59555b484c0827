@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5fd68940_a702f678",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 3426,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-03T22:07:30Z",
+      "side": 1,
+      "message": "I think here if the classifier is empty we should just ignore it, since it\u0027s optional to start with?",
+      "range": {
+        "startLine": 3426,
+        "startChar": 32,
+        "endLine": 3426,
+        "endChar": 91
+      },
+      "revId": "32eecc6d5eb4e9bc80dd01e24f59555b484c0827",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
