@@ -68,6 +68,30 @@
       "revId": "b11a680bb406807e0691f7ab62c5af1a2822bad0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ffc75c4_64ae4aaa",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-03T16:52:43Z",
+      "side": 1,
+      "message": "Quite the opposite - we want to re-use all the logic for handling dependencies, so that a library that is only used in \"paid\" flavor is visible in unit tests for the \"paid\" flavor.\n\nThis creates some unnecessary tasks, but we need the properly configured JavaCompile task for unit tests. In the next CL I added a TODO to not create tasks like \"uninstallDebugUnitTest\", I just wanted to get something working first, before refactoring further.",
+      "parentUuid": "9ff481d2_b530e88d",
+      "range": {
+        "startLine": 233,
+        "startChar": 60,
+        "endLine": 233,
+        "endChar": 72
+      },
+      "revId": "b11a680bb406807e0691f7ab62c5af1a2822bad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
