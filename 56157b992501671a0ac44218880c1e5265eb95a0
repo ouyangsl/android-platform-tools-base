@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ffc75c4_04daf69b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 1015381
+      },
+      "writtenOn": "2014-12-04T10:22:37Z",
+      "side": 1,
+      "message": "-Xmx here. Did not catch that before. Sorry.",
+      "range": {
+        "startLine": 1405,
+        "startChar": 25,
+        "endLine": 1405,
+        "endChar": 30
+      },
+      "revId": "56157b992501671a0ac44218880c1e5265eb95a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
