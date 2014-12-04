@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff081ddb_9a5c4dc6",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/SigningConfigTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-04T23:24:57Z",
+      "side": 1,
+      "message": "with _injected_ signing config",
+      "range": {
+        "startLine": 45,
+        "startChar": 25,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "73ed54efbd4871549ceb8461979137405ea676f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
