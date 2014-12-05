@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5f3a09aa_2df08da1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1035053
+      },
+      "writtenOn": "2014-12-05T19:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f44113a_0b657d04",
+      "revId": "f981fc7af74c418eff9774aa16f2c65bbbd16cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f3d0d9e_eeae7f78",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-12-05T19:27:05Z",
       "side": 1,
       "message": "Wrong constant used here.",
+      "revId": "f981fc7af74c418eff9774aa16f2c65bbbd16cce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f3a09aa_4dedd9c8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1035053
+      },
+      "writtenOn": "2014-12-05T19:28:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f3d0d9e_eeae7f78",
       "revId": "f981fc7af74c418eff9774aa16f2c65bbbd16cce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
