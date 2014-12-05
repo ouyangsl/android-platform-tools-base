@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fbc8133_32ae0ea9",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 773,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-05T03:43:26Z",
+      "side": 1,
+      "message": "put this in a separate test in the integration-test project.",
+      "range": {
+        "startLine": 773,
+        "startChar": 16,
+        "endLine": 773,
+        "endChar": 56
+      },
+      "revId": "46a7103e62b1df66d0f8de43aa30ca672f02d602",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
