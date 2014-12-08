@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a48dbaf4_8064368e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/TestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-08T12:31:14Z",
+      "side": 1,
+      "message": "Reverted, we can discuss this in a separate CL.",
+      "parentUuid": "bfef85fe_19380fbe",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "b11a680bb406807e0691f7ab62c5af1a2822bad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fcb3196_5ff3fe7d",
         "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-12-03T01:52:46Z",
       "side": 1,
       "message": "I\u0027m not sure if there\u0027s a point in changing this. It\u0027s not like the pure unit test will have a (manifest) package name. It would be better maybe to keep this as .test",
+      "range": {
+        "startLine": 472,
+        "startChar": 73,
+        "endLine": 472,
+        "endChar": 84
+      },
+      "revId": "b11a680bb406807e0691f7ab62c5af1a2822bad0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64974203_7e0e71dc",
+        "filename": "build-system/gradle-model/src/test/java/com/android/build/gradle/model/AndroidProjectTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-08T12:31:14Z",
+      "side": 1,
+      "message": "Reverted, I understand this would also break existing tests people have.",
+      "parentUuid": "1fcb3196_5ff3fe7d",
       "range": {
         "startLine": 472,
         "startChar": 73,
