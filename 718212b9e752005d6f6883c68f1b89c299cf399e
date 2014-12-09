@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a48dbaf4_434b98a8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-09T11:45:43Z",
+      "side": 1,
+      "message": "See the fixTestTaskSources method for the explanation. I changed it to just use dynamic calls, this at least gets rid of the import.\n\nI copied the \"fix\" from robolectric plugin, for now I don\u0027t have a better idea on how to fix it.",
+      "parentUuid": "c488eee4_20567f58",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 81
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c488eee4_03dfc56e",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 4
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "04ccc652_abb7c9f4",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-09T11:45:43Z",
+      "side": 1,
+      "message": "Yes, I noticed that. I believe we should be consistent and use our source sets everywhere until we can stop using them.\n\nThe plan is to have tasks only for compiling Java, so it shouldn\u0027t matter.",
+      "parentUuid": "a4dbfa04_10e2c458",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 125
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c488eee4_c32d5dae",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantData.java",
         "patchSetId": 4
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "a48dbaf4_66190aa4",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-09T11:45:43Z",
+      "side": 1,
+      "message": "My thinking here was that eventually I will extract a VariantType interface, that external plugins (like Robolectric) can use to create new \"test types\". This way we make our plugin extensible, but do all the integration work outside (i.e. robolectic plugin).",
+      "parentUuid": "c488eee4_c32d5dae",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 79
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4dbfa04_90b47443",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantData.java",
         "patchSetId": 4
@@ -105,6 +177,30 @@
       "writtenOn": "2014-12-09T01:16:37Z",
       "side": 1,
       "message": "shouldn\u0027t this be android test?",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 36
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04ccc652_2ba3d9b4",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-09T11:45:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4dbfa04_90b47443",
       "range": {
         "startLine": 62,
         "startChar": 26,
