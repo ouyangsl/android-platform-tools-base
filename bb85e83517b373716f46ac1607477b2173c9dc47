@@ -16,6 +16,24 @@
       "revId": "bb85e83517b373716f46ac1607477b2173c9dc47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44ab1e57_e502d630",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-09T20:07:02Z",
+      "side": 1,
+      "message": "Yup, done in the next CL.",
+      "parentUuid": "84b996ac_8d27851c",
+      "revId": "bb85e83517b373716f46ac1607477b2173c9dc47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
