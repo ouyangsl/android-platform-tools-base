@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "047766c2_f96fef64",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1035053
+      },
+      "writtenOn": "2014-12-09T16:41:36Z",
+      "side": 1,
+      "message": "If there was an exception in the \"setup\" code above, environment.cleanup() would not get called, but that might not be an issue if environment is mostly empty until the attempt to compile.",
+      "revId": "55483bf254d240b5e4937119bf2f2df9ae88bda5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
