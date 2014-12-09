@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "84927610_45ccfe97",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-09T15:03:00Z",
+      "side": 1,
+      "message": "See http://r.android.com/118423 for a fix in a separate CL.",
+      "parentUuid": "c488eee4_03dfc56e",
+      "range": {
+        "startLine": 1543,
+        "startChar": 16,
+        "endLine": 1543,
+        "endChar": 38
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4dbfa04_10e2c458",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
         "patchSetId": 4
