@@ -34,6 +34,24 @@
       "revId": "55483bf254d240b5e4937119bf2f2df9ae88bda5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84e0b6b0_9239da14",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1035053
+      },
+      "writtenOn": "2014-12-09T16:49:10Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "e4ba529b_ea09474e",
+      "revId": "55483bf254d240b5e4937119bf2f2df9ae88bda5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
