@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "447dde9e_e4b0a401",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1035053
+      },
+      "writtenOn": "2014-12-09T16:26:58Z",
+      "side": 1,
+      "message": "As this is a \"close like\" method, should this be in a finally block?",
+      "revId": "2c5928867c5554130160f7542f409dd012e89b93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
