@@ -16,6 +16,24 @@
       "revId": "55483bf254d240b5e4937119bf2f2df9ae88bda5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4ba529b_ea09474e",
+        "filename": "lint/cli/src/main/java/com/android/tools/lint/EcjParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-12-09T16:46:36Z",
+      "side": 1,
+      "message": "Yeah, there shouldn\u0027t be (not only shouldn\u0027t that code throw any exceptions (it\u0027s simple setup code) but the environment is initialized lazily during compile",
+      "parentUuid": "047766c2_f96fef64",
+      "revId": "55483bf254d240b5e4937119bf2f2df9ae88bda5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
