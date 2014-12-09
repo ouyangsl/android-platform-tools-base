@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c488eee4_e3b741f4",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/MockableJarGenerator.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-09T01:19:36Z",
+      "side": 1,
+      "message": "If the option is false, we should change the message of the exception being thrown to read \"Method not moked\" or something.",
+      "range": {
+        "startLine": 46,
+        "startChar": 18,
+        "endLine": 47,
+        "endChar": 30
+      },
+      "revId": "c6a1a5f76c6b4f76ec75f1c62c141a682e8cc408",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
