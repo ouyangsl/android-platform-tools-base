@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c488eee4_20567f58",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-09T01:16:37Z",
+      "side": 1,
+      "message": "do we need this? internal API is bad (yeah I know we\u0027re using ProjectInternal and we should stop)",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 81
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c488eee4_03dfc56e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 1543,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-09T01:16:37Z",
+      "side": 1,
+      "message": "is this really meant to create tasks for both tests? For unit tests we really only need to create the java compile task and the process (java) res.",
+      "range": {
+        "startLine": 1543,
+        "startChar": 16,
+        "endLine": 1543,
+        "endChar": 38
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4dbfa04_10e2c458",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-09T01:16:37Z",
+      "side": 1,
+      "message": "This will create an Android source set for the unit test when really we only care about the java stuff. This is probably fine until we move to the new model where we can reuse regular java sourcesets, but I wanted to point it out.",
+      "range": {
+        "startLine": 181,
+        "startChar": 8,
+        "endLine": 181,
+        "endChar": 125
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c488eee4_c32d5dae",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-09T01:16:37Z",
+      "side": 1,
+      "message": "is it useful to have a map. We have only 2 types for now...",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 79
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4dbfa04_90b47443",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-09T01:16:37Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be android test?",
+      "range": {
+        "startLine": 62,
+        "startChar": 26,
+        "endLine": 62,
+        "endChar": 36
+      },
+      "revId": "718212b9e752005d6f6883c68f1b89c299cf399e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
