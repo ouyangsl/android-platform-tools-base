@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "447dde9e_8ff789eb",
+        "filename": "build-system/integration-test/test-projects/unitTesting/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-09T19:02:05Z",
+      "side": 1,
+      "message": "Just use:\n    compileSdkVersion 21\n    buildToolsVersion \u003d rootProject.ext.buildToolsVersion\n?\nOr is there any reason to target specific sdk?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "447dde9e_6f19cda3",
+        "filename": "build-system/integration-test/test-projects/unitTesting/src/test/java/com/android/tests/UnitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-09T19:02:05Z",
+      "side": 1,
+      "message": "This would not run at all, right?\nWe can add a fail() to make sure it doesn\u0027t run.",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
