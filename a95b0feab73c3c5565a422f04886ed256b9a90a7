@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "047766c2_fc027d30",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 3116,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-09T18:51:59Z",
+      "side": 1,
+      "message": "Why add BUILD_GROUP to the compile tasks?  This will cause it to show up on the task list.",
+      "range": {
+        "startLine": 3116,
+        "startChar": 40,
+        "endLine": 3116,
+        "endChar": 51
+      },
+      "revId": "a95b0feab73c3c5565a422f04886ed256b9a90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
