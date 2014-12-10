@@ -46,6 +46,30 @@
       "revId": "a95b0feab73c3c5565a422f04886ed256b9a90a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d5ba01_40518e59",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 3116,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-10T18:56:07Z",
+      "side": 1,
+      "message": "Hmm...that means none of our tasks depends on it.  Xav, should this show up in the task list?  I know studio runs this, so it might make sense for users to see it as well and use it to test if their project compiles.  But it clusters the task lists.",
+      "parentUuid": "e4fdf273_92adbca8",
+      "range": {
+        "startLine": 3116,
+        "startChar": 40,
+        "endLine": 3116,
+        "endChar": 51
+      },
+      "revId": "a95b0feab73c3c5565a422f04886ed256b9a90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
