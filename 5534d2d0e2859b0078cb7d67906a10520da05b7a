@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64abc29e_9e3e3ddd",
+        "filename": "sdklib/sdklib.iml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-10T23:57:47Z",
+      "side": 1,
+      "message": "you can\u0027t use util inside tools/base projects.\n\nWhen editing anything inside tools/base, you should open the idea project at tools/base. That\u0027ll also have the appropriate formatting rules specified.",
+      "range": {
+        "startLine": 19,
+        "startChar": 43,
+        "endLine": 19,
+        "endChar": 47
+      },
+      "revId": "5534d2d0e2859b0078cb7d67906a10520da05b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
