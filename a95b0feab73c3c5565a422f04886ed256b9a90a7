@@ -22,6 +22,30 @@
       "revId": "a95b0feab73c3c5565a422f04886ed256b9a90a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4fdf273_92adbca8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 3116,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-10T10:20:42Z",
+      "side": 1,
+      "message": "They show up anyway (in the output of gradle tasks), only under \"other tasks\", so that\u0027s why I added the group.",
+      "parentUuid": "047766c2_fc027d30",
+      "range": {
+        "startLine": 3116,
+        "startChar": 40,
+        "endLine": 3116,
+        "endChar": 51
+      },
+      "revId": "a95b0feab73c3c5565a422f04886ed256b9a90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
