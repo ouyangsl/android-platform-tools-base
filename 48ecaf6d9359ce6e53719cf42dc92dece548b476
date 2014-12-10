@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "44eebec7_d0c1022c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 2244,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-10T20:59:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "842516f1_5b12434e",
+      "range": {
+        "startLine": 2241,
+        "startChar": 0,
+        "endLine": 2244,
+        "endChar": 19
+      },
+      "revId": "48ecaf6d9359ce6e53719cf42dc92dece548b476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d5ba01_00d6a6d5",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/TestedVariantData.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-12-10T18:39:47Z",
       "side": 1,
       "message": "What is this change for?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "48ecaf6d9359ce6e53719cf42dc92dece548b476",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44eebec7_308e8614",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/TestedVariantData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-10T20:59:47Z",
+      "side": 1,
+      "message": "Line 1987 in BasePlugin.",
+      "parentUuid": "a4d5ba01_00d6a6d5",
       "range": {
         "startLine": 31,
         "startChar": 0,
