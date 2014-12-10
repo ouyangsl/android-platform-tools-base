@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "44eebec7_cd1de95b",
+        "filename": "build-system/integration-test/test-projects/unitTesting/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-10T10:30:36Z",
+      "side": 1,
+      "message": "Forgot about ext.buildToolsVersion, thanks.\n\nAndroid.jar for 21 contains Java 7 bytecode, so the unit tests won\u0027t run on JRE6.",
+      "parentUuid": "447dde9e_8ff789eb",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "447dde9e_6f19cda3",
         "filename": "build-system/integration-test/test-projects/unitTesting/src/test/java/com/android/tests/UnitTest.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-12-09T19:02:05Z",
       "side": 1,
       "message": "This would not run at all, right?\nWe can add a fail() to make sure it doesn\u0027t run.",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4fdf273_12a9cc95",
+        "filename": "build-system/integration-test/test-projects/unitTesting/src/test/java/com/android/tests/UnitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-10T10:30:36Z",
+      "side": 1,
+      "message": "Yes, I just wanted use some more JUnit features. I still have to figure out how to test for failing unit tests - for now I would like \"gradle test\" to succeed.\n\nI guess one way would be to inspect the generated reports XML? Any other ideas?",
+      "parentUuid": "447dde9e_6f19cda3",
       "range": {
         "startLine": 34,
         "startChar": 16,
