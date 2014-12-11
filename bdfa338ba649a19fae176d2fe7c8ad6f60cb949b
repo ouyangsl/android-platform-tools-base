@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "44731e24_45560ad4",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 2986,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-11T11:37:06Z",
+      "side": 1,
+      "message": "In all other task classes, we configure inputs and outputs outside of the task (as I believe makes sense, it makes the task itself re-usable). \n\nThe task would have to have a reference to androidBuilder and sdkHandler, to do the equivalent of ensureTargetSetup() - I don\u0027t think all of this belongs there.",
+      "parentUuid": "04cbe695_f602fefd",
+      "range": {
+        "startLine": 2984,
+        "startChar": 11,
+        "endLine": 2986,
+        "endChar": 78
+      },
+      "revId": "bdfa338ba649a19fae176d2fe7c8ad6f60cb949b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4a13abc_8959618b",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.groovy",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-12-11T02:34:02Z",
       "side": 1,
       "message": "this should be @InputFile",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "bdfa338ba649a19fae176d2fe7c8ad6f60cb949b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84819619_c7ce7e6d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-11T11:37:06Z",
+      "side": 1,
+      "message": "Yes, but I don\u0027t think it can - see the comment in BasePlugin. \n\nIf we mark it as @InputFile and leave initialization in doFirst, Gradle crashes when trying to determine dependencies. If we initialize it on creation, we will have to call ensureTargetSetup() earlier than we would like.",
+      "parentUuid": "a4a13abc_8959618b",
       "range": {
         "startLine": 31,
         "startChar": 8,
