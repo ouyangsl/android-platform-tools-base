@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4c0926a_207f0e00",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-11T18:31:38Z",
+      "side": 1,
+      "message": "since this method now reads a file + execs a process, just make sure that it doesn\u0027t introduce too much latency into the UI thread..",
+      "range": {
+        "startLine": 379,
+        "startChar": 7,
+        "endLine": 379,
+        "endChar": 14
+      },
+      "revId": "07db6417baf6c3b6355e296461ff0246c64100be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44a87ea2_00f8888b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-11T18:31:38Z",
+      "side": 1,
+      "message": "nit: you can just use Files.toString(file, Charsets.UTF_8)",
+      "range": {
+        "startLine": 389,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 26
+      },
+      "revId": "07db6417baf6c3b6355e296461ff0246c64100be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04b20612_7e980d85",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-11T18:31:38Z",
+      "side": 1,
+      "message": "+cc David as he is dealing with issues with findstr. In any case he might know more about this command line as well..",
+      "range": {
+        "startLine": 394,
+        "startChar": 78,
+        "endLine": 394,
+        "endChar": 85
+      },
+      "revId": "07db6417baf6c3b6355e296461ff0246c64100be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
