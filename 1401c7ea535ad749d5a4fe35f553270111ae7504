@@ -22,6 +22,30 @@
       "revId": "1401c7ea535ad749d5a4fe35f553270111ae7504",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44d6be40_70cf2e3c",
+        "filename": "build-system/integration-test/test-projects/privateResources/mylibrary/src/main/res/values/public.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-12-11T18:44:45Z",
+      "side": 1,
+      "message": "Resource names don\u0027t have to be unique across resource types; you can have both @layout/main and @menu/main, and those are completely unrelated resources where you might want to make one public and keep the other private.",
+      "parentUuid": "84f436d2_ef2fc129",
+      "range": {
+        "startLine": 2,
+        "startChar": 40,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "1401c7ea535ad749d5a4fe35f553270111ae7504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
