@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84f436d2_ef2fc129",
+        "filename": "build-system/integration-test/test-projects/privateResources/mylibrary/src/main/res/values/public.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2014-12-11T17:59:08Z",
+      "side": 1,
+      "message": "dont we already know the type, do we really need to put the type here again?",
+      "range": {
+        "startLine": 2,
+        "startChar": 40,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "1401c7ea535ad749d5a4fe35f553270111ae7504",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
