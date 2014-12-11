@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "64d9026f_f1ac4230",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-12-11T18:42:34Z",
+      "side": 1,
+      "message": "For me it seems not to be a problem. Another option would be to have the progress bar show before this check is done.",
+      "parentUuid": "e4c0926a_207f0e00",
+      "range": {
+        "startLine": 379,
+        "startChar": 7,
+        "endLine": 379,
+        "endChar": 14
+      },
+      "revId": "07db6417baf6c3b6355e296461ff0246c64100be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44a87ea2_00f8888b",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-12-11T18:31:38Z",
       "side": 1,
       "message": "nit: you can just use Files.toString(file, Charsets.UTF_8)",
+      "range": {
+        "startLine": 389,
+        "startChar": 12,
+        "endLine": 389,
+        "endChar": 26
+      },
+      "revId": "07db6417baf6c3b6355e296461ff0246c64100be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44d6be40_50b8b2b7",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-12-11T18:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44a87ea2_00f8888b",
       "range": {
         "startLine": 389,
         "startChar": 12,
