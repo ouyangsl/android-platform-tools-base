@@ -93,6 +93,30 @@
       "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4a13abc_b4d9188c",
+        "filename": "build-system/integration-test/test-projects/unitTesting/src/test/java/com/android/tests/UnitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-12-11T02:41:34Z",
+      "side": 1,
+      "message": "Shouldn\u0027t that be controlled by ignoreFailures, as in the Java plugin?",
+      "parentUuid": "e4fdf273_12a9cc95",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
