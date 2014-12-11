@@ -70,6 +70,30 @@
       "revId": "a95b0feab73c3c5565a422f04886ed256b9a90a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84a6f6d1_68dcd777",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 3116,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-11T02:29:47Z",
+      "side": 1,
+      "message": "yeah it\u0027s kinda crappy, since these tasks are there only for Studio, but since we can\u0027t hide them, we may as well assign them a group.",
+      "parentUuid": "a4d5ba01_40518e59",
+      "range": {
+        "startLine": 3116,
+        "startChar": 40,
+        "endLine": 3116,
+        "endChar": 51
+      },
+      "revId": "a95b0feab73c3c5565a422f04886ed256b9a90a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
