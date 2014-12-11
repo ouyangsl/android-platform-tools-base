@@ -46,6 +46,30 @@
       "revId": "5534d2d0e2859b0078cb7d67906a10520da05b7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4c0926a_a05afef4",
+        "filename": "sdklib/sdklib.iml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-11T17:09:58Z",
+      "side": 1,
+      "message": "Anytime you touch a library in tools/base, you need to open it in the tools/base IDEA project..I guess you just have to know that.",
+      "parentUuid": "04b20612_bbda272e",
+      "range": {
+        "startLine": 19,
+        "startChar": 43,
+        "endLine": 19,
+        "endChar": 47
+      },
+      "revId": "5534d2d0e2859b0078cb7d67906a10520da05b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
