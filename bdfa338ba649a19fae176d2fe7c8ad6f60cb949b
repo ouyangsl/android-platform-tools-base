@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04cbe695_f602fefd",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 2986,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-11T02:34:02Z",
+      "side": 1,
+      "message": "don\u0027t do it there. Do this in the task itself.",
+      "range": {
+        "startLine": 2984,
+        "startChar": 11,
+        "endLine": 2986,
+        "endChar": 78
+      },
+      "revId": "bdfa338ba649a19fae176d2fe7c8ad6f60cb949b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4a13abc_8959618b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-11T02:34:02Z",
+      "side": 1,
+      "message": "this should be @InputFile",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "bdfa338ba649a19fae176d2fe7c8ad6f60cb949b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
