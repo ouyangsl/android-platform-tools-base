@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4a13abc_698f3d8b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/TestedVariantData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-11T02:31:20Z",
+      "side": 1,
+      "message": "@nonNull?",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "6df68df4a541b2aabe9d727d9fd6d425de5e1957",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
