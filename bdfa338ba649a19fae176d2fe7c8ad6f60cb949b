@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e46a5265_8a236b94",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 2986,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T18:37:13Z",
+      "side": 1,
+      "message": "actually most of our tasks extends our custom BaseTask which provide access to the builder.\n\nThe issue here is that this setup makes android.jar not an input and doing something in doFirst will prevent running in parallel when gradle starts introducing this in 2.3 as a preview.\n\nreusability would be nice if we expect users to create their own instance of this task type but it\u0027s not going to happen really.\n\nNote that the prebuild task does ensureTargetSetup so if you depend on it there\u0027s no need to do it I think.\nOtherwise just do this in the convention mapping for androidJar.",
+      "parentUuid": "44731e24_45560ad4",
+      "range": {
+        "startLine": 2984,
+        "startChar": 11,
+        "endLine": 2986,
+        "endChar": 78
+      },
+      "revId": "bdfa338ba649a19fae176d2fe7c8ad6f60cb949b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4a13abc_8959618b",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.groovy",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Yes, but I don\u0027t think it can - see the comment in BasePlugin. \n\nIf we mark it as @InputFile and leave initialization in doFirst, Gradle crashes when trying to determine dependencies. If we initialize it on creation, we will have to call ensureTargetSetup() earlier than we would like.",
       "parentUuid": "a4a13abc_8959618b",
+      "range": {
+        "startLine": 31,
+        "startChar": 8,
+        "endLine": 31,
+        "endChar": 18
+      },
+      "revId": "bdfa338ba649a19fae176d2fe7c8ad6f60cb949b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e46a5265_0a38dbbd",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T18:37:13Z",
+      "side": 1,
+      "message": "see my other comment. use convention mapping and depend on preBuild.\n\nThis is an input, it must be configured as such. convention mapping helps for this.",
+      "parentUuid": "84819619_c7ce7e6d",
       "range": {
         "startLine": 31,
         "startChar": 8,
