@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c421ce32_b96d7f71",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CustomArtifactDepTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T17:48:34Z",
+      "side": 1,
+      "message": "hmm I copy pasted this from some other class...",
+      "parentUuid": "e497b25c_48bb53e4",
+      "range": {
+        "startLine": 36,
+        "startChar": 16,
+        "endLine": 36,
+        "endChar": 21
+      },
+      "revId": "407f6bf7f29177f6770a4fdbd68a9305b92c6521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c438ee5e_01d0aa5d",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CustomArtifactDepTest.groovy",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "c421ce32_197d8b1e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CustomArtifactDepTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T17:48:34Z",
+      "side": 1,
+      "message": "Yes there is. Before I added this a few weeks ago we got a ton of OOM exceptions during the tests that prevented running all the tests.\n\nThe reason is that these are static field so they only get reclaimed when the class is unloaded which happens at the end of the runs (when the VM quits really). So unlike instance fields, we need to manually drop them so that the GC can reclaim them while the other tests are running.",
+      "parentUuid": "c438ee5e_01d0aa5d",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "407f6bf7f29177f6770a4fdbd68a9305b92c6521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c438ee5e_81dcba78",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CustomArtifactDepTest.groovy",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-12-12T16:18:44Z",
       "side": 1,
       "message": "Ideally we would migrate this to use Truth or Groovy assertions, but can we at least add a static import for the assert methods?",
+      "range": {
+        "startLine": 56,
+        "startChar": 15,
+        "endLine": 56,
+        "endChar": 28
+      },
+      "revId": "407f6bf7f29177f6770a4fdbd68a9305b92c6521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c421ce32_b9449fe7",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CustomArtifactDepTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T17:48:34Z",
+      "side": 1,
+      "message": "yeah I forgot to add the static import. IJ is not happy with the copy as is and doesn\u0027t do the import static quick fix for some reason.",
+      "parentUuid": "c438ee5e_81dcba78",
       "range": {
         "startLine": 56,
         "startChar": 15,
@@ -111,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "c421ce32_99299b27",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T17:48:34Z",
+      "side": 1,
+      "message": "It actually only works for Android project and the parent project isn\u0027t an android project, so there\u0027s little point in providing it.",
+      "parentUuid": "24fc6ac4_273854be",
+      "revId": "407f6bf7f29177f6770a4fdbd68a9305b92c6521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24fc6ac4_073558c4",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
         "patchSetId": 1
@@ -139,6 +229,30 @@
       "writtenOn": "2014-12-12T16:18:44Z",
       "side": 1,
       "message": "Tests are fully under our control, this should not happen. Or we should be able to check for which projects it happened.",
+      "range": {
+        "startLine": 591,
+        "startChar": 34,
+        "endLine": 591,
+        "endChar": 35
+      },
+      "revId": "407f6bf7f29177f6770a4fdbd68a9305b92c6521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c421ce32_b92edf2a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T17:48:34Z",
+      "side": 1,
+      "message": "True.",
+      "parentUuid": "844276da_ffcf5fbc",
       "range": {
         "startLine": 591,
         "startChar": 34,
