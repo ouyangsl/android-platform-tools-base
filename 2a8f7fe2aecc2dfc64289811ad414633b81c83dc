@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "247f0a23_ef923d37",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-12T19:28:17Z",
+      "side": 1,
+      "message": "Do we really need a SubprojectData class?  projectDir doesn\u0027t seem to be used.  The tests would be clearer if we just return a map of AndroidProject.",
+      "range": {
+        "startLine": 154,
+        "startChar": 30,
+        "endLine": 154,
+        "endChar": 44
+      },
+      "revId": "2a8f7fe2aecc2dfc64289811ad414633b81c83dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "247f0a23_2f992556",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-12T19:28:17Z",
+      "side": 1,
+      "message": "Might be late to say this...I feel this method complicates testing with models.  The changes are made to get the model from subprojects, which could already be done quite simply with\n\n     project.getSubproject(\":subproject\").getModel()",
+      "range": {
+        "startLine": 466,
+        "startChar": 26,
+        "endLine": 466,
+        "endChar": 47
+      },
+      "revId": "2a8f7fe2aecc2dfc64289811ad414633b81c83dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
