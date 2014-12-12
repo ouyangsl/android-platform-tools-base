@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (100b9a Merge "implement language pure splits generation." into stud)
 apply plugin: 'java'
 apply plugin: 'clone-artifacts'
 apply plugin: 'idea'
@@ -41,3 +42,5 @@ idea {
 test {
     environment("CUSTOM_REPO", rootProject.file("../out/repo"))
 }
+=======
+>>>>>>> BRANCH (fa91da Merge "Move all remaining tests from gradle-model to integ-t)
