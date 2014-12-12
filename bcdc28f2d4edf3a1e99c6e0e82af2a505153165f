@@ -117,6 +117,30 @@
       "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44731e24_48fd3f12",
+        "filename": "build-system/integration-test/test-projects/unitTesting/src/test/java/com/android/tests/UnitTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-12T12:12:40Z",
+      "side": 1,
+      "message": "It\u0027s something different - this test is not executed, the results have a separate status for it (not failed, not passed, ignored). Sometimes people use it with TDD for tests that don\u0027t pass yet.\n\nAs mentioned, it\u0027s just a JUnit feature that I wanted to make sure works.",
+      "parentUuid": "a4a13abc_b4d9188c",
+      "range": {
+        "startLine": 34,
+        "startChar": 16,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "bcdc28f2d4edf3a1e99c6e0e82af2a505153165f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
