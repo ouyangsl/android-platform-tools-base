@@ -289,6 +289,30 @@
     },
     {
       "key": {
+        "uuid": "6475823d_2ec28730",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T18:23:32Z",
+      "side": 1,
+      "message": "so actually it may happen because gradle creates subprojects for each sub-folder in the path. For instance: do\n\ninclude \u0027:foo:bar:project\u0027\nand you create 3 subprojects (foo, foo/bar, and foo/bar/project), with the first two not really having any plugin, and therefore no model beyond the basic one).\nso now I do add them to the list but it\u0027s up to the test to check them.",
+      "parentUuid": "844276da_ffcf5fbc",
+      "range": {
+        "startLine": 591,
+        "startChar": 34,
+        "endLine": 591,
+        "endChar": 35
+      },
+      "revId": "407f6bf7f29177f6770a4fdbd68a9305b92c6521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "844276da_bfd9d78b",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/utils/ModelHelper.java",
         "patchSetId": 1
