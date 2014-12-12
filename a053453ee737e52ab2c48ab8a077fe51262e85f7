@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24fc6ac4_47aeb0a3",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 3483,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-12T03:03:42Z",
+      "side": 1,
+      "message": "Alex, what do we recommend we do here?",
+      "range": {
+        "startLine": 3483,
+        "startChar": 22,
+        "endLine": 3483,
+        "endChar": 28
+      },
+      "revId": "a053453ee737e52ab2c48ab8a077fe51262e85f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
