@@ -22,6 +22,30 @@
       "revId": "2d37576c822c1e4e4078c7e92b934f3a5e28f2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84bc3633_af19f9ee",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-12T20:53:05Z",
+      "side": 1,
+      "message": "Actually, why is this not getting the buildType from the testedVariantData?",
+      "parentUuid": "e46a5265_ea79c768",
+      "range": {
+        "startLine": 486,
+        "startChar": 8,
+        "endLine": 486,
+        "endChar": 78
+      },
+      "revId": "2d37576c822c1e4e4078c7e92b934f3a5e28f2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
