@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "2451caa8_5c3e9dae",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CustomArtifactDepTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-12T18:11:08Z",
+      "side": 1,
+      "message": "Good point, I missed that. Still we should be able to handle the finalization of project in the Rule code, like the after() method in ExternalResource.",
+      "parentUuid": "c421ce32_197d8b1e",
+      "range": {
+        "startLine": 42,
+        "startChar": 18,
+        "endLine": 42,
+        "endChar": 22
+      },
+      "revId": "407f6bf7f29177f6770a4fdbd68a9305b92c6521",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c438ee5e_81dcba78",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CustomArtifactDepTest.groovy",
         "patchSetId": 1
