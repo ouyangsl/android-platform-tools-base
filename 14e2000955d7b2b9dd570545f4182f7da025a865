@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c4b2ae5b_cba6e99d",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/SyncIssue.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-13T00:49:41Z",
+      "side": 1,
+      "message": "Because we cannot pass enums through the tooling API. Also we want to be able to add new values without really updating the API anyway.",
+      "parentUuid": "c4b2ae5b_a00d84df",
+      "revId": "14e2000955d7b2b9dd570545f4182f7da025a865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4d05a89_dc6d0d71",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/SyncIssueKey.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2014-12-13T00:15:56Z",
       "side": 1,
       "message": "I think using ObjectHelper would simplify both methods implementation here.",
+      "revId": "14e2000955d7b2b9dd570545f4182f7da025a865",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4b2ae5b_0bb111d6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/SyncIssueKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-13T00:49:41Z",
+      "side": 1,
+      "message": "Probably, but IJ doesn\u0027t auto-generate these :)",
+      "parentUuid": "a4d05a89_dc6d0d71",
       "revId": "14e2000955d7b2b9dd570545f4182f7da025a865",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
