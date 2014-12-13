@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e47b325e_62645600",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 3396,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-12-13T00:01:18Z",
+      "side": 1,
+      "message": "At this stage it is safe to ignore system properties. Studio only passes project properties.",
+      "range": {
+        "startLine": 3396,
+        "startChar": 21,
+        "endLine": 3396,
+        "endChar": 66
+      },
+      "revId": "a053453ee737e52ab2c48ab8a077fe51262e85f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24fc6ac4_47aeb0a3",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2014-12-12T03:03:42Z",
       "side": 1,
       "message": "Alex, what do we recommend we do here?",
+      "range": {
+        "startLine": 3483,
+        "startChar": 22,
+        "endLine": 3483,
+        "endChar": 28
+      },
+      "revId": "a053453ee737e52ab2c48ab8a077fe51262e85f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24c46ad1_c4a25eaf",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 3483,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2014-12-13T00:01:18Z",
+      "side": 1,
+      "message": "We pass the error as an \"Errors\" object (which contains \"Error\" objects, each with message, data, type, severity)",
+      "parentUuid": "24fc6ac4_47aeb0a3",
       "range": {
         "startLine": 3483,
         "startChar": 22,
