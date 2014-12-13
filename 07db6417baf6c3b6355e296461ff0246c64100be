@@ -116,6 +116,30 @@
       "revId": "07db6417baf6c3b6355e296461ff0246c64100be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4d05a89_dc2ead2b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2014-12-13T00:10:19Z",
+      "side": 1,
+      "message": "This use of findstr looks good to me, thanks for looping me in.",
+      "parentUuid": "04b20612_7e980d85",
+      "range": {
+        "startLine": 394,
+        "startChar": 78,
+        "endLine": 394,
+        "endChar": 85
+      },
+      "revId": "07db6417baf6c3b6355e296461ff0246c64100be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
