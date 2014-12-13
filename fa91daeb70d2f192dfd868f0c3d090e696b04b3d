@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c469cea3_99555b1a",
+        "filename": "annotations/src/main/java/com/android/annotations/Nullable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-12-13T01:32:57Z",
+      "side": 0,
+      "message": "We probably don\u0027t need class retention here anymore (we used to use it for findbugs integration, but we now have better null analysis via IntelliJ)",
+      "revId": "fa91daeb70d2f192dfd868f0c3d090e696b04b3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
