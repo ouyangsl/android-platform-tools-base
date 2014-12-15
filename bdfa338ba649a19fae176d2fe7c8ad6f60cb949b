@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e4adf2fd_d2cfc4ea",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 2986,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-15T11:18:03Z",
+      "side": 1,
+      "message": "Using convention mapping seems most natural, I just noticed that the compile tasks use to doFirst trick to delay parsing the SDK. But in that case it doesn\u0027t seem possible to use convention mapping, so maybe that\u0027s why.\n\nSo how about now?",
+      "parentUuid": "e46a5265_8a236b94",
+      "range": {
+        "startLine": 2984,
+        "startChar": 11,
+        "endLine": 2986,
+        "endChar": 78
+      },
+      "revId": "bdfa338ba649a19fae176d2fe7c8ad6f60cb949b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4a13abc_8959618b",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.groovy",
         "patchSetId": 2
