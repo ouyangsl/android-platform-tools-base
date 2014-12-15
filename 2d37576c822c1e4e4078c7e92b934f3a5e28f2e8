@@ -46,6 +46,30 @@
       "revId": "2d37576c822c1e4e4078c7e92b934f3a5e28f2e8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4adf2fd_92989c09",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-15T10:37:17Z",
+      "side": 1,
+      "message": "Done, see http://r.android.com/119294",
+      "parentUuid": "84bc3633_af19f9ee",
+      "range": {
+        "startLine": 486,
+        "startChar": 8,
+        "endLine": 486,
+        "endChar": 78
+      },
+      "revId": "2d37576c822c1e4e4078c7e92b934f3a5e28f2e8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
