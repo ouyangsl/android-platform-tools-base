@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a45e9afb_9b02affd",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/avd/AvdInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-15T16:43:46Z",
+      "side": 1,
+      "message": "just do a optimize imports to remove the unnecessary ones..",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "115bb987b1806bd947e560c29496c7dcab9f2d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
