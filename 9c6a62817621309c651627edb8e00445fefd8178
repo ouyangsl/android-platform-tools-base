@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a42cda7b_080d875a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/remote/RemotePkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2014-12-15T18:56:44Z",
+      "side": 1,
+      "message": "in sdklib, the prefix is just m, so mDownloadSize",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 37
+      },
+      "revId": "9c6a62817621309c651627edb8e00445fefd8178",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
