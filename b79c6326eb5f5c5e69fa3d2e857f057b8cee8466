@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a1dbec04_9038f4be",
+        "filename": ".idea/misc.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-12-16T22:31:08Z",
+      "side": 1,
+      "message": "Damn it, that wasn\u0027t supposed to be there. I\u0027ll remove it.",
+      "parentUuid": "e1ba449b_730d52dc",
+      "range": {
+        "startLine": 38,
+        "startChar": 129,
+        "endLine": 38,
+        "endChar": 137
+      },
+      "revId": "b79c6326eb5f5c5e69fa3d2e857f057b8cee8466",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41c2301f_96b9d2eb",
         "filename": "layoutlib-api/src/main/java/com/android/resources/ScreenOrientation.java",
         "patchSetId": 1
