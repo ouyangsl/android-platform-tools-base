@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "211e1c5a_14e294a8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-16T11:02:32Z",
+      "side": 1,
+      "message": "Move it to TaskManager?",
+      "range": {
+        "startLine": 616,
+        "startChar": 16,
+        "endLine": 616,
+        "endChar": 42
+      },
+      "revId": "46137af80319e0f97d8af5ed60081c3f34c366ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "24162a01_3ab1b904",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
         "patchSetId": 4
@@ -42,6 +65,29 @@
         "startChar": 4,
         "endLine": 160,
         "endChar": 29
+      },
+      "revId": "46137af80319e0f97d8af5ed60081c3f34c366ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c13aa0c4_f16728be",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-16T11:02:32Z",
+      "side": 1,
+      "message": "Extract all task creation from here to TaskManager? Eventually \"optionalDependsOn\" should not need to be public I think. Either in this CL or follow-ups.",
+      "range": {
+        "startLine": 226,
+        "startChar": 35,
+        "endLine": 226,
+        "endChar": 55
       },
       "revId": "46137af80319e0f97d8af5ed60081c3f34c366ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
