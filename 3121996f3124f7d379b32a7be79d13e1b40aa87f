@@ -16,6 +16,24 @@
       "revId": "3121996f3124f7d379b32a7be79d13e1b40aa87f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1ba449b_4dc0adbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-16T21:03:27Z",
+      "side": 1,
+      "message": "This is to build the test app. it needs to run with proguard to apply the mapping of the obfuscation of the tested app. But we don\u0027t want to obfuscate/shrink the test app itself (which we used to do).",
+      "parentUuid": "815d0834_07115649",
+      "revId": "3121996f3124f7d379b32a7be79d13e1b40aa87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
