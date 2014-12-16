@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24162a01_3ab1b904",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-16T00:11:55Z",
+      "side": 1,
+      "message": "I don\u0027t know if that\u0027s possible, but I would love to see TaskManager not have a reference to the plugin. This way we could break the dependency cycle where plugin calls methods on Variant/TaskManager that end up calling methods on the plugin. This is like having a field called \"this2\", it doesn\u0027t really split the original class.\n\nCan we change BaseTask to have a field for the logger and a field for the builder, but stop passing the plugin everywhere?",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 29
+      },
+      "revId": "46137af80319e0f97d8af5ed60081c3f34c366ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
