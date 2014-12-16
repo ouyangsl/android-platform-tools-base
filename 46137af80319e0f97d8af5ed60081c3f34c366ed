@@ -22,6 +22,30 @@
       "revId": "46137af80319e0f97d8af5ed60081c3f34c366ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2420ea81_8d5b49fd",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-16T00:22:04Z",
+      "side": 1,
+      "message": "That\u0027s my intention as well.  It\u0027s just that the changes will be quite significant and I would rather do that incrementally in separate CL.",
+      "parentUuid": "24162a01_3ab1b904",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 29
+      },
+      "revId": "46137af80319e0f97d8af5ed60081c3f34c366ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
