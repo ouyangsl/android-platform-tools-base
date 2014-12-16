@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "815d0834_07115649",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-12-16T17:35:27Z",
+      "side": 1,
+      "message": "Why are we doing that? Is it necessary in order to get the tests to run at all?\n\nIf not, I assume it would be much better for developers to make sure that the tests are really checking the app that they will build and distribute (e.g. to catch a test failure or crash if the code is accessing a method that was removed by ProGuard because you were missing a keep rule etc).",
+      "revId": "3121996f3124f7d379b32a7be79d13e1b40aa87f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
