@@ -1307,5 +1307,54 @@
     </orderEntry>
     <orderEntry type="library" name="groovy" level="project" />
     <orderEntry type="module" module-name="project-test-lib" scope="TEST" />
+<<<<<<< HEAD   (bac790 Merge "Simplify createTestVariantData." into studio-1.1-dev )
+=======
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../out/gradle-dist-link/lib/plugins/gradle-language-java-2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../out/gradle-dist-link/lib/plugins/gradle-language-native-2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../out/gradle-dist-link/lib/plugins/gradle-platform-jvm-2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../out/gradle-dist-link/lib/plugins/gradle-platform-base-2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../out/gradle-dist-link/lib/plugins/gradle-dependency-management-2.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module" module-name="sdk-common-base" />
+>>>>>>> BRANCH (ec487d Merge "Fix IntelliJ dependencies, to fix "Make project"." in)
   </component>
 </module>
