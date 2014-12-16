@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01ccb852_716230ac",
+        "filename": "layoutlib-api/src/main/java/com/android/resources/ScreenOrientation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2014-12-16T22:40:31Z",
+      "side": 1,
+      "message": "Are you sure you want to support random strings? I feel like it would be safer if null name-\u003ereturns null, valid name-\u003eScreenOrientation, non-valid, non-null-\u003eIllegalArgumentException or something like this.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 19
+      },
+      "revId": "7b24c6cb252a24af56cc531aa44af6561f126691",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
