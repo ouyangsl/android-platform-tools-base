@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1cb2464_c231220d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-17T10:52:51Z",
+      "side": 0,
+      "message": "Don\u0027t remove the empty line?",
+      "revId": "e7ef110480189b3f725d4a8f44c7d0f998aa58b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

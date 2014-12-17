@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1204cdf_a8985b84",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 3243,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-17T10:52:51Z",
+      "side": 1,
+      "message": "Remove JavaDoc tags with no content.",
+      "range": {
+        "startLine": 3243,
+        "startChar": 8,
+        "endLine": 3243,
+        "endChar": 14
+      },
+      "revId": "08db38e433e43249246487c45c65fbd8613114dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1204cdf_e81ff350",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 3253,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-17T10:52:51Z",
+      "side": 1,
+      "message": "dependencyContainer.localDependencies.collect{it.jarFile}.toArray()",
+      "range": {
+        "startLine": 3246,
+        "startChar": 8,
+        "endLine": 3253,
+        "endChar": 30
+      },
+      "revId": "08db38e433e43249246487c45c65fbd8613114dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1204cdf_08d52700",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 3428,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-17T10:52:51Z",
+      "side": 1,
+      "message": "packageClasspath.allDependencies.withType(SelfResolvingDependency) { dep -\u003e\n            if (!(dep instanceof ProjectDependency)) {\n                localCompileJars +\u003d dep.resolve()\n            }\n        }",
+      "range": {
+        "startLine": 3420,
+        "startChar": 0,
+        "endLine": 3428,
+        "endChar": 9
+      },
+      "revId": "08db38e433e43249246487c45c65fbd8613114dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1cb2464_82cb9a7e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AppWithPackageLocalJarTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-17T10:52:51Z",
+      "side": 1,
+      "message": "Indent and call stripIndent()?",
+      "range": {
+        "startLine": 46,
+        "startChar": 34,
+        "endLine": 46,
+        "endChar": 37
+      },
+      "revId": "08db38e433e43249246487c45c65fbd8613114dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
