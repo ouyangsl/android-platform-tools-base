@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81e0a8b0_6f4c9111",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/Device.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2014-12-17T00:01:21Z",
+      "side": 1,
+      "message": "Does this mean we used to way for 1ms and now we wait for 2000ms? \n\nDoes this mean that we might stall the UI for up to 2 seconds? if 1ms was adequate before, should we make the prop timeout something smaller like 100ms or 500ms?",
+      "revId": "7734e3b3983d3c0426cf7f0506dd990fcdb85412",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
