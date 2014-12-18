@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1a3ecb1_731afade",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-18T18:10:52Z",
+      "side": 1,
+      "message": "I\u0027m not super fan of not including the return keyword.",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "4694b811d35c1f044e0a5aacdc63b97a2c45b700",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
