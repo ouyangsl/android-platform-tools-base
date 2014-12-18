@@ -46,6 +46,30 @@
       "revId": "d4a1065fd3630eef407bedb5fd56f70ba46b9f9a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41731024_c8a92f19",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/AaptOptions.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-18T19:07:26Z",
+      "side": 1,
+      "message": "This should be picked up by @Nested in ProcessAndroidResources. But it seems to me these are not actually picked up, since ignoreAssets should be @Optional.\n\nAfter migrating to Groovy properties the lack of @Optional breaks integration tests, so it probably finally works as intended.",
+      "parentUuid": "c19c6086_21038eae",
+      "range": {
+        "startLine": 29,
+        "startChar": 11,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "d4a1065fd3630eef407bedb5fd56f70ba46b9f9a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
