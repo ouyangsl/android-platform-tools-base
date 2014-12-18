@@ -22,6 +22,30 @@
       "revId": "7b24c6cb252a24af56cc531aa44af6561f126691",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61d9f46e_4e4ed336",
+        "filename": "layoutlib-api/src/main/java/com/android/resources/ScreenOrientation.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2014-12-18T22:05:15Z",
+      "side": 1,
+      "message": "That\u0027s a good question.\nThe situation where this would arise is if someone put something bogus in their AVD .ini manually, I guess. What would we want to do in that case? Throw an exception, and then handle it and (I assume) mark the AVD as failed to load? This would be a little strange in the current setup, since the check wouldn\u0027t happen until you click edit. Or I guess we could add validation when loading the avd and disable it at that time.\nOr.. just go on silently and either let the emulator handle it (the emulator currently starts up fine with bogus values), and write a real value if it\u0027s edited?\nI pick the latter for now :-)",
+      "parentUuid": "01ccb852_716230ac",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 19
+      },
+      "revId": "7b24c6cb252a24af56cc531aa44af6561f126691",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
