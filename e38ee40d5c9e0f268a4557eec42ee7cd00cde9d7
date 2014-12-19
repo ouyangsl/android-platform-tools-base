@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e11c04fd_9a0bcd18",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T06:18:33Z",
+      "side": 1,
+      "message": "There are some cases where this will happen (abi splits doesn\u0027t have a universal APK by default). Is this a problem in the places where you\u0027re calling it?",
+      "range": {
+        "startLine": 188,
+        "startChar": 8,
+        "endLine": 188,
+        "endChar": 34
+      },
+      "revId": "e38ee40d5c9e0f268a4557eec42ee7cd00cde9d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
