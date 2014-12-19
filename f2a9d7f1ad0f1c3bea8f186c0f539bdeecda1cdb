@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6175743d_7409404c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T23:58:25Z",
+      "side": 1,
+      "message": "yes it\u0027s a good idea.",
+      "parentUuid": "6175743d_8ed37b6b",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6175743d_2e792731",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 5
@@ -53,6 +71,24 @@
       "writtenOn": "2014-12-19T23:13:28Z",
       "side": 1,
       "message": "don\u0027t you mean \" is an Android Library\" ?",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "217ffc22_2ffe05c2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3491,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T23:58:25Z",
+      "side": 1,
+      "message": "hmm yes.",
+      "parentUuid": "217ffc22_ace1a3a5",
       "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -184,6 +220,30 @@
     },
     {
       "key": {
+        "uuid": "6175743d_543524f7",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T23:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41723059_ed0c85e2",
+      "range": {
+        "startLine": 29,
+        "startChar": 73,
+        "endLine": 29,
+        "endChar": 74
+      },
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6175743d_119d6e41",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
         "patchSetId": 5
@@ -201,6 +261,24 @@
     },
     {
       "key": {
+        "uuid": "6175743d_b43fa8d8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T23:58:25Z",
+      "side": 1,
+      "message": "no both are needed. one is for being put on the compilation classpath (provided or compile scope), the other is packaged in the apk (compile or apk scope)",
+      "parentUuid": "6175743d_119d6e41",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6175743d_11932e69",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/AppWithCompileIndirectJarTest.groovy",
         "patchSetId": 5
@@ -212,6 +290,24 @@
       "writtenOn": "2014-12-19T23:13:28Z",
       "side": 1,
       "message": "can you also check that the library content is available.       assertTrue(ApkHelper.checkForClass(\n                apk,\n                \"Lcom/example/android/multiproject/library/PersonView;\"))",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "217ffc22_6f32cd12",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/AppWithCompileIndirectJarTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T23:58:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6175743d_11932e69",
       "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
