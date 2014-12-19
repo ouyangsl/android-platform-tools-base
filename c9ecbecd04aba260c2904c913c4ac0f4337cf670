@@ -22,6 +22,30 @@
       "revId": "c9ecbecd04aba260c2904c913c4ac0f4337cf670",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2151bca8_1c6575fc",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T05:20:17Z",
+      "side": 1,
+      "message": "good point.",
+      "parentUuid": "01f918d6_a3af9a6f",
+      "range": {
+        "startLine": 558,
+        "startChar": 0,
+        "endLine": 560,
+        "endChar": 13
+      },
+      "revId": "c9ecbecd04aba260c2904c913c4ac0f4337cf670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
