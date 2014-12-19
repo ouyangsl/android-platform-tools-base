@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2151bca8_bcdec11f",
+        "filename": "build-system/integration-test/test-projects/unitTestingFlavors/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T06:52:26Z",
+      "side": 1,
+      "message": "update to use the refactored gradle files.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 5
+      },
+      "revId": "12a92fd1e074cf4d65a789fd6c7acee6f55138a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
