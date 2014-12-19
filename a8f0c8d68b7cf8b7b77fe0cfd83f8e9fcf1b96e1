@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a13dac4e_60b09201",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-19T10:32:42Z",
+      "side": 1,
+      "message": "Remove blank line.",
+      "revId": "a8f0c8d68b7cf8b7b77fe0cfd83f8e9fcf1b96e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
