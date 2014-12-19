@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6175743d_2e792731",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-12-19T22:50:43Z",
+      "side": 1,
+      "message": "Will not match for 2.10.",
+      "range": {
+        "startLine": 227,
+        "startChar": 32,
+        "endLine": 227,
+        "endChar": 58
+      },
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41723059_ed0c85e2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-12-19T22:50:43Z",
+      "side": 1,
+      "message": "nit: dependencies",
+      "range": {
+        "startLine": 29,
+        "startChar": 73,
+        "endLine": 29,
+        "endChar": 74
+      },
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
