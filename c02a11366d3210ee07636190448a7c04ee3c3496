@@ -22,6 +22,30 @@
       "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01f918d6_8926fdda",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T17:10:51Z",
+      "side": 1,
+      "message": "I tried that but could not figure out a way to have access to the --tests parameter value from the calling VM.\n\nalso the -Dandroid.debug would be set in the launching vm, this code is executing in the launched vm, not sure this would be passed through. \n\ndo you know of a way ?",
+      "parentUuid": "a13dac4e_606bb2d3",
+      "range": {
+        "startLine": 553,
+        "startChar": 15,
+        "endLine": 553,
+        "endChar": 35
+      },
+      "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
