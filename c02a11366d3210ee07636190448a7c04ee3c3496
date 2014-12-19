@@ -94,6 +94,54 @@
       "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6102d48e_ba3a19e9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T18:42:47Z",
+      "side": 1,
+      "message": "yes but that polutes the build.gradle and still require changes in the GradleProjectTest so it\u0027s not that much better.",
+      "parentUuid": "01f918d6_69250146",
+      "range": {
+        "startLine": 553,
+        "startChar": 15,
+        "endLine": 553,
+        "endChar": 35
+      },
+      "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6102d48e_9a3f5dd9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T18:42:47Z",
+      "side": 1,
+      "message": "I think at this point, short of anything really optimal which we don\u0027t seem to get, I will leave it as is.",
+      "parentUuid": "a13dac4e_03467082",
+      "range": {
+        "startLine": 553,
+        "startChar": 15,
+        "endLine": 553,
+        "endChar": 35
+      },
+      "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
