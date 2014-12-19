@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e11c04fd_fa2f6977",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/AaptOptions.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T06:27:00Z",
+      "side": 1,
+      "message": "you shouldn\u0027t have to do this I think? Or is it because you are using an overloaded operator with a different type? Note that Groovy doesn\u0027t really support this and it won\u0027t work well in the DSL I think\n\n(we have some issue with the minSdkVersion setters in the product flavors.)",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 59,
+        "endChar": 14
+      },
+      "revId": "f23cb7a28efb9f76012e9f17802a181ad297bea0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
