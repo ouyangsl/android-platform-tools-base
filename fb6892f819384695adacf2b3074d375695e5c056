@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e11c04fd_9a242d9e",
+        "filename": "build-system/builder/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2014-12-19T06:30:51Z",
+      "side": 1,
+      "message": "Can you check with Tor that this does not collide with Lint? All the plugin\u0027s dependencies are in a single context, so we need to make sure this is fine.",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 32
+      },
+      "revId": "fb6892f819384695adacf2b3074d375695e5c056",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
