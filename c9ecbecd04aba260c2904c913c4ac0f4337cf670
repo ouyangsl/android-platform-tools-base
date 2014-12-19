@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01f918d6_a3af9a6f",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-19T01:48:32Z",
+      "side": 1,
+      "message": "Instead of manually adding the white space, I think it\u0027s better to create a list of String and pass it to setJvmArguments as an array.",
+      "range": {
+        "startLine": 558,
+        "startChar": 0,
+        "endLine": 560,
+        "endChar": 13
+      },
+      "revId": "c9ecbecd04aba260c2904c913c4ac0f4337cf670",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
