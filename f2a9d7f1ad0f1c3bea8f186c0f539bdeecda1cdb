@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6175743d_8ed37b6b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:13:28Z",
+      "side": 1,
+      "message": "rename to mExternalJars ?",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6175743d_2e792731",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 5
@@ -25,6 +42,40 @@
     },
     {
       "key": {
+        "uuid": "217ffc22_ace1a3a5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3491,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:13:28Z",
+      "side": 1,
+      "message": "don\u0027t you mean \" is an Android Library\" ?",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41723059_6d2c1501",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3502,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:13:28Z",
+      "side": 1,
+      "message": "same ?",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41723059_ed0c85e2",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
         "patchSetId": 5
@@ -42,6 +93,40 @@
         "endLine": 29,
         "endChar": 74
       },
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6175743d_119d6e41",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:13:28Z",
+      "side": 1,
+      "message": "should these 2 be exclusive ? I mean you can\u0027t have a Jar which is is both packaged and compiled, right ? only one boolean should suffice then.",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6175743d_11932e69",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/AppWithCompileIndirectJarTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:13:28Z",
+      "side": 1,
+      "message": "can you also check that the library content is available.       assertTrue(ApkHelper.checkForClass(\n                apk,\n                \"Lcom/example/android/multiproject/library/PersonView;\"))",
       "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
