@@ -70,6 +70,30 @@
       "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a13dac4e_03467082",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2014-12-19T18:27:40Z",
+      "side": 1,
+      "message": "My point was that you don\u0027t need to know the value of --tests, for every test that Gradle decides to run, we start it in debug mode.\n\nAs for -D, you are right. It may work with --no-daemon, like -Dorg.gradle.debug. Never mind, it\u0027s a detail.",
+      "parentUuid": "01f918d6_8926fdda",
+      "range": {
+        "startLine": 553,
+        "startChar": 15,
+        "endLine": 553,
+        "endChar": 35
+      },
+      "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
