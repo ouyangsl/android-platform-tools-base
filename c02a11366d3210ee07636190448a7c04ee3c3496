@@ -46,6 +46,30 @@
       "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01f918d6_69250146",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2014-12-19T18:22:04Z",
+      "side": 1,
+      "message": "One possibility is to check for the -Dandroid.debug property in build.gradle and automatically set -Dtest.single plus the env variable from it.  Not sure if there is a better way.",
+      "parentUuid": "01f918d6_8926fdda",
+      "range": {
+        "startLine": 553,
+        "startChar": 15,
+        "endLine": 553,
+        "endChar": 35
+      },
+      "revId": "c02a11366d3210ee07636190448a7c04ee3c3496",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
