@@ -76,6 +76,91 @@
     },
     {
       "key": {
+        "uuid": "217ffc22_afd8b585",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3515,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:47:36Z",
+      "side": 1,
+      "message": "maybe an enum COMPILED | PACKAGED.",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41723059_70686ed5",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3683,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:47:36Z",
+      "side": 1,
+      "message": "enum",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "217ffc22_8fecd91c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3694,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:47:36Z",
+      "side": 1,
+      "message": "still enum that can be shared.",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "217ffc22_aff195f7",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3704,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:47:36Z",
+      "side": 1,
+      "message": "same.",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "217ffc22_4f0cb15d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 3949,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-19T23:47:36Z",
+      "side": 1,
+      "message": "even in the interactive gradle build, shouldn\u0027t we spit out all the errors possible at the end instead of one by one immediately ?",
+      "revId": "f2a9d7f1ad0f1c3bea8f186c0f539bdeecda1cdb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41723059_ed0c85e2",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
         "patchSetId": 5
