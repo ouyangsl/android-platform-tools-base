@@ -16,6 +16,24 @@
       "revId": "c8e1ed246d7cf640d735d34128dda3fbdadfe028",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41723059_963ab2e9",
+        "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2014-12-20T02:17:20Z",
+      "side": 1,
+      "message": "To match the current behaviour of XmlUtils.parseUtfXmlFile. All the tests pass with validation turned on, but this is defensive to not break builds that include resources that parse but don\u0027t validate.",
+      "parentUuid": "6175743d_f1830269",
+      "revId": "c8e1ed246d7cf640d735d34128dda3fbdadfe028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
