@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41723059_9014fab3",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dependency/JarInfo.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2014-12-20T00:36:22Z",
+      "side": 1,
+      "message": "add compiled and packaged flgs ?",
+      "revId": "aeff6063a268d58af9514a2eb6424dec01ae65ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
