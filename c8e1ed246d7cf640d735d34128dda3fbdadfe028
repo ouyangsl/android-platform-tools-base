@@ -34,6 +34,24 @@
       "revId": "c8e1ed246d7cf640d735d34128dda3fbdadfe028",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e2481a4_d628a4f1",
+        "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-05T17:36:23Z",
+      "side": 1,
+      "message": "then it seems to me that you should set it optionally in the parseUtfXmlFile method, maybe another parameter to the parse() command. with this change, other direct users of the parse() method will switch from validation true to false without noticing.",
+      "parentUuid": "41723059_963ab2e9",
+      "revId": "c8e1ed246d7cf640d735d34128dda3fbdadfe028",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
