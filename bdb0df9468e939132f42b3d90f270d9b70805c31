@@ -22,6 +22,30 @@
       "revId": "bdb0df9468e939132f42b3d90f270d9b70805c31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e217d94_b53be008",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/TestWithCompileLibTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-05T18:22:01Z",
+      "side": 1,
+      "message": "You could have Android specific fixtures and these cannot be in a java-only module, so you could in fact have an Android Library that\u0027s used only for tests.\n\nI agree on adding code to make an actual dependencies. I\u0027ll add this later to all the tests I added.",
+      "parentUuid": "0144b839_b4f766eb",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 73
+      },
+      "revId": "bdb0df9468e939132f42b3d90f270d9b70805c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
