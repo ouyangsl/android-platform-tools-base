@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0144b839_b4f766eb",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/TestWithCompileLibTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-05T15:10:36Z",
+      "side": 1,
+      "message": "What\u0027s the use case for this behavior? In a real app, a library with a helper view would be a dependency of the :app project and PersonView would end up in app-debug-unaligned.apk. I imagine this makes PersonView visible in test code.\n\nWhy would someone have a test-only dependency on an android library?\n\nIt also seems to me we should reference these classes from androidTest sources to make sure it compiles fine.",
+      "range": {
+        "startLine": 72,
+        "startChar": 16,
+        "endLine": 72,
+        "endChar": 73
+      },
+      "revId": "bdb0df9468e939132f42b3d90f270d9b70805c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
