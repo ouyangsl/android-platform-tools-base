@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e52c124_86778a3b",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/BuildConfigTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-06T18:40:30Z",
+      "side": 1,
+      "message": "Does this work?  Isn\u0027t this a Java file?",
+      "range": {
+        "startLine": 113,
+        "startChar": 33,
+        "endLine": 113,
+        "endChar": 46
+      },
+      "revId": "f3daf276dcf1426c19fb0562b740a065de22057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
