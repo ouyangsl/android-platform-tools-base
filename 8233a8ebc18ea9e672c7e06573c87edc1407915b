@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae0af911_1ed2ad93",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-06T00:40:47Z",
+      "side": 1,
+      "message": "isn\u0027t this just equivalent to \nreturn mName + \" (framework:\" + mIsFrameworkAttr + \")\";\n?",
+      "revId": "8233a8ebc18ea9e672c7e06573c87edc1407915b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
