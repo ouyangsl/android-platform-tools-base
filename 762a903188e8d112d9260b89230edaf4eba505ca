@@ -22,6 +22,30 @@
       "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e52c124_c94eb538",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-06T19:17:18Z",
+      "side": 1,
+      "message": "No :-) I grabbed the intent filter iteration from the security detector and adapted it; I will fix that.",
+      "parentUuid": "0e3065e8_45af4e74",
+      "range": {
+        "startLine": 857,
+        "startChar": 11,
+        "endLine": 857,
+        "endChar": 17
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
