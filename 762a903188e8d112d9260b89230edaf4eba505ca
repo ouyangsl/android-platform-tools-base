@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e3065e8_45af4e74",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-01-06T17:49:12Z",
+      "side": 1,
+      "message": "Is this comment intended here?",
+      "range": {
+        "startLine": 857,
+        "startChar": 11,
+        "endLine": 857,
+        "endChar": 17
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
