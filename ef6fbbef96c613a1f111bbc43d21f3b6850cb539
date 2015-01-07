@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "6e1ac1b5_c632e2da",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ArtifactApiTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-07T22:48:23Z",
+      "side": 1,
+      "message": "oh, duh.",
+      "parentUuid": "ce02cd41_b49f0e3b",
+      "range": {
+        "startLine": 162,
+        "startChar": 46,
+        "endLine": 162,
+        "endChar": 74
+      },
+      "revId": "ef6fbbef96c613a1f111bbc43d21f3b6850cb539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e630529_b65a8679",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/UnitTestingModelTest.groovy",
         "patchSetId": 3
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "Yes - in case you have release-only code that you want to unit test.",
       "parentUuid": "0e630529_b65a8679",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "ef6fbbef96c613a1f111bbc43d21f3b6850cb539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e1ac1b5_06ffda73",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/UnitTestingModelTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-07T22:48:23Z",
+      "side": 1,
+      "message": "ok, just note that this is not the case (yet) for androidTest where we only test a single variant.",
+      "parentUuid": "ae075951_d32c66b4",
       "range": {
         "startLine": 68,
         "startChar": 12,
