@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0e4a2599_fb618ff2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-07T15:58:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ea1a95e_2558d4fb",
+      "range": {
+        "startLine": 357,
+        "startChar": 31,
+        "endLine": 357,
+        "endChar": 32
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e52c124_0c317b8a",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "Or maybe use the word directory instead of folder",
       "parentUuid": "6e52c124_0c317b8a",
+      "range": {
+        "startLine": 359,
+        "startChar": 13,
+        "endLine": 359,
+        "endChar": 24
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee587171_dab925e9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-07T15:58:09Z",
+      "side": 1,
+      "message": "This is just the issue id, which by convention is short and unique and doesn\u0027t fully explain the issue. (It\u0027s only user visible in the sense that if you suppress a warning with a @SuppressLint annotation or a tools:ignore attribute, it\u0027s the string parameter to that annotation/attribute.",
+      "parentUuid": "2ea1a95e_502a7ca3",
       "range": {
         "startLine": 359,
         "startChar": 13,
@@ -119,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "0e4a2599_3bbf77d5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-07T15:58:09Z",
+      "side": 1,
+      "message": "Similarly this is the issue category shown in IntelliJ for an issue; by convention they\u0027re very short (lint used to have full one line synopsis descriptions, but these looked out of place in the IDE so I shortened them all to match IntelliJ\u0027s style.",
+      "parentUuid": "aedbd904_307b48e6",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 12
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e52c124_0c173bb5",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
         "patchSetId": 1
@@ -166,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "ee2f91b3_22abce91",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-07T15:58:09Z",
+      "side": 1,
+      "message": "I\u0027ve used that change, but I think those comments were meant to explain why the mipmap resource folders were created for the platform, where only a single density is shipped into the system image. That\u0027s not the case when a user builds their own APK is it? (unless they\u0027re using the new gradle build system\u0027s density splits feature) -- all densities remain in there, right? I thought this was more relevant because the launcher (now) loads icons in a different way so you get more fuzziness unless you provide a mipmap drawable.",
+      "parentUuid": "2ea1a95e_f00e2859",
+      "range": {
+        "startLine": 361,
+        "startChar": 28,
+        "endLine": 361,
+        "endChar": 34
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aedbd904_30410869",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
         "patchSetId": 1
@@ -177,6 +273,30 @@
       "writtenOn": "2015-01-07T01:11:31Z",
       "side": 1,
       "message": "Just curious, how do you detect the condition to display the lint error?",
+      "range": {
+        "startLine": 852,
+        "startChar": 19,
+        "endLine": 852,
+        "endChar": 26
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e4a2599_7b4e1f8d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-07T15:58:09Z",
+      "side": 1,
+      "message": "It looks in manifest files, and for the \u003capplication\u003e and \u003cactivity\u003e nodes, it looks up the android:icon attribute, and if set, checks whether it starts with @drawable/. If it does, then it flags the error (because that resource should start with @mipmap/ instead.)",
+      "parentUuid": "aedbd904_30410869",
       "range": {
         "startLine": 852,
         "startChar": 19,
@@ -224,6 +344,30 @@
       "side": 1,
       "message": "No :-) I grabbed the intent filter iteration from the security detector and adapted it; I will fix that.",
       "parentUuid": "0e3065e8_45af4e74",
+      "range": {
+        "startLine": 857,
+        "startChar": 11,
+        "endLine": 857,
+        "endChar": 17
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee587171_fabce9da",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 857,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-07T15:58:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e52c124_c94eb538",
       "range": {
         "startLine": 857,
         "startChar": 11,
