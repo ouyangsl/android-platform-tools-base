@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "6e1ac1b5_4941e567",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/QueuedCruncher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-07T23:56:56Z",
+      "side": 1,
+      "message": "space before throws.",
+      "revId": "e72312499f57de8c3c75efa05f5e987f4454885a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e2535f1_4a9553ca",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/QueuedCruncher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-07T23:56:56Z",
+      "side": 1,
+      "message": "repackaging the interrupted exception as higher level checked exception almost guarantee that higher level code will not handle the InterruptedException correctly. \n\nI think you should add Thread.currentThread.interrupt. \ncheck http://www.ibm.com/developerworks/java/library/j-jtp05236/index.html",
+      "revId": "e72312499f57de8c3c75efa05f5e987f4454885a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e1ac1b5_669faec6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessEnvBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-07T23:56:56Z",
+      "side": 1,
+      "message": "consider adding \n  @SuppressWarnings(\"unchecked\")\n  private T thisAsT() {\n    return (T) this;\n  }\n\nand call thisAsT() for every function.",
+      "revId": "e72312499f57de8c3c75efa05f5e987f4454885a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e2535f1_079a36d6",
         "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessOutputRecorder.java",
         "patchSetId": 3
