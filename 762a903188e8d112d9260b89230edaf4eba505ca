@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "2ea1a95e_2558d4fb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1060793
+      },
+      "writtenOn": "2015-01-07T01:11:31Z",
+      "side": 1,
+      "message": "update comment?",
+      "range": {
+        "startLine": 357,
+        "startChar": 31,
+        "endLine": 357,
+        "endChar": 32
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e52c124_0c317b8a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1060793
+      },
+      "writtenOn": "2015-01-07T01:11:31Z",
+      "side": 1,
+      "message": "MipmapFolderForLauncherIcons?",
+      "range": {
+        "startLine": 359,
+        "startChar": 13,
+        "endLine": 359,
+        "endChar": 24
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e4fbd7e_abbc8dd9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1060793
+      },
+      "writtenOn": "2015-01-07T01:11:31Z",
+      "side": 1,
+      "message": "\"Use mipmap resource folder for launcher icons\"? See explanation below. I think mipmap icons may be better described as mipmap folders for launcher icons.",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 12
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e52c124_0c173bb5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1060793
+      },
+      "writtenOn": "2015-01-07T01:11:31Z",
+      "side": 1,
+      "message": "This sentence may mislead developers into thinking they need to change the way their assets are created. They could be confused by these two similar topics: There was a MipmapDrawable framework class before (https://android.googlesource.com/platform/frameworks/base/+/56a2301/graphics/java/android/graphics/drawable/MipmapDrawable.java) but the class got hidden. There was also mipmapping for bitmap drawables added in Android 4.3.\n\nHere\u0027s another reference from Romain Guy in a discussion forum post about putting launcher icons into mipmap folders: https://groups.google.com/forum/#!topic/android-developers/ZUyF0JEwibs\n\nHow about something like the following?\n\n\"Launcher icons should be provided in mipmap folders, rather than in the drawable folder, to ensure that they do not get stripped out at build time when building multiple apks (i.e. density specific apks). In certain cases, the Launcher app may use a higher resolution asset (than would normally be computed for the device) to display large app shortcuts. Even if the developer is not building multiple apks at this time, it\u0027s still good practice to follow.\n\nTo fix this, move your launcher icons.. {insert remaining sentence}.\"",
+      "range": {
+        "startLine": 361,
+        "startChar": 28,
+        "endLine": 361,
+        "endChar": 34
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aedbd904_30410869",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 1060793
+      },
+      "writtenOn": "2015-01-07T01:11:31Z",
+      "side": 1,
+      "message": "Just curious, how do you detect the condition to display the lint error?",
+      "range": {
+        "startLine": 852,
+        "startChar": 19,
+        "endLine": 852,
+        "endChar": 26
+      },
+      "revId": "762a903188e8d112d9260b89230edaf4eba505ca",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0e3065e8_45af4e74",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
         "patchSetId": 1
