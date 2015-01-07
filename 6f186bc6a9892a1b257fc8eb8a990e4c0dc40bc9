@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce02cd41_b1b28004",
+        "filename": "build-system/integration-test/integration-test.iml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-07T10:39:30Z",
+      "side": 1,
+      "message": "I think this can be in the \"test\" scope? And in testCompile in build.gradle?",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 67
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce02cd41_91af7ca0",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-07T10:39:30Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be used?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae52f94e_b8671908",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ZipFileSubject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-07T10:39:30Z",
+      "side": 1,
+      "message": "I would have never guessed what the difference is between \"contains\" and \"containsEntry\".\n\nMaybe we could make into \"contains(path).withContent(content)\", like in \"assertThat(collection).containsAllOf(1,2,3).inOrder()\"? Or at least call it \"containsFileWithContent\" or something like that.",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 29
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
