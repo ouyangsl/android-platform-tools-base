@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e630529_76762efe",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ArtifactApiTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-07T18:36:56Z",
+      "side": 1,
+      "message": "why do you have 2 here?",
+      "range": {
+        "startLine": 162,
+        "startChar": 46,
+        "endLine": 162,
+        "endChar": 74
+      },
+      "revId": "ef6fbbef96c613a1f111bbc43d21f3b6850cb539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e630529_b65a8679",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/UnitTestingModelTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-07T18:36:56Z",
+      "side": 1,
+      "message": "do we have a unit test artifact even for \"release\" variants?",
+      "range": {
+        "startLine": 68,
+        "startChar": 12,
+        "endLine": 68,
+        "endChar": 48
+      },
+      "revId": "ef6fbbef96c613a1f111bbc43d21f3b6850cb539",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
