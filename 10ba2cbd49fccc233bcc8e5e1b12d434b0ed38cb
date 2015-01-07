@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee587171_1aab9d91",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-07T16:00:27Z",
+      "side": 1,
+      "message": "This quickfix is here: https://android-review.googlesource.com/#/c/121902/",
+      "revId": "10ba2cbd49fccc233bcc8e5e1b12d434b0ed38cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
