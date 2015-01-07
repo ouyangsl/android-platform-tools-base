@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e2535f1_079a36d6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessOutputRecorder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-07T22:59:35Z",
+      "side": 1,
+      "message": "this should be removed actually.",
+      "range": {
+        "startLine": 31,
+        "startChar": 13,
+        "endLine": 31,
+        "endChar": 34
+      },
+      "revId": "e72312499f57de8c3c75efa05f5e987f4454885a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
