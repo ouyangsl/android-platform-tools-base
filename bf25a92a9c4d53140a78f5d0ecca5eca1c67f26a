@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aeae7991_9b04ef89",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DexProcessBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "Groovy is awful, so no.\n\nAlso, this is in builder, not gradle so there\u0027s no groovy available here.",
+      "parentUuid": "8ea8d591_1201aafb",
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeb4f1df_1dd3771b",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/JackProcessBuilder.java",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2015-01-08T17:11:14Z",
       "side": 1,
       "message": "Remove empty JavaDoc - or add one, even better!",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec80176_b96d3b72",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/JackProcessBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeb4f1df_1dd3771b",
       "range": {
         "startLine": 32,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "0ebf85c3_76df2ee5",
+        "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "Can\u0027t work due to the optional rethrow exception.",
+      "parentUuid": "6e8d6144_f190a258",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 17
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e8d6144_1101aefb",
         "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
         "patchSetId": 4
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "aeae7991_9b2b0fed",
+        "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "sure, why not.",
+      "parentUuid": "6e8d6144_1101aefb",
+      "range": {
+        "startLine": 138,
+        "startChar": 25,
+        "endLine": 138,
+        "endChar": 49
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ea8d591_9214ba37",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/process/ProcessHelper.java",
         "patchSetId": 4
@@ -99,6 +189,30 @@
       "writtenOn": "2015-01-08T17:11:14Z",
       "side": 1,
       "message": "Remove or fill in.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec80176_593ee74e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/process/ProcessHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "Actually this class is obsolete.",
+      "parentUuid": "8ea8d591_9214ba37",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -174,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "aeae7991_9bddcf9d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessExecutor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e8d6144_11a60ec9",
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeb4f1df_5da08fa9",
         "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessInfo.java",
         "patchSetId": 4
@@ -185,6 +317,30 @@
       "writtenOn": "2015-01-08T17:11:14Z",
       "side": 1,
       "message": "I imagine this will be turned into strings using .toString()? Maybe mention it in the JavaDoc?",
+      "range": {
+        "startLine": 45,
+        "startChar": 16,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec80176_79be4356",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeb4f1df_5da08fa9",
       "range": {
         "startLine": 45,
         "startChar": 16,
@@ -220,6 +376,30 @@
     },
     {
       "key": {
+        "uuid": "0ebf85c3_766c8e76",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessInfoBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e8d6144_51a096a9",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeb4f1df_7de2b3e2",
         "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessResult.java",
         "patchSetId": 4
@@ -243,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "0ebf85c3_36493604",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessResult.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "This is matching exactly http://gradle.org/docs/current/javadoc/org/gradle/process/ExecResult.html so I don\u0027t want to.",
+      "parentUuid": "eeb4f1df_7de2b3e2",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e8d6144_71a592b8",
         "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessResult.java",
         "patchSetId": 4
@@ -254,6 +458,30 @@
       "writtenOn": "2015-01-08T17:11:14Z",
       "side": 1,
       "message": "Are they caught otherwise? This wasn\u0027t documented anywhere?",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec80176_19f1cf3d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessResult.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:58Z",
+      "side": 1,
+      "message": "So Gradle, by default, will call both assertNormalExitValue() and rethrowFailure() when calling exec().\n\nI disabled it (when calling gradle\u0027s implementation in our GradleProcessExecutor) because I wanted to handle the output so I ended up forcing the caller to do something with the result. I should document it in the (Java)ProcessExecutor, though if you look there, you\u0027ll see the execute() method doesn\u0027t throw anything.",
+      "parentUuid": "6e8d6144_71a592b8",
       "range": {
         "startLine": 37,
         "startChar": 7,
