@@ -1,0 +1,268 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ea8d591_1201aafb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DexProcessBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "This could be so much nicer in Groovy...",
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb4f1df_1dd3771b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/JackProcessBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "Remove empty JavaDoc - or add one, even better!",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 3
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e8d6144_f190a258",
+        "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "Maybe extract this to ProcessResult.SUCCESS",
+      "range": {
+        "startLine": 113,
+        "startChar": 12,
+        "endLine": 130,
+        "endChar": 17
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e8d6144_1101aefb",
+        "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "Can we fix the name? FakeFailingExecutor?",
+      "range": {
+        "startLine": 138,
+        "startChar": 25,
+        "endLine": 138,
+        "endChar": 49
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ea8d591_9214ba37",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/process/ProcessHelper.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "Remove or fill in.",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb4f1df_3d2d9b84",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessEnvBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "addToEnvironment?",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ea8d591_72a596b8",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessEnvBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "addToEnvironment? addEnvVariable?",
+      "range": {
+        "startLine": 50,
+        "startChar": 13,
+        "endLine": 50,
+        "endChar": 27
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e8d6144_11a60ec9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessExecutor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "Nit: Dot at the end?",
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb4f1df_5da08fa9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "I imagine this will be turned into strings using .toString()? Maybe mention it in the JavaDoc?",
+      "range": {
+        "startLine": 45,
+        "startChar": 16,
+        "endLine": 45,
+        "endChar": 22
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e8d6144_51a096a9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessInfoBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "You can use Preconditions.checkState.",
+      "range": {
+        "startLine": 66,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 9
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb4f1df_7de2b3e2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessResult.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "You seem to be using assertNormalExitValue and rethrowFailure together most of the time - maybe just merge them into one?",
+      "range": {
+        "startLine": 29,
+        "startChar": 18,
+        "endLine": 29,
+        "endChar": 41
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e8d6144_71a592b8",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessResult.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-08T17:11:14Z",
+      "side": 1,
+      "message": "Are they caught otherwise? This wasn\u0027t documented anywhere?",
+      "range": {
+        "startLine": 37,
+        "startChar": 7,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "bf25a92a9c4d53140a78f5d0ecca5eca1c67f26a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
