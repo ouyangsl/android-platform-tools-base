@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ec80176_9925df4a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/QueuedCruncher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e1ac1b5_4941e567",
+      "revId": "e72312499f57de8c3c75efa05f5e987f4454885a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e2535f1_4a9553ca",
         "filename": "build-system/builder/src/main/java/com/android/builder/png/QueuedCruncher.java",
         "patchSetId": 3
@@ -47,6 +65,24 @@
       "writtenOn": "2015-01-07T23:56:56Z",
       "side": 1,
       "message": "consider adding \n  @SuppressWarnings(\"unchecked\")\n  private T thisAsT() {\n    return (T) this;\n  }\n\nand call thisAsT() for every function.",
+      "revId": "e72312499f57de8c3c75efa05f5e987f4454885a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ebf85c3_16afda26",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/process/ProcessEnvBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-08T17:45:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e1ac1b5_669faec6",
       "revId": "e72312499f57de8c3c75efa05f5e987f4454885a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
