@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2014 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,48 +14,53 @@
  * limitations under the License.
  */
 
-package com.android.build.gradle
+package com.android.build.gradle.internal
 
 import com.android.annotations.NonNull
 import com.android.annotations.Nullable
-import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.internal.BadPluginException
-import com.android.build.gradle.internal.ConfigurationDependencies
-import com.android.build.gradle.internal.LibraryCache
-import com.android.build.gradle.internal.LoggerWrapper
-import com.android.build.gradle.internal.ProductFlavorData
-import com.android.build.gradle.internal.SdkHandler
-import com.android.build.gradle.internal.TaskManager
-import com.android.build.gradle.internal.VariantManager
-import com.android.build.gradle.internal.api.DefaultAndroidSourceSet
+import com.android.build.OutputFile
+import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.BasePlugin
+import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.api.AndroidSourceSet
+import com.android.build.gradle.internal.core.GradleVariantConfiguration
+import com.android.build.gradle.internal.coverage.JacocoInstrumentTask
 import com.android.build.gradle.internal.coverage.JacocoPlugin
-import com.android.build.gradle.internal.dependency.DependencyChecker
-import com.android.build.gradle.internal.dependency.JarInfo
-import com.android.build.gradle.internal.dependency.LibInfo
+import com.android.build.gradle.internal.coverage.JacocoReportTask
 import com.android.build.gradle.internal.dependency.LibraryDependencyImpl
+import com.android.build.gradle.internal.dependency.ManifestDependencyImpl
+import com.android.build.gradle.internal.dependency.SymbolFileProviderImpl
 import com.android.build.gradle.internal.dependency.VariantDependencies
-import com.android.build.gradle.internal.dsl.BuildType
-import com.android.build.gradle.internal.dsl.BuildTypeFactory
-import com.android.build.gradle.internal.dsl.GroupableProductFlavor
-import com.android.build.gradle.internal.dsl.GroupableProductFlavorFactory
-import com.android.build.gradle.internal.dsl.ProductFlavor
 import com.android.build.gradle.internal.dsl.SigningConfig
-import com.android.build.gradle.internal.dsl.SigningConfigFactory
-import com.android.build.gradle.internal.model.ArtifactMetaDataImpl
-import com.android.build.gradle.internal.model.JavaArtifactImpl
-import com.android.build.gradle.internal.model.MavenCoordinatesImpl
-import com.android.build.gradle.internal.model.ModelBuilder
-import com.android.build.gradle.internal.model.SyncIssueImpl
-import com.android.build.gradle.internal.model.SyncIssueKey
+import com.android.build.gradle.internal.publishing.ApkPublishArtifact
+import com.android.build.gradle.internal.tasks.AndroidReportTask
+import com.android.build.gradle.internal.tasks.CheckManifest
+import com.android.build.gradle.internal.tasks.DependencyReportTask
+import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestLibraryTask
+import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestTask
+import com.android.build.gradle.internal.tasks.GenerateApkDataTask
+import com.android.build.gradle.internal.tasks.InstallVariantTask
+import com.android.build.gradle.internal.tasks.MockableAndroidJarTask
+import com.android.build.gradle.internal.tasks.OutputFileTask
 import com.android.build.gradle.internal.tasks.PrepareDependenciesTask
-import com.android.build.gradle.internal.tasks.PrepareLibraryTask
+import com.android.build.gradle.internal.tasks.PrepareSdkTask
+import com.android.build.gradle.internal.tasks.SigningReportTask
+import com.android.build.gradle.internal.tasks.TestServerTask
+import com.android.build.gradle.internal.tasks.UninstallTask
+import com.android.build.gradle.internal.tasks.ValidateSigningTask
+import com.android.build.gradle.internal.tasks.multidex.CreateMainDexList
+import com.android.build.gradle.internal.tasks.multidex.CreateManifestKeepList
+import com.android.build.gradle.internal.tasks.multidex.JarMergingTask
+import com.android.build.gradle.internal.tasks.multidex.RetraceMainDexList
+import com.android.build.gradle.internal.test.report.ReportType
+import com.android.build.gradle.internal.variant.ApkVariantData
+import com.android.build.gradle.internal.variant.ApkVariantOutputData
+import com.android.build.gradle.internal.variant.ApplicationVariantData
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.internal.variant.BaseVariantOutputData
-import com.android.build.gradle.internal.variant.DefaultSourceProviderContainer
-import com.android.build.gradle.internal.variant.VariantFactory
-<<<<<<< HEAD   (1c4be9 Merge "small drive-by fixes while looking at the code for do)
-import com.android.build.gradle.model.BaseComponentModelPlugin
-import com.android.build.gradle.model.NdkComponentModelPlugin
+import com.android.build.gradle.internal.variant.LibraryVariantData
+import com.android.build.gradle.internal.variant.TestVariantData
+import com.android.build.gradle.internal.variant.TestedVariantData
 import com.android.build.gradle.tasks.AidlCompile
 import com.android.build.gradle.tasks.CompatibleScreensManifest
 import com.android.build.gradle.tasks.Dex
@@ -63,470 +68,181 @@ import com.android.build.gradle.tasks.GenerateBuildConfig
 import com.android.build.gradle.tasks.GenerateResValues
 import com.android.build.gradle.tasks.GenerateSplitAbiRes
 import com.android.build.gradle.tasks.JackTask
-=======
->>>>>>> BRANCH (1fd3b1 Merge "Create TaskManager from BasePlugin." into studio-1.1-)
 import com.android.build.gradle.tasks.JillTask
+import com.android.build.gradle.tasks.Lint
+import com.android.build.gradle.tasks.MergeAssets
+import com.android.build.gradle.tasks.MergeManifests
+import com.android.build.gradle.tasks.MergeResources
+import com.android.build.gradle.tasks.NdkCompile
+import com.android.build.gradle.tasks.PackageApplication
+import com.android.build.gradle.tasks.PackageSplitAbi
+import com.android.build.gradle.tasks.PackageSplitRes
 import com.android.build.gradle.tasks.PreDex
+import com.android.build.gradle.tasks.ProcessAndroidResources
+import com.android.build.gradle.tasks.ProcessManifest
+import com.android.build.gradle.tasks.ProcessTestManifest
+import com.android.build.gradle.tasks.RenderscriptCompile
+import com.android.build.gradle.tasks.ShrinkResources
+import com.android.build.gradle.tasks.SplitZipAlign
+import com.android.build.gradle.tasks.ZipAlign
 import com.android.builder.core.AndroidBuilder
-import com.android.builder.core.DefaultBuildType
-import com.android.builder.dependency.DependencyContainer
-import com.android.builder.dependency.JarDependency
+import com.android.builder.core.VariantConfiguration
+import com.android.builder.core.VariantType
 import com.android.builder.dependency.LibraryDependency
-import com.android.builder.internal.compiler.JackConversionCache
-import com.android.builder.internal.compiler.PreDexCache
-import com.android.builder.model.AndroidArtifact
-import com.android.builder.model.ArtifactMetaData
-import com.android.builder.model.JavaArtifact
+import com.android.builder.internal.testing.SimpleTestCallable
+import com.android.builder.model.ApiVersion
+import com.android.builder.model.ProductFlavor
 import com.android.builder.model.SourceProvider
-import com.android.builder.model.SourceProviderContainer
-import com.android.builder.model.SyncIssue
-import com.android.builder.sdk.SdkInfo
-import com.android.builder.sdk.TargetInfo
-import com.android.ide.common.internal.ExecutorSingleton
-import com.android.utils.ILogger
-import com.google.common.collect.ArrayListMultimap
-import com.google.common.collect.ListMultimap
+import com.android.builder.testing.ConnectedDeviceProvider
+import com.android.builder.testing.api.DeviceProvider
+import com.android.builder.testing.api.TestServer
+import com.android.sdklib.AndroidTargetHash
+import com.android.sdklib.IAndroidTarget
+import com.android.sdklib.SdkVersionInfo
+import com.google.common.collect.ImmutableSet
 import com.google.common.collect.Lists
-import com.google.common.collect.Maps
-import com.google.common.collect.Multimap
 import com.google.common.collect.Sets
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.gradle.api.GradleException
+import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.Task
-import org.gradle.api.UnknownProjectException
 import org.gradle.api.artifacts.Configuration
-import org.gradle.api.artifacts.ModuleVersionIdentifier
-import org.gradle.api.artifacts.ProjectDependency
-import org.gradle.api.artifacts.ResolvedArtifact
-import org.gradle.api.artifacts.SelfResolvingDependency
-import org.gradle.api.artifacts.repositories.MavenArtifactRepository
-import org.gradle.api.artifacts.result.DependencyResult
-import org.gradle.api.artifacts.result.ResolvedComponentResult
-import org.gradle.api.artifacts.result.ResolvedDependencyResult
-import org.gradle.api.artifacts.result.UnresolvedDependencyResult
 import org.gradle.api.execution.TaskExecutionGraph
 import org.gradle.api.internal.ConventionMapping
-import org.gradle.api.internal.project.ProjectInternal
-import org.gradle.api.logging.LogLevel
 import org.gradle.api.logging.Logger
+import org.gradle.api.logging.Logging
+import org.gradle.api.plugins.BasePluginConvention
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.plugins.JavaPlugin
-import org.gradle.api.specs.Specs
-import org.gradle.internal.reflect.Instantiator
+import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.TaskContainer
+import org.gradle.api.tasks.compile.AbstractCompile
+import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.api.tasks.testing.Test
+import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.tooling.BuildException
-import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry
-import org.gradle.util.GUtil
+import proguard.gradle.ProGuardTask
 
-import java.util.jar.Attributes
-import java.util.jar.Manifest
-import java.util.regex.Pattern
-
-import static com.android.SdkConstants.DOT_JAR
-import static com.android.SdkConstants.EXT_ANDROID_PACKAGE
-import static com.android.SdkConstants.EXT_JAR
-import static com.android.builder.core.BuilderConstants.DEBUG
-import static com.android.builder.core.BuilderConstants.EXT_LIB_ARCHIVE
-import static com.android.builder.core.BuilderConstants.RELEASE
+import static com.android.SdkConstants.FN_ANDROID_MANIFEST_XML
+import static com.android.builder.core.BuilderConstants.CONNECTED
+import static com.android.builder.core.BuilderConstants.DEVICE
+import static com.android.builder.core.BuilderConstants.FD_ANDROID_RESULTS
+import static com.android.builder.core.BuilderConstants.FD_ANDROID_TESTS
+import static com.android.builder.core.BuilderConstants.FD_FLAVORS
+import static com.android.builder.core.BuilderConstants.FD_FLAVORS_ALL
+import static com.android.builder.core.BuilderConstants.FD_REPORTS
 import static com.android.builder.core.VariantType.ANDROID_TEST
+import static com.android.builder.core.VariantType.DEFAULT
 import static com.android.builder.core.VariantType.UNIT_TEST
+import static com.android.builder.model.AndroidProject.FD_GENERATED
 import static com.android.builder.model.AndroidProject.FD_INTERMEDIATES
-import static com.android.builder.model.AndroidProject.PROPERTY_BUILD_MODEL_ONLY
-import static com.android.builder.model.AndroidProject.PROPERTY_SIGNING_KEY_ALIAS
-import static com.android.builder.model.AndroidProject.PROPERTY_SIGNING_KEY_PASSWORD
-import static com.android.builder.model.AndroidProject.PROPERTY_SIGNING_STORE_FILE
-import static com.android.builder.model.AndroidProject.PROPERTY_SIGNING_STORE_PASSWORD
-import static com.android.builder.model.AndroidProject.PROPERTY_SIGNING_STORE_TYPE
-import static java.io.File.separator
+import static com.android.builder.model.AndroidProject.FD_OUTPUTS
+import static com.android.builder.model.AndroidProject.PROPERTY_APK_LOCATION
+import static com.android.sdklib.BuildToolInfo.PathId.ZIP_ALIGN
 
 /**
- * Base class for all Android plugins
+ * Manages tasks creation.
  */
 @CompileStatic
-public abstract class BasePlugin {
+class TaskManager {
 
-    protected final static boolean DEBUG_DEPENDENCY = false
+    public static final String FILE_JACOCO_AGENT = 'jacocoagent.jar'
 
-<<<<<<< HEAD   (1c4be9 Merge "small drive-by fixes while looking at the code for do)
-    public final static String DIR_BUNDLES = "bundles"
+    public static final String DEFAULT_PROGUARD_CONFIG_FILE = 'proguard-android.txt'
 
-    private static final String GRADLE_MIN_VERSION = "2.3"
-    public static final String GRADLE_TEST_VERSION = "2.4-20141229230057+0000"
-    public static final Pattern GRADLE_ACCEPTABLE_VERSIONS = Pattern.compile("2\\.[3-9].*");
-=======
-    private static final String GRADLE_MIN_VERSION = "2.2"
-    public static final String GRADLE_TEST_VERSION = "2.2"
-    public static final Pattern GRADLE_ACCEPTABLE_VERSIONS = Pattern.compile("2\\.[2-9].*")
->>>>>>> BRANCH (1fd3b1 Merge "Create TaskManager from BasePlugin." into studio-1.1-)
-    private static final String GRADLE_VERSION_CHECK_OVERRIDE_PROPERTY =
-            "com.android.build.gradle.overrideVersionCheck"
+    public final static String DIR_BUNDLES = "bundles";
 
-    public static File TEST_SDK_DIR;
+    // These need to be public for gradle-dev.
+    public static final String INSTALL_GROUP = "Install"
 
-    protected Instantiator instantiator
-    protected ToolingModelBuilderRegistry registry
+    public static final String BUILD_GROUP = org.gradle.api.plugins.BasePlugin.BUILD_GROUP
 
-    protected JacocoPlugin jacocoPlugin
+    public static final String ANDROID_GROUP = "Android"
 
-<<<<<<< HEAD   (1c4be9 Merge "small drive-by fixes while looking at the code for do)
-    protected BaseExtension extension
-    protected VariantManager variantManager
-=======
-    private BaseExtension extension
-    private VariantManager variantManager
-    private TaskManager taskManager
->>>>>>> BRANCH (1fd3b1 Merge "Create TaskManager from BasePlugin." into studio-1.1-)
+    final Map<SigningConfig, ValidateSigningTask> validateSigningTaskMap = [:]
 
-    protected boolean buildModelForIde
+    private BasePlugin plugin
 
-    final Map<LibraryDependencyImpl, PrepareLibraryTask> prepareTaskMap = [:]
+    private Project project
 
-    protected Project project
-    private LoggerWrapper loggerWrapper
-    protected SdkHandler sdkHandler
-    protected AndroidBuilder androidBuilder
-    private String creator
+    private TaskContainer tasks
 
-    private boolean hasCreatedTasks = false
+    private AndroidBuilder androidBuilder
 
-    private ProductFlavorData<ProductFlavor> defaultConfigData
-    /** @deprecated use syncIssue instead */
-    @Deprecated
-    private final Collection<String> unresolvedDependencies = Sets.newHashSet()
-    private final Map<SyncIssueKey, SyncIssue> syncIssues = Maps.newHashMap()
+    private Logger logger
 
-    protected DefaultAndroidSourceSet mainSourceSet
-    protected DefaultAndroidSourceSet androidTestSourceSet
-    protected DefaultAndroidSourceSet unitTestSourceSet
+    private PrepareSdkTask mainPreBuild
 
-    protected BasePlugin(Instantiator instantiator, ToolingModelBuilderRegistry registry) {
-        this.instantiator = instantiator
-        this.registry = registry
-        String pluginVersion = getLocalVersion()
-        if (pluginVersion != null) {
-            creator = "Android Gradle " + pluginVersion
-        } else  {
-            creator = "Android Gradle"
-        }
-    }
+    private Task uninstallAll
 
-    protected abstract Class<? extends BaseExtension> getExtensionClass()
-    protected abstract VariantFactory getVariantFactory()
+    private Task assembleAndroidTest
 
-    public Instantiator getInstantiator() {
-        return instantiator
-    }
+    private Task deviceCheck
 
-    public VariantManager getVariantManager() {
-        return variantManager
-    }
+    private Task connectedCheck
 
-    void setVariantManager(VariantManager variantManager) {
-        this.variantManager = variantManager
-    }
+    private Copy jacocoAgentTask
 
-    BaseExtension getExtension() {
-        return extension
-    }
+    public Task lintCompile
 
-    protected void apply(Project project) {
+    private Task lintAll
+
+    public MockableAndroidJarTask createMockableJar
+
+    public TaskManager(
+            BasePlugin plugin,
+            Project project,
+            TaskContainer tasks,
+            AndroidBuilder androidBuilder) {
+        this.plugin = plugin
         this.project = project
-        doApply()
+        this.tasks = tasks
+        this.androidBuilder = androidBuilder
+        logger = Logging.getLogger(this.class)
     }
 
-    protected void doApply() {
-        configureProject()
-        createExtension()
-        createTasks()
+    private BaseExtension getExtension() {
+        return plugin.extension
     }
 
-    protected void configureProject() {
-        buildModelForIde = isBuildModelForIde()
+    public void createTasks() {
+        uninstallAll = project.tasks.create("uninstallAll")
+        uninstallAll.description = "Uninstall all applications."
+        uninstallAll.group = INSTALL_GROUP
 
-        checkGradleVersion()
-        sdkHandler = new SdkHandler(project, logger)
-        androidBuilder = new AndroidBuilder(
-                project == project.rootProject ? project.name : project.path,
-                creator, logger, verbose)
+        deviceCheck = project.tasks.create("deviceCheck")
+        deviceCheck.description = "Runs all device checks using Device Providers and Test Servers."
+        deviceCheck.group = JavaBasePlugin.VERIFICATION_GROUP
 
-        taskManager = new TaskManager(this, project, project.tasks, androidBuilder)
+        connectedCheck = project.tasks.create("connectedCheck")
+        connectedCheck.description = "Runs all device checks on currently connected devices."
+        connectedCheck.group = JavaBasePlugin.VERIFICATION_GROUP
 
-        project.apply plugin: JavaBasePlugin
+        mainPreBuild = project.tasks.create("preBuild", PrepareSdkTask)
+        mainPreBuild.plugin = plugin
+    }
 
-        project.apply plugin: JacocoPlugin
-        jacocoPlugin = project.plugins.getPlugin(JacocoPlugin)
+    public void createAssembleAndroidTestTask() {
+        assembleAndroidTest = project.getTasks().create("assembleAndroidTest");
+        assembleAndroidTest.setGroup(org.gradle.api.plugins.BasePlugin.BUILD_GROUP);
+        assembleAndroidTest.setDescription("Assembles all the Test applications");
+    }
 
-        // Register a builder for the custom tooling model
-        registry.register(new ModelBuilder());
+    public void createMockableJarTask() {
+        createMockableJar = project.tasks.create("mockableAndroidJar", MockableAndroidJarTask)
+        createMockableJar.group = BUILD_GROUP
+        createMockableJar.description = "Creates a version of android.jar that's suitable for unit tests."
 
-        project.tasks.getByName("assemble").description =
-                "Assembles all variants of all applications and secondary packages."
-
-        // call back on execution. This is called after the whole build is done (not
-        // after the current project is done).
-        // This is will be called for each (android) projects though, so this should support
-        // being called 2+ times.
-        project.gradle.buildFinished {
-            ExecutorSingleton.shutdown()
-            sdkHandler.unload()
-            PreDexCache.getCache().clear(
-                    project.rootProject.file(
-                            "${project.rootProject.buildDir}/${FD_INTERMEDIATES}/dex-cache/cache.xml"),
-                    logger)
-            JackConversionCache.getCache().clear(
-                    project.rootProject.file(
-                            "${project.rootProject.buildDir}/${FD_INTERMEDIATES}/jack-cache/cache.xml"),
-                    logger)
-            LibraryCache.getCache().unload()
+        conventionMapping(createMockableJar).map("androidJar") {
+            plugin.ensureTargetSetup()
+            new File(androidBuilder.target.getPath(IAndroidTarget.ANDROID_JAR))
         }
 
-        project.gradle.taskGraph.whenReady { TaskExecutionGraph taskGraph ->
-            for (Task task : taskGraph.allTasks) {
-                if (task instanceof PreDex) {
-                    PreDexCache.getCache().load(
-                            project.rootProject.file(
-                                    "${project.rootProject.buildDir}/${FD_INTERMEDIATES}/dex-cache/cache.xml"))
-                    break;
-                } else if (task instanceof JillTask) {
-                    JackConversionCache.getCache().load(
-                            project.rootProject.file(
-                                    "${project.rootProject.buildDir}/${FD_INTERMEDIATES}/jack-cache/cache.xml"))
-                    break;
-                }
-            }
-        }
-    }
-
-    private void createExtension() {
-        def buildTypeContainer = project.container(BuildType,
-                new BuildTypeFactory(instantiator, project, project.getLogger()))
-        def productFlavorContainer = project.container(GroupableProductFlavor,
-                new GroupableProductFlavorFactory(instantiator, project, project.getLogger()))
-        def signingConfigContainer = project.container(SigningConfig,
-                new SigningConfigFactory(instantiator))
-
-        extension = project.extensions.create('android', getExtensionClass(),
-                this, (ProjectInternal) project, instantiator,
-                buildTypeContainer, productFlavorContainer, signingConfigContainer,
-                this instanceof LibraryPlugin)
-        setBaseExtension(extension)
-
-        variantManager = new VariantManager(project, this, extension, getVariantFactory(), taskManager)
-
-        // map the whenObjectAdded callbacks on the containers.
-        signingConfigContainer.whenObjectAdded { SigningConfig signingConfig ->
-            variantManager.addSigningConfig((SigningConfig) signingConfig)
-        }
-
-        buildTypeContainer.whenObjectAdded { DefaultBuildType buildType ->
-            variantManager.addBuildType((BuildType) buildType)
-        }
-
-        productFlavorContainer.whenObjectAdded { GroupableProductFlavor productFlavor ->
-            variantManager.addProductFlavor(productFlavor)
-        }
-
-        // create default Objects, signingConfig first as its used by the BuildTypes.
-        signingConfigContainer.create(DEBUG)
-        buildTypeContainer.create(DEBUG)
-        buildTypeContainer.create(RELEASE)
-
-        // map whenObjectRemoved on the containers to throw an exception.
-        signingConfigContainer.whenObjectRemoved {
-            throw new UnsupportedOperationException("Removing signingConfigs is not supported.")
-        }
-        buildTypeContainer.whenObjectRemoved {
-            throw new UnsupportedOperationException("Removing build types is not supported.")
-        }
-        productFlavorContainer.whenObjectRemoved {
-            throw new UnsupportedOperationException("Removing product flavors is not supported.")
-        }
-    }
-
-    private void createTasks() {
-        taskManager.createTasks()
-
-        project.afterEvaluate {
-            createAndroidTasks(false)
-        }
-    }
-
-    public void setBaseExtension(@NonNull BaseExtension extension) {
-        this.extension = extension
-        mainSourceSet = (DefaultAndroidSourceSet) extension.sourceSets.create(extension.defaultConfig.name)
-        androidTestSourceSet = (DefaultAndroidSourceSet) extension.sourceSets.create(ANDROID_TEST.prefix)
-        unitTestSourceSet = (DefaultAndroidSourceSet) extension.sourceSets.create(UNIT_TEST.prefix)
-
-        defaultConfigData = new ProductFlavorData<ProductFlavor>(
-                extension.defaultConfig, mainSourceSet,
-                androidTestSourceSet, unitTestSourceSet, project)
-    }
-
-    private void checkGradleVersion() {
-        if (!GRADLE_ACCEPTABLE_VERSIONS.matcher(project.getGradle().gradleVersion).matches()) {
-            boolean allowNonMatching = Boolean.getBoolean(GRADLE_VERSION_CHECK_OVERRIDE_PROPERTY)
-            File file = new File("gradle" + separator + "wrapper" + separator +
-                    "gradle-wrapper.properties");
-            String errorMessage = String.format(
-                "Gradle version %s is required. Current version is %s. " +
-                "If using the gradle wrapper, try editing the distributionUrl in %s " +
-                "to gradle-%s-all.zip",
-                GRADLE_MIN_VERSION, project.getGradle().gradleVersion, file.getAbsolutePath(),
-                GRADLE_MIN_VERSION);
-            if (allowNonMatching) {
-                getLogger().warning(errorMessage)
-                getLogger().warning("As %s is set, continuing anyways.",
-                        GRADLE_VERSION_CHECK_OVERRIDE_PROPERTY)
-            } else {
-                throw new BuildException(errorMessage, null)
-            }
-        }
-    }
-
-    final void createAndroidTasks(boolean force) {
-        // get current plugins and look for the default Java plugin.
-        if (project.plugins.hasPlugin(JavaPlugin.class)) {
-            throw new BadPluginException(
-                    "The 'java' plugin has been applied, but it is not compatible with the Android plugins.")
-        }
-
-        // don't do anything if the project was not initialized.
-        // Unless TEST_SDK_DIR is set in which case this is unit tests and we don't return.
-        // This is because project don't get evaluated in the unit test setup.
-        // See AppPluginDslTest
-        if (!force && (!project.state.executed || project.state.failure != null) && TEST_SDK_DIR == null) {
-            return
-        }
-
-        if (hasCreatedTasks) {
-            return
-        }
-        hasCreatedTasks = true
-
-        // setup SDK repositories.
-        for (File file : sdkHandler.sdkLoader.repositories) {
-            project.repositories.maven { MavenArtifactRepository repo ->
-                repo.url = file.toURI()
-            }
-        }
-
-        taskManager.createMockableJarTask()
-        variantManager.createAndroidTasks(getSigningOverride())
-        taskManager.createReportTasks()
-    }
-
-    public SigningConfig getSigningOverride() {
-        if (project.hasProperty(PROPERTY_SIGNING_STORE_FILE) &&
-                project.hasProperty(PROPERTY_SIGNING_STORE_PASSWORD) &&
-                project.hasProperty(PROPERTY_SIGNING_KEY_ALIAS) &&
-                project.hasProperty(PROPERTY_SIGNING_KEY_PASSWORD)) {
-
-            SigningConfig signingConfigDsl = new SigningConfig("externalOverride")
-            Map<String, ?> props = project.getProperties();
-
-            signingConfigDsl.setStoreFile(new File((String) props.get(PROPERTY_SIGNING_STORE_FILE)))
-            signingConfigDsl.setStorePassword((String) props.get(PROPERTY_SIGNING_STORE_PASSWORD));
-            signingConfigDsl.setKeyAlias((String) props.get(PROPERTY_SIGNING_KEY_ALIAS));
-            signingConfigDsl.setKeyPassword((String) props.get(PROPERTY_SIGNING_KEY_PASSWORD));
-
-            if (project.hasProperty(PROPERTY_SIGNING_STORE_TYPE)) {
-                signingConfigDsl.setStoreType((String) props.get(PROPERTY_SIGNING_STORE_TYPE))
-            }
-
-            return signingConfigDsl
-        }
-        return null
-    }
-
-    void checkTasksAlreadyCreated() {
-        if (hasCreatedTasks) {
-            throw new GradleException(
-                    "Android tasks have already been created.\n" +
-                    "This happens when calling android.applicationVariants,\n" +
-                    "android.libraryVariants or android.testVariants.\n" +
-                    "Once these methods are called, it is not possible to\n" +
-                    "continue configuring the model.")
-        }
-    }
-
-    ProductFlavorData<ProductFlavor> getDefaultConfigData() {
-        return defaultConfigData
-    }
-
-    @Deprecated
-    Collection<String> getUnresolvedDependencies() {
-        return unresolvedDependencies
-    }
-
-    Map<SyncIssueKey, SyncIssue> getSyncIssues() {
-        return syncIssues
-    }
-
-    ILogger getLogger() {
-        if (loggerWrapper == null) {
-            loggerWrapper = new LoggerWrapper(project.logger)
-        }
-
-        return loggerWrapper
-    }
-
-    boolean isVerbose() {
-        return project.logger.isEnabled(LogLevel.INFO)
-    }
-
-    boolean isDebugLog() {
-        return project.logger.isEnabled(LogLevel.DEBUG)
-    }
-
-    AndroidBuilder getAndroidBuilder() {
-        return androidBuilder
-    }
-
-    public File getSdkFolder() {
-        return sdkHandler.getSdkFolder()
-    }
-
-    public File getNdkFolder() {
-        return sdkHandler.getNdkFolder()
-    }
-
-    public SdkInfo getSdkInfo() {
-        return sdkHandler.getSdkInfo()
-    }
-
-    public List<File> getBootClasspath() {
-        ensureTargetSetup()
-
-        return androidBuilder.getBootClasspath()
-    }
-
-    public List<String> getBootClasspathAsStrings() {
-        ensureTargetSetup()
-
-        return androidBuilder.getBootClasspathAsStrings()
-    }
-
-    public TaskManager getTaskManager() {
-        return taskManager
-    }
-
-    public List<BaseVariantData<? extends BaseVariantOutputData>> getVariantDataList() {
-        if (variantManager.getVariantDataList().isEmpty()) {
-            variantManager.populateVariantDataList(getSigningOverride())
-        }
-        return variantManager.getVariantDataList();
-    }
-
-    public void ensureTargetSetup() {
-        // check if the target has been set.
-        TargetInfo targetInfo = androidBuilder.getTargetInfo()
-        if (targetInfo == null) {
-            sdkHandler.initTarget(
-                    extension.getCompileSdkVersion(),
-                    extension.buildToolsRevision,
-                    androidBuilder)
-<<<<<<< HEAD   (1c4be9 Merge "small drive-by fixes while looking at the code for do)
+        conventionMapping(createMockableJar).map("outputFile") {
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/mockable-${extension.compileSdkVersion}.jar")
         }
     }
 
@@ -534,7 +250,7 @@ public abstract class BasePlugin {
             @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData) {
 
         VariantConfiguration config = variantData.variantConfiguration
-        com.android.builder.model.ProductFlavor mergedFlavor = config.mergedFlavor
+        ProductFlavor mergedFlavor = config.mergedFlavor
 
         ApplicationVariantData appVariantData = variantData as ApplicationVariantData
         Set<String> screenSizes = appVariantData.getCompatibleScreens()
@@ -560,7 +276,7 @@ public abstract class BasePlugin {
 
             variantOutputData.manifestProcessorTask = processManifestTask
 
-            processManifestTask.plugin = this
+            processManifestTask.plugin = plugin
 
             processManifestTask.dependsOn variantData.prepareDependenciesTask
             if (variantData.generateApkDataTask != null) {
@@ -650,7 +366,7 @@ public abstract class BasePlugin {
     }
 
     @CompileDynamic
-    private ConventionMapping conventionMapping(Task task) {
+    private static ConventionMapping conventionMapping(Task task) {
         task.conventionMapping
     }
 
@@ -666,12 +382,12 @@ public abstract class BasePlugin {
                 "process${variantData.variantConfiguration.fullName.capitalize()}Manifest",
                 ProcessManifest)
         variantOutputData.manifestProcessorTask = processManifest
-        processManifest.plugin = this
+        processManifest.plugin = plugin
 
         processManifest.dependsOn variantData.prepareDependenciesTask
         processManifest.variantConfiguration = config
 
-        com.android.builder.model.ProductFlavor mergedFlavor = config.mergedFlavor
+        ProductFlavor mergedFlavor = config.mergedFlavor
 
         conventionMapping(processManifest).map("minSdkVersion") {
             if (androidBuilder.isPreviewTarget()) {
@@ -731,7 +447,7 @@ public abstract class BasePlugin {
         variantOutputData.manifestProcessorTask = processTestManifestTask
         processTestManifestTask.dependsOn variantData.prepareDependenciesTask
 
-        processTestManifestTask.plugin = this
+        processTestManifestTask.plugin = plugin
 
         conventionMapping(processTestManifestTask).map("testApplicationId") {
             config.applicationId
@@ -788,7 +504,7 @@ public abstract class BasePlugin {
             renderscriptTask.dependsOn variantData.checkManifestTask
         }
 
-        com.android.builder.model.ProductFlavor mergedFlavor = config.mergedFlavor
+        ProductFlavor mergedFlavor = config.mergedFlavor
         boolean ndkMode = config.renderscriptNdkModeEnabled
 
         variantData.resourceGenTask.dependsOn renderscriptTask
@@ -798,7 +514,7 @@ public abstract class BasePlugin {
         }
 
         renderscriptTask.dependsOn variantData.prepareDependenciesTask
-        renderscriptTask.plugin = this
+        renderscriptTask.plugin = plugin
 
         conventionMapping(renderscriptTask).map("targetApi") {
             int targetApi = mergedFlavor.renderscriptTargetApi != null ?
@@ -825,16 +541,20 @@ public abstract class BasePlugin {
         conventionMapping(renderscriptTask).map("importDirs") { config.renderscriptImports }
 
         conventionMapping(renderscriptTask).map("sourceOutputDir") {
-            project.file("$project.buildDir/${FD_GENERATED}/source/rs/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_GENERATED}/source/rs/${variantData.variantConfiguration.dirName}")
         }
         conventionMapping(renderscriptTask).map("resOutputDir") {
-            project.file("$project.buildDir/${FD_GENERATED}/res/rs/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_GENERATED}/res/rs/${variantData.variantConfiguration.dirName}")
         }
         conventionMapping(renderscriptTask).map("objOutputDir") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/rs/${variantData.variantConfiguration.dirName}/obj")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/rs/${variantData.variantConfiguration.dirName}/obj")
         }
         conventionMapping(renderscriptTask).map("libOutputDir") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/rs/${variantData.variantConfiguration.dirName}/lib")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/rs/${variantData.variantConfiguration.dirName}/lib")
         }
         conventionMapping(renderscriptTask).map("ndkConfig") { config.ndkConfig }
     }
@@ -861,19 +581,21 @@ public abstract class BasePlugin {
                 "$taskNamePrefix${variantData.variantConfiguration.fullName.capitalize()}Resources",
                 MergeResources)
 
-        mergeResourcesTask.dependsOn variantData.prepareDependenciesTask, variantData.resourceGenTask
-        mergeResourcesTask.plugin = this
+        mergeResourcesTask.dependsOn variantData.prepareDependenciesTask,
+                variantData.resourceGenTask
+        mergeResourcesTask.plugin = plugin
         mergeResourcesTask.incrementalFolder = project.file(
                 "$project.buildDir/${FD_INTERMEDIATES}/incremental/${taskNamePrefix}Resources/${variantData.variantConfiguration.dirName}")
 
         mergeResourcesTask.process9Patch = process9Patch
         mergeResourcesTask.crunchPng = extension.aaptOptions.getCruncherEnabled()
 
-        conventionMapping(mergeResourcesTask).map("useNewCruncher") { extension.aaptOptions.useNewCruncher }
+        conventionMapping(mergeResourcesTask).
+                map("useNewCruncher") { getExtension().aaptOptions.useNewCruncher }
 
         conventionMapping(mergeResourcesTask).map("inputResourceSets") {
-            def generatedResFolders = [ variantData.renderscriptCompileTask.getResOutputDir(),
-                                        variantData.generateResValuesTask.getResOutputDir() ]
+            def generatedResFolders = [variantData.renderscriptCompileTask.getResOutputDir(),
+                                       variantData.generateResValuesTask.getResOutputDir()]
             if (variantData.generateApkDataTask != null) {
                 generatedResFolders.add(variantData.generateApkDataTask.getResOutputDir())
             }
@@ -891,7 +613,8 @@ public abstract class BasePlugin {
             @Nullable String outputLocation,
             final boolean includeDependencies) {
         if (outputLocation == null) {
-            outputLocation = "$project.buildDir/${FD_INTERMEDIATES}/assets/${variantData.variantConfiguration.dirName}"
+            outputLocation =
+                    "$project.buildDir/${FD_INTERMEDIATES}/assets/${variantData.variantConfiguration.dirName}"
         }
 
         VariantConfiguration variantConfig = variantData.variantConfiguration
@@ -902,9 +625,10 @@ public abstract class BasePlugin {
         variantData.mergeAssetsTask = mergeAssetsTask
 
         mergeAssetsTask.dependsOn variantData.prepareDependenciesTask, variantData.assetGenTask
-        mergeAssetsTask.plugin = this
+        mergeAssetsTask.plugin = plugin
         mergeAssetsTask.incrementalFolder =
-                project.file("$project.buildDir/${FD_INTERMEDIATES}/incremental/mergeAssets/${variantConfig.dirName}")
+                project.file(
+                        "$project.buildDir/${FD_INTERMEDIATES}/incremental/mergeAssets/${variantConfig.dirName}")
 
         conventionMapping(mergeAssetsTask).map("inputAssetSets") {
             def generatedAssets = []
@@ -939,7 +663,7 @@ public abstract class BasePlugin {
             generateBuildConfigTask.dependsOn variantData.checkManifestTask
         }
 
-        generateBuildConfigTask.plugin = this
+        generateBuildConfigTask.plugin = plugin
 
         conventionMapping(generateBuildConfigTask).map("buildConfigPackageName") {
             variantConfiguration.originalApplicationId
@@ -978,7 +702,8 @@ public abstract class BasePlugin {
         }
 
         conventionMapping(generateBuildConfigTask).map("sourceOutputDir") {
-            project.file("$project.buildDir/${FD_GENERATED}/source/buildConfig/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_GENERATED}/source/buildConfig/${variantData.variantConfiguration.dirName}")
         }
     }
 
@@ -992,14 +717,15 @@ public abstract class BasePlugin {
 
         VariantConfiguration variantConfiguration = variantData.variantConfiguration
 
-        generateResValuesTask.plugin = this
+        generateResValuesTask.plugin = plugin
 
         conventionMapping(generateResValuesTask).map("items") {
             variantConfiguration.resValues
         }
 
         conventionMapping(generateResValuesTask).map("resOutputDir") {
-            project.file("$project.buildDir/${FD_GENERATED}/res/generated/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_GENERATED}/res/generated/${variantData.variantConfiguration.dirName}")
         }
     }
 
@@ -1035,12 +761,13 @@ public abstract class BasePlugin {
 
             processResources.dependsOn variantOutputData.manifestProcessorTask,
                     variantData.mergeResourcesTask, variantData.mergeAssetsTask
-            processResources.plugin = this
+            processResources.plugin = plugin
 
             if (variantData.getSplitHandlingPolicy() ==
                     BaseVariantData.SplitHandlingPolicy.RELEASE_21_AND_AFTER_POLICY) {
 
-                Set<String> filters = new HashSet<String>(getExtension().getSplits().getDensityFilters());
+                Set<String> filters = new HashSet<String>(
+                        getExtension().getSplits().getDensityFilters());
                 filters.addAll(getExtension().getSplits().getLanguageFilters());
                 filters = removeAllNullEntries(filters);
                 processResources.splits = filters;
@@ -1053,7 +780,7 @@ public abstract class BasePlugin {
                     && variantData.generateRClassTask == null) {
                 variantData.generateRClassTask = processResources
                 variantData.sourceGenTask.dependsOn processResources
-                processResources.enforceUniquePackageName = extension.getEnforceUniquePackageName()
+                processResources.enforceUniquePackageName = getExtension().getEnforceUniquePackageName()
 
                 conventionMapping(processResources).map("libraries") {
                     getTextSymbolDependencies(config.allLibraries)
@@ -1074,7 +801,7 @@ public abstract class BasePlugin {
 
                 if (config.buildType.isMinifyEnabled()) {
                     if (config.buildType.shrinkResources && config.useJack) {
-                        displayWarning(logger, project,
+                        BasePlugin.displayWarning(logger, project,
                                 "WARNING: shrinkResources does not yet work with useJack=true")
                     }
                     conventionMapping(processResources).map("proguardOutputFile") {
@@ -1082,7 +809,7 @@ public abstract class BasePlugin {
                                 "$project.buildDir/${FD_INTERMEDIATES}/proguard-rules/${config.dirName}/aapt_rules.txt")
                     }
                 } else if (config.buildType.shrinkResources) {
-                    displayWarning(logger, project,
+                    BasePlugin.displayWarning(logger, project,
                             "WARNING: To shrink resources you must also enable ProGuard")
                 }
             }
@@ -1108,8 +835,9 @@ public abstract class BasePlugin {
 
             conventionMapping(processResources).map("type") { config.type }
             conventionMapping(processResources).map("debuggable") { config.buildType.debuggable }
-            conventionMapping(processResources).map("aaptOptions") { extension.aaptOptions }
-            conventionMapping(processResources).map("pseudoLocalesEnabled") { config.buildType.pseudoLocalesEnabled }
+            conventionMapping(processResources).map("aaptOptions") { getExtension().aaptOptions }
+            conventionMapping(processResources).
+                    map("pseudoLocalesEnabled") { config.buildType.pseudoLocalesEnabled }
 
             conventionMapping(processResources).map("resourceConfigs") {
                 return config.mergedFlavor.resourceConfigurations
@@ -1127,7 +855,6 @@ public abstract class BasePlugin {
      * unchanged to the APK build output directory.
      * @param variantData the variant configuration.
      */
-
     public void createSplitResourcesTasks(
             @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData) {
 
@@ -1160,10 +887,11 @@ public abstract class BasePlugin {
                 (SigningConfig) config.signingConfig
         variantOutputData.packageSplitResourcesTask.outputDirectory =
                 new File("$project.buildDir/${FD_INTERMEDIATES}/splits/${config.dirName}")
-        variantOutputData.packageSplitResourcesTask.plugin = this
+        variantOutputData.packageSplitResourcesTask.plugin = plugin
         variantOutputData.packageSplitResourcesTask.dependsOn variantOutputData.processResourcesTask
 
-        SplitZipAlign zipAlign = project.tasks.create("zipAlign${config.fullName.capitalize()}SplitPackages", SplitZipAlign)
+        SplitZipAlign zipAlign = project.tasks.
+                create("zipAlign${config.fullName.capitalize()}SplitPackages", SplitZipAlign)
         conventionMapping(zipAlign).map("zipAlignExe") {
             String path = androidBuilder.targetInfo?.buildTools?.getPath(ZIP_ALIGN)
             if (path != null) {
@@ -1209,7 +937,7 @@ public abstract class BasePlugin {
         GenerateSplitAbiRes generateSplitAbiRes = project.tasks.
                 create("generate${config.fullName.capitalize()}SplitAbiRes",
                         GenerateSplitAbiRes)
-        generateSplitAbiRes.plugin = this
+        generateSplitAbiRes.plugin = plugin
 
         generateSplitAbiRes.outputDirectory =
                 new File("$project.buildDir/${FD_INTERMEDIATES}/abi/${config.dirName}")
@@ -1219,9 +947,10 @@ public abstract class BasePlugin {
         generateSplitAbiRes.versionCode = config.getVersionCode()
         generateSplitAbiRes.versionName = config.getVersionName()
         generateSplitAbiRes.debuggable = {
-            config.buildType.debuggable }
+            config.buildType.debuggable
+        }
         conventionMapping(generateSplitAbiRes).map("aaptOptions") {
-            extension.aaptOptions
+            getExtension().aaptOptions
         }
         generateSplitAbiRes.dependsOn variantOutputData.processResourcesTask
 
@@ -1237,14 +966,16 @@ public abstract class BasePlugin {
                 (SigningConfig) config.signingConfig
         variantOutputData.packageSplitAbiTask.outputDirectory =
                 new File("$project.buildDir/${FD_INTERMEDIATES}/splits/${config.dirName}")
-        variantOutputData.packageSplitAbiTask.plugin = this
+        variantOutputData.packageSplitAbiTask.plugin = plugin
         variantOutputData.packageSplitAbiTask.dependsOn generateSplitAbiRes
 
         conventionMapping(variantOutputData.packageSplitAbiTask).map("jniFolders") {
             getJniFolders(variantData);
         }
-        conventionMapping(variantOutputData.packageSplitAbiTask).map("jniDebuggable") { config.buildType.jniDebuggable }
-        conventionMapping(variantOutputData.packageSplitAbiTask).map("packagingOptions") { extension.packagingOptions }
+        conventionMapping(variantOutputData.packageSplitAbiTask).
+                map("jniDebuggable") { config.buildType.jniDebuggable }
+        conventionMapping(variantOutputData.packageSplitAbiTask).
+                map("packagingOptions") { getExtension().packagingOptions }
 
         ((ApkVariantOutputData) variantOutputData).splitZipAlign.dependsOn variantOutputData.packageSplitAbiTask
     }
@@ -1260,18 +991,14 @@ public abstract class BasePlugin {
         VariantConfiguration config = variantData.variantConfiguration
         // for now only the project's compilation output.
         Set<File> set = Sets.newHashSet()
-        if (extension.getUseNewNativePlugin()) {
-            NdkComponentModelPlugin ndkPlugin = project.plugins.getPlugin(NdkComponentModelPlugin.class)
-            set.addAll(ndkPlugin.getOutputDirectories(config))
+        if (getExtension().getUseNewNativePlugin()) {
+            throw new RuntimeException("useNewNativePlugin is currently not supported.")
         } else {
             set.addAll(variantData.ndkCompileTask.soFolder)
         }
         set.addAll(variantData.renderscriptCompileTask.libOutputDir)
         set.addAll(config.libraryJniFolders)
         set.addAll(config.jniLibsList)
-        if (extension.ndkLib != null) {
-            set.addAll(extension.ndkLib.getOutputDirectories(config))
-        }
 
         if (config.mergedFlavor.renderscriptSupportModeEnabled) {
             File rsLibs = androidBuilder.getSupportNativeLibFolder()
@@ -1293,20 +1020,24 @@ public abstract class BasePlugin {
         variantData.processJavaResourcesTask = processResources
 
         // set the input
-        processResources.from(((AndroidSourceSet) variantConfiguration.defaultSourceSet).resources.getSourceFiles())
+        processResources.from(((AndroidSourceSet) variantConfiguration.defaultSourceSet).resources.
+                getSourceFiles())
 
         if (!variantConfiguration.type.isForTesting()) {
             processResources.from(
-                    ((AndroidSourceSet) variantConfiguration.buildTypeSourceSet).resources.getSourceFiles())
+                    ((AndroidSourceSet) variantConfiguration.buildTypeSourceSet).resources.
+                            getSourceFiles())
         }
         if (variantConfiguration.hasFlavors()) {
             for (SourceProvider flavorSourceSet : variantConfiguration.flavorSourceProviders) {
-                processResources.from(((AndroidSourceSet) flavorSourceSet).resources.getSourceFiles())
+                processResources.
+                        from(((AndroidSourceSet) flavorSourceSet).resources.getSourceFiles())
             }
         }
 
         conventionMapping(processResources).map("destinationDir") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/javaResources/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/javaResources/${variantData.variantConfiguration.dirName}")
         }
     }
 
@@ -1323,15 +1054,17 @@ public abstract class BasePlugin {
         variantData.sourceGenTask.dependsOn compileTask
         variantData.aidlCompileTask.dependsOn variantData.prepareDependenciesTask
 
-        compileTask.plugin = this
+        compileTask.plugin = plugin
         compileTask.incrementalFolder =
-                project.file("$project.buildDir/${FD_INTERMEDIATES}/incremental/aidl/${variantData.variantConfiguration.dirName}")
+                project.file(
+                        "$project.buildDir/${FD_INTERMEDIATES}/incremental/aidl/${variantData.variantConfiguration.dirName}")
 
         conventionMapping(compileTask).map("sourceDirs") { variantConfiguration.aidlSourceList }
         conventionMapping(compileTask).map("importDirs") { variantConfiguration.aidlImports }
 
         conventionMapping(compileTask).map("sourceOutputDir") {
-            project.file("$project.buildDir/${FD_GENERATED}/source/aidl/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_GENERATED}/source/aidl/${variantData.variantConfiguration.dirName}")
         }
         compileTask.aidlParcelableDir = parcelableDir
     }
@@ -1354,11 +1087,13 @@ public abstract class BasePlugin {
         // it's done automatically since the classpath includes the library output as a normal
         // dependency.
         if (testedVariantData instanceof ApplicationVariantData) {
-            conventionMapping(compileTask).map("classpath")  {
-                project.files(androidBuilder.getCompileClasspath(config)) + testedVariantData.javaCompileTask.classpath + testedVariantData.javaCompileTask.outputs.files
+            conventionMapping(compileTask).map("classpath") {
+                project.files(androidBuilder.getCompileClasspath(config)) +
+                        testedVariantData.javaCompileTask.classpath +
+                        testedVariantData.javaCompileTask.outputs.files
             }
         } else {
-            conventionMapping(compileTask).map("classpath")  {
+            conventionMapping(compileTask).map("classpath") {
                 project.files(androidBuilder.getCompileClasspath(config))
             }
         }
@@ -1368,21 +1103,25 @@ public abstract class BasePlugin {
         compileTask.dependsOn variantData.variantDependency.compileConfiguration.buildDependencies
 
         conventionMapping(compileTask).map("destinationDir") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/classes/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/classes/${variantData.variantConfiguration.dirName}")
         }
         conventionMapping(compileTask).map("dependencyCacheDir") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/dependency-cache/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/dependency-cache/${variantData.variantConfiguration.dirName}")
         }
 
         configureLanguageLevel(compileTask)
-        compileTask.options.encoding = extension.compileOptions.encoding
+        compileTask.options.encoding = getExtension().compileOptions.encoding
 
         // setup the boot classpath just before the task actually runs since this will
         // force the sdk to be parsed.
         compileTask.doFirst {
-            compileTask.options.bootClasspath = androidBuilder.getBootClasspathAsStrings().join(File.pathSeparator)
+            compileTask.options.bootClasspath =
+                    androidBuilder.getBootClasspathAsStrings().join(File.pathSeparator)
         }
     }
+
     public void createGenerateMicroApkDataTask(
             @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData,
             @NonNull Configuration config) {
@@ -1392,16 +1131,18 @@ public abstract class BasePlugin {
 
         variantData.generateApkDataTask = task
 
-        task.plugin = this
+        task.plugin = plugin
         conventionMapping(task).map("resOutputDir") {
-            project.file("$project.buildDir/${FD_GENERATED}/res/microapk/${variantData.variantConfiguration.dirName}")
+            project.file(
+                    "$project.buildDir/${FD_GENERATED}/res/microapk/${variantData.variantConfiguration.dirName}")
         }
         conventionMapping(task).map("apkFile") {
             // only care about the first one. There shouldn't be more anyway.
             config.getFiles().iterator().next()
         }
         conventionMapping(task).map("manifestFile") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/${FD_GENERATED}/manifests/microapk/${variantData.variantConfiguration.dirName}/${FN_ANDROID_MANIFEST_XML}")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/${FD_GENERATED}/manifests/microapk/${variantData.variantConfiguration.dirName}/${FN_ANDROID_MANIFEST_XML}")
         }
         conventionMapping(task).map("mainPkgName") {
             variantData.variantConfiguration.getApplicationId()
@@ -1429,7 +1170,7 @@ public abstract class BasePlugin {
 
         ndkCompile.dependsOn mainPreBuild
 
-        ndkCompile.plugin = this
+        ndkCompile.plugin = plugin
         variantData.ndkCompileTask = ndkCompile
         variantData.compileTask.dependsOn variantData.ndkCompileTask
 
@@ -1452,7 +1193,8 @@ public abstract class BasePlugin {
         }
 
         conventionMapping(ndkCompile).map("generatedMakefile") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantData.variantConfiguration.dirName}/Android.mk")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantData.variantConfiguration.dirName}/Android.mk")
         }
 
         conventionMapping(ndkCompile).map("ndkConfig") { variantConfig.ndkConfig }
@@ -1462,10 +1204,12 @@ public abstract class BasePlugin {
         }
 
         conventionMapping(ndkCompile).map("objFolder") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantData.variantConfiguration.dirName}/obj")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantData.variantConfiguration.dirName}/obj")
         }
         conventionMapping(ndkCompile).map("soFolder") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantData.variantConfiguration.dirName}/lib")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/ndk/${variantData.variantConfiguration.dirName}/lib")
         }
     }
 
@@ -1490,7 +1234,8 @@ public abstract class BasePlugin {
     public void createAndroidTestVariantTasks(@NonNull TestVariantData variantData) {
 
         BaseVariantData<? extends BaseVariantOutputData> testedVariantData =
-                variantData.getTestedVariantData() as BaseVariantData<? extends BaseVariantOutputData>
+                variantData.
+                        getTestedVariantData() as BaseVariantData<? extends BaseVariantOutputData>
 
         // get single output for now (though this may always be the case for tests).
         BaseVariantOutputData variantOutputData = variantData.outputs.get(0)
@@ -1533,14 +1278,14 @@ public abstract class BasePlugin {
         createAidlTask(variantData, null /*parcelableDir*/)
 
         // Add NDK tasks
-        if (!extension.getUseNewNativePlugin()) {
+        if (!getExtension().getUseNewNativePlugin()) {
             createNdkTasks(variantData)
         }
 
         // Add a task to compile the test application
         if (variantData.getVariantConfiguration().useJack) {
             createJackTask(variantData, testedVariantData);
-        } else{
+        } else {
             createCompileTask(variantData, testedVariantData)
             createPostCompilationTasks(variantData);
         }
@@ -1555,7 +1300,7 @@ public abstract class BasePlugin {
         lintCompile = project.tasks.create("compileLint", Task)
         File outputDir = new File("$project.buildDir/${FD_INTERMEDIATES}/lint")
 
-        lintCompile.doFirst{
+        lintCompile.doFirst {
             // create the directory for lint output if it does not exist.
             if (!outputDir.exists()) {
                 boolean mkdirs = outputDir.mkdirs();
@@ -1581,14 +1326,14 @@ public abstract class BasePlugin {
         Lint lint = project.tasks.create("lint", Lint)
         lint.description = "Runs lint on all variants."
         lint.group = JavaBasePlugin.VERIFICATION_GROUP
-        lint.setPlugin(this)
+        lint.setPlugin(plugin)
         project.tasks.getByName(JavaBasePlugin.CHECK_TASK_NAME).dependsOn lint
         lintAll = lint
 
-        int count = variantManager.getVariantDataList().size()
-        for (int i = 0 ; i < count ; i++) {
+        int count = plugin.getVariantDataList().size()
+        for (int i = 0; i < count; i++) {
             final BaseVariantData<? extends BaseVariantOutputData> baseVariantData =
-                    variantManager.getVariantDataList().get(i)
+                    plugin.getVariantDataList().get(i)
             if (!isLintVariant(baseVariantData)) {
                 continue;
             }
@@ -1601,13 +1346,14 @@ public abstract class BasePlugin {
             def capitalizedVariantName = variantName.capitalize()
             Lint variantLintCheck = project.tasks.create("lint" + capitalizedVariantName, Lint)
             variantLintCheck.dependsOn lintCompile
-            optionalDependsOn(variantLintCheck, baseVariantData.javaCompileTask, baseVariantData.jackTask)
+            optionalDependsOn(variantLintCheck, baseVariantData.javaCompileTask,
+                    baseVariantData.jackTask)
 
             // Note that we don't do "lint.dependsOn lintCheck"; the "lint" target will
             // on its own run through all variants (and compare results), it doesn't delegate
             // to the individual tasks (since it needs to coordinate data collection and
             // reporting)
-            variantLintCheck.setPlugin(this)
+            variantLintCheck.setPlugin(plugin)
             variantLintCheck.setVariantName(variantName)
             variantLintCheck.description = "Runs lint on the " + capitalizedVariantName + " build"
             variantLintCheck.group = JavaBasePlugin.VERIFICATION_GROUP
@@ -1615,7 +1361,7 @@ public abstract class BasePlugin {
     }
 
     private void createLintVitalTask(@NonNull ApkVariantData variantData) {
-        assert extension.lintOptions.checkReleaseBuilds
+        assert getExtension().lintOptions.checkReleaseBuilds
         // TODO: re-enable with Jack when possible
         if (!variantData.variantConfiguration.buildType.debuggable &&
                 !variantData.variantConfiguration.useJack) {
@@ -1625,13 +1371,19 @@ public abstract class BasePlugin {
             Lint lintReleaseCheck = project.tasks.create(taskName, Lint)
             // TODO: Make this task depend on lintCompile too (resolve initialization order first)
             optionalDependsOn(lintReleaseCheck, variantData.javaCompileTask)
-            lintReleaseCheck.setPlugin(this)
+            lintReleaseCheck.setPlugin(plugin)
             lintReleaseCheck.setVariantName(variantName)
             lintReleaseCheck.setFatalOnly(true)
             lintReleaseCheck.description = "Runs lint on just the fatal issues in the " +
                     capitalizedVariantName + " build"
             variantData.assembleVariantTask.dependsOn lintReleaseCheck
-            lintVital = lintReleaseCheck
+
+            // If lint is being run, we do not need to run lint vital.
+            project.gradle.taskGraph.whenReady { TaskExecutionGraph taskGraph ->
+                if (taskGraph.hasTask(lintAll)) {
+                    lintReleaseCheck.setEnabled(false)
+                }
+            }
         }
     }
 
@@ -1640,7 +1392,7 @@ public abstract class BasePlugin {
         topLevelTest.group = JavaBasePlugin.VERIFICATION_GROUP
         topLevelTest.dependsOn createMockableJar
 
-        variantDataList.findAll{it.variantConfiguration.type == UNIT_TEST}.each { loopVariantData ->
+        plugin.variantDataList.findAll { it.variantConfiguration.type == UNIT_TEST }.each { loopVariantData ->
             // Inner scope copy for the closures.
             TestVariantData variantData = loopVariantData as TestVariantData
             BaseVariantData testedVariantData = variantData.testedVariantData as BaseVariantData
@@ -1653,7 +1405,8 @@ public abstract class BasePlugin {
             }
 
             Test runTestsTask = project.tasks.create(
-                    UNIT_TEST.prefix + testedVariantData.variantConfiguration.fullName.capitalize(),
+                    UNIT_TEST.prefix +
+                            testedVariantData.variantConfiguration.fullName.capitalize(),
                     Test)
             runTestsTask.group = JavaBasePlugin.VERIFICATION_GROUP
 
@@ -1664,7 +1417,7 @@ public abstract class BasePlugin {
             runTestsTask.testClassesDir = testCompileTask.destinationDir
 
             conventionMapping(runTestsTask).map("classpath") {
-                ensureTargetSetup()
+                plugin.ensureTargetSetup()
 
                 project.files(
                         testCompileTask.classpath,
@@ -1701,8 +1454,8 @@ public abstract class BasePlugin {
     public void createConnectedCheckTasks(boolean hasFlavors, boolean isLibraryTest) {
         List<AndroidReportTask> reportTasks = Lists.newArrayListWithExpectedSize(2)
 
-        List<DeviceProvider> providers = extension.deviceProviders
-        List<TestServer> servers = extension.testServers
+        List<DeviceProvider> providers = getExtension().deviceProviders
+        List<TestServer> servers = getExtension().testServers
 
         Task mainConnectedTask = connectedCheck
         String connectedRootName = "${CONNECTED}${ANDROID_TEST.suffix}"
@@ -1711,20 +1464,22 @@ public abstract class BasePlugin {
         if (hasFlavors) {
             mainConnectedTask = project.tasks.create(connectedRootName, AndroidReportTask)
             mainConnectedTask.group = JavaBasePlugin.VERIFICATION_GROUP
-            mainConnectedTask.description = "Installs and runs instrumentation tests for all flavors on connected devices."
+            mainConnectedTask.description =
+                    "Installs and runs instrumentation tests for all flavors on connected devices."
             mainConnectedTask.reportType = ReportType.MULTI_FLAVOR
             connectedCheck.dependsOn mainConnectedTask
 
             conventionMapping(mainConnectedTask).map("resultsDir") {
-                String rootLocation = extension.testOptions.resultsDir != null ?
-                    extension.testOptions.resultsDir : "$project.buildDir/${FD_OUTPUTS}/$FD_ANDROID_RESULTS"
+                String rootLocation = getExtension().testOptions.resultsDir != null ?
+                        getExtension().testOptions.resultsDir :
+                        "$project.buildDir/${FD_OUTPUTS}/$FD_ANDROID_RESULTS"
 
                 project.file("$rootLocation/connected/$FD_FLAVORS_ALL")
             }
             conventionMapping(mainConnectedTask).map("reportsDir") {
-                String rootLocation = extension.testOptions.reportDir != null ?
-                    extension.testOptions.reportDir :
-                    "$project.buildDir/${FD_OUTPUTS}/$FD_REPORTS/$FD_ANDROID_TESTS"
+                String rootLocation = getExtension().testOptions.reportDir != null ?
+                        getExtension().testOptions.reportDir :
+                        "$project.buildDir/${FD_OUTPUTS}/$FD_REPORTS/$FD_ANDROID_TESTS"
 
                 project.file("$rootLocation/connected/$FD_FLAVORS_ALL")
             }
@@ -1739,20 +1494,22 @@ public abstract class BasePlugin {
             mainProviderTask = project.tasks.create("${DEVICE}${ANDROID_TEST.suffix}",
                     AndroidReportTask)
             mainProviderTask.group = JavaBasePlugin.VERIFICATION_GROUP
-            mainProviderTask.description = "Installs and runs instrumentation tests using all Device Providers."
+            mainProviderTask.description =
+                    "Installs and runs instrumentation tests using all Device Providers."
             mainProviderTask.reportType = ReportType.MULTI_FLAVOR
             deviceCheck.dependsOn mainProviderTask
 
             conventionMapping(mainProviderTask).map("resultsDir") {
-                String rootLocation = extension.testOptions.resultsDir != null ?
-                    extension.testOptions.resultsDir : "$project.buildDir/${FD_OUTPUTS}/$FD_ANDROID_RESULTS"
+                String rootLocation = getExtension().testOptions.resultsDir != null ?
+                        getExtension().testOptions.resultsDir :
+                        "$project.buildDir/${FD_OUTPUTS}/$FD_ANDROID_RESULTS"
 
                 project.file("$rootLocation/devices/$FD_FLAVORS_ALL")
             }
             conventionMapping(mainProviderTask).map("reportsDir") {
-                String rootLocation = extension.testOptions.reportDir != null ?
-                    extension.testOptions.reportDir :
-                    "$project.buildDir/${FD_OUTPUTS}/$FD_REPORTS/$FD_ANDROID_TESTS"
+                String rootLocation = getExtension().testOptions.reportDir != null ?
+                        getExtension().testOptions.reportDir :
+                        "$project.buildDir/${FD_OUTPUTS}/$FD_REPORTS/$FD_ANDROID_TESTS"
 
                 project.file("$rootLocation/devices/$FD_FLAVORS_ALL")
             }
@@ -1763,11 +1520,12 @@ public abstract class BasePlugin {
         // Now look for the tested variant and create the check tasks for them.
         // don't use an auto loop as we can't reuse baseVariantData or the closure lower
         // gets broken.
-        int count = variantManager.getVariantDataList().size();
-        for (int i = 0 ; i < count ; i++) {
-            final BaseVariantData<? extends BaseVariantOutputData> baseVariantData = variantManager.getVariantDataList().get(i);
+        int count = plugin.getVariantDataList().size();
+        for (int i = 0; i < count; i++) {
+            final BaseVariantData<? extends BaseVariantOutputData> baseVariantData = plugin.getVariantDataList().get(i);
             if (baseVariantData instanceof TestedVariantData) {
-                final TestVariantData testVariantData = ((TestedVariantData) baseVariantData).getTestVariantData(ANDROID_TEST)
+                final TestVariantData testVariantData = ((TestedVariantData) baseVariantData).
+                        getTestVariantData(ANDROID_TEST)
                 if (testVariantData == null) {
                     continue
                 }
@@ -1786,15 +1544,16 @@ public abstract class BasePlugin {
 
                 // create the check tasks for this test
                 // first the connected one.
-                DeviceProviderInstrumentTestTask connectedTask = createDeviceProviderInstrumentTestTask(
-                        connectedTaskName,
-                        "Installs and runs the tests for Build '${baseVariantData.variantConfiguration.fullName}' on connected devices.",
-                        taskClass,
-                        testVariantData,
-                        baseVariantData as BaseVariantData,
-                        new ConnectedDeviceProvider(getSdkInfo().adb),
-                        CONNECTED
-                )
+                DeviceProviderInstrumentTestTask connectedTask =
+                        createDeviceProviderInstrumentTestTask(
+                                connectedTaskName,
+                                "Installs and runs the tests for Build '${baseVariantData.variantConfiguration.fullName}' on connected devices.",
+                                taskClass,
+                                testVariantData,
+                                baseVariantData as BaseVariantData,
+                                new ConnectedDeviceProvider(plugin.getSdkInfo().adb),
+                                CONNECTED
+                        )
 
                 mainConnectedTask.dependsOn connectedTask
                 testVariantData.connectedTestTask = connectedTask
@@ -1808,7 +1567,8 @@ public abstract class BasePlugin {
                         project.configurations[JacocoPlugin.ANT_CONFIGURATION_NAME]
                     }
                     conventionMapping(reportTask).map("coverageFile") {
-                        new File(connectedTask.getCoverageDir(), SimpleTestCallable.FILE_COVERAGE_EC)
+                        new File(connectedTask.getCoverageDir(),
+                                SimpleTestCallable.FILE_COVERAGE_EC)
                     }
                     conventionMapping(reportTask).map("classDir") {
                         if (baseVariantData.javaCompileTask != null) {
@@ -1817,7 +1577,8 @@ public abstract class BasePlugin {
 
                         return baseVariantData.jackTask.destinationDir
                     }
-                    conventionMapping(reportTask).map("sourceDir") { baseVariantData.getJavaSourceFoldersForCoverage() }
+                    conventionMapping(reportTask).
+                            map("sourceDir") { baseVariantData.getJavaSourceFoldersForCoverage() }
 
                     conventionMapping(reportTask).map("reportDir") {
                         project.file(
@@ -1830,17 +1591,18 @@ public abstract class BasePlugin {
 
                 // now the providers.
                 for (DeviceProvider deviceProvider : providers) {
-                    DeviceProviderInstrumentTestTask providerTask = createDeviceProviderInstrumentTestTask(
-                            hasFlavors ?
-                                "${deviceProvider.name}${ANDROID_TEST.suffix}${baseVariantData.variantConfiguration.fullName.capitalize()}" :
-                                "${deviceProvider.name}${ANDROID_TEST.suffix}",
-                            "Installs and runs the tests for Build '${baseVariantData.variantConfiguration.fullName}' using Provider '${deviceProvider.name.capitalize()}'.",
-                            taskClass,
-                            testVariantData,
-                            baseVariantData as BaseVariantData,
-                            deviceProvider,
-                            "$DEVICE/$deviceProvider.name"
-                    )
+                    DeviceProviderInstrumentTestTask providerTask =
+                            createDeviceProviderInstrumentTestTask(
+                                    hasFlavors ?
+                                            "${deviceProvider.name}${ANDROID_TEST.suffix}${baseVariantData.variantConfiguration.fullName.capitalize()}" :
+                                            "${deviceProvider.name}${ANDROID_TEST.suffix}",
+                                    "Installs and runs the tests for Build '${baseVariantData.variantConfiguration.fullName}' using Provider '${deviceProvider.name.capitalize()}'.",
+                                    taskClass,
+                                    testVariantData,
+                                    baseVariantData as BaseVariantData,
+                                    deviceProvider,
+                                    "$DEVICE/$deviceProvider.name"
+                            )
 
                     mainProviderTask.dependsOn providerTask
                     testVariantData.providerTestTaskList.add(providerTask)
@@ -1855,22 +1617,27 @@ public abstract class BasePlugin {
                 for (TestServer testServer : servers) {
                     def serverTask = project.tasks.create(
                             hasFlavors ?
-                                "${testServer.name}${"upload".capitalize()}${baseVariantData.variantConfiguration.fullName}" :
-                                "${testServer.name}${"upload".capitalize()}",
+                                    "${testServer.name}${"upload".capitalize()}${baseVariantData.variantConfiguration.fullName}" :
+                                    "${testServer.name}${"upload".capitalize()}",
                             TestServerTask)
 
-                    serverTask.description = "Uploads APKs for Build '${baseVariantData.variantConfiguration.fullName}' to Test Server '${testServer.name.capitalize()}'."
+                    serverTask.description =
+                            "Uploads APKs for Build '${baseVariantData.variantConfiguration.fullName}' to Test Server '${testServer.name.capitalize()}'."
                     serverTask.group = JavaBasePlugin.VERIFICATION_GROUP
-                    serverTask.dependsOn testVariantOutputData.assembleTask, variantOutputData.assembleTask
+                    serverTask.dependsOn testVariantOutputData.assembleTask,
+                            variantOutputData.assembleTask
 
                     serverTask.testServer = testServer
 
-                    conventionMapping(serverTask).map("testApk") { testVariantOutputData.outputFile }
+                    conventionMapping(serverTask).
+                            map("testApk") { testVariantOutputData.outputFile }
                     if (!(baseVariantData instanceof LibraryVariantData)) {
-                        conventionMapping(serverTask).map("testedApk") { variantOutputData.outputFile }
+                        conventionMapping(serverTask).
+                                map("testedApk") { variantOutputData.outputFile }
                     }
 
-                    conventionMapping(serverTask).map("variantName") { baseVariantData.variantConfiguration.fullName }
+                    conventionMapping(serverTask).
+                            map("variantName") { baseVariantData.variantConfiguration.fullName }
 
                     deviceCheck.dependsOn serverTask
 
@@ -1920,15 +1687,15 @@ public abstract class BasePlugin {
         testTask.group = JavaBasePlugin.VERIFICATION_GROUP
         testTask.dependsOn testVariantOutputData.assembleTask, testedVariantData.assembleVariantTask
 
-        testTask.plugin = this
+        testTask.plugin = plugin
         testTask.testVariantData = testVariantData
         testTask.flavorName = testVariantData.variantConfiguration.flavorName.capitalize()
         testTask.deviceProvider = deviceProvider
 
         conventionMapping(testTask).map("resultsDir") {
-            String rootLocation = extension.testOptions.resultsDir != null ?
-                extension.testOptions.resultsDir :
-                "$project.buildDir/${FD_OUTPUTS}/$FD_ANDROID_RESULTS"
+            String rootLocation = getExtension().testOptions.resultsDir != null ?
+                    getExtension().testOptions.resultsDir :
+                    "$project.buildDir/${FD_OUTPUTS}/$FD_ANDROID_RESULTS"
 
             String flavorFolder = testVariantData.variantConfiguration.flavorName
             if (!flavorFolder.isEmpty()) {
@@ -1939,13 +1706,13 @@ public abstract class BasePlugin {
         }
 
         conventionMapping(testTask).map("adbExec") {
-            return getSdkInfo().getAdb()
+            return plugin.getSdkInfo().getAdb()
         }
 
         conventionMapping(testTask).map("reportsDir") {
-            String rootLocation = extension.testOptions.reportDir != null ?
-                extension.testOptions.reportDir :
-                "$project.buildDir/${FD_OUTPUTS}/$FD_REPORTS/$FD_ANDROID_TESTS"
+            String rootLocation = getExtension().testOptions.reportDir != null ?
+                    getExtension().testOptions.reportDir :
+                    "$project.buildDir/${FD_OUTPUTS}/$FD_REPORTS/$FD_ANDROID_TESTS"
 
             String flavorFolder = testVariantData.variantConfiguration.flavorName
             if (!flavorFolder.isEmpty()) {
@@ -1973,11 +1740,15 @@ public abstract class BasePlugin {
      * post-compilation steps.
      */
     public static class PostCompilationData {
+
         List<?> classGeneratingTask
+
         List<?> libraryGeneratingTask
 
         Closure<List<File>> inputFiles
+
         Closure<File> inputDir
+
         Closure<List<File>> inputLibraries
     }
 
@@ -1993,7 +1764,8 @@ public abstract class BasePlugin {
         GradleVariantConfiguration config = variantData.variantConfiguration
 
         boolean isTestForApp = config.type.isForTesting() &&
-                (variantData as TestVariantData).testedVariantData.variantConfiguration.type == DEFAULT
+                (variantData as TestVariantData).testedVariantData.variantConfiguration.type ==
+                DEFAULT
 
         boolean isMinifyEnabled = config.isMinifyEnabled()
         boolean isMultiDexEnabled = config.isMultiDexEnabled() && !isTestForApp
@@ -2008,22 +1780,25 @@ public abstract class BasePlugin {
         String dexTaskName = "dex${config.fullName.capitalize()}"
         Dex dexTask = project.tasks.create(dexTaskName, Dex)
         variantData.dexTask = dexTask
-        dexTask.plugin = this
+        dexTask.plugin = plugin
         conventionMapping(dexTask).map("outputFolder") {
             project.file("${project.buildDir}/${FD_INTERMEDIATES}/dex/${config.dirName}")
         }
-        dexTask.tmpFolder = project.file("$project.buildDir/${FD_INTERMEDIATES}/tmp/dex/${config.dirName}")
-        dexTask.dexOptions = extension.dexOptions
+        dexTask.tmpFolder =
+                project.file("$project.buildDir/${FD_INTERMEDIATES}/tmp/dex/${config.dirName}")
+        dexTask.dexOptions = getExtension().dexOptions
         dexTask.multiDexEnabled = isMultiDexEnabled
         dexTask.legacyMultiDexMode = isLegacyMultiDexMode
         // dx doesn't work with receving --no-optimize in debug so we disable it for now.
         dexTask.optimize = true //!variantData.variantConfiguration.buildType.debuggable
 
+
         // data holding dependencies and input for the dex. This gets updated as new
         // post-compilation steps are inserted between the compilation and dx.
         PostCompilationData pcData = new PostCompilationData()
         pcData.classGeneratingTask = [variantData.javaCompileTask]
-        pcData.libraryGeneratingTask = [variantData.variantDependency.packageConfiguration.buildDependencies]
+        pcData.libraryGeneratingTask =
+                [variantData.variantDependency.packageConfiguration.buildDependencies]
         pcData.inputFiles = {
             variantData.javaCompileTask.outputs.files.files as List
         }
@@ -2044,17 +1819,18 @@ public abstract class BasePlugin {
         if (isMinifyEnabled) {
             // first proguard task.
             BaseVariantData<? extends BaseVariantOutputData> testedVariantData =
-                    (variantData instanceof TestVariantData ? variantData.testedVariantData : null) as BaseVariantData
+                    (variantData instanceof TestVariantData ? variantData.testedVariantData :
+                            null) as BaseVariantData
             createProguardTasks(variantData, testedVariantData, pcData)
 
-        } else if ((extension.dexOptions.preDexLibraries && !isMultiDexEnabled) ||
-                (isMultiDexEnabled && !isLegacyMultiDexMode))  {
+        } else if ((getExtension().dexOptions.preDexLibraries && !isMultiDexEnabled) ||
+                (isMultiDexEnabled && !isLegacyMultiDexMode)) {
             def preDexTaskName = "preDex${config.fullName.capitalize()}"
             PreDex preDexTask = project.tasks.create(preDexTaskName, PreDex)
 
             variantData.preDexTask = preDexTask
-            preDexTask.plugin = this
-            preDexTask.dexOptions = extension.dexOptions
+            preDexTask.plugin = plugin
+            preDexTask.dexOptions = getExtension().dexOptions
             preDexTask.multiDex = isMultiDexEnabled
 
             conventionMapping(preDexTask).map("inputFiles", pcData.inputLibraries)
@@ -2086,7 +1862,7 @@ public abstract class BasePlugin {
                 JarMergingTask jarMergingTask = project.tasks.create(
                         "packageAll${config.fullName.capitalize()}ClassesForMultiDex",
                         JarMergingTask)
-                conventionMapping(jarMergingTask).map("inputJars",pcData.inputLibraries)
+                conventionMapping(jarMergingTask).map("inputJars", pcData.inputLibraries)
                 conventionMapping(jarMergingTask).map("inputDir", pcData.inputDir)
 
                 jarMergingTask.jarFile = project.file(
@@ -2104,7 +1880,6 @@ public abstract class BasePlugin {
                 pcData.inputLibraries = { [] }
             }
 
-
             // ----------
             // Create a task to collect the list of manifest entry points which are
             // needed in the primary dex
@@ -2117,7 +1892,7 @@ public abstract class BasePlugin {
             final BaseVariantOutputData output = variantData.outputs.get(0)
             manifestKeepListTask.dependsOn output.manifestProcessorTask
             conventionMapping(manifestKeepListTask).map("manifest") {
-                output.manifestProcessorTask.manifestOutputFile
+                output.manifestProcessorTask.getOutputFile()
             }
 
             manifestKeepListTask.proguardFile = multiDexKeepProguard
@@ -2133,14 +1908,16 @@ public abstract class BasePlugin {
 
             proguardComponentsTask.configuration(manifestKeepListTask.outputFile)
 
-            proguardComponentsTask.libraryjars( {
-                ensureTargetSetup()
-                File shrinkedAndroid = new File(getAndroidBuilder().getTargetInfo().buildTools.location, "lib${File.separatorChar}shrinkedAndroid.jar")
+            proguardComponentsTask.libraryjars({
+                plugin.ensureTargetSetup()
+                File shrinkedAndroid = new File(androidBuilder.getTargetInfo().buildTools.location,
+                        "lib${File.separatorChar}shrinkedAndroid.jar")
 
                 // TODO remove in 1.0
                 // STOPSHIP
                 if (!shrinkedAndroid.isFile()) {
-                    shrinkedAndroid = new File(getAndroidBuilder().getTargetInfo().buildTools.location, "multidex${File.separatorChar}shrinkedAndroid.jar")
+                    shrinkedAndroid = new File(androidBuilder.getTargetInfo().buildTools.location,
+                            "multidex${File.separatorChar}shrinkedAndroid.jar")
                 }
                 return shrinkedAndroid
             })
@@ -2164,7 +1941,7 @@ public abstract class BasePlugin {
             CreateMainDexList createMainDexListTask = project.tasks.create(
                     "create${config.fullName.capitalize()}MainDexClassList",
                     CreateMainDexList)
-            createMainDexListTask.plugin = this
+            createMainDexListTask.plugin = plugin
             createMainDexListTask.dependsOn proguardComponentsTask
             //createMainDexListTask.dependsOn { proguardMainDexTask }
 
@@ -2187,7 +1964,8 @@ public abstract class BasePlugin {
                         RetraceMainDexList)
                 retraceTask.dependsOn variantData.obfuscationTask, createMainDexListTask
 
-                conventionMapping(retraceTask).map("mainDexListFile") { createMainDexListTask.outputFile }
+                conventionMapping(retraceTask).
+                        map("mainDexListFile") { createMainDexListTask.outputFile }
                 conventionMapping(retraceTask).map("mappingFile") { variantData.mappingFile }
                 retraceTask.outputFile = project.file(
                         "${project.buildDir}/${FD_INTERMEDIATES}/multi-dex/${config.dirName}/maindexlist_deobfuscated.txt")
@@ -2247,7 +2025,8 @@ public abstract class BasePlugin {
             jacocoTask.getOutputDir()
         }
         pcData2.inputLibraries = {
-            [pcData.inputLibraries.call(), [new File(agentTask.destinationDir, FILE_JACOCO_AGENT)]].flatten() as List
+            [pcData.inputLibraries.call(), [new File(agentTask.destinationDir, FILE_JACOCO_AGENT)]].
+                    flatten() as List
         }
 
         return pcData2
@@ -2278,11 +2057,11 @@ public abstract class BasePlugin {
                 "jill${config.fullName.capitalize()}RuntimeLibraries",
                 JillTask)
 
-        jillRuntimeTask.plugin = this
-        jillRuntimeTask.dexOptions = extension.dexOptions
+        jillRuntimeTask.plugin = plugin
+        jillRuntimeTask.dexOptions = getExtension().dexOptions
 
         conventionMapping(jillRuntimeTask).map("inputLibs") {
-            getBootClasspath()
+            plugin.getBootClasspath()
         }
         conventionMapping(jillRuntimeTask).map("outputFolder") {
             project.file(
@@ -2296,8 +2075,8 @@ public abstract class BasePlugin {
                 JillTask)
 
         jillPackagedTask.dependsOn variantData.variantDependency.packageConfiguration.buildDependencies
-        jillPackagedTask.plugin = this
-        jillPackagedTask.dexOptions = extension.dexOptions
+        jillPackagedTask.plugin = plugin
+        jillPackagedTask.dexOptions = getExtension().dexOptions
 
         conventionMapping(jillPackagedTask).map("inputLibs") {
             androidBuilder.getPackagedJars(config)
@@ -2306,7 +2085,6 @@ public abstract class BasePlugin {
             project.file(
                     "${project.buildDir}/${FD_INTERMEDIATES}/jill/${config.dirName}/packaged")
         }
-
 
         // ----- Create Jack Task -----
         JackTask compileTask = project.tasks.create(
@@ -2319,8 +2097,9 @@ public abstract class BasePlugin {
         // Add a temporary approximation
         compileTask.dependsOn variantData.variantDependency.compileConfiguration.buildDependencies
 
-        compileTask.plugin = this
-        conventionMapping(compileTask).map("javaMaxHeapSize") { extension.dexOptions.getJavaMaxHeapSize() }
+        compileTask.plugin = plugin
+        conventionMapping(compileTask).
+                map("javaMaxHeapSize") { getExtension().dexOptions.getJavaMaxHeapSize() }
 
         compileTask.source = variantData.getJavaSources()
 
@@ -2331,11 +2110,13 @@ public abstract class BasePlugin {
         // it's done automatically since the classpath includes the library output as a normal
         // dependency.
         if (testedVariantData instanceof ApplicationVariantData) {
-            conventionMapping(compileTask).map("classpath")  {
-                project.fileTree(jillRuntimeTask.outputFolder) + testedVariantData.jackTask.classpath + project.fileTree(testedVariantData.jackTask.jackFile)
+            conventionMapping(compileTask).map("classpath") {
+                project.fileTree(jillRuntimeTask.outputFolder) +
+                        testedVariantData.jackTask.classpath +
+                        project.fileTree(testedVariantData.jackTask.jackFile)
             }
         } else {
-            conventionMapping(compileTask).map("classpath")  {
+            conventionMapping(compileTask).map("classpath") {
                 project.fileTree(jillRuntimeTask.outputFolder)
             }
         }
@@ -2349,7 +2130,8 @@ public abstract class BasePlugin {
         }
 
         conventionMapping(compileTask).map("jackFile") {
-            project.file("$project.buildDir/${FD_INTERMEDIATES}/classes/${config.dirName}/classes.zip")
+            project.file(
+                    "$project.buildDir/${FD_INTERMEDIATES}/classes/${config.dirName}/classes.zip")
         }
 
         conventionMapping(compileTask).map("tempFolder") {
@@ -2362,7 +2144,7 @@ public abstract class BasePlugin {
                 BaseVariantOutputData variantOutputData = variantData.outputs.get(0)
 
                 List<File> proguardFiles = config.getProguardFiles(true /*includeLibs*/,
-                        [extension.getDefaultProguardFile(DEFAULT_PROGUARD_CONFIG_FILE)])
+                        [getExtension().getDefaultProguardFile(DEFAULT_PROGUARD_CONFIG_FILE)])
                 File proguardResFile = variantOutputData.processResourcesTask.proguardOutputFile
                 if (proguardResFile != null) {
                     proguardFiles.add(proguardResFile)
@@ -2371,7 +2153,8 @@ public abstract class BasePlugin {
                 // configs are the same files anyway.
                 if (testedVariantData != null) {
                     // use single output for now.
-                    proguardResFile = testedVariantData.outputs.get(0).processResourcesTask.proguardOutputFile
+                    proguardResFile =
+                            testedVariantData.outputs.get(0).processResourcesTask.proguardOutputFile
                     if (proguardResFile != null) {
                         proguardFiles.add(proguardResFile)
                     }
@@ -2392,14 +2175,14 @@ public abstract class BasePlugin {
      * explicitly, we obey the setting. Otherwise we change the default language level based on the
      * compile SDK version.
      *
-     * <p>This method modifies extension.compileOptions, to propagate the language level to Studio.
+     * <p>This method modifies getExtension().compileOptions, to propagate the language level to Studio.
      */
     private void configureLanguageLevel(AbstractCompile compileTask) {
-        def compileOptions = extension.compileOptions
+        def compileOptions = getExtension().compileOptions
         JavaVersion javaVersionToUse
 
         Integer compileSdkLevel =
-                AndroidTargetHash.getVersionFromHash(extension.compileSdkVersion)?.apiLevel
+                AndroidTargetHash.getVersionFromHash(getExtension().compileSdkVersion)?.apiLevel
         switch (compileSdkLevel) {
             case null:  // Default to 1.6 if we fail to parse compile SDK version.
             case 0..20:
@@ -2468,7 +2251,8 @@ public abstract class BasePlugin {
                     create("package${outputName.capitalize()}",
                             PackageApplication)
             variantOutputData.packageApplicationTask = packageApp
-            packageApp.dependsOn variantOutputData.processResourcesTask, variantData.processJavaResourcesTask
+            packageApp.dependsOn variantOutputData.processResourcesTask,
+                    variantData.processJavaResourcesTask
 
             optionalDependsOn(packageApp, variantData.dexTask, variantData.jackTask)
 
@@ -2480,19 +2264,13 @@ public abstract class BasePlugin {
             }
 
             // Add dependencies on NDK tasks if NDK plugin is applied.
-            if (extension.getUseNewNativePlugin()) {
-                NdkComponentModelPlugin ndkPlugin = project.plugins.getPlugin(NdkComponentModelPlugin.class)
-                packageApp.dependsOn ndkPlugin.getBinaries(config)
+            if (getExtension().getUseNewNativePlugin()) {
+                throw new RuntimeException("useNewNativePlugin is currently not supported.")
             } else {
                 packageApp.dependsOn variantData.ndkCompileTask
             }
 
-            if (extension.ndkLib != null) {
-                project.evaluationDependsOn(extension.ndkLib.targetProjectName)
-                packageApp.dependsOn extension.ndkLib.getBinaries(config)
-            }
-
-            packageApp.plugin = this
+            packageApp.plugin = plugin
 
             if (config.minifyEnabled && config.buildType.shrinkResources && !config.useJack) {
                 def shrinkTask = createShrinkResourcesTask(vod)
@@ -2529,9 +2307,10 @@ public abstract class BasePlugin {
                     return project.fileTree(variantData.preDexTask.outputFolder).files
                 }
 
-                return Collections.<File>emptyList()
+                return Collections.<File> emptyList()
             }
-            conventionMapping(packageApp).map("packagedJars") { androidBuilder.getPackagedJars(config) }
+            conventionMapping(packageApp).
+                    map("packagedJars") { androidBuilder.getPackagedJars(config) }
             conventionMapping(packageApp).map("javaResourceDir") {
                 getOptionalDir(variantData.processJavaResourcesTask.destinationDir)
             }
@@ -2540,7 +2319,8 @@ public abstract class BasePlugin {
             }
             conventionMapping(packageApp).map("abiFilters") {
                 if (variantOutputData.getMainOutputFile().getFilter(OutputFile.ABI) != null) {
-                    return ImmutableSet.of(variantOutputData.getMainOutputFile().getFilter(OutputFile.ABI))
+                    return ImmutableSet.
+                            of(variantOutputData.getMainOutputFile().getFilter(OutputFile.ABI))
                 }
                 return config.supportedAbis
             }
@@ -2553,7 +2333,7 @@ public abstract class BasePlugin {
                     validateSigningTask =
                             project.tasks.create("validate${sc.name.capitalize()}Signing",
                                     ValidateSigningTask)
-                    validateSigningTask.plugin = this
+                    validateSigningTask.plugin = plugin
                     validateSigningTask.signingConfig = sc
 
                     validateSigningTaskMap.put(sc, validateSigningTask)
@@ -2566,7 +2346,7 @@ public abstract class BasePlugin {
                     "$projectBaseName-${outputBaseName}-unaligned.apk" :
                     "$projectBaseName-${outputBaseName}-unsigned.apk"
 
-            conventionMapping(packageApp).map("packagingOptions") { extension.packagingOptions }
+            conventionMapping(packageApp).map("packagingOptions") { getExtension().packagingOptions }
 
             conventionMapping(packageApp).map("outputFile") {
                 // if this is the final task then the location is
@@ -2657,7 +2437,7 @@ public abstract class BasePlugin {
             variantOutputData.assembleTask.dependsOn appTask
 
             if (publishApk) {
-                if (extension.defaultPublishConfig.equals(outputName)) {
+                if (getExtension().defaultPublishConfig.equals(outputName)) {
                     // add the artifact that will be published
                     project.artifacts.add("default", new ApkPublishArtifact(
                             projectBaseName,
@@ -2666,15 +2446,17 @@ public abstract class BasePlugin {
                 }
 
                 // also publish the artifact with its full config name
-                if (extension.publishNonDefault) {
+                if (getExtension().publishNonDefault) {
                     // classifier cannot just be the publishing config as we need
                     // to add the filters if needed.
                     String classifier = variantData.variantDependency.publishConfiguration.name
                     if (variantOutputData.getMainOutputFile().getFilter(OutputFile.DENSITY) != null) {
-                        classifier = "${classifier}-${variantOutputData.getMainOutputFile().getFilter(OutputFile.DENSITY)}"
+                        classifier =
+                                "${classifier}-${variantOutputData.getMainOutputFile().getFilter(OutputFile.DENSITY)}"
                     }
                     if (variantOutputData.getMainOutputFile().getFilter(OutputFile.ABI) != null) {
-                        classifier = "${classifier}-${variantOutputData.getMainOutputFile().getFilter(OutputFile.ABI)}"
+                        classifier =
+                                "${classifier}-${variantOutputData.getMainOutputFile().getFilter(OutputFile.ABI)}"
                     }
 
                     project.artifacts.add(variantData.variantDependency.publishConfiguration.name,
@@ -2695,7 +2477,7 @@ public abstract class BasePlugin {
                             InstallVariantTask)
             installTask.description = "Installs the " + variantData.description
             installTask.group = INSTALL_GROUP
-            installTask.plugin = this
+            installTask.plugin = plugin
             installTask.variantData = variantData
             conventionMapping(installTask).map("adbExe") { androidBuilder.sdkInfo?.adb }
             installTask.dependsOn variantData.assembleVariantTask
@@ -2703,7 +2485,7 @@ public abstract class BasePlugin {
         }
 
 
-        if (extension.lintOptions.checkReleaseBuilds) {
+        if (getExtension().lintOptions.checkReleaseBuilds) {
             createLintVitalTask(variantData)
         }
 
@@ -2714,7 +2496,7 @@ public abstract class BasePlugin {
         uninstallTask.description = "Uninstalls the " + variantData.description
         uninstallTask.group = INSTALL_GROUP
         uninstallTask.variant = variantData
-        conventionMapping(uninstallTask).map("adbExe") { sdkHandler.sdkInfo?.adb }
+        conventionMapping(uninstallTask).map("adbExe") { plugin.getSdkInfo()?.adb }
 
         variantData.uninstallTask = uninstallTask
         uninstallAll.dependsOn uninstallTask
@@ -2740,7 +2522,8 @@ public abstract class BasePlugin {
         if (jacocoAgentTask == null) {
             jacocoAgentTask = project.tasks.create("unzipJacocoAgent", Copy)
             jacocoAgentTask.from {
-                project.configurations.getByName(JacocoPlugin.AGENT_CONFIGURATION_NAME).collect { project.zipTree(it) }
+                project.configurations.getByName(JacocoPlugin.AGENT_CONFIGURATION_NAME).
+                        collect { project.zipTree(it) }
             }
             jacocoAgentTask.include FILE_JACOCO_AGENT
             jacocoAgentTask.into "$project.buildDir/${FD_INTERMEDIATES}/jacoco"
@@ -2848,7 +2631,6 @@ public abstract class BasePlugin {
             }
         }
 
-
         // --- InJars / LibraryJars ---
 
         if (variantData instanceof LibraryVariantData) {
@@ -2862,7 +2644,7 @@ public abstract class BasePlugin {
             // exclude R files and such from output
             String exclude = '!' + packageName + "/R.class"
             exclude += (', !' + packageName + "/R\$*.class")
-            if (!((LibraryExtension)extension).packageBuildConfig) {
+            if (!((LibraryExtension) getExtension()).packageBuildConfig) {
                 exclude += (', !' + packageName + "/Manifest.class")
                 exclude += (', !' + packageName + "/Manifest\$*.class")
                 exclude += (', !' + packageName + "/BuildConfig.class")
@@ -2875,7 +2657,7 @@ public abstract class BasePlugin {
 
             // injar: the local dependencies
             Closure inJars = {
-                Arrays.asList(getPackagedLocalJarFileList(variantData.variantDependency))
+                Arrays.asList(BasePlugin.getPackagedLocalJarFileList(variantData.variantDependency))
             }
 
             proguardTask.injars(inJars, filter: '!META-INF/MANIFEST.MF')
@@ -2886,7 +2668,7 @@ public abstract class BasePlugin {
                 // get all the compiled jar.
                 Set<File> compiledJars = androidBuilder.getCompileClasspath(variantConfig)
                 // and remove local jar that are also packaged
-                Object[] localJars = getPackagedLocalJarFileList(variantData.variantDependency)
+                Object[] localJars = BasePlugin.getPackagedLocalJarFileList(variantData.variantDependency)
 
                 compiledJars.findAll({ !localJars.contains(it) })
             }
@@ -2964,7 +2746,7 @@ public abstract class BasePlugin {
         def task = project.tasks.create(
                 "shrink${variantOutputData.fullName.capitalize()}Resources",
                 ShrinkResources)
-        task.plugin = this
+        task.plugin = plugin
         task.variantOutputData = variantOutputData
 
         String outputBaseName = variantOutputData.baseName
@@ -2983,31 +2765,15 @@ public abstract class BasePlugin {
         return task
     }
 
-    private void createMockableJarTask() {
-        createMockableJar = project.tasks.create("mockableAndroidJar", MockableAndroidJarTask)
-        createMockableJar.group = BUILD_GROUP
-        createMockableJar.description = "Creates a version of android.jar that's suitable for unit tests."
-
-        conventionMapping(createMockableJar).map("androidJar") {
-            ensureTargetSetup()
-            new File(androidBuilder.target.getPath(IAndroidTarget.ANDROID_JAR))
-        }
-
-        conventionMapping(createMockableJar).map("outputFile") {
-            project.file(
-                    "$project.buildDir/${FD_INTERMEDIATES}/mockable-${extension.compileSdkVersion}.jar")
-        }
-    }
-
-    private void createReportTasks() {
+    public void createReportTasks() {
         def dependencyReportTask = project.tasks.create("androidDependencies", DependencyReportTask)
         dependencyReportTask.setDescription("Displays the Android dependencies of the project")
-        dependencyReportTask.setVariants(variantManager.getVariantDataList())
+        dependencyReportTask.setVariants(plugin.getVariantDataList())
         dependencyReportTask.setGroup(ANDROID_GROUP)
 
         def signingReportTask = project.tasks.create("signingReport", SigningReportTask)
         signingReportTask.setDescription("Displays the signing info for each variant")
-        signingReportTask.setVariants(variantManager.getVariantDataList())
+        signingReportTask.setVariants(plugin.getVariantDataList())
         signingReportTask.setGroup(ANDROID_GROUP)
     }
 
@@ -3024,7 +2790,7 @@ public abstract class BasePlugin {
         variantData.prepareDependenciesTask = prepareDependenciesTask
         prepareDependenciesTask.dependsOn variantData.preBuildTask
 
-        prepareDependenciesTask.plugin = this
+        prepareDependenciesTask.plugin = plugin
         prepareDependenciesTask.variant = variantData
 
         // for all libraries required by the configurations of this variant, make this task
@@ -3033,7 +2799,7 @@ public abstract class BasePlugin {
         prepareDependenciesTask.addChecker(configurationDependencies.checker)
 
         for (LibraryDependencyImpl lib : configurationDependencies.libraries) {
-            addDependencyToPrepareTask(variantData, prepareDependenciesTask, lib)
+            plugin.addDependencyToPrepareTask(variantData, prepareDependenciesTask, lib)
         }
 
         // also create sourceGenTask
@@ -3068,958 +2834,68 @@ public abstract class BasePlugin {
         variantData.checkManifestTask.variantName = name
         conventionMapping(variantData.checkManifestTask).map("manifest") {
             variantData.variantConfiguration.getDefaultSourceSet().manifestFile
-=======
->>>>>>> BRANCH (1fd3b1 Merge "Create TaskManager from BasePlugin." into studio-1.1-)
         }
     }
 
-    private final Map<String, ArtifactMetaData> extraArtifactMap = Maps.newHashMap()
-    private final ListMultimap<String, AndroidArtifact> extraAndroidArtifacts = ArrayListMultimap.create()
-    private final ListMultimap<String, JavaArtifact> extraJavaArtifacts = ArrayListMultimap.create()
-    private final ListMultimap<String, SourceProviderContainer> extraVariantSourceProviders = ArrayListMultimap.create()
-    private final ListMultimap<String, SourceProviderContainer> extraBuildTypeSourceProviders = ArrayListMultimap.create()
-    private final ListMultimap<String, SourceProviderContainer> extraProductFlavorSourceProviders = ArrayListMultimap.create()
-    private final ListMultimap<String, SourceProviderContainer> extraMultiFlavorSourceProviders = ArrayListMultimap.create()
-
-
-    public Collection<ArtifactMetaData> getExtraArtifacts() {
-        return extraArtifactMap.values()
-    }
-
-    public Collection<AndroidArtifact> getExtraAndroidArtifacts(@NonNull String variantName) {
-        return extraAndroidArtifacts.get(variantName)
-    }
-
-    public Collection<JavaArtifact> getExtraJavaArtifacts(@NonNull String variantName) {
-        return extraJavaArtifacts.get(variantName)
-    }
-
-    public Collection<SourceProviderContainer> getExtraVariantSourceProviders(@NonNull String variantName) {
-        return extraVariantSourceProviders.get(variantName)
-    }
-
-    public Collection<SourceProviderContainer> getExtraFlavorSourceProviders(@NonNull String flavorName) {
-        return extraProductFlavorSourceProviders.get(flavorName)
-    }
-
-    public Collection<SourceProviderContainer> getExtraBuildTypeSourceProviders(@NonNull String buildTypeName) {
-        return extraBuildTypeSourceProviders.get(buildTypeName)
-    }
-
-    public void registerArtifactType(@NonNull String name,
-                                     boolean isTest,
-                                     int artifactType) {
-
-        if (extraArtifactMap.get(name) != null) {
-            throw new IllegalArgumentException("Artifact with name $name already registered.")
-        }
-
-        extraArtifactMap.put(name, new ArtifactMetaDataImpl(name, isTest, artifactType))
-    }
-
-    public void registerBuildTypeSourceProvider(@NonNull String name,
-                                                @NonNull BuildType buildType,
-                                                @NonNull SourceProvider sourceProvider) {
-        if (extraArtifactMap.get(name) == null) {
-            throw new IllegalArgumentException(
-                    "Artifact with name $name is not yet registered. Use registerArtifactType()")
-        }
-
-        extraBuildTypeSourceProviders.put(buildType.name,
-                new DefaultSourceProviderContainer(name, sourceProvider))
-
-    }
-
-    public void registerProductFlavorSourceProvider(@NonNull String name,
-                                                    @NonNull ProductFlavor productFlavor,
-                                                    @NonNull SourceProvider sourceProvider) {
-        if (extraArtifactMap.get(name) == null) {
-            throw new IllegalArgumentException(
-                    "Artifact with name $name is not yet registered. Use registerArtifactType()")
-        }
-
-        extraProductFlavorSourceProviders.put(productFlavor.name,
-                new DefaultSourceProviderContainer(name, sourceProvider))
-
-    }
-
-    public void registerMultiFlavorSourceProvider(@NonNull String name,
-                                                  @NonNull String flavorName,
-                                                  @NonNull SourceProvider sourceProvider) {
-        if (extraArtifactMap.get(name) == null) {
-            throw new IllegalArgumentException(
-                    "Artifact with name $name is not yet registered. Use registerArtifactType()")
-        }
-
-        extraMultiFlavorSourceProviders.put(flavorName,
-                new DefaultSourceProviderContainer(name, sourceProvider))
-    }
-
-    public void registerJavaArtifact(
-            @NonNull String name,
-            @NonNull BaseVariant variant,
-            @NonNull String assembleTaskName,
-            @NonNull String javaCompileTaskName,
-            @NonNull Configuration configuration,
-            @NonNull File classesFolder,
-            @Nullable SourceProvider sourceProvider) {
-        ArtifactMetaData artifactMetaData = extraArtifactMap.get(name)
-        if (artifactMetaData == null) {
-            throw new IllegalArgumentException(
-                    "Artifact with name $name is not yet registered. Use registerArtifactType()")
-        }
-        if (artifactMetaData.type != ArtifactMetaData.TYPE_JAVA) {
-            throw new IllegalArgumentException(
-                    "Artifact with name $name is not of type JAVA")
-        }
-
-        JavaArtifact artifact = new JavaArtifactImpl(
-                name, assembleTaskName, javaCompileTaskName, classesFolder,
-                new ConfigurationDependencies(configuration),
-                sourceProvider, null)
-        extraJavaArtifacts.put(variant.name, artifact)
-    }
-
-    /**
-     * Returns the list of packaged local jars.
-     * @param dependencyContainer
-     * @return
-     */
-    public static Object[] getPackagedLocalJarFileList(DependencyContainer dependencyContainer) {
-        Set<File> files = Sets.newHashSet()
-        for (JarDependency jarDependency : dependencyContainer.localDependencies) {
-            if (jarDependency.isPackaged()) {
-                files.add(jarDependency.jarFile)
+    public static void optionalDependsOn(@NonNull Task main, Task... dependencies) {
+        for (Task dependency : dependencies) {
+            if (dependency != null) {
+                main.dependsOn dependency
             }
         }
-
-        return files.toArray()
     }
 
-    /**
-     * Returns the list of compiled local jars.
-     * @param dependencyContainer
-     * @return
-     */
-    public static Object[] getCompiledLocalJarFileList(DependencyContainer dependencyContainer) {
-        Set<File> files = Sets.newHashSet()
-        for (JarDependency jarDependency : dependencyContainer.localDependencies) {
-            if (jarDependency.isCompiled()) {
-                files.add(jarDependency.jarFile)
+    public static void optionalDependsOn(@NonNull Task main, @NonNull List<?> dependencies) {
+        for (Object dependency : dependencies) {
+            if (dependency != null) {
+                main.dependsOn dependency
             }
-        }
-
-        return files.toArray()
-    }
-
-
-    //----------------------------------------------------------------------------------------------
-    //------------------------------ START DEPENDENCY STUFF ----------------------------------------
-    //----------------------------------------------------------------------------------------------
-
-    public void addDependencyToPrepareTask(
-            @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData,
-            @NonNull PrepareDependenciesTask prepareDependenciesTask,
-            @NonNull LibraryDependencyImpl lib) {
-        PrepareLibraryTask prepareLibTask = prepareTaskMap.get(lib)
-        if (prepareLibTask != null) {
-            prepareDependenciesTask.dependsOn prepareLibTask
-            prepareLibTask.dependsOn variantData.preBuildTask
-        }
-
-        for (childLib in lib.dependencies) {
-            addDependencyToPrepareTask(
-                    variantData,
-                    prepareDependenciesTask,
-                    childLib as LibraryDependencyImpl)
         }
     }
 
-    public void resolveDependencies(VariantDependencies variantDeps) {
-        Multimap<LibraryDependency, VariantDependencies> reverseMap = ArrayListMultimap.create()
-
-        resolveDependencyForConfig(variantDeps, reverseMap)
-
-        processLibraries(variantDeps.getLibraries()) { LibraryDependencyImpl libDependency ->
-            Task task = handleLibrary(project, libDependency)
-
-            // Use the reverse map to find all the configurations that included this android
-            // library so that we can make sure they are built.
-            // TODO fix, this is not optimum as we bring in more dependencies than we should.
-            List<VariantDependencies> configDepList = reverseMap.get(libDependency)
-            if (configDepList != null && !configDepList.isEmpty()) {
-                for (VariantDependencies configDependencies: configDepList) {
-                    task.dependsOn configDependencies.compileConfiguration.buildDependencies
-                }
+    private static <T> Set<T> removeAllNullEntries(Set<T> input) {
+        HashSet<T> output = new HashSet<T>();
+        for (T element : input) {
+            if (element != null) {
+                output.add(element);
             }
-
-            // check if this library is created by a parent (this is based on the
-            // output file.
-            // TODO Fix this as it's fragile
-            /*
-            This is a somewhat better way but it doesn't work in some project with
-            weird setups...
-            Project parentProject = DependenciesImpl.getProject(library.getBundle(), projects)
-            if (parentProject != null) {
-                String configName = library.getProjectVariant();
-                if (configName == null) {
-                    configName = "default"
-                }
-
-                prepareLibraryTask.dependsOn parentProject.getPath() + ":assemble${configName.capitalize()}"
-            }
-*/
         }
+        return output;
     }
 
-    private void processLibraries(Collection<LibraryDependencyImpl> libraries, Closure closure) {
-        for (LibraryDependencyImpl lib : libraries) {
-            closure.call(lib)
-            processLibraries(lib.getDependencies() as Collection<LibraryDependencyImpl>, closure)
-        }
-    }
+    @NonNull
+    private List<ManifestDependencyImpl> getManifestDependencies(
+            List<LibraryDependency> libraries) {
 
-    /**
-     * Handles the library and returns a task to "prepare" the library (ie unarchive it). The task
-     * will be reused for all projects using the same library.
-     *
-     * @param project the project
-     * @param library the library.
-     * @return the prepare task.
-     */
-    protected PrepareLibraryTask handleLibrary(
-            @NonNull Project project,
-            @NonNull LibraryDependencyImpl library) {
-        String bundleName = GUtil
-                .toCamelCase(library.getName().replaceAll("\\:", " "))
+        List<ManifestDependencyImpl> list = Lists.newArrayListWithCapacity(libraries.size())
 
-        PrepareLibraryTask prepareLibraryTask = prepareTaskMap.get(library)
-
-        if (prepareLibraryTask == null) {
-            prepareLibraryTask = project.tasks.create(
-                    "prepare" + bundleName + "Library", PrepareLibraryTask.class)
-
-            prepareLibraryTask.setDescription("Prepare " + library.getName())
-            conventionMapping(prepareLibraryTask).map("bundle")  { library.getBundle() }
-            conventionMapping(prepareLibraryTask).map("explodedDir") { library.getBundleFolder() }
-
-            prepareTaskMap.put(library, prepareLibraryTask)
-        }
-
-        return prepareLibraryTask;
-    }
-
-    private void resolveDependencyForConfig(
-            @NonNull VariantDependencies variantDeps,
-            @NonNull Multimap<LibraryDependency, VariantDependencies> reverseMap) {
-
-        Configuration compileClasspath = variantDeps.compileConfiguration
-        Configuration packageClasspath = variantDeps.packageConfiguration
-
-        if (DEBUG_DEPENDENCY) {
-            println ">>>>>>>>>>"
-            println "${project.name}:${compileClasspath.name}/${packageClasspath.name}"
-        }
-
-        // TODO - shouldn't need to do this - fix this in Gradle
-        ensureConfigured(compileClasspath)
-        ensureConfigured(packageClasspath)
-
-        variantDeps.checker = new DependencyChecker(variantDeps, logger)
-
-        Set<String> currentUnresolvedDependencies = Sets.newHashSet()
-
-        // TODO - defer downloading until required -- This is hard to do as we need the info to build the variant config.
-        Map<ModuleVersionIdentifier, List<ResolvedArtifact>> artifacts = Maps.newHashMap()
-        collectArtifacts(compileClasspath, artifacts)
-        collectArtifacts(packageClasspath, artifacts)
-
-        // --- Handle the external/module dependencies ---
-        // keep a map of modules already processed so that we don't go through sections of the
-        // graph that have been seen elsewhere.
-        Map<ModuleVersionIdentifier, List<LibInfo>> foundLibraries = Maps.newHashMap()
-        Map<ModuleVersionIdentifier, List<JarInfo>> foundJars = Maps.newHashMap()
-
-        // first get the compile dependencies. Note that in both case the libraries and the
-        // jars are a graph. The list only contains the first level of dependencies, and
-        // they themselves contain transitive dependencies (libraries can contain both, jars only
-        // contains jars)
-        List<LibInfo> compiledAndroidLibraries = Lists.newArrayList()
-        List<JarInfo> compiledJars = Lists.newArrayList()
-
-        def dependencies = compileClasspath.incoming.resolutionResult.root.dependencies
-        dependencies.each { dep ->
-            if (dep instanceof ResolvedDependencyResult) {
-                addDependency(
-                        (dep as ResolvedDependencyResult).selected,
-                        variantDeps,
-                        compiledAndroidLibraries,
-                        compiledJars,
-                        foundLibraries,
-                        foundJars,
-                        artifacts,
-                        reverseMap,
-                        0)
-            } else if (dep instanceof UnresolvedDependencyResult) {
-                def attempted = (dep as UnresolvedDependencyResult).attempted
-                if (attempted != null) {
-                    currentUnresolvedDependencies.add(attempted.toString())
-                }
-            }
-        }
-
-        // then the packaged ones.
-        List<LibInfo> packagedAndroidLibraries = []
-        List<JarInfo> packagedJars = []
-        dependencies = packageClasspath.incoming.resolutionResult.root.dependencies
-        dependencies.each { dep ->
-            if (dep instanceof ResolvedDependencyResult) {
-                addDependency(
-                        (dep as ResolvedDependencyResult).selected,
-                        variantDeps,
-                        packagedAndroidLibraries,
-                        packagedJars,
-                        foundLibraries,
-                        foundJars,
-                        artifacts,
-                        reverseMap,
-                        0)
-            } else if (dep instanceof UnresolvedDependencyResult) {
-                def attempted = (dep as UnresolvedDependencyResult).attempted
-                if (attempted != null) {
-                    currentUnresolvedDependencies.add(attempted.toString())
-                }
-            }
-        }
-
-        // now look through both results.
-        // 1. All Android libraries must be in both lists.
-        // since we reuse the same instance of LibInfo for identical modules
-        // we can simply run through each list and look for libs that are in only one.
-        // While the list of library is actually a graph, it's fine to look only at the
-        // top level ones since they transitive ones are in the same scope as the direct libraries.
-        List<LibInfo> copyOfPackagedLibs = Lists.newArrayList(packagedAndroidLibraries)
-
-        for (LibraryDependencyImpl lib : compiledAndroidLibraries) {
-            if (!copyOfPackagedLibs.contains(lib)) {
-                handleSyncError(
-                        lib.resolvedCoordinates.toString(),
-                        SyncIssue.TYPE_NON_JAR_PROVIDED_DEP,
-                        "Project ${project.name}: provided dependencies can only be jars. " +
-                                "${lib.resolvedCoordinates} is an Android Library.")
-             } else {
-                copyOfPackagedLibs.remove(lib);
-            }
-        }
-        // at this stage copyOfPackagedLibs should be empty, if not, error.
-        for (LibraryDependencyImpl lib : copyOfPackagedLibs) {
-            handleSyncError(
-                    lib.resolvedCoordinates.toString(),
-                    SyncIssue.TYPE_NON_JAR_PACKAGE_DEP,
-                    "Project ${project.name}: apk dependencies can only be jars. " +
-                            "${lib.resolvedCoordinates} is an Android Library.")
-        }
-
-        // 2. merge jar dependencies with a single list where items have packaged/compiled properties.
-        // since we reuse the same instance of a JarInfo for identical modules, we can use an
-        // Identity set (ie both compiledJars and packagedJars will contain the same instance
-        // if it's both compiled and packaged)
-        Set<JarInfo> jarInfoSet = Sets.newIdentityHashSet()
-
-        // go through the graphs of dependencies (jars and libs) and gather all the transitive
-        // jar dependencies.
-        // At the same this we set the compiled/packaged properties.
-        gatherJarDependencies(jarInfoSet, compiledJars, true /*compiled*/, false /*packaged*/)
-        gatherJarDependencies(jarInfoSet, packagedJars, false /*compiled*/, true /*packaged*/)
-        // at this step, we know that libraries have been checked and libraries can only
-        // be in both compiled and packaged scope.
-        gatherJarDependenciesFromLibraries(jarInfoSet, compiledAndroidLibraries, true, true)
-
-        // and convert them to the right class.
-        List<JarDependency> jars = Lists.newArrayListWithCapacity(jarInfoSet.size())
-        for (JarInfo jarInfo : jarInfoSet) {
-            jars.add(jarInfo.createJarDependency())
-        }
-
-        // --- Handle the local jar dependencies ---
-
-        // also need to process local jar files, as they are not processed by the
-        // resolvedConfiguration result. This only includes the local jar files for this project.
-        Set<File> localCompiledJars = []
-        compileClasspath.allDependencies.each { dep ->
-            if (dep instanceof SelfResolvingDependency &&
-                    !(dep instanceof ProjectDependency)) {
-                Set<File> files = ((SelfResolvingDependency) dep).resolve()
-                for (File f : files) {
-                    if (DEBUG_DEPENDENCY) println "LOCAL compile: " + f.getName()
-                    // only accept local jar, no other types.
-                    if (!f.getName().toLowerCase().endsWith(DOT_JAR)) {
-                        handleSyncError(
-                                f.absolutePath,
-                                SyncIssue.TYPE_NON_JAR_LOCAL_DEP,
-                                "Project ${project.name}: Only Jar-type local " +
-                                "dependencies are supported. Cannot handle: ${f.absolutePath}")
-                    } else {
-                        localCompiledJars.add(f)
-                    }
-                }
-            }
-        }
-
-        Set<File> localPackagedJars = []
-        packageClasspath.allDependencies.each { dep ->
-            if (dep instanceof SelfResolvingDependency &&
-                    !(dep instanceof ProjectDependency)) {
-                Set<File> files = ((SelfResolvingDependency) dep).resolve()
-                for (File f : files) {
-                    if (DEBUG_DEPENDENCY) println "LOCAL package: " + f.getName()
-                    // only accept local jar, no other types.
-                    if (!f.getName().toLowerCase().endsWith(DOT_JAR)) {
-                        handleSyncError(
-                                f.absolutePath,
-                                SyncIssue.TYPE_NON_JAR_LOCAL_DEP,
-                                "Project ${project.name}: Only Jar-type local " +
-                                "dependencies are supported. Cannot handle: ${f.absolutePath}")
-                    } else {
-                        localPackagedJars.add(f)
-                    }
-                }
-            }
-        }
-
-        // loop through both the compiled and packaged jar to compute the list
-        // of jars that are: compile-only, package-only, or both.
-        Map<File, JarDependency> localJars = Maps.newHashMap()
-        for (File file : localCompiledJars) {
-            localJars.put(file, new JarDependency(
-                    file,
-                    true /*compiled*/,
-                    localPackagedJars.contains(file) /*packaged*/,
-                    null /*resolvedCoordinates*/))
-        }
-
-        for (File file : localPackagedJars) {
-            if (!localCompiledJars.contains(file)) {
-                localJars.put(file, new JarDependency(
-                        file,
-                        false /*compiled*/,
-                        true /*packaged*/,
-                        null /*resolvedCoordinates*/))
-            }
-        }
-
-        if (buildModelForIde &&
-                compileClasspath.resolvedConfiguration.hasError() &&
-                !currentUnresolvedDependencies.isEmpty()) {
-            unresolvedDependencies.addAll(currentUnresolvedDependencies)
-
-            for (String dependency : currentUnresolvedDependencies) {
-                handleSyncError(
-                        dependency,
-                        SyncIssue.TYPE_UNRESOLVED_DEPENDENCY,
-                        "Unable to resolve dependency '${dependency}'")
-            }
-        }
-
-        // convert the LibInfo in LibraryDependencyImpl and update the reverseMap
-        // with the converted keys
-        List<LibraryDependencyImpl> libList = convertLibraryInfoIntoDependency(
-                compiledAndroidLibraries, reverseMap)
-
-        variantDeps.addLibraries(libList)
-        variantDeps.addJars(jars)
-        variantDeps.addLocalJars(localJars.values())
-
-        configureBuild(variantDeps)
-
-        if (DEBUG_DEPENDENCY) {
-            println "${project.name}:${compileClasspath.name}/${packageClasspath.name}"
-            println "<<<<<<<<<<"
-        }
-
-    }
-
-    private static List<LibraryDependencyImpl> convertLibraryInfoIntoDependency(
-            @NonNull List<LibInfo> libInfos,
-            @NonNull Multimap<LibraryDependency, VariantDependencies> reverseMap) {
-        List<LibraryDependencyImpl> list = Lists.newArrayListWithCapacity(libInfos.size())
-
-        // since the LibInfos is a graph and the previous "foundLibraries" map ensure we reuse
-        // instance where applicable, we'll create a map to keep track of what we have already
-        // converted.
-        Map<LibInfo, LibraryDependencyImpl> convertedMap = Maps.newIdentityHashMap()
-
-        for (LibInfo libInfo : libInfos) {
-            list.add(convertLibInfo(libInfo, reverseMap, convertedMap))
+        for (LibraryDependency lib : libraries) {
+            // get the dependencies
+            List<ManifestDependencyImpl> children = getManifestDependencies(lib.dependencies)
+            list.add(new ManifestDependencyImpl(lib.getName(), lib.manifest, children))
         }
 
         return list
     }
 
-    private static LibraryDependencyImpl convertLibInfo(
-            @NonNull LibInfo libInfo,
-            @NonNull Multimap<LibraryDependency, VariantDependencies> reverseMap,
-            @NonNull Map<LibInfo, LibraryDependencyImpl> convertedMap) {
-        LibraryDependencyImpl convertedLib = convertedMap.get(libInfo)
-        if (convertedLib == null) {
-            // first, convert the children.
-            List<LibInfo> children = libInfo.getDependencies() as List<LibInfo>
-            List<LibraryDependency> convertedChildren = Lists.newArrayListWithCapacity(children.size())
+    @NonNull
+    protected static List<SymbolFileProviderImpl> getTextSymbolDependencies(
+            List<LibraryDependency> libraries) {
 
-            for (LibInfo child : children) {
-                convertedChildren.add(convertLibInfo(child, reverseMap, convertedMap))
-            }
+        List<SymbolFileProviderImpl> list = Lists.newArrayListWithCapacity(libraries.size())
 
-            // now convert the libInfo
-            convertedLib = new LibraryDependencyImpl(
-                    libInfo.getBundle(),
-                    libInfo.getFolder(),
-                    convertedChildren,
-                    libInfo.getName(),
-                    libInfo.getProjectVariant(),
-                    libInfo.getRequestedCoordinates(),
-                    libInfo.getResolvedCoordinates())
-
-            // add it to the map
-            convertedMap.put(libInfo, convertedLib)
-
-            // and update the reversemap
-            // get the items associated with the libInfo. Put in a fresh list as the returned
-            // collection is backed by the content of the map.
-            Collection<VariantDependencies> values = Lists.newArrayList(reverseMap.get(libInfo))
-            reverseMap.removeAll(libInfo)
-            reverseMap.putAll(convertedLib, values)
+        for (LibraryDependency lib : libraries) {
+            list.add(new SymbolFileProviderImpl(lib.manifest, lib.symbolFile))
         }
 
-        return convertedLib
+        return list
     }
 
-    private void gatherJarDependencies(
-            Set<JarInfo> outJarInfos,
-            Collection<JarInfo> inJarInfos,
-            boolean compiled,
-            boolean packaged) {
-        for (JarInfo jarInfo : inJarInfos) {
-            if (!outJarInfos.contains(jarInfo)) {
-                outJarInfos.add(jarInfo)
-            }
-
-            if (compiled) {
-                jarInfo.setCompiled(true)
-            }
-            if (packaged) {
-                jarInfo.setPackaged(true)
-            }
-
-            gatherJarDependencies(outJarInfos, jarInfo.getDependencies(), compiled, packaged)
-        }
-    }
-
-    private void gatherJarDependenciesFromLibraries(
-            Set<JarInfo> outJarInfos,
-            Collection<LibInfo> inLibraryDependencies,
-            boolean compiled,
-            boolean packaged) {
-        for (LibInfo libInfo : inLibraryDependencies) {
-            gatherJarDependencies(outJarInfos, libInfo.getJarDependencies(), compiled, packaged)
-
-            gatherJarDependenciesFromLibraries(
-                    outJarInfos,
-                    libInfo.getDependencies() as Collection<LibInfo>,
-                    compiled,
-                    packaged)
-        }
-    }
-
-    protected void ensureConfigured(Configuration config) {
-        config.allDependencies.withType(ProjectDependency).each { dep ->
-            project.evaluationDependsOn(dep.dependencyProject.path)
-            try {
-                ensureConfigured(dep.projectConfiguration)
-            } catch (Throwable e) {
-                throw new UnknownProjectException(
-                        "Cannot evaluate module ${dep.name} : ${e.getMessage()}", e);
-            }
-        }
-    }
-
-    private void collectArtifacts(
-            Configuration configuration,
-            Map<ModuleVersionIdentifier,
-            List<ResolvedArtifact>> artifacts) {
-
-        Set<ResolvedArtifact> allArtifacts
-        if (buildModelForIde) {
-            allArtifacts = configuration.resolvedConfiguration.lenientConfiguration.getArtifacts(Specs.satisfyAll())
-        } else {
-            allArtifacts = configuration.resolvedConfiguration.resolvedArtifacts
+    protected static File getOptionalDir(File dir) {
+        if (dir.isDirectory()) {
+            return dir
         }
 
-        allArtifacts.each { ResolvedArtifact artifact ->
-            ModuleVersionIdentifier id = artifact.moduleVersion.id
-            List<ResolvedArtifact> moduleArtifacts = artifacts.get(id)
-
-            if (moduleArtifacts == null) {
-                moduleArtifacts = Lists.newArrayList()
-                artifacts.put(id, moduleArtifacts)
-            }
-
-            if (!moduleArtifacts.contains(artifact)) {
-                moduleArtifacts.add(artifact)
-            }
-        }
-    }
-
-    /**
-     * Returns whether we are just trying to build a model for the IDE instead of building.
-     * This means we will attempt to resolve dependencies even if some are broken/unsupported
-     * to avoid failing the import in the IDE.
-     */
-    private boolean isBuildModelForIde() {
-        boolean flagValue = false;
-        if (project.hasProperty(PROPERTY_BUILD_MODEL_ONLY)) {
-            Object value = project.getProperties().get(PROPERTY_BUILD_MODEL_ONLY);
-            if (value instanceof String) {
-                flagValue = Boolean.parseBoolean(value);
-            }
-        }
-        return flagValue
-    }
-
-    private static void printIndent(int indent, String message) {
-        for (int i = 0 ; i < indent ; i++) {
-            print "\t"
-        }
-
-        println message
-    }
-
-    private void addDependency(
-            ResolvedComponentResult moduleVersion,
-            VariantDependencies configDependencies,
-            Collection<LibInfo> outLibraries,
-            List<JarInfo> outJars,
-            Map<ModuleVersionIdentifier, List<LibInfo>> alreadyFoundLibraries,
-            Map<ModuleVersionIdentifier, List<JarInfo>> alreadyFoundJars,
-            Map<ModuleVersionIdentifier, List<ResolvedArtifact>> artifacts,
-            Multimap<LibraryDependency, VariantDependencies> reverseMap,
-            int indent) {
-
-        ModuleVersionIdentifier id = moduleVersion.moduleVersion
-        if (configDependencies.checker.excluded(id)) {
-            return
-        }
-
-        if (id.name.equals("support-annotations") && id.group.equals("com.android.support")) {
-            configDependencies.annotationsPresent = true
-        }
-
-        List<LibInfo> libsForThisModule = alreadyFoundLibraries.get(id)
-        List<JarInfo> jarsForThisModule = alreadyFoundJars.get(id)
-
-        if (libsForThisModule != null) {
-            if (DEBUG_DEPENDENCY) {
-                printIndent indent, "FOUND LIB: " + id.name
-            }
-            outLibraries.addAll(libsForThisModule)
-
-            for (LibInfo lib : libsForThisModule) {
-                reverseMap.put(lib, configDependencies)
-            }
-
-        } else if (jarsForThisModule != null) {
-            if (DEBUG_DEPENDENCY) {
-                printIndent indent, "FOUND JAR: " + id.name
-            }
-            outJars.addAll(jarsForThisModule)
-        }
-        else {
-            if (DEBUG_DEPENDENCY) {
-                printIndent indent, "NOT FOUND: " + id.name
-            }
-            // new module! Might be a jar or a library
-
-            // get the nested components first.
-            List<LibInfo> nestedLibraries = Lists.newArrayList()
-            List<JarInfo> nestedJars = Lists.newArrayList()
-
-            Set<? extends DependencyResult> dependencies = moduleVersion.dependencies
-            dependencies.each { dep ->
-                if (dep instanceof ResolvedDependencyResult) {
-                    addDependency(
-                            (dep as ResolvedDependencyResult).selected,
-                            configDependencies,
-                            nestedLibraries,
-                            nestedJars,
-                            alreadyFoundLibraries,
-                            alreadyFoundJars,
-                            artifacts,
-                            reverseMap,
-                            indent+1)
-                }
-            }
-
-            if (DEBUG_DEPENDENCY) {
-                printIndent indent, "BACK2: " + id.name
-                printIndent indent, "NESTED LIBS: " + nestedLibraries.size();
-                printIndent indent, "NESTED JARS: " + nestedJars.size();
-            }
-
-            // now loop on all the artifact for this modules.
-            List<ResolvedArtifact> moduleArtifacts = artifacts.get(id)
-
-            moduleArtifacts?.each { artifact ->
-                if (artifact.type == EXT_LIB_ARCHIVE) {
-                    if (DEBUG_DEPENDENCY) {
-                        printIndent indent, "TYPE: AAR"
-                    }
-                    if (libsForThisModule == null) {
-                        libsForThisModule = Lists.newArrayList()
-                        alreadyFoundLibraries.put(id, libsForThisModule)
-                    }
-
-                    String path = "${normalize(logger, id, id.group)}" +
-                            "/${normalize(logger, id, id.name)}" +
-                            "/${normalize(logger, id, id.version)}"
-                    String name = "$id.group:$id.name:$id.version"
-                    if (artifact.classifier != null && !artifact.classifier.isEmpty()) {
-                        path += "/${normalize(logger, id, artifact.classifier)}"
-                        name += ":$artifact.classifier"
-                    }
-                    //def explodedDir = project.file("$project.rootProject.buildDir/${FD_INTERMEDIATES}/exploded-aar/$path")
-                    File explodedDir = project.file(
-                            "$project.buildDir/${FD_INTERMEDIATES}/exploded-aar/$path")
-                    LibInfo libInfo = new LibInfo(
-                            artifact.file,
-                            explodedDir,
-                            nestedLibraries as List<LibraryDependency>,
-                            nestedJars,
-                            name,
-                            artifact.classifier,
-                            null /*requestedCoordinates*/,
-                            new MavenCoordinatesImpl(artifact))
-
-                    libsForThisModule.add(libInfo)
-                    outLibraries.add(libInfo)
-                    reverseMap.put(libInfo, configDependencies)
-
-                } else if (artifact.type == EXT_JAR) {
-                    if (DEBUG_DEPENDENCY) {
-                        printIndent indent, "TYPE: JAR"
-                    }
-                    // check this jar does not have a dependency on an library, as this would not work.
-                    if (!nestedLibraries.isEmpty()) {
-                        handleSyncError(
-                                new MavenCoordinatesImpl(artifact).toString(),
-                                SyncIssue.TYPE_JAR_DEPEND_ON_AAR,
-                                "Module version $id depends on libraries but is a jar");
-                    }
-
-                    if (jarsForThisModule == null) {
-                        jarsForThisModule = Lists.newArrayList()
-                        alreadyFoundJars.put(id, jarsForThisModule)
-                    }
-
-                    JarInfo jarInfo = new JarInfo(
-                            artifact.file,
-                            new MavenCoordinatesImpl(artifact),
-                            nestedJars)
-
-                    jarsForThisModule.add(jarInfo);
-                    outJars.add(jarInfo)
-
-                } else if (artifact.type == EXT_ANDROID_PACKAGE) {
-                    String name = "$id.group:$id.name:$id.version"
-                    if (artifact.classifier != null) {
-                        name += ":$artifact.classifier"
-                    }
-
-                    handleSyncError(
-                            name,
-                            SyncIssue.TYPE_DEPENDENCY_IS_APK,
-                            "Dependency ${name} on project ${project.name} resolves to an APK" +
-                            " archive which is not supported" +
-                            " as a compilation dependency. File: ${artifact.file}")
-                } else if (artifact.type == "apklib") {
-                    String name = "$id.group:$id.name:$id.version"
-                    if (artifact.classifier != null) {
-                        name += ":$artifact.classifier"
-                    }
-
-                    handleSyncError(
-                            name,
-                            SyncIssue.TYPE_DEPENDENCY_IS_APKLIB,
-                            "Packaging for dependency ${name} is 'apklib' and is not supported. " +
-                            "Only 'aar' libraries are supported.")
-                }
-            }
-
-            if (DEBUG_DEPENDENCY) {
-                printIndent indent, "DONE: " + id.name
-            }
-
-        }
-    }
-
-    protected void handleSyncError(String data, int type, String msg) {
-        if (!buildModelForIde) {
-            throw new GradleException(msg)
-        } else {
-            SyncIssue syncIssue = new SyncIssueImpl(
-                    type,
-                    SyncIssue.SEVERITY_ERROR,
-                    data,
-                    msg)
-            syncIssues.put(SyncIssueKey.from(syncIssue), syncIssue)
-        }
-    }
-
-    /**
-     * Normalize a path to remove all illegal characters for all supported operating systems.
-     * {@see http://en.wikipedia.org/wiki/Filename#Comparison%5Fof%5Ffile%5Fname%5Flimitations}
-     *
-     * @param id the module coordinates that generated this path
-     * @param path the proposed path name
-     * @return the normalized path name
-     */
-    static String normalize(ILogger logger, ModuleVersionIdentifier id, String path) {
-        if (path == null || path.isEmpty()) {
-            logger.info("When unzipping library '${id.group}:${id.name}:${id.version}, " +
-                    "either group, name or version is empty")
-            return path;
-        }
-        // list of illegal characters
-        String normalizedPath = path.replaceAll("[%<>:\"/?*\\\\]","@");
-        if (normalizedPath == null || normalizedPath.isEmpty()) {
-            // if the path normalization failed, return the original path.
-            logger.info("When unzipping library '${id.group}:${id.name}:${id.version}, " +
-                    "the normalized '${path}' is empty")
-            return path
-        }
-        try {
-            int pathPointer = normalizedPath.length() - 1;
-            // do not end your path with either a dot or a space.
-            String suffix = "";
-            while (pathPointer >= 0 && (normalizedPath.charAt(pathPointer) == '.'
-                    || normalizedPath.charAt(pathPointer) == ' ')) {
-                pathPointer--
-                suffix += "@"
-            }
-            if (pathPointer < 0) {
-                throw new RuntimeException(
-                        "When unzipping library '${id.group}:${id.name}:${id.version}, " +
-                                "the path '${path}' cannot be transformed into a valid directory name");
-            }
-            return normalizedPath.substring(0, pathPointer + 1) + suffix
-        } catch (Exception e) {
-            logger.error(e, "When unzipping library '${id.group}:${id.name}:${id.version}', " +
-                    "Path normalization failed for input ${path}")
-            return path;
-        }
-    }
-
-    private void configureBuild(VariantDependencies configurationDependencies) {
-        addDependsOnTaskInOtherProjects(
-                project.getTasks().getByName(JavaBasePlugin.BUILD_NEEDED_TASK_NAME), true,
-                JavaBasePlugin.BUILD_NEEDED_TASK_NAME, "compile");
-        addDependsOnTaskInOtherProjects(
-                project.getTasks().getByName(JavaBasePlugin.BUILD_DEPENDENTS_TASK_NAME), false,
-                JavaBasePlugin.BUILD_DEPENDENTS_TASK_NAME, "compile");
-    }
-
-    /**
-     * Adds a dependency on tasks with the specified name in other projects.  The other projects
-     * are determined from project lib dependencies using the specified configuration name.
-     * These may be projects this project depends on or projects that depend on this project
-     * based on the useDependOn argument.
-     *
-     * @param task Task to add dependencies to
-     * @param useDependedOn if true, add tasks from projects this project depends on, otherwise
-     * use projects that depend on this one.
-     * @param otherProjectTaskName name of task in other projects
-     * @param configurationName name of configuration to use to find the other projects
-     */
-    private static void addDependsOnTaskInOtherProjects(final Task task, boolean useDependedOn,
-                                                 String otherProjectTaskName,
-                                                 String configurationName) {
-        Project project = task.getProject();
-        final Configuration configuration = project.getConfigurations().getByName(
-                configurationName);
-        task.dependsOn(configuration.getTaskDependencyFromProjectDependency(
-                useDependedOn, otherProjectTaskName));
-    }
-
-    //----------------------------------------------------------------------------------------------
-    //------------------------------- END DEPENDENCY STUFF -----------------------------------------
-    //----------------------------------------------------------------------------------------------
-
-    private static String getLocalVersion() {
-        try {
-            Class clazz = BasePlugin.class
-            String className = clazz.getSimpleName() + ".class"
-            String classPath = clazz.getResource(className).toString()
-            if (!classPath.startsWith("jar")) {
-                // Class not from JAR, unlikely
-                return null
-            }
-            String manifestPath = classPath.substring(0, classPath.lastIndexOf("!") + 1) +
-                    "/META-INF/MANIFEST.MF";
-
-            URLConnection jarConnection = new URL(manifestPath).openConnection();
-            jarConnection.setUseCaches(false);
-            InputStream jarInputStream = jarConnection.getInputStream();
-            Attributes attr = new Manifest(jarInputStream).getMainAttributes();
-            jarInputStream.close();
-            return attr.getValue("Plugin-Version");
-        } catch (Throwable t) {
-            return null;
-        }
-    }
-
-    public Project getProject() {
-        return project
-    }
-
-    public static void displayWarning(ILogger logger, Project project, String message) {
-        logger.warning(createWarning(project.path, message))
-    }
-
-    public static void displayWarning(Logger logger, Project project, String message) {
-        logger.warn(createWarning(project.path, message))
-    }
-
-    public void displayDeprecationWarning(String message) {
-        displayWarning(logger, project, message)
-    }
-
-    public static void displayDeprecationWarning(Logger logger, Project project, String message) {
-        displayWarning(logger, project, message)
-    }
-
-    private static String createWarning(String projectName, String message) {
-        return "WARNING [Project: $projectName] $message"
-    }
-
-    /**
-     * Returns a plugin that is an instance of BasePlugin.  Returns null if a BasePlugin cannot
-     * be found.
-     */
-    public static BasePlugin findBasePlugin(Project project) {
-        BasePlugin plugin = project.plugins.findPlugin(AppPlugin)
-        if (plugin != null) {
-            return plugin
-        }
-        plugin = project.plugins.findPlugin(LibraryPlugin)
-        if (plugin != null) {
-            return plugin
-        }
-        plugin = project.plugins.findPlugin(BaseComponentModelPlugin)
-        return plugin
-    }
-
-    @CompileDynamic
-    // TODO: Remove when dependency stuff is refactored from BasePlugin.
-    private static ConventionMapping conventionMapping(Task task) {
-        task.conventionMapping
+        return null
     }
 }
