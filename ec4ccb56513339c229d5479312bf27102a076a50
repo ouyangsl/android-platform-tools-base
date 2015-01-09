@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ef945d6_8385bee6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/BaseVariant.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-09T19:26:28Z",
+      "side": 1,
+      "message": "quick question more than a code review. Why can\u0027t we use the gradle @Output and associated annotations on the task to find the list of outputs from the task ?",
+      "revId": "ec4ccb56513339c229d5479312bf27102a076a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
