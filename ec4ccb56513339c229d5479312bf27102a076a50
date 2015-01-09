@@ -16,6 +16,24 @@
       "revId": "ec4ccb56513339c229d5479312bf27102a076a50",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce380d5f_a14d3e90",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/BaseVariant.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-09T23:31:44Z",
+      "side": 1,
+      "message": "We could, but nothing guarantee that the task *only* outputs resources.\n\nAlso the output could be a file rather than the top res folder (actually my example does just that)\n\nIn other words, it\u0027s not reliable. I thought about having declaring an interface that such task would have to implement so that we could do a better link between the tasks but it seems more complicated and required to always create a new task type when using the API which may not be what we want (though it\u0027s more efficient from a Gradle point of view).",
+      "parentUuid": "0ef945d6_8385bee6",
+      "revId": "ec4ccb56513339c229d5479312bf27102a076a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
