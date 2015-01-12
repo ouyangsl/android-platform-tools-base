@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ef09d0f_6ccee36f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-12T22:56:10Z",
+      "side": 1,
+      "message": "the location of this is a bit weird, since (long term) we could have more sync issue type that are not dependency-specific.",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 56
+      },
+      "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ef09d0f_4cee87c6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-12T22:56:10Z",
+      "side": 1,
+      "message": "same, this is not really specific to dependency (though it\u0027s only used by it for now).",
+      "range": {
+        "startLine": 829,
+        "startChar": 12,
+        "endLine": 829,
+        "endChar": 39
+      },
+      "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
