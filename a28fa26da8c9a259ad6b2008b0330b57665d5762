@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4ef09d0f_6cd5436e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-12T23:30:49Z",
+      "side": 1,
+      "message": "Agreed.  I will find more appropriate place for it ASAP.  I am submitting this CL first since the change is pretty big.",
+      "parentUuid": "4ef09d0f_6ccee36f",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 56
+      },
+      "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef09d0f_4cee87c6",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
         "patchSetId": 3
