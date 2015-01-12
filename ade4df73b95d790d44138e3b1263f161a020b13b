@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0efa25f3_306eee6c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-12T22:53:23Z",
+      "side": 1,
+      "message": "Is it that this provider is just null for AndroidTest type variants?",
+      "range": {
+        "startLine": 1135,
+        "startChar": 12,
+        "endLine": 1135,
+        "endChar": 45
+      },
+      "revId": "ade4df73b95d790d44138e3b1263f161a020b13b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2eab69f1_7bc34b37",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/BuildTypeData.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-12T22:53:23Z",
+      "side": 1,
+      "message": "in ProductFlavorData you test both VariantType_UNIT_TEST and ANDROID_TEST, and throw in the default case. I think you should be consistent here.",
+      "range": {
+        "startLine": 72,
+        "startChar": 11,
+        "endLine": 72,
+        "endChar": 39
+      },
+      "revId": "ade4df73b95d790d44138e3b1263f161a020b13b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
