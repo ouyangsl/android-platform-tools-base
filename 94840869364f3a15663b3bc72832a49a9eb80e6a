@@ -22,6 +22,30 @@
       "revId": "94840869364f3a15663b3bc72832a49a9eb80e6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2eab69f1_e0c78a23",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/GenerateApkDataTask.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-12T22:13:45Z",
+      "side": 1,
+      "message": "Done. The BaseTask returns BuildTools instead of Revision because I think it looks kind of weird if we have a new function doing the same thing just to apply the @Input tag.\nAs for the Groovy properties access, there are some debates whether it should be used.  I think we need to formalize a Groovy style guide...",
+      "parentUuid": "6e1c811f_19a04f2e",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 68
+      },
+      "revId": "94840869364f3a15663b3bc72832a49a9eb80e6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
