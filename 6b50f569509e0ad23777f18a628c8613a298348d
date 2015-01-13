@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e8c1dba_03df12e5",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PseudoLocalizationTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-13T03:44:06Z",
+      "side": 1,
+      "message": "Just personal opinion. I prefer to be explicit when the function is not buying much:\n\nassertThat(ApkHelper.getLocales(project.getApk(\"debug\")).containsAllOf(\"en-XA\", \"ar-XB\")",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
