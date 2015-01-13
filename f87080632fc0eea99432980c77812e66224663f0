@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ec7bdd5_25152e32",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/RsEnabledAnnotationTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T10:55:26Z",
+      "side": 1,
+      "message": "Use TruthHelper for consistency.",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 39
+      },
+      "revId": "f87080632fc0eea99432980c77812e66224663f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce800d7c_c12c428a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/VariantDependencyTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T10:55:26Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 224,
+        "startChar": 8,
+        "endLine": 224,
+        "endChar": 53
+      },
+      "revId": "f87080632fc0eea99432980c77812e66224663f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
