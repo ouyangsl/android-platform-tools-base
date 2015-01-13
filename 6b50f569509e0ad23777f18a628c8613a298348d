@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "4e8c1dba_8662502c",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PseudoLocalizationTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T17:00:11Z",
+      "side": 1,
+      "message": "OK, I\u0027ll change it then. I prefer it too.",
+      "parentUuid": "4e8c1dba_a6e90c43",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce800d7c_613616d2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
         "patchSetId": 1
@@ -274,6 +298,30 @@
       "side": 1,
       "message": "I guess you can also try assertThat(apkInfo.versionCode).named(\"Version code of $apkInfo\").is(versionCode).",
       "parentUuid": "2e99a9f9_22c7aa55",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 9
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e8c1dba_46584882",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T17:00:11Z",
+      "side": 1,
+      "message": "yeah but it just doesn\u0027t read as nice. Since it\u0027s inside the Subject I think it\u0027s better to ensure the output of failed test is as good as possible even if the fixture\u0027s implementation is not as nice.",
+      "parentUuid": "0ec145c3_83b33e8d",
       "range": {
         "startLine": 75,
         "startChar": 7,
