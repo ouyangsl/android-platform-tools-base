@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e6f85ad_d685e2ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-13T19:44:03Z",
+      "side": 1,
+      "message": "nitpick: for git commits, summarize the issue on the first line (max 60 chars), then a blank line, then the description (see https://source.android.com/source/submit-patches.html#make-your-change for more).\n\nSo here it would be something like:\n\n93732: Fix RelativeLayout overlap lint check wrt toRightOf\n\u003cblank\u003e\n\u003cyour desc\u003e",
+      "revId": "864d43507aaaec4a38a3b665a643cbbdc7dff66b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
