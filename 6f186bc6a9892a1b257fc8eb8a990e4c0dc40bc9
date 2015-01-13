@@ -161,6 +161,30 @@
       "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e8c1dba_638b7648",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ZipFileSubject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-13T02:34:18Z",
+      "side": 1,
+      "message": "We can have contains(path) return an object with that has a withContent method.  Not difficult, just need to be careful it doesn\u0027t waste time unzip the file when not necessary.\nBut I don\u0027t think it\u0027s worth the effort.  I will rename to containsFileWithContent.",
+      "parentUuid": "2e99a9f9_7fe5cbdb",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 29
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
