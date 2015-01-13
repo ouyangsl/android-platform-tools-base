@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e75fd75_b8485501",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-01-13T17:48:24Z",
+      "side": 1,
+      "message": "It\u0027s very hard from this documentation for me to know what expected input looks like and what output it will produce. Does it make sense to add more detail?",
+      "revId": "d84514693689ac4723c9f300f15c8441f060c9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e99a9f9_c2ee0648",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-01-13T17:48:24Z",
+      "side": 1,
+      "message": "Just curious, is this the way lint quickfixes work? It seems fragile to depend on an error message. How are we notified in the future that we should fix this if the error message changes? Should we be throwing an exception here so we\u0027d at least see something in the error log?",
+      "revId": "d84514693689ac4723c9f300f15c8441f060c9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e75fd75_18a3093e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-01-13T17:48:24Z",
+      "side": 1,
+      "message": "Can \"getNewValue\" and \"getOldValue\" ever be used separately? I wonder if we should be returning a pair of strings here.",
+      "revId": "d84514693689ac4723c9f300f15c8441f060c9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
