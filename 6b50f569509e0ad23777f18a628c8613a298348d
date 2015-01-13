@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4e75fd75_b8cdb5c9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PseudoLocalizationTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T16:26:28Z",
+      "side": 1,
+      "message": "I thought about both ways actually (plus the current one which I was not satisfied with either).\n\nIt seems strange that ApkSubject would returns a locales(). It seems that subjects in Truth mostly have full assert methods and no \"getters\", but if you both think it\u0027s fine, this is the method I prefer.\n\napkHelper.getLocales() works too but it doesn\u0027t read well. so I toyed with creating a static method that would read as:\n   assertThat(localesOf(project.getApk(\"debug\")))...",
+      "parentUuid": "ce800d7c_213c0eb2",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce800d7c_613616d2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2015-01-13T11:04:36Z",
       "side": 1,
       "message": "Do we have tests for this class? Or for the new code in ApkHelper?",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e8c1dba_86aa500d",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T16:26:28Z",
+      "side": 1,
+      "message": "no. There\u0027s no new code in ApkHelper btw, but the old code has no test either. That\u0027s a good point though.",
+      "parentUuid": "ce800d7c_613616d2",
       "range": {
         "startLine": 40,
         "startChar": 13,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "4e75fd75_78e4fd38",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T16:26:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ec7bdd5_a5275ea3",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce800d7c_413912c1",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
         "patchSetId": 1
@@ -106,6 +178,30 @@
       "writtenOn": "2015-01-13T11:04:36Z",
       "side": 1,
       "message": "assertThat(apkInfo.versionCode).isEqualTo(versionCode) gives readable error messages \"for free\".",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 9
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e99a9f9_621ff251",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T16:26:28Z",
+      "side": 1,
+      "message": "true. Still working on getting the reflex to write things this way :)",
+      "parentUuid": "ce800d7c_413912c1",
       "range": {
         "startLine": 75,
         "startChar": 7,
