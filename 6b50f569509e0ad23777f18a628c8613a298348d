@@ -22,6 +22,99 @@
       "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce800d7c_213c0eb2",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PseudoLocalizationTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:04:36Z",
+      "side": 1,
+      "message": "Here I would suggest adding a \"ListSubject locales()\" method to ApkSubject to make this\n\nassertThatApk(project.getApk(\"debug\").locales().containsAllOf(\"en-XA\")",
+      "parentUuid": "4e8c1dba_03df12e5",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce800d7c_613616d2",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:04:36Z",
+      "side": 1,
+      "message": "Do we have tests for this class? Or for the new code in ApkHelper?",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 23
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ec7bdd5_a5275ea3",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:04:36Z",
+      "side": 1,
+      "message": "Extract duplicates of this code to a method.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 61
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce800d7c_413912c1",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:04:36Z",
+      "side": 1,
+      "message": "assertThat(apkInfo.versionCode).isEqualTo(versionCode) gives readable error messages \"for free\".",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 9
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
