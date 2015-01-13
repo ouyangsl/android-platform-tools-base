@@ -48,6 +48,75 @@
     },
     {
       "key": {
+        "uuid": "4e8c1dba_63fe16c3",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DensitySplitTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T02:27:49Z",
+      "side": 1,
+      "message": "use TruthHelper.",
+      "range": {
+        "startLine": 82,
+        "startChar": 16,
+        "endLine": 82,
+        "endChar": 42
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e99a9f9_1fee87c5",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ExtractAnnotationTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T02:27:49Z",
+      "side": 1,
+      "message": "use TruthHelper",
+      "range": {
+        "startLine": 134,
+        "startChar": 8,
+        "endLine": 134,
+        "endChar": 45
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce69eda3_1ccdb944",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ExtractAnnotationTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T02:27:49Z",
+      "side": 1,
+      "message": "same.",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 39
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae52f94e_b8671908",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ZipFileSubject.java",
         "patchSetId": 2
@@ -59,6 +128,30 @@
       "writtenOn": "2015-01-07T10:39:30Z",
       "side": 1,
       "message": "I would have never guessed what the difference is between \"contains\" and \"containsEntry\".\n\nMaybe we could make into \"contains(path).withContent(content)\", like in \"assertThat(collection).containsAllOf(1,2,3).inOrder()\"? Or at least call it \"containsFileWithContent\" or something like that.",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 29
+      },
+      "revId": "6f186bc6a9892a1b257fc8eb8a990e4c0dc40bc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e99a9f9_7fe5cbdb",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ZipFileSubject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T02:27:49Z",
+      "side": 1,
+      "message": "I think containsFileWithContent is probably best.\n\nI\u0027m not sure how we we could make\ncontains(path).withContent(...) work if we still want just contains(path) to work?",
+      "parentUuid": "ae52f94e_b8671908",
       "range": {
         "startLine": 70,
         "startChar": 16,
