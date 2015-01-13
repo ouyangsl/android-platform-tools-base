@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2ec449d1_78c34937",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-13T19:40:18Z",
+      "side": 1,
+      "message": "If I add more detail it\u0027s likely to get out of sync with the implementation. (See my next comment for more.)",
+      "parentUuid": "4e75fd75_b8485501",
+      "revId": "d84514693689ac4723c9f300f15c8441f060c9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e99a9f9_c2ee0648",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-01-13T17:48:24Z",
       "side": 1,
       "message": "Just curious, is this the way lint quickfixes work? It seems fragile to depend on an error message. How are we notified in the future that we should fix this if the error message changes? Should we be throwing an exception here so we\u0027d at least see something in the error log?",
+      "revId": "d84514693689ac4723c9f300f15c8441f060c9c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ecac1df_ba0019f9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-13T19:40:18Z",
+      "side": 1,
+      "message": "There are unit tests to catch this. Not only the testGetOldValue and testGetNewValue tests, which check that these methods work for a known error message, but more importantly the checkReportedError() method which the lint unit test infrastructure calls for every reported error.\n\nThis is only half of how quickfixes work. Basically, in the IDE, quickfixes are invoked separately from when the warnings are done, so all the quickfix gets to work with is the error message, and the error location. Therefore, we need to \"pick out\" the important parts of the error message. This is then used by the quickfix implementation to implement the change for the user.\n\nThe quickfix itself lives in the IDE, because it uses a lot of IDE-specific infrastructure to provide edits (e.g. acquire IDE write lock, use PSI to insert namespace declarations etc). However, we don\u0027t want to put the logic of parsing error messages into the IDE; those should live as close to the error location as possible, which is precisely what these two methods are: methods for picking out elements of an error message which is generated here in the same detector, and checked by the same IDE unit test.\n\nThe real guts of the quickfix for this warning is in a separate CL, the one for tools/idea.\n\nFor a better example of the getOldValue and getNewValue methods, take a look at GradleDetector where it has to work a bit harder.",
+      "parentUuid": "2e99a9f9_c2ee0648",
       "revId": "d84514693689ac4723c9f300f15c8441f060c9c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
