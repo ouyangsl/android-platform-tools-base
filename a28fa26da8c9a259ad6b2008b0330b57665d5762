@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ce800d7c_c1a9a271",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:25:26Z",
+      "side": 1,
+      "message": "Put this on the getter as well?",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 84,
+        "endChar": 44
+      },
+      "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ef09d0f_6ccee36f",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
         "patchSetId": 3
@@ -42,6 +65,75 @@
         "startChar": 47,
         "endLine": 87,
         "endChar": 56
+      },
+      "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ec145c3_83aa1e8b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:25:26Z",
+      "side": 1,
+      "message": "Make a copy with ImmutableSet.copyOf?",
+      "range": {
+        "startLine": 96,
+        "startChar": 15,
+        "endLine": 96,
+        "endChar": 37
+      },
+      "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ec145c3_e39f926b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:25:26Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 100,
+        "startChar": 15,
+        "endLine": 100,
+        "endChar": 25
+      },
+      "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ec7bdd5_85fea274",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-13T11:25:26Z",
+      "side": 1,
+      "message": "Can you add some JavaDoc on public methods? I struggle to understand how this part of the plugin works and it would help.",
+      "range": {
+        "startLine": 103,
+        "startChar": 16,
+        "endLine": 103,
+        "endChar": 42
       },
       "revId": "a28fa26da8c9a259ad6b2008b0330b57665d5762",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
