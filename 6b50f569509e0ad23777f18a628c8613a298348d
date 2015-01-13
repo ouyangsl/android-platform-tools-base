@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "4e8c1dba_a6e90c43",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PseudoLocalizationTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-13T16:47:26Z",
+      "side": 1,
+      "message": "I slightly perfer Michal\u0027s version if it is indeed not violating how Subjects are constructed.",
+      "parentUuid": "4e75fd75_b8cdb5c9",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 31
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ce800d7c_613616d2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
         "patchSetId": 1
