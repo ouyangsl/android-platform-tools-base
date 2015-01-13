@@ -211,6 +211,30 @@
       "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e99a9f9_22c7aa55",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-13T16:32:24Z",
+      "side": 1,
+      "message": "So I tried this but then the error is just \n\nNot true that \u003c112\u003e is equal to \u003c912\u003e\n\ninstead of \n\nNot true that \u003cdensitySplit-universal-debug.apk\u003e has versionCode \u003c912\u003e. It is \u003c112\u003e\n\nwhich I think is better.",
+      "parentUuid": "2e99a9f9_621ff251",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 81,
+        "endChar": 9
+      },
+      "revId": "6b50f569509e0ad23777f18a628c8613a298348d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
