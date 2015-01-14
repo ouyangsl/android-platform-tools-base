@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce372dc2_0f71094a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ZipFileSubject.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-14T01:37:42Z",
+      "side": 1,
+      "message": "probably want to use named(path) or maybe named(new File(path).getName()).\n\nThis is useful for tests that can throw multiple asserts to not have to revert to searching for a matching line number to understand which test fail.\n\nBTW, in this case, the content will also show up in the error message, so maybe doing a manual comparison and manually building an erorr message might be better (using failWithBadResult)",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 78,
+        "endChar": 47
+      },
+      "revId": "0c7d526568c4047b2b24bb301bd3b9bb2b521b92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
