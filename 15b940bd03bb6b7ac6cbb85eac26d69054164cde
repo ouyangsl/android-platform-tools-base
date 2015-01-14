@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce800d7c_077c7aa2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/SyncIssueImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-14T11:40:03Z",
+      "side": 1,
+      "message": "Consider Objects.toStringHelper",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 20
+      },
+      "revId": "15b940bd03bb6b7ac6cbb85eac26d69054164cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ec7bdd5_eb5765ca",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ExternalTestProjectTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-14T11:40:03Z",
+      "side": 1,
+      "message": "assetThat(issue.message).startsWith(expectedMsg)",
+      "range": {
+        "startLine": 157,
+        "startChar": 8,
+        "endLine": 160,
+        "endChar": 9
+      },
+      "revId": "15b940bd03bb6b7ac6cbb85eac26d69054164cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ec145c3_0668fc8e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/CollectionIssueSubject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-14T11:40:03Z",
+      "side": 1,
+      "message": "For me the name suggest that it checks that all issue have the same severity and type. Maybe call it hasSingleIssue?",
+      "range": {
+        "startLine": 42,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 28
+      },
+      "revId": "15b940bd03bb6b7ac6cbb85eac26d69054164cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ec145c3_66757063",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/TruthHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-14T11:40:03Z",
+      "side": 1,
+      "message": "Rename the old method to assertThat as well.",
+      "range": {
+        "startLine": 63,
+        "startChar": 33,
+        "endLine": 63,
+        "endChar": 46
+      },
+      "revId": "15b940bd03bb6b7ac6cbb85eac26d69054164cde",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
