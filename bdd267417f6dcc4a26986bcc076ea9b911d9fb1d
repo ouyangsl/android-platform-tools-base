@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bf88f38_9dcc8376",
+        "filename": "build-system/builder-test-api/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-14T22:52:48Z",
+      "side": 1,
+      "message": "why not Junit 4? We should slowly migrate existing project to junit4 anyway so for new tests we should just go to 4.",
+      "range": {
+        "startLine": 16,
+        "startChar": 28,
+        "endLine": 16,
+        "endChar": 34
+      },
+      "revId": "bdd267417f6dcc4a26986bcc076ea9b911d9fb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bf88f38_ddeb2bb2",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/DeviceConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-14T22:52:48Z",
+      "side": 1,
+      "message": "I think the module has only interfaces for now, that are meant to be implemented by customers of the API.",
+      "range": {
+        "startLine": 33,
+        "startChar": 13,
+        "endLine": 33,
+        "endChar": 25
+      },
+      "revId": "bdd267417f6dcc4a26986bcc076ea9b911d9fb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b0217f8_bbbbc7df",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-14T22:52:48Z",
+      "side": 1,
+      "message": "you want this.",
+      "range": {
+        "startLine": 116,
+        "startChar": 39,
+        "endLine": 116,
+        "endChar": 53
+      },
+      "revId": "bdd267417f6dcc4a26986bcc076ea9b911d9fb1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
