@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abf10b52_40596efe",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ExtraModelInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-14T22:32:46Z",
+      "side": 1,
+      "message": "it\u0027s not just for logging info, it\u0027s generic model information that doesn\u0027t belong anywhere.\n(e.g. the extra source providers/artifacts)",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 52
+      },
+      "revId": "9b8e375a841fe005c28a3d03b977301f5cfea7e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
