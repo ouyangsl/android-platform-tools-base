@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e20c981_e4cdba96",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ExternalTestProjectTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-14T19:00:00Z",
+      "side": 1,
+      "message": "Sorry I am late to the review, but this looks very weird to me...I would not expect an assert to return a SyncIssue...",
+      "range": {
+        "startLine": 151,
+        "startChar": 8,
+        "endLine": 151,
+        "endChar": 26
+      },
+      "revId": "f2439505bfa58cd3fd6609ac7634706fdf250a77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
