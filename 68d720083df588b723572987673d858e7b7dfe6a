@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb3abfc4_7129f876",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/SyncIssue.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T11:00:49Z",
+      "side": 1,
+      "message": "Is there a reason why this is not an enum?",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 62
+      },
+      "revId": "68d720083df588b723572987673d858e7b7dfe6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1bf76b_d3979451",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T11:00:49Z",
+      "side": 1,
+      "message": "Can we just remove this? go/java-practices/comments",
+      "range": {
+        "startLine": 146,
+        "startChar": 12,
+        "endLine": 157,
+        "endChar": 13
+      },
+      "revId": "68d720083df588b723572987673d858e7b7dfe6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb3abfc4_512ef480",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T11:00:49Z",
+      "side": 1,
+      "message": "Maybe use Guava\u0027s Table class instead of concatenating two strings into a key?",
+      "range": {
+        "startLine": 336,
+        "startChar": 71,
+        "endLine": 337,
+        "endChar": 28
+      },
+      "revId": "68d720083df588b723572987673d858e7b7dfe6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b1bf76b_330a4817",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T11:00:49Z",
+      "side": 1,
+      "message": "I think this can be surprising to some. Maybe we should log it? And document this behavior somewhere?",
+      "range": {
+        "startLine": 357,
+        "startChar": 27,
+        "endLine": 358,
+        "endChar": 50
+      },
+      "revId": "68d720083df588b723572987673d858e7b7dfe6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b1efb59_f413984d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 619,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T11:00:49Z",
+      "side": 1,
+      "message": "Why this change?",
+      "range": {
+        "startLine": 617,
+        "startChar": 45,
+        "endLine": 619,
+        "endChar": 72
+      },
+      "revId": "68d720083df588b723572987673d858e7b7dfe6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b1efb59_941a245e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/TestWithMismatchDep.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T11:00:49Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 5
+      },
+      "revId": "68d720083df588b723572987673d858e7b7dfe6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
