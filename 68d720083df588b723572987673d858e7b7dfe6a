@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "0b1bf76b_93aebcf0",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T16:36:49Z",
+      "side": 1,
+      "message": "String juggling is a hack to implement what this really is (that hides it from the type system). You can also use a Pair\u003cString, String\u003e as the key.",
+      "parentUuid": "4b4faf7e_25244ed6",
+      "range": {
+        "startLine": 336,
+        "startChar": 71,
+        "endLine": 337,
+        "endChar": 28
+      },
+      "revId": "68d720083df588b723572987673d858e7b7dfe6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1bf76b_330a4817",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
         "patchSetId": 3
