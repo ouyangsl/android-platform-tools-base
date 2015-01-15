@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb8303c3_02b58abd",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/MockableJarGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-15T17:25:59Z",
+      "side": 1,
+      "message": "nit: line too long",
+      "revId": "c4e1a7cc0e9ee31bad929d05d8605046dfc7ce91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
