@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b0217f8_0fb835b4",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ActionsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-01-15T19:55:50Z",
+      "side": 1,
+      "message": "Swap arguments to (expected, actual) to get less confusing error message on failure.",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 94
+      },
+      "revId": "e6679f19b007fe09d7c6c7c35c450abe1bbbea65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
