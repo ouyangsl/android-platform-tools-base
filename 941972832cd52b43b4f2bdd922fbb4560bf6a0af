@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b1efb59_f4b15803",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ExtraModelInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-01-15T10:21:52Z",
+      "side": 1,
+      "message": "That\u0027s not really helpful ;) Could you explain here what this extra information can be used for? \n\nMaybe you could also add a section to go/gradle-cookbook?",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "941972832cd52b43b4f2bdd922fbb4560bf6a0af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
