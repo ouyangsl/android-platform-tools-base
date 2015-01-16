@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abdbcb04_39d1f38f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/LogDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-16T02:28:04Z",
+      "side": 1,
+      "message": "I didn\u0027t finish this javadoc. Most of it can be removed. I want to add an additional TODO though: check consistency for the second parameter of isLoggable; e.g. if you call Log.DEBUG, we expect a Log.d call, not Log.e or Log.w, and so on.\n\nI\u0027ll fix this later (but before submitting obviously.)",
+      "revId": "edffc9590c7c124fdf4b121bda8467ee986fea68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
