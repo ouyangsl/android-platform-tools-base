@@ -96,6 +96,54 @@
     },
     {
       "key": {
+        "uuid": "ab666b10_bb4f3301",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2015-01-16T16:33:52Z",
+      "side": 1,
+      "message": "SGTM. Yep, we have our own separate rules to strip out Log.v.",
+      "parentUuid": "ab666b10_1b665f98",
+      "range": {
+        "startLine": 13,
+        "startChar": 43,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "edffc9590c7c124fdf4b121bda8467ee986fea68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b7def9e_fe3915c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2015-01-16T16:33:52Z",
+      "side": 1,
+      "message": "I guess I\u0027m wondering why you believe that info/debug logs should be stripped at compile time on release builds. My read of the official guidelines, which may certainly be a misunderstanding, was that because info was always available, it was fine to use in release builds, albeit sparingly (if it\u0027s not a warning or error, it\u0027a probably not necessary). Debug is also fine as long as you get with isLoggable, so that it\u0027s filtered at runtime by default - it\u0027s a bit more expensive, but fine. For the really expensive and/or verbose logging, *that\u0027s* where it\u0027s important to strip it at compile time.\n\nThose are the guidelines we\u0027ve used, but I suppose I haven\u0027t seen an official source.\n\nIn any case, I\u0027ve certainly seen examples out there of people stripping Log.i out in proguard configs, and it\u0027s off by default and controllable individually, so no problem with me.",
+      "parentUuid": "8b6b67dc_5a66114b",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "edffc9590c7c124fdf4b121bda8467ee986fea68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abdbcb04_39d1f38f",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/LogDetector.java",
         "patchSetId": 1
