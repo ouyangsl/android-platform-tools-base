@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "8b6b67dc_5a66114b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-16T16:03:07Z",
+      "side": 1,
+      "message": "Yes, surrounding it with isLoggable isn\u0027t useful, but surrounding it with if (BuildConfig.DEBUG) is (again, strips any info-logging out of the binary in non-debug builds.)",
+      "parentUuid": "abdbcb04_f9b28b65",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "edffc9590c7c124fdf4b121bda8467ee986fea68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab666b10_1b665f98",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-16T16:03:07Z",
+      "side": 1,
+      "message": "The Log docs says that debug logs are compiled in but stripped at runtime, which means that they do incur some cost (e.g. APK size, and possibly string pool size though I\u0027m not sure about the latter). \n\nIt sounds like your project is stripping them out with proguard; that\u0027s good, but not in the default proguard rules ($SDK/tools/proguard/proguard-android.txt.) Perhaps we should change that?\n\nAt first I was thinking that people who strip out the logging calls programmatically should just disable this rule, but come to think of it, I think this should be one of those rules that are probably off by default but can be enabled, similar to the other minor performance rules. Yes, I\u0027ll disable this one by default.",
+      "parentUuid": "abdbcb04_b9bc0338",
+      "range": {
+        "startLine": 13,
+        "startChar": 43,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "edffc9590c7c124fdf4b121bda8467ee986fea68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abdbcb04_39d1f38f",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/LogDetector.java",
         "patchSetId": 1
