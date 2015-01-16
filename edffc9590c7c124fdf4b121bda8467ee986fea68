@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "abdbcb04_b9bc0338",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2015-01-16T02:29:40Z",
+      "side": 1,
+      "message": "debug logs are supposed to be stripped at compile time. We use proguard to do this, so this would be a spurious lint warning in our case.",
+      "range": {
+        "startLine": 13,
+        "startChar": 43,
+        "endLine": 13,
+        "endChar": 48
+      },
+      "revId": "edffc9590c7c124fdf4b121bda8467ee986fea68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abdbcb04_f9b28b65",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2015-01-16T02:29:40Z",
+      "side": 1,
+      "message": "why Info logs? This is listed as a level that is always kept, so I don\u0027t know why it would be gated conditionally.",
+      "range": {
+        "startLine": 13,
+        "startChar": 25,
+        "endLine": 13,
+        "endChar": 29
+      },
+      "revId": "edffc9590c7c124fdf4b121bda8467ee986fea68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abdbcb04_39d1f38f",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/LogDetector.java",
         "patchSetId": 1
