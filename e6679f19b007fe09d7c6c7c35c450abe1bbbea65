@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cb347f09_c15822cc",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-17T00:14:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b4c3b8a_8d0a0990",
+      "range": {
+        "startLine": 149,
+        "startChar": 100,
+        "endLine": 149,
+        "endChar": 107
+      },
+      "revId": "e6679f19b007fe09d7c6c7c35c450abe1bbbea65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b0217f8_0fb835b4",
         "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ActionsTest.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2015-01-15T19:55:50Z",
       "side": 1,
       "message": "Swap arguments to (expected, actual) to get less confusing error message on failure.",
+      "range": {
+        "startLine": 247,
+        "startChar": 25,
+        "endLine": 247,
+        "endChar": 94
+      },
+      "revId": "e6679f19b007fe09d7c6c7c35c450abe1bbbea65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb347f09_a16cfe73",
+        "filename": "build-system/manifest-merger/src/test/java/com/android/manifmerger/ActionsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-17T00:14:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b0217f8_0fb835b4",
       "range": {
         "startLine": 247,
         "startChar": 25,
