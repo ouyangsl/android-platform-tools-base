@@ -16,6 +16,24 @@
       "revId": "23c86a4f0afe53a99ed0d2d8409706a9890e49ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bc5ef5b_f84fadff",
+        "filename": "spec.pdf",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T18:22:52Z",
+      "side": 1,
+      "message": "(I will remove this file before submitting obviously.)",
+      "parentUuid": "0bbf77c3_5377a4f9",
+      "revId": "23c86a4f0afe53a99ed0d2d8409706a9890e49ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
