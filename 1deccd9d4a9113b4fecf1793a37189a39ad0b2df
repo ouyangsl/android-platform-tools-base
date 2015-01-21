@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab074b51_394f93ba",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "dedent",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab074b51_647b32ac",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "pass in \"node\" as a parameter before the context.getLocation call here. That node is used by lint to look for @SuppressLint annotations etc.\n\nAlso, instead of passing in \"node\" as the location node, you may want to use context.getLocation(node.astArguments().last()) \ninstead, since it\u0027s the second parameter (where the flags are being passed) that we want to call the user\u0027s attention to.",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb02bf41_54a6a2c7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "Maybe make the error message a bit more descriptive; perhaps something like\nNot passing PackageManager#GET_SIGNATURES to getPackageInfo: The app signatures could potentially be exploited; see issue explanation for details.\" \n\n(Yes, \"see issue explanation\" is a bit redundant; that\u0027s true for *all* issues, but there are a number of users who don\u0027t realize that there\u0027s more information to be found, and in this case the error description is so vague that we really need to make sure there\u0027s more to read. If you could think of another sentence that could be added instead that explains the core problem, that would be even better.\n\nOne more question: This flags any call to getPackageInfo() that doesn\u0027t pass GET_SIGNATURES_FLAG. Is this going to lead to a lot of false positives where apps are asking for package info stuff that isn\u0027t vital? If so, are there additional validation calls we can see (to check what they do with the result etc) to reduce the number of false positives? Or is this really going to be true for all getPackageInfo calls?",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab074b51_24480a8e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "Up to you, but I prefer to import the inner classes too (ResolvedField, ResolvedVariable etc).",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab074b51_d9392710",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "nit: remove blank line",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cb02bf41_d4b8d2e4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "maybe add a check to see if resolvedNode instanceof ResolvedVariable here? \n\nI\u0027m guessing that if a user uses local variables to perform the computation, you don\u0027t want to flag that as an error? e.g.\n\n   int myFlags \u003d 0;\n   // ask for signature\n   myFlags |\u003d 0x40;\n   getPackageInfo(myFlags, ...);\n\nHere the resolve call will point to myFlags, but in this case (when you\u0027re not certain) you probably don\u0027t want to flag it. (The alternative would be to try to track local variables; if you\u0027re inspired to do that, take a look at CleanupDetector which does some of that now.)",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abd58b01_00fce6c5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "Instead of pulling out the string of the operator here and comparing with literals below, use BinaryOperator operator \u003d binaryExpression.astOperator(); and then in your if/else chain below, do \u003d\u003d comparisons on BinaryOperator.BITWISE_OR, BinaryOperator.BITWISE_AND, and BinaryOperator.BITWISE_XOR.",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b17af8b_e526f622",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GetSignaturesDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-21T00:28:48Z",
+      "side": 1,
+      "message": "instead of this, use (at the callsite where you have the JavaContext)\nTypeDescriptor type \u003d context.getType(expression);\nreturn type !\u003d null \u0026\u0026 type.matchesSignature(JavaContext.TYPE_STRING);",
+      "revId": "1deccd9d4a9113b4fecf1793a37189a39ad0b2df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
