@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb38ff5e_41a9d217",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-01-22T23:28:13Z",
+      "side": 1,
+      "message": "One of the things I like about visitors is that the traversal of the structure is done by the structure itself and the visitor objects only need to implement what to do with each type of node (here we only have visit(Instance), but we could have visitClass() visitArray() etc.).\n\nBefore this change we only had mVisited duplicated on each Visitor implementation, but now we also have mStack on both, and the behavior of what to do with it.\n\nThe easiest solution would be to move the traversal to a method in Instance that has the queue and does the visited check. Unless we really expect visitors to have different traversal strategies, in which case we should move the traversal to a separate object. I\u0027d say to have a final accept method here and an abstract doAccept (or some other name like that). Then we can remove the traversing logic from the getter of the visitors.",
+      "range": {
+        "startLine": 220,
+        "startChar": 38,
+        "endLine": 220,
+        "endChar": 44
+      },
+      "revId": "fd09c177e1fb5c4f886dbf5645deddf842aa537f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
