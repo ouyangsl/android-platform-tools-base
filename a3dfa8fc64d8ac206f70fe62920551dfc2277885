@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cbe47f53_01a1eaae",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-23T19:34:30Z",
+      "side": 1,
+      "message": "I\u0027m not a huge fan of dependency injection library after some bad experiences with Guice.  But I can see the advantage of it.  So I probably won\u0027t push for it, but won\u0027t be against it either.",
+      "parentUuid": "4b8a4f30_301ea6d2",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 118
+      },
+      "revId": "a3dfa8fc64d8ac206f70fe62920551dfc2277885",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b8a4f30_d00d62ab",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.groovy",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-01-23T09:10:41Z",
       "side": 1,
       "message": "Maybe pass a boolean isLibrary instead? Or even better, the VariantType of the main artifact (DEFAULT vs LIBRARY).",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 25
+      },
+      "revId": "a3dfa8fc64d8ac206f70fe62920551dfc2277885",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbe47f53_c128a276",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-23T19:34:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b8a4f30_d00d62ab",
       "range": {
         "startLine": 72,
         "startChar": 4,
