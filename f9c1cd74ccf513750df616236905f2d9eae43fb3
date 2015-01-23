@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4bf08f0f_209ea43d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-23T22:54:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b8a4f30_b029b6f4",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "f9c1cd74ccf513750df616236905f2d9eae43fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb871f28_cc269f23",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-01-23T09:24:23Z",
       "side": 1,
       "message": "Why not return the set? Arrays are ugly.",
+      "range": {
+        "startLine": 102,
+        "startChar": 15,
+        "endLine": 102,
+        "endChar": 30
+      },
+      "revId": "f9c1cd74ccf513750df616236905f2d9eae43fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b16fb00_d45dfceb",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-23T22:54:49Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "cb871f28_cc269f23",
       "range": {
         "startLine": 102,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4bf08f0f_60826c94",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/LoggingUtil.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-23T22:54:49Z",
+      "side": 1,
+      "message": "The function for ILogger is not used right now, I kept it just because I didn\u0027t see any particular reason not to.\n\nRight now, the implementation of ILogger is just a wrapper.  Having another implementation would make it more confusing.",
+      "parentUuid": "4b8a4f30_f0233e10",
+      "range": {
+        "startLine": 11,
+        "startChar": 13,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "f9c1cd74ccf513750df616236905f2d9eae43fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b8a4f30_50cc12fa",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantFactory.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2015-01-23T09:24:23Z",
       "side": 1,
       "message": "Why is this static? It makes sense for instances of the factory class to build objects. And the factory already has the instantiator (which also makes sense).",
+      "range": {
+        "startLine": 127,
+        "startChar": 11,
+        "endLine": 127,
+        "endChar": 17
+      },
+      "revId": "f9c1cd74ccf513750df616236905f2d9eae43fb3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abe90b2d_66b9eae6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-23T22:54:49Z",
+      "side": 1,
+      "message": "This is used by the LibraryPlugin to create test apk.",
+      "parentUuid": "4b8a4f30_50cc12fa",
       "range": {
         "startLine": 127,
         "startChar": 11,
