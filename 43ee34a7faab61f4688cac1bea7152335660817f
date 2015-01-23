@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b55b7ac_a37a1aa6",
+        "filename": "build-system/integration-test/samples/basicEspresso/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2015-01-23T19:11:54Z",
+      "side": 1,
+      "message": "The setup instructions https://code.google.com/p/android-test-kit/wiki/EspressoSetupInstructions omit this part, but I can\u0027t build without it. espresso-core depends on both hamcrest-integration and hamcrest-core, running into this duplicate LICENSE.txt.",
+      "revId": "43ee34a7faab61f4688cac1bea7152335660817f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
