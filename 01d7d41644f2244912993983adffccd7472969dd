@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab2cab7b_d13cf6e5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T23:04:00Z",
+      "side": 1,
+      "message": "too long.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "01d7d41644f2244912993983adffccd7472969dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab2cab7b_313472f9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 2359,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T23:04:00Z",
+      "side": 1,
+      "message": "should we encapsulate this in AbiSplitOptions?",
+      "range": {
+        "startLine": 2354,
+        "startChar": 16,
+        "endLine": 2359,
+        "endChar": 17
+      },
+      "revId": "01d7d41644f2244912993983adffccd7472969dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7ec137b_04093852",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/PackageSplitRes.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T23:04:00Z",
+      "side": 1,
+      "message": "internal url. remove.",
+      "range": {
+        "startLine": 74,
+        "startChar": 31,
+        "endLine": 74,
+        "endChar": 94
+      },
+      "revId": "01d7d41644f2244912993983adffccd7472969dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7ec137b_e42c14c0",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/ApkSubject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T23:04:00Z",
+      "side": 1,
+      "message": "you should just be able to use the ZipSubject instead?",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 29
+      },
+      "revId": "01d7d41644f2244912993983adffccd7472969dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
