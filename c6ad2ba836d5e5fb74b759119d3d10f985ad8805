@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab2cab7b_0e590fce",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/api/ApkVariantOutput.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T22:38:48Z",
+      "side": 0,
+      "message": "put back.",
+      "range": {
+        "startLine": 45,
+        "startChar": 13,
+        "endLine": 45,
+        "endChar": 31
+      },
+      "revId": "c6ad2ba836d5e5fb74b759119d3d10f985ad8805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
