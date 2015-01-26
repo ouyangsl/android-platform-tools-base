@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b20bb81_e7c69c29",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T22:39:02Z",
+      "side": 1,
+      "message": "sourceSetsContainer",
+      "range": {
+        "startLine": 192,
+        "startChar": 8,
+        "endLine": 192,
+        "endChar": 18
+      },
+      "revId": "a67801bbbd0b5f5a5178cf2176cc4c775e7aaab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7e7c792_e2cd2667",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T22:39:02Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 26
+      },
+      "revId": "a67801bbbd0b5f5a5178cf2176cc4c775e7aaab0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
