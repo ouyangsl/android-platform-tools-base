@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b20bb81_a4b2e288",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/output/GradleMessage.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-26T22:01:02Z",
+      "side": 1,
+      "message": "add /* sourcePath */ after null so we know which parameter it points to.",
+      "revId": "723b9c80a156390151dd2a8e5f11dec94279dae2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
