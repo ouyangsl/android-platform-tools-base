@@ -22,6 +22,30 @@
       "revId": "fd09c177e1fb5c4f886dbf5645deddf842aa537f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3a4faa_8d28a175",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2015-01-26T18:00:30Z",
+      "side": 1,
+      "message": "Re-worked the visitor to more closely match the classic GoF.\n\nI don\u0027t want to tie the traversal strategy to the model (in Instance). Snapshots are immutable, so in theory they could be traversed concurrently by different visitors.\n\nThe traversal algorithm in the topological sort is a bit more involved/expensive than the regular one, because it needs to get nodes out in postorder. The simple visitor only guarantees each node to be visited once, but not in any particular ordering.",
+      "parentUuid": "cb38ff5e_41a9d217",
+      "range": {
+        "startLine": 220,
+        "startChar": 38,
+        "endLine": 220,
+        "endChar": 44
+      },
+      "revId": "fd09c177e1fb5c4f886dbf5645deddf842aa537f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
