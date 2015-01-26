@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b3a4faa_d05882fe",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/BlameRewritingLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-01-26T18:42:20Z",
+      "side": 1,
+      "message": "Currently using a placeholder format for the rewriting, opinions on the best format welcome.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 72,
+        "endChar": 80
+      },
+      "revId": "5275c420db5f46ac47ad3292e7d1def16097d586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
