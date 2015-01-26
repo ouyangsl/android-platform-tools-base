@@ -2,6 +2,57 @@
   "comments": [
     {
       "key": {
+        "uuid": "8bd5277b_8dc6c5da",
+        "filename": ".idea/libraries/gson.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-26T18:56:40Z",
+      "side": 1,
+      "message": "this was added by my cl, you can remove it now.",
+      "revId": "5275c420db5f46ac47ad3292e7d1def16097d586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b9ecfd1_369b9e80",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ResourceMergerTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-26T18:56:40Z",
+      "side": 1,
+      "message": "comment.",
+      "revId": "5275c420db5f46ac47ad3292e7d1def16097d586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbdb9fab_4fbde131",
+        "filename": "sdk-common/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-26T18:56:40Z",
+      "side": 1,
+      "message": "2.2.4",
+      "revId": "5275c420db5f46ac47ad3292e7d1def16097d586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b3a4faa_d05882fe",
         "filename": "sdk-common/src/main/java/com/android/ide/common/blame/BlameRewritingLogger.java",
         "patchSetId": 1
@@ -19,6 +70,23 @@
         "endLine": 72,
         "endChar": 80
       },
+      "revId": "5275c420db5f46ac47ad3292e7d1def16097d586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bd5277b_8defe542",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/Position.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-26T18:56:40Z",
+      "side": 1,
+      "message": "this seems more than a Position, more like a Range ?",
       "revId": "5275c420db5f46ac47ad3292e7d1def16097d586",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
