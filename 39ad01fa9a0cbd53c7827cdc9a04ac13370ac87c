@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab2cab7b_310b9249",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/GenerateSplitAbiRes.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T22:58:54Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 10
+      },
+      "revId": "39ad01fa9a0cbd53c7827cdc9a04ac13370ac87c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7e7c792_65f360fc",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/tasks/SplitZipAlign.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-26T22:58:54Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 57,
+        "startChar": 5,
+        "endLine": 57,
+        "endChar": 10
+      },
+      "revId": "39ad01fa9a0cbd53c7827cdc9a04ac13370ac87c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
