@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "57fbd733_c18fc48c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/AppPlugin.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T03:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab858b8b_668b8a7f",
+      "range": {
+        "startLine": 74,
+        "startChar": 85,
+        "endLine": 74,
+        "endChar": 86
+      },
+      "revId": "e8285d523dd7de4464b4116f7a486aefc7ef1c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb69dfa3_39fb6f4b",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2015-01-26T10:20:31Z",
       "side": 1,
       "message": "This doesn\u0027t seem to be called?",
+      "range": {
+        "startLine": 104,
+        "startChar": 29,
+        "endLine": 104,
+        "endChar": 56
+      },
+      "revId": "e8285d523dd7de4464b4116f7a486aefc7ef1c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7e7c792_f1abb2ec",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/DependencyManager.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T03:47:22Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "cb69dfa3_39fb6f4b",
       "range": {
         "startLine": 104,
         "startChar": 29,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0b44d739_2b9eb93d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T03:47:22Z",
+      "side": 1,
+      "message": "The \"from\" method takes varargs as argument, which only accepts array.",
+      "parentUuid": "abd02b89_08b3e76b",
+      "range": {
+        "startLine": 236,
+        "startChar": 58,
+        "endLine": 236,
+        "endChar": 68
+      },
+      "revId": "e8285d523dd7de4464b4116f7a486aefc7ef1c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab2cab7b_2e017378",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/LoggingUtil.java",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2015-01-26T22:38:48Z",
       "side": 1,
       "message": "header",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 42
+      },
+      "revId": "e8285d523dd7de4464b4116f7a486aefc7ef1c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57fbd733_417cd4da",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/LoggingUtil.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T03:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab2cab7b_2e017378",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "57fbd733_2181c862",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/SdkHandler.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T03:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab2cab7b_4ec067bb",
+      "range": {
+        "startLine": 49,
+        "startChar": 23,
+        "endLine": 49,
+        "endChar": 37
+      },
+      "revId": "e8285d523dd7de4464b4116f7a486aefc7ef1c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb69dfa3_7905e7b0",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
         "patchSetId": 6
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "d7e7c792_d1b8ae44",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T03:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb69dfa3_7905e7b0",
+      "range": {
+        "startLine": 848,
+        "startChar": 33,
+        "endLine": 848,
+        "endChar": 40
+      },
+      "revId": "e8285d523dd7de4464b4116f7a486aefc7ef1c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bab5bf1_6c855b9a",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantFactory.java",
         "patchSetId": 6
@@ -151,6 +295,30 @@
       "writtenOn": "2015-01-26T10:20:31Z",
       "side": 1,
       "message": "I look at this more closely I think this should be an instance method on ApkVariantImpl (addOutputsFromVariantData?).",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 119,
+        "endChar": 48
+      },
+      "revId": "e8285d523dd7de4464b4116f7a486aefc7ef1c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7e7c792_91822669",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantFactory.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T03:47:22Z",
+      "side": 1,
+      "message": "will do this in another CL.",
+      "parentUuid": "2bab5bf1_6c855b9a",
       "range": {
         "startLine": 119,
         "startChar": 23,
