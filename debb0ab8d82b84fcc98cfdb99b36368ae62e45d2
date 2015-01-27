@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "770ffb24_5db6eb0c",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/AssetRepository.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-01-27T21:57:39Z",
+      "side": 1,
+      "message": "aah, the work began in 2014. done.",
+      "parentUuid": "37f82338_a0ff1432",
+      "revId": "debb0ab8d82b84fcc98cfdb99b36368ae62e45d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1705dffd_02bfeeae",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/DrawableParams.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-01-27T21:45:26Z",
       "side": 1,
       "message": "Instead of adding new parameters to this each time we want something, can we add callbacks for it instead? \n\nI guess it\u0027s too late to change IProjectCallback. But how about we make a subclass, LayoutlibCallback, which instead is an abstract class, which implements IProjectCallback but also adds additional methods, and then clients can simply pass LayoutlibCallback instead of IProjectCallback here?\n\n(and then we can also push other things into lazy lookup instead, on that class instead of clients having to compute and pass in *case* it\u0027s needed)",
+      "revId": "debb0ab8d82b84fcc98cfdb99b36368ae62e45d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "770ffb24_dd5afb37",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/DrawableParams.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-01-27T21:57:39Z",
+      "side": 1,
+      "message": "I\u0027m not sure why it\u0027s too late to change IProjectCallback. The only reason I did it this way, and not adding a callback was because I wanted to keep assets close to resources.\n\nAnd nothing is being computed here anyway.",
+      "parentUuid": "1705dffd_02bfeeae",
       "revId": "debb0ab8d82b84fcc98cfdb99b36368ae62e45d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
