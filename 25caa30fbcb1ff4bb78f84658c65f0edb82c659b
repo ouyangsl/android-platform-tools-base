@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1705dffd_7f264b34",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/TypoDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-27T19:48:12Z",
+      "side": 1,
+      "message": "Yes -- this test doesn\u0027t validate that it\u0027s a region code that doesn\u0027t have a better 2 character match (that\u0027s done in a totally separate lint detector); I just wanted to put a three letter code in the unit test here that also happened to match a locale where English is spoken. (It doesn\u0027t really matter here for the purposes of this test.)",
+      "parentUuid": "970aaf12_d8a20d89",
+      "range": {
+        "startLine": 103,
+        "startChar": 33,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "25caa30fbcb1ff4bb78f84658c65f0edb82c659b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "770ffb24_d7465c41",
         "filename": "lint/cli/src/test/java/com/android/tools/lint/detector/api/LintUtilsTest.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2b47db3f_12df6c93",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/detector/api/LintUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-27T19:48:12Z",
+      "side": 1,
+      "message": "Not sure what you mean by normalized (the folder config normalization?), but this utility method basically just picks out the locale-related qualifiers. It\u0027s used for Example by the spell checker to determine if the current file is in an English locale.",
+      "parentUuid": "770ffb24_d7465c41",
+      "range": {
+        "startLine": 309,
+        "startChar": 32,
+        "endLine": 309,
+        "endChar": 50
+      },
+      "revId": "25caa30fbcb1ff4bb78f84658c65f0edb82c659b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b715f330_5ff383fb",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2015-01-27T19:34:16Z",
       "side": 1,
       "message": "This whole thing here also needs to take into account the optional script and whether the matching config is API 21+ or below to possibly ignore scripts.\n\nI talked with Adam yesterday and we have more work to do both here and in lint to help devs.",
+      "range": {
+        "startLine": 978,
+        "startChar": 23,
+        "endLine": 978,
+        "endChar": 96
+      },
+      "revId": "25caa30fbcb1ff4bb78f84658c65f0edb82c659b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37f82338_e0699c8e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-27T19:48:12Z",
+      "side": 1,
+      "message": "Yeah; I\u0027m thinking going to a format where we always flatten everything into a single locale data structure would make a lot of stuff simpler.",
+      "parentUuid": "b715f330_5ff383fb",
       "range": {
         "startLine": 978,
         "startChar": 23,
