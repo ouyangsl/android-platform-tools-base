@@ -17,13 +17,11 @@
 package com.android.build.gradle.internal.variant;
 
 import com.android.annotations.NonNull;
-import com.android.annotations.Nullable;
 import com.android.build.FilterData;
 import com.android.build.OutputFile;
 import com.android.build.gradle.BasePlugin;
 import com.android.build.gradle.api.BaseVariant;
 import com.android.build.gradle.api.BaseVariantOutput;
-import com.android.build.gradle.internal.TaskManager;
 import com.android.build.gradle.internal.VariantModel;
 import com.android.build.gradle.internal.api.ApkVariantImpl;
 import com.android.build.gradle.internal.api.ApkVariantOutputImpl;
@@ -35,10 +33,6 @@ import com.android.builder.core.VariantType;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
-import org.gradle.api.Task;
-import org.gradle.api.artifacts.Configuration;
-
-import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -49,14 +43,9 @@ public class ApplicationVariantFactory implements VariantFactory {
 
     @NonNull
     private final BasePlugin basePlugin;
-    @NonNull
-    private final TaskManager taskManager;
 
-    public ApplicationVariantFactory(
-            @NonNull BasePlugin basePlugin,
-            @NonNull TaskManager taskManager) {
+    public ApplicationVariantFactory(@NonNull BasePlugin basePlugin) {
         this.basePlugin = basePlugin;
-        this.taskManager = taskManager;
     }
 
     @Override
@@ -143,12 +132,8 @@ public class ApplicationVariantFactory implements VariantFactory {
         return false;
     }
 
-    /**
-     * Creates the tasks for a given ApplicationVariantData.
-     * @param variantData the non-null ApplicationVariantData.
-     * @param assembleTask an optional assembleTask to be used. If null, a new one is created.
-     */
     @Override
+<<<<<<< HEAD   (f06acf Merge "resolve merge conflicts of 74b01f1 to gradle-dev." in)
     public void createTasks(
             @NonNull BaseVariantData<?> variantData,
             @Nullable Task assembleTask) {
@@ -211,35 +196,9 @@ public class ApplicationVariantFactory implements VariantFactory {
 
     @Override
     public void validateModel(VariantModel model){
+=======
+    public void validateModel(@NonNull VariantModel model){
+>>>>>>> BRANCH (637969 Merge "Create Application/LibraryTaskManager" into studio-1.)
         // No additional checks for ApplicationVariantFactory, so just return.
-    }
-
-    private void handleMicroApp(@NonNull BaseVariantData<?> variantData) {
-        if (variantData.getVariantConfiguration().getBuildType().isEmbedMicroApp()) {
-            // get all possible configurations for the variant. We'll take the highest priority
-            // of them that have a file.
-            List<String> wearConfigNames = variantData.getWearConfigNames();
-
-            for (String configName : wearConfigNames) {
-                Configuration config = basePlugin.getProject().getConfigurations().findByName(
-                        configName);
-                // this shouldn't happen, but better safe.
-                if (config == null) {
-                    continue;
-                }
-
-                Set<File> file = config.getFiles();
-
-                int count = file.size();
-                if (count == 1) {
-                    taskManager.createGenerateMicroApkDataTask(variantData, config);
-                    // found one, bail out.
-                    return;
-                } else if (count > 1) {
-                    throw new RuntimeException(String.format(
-                            "Configuration '%1$s' resolves to more than one apk.", configName));
-                }
-            }
-        }
     }
 }

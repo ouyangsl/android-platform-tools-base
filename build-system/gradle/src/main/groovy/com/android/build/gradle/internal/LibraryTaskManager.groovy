@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,121 +14,74 @@
  * limitations under the License.
  */
 
-package com.android.build.gradle.internal.variant
+package com.android.build.gradle.internal
 
+import com.android.SdkConstants
 import com.android.annotations.NonNull
+import com.android.annotations.Nullable
+import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.BasePlugin
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.api.BaseVariantOutput
-import com.android.build.gradle.internal.BuildTypeData
-import com.android.build.gradle.internal.ProductFlavorData
-import com.android.build.gradle.internal.TaskManager
-import com.android.build.gradle.internal.VariantModel
-import com.android.build.gradle.internal.api.LibraryVariantImpl
-import com.android.build.gradle.internal.api.LibraryVariantOutputImpl
-import com.android.build.gradle.internal.api.ReadOnlyObjectProvider
 import com.android.build.gradle.internal.core.GradleVariantConfiguration
-<<<<<<< HEAD   (f06acf Merge "resolve merge conflicts of 74b01f1 to gradle-dev." in)
 import com.android.build.gradle.internal.tasks.MergeFileTask
-import com.android.build.gradle.model.NdkComponentModelPlugin
+import com.android.build.gradle.internal.variant.BaseVariantData
+import com.android.build.gradle.internal.variant.BaseVariantOutputData
+import com.android.build.gradle.internal.variant.LibVariantOutputData
+import com.android.build.gradle.internal.variant.LibraryVariantData
+import com.android.build.gradle.internal.variant.VariantHelper
 import com.android.build.gradle.tasks.ExtractAnnotations
 import com.android.build.gradle.tasks.MergeResources
+import com.android.builder.core.AndroidBuilder
 import com.android.builder.core.BuilderConstants
 import com.android.builder.core.DefaultBuildType
-=======
->>>>>>> BRANCH (637969 Merge "Create Application/LibraryTaskManager" into studio-1.)
-import com.android.builder.core.VariantType
-import com.google.common.collect.Lists
+import com.android.builder.dependency.LibraryBundle
+import com.android.builder.dependency.LibraryDependency
+import com.android.builder.dependency.ManifestDependency
+import com.android.builder.model.AndroidLibrary
+import com.android.builder.model.MavenCoordinates
+import groovy.transform.CompileStatic
+import groovy.transform.CompileDynamic
 import org.gradle.api.GradleException
+import org.gradle.api.Project
+import org.gradle.api.Task
+import org.gradle.api.internal.ConventionMapping
+import org.gradle.api.tasks.Copy
+import org.gradle.api.tasks.Sync
+import org.gradle.api.tasks.TaskContainer
+import org.gradle.api.tasks.bundling.Jar
+import org.gradle.api.tasks.bundling.Zip
+import org.gradle.tooling.BuildException
+import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry
+
+import static com.android.SdkConstants.FN_ANNOTATIONS_ZIP
+import static com.android.SdkConstants.LIBS_FOLDER
+import static com.android.build.gradle.internal.TaskManager.DIR_BUNDLES
+import static com.android.builder.model.AndroidProject.FD_INTERMEDIATES
+import static com.android.builder.model.AndroidProject.FD_OUTPUTS
 
 /**
+ * TaskManager for creating tasks in an Android library project.
  */
-<<<<<<< HEAD   (f06acf Merge "resolve merge conflicts of 74b01f1 to gradle-dev." in)
-public class LibraryVariantFactory implements VariantFactory {
+class LibraryTaskManager extends TaskManager {
 
     private static final String ANNOTATIONS = "annotations"
-=======
-public class LibraryVariantFactory implements VariantFactory<LibraryVariantData> {
->>>>>>> BRANCH (637969 Merge "Create Application/LibraryTaskManager" into studio-1.)
 
-    @NonNull
-    private final BasePlugin basePlugin
-    @NonNull
-    private final LibraryExtension extension
-<<<<<<< HEAD   (f06acf Merge "resolve merge conflicts of 74b01f1 to gradle-dev." in)
-    @NonNull
-    private final TaskManager taskManager
+    private Task assembleDefault;
 
-    private Task assembleDefault
-=======
->>>>>>> BRANCH (637969 Merge "Create Application/LibraryTaskManager" into studio-1.)
-
-    public LibraryVariantFactory(
-            @NonNull BasePlugin basePlugin,
-            @NonNull LibraryExtension extension) {
-        this.extension = extension
-        this.basePlugin = basePlugin
+    public LibraryTaskManager (
+            Project project,
+            TaskContainer tasks,
+            AndroidBuilder androidBuilder,
+            BaseExtension extension,
+            SdkHandler sdkHandler,
+            DependencyManager dependencyManager,
+            ToolingModelBuilderRegistry toolingRegistry) {
+        super(project, tasks, androidBuilder, extension, sdkHandler, dependencyManager, toolingRegistry)
     }
 
     @Override
-    @NonNull
-    public BaseVariantData createVariantData(
-            @NonNull GradleVariantConfiguration variantConfiguration,
-            @NonNull Set<String> densities,
-            @NonNull Set<String> abis,
-            @NonNull Set<String> compatibleScreens) {
-        return new LibraryVariantData(basePlugin, variantConfiguration)
-    }
-
-    @Override
-    @NonNull
-    public BaseVariant createVariantApi(
+    public void createTasksForVariantData(
             @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData,
-            @NonNull ReadOnlyObjectProvider readOnlyObjectProvider) {
-        LibraryVariantImpl variant = basePlugin.getInstantiator().newInstance(
-                LibraryVariantImpl.class, variantData, basePlugin, readOnlyObjectProvider)
-
-        // now create the output objects
-        List<? extends BaseVariantOutputData> outputList = variantData.getOutputs();
-        List<BaseVariantOutput> apiOutputList = Lists.newArrayListWithCapacity(outputList.size());
-
-        for (BaseVariantOutputData variantOutputData : outputList) {
-            LibVariantOutputData libOutput = (LibVariantOutputData) variantOutputData;
-
-            LibraryVariantOutputImpl output = basePlugin.getInstantiator().newInstance(
-                    LibraryVariantOutputImpl.class, libOutput);
-
-            apiOutputList.add(output);
-        }
-
-        variant.addOutputs(apiOutputList);
-
-        return variant
-    }
-
-    @NonNull
-    @Override
-    public VariantType getVariantConfigurationType() {
-        return VariantType.LIBRARY
-    }
-
-    @Override
-    boolean isLibrary() {
-        return true
-    }
-
-<<<<<<< HEAD   (f06acf Merge "resolve merge conflicts of 74b01f1 to gradle-dev." in)
-    private Task getAssembleDefault() {
-        if (assembleDefault == null) {
-            assembleDefault = basePlugin.project.tasks.findByName("assembleDefault");
-        }
-        return assembleDefault
-    }
-
-    @Override
-    public void createTasks(
-            @NonNull BaseVariantData<?> variantData,
             @Nullable Task assembleTask) {
         LibraryVariantData libVariantData = variantData as LibraryVariantData
         GradleVariantConfiguration variantConfig = variantData.variantConfiguration
@@ -136,24 +89,23 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
 
         String fullName = variantConfig.fullName
         String dirName = variantConfig.dirName
-        Project project = basePlugin.project
 
-        taskManager.createAnchorTasks(variantData)
+        createAnchorTasks(variantData)
 
-        taskManager.createCheckManifestTask(variantData)
+        createCheckManifestTask(variantData)
 
         // Add a task to create the res values
-        taskManager.createGenerateResValuesTask(variantData)
+        createGenerateResValuesTask(variantData)
 
         // Add a task to process the manifest(s)
-        taskManager.createMergeLibManifestsTask(variantData, DIR_BUNDLES)
+        createMergeLibManifestsTask(variantData, DIR_BUNDLES)
 
         // Add a task to compile renderscript files.
-        taskManager.createRenderscriptTask(variantData)
+        createRenderscriptTask(variantData)
 
         // Create a merge task to only merge the resources from this library and not
         // the dependencies. This is what gets packaged in the aar.
-        MergeResources packageRes = taskManager.basicCreateMergeResourcesTask(variantData,
+        MergeResources packageRes = basicCreateMergeResourcesTask(variantData,
                 "package",
                 "$project.buildDir/${FD_INTERMEDIATES}/$DIR_BUNDLES/${dirName}/res",
                 false /*includeDependencies*/,
@@ -167,32 +119,32 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
             // Add a task to merge the resource folders, including the libraries, in order to
             // generate the R.txt file with all the symbols, including the ones from
             // the dependencies.
-            taskManager.createMergeResourcesTask(variantData, false /*process9Patch*/)
+            createMergeResourcesTask(variantData, false /*process9Patch*/)
         }
 
         // Add a task to merge the assets folders
-        taskManager.createMergeAssetsTask(variantData,
+        createMergeAssetsTask(variantData,
                 "$project.buildDir/${FD_INTERMEDIATES}/$DIR_BUNDLES/${dirName}/assets",
                 false /*includeDependencies*/)
 
         // Add a task to create the BuildConfig class
-        taskManager.createBuildConfigTask(variantData)
+        createBuildConfigTask(variantData)
 
         // Add a task to generate resource source files, directing the location
         // of the r.txt file to be directly in the bundle.
-        taskManager.createProcessResTask(variantData,
+        createProcessResTask(variantData,
                 "$project.buildDir/${FD_INTERMEDIATES}/$DIR_BUNDLES/${dirName}",
                 false /*generateResourcePackage*/,
-                )
+        )
 
         // process java resources
-        taskManager.createProcessJavaResTask(variantData)
+        createProcessJavaResTask(variantData)
 
-        taskManager.createAidlTask(variantData, basePlugin.project.file(
-                "$basePlugin.project.buildDir/${FD_INTERMEDIATES}/$DIR_BUNDLES/${dirName}/$SdkConstants.FD_AIDL"))
+        createAidlTask(variantData, project.file(
+                "$project.buildDir/${FD_INTERMEDIATES}/$DIR_BUNDLES/${dirName}/$SdkConstants.FD_AIDL"))
 
         // Add a compile task
-        taskManager.createCompileTask(variantData, null/*testedVariant*/)
+        createCompileTask(variantData, null/*testedVariant*/)
 
         // package the prebuilt native libs into the bundle folder
         Sync packageJniLibs = project.tasks.create(
@@ -201,12 +153,10 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
 
         // Add dependencies on NDK tasks if NDK plugin is applied.
         if (extension.getUseNewNativePlugin()) {
-            NdkComponentModelPlugin ndkPlugin = project.plugins.getPlugin(NdkComponentModelPlugin.class)
-            packageJniLibs.dependsOn ndkPlugin.getBinaries(variantConfig)
-            packageJniLibs.from(ndkPlugin.getOutputDirectories(variantConfig)).include("**/*.so")
+            throw new RuntimeException("useNewNativePlugin is currently not supported.")
         } else {
             // Add NDK tasks
-            taskManager.createNdkTasks(variantData);
+            createNdkTasks(variantData);
             packageJniLibs.dependsOn variantData.ndkCompileTask
             packageJniLibs.from(variantData.ndkCompileTask.soFolder).include("**/*.so")
         }
@@ -229,9 +179,9 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
         MergeFileTask mergeProGuardFileTask = project.tasks.create(
                 "merge${fullName.capitalize()}ProguardFiles",
                 MergeFileTask)
-        mergeProGuardFileTask.conventionMapping.inputFiles = {
+        conventionMapping(mergeProGuardFileTask).map("inputFiles") {
             project.files(variantConfig.getConsumerProguardFiles()).files }
-        mergeProGuardFileTask.conventionMapping.outputFile = {
+        conventionMapping(mergeProGuardFileTask).map("outputFile") {
             project.file(
                     "$project.buildDir/${FD_INTERMEDIATES}/$DIR_BUNDLES/${dirName}/$LibraryBundle.FN_PROGUARD_TXT")
         }
@@ -240,7 +190,7 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
         Copy lintCopy = project.tasks.create(
                 "copy${fullName.capitalize()}Lint",
                 Copy)
-        lintCopy.dependsOn taskManager.lintCompile
+        lintCopy.dependsOn lintCompile
         lintCopy.from("$project.buildDir/${FD_INTERMEDIATES}/lint/lint.jar")
         lintCopy.into("$project.buildDir/${FD_INTERMEDIATES}/$DIR_BUNDLES/$dirName")
 
@@ -259,7 +209,7 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
 
         // data holding dependencies and input for the dex. This gets updated as new
         // post-compilation steps are inserted between the compilation and dx.
-        TaskManager.PostCompilationData pcData = new TaskManager.PostCompilationData()
+        PostCompilationData pcData = new PostCompilationData()
         pcData.classGeneratingTask = Collections.singletonList(variantData.javaCompileTask)
         pcData.libraryGeneratingTask = Collections.singletonList(
                 variantData.variantDependency.packageConfiguration.buildDependencies)
@@ -275,12 +225,12 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
 
         // if needed, instrument the code
         if (instrumented) {
-            pcData = taskManager.createJacocoTask(variantConfig, variantData, pcData)
+            pcData = createJacocoTask(variantConfig, variantData, pcData)
         }
 
         if (buildType.isMinifyEnabled()) {
             // run proguard on output of compile task
-            taskManager.createProguardTasks(variantData, null, pcData)
+            createProguardTasks(variantData, null, pcData)
         } else {
             // package the local jar in libs/
             Sync packageLocalJar = project.tasks.create(
@@ -320,7 +270,7 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
 
             jar.exclude(packageName + "/R.class")
             jar.exclude(packageName + "/R\$*.class")
-            if (!extension.packageBuildConfig) {
+            if (!((LibraryExtension)extension).packageBuildConfig) {
                 jar.exclude(packageName + "/Manifest.class")
                 jar.exclude(packageName + "/Manifest\$*.class")
                 jar.exclude(packageName + "/BuildConfig.class")
@@ -348,7 +298,7 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
         variantOutputData.packageLibTask = bundle
 
         if (assembleTask == null) {
-            assembleTask = taskManager.createAssembleTask(variantData)
+            assembleTask = createAssembleTask(variantData)
         }
         assembleTask.dependsOn bundle
         variantData.assembleVariantTask = variantOutputData.assembleTask = assembleTask
@@ -420,7 +370,7 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
         };
     }
 
-    public Task createExtractAnnotations(
+    public ExtractAnnotations createExtractAnnotations(
             String fullName, Project project, BaseVariantData variantData) {
         GradleVariantConfiguration config = variantData.variantConfiguration
         String dirName = config.dirName
@@ -431,7 +381,6 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
         task.description =
                 "Extracts Android annotations for the ${fullName} variant into the archive file"
         task.group = org.gradle.api.plugins.BasePlugin.BUILD_GROUP
-        task.plugin = basePlugin
         task.variant = variantData
         task.destinationDir = project.file("$project.buildDir/${FD_INTERMEDIATES}/$ANNOTATIONS/${dirName}")
         task.output = new File(task.destinationDir, FN_ANNOTATIONS_ZIP)
@@ -439,50 +388,28 @@ public class LibraryVariantFactory implements VariantFactory<LibraryVariantData>
         task.source = variantData.getJavaSources()
         task.encoding = extension.compileOptions.encoding
         task.sourceCompatibility = extension.compileOptions.sourceCompatibility
-        task.conventionMapping.classpath =  {
-            project.files(basePlugin.getAndroidBuilder().getCompileClasspath(config))
+        conventionMapping(task).map("classpath") {
+            project.files(androidBuilder.getCompileClasspath(config))
         }
         task.dependsOn variantData.javaCompileTask
 
         // Setup the boot classpath just before the task actually runs since this will
         // force the sdk to be parsed. (Same as in compileTask)
         task.doFirst {
-            task.bootClasspath = basePlugin.getAndroidBuilder().getBootClasspathAsStrings()
+            task.bootClasspath = androidBuilder.getBootClasspathAsStrings()
         }
 
         return task
     }
 
-=======
->>>>>>> BRANCH (637969 Merge "Create Application/LibraryTaskManager" into studio-1.)
-    /***
-     * Prevent customization of applicationId or applicationIdSuffix.
-     */
-    @Override
-    public void validateModel(@NonNull VariantModel model) {
-        if (model.getDefaultConfig().getProductFlavor().getApplicationId() != null) {
-            throw new GradleException("Library projects cannot set applicationId. " +
-                    "applicationId is set to '" +
-                    model.getDefaultConfig().getProductFlavor().getApplicationId() +
-                    "' in default config.");
+    private Task getAssembleDefault() {
+        if (assembleDefault == null) {
+            assembleDefault = project.tasks.findByName("assembleDefault");
         }
+        return assembleDefault
+    }
 
-        for (BuildTypeData buildType : model.getBuildTypes().values()) {
-            if (buildType.getBuildType().getApplicationIdSuffix() != null) {
-                throw new GradleException("Library projects cannot set applicationId. " +
-                        "applicationIdSuffix is set to '" +
-                        buildType.getBuildType().getApplicationIdSuffix() +
-                        "' in build type '" + buildType.getBuildType().getName() + "'.");
-            }
-        }
-        for (ProductFlavorData productFlavor : model.getProductFlavors().values()) {
-            if (productFlavor.getProductFlavor().getApplicationId() != null) {
-                throw new GradleException("Library projects cannot set applicationId. " +
-                        "applicationId is set to '" +
-                        productFlavor.getProductFlavor().getApplicationId() + "' in flavor '" +
-                        productFlavor.getProductFlavor().getName() + "'.");
-            }
-        }
-
+    private static ConventionMapping conventionMapping(Task task) {
+        task.conventionMapping
     }
 }
