@@ -45,6 +45,29 @@
       "revId": "25caa30fbcb1ff4bb78f84658c65f0edb82c659b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b715f330_5ff383fb",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 978,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-27T19:34:16Z",
+      "side": 1,
+      "message": "This whole thing here also needs to take into account the optional script and whether the matching config is API 21+ or below to possibly ignore scripts.\n\nI talked with Adam yesterday and we have more work to do both here and in lint to help devs.",
+      "range": {
+        "startLine": 978,
+        "startChar": 23,
+        "endLine": 978,
+        "endChar": 96
+      },
+      "revId": "25caa30fbcb1ff4bb78f84658c65f0edb82c659b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
