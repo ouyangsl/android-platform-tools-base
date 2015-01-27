@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7e7c792_d6e1c44c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ExtraModelInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T02:06:39Z",
+      "side": 1,
+      "message": "isPropertyTrue? not important, but hasTrueProperty sounds weird to me for some reason.",
+      "range": {
+        "startLine": 224,
+        "startChar": 27,
+        "endLine": 224,
+        "endChar": 42
+      },
+      "revId": "dae76929ea947b55a73017d00355723cb36e16a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "57fbd733_c19fc43e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T02:06:39Z",
+      "side": 1,
+      "message": "emulateStudio_1_0? all ide will become older eventually.",
+      "range": {
+        "startLine": 460,
+        "startChar": 56,
+        "endLine": 460,
+        "endChar": 71
+      },
+      "revId": "dae76929ea947b55a73017d00355723cb36e16a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d7e7c792_96ffbc09",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/dependencies/AppWithCompileLocalAarFromOlderIdeTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-27T02:06:39Z",
+      "side": 1,
+      "message": "s/Olde/Older",
+      "range": {
+        "startLine": 62,
+        "startChar": 45,
+        "endLine": 62,
+        "endChar": 49
+      },
+      "revId": "dae76929ea947b55a73017d00355723cb36e16a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
