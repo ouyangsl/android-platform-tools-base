@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "970aaf12_d8a20d89",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/TypoDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-27T19:32:43Z",
+      "side": 1,
+      "message": "I thought the proper code was US?",
+      "range": {
+        "startLine": 103,
+        "startChar": 33,
+        "endLine": 103,
+        "endChar": 36
+      },
+      "revId": "25caa30fbcb1ff4bb78f84658c65f0edb82c659b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "770ffb24_d7465c41",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/detector/api/LintUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-27T19:32:43Z",
+      "side": 1,
+      "message": "shouldn\u0027t get LocaleAndRegion return a normalized string?",
+      "range": {
+        "startLine": 309,
+        "startChar": 32,
+        "endLine": 309,
+        "endChar": 50
+      },
+      "revId": "25caa30fbcb1ff4bb78f84658c65f0edb82c659b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
