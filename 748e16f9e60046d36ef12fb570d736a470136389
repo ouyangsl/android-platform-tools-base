@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "770ffb24_ddab1bed",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-27T22:26:37Z",
+      "side": 1,
+      "message": "can we inject the build time automatically?",
+      "range": {
+        "startLine": 121,
+        "startChar": 82,
+        "endLine": 121,
+        "endChar": 92
+      },
+      "revId": "748e16f9e60046d36ef12fb570d736a470136389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "770ffb24_fdaedffe",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-27T22:26:37Z",
+      "side": 1,
+      "message": "we should try to inject this through the build somehow. Maybe tied to the version of the plugin being a -rc?",
+      "range": {
+        "startLine": 123,
+        "startChar": 29,
+        "endLine": 123,
+        "endChar": 47
+      },
+      "revId": "748e16f9e60046d36ef12fb570d736a470136389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f71a0b66_936d9c6a",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-27T22:26:37Z",
+      "side": 1,
+      "message": "s/daily/new/",
+      "range": {
+        "startLine": 167,
+        "startChar": 46,
+        "endLine": 167,
+        "endChar": 51
+      },
+      "revId": "748e16f9e60046d36ef12fb570d736a470136389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
