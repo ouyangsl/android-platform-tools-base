@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b47db3f_75341ac8",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/AssetRepository.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-28T00:08:49Z",
+      "side": 1,
+      "message": "nit: Returns if/returns whether/",
+      "revId": "229413fc9e69f379057947297120d1e734f1b8f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
