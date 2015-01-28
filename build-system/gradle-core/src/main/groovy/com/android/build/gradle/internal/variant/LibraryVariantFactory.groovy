@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (a3cf25 resolve merge conflicts of 0fe1835 to gradle-dev.)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -37,7 +36,7 @@ import org.gradle.internal.reflect.Instantiator
 
 /**
  */
-public class LibraryVariantFactory implements VariantFactory {
+public class LibraryVariantFactory implements VariantFactory<LibraryVariantData> {
 
     @NonNull
     Instantiator instantiator
@@ -57,7 +56,7 @@ public class LibraryVariantFactory implements VariantFactory {
 
     @Override
     @NonNull
-    public BaseVariantData createVariantData(
+    public LibraryVariantData createVariantData(
             @NonNull GradleVariantConfiguration variantConfiguration,
             @NonNull Set<String> densities,
             @NonNull Set<String> abis,
@@ -134,5 +133,3 @@ public class LibraryVariantFactory implements VariantFactory {
 
     }
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)

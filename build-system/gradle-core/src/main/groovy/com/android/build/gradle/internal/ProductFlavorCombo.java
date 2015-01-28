@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (a3cf25 resolve merge conflicts of 0fe1835 to gradle-dev.)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -38,7 +37,7 @@ public class ProductFlavorCombo {
     private final List<GroupableProductFlavor> flavorList;
 
     /**
-     * Create a ProductFlavorCombo.
+     * Create a ProductFlavorGroup.
      * @param flavors Lists of ProductFlavor.
      */
     public ProductFlavorCombo(@NonNull GroupableProductFlavor... flavors) {
@@ -76,7 +75,7 @@ public class ProductFlavorCombo {
      * Creates a list containing all combinations of ProductFlavors of the given dimensions.
      * @param flavorDimensions The dimensions each product flavor can belong to.
      * @param productFlavors An iterable of all ProductFlavors in the project..
-     * @return A list of ProductFlavorCombo representing all combinations of ProductFlavors.
+     * @return A list of ProductFlavorGroup representing all combinations of ProductFlavors.
      */
     @NonNull
     public static List<ProductFlavorCombo> createCombinations(
@@ -161,5 +160,3 @@ public class ProductFlavorCombo {
         }
     }
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)

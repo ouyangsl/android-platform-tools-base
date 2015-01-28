@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (a3cf25 resolve merge conflicts of 0fe1835 to gradle-dev.)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -36,10 +35,10 @@ import java.util.Set;
  * While VariantManager is the general variant management, implementation of this interface
  * provides variant type (app, lib) specific implementation.
  */
-public interface VariantFactory {
+public interface VariantFactory<T extends BaseVariantData<? extends BaseVariantOutputData>> {
 
     @NonNull
-    BaseVariantData createVariantData(
+    T createVariantData(
             @NonNull GradleVariantConfiguration variantConfiguration,
             @NonNull Set<String> densities,
             @NonNull Set<String> abi,
@@ -63,5 +62,3 @@ public interface VariantFactory {
      */
     void validateModel(@NonNull VariantModel model);
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)
