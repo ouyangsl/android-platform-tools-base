@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f72f6b8a_0becbdce",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/ExtraModelInfo.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:48:55Z",
+      "side": 1,
+      "message": "remove tab.",
+      "revId": "08f181ecc477c5a669a91a721b4c81f5f690d8fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d75ee72a_adc82945",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/SourceFragmentPositionRange.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:48:55Z",
+      "side": 1,
+      "message": "can you add tests for the serializers/deserializers",
+      "revId": "08f181ecc477c5a669a91a721b4c81f5f690d8fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b73a53c3_37824099",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/output/GradleMessageRewriter.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:48:55Z",
+      "side": 1,
+      "message": "tests ? you should be able to mock and unit test this.",
+      "revId": "08f181ecc477c5a669a91a721b4c81f5f690d8fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f72f6b8a_2b83f9e5",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/parser/JsonEncodedGradleMessageParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:48:55Z",
+      "side": 1,
+      "message": "tests ? same.",
+      "revId": "08f181ecc477c5a669a91a721b4c81f5f690d8fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f72f6b8a_6b790164",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/parser/JsonEncodedGradleMessageParser.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:48:55Z",
+      "side": 1,
+      "message": "why do you have an output parameter, and a function that returns true|false. Why not having a function that return a List\u003cMessage\u003e possibly empty (instead of false) ?",
+      "revId": "08f181ecc477c5a669a91a721b4c81f5f690d8fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
