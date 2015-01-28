@@ -16,6 +16,24 @@
       "revId": "e0ee094d19da7fdb8dad5fbe1ecda341c010c767",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "17a87f5a_07e7f8ed",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LayoutLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-01-28T22:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57ae7766_e9e4f15e",
+      "revId": "e0ee094d19da7fdb8dad5fbe1ecda341c010c767",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
