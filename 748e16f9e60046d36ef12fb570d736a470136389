@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d73507d3_55bc9e9b",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:25:37Z",
+      "side": 1,
+      "message": "sort of done. the inception date is baked in the jar\u0027s manifest file and I read it from this class.",
+      "parentUuid": "770ffb24_ddab1bed",
+      "range": {
+        "startLine": 121,
+        "startChar": 82,
+        "endLine": 121,
+        "endChar": 92
+      },
+      "revId": "748e16f9e60046d36ef12fb570d736a470136389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "770ffb24_fdaedffe",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d73507d3_15ddf6e1",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:25:37Z",
+      "side": 1,
+      "message": "so far, I use the plugin version to determine but we could make that determination in the build.gradle of this module and store the result in the jar\u0027s manifest file.",
+      "parentUuid": "770ffb24_fdaedffe",
+      "range": {
+        "startLine": 123,
+        "startChar": 29,
+        "endLine": 123,
+        "endChar": 47
+      },
+      "revId": "748e16f9e60046d36ef12fb570d736a470136389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f71a0b66_936d9c6a",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2015-01-27T22:26:37Z",
       "side": 1,
       "message": "s/daily/new/",
+      "range": {
+        "startLine": 167,
+        "startChar": 46,
+        "endLine": 167,
+        "endChar": 51
+      },
+      "revId": "748e16f9e60046d36ef12fb570d736a470136389",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d73507d3_95e8c680",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-01-28T00:25:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f71a0b66_936d9c6a",
       "range": {
         "startLine": 167,
         "startChar": 46,
