@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57ae7766_e9e4f15e",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LayoutLog.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-28T22:15:57Z",
+      "side": 1,
+      "message": "nit- blank line",
+      "revId": "e0ee094d19da7fdb8dad5fbe1ecda341c010c767",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
