@@ -9,15 +9,25 @@ buildscript {
 
 apply plugin: 'groovy'
 apply plugin: 'clone-artifacts'
-apply plugin: 'idea'
-apply plugin: 'jacoco'
+
+sourceSets {
+    main {
+        groovy.srcDirs = ['src/main/groovy', 'src/fromGradle/groovy']
+        resources.srcDirs = ['src/main/resources', 'src/fromGradle/resources']
+    }
+}
+
+ext.proguardVersion = "5.1"
 
 dependencies {
-    compile project(':base:gradle-core')
+    compile gradleApi()
+    compile localGroovy()
+    compile project(':base:builder')
+    compile project(':base:lint')
+    compile "net.sf.proguard:proguard-gradle:${project.ext.proguardVersion}"
 
     testCompile 'junit:junit:3.8.1'
     testCompile project(':base:project-test-lib')
-<<<<<<< HEAD   (4b31a6 Merge "resolve merge conflicts of 0fe1835 to gradle-dev." in)
 }
 
 // configuration for dependencies provided by the runtime,
@@ -34,29 +44,12 @@ dependencies{
 sourceSets.main.compileClasspath += configurations.provided
 
 
-idea {
-    module {
-        testSourceDirs += files('src/build-test/groovy', 'src/device-test/groovy').files
-
-        scopes.COMPILE.plus += [ configurations.provided ]
-    }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)
-}
-
 group = 'com.android.tools.build'
-archivesBaseName = 'gradle'
+archivesBaseName = 'gradle-core'
 version = rootProject.ext.buildVersion
 
-project.ext.pomName = 'Gradle Plug-in for Android'
-project.ext.pomDesc = 'Gradle plug-in to build Android applications.'
-
-apply from: "$rootDir/buildSrc/base/publish.gradle"
-apply from: "$rootDir/buildSrc/base/bintray.gradle"
-
-jar.manifest.attributes("Plugin-Version": version)
-jar.manifest.attributes("Inception-Date":"${Calendar.getInstance().get(Calendar.YEAR)}:" +
-        "${Calendar.getInstance().get(Calendar.MONTH)}:${Calendar.getInstance().get(Calendar.DATE)}")
+project.ext.pomName = 'Core Library for Android Gradle Plug-in'
+project.ext.pomDesc = 'Core library to build Android Gradle plugin.'
 
 test {
     environment("CUSTOM_REPO", rootProject.file("../out/repo"))

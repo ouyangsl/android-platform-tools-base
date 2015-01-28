@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (4b31a6 Merge "resolve merge conflicts of 0fe1835 to gradle-dev." in)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -60,7 +59,6 @@ import com.android.build.gradle.internal.variant.BaseVariantOutputData
 import com.android.build.gradle.internal.variant.LibraryVariantData
 import com.android.build.gradle.internal.variant.TestVariantData
 import com.android.build.gradle.internal.variant.TestedVariantData
-import com.android.build.gradle.model.NdkComponentModelPlugin
 import com.android.build.gradle.tasks.AidlCompile
 import com.android.build.gradle.tasks.CompatibleScreensManifest
 import com.android.build.gradle.tasks.Dex
@@ -1040,17 +1038,13 @@ abstract class TaskManager {
         // for now only the project's compilation output.
         Set<File> set = Sets.newHashSet()
         if (getExtension().getUseNewNativePlugin()) {
-            NdkComponentModelPlugin ndkPlugin = project.plugins.getPlugin(NdkComponentModelPlugin.class)
-            set.addAll(ndkPlugin.getOutputDirectories(config))
+            throw new RuntimeException("useNewNativePlugin is currently not supported.")
         } else {
             set.addAll(variantData.ndkCompileTask.soFolder)
         }
         set.addAll(variantData.renderscriptCompileTask.libOutputDir)
         set.addAll(config.libraryJniFolders)
         set.addAll(config.jniLibsList)
-        if (extension.ndkLib != null) {
-            set.addAll(extension.ndkLib.getOutputDirectories(config))
-        }
 
         if (config.mergedFlavor.renderscriptSupportModeEnabled) {
             File rsLibs = androidBuilder.getSupportNativeLibFolder()
@@ -2323,16 +2317,10 @@ abstract class TaskManager {
             }
 
             // Add dependencies on NDK tasks if NDK plugin is applied.
-            if (extension.getUseNewNativePlugin()) {
-                NdkComponentModelPlugin ndkPlugin = project.plugins.getPlugin(NdkComponentModelPlugin.class)
-                packageApp.dependsOn ndkPlugin.getBinaries(config)
+            if (getExtension().getUseNewNativePlugin()) {
+                throw new RuntimeException("useNewNativePlugin is currently not supported.")
             } else {
                 packageApp.dependsOn variantData.ndkCompileTask
-            }
-
-            if (extension.ndkLib != null) {
-                project.evaluationDependsOn(extension.ndkLib.targetProjectName)
-                packageApp.dependsOn extension.ndkLib.getBinaries(config)
             }
 
             packageApp.androidBuilder = androidBuilder
@@ -2972,5 +2960,3 @@ abstract class TaskManager {
         return null
     }
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)

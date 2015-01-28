@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (4b31a6 Merge "resolve merge conflicts of 0fe1835 to gradle-dev." in)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -395,7 +394,7 @@ public class VariantManager implements VariantModel {
      */
     public BaseVariantData<? extends BaseVariantOutputData> createVariantData(
             @NonNull com.android.builder.model.BuildType buildType,
-            @NonNull List<? extends com.android.build.gradle.api.GroupableProductFlavor> productFlavorList,
+            @NonNull List<com.android.build.gradle.api.GroupableProductFlavor> productFlavorList,
             @Nullable com.android.builder.model.SigningConfig signingOverride) {
         Splits splits = extension.getSplits();
         Set<String> densities = splits.getDensityFilters();
@@ -614,7 +613,7 @@ public class VariantManager implements VariantModel {
         }
     }
 
-    public void createApiObjects() {
+    private void createApiObjects() {
         for (BaseVariantData<?> variantData : variantDataList) {
             if (variantData.getType().isForTesting()) {
                 // Testing variants are handled together with their "owners".
@@ -671,5 +670,3 @@ public class VariantManager implements VariantModel {
         }
     }
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)

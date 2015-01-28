@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (4b31a6 Merge "resolve merge conflicts of 0fe1835 to gradle-dev." in)
 /*
  * Copyright (C) 2015 The Android Open Source Project
  *
@@ -148,7 +147,9 @@ class LibraryTaskManager extends TaskManager {
                 Sync)
 
         // Add dependencies on NDK tasks if NDK plugin is applied.
-        if (!extension.getUseNewNativePlugin()) {
+        if (extension.getUseNewNativePlugin()) {
+            throw new RuntimeException("useNewNativePlugin is currently not supported.")
+        } else {
             // Add NDK tasks
             createNdkTasks(variantData);
             packageJniLibs.dependsOn variantData.ndkCompileTask
@@ -409,5 +410,3 @@ class LibraryTaskManager extends TaskManager {
         task.conventionMapping
     }
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)

@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (4b31a6 Merge "resolve merge conflicts of 0fe1835 to gradle-dev." in)
 /*
  * Copyright (C) 2012 The Android Open Source Project
  *
@@ -23,7 +22,6 @@ import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.api.TestVariant
 import com.android.build.gradle.internal.CompileOptions
-import com.android.build.gradle.internal.NdkLibrarySpecification
 import com.android.build.gradle.internal.ExtraModelInfo
 import com.android.build.gradle.internal.LoggingUtil
 import com.android.build.gradle.internal.SdkHandler
@@ -125,9 +123,6 @@ public abstract class BaseExtension {
 
     private String defaultPublishConfig = "release"
     private boolean publishNonDefault = false
-
-    NdkLibrarySpecification ndkLib
-
     private boolean useNewNativePlugin = false
 
     private Closure<Void> variantFilter
@@ -632,10 +627,4 @@ public abstract class BaseExtension {
     public void setUseNewNativePlugin(boolean value) {
         useNewNativePlugin = value
     }
-
-    public ndkLib(String targetProject) {
-        ndkLib = new NdkLibrarySpecification(project, targetProject);
-    }
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)

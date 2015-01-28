@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (4b31a6 Merge "resolve merge conflicts of 0fe1835 to gradle-dev." in)
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -44,7 +43,7 @@ import java.util.Set;
 
 /**
  */
-public class ApplicationVariantFactory implements VariantFactory {
+public class ApplicationVariantFactory implements VariantFactory<ApplicationVariantData> {
 
     Instantiator instantiator;
     @NonNull
@@ -63,7 +62,7 @@ public class ApplicationVariantFactory implements VariantFactory {
 
     @Override
     @NonNull
-    public BaseVariantData createVariantData(
+    public ApplicationVariantData createVariantData(
             @NonNull GradleVariantConfiguration variantConfiguration,
             @NonNull Set<String> densities,
             @NonNull Set<String> abis,
@@ -155,5 +154,3 @@ public class ApplicationVariantFactory implements VariantFactory {
         // No additional checks for ApplicationVariantFactory, so just return.
     }
 }
-=======
->>>>>>> BRANCH (acdeba Merge "Separate core functionalities into gradle-core projec)
