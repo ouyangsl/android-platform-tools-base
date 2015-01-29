@@ -16,6 +16,24 @@
       "revId": "ee3d2368a56085268c7892d5ea7878ebea84e408",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b7025340_11f38cfc",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/EmbedApplicationIdTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-01-29T06:48:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbd0ff11_4400c0df",
+      "revId": "ee3d2368a56085268c7892d5ea7878ebea84e408",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
