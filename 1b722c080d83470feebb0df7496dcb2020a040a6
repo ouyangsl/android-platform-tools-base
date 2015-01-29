@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97070f52_d03a9c11",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-01-29T20:31:18Z",
+      "side": 1,
+      "message": "\"or higher\"? 21.0.1 is already pretty old; don\u0027t we want to suggest e.g. 21.1.2?",
+      "revId": "1b722c080d83470feebb0df7496dcb2020a040a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
