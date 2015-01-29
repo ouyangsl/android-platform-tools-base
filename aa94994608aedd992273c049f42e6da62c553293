@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d7998784_f254280b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-29T22:37:40Z",
+      "side": 1,
+      "message": "move the output to its own folder.",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 15
+      },
+      "revId": "aa94994608aedd992273c049f42e6da62c553293",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
