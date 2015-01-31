@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d70ee7b4_30a0907f",
+        "filename": "build-system/gradle-core/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-01-31T00:27:47Z",
+      "side": 1,
+      "message": "use tools/external/gradle",
+      "range": {
+        "startLine": 46,
+        "startChar": 11,
+        "endLine": 46,
+        "endChar": 82
+      },
+      "revId": "f62488b6f9740ceb99254bc72ef2cbb34769db6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
