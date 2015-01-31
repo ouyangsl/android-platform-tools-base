@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97646f9b_c862cffe",
+        "filename": "templates/activities/BlankActivityWithFragment/root/res/layout/activity_fragment_container.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1022033
+      },
+      "writtenOn": "2015-01-31T06:29:37Z",
+      "side": 1,
+      "message": "It also works to have the fragment be the opening tag in the file \n(i.e. no enclosing FrameLayout). I don\u0027t know if we have a preference \nhere.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 5
+      },
+      "revId": "ee1211c0642c17d226c7a43b193d6448016f2057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "978b8f6f_84c83627",
+        "filename": "templates/activities/BlankActivityWithFragment/root/res/layout/activity_fragment_container.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1022033
+      },
+      "writtenOn": "2015-01-31T06:29:37Z",
+      "side": 1,
+      "message": "Do we want to add: \n\ntools:layout\u003d\"@layout/${fragmentLayoutName}\" here?",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "ee1211c0642c17d226c7a43b193d6448016f2057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "978b8f6f_645432bc",
+        "filename": "templates/activities/BlankActivityWithFragment/root/src/app_package/SimpleActivityFragment.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1022033
+      },
+      "writtenOn": "2015-01-31T06:29:37Z",
+      "side": 1,
+      "message": "IDEA complains about the redundant variable here.",
+      "range": {
+        "startLine": 23,
+        "startChar": 15,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "ee1211c0642c17d226c7a43b193d6448016f2057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
