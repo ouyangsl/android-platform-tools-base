@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f77beb34_aec51710",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-31T02:13:19Z",
+      "side": 1,
+      "message": "s/CombinedAbiDensityPureSplits/AbiPureSplits/",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "838e436a9ec7f1501ec0a1468908eb5e0ae2ef71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f77beb34_0ecb0bd3",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-31T02:13:19Z",
+      "side": 1,
+      "message": "It\u0027s up to you whether to change it at this point, but abiPureSplits look like a standard project with Jni.  We have a pre-written class for this (HelloWorldJniApp).  You might want to check out NdkVariantIntegTest for an example and see if we can avoid creating another project.",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "838e436a9ec7f1501ec0a1468908eb5e0ae2ef71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f77beb34_8e0e1bdc",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-01-31T02:13:19Z",
+      "side": 1,
+      "message": "assertThatZip(outputFile.getOutputFile()).entries(\"lib/.*\").containsExactly(\"lib/\" + filter + \"/libhello-jni.so\");",
+      "range": {
+        "startLine": 101,
+        "startChar": 20,
+        "endLine": 103,
+        "endChar": 66
+      },
+      "revId": "838e436a9ec7f1501ec0a1468908eb5e0ae2ef71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
