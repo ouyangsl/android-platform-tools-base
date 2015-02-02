@@ -16,6 +16,24 @@
       "revId": "90eaf6e31bdc405f520aff477910b303fd35e6e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7769bb73_aa774fec",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1465,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-02T16:47:20Z",
+      "side": 1,
+      "message": "\"tests\" is already in the description of TestVariantData.",
+      "parentUuid": "d708a7db_1a067d41",
+      "revId": "90eaf6e31bdc405f520aff477910b303fd35e6e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
