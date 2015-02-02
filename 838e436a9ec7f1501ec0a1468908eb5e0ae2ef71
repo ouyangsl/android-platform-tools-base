@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "97d0ef89_2bcb4525",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-02T23:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f77beb34_aec51710",
+      "range": {
+        "startLine": 42,
+        "startChar": 22,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "838e436a9ec7f1501ec0a1468908eb5e0ae2ef71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f77beb34_0ecb0bd3",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "77d53b78_cdd55d42",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-02T23:00:51Z",
+      "side": 1,
+      "message": "following our discussion, I think it\u0027s worthy showing users how to do pure abi splits, so I am leaving this in samples for now.",
+      "parentUuid": "f77beb34_0ecb0bd3",
+      "range": {
+        "startLine": 49,
+        "startChar": 11,
+        "endLine": 49,
+        "endChar": 40
+      },
+      "revId": "838e436a9ec7f1501ec0a1468908eb5e0ae2ef71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f77beb34_8e0e1bdc",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-01-31T02:13:19Z",
       "side": 1,
       "message": "assertThatZip(outputFile.getOutputFile()).entries(\"lib/.*\").containsExactly(\"lib/\" + filter + \"/libhello-jni.so\");",
+      "range": {
+        "startLine": 101,
+        "startChar": 20,
+        "endLine": 103,
+        "endChar": 66
+      },
+      "revId": "838e436a9ec7f1501ec0a1468908eb5e0ae2ef71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77d53b78_ca4ee3ab",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AbiPureSplits.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-02T23:00:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f77beb34_8e0e1bdc",
       "range": {
         "startLine": 101,
         "startChar": 20,
