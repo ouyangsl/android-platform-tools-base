@@ -265,8 +265,13 @@ abstract class TaskManager {
 
     public void createAssembleAndroidTestTask() {
         assembleAndroidTest = project.getTasks().create("assembleAndroidTest");
+<<<<<<< HEAD   (8a0440 Merge "Added description for unit test tasks." into studio-1)
         assembleAndroidTest.setGroup(BasePlugin.BUILD_GROUP);
         assembleAndroidTest.setDescription("Assembles all the Test applications");
+=======
+        assembleAndroidTest.setGroup(org.gradle.api.plugins.BasePlugin.BUILD_GROUP);
+        assembleAndroidTest.setDescription("Assembles all the Test applications.");
+>>>>>>> BRANCH (ca4e18 Merge "Little fixes to "gradle tasks" output." into studio-1)
     }
 
     public void createMockableJarTask() {
@@ -1407,7 +1412,7 @@ abstract class TaskManager {
             variantLintCheck.setSdkHome(sdkHandler.getSdkFolder())
             variantLintCheck.setVariantName(variantName)
             variantLintCheck.setToolingRegistry(toolingRegistry)
-            variantLintCheck.description = "Runs lint on the " + capitalizedVariantName + " build"
+            variantLintCheck.description = "Runs lint on the " + capitalizedVariantName + " build."
             variantLintCheck.group = JavaBasePlugin.VERIFICATION_GROUP
         }
     }
@@ -1429,7 +1434,7 @@ abstract class TaskManager {
             lintReleaseCheck.setToolingRegistry(toolingRegistry)
             lintReleaseCheck.setFatalOnly(true)
             lintReleaseCheck.description = "Runs lint on just the fatal issues in the " +
-                    capitalizedVariantName + " build"
+                    capitalizedVariantName + " build."
             variantData.assembleVariantTask.dependsOn lintReleaseCheck
 
             // If lint is being run, we do not need to run lint vital.
@@ -1445,7 +1450,11 @@ abstract class TaskManager {
             List<BaseVariantData<? extends BaseVariantOutputData>> variantDataList) {
         Task topLevelTest = project.tasks.create(JavaPlugin.TEST_TASK_NAME)
         topLevelTest.group = JavaBasePlugin.VERIFICATION_GROUP
+<<<<<<< HEAD   (8a0440 Merge "Added description for unit test tasks." into studio-1)
         topLevelTest.description = "Run unit tests for all variants."
+=======
+        topLevelTest.description = "Run all unit tests."
+>>>>>>> BRANCH (ca4e18 Merge "Little fixes to "gradle tasks" output." into studio-1)
 
         variantDataList.findAll { it.variantConfiguration.type == UNIT_TEST }.each {
             TestVariantData variantData = it as TestVariantData
@@ -1463,8 +1472,12 @@ abstract class TaskManager {
                             testedVariantData.variantConfiguration.fullName.capitalize(),
                     Test)
             runTestsTask.group = JavaBasePlugin.VERIFICATION_GROUP
+<<<<<<< HEAD   (8a0440 Merge "Added description for unit test tasks." into studio-1)
             runTestsTask.description = "Run unit tests for the " +
                     "$testedVariantData.variantConfiguration.fullName build."
+=======
+            runTestsTask.description = "Run ${variantData.description}."
+>>>>>>> BRANCH (ca4e18 Merge "Little fixes to "gradle tasks" output." into studio-1)
 
             fixTestTaskSources(runTestsTask)
 
@@ -1600,7 +1613,7 @@ abstract class TaskManager {
                 DeviceProviderInstrumentTestTask connectedTask =
                         createDeviceProviderInstrumentTestTask(
                                 connectedTaskName,
-                                "Installs and runs the tests for Build '${baseVariantData.variantConfiguration.fullName}' on connected devices.",
+                                "Installs and runs the tests for ${baseVariantData.description} on connected devices.",
                                 taskClass,
                                 testVariantData,
                                 baseVariantData as BaseVariantData,
@@ -2533,7 +2546,7 @@ abstract class TaskManager {
             InstallVariantTask installTask = project.tasks.
                     create("install${config.fullName.capitalize()}",
                             InstallVariantTask)
-            installTask.description = "Installs the " + variantData.description
+            installTask.description = "Installs the ${variantData.description}."
             installTask.group = INSTALL_GROUP
             installTask.projectName = project.name
             installTask.variantData = variantData
@@ -2557,7 +2570,7 @@ abstract class TaskManager {
         def uninstallTask = project.tasks.create(
                 "uninstall${variantData.variantConfiguration.fullName.capitalize()}",
                 UninstallTask)
-        uninstallTask.description = "Uninstalls the " + variantData.description
+        uninstallTask.description = "Uninstalls the ${variantData.description}."
         uninstallTask.group = INSTALL_GROUP
         uninstallTask.variant = variantData
         conventionMapping(uninstallTask).map("adbExe") { sdkHandler.getSdkInfo()?.adb }
@@ -2577,7 +2590,7 @@ abstract class TaskManager {
             @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData) {
         Task assembleTask = project.tasks.
                 create("assemble${variantData.variantConfiguration.fullName.capitalize()}")
-        assembleTask.description = "Assembles the " + variantData.description
+        assembleTask.description = "Assembles the ${variantData.description}."
         assembleTask.group = BUILD_GROUP
         return assembleTask
     }
@@ -2833,12 +2846,12 @@ abstract class TaskManager {
     public void createReportTasks(
             List<BaseVariantData<? extends BaseVariantOutputData>> variantDataList) {
         def dependencyReportTask = project.tasks.create("androidDependencies", DependencyReportTask)
-        dependencyReportTask.setDescription("Displays the Android dependencies of the project")
+        dependencyReportTask.setDescription("Displays the Android dependencies of the project.")
         dependencyReportTask.setVariants(variantDataList)
         dependencyReportTask.setGroup(ANDROID_GROUP)
 
         def signingReportTask = project.tasks.create("signingReport", SigningReportTask)
-        signingReportTask.setDescription("Displays the signing info for each variant")
+        signingReportTask.setDescription("Displays the signing info for each variant.")
         signingReportTask.setVariants(variantDataList)
         signingReportTask.setGroup(ANDROID_GROUP)
     }
