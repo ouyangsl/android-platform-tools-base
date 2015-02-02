@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77ee1b36_5fb62b56",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1338,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-02T16:45:58Z",
+      "side": 1,
+      "message": "variantData is not the assembleTask !",
+      "revId": "3b1d480e221507c53926a680f811a75fd3a79aec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
