@@ -22,6 +22,30 @@
       "revId": "9160d18dda832ced7de98c0e4316d73091966cb5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b780937a_c12a82f6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-03T00:36:38Z",
+      "side": 1,
+      "message": "that\u0027s the default value used by the DDMLIB library to mean no timeout... not a big fan either but not willing to change that right now.",
+      "parentUuid": "f7c04bc1_c671c4ca",
+      "range": {
+        "startLine": 64,
+        "startChar": 22,
+        "endLine": 64,
+        "endChar": 23
+      },
+      "revId": "9160d18dda832ced7de98c0e4316d73091966cb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
