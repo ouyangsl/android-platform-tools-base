@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f795abbd_e1fdc277",
+        "filename": "build-system/integration-test/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-03T16:51:05Z",
+      "side": 1,
+      "message": "that seems fine to me but I fail to see why it help java 7 support, can you explain ?",
+      "revId": "c7e0f6cb74faa9b1e0c8b39e67193eb67a3aadaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
