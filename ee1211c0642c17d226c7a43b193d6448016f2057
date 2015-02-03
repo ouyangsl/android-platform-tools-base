@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f74dab10_c413b404",
+        "filename": "templates/activities/BlankActivityWithFragment/root/res/layout/activity_fragment_container.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2015-02-03T00:09:32Z",
+      "side": 1,
+      "message": "I am trying to preserve original behaviour...",
+      "parentUuid": "97646f9b_c862cffe",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 5
+      },
+      "revId": "ee1211c0642c17d226c7a43b193d6448016f2057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "978b8f6f_84c83627",
         "filename": "templates/activities/BlankActivityWithFragment/root/res/layout/activity_fragment_container.xml.ftl",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f7f92bff_a1cbdaa5",
+        "filename": "templates/activities/BlankActivityWithFragment/root/res/layout/activity_fragment_container.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2015-02-03T00:09:32Z",
+      "side": 1,
+      "message": "Thanks. I didn\u0027t know about this attribute.",
+      "parentUuid": "978b8f6f_84c83627",
+      "range": {
+        "startLine": 13,
+        "startChar": 8,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "ee1211c0642c17d226c7a43b193d6448016f2057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "978b8f6f_645432bc",
         "filename": "templates/activities/BlankActivityWithFragment/root/src/app_package/SimpleActivityFragment.ftl",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2015-01-31T06:29:37Z",
       "side": 1,
       "message": "IDEA complains about the redundant variable here.",
+      "range": {
+        "startLine": 23,
+        "startChar": 15,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "ee1211c0642c17d226c7a43b193d6448016f2057",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f74dab10_64f98050",
+        "filename": "templates/activities/BlankActivityWithFragment/root/src/app_package/SimpleActivityFragment.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1042744
+      },
+      "writtenOn": "2015-02-03T00:09:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "978b8f6f_645432bc",
       "range": {
         "startLine": 23,
         "startChar": 15,
