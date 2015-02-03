@@ -16,6 +16,24 @@
       "revId": "c7e0f6cb74faa9b1e0c8b39e67193eb67a3aadaf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7758db1a_ef23e1d5",
+        "filename": "build-system/integration-test/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-03T17:56:32Z",
+      "side": 1,
+      "message": "If you run JAVA_FOR_TESTS\u003d1.7 JAVA_HOME\u003d/path/to/java/7 ./gradlew :b:i:test it will run publishLocal and recompile everything with the Java 7 compiler. \n\nWhat I\u0027m trying to do here is allow us to test the real world scenario, where we build the gradle.jar with Java 6 but run gradle under Java 6 (the JVM studio uses).\n\nThat\u0027s why testPrebuilds does not depend on publishLocal, you need to have built beforehand to use it.",
+      "parentUuid": "f795abbd_e1fdc277",
+      "revId": "c7e0f6cb74faa9b1e0c8b39e67193eb67a3aadaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
