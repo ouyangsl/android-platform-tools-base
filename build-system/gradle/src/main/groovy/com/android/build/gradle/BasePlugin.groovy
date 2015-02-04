@@ -71,7 +71,6 @@ import static com.android.builder.core.BuilderConstants.DEBUG
 import static com.android.builder.core.BuilderConstants.RELEASE
 import static com.android.builder.model.AndroidProject.FD_INTERMEDIATES
 import static java.io.File.separator
-
 /**
  * Base class for all Android plugins
  */
@@ -79,8 +78,12 @@ import static java.io.File.separator
 public abstract class BasePlugin {
 
     private static final String GRADLE_MIN_VERSION = "2.2"
+<<<<<<< HEAD   (f1f2b9 Merge "reverted a cosmetic change to the API" into studio-1.)
     public static final String GRADLE_TEST_VERSION = "2.4-20150115230034+0000"
     public static final Pattern GRADLE_ACCEPTABLE_VERSIONS = Pattern.compile("2\\.[2-9].*");
+=======
+    public static final Pattern GRADLE_ACCEPTABLE_VERSIONS = Pattern.compile("2\\.[2-9].*")
+>>>>>>> BRANCH (f8db66 Merge "Ability to run integration tests with Java 7." into s)
     private static final String GRADLE_VERSION_CHECK_OVERRIDE_PROPERTY =
             "com.android.build.gradle.overrideVersionCheck"
 

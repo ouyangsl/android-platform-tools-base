@@ -8,13 +8,26 @@ repositories {
 dependencies {
     compile gradleApi()
     compile localGroovy()
+<<<<<<< HEAD   (f1f2b9 Merge "reverted a cosmetic change to the API" into studio-1.)
     compile project(':base:gradle')
     compile project(':base:gradle-experimental')
+=======
+    compile project(':base:builder-model')
+    compile project(':base:builder')
+    compile project(':base:sdk-common')
+>>>>>>> BRANCH (f8db66 Merge "Ability to run integration tests with Java 7." into s)
     compile "com.google.truth:truth:0.24"
     testCompile "org.jacoco:org.jacoco.agent:0.7.1.201405082137"
 }
 
-test {
+// These tasks will not depend on publishLocal, so they will run integration
+// tests against whatever version of the plugin is in ../../../out/repo. This
+// allows us to run integration tests with different versions of Java, without
+// rebuilding the plugin.
+task testPrebuilts(type: Test)
+task connectedIntegrationTestPrebuilts(type: Test)
+
+configure([test, testPrebuilts]) {
     environment("PROJECT_BUILD_DIR", project.buildDir)
 
     exclude "com/android/build/gradle/integration/device/**"
@@ -33,7 +46,9 @@ test {
     }
 }
 
-task connectedIntegrationTest(type: Test) {
+task connectedIntegrationTest(type: Test)
+
+configure([connectedIntegrationTest, connectedIntegrationTestPrebuilts]) {
     environment("PROJECT_BUILD_DIR", project.buildDir)
 
     testClassesDir = sourceSets.test.output.classesDir
