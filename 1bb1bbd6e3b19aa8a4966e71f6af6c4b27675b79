@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ce0c0af_18c0a9ff",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/QueuedCruncher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-04T22:34:54Z",
+      "side": 1,
+      "message": "unused import.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 49
+      },
+      "revId": "1bb1bbd6e3b19aa8a4966e71f6af6c4b27675b79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcd1ace3_72131859",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/QueuedCruncher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-04T22:34:54Z",
+      "side": 1,
+      "message": "Reinstate line to mark file as unchanged.",
+      "revId": "1bb1bbd6e3b19aa8a4966e71f6af6c4b27675b79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c3f34b5_39e91308",
+        "filename": "build-system/builder/src/main/java/com/android/builder/tasks/WorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-04T22:34:54Z",
+      "side": 1,
+      "message": "Unused import",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 49
+      },
+      "revId": "1bb1bbd6e3b19aa8a4966e71f6af6c4b27675b79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
