@@ -14,6 +14,7 @@
 - ProGuard configuration files are no longer applied to the test APK. If
   minification is enabled, the test APK will be processed by ProGuard only to apply
   the mapping file generated when minifying the main APK.
+<<<<<<< HEAD   (3e645e Merge "Merge commit '6f2d8be' into manualmerge" into studio-)
 - Fixes and changes to the dependency management:
   * Properly handle 'provided' and 'package' scopes to do what they should be doing.
   * 'provided' and 'package' cannot be used with Android Libraries, and will generate an error
@@ -23,6 +24,8 @@
 
 1.0.0
 - Final 1.0.0 version
+=======
+>>>>>>> BRANCH (e099c4 Merge "More updates to the changelog." into studio-1.1-dev)
 
 1.0.0-rc2
 - Enhanced manifest merger logging by specifying library coordinates.
