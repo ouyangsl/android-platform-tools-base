@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc48307a_86178ce6",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-04T17:12:53Z",
+      "side": 1,
+      "message": "my fault, but please remove the semi-colon while you are at it.",
+      "range": {
+        "startLine": 82,
+        "startChar": 91,
+        "endLine": 82,
+        "endChar": 92
+      },
+      "revId": "6522efcbb5ca7b477504f4ed36ee4ce0f5fc592f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
