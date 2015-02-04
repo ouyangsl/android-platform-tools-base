@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c3f34b5_d904473c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/LayoutLibrary.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-02-04T23:24:32Z",
+      "side": 1,
+      "message": "feature?",
+      "range": {
+        "startLine": 277,
+        "startChar": 32,
+        "endLine": 277,
+        "endChar": 42
+      },
+      "revId": "748a7c27cfb7722bb1ef034a4b1e1fd1d30ecc4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
