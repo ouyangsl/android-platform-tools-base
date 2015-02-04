@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c805cc4_b62748d8",
+        "filename": "templates/activities/BlankActivityWithFragment/root/res/layout/activity_fragment_container.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1022033
+      },
+      "writtenOn": "2015-02-04T17:59:01Z",
+      "side": 1,
+      "message": "Now that this CL is being deferred to 1.2 - I think it would be appropriate \nto remove outer FrameLayout. No one knows of a reason that it should \nbe there - we were just leaving it there to minimize risk given where we \nwere in the release cycle for 1.1.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 4
+      },
+      "revId": "0ce93a14d8d5882c5e5de8719a959684e283c99f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
