@@ -3,6 +3,7 @@
   special version of android.jar that is compatible with popular mocking
   frameworks (e.g. Mockito).
   * New tasks: test, testDebug/testRelease, testMyFlavorDebug (when using flavors).
+<<<<<<< HEAD   (2e1d3d Merge "Removes unnecesary dependencies" into studio-1.2-dev)
   * New source folders recognized as unit tests:
       src/test/java, src/testDebug/java, src/testMyFlavor/java etc.
   * New configurations for adding test-only dependencies, e.g.
@@ -23,6 +24,11 @@
 
 1.0.0
 - Final 1.0.0 version
+=======
+  * New source folders recognized as unit tests: src/test/java, src/testDebug/java etc.
+  * New configurations for adding test-only dependencies, e.g.
+      testCompile 'junit:junit:4.11'
+>>>>>>> BRANCH (6f2d8b Merge "Mention unit testing in the changelog." into studio-1)
 
 1.0.0-rc2
 - Enhanced manifest merger logging by specifying library coordinates.
