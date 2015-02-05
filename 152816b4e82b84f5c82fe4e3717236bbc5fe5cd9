@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cc26457_7782ca69",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/LocaleFolderDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-02-05T21:51:11Z",
+      "side": 1,
+      "message": "Might be reading this wrong? In your examples below, \"nl-ABW\", \"nl\" is the language code (2 letters) and \"ABW\" is the region code (3 letters).\n\nShould this be: \"2 letter language codes\" or \"3 letter region codes\"?",
+      "revId": "152816b4e82b84f5c82fe4e3717236bbc5fe5cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cc26457_3a1919a7",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/resources/configuration/LocaleQualifierTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-02-05T21:51:11Z",
+      "side": 1,
+      "message": "Should we test invalid regions here too? Ex. \"en-USofA\" or something?",
+      "revId": "152816b4e82b84f5c82fe4e3717236bbc5fe5cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
