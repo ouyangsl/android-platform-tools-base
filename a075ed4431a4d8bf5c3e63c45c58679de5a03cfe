@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "1cc26457_1a37fde2",
+        "filename": "build-system/integration-test/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "performance tests",
+      "range": {
+        "startLine": 70,
+        "startChar": 22,
+        "endLine": 70,
+        "endChar": 65
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c8dbc43_8e301b16",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/TestProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "delete extra line",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 2
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cc26457_9aa6ad9e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/TestProject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "suggestion: overload this function with default null buildScriptContent",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 57
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cc26457_dad3c5d9",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/AbstractAndroidTestApp.java",
         "patchSetId": 3
@@ -18,6 +87,167 @@
         "startChar": 46,
         "endLine": 83,
         "endChar": 64
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c8dbc43_8e073b3f",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/AndroidGradleModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "use GradleTestProject.DEFAULT_COMPILE_SDK_VERSION and GradleTestProject.DEFAULT_BUILD_TOOL_VERSION",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 58
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c8ac82f_adba3db9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/GradleModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "s/location/projectDir/?",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c8dbc43_2e32c7a0",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/GradleModule.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "what is path?",
+      "range": {
+        "startLine": 32,
+        "startChar": 25,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c8ac82f_0d78b15e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/MediumAndroidTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "delete?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 5
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cc26457_dd11ff7b",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/MediumAndroidTest2.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "suggestion: rename MediumAndroidTest to MediumAndroidModelTest\nrename MediumAndroidTest2 to MediumAndroidEvaluationTest",
+      "range": {
+        "startLine": 34,
+        "startChar": 6,
+        "endLine": 34,
+        "endChar": 24
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cc26457_5d6c0ff0",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/MediumAndroidTest2.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "Not sure if this is intentional.  I don\u0027t think the projects get evaluated if the \"projects\" tasks are run.  Gradle only needs to read the settings.gradle file to get a list of projects.",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 33
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c8dbc43_ee18bfee",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/MediumJavaTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-05T22:42:56Z",
+      "side": 1,
+      "message": "There is no AndroidProject.  Does it matter?",
+      "range": {
+        "startLine": 53,
+        "startChar": 53,
+        "endLine": 53,
+        "endChar": 65
       },
       "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
