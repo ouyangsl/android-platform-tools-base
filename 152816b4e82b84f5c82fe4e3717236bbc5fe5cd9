@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dc260cf8_4d2c4d3f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/LocaleFolderDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-05T21:53:52Z",
+      "side": 1,
+      "message": "it should be 3 letter region codes, I\u0027ll fix it",
+      "parentUuid": "1cc26457_7782ca69",
+      "revId": "152816b4e82b84f5c82fe4e3717236bbc5fe5cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cc26457_3a1919a7",
         "filename": "sdk-common/src/test/java/com/android/ide/common/resources/configuration/LocaleQualifierTest.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-02-05T21:51:11Z",
       "side": 1,
       "message": "Should we test invalid regions here too? Ex. \"en-USofA\" or something?",
+      "revId": "152816b4e82b84f5c82fe4e3717236bbc5fe5cd9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c17288d_e8908bb0",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/resources/configuration/LocaleQualifierTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-05T21:53:52Z",
+      "side": 1,
+      "message": "Sure, I\u0027ll throw one in",
+      "parentUuid": "1cc26457_3a1919a7",
       "revId": "152816b4e82b84f5c82fe4e3717236bbc5fe5cd9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
