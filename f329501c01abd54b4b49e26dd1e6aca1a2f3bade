@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cc26457_b468e089",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MappingFileProviderTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-05T19:55:53Z",
+      "side": 1,
+      "message": "does it have to extend task?",
+      "range": {
+        "startLine": 28,
+        "startChar": 49,
+        "endLine": 28,
+        "endChar": 53
+      },
+      "revId": "f329501c01abd54b4b49e26dd1e6aca1a2f3bade",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
