@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cc26457_dad3c5d9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/AbstractAndroidTestApp.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-05T22:11:48Z",
+      "side": 1,
+      "message": "Is the plan to use this parameter later?",
+      "range": {
+        "startLine": 83,
+        "startChar": 46,
+        "endLine": 83,
+        "endChar": 64
+      },
+      "revId": "a075ed4431a4d8bf5c3e63c45c58679de5a03cfe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
