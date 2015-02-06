@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cda8034_a5218aa0",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/MediumJavaEvaluationTest.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-06T02:12:11Z",
+      "side": 1,
+      "message": "remove extra blank lines",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "f038d254dbe8ec6b68713beeee4330c337703715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cda8034_c51e8e5b",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/SmallJavaEvaluationTest.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-02-06T02:12:11Z",
+      "side": 1,
+      "message": "remove lines",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 0
+      },
+      "revId": "f038d254dbe8ec6b68713beeee4330c337703715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
