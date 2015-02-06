@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "fccaf08f_734f20f7",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/TestProject.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-06T10:12:07Z",
+      "side": 1,
+      "message": "Remove \"s\". Mark it @Nullable or provide an overloaded variant?",
+      "range": {
+        "startLine": 31,
+        "startChar": 98,
+        "endLine": 31,
+        "endChar": 99
+      },
+      "revId": "f038d254dbe8ec6b68713beeee4330c337703715",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cda8034_a5218aa0",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/MediumJavaEvaluationTest.groovy",
         "patchSetId": 6
