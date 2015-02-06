@@ -22,6 +22,30 @@
       "revId": "adfb6e44fcd64d7f21a8dce09fd78cccd2034022",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc08ccdb_5a563513",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1128,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-06T17:46:38Z",
+      "side": 1,
+      "message": "I changed to implement it as a separate task to no incur configuration time costs of checking the file system.",
+      "parentUuid": "bc1318db_69318518",
+      "range": {
+        "startLine": 1128,
+        "startChar": 12,
+        "endLine": 1128,
+        "endChar": 37
+      },
+      "revId": "adfb6e44fcd64d7f21a8dce09fd78cccd2034022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
