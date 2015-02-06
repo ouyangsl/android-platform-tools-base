@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c53b4fc_f07020c8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AndroidJarTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-06T23:13:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cc424d1_a482c269",
+      "range": {
+        "startLine": 24,
+        "startChar": 50,
+        "endLine": 24,
+        "endChar": 52
+      },
+      "revId": "e661cb67471eb528f0010e1cc01dc36c5ab8ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc030c1_c3c41616",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/BinaryFileProviderTask.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-06T21:51:55Z",
       "side": 1,
       "message": "is this class supposed to be package protected? Same on the enum above.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 15
+      },
+      "revId": "e661cb67471eb528f0010e1cc01dc36c5ab8ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c9984f9_dc30ade9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/BinaryFileProviderTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-06T23:13:29Z",
+      "side": 1,
+      "message": "actually because it is part of a public interface, it is automatically public, just like an interface method.",
+      "parentUuid": "fcc030c1_c3c41616",
       "range": {
         "startLine": 31,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5c3dbc9d_ceb9c3fb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/BinaryFileProviderTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-06T23:13:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcdb18ac_2cf99b88",
+      "range": {
+        "startLine": 36,
+        "startChar": 24,
+        "endLine": 36,
+        "endChar": 30
+      },
+      "revId": "e661cb67471eb528f0010e1cc01dc36c5ab8ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcc030c1_23ca4a1f",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/BinaryFileProviderTask.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2015-02-06T21:51:55Z",
       "side": 1,
       "message": "@NonNull?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 12
+      },
+      "revId": "e661cb67471eb528f0010e1cc01dc36c5ab8ced9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c53b4fc_50f3aca7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/BinaryFileProviderTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-06T23:13:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcc030c1_23ca4a1f",
       "range": {
         "startLine": 42,
         "startChar": 4,
