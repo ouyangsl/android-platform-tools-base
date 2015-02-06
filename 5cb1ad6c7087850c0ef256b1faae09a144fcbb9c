@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc0dd8eb_d93b73f8",
+        "filename": "build-system/integration-test/samples/minify/src/test/java/android/UnitTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-06T18:00:17Z",
+      "side": 1,
+      "message": "Is there a corresponding integration test that will look for a Gradle exception when tryin to run it?",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 91
+      },
+      "revId": "5cb1ad6c7087850c0ef256b1faae09a144fcbb9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
