@@ -66,6 +66,7 @@ import com.android.build.gradle.tasks.Dex
 import com.android.build.gradle.tasks.GenerateBuildConfig
 import com.android.build.gradle.tasks.GenerateResValues
 import com.android.build.gradle.tasks.GenerateSplitAbiRes
+import com.android.build.gradle.tasks.PreCompilationVerificationTask
 import com.android.build.gradle.tasks.JackTask
 import com.android.build.gradle.tasks.JillTask
 import com.android.build.gradle.tasks.Lint
@@ -1130,15 +1131,29 @@ abstract class TaskManager {
         compileTask.aidlParcelableDir = parcelableDir
     }
 
+    public void createJackAndUnitTestVerificationTask(
+            @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData,
+            @NonNull BaseVariantData<? extends BaseVariantOutputData> testedVariantData) {
+
+        PreCompilationVerificationTask verificationTask = project.tasks.create(
+                "preCompile${variantData.variantConfiguration.fullName.capitalize()}Java",
+                PreCompilationVerificationTask)
+        verificationTask.useJack = testedVariantData.getVariantConfiguration().getUseJack()
+        verificationTask.testSourceFiles = variantData.getJavaSources()
+        variantData.javaCompileTask.dependsOn verificationTask
+    }
+
     public void createCompileTask(
             @NonNull BaseVariantData<? extends BaseVariantOutputData> variantData,
             @Nullable BaseVariantData<? extends BaseVariantOutputData> testedVariantData) {
         def compileTask = project.tasks.create(
                 "compile${variantData.variantConfiguration.fullName.capitalize()}Java",
                 JavaCompile)
+
         variantData.javaCompileTask = compileTask
         variantData.compileTask.dependsOn variantData.javaCompileTask
-        optionalDependsOn(variantData.javaCompileTask, variantData.sourceGenTask)
+        optionalDependsOn(
+                variantData.javaCompileTask, variantData.jackTask, variantData.sourceGenTask)
 
         compileTask.source = variantData.getJavaSources()
 
@@ -1148,10 +1163,14 @@ abstract class TaskManager {
         // it's done automatically since the classpath includes the library output as a normal
         // dependency.
         if (testedVariantData instanceof ApplicationVariantData) {
+            AbstractCompile javaCompilationTask =
+                    testedVariantData.getVariantConfiguration().getUseJack() ?
+                            testedVariantData.jackTask : testedVariantData.javaCompileTask
+
             conventionMapping(compileTask).map("classpath") {
                 project.files(androidBuilder.getCompileClasspath(config)) +
-                        testedVariantData.javaCompileTask.classpath +
-                        testedVariantData.javaCompileTask.outputs.files
+                        javaCompilationTask.classpath +
+                        javaCompilationTask.outputs.files
             }
         } else {
             conventionMapping(compileTask).map("classpath") {
@@ -1284,6 +1303,11 @@ abstract class TaskManager {
         BaseVariantData testedVariantData = variantData.getTestedVariantData() as BaseVariantData
         createCompileAnchorTask(variantData)
         createCompileTask(variantData, testedVariantData)
+<<<<<<< HEAD   (19ca2d Merge "Hide assemble unit test tasks from task list" into st)
+=======
+        createJackAndUnitTestVerificationTask(variantData, testedVariantData)
+        variantData.assembleVariantTask = createAssembleTask(variantData)
+>>>>>>> BRANCH (712230 Merge "warn against unit tests and jack." into studio-1.1-de)
         variantData.assembleVariantTask.dependsOn variantData.compileTask
 
         // This hides the assemble unit test task from the task list.
@@ -1466,13 +1490,6 @@ abstract class TaskManager {
         variantDataList.findAll { it.variantConfiguration.type == UNIT_TEST }.each {
             TestVariantData variantData = it as TestVariantData
             BaseVariantData testedVariantData = variantData.testedVariantData as BaseVariantData
-
-            if (variantData.variantConfiguration.useJack
-                    || testedVariantData.variantConfiguration.useJack) {
-                // Don't create unit test tasks when using Jack.
-                // TODO: Handle Jack somehow.
-                return
-            }
 
             Test runTestsTask = project.tasks.create(
                     UNIT_TEST.prefix +
