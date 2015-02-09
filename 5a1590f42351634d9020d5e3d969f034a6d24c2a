@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "511a07b5_6694ce54",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/data/wrongid/layout3.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-02-09T16:44:38Z",
+      "side": 1,
+      "message": "Nit: Remove XML?",
+      "revId": "5a1590f42351634d9020d5e3d969f034a6d24c2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
