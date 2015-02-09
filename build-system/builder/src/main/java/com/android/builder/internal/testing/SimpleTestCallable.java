@@ -136,7 +136,15 @@ public class SimpleTestCallable implements Callable<Boolean> {
             }
 
             logger.verbose("DeviceConnector '%s': installing %s", deviceName, testApk);
+<<<<<<< HEAD   (4e765c Merge "fix broken unit test." into studio-1.1-dev automerge:)
             device.installPackage(testApk, installOptions, timeoutInMs, logger);
+=======
+            if (device.getApiLevel() >= 21) {
+                device.installPackages(ImmutableList.of(testApk), timeout, logger);
+            } else {
+                device.installPackage(testApk, timeout, logger);
+            }
+>>>>>>> BRANCH (74185a Merge "do not fail a single APK installation on older device)
             isInstalled = true;
 
             RemoteAndroidTestRunner runner = new RemoteAndroidTestRunner(
