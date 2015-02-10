@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d108b7db_5d7c6f9b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/Splits.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-10T18:36:21Z",
+      "side": 1,
+      "message": "perhaps if (value.isValidValueForDevice() \u0026\u0026 value.isRecommended) ?\n\nDitto in the other places that specifically look for NODPI; I\u0027m guessing the intent of that code is \"only give me valid values for devices\".",
+      "revId": "42fe84bb97be315a00a7c57b3542b179af2bb0e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
