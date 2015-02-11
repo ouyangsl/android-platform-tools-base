@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6998d84_d27d6499",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/BinaryObject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "Remove redundant qualifiers",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_925cbc33",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "depending on the number of objects that will be added here it might be worth considering TIntObjectMap\u003cV\u003e, as it won\u0027t box all the integer keys.",
+      "range": {
+        "startLine": 31,
+        "startChar": 52,
+        "endLine": 31,
+        "endChar": 59
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56c83d75_3611384e",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "we have seen in many places where a uint8[] gets effectively doubled in size to fit the unsigned version of it. However, this makes it awkward to work with as all the Java apis use byte for raw data (images and so on), and when the sign is particularly an issue (for example comparisons) extra care is taken.\n\nSee for example: http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/primitives/UnsignedBytes.html\n\nAnd for an explicit conversion in our code see line 200 of https://android.googlesource.com/platform/tools/adt/idea/+/master/android/src/com/android/tools/idea/editors/gfxtrace/controllers/StateController.java",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 14
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_92a59ccf",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "TObjectIntMap",
+      "range": {
+        "startLine": 32,
+        "startChar": 16,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_129b6c87",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "Given that you don\u0027t add nulls to this map, you could do encoded.get(obj) and check for null to see if it is there. That\u0027d avoid two accesses two the map.\n\nI have a thought here: Usually on serialization/deserialization the object itself knows its own id. In this case BinaryObject (if it was a class) could have its id. I\u0027m not sure if this is a problem but we are effectively using .equals to compare two objects so the resulting object graph might not be the same one as the original . It probably doesn\u0027t matter unless resulting objects are not final or \u003d\u003d is used after decoding, but I just thought I pointed it out.",
+      "range": {
+        "startLine": 125,
+        "startChar": 16,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_5295f44f",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/ObjectTypeID.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "Note that the hash is only getting the first 4 bytes into account and equals reads the whole array. Depending on how your 20 bytes ids are organized this could give you more collisions than necessary. If that\u0027s the case you could use this.value.hashCode()",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 8
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16c24557_3411304e",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/ObjectTypeID.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "assert value.length \u003d\u003d SIZE?",
+      "range": {
+        "startLine": 39,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 11
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_d2880438",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Channel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "UnsupportedOperationException?",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a8e190_2fc9e9ae",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "@GuardedBy(\"channels\")",
+      "range": {
+        "startLine": 37,
+        "startChar": 35,
+        "endLine": 37,
+        "endChar": 43
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16c24557_941f6456",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "isEmpty()",
+      "range": {
+        "startLine": 63,
+        "startChar": 19,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a8e190_cfe13d28",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "This is tagged as @Nullable?",
+      "range": {
+        "startLine": 136,
+        "startChar": 14,
+        "endLine": 136,
+        "endChar": 32
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16c24557_743488d8",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "This is not guaranteed to read \"count\" number of bytes in one go.",
+      "range": {
+        "startLine": 150,
+        "startChar": 26,
+        "endLine": 150,
+        "endChar": 30
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_52e894bd",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "If this is not expected, throw an exception",
+      "range": {
+        "startLine": 162,
+        "startChar": 14,
+        "endLine": 162,
+        "endChar": 20
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_72ed98cc",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "yes",
+      "range": {
+        "startLine": 167,
+        "startChar": 17,
+        "endLine": 167,
+        "endChar": 20
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6998d84_f2f1889c",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "javadoc",
+      "range": {
+        "startLine": 128,
+        "startChar": 7,
+        "endLine": 128,
+        "endChar": 14
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a8e190_6f25b1dd",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "javadoc",
+      "range": {
+        "startLine": 158,
+        "startChar": 5,
+        "endLine": 158,
+        "endChar": 12
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76a8e190_ef4d212e",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/schema/Class.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-11T22:49:44Z",
+      "side": 1,
+      "message": "Nit: Not a fan of using already existing names for these, it makes importing/using them a bit awkward. RpcClass?",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 18
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
