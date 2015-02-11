@@ -324,6 +324,52 @@
     },
     {
       "key": {
+        "uuid": "b6b979da_d942f32e",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/PipeInputStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-02-11T23:11:42Z",
+      "side": 1,
+      "message": "can this be a local var instead of a field?",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d697cd5c_c2e742ee",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-02-11T23:11:42Z",
+      "side": 1,
+      "message": "nit: There are a couple of places where we start threads. In general, when running inside the IDE, it is preferable to use one of the thread pools that are already there. So if it possible to extract it out so that the consumers can provide a executor where you submit runnables, that might be preferable. But don\u0027t worry about it if it is going to make your interface too complex. However do make sure that the name for the thread is more specific (right now below it says \"Multiplex sender\", you might want a prefix indicating this is part of GPU trace).",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6998d84_f2f1889c",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
         "patchSetId": 1
