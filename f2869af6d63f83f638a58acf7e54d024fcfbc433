@@ -22,6 +22,30 @@
       "revId": "f2869af6d63f83f638a58acf7e54d024fcfbc433",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76f461d1_af3899fc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 2591,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-12T00:40:12Z",
+      "side": 1,
+      "message": "removed the code as discussed.",
+      "parentUuid": "96ef15ff_50078c40",
+      "range": {
+        "startLine": 2591,
+        "startChar": 59,
+        "endLine": 2591,
+        "endChar": 73
+      },
+      "revId": "f2869af6d63f83f638a58acf7e54d024fcfbc433",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
