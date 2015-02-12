@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "568d9d43_ce1943f1",
+        "filename": "build-system/integration-test/samples/embedded/main/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-12T19:05:37Z",
+      "side": 1,
+      "message": "let\u0027s not do this in internal tests. You can access the prebuilts insteda that contains 4.12 (chris is adding it now)",
+      "range": {
+        "startLine": 24,
+        "startChar": 15,
+        "endLine": 24,
+        "endChar": 25
+      },
+      "revId": "61af37faa99edd782d9d0dcf44dcd51a25cd85bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76d54178_2796dae3",
+        "filename": "build-system/integration-test/samples/embedded/micro-apps/default/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-12T19:05:37Z",
+      "side": 1,
+      "message": "same here.",
+      "range": {
+        "startLine": 13,
+        "startChar": 15,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "61af37faa99edd782d9d0dcf44dcd51a25cd85bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
