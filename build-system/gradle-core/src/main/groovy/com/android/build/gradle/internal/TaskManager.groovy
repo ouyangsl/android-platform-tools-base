@@ -2585,6 +2585,7 @@ abstract class TaskManager {
             installTask.installOptions = getExtension().getAdbOptions().getInstallOptions()
             installTask.processExecutor = androidBuilder.getProcessExecutor()
             conventionMapping(installTask).map("adbExe") { sdkHandler.sdkInfo?.adb }
+<<<<<<< HEAD   (95fb9f infrastructure for measuring and publishing execution)
             conventionMapping(installTask).map("splitSelectExe") {
                 String path = androidBuilder.targetInfo?.buildTools?.getPath(
                         BuildToolInfo.PathId.SPLIT_SELECT)
@@ -2593,6 +2594,13 @@ abstract class TaskManager {
                     return splitSelectExe.exists() ? splitSelectExe : null;
                 } else {
                     return null;
+=======
+            if (androidBuilder.targetInfo.getBuildTools().revision.major >= 22) {
+                conventionMapping(installTask).map("splitSelectExe") {
+                    String path = androidBuilder.targetInfo?.buildTools?.getPath(
+                            BuildToolInfo.PathId.SPLIT_SELECT);
+                    path != null ? new File(path) : null;
+>>>>>>> BRANCH (bc6e70 Merge "do not set split-select for older sdk build-tools." i)
                 }
             }
             installTask.dependsOn variantData.assembleVariantTask
