@@ -2585,6 +2585,7 @@ abstract class TaskManager {
             installTask.installOptions = getExtension().getAdbOptions().getInstallOptions()
             installTask.processExecutor = androidBuilder.getProcessExecutor()
             conventionMapping(installTask).map("adbExe") { sdkHandler.sdkInfo?.adb }
+<<<<<<< HEAD   (07f5d2 Merge changes If48ab3b4,I1662a522 into studio-1.2-dev)
             conventionMapping(installTask).map("splitSelectExe") {
                 String path = androidBuilder.targetInfo?.buildTools?.getPath(
                         BuildToolInfo.PathId.SPLIT_SELECT)
@@ -2593,6 +2594,14 @@ abstract class TaskManager {
                     return splitSelectExe.exists() ? splitSelectExe : null;
                 } else {
                     return null;
+=======
+            if (androidBuilder.targetInfo != null &&
+                    androidBuilder.getTargetInfo().getBuildTools().revision.major >= 22) {
+                conventionMapping(installTask).map("splitSelectExe") {
+                    String path = androidBuilder.targetInfo?.buildTools?.getPath(
+                            BuildToolInfo.PathId.SPLIT_SELECT);
+                    path != null ? new File(path) : null;
+>>>>>>> BRANCH (87e9bf Merge "fix against NPE" into studio-1.1-dev)
                 }
             }
             installTask.dependsOn variantData.assembleVariantTask
