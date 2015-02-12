@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b66fb975_896939e4",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Detector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-12T15:00:50Z",
+      "side": 1,
+      "message": "Ugh. This wasn\u0027t supposed to be here. Will fix.",
+      "revId": "39dd3e4d81f1e107bf162048e990047b352f77f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
