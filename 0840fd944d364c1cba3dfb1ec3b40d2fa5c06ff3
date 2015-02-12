@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "d67b4d5e_e2bb06ef",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-12T18:47:57Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d6998d84_925cbc33",
+      "range": {
+        "startLine": 31,
+        "startChar": 52,
+        "endLine": 31,
+        "endChar": 59
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56c83d75_3611384e",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
         "patchSetId": 1
@@ -128,6 +152,30 @@
       "writtenOn": "2015-02-11T22:49:44Z",
       "side": 1,
       "message": "Note that the hash is only getting the first 4 bytes into account and equals reads the whole array. Depending on how your 20 bytes ids are organized this could give you more collisions than necessary. If that\u0027s the case you could use this.value.hashCode()",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 8
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "768aa19e_1f74c3b5",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/ObjectTypeID.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-12T18:47:57Z",
+      "side": 1,
+      "message": "That shouldn\u0027t be an issue since the id is a SHA1 hash. The entropy should be better using the first 4 bytes rather than using Java\u0027s simpler hashCode over the whole 20 bytes.",
+      "parentUuid": "d6998d84_5295f44f",
       "range": {
         "startLine": 38,
         "startChar": 4,
@@ -232,6 +280,30 @@
     },
     {
       "key": {
+        "uuid": "768aa19e_9f15336d",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-12T18:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c24557_941f6456",
+      "range": {
+        "startLine": 63,
+        "startChar": 19,
+        "endLine": 63,
+        "endChar": 30
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76a8e190_cfe13d28",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
         "patchSetId": 1
@@ -255,6 +327,30 @@
     },
     {
       "key": {
+        "uuid": "9685558c_20740ab6",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-12T18:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a8e190_cfe13d28",
+      "range": {
+        "startLine": 136,
+        "startChar": 14,
+        "endLine": 136,
+        "endChar": 32
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16c24557_743488d8",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
         "patchSetId": 1
@@ -266,6 +362,30 @@
       "writtenOn": "2015-02-11T22:49:44Z",
       "side": 1,
       "message": "This is not guaranteed to read \"count\" number of bytes in one go.",
+      "range": {
+        "startLine": 150,
+        "startChar": 26,
+        "endLine": 150,
+        "endChar": 30
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9685558c_607e1296",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-12T18:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c24557_743488d8",
       "range": {
         "startLine": 150,
         "startChar": 26,
@@ -347,6 +467,30 @@
     },
     {
       "key": {
+        "uuid": "b6db39ac_49404126",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/PipeInputStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-12T18:47:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6b979da_d942f32e",
+      "range": {
+        "startLine": 41,
+        "startChar": 18,
+        "endLine": 41,
+        "endChar": 24
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d697cd5c_c2e742ee",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
         "patchSetId": 1
@@ -358,6 +502,30 @@
       "writtenOn": "2015-02-11T23:11:42Z",
       "side": 1,
       "message": "nit: There are a couple of places where we start threads. In general, when running inside the IDE, it is preferable to use one of the thread pools that are already there. So if it possible to extract it out so that the consumers can provide a executor where you submit runnables, that might be preferable. But don\u0027t worry about it if it is going to make your interface too complex. However do make sure that the name for the thread is more specific (right now below it says \"Multiplex sender\", you might want a prefix indicating this is part of GPU trace).",
+      "range": {
+        "startLine": 38,
+        "startChar": 11,
+        "endLine": 38,
+        "endChar": 16
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6db39ac_890b5907",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-12T18:47:57Z",
+      "side": 1,
+      "message": "Passed along the client\u0027s executor service and made the messages more explicit (referencing rpclib/multiplex).",
+      "parentUuid": "d697cd5c_c2e742ee",
       "range": {
         "startLine": 38,
         "startChar": 11,
