@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb76a8c4_f38cf04f",
+        "filename": ".idea/.name",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-13T16:53:35Z",
+      "side": 1,
+      "message": "I think it should just say \"tools base\" or \"tools/base\"",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "8d1b6f83462c769a132264c528e449b29ff9d8b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
