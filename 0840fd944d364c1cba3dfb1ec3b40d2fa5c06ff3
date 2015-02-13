@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0b7a1caa_d4a99c6b",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/BinaryObject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6998d84_d27d6499",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6998d84_925cbc33",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
         "patchSetId": 1
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "56267d9d_e6785edd",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56c83d75_3611384e",
+      "range": {
+        "startLine": 62,
+        "startChar": 9,
+        "endLine": 62,
+        "endChar": 14
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6998d84_92a59ccf",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
         "patchSetId": 1
@@ -106,6 +154,30 @@
       "writtenOn": "2015-02-11T22:49:44Z",
       "side": 1,
       "message": "TObjectIntMap",
+      "range": {
+        "startLine": 32,
+        "startChar": 16,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b7d20a0_f5f05898",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6998d84_92a59ccf",
       "range": {
         "startLine": 32,
         "startChar": 16,
@@ -211,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "56267d9d_06ebba31",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/ObjectTypeID.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16c24557_3411304e",
+      "range": {
+        "startLine": 39,
+        "startChar": 7,
+        "endLine": 39,
+        "endChar": 11
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6998d84_d2880438",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Channel.java",
         "patchSetId": 1
@@ -234,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "0b7a1caa_f4a61899",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Channel.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6998d84_d2880438",
+      "range": {
+        "startLine": 81,
+        "startChar": 16,
+        "endLine": 81,
+        "endChar": 32
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76a8e190_2fc9e9ae",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
         "patchSetId": 1
@@ -245,6 +365,30 @@
       "writtenOn": "2015-02-11T22:49:44Z",
       "side": 1,
       "message": "@GuardedBy(\"channels\")",
+      "range": {
+        "startLine": 37,
+        "startChar": 35,
+        "endLine": 37,
+        "endChar": 43
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b7d20a0_b5eae0a2",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a8e190_2fc9e9ae",
       "range": {
         "startLine": 37,
         "startChar": 35,
@@ -421,6 +565,30 @@
     },
     {
       "key": {
+        "uuid": "2b7d20a0_55afcc7b",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6998d84_52e894bd",
+      "range": {
+        "startLine": 162,
+        "startChar": 14,
+        "endLine": 162,
+        "endChar": 20
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6998d84_72ed98cc",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
         "patchSetId": 1
@@ -432,6 +600,30 @@
       "writtenOn": "2015-02-11T22:49:44Z",
       "side": 1,
       "message": "yes",
+      "range": {
+        "startLine": 167,
+        "startChar": 17,
+        "endLine": 167,
+        "endChar": 20
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56267d9d_26e8b632",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Multiplexer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6998d84_72ed98cc",
       "range": {
         "startLine": 167,
         "startChar": 17,
@@ -561,6 +753,30 @@
     },
     {
       "key": {
+        "uuid": "0b7a1caa_b4a0a07b",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6998d84_f2f1889c",
+      "range": {
+        "startLine": 128,
+        "startChar": 7,
+        "endLine": 128,
+        "endChar": 14
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76a8e190_6f25b1dd",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
         "patchSetId": 1
@@ -572,6 +788,30 @@
       "writtenOn": "2015-02-11T22:49:44Z",
       "side": 1,
       "message": "javadoc",
+      "range": {
+        "startLine": 158,
+        "startChar": 5,
+        "endLine": 158,
+        "endChar": 12
+      },
+      "revId": "0840fd944d364c1cba3dfb1ec3b40d2fa5c06ff3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b7a1caa_547d8c4b",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/multiplex/Sender.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T16:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76a8e190_6f25b1dd",
       "range": {
         "startLine": 158,
         "startChar": 5,
