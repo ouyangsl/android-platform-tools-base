@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0b4dbcae_7c71f9c4",
+        "filename": "build-system/builder/src/main/java/com/android/builder/profile/ProcessRecorder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-13T23:50:42Z",
+      "side": 1,
+      "message": "Perhaps a \u0027non expanding\u0027 WorkQueue factory method would make this more obvious.\n\nWorkQueue\u0027s constructor accepts an int, but it is stored as a float internally which seems odd.",
+      "range": {
+        "startLine": 87,
+        "startChar": 72,
+        "endLine": 87,
+        "endChar": 89
+      },
+      "revId": "a3b60ea5dacdb91c0d613ef36e08131d6f75c7ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
