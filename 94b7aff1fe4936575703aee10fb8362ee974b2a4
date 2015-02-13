@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0bcf7c48_cc702f72",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/BinaryObject.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-13T18:33:24Z",
+      "side": 1,
+      "message": "also static and final are not needed in interfaces",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 14
+      },
+      "revId": "94b7aff1fe4936575703aee10fb8362ee974b2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bc2801e_cdcca971",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
         "patchSetId": 3
@@ -64,6 +87,29 @@
         "startChar": 14,
         "endLine": 88,
         "endChar": 20
+      },
+      "revId": "94b7aff1fe4936575703aee10fb8362ee974b2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ebcb083b_4bb505fb",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/rpccore/Broadcaster.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-02-13T18:33:24Z",
+      "side": 1,
+      "message": "This looks a bit weird :)\nIs this needed so ObjectFactory can register RpcErrorID ?\n\ncalling anything on ObjectFactory would trigger this, so we could make it more explicit?\n\nObjectFactory.initialize();",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 19
       },
       "revId": "94b7aff1fe4936575703aee10fb8362ee974b2a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
