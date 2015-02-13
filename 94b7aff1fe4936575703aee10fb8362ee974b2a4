@@ -114,6 +114,30 @@
       "revId": "94b7aff1fe4936575703aee10fb8362ee974b2a4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cbbac49b_ca048340",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/rpccore/Broadcaster.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-13T19:16:24Z",
+      "side": 1,
+      "message": "Yes, that\u0027s an admittedly convoluted way to trigger the static initialization block without actually using the class, which isn\u0027t otherwise referenced anywhere. That\u0027s a common idiom in Go but it doesn\u0027t necessarily translate well to Java. I\u0027ll make it explicit as you\u0027ve suggested :)",
+      "parentUuid": "ebcb083b_4bb505fb",
+      "range": {
+        "startLine": 83,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 19
+      },
+      "revId": "94b7aff1fe4936575703aee10fb8362ee974b2a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
