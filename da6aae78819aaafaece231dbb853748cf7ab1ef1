@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab38305d_41823231",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/AndroidComponentGradleModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-17T21:47:06Z",
+      "side": 1,
+      "message": "We should be more consistent and use \u0027model\u0027 or \u0027component\u0027 everywhere.",
+      "range": {
+        "startLine": 33,
+        "startChar": 20,
+        "endLine": 33,
+        "endChar": 29
+      },
+      "revId": "da6aae78819aaafaece231dbb853748cf7ab1ef1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab38305d_e14d8687",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/AndroidComponentGradleModule.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-17T21:47:06Z",
+      "side": 1,
+      "message": "cause it\u0027s model here.",
+      "range": {
+        "startLine": 45,
+        "startChar": 43,
+        "endLine": 45,
+        "endChar": 48
+      },
+      "revId": "da6aae78819aaafaece231dbb853748cf7ab1ef1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
