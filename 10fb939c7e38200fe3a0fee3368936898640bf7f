@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ebca2890_76582ef5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/profile/ThreadRecorder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2015-02-17T20:46:37Z",
+      "side": 0,
+      "message": "Not in scope for this CL, but when adding recording for events that can happen on multiple threads, we need to preserve thread names/ids.",
+      "range": {
+        "startLine": 70,
+        "startChar": 23,
+        "endLine": 70,
+        "endChar": 31
+      },
+      "revId": "10fb939c7e38200fe3a0fee3368936898640bf7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
