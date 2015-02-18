@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bd55878_075f562d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1305,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-18T17:06:11Z",
+      "side": 1,
+      "message": "this is 1.2, can you do this in the same CL?",
+      "range": {
+        "startLine": 1305,
+        "startChar": 10,
+        "endLine": 1305,
+        "endChar": 43
+      },
+      "revId": "07fc337ed0af0d56566bd7d131e5ef1670a7d8c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
