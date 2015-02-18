@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b02548e_86c38a5f",
+        "filename": "build-system/docs/src/fromGradle/docs/dsl/com.android.build.gradle.internal.dsl.NdkOptions.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-18T18:19:03Z",
+      "side": 1,
+      "message": "we shouldn\u0027t add this. NdkOptions is temporary for the current integration with the NDK but will go away with the next integration.",
+      "range": {
+        "startLine": 17,
+        "startChar": 1,
+        "endLine": 17,
+        "endChar": 8
+      },
+      "revId": "3a60a80bc473886a25e86680c4d983624211120b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
