@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "abdbd0ab_695c2537",
+        "filename": "build-system/builder/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-18T17:03:55Z",
+      "side": 1,
+      "message": "what is this? We have to be very very careful adding/updating guava due to cross dependencies with Idea and Gradle.",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 40
+      },
+      "revId": "ab4eeff03cac2aeb21a3b3bcf08b3e7c7701c511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
