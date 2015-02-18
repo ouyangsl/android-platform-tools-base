@@ -22,6 +22,30 @@
       "revId": "10fb939c7e38200fe3a0fee3368936898640bf7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bd55878_67e8d27d",
+        "filename": "build-system/builder/src/main/java/com/android/builder/profile/ThreadRecorder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-18T17:36:16Z",
+      "side": 0,
+      "message": "yes I have a TODO already in the class comment. will work on it soon.",
+      "parentUuid": "ebca2890_76582ef5",
+      "range": {
+        "startLine": 70,
+        "startChar": 23,
+        "endLine": 70,
+        "endChar": 31
+      },
+      "revId": "10fb939c7e38200fe3a0fee3368936898640bf7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
