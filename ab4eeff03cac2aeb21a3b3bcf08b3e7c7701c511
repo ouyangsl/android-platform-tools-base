@@ -22,6 +22,30 @@
       "revId": "ab4eeff03cac2aeb21a3b3bcf08b3e7c7701c511",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bd55878_ed1ae19e",
+        "filename": "build-system/builder/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-18T19:13:13Z",
+      "side": 1,
+      "message": "Removed, as comes transitively from :base:common anyway.",
+      "parentUuid": "abdbd0ab_695c2537",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 40
+      },
+      "revId": "ab4eeff03cac2aeb21a3b3bcf08b3e7c7701c511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
