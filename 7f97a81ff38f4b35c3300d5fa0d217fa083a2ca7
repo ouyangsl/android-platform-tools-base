@@ -48,6 +48,23 @@
     },
     {
       "key": {
+        "uuid": "883ff2b4_f669585a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/FileSupplierTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-19T16:50:03Z",
+      "side": 1,
+      "message": "I find the name unclear. It\u0027s not a task, since it returns the task via the getTask() method. I would just rename it FileSupplier.",
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb3a34_017a4ca0",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantFactory.java",
         "patchSetId": 1
@@ -65,6 +82,23 @@
         "endLine": 45,
         "endChar": 3
       },
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "685d5e31_07c39661",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AndroidProGuardTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-19T16:50:03Z",
+      "side": 1,
+      "message": "this scheme will only work if tasks only produce one file since we will not be able to override the File get() several times. This is why I had the MappingFileProviderTask so potentially the JackTask could also become a ClassesJarProviderTask for instance.\n\nMaybe keeping a more dedicated MappingFileProvider interface of the soft : \n\ninterface MappingFileProvider {\n\n File getMappingFile();\n\n Task getTask();\n}",
       "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
