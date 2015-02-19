@@ -65,6 +65,24 @@
     },
     {
       "key": {
+        "uuid": "48fb3a34_412df486",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/FileSupplierTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T17:09:43Z",
+      "side": 1,
+      "message": "Or can we just pass the task around and use outputs.files.singleFile?",
+      "parentUuid": "883ff2b4_f669585a",
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb3a34_017a4ca0",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantFactory.java",
         "patchSetId": 1
