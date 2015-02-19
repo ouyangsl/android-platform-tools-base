@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "48525a24_86d2ea08",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/AppExtension.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-19T17:14:25Z",
+      "side": 1,
+      "message": "remove or change.",
+      "revId": "abe312ce94dc6afb770dc6fbec6b1fa959044de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb3a34_012dacb5",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/AppExtension.groovy",
         "patchSetId": 2
@@ -19,6 +36,23 @@
         "endLine": 55,
         "endChar": 80
       },
+      "revId": "abe312ce94dc6afb770dc6fbec6b1fa959044de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8486e7a_830ade45",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-19T17:14:25Z",
+      "side": 1,
+      "message": "why doing this here rather than calling an abstract method on this class which would be overriden in TestedExtension. That way hasTestScope never has to be passed up.",
       "revId": "abe312ce94dc6afb770dc6fbec6b1fa959044de8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -71,6 +105,30 @@
     },
     {
       "key": {
+        "uuid": "48525a24_0696fa32",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ProductFlavorData.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-19T17:14:25Z",
+      "side": 1,
+      "message": "or better, use Optional\u003c\u003e",
+      "parentUuid": "8858d242_6829032d",
+      "range": {
+        "startLine": 80,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "abe312ce94dc6afb770dc6fbec6b1fa959044de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb3a34_81665c0e",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
         "patchSetId": 2
@@ -88,6 +146,23 @@
         "endLine": 557,
         "endChar": 47
       },
+      "revId": "abe312ce94dc6afb770dc6fbec6b1fa959044de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "685d5e31_673372f2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/VariantFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-19T17:14:25Z",
+      "side": 1,
+      "message": "am I confused ? I do not see a TestVariantFactory and in particular, nobody seems to override this method and return false.",
       "revId": "abe312ce94dc6afb770dc6fbec6b1fa959044de8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
