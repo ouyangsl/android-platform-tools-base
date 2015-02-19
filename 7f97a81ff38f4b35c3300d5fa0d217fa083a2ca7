@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "084ce289_04d15659",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T16:18:39Z",
+      "side": 1,
+      "message": "Can you add a comment why this is not applicable to test projects?",
+      "range": {
+        "startLine": 601,
+        "startChar": 8,
+        "endLine": 603,
+        "endChar": 9
+      },
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "084ce289_c4d21e5c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/publishing/BasePublishArtifact.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T16:18:39Z",
+      "side": 1,
+      "message": "Can you add a comment?",
+      "range": {
+        "startLine": 94,
+        "startChar": 15,
+        "endLine": 94,
+        "endChar": 19
+      },
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48fb3a34_017a4ca0",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T16:18:39Z",
+      "side": 1,
+      "message": "Add JavaDoc or remove.",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 3
+      },
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
