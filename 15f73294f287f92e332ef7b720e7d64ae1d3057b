@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a863d6f0_c9fb51ca",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultBuildType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "Is this on every run or is there a separate task for doing that? Is this described anywhere?",
+      "range": {
+        "startLine": 98,
+        "startChar": 38,
+        "endLine": 98,
+        "endChar": 54
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "083302f6_acd5c3f4",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultBuildType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "Why would I change it? To make the debug build more lightweight?",
+      "range": {
+        "startLine": 251,
+        "startChar": 7,
+        "endLine": 251,
+        "endChar": 93
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48fb3a34_be5299d1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "Do we have a page that describes the BuildConfig feature? Most people I talked to didn\u0027t know about this class being generated.",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 52,
+        "endChar": 32
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8858d242_08d16759",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "So do we consider these internal or not? If yes, we need to add ClassField to the reference.",
+      "range": {
+        "startLine": 61,
+        "startChar": 37,
+        "endLine": 61,
+        "endChar": 47
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8858d242_e8d5f345",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "Not all of them, just the overrides that were specified, right?",
+      "range": {
+        "startLine": 88,
+        "startChar": 7,
+        "endLine": 88,
+        "endChar": 44
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8858d242_a8dffb61",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "Do we have a page that describes what ProGuard is and why it\u0027s a good idea to minify your apps?",
+      "range": {
+        "startLine": 97,
+        "startChar": 19,
+        "endLine": 97,
+        "endChar": 33
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8858d242_e8ee138a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/BaseConfigImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "What are manifest placeholders? What can I use them for?",
+      "range": {
+        "startLine": 116,
+        "startChar": 19,
+        "endLine": 116,
+        "endChar": 40
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48fb3a34_6115906f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/ProductFlavor.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-19T15:43:50Z",
+      "side": 1,
+      "message": "What can this be used for? Making the debug build lighter by not packing some resources?",
+      "range": {
+        "startLine": 305,
+        "startChar": 7,
+        "endLine": 305,
+        "endChar": 44
+      },
+      "revId": "15f73294f287f92e332ef7b720e7d64ae1d3057b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
