@@ -169,6 +169,24 @@
     },
     {
       "key": {
+        "uuid": "48525a24_a67a8604",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/VariantFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-19T17:32:11Z",
+      "side": 1,
+      "message": "ah I see this was added in a subsequent CL. ignore.",
+      "parentUuid": "685d5e31_673372f2",
+      "revId": "abe312ce94dc6afb770dc6fbec6b1fa959044de8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb3a34_616b50d6",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/TestExtension.groovy",
         "patchSetId": 2
