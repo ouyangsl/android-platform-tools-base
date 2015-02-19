@@ -16,6 +16,24 @@
       "revId": "ea72ecd1e7c8b0676eced621bfb093dd212538b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a834b607_61eaf6f8",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/PngTestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-19T22:30:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8486e7a_033eee55",
+      "revId": "ea72ecd1e7c8b0676eced621bfb093dd212538b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
