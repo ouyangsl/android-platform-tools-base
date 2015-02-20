@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88a372b2_f066e037",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-20T03:19:23Z",
+      "side": 1,
+      "message": "why don\u0027t you pass the project like you do when recording the tasks?",
+      "range": {
+        "startLine": 256,
+        "startChar": 50,
+        "endLine": 256,
+        "endChar": 51
+      },
+      "revId": "b452c0edb79e9588cc5faa0e0a7af670a82ed3c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68a8fe90_b2fb7eca",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-20T03:19:23Z",
+      "side": 1,
+      "message": "\"variant\" should be a constant, or a native prop like project.",
+      "range": {
+        "startLine": 257,
+        "startChar": 33,
+        "endLine": 257,
+        "endChar": 41
+      },
+      "revId": "b452c0edb79e9588cc5faa0e0a7af670a82ed3c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
