@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c8cbaa64_e269c608",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-20T01:33:58Z",
+      "side": 1,
+      "message": "Actually this changed in the next CL.",
+      "parentUuid": "084ce289_04d15659",
+      "range": {
+        "startLine": 601,
+        "startChar": 8,
+        "endLine": 603,
+        "endChar": 9
+      },
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "084ce289_c4d21e5c",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/publishing/BasePublishArtifact.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-19T16:18:39Z",
       "side": 1,
       "message": "Can you add a comment?",
+      "range": {
+        "startLine": 94,
+        "startChar": 15,
+        "endLine": 94,
+        "endChar": 19
+      },
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08e942cf_5cbedddf",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/publishing/BasePublishArtifact.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-20T01:33:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "084ce289_c4d21e5c",
       "range": {
         "startLine": 94,
         "startChar": 15,
@@ -83,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "28dc462f_5d0a5bcd",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/FileSupplierTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-20T01:33:58Z",
+      "side": 1,
+      "message": "@Michal, no because some task output more than one file and we need a supplier for each.\n\n@Jerome: sure I can rename it. (FileAndTaskSupplier? j/k!)",
+      "parentUuid": "48fb3a34_412df486",
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb3a34_017a4ca0",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantFactory.java",
         "patchSetId": 1
@@ -106,6 +172,30 @@
     },
     {
       "key": {
+        "uuid": "08e942cf_1c3375f2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-20T01:33:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48fb3a34_017a4ca0",
+      "range": {
+        "startLine": 44,
+        "startChar": 1,
+        "endLine": 45,
+        "endChar": 3
+      },
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "685d5e31_07c39661",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AndroidProGuardTask.java",
         "patchSetId": 1
@@ -117,6 +207,24 @@
       "writtenOn": "2015-02-19T16:50:03Z",
       "side": 1,
       "message": "this scheme will only work if tasks only produce one file since we will not be able to override the File get() several times. This is why I had the MappingFileProviderTask so potentially the JackTask could also become a ClassesJarProviderTask for instance.\n\nMaybe keeping a more dedicated MappingFileProvider interface of the soft : \n\ninterface MappingFileProvider {\n\n File getMappingFile();\n\n Task getTask();\n}",
+      "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2817e68c_4519ca77",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AndroidProGuardTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-20T01:33:58Z",
+      "side": 1,
+      "message": "I would think the jackTask would have a way to provide 2 suppliers? one for the classes and one for the mapping?",
+      "parentUuid": "685d5e31_07c39661",
       "revId": "7f97a81ff38f4b35c3300d5fa0d217fa083a2ca7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
