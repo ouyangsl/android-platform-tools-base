@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c883aac3_02d34a61",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-20T11:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "084ce289_440f4e2e",
+      "range": {
+        "startLine": 24,
+        "startChar": 54,
+        "endLine": 24,
+        "endChar": 55
+      },
+      "revId": "1a6e2496fd989a747639758ce6211bc54b611230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48fb3a34_c1eea4b8",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-19T17:45:13Z",
       "side": 1,
       "message": "to an immutable object or immutable data.\nThey are often returned from RPC calls and if the client already has the object/data cached locally, offer a way to avoid an unnecessary transfer of data from the server.",
+      "range": {
+        "startLine": 24,
+        "startChar": 75,
+        "endLine": 25,
+        "endChar": 81
+      },
+      "revId": "1a6e2496fd989a747639758ce6211bc54b611230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "48fb3a34_81977c31",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-20T11:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48fb3a34_c1eea4b8",
       "range": {
         "startLine": 24,
         "startChar": 75,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "48fb3a34_a1c83847",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-20T11:47:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8858d242_a8c5bbc2",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 50
+      },
+      "revId": "1a6e2496fd989a747639758ce6211bc54b611230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c883aac3_82c75a9e",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "888d32f5_c0f55ed7",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-20T11:47:41Z",
+      "side": 1,
+      "message": "No, made private.",
+      "parentUuid": "c883aac3_82c75a9e",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 8
+      },
+      "revId": "1a6e2496fd989a747639758ce6211bc54b611230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c883aac3_22cc4ebf",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2015-02-19T17:45:13Z",
       "side": 1,
       "message": "I suspect (but is a guess) that the lack of brackets around the if block goes against coding styles.",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 49
+      },
+      "revId": "1a6e2496fd989a747639758ce6211bc54b611230",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "888d32f5_80151672",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Handle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-20T11:47:41Z",
+      "side": 1,
+      "message": "Done, also the null check was redundant with instanceof.",
+      "parentUuid": "c883aac3_22cc4ebf",
       "range": {
         "startLine": 48,
         "startChar": 0,
