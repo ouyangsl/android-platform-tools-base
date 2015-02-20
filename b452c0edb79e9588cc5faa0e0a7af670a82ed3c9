@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "288a862f_d079e25a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/profile/ExecutionType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-20T18:01:55Z",
+      "side": 1,
+      "message": "removed and replaced with ranges.",
+      "parentUuid": "28dc462f_9d0dc3b4",
+      "range": {
+        "startLine": 69,
+        "startChar": 17,
+        "endLine": 69,
+        "endChar": 18
+      },
+      "revId": "b452c0edb79e9588cc5faa0e0a7af670a82ed3c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88a372b2_f066e037",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4876da13_8652caa3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-20T18:01:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88a372b2_f066e037",
+      "range": {
+        "startLine": 256,
+        "startChar": 50,
+        "endLine": 256,
+        "endChar": 51
+      },
+      "revId": "b452c0edb79e9588cc5faa0e0a7af670a82ed3c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68a8fe90_b2fb7eca",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-02-20T03:19:23Z",
       "side": 1,
       "message": "\"variant\" should be a constant, or a native prop like project.",
+      "range": {
+        "startLine": 257,
+        "startChar": 33,
+        "endLine": 257,
+        "endChar": 41
+      },
+      "revId": "b452c0edb79e9588cc5faa0e0a7af670a82ed3c9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4876da13_a64fc6f8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-20T18:01:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68a8fe90_b2fb7eca",
       "range": {
         "startLine": 257,
         "startChar": 33,
