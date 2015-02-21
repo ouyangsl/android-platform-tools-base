@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "880292b9_780ea15d",
+        "filename": "build-system/builder/src/main/java/com/android/builder/profile/ThreadRecorder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-21T03:12:38Z",
+      "side": 1,
+      "message": "Do we really want the build to die if something happens out of order?",
+      "range": {
+        "startLine": 116,
+        "startChar": 22,
+        "endLine": 116,
+        "endChar": 38
+      },
+      "revId": "74a39f94d88f1656faa558a14e07f18994ceb9fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
