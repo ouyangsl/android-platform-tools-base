@@ -22,6 +22,30 @@
       "revId": "6d75e67eacdeeef7e159886288251b29b60462db",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25f8f137_5dc6fba4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-02-23T21:37:08Z",
+      "side": 1,
+      "message": "Gradle fails very quickly if something conflicts. I just hadn\u0027t run all the tests apparently.",
+      "parentUuid": "6869de73_47b24e63",
+      "range": {
+        "startLine": 1214,
+        "startChar": 20,
+        "endLine": 1214,
+        "endChar": 98
+      },
+      "revId": "6d75e67eacdeeef7e159886288251b29b60462db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
