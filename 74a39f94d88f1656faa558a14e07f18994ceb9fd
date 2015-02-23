@@ -46,6 +46,23 @@
       "revId": "74a39f94d88f1656faa558a14e07f18994ceb9fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8558bd42_48e07fd2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/profile/RecordingBuildListener.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-23T23:15:55Z",
+      "side": 1,
+      "message": "This won\u0027t work with parallel task execution. Is that an issue for this purpose?",
+      "revId": "74a39f94d88f1656faa558a14e07f18994ceb9fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
