@@ -1,0 +1,527 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0816a200_b4a32047",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/TestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Why did you change the type?",
+      "range": {
+        "startLine": 78,
+        "startChar": 3,
+        "endLine": 78,
+        "endChar": 8
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c4e2d0_a4eac2f8",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Do we have some kind of a process around these?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 5
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_a721ca15",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Not needed, see https://engdoc.corp.google.com/eng/doc/devguide/java/styleguide.shtml?cl\u003dhead#s7.2-summary-fragment",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_4737ae59",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "\"has to be called\"? Can\u0027t this be enforced by whoever is constructing an instance of the runner? We should not build objects that are in some strange, uninitialized state.",
+      "range": {
+        "startLine": 47,
+        "startChar": 38,
+        "endLine": 47,
+        "endChar": 47
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c4e2d0_c4e9be04",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "JavaDoc? Maybe this should be close() from Closeable?",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c4e2d0_04fc76c1",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "And what if it\u0027s not?",
+      "range": {
+        "startLine": 55,
+        "startChar": 7,
+        "endLine": 55,
+        "endChar": 66
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_272e3a00",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Runs",
+      "range": {
+        "startLine": 62,
+        "startChar": 7,
+        "endLine": 62,
+        "endChar": 10
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0816a200_3498b013",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "tests",
+      "range": {
+        "startLine": 64,
+        "startChar": 27,
+        "endLine": 64,
+        "endChar": 31
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0816a200_74a2283f",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Please use collections. Even better, this could be a Multimap\u003cString, String\u003e.",
+      "range": {
+        "startLine": 67,
+        "startChar": 32,
+        "endLine": 67,
+        "endChar": 40
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_e7cca2f2",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "What does 0 mean? I would expect 1 to be the default? BTW - can we make it abstract and turn the whole file into an interface? Interfaces FTW!",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 17
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0816a200_d48b3cb6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1583,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Can you add parenthesis?",
+      "range": {
+        "startLine": 1583,
+        "startChar": 33,
+        "endLine": 1583,
+        "endChar": 80
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c4e2d0_c41ede90",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1696,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "We\u0027re already in if(agregateReport).",
+      "range": {
+        "startLine": 1696,
+        "startChar": 24,
+        "endLine": 1696,
+        "endChar": 38
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_47bc8e43",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1721,
+        "startChar": 24,
+        "endLine": 1721,
+        "endChar": 38
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c4e2d0_2404123e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1865,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Nit: If you write comments as sentences, please start with an upper case letter...",
+      "range": {
+        "startLine": 1865,
+        "startChar": 11,
+        "endLine": 1865,
+        "endChar": 12
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_07c696cd",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1866,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Why only the first one? Is there always only one?",
+      "range": {
+        "startLine": 1866,
+        "startChar": 54,
+        "endLine": 1866,
+        "endChar": 84
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_27c39abe",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Don\u0027t check in commented-out code.",
+      "range": {
+        "startLine": 1880,
+        "startChar": 8,
+        "endLine": 1880,
+        "endChar": 87
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_e7f5820c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Either use ${foo} or $foo in this string",
+      "range": {
+        "startLine": 1885,
+        "startChar": 39,
+        "endLine": 1885,
+        "endChar": 52
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0816a200_147e54fb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/RemoteTestRunnerTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "\"Runs\". And a dot at the end.",
+      "range": {
+        "startLine": 36,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 48
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0816a200_747b480b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/RemoteTestRunnerTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Why not a list? Or a set if the order doesn\u0027t matter?",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 10
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0816a200_5478cc0c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/RemoteTestRunnerTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Which fields here should be @Input?",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 26
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "08c4e2d0_440b0e4c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Why not just Task?",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 34
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6869de73_07df768b",
+        "filename": "build-system/integration-test/test-projects/3rdPartyTests/buildSrc/src/main/java/com/android/tests/basic/buildscript/FakeRemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Not used?",
+      "range": {
+        "startLine": 68,
+        "startChar": 19,
+        "endLine": 68,
+        "endChar": 23
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0816a200_f403d887",
+        "filename": "build-system/integration-test/test-projects/3rdPartyTests/buildSrc/src/main/java/com/android/tests/basic/buildscript/FakeServer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:47:47Z",
+      "side": 1,
+      "message": "Nit: Put this one on a new line as well?",
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
