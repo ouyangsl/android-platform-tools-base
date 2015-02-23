@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a880367a_44af60f5",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/NinePatchAaptProcessorTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-23T19:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28f0c60e_5dcd9b35",
+      "range": {
+        "startLine": 94,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "91b0e6ec54495adcace6537617d67e83cdc4a86e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8f94eff_fbe46f2e",
         "filename": "build-system/builder/src/test/java/com/android/builder/png/NinePatchAsyncAaptProcessTest.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-21T03:09:41Z",
       "side": 1,
       "message": "Build tools 22 are not available yet, should this remain?",
+      "range": {
+        "startLine": 45,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 2
+      },
+      "revId": "91b0e6ec54495adcace6537617d67e83cdc4a86e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0847823f_6cec5bbf",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/NinePatchAsyncAaptProcessTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-23T19:54:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8f94eff_fbe46f2e",
       "range": {
         "startLine": 45,
         "startChar": 0,
