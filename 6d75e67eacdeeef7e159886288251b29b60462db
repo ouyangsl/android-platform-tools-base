@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6869de73_47b24e63",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-23T11:52:26Z",
+      "side": 1,
+      "message": "This makes me think if we should keep all the task names in one place, e.g. \n\nenum TaskName {\n  Jar(\"package_JarArtifact\");\n  //...\n\n  public getName(variantData) { \n    // replace _ with the variant name\n  }\n}\n\nOpinions?",
+      "range": {
+        "startLine": 1214,
+        "startChar": 20,
+        "endLine": 1214,
+        "endChar": 98
+      },
+      "revId": "6d75e67eacdeeef7e159886288251b29b60462db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
