@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e5f7b997_eb109179",
+        "filename": "rpclib/src/test/java/com/android/tools/rpclib/binary/HandleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-24T16:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6869de73_4a2d73b4",
+      "range": {
+        "startLine": 63,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 5
+      },
+      "revId": "733738a8e35f2dca958a1b34e8d5f9f77d13e34c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08c4e2d0_443e6eb2",
         "filename": "rpclib/src/test/java/com/android/tools/rpclib/binary/HandleTest.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-23T13:52:23Z",
       "side": 1,
       "message": "Nit: I\u0027m not sure you\u0027re actually testing anything but the DatatypeConverter here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 3
+      },
+      "revId": "733738a8e35f2dca958a1b34e8d5f9f77d13e34c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8520bddf_c824afd3",
+        "filename": "rpclib/src/test/java/com/android/tools/rpclib/binary/HandleTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-02-24T16:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08c4e2d0_443e6eb2",
       "range": {
         "startLine": 70,
         "startChar": 2,
