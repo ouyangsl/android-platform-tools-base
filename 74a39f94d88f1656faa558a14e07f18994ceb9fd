@@ -63,6 +63,24 @@
       "revId": "74a39f94d88f1656faa558a14e07f18994ceb9fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4597a502_de78e5a8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/profile/RecordingBuildListener.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-24T00:25:12Z",
+      "side": 1,
+      "message": "Right, this will be addressed in a subsequent CL. I need to introduce some TLS again...",
+      "parentUuid": "8558bd42_48e07fd2",
+      "revId": "74a39f94d88f1656faa558a14e07f18994ceb9fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
