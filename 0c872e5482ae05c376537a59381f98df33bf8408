@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c87baa5e_e25ea6e1",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/app/VariantBuildScriptGenerator.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-24T04:22:15Z",
+      "side": 1,
+      "message": "I think an Enum would be appropriate here.",
+      "revId": "0c872e5482ae05c376537a59381f98df33bf8408",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
