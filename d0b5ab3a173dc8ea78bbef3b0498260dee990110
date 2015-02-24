@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8558bd42_684c638d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/profile/RecordingBuildListener.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-02-24T00:48:12Z",
+      "side": 1,
+      "message": "With task parallelisation executions will overlap and break this pattern. Is that an issue for this purpose?",
+      "revId": "d0b5ab3a173dc8ea78bbef3b0498260dee990110",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
