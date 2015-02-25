@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "021e8359_d4f3fca0",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-25T21:45:51Z",
+      "side": 1,
+      "message": "some versions of the java compiler doesn\u0027t handle trailing commas in enums",
+      "revId": "43e61c5711c46606798dbdb3ef811f6aed3d987b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "021e8359_74954826",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-25T21:45:51Z",
+      "side": 1,
+      "message": "The previewType parameter should probably logically appear before the preview parameter. (I think the separator was last because it\u0027s optional, even though logically it comes before the others)",
+      "revId": "43e61c5711c46606798dbdb3ef811f6aed3d987b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2221c795_d58f7c42",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-25T21:45:51Z",
+      "side": 1,
+      "message": "extract m.group(5) first?",
+      "revId": "43e61c5711c46606798dbdb3ef811f6aed3d987b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65bca932_d20062e7",
+        "filename": "sdklib/src/test/java/com/android/sdklib/internal/repository/packages/FullRevisionTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-25T21:45:51Z",
+      "side": 1,
+      "message": "add a beta-version string too ?",
+      "revId": "43e61c5711c46606798dbdb3ef811f6aed3d987b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
