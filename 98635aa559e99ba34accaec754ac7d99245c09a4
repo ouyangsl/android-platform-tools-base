@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65f4a9d1_0ffe8530",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-25T11:07:12Z",
+      "side": 1,
+      "message": "Please update.",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 46
+      },
+      "revId": "98635aa559e99ba34accaec754ac7d99245c09a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5db01ac_c97391ca",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-25T11:07:12Z",
+      "side": 1,
+      "message": "Remove blank lines.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 0
+      },
+      "revId": "98635aa559e99ba34accaec754ac7d99245c09a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5db01ac_29798dab",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 1736,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-25T11:07:12Z",
+      "side": 1,
+      "message": "Why not include the variant name anyway? It will be clear from the task name which build type is used.",
+      "range": {
+        "startLine": 1736,
+        "startChar": 44,
+        "endLine": 1736,
+        "endChar": 93
+      },
+      "revId": "98635aa559e99ba34accaec754ac7d99245c09a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45d9656e_eeda1f27",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-25T11:07:12Z",
+      "side": 1,
+      "message": "Installs where? I think \"runs\" is fine.",
+      "range": {
+        "startLine": 1737,
+        "startChar": 37,
+        "endLine": 1737,
+        "endChar": 46
+      },
+      "revId": "98635aa559e99ba34accaec754ac7d99245c09a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
