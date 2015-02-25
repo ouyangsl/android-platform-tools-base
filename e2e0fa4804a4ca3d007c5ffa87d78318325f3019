@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "45d9656e_6e92af6c",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-25T11:08:37Z",
+      "side": 1,
+      "message": "Still - can this class implement Closeable? It\u0027s the java standard will make it work with try-with-resources.\n\nAlso - why do we require people to be able to reinitialize? Wouldn\u0027t it make everyone\u0027s life simpler if we just started from scratch with a new instance?\n\nPS. I believe the company policy is to use US English in code, just so you realiZe ;) (I worked with a couple Brits here in London, they were not happy about it).",
+      "parentUuid": "a83756c2_6988c537",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08c4e2d0_04fc76c1",
         "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
         "patchSetId": 2
