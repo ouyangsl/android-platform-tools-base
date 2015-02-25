@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42fb1b34_5e6955dd",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-25T19:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2ecd77a_e1f9a6d1",
+      "range": {
+        "startLine": 426,
+        "startChar": 43,
+        "endLine": 426,
+        "endChar": 59
+      },
+      "revId": "ddd66dad71854438192cb5e692ce042a1a818640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "05204d81_44cbee47",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-25T18:51:30Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 597,
+        "startChar": 39,
+        "endLine": 597,
+        "endChar": 55
+      },
+      "revId": "ddd66dad71854438192cb5e692ce042a1a818640",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a53781c2_e93835fa",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-25T19:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05204d81_44cbee47",
       "range": {
         "startLine": 597,
         "startChar": 39,
