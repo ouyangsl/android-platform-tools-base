@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "62b3bffa_f722609d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-26T14:57:09Z",
+      "side": 1,
+      "message": "I can\u0027t actually remember - I just remember that I did this in one of the @IntDef enums I checked into the platform, and then the build failed on *some* servers with an error pointing to the trailing comma.",
+      "parentUuid": "22dc672f_5db6dbd6",
+      "revId": "43e61c5711c46606798dbdb3ef811f6aed3d987b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "021e8359_74954826",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
         "patchSetId": 1
