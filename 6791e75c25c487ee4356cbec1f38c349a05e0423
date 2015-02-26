@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42c87b75_16a6fc59",
+        "filename": "rpclib/src/test/java/com/android/tools/rpclib/binary/DecoderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1056885
+      },
+      "writtenOn": "2015-02-26T16:07:57Z",
+      "side": 1,
+      "message": "As discussed on an earlier CL, I\u0027m not convinced this is the best way to check no exceptions were thrown. Esteban, what would you use in this case?",
+      "range": {
+        "startLine": 40,
+        "startChar": 6,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "6791e75c25c487ee4356cbec1f38c349a05e0423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62a81f91_0f3b45f7",
+        "filename": "rpclib/src/test/java/com/android/tools/rpclib/binary/DecoderTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1056885
+      },
+      "writtenOn": "2015-02-26T16:07:57Z",
+      "side": 1,
+      "message": "Pointless?",
+      "range": {
+        "startLine": 199,
+        "startChar": 25,
+        "endLine": 199,
+        "endChar": 46
+      },
+      "revId": "6791e75c25c487ee4356cbec1f38c349a05e0423",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
