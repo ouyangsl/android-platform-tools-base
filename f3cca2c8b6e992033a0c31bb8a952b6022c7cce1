@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02976355_0c08b726",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-02-26T16:39:52Z",
+      "side": 1,
+      "message": "actually it should be 1.2.0-alpha1",
+      "revId": "f3cca2c8b6e992033a0c31bb8a952b6022c7cce1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
