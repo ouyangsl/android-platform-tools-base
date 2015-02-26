@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "22dc672f_fdd407f6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-02-26T11:53:40Z",
+      "side": 1,
+      "message": "You should be also able to call project.getProperty(\"archivesBaseName\") in compiled code.",
+      "range": {
+        "startLine": 453,
+        "startChar": 16,
+        "endLine": 453,
+        "endChar": 32
+      },
+      "revId": "f7936845e1dd8ba7528a88b3335122855b0d6c5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
