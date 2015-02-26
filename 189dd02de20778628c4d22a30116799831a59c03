@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02c20357_343690df",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/FullRevision.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-26T15:03:00Z",
+      "side": 1,
+      "message": "(FYI the reason I suggested extracting m.group(5) here is that Matcher#group is not a simple getter, and I\u0027m not certain that the compiler will consider it a constant expression that it can inline on its own.)",
+      "revId": "189dd02de20778628c4d22a30116799831a59c03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
