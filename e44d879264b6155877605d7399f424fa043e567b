@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "82b7d34b_d08cdc1a",
+        "filename": "templates/activities/NativeActivityTemplate/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "you probably don\u0027t need this (this template doesn\u0027t use appcompat in any way right?)\n\nditto for the \"Support\" variable below (lines 5 and 6)",
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62d57f78_a763ea00",
+        "filename": "templates/activities/NativeActivityTemplate/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "perhaps not this one either (it\u0027s hard to do find usages in the gerrit diff).\n\n(The purpose of this file is to create variables that are useful in the templates, such that the logic to for example determine if you\u0027re using appcompat doesn\u0027t have to be done in each place in the template where it does something conditional, it can just do if ${appCompat} ...)",
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2c08fc1_e3c952b3",
         "filename": "templates/activities/NativeActivityTemplate/root/build.gradle.ftl",
         "patchSetId": 1
@@ -25,6 +59,23 @@
     },
     {
       "key": {
+        "uuid": "82b7d34b_908254e7",
+        "filename": "templates/activities/NativeActivityTemplate/root/jni/android_native_app_glue.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "(same comment as in .h)",
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2a7af21_0be47d5a",
         "filename": "templates/activities/NativeActivityTemplate/root/jni/android_native_app_glue.c",
         "patchSetId": 1
@@ -42,6 +93,91 @@
         "endLine": 265,
         "endChar": 25
       },
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02c4c3d0_24d41246",
+        "filename": "templates/activities/NativeActivityTemplate/root/jni/android_native_app_glue.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "2015?\n\nNote however that we try to *avoid* putting licenses on copyrights on source files in templates, since these files get copied into the user\u0027s project and they now \"own\" and maintain them.\n\nImagine if the \"New Activity\" template, which creates a mostly empty activity, put an AOSP copyright on it. That means every user of Android Studio would have their apps have our copyright on their sources, and just removing that copyright doesn\u0027t seem right either.\n\nSo, in short, we (and the IntelliJ templates too) try to not put any copyrights here. \n\nOf course, we *also* try to not put a LOT of code into templates, since that\u0027s code that can be hard to maintain for users; once it\u0027s copied into their project, they need to fix bugs in it and keep it up to date.\n\nSo -- do you think this functionality is something we could abstract into a library instead? That way it\u0027s a simple dependency for them, and we can keep it up to date.\n\nOr is this code that they\u0027re expected to take as a starting point and really massage a lot?",
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02c4c3d0_64de0a66",
+        "filename": "templates/activities/NativeActivityTemplate/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "revision\u003d1. This is your own template\u0027s version number.",
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62d57f78_072c76b9",
+        "filename": "templates/activities/NativeActivityTemplate/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "you probably should rename this to for example libraryName (and obviously update the build.gradle.ftl file too)",
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02c4c3d0_a4e80205",
+        "filename": "templates/activities/NativeActivityTemplate/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "the \"class\" constraint here may be a little wrong (it basically will apply class name validation, which checks that it\u0027s a valid class name in Java). Perhaps we need a new \"nativelib\" constraint which enforced a valid library name (e.g. in particular checks that it doesn\u0027t start with lib as described below).",
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82b7d34b_f08760f5",
+        "filename": "templates/activities/NativeActivityTemplate/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-02-27T16:21:54Z",
+      "side": 1,
+      "message": "Remove this attribute? This basically says to automatically suggest a name here based on the layoutName parameter (but this template doesn\u0027t have a parameter like that).",
       "revId": "e44d879264b6155877605d7399f424fa043e567b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
