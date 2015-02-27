@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2c08fc1_e3c952b3",
+        "filename": "templates/activities/NativeActivityTemplate/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1056885
+      },
+      "writtenOn": "2015-02-27T16:18:42Z",
+      "side": 1,
+      "message": "As discussed, I\u0027d opt for GLES 2 if you\u0027re building a template for new projects.",
+      "range": {
+        "startLine": 6,
+        "startChar": 38,
+        "endLine": 6,
+        "endChar": 47
+      },
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2a7af21_0be47d5a",
+        "filename": "templates/activities/NativeActivityTemplate/root/jni/android_native_app_glue.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1056885
+      },
+      "writtenOn": "2015-02-27T16:18:42Z",
+      "side": 1,
+      "message": "rm",
+      "range": {
+        "startLine": 265,
+        "startChar": 24,
+        "endLine": 265,
+        "endChar": 25
+      },
+      "revId": "e44d879264b6155877605d7399f424fa043e567b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
