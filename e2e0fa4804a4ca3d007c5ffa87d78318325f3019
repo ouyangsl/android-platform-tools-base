@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "52612e1e_7374808a",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-02T20:02:27Z",
+      "side": 1,
+      "message": "Changed to implement closable.\n\nThis class is created and handed to the android plugin before configuration is finished, it is not under the android plugin\u0027s control when it is instantiated, so I am being cautious.",
+      "parentUuid": "45d9656e_6e92af6c",
+      "range": {
+        "startLine": 52,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 56
+      },
+      "revId": "e2e0fa4804a4ca3d007c5ffa87d78318325f3019",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08c4e2d0_04fc76c1",
         "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/RemoteTestRunner.java",
         "patchSetId": 2
