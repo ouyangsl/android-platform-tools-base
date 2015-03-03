@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9242c6dc_e0601cc0",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidLibrary.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-03-03T20:48:59Z",
+      "side": 1,
+      "message": "Nit: Drop the \"if any\"? Otherwise, it\u0027s confusing since the annotation is NonNull, and it implies there\u0027s no location, rather than the location is standard but there\u0027s no zip file there.",
+      "revId": "4e48783dbee2c1ceb8e09b4e1cd78b87a4293058",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
