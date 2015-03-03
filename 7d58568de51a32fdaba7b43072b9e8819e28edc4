@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12b896d3_d9c2f32b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-03-03T00:34:28Z",
+      "side": 1,
+      "message": "Why don\u0027t we add constants for these?",
+      "revId": "7d58568de51a32fdaba7b43072b9e8819e28edc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
