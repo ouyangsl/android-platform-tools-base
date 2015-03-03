@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2a43ecd_bf745752",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AndroidTestResourcesTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-03T12:10:15Z",
+      "side": 1,
+      "message": "It would make a lot more sense to me if this was called \"remoteDeviceCheck\".",
+      "range": {
+        "startLine": 150,
+        "startChar": 28,
+        "endLine": 150,
+        "endChar": 39
+      },
+      "revId": "7ec22541e0a31e29e8626262f88ff700ae8d1530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92a646d4_1d8593d2",
+        "filename": "build-system/integration-test/test-projects/basic/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-03T12:10:15Z",
+      "side": 1,
+      "message": "Keep only one blank line?",
+      "revId": "7ec22541e0a31e29e8626262f88ff700ae8d1530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2a43ecd_df6f1b7d",
+        "filename": "build-system/integration-test/test-projects/commonBuildScript.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-03T12:10:15Z",
+      "side": 1,
+      "message": "CUSTOM_REPO_2?",
+      "range": {
+        "startLine": 21,
+        "startChar": 15,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "7ec22541e0a31e29e8626262f88ff700ae8d1530",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
