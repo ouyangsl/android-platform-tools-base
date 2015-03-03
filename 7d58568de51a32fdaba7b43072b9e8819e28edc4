@@ -16,6 +16,24 @@
       "revId": "7d58568de51a32fdaba7b43072b9e8819e28edc4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1287b6d2_a4870cdc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GridLayoutDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-03T00:44:55Z",
+      "side": 1,
+      "message": "I don\u0027t always create constants when it\u0027s used in precisely one place, and seems unlikely to be needed elsewhere in the short term. (There\u0027s a slight cost to bulking up SdkConstants with every possible constant that we\u0027ll ever need in any part of the tools: SdkConstants is in common, so it\u0027s included *everywhere* -- the gradle plugin, eclipse, studio, and every command line tool.)",
+      "parentUuid": "12b896d3_d9c2f32b",
+      "revId": "7d58568de51a32fdaba7b43072b9e8819e28edc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
