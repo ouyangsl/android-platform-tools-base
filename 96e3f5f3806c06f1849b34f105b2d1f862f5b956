@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f23dc24d_c0fabef6",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/Bridge.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-03-03T20:52:03Z",
+      "side": 1,
+      "message": "On thinking more about this CL, I think we should reuse this method and not add more entry points to layoutlib. We can add another parameter to DrawableParams for this.\n\nIn fact, we have a map where we can add arbitrary parameters that I added to SessionParams. I\u0027ll move that map to RenderParams so that it can be reused.\n\nUnfortunately, moving that flag to render params will still require an API change. But, it will mean lesser number of API changes in the future.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 57
+      },
+      "revId": "96e3f5f3806c06f1849b34f105b2d1f862f5b956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
