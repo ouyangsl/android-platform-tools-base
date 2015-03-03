@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "92a646d4_1dda3367",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 721,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-03T10:25:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "520f6e78_260db86b",
+      "range": {
+        "startLine": 721,
+        "startChar": 10,
+        "endLine": 721,
+        "endChar": 41
+      },
+      "revId": "c9fab815d2be0b1d011ac8b9aef0960daa1e85e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "520f6e78_06399c0b",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-03-02T23:29:01Z",
       "side": 1,
       "message": "Why this change? I mean, I understand the reasoning but it seems random and arbitrary based on the method directly above this one that doesn\u0027t do this.",
+      "range": {
+        "startLine": 790,
+        "startChar": 21,
+        "endLine": 790,
+        "endChar": 33
+      },
+      "revId": "c9fab815d2be0b1d011ac8b9aef0960daa1e85e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "92c00617_f0385ea5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-03T10:25:06Z",
+      "side": 1,
+      "message": "Reverted, I will move this to another CL.",
+      "parentUuid": "520f6e78_06399c0b",
       "range": {
         "startLine": 790,
         "startChar": 21,
