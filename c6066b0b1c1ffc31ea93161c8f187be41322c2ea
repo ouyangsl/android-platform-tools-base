@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f23dc24d_e30cac70",
+        "filename": "build-system/integration-test/test-projects/commonLocalRepo.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-03T22:25:58Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "d20b5ea7_e733622b",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "c6066b0b1c1ffc31ea93161c8f187be41322c2ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92fd66c2_a5df9e52",
         "filename": "build-system/integration-test/test-projects/localJars/build.gradle",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2015-03-03T18:50:26Z",
       "side": 1,
       "message": "remove?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 5
+      },
+      "revId": "c6066b0b1c1ffc31ea93161c8f187be41322c2ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1220962c_f9945740",
+        "filename": "build-system/integration-test/test-projects/localJars/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-03T22:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92fd66c2_a5df9e52",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b230aa7f_999c3f40",
+        "filename": "build-system/integration-test/test-projects/mavenLocal/app/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-03T22:25:58Z",
+      "side": 1,
+      "message": "Deleted, this test-project is never run.",
+      "parentUuid": "f20862ad_a873fba1",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 13
+      },
+      "revId": "c6066b0b1c1ffc31ea93161c8f187be41322c2ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d20b5ea7_c7f05e99",
         "filename": "build-system/integration-test/test-projects/multiproject/util/build.gradle",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2015-03-03T18:50:26Z",
       "side": 1,
       "message": "Which version of guava do we actually use?  I thought all the other ones use 15.0.",
+      "range": {
+        "startLine": 4,
+        "startChar": 37,
+        "endLine": 4,
+        "endChar": 38
+      },
+      "revId": "c6066b0b1c1ffc31ea93161c8f187be41322c2ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "321d9af7_80811afb",
+        "filename": "build-system/integration-test/test-projects/multiproject/util/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-03T22:25:58Z",
+      "side": 1,
+      "message": "Done - now matches others.",
+      "parentUuid": "d20b5ea7_c7f05e99",
       "range": {
         "startLine": 4,
         "startChar": 37,
