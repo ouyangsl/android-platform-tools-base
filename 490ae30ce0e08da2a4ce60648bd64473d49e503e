@@ -50,6 +50,24 @@
       "revId": "490ae30ce0e08da2a4ce60648bd64473d49e503e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "321d9af7_d42b5437",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-03-04T02:10:40Z",
+      "side": 1,
+      "message": "I can\u0027t imagine that it would be... and code search turns up few hits for \"icecreamsandwich\". But I\u0027ll do as you recommend, depending on where it gets checked in.",
+      "parentUuid": "32091ade_dacd25b1",
+      "revId": "490ae30ce0e08da2a4ce60648bd64473d49e503e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
