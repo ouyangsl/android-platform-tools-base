@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "928ac69d_3df7cfdc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkVersionInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-03-04T18:15:25Z",
+      "side": 1,
+      "message": "getAndroidName -\u003e getCodeName",
+      "revId": "4a711617dd0de21b43c1f1bc5cbc8b8956c8d427",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
