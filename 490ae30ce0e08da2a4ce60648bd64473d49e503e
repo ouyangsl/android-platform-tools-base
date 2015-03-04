@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32091ade_1ad03d46",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-03-04T01:33:58Z",
+      "side": 1,
+      "message": "This CL is really nice and clean :)\n\nEspecially I\u0027m glad you took out the parsing in getCodeName(...)",
+      "revId": "490ae30ce0e08da2a4ce60648bd64473d49e503e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32091ade_7addf95d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-03-04T01:33:58Z",
+      "side": 1,
+      "message": "@Nullable",
+      "revId": "490ae30ce0e08da2a4ce60648bd64473d49e503e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "32091ade_dacd25b1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkVersionInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-03-04T01:33:58Z",
+      "side": 1,
+      "message": "Nit: Change this to \"Ice Cream Sandwich\", as long as we\u0027re here? (I wouldn\u0027t do this in 1.2 though just in case this display name is used somewhere unexpected, although I would do it if checked in into 1.3)",
+      "revId": "490ae30ce0e08da2a4ce60648bd64473d49e503e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
