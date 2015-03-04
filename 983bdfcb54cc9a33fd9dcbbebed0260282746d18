@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1268969d_5950232e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ResValueStringTest.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-04T19:56:12Z",
+      "side": 1,
+      "message": "Wouldn\u0027t it be simpler to check the content of the generated file?",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 24
+      },
+      "revId": "983bdfcb54cc9a33fd9dcbbebed0260282746d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12da56a9_ace58b27",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ResValueStringTest.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-04T19:56:12Z",
+      "side": 1,
+      "message": "I don\u0027t feel like this is needed. The test above, which checks the content of the file should be enough.\n\nWe might want to test more than just \u003cstring\u003e though.",
+      "range": {
+        "startLine": 103,
+        "startChar": 9,
+        "endLine": 103,
+        "endChar": 47
+      },
+      "revId": "983bdfcb54cc9a33fd9dcbbebed0260282746d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
