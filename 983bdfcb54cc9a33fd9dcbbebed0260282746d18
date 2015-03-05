@@ -45,6 +45,30 @@
       "revId": "983bdfcb54cc9a33fd9dcbbebed0260282746d18",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "37110c43_3a290108",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ResValueStringTest.groovy",
+        "patchSetId": 6
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-03-05T02:28:50Z",
+      "side": 1,
+      "message": "Added tests for other resource type.\n\nI feel there should be a test that ensure the issue in the bug is resolved.  It also verifies that the generated.xml can at least run through aapt.",
+      "parentUuid": "12da56a9_ace58b27",
+      "range": {
+        "startLine": 103,
+        "startChar": 9,
+        "endLine": 103,
+        "endChar": 47
+      },
+      "revId": "983bdfcb54cc9a33fd9dcbbebed0260282746d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
