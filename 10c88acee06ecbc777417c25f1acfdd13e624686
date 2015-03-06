@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37302c12_256f587f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/SourceSetsTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-06T01:56:06Z",
+      "side": 1,
+      "message": "nit: whitespace.",
+      "revId": "10c88acee06ecbc777417c25f1acfdd13e624686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "774d44ae_3ca8118d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/SourceSetsTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-06T01:56:06Z",
+      "side": 1,
+      "message": "nit: whitespace",
+      "revId": "10c88acee06ecbc777417c25f1acfdd13e624686",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
