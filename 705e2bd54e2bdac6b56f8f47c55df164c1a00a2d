@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77fd44e8_dc1a4da1",
+        "filename": "templates/activities/GoogleAdMobActivity/template.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-03-09T17:28:52Z",
+      "side": 1,
+      "message": "Create an activity with an AdMob Ad fragment",
+      "range": {
+        "startLine": 8,
+        "startChar": 17,
+        "endLine": 8,
+        "endChar": 86
+      },
+      "revId": "705e2bd54e2bdac6b56f8f47c55df164c1a00a2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
