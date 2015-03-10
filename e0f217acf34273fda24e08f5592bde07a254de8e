@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcde15f6_4f40ad63",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IProjectCallback.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-10T01:05:30Z",
+      "side": 1,
+      "message": "Maybe mention that this is done for compatibility purposes with older layout libs.\n\nLet\u0027s switch to an abstract class ASAP. We can update both Eclipse and Studio to extend the abstract LayoutlibCallback instead of implementing this interface. \n\nWe\u0027d make LayoutLibCallback (the new abstract class) implement IProjectCallback such that older layoutlibs can call back to the IDE, but that way we can more easily grow the API in the future.",
+      "revId": "e0f217acf34273fda24e08f5592bde07a254de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bcc5e125_8e4d3b99",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/RenderParamsFlags.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-10T01:05:30Z",
+      "side": 1,
+      "message": "...and then we can have LayoutlibCallback have \"supportsLayoutlib\" default to looking up the property, but an IDE can override it to just return true instead. Then we get closer to having layoutlib pull data instead of clients having to push context up front!!",
+      "revId": "e0f217acf34273fda24e08f5592bde07a254de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
