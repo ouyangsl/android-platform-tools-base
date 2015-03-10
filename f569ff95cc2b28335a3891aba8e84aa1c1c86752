@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "bcc88176_3645b873",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1048693
+      },
+      "writtenOn": "2015-03-10T16:50:34Z",
+      "side": 1,
+      "message": "Well, what I really want to do is have the godoc served somewhere and then point to the url, but I have not worked out how to do that :)",
+      "parentUuid": "bcdfa122_5effb57d",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ce4e5f6_1bab7b8e",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
         "patchSetId": 1
