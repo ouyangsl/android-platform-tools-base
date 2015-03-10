@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5cca253a_8b23edd5",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IProjectCallback.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-03-10T01:28:48Z",
+      "side": 1,
+      "message": "Actually this is done for compatibility with older IDEs. We don\u0027t want to force people to update the IDE if they want to use the new layoutlib.\n\nWe can add a new method for this, since in 1.3 we are moving to a new API level anyway. If we release a layoutlib fixing the recycler view before 1.3, we\u0027ll use this method, else the newer one.\n\nAnyway, since 1.3 is a bit far away, there may be more API changes and I\u0027ll do this change with those.",
+      "parentUuid": "dcde15f6_4f40ad63",
+      "revId": "e0f217acf34273fda24e08f5592bde07a254de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcc5e125_8e4d3b99",
         "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/RenderParamsFlags.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-10T01:05:30Z",
       "side": 1,
       "message": "...and then we can have LayoutlibCallback have \"supportsLayoutlib\" default to looking up the property, but an IDE can override it to just return true instead. Then we get closer to having layoutlib pull data instead of clients having to push context up front!!",
+      "revId": "e0f217acf34273fda24e08f5592bde07a254de8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ccfe947_ec05eb0f",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/RenderParamsFlags.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-03-10T01:28:48Z",
+      "side": 1,
+      "message": "Yeah, currently, there\u0027s no provision in the API for layoutlib to ask the IDE if it supports a feature. That\u0027s the reason I had to add this flag. But I get your point and I\u0027ll keep it in mind before finalizing API 15.",
+      "parentUuid": "bcc5e125_8e4d3b99",
       "revId": "e0f217acf34273fda24e08f5592bde07a254de8e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
