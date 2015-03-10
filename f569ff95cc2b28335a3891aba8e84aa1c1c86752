@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bcdfa122_5effb57d",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-03-10T16:47:33Z",
+      "side": 1,
+      "message": "Ha, I was looking at the current version which doesn\u0027t reference varints or float byte swaps and didn\u0027t realize it depended on pending CL c/138454. Can you just add a reference to the Go package name at the top of the Encoder and Decoder classes then?",
+      "parentUuid": "bcdfa122_7e91d149",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ce4e5f6_1bab7b8e",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
         "patchSetId": 1
