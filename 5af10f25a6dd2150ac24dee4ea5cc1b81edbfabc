@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc432180_5ee35521",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 2429,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-10T04:09:54Z",
+      "side": 1,
+      "message": "? rename to signingConfig\n\nActually does this even need to exist at all, now the cast is gone?",
+      "range": {
+        "startLine": 2429,
+        "startChar": 22,
+        "endLine": 2429,
+        "endChar": 24
+      },
+      "revId": "5af10f25a6dd2150ac24dee4ea5cc1b81edbfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c3e5deb_3d4acf35",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/LargeVariantAndroidComponentTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-10T04:09:54Z",
+      "side": 1,
+      "message": "Use \u0027 rather than \" to avoid the escaping.",
+      "range": {
+        "startLine": 60,
+        "startChar": 67,
+        "endLine": 60,
+        "endChar": 68
+      },
+      "revId": "5af10f25a6dd2150ac24dee4ea5cc1b81edbfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
