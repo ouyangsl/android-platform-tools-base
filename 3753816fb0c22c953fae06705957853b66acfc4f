@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c9c9dd9_cd1d6999",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-10T22:54:03Z",
+      "side": 1,
+      "message": "Can we instead include the common* files here?",
+      "range": {
+        "startLine": 468,
+        "startChar": 17,
+        "endLine": 470,
+        "endChar": 22
+      },
+      "revId": "3753816fb0c22c953fae06705957853b66acfc4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
