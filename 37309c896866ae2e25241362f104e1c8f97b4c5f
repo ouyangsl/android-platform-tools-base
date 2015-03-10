@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc432180_fe298187",
+        "filename": "build-system/integration-test/test-projects/unitTestingBuildTypes/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-10T04:18:41Z",
+      "side": 1,
+      "message": "Use 17.0 as it is a local pre-built.",
+      "range": {
+        "startLine": 24,
+        "startChar": 45,
+        "endLine": 24,
+        "endChar": 47
+      },
+      "revId": "37309c896866ae2e25241362f104e1c8f97b4c5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
