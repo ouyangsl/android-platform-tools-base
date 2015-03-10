@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ce4e5f6_db7673d4",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-03-10T16:21:27Z",
+      "side": 1,
+      "message": "Can you add a short description of how we\u0027re encoding/decoding unsigned types, as it\u0027s non-obvious from reading the test cases anymore?",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ce4e5f6_1bab7b8e",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1060558
+      },
+      "writtenOn": "2015-03-10T16:21:27Z",
+      "side": 1,
+      "message": "Maybe add a short note for why reversing the byte order is more efficient for varints?",
+      "range": {
+        "startLine": 121,
+        "startChar": 14,
+        "endLine": 121,
+        "endChar": 21
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
