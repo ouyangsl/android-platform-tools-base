@@ -46,6 +46,30 @@
       "revId": "62ba82bbc899145ed4789cd11aa6fdbfbef665fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21cf0a74_01222ad2",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-11T21:13:20Z",
+      "side": 1,
+      "message": "You probably want a plus instead of the last star, to make sure there is an extension.",
+      "parentUuid": "215c6a63_7918e7a7",
+      "range": {
+        "startLine": 173,
+        "startChar": 22,
+        "endLine": 193,
+        "endChar": 25
+      },
+      "revId": "62ba82bbc899145ed4789cd11aa6fdbfbef665fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
