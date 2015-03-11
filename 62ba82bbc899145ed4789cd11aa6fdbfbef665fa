@@ -22,6 +22,30 @@
       "revId": "62ba82bbc899145ed4789cd11aa6fdbfbef665fa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "215c6a63_7918e7a7",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-11T19:47:37Z",
+      "side": 1,
+      "message": "I also thought about [a-z][a-z0-9_]*\\.[a-z0-9_]*\nwhich would disallow multiple dots e.g. some.name.png\n\nAAPT truncates at the first . so that would be mapped to a resource named \"some\" which would be unexpected. Or maybe a warning for that?",
+      "parentUuid": "9c73bd93_95ed24c3",
+      "range": {
+        "startLine": 173,
+        "startChar": 22,
+        "endLine": 193,
+        "endChar": 25
+      },
+      "revId": "62ba82bbc899145ed4789cd11aa6fdbfbef665fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
