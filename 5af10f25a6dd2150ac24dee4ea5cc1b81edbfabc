@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "c1df0e22_3eeae9f7",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/DefaultGradleBuildType.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-11T21:11:28Z",
+      "side": 1,
+      "message": "The reason why we renamed this to BuildType, was to make the DSL documentation clearer. Why do you want to rename this? This name doesn\u0027t make much sense from the point of view of our users - if anything, going back to BuildTypeDsl would better in my opinion.\n\nPlus - when renaming DSL classes you have to update the xml files in the docs project. Please run ./gradlew :b:docs:dslHtml (or just check) to make sure all references are valid.",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 35
+      },
+      "revId": "5af10f25a6dd2150ac24dee4ea5cc1b81edbfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c3e5deb_3d4acf35",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/LargeVariantAndroidComponentTest.groovy",
         "patchSetId": 3
