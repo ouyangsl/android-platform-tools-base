@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "fc53d9fa_d025dc2e",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-03-11T04:06:06Z",
+      "side": 1,
+      "message": "Nit: No need for tag:\nwhile (((0x80 \u003e\u003e\u003e count) \u0026 mBuffer[0]) !\u003d 0) count++;",
+      "range": {
+        "startLine": 77,
+        "startChar": 13,
+        "endLine": 77,
+        "endChar": 16
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc3de1a0_ee775f51",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-03-11T04:06:06Z",
+      "side": 1,
+      "message": "I feel this is too much code to have it copied three times, and unless I\u0027m missing something they can all call uint64 and cast down right?",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 13
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc3de1a0_0e7d8b32",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Decoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-03-11T04:06:06Z",
+      "side": 1,
+      "message": "Same with these, and the ones in Encoder...",
+      "range": {
+        "startLine": 114,
+        "startChar": 4,
+        "endLine": 119,
+        "endChar": 13
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ce4e5f6_db7673d4",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
         "patchSetId": 1
@@ -97,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "dc7ff5e4_27459a73",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-03-11T04:06:06Z",
+      "side": 1,
+      "message": "Please, add a line at the top comment that says where to go to find documentation for this.",
+      "parentUuid": "bcc88176_3645b873",
+      "range": {
+        "startLine": 61,
+        "startChar": 14,
+        "endLine": 61,
+        "endChar": 20
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ce4e5f6_1bab7b8e",
         "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
         "patchSetId": 1
@@ -137,6 +230,29 @@
         "startChar": 14,
         "endLine": 121,
         "endChar": 21
+      },
+      "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc3de1a0_4e34f38b",
+        "filename": "rpclib/src/main/java/com/android/tools/rpclib/binary/Encoder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-03-11T04:06:06Z",
+      "side": 1,
+      "message": "spaces before and after the +",
+      "range": {
+        "startLine": 173,
+        "startChar": 30,
+        "endLine": 173,
+        "endChar": 33
       },
       "revId": "f569ff95cc2b28335a3891aba8e84aa1c1c86752",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
