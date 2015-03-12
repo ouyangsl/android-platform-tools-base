@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a12bfa15_753e083f",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-03-12T14:49:59Z",
+      "side": 1,
+      "message": "\u003c!--view for AdMob Banner Ad--\u003e",
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "61f822fb_bb8f8703",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-03-12T14:49:59Z",
+      "side": 1,
+      "message": "\u003c!--view for AdMob Interstitial Fragment Ad--\u003e",
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1ee9a34_7d2b377f",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-03-12T14:49:59Z",
+      "side": 1,
+      "message": "add comment after \u003c#if statement:\n\n//The following lines add an Adview for an Admob Banner Ad",
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
