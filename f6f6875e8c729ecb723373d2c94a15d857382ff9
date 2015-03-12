@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "414a3e43_7b0093b6",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-03-12T22:25:40Z",
+      "side": 1,
+      "message": "\u0027com.google.android.gms:play-services-ads:6.5.87\u0027",
+      "range": {
+        "startLine": 3,
+        "startChar": 25,
+        "endLine": 3,
+        "endChar": 70
+      },
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a12bfa15_753e083f",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
         "patchSetId": 2
