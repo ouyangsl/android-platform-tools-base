@@ -22,6 +22,30 @@
       "revId": "3753816fb0c22c953fae06705957853b66acfc4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a18a1a9d_bd667fda",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-12T19:09:14Z",
+      "side": 1,
+      "message": "I thought there was a good reason why not, but I\u0027ll double check",
+      "parentUuid": "9c9c9dd9_cd1d6999",
+      "range": {
+        "startLine": 468,
+        "startChar": 17,
+        "endLine": 470,
+        "endChar": 22
+      },
+      "revId": "3753816fb0c22c953fae06705957853b66acfc4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
