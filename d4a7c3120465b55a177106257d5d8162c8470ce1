@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c178ee71_6455281e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/VectorDrawableRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-03-13T21:44:48Z",
+      "side": 1,
+      "message": "Do we still need another API to return the flag about whether or not it is a notification icon?\nOr we can actually dynamically create different set of pngs according to the XML internal data (like tools:fileType \u003d \"notfication\") ?\n\nThanks!",
+      "range": {
+        "startLine": 61,
+        "startChar": 19,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "d4a7c3120465b55a177106257d5d8162c8470ce1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
