@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "012da676_2b4c05ca",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-13T21:05:18Z",
+      "side": 1,
+      "message": "I\u0027m wondering if we should rename this to \"artifactTasks\" ? or something that explain what these anchors are.",
+      "range": {
+        "startLine": 1871,
+        "startChar": 32,
+        "endLine": 1871,
+        "endChar": 43
+      },
+      "revId": "95a572919d63be9c86d364b8cd546ab14b8dbb82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c178ee71_828157fd",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-13T21:05:18Z",
+      "side": 1,
+      "message": "we should move to support split at some point.",
+      "range": {
+        "startLine": 71,
+        "startChar": 12,
+        "endLine": 71,
+        "endChar": 49
+      },
+      "revId": "95a572919d63be9c86d364b8cd546ab14b8dbb82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
