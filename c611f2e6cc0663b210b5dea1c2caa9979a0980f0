@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c178ee71_44a2ec27",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "Period and space.",
+      "range": {
+        "startLine": 3,
+        "startChar": 66,
+        "endLine": 3,
+        "endChar": 69
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66191872_96d22af8",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "Add a space after period.",
+      "range": {
+        "startLine": 8,
+        "startChar": 70,
+        "endLine": 8,
+        "endChar": 74
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_31e250c9",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "I think we should remove the default padding here on this activity. I understand it\u0027s an Android best practice, but it doesn\u0027t play nicely with ads.\n\nConsider a Nexus S that is 320dp wide. If you add margins on the side, then the 320dp banner ad size won\u0027t fit. And the SDK will log a warning saying the view is too small, and won\u0027t show the ad. In addition, if a developer changed the size to smart banner, this same issue would always happen because the AdView doesn\u0027t have the full width of the screen.",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c178ee71_a4be6012",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "a banner test ad.",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 43
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c178ee71_84f08413",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "please go to --\u003e see",
+      "range": {
+        "startLine": 12,
+        "startChar": 30,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_716578c9",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "an interstitial test ad.",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_9188dcf0",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "please go to --\u003e see",
+      "range": {
+        "startLine": 21,
+        "startChar": 30,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66191872_d6ad4217",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "show -\u003e shown",
+      "range": {
+        "startLine": 35,
+        "startChar": 65,
+        "endLine": 35,
+        "endChar": 69
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_f13f2888",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "To show live ads, replace the ad unit ID in res/values/strings.xml with your own ad unit ID.",
+      "range": {
+        "startLine": 36,
+        "startChar": 15,
+        "endLine": 36,
+        "endChar": 105
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66191872_76f8aefc",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "Load an ad into the AdMob banner view.\n\n(Add a space after slashes)",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_315010b5",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "Toasts the test ad message on the screen. Remove this after defining your own ad unit ID.",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 93
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66191872_f6eb9e21",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "I usually do Toast messages in one line since you don\u0027t need to use any of these variables elsewhere:\n\nToast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show();\n\nYou can use this activity as the context here.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c178ee71_872886b4",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "No need to use a fragment here. Lets roll this all into the actvitiy onCreate method instead.",
+      "range": {
+        "startLine": 85,
+        "startChar": 24,
+        "endLine": 85,
+        "endChar": 44
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_f19728c3",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "call this showInterstitial",
+      "range": {
+        "startLine": 142,
+        "startChar": 21,
+        "endLine": 142,
+        "endChar": 30
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66191872_59e7232a",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-13T22:27:52Z",
+      "side": 1,
+      "message": "loadInterstitial",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 32
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
