@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "414a3e43_5953d4f2",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-13T04:41:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "414a3e43_7b0093b6",
+      "range": {
+        "startLine": 3,
+        "startChar": 25,
+        "endLine": 3,
+        "endChar": 70
+      },
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a12bfa15_753e083f",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2015-03-12T14:49:59Z",
       "side": 1,
       "message": "\u003c!--view for AdMob Banner Ad--\u003e",
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c178ee71_8bb5fd61",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-13T04:41:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a12bfa15_753e083f",
       "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "c178ee71_6bb8a158",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-13T04:41:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61f822fb_bb8f8703",
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1ee9a34_7d2b377f",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
         "patchSetId": 2
@@ -70,6 +130,24 @@
       "writtenOn": "2015-03-12T14:49:59Z",
       "side": 1,
       "message": "add comment after \u003c#if statement:\n\n//The following lines add an Adview for an Admob Banner Ad",
+      "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "414a3e43_d94fc441",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-13T04:41:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1ee9a34_7d2b377f",
       "revId": "f6f6875e8c729ecb723373d2c94a15d857382ff9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
