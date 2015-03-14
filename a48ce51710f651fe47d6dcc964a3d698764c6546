@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2639e0d0_452aaaaa",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-14T01:17:32Z",
+      "side": 1,
+      "message": "Why is .png part of this? (I would have expected to see .xml too if we\u0027re validating specific file extensions. Is it just to handle the fact that you are allowed to have an extra dot for a ninepatch?)\n\nHave you tested what aapt does with a.b.c.d.xl ? (I know that at least for value files, it auto-converts :,. and - into _, so the corresponding resources is a_b_c_d.)",
+      "revId": "a48ce51710f651fe47d6dcc964a3d698764c6546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66191872_ed662999",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-14T01:17:32Z",
+      "side": 1,
+      "message": "Printing a long regexp doesn\u0027t seem very user friendly. How about \n\"must (1) be a valid Java identifier, (2) use only lower case characters and (3) not be a Java keyword\".\n\n(Btw, that regexp doesn\u0027t check for whether the token is a Java keyword such as \"new\" or \"enum\". We have ResourceNameValidator over in the IDE to handle that.)",
+      "revId": "a48ce51710f651fe47d6dcc964a3d698764c6546",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
