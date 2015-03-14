@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c178ee71_bcca094a",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-03-14T00:04:22Z",
+      "side": 1,
+      "message": "I guess this is included because it\u0027s a problem you came across while testing? Perhaps put something in the checkin notes about it.",
+      "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c178ee71_2d7313a3",
+        "filename": "templates/gradle-projects/NewAndroidModule/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-03-14T00:04:22Z",
+      "side": 1,
+      "message": "Fix this to include java/ or whatever is needed",
+      "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_b48ceecd",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-03-14T00:04:22Z",
+      "side": 1,
+      "message": "I don\u0027t know anything about gradle, but is the 4.12 supposed to be hardcoded here?",
+      "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2639e0d0_b42d0e3f",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/test/app_package/ApplicationTest.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-03-14T00:04:22Z",
+      "side": 1,
+      "message": "?",
+      "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
