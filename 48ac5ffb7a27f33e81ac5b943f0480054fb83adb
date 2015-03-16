@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "26be4091_6951e5e9",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1367,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-16T17:45:00Z",
+      "side": 1,
+      "message": "I moved it to another CL.",
+      "parentUuid": "c178ee71_bcca094a",
+      "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c178ee71_2d7313a3",
         "filename": "templates/gradle-projects/NewAndroidModule/globals.xml.ftl",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-14T00:04:22Z",
       "side": 1,
       "message": "Fix this to include java/ or whatever is needed",
+      "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86a8cc5c_2419d279",
+        "filename": "templates/gradle-projects/NewAndroidModule/globals.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-16T17:45:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c178ee71_2d7313a3",
       "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -64,6 +100,24 @@
       "writtenOn": "2015-03-14T00:04:22Z",
       "side": 1,
       "message": "?",
+      "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86a8cc5c_842766ac",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/test/app_package/ApplicationTest.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-16T17:45:00Z",
+      "side": 1,
+      "message": "Done - it was just me debugging.",
+      "parentUuid": "2639e0d0_b42d0e3f",
       "revId": "48ac5ffb7a27f33e81ac5b943f0480054fb83adb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
