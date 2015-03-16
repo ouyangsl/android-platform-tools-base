@@ -22,6 +22,30 @@
       "revId": "d4a7c3120465b55a177106257d5d8162c8470ce1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "660f5879_984cc1cf",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/VectorDrawableRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-16T22:43:00Z",
+      "side": 1,
+      "message": "I will look at making this task incremental soon, for now let\u0027s assume this is enough.",
+      "parentUuid": "c178ee71_6455281e",
+      "range": {
+        "startLine": 61,
+        "startChar": 19,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "d4a7c3120465b55a177106257d5d8162c8470ce1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
