@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4627b4f4_aa232fd1",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c178ee71_44a2ec27",
+      "range": {
+        "startLine": 3,
+        "startChar": 66,
+        "endLine": 3,
+        "endChar": 69
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66191872_96d22af8",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/AndroidManifest.xml.ftl",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-03-13T22:27:52Z",
       "side": 1,
       "message": "Add a space after period.",
+      "range": {
+        "startLine": 8,
+        "startChar": 70,
+        "endLine": 8,
+        "endChar": 74
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "262ac0bf_89f919c6",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66191872_96d22af8",
       "range": {
         "startLine": 8,
         "startChar": 70,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "262ac0bf_0935290b",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/layout/activity_simple.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2639e0d0_31e250c9",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 59
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c178ee71_a4be6012",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2015-03-13T22:27:52Z",
       "side": 1,
       "message": "a banner test ad.",
+      "range": {
+        "startLine": 11,
+        "startChar": 34,
+        "endLine": 11,
+        "endChar": 43
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66f6789f_ab916921",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c178ee71_a4be6012",
       "range": {
         "startLine": 11,
         "startChar": 34,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "4627b4f4_2af3bfb9",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c178ee71_84f08413",
+      "range": {
+        "startLine": 12,
+        "startChar": 30,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2639e0d0_716578c9",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2015-03-13T22:27:52Z",
       "side": 1,
       "message": "an interstitial test ad.",
+      "range": {
+        "startLine": 20,
+        "startChar": 34,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "262ac0bf_69402564",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2639e0d0_716578c9",
       "range": {
         "startLine": 20,
         "startChar": 34,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "4627b4f4_4a02730c",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/res/values/strings.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2639e0d0_9188dcf0",
+      "range": {
+        "startLine": 21,
+        "startChar": 30,
+        "endLine": 21,
+        "endChar": 42
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66191872_d6ad4217",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
         "patchSetId": 3
@@ -174,6 +342,30 @@
       "writtenOn": "2015-03-13T22:27:52Z",
       "side": 1,
       "message": "show -\u003e shown",
+      "range": {
+        "startLine": 35,
+        "startChar": 65,
+        "endLine": 35,
+        "endChar": 69
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4627b4f4_aab4cfc4",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66191872_d6ad4217",
       "range": {
         "startLine": 35,
         "startChar": 65,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "66f6789f_6beca18d",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2639e0d0_f13f2888",
+      "range": {
+        "startLine": 36,
+        "startChar": 15,
+        "endLine": 36,
+        "endChar": 105
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66191872_76f8aefc",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
         "patchSetId": 3
@@ -220,6 +436,30 @@
       "writtenOn": "2015-03-13T22:27:52Z",
       "side": 1,
       "message": "Load an ad into the AdMob banner view.\n\n(Add a space after slashes)",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 44,
+        "endChar": 67
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86336cf4_525b94dc",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66191872_76f8aefc",
       "range": {
         "startLine": 44,
         "startChar": 8,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "41331ed7_39845b0b",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2639e0d0_315010b5",
+      "range": {
+        "startLine": 50,
+        "startChar": 11,
+        "endLine": 50,
+        "endChar": 93
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66191872_f6eb9e21",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
         "patchSetId": 3
@@ -266,6 +530,30 @@
       "writtenOn": "2015-03-13T22:27:52Z",
       "side": 1,
       "message": "I usually do Toast messages in one line since you don\u0027t need to use any of these variables elsewhere:\n\nToast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show();\n\nYou can use this activity as the context here.",
+      "range": {
+        "startLine": 51,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 21
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8147d63d_3b052310",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66191872_f6eb9e21",
       "range": {
         "startLine": 51,
         "startChar": 8,
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "660f5879_1dfd63ec",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c178ee71_872886b4",
+      "range": {
+        "startLine": 85,
+        "startChar": 24,
+        "endLine": 85,
+        "endChar": 44
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2639e0d0_f19728c3",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
         "patchSetId": 3
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "41331ed7_f9ed63bd",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2639e0d0_f19728c3",
+      "range": {
+        "startLine": 142,
+        "startChar": 21,
+        "endLine": 142,
+        "endChar": 30
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66191872_59e7232a",
         "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
         "patchSetId": 3
@@ -335,6 +671,30 @@
       "writtenOn": "2015-03-13T22:27:52Z",
       "side": 1,
       "message": "loadInterstitial",
+      "range": {
+        "startLine": 152,
+        "startChar": 21,
+        "endLine": 152,
+        "endChar": 32
+      },
+      "revId": "c611f2e6cc0663b210b5dea1c2caa9979a0980f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c61ac4b3_66c5ee8b",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T22:10:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66191872_59e7232a",
       "range": {
         "startLine": 152,
         "startChar": 21,
