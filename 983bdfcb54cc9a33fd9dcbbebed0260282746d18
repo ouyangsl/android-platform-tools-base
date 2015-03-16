@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "f7d0548a_683703b4",
+        "filename": "build-system/builder/src/main/java/com/android/builder/compiling/ResValueGenerator.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-16T23:49:47Z",
+      "side": 1,
+      "message": "why no layout in there?\n\nYou can actually do a layout in the values folder.",
+      "range": {
+        "startLine": 66,
+        "startChar": 25,
+        "endLine": 66,
+        "endChar": 31
+      },
+      "revId": "983bdfcb54cc9a33fd9dcbbebed0260282746d18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1268969d_5950232e",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ResValueStringTest.groovy",
         "patchSetId": 6
