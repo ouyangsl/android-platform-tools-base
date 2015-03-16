@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c61ac4b3_1b356f0b",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-03-16T22:27:42Z",
+      "side": 1,
+      "message": "You should also implement onAdFailedToLoad, and in that case goToNextLevel(). That way if an ad fails to load for some reason (e.g. no internet connection), we don\u0027t hang the \"game\".",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 13
+      },
+      "revId": "02a4435a9c76db9df488bf25ee6529c8797cbc91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
