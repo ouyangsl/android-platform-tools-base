@@ -22,6 +22,30 @@
       "revId": "02a4435a9c76db9df488bf25ee6529c8797cbc91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c61ac4b3_8d9e42e2",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-16T23:39:38Z",
+      "side": 1,
+      "message": "Nice catch! Directly going to next level will result in the level number flashes to 11 in a second. It\u0027s more reasonable to enable the button here to let the user take control. We\u0027ll still call goToNextLevel() method after user click: button enabled -\u003e onClick -\u003e showInterstitial -\u003e (null Interstitial Ad) goToNextLevel().",
+      "parentUuid": "c61ac4b3_1b356f0b",
+      "range": {
+        "startLine": 78,
+        "startChar": 12,
+        "endLine": 78,
+        "endChar": 13
+      },
+      "revId": "02a4435a9c76db9df488bf25ee6529c8797cbc91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
