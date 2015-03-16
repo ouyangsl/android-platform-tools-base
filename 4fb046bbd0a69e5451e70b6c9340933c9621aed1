@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6661181f_f339b0a3",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-03-16T17:46:47Z",
+      "side": 1,
+      "message": "could you just put +, or 4.12+?",
+      "range": {
+        "startLine": 75,
+        "startChar": 28,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "4fb046bbd0a69e5451e70b6c9340933c9621aed1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
