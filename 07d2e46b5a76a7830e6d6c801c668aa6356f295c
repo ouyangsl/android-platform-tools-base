@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6887037_2dd00dce",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/api/ReadOnlyProductFlavor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-17T22:39:53Z",
+      "side": 1,
+      "message": "revert ?",
+      "revId": "07d2e46b5a76a7830e6d6c801c668aa6356f295c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
