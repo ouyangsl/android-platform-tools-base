@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "067dbcec_e8bb53b0",
+        "filename": "build-system/builder/src/main/java/com/android/builder/dependency/LibraryBundle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-17T23:48:04Z",
+      "side": 1,
+      "message": "Take a look at MergedResourceWriter; that\u0027s where we already define the other file written by that class: FN_VALUES_XML. I can move both?",
+      "parentUuid": "a6887037_30fdc6ec",
+      "range": {
+        "startLine": 204,
+        "startChar": 39,
+        "endLine": 204,
+        "endChar": 59
+      },
+      "revId": "099bd4ebff4aa4ecf1cf6393cbfc0d505b71fdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6887037_f06fbe22",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PrivateResourceTest.groovy",
         "patchSetId": 1
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "067dbcec_08e8a7a9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PrivateResourceTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-17T23:48:04Z",
+      "side": 1,
+      "message": "Will do",
+      "parentUuid": "a6887037_93fcc4b6",
+      "range": {
+        "startLine": 52,
+        "startChar": 7,
+        "endLine": 55,
+        "endChar": 66
+      },
+      "revId": "099bd4ebff4aa4ecf1cf6393cbfc0d505b71fdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66bd98c9_32469983",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PrivateResourceTest.groovy",
         "patchSetId": 1
@@ -105,6 +153,30 @@
       "writtenOn": "2015-03-17T23:19:29Z",
       "side": 1,
       "message": "shouldn\u0027t that be releasePublic?",
+      "range": {
+        "startLine": 62,
+        "startChar": 46,
+        "endLine": 62,
+        "endChar": 57
+      },
+      "revId": "099bd4ebff4aa4ecf1cf6393cbfc0d505b71fdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4683341d_6a283738",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PrivateResourceTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-17T23:48:04Z",
+      "side": 1,
+      "message": "yes indeed!",
+      "parentUuid": "66bd98c9_32469983",
       "range": {
         "startLine": 62,
         "startChar": 46,
