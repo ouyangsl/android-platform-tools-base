@@ -46,6 +46,40 @@
       "revId": "d4a7c3120465b55a177106257d5d8162c8470ce1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6887037_d3be4ca3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ApplicationTaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-17T23:29:06Z",
+      "side": 1,
+      "message": "since you convert files, can you have a specific SPAN for this action.",
+      "revId": "d4a7c3120465b55a177106257d5d8162c8470ce1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6a6e8c2_64c5d08b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-17T23:29:06Z",
+      "side": 1,
+      "message": "same span ID.",
+      "revId": "d4a7c3120465b55a177106257d5d8162c8470ce1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
