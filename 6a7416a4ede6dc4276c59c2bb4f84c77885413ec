@@ -46,6 +46,30 @@
       "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86ce0ca2_b48da036",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-03-18T19:53:18Z",
+      "side": 1,
+      "message": "My guess is this is discouraged for the same reason using \"+\" in a version string is, because it could make an unchanged template start generating broken code if a future version of the API ever changes. I think the goal is to actively have teams maintain these templates and update them regularly with the latest when necessary.\n\nJ?",
+      "parentUuid": "e6bd08e7_d112648e",
+      "range": {
+        "startLine": 3,
+        "startChar": 26,
+        "endLine": 3,
+        "endChar": 73
+      },
+      "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
