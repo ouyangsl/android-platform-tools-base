@@ -70,6 +70,30 @@
       "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8670cc19_24fd92ec",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-03-18T22:37:33Z",
+      "side": 1,
+      "message": "For 1.2 let just use the 6.5.87 version. We have lint checks to warn you during build if there is a newer version.\n\nTechnically we can use + here, however if we are jumping to v7. I would rather do a validation that it works first.",
+      "parentUuid": "86ce0ca2_b48da036",
+      "range": {
+        "startLine": 3,
+        "startChar": 26,
+        "endLine": 3,
+        "endChar": 73
+      },
+      "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
