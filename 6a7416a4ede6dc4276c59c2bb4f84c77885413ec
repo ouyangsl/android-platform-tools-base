@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6bd08e7_e6f7f0a1",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1068923
+      },
+      "writtenOn": "2015-03-18T19:17:35Z",
+      "side": 1,
+      "message": "7.0.xx will be the released version when this is ready to go out. Is there any way to pull the version number from the SDK Manager rather than hardcode?",
+      "range": {
+        "startLine": 3,
+        "startChar": 26,
+        "endLine": 3,
+        "endChar": 73
+      },
+      "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
