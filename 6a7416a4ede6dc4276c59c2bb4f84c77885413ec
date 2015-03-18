@@ -22,6 +22,30 @@
       "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e6bd08e7_d112648e",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1056028
+      },
+      "writtenOn": "2015-03-18T19:48:55Z",
+      "side": 1,
+      "message": "+easonj@ / davidherman@. This is a good question. I know that we can use \"+\" in version like \"6.+\" but not sure if we can pull the latest from SDK manager in this case.",
+      "parentUuid": "e6bd08e7_e6f7f0a1",
+      "range": {
+        "startLine": 3,
+        "startChar": 26,
+        "endLine": 3,
+        "endChar": 73
+      },
+      "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
