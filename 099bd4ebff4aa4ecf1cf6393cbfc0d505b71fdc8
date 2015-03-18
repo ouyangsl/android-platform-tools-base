@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4683341d_4dfd4d82",
+        "filename": "build-system/builder/src/main/java/com/android/builder/dependency/LibraryBundle.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-18T00:26:08Z",
+      "side": 1,
+      "message": "I\u0027m surprised that FN_VALUES_XML in there is public. I think it probably started at private so it made sense to have in there. If it\u0027s public we should move them.",
+      "parentUuid": "067dbcec_e8bb53b0",
+      "range": {
+        "startLine": 204,
+        "startChar": 39,
+        "endLine": 204,
+        "endChar": 59
+      },
+      "revId": "099bd4ebff4aa4ecf1cf6393cbfc0d505b71fdc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6887037_f06fbe22",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PrivateResourceTest.groovy",
         "patchSetId": 1
