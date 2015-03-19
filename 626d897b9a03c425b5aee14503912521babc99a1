@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66de785c_4528ee7c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AaptPackageProcessBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-19T15:33:06Z",
+      "side": 1,
+      "message": "use !isNullOrEmpty(additionalParemeters) instead.",
+      "revId": "626d897b9a03c425b5aee14503912521babc99a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86fc4cc6_2dcf15db",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/AaptOptions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-19T15:33:06Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "626d897b9a03c425b5aee14503912521babc99a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86fc4cc6_edf7bd0a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/AaptOptions.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-19T15:33:06Z",
+      "side": 1,
+      "message": "tabbing issues",
+      "revId": "626d897b9a03c425b5aee14503912521babc99a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86fc4cc6_adf1c517",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/AaptOptionsTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-19T15:33:06Z",
+      "side": 1,
+      "message": "replace with \"additionalParameters\", seems un-natural to invoke a setter here.",
+      "revId": "626d897b9a03c425b5aee14503912521babc99a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
