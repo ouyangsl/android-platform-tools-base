@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "666bd831_cc7ce3b5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SQLiteDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1026713
+      },
+      "writtenOn": "2015-03-19T21:56:01Z",
+      "side": 1,
+      "message": "Sentence doesn\u0027t make sense to me, since there\u0027s no circumstance where 1e2 would overflow the range.\n\nHow about:\nFor example, when SQLite encounters a string like 1234567e1234, it will parse it as a float, but the result will be out of range for floating point numbers, so `Inf` will be stored!",
+      "range": {
+        "startLine": 70,
+        "startChar": 22,
+        "endLine": 70,
+        "endChar": 74
+      },
+      "revId": "51457e5a47027e1df73120cd076776bca1451165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "269ba08e_0a1adf71",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SQLiteDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1026713
+      },
+      "writtenOn": "2015-03-19T21:56:01Z",
+      "side": 1,
+      "message": "\"strings that look like\"",
+      "range": {
+        "startLine": 112,
+        "startChar": 27,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "51457e5a47027e1df73120cd076776bca1451165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
