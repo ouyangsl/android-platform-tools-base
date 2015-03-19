@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "66259842_d374d401",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SQLiteDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-19T22:23:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "666bd831_cc7ce3b5",
+      "range": {
+        "startLine": 70,
+        "startChar": 22,
+        "endLine": 70,
+        "endChar": 74
+      },
+      "revId": "51457e5a47027e1df73120cd076776bca1451165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "269ba08e_0a1adf71",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SQLiteDetector.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-03-19T21:56:01Z",
       "side": 1,
       "message": "\"strings that look like\"",
+      "range": {
+        "startLine": 112,
+        "startChar": 27,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "51457e5a47027e1df73120cd076776bca1451165",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46825452_b5448a77",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SQLiteDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-19T22:23:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "269ba08e_0a1adf71",
       "range": {
         "startLine": 112,
         "startChar": 27,
