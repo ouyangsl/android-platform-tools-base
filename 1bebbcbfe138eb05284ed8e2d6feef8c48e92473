@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "068cdc85_91fdc4b2",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/AarSubject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-20T21:29:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "068cdc85_6b995ac5",
+      "revId": "1bebbcbfe138eb05284ed8e2d6feef8c48e92473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "068cdc85_26c0677c",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/AbstractZipSubject.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-20T16:26:11Z",
       "side": 1,
       "message": "nit: line too long",
+      "revId": "1bebbcbfe138eb05284ed8e2d6feef8c48e92473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "068cdc85_9124e4da",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/AbstractZipSubject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-20T21:29:16Z",
+      "side": 1,
+      "message": "yeah but I don\u0027t like breaking templates... I\u0027ll put the break on the param.",
+      "parentUuid": "068cdc85_26c0677c",
       "revId": "1bebbcbfe138eb05284ed8e2d6feef8c48e92473",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
