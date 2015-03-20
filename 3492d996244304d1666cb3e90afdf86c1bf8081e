@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46825452_722e2d8d",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/DependencyCheckerTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-20T17:46:39Z",
+      "side": 1,
+      "message": "Maybe include the whole expected output as a comment, to put the below assertions in context.",
+      "revId": "3492d996244304d1666cb3e90afdf86c1bf8081e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
