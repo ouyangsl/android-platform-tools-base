@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "068cdc85_6b995ac5",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/AarSubject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-20T16:26:11Z",
+      "side": 1,
+      "message": "aar files ?",
+      "revId": "1bebbcbfe138eb05284ed8e2d6feef8c48e92473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "068cdc85_26c0677c",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/AbstractZipSubject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-20T16:26:11Z",
+      "side": 1,
+      "message": "nit: line too long",
+      "revId": "1bebbcbfe138eb05284ed8e2d6feef8c48e92473",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
