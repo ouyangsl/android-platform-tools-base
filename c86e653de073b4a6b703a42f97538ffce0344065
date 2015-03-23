@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "c6a1e40d_bcabe380",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ManagedBuildType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-03-23T21:31:44Z",
+      "side": 1,
+      "message": "I want to avoid having multiple classes with the same name.  It\u0027s hard to work with and prone to mistakes.\nThe end game is to have a single interface.  I am not sure when we can get there.  This requires the ability to use the @Managed annotations in gradle 2.2 (which I asked Luke about) and more flexibility in how the managed classes are defined.",
+      "parentUuid": "c6a1e40d_64bba326",
+      "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "86c44cd3_c7c9c0a9",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ManagedSigningConfig.java",
         "patchSetId": 4
@@ -59,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "86c44cd3_aa29eb08",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ManagedSigningConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-03-23T21:31:44Z",
+      "side": 1,
+      "message": "The subclass are considered part of the managed type, which means it must follows the same restrictions of a managed type. Therefore, the interface can only have getters/setters(methods that starts with \"get\" or \"set\"), and the getters/setters must be for one of the supported types.  The primitive types are not supported (only the wrappers are).  For SigningConfig, the \"boolean isSigningReady()\" method fails both of these restrictions.",
+      "parentUuid": "86c44cd3_c7c9c0a9",
+      "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a69cf0d8_84ab2a53",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/SigningConfigAdaptor.java",
         "patchSetId": 4
@@ -70,6 +106,24 @@
       "writtenOn": "2015-03-23T19:48:49Z",
       "side": 1,
       "message": "if ManagedSigningConfig extended SigningConfig, you could pass around the ManagedSigningConfig instance directly instead of having to create these Adaptors. was this impossible to do ?",
+      "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86c44cd3_4a35d753",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/SigningConfigAdaptor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-03-23T21:31:44Z",
+      "side": 1,
+      "message": "It\u0027s impossible at the moment.  See response to the other comment.",
+      "parentUuid": "a69cf0d8_84ab2a53",
       "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
