@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "66111809_734a40b3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TestApplicationTaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T13:15:28Z",
+      "side": 1,
+      "message": "Revert.",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 9
+      },
+      "revId": "53597e8ca30c402866ca53cdecdee4bbff7a69d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a61790fa_d8e09111",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/TestApplicationTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T13:15:28Z",
+      "side": 1,
+      "message": "Seems to fit on a single line?",
+      "range": {
+        "startLine": 156,
+        "startChar": 30,
+        "endLine": 157,
+        "endChar": 29
+      },
+      "revId": "53597e8ca30c402866ca53cdecdee4bbff7a69d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c61c8421_b9f2fbb2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/TestApplicationTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T13:15:28Z",
+      "side": 1,
+      "message": "Nit: Iterables.getOnlyElement.",
+      "range": {
+        "startLine": 183,
+        "startChar": 15,
+        "endLine": 183,
+        "endChar": 47
+      },
+      "revId": "53597e8ca30c402866ca53cdecdee4bbff7a69d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66111809_96bf0af4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitRes.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T13:15:28Z",
+      "side": 1,
+      "message": "Remove semicolons",
+      "range": {
+        "startLine": 131,
+        "startChar": 68,
+        "endLine": 131,
+        "endChar": 69
+      },
+      "revId": "53597e8ca30c402866ca53cdecdee4bbff7a69d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a61790fa_38f6e5dc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitRes.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T13:15:28Z",
+      "side": 1,
+      "message": "Revert",
+      "revId": "53597e8ca30c402866ca53cdecdee4bbff7a69d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a61790fa_78f05dde",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/SplitZipAlign.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T13:15:28Z",
+      "side": 1,
+      "message": "Semicolon",
+      "range": {
+        "startLine": 45,
+        "startChar": 62,
+        "endLine": 45,
+        "endChar": 63
+      },
+      "revId": "53597e8ca30c402866ca53cdecdee4bbff7a69d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a61790fa_58048142",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/SplitZipAlign.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T13:15:28Z",
+      "side": 1,
+      "message": "Nit: getDensityOrLanguageInputFiles() + getAbiInputFiles()",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 21
+      },
+      "revId": "53597e8ca30c402866ca53cdecdee4bbff7a69d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
