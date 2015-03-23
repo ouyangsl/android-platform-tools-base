@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a69cf0d8_845a0a54",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/GradleBuildType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-23T19:48:49Z",
+      "side": 1,
+      "message": "comments for the three methods.",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 17
+      },
+      "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6a1e40d_64bba326",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ManagedBuildType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-23T19:48:49Z",
+      "side": 1,
+      "message": "it\u0027s already in the managed package, the naming convension seems redundant, why not just BuildType. \n\nWhat is the end game here ? once the new experimental plugin is the only plugin going forward, we should not have 2 interfaces any longer, right ? I mean BuildType and ManagedBuildType will be merged into a single BuildType. Is that so ?",
+      "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "86c44cd3_c7c9c0a9",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ManagedSigningConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-23T19:48:49Z",
+      "side": 1,
+      "message": "why is this not subclassing the current SigningConfig ? (same for the other managed interfaces.)",
+      "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a69cf0d8_84ab2a53",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/SigningConfigAdaptor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-23T19:48:49Z",
+      "side": 1,
+      "message": "if ManagedSigningConfig extended SigningConfig, you could pass around the ManagedSigningConfig instance directly instead of having to create these Adaptors. was this impossible to do ?",
+      "revId": "c86e653de073b4a6b703a42f97538ffce0344065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
