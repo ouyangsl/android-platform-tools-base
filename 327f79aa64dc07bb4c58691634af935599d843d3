@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c61c8421_f9b633ed",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/CheckManifest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T12:48:34Z",
+      "side": 1,
+      "message": "@NonNull? Here and below.",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "327f79aa64dc07bb4c58691634af935599d843d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66111809_33a288ef",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DependencyReportTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T12:48:34Z",
+      "side": 1,
+      "message": "Remove or document.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 3
+      },
+      "revId": "327f79aa64dc07bb4c58691634af935599d843d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a61790fa_b55b208d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DependencyReportTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-23T12:48:34Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 54
+      },
+      "revId": "327f79aa64dc07bb4c58691634af935599d843d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
