@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a69cf0d8_257fd9dc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/FileHelper.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-03-23T17:11:49Z",
+      "side": 1,
+      "message": "Write this in Java? We have implementations of this scattered through different files.  E.g. PreDexCacheTest.java, BaseTest.groovy.",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 16
+      },
+      "revId": "327f79aa64dc07bb4c58691634af935599d843d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c61c8421_f9b633ed",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/CheckManifest.java",
         "patchSetId": 2
