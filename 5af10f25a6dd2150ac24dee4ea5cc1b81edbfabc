@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "c6a1e40d_847faf8d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/DefaultGradleBuildType.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-03-23T19:13:56Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t realize you have commented.  When you say it doesn\u0027t make much sense, are you referring to \"GradleBuildType\" or \"DefaultGradleBuildType\"? (Or both?)\n\nDefaultGradleBuildType makes a little more sense to the use if GradleBuildType is exposed first.  GradleBuildTypeDsl (or GradleBuildTypeImpl?) might be better name though.\n\nIf the issue is with GradleBuildType, then it\u0027s a bit more problematic.  Have two very similar interfaces with the same name is going to be very confusing for development...",
+      "parentUuid": "c1df0e22_3eeae9f7",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 35
+      },
+      "revId": "5af10f25a6dd2150ac24dee4ea5cc1b81edbfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c3e5deb_3d4acf35",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/LargeVariantAndroidComponentTest.groovy",
         "patchSetId": 3
