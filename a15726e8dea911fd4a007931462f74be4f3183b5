@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3fb9632_44daa29f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AlarmDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000322
+      },
+      "writtenOn": "2015-03-24T19:32:42Z",
+      "side": 1,
+      "message": "are",
+      "range": {
+        "startLine": 58,
+        "startChar": 29,
+        "endLine": 58,
+        "endChar": 31
+      },
+      "revId": "a15726e8dea911fd4a007931462f74be4f3183b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3f6a249_11de1ce1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AlarmDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000322
+      },
+      "writtenOn": "2015-03-24T19:32:42Z",
+      "side": 1,
+      "message": "as of",
+      "range": {
+        "startLine": 121,
+        "startChar": 72,
+        "endLine": 121,
+        "endChar": 74
+      },
+      "revId": "a15726e8dea911fd4a007931462f74be4f3183b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3f6a249_d1e794ac",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AlarmDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000322
+      },
+      "writtenOn": "2015-03-24T19:32:42Z",
+      "side": 1,
+      "message": "will",
+      "range": {
+        "startLine": 121,
+        "startChar": 50,
+        "endLine": 121,
+        "endChar": 52
+      },
+      "revId": "a15726e8dea911fd4a007931462f74be4f3183b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
