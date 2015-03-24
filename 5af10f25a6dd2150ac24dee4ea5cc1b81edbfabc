@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a3f6a249_c3610aba",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/DefaultGradleBuildType.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-03-24T18:20:53Z",
+      "side": 1,
+      "message": "For me, \"coped\" is not the right word...I would say tolerated.  Namespace is useful for avoiding conflicts with libraries we don\u0027t control.  It still doesn\u0027t change the fact that having multiple classes with the same name makes development more problematic.\n\nEven this conversation is not clear because of it!  When you say users only see BuildType, which one are you referring to?  BuildType is DefaultGradleBuildType in this CL, or it can mean GradleBuildType.  Going forward, should we expose the interface? Or both implementation and the interface?  I am not trying to be difficult, I am really not sure what you mean.\n\nWhat triggered this was the need to introduce an interface for DSL.  So now, we have 5 BuildTypes: model.BuildType, GradleBuildType, DefaultGradleBuildType(orignally dsl.BuildType), ManagedBuildType, and BuildTypeAdaptor.  I really think we need to clearly differentiate between them.\n\nAnd yes, I will make sure to run gw :b:docs:dslHtml before submitting.  I just want to resolve what needs to change before making them.",
+      "parentUuid": "a63870b1_0d1751cd",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 35
+      },
+      "revId": "5af10f25a6dd2150ac24dee4ea5cc1b81edbfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c3e5deb_3d4acf35",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/LargeVariantAndroidComponentTest.groovy",
         "patchSetId": 3
