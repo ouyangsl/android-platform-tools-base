@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a63870b1_8d02618d",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1372,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-24T12:09:38Z",
+      "side": 1,
+      "message": "This will make AS beta generate projects that use a beta version of gradle. I think that at some point we discussed it and concluded we don\u0027t want that.",
+      "range": {
+        "startLine": 1372,
+        "startChar": 68,
+        "endLine": 1372,
+        "endChar": 79
+      },
+      "revId": "66d5edd3540015ea1341306740a163562e76aee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
