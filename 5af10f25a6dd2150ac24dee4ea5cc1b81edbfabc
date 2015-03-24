@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "a63870b1_0d1751cd",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/dsl/DefaultGradleBuildType.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-03-24T12:14:43Z",
+      "side": 1,
+      "message": "Currently \"DefaultBuildType\" is not something we mention in the docs, the users only see BuildType. BuildTypeDsl seems OK to me though. But then it would make sense to rename all DSL classes to have Dsl at the end.\n\nTBH - so far we coped with \"duplicate\" names, it\u0027s what namespacing is for. What exactly triggered this change?\n\nPS. once again - please run gw :b:docs:dslHtml before submitting :)",
+      "parentUuid": "c6a1e40d_847faf8d",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 35
+      },
+      "revId": "5af10f25a6dd2150ac24dee4ea5cc1b81edbfabc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c3e5deb_3d4acf35",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/LargeVariantAndroidComponentTest.groovy",
         "patchSetId": 3
