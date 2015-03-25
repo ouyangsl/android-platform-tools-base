@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63002af0_c138e64f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-03-25T21:32:03Z",
+      "side": 1,
+      "message": "I understand the upside here (quicker turnaround, though IDE incremental build and restart is pretty quick too) but the big downside here is that we really should make all our Swing widgets be fully intellij-Swing-oriented -- we should be using JBColors, JBLabels, UIUtil fonts, the dip-independent Dimension class (for better Retina handling), we should be loading images using UIUtil (to use their resource loading which will look for @2x Retina icons, etc etc). If we pull this out into a separate library, especially one over in tools base which can\u0027t depend on IntelliJ Swing widgets, they\u0027re very likely to become pure Swing and not skinned and integrated with the IDEA look.",
+      "revId": "26495800a8219c949d78eb13141ae2a34bc17ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
