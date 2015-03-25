@@ -16,6 +16,24 @@
       "revId": "26495800a8219c949d78eb13141ae2a34bc17ea9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2339d2d0_20bb14d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-03-25T22:34:25Z",
+      "side": 1,
+      "message": "This is not for us building the prototypes as, like you point out, Studio starts up is really quick. But, as discussed separately with xav, this would allow other teams to set up their on prototypes without resorting to things like d3. Also this allows us to provide tools that have as a requirement not being part of studio (project darwin). This was the compromise we came up with, if there is a way of depending on IJ classes that would be even better.",
+      "parentUuid": "63002af0_c138e64f",
+      "revId": "26495800a8219c949d78eb13141ae2a34bc17ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
