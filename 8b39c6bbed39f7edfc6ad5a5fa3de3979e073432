@@ -22,6 +22,30 @@
       "revId": "8b39c6bbed39f7edfc6ad5a5fa3de3979e073432",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43d246e8_c4d0374e",
+        "filename": "build-system/gradle-core/gradle-core.iml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1211,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-26T23:18:35Z",
+      "side": 1,
+      "message": "no, but I could not build the project from the IDE.",
+      "parentUuid": "83a19e60_22576a61",
+      "range": {
+        "startLine": 1211,
+        "startChar": 5,
+        "endLine": 1211,
+        "endChar": 15
+      },
+      "revId": "8b39c6bbed39f7edfc6ad5a5fa3de3979e073432",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
