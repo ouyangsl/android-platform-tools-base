@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "639caa2a_5bf2a3b6",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/BaseArtifact.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-26T16:48:11Z",
+      "side": 1,
+      "message": "is this the output of src/main/resources?\n\nI think runtime is a weird name for this. Just above we have getClassesFolder(), maybe getJavaResourcesFolder() is enough?",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "36ec711797f22d5924c9d4f056b3dfe1b0323e1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
