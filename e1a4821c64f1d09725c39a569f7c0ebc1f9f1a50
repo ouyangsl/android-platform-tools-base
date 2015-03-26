@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3922212_1d8f332e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/FilePosition.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-26T16:44:48Z",
+      "side": 1,
+      "message": "shouldn\u0027t you use equals here?",
+      "range": {
+        "startLine": 62,
+        "startChar": 54,
+        "endLine": 62,
+        "endChar": 59
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
