@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "43308612_90181631",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T21:59:14Z",
+      "side": 1,
+      "message": "yes make sense to keep it.",
+      "parentUuid": "03dccefb_416e35ae",
+      "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_8e17587e",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "no this is a cache for the PrepareLibraryTask.",
       "parentUuid": "43308612_8e17587e",
+      "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03dccefb_dc0c4a3d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T21:59:14Z",
+      "side": 1,
+      "message": "ok.",
+      "parentUuid": "03dccefb_e135e956",
       "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
