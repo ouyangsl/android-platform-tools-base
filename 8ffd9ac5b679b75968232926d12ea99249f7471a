@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83143e89_670cccc0",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/TestApplicationTestData.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-03-30T23:36:34Z",
+      "side": 1,
+      "message": "Perhaps log when have splits but split select is not avaliable, i.e. this would be faster if...",
+      "revId": "8ffd9ac5b679b75968232926d12ea99249f7471a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
