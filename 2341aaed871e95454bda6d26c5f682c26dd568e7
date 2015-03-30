@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "837a7ea8_eac06899",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ExtraModelInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T21:25:15Z",
+      "side": 1,
+      "message": "use positional parameters, here and below : %1$s",
+      "revId": "2341aaed871e95454bda6d26c5f682c26dd568e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
