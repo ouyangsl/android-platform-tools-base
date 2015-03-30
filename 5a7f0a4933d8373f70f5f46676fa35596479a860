@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "03dccefb_416e35ae",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-30T21:42:36Z",
+      "side": 1,
+      "message": "packaged and local are two different adjectives.\n\npackaged means packaged-only dependency scope\nlocal means non remote dependency.\n\nI\u0027m not sure I want to combine them as \"locallypackaged\"",
+      "parentUuid": "837a7ea8_ca280c7e",
+      "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43308612_8e17587e",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-30T21:22:29Z",
       "side": 1,
       "message": "does it have to be a PrepareLibraryTask type ? seems like it could just be a Task",
+      "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03dccefb_e135e956",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-30T21:42:36Z",
+      "side": 1,
+      "message": "no this is a cache for the PrepareLibraryTask.",
+      "parentUuid": "43308612_8e17587e",
       "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
