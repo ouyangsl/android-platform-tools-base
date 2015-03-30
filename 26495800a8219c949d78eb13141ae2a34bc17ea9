@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "03dccefb_edb9622c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-03-30T18:44:12Z",
+      "side": 1,
+      "message": "As discussed offline, renamed this to be \"chartlib\" to make clear these are not general purpose swing widgets, that would benefit more of a stronger IJ integration, but chart widgets only.",
+      "parentUuid": "2339d2d0_20bb14d7",
+      "revId": "26495800a8219c949d78eb13141ae2a34bc17ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c352b622_00c49abd",
         "filename": "swinglib/build.gradle",
         "patchSetId": 2
