@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "837a7ea8_ca280c7e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T21:22:29Z",
+      "side": 1,
+      "message": "getLocallyPackagedJars() ?",
+      "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_8e17587e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T21:22:29Z",
+      "side": 1,
+      "message": "does it have to be a PrepareLibraryTask type ? seems like it could just be a Task",
+      "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_0ed4e8e4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T21:22:29Z",
+      "side": 1,
+      "message": "rename to maybeCreateAndReturnLibraryPrepareTask() ?",
+      "revId": "5a7f0a4933d8373f70f5f46676fa35596479a860",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
