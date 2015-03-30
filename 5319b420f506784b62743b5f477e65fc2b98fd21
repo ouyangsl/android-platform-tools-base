@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "03dccefb_f00615d7",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GetAndroidModelAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-30T19:13:45Z",
+      "side": 1,
+      "message": "there\u0027s no logger in there since this runs in the IDE AFAIK, and it\u0027s test code only, so it\u0027s doesn\u0027t matter.",
+      "parentUuid": "03dccefb_7af206b7",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03dccefb_5acf025c",
         "filename": "sdk-common/src/main/java/com/android/ide/common/caching/CreatingCache.java",
         "patchSetId": 3
@@ -98,6 +116,24 @@
       "writtenOn": "2015-03-30T18:04:41Z",
       "side": 1,
       "message": "that seems very fragile. why not using a CountDownLatch or something similar that you can \"trigger\" when it is convenient for the test at hand.",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03dccefb_901d4921",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/caching/CreatingCacheTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-30T19:13:45Z",
+      "side": 1,
+      "message": "yeah it\u0027s a good idea actually! :)",
+      "parentUuid": "03dccefb_3a51deba",
       "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
