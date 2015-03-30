@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "837a7ea8_2edd1b5e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/dependency/LibraryBundle.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "consider using Objects.toStringHelper(...)",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "837a7ea8_eefba3ba",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dependency/LibraryDependencyImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "getNonTransitiveRepresentation() ?",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03dccefb_65f26cb7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dependency/LibraryDependencyImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "same, consider using Objects.toStringHelper",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03dccefb_7af206b7",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GetAndroidModelAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "use a logger.",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03dccefb_5acf025c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/caching/CreatingCache.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "@ThreadSafe ?",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03dccefb_3a51deba",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/caching/CreatingCacheTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "that seems very fragile. why not using a CountDownLatch or something similar that you can \"trigger\" when it is convenient for the test at hand.",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43308612_299d6eb2",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/caching/CreatingCacheTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "same remark, this is going to fail randomly most likely, would be better to have a manual blocking/unblocking per thread.",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "837a7ea8_fb6a805d",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/caching/CreatingCacheTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-03-30T18:04:41Z",
+      "side": 1,
+      "message": "seems like you want t2 to happen after t1 so this could be replaced with : \nCountDownlatch manualTrigger1 \u003d ...;\nCacheRunnable runnable1 \u003d new CacheRunnable(cache, manualTrigger1);\nThread t1 \u003d new Thread(runnable1);\nt1.start(); \n\nCountDownlatch manualTrigger2 \u003d ...;\nCacheRunnable runnable1 \u003d new CacheRunnable(cache, manualTrigger2);\nThread t2 \u003d new Thread(runnable2);\nt2.start(); \n\nt1.countDown();\nt2.countDown();\n\nt1.join();\nt2.join();",
+      "revId": "5319b420f506784b62743b5f477e65fc2b98fd21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
