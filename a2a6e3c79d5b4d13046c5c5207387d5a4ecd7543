@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "439a4679_b8da81e9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-31T23:47:15Z",
+      "side": 1,
+      "message": "there\u0027s a getSingleModel. You should do it there too.",
+      "range": {
+        "startLine": 597,
+        "startChar": 39,
+        "endLine": 597,
+        "endChar": 51
+      },
+      "revId": "a2a6e3c79d5b4d13046c5c5207387d5a4ecd7543",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
