@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63bd8ac9_59c6e3ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-03-31T23:12:43Z",
+      "side": 1,
+      "message": "A bit more explanation about what this is about would be nice.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 17
+      },
+      "revId": "63f568a91eaf1ca49f4497dcc0c6871c3cc5d8d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
