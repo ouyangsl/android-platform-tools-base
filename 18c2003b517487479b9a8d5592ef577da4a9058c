@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a371421d_aea236ed",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/Features.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-01T21:00:02Z",
+      "side": 1,
+      "message": "Revise comment to explain mapping to old capability enum",
+      "revId": "18c2003b517487479b9a8d5592ef577da4a9058c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
