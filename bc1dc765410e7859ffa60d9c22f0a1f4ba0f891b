@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8370be19_39aa13fa",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LegacyCallback.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-01T20:58:28Z",
+      "side": 1,
+      "message": "@NonNull and @Nullable: \\o/",
+      "revId": "bc1dc765410e7859ffa60d9c22f0a1f4ba0f891b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
