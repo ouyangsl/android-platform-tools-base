@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e37fbae4_1c962126",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IdeFeatures.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-01T21:05:11Z",
+      "side": 1,
+      "message": "not sure if we should use separate set of constants",
+      "revId": "005bd31a66bb49c44c4b0072598622c5ae2fbd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a371421d_11036f3d",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LegacyCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-01T21:05:11Z",
+      "side": 1,
+      "message": "@MagicConstant",
+      "revId": "005bd31a66bb49c44c4b0072598622c5ae2fbd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
