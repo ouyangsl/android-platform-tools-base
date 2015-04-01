@@ -22,6 +22,92 @@
       "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03af6e90_18f9c5ff",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/SourceFragmentPositionRange.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-01T09:59:11Z",
+      "side": 1,
+      "message": "final?\n\nNit: blank line between static and non-static.",
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23b8f2d3_f9d337fc",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-01T09:59:11Z",
+      "side": 1,
+      "message": "Make it JavaDoc.",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 6
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43b5e6d8_9adced11",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-01T09:59:11Z",
+      "side": 1,
+      "message": "I don\u0027t like the fact that these methods silently ignore nulls - I don\u0027t think they should allow a null argument, it doesn\u0027t make sense.",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 27
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43b5e6d8_bad9b120",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-01T09:59:11Z",
+      "side": 1,
+      "message": "Functions.toStringFunction(). No need for it anyway, Joiner calls toString() on its arguments.",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 17
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
