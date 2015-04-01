@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8370be19_2118192f",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/IdeFeatures.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-01T22:44:29Z",
+      "side": 1,
+      "message": "Moved to the other one.",
+      "parentUuid": "e37fbae4_1c962126",
+      "revId": "005bd31a66bb49c44c4b0072598622c5ae2fbd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a371421d_11036f3d",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LegacyCallback.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-01T21:05:11Z",
       "side": 1,
       "message": "@MagicConstant",
+      "revId": "005bd31a66bb49c44c4b0072598622c5ae2fbd7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8370be19_6122115b",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LegacyCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-01T22:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a371421d_11036f3d",
       "revId": "005bd31a66bb49c44c4b0072598622c5ae2fbd7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
