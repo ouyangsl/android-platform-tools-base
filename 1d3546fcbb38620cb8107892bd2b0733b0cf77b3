@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63bd8ac9_62412868",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDeviceProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "this doesn\u0027t check that the device is \u0027online\u0027, maybe we should fix this.",
+      "range": {
+        "startLine": 90,
+        "startChar": 14,
+        "endLine": 91,
+        "endChar": 63
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "439a4679_3b5ccbd2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LoggerWrapper.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "we should rewrite this in Java.",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "439a4679_5b518fb9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LoggerWrapper.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "Add a proper javadoc explaining how infoLogLevel is used.",
+      "range": {
+        "startLine": 38,
+        "startChar": 7,
+        "endLine": 38,
+        "endChar": 65
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63bd8ac9_e2bd38a7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "I think if you don\u0027t have output, the task runs all the time?",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 65
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_ca54d3e2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "why query getLogger again when you queried it earlier? In general I think it would be better to use a single logger object rather than the wrapper in some areas, and the native logger in other areas.",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 19
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_6a79ff7c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "do we really have to do this? This is not perfect and using File.equals() will be slow.\n\nalso, don\u0027t we have something that does this already? We should refactor and reuse.",
+      "range": {
+        "startLine": 123,
+        "startChar": 24,
+        "endLine": 124,
+        "endChar": 89
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63bd8ac9_42842ce2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "do this outside the loop?",
+      "range": {
+        "startLine": 131,
+        "startChar": 16,
+        "endLine": 131,
+        "endChar": 35
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_6ad49fc3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "don\u0027t re-query, use local var.",
+      "range": {
+        "startLine": 145,
+        "startChar": 32,
+        "endLine": 145,
+        "endChar": 65
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "439a4679_bb3b5b4a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "don\u0027t re-query, use local var.",
+      "range": {
+        "startLine": 146,
+        "startChar": 32,
+        "endLine": 146,
+        "endChar": 51
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_cad93320",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "I don\u0027t know that these exe needs to be input files. Especially since you\u0027re making it always run in the Spec\u003ctask\u003e above.",
+      "range": {
+        "startLine": 221,
+        "startChar": 5,
+        "endLine": 221,
+        "endChar": 14
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_aa06b7d5",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/UninstallTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "same comment about tasks with no output and no need to put @Input below.",
+      "range": {
+        "startLine": 50,
+        "startChar": 16,
+        "endLine": 50,
+        "endChar": 67
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_4af8c34a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/UninstallTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "same here, don\u0027t requery and maybe use a single logger object?",
+      "range": {
+        "startLine": 61,
+        "startChar": 8,
+        "endLine": 61,
+        "endChar": 19
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_2a18e72e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/UninstallTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T00:47:24Z",
+      "side": 1,
+      "message": "is this needed on the task? BaseVariantData is an internal API, do we need this on a public task?",
+      "range": {
+        "startLine": 97,
+        "startChar": 27,
+        "endLine": 97,
+        "endChar": 37
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
