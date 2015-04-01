@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3d89a3c_ce022b0a",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-04-01T02:01:39Z",
+      "side": 1,
+      "message": "please specify an exact value, versus using a \"+\"",
+      "range": {
+        "startLine": 3,
+        "startChar": 70,
+        "endLine": 3,
+        "endChar": 72
+      },
+      "revId": "c4e7d1145c2977be20f1c85a7139f55ceb97a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
