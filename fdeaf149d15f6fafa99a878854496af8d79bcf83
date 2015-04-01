@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e37fbae4_e6153bf4",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LegacyCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-01T22:43:29Z",
+      "side": 1,
+      "message": "Changed to LayoutlibCallback",
+      "parentUuid": "e37fbae4_3ce845f8",
+      "revId": "fdeaf149d15f6fafa99a878854496af8d79bcf83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8370be19_990b07d6",
         "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LegacyCallback.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-01T20:54:49Z",
       "side": 1,
       "message": "double space",
+      "revId": "fdeaf149d15f6fafa99a878854496af8d79bcf83",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8370be19_a1dde9e5",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LegacyCallback.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-01T22:43:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8370be19_990b07d6",
       "revId": "fdeaf149d15f6fafa99a878854496af8d79bcf83",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
