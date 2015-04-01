@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "63bd8ac9_028954ba",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LoggerWrapper.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-01T01:07:40Z",
+      "side": 1,
+      "message": "See https://android-review.googlesource.com/143181/",
+      "parentUuid": "439a4679_3b5ccbd2",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "439a4679_5b518fb9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LoggerWrapper.groovy",
         "patchSetId": 4
@@ -82,6 +106,30 @@
       "writtenOn": "2015-04-01T00:47:24Z",
       "side": 1,
       "message": "I think if you don\u0027t have output, the task runs all the time?",
+      "range": {
+        "startLine": 76,
+        "startChar": 7,
+        "endLine": 76,
+        "endChar": 65
+      },
+      "revId": "1d3546fcbb38620cb8107892bd2b0733b0cf77b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3c8f677_ea926fd2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-01T01:07:40Z",
+      "side": 1,
+      "message": "Yes, but with a debug message along the lines of \u0027task is not up to date as it has not declared any outputs\u0027, this makes it explicit that the task should always run and why both here and in the log.",
+      "parentUuid": "63bd8ac9_e2bd38a7",
       "range": {
         "startLine": 76,
         "startChar": 7,
