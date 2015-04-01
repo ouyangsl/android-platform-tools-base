@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8370be19_0ee50ca4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AlarmDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000322
+      },
+      "writtenOn": "2015-04-01T22:13:50Z",
+      "side": 1,
+      "message": "This still feels a little awkward somehow.  Proposed rewrite:\n\n\"...will override near-future and high-frequency alarm requests, delaying the alarm at least 5 seconds into the future and ensuring that the repeat interval is at least 60 seconds.\"\n\nStill not sure how to say it most clearly.  :)",
+      "range": {
+        "startLine": 58,
+        "startChar": 13,
+        "endLine": 59,
+        "endChar": 76
+      },
+      "revId": "718c57edc5a375d937ac546c9082195a76f48edf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
