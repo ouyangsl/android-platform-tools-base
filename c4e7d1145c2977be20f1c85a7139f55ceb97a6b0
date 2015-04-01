@@ -22,6 +22,30 @@
       "revId": "c4e7d1145c2977be20f1c85a7139f55ceb97a6b0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03d68e0c_c3c048ac",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1068218
+      },
+      "writtenOn": "2015-04-01T03:06:18Z",
+      "side": 1,
+      "message": "+1. 7.0.0",
+      "parentUuid": "e3d89a3c_ce022b0a",
+      "range": {
+        "startLine": 3,
+        "startChar": 70,
+        "endLine": 3,
+        "endChar": 72
+      },
+      "revId": "c4e7d1145c2977be20f1c85a7139f55ceb97a6b0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
