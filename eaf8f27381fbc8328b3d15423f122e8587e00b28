@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8370be19_04e33620",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidArtifact.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-01T16:14:01Z",
+      "side": 1,
+      "message": "update this comment?",
+      "range": {
+        "startLine": 113,
+        "startChar": 13,
+        "endLine": 113,
+        "endChar": 52
+      },
+      "revId": "eaf8f27381fbc8328b3d15423f122e8587e00b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
