@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_ef29f703",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LayoutlibCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-02T21:00:35Z",
+      "side": 1,
+      "message": "no @MagicConstant, since the class with the flags is in sdk-common and we don\u0027t want to depend on it from here.",
+      "revId": "7a1f24529298ca1bd07f129130b413419afa5e06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
