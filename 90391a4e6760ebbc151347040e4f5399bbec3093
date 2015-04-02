@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "23c4727c_623bc79b",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/detector/api/ConstantEvaluatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-02T17:04:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3bdfae6_e0f7d85a",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23c4727c_820700d3",
         "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/ConstantEvaluator.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "23c4727c_0252cbf0",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/ConstantEvaluator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-02T17:04:47Z",
+      "side": 1,
+      "message": "The reason it should be true is that on the previous line we successfully ran iterator.next() -- that means that there is at least one element to go back over.",
+      "parentUuid": "23c4727c_820700d3",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63de6a5c_2b4b79b6",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SupportAnnotationDetector.java",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2015-04-02T01:31:45Z",
       "side": 1,
       "message": "de-dup this code, maybe",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_d646d530",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SupportAnnotationDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-02T17:04:47Z",
+      "side": 1,
+      "message": "It\u0027s hard to dedup because these are recursive methods that do different things in multiple places within the method.",
+      "parentUuid": "63de6a5c_2b4b79b6",
       "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
