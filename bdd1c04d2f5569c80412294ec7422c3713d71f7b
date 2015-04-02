@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_f6c0b9cf",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-02T17:23:47Z",
+      "side": 1,
+      "message": "obviously this is not optimal... maybe store the scope in the variant data, or transform the variant data into the scope.",
+      "revId": "bdd1c04d2f5569c80412294ec7422c3713d71f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_42620386",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/AndroidTaskRegistry.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-02T17:23:47Z",
+      "side": 1,
+      "message": "this will probably need to be scope aware or the other way around so we can start creating scope specific tasks without having to worry about its scope dependent names or its scope dependent tasks.",
+      "revId": "bdd1c04d2f5569c80412294ec7422c3713d71f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_f69319ab",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/GlobalScope.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-02T17:23:47Z",
+      "side": 1,
+      "message": "this should not be necessary if GlobalScope has not subclasses.",
+      "revId": "bdd1c04d2f5569c80412294ec7422c3713d71f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_16f9edff",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantOutputScope.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-02T17:23:47Z",
+      "side": 1,
+      "message": "eventually the BaseVariantOutputData should probably be merged into a scope.",
+      "revId": "bdd1c04d2f5569c80412294ec7422c3713d71f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63de6a5c_85581615",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-02T17:23:47Z",
+      "side": 1,
+      "message": "I dont\u0027 think VariantScope should inherit GlobalScope, it should be a delegation model, add it as a field.",
+      "revId": "bdd1c04d2f5569c80412294ec7422c3713d71f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_228f0f80",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/PackageAppConfigAction.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-02T17:23:47Z",
+      "side": 1,
+      "message": "any reason why not using a inner class of the PackageApplication class to keep things co-located ?",
+      "revId": "bdd1c04d2f5569c80412294ec7422c3713d71f7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
