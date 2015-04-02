@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63de6a5c_abf2c919",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidProject.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-02T01:32:21Z",
+      "side": 1,
+      "message": "s/t/s/",
+      "range": {
+        "startLine": 130,
+        "startChar": 41,
+        "endLine": 130,
+        "endChar": 42
+      },
+      "revId": "bf7cf5defb14e691265205675c6d1f976d101245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_026410cd",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidProject.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-02T01:32:21Z",
+      "side": 1,
+      "message": "Dimension*s*",
+      "range": {
+        "startLine": 133,
+        "startChar": 41,
+        "endLine": 133,
+        "endChar": 44
+      },
+      "revId": "bf7cf5defb14e691265205675c6d1f976d101245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63de6a5c_4bea451f",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ProductFlavor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-02T01:32:21Z",
+      "side": 1,
+      "message": "s/non/none/\nor \"...if not set\"",
+      "range": {
+        "startLine": 45,
+        "startChar": 47,
+        "endLine": 45,
+        "endChar": 50
+      },
+      "revId": "bf7cf5defb14e691265205675c6d1f976d101245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_a0b44036",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-02T01:32:21Z",
+      "side": 1,
+      "message": "check for null?",
+      "range": {
+        "startLine": 583,
+        "startChar": 31,
+        "endLine": 583,
+        "endChar": 47
+      },
+      "revId": "bf7cf5defb14e691265205675c6d1f976d101245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63de6a5c_ee07bf4d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/api/GroupableProductFlavor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-02T01:32:21Z",
+      "side": 1,
+      "message": "xav@ / jedo@: Our defaultConfig will now have a flavorDimension.  Is that OK?",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 68
+      },
+      "revId": "bf7cf5defb14e691265205675c6d1f976d101245",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
