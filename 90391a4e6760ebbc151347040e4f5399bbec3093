@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_e0f7d85a",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/detector/api/ConstantEvaluatorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-02T01:31:45Z",
+      "side": 1,
+      "message": "Add tests for conditional statements.",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_820700d3",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/ConstantEvaluator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-02T01:31:45Z",
+      "side": 1,
+      "message": "else return null;\n\nI\u0027m not sure if lint may run on non-compiling code.\nhasPrevious() might return null in such a case (maybe if this is the first statement: int x \u003d x).",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63de6a5c_2b4b79b6",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SupportAnnotationDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-02T01:31:45Z",
+      "side": 1,
+      "message": "de-dup this code, maybe",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_c2773852",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SupportAnnotationDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-02T01:31:45Z",
+      "side": 1,
+      "message": "same comment as earlier file.",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_826b8062",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SupportAnnotationDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-02T01:31:45Z",
+      "side": 1,
+      "message": "dedup.",
+      "revId": "90391a4e6760ebbc151347040e4f5399bbec3093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
