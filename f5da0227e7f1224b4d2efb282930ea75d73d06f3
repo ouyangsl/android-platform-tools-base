@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "83cefea1_7b0490cd",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Project.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-03T14:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3bdfae6_526408ce",
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63de6a5c_c872ae92",
         "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Project.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-03T00:38:28Z",
       "side": 1,
       "message": "line length limit.",
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3d47630_bcd909ac",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Project.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-03T14:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63de6a5c_c872ae92",
       "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "83cefea1_fb1c2024",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PrivateResourceDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-03T14:56:21Z",
+      "side": 1,
+      "message": "In an ideal world, two libraries won\u0027t both supply the same resource name. (That is in fact something we should check for and *also* warn about.)  If I say \"a library\" here, it implies that somehow making a resource private in one library should affect all the other resources, which isn\u0027t quite right -- these are separate. So I\u0027d rather have this error message say \"the library\" to imply that we\u0027re referring to the place where this resource was defined. (But I\u0027ll also look into flagging cross-library conflicts.)",
+      "parentUuid": "23c4727c_6713d00f",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 28
+      },
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63de6a5c_48febe32",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/ResourceVisibilityLookup.java",
         "patchSetId": 3
@@ -70,6 +130,24 @@
       "writtenOn": "2015-04-03T00:38:28Z",
       "side": 1,
       "message": "any specific reason for the suppression of the warning? it may be better to add a comment explaining the reason.",
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83cefea1_1b18fc2e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/ResourceVisibilityLookup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-03T14:56:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63de6a5c_48febe32",
       "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
