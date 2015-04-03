@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "23c4727c_4401d406",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/IDescription.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-04-03T22:01:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c4727c_09ebf522",
+      "revId": "c78c558cba22b5c5ec6b5ae74cae8ce75fb2d464",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3bdfae6_d5cb4b9c",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/IListDescription.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-03T21:49:40Z",
       "side": 1,
       "message": "You can remove \"public abstract\" from here",
+      "revId": "c78c558cba22b5c5ec6b5ae74cae8ce75fb2d464",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63f74ae2_e299037c",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/IListDescription.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-04-03T22:01:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3bdfae6_d5cb4b9c",
       "revId": "c78c558cba22b5c5ec6b5ae74cae8ce75fb2d464",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
