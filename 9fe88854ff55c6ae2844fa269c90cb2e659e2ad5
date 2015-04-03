@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_55529bf1",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-03T22:03:55Z",
+      "side": 1,
+      "message": "we do this twice (in execute and getmodel), you should update both.",
+      "range": {
+        "startLine": 784,
+        "startChar": 8,
+        "endLine": 785,
+        "endChar": 48
+      },
+      "revId": "9fe88854ff55c6ae2844fa269c90cb2e659e2ad5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
