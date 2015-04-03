@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63f74ae2_20f95300",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/Package.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-03T23:43:12Z",
+      "side": 1,
+      "message": "Why this change? It seemed like\n\nbuilder.setDescriptionsFrom(this)\n\nwas more intuitive to the untrained eye, and cluttering the API of a builder is always more welcome than cluttering the API of a regular class (even protected).\n\nIs it a problem with reachability, where Builder no longer can see Package? Would extracting an interface help if that\u0027s the case?",
+      "revId": "75f9779bcc8858e05362ae8cc4c690cb17be4f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63f74ae2_609d0bb1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-03T23:43:12Z",
+      "side": 1,
+      "message": "Keep the @link? Or, is this comment obsolete now?",
+      "revId": "75f9779bcc8858e05362ae8cc4c690cb17be4f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
