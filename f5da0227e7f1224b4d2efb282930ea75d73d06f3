@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_526408ce",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Project.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-03T00:38:28Z",
+      "side": 1,
+      "message": "should this be at the top with the other fields declarations?",
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63de6a5c_c872ae92",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/detector/api/Project.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1323,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-03T00:38:28Z",
+      "side": 1,
+      "message": "line length limit.",
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_6713d00f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PrivateResourceDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-03T00:38:28Z",
+      "side": 1,
+      "message": "s/the/a",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 28
+      },
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63de6a5c_48febe32",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/repository/ResourceVisibilityLookup.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-03T00:38:28Z",
+      "side": 1,
+      "message": "any specific reason for the suppression of the warning? it may be better to add a comment explaining the reason.",
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
