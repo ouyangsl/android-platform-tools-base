@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23c4727c_26e391cf",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T03:38:46Z",
+      "side": 1,
+      "message": "Nit: order these the same as the constructor arguments.",
+      "revId": "246aaa8f96251cc2a73a5c8b21ba6b83b8aa3684",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
