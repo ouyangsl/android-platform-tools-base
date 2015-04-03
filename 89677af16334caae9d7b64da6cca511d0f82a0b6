@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23c4727c_44b1ddf6",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-04-03T15:00:19Z",
+      "side": 1,
+      "message": "instead of using this for tracking, please use the GA tracking feature. Adding tracking here is adding activity level tracking without consent from the developer tied to Android Studio. We have an opt-in path for tracking. For example see: https://android-review.googlesource.com/#/c/142262/6/android/src/com/android/tools/idea/gradle/GradleSyncState.java",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 62
+      },
+      "revId": "89677af16334caae9d7b64da6cca511d0f82a0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_97e8457d",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/root/src/app_package/SimpleActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-04-03T15:00:19Z",
+      "side": 1,
+      "message": "instead of using this for tracking, please use the GA tracking feature. Adding tracking here is adding activity level tracking without consent from the developer tied to Android Studio. We have an opt-in path for tracking. For example see: https://android-review.googlesource.com/#/c/142262/6/android/src/com/android/tools/idea/gradle/GradleSyncState.java",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 62
+      },
+      "revId": "89677af16334caae9d7b64da6cca511d0f82a0b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
