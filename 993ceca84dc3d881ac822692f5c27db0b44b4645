@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3bdfae6_d5b10bd5",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-03T22:00:58Z",
+      "side": 1,
+      "message": "I thought you wanted to use this with -Dorg.gradle....?",
+      "range": {
+        "startLine": 803,
+        "startChar": 41,
+        "endLine": 803,
+        "endChar": 59
+      },
+      "revId": "993ceca84dc3d881ac822692f5c27db0b44b4645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63f74ae2_42833706",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/LargeVariantAndroidTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-03T22:00:58Z",
+      "side": 1,
+      "message": "I think it\u0027s the default for the daemon if you don\u0027t use the setJvmArg... It shouldn\u0027t be needed.",
+      "range": {
+        "startLine": 34,
+        "startChar": 13,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "993ceca84dc3d881ac822692f5c27db0b44b4645",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
