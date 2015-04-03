@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e37fbae4_10744a00",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/AndroidReportTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T03:42:40Z",
+      "side": 1,
+      "message": "Overcompensating for the previous lack of semicolons :)\n\nDeleted.",
+      "parentUuid": "43b5e6d8_5aca554d",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 1
+      },
+      "revId": "a5cd716a55908ed5af5ea64ae886055fd41a801b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03af6e90_58da5d9f",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/AndroidReportTask.java",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-01T09:50:11Z",
       "side": 1,
       "message": "This CL already contains FileUtils, please move it there.",
+      "range": {
+        "startLine": 172,
+        "startChar": 17,
+        "endLine": 172,
+        "endChar": 26
+      },
+      "revId": "a5cd716a55908ed5af5ea64ae886055fd41a801b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e37fbae4_105d2a80",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/AndroidReportTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T03:42:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03af6e90_58da5d9f",
       "range": {
         "startLine": 172,
         "startChar": 17,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "a371421d_399a1770",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/BaseTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T03:42:40Z",
+      "side": 1,
+      "message": "Will make private, but it needs a setter.\n\nIt is null for several tasks which inherit from BaseTask but don\u0027t use the builder.",
+      "parentUuid": "23b8f2d3_99b31bdd",
+      "revId": "a5cd716a55908ed5af5ea64ae886055fd41a801b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23b8f2d3_b9b0dfd0",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DependencyReportTask.java",
         "patchSetId": 7
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "a371421d_79a56f7f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DependencyReportTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T03:42:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b8f2d3_b9b0dfd0",
+      "range": {
+        "startLine": 78,
+        "startChar": 28,
+        "endLine": 79,
+        "endChar": 12
+      },
+      "revId": "a5cd716a55908ed5af5ea64ae886055fd41a801b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23b8f2d3_f9ba57ac",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MergeFileTask.java",
         "patchSetId": 7
@@ -99,6 +189,30 @@
       "writtenOn": "2015-04-01T09:50:11Z",
       "side": 1,
       "message": "remove whitespace",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 0
+      },
+      "revId": "a5cd716a55908ed5af5ea64ae886055fd41a801b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8370be19_ad95e5bd",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MergeFileTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T03:42:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b8f2d3_f9ba57ac",
       "range": {
         "startLine": 83,
         "startChar": 0,
