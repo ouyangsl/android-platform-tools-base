@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "23c4727c_f5a41d85",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PrivateResourceDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-03T18:08:11Z",
+      "side": 1,
+      "message": "I may be wrong, but to me, using \u0027the\u0027 means prior knowledge of which specific library. Since, we haven\u0027t been able to return a better name above, I don\u0027t think there\u0027s a way for the user to identify the specific library. Hence the use of \u0027a\u0027.\n\nIf you still thing that \u0027the\u0027 is correct, go with it. I don\u0027t feel strongly about it :)",
+      "parentUuid": "83cefea1_fb1c2024",
+      "range": {
+        "startLine": 163,
+        "startChar": 16,
+        "endLine": 163,
+        "endChar": 28
+      },
+      "revId": "f5da0227e7f1224b4d2efb282930ea75d73d06f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63de6a5c_48febe32",
         "filename": "sdk-common/src/main/java/com/android/ide/common/repository/ResourceVisibilityLookup.java",
         "patchSetId": 3
