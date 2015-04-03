@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "63de6a5c_20ab86d7",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/FilePosition.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T01:35:36Z",
+      "side": 1,
+      "message": "Oops - Done",
+      "parentUuid": "a3922212_1d8f332e",
+      "range": {
+        "startLine": 62,
+        "startChar": 54,
+        "endLine": 62,
+        "endChar": 59
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03af6e90_18f9c5ff",
         "filename": "sdk-common/src/main/java/com/android/ide/common/blame/SourceFragmentPositionRange.java",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "23c4727c_30898b78",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/SourceFragmentPositionRange.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T01:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03af6e90_18f9c5ff",
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23b8f2d3_f9d337fc",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2015-04-01T09:59:11Z",
       "side": 1,
       "message": "Make it JavaDoc.",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 6
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "63de6a5c_e316a881",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T01:35:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23b8f2d3_f9d337fc",
       "range": {
         "startLine": 51,
         "startChar": 5,
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "e3bdfae6_2bda3a9f",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T01:35:36Z",
+      "side": 1,
+      "message": "It makes some calls in ValueResourceParser2 much clearer, but I agree - I\u0027ll make a separate wrapper method for when it can be null.",
+      "parentUuid": "43b5e6d8_9adced11",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 27
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43b5e6d8_bad9b120",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
         "patchSetId": 2
@@ -99,6 +189,30 @@
       "writtenOn": "2015-04-01T09:59:11Z",
       "side": 1,
       "message": "Functions.toStringFunction(). No need for it anyway, Joiner calls toString() on its arguments.",
+      "range": {
+        "startLine": 97,
+        "startChar": 16,
+        "endLine": 102,
+        "endChar": 17
+      },
+      "revId": "e1a4821c64f1d09725c39a569f7c0ebc1f9f1a50",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e3bdfae6_a6f1e1e4",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-03T01:35:36Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "43b5e6d8_bad9b120",
       "range": {
         "startLine": 97,
         "startChar": 16,
