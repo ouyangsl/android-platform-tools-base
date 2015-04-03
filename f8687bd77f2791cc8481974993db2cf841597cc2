@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63f74ae2_6cc4efbe",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/GroupableProductFlavor.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-03T18:19:06Z",
+      "side": 1,
+      "message": "use  LoggingUtil.displayDeprecationWarning. We should also indicate that this will be gone in 2.0 (and we should make the new experimental plugin not use this).",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 19
+      },
+      "revId": "f8687bd77f2791cc8481974993db2cf841597cc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
