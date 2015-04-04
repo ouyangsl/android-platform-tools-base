@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e3bdfae6_c6ce03dc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/Package.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-04-04T00:01:56Z",
+      "side": 1,
+      "message": "Yes, this is obviously not ideal.\nThe problem is that this method (and the original method are only used from Package and its subclasses. I\u0027m planning to branch Package and its subclasses into studio, and deprecate the versions in sdklib (they\u0027re still used by the old sdk manager, and only the old sdk manager).\nSo yes, in the new world PkgDesc won\u0027t be able to get to the non-deprecated Package. An interface implemented by Package could help here, but... there are already such a large collection of interfaces in sdklib I was sort of hoping not to add any more (though in this case I guess the existing IDescription and IListDescription (implemented by Package) could be combined into the new one that also adds the other requisite methods).\n\nAlso, I\u0027m going to deprecate all the offending code anyway, so (as long as I come up with a better solution in the new version) I would hope it won\u0027t be a problem.\n\nBut in the end I mostly agree with you :-) So if you want me to fix it I\u0027m happy to.",
+      "parentUuid": "63f74ae2_20f95300",
+      "revId": "75f9779bcc8858e05362ae8cc4c690cb17be4f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63f74ae2_609d0bb1",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgType.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-03T23:43:12Z",
       "side": 1,
       "message": "Keep the @link? Or, is this comment obsolete now?",
+      "revId": "75f9779bcc8858e05362ae8cc4c690cb17be4f69",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_fe82b49a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-04-04T00:01:56Z",
+      "side": 1,
+      "message": "I thought I was going to be able to delete the sdklib version of LocalSdkParser altogether, at which point this comment could also be deleted completely. Now I\u0027m not so sure, though, so I\u0027ll put this back.",
+      "parentUuid": "63f74ae2_609d0bb1",
       "revId": "75f9779bcc8858e05362ae8cc4c690cb17be4f69",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
