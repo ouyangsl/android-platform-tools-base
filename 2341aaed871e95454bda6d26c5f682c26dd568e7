@@ -16,6 +16,24 @@
       "revId": "2341aaed871e95454bda6d26c5f682c26dd568e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23c4727c_f0aaf34d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ExtraModelInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-04T01:36:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "837a7ea8_eac06899",
+      "revId": "2341aaed871e95454bda6d26c5f682c26dd568e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
