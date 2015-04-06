@@ -78,6 +78,30 @@
     },
     {
       "key": {
+        "uuid": "c34716eb_458d59fe",
+        "filename": "swinglib/build.gradle",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-06T18:10:43Z",
+      "side": 1,
+      "message": "Done. Included in the next CL",
+      "parentUuid": "c352b622_00c49abd",
+      "range": {
+        "startLine": 14,
+        "startChar": 43,
+        "endLine": 14,
+        "endChar": 44
+      },
+      "revId": "26495800a8219c949d78eb13141ae2a34bc17ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "63758ab8_9f36d617",
         "filename": "swinglib/src/main/java/com/android/tools/swinglib/CircularArrayList.java",
         "patchSetId": 2
@@ -89,6 +113,24 @@
       "writtenOn": "2015-03-27T02:18:29Z",
       "side": 1,
       "message": "nit: Test for i \u003c 0? And if so, update tests?",
+      "revId": "26495800a8219c949d78eb13141ae2a34bc17ea9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34716eb_25528df1",
+        "filename": "swinglib/src/main/java/com/android/tools/swinglib/CircularArrayList.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-06T18:10:43Z",
+      "side": 1,
+      "message": "Done. Included in the next CL",
+      "parentUuid": "63758ab8_9f36d617",
       "revId": "26495800a8219c949d78eb13141ae2a34bc17ea9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
