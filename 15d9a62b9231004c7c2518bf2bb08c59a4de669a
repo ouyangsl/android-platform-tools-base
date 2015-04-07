@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03092eaf_2e395352",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalPkgInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-07T00:55:45Z",
+      "side": 1,
+      "message": "Nit: This header document is a bit confusing, seems like it was more documenting an internal relationship that\u0027s obsolete now that the method is public. What is this doing and does it really make sense for it to be public?",
+      "revId": "15d9a62b9231004c7c2518bf2bb08c59a4de669a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
