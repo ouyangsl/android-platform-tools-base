@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c375563f_8e9ffb35",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/ConventionMappingHelper.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-07T18:41:48Z",
+      "side": 1,
+      "message": "move these 2 methods into AndroidTask, have 2 instances that use \"this\" and keep 2 static for now for tasks which have not been wrapped up in AndroidTask yet.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e38eda7f_d24042f9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/GlobalScope.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-07T18:41:48Z",
+      "side": 1,
+      "message": "add Nullable/NonNull annotations everywhere.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c375563f_aea43784",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/TaskConfigAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-07T18:41:48Z",
+      "side": 1,
+      "message": "comment methods.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8358bee6_842a86a7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantOutputScope.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-07T18:41:48Z",
+      "side": 1,
+      "message": "add Nullable/NonNull annotations everywhere.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c375563f_4eaa7350",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-07T18:41:48Z",
+      "side": 1,
+      "message": "add Nullable/NonNull annotations everywhere.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c375563f_6ea72f87",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageApplication.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-07T18:41:48Z",
+      "side": 1,
+      "message": "move private fields after public so we easily focus on the public task API.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c375563f_0eb46bb1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ZipAlign.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-07T18:41:48Z",
+      "side": 1,
+      "message": "same move after public.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
