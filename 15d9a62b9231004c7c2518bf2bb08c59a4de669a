@@ -16,6 +16,24 @@
       "revId": "15d9a62b9231004c7c2518bf2bb08c59a4de669a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a34222dc_4ecfb12d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalPkgInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-04-07T01:00:37Z",
+      "side": 1,
+      "message": "Right now, LocalPkgInfo can contain a reference to a RemotePkgInfo that can be used to update the local package. This is how that package is set (which is done by the static Update.computeUpdates()). The comment is somewhat confusingly worded.\nBut...this functionality is deleted in a later change anyway (https://android-review.googlesource.com/#/c/145485/2/sdklib/src/main/java/com/android/sdklib/repository/local/LocalPkgInfo.java).",
+      "parentUuid": "03092eaf_2e395352",
+      "revId": "15d9a62b9231004c7c2518bf2bb08c59a4de669a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
