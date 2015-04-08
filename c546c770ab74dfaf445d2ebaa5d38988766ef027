@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a32b0216_4306a54e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/ConventionMappingHelper.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-08T01:24:58Z",
+      "side": 1,
+      "message": "But that will change AndroidTask to groovy.",
+      "parentUuid": "c375563f_8e9ffb35",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e38eda7f_d24042f9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/GlobalScope.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-07T18:41:48Z",
       "side": 1,
       "message": "add Nullable/NonNull annotations everywhere.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a32b0216_43f1c5e1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/GlobalScope.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-08T01:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e38eda7f_d24042f9",
       "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "63258a42_05df548e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/TaskConfigAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-08T01:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c375563f_aea43784",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8358bee6_842a86a7",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantOutputScope.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2015-04-07T18:41:48Z",
       "side": 1,
       "message": "add Nullable/NonNull annotations everywhere.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a32b0216_63ee4101",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantOutputScope.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-08T01:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8358bee6_842a86a7",
       "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a32b0216_c311558c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-08T01:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c375563f_4eaa7350",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c375563f_6ea72f87",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageApplication.java",
         "patchSetId": 3
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "a32b0216_e316d181",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageApplication.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-08T01:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c375563f_6ea72f87",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c375563f_0eb46bb1",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ZipAlign.java",
         "patchSetId": 3
@@ -115,6 +223,24 @@
       "writtenOn": "2015-04-07T18:41:48Z",
       "side": 1,
       "message": "same move after public.",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23e3924b_4d32fca1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ZipAlign.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-08T01:24:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c375563f_0eb46bb1",
       "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
