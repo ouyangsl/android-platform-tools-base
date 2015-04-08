@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c375563f_11d80e71",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/ConventionMappingHelper.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-08T02:15:41Z",
+      "side": 1,
+      "message": "ah yes forgot that detail :) then also add convenience method that take an AndroidTask instead of Task and delegate to the ones below.",
+      "parentUuid": "a32b0216_4306a54e",
+      "revId": "c546c770ab74dfaf445d2ebaa5d38988766ef027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e38eda7f_d24042f9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/GlobalScope.java",
         "patchSetId": 3
