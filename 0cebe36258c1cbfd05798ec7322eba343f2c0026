@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c31c7621_169dbc6a",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1070818
+      },
+      "writtenOn": "2015-04-08T05:19:38Z",
+      "side": 1,
+      "message": "ABI_INTEL_ATOM - does it stand for x86 ABI?",
+      "revId": "0cebe36258c1cbfd05798ec7322eba343f2c0026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e305fac3_d7ce9c5e",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1070818
+      },
+      "writtenOn": "2015-04-08T05:19:38Z",
+      "side": 1,
+      "message": "Can we apply this linker flag both for clang and gcc?",
+      "revId": "0cebe36258c1cbfd05798ec7322eba343f2c0026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
