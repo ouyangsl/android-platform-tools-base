@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "e3ec1a3e_88cebbda",
+        "filename": "build-system/builder/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-08T16:41:12Z",
+      "side": 1,
+      "message": "it\u0027d be better to not use doLast.",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 10
+      },
+      "revId": "348dd45a6be9606830ebb7c010a66d91a13d3238",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83fd1eeb_3c3ff139",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
         "patchSetId": 3
