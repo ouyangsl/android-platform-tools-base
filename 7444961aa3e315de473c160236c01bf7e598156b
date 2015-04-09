@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "237f124e_78ceb7af",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 2881,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-09T17:07:04Z",
+      "side": 1,
+      "message": "rename maybeCreate...?",
+      "range": {
+        "startLine": 2881,
+        "startChar": 16,
+        "endLine": 2881,
+        "endChar": 35
+      },
+      "revId": "7444961aa3e315de473c160236c01bf7e598156b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03868e96_d62a39fa",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/LibraryVariantFactory.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-09T17:07:04Z",
+      "side": 1,
+      "message": "move this to GradleVariantConfiguration so that it\u0027s not duplicated?",
+      "range": {
+        "startLine": 165,
+        "startChar": 4,
+        "endLine": 177,
+        "endChar": 5
+      },
+      "revId": "7444961aa3e315de473c160236c01bf7e598156b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "237f124e_78a0779f",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantFactory.groovy",
         "patchSetId": 1
@@ -13,6 +59,52 @@
       "writtenOn": "2015-04-09T17:06:05Z",
       "side": 1,
       "message": "remove",
+      "revId": "7444961aa3e315de473c160236c01bf7e598156b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "237f124e_d8a7c3b2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/TestModuleProGuardTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-09T17:07:04Z",
+      "side": 1,
+      "message": "add:\n\nthis.dependsOn configuration",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "7444961aa3e315de473c160236c01bf7e598156b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83c43ed3_9a20b21e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/TestModuleProGuardTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-09T17:07:04Z",
+      "side": 1,
+      "message": "here too.",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 18
+      },
       "revId": "7444961aa3e315de473c160236c01bf7e598156b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
