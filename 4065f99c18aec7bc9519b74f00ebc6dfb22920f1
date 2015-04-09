@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "636d8ab3_d3dc1464",
+        "filename": "lint/libs/lint-tests/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-04-09T19:40:53Z",
+      "side": 1,
+      "message": "I\u0027m not sure if this entire library should be considered a test or not. The build failed with an issue of missing NOTICE file for easymock. I added that, and then the issue moved on to missing NOTICE file for junit (which is below).\n\nIt seems like we check for NOTICE files only for compile dependencies, not test dependencies. Should these be testCompile instead of compile?\n\nBut the library itself has a single src/main/java folder, so this seems like it is considered as a library and not a test..",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "4065f99c18aec7bc9519b74f00ebc6dfb22920f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
