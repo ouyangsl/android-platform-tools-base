@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03868e96_2c4078f3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-09T18:03:23Z",
+      "side": 1,
+      "message": "nit: /* isTest */",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "6e292d03b4747e9fcd71fa2a84f6f51489cc453d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
