@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "237f124e_78a0779f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/TestVariantFactory.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-09T17:06:05Z",
+      "side": 1,
+      "message": "remove",
+      "revId": "7444961aa3e315de473c160236c01bf7e598156b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
