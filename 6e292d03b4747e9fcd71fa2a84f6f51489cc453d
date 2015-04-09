@@ -22,6 +22,30 @@
       "revId": "6e292d03b4747e9fcd71fa2a84f6f51489cc453d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83c43ed3_96a7eab3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-09T18:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "03868e96_2c4078f3",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "6e292d03b4747e9fcd71fa2a84f6f51489cc453d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
