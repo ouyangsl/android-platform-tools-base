@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03868e96_f573b017",
+        "filename": "build-system/builder-test-api/src/main/java/com/android/builder/testing/api/DeviceException.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-09T19:20:24Z",
+      "side": 1,
+      "message": "This is dangerous because caller of the version with Throwable will still work but now pass the throwable to String.format...\n\nDid you verify it\u0027s not used anyway?",
+      "range": {
+        "startLine": 37,
+        "startChar": 52,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "fe56df96466252116d8020312cec22322f740932",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "237f124e_78e872a7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-09T19:20:24Z",
+      "side": 1,
+      "message": "do we need to keep both? We can get access to logger from iLogger no?",
+      "range": {
+        "startLine": 200,
+        "startChar": 4,
+        "endLine": 200,
+        "endChar": 27
+      },
+      "revId": "fe56df96466252116d8020312cec22322f740932",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
