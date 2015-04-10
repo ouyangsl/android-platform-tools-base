@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e32fba6e_f029f603",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-10T22:19:32Z",
+      "side": 1,
+      "message": "I\u0027m also wondering if this is the best place to do this.\n\nWe might want to do this during the parsing of the file instead of when writing the result of the merge.",
+      "range": {
+        "startLine": 178,
+        "startChar": 24,
+        "endLine": 178,
+        "endChar": 81
+      },
+      "revId": "6f6efa5336f50f0dd38f36e40c7d4256e1a05302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
