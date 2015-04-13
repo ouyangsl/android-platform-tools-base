@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0299e86_a222669b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DexOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-13T18:13:03Z",
+      "side": 1,
+      "message": "nit: @Nullable",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 29
+      },
+      "revId": "f28f4dfa7bd903fac87fe529836299b0f2d98974",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
