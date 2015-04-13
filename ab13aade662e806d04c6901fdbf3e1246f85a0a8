@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0299e86_44df4755",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/ResourceSetTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-13T23:18:13Z",
+      "side": 1,
+      "message": "there should be a test with setNormalizeResources(true) and verify we do go -v13 appended.",
+      "revId": "ab13aade662e806d04c6901fdbf3e1246f85a0a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
