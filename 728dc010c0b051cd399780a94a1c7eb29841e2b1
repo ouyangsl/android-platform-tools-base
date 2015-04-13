@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0299e86_e89f2f61",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PreprocessResourcesTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-13T19:13:10Z",
+      "side": 1,
+      "message": "Log rather than print, parent classes have getLogger.",
+      "revId": "728dc010c0b051cd399780a94a1c7eb29841e2b1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
