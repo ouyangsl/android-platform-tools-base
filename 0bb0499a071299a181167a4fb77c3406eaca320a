@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "506daeeb_5a96154c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T00:16:51Z",
+      "side": 1,
+      "message": "just use com.android.xml.AndroidManifest.NODE_METADATA instead (ditto for most of the other constants)",
+      "revId": "0bb0499a071299a181167a4fb77c3406eaca320a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "904c868c_44d86ea5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T00:16:51Z",
+      "side": 1,
+      "message": "use headline capitalization, and no dot at the end",
+      "revId": "0bb0499a071299a181167a4fb77c3406eaca320a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "506daeeb_1a909d4a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T00:16:51Z",
+      "side": 1,
+      "message": "s/deep link/deep links/ ?",
+      "revId": "0bb0499a071299a181167a4fb77c3406eaca320a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10597645_51d826a5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T00:16:51Z",
+      "side": 1,
+      "message": "This is probably more of a Category.USABILITY than a Category.CORRECTNESS ? (Correctness is intended for likely bugs) -- unless the focus here is to (primarily) find incorrect registrations rather than missing registrations?",
+      "revId": "0bb0499a071299a181167a4fb77c3406eaca320a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "904c868c_24dd7295",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T00:16:51Z",
+      "side": 1,
+      "message": "Can this analysis be done per manifest file, or do you really need to cross check multiple manifests? Seems like you\u0027d really want to do this check just for each activity element independently, and for each activity you encounter, go to look at the metadata and see if it specifies an action view. In that case you can immediately report whether it\u0027s missing or wrong -- you don\u0027t need to accumulate that information and report it at the end of seeing all projects, right? (In fact it looks like right now, if a single activity has an action view, then that will be considered true for all activities.)\n\nTake a look at SecurityDetector and for example the isStandardReceiver() method or the isWearableBindListener() -- in each case we iterate to see whether the right condition is met right there, and if so we can report it immediately.",
+      "revId": "0bb0499a071299a181167a4fb77c3406eaca320a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "506daeeb_fa860917",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T00:16:51Z",
+      "side": 1,
+      "message": "maybe extract each one of these lookup sections into separate methods?",
+      "revId": "0bb0499a071299a181167a4fb77c3406eaca320a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "904c868c_04e27651",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T00:16:51Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "0bb0499a071299a181167a4fb77c3406eaca320a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
