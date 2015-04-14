@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709c722a_1be41bd5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-14T09:37:51Z",
+      "side": 1,
+      "message": "Nit: Use a constant.",
+      "range": {
+        "startLine": 1370,
+        "startChar": 44,
+        "endLine": 1370,
+        "endChar": 46
+      },
+      "revId": "2bc1130943de4d77a2f168b813f3041611002df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90a1e660_3c179145",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/BuildToolsServiceLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-14T09:37:51Z",
+      "side": 1,
+      "message": "TBH, this is very misleading since this class is not a singleton (forVersion is used to create different instances).",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "2bc1130943de4d77a2f168b813f3041611002df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709c722a_bbbde7a5",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/BuildToolsServiceLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-14T09:37:51Z",
+      "side": 1,
+      "message": "Maybe keep a map that maps versions to build tools?",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 90,
+        "endChar": 9
+      },
+      "revId": "2bc1130943de4d77a2f168b813f3041611002df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0926a12_1d71738b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/BuildToolsServiceLoader.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-14T09:37:51Z",
+      "side": 1,
+      "message": "It seems to return Optional.absent() and not be @Nullable.\n\nI would suggest you also use Optional below and in findVersion.",
+      "range": {
+        "startLine": 196,
+        "startChar": 76,
+        "endLine": 196,
+        "endChar": 86
+      },
+      "revId": "2bc1130943de4d77a2f168b813f3041611002df3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
