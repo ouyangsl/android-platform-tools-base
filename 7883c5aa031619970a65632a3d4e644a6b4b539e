@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9033a6f4_e1d4e2e4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PreprocessResourcesTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-14T15:39:27Z",
+      "side": 1,
+      "message": "This is probably not going to work. AFAIK collections of items don\u0027t work for @Input.",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 56
+      },
+      "revId": "7883c5aa031619970a65632a3d4e644a6b4b539e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
