@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10597645_82a52e06",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SupportAnnotationDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-14T17:03:35Z",
+      "side": 1,
+      "message": "Typo?",
+      "revId": "b26a42780eeefead9d5c8c4f21f0759c7ed437fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
