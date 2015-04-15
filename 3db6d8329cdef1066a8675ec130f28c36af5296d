@@ -22,6 +22,30 @@
       "revId": "3db6d8329cdef1066a8675ec130f28c36af5296d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b07b4aac_835d1c7e",
+        "filename": "build-system/docs/src/fromGradle/docs/dsl/com.android.build.gradle.internal.dsl.LanguageSplitOptions.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-15T23:18:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "907ac6a8_6f2a2a34",
+      "range": {
+        "startLine": 32,
+        "startChar": 24,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "3db6d8329cdef1066a8675ec130f28c36af5296d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
