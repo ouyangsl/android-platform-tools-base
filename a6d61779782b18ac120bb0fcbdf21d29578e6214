@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10dc16fc_4a273732",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1409,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-16T21:36:41Z",
+      "side": 1,
+      "message": "nit: \"Jack\u0027s control has happened:\"",
+      "revId": "a6d61779782b18ac120bb0fcbdf21d29578e6214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
