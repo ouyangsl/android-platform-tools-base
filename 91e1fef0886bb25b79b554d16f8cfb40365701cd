@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10dc16fc_9f51df35",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PreprocessResourcesTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-16T21:07:25Z",
+      "side": 1,
+      "message": "Add comment for intentional case fall-through.",
+      "revId": "91e1fef0886bb25b79b554d16f8cfb40365701cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "907ac6a8_304fa394",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/VectorDrawableTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-16T21:07:25Z",
+      "side": 1,
+      "message": "Here and above, perhaps use withFailureMessage to ouptut something more descriptive than just the SHA1s are different.",
+      "revId": "91e1fef0886bb25b79b554d16f8cfb40365701cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
