@@ -22,6 +22,30 @@
       "revId": "6f6efa5336f50f0dd38f36e40c7d4256e1a05302",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "907ac6a8_6d1228db",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergedResourceWriter.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-16T20:45:03Z",
+      "side": 1,
+      "message": "Done - Moved to the parsing step.",
+      "parentUuid": "e32fba6e_f029f603",
+      "range": {
+        "startLine": 178,
+        "startChar": 24,
+        "endLine": 178,
+        "endChar": 81
+      },
+      "revId": "6f6efa5336f50f0dd38f36e40c7d4256e1a05302",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
