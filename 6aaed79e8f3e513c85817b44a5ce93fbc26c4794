@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d080bec6_93a56806",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PreprocessResourcesTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-16T21:31:32Z",
+      "side": 1,
+      "message": "There\u0027s already a getLogger() that uses Task.class, any reason not to just use that? Otherwise perhaps use a private field to call getLogger once.",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 5
+      },
+      "revId": "6aaed79e8f3e513c85817b44a5ce93fbc26c4794",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
