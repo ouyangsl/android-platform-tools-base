@@ -16,6 +16,24 @@
       "revId": "f9bdf6c00eaf8d9a68842cc298506519dd036bb4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d080bec6_10aaa37e",
+        "filename": "layoutlib-api/src/test/java/com/android/resources/FolderTypeRelationShipTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-17T18:33:08Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "904c868c_13ce3603",
+      "revId": "f9bdf6c00eaf8d9a68842cc298506519dd036bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
