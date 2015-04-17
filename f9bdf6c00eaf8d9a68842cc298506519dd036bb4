@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "904c868c_13ce3603",
+        "filename": "layoutlib-api/src/test/java/com/android/resources/FolderTypeRelationShipTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-04-17T04:08:28Z",
+      "side": 0,
+      "message": "Space shouldn\u0027t be cleaned up.",
+      "revId": "f9bdf6c00eaf8d9a68842cc298506519dd036bb4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
