@@ -22,6 +22,30 @@
       "revId": "6aaed79e8f3e513c85817b44a5ce93fbc26c4794",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90a1e660_767c506f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PreprocessResourcesTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-17T13:59:36Z",
+      "side": 1,
+      "message": "To use a different class, so I can grep for lines I care about. This is removed in the follow-up CL that switches to DataMerger machinery.",
+      "parentUuid": "d080bec6_93a56806",
+      "range": {
+        "startLine": 227,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 5
+      },
+      "revId": "6aaed79e8f3e513c85817b44a5ce93fbc26c4794",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
