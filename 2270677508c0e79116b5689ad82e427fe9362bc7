@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "10089662_10aa64d4",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-04-20T13:38:07Z",
+      "side": 1,
+      "message": "tis only null if the style is null, and if the style is null, the first bit of the if statement will catch that",
+      "parentUuid": "103a56f6_40f08e61",
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7048f2a0_3bf01761",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-20T10:16:06Z",
       "side": 1,
       "message": "You can probably extract that line to a public method and then create a subclass of ResourceResolver w/ ability to override style attributes which would override that method.",
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "103a56f6_a3f084dd",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-04-20T13:38:07Z",
+      "side": 1,
+      "message": "the problem is that we use\n\n  public ResourceResolver createRecorder(List\u003cResourceValue\u003e lookupChain) {\n\nin this class, and that creates a private cvlass that extends this one already",
+      "parentUuid": "7048f2a0_3bf01761",
       "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
