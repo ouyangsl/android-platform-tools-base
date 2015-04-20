@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0435e7f_61ce7004",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-20T13:44:14Z",
+      "side": 1,
+      "message": "Nit: put a \"\" at the end of line 38 such that this can begin with \"+\"; that way the lines will align. (Take a look at the PrivateResourceDetectorTest for examples of what I mean).",
+      "revId": "b16617bd22b137153098c0913ddb400cf776854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0435e7f_c1b2e475",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-20T13:44:14Z",
+      "side": 1,
+      "message": "Checking in files like this is fine, and it\u0027s what most of the existing older lint tests do, but there\u0027s a newer way now (added in the last month) which is a bit cleaner where instead of checking in separate files you inline the contents in the unit test file; take a look at PrivateResourceDetectorTest if you\u0027re interested.)",
+      "revId": "b16617bd22b137153098c0913ddb400cf776854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0435e7f_41bff443",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-20T13:44:14Z",
+      "side": 1,
+      "message": "See my comment on line 77 from patch 2 -- do you really need to save this work across manifest files?\n\nLocations are sometimes heavy-weight so you should try to only create them for actual errors, not for all potential error locations. If you really need to hold placeholder objects that you may eventually need to refer to (from a different file, when lint may no longer be holding a read lock on the current context file), use XmlContext.createLocationHandle() instead, which will return a handle to you which you can call .resolve() on when you decide you need a real location for an error report() call.\n\nBut again, are you sure you really need that here? Do you have cross-file relationships you need to check?\n\nMy guess would be that each activity should be checked independently, and you don\u0027t want the presence of an action view in one activity (mHasActionView) to affect whether you report errors for other activities.\n\nBut if you do, just change your getApplicableElements method to return TAG_APPLICATION instead of TAG_ACTIVITY. And then in visitElement, you\u0027ll be handled the \u003capplication\u003e tag instead; now you can iterate over the application children directly - so in a single pass you can look at all activity elements and their children and decide whether you want to report any problems. You won\u0027t need any detector state at all (mActivityLocations mHasActionView).",
+      "revId": "b16617bd22b137153098c0913ddb400cf776854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03ce2f3_625318c0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-20T13:44:14Z",
+      "side": 1,
+      "message": "Extract all this logic into a method which tells you whether a given activity element has action view children?",
+      "revId": "b16617bd22b137153098c0913ddb400cf776854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b03eeaea_319b1874",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-20T13:44:14Z",
+      "side": 1,
+      "message": "\"isActionName\" is probably better than \"checkActionView\" since \"check\" seems to imply that it might do something (e.g. report an error) if it\u0027s not.",
+      "revId": "b16617bd22b137153098c0913ddb400cf776854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0435e7f_e15e00c4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-20T13:44:14Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "b16617bd22b137153098c0913ddb400cf776854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0435e7f_21c468e2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/BuiltinIssueRegistry.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-20T13:44:14Z",
+      "side": 1,
+      "message": "You may have to bump this number to 216. Try running BuiltInIssueRegistryTest to verify.",
+      "revId": "b16617bd22b137153098c0913ddb400cf776854e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
