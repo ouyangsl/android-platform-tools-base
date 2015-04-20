@@ -22,6 +22,30 @@
       "revId": "7b8a7a353b15176edfd39a0074b1daf59764eb40",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06c3e17_8000d705",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineComponent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-20T17:11:02Z",
+      "side": 1,
+      "message": "addDebugInfo took a String as the first implementation, but then every caller was repeating the format part, and it made it more useful to take the same form. But I forgot to change this one....",
+      "parentUuid": "305cba63_0d9a41b9",
+      "range": {
+        "startLine": 331,
+        "startChar": 21,
+        "endLine": 331,
+        "endChar": 34
+      },
+      "revId": "7b8a7a353b15176edfd39a0074b1daf59764eb40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
