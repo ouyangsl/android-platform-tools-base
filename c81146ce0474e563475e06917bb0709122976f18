@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "305cba63_2e20db51",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AaptPackageProcessBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-20T19:08:10Z",
+      "side": 1,
+      "message": "Remove unused",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 43
+      },
+      "revId": "c81146ce0474e563475e06917bb0709122976f18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06c3e17_5147b30f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-20T19:08:10Z",
+      "side": 1,
+      "message": "Remove unused. etc.",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "c81146ce0474e563475e06917bb0709122976f18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "305cba63_ceb2ff75",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-20T19:08:10Z",
+      "side": 1,
+      "message": "Either make it very clear in the JavaDoc that this must be called before getFilters, or have the getFilters method invoke it if they haven\u0027t been initialized.",
+      "range": {
+        "startLine": 331,
+        "startChar": 16,
+        "endLine": 331,
+        "endChar": 32
+      },
+      "revId": "c81146ce0474e563475e06917bb0709122976f18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d06c3e17_51d853a5",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-20T19:08:10Z",
+      "side": 1,
+      "message": "It\u0027s used as @NonNull (assuming calculateFilters have already been called)",
+      "range": {
+        "startLine": 346,
+        "startChar": 4,
+        "endLine": 346,
+        "endChar": 10
+      },
+      "revId": "c81146ce0474e563475e06917bb0709122976f18",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
