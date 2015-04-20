@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "103a56f6_40f08e61",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1054756
+      },
+      "writtenOn": "2015-04-20T10:33:03Z",
+      "side": 1,
+      "message": "myOverrideItem is @Nullable but there is no null check here.",
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7048f2a0_3bf01761",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 2
