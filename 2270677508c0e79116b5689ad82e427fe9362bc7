@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "70f6329f_2be0d912",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-04-20T19:57:33Z",
+      "side": 1,
+      "message": "should this maybe be called setStyleItemOverride ?",
+      "range": {
+        "startLine": 260,
+        "startChar": 16,
+        "endLine": 260,
+        "endChar": 36
+      },
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "103a56f6_40f08e61",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 2
