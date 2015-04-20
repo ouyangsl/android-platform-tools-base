@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7048f2a0_3bf01761",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1057009
+      },
+      "writtenOn": "2015-04-20T10:16:06Z",
+      "side": 1,
+      "message": "You can probably extract that line to a public method and then create a subclass of ResourceResolver w/ ability to override style attributes which would override that method.",
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
