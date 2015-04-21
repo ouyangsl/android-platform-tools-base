@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "d0f19ea3_11e54e23",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-04-21T14:28:14Z",
+      "side": 1,
+      "message": "added @Nullable",
+      "parentUuid": "d0f19ea3_8edabb10",
+      "range": {
+        "startLine": 260,
+        "startChar": 37,
+        "endLine": 260,
+        "endChar": 101
+      },
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "103a56f6_40f08e61",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 2
@@ -95,6 +119,24 @@
       "side": 1,
       "message": "This condition should be documented in code, because it\u0027s non-obvious",
       "parentUuid": "10089662_10aa64d4",
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f6329f_2b8c598c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-04-21T14:28:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "102176e2_e80ed336",
       "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
