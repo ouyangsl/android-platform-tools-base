@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "d0f19ea3_8edabb10",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1057009
+      },
+      "writtenOn": "2015-04-21T09:06:15Z",
+      "side": 1,
+      "message": "@NotNull annotations on arguments?",
+      "range": {
+        "startLine": 260,
+        "startChar": 37,
+        "endLine": 260,
+        "endChar": 101
+      },
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "103a56f6_40f08e61",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
         "patchSetId": 2
@@ -54,6 +77,24 @@
       "side": 1,
       "message": "tis only null if the style is null, and if the style is null, the first bit of the if statement will catch that",
       "parentUuid": "103a56f6_40f08e61",
+      "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102176e2_e80ed336",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1057009
+      },
+      "writtenOn": "2015-04-21T09:06:15Z",
+      "side": 1,
+      "message": "This condition should be documented in code, because it\u0027s non-obvious",
+      "parentUuid": "10089662_10aa64d4",
       "revId": "2270677508c0e79116b5689ad82e427fe9362bc7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
