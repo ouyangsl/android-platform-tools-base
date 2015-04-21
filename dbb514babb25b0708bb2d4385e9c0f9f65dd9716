@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "700f1279_d25e1ac4",
+        "filename": "common/src/main/java/com/android/utils/SdkUtils.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-21T18:49:03Z",
+      "side": 1,
+      "message": "no wildcard imports in tools/base",
+      "revId": "dbb514babb25b0708bb2d4385e9c0f9f65dd9716",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
