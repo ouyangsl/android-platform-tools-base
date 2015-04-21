@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90148689_67cdec66",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-21T15:33:37Z",
+      "side": 1,
+      "message": "Alternatively, we could make this method protected, and then where you\u0027re creating the resource resolver you could extend it and override findItemInStyle to do this check first, then call super.\n\nThere already is another resource resolver which extends the vanilla resource resolver but adds value tracking such that it can display inheritance chains etc. In fact, you might even already be using it?",
+      "revId": "c23cad74f594cef0b0685a10a5a8a6209813ef0b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
