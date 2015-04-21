@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d08d1e46_6e312f1a",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-21T23:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d01a7eb3_fec950a8",
+      "range": {
+        "startLine": 340,
+        "startChar": 8,
+        "endLine": 340,
+        "endChar": 14
+      },
+      "revId": "13795b246f08db2cf9d26b4a5deb7f28aa1daa8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "302afabf_dc358487",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-21T22:44:04Z",
       "side": 1,
       "message": "@NonNull, likewise below",
+      "range": {
+        "startLine": 344,
+        "startChar": 25,
+        "endLine": 344,
+        "endChar": 31
+      },
+      "revId": "13795b246f08db2cf9d26b4a5deb7f28aa1daa8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d08d1e46_8e257bda",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-21T23:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "302afabf_dc358487",
       "range": {
         "startLine": 344,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d08d1e46_4e3e33df",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/ClientData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-21T23:09:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "302afabf_7c761885",
+      "range": {
+        "startLine": 447,
+        "startChar": 5,
+        "endLine": 447,
+        "endChar": 15
+      },
+      "revId": "13795b246f08db2cf9d26b4a5deb7f28aa1daa8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d01a7eb3_9ef13cb0",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/HandleHeap.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2015-04-21T22:44:04Z",
       "side": 1,
       "message": "The alternative way of doing this would be to to pass in your own handler (this call installs mInst as the reply handler).\n\nIt would depend on whether you get unexpected HPDU chunks (other than when you request it). If it is the case that HPDU responses are only returned for heap dump requests, then this alternative seems like a better approach. You\u0027d have:\n\nsendHPD[U/S](client, fileName, optional response handler)\n\nIf the optional handler is present, then use that, if not, default to mInst. That way you don\u0027t have to make this behave as something in the client changed.\n\nI think it is fine, but it seems a little bit of a stretch to say that a heap dump is similar to something in the client changing..",
+      "range": {
+        "startLine": 243,
+        "startChar": 38,
+        "endLine": 243,
+        "endChar": 43
+      },
+      "revId": "13795b246f08db2cf9d26b4a5deb7f28aa1daa8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_50cdec65",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/HandleHeap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-21T23:09:54Z",
+      "side": 1,
+      "message": "Yeah I looked into this and this is what I mentioned about some packages having replyId but some packages not. So, the ReplyHandler only works for packages that have the \"isReply\" flag set. Hprof is not one of them so this mechanism doesn\u0027t work (as far as I can see). Btw, an application can spontaneously trigger a heap dump in their code, so that\u0027s another reason to say that the device has changed and a dump is available.",
+      "parentUuid": "d01a7eb3_9ef13cb0",
       "range": {
         "startLine": 243,
         "startChar": 38,
