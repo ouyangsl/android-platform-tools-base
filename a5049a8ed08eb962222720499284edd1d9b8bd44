@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d01a7eb3_5daa31d5",
+        "filename": "build-system/profile/src/main/java/com/android/builder/tasks/QueueThreadContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-21T19:49:06Z",
+      "side": 1,
+      "message": "Nit: remove extra space",
+      "range": {
+        "startLine": 26,
+        "startChar": 16,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "a5049a8ed08eb962222720499284edd1d9b8bd44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
