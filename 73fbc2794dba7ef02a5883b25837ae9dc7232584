@@ -16,6 +16,24 @@
       "revId": "73fbc2794dba7ef02a5883b25837ae9dc7232584",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_70258961",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/IPkgDesc.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-04-22T22:30:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5083ee1c_aab5cf2e",
+      "revId": "73fbc2794dba7ef02a5883b25837ae9dc7232584",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
