@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "309d9a70_ab2b057c",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassInstance.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-04-22T17:59:39Z",
+      "side": 1,
+      "message": "This is not needed as we do not ned to read any values. The buffer is used only by the readValue call in the function above. In fact this method belongs in ClassObj, not here.",
+      "range": {
+        "startLine": 57,
+        "startChar": 20,
+        "endLine": 57,
+        "endChar": 31
+      },
+      "revId": "b117860a62e8ac186118603cc19ea3eb46cd92d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
