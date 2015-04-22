@@ -22,6 +22,30 @@
       "revId": "b117860a62e8ac186118603cc19ea3eb46cd92d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_d7daab11",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassInstance.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-04-22T18:03:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "309d9a70_ab2b057c",
+      "range": {
+        "startLine": 57,
+        "startChar": 20,
+        "endLine": 57,
+        "endChar": 31
+      },
+      "revId": "b117860a62e8ac186118603cc19ea3eb46cd92d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
