@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a416b9_5aefc2b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-22T18:39:30Z",
+      "side": 1,
+      "message": "Maybe include the b.android.com issue number here",
+      "revId": "c9e185c433a0bb28c8c8f9681f512dcb51127c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
