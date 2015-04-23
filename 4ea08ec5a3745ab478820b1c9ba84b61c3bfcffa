@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0d43e30_1d4eb44d",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/AndroidConfig.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-23T21:55:34Z",
+      "side": 1,
+      "message": "these methods should be documented.",
+      "revId": "4ea08ec5a3745ab478820b1c9ba84b61c3bfcffa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
