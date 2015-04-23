@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a416b9_ad0ebae7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-23T20:57:19Z",
+      "side": 1,
+      "message": "Not very informative...\nMaybe mention that it is flattening out the dependency tree.\n\nAlso, for App -\u003e Lib1 -\u003e Lib2 don\u0027t we call this function multiple times scaling with the tree depth? And does that matter?",
+      "range": {
+        "startLine": 984,
+        "startChar": 15,
+        "endLine": 984,
+        "endChar": 35
+      },
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_2d8c8a8c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-23T20:57:19Z",
+      "side": 1,
+      "message": "Remove unused imports.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
