@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "309d9a70_e8a8a55a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PreprocessResourcesTask.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-23T21:21:52Z",
+      "side": 1,
+      "message": "Why use the getters when you could just use the fields directly?",
+      "range": {
+        "startLine": 71,
+        "startChar": 49,
+        "endLine": 71,
+        "endChar": 75
+      },
+      "revId": "c4c9fe7bc44017d63430e04aeea56cfc6281c9db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
