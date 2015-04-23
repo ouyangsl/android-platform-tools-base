@@ -25,6 +25,40 @@
     },
     {
       "key": {
+        "uuid": "10a416b9_7faf0696",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-23T21:21:07Z",
+      "side": 1,
+      "message": "i am not sure having this asserts everwhere is truely useful.",
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_08db2917",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-23T21:21:07Z",
+      "side": 1,
+      "message": "because it can be the proguard task. I think we probably should introduce a ObfuscationTask that return the mapping file and have both Jack and Proguard implement it. can be done later.",
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a416b9_2d8c8a8c",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.groovy",
         "patchSetId": 5
@@ -42,6 +76,23 @@
         "endLine": 22,
         "endChar": 59
       },
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_ffb696c9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-23T21:21:07Z",
+      "side": 1,
+      "message": "since getScope() is annotated with @NonNull, this is not necessary.",
       "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
