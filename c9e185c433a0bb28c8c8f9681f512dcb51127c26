@@ -16,6 +16,24 @@
       "revId": "c9e185c433a0bb28c8c8f9681f512dcb51127c26",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b566fa_08ef84b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-04-23T13:04:42Z",
+      "side": 1,
+      "message": "Done -- let me know if this is the typical format -- I saw a couple examples done this way.",
+      "parentUuid": "10a416b9_5aefc2b4",
+      "revId": "c9e185c433a0bb28c8c8f9681f512dcb51127c26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
