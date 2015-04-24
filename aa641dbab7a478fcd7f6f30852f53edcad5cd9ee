@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "309d9a70_a1f6b3a3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/DependencyManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 984,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-24T19:13:18Z",
+      "side": 1,
+      "message": "This was moved from TaskManager.  It probably do matters, but I think Michal is working on that.",
+      "parentUuid": "10a416b9_ad0ebae7",
+      "range": {
+        "startLine": 984,
+        "startChar": 15,
+        "endLine": 984,
+        "endChar": 35
+      },
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a416b9_7faf0696",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.java",
         "patchSetId": 5
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "309d9a70_c112d753",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-24T19:13:18Z",
+      "side": 1,
+      "message": "It was mostly to get rid of warnings.  It\u0027s not necessary now and I got rid of them now.",
+      "parentUuid": "10a416b9_7faf0696",
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "309d9a70_08db2917",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
         "patchSetId": 5
@@ -53,6 +95,24 @@
       "writtenOn": "2015-04-23T21:21:07Z",
       "side": 1,
       "message": "because it can be the proguard task. I think we probably should introduce a ObfuscationTask that return the mapping file and have both Jack and Proguard implement it. can be done later.",
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_f5d30ed6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-24T19:13:18Z",
+      "side": 1,
+      "message": "Comment was copied from BaseVariantData.",
+      "parentUuid": "309d9a70_08db2917",
       "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "10a416b9_35dd96e3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-24T19:13:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a416b9_2d8c8a8c",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 59
+      },
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a416b9_ffb696c9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
         "patchSetId": 5
@@ -93,6 +177,24 @@
       "writtenOn": "2015-04-23T21:21:07Z",
       "side": 1,
       "message": "since getScope() is annotated with @NonNull, this is not necessary.",
+      "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_e17c3b36",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-24T19:13:18Z",
+      "side": 1,
+      "message": "It was Nullable before since in the previous CL, the scope cannot be created early.  I made it NonNull and got rid of all the asserts.",
+      "parentUuid": "10a416b9_ffb696c9",
       "revId": "aa641dbab7a478fcd7f6f30852f53edcad5cd9ee",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
