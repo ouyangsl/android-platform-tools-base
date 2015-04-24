@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a416b9_d2ab80fe",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-24T18:18:37Z",
+      "side": 1,
+      "message": "the dummy packages we tend to use for tests are com.example.helloworld or test.pkg",
+      "revId": "8c12aa1d59148eba0cf763c226d2a7aebef82153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_be0b32aa",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-24T18:18:37Z",
+      "side": 1,
+      "message": "Maybe the error message should make it more obvious that this has to do with app indexing? (The category [AppIndexing] included here only appears in command line text error reports, not in in-IDE usage.)",
+      "revId": "8c12aa1d59148eba0cf763c226d2a7aebef82153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_fe14dac7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-24T18:18:37Z",
+      "side": 1,
+      "message": "insert \"the\" before Google and capitalize Api as API ?",
+      "revId": "8c12aa1d59148eba0cf763c226d2a7aebef82153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_521230da",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-24T18:18:37Z",
+      "side": 1,
+      "message": "you don\u0027t actually need these hasChildNodes() calls; the DOM will return a (shared) empty node list for you. Avoids extra nesting.",
+      "revId": "8c12aa1d59148eba0cf763c226d2a7aebef82153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d43e30_b8cd83b6",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-24T18:18:37Z",
+      "side": 1,
+      "message": "It\u0027s not normally an error not to have an action view intent, is it? Is that a general problem, or just a problem for app indexing? If so, maybe update the error message to say this.\n\n(Is this the check to let people know that they should probably add app indexing? If so, I think you should make a separate issue type for that, and it should have severity warning instead of error.)",
+      "revId": "8c12aa1d59148eba0cf763c226d2a7aebef82153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_7ed38a8a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-24T18:18:37Z",
+      "side": 1,
+      "message": "ditto on hasChildNodes here and elsewhere in the file",
+      "revId": "8c12aa1d59148eba0cf763c226d2a7aebef82153",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
