@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "309d9a70_9c62f611",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/BuildToolsServiceLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-04-24T19:53:43Z",
+      "side": 1,
+      "message": "Why not simply\nnew Service\u003cJackProvider\u003e(ImmutableList.of(\"jack.jar\"), JackProvider.class)\nor am I missing something?",
+      "range": {
+        "startLine": 127,
+        "startChar": 57,
+        "endLine": 127,
+        "endChar": 61
+      },
+      "revId": "039d4f9c6cb1f3bc6fef70da8c7188de9441db6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
