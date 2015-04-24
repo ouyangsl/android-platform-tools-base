@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d0d43e30_64c3bd3d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/TestedExtension.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-24T22:20:13Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "10a416b9_dff9d2fc",
+      "revId": "8e267e566d1c2e26e769fecb72292802ca2b9a4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0d43e30_fdf41856",
         "filename": "build-system/integration-test/test-projects/ndkSanAngeles2/build.gradle",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-23T21:55:34Z",
       "side": 0,
       "message": "why is this removed ?",
+      "revId": "8e267e566d1c2e26e769fecb72292802ca2b9a4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_013f74da",
+        "filename": "build-system/integration-test/test-projects/ndkSanAngeles2/build.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-24T22:20:13Z",
+      "side": 0,
+      "message": "applicationVariants.all is not supported at the moment.  I will update our AndroidBinary type to support it.",
+      "parentUuid": "d0d43e30_fdf41856",
       "revId": "8e267e566d1c2e26e769fecb72292802ca2b9a4c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
