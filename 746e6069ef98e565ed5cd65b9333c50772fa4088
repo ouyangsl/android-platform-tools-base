@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d076fe11_465367f1",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2015-04-24T15:10:50Z",
+      "side": 1,
+      "message": "I\u0027ll update this version to 2.3.0 once:\n1. I finish testing the embedded repo with plugin 1.2.0\n2. Check with Xav and Tor if it is OK to change this version\n\nthen I\u0027ll update the embedded Gradle distribution.",
+      "range": {
+        "startLine": 1370,
+        "startChar": 56,
+        "endLine": 1370,
+        "endChar": 61
+      },
+      "revId": "746e6069ef98e565ed5cd65b9333c50772fa4088",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
