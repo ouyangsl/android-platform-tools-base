@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0d99e70_7d6b831e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-04-27T11:29:18Z",
+      "side": 1,
+      "message": "We triggers errors that android:host / scheme / pathPrefix should be set whenever manifest file has android.intent.action.VIEW.\n\nBut apps which uses \"android.intent.action.VIEW\" doesn\u0027t mean they have interests to use App Indexing (they might add them for other usage), will this error info be confusing for those users?\n\nGenerally we should trigger deep link lint errors when we are sure they are using deep link features and they don\u0027t use that correctly; For other cases, we should just warning users to add deep link support.\n\nDo I misunderstand something here?",
+      "range": {
+        "startLine": 142,
+        "startChar": 48,
+        "endLine": 142,
+        "endChar": 50
+      },
+      "revId": "de0892da71f5b1ae58515320b55f0b12f16ee05a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d99e70_5d68c71f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-04-27T11:29:18Z",
+      "side": 1,
+      "message": "Echo previous comment:\n1. If we know users are using deep link features, but BROWSABLE is not set, this should be an error, since BROWSEABLE is required for deep link support\n(\"BROWSABLE is required in order for the intent to be executable from a web browser. Without it, clicking a link in a browser cannot resolve to your app and only the current web browser will respond to the URL.\"\nfrom: https://developers.google.com/app-indexing/webmasters/app)\n\n2. If we don\u0027t know users are surely use deeplink, this is OK.",
+      "range": {
+        "startLine": 152,
+        "startChar": 84,
+        "endLine": 152,
+        "endChar": 87
+      },
+      "revId": "de0892da71f5b1ae58515320b55f0b12f16ee05a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
