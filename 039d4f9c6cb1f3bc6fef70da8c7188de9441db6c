@@ -22,6 +22,30 @@
       "revId": "039d4f9c6cb1f3bc6fef70da8c7188de9441db6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_b17b533c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/BuildToolsServiceLoader.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-27T23:13:06Z",
+      "side": 1,
+      "message": "doh ! I think I had some methods in there for a while....",
+      "parentUuid": "309d9a70_9c62f611",
+      "range": {
+        "startLine": 127,
+        "startChar": 57,
+        "endLine": 127,
+        "endChar": 61
+      },
+      "revId": "039d4f9c6cb1f3bc6fef70da8c7188de9441db6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
