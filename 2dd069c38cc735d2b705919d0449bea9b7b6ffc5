@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0d42a38_fa264234",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-28T16:24:13Z",
+      "side": 1,
+      "message": "Splitter.on(String) is not as efficient as Splitter.on(char) (doesn\u0027t look like Guava special cases a 1-character string).\n\nIf you want a constant here, let\u0027s make a RES_QUALIFIER_CHAR constant in addition to the string one, similiar to how there is both a File.separator and a File.separatorChar constant. \n\n(But there are a lot of places in the code where \u0027-\u0027 is inlined; we haven\u0027t been disciplined about always using a constant for this. But it\u0027s not like it will *ever* change.)",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0d42a38_9a361e5f",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-28T16:24:13Z",
+      "side": 1,
+      "message": "just return new FolderConfiguration() here?",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_e16b48ed",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-28T16:24:13Z",
+      "side": 1,
+      "message": "Maybe make a more direct copy-constructor instead of relying on parsing for this? I\u0027m assuming you need a deep copy (new qualifier instances too) ?",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_21495094",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-28T16:24:13Z",
+      "side": 1,
+      "message": "This (and the to-list-to-join part below) seems a lot less efficient -- can you explain what this change is for?",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_a1554022",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/resources/configuration/FolderConfigurationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-28T16:24:13Z",
+      "side": 1,
+      "message": "maybe also check that mutating some of the qualifiers do not affect the other copy (if that\u0027s what you need the copy for; if not, you could implement the copy by just using new FolderConfig plus calling set(other) on it.)",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
