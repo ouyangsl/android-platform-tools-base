@@ -16,6 +16,24 @@
       "revId": "1101648f52dbc56b3928429d1e1d9de5b5a228c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0d42a38_c5395ea1",
+        "filename": "templates/activities/AndroidTVActivity/root/src/app_package/MainFragment.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1057138
+      },
+      "writtenOn": "2015-04-28T21:38:05Z",
+      "side": 1,
+      "message": "It\u0027s related to API change in 22 indeed.  We could add the if statement to make code backward compatible but our more important goal is keep the code sample simple and easy to work with.  We encourage developers to go with the latest SDK and keep our code sample as simple and minimal as possible.",
+      "parentUuid": "f0f222e5_d0e1284e",
+      "revId": "1101648f52dbc56b3928429d1e1d9de5b5a228c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
