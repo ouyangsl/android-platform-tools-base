@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0f222e5_d0e1284e",
+        "filename": "templates/activities/AndroidTVActivity/root/src/app_package/MainFragment.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-04-28T21:30:37Z",
+      "side": 1,
+      "message": "Is this an API change in API 22? If so, you may want to surround this with\n\u003c#if buildApi gte 22\u003e\n // code to compile with 22+\n\u003c#else\u003e\n  // older code\n\u003c/#if\u003e",
+      "revId": "1101648f52dbc56b3928429d1e1d9de5b5a228c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
