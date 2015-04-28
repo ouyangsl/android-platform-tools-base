@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "500f6eb1_d32c9e19",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-28T17:17:24Z",
+      "side": 1,
+      "message": "Reverted. I have you on the record saying it couldn\u0027t possibly change...",
+      "parentUuid": "b0d42a38_fa264234",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0d42a38_9a361e5f",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-28T16:24:13Z",
       "side": 1,
       "message": "just return new FolderConfiguration() here?",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90e3a61e_9575e678",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-28T17:17:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0d42a38_9a361e5f",
       "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "30375a6d_758a901f",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-28T17:17:24Z",
+      "side": 1,
+      "message": "It seems to me that qualifiers are meant to be immutable? I changed the code to make a shallow copy.\n\nOne issue with that approach is that LocaleQualifier does have a setter, but it\u0027s not really used after the qualifier is constructed. I was thinking of just making the setter package private - what do you think?",
+      "parentUuid": "f0f222e5_e16b48ed",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0f222e5_21495094",
         "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2015-04-28T16:24:13Z",
       "side": 1,
       "message": "This (and the to-list-to-join part below) seems a lot less efficient -- can you explain what this change is for?",
+      "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "500f6eb1_93f866f9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/FolderConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-28T17:17:24Z",
+      "side": 1,
+      "message": "I was just dealing with strings and trying to avoid code duplication, but it seems you care more about performance here.",
+      "parentUuid": "f0f222e5_21495094",
       "revId": "2dd069c38cc735d2b705919d0449bea9b7b6ffc5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
