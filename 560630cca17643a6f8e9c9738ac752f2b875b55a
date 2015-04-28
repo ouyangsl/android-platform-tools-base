@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0d42a38_b11d7c91",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/ApplicationVariantFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-28T19:14:55Z",
+      "side": 1,
+      "message": "I think you can always add this?\nbasically we always want the universal version whether it\u0027s enabled or not.",
+      "range": {
+        "startLine": 107,
+        "startChar": 16,
+        "endLine": 107,
+        "endChar": 84
+      },
+      "revId": "560630cca17643a6f8e9c9738ac752f2b875b55a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
