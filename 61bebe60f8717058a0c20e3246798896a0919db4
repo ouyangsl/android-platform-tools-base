@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1065f695_51de8608",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "705392ca_a3169a45",
+      "range": {
+        "startLine": 38,
+        "startChar": 83,
+        "endLine": 38,
+        "endChar": 90
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0598aea_c57b9a76",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
         "patchSetId": 3
@@ -318,6 +342,30 @@
       "writtenOn": "2015-04-29T15:28:40Z",
       "side": 1,
       "message": "Color.WHITE",
+      "range": {
+        "startLine": 42,
+        "startChar": 23,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d99e70_67e4ecd5",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "Em.. that Color.WHITE is opaque, I need transparent here.\nI want to clear out the content with transparent background.",
+      "parentUuid": "b0598aea_c57b9a76",
       "range": {
         "startLine": 42,
         "startChar": 23,
@@ -353,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "1065f695_113c8e8f",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "Em... it will be much better if you could hook up layoutlib for getting the PNG, since this preview part is not supporting full spec of VectorDrawable yet. The reason is that we convert the SVG into just a subset of supported features of VectorDrawable for simplicity for now.\n\nAssuming the dev update the XML file manually, then layoutlib should be able to handle those changes without any trouble.\n\nAnyway, I figure that I miss the aspect ratio support here, \nso I refactor this code to include the width as parameter, and the height will be determined by the vectordrawable\u0027s aspect ratio.",
+      "parentUuid": "705392ca_432c8694",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 72
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90e3a61e_9bc75795",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
         "patchSetId": 3
@@ -364,6 +436,30 @@
       "writtenOn": "2015-04-29T15:28:40Z",
       "side": 1,
       "message": "rethrow as RuntimeException instead. What exceptions can happen here?",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d99e70_f952c469",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "You are right, this is obsolete code. No exception here.",
+      "parentUuid": "90e3a61e_9bc75795",
       "range": {
         "startLine": 46,
         "startChar": 12,
@@ -399,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "90fd66eb_1c4f95c5",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "I further clean this by moving everything under .vg up to vectordrawable, and keep them package private.",
+      "parentUuid": "b0598aea_058a12ec",
+      "range": {
+        "startLine": 17,
+        "startChar": 50,
+        "endLine": 17,
+        "endChar": 52
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0598aea_455b2a10",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
         "patchSetId": 3
@@ -410,6 +530,30 @@
       "writtenOn": "2015-04-29T15:28:40Z",
       "side": 1,
       "message": "Can you extract a common interface for SvgLeaveNode and SvgGroupNode to make it more type safe?",
+      "range": {
+        "startLine": 27,
+        "startChar": 48,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90fd66eb_bf1ad325",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "Good point!\nAlso clean further the logic about dumping the tree information for debugging.",
+      "parentUuid": "b0598aea_455b2a10",
       "range": {
         "startLine": 27,
         "startChar": 48,
@@ -445,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "90fd66eb_9f1f1716",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30e3da4b_6181d6fc",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30e3da4b_8184da0e",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
         "patchSetId": 3
@@ -468,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "300cbaed_b3c338db",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "30e3da4b_8184da0e",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "705392ca_63b422c1",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGLeaveNode.java",
         "patchSetId": 3
@@ -479,6 +671,30 @@
       "writtenOn": "2015-04-29T15:28:40Z",
       "side": 1,
       "message": "Is this named after an XML element/attribute \"d\"? What exactly is this?",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f8f2fa_55260ce5",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGLeaveNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T23:21:18Z",
+      "side": 1,
+      "message": "rename to pathData",
+      "parentUuid": "705392ca_63b422c1",
       "range": {
         "startLine": 31,
         "startChar": 18,
