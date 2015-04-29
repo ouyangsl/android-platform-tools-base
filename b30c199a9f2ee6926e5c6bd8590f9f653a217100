@@ -22,6 +22,29 @@
       "revId": "b30c199a9f2ee6926e5c6bd8590f9f653a217100",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e3da4b_a1363e13",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T14:54:00Z",
+      "side": 1,
+      "message": "I think you should explain this better. This is about optional packages in the SDK, right? Not the usual dependency resolution.\n\nMaybe call it useSdkLibrary?",
+      "range": {
+        "startLine": 279,
+        "startChar": 6,
+        "endLine": 279,
+        "endChar": 80
+      },
+      "revId": "b30c199a9f2ee6926e5c6bd8590f9f653a217100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
