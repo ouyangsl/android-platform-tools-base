@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d0d99e70_2cf5abcd",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-29T16:11:43Z",
+      "side": 1,
+      "message": "I don\u0027t think it simplifies the code.",
+      "parentUuid": "30e3da4b_e16b26ed",
+      "range": {
+        "startLine": 1380,
+        "startChar": 4,
+        "endLine": 1395,
+        "endChar": 21
+      },
+      "revId": "52d7ac78e56bb76b93848c529e17aa34a088535d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30e3da4b_c1438273",
         "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-29T15:02:46Z",
       "side": 1,
       "message": "Don\u0027t check in commented code.",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 54
+      },
+      "revId": "52d7ac78e56bb76b93848c529e17aa34a088535d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1065f695_abb3d54a",
+        "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-04-29T16:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30e3da4b_c1438273",
       "range": {
         "startLine": 430,
         "startChar": 8,
