@@ -22,6 +22,29 @@
       "revId": "52d7ac78e56bb76b93848c529e17aa34a088535d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e3da4b_c1438273",
+        "filename": "build-system/builder/src/test/java/com/android/builder/internal/compiler/PreDexCacheTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:02:46Z",
+      "side": 1,
+      "message": "Don\u0027t check in commented code.",
+      "range": {
+        "startLine": 430,
+        "startChar": 8,
+        "endLine": 430,
+        "endChar": 54
+      },
+      "revId": "52d7ac78e56bb76b93848c529e17aa34a088535d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
