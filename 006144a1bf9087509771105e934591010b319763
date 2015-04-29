@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "90fd66eb_42a3f6ac",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidProject.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-29T21:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0d99e70_99e4e0a9",
+      "range": {
+        "startLine": 174,
+        "startChar": 19,
+        "endLine": 174,
+        "endChar": 32
+      },
+      "revId": "006144a1bf9087509771105e934591010b319763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0f222e5_7e4926bd",
         "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-29T16:34:35Z",
       "side": 1,
       "message": "What is the name of a native library. Is it the Abi? Could you please add an example name to the java doc?",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "006144a1bf9087509771105e934591010b319763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "300cbaed_4215a8c0",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-29T21:57:20Z",
+      "side": 1,
+      "message": "This is the name of the file.  Not sure if it\u0027s useful for studio.",
+      "parentUuid": "f0f222e5_7e4926bd",
       "range": {
         "startLine": 30,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "70f8f2fa_04e45cd4",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/Toolchain.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-29T21:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0f222e5_54c9a32b",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "006144a1bf9087509771105e934591010b319763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0f222e5_59b9dc0d",
         "filename": "build-system/builder-model/src/main/java/com/android/builder/model/Toolchain.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2015-04-29T16:34:35Z",
       "side": 1,
       "message": "How does a tool chain name look like? Could you please add an example name to the java doc?",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "006144a1bf9087509771105e934591010b319763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f8f2fa_a48008d0",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/Toolchain.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-04-29T21:57:20Z",
+      "side": 1,
+      "message": "It will be the name under ndk/toolchains",
+      "parentUuid": "f0f222e5_59b9dc0d",
       "range": {
         "startLine": 29,
         "startChar": 19,
