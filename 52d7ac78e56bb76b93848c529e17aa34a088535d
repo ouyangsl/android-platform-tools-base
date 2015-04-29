@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30e3da4b_e16b26ed",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1395,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:00:26Z",
+      "side": 1,
+      "message": "Nit: Files.fileTreeTraverer from Guava?",
+      "range": {
+        "startLine": 1380,
+        "startChar": 4,
+        "endLine": 1395,
+        "endChar": 21
+      },
+      "revId": "52d7ac78e56bb76b93848c529e17aa34a088535d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
