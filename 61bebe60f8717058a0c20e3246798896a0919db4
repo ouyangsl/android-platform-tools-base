@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1065f695_ee48fb91",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/ActionBarIconGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T17:00:46Z",
+      "side": 1,
+      "message": "Ah, so auto format thing kicked in accidentally. Done.",
+      "parentUuid": "705392ca_83fa7e88",
+      "range": {
+        "startLine": 58,
+        "startChar": 61,
+        "endLine": 58,
+        "endChar": 62
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "500f6eb1_192377a3",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-29T15:28:40Z",
       "side": 1,
       "message": "Nit: use the same constants as getIconFolder?",
+      "range": {
+        "startLine": 133,
+        "startChar": 20,
+        "endLine": 133,
+        "endChar": 33
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_9e9a8ab8",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T17:00:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "500f6eb1_192377a3",
       "range": {
         "startLine": 133,
         "startChar": 20,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1065f695_ae4c4352",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T17:00:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "30375a6d_d04cca53",
+      "range": {
+        "startLine": 19,
+        "startChar": 52,
+        "endLine": 19,
+        "endChar": 64
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0598aea_65a6668d",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2015-04-29T15:28:40Z",
       "side": 1,
       "message": "I don\u0027t see this class used in the other CL - am I missing something?",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1065f695_6e3f2b87",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T17:00:46Z",
+      "side": 1,
+      "message": "It is used in the other CL, where we call Svg2Vector.parseSVGToXML\n@com.android.tools.idea.wizard.AssetStudioAssetGenerator#generateVectorXML",
+      "parentUuid": "b0598aea_65a6668d",
       "range": {
         "startLine": 44,
         "startChar": 13,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d0d99e70_acfabbf1",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T17:00:46Z",
+      "side": 1,
+      "message": "Good point . Done",
+      "parentUuid": "500f6eb1_19bed7a0",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 97
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "705392ca_c3171645",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2015-04-29T15:28:40Z",
       "side": 1,
       "message": "All other code I\u0027ve seen in base/ built XML programatically (e.g. DataMerger), not by joining strings. I personally would like it better this way, but maybe Tor should comment if that\u0027s an issue.",
+      "range": {
+        "startLine": 645,
+        "startChar": 29,
+        "endLine": 645,
+        "endChar": 72
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d99e70_8737d810",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T17:00:46Z",
+      "side": 1,
+      "message": "Peek into DataMerge, can\u0027t figure out how to build XML programatically in this class though. Elaboration on this will be appreciated.\n\nAnyhow, my own concern is, given the tests for this part is still need to be re-written, I would rather do some major change after the regression tests is in place.",
+      "parentUuid": "705392ca_c3171645",
       "range": {
         "startLine": 645,
         "startChar": 29,
