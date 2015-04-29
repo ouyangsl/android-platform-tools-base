@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30e3da4b_41ff72a7",
+        "filename": ".idea/libraries/JUnit4.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T14:47:26Z",
+      "side": 1,
+      "message": "Can we stick to Truth for assertions?",
+      "range": {
+        "startLine": 5,
+        "startChar": 6,
+        "endLine": 5,
+        "endChar": 138
+      },
+      "revId": "b30c199a9f2ee6926e5c6bd8590f9f653a217100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
