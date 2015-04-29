@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "705392ca_83fa7e88",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/ActionBarIconGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Wrap?",
+      "range": {
+        "startLine": 58,
+        "startChar": 61,
+        "endLine": 58,
+        "endChar": 62
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "500f6eb1_192377a3",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Nit: use the same constants as getIconFolder?",
+      "range": {
+        "startLine": 133,
+        "startChar": 20,
+        "endLine": 133,
+        "endChar": 33
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30375a6d_d04cca53",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Nit: SvgGroupNode? \n\nhttps://google-styleguide.googlecode.com/svn/trunk/javaguide.html#s5.3-camel-case",
+      "range": {
+        "startLine": 19,
+        "startChar": 52,
+        "endLine": 19,
+        "endChar": 64
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_65a6668d",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "I don\u0027t see this class used in the other CL - am I missing something?",
+      "range": {
+        "startLine": 44,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "500f6eb1_19bed7a0",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Nit: ImmutableMap?",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 97
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "705392ca_c3171645",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "All other code I\u0027ve seen in base/ built XML programatically (e.g. DataMerger), not by joining strings. I personally would like it better this way, but maybe Tor should comment if that\u0027s an issue.",
+      "range": {
+        "startLine": 645,
+        "startChar": 29,
+        "endLine": 645,
+        "endChar": 72
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "705392ca_a3169a45",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Nit: Charsets.UTF_8",
+      "range": {
+        "startLine": 38,
+        "startChar": 83,
+        "endLine": 38,
+        "endChar": 90
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_c57b9a76",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Color.WHITE",
+      "range": {
+        "startLine": 42,
+        "startChar": 23,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "705392ca_432c8694",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Is this what I should be using for rendering PNGs later on?",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 72
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90e3a61e_9bc75795",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VDPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "rethrow as RuntimeException instead. What exceptions can happen here?",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_058a12ec",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "vg?",
+      "range": {
+        "startLine": 17,
+        "startChar": 50,
+        "endLine": 17,
+        "endChar": 52
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_455b2a10",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Can you extract a common interface for SvgLeaveNode and SvgGroupNode to make it more type safe?",
+      "range": {
+        "startLine": 27,
+        "startChar": 48,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e3da4b_6181d6fc",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Nit: addChild.",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 27
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e3da4b_8184da0e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGGroupNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Why not make it Iterable\u003cObject\u003e instead?",
+      "range": {
+        "startLine": 37,
+        "startChar": 15,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "705392ca_63b422c1",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/vg/SVGLeaveNode.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-29T15:28:40Z",
+      "side": 1,
+      "message": "Is this named after an XML element/attribute \"d\"? What exactly is this?",
+      "range": {
+        "startLine": 31,
+        "startChar": 18,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "61bebe60f8717058a0c20e3246798896a0919db4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
