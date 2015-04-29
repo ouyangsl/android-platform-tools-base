@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1065f695_0e4c6fcd",
+        "filename": ".idea/libraries/JUnit4.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-29T17:01:39Z",
+      "side": 1,
+      "message": "Truth is already used. This is more a case where we didn\u0027t have a library for hamcrest (even though junit depends on it) and I had a broken experience in Studio (don\u0027t remember where). I don\u0027t think I\u0027m actually using hamcrest directly.",
+      "parentUuid": "30e3da4b_41ff72a7",
+      "range": {
+        "startLine": 5,
+        "startChar": 6,
+        "endLine": 5,
+        "endChar": 138
+      },
+      "revId": "b30c199a9f2ee6926e5c6bd8590f9f653a217100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "30e3da4b_a1363e13",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-04-29T14:54:00Z",
       "side": 1,
       "message": "I think you should explain this better. This is about optional packages in the SDK, right? Not the usual dependency resolution.\n\nMaybe call it useSdkLibrary?",
+      "range": {
+        "startLine": 279,
+        "startChar": 6,
+        "endLine": 279,
+        "endChar": 80
+      },
+      "revId": "b30c199a9f2ee6926e5c6bd8590f9f653a217100",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1065f695_ce765706",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/BaseExtension.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-04-29T17:01:39Z",
+      "side": 1,
+      "message": "The reason I was leaving it as useLibrary was that it\u0027s normally tied to a AndroidManifest.xml entry called uses-library.\n\nBut you have a good point. I\u0027m not fond of useSdkLibrary. I\u0027ll try to find something else.",
+      "parentUuid": "30e3da4b_a1363e13",
       "range": {
         "startLine": 279,
         "startChar": 6,
