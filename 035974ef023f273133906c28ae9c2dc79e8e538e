@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0f222e5_431d6f64",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/RepoXsdUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-29T04:20:43Z",
+      "side": 1,
+      "message": "Unrelated: I\u0027d love to talk to you about XSD at some point. I feel like I should have a schema for the service.xml code I\u0027m working on, as well as having an XSD for template.xml too.",
+      "revId": "035974ef023f273133906c28ae9c2dc79e8e538e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f00b02a7_d6b36afc",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/RepoXsdUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-29T04:20:43Z",
+      "side": 1,
+      "message": "@return doc out of date. You can probably just cut it since the main comment covers what gets returned",
+      "revId": "035974ef023f273133906c28ae9c2dc79e8e538e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_03008703",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/RepoXsdUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-29T04:20:43Z",
+      "side": 1,
+      "message": "Nit: This comment should be part of the exception below",
+      "revId": "035974ef023f273133906c28ae9c2dc79e8e538e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0d42a38_04b4ff5f",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/RepoXsdUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-29T04:20:43Z",
+      "side": 1,
+      "message": "Just curious, what does the leading minus indicate?",
+      "revId": "035974ef023f273133906c28ae9c2dc79e8e538e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_c3027f0b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/RepoXsdUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-29T04:20:43Z",
+      "side": 1,
+      "message": "This comment can be removed",
+      "revId": "035974ef023f273133906c28ae9c2dc79e8e538e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0d42a38_e4b0d36e",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/RepoXsdUtil.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-04-29T04:20:43Z",
+      "side": 1,
+      "message": "Should we insert this stream to the front of the list?",
+      "revId": "035974ef023f273133906c28ae9c2dc79e8e538e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
