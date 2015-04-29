@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0f222e5_94202bc7",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/VectorDrawableRenderer.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-04-29T17:39:49Z",
+      "side": 1,
+      "message": "nit: update the comment to include \"and duplicate the XML into folders with the version qualifier\"",
+      "range": {
+        "startLine": 57,
+        "startChar": 26,
+        "endLine": 57,
+        "endChar": 29
+      },
+      "revId": "02ac54e57a808db7689ddbf080785721d883b2bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
