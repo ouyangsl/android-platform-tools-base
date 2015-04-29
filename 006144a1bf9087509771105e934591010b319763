@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0f222e5_7e4926bd",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1028773
+      },
+      "writtenOn": "2015-04-29T16:34:35Z",
+      "side": 1,
+      "message": "What is the name of a native library. Is it the Abi? Could you please add an example name to the java doc?",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 23
+      },
+      "revId": "006144a1bf9087509771105e934591010b319763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_59b9dc0d",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/Toolchain.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1028773
+      },
+      "writtenOn": "2015-04-29T16:34:35Z",
+      "side": 1,
+      "message": "How does a tool chain name look like? Could you please add an example name to the java doc?",
+      "range": {
+        "startLine": 29,
+        "startChar": 19,
+        "endLine": 29,
+        "endChar": 23
+      },
+      "revId": "006144a1bf9087509771105e934591010b319763",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
