@@ -16,6 +16,24 @@
       "revId": "1efa6a1cd291e915ba34aaeb0859aed6e8c18ad1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d01c3e21_19016fbf",
+        "filename": "templates/activities/AndroidTVActivity/root/src/app_package/MainFragment.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1057138
+      },
+      "writtenOn": "2015-04-30T20:21:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b017cafa_353c3042",
+      "revId": "1efa6a1cd291e915ba34aaeb0859aed6e8c18ad1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
