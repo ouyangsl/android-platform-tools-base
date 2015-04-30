@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0598aea_2bd4bd39",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgGroupNode.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-30T13:30:30Z",
+      "side": 1,
+      "message": "private?",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 31
+      },
+      "revId": "a02824d1068f3af7eefee8bf48ec51f0e69a3f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e3da4b_449ae0ec",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeaveNode.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-30T13:30:30Z",
+      "side": 1,
+      "message": "I imagine this is not a valid XML name - what is the purpose for this constructor?",
+      "range": {
+        "startLine": 38,
+        "startChar": 15,
+        "endLine": 38,
+        "endChar": 22
+      },
+      "revId": "a02824d1068f3af7eefee8bf48ec51f0e69a3f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30e3da4b_040bb8ac",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-30T13:30:30Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be used?",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "a02824d1068f3af7eefee8bf48ec51f0e69a3f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_ebe46528",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdGroup.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-30T13:30:30Z",
+      "side": 1,
+      "message": "VdPath? If you make it a {@link VdPath} the refactorings will take care of keeping it up-to-date.",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 38
+      },
+      "revId": "a02824d1068f3af7eefee8bf48ec51f0e69a3f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_8bd93173",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdGroup.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-30T13:30:30Z",
+      "side": 1,
+      "message": "Ditto - we can probably have a supertype.",
+      "range": {
+        "startLine": 27,
+        "startChar": 22,
+        "endLine": 27,
+        "endChar": 28
+      },
+      "revId": "a02824d1068f3af7eefee8bf48ec51f0e69a3f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_6bf155e0",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-30T13:30:30Z",
+      "side": 1,
+      "message": "Have a look at XmlUtils.parseDocument, it may simplify this a lot.",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 66
+      },
+      "revId": "a02824d1068f3af7eefee8bf48ec51f0e69a3f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0598aea_8b14d178",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-04-30T13:30:30Z",
+      "side": 1,
+      "message": "||",
+      "range": {
+        "startLine": 349,
+        "startChar": 31,
+        "endLine": 349,
+        "endChar": 32
+      },
+      "revId": "a02824d1068f3af7eefee8bf48ec51f0e69a3f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
