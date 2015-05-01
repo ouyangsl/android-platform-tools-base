@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "300cbaed_d50f98e3",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-01T01:41:26Z",
+      "side": 1,
+      "message": "FYI in tools/base you can access XmlUtils which has parsing methods already",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f8f2fa_76585f8d",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeaveNode.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-01T01:41:26Z",
+      "side": 1,
+      "message": "Should this be Leaf, not Leave?",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70f8f2fa_d64973bf",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-01T01:41:26Z",
+      "side": 1,
+      "message": "SdkConstants.UNIT_PX\netc",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90fd66eb_d1d8641b",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-01T01:41:26Z",
+      "side": 1,
+      "message": "are files allowed to redefine the android prefix (xmlns:random\u003d\"http://schemas.android.com/apk/res/android\", random:width\u003d\"foo\")\nor is this hardcoded the way things are in styles/attrs.xml?",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
