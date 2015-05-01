@@ -68,6 +68,53 @@
       "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d078be71_76eec504",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1028773
+      },
+      "writtenOn": "2015-05-01T23:51:29Z",
+      "side": 1,
+      "message": "+1 for including Abi info here.\n\nInitially I though the toolchain name will provide the abi information. But, as two abis can have same toolchain (armeabi and armeabi-v7a both uses arm-linux-androideabi toolchain), I think it\u0027s better to have getAbi() also here.",
+      "parentUuid": "300cbaed_7527ac31",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "105fb6fa_c762883b",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1028773
+      },
+      "writtenOn": "2015-05-01T23:51:29Z",
+      "side": 1,
+      "message": "May be \"getNativeToolChainName\" would be a better name here.",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
