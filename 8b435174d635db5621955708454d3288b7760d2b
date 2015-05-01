@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0c50acf_684c1bcf",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-01T23:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "300cbaed_d50f98e3",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70f8f2fa_76585f8d",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeaveNode.java",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-01T01:41:26Z",
       "side": 1,
       "message": "Should this be Leaf, not Leave?",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0d30294_ca19c3b1",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeaveNode.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-01T23:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70f8f2fa_76585f8d",
       "revId": "8b435174d635db5621955708454d3288b7760d2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b0c50acf_2bffbda8",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-01T23:19:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70f8f2fa_d64973bf",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90fd66eb_d1d8641b",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
         "patchSetId": 7
@@ -64,6 +118,24 @@
       "writtenOn": "2015-05-01T01:41:26Z",
       "side": 1,
       "message": "are files allowed to redefine the android prefix (xmlns:random\u003d\"http://schemas.android.com/apk/res/android\", random:width\u003d\"foo\")\nor is this hardcoded the way things are in styles/attrs.xml?",
+      "revId": "8b435174d635db5621955708454d3288b7760d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0c50acf_8b36b113",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-01T23:19:49Z",
+      "side": 1,
+      "message": "It is not allowed to  redefine the android prefix. Like random:width is totally ignored.\n\nWe only support android:** for vector drawable.",
+      "parentUuid": "90fd66eb_d1d8641b",
       "revId": "8b435174d635db5621955708454d3288b7760d2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
