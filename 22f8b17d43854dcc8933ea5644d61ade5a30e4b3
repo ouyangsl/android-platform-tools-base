@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d078be71_9120cbc7",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ArchivesBaseNameTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-02T00:32:53Z",
+      "side": 1,
+      "message": "So I am guessing get(0) doesn\u0027t work for some reason?\n\nAlso, since this is still groovy, you can use getVariants().first()",
+      "range": {
+        "startLine": 61,
+        "startChar": 56,
+        "endLine": 61,
+        "endChar": 73
+      },
+      "revId": "22f8b17d43854dcc8933ea5644d61ade5a30e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
