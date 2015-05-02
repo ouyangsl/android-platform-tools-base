@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "d078be71_f647352c",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-02T00:03:57Z",
+      "side": 1,
+      "message": "What would the ABI be used for?",
+      "parentUuid": "d078be71_76eec504",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105fb6fa_c762883b",
         "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
         "patchSetId": 5
