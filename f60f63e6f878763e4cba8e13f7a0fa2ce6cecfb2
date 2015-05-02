@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d078be71_76fec532",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1028773
+      },
+      "writtenOn": "2015-05-02T00:07:06Z",
+      "side": 1,
+      "message": "To show a user friendly name for a configuration. I think abi names are most generic names, which are easy to understand as the users are configuring them in the .gradle files.",
+      "parentUuid": "d078be71_f647352c",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105fb6fa_c762883b",
         "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
         "patchSetId": 5
