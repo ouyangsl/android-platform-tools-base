@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f06142bc_83d7a13f",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidArtifact.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-02T00:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "300cbaed_b512e4d7",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 7
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90fd66eb_713fd086",
         "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidProject.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-01T01:52:29Z",
       "side": 1,
       "message": "still need this?",
+      "range": {
+        "startLine": 24,
+        "startChar": 17,
+        "endLine": 24,
+        "endChar": 20
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d078be71_d605d997",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/AndroidProject.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-02T00:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90fd66eb_713fd086",
       "range": {
         "startLine": 24,
         "startChar": 17,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "f06142bc_c3dfd955",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-02T00:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d078be71_76fec532",
+      "range": {
+        "startLine": 27,
+        "startChar": 17,
+        "endLine": 27,
+        "endChar": 30
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105fb6fa_c762883b",
         "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
         "patchSetId": 5
@@ -154,6 +226,30 @@
       "writtenOn": "2015-05-01T23:51:29Z",
       "side": 1,
       "message": "May be \"getNativeToolChainName\" would be a better name here.",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "f60f63e6f878763e4cba8e13f7a0fa2ce6cecfb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d078be71_f60ad5a6",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-02T00:14:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "105fb6fa_c762883b",
       "range": {
         "startLine": 45,
         "startChar": 11,
