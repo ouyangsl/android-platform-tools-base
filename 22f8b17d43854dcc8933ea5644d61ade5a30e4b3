@@ -22,6 +22,30 @@
       "revId": "22f8b17d43854dcc8933ea5644d61ade5a30e4b3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d078be71_5168f368",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/ArchivesBaseNameTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-02T00:51:01Z",
+      "side": 1,
+      "message": "getVariants return a collection, so .get(0) isn\u0027t available. However it\u0027s the implementation is a list so we were lucky it would work.\n\nGood to know on first().",
+      "parentUuid": "d078be71_9120cbc7",
+      "range": {
+        "startLine": 61,
+        "startChar": 56,
+        "endLine": 61,
+        "endChar": 73
+      },
+      "revId": "22f8b17d43854dcc8933ea5644d61ade5a30e4b3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
