@@ -22,6 +22,30 @@
       "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7042b231_9706e74b",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-04T20:22:59Z",
+      "side": 1,
+      "message": "we need to have managed file object to make progress. So far these features are not working in the experimental plugin.",
+      "parentUuid": "105fb6fa_b3722f0a",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
