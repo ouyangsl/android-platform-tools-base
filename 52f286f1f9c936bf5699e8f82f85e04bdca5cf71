@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d03d1ea0_519ad6ba",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T23:24:46Z",
+      "side": 1,
+      "message": "Specific for app indexing.\n\nGenerally issue is: it should either URL and mime type. But this is triggered only when it has BROWSABLE, which means we roughly know the user intend to use app indexing.",
+      "parentUuid": "7042b231_6009b85e",
+      "revId": "52f286f1f9c936bf5699e8f82f85e04bdca5cf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "102df676_0ba9015d",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
         "patchSetId": 20
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d03d1ea0_d1808648",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T23:24:46Z",
+      "side": 1,
+      "message": "specific for app indexing.\n\nIt\u0027s discussed in the design and new design we only trigger issues when it\u0027s likely to related to App Indexing:\n\nhttps://docs.google.com/document/d/15_OnYOFFCwarCapVSzLL4nZURzKKhN1EF7iC0OwcOWw/edit#heading\u003dh.htbwsfvb3ub",
+      "parentUuid": "102df676_0ba9015d",
+      "revId": "52f286f1f9c936bf5699e8f82f85e04bdca5cf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "102df676_ab80f5cf",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
         "patchSetId": 20
@@ -47,6 +83,24 @@
       "writtenOn": "2015-05-04T18:56:55Z",
       "side": 1,
       "message": "Since you\u0027re saying \"*may* be a mistake, is this always a mistake, or is it sometimes correct? If it\u0027s sometimes correct, it\u0027s probably better to change this to a warning and maybe add a \"?\" at the end of Missing Data Node.",
+      "revId": "52f286f1f9c936bf5699e8f82f85e04bdca5cf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_1d0f7fe6",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T23:24:46Z",
+      "side": 1,
+      "message": "Because of flexible of manifest format, nothing prevent us to write like this format. But it\u0027s very uncommon, or unlikely.\n\nBut add \"?\" sounds a reasonable idea to me.",
+      "parentUuid": "102df676_ab80f5cf",
       "revId": "52f286f1f9c936bf5699e8f82f85e04bdca5cf71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
