@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b038aab1_f0401ef7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T09:34:13Z",
+      "side": 1,
+      "message": "Replace \"app indexing api\" with \"App Indexing\".\nAPI is more narrow (the java API in https://developers.google.com/app-indexing/webmasters/appindexingapi), so let\u0027s just say App Indexing (https://developers.google.com/app-indexing/).",
+      "range": {
+        "startLine": 56,
+        "startChar": 52,
+        "endLine": 56,
+        "endChar": 53
+      },
+      "revId": "83db1b829bd7a7715e58990a4397aa4fe218f7ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9047263e_2fca459d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T09:34:13Z",
+      "side": 1,
+      "message": "App Indexing",
+      "range": {
+        "startLine": 64,
+        "startChar": 39,
+        "endLine": 64,
+        "endChar": 41
+      },
+      "revId": "83db1b829bd7a7715e58990a4397aa4fe218f7ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b038aab1_50301294",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T09:34:13Z",
+      "side": 1,
+      "message": "\"the Google AppIndexing API\" -\u003e App Indexing for Google search.",
+      "range": {
+        "startLine": 66,
+        "startChar": 47,
+        "endLine": 66,
+        "endChar": 50
+      },
+      "revId": "83db1b829bd7a7715e58990a4397aa4fe218f7ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9047263e_4fd79140",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T09:34:13Z",
+      "side": 1,
+      "message": "ditto.\nAppIndexing -\u003e App Indexing",
+      "range": {
+        "startLine": 71,
+        "startChar": 40,
+        "endLine": 71,
+        "endChar": 42
+      },
+      "revId": "83db1b829bd7a7715e58990a4397aa4fe218f7ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9047263e_6fd44d3b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T09:34:13Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 73,
+        "startChar": 47,
+        "endLine": 73,
+        "endChar": 50
+      },
+      "revId": "83db1b829bd7a7715e58990a4397aa4fe218f7ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9047263e_8fdfb956",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T09:34:13Z",
+      "side": 1,
+      "message": "intentChildren? More specific.",
+      "range": {
+        "startLine": 134,
+        "startChar": 61,
+        "endLine": 134,
+        "endChar": 64
+      },
+      "revId": "83db1b829bd7a7715e58990a4397aa4fe218f7ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b038aab1_702d0e3d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-04T09:34:13Z",
+      "side": 1,
+      "message": "Will upper case is senstive in mainifest?",
+      "range": {
+        "startLine": 142,
+        "startChar": 86,
+        "endLine": 142,
+        "endChar": 87
+      },
+      "revId": "83db1b829bd7a7715e58990a4397aa4fe218f7ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
