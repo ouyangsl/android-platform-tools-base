@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "102df676_5dc1f72c",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2015-05-04T23:25:47Z",
+      "side": 1,
+      "message": "nit: add an import, otherwise this fails to compile.",
+      "range": {
+        "startLine": 486,
+        "startChar": 12,
+        "endLine": 486,
+        "endChar": 23
+      },
+      "revId": "f227ac5762c09159d21b79c29a9f9cd3074c6239",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
