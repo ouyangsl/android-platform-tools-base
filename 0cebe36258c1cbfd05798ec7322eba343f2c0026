@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "105fb6fa_73689720",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-04T19:11:01Z",
+      "side": 1,
+      "message": "yes",
+      "parentUuid": "c31c7621_169dbc6a",
+      "revId": "0cebe36258c1cbfd05798ec7322eba343f2c0026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e305fac3_d7ce9c5e",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.groovy",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-04-08T05:19:38Z",
       "side": 1,
       "message": "Can we apply this linker flag both for clang and gcc?",
+      "revId": "0cebe36258c1cbfd05798ec7322eba343f2c0026",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_4b621988",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-04T19:11:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e305fac3_d7ce9c5e",
       "revId": "0cebe36258c1cbfd05798ec7322eba343f2c0026",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
