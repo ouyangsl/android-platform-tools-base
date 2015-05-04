@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d026fe9b_c614427a",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/BaseConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-04T22:29:15Z",
+      "side": 1,
+      "message": "well, getMultiDexKeepFile and getMultiDexKeepProguard only returns File. Do you think we will eventually need to support more than one, and do merging, etc... seems like something that would be very sparsely used no ?",
+      "parentUuid": "102df676_1105ae13",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7042b231_9797c78e",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-04T20:55:51Z",
       "side": 1,
       "message": "do they have a version that gets a collection?",
+      "range": {
+        "startLine": 1497,
+        "startChar": 31,
+        "endLine": 1497,
+        "endChar": 50
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_dcc88df9",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-04T22:29:15Z",
+      "side": 1,
+      "message": "no. do we want to get into the business of merging jarjar rule files ?",
+      "parentUuid": "7042b231_9797c78e",
       "range": {
         "startLine": 1497,
         "startChar": 31,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d026fe9b_a6aae6fa",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-04T22:29:15Z",
+      "side": 1,
+      "message": "it\u0027s not in this method because the \"merged\" lists are calculated in the VariantConfiguration. it\u0027s not using the merged flavor, it\u0027s using the original build type and flavors list to create the merge list.",
+      "parentUuid": "102df676_d1ccf66c",
+      "range": {
+        "startLine": 469,
+        "startChar": 15,
+        "endLine": 469,
+        "endChar": 32
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105fb6fa_69b42ac1",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2015-05-04T20:55:51Z",
       "side": 1,
       "message": "what about build type? You added this to BaseConfig so you can technically also have it on the build type.",
+      "range": {
+        "startLine": 1931,
+        "startChar": 15,
+        "endLine": 1931,
+        "endChar": 30
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "105fb6fa_84308395",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1931,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-04T22:29:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "105fb6fa_69b42ac1",
       "range": {
         "startLine": 1931,
         "startChar": 15,
