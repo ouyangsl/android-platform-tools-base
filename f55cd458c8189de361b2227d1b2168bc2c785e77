@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "102df676_226b421f",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/BaseConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-04T23:03:35Z",
+      "side": 1,
+      "message": "It\u0027s true. I\u0027m worried about putting something in the model that gets deprecated for something else, but you\u0027re right it might not be used.",
+      "parentUuid": "d026fe9b_c614427a",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7042b231_9797c78e",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
         "patchSetId": 3
