@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "105fb6fa_b3722f0a",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-04T19:15:40Z",
+      "side": 1,
+      "message": "what\u0027s the issue here and in gradle-experimental ProduceFlavor?",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 34
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
