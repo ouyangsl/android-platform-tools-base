@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7042b231_6009b85e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-04T18:56:55Z",
+      "side": 1,
+      "message": "Quick question: Is this a general Android manifest error, or is this a specific requirement for app indexing?",
+      "revId": "52f286f1f9c936bf5699e8f82f85e04bdca5cf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_0ba9015d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-04T18:56:55Z",
+      "side": 1,
+      "message": "Same question here",
+      "revId": "52f286f1f9c936bf5699e8f82f85e04bdca5cf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_ab80f5cf",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 20
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-04T18:56:55Z",
+      "side": 1,
+      "message": "Since you\u0027re saying \"*may* be a mistake, is this always a mistake, or is it sometimes correct? If it\u0027s sometimes correct, it\u0027s probably better to change this to a warning and maybe add a \"?\" at the end of Missing Data Node.",
+      "revId": "52f286f1f9c936bf5699e8f82f85e04bdca5cf71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
