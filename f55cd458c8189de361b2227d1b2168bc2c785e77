@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "102df676_1105ae13",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/BaseConfig.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-04T20:55:51Z",
+      "side": 1,
+      "message": "the proguard files is a collection. I\u0027m wondering if we should stay consistent?",
+      "range": {
+        "startLine": 106,
+        "startChar": 8,
+        "endLine": 106,
+        "endChar": 9
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7042b231_9797c78e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-04T20:55:51Z",
+      "side": 1,
+      "message": "do they have a version that gets a collection?",
+      "range": {
+        "startLine": 1497,
+        "startChar": 31,
+        "endLine": 1497,
+        "endChar": 50
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_d1ccf66c",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-04T20:55:51Z",
+      "side": 1,
+      "message": "does this method not merge proguard file lists? We should add it.",
+      "range": {
+        "startLine": 469,
+        "startChar": 15,
+        "endLine": 469,
+        "endChar": 32
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "105fb6fa_69b42ac1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1931,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-04T20:55:51Z",
+      "side": 1,
+      "message": "what about build type? You added this to BaseConfig so you can technically also have it on the build type.",
+      "range": {
+        "startLine": 1931,
+        "startChar": 15,
+        "endLine": 1931,
+        "endChar": 30
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "105fb6fa_b3722f0a",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
         "patchSetId": 3
@@ -42,6 +134,29 @@
         "startChar": 8,
         "endLine": 191,
         "endChar": 34
+      },
+      "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_11904e19",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/JarJarTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-04T20:55:51Z",
+      "side": 1,
+      "message": "should also verify it doesn\u0027t have the old class name.",
+      "range": {
+        "startLine": 80,
+        "startChar": 13,
+        "endLine": 80,
+        "endChar": 26
       },
       "revId": "f55cd458c8189de361b2227d1b2168bc2c785e77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
