@@ -34,6 +34,24 @@
       "revId": "0667e0d0d89791031a376a001d8aba7a3e1cfb01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_4655a71f",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LayoutlibCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-05T16:45:24Z",
+      "side": 1,
+      "message": "OK. I was wondering where the concept of a named parser came from. It seems a little weird without knowing the problem it\u0027s trying to solve, but it\u0027s probably fine!",
+      "parentUuid": "d026fe9b_63c375a7",
+      "revId": "0667e0d0d89791031a376a001d8aba7a3e1cfb01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
