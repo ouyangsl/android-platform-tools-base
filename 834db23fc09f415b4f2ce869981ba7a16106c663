@@ -22,6 +22,57 @@
       "revId": "834db23fc09f415b4f2ce869981ba7a16106c663",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "706d52b3_3c6ef5fc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:14:02Z",
+      "side": 1,
+      "message": "why not \nAbstractCompileTask task \u003d createJavacTask(...)\nsetGenericCompileTask(task)\n\ninstead of relying on the VariantData, it make clearer what you are doing.",
+      "revId": "834db23fc09f415b4f2ce869981ba7a16106c663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "706d52b3_dc66e125",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:14:02Z",
+      "side": 1,
+      "message": "not sure active carries what you mean here, what about genericJavaCompileTask ?",
+      "revId": "834db23fc09f415b4f2ce869981ba7a16106c663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "504a0e43_4f0142be",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:14:02Z",
+      "side": 1,
+      "message": "these fields are both in the scope and the variantdata. is that because some code using it does not have access to scope yet ? can you add a TODO to remove them from here at some point.",
+      "revId": "834db23fc09f415b4f2ce869981ba7a16106c663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
