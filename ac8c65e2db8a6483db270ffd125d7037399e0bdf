@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd24a5a6_d997b7c1",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/TopologicalSort.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-05T22:19:25Z",
+      "side": 1,
+      "message": "As discussed offline, we actually don\u0027t need mVisited at all if we change the way mSeen is used.",
+      "range": {
+        "startLine": 80,
+        "startChar": 20,
+        "endLine": 80,
+        "endChar": 62
+      },
+      "revId": "ac8c65e2db8a6483db270ffd125d7037399e0bdf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
