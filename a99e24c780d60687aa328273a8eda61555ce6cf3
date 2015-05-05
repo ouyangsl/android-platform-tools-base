@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd24a5a6_d910d7d3",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-05T22:26:13Z",
+      "side": 1,
+      "message": "Why not add these methods to the AndroidBinary interface?",
+      "range": {
+        "startLine": 207,
+        "startChar": 28,
+        "endLine": 207,
+        "endChar": 94
+      },
+      "revId": "a99e24c780d60687aa328273a8eda61555ce6cf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
