@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d026fe9b_d40a1e59",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-05T19:40:49Z",
+      "side": 1,
+      "message": "This actually makes sense - AARs contain classes.jar, not dexfiles.\n\nHaving said that perhaps there should be a Jack task for the integration tests (?)",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 67
+      },
+      "revId": "834db23fc09f415b4f2ce869981ba7a16106c663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
