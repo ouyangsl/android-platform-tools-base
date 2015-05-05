@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9047263e_8f1a5926",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-05T03:31:36Z",
+      "side": 1,
+      "message": "warning -\u003e error.",
+      "range": {
+        "startLine": 107,
+        "startChar": 95,
+        "endLine": 107,
+        "endChar": 96
+      },
+      "revId": "0ccea9a0fd00fd9adec397048e0fb1788b66d8d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9047263e_cf246168",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-05T03:31:36Z",
+      "side": 1,
+      "message": "Let\u0027s change as below similarly as Tor\u0027s suggestion:\nMissing URL for the intent filter?",
+      "range": {
+        "startLine": 112,
+        "startChar": 80,
+        "endLine": 112,
+        "endChar": 83
+      },
+      "revId": "0ccea9a0fd00fd9adec397048e0fb1788b66d8d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
