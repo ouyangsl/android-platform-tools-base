@@ -52,6 +52,24 @@
       "revId": "0667e0d0d89791031a376a001d8aba7a3e1cfb01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_06e2cf51",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LayoutlibCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-05-05T17:11:45Z",
+      "side": 1,
+      "message": "The name is actually only used for debugging. This way, when looking at a parser, you can immediately know which file it\u0027s for.",
+      "parentUuid": "d026fe9b_4655a71f",
+      "revId": "0667e0d0d89791031a376a001d8aba7a3e1cfb01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
