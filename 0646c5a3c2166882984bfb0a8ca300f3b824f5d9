@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d026fe9b_c100a18a",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/ActionBarIconGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "Why did you make this change? I think it makes sense to have the assertion.",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_81d1497e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "Why isn\u0027t the above inside getIconFolder/getIconName?",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_e162fd3a",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "Right now 3.0 is magic. Why not e.g. \nif (density \u003d\u003d DensityANYDPI) density \u003d Density.XXHDPI\n?\nThen it would be clearer what is actually going on.",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_99e45caa",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "Maybe factor all the SVG constants out into a separate file?",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_1cbea2c4",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "You have a lot of strings like this. It might be nice to have some kind of Builder. If not, you might at least consider using String.format instead?",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_799408bc",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeafNode.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "Maybe use StringBuilder sometimes? There\u0027s a whole lot of concatenation going on in these classes...",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0218a87_b91f6715",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "indent here and below",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 21
+      },
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_dc1faa14",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "Just out of curiousity, why?",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0218a87_f9a47f2e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "Seems like this is never called?\nAlso it seems like the logic can\u0027t be right, but... I actually have no idea what\u0027s going on here, and it\u0027s never used anyway.",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0218a87_7406d64e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-05T18:45:15Z",
+      "side": 1,
+      "message": "This whole method could be written as \ns \u003d s.substr(start)\n     .replaceFirst(\"\\\\.\", \"x\")\n     .replaceAll(\" \",\",\")\n     .replaceAll(\"[eE]-\",\"xx\")\n     .replaceAll(\"-\", \".\");\n     .replaceAll(\"([ .,-]).*\", \"$1\");\nresult.mEndWithNegOrDot \u003d s.endsWith(\".\");\nresult.mEndPosition \u003d s.length() + start;\nI think (not tested). Similar techniques could also be applied elsewhere.",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
