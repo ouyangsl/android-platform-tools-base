@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d03d1ea0_14711cda",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-05T03:11:14Z",
+      "side": 1,
+      "message": "why need \"^\"?",
+      "range": {
+        "startLine": 65,
+        "startChar": 42,
+        "endLine": 65,
+        "endChar": 43
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d03d1ea0_f46bb0ec",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-05-05T03:11:14Z",
+      "side": 1,
+      "message": "has -\u003e have illegal characters",
+      "range": {
+        "startLine": 201,
+        "startChar": 64,
+        "endLine": 201,
+        "endChar": 65
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
