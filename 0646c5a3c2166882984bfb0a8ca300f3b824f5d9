@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0218a87_3ff197e1",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/ActionBarIconGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_c100a18a",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_81d1497e",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-05T18:45:15Z",
       "side": 1,
       "message": "Why isn\u0027t the above inside getIconFolder/getIconName?",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_dd94fd1b",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_81d1497e",
       "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b0218a87_7a1ddd8e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Sure, make it explicit. But I don\u0027t want to alter the density value since we are using the density \u003d\u003d DensityANYDPI as a big flag to tell the asset generation logic that it is a vector.",
+      "parentUuid": "d026fe9b_e162fd3a",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "102df676_99e45caa",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
         "patchSetId": 8
@@ -64,6 +118,24 @@
       "writtenOn": "2015-05-05T18:45:15Z",
       "side": 1,
       "message": "Maybe factor all the SVG constants out into a separate file?",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0218a87_bff5879a",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Refactored done. \nfor now, just keep them in this same file since they are only used here.",
+      "parentUuid": "102df676_99e45caa",
       "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "102df676_0310f683",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d026fe9b_1cbea2c4",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "102df676_799408bc",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeafNode.java",
         "patchSetId": 8
@@ -98,6 +188,24 @@
       "writtenOn": "2015-05-05T18:45:15Z",
       "side": 1,
       "message": "Maybe use StringBuilder sometimes? There\u0027s a whole lot of concatenation going on in these classes...",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "102df676_8023fcd2",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeafNode.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Done.\npre-build the new attr string to avoid many insert calls.",
+      "parentUuid": "102df676_799408bc",
       "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -127,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "d026fe9b_549aaeec",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0218a87_b91f6715",
+      "range": {
+        "startLine": 83,
+        "startChar": 13,
+        "endLine": 83,
+        "endChar": 21
+      },
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d026fe9b_dc1faa14",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
         "patchSetId": 8
@@ -138,6 +270,24 @@
       "writtenOn": "2015-05-05T18:45:15Z",
       "side": 1,
       "message": "Just out of curiousity, why?",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0218a87_dfcc036d",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Oh, Michal suggest using Document here in previous code review. \nHowever, this parse can be used for hundreds of icons for our UI. So I put that into a TODO.",
+      "parentUuid": "d026fe9b_dc1faa14",
       "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "102df676_7d9791c1",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "Good catch, I have another extract() and forget to delete this one.",
+      "parentUuid": "b0218a87_f9a47f2e",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0218a87_7406d64e",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
         "patchSetId": 8
@@ -172,6 +340,24 @@
       "writtenOn": "2015-05-05T18:45:15Z",
       "side": 1,
       "message": "This whole method could be written as \ns \u003d s.substr(start)\n     .replaceFirst(\"\\\\.\", \"x\")\n     .replaceAll(\" \",\",\")\n     .replaceAll(\"[eE]-\",\"xx\")\n     .replaceAll(\"-\", \".\");\n     .replaceAll(\"([ .,-]).*\", \"$1\");\nresult.mEndWithNegOrDot \u003d s.endsWith(\".\");\nresult.mEndPosition \u003d s.length() + start;\nI think (not tested). Similar techniques could also be applied elsewhere.",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0218a87_1fde9b07",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-05T21:13:03Z",
+      "side": 1,
+      "message": "I may need to understand your part better to change. \nFirst of all, we may not want to replace the whole string, which is long for just find the next position.\nWe also need to find the next position many times for one string, to breaking them down into chunks of commands.\nThe original for loop is expected to break early.",
+      "parentUuid": "b0218a87_7406d64e",
       "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
