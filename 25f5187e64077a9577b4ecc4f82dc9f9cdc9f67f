@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b0734a93_1eee9135",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:40:15Z",
+      "side": 1,
+      "message": "remove todo ?",
+      "revId": "25f5187e64077a9577b4ecc4f82dc9f9cdc9f67f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0734a93_3eeb4d26",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:40:15Z",
+      "side": 1,
+      "message": "comment why -1, confusing otherwise to first time readers.",
+      "revId": "25f5187e64077a9577b4ecc4f82dc9f9cdc9f67f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0734a93_5ee80927",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:40:15Z",
+      "side": 1,
+      "message": "comment +1 as well.",
+      "revId": "25f5187e64077a9577b4ecc4f82dc9f9cdc9f67f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0734a93_deaed9e6",
+        "filename": "common/src/main/java/com/android/ide/common/blame/Message.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:40:15Z",
+      "side": 1,
+      "message": "use Objects.equal()",
+      "revId": "25f5187e64077a9577b4ecc4f82dc9f9cdc9f67f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "504a0e43_4fc4e2be",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/blame/SourceFileJsonTypeAdapterTest.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:40:15Z",
+      "side": 1,
+      "message": "nit: extra line",
+      "revId": "25f5187e64077a9577b4ecc4f82dc9f9cdc9f67f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
