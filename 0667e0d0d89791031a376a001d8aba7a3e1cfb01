@@ -16,6 +16,24 @@
       "revId": "0667e0d0d89791031a376a001d8aba7a3e1cfb01",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d026fe9b_63c375a7",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LayoutlibCallback.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-05-05T16:27:13Z",
+      "side": 1,
+      "message": "API here refers to layoutlib-api, and not framework api.\n\nLayoutLib currently has a dependency on kxml, which is needed to create an XmlPullParser. The CL is to make LayoutLib independent of the dependency. This is adding a new method for LayoutLib to get the parser.",
+      "parentUuid": "504a0e43_bc310e20",
+      "revId": "0667e0d0d89791031a376a001d8aba7a3e1cfb01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
