@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9047263e_d2c24486",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-05T10:44:36Z",
+      "side": 1,
+      "message": "Please read through docs blow before check in to make sure everything goes right.\nhttp://developer.android.com/guide/topics/manifest/intent-filter-element.html\n\nhttp://developer.android.com/guide/topics/manifest/data-element.html\n\nIntent Resolution in http://developer.android.com/guide/components/intents-filters.html#Resolution",
+      "range": {
+        "startLine": 85,
+        "startChar": 83,
+        "endLine": 85,
+        "endChar": 84
+      },
+      "revId": "a14a6f2cbb2fa693b52c518ca83f1f4d76545511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b038aab1_3629be84",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-05T10:44:36Z",
+      "side": 1,
+      "message": "use int i \u003d 0...",
+      "revId": "a14a6f2cbb2fa693b52c518ca83f1f4d76545511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d03d1ea0_74334070",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-05T10:44:36Z",
+      "side": 1,
+      "message": "why not use i?",
+      "revId": "a14a6f2cbb2fa693b52c518ca83f1f4d76545511",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
