@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "706d52b3_7c786dbc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:23:59Z",
+      "side": 1,
+      "message": "consider delegating back to VariantDependency\n\nif (variantData.variantDependency.hasNonOptionalLibraryDeps()) {\n   merge(...)\n}",
+      "revId": "bd2e3dedfa6b0d36397ef03f1b90433473890a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "504a0e43_8f888abb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dependency/LibInfo.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:23:59Z",
+      "side": 1,
+      "message": "comment when it is true or false (for me!)",
+      "revId": "bd2e3dedfa6b0d36397ef03f1b90433473890a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "504a0e43_af538ec1",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/truth/DependenciesSubject.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-05T21:23:59Z",
+      "side": 1,
+      "message": "hasOnlyOneLibrary ?",
+      "revId": "bd2e3dedfa6b0d36397ef03f1b90433473890a17",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
