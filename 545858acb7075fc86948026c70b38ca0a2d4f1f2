@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d407d41_5371565c",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/PreValidator.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-06T02:59:59Z",
+      "side": 1,
+      "message": "Add one to startLine ?",
+      "revId": "545858acb7075fc86948026c70b38ca0a2d4f1f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
