@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6d19f971_0d43a522",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-06T20:57:51Z",
+      "side": 1,
+      "message": "Good catch, will revert back to \u0027/\u0027.",
+      "parentUuid": "6d19f971_a7d5f2e1",
+      "range": {
+        "startLine": 132,
+        "startChar": 45,
+        "endLine": 132,
+        "endChar": 54
+      },
+      "revId": "9793d2cc5c0add55ff6e331f5e9011d569b6de85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd24a5a6_df8d5704",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-05T23:54:44Z",
       "side": 1,
       "message": "This, if intentional, is strange :-)",
+      "range": {
+        "startLine": 402,
+        "startChar": 37,
+        "endLine": 402,
+        "endChar": 50
+      },
+      "revId": "9793d2cc5c0add55ff6e331f5e9011d569b6de85",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d1e2d58_a3b84453",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-06T20:57:51Z",
+      "side": 1,
+      "message": "Emm... The intellij generate this.\nAnyway, rewritten",
+      "parentUuid": "cd24a5a6_df8d5704",
       "range": {
         "startLine": 402,
         "startChar": 37,
