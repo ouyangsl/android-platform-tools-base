@@ -25,6 +25,167 @@
     },
     {
       "key": {
+        "uuid": "d03d1ea0_54d80419",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-06T02:07:12Z",
+      "side": 1,
+      "message": "An activity might have multiple intent filter, test the Action.View for one intent filter, not for all intent filter within an activity",
+      "range": {
+        "startLine": 84,
+        "startChar": 50,
+        "endLine": 84,
+        "endChar": 52
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b038aab1_330c70ef",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-06T02:07:12Z",
+      "side": 1,
+      "message": "if (intentChild.getNodeType() \u003d\u003d Node.ELEMENT_NODE\n    \u0026\u0026 intentChild.getNodeName().equals(NODE_DATA)) {\n...",
+      "range": {
+        "startLine": 97,
+        "startChar": 72,
+        "endLine": 97,
+        "endChar": 73
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b038aab1_9341a4fe",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-06T02:07:12Z",
+      "side": 1,
+      "message": "An intent filter might have multiple data tag, merge all attribute from all data tags and test it.\nSee: http://developer.android.com/guide/topics/manifest/data-element.html",
+      "range": {
+        "startLine": 104,
+        "startChar": 48,
+        "endLine": 104,
+        "endChar": 50
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d03d1ea0_d49eb438",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-06T02:07:12Z",
+      "side": 1,
+      "message": "Test this outside the loop",
+      "range": {
+        "startLine": 108,
+        "startChar": 56,
+        "endLine": 108,
+        "endChar": 58
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9047263e_4f623188",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-06T02:07:12Z",
+      "side": 1,
+      "message": "hasActionView",
+      "range": {
+        "startLine": 135,
+        "startChar": 58,
+        "endLine": 135,
+        "endChar": 59
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b038aab1_d347ac2c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-06T02:07:12Z",
+      "side": 1,
+      "message": "What if it\u0027s \"HTTP\" or \"Http\"?",
+      "range": {
+        "startLine": 183,
+        "startChar": 63,
+        "endLine": 183,
+        "endChar": 64
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9047263e_6f5fedc0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-06T02:07:12Z",
+      "side": 1,
+      "message": "hasSchema",
+      "range": {
+        "startLine": 194,
+        "startChar": 16,
+        "endLine": 194,
+        "endChar": 25
+      },
+      "revId": "3729e67e25d6358ed8686d918a502f1f308a4eaa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d03d1ea0_f46bb0ec",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
         "patchSetId": 21
