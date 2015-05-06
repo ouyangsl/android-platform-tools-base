@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "8d1e2d58_635a2cd7",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-06T20:57:51Z",
+      "side": 1,
+      "message": "I still need to keep the density as ANYAPI, since other part of the code rely on this flag to know that this is for SVG -\u003e XML purpose.",
+      "parentUuid": "cd24a5a6_ffb5b3bf",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "102df676_99e45caa",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
         "patchSetId": 8
@@ -207,6 +225,24 @@
       "side": 1,
       "message": "Sorry, what I meant was something like \nclass PathBuilder {\n  PathBuilder move(x,y) {}\n  PathBuilder line(x,y) {}\n  PathBuilder bezier(x, y, x1, y1) {}\n  String build() {}\n}\nthat you could reuse, and would make these strings actually understandable.",
       "parentUuid": "102df676_0310f683",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8435cc_c8b82355",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-06T20:57:51Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "cd24a5a6_3fd20bd6",
       "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -412,6 +448,24 @@
       "side": 1,
       "message": "per in-person discussion, my approach clearly wouldn\u0027t work in this case. However, in the calling method you could at least run a single replace of e- with something else; that should allow this code to be simplified a little.",
       "parentUuid": "b0218a87_1fde9b07",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d19f971_eda4e985",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-06T20:57:51Z",
+      "side": 1,
+      "message": "Given the path string can be long, we also parse the floating point numbers in place, without duplicating the string . So replace is not a good fit. \nThere could be some ideas like you propose that can be helpful if we change the whole algorithm. \nBut for now, I prefer to keep it as it is.",
+      "parentUuid": "cd24a5a6_1f42affe",
       "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
