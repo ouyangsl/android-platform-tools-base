@@ -93,6 +93,30 @@
       "revId": "f7356577138f964d0ee646e25594582c97a1667c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_2b319898",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/ndk/NdkSanAngelesTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T22:24:01Z",
+      "side": 1,
+      "message": "will this impact Studio?",
+      "parentUuid": "cd24a5a6_6ae1d14c",
+      "range": {
+        "startLine": 117,
+        "startChar": 57,
+        "endLine": 117,
+        "endChar": 64
+      },
+      "revId": "f7356577138f964d0ee646e25594582c97a1667c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
