@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd24a5a6_0e714a07",
+        "filename": "ddmlib/src/test/java/com/android/ddmlib/AdbVersionTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-07T23:37:19Z",
+      "side": 1,
+      "message": "Nit: Add one more test that tests the individual values. All these tests pass even  if the middle value is totally ignored.",
+      "range": {
+        "startLine": 20,
+        "startChar": 13,
+        "endLine": 20,
+        "endChar": 27
+      },
+      "revId": "104882648a78cbf3ccfeacc1c2a6bd2ef28ef50f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
