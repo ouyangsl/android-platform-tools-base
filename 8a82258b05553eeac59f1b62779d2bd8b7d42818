@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8435cc_ee25af47",
+        "filename": "build-system/builder/src/main/java/com/android/builder/signing/SignedJarBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T22:37:47Z",
+      "side": 1,
+      "message": "we\u0027re moving away from interfaces starting with I. I would rename this.",
+      "range": {
+        "startLine": 156,
+        "startChar": 21,
+        "endLine": 156,
+        "endChar": 39
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d36f5df_5b716f5c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T22:37:47Z",
+      "side": 1,
+      "message": "that should be dirName, and the dir name should be below the \"merging\".\n\nI would put this in INTERMEDIATES/tmp/package-merge/$dirName/",
+      "range": {
+        "startLine": 730,
+        "startChar": 24,
+        "endLine": 730,
+        "endChar": 55
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d407d41_f74f0fc2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T22:37:47Z",
+      "side": 1,
+      "message": "Since this is a temp folder I would move this below all the input and output.",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d407d41_3ac7be98",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T22:37:47Z",
+      "side": 1,
+      "message": "Also we need to empty the folder before the task actually runs.",
+      "range": {
+        "startLine": 127,
+        "startChar": 29,
+        "endLine": 127,
+        "endChar": 39
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_cba904e0",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PackagingOptionsTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T22:37:47Z",
+      "side": 1,
+      "message": "is this coming from the jars or the text files? We should test merging between:\n\n- different jar files\n- different direct files\n- mix of direct files and jars.",
+      "range": {
+        "startLine": 58,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 34
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
