@@ -94,6 +94,23 @@
       "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_aacda938",
+        "filename": "templates/activities/GoogleAdMobAdsActivity/recipe.xml.ftl",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-07T17:06:32Z",
+      "side": 1,
+      "message": "This file (fragment_interstitial.xml.ftl) seems to be missing?",
+      "revId": "6a7416a4ede6dc4276c59c2bb4f84c77885413ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
