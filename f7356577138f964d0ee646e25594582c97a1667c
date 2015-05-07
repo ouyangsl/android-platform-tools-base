@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d1e2d58_8d29e43e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/NdkSanAngeles2Test.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T16:04:20Z",
+      "side": 1,
+      "message": "is this just a temp thing here? The name shouldn\u0027t be null, right?",
+      "range": {
+        "startLine": 78,
+        "startChar": 53,
+        "endLine": 78,
+        "endChar": 60
+      },
+      "revId": "f7356577138f964d0ee646e25594582c97a1667c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_074db6c9",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/ndk/NdkSanAngelesTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T16:04:20Z",
+      "side": 1,
+      "message": "same here?",
+      "range": {
+        "startLine": 117,
+        "startChar": 57,
+        "endLine": 117,
+        "endChar": 64
+      },
+      "revId": "f7356577138f964d0ee646e25594582c97a1667c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
