@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "8d1e2d58_fba927df",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-07T22:24:47Z",
+      "side": 1,
+      "message": "We are stuck with javac for now indeed.",
+      "parentUuid": "2d62a1ee_af36dd5f",
+      "range": {
+        "startLine": 171,
+        "startChar": 12,
+        "endLine": 171,
+        "endChar": 67
+      },
+      "revId": "834db23fc09f415b4f2ce869981ba7a16106c663",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "706d52b3_3c6ef5fc",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.groovy",
         "patchSetId": 1
