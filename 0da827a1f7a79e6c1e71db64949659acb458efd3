@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d1e2d58_1b8e2385",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-07T22:29:48Z",
+      "side": 1,
+      "message": "/* parameterName */",
+      "revId": "0da827a1f7a79e6c1e71db64949659acb458efd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_abc808f6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-07T22:29:48Z",
+      "side": 1,
+      "message": "parameter name for the existing null value...",
+      "revId": "0da827a1f7a79e6c1e71db64949659acb458efd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_eba72034",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dependency/LibInfo.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-07T22:29:48Z",
+      "side": 1,
+      "message": "why not using a Builder pattern ? maybe a TODO...",
+      "revId": "0da827a1f7a79e6c1e71db64949659acb458efd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_ab0a48a4",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/test/SeparateTestWithAarDependencyTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-07T22:29:48Z",
+      "side": 1,
+      "message": "remove comment.",
+      "revId": "0da827a1f7a79e6c1e71db64949659acb458efd3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
