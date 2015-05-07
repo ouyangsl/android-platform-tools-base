@@ -161,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "4d8435cc_70cc526a",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/GraphicGenerator.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-07T16:46:14Z",
+      "side": 1,
+      "message": "My bad. Get some coffee and fix it now. :)",
+      "parentUuid": "4d36f5df_186bedee",
+      "revId": "0646c5a3c2166882984bfb0a8ca300f3b824f5d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "102df676_99e45caa",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
         "patchSetId": 8
