@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd24a5a6_4b34d489",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-07T22:22:45Z",
+      "side": 0,
+      "message": "Did you mean to remove the annotation?",
+      "range": {
+        "startLine": 195,
+        "startChar": 8,
+        "endLine": 195,
+        "endChar": 17
+      },
+      "revId": "8c0ba4f2462aaf34488ed3fecca0b611f531a833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
