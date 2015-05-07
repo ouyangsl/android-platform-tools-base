@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8435cc_bbc9ebe9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-07T23:00:03Z",
+      "side": 1,
+      "message": "How do we pick this number? Should it scale with available memory or something else?",
+      "range": {
+        "startLine": 50,
+        "startChar": 79,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
