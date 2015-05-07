@@ -22,6 +22,30 @@
       "revId": "a99e24c780d60687aa328273a8eda61555ce6cf3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8435cc_33e43be7",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-07T22:15:11Z",
+      "side": 1,
+      "message": "Good point, but I am not going to change it for now.\nThe rationale was DefaultAndroidBinary would have methods that we don\u0027t want user to use.  In this case, we probably should allow user to change the target abi for each binary, but I need to redesign the binary to provide functionalities of our Variant API.  So I will need to think about how to change it later anyway.",
+      "parentUuid": "cd24a5a6_d910d7d3",
+      "range": {
+        "startLine": 207,
+        "startChar": 28,
+        "endLine": 207,
+        "endChar": 94
+      },
+      "revId": "a99e24c780d60687aa328273a8eda61555ce6cf3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
