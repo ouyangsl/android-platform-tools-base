@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "2d62a1ee_1d5403a7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-08T12:50:39Z",
+      "side": 1,
+      "message": "This class and the work queue don\u0027t seem to have anything to do with minification - maybe call them EmptyThreadContext and SimpleWorkQueue or something like that?",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d8435cc_bbc9ebe9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
         "patchSetId": 2
@@ -18,6 +41,53 @@
         "startChar": 79,
         "endLine": 50,
         "endChar": 80
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad24d1ad_c16332c2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-08T12:50:39Z",
+      "side": 1,
+      "message": "It should probably be configurable with a property/env variable?",
+      "parentUuid": "4d8435cc_bbc9ebe9",
+      "range": {
+        "startLine": 50,
+        "startChar": 79,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad24d1ad_e1562ee6",
+        "filename": "build-system/profile/src/main/java/com/android/builder/tasks/WorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-08T12:50:39Z",
+      "side": 1,
+      "message": "Why do you need the VERBOSE flag? There\u0027s no cost in calling the logger if the level is below verbose?",
+      "range": {
+        "startLine": 257,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 9
       },
       "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
