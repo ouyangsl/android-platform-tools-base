@@ -16,6 +16,24 @@
       "revId": "63b15b9aa4c79c20e92e90539005f924edc37edc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d6d15ec_3a7b213d",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassInstance.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-05-08T19:19:02Z",
+      "side": 1,
+      "message": "Yup, this was always the case. Which is why, as the hprof lib currently is, the references pane couldn\u0027t show anything without dominators being computed (since at the time that was the only operation that filled in the back references).",
+      "parentUuid": "2d39c1d0_5af60960",
+      "revId": "63b15b9aa4c79c20e92e90539005f924edc37edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
