@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d6d15ec_4fbdedc5",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-08T22:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d679d0f_db42271d",
+      "revId": "1a45c596306896d775fbdea8dd6c5add66354ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d70e1c2_dceea134",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2d70e1c2_68e1cb17",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-08T22:32:35Z",
+      "side": 1,
+      "message": "It\u0027s nice to give the files a user-readable name, since one of the eventual use cases for this mechanism involves copying the files around manually.",
+      "parentUuid": "2d70e1c2_dceea134",
+      "revId": "1a45c596306896d775fbdea8dd6c5add66354ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d70e1c2_9ccfc9da",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2015-05-08T20:41:23Z",
       "side": 1,
       "message": "Here too (@Nullable or @NotNull)",
+      "revId": "1a45c596306896d775fbdea8dd6c5add66354ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d6d15ec_4f964d4a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-08T22:32:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d70e1c2_9ccfc9da",
       "revId": "1a45c596306896d775fbdea8dd6c5add66354ec9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
