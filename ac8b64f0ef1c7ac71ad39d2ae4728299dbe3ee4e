@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ed5b293d_11e707b1",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-05-08T19:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d39c1d0_bafe152f",
+      "range": {
+        "startLine": 80,
+        "startChar": 28,
+        "endLine": 80,
+        "endChar": 38
+      },
+      "revId": "ac8b64f0ef1c7ac71ad39d2ae4728299dbe3ee4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d39c1d0_9afb513f",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-08T04:28:29Z",
       "side": 1,
       "message": "Why do we need an array? We should just have getInstances and leave it to the caller to build an array fi it is needed.",
+      "range": {
+        "startLine": 218,
+        "startChar": 22,
+        "endLine": 218,
+        "endChar": 39
+      },
+      "revId": "ac8b64f0ef1c7ac71ad39d2ae4728299dbe3ee4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed5b293d_d1f28f6a",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-05-08T19:23:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d39c1d0_9afb513f",
       "range": {
         "startLine": 218,
         "startChar": 22,
