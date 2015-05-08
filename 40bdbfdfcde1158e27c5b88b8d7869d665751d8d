@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d8435cc_a84fdf61",
+        "filename": "common/src/main/java/com/android/ide/common/blame/Message.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-08T17:10:53Z",
+      "side": 1,
+      "message": "comment both constructors, in particular the sourceFilePosition and sourceFilePositions.",
+      "revId": "40bdbfdfcde1158e27c5b88b8d7869d665751d8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
