@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d1e2d58_6c9b1fbd",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AndroidDebugBridge.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-08T00:18:22Z",
+      "side": 1,
+      "message": "likewise here, we keep scanning until we find a version..",
+      "range": {
+        "startLine": 636,
+        "startChar": 30,
+        "endLine": 636,
+        "endChar": 44
+      },
+      "revId": "2bcea89905046e80f3d51ada63459b3f6fedec9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
