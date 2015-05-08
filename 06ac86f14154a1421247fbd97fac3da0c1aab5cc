@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d1e2d58_72718dd9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-08T05:52:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d1e2d58_5b637b8b",
+      "range": {
+        "startLine": 102,
+        "startChar": 35,
+        "endLine": 102,
+        "endChar": 56
+      },
+      "revId": "06ac86f14154a1421247fbd97fac3da0c1aab5cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d1e2d58_7baf5710",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-07T22:20:34Z",
       "side": 1,
       "message": "Would it be nice to have a true builder so that you can write\n\nwrapException(e).withFile(foo)....throw()\n\n?",
+      "range": {
+        "startLine": 125,
+        "startChar": 35,
+        "endLine": 125,
+        "endChar": 43
+      },
+      "revId": "06ac86f14154a1421247fbd97fac3da0c1aab5cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d8435cc_ee7f3d3c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-08T05:52:54Z",
+      "side": 1,
+      "message": "Replaced factory methods with a builder, so calls look like\n\nthrow MergingException.wrapException(e).withFile(file)\n        .withMessage(\"Message\").build()",
+      "parentUuid": "8d1e2d58_7baf5710",
       "range": {
         "startLine": 125,
         "startChar": 35,
