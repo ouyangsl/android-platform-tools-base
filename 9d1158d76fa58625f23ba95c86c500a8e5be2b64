@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0d679d0f_f8f131e2",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-05-08T18:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d39c1d0_3aeb4578",
+      "range": {
+        "startLine": 137,
+        "startChar": 25,
+        "endLine": 137,
+        "endChar": 40
+      },
+      "revId": "9d1158d76fa58625f23ba95c86c500a8e5be2b64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d36f5df_668256da",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-08T04:24:22Z",
       "side": 1,
       "message": "nit assert doesn\u0027t need brackets",
+      "range": {
+        "startLine": 152,
+        "startChar": 27,
+        "endLine": 152,
+        "endChar": 29
+      },
+      "revId": "9d1158d76fa58625f23ba95c86c500a8e5be2b64",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d679d0f_b8ebb9f0",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/Dominators.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-05-08T18:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d36f5df_668256da",
       "range": {
         "startLine": 152,
         "startChar": 27,
