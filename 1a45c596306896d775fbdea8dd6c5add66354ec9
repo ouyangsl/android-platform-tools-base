@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d679d0f_db42271d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-08T20:41:23Z",
+      "side": 1,
+      "message": "Make @Nullable or @NotNull",
+      "revId": "1a45c596306896d775fbdea8dd6c5add66354ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d70e1c2_dceea134",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-08T20:41:23Z",
+      "side": 1,
+      "message": "Why do we do this ref || hash check? Why don\u0027t we always just use the hash directly?",
+      "revId": "1a45c596306896d775fbdea8dd6c5add66354ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d70e1c2_9ccfc9da",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/License.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-08T20:41:23Z",
+      "side": 1,
+      "message": "Here too (@Nullable or @NotNull)",
+      "revId": "1a45c596306896d775fbdea8dd6c5add66354ec9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
