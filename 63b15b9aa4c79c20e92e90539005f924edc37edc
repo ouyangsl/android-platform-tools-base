@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d39c1d0_5af60960",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassInstance.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-08T04:24:52Z",
+      "side": 1,
+      "message": "Just to be sure then: we only get back references after  we visit all the nodes once?",
+      "revId": "63b15b9aa4c79c20e92e90539005f924edc37edc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
