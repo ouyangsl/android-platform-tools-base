@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd24a5a6_183eec3a",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-08T17:17:18Z",
+      "side": 1,
+      "message": "just call it Builder since it is an inner class of MergingException.",
+      "revId": "25e1f3987c102c0828c7dd83accae749874d0093",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
