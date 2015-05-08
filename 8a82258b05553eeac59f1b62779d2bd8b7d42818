@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "2d62a1ee_7d553fa6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-08T12:45:41Z",
+      "side": 1,
+      "message": "I suggest dropping the \"tmp\".",
+      "parentUuid": "4d36f5df_5b716f5c",
+      "range": {
+        "startLine": 730,
+        "startChar": 24,
+        "endLine": 730,
+        "endChar": 55
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d407d41_f74f0fc2",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.groovy",
         "patchSetId": 1
