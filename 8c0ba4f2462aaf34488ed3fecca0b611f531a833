@@ -22,6 +22,30 @@
       "revId": "8c0ba4f2462aaf34488ed3fecca0b611f531a833",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d679d0f_d8a1cda5",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-08T19:00:24Z",
+      "side": 0,
+      "message": "Good catch.  Turns out this rule is now redundant.  I will think about how to clean it up.",
+      "parentUuid": "cd24a5a6_4b34d489",
+      "range": {
+        "startLine": 195,
+        "startChar": 8,
+        "endLine": 195,
+        "endChar": 17
+      },
+      "revId": "8c0ba4f2462aaf34488ed3fecca0b611f531a833",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
