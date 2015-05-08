@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8d1e2d58_cd47a60f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-08T22:01:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d62a1ee_1d5403a7",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 50
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d8435cc_bbc9ebe9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
         "patchSetId": 2
@@ -72,6 +96,54 @@
     },
     {
       "key": {
+        "uuid": "4d8435cc_c5080cb3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-08T22:01:39Z",
+      "side": 1,
+      "message": "yes I need to come up with a android plugin user\u0027s specific configuration like  android-plugin-config.properties in .gradle rather than multitude environment properties. This is something I will do next week and replace the hardcoded version + any other one at that point.",
+      "parentUuid": "ad24d1ad_c16332c2",
+      "range": {
+        "startLine": 50,
+        "startChar": 79,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_b8bb78ae",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MinificationWorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-08T22:01:39Z",
+      "side": 1,
+      "message": "it\u0027s difficult to make it scale. The reason is that we don\u0027t know at this point the characteristics of what will be minified. So if this is a bunch of small modules, it could scale to 20, but if these are big modules with lots of dependencies, then 4 is probably the max.",
+      "parentUuid": "4d8435cc_bbc9ebe9",
+      "range": {
+        "startLine": 50,
+        "startChar": 79,
+        "endLine": 50,
+        "endChar": 80
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad24d1ad_e1562ee6",
         "filename": "build-system/profile/src/main/java/com/android/builder/tasks/WorkQueue.java",
         "patchSetId": 2
@@ -83,6 +155,30 @@
       "writtenOn": "2015-05-08T12:50:39Z",
       "side": 1,
       "message": "Why do you need the VERBOSE flag? There\u0027s no cost in calling the logger if the level is below verbose?",
+      "range": {
+        "startLine": 257,
+        "startChar": 8,
+        "endLine": 259,
+        "endChar": 9
+      },
+      "revId": "87d7227ef205aa9966854f2b740c92db462365a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24a5a6_7898404c",
+        "filename": "build-system/profile/src/main/java/com/android/builder/tasks/WorkQueue.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-08T22:01:39Z",
+      "side": 1,
+      "message": "no, except that verbose message are always displayed and there is nothing lower level line fine, finer so I control this debugging messages manually. I could have used another logger of course but that also has drawbacks.",
+      "parentUuid": "ad24d1ad_e1562ee6",
       "range": {
         "startLine": 257,
         "startChar": 8,
