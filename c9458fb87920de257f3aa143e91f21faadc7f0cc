@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d70e1c2_ae528b37",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-09T00:03:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d62a1ee_9d5fd3bf",
+      "range": {
+        "startLine": 203,
+        "startChar": 12,
+        "endLine": 203,
+        "endChar": 47
+      },
+      "revId": "c9458fb87920de257f3aa143e91f21faadc7f0cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad24d1ad_01437a22",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "4d6d15ec_775c475a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-09T00:03:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad24d1ad_01437a22",
+      "range": {
+        "startLine": 377,
+        "startChar": 40,
+        "endLine": 377,
+        "endChar": 45
+      },
+      "revId": "c9458fb87920de257f3aa143e91f21faadc7f0cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd290587_c2bb324f",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2015-05-08T12:54:51Z",
       "side": 1,
       "message": "Fits on the previous line?",
+      "range": {
+        "startLine": 381,
+        "startChar": 44,
+        "endLine": 381,
+        "endChar": 63
+      },
+      "revId": "c9458fb87920de257f3aa143e91f21faadc7f0cc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d6d15ec_9761db11",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-09T00:03:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd290587_c2bb324f",
       "range": {
         "startLine": 381,
         "startChar": 44,
