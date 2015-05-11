@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad921112_f26f0ef7",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassInstance.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-11T16:36:30Z",
+      "side": 1,
+      "message": "I\u0027d add this to a \"long getUniqueId\" here, so users don\u0027t need to know that this needs to be masked",
+      "range": {
+        "startLine": 69,
+        "startChar": 72,
+        "endLine": 69,
+        "endChar": 98
+      },
+      "revId": "914a1bc5d26575b01a6d5de2466d0fd3cd1c7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
