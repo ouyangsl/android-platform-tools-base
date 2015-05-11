@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d679d0f_b3f0af92",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/testing/UnitTestingBigTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-11T19:41:40Z",
+      "side": 1,
+      "message": "Maybe complexProjectTest would be more descriptive - to me big implies lots of work to build rather than higher code coverage.",
+      "range": {
+        "startLine": 25,
+        "startChar": 6,
+        "endLine": 25,
+        "endChar": 24
+      },
+      "revId": "b030f109bf078c8df7e76169f9ccf4fcecedcaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d679d0f_b382efd6",
+        "filename": "build-system/integration-test/test-projects/unitTestingBigProject/lib/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-11T19:41:40Z",
+      "side": 1,
+      "message": "nit: space",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 4
+      },
+      "revId": "b030f109bf078c8df7e76169f9ccf4fcecedcaf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
