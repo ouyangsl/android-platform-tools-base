@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd290587_08df1b04",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1523,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-11T11:31:57Z",
+      "side": 1,
+      "message": "This is a bit confusing, do we want to silently ignore a failure in mkdirs here? I would just move the code inside the if and throw an exception if it fails.",
+      "range": {
+        "startLine": 1523,
+        "startChar": 56,
+        "endLine": 1523,
+        "endChar": 79
+      },
+      "revId": "db646deb3954a9fc966b0a545671edbfdfe1c753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd290587_e8dbaf13",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-11T11:31:57Z",
+      "side": 1,
+      "message": "Nit: toolchain",
+      "range": {
+        "startLine": 357,
+        "startChar": 86,
+        "endLine": 357,
+        "endChar": 96
+      },
+      "revId": "db646deb3954a9fc966b0a545671edbfdfe1c753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd290587_88942b1c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-11T11:31:57Z",
+      "side": 1,
+      "message": "why not intermediates/incremental/jack/debug, like all the others?",
+      "range": {
+        "startLine": 363,
+        "startChar": 60,
+        "endLine": 363,
+        "endChar": 77
+      },
+      "revId": "db646deb3954a9fc966b0a545671edbfdfe1c753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d62a1ee_434f3a17",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JackTask.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-11T11:31:57Z",
+      "side": 1,
+      "message": "Semicolon in groovy",
+      "range": {
+        "startLine": 90,
+        "startChar": 23,
+        "endLine": 90,
+        "endChar": 24
+      },
+      "revId": "db646deb3954a9fc966b0a545671edbfdfe1c753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
