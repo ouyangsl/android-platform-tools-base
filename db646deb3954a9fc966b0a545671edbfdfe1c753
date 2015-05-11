@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0d679d0f_b31e6f60",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1523,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-11T20:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd290587_08df1b04",
+      "range": {
+        "startLine": 1523,
+        "startChar": 56,
+        "endLine": 1523,
+        "endChar": 79
+      },
+      "revId": "db646deb3954a9fc966b0a545671edbfdfe1c753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd290587_e8dbaf13",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0d679d0f_93c24b38",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-11T20:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd290587_e8dbaf13",
+      "range": {
+        "startLine": 357,
+        "startChar": 86,
+        "endLine": 357,
+        "endChar": 96
+      },
+      "revId": "db646deb3954a9fc966b0a545671edbfdfe1c753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd290587_88942b1c",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2015-05-11T11:31:57Z",
       "side": 1,
       "message": "why not intermediates/incremental/jack/debug, like all the others?",
+      "range": {
+        "startLine": 363,
+        "startChar": 60,
+        "endLine": 363,
+        "endChar": 77
+      },
+      "revId": "db646deb3954a9fc966b0a545671edbfdfe1c753",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d679d0f_b3c74f48",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-11T20:51:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd290587_88942b1c",
       "range": {
         "startLine": 363,
         "startChar": 60,
