@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d679d0f_1305dbcc",
+        "filename": "templates/activities/AlwaysOnWearActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-05-11T19:53:56Z",
+      "side": 1,
+      "message": "It looks like this line item is currently ignored -- right now the dependency block for an app using this template is as follows:\n\ndependencies {\n    compile fileTree(dir: \u0027libs\u0027, include: [\u0027*.jar\u0027])\n    compile \u0027com.google.android.support:wearable:1.2.0\u0027\n    compile \u0027com.google.android.gms:play-services-wearable:7.3.0\u0027\n    compile \u0027com.google.android.support:wearable:1.2.0\u0027\n}\n\nInterestingly, the wearable lib gets duplicated.\n\nI did have one question though -- is it possible to select \"provided\" for the dependency type when using this template system? This is the dependency block we\u0027d hope to have for this sample:\n\ndependencies {\n    compile fileTree(dir: \u0027libs\u0027, include: [\u0027*.jar\u0027])\n    compile \u0027com.google.android.support:wearable:1.2.0\u0027\n    compile \u0027com.google.android.gms:play-services-wearable:7.3.0\u0027\n    provided \u0027com.google.android.wearable:wearable:1.0.0\u0027\n}",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 15
+      },
+      "revId": "0c5de6d1ac0300b0575e5b32094928295d278661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
