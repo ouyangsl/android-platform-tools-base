@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ad3e91ea_dd812bff",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/LayoutComponent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-11T23:32:46Z",
+      "side": 1,
+      "message": "Done. [Added as a separate CL to avoid rebase nightmares]",
+      "parentUuid": "2d70e1c2_96331427",
+      "range": {
+        "startLine": 36,
+        "startChar": 13,
+        "endLine": 36,
+        "endChar": 28
+      },
+      "revId": "a79064fc20da8b28b4d5e8053b1b9b1e945dd77b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d679d0f_e4873fe1",
         "filename": "chartlib/src/main/java/com/android/tools/chartlib/LayoutComponent.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-11T22:36:17Z",
       "side": 1,
       "message": "Annotation useful here?",
+      "range": {
+        "startLine": 117,
+        "startChar": 27,
+        "endLine": 117,
+        "endChar": 41
+      },
+      "revId": "a79064fc20da8b28b4d5e8053b1b9b1e945dd77b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd43c57f_3e4f694a",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/LayoutComponent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-11T23:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d679d0f_e4873fe1",
       "range": {
         "startLine": 117,
         "startChar": 27,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "2d338121_2438fcff",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/LayoutComponent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-11T23:32:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d6d15ec_c800028b",
+      "range": {
+        "startLine": 218,
+        "startChar": 27,
+        "endLine": 225,
+        "endChar": 43
+      },
+      "revId": "a79064fc20da8b28b4d5e8053b1b9b1e945dd77b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d70e1c2_1605c4cc",
         "filename": "chartlib/src/main/java/com/android/tools/chartlib/LayoutComponent.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2015-05-11T22:36:17Z",
       "side": 1,
       "message": "If I\u0027m reading this right, if the parent is too small to be drawn, aren\u0027t the children going to be too small as well? I.e. this can just reside within the above if statement, yes?",
+      "range": {
+        "startLine": 495,
+        "startChar": 0,
+        "endLine": 507,
+        "endChar": 9
+      },
+      "revId": "a79064fc20da8b28b4d5e8053b1b9b1e945dd77b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd43c57f_41b89409",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/LayoutComponent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-11T23:32:46Z",
+      "side": 1,
+      "message": "Children will have larger area the deeper they are on the tree, so even if a parent is not visible, unfortunately its children can be.",
+      "parentUuid": "2d70e1c2_1605c4cc",
       "range": {
         "startLine": 495,
         "startChar": 0,
