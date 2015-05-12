@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d4819a1_be42551b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-12T21:39:37Z",
+      "side": 1,
+      "message": "Deprecated in favor of what?",
+      "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d4d4db1_7f872b68",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-12T21:39:37Z",
+      "side": 1,
+      "message": "What should we use instead?",
+      "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d4819a1_5ef0715f",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSysImgPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-12T21:39:37Z",
+      "side": 1,
+      "message": "package protected on purpose?",
+      "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
