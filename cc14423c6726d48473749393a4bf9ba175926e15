@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d531d56_9b8def05",
+        "filename": "build-system/integration-test/build.gradle",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-12T16:18:31Z",
+      "side": 1,
+      "message": "This should now work with Jack, i.e. compile with javac no matter what.",
+      "range": {
+        "startLine": 49,
+        "startChar": 20,
+        "endLine": 49,
+        "endChar": 86
+      },
+      "revId": "cc14423c6726d48473749393a4bf9ba175926e15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
