@@ -22,6 +22,30 @@
       "revId": "0c5de6d1ac0300b0575e5b32094928295d278661",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3e91ea_958c8f8a",
+        "filename": "templates/activities/AlwaysOnWearActivity/recipe.xml.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-05-12T17:46:16Z",
+      "side": 1,
+      "message": "One thing I tried to get the \"provided\" dependency to work was the following:\n\n+    \u003cmerge from\u003d\"build.gradle.ftl\"\n+             to\u003d\"${escapeXmlAttribute(projectOut)}/build.gradle\" /\u003e\n+\n\n$ cat templates/activities/AlwaysOnWearActivity/root/build.gradle.ftl\ndependencies { provided \u0027com.google.android.wearable:wearable:1.0.0\u0027 }\n\nbut it appeared to be a noop",
+      "parentUuid": "0d679d0f_1305dbcc",
+      "range": {
+        "startLine": 5,
+        "startChar": 5,
+        "endLine": 5,
+        "endChar": 15
+      },
+      "revId": "0c5de6d1ac0300b0575e5b32094928295d278661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
