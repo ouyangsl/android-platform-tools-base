@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d338121_d69aa2e9",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/RenderSecurityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-05-12T18:02:54Z",
+      "side": 1,
+      "message": "tws",
+      "range": {
+        "startLine": 234,
+        "startChar": 6,
+        "endLine": 234,
+        "endChar": 7
+      },
+      "revId": "c24117fa17718af03280fe7923b4e2674cdf8595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3e91ea_70c8f127",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/rendering/RenderSecurityManager.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-05-12T18:02:54Z",
+      "side": 1,
+      "message": "False, Runnables do throw exceptions",
+      "range": {
+        "startLine": 250,
+        "startChar": 24,
+        "endLine": 250,
+        "endChar": 56
+      },
+      "revId": "c24117fa17718af03280fe7923b4e2674cdf8595",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
