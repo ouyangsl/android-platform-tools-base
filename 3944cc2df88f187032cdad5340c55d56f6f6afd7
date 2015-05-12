@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed2329ea_c74f7e90",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-12T23:51:07Z",
+      "side": 1,
+      "message": "This was already a hack, I guess this will all look cleaner if instead of passing the Snapshot on getSize, we passed the snapshot on getType(int id, snapshot). Then the type could just know the right size? and getSize remains getSize?",
+      "range": {
+        "startLine": 56,
+        "startChar": 15,
+        "endLine": 56,
+        "endChar": 60
+      },
+      "revId": "3944cc2df88f187032cdad5340c55d56f6f6afd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
