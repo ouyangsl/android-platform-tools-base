@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "cd1ae5b3_77bd8fc6",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-13T23:18:47Z",
+      "side": 1,
+      "message": "Ah got it. SGTM",
+      "parentUuid": "ad15b184_36e9582a",
+      "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d4d4db1_7f872b68",
         "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
         "patchSetId": 1
