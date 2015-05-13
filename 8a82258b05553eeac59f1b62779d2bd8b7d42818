@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd1ae5b3_e6d8be19",
+        "filename": "build-system/builder/src/main/java/com/android/builder/signing/SignedJarBuilder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T00:24:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d8435cc_ee25af47",
+      "range": {
+        "startLine": 156,
+        "startChar": 21,
+        "endLine": 156,
+        "endChar": 39
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d36f5df_5b716f5c",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
         "patchSetId": 1
@@ -72,6 +96,54 @@
     },
     {
       "key": {
+        "uuid": "ed2329ea_67e5f2d2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T00:24:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d62a1ee_7d553fa6",
+      "range": {
+        "startLine": 730,
+        "startChar": 24,
+        "endLine": 730,
+        "endChar": 55
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd1ae5b3_267db66a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 730,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T00:24:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d36f5df_5b716f5c",
+      "range": {
+        "startLine": 730,
+        "startChar": 24,
+        "endLine": 730,
+        "endChar": 55
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d407d41_f74f0fc2",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.groovy",
         "patchSetId": 1
@@ -83,6 +155,30 @@
       "writtenOn": "2015-05-07T22:37:47Z",
       "side": 1,
       "message": "Since this is a temp folder I would move this below all the input and output.",
+      "range": {
+        "startLine": 53,
+        "startChar": 9,
+        "endLine": 53,
+        "endChar": 22
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed2329ea_47ea6ea2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T00:24:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d407d41_f74f0fc2",
       "range": {
         "startLine": 53,
         "startChar": 9,
@@ -118,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "ed2329ea_a7deca04",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T00:24:40Z",
+      "side": 1,
+      "message": "Done.  Made changes in Packager.java",
+      "parentUuid": "0d407d41_3ac7be98",
+      "range": {
+        "startLine": 127,
+        "startChar": 29,
+        "endLine": 127,
+        "endChar": 39
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd24a5a6_cba904e0",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PackagingOptionsTest.groovy",
         "patchSetId": 1
@@ -129,6 +249,30 @@
       "writtenOn": "2015-05-07T22:37:47Z",
       "side": 1,
       "message": "is this coming from the jars or the text files? We should test merging between:\n\n- different jar files\n- different direct files\n- mix of direct files and jars.",
+      "range": {
+        "startLine": 58,
+        "startChar": 16,
+        "endLine": 58,
+        "endChar": 34
+      },
+      "revId": "8a82258b05553eeac59f1b62779d2bd8b7d42818",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad15b184_25a76e37",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/PackagingOptionsTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T00:24:40Z",
+      "side": 1,
+      "message": "Done.  Rewrote tests to support various combinations.",
+      "parentUuid": "cd24a5a6_cba904e0",
       "range": {
         "startLine": 58,
         "startChar": 16,
