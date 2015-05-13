@@ -70,6 +70,30 @@
       "revId": "3944cc2df88f187032cdad5340c55d56f6f6afd7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd1ae5b3_a67fe625",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Type.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-13T00:45:31Z",
+      "side": 1,
+      "message": "Agreed. The main issue is that we are mixing two things, the \"kind\" of type it is, with its binary representation. The equivalent of having OBJECT_8, OBJECT_16 and OBJECT_32 is to have INT_8, INT_16 and INT_32. Which in fact we do and we call them BYTE, SHORT and INT. So the two options for this thing to look consistent are:\n\n1) we have OBJECT_8, OBJECT_16, etc.. and do what you say with isObject().\n(Note that in some cases when we do Type.OBJECT.getSize(mSnapshot), we should just do mSnapshot.getIdSize())\n\n_or_ \n\n2) we separate the meaning from the size and remove size from Type and have a method in the parser/snapshot that tells you the size of the type in that snapshot. After all the size is something that only really matters when parsing.",
+      "parentUuid": "ed2329ea_474eee4a",
+      "range": {
+        "startLine": 56,
+        "startChar": 15,
+        "endLine": 56,
+        "endChar": 60
+      },
+      "revId": "3944cc2df88f187032cdad5340c55d56f6f6afd7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
