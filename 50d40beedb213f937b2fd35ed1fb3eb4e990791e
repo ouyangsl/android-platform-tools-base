@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd1ae5b3_c9a83587",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/AndroidComponentModelPlugin.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T02:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d6d15ec_97e1d01a",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 14
+      },
+      "revId": "50d40beedb213f937b2fd35ed1fb3eb4e990791e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d70e1c2_c71f9c14",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/AndroidComponentModelPlugin.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-11T19:03:16Z",
       "side": 1,
       "message": "You can add these annotations as entry points\n\nSettings -\u003e editor -\u003e Inspections \nJava -\u003e Declaration redundancy -\u003e Unused declaration\n[Options] Configure annotations\n\nThe generated config should probably be committed too.",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 54
+      },
+      "revId": "50d40beedb213f937b2fd35ed1fb3eb4e990791e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad15b184_6b701589",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/AndroidComponentModelPlugin.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-13T02:17:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d70e1c2_c71f9c14",
       "range": {
         "startLine": 85,
         "startChar": 4,
