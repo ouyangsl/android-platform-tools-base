@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "ad15b184_36e9582a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-13T23:16:26Z",
+      "side": 1,
+      "message": "There is a ton of code to be removed when the old sdk manager is actually dead. At that point pretty much all of sdklib/ will need to be checked for unused code, and this will be included in that.",
+      "parentUuid": "4dcc357d_f64c28d0",
+      "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d4d4db1_7f872b68",
         "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
         "patchSetId": 1
