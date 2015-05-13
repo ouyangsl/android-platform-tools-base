@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ad15b184_f626a0e4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-13T22:50:36Z",
+      "side": 1,
+      "message": "Nothing. this isn\u0027t used at all by non-deprecated code, and should be removed when that code is removed.\nHonestly I\u0027m not sure why it was needed before, and why we don\u0027t need it now. I can do further investigation if you like.\n\n(also applies to below comment)",
+      "parentUuid": "6d4819a1_be42551b",
+      "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d4d4db1_7f872b68",
         "filename": "sdklib/src/main/java/com/android/sdklib/SystemImage.java",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2015-05-12T21:39:37Z",
       "side": 1,
       "message": "package protected on purpose?",
+      "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad15b184_d6c8c4a4",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/local/LocalSysImgPkgInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-13T22:50:36Z",
+      "side": 1,
+      "message": "Yes, since it\u0027s also used in LocalAddonSysImagePkgInfo, but isn\u0027t generally useful.",
+      "parentUuid": "6d4819a1_5ef0715f",
       "revId": "83c8eba18d708a76cb65838ddf38a6507580f8a7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
