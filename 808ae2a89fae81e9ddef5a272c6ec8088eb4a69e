@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad15b184_56c334dc",
+        "filename": "templates/other/DisplayNotification/root/src/app_package/BroadcastReceiver.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-05-13T23:10:20Z",
+      "side": 1,
+      "message": "This would be another option: context.getApplicationInfo().icon",
+      "range": {
+        "startLine": 25,
+        "startChar": 30,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "808ae2a89fae81e9ddef5a272c6ec8088eb4a69e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
