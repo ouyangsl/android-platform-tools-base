@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eda6c9c2_a244037b",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Heap.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-14T23:44:38Z",
+      "side": 1,
+      "message": "Let\u0027s not access instance variables from another class. btw this should be \ntheClass.getHeapInstances(getId())",
+      "range": {
+        "startLine": 169,
+        "startChar": 45,
+        "endLine": 169,
+        "endChar": 79
+      },
+      "revId": "143190c54fc304462f6758f51fe323cb776a482f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da4fdb8_b02c4d95",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-14T23:44:38Z",
+      "side": 1,
+      "message": "I think this should be done as part of addInstance. This is the only call to addInstance, and it should be at that time we add the size.\n\nAnd when you move it in, it will be clear the dependency the class set the size of itself to the instance to then add it back to itself. :-/",
+      "range": {
+        "startLine": 259,
+        "startChar": 0,
+        "endLine": 262,
+        "endChar": 21
+      },
+      "revId": "143190c54fc304462f6758f51fe323cb776a482f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
