@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd8d8546_8299bc52",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-14T23:54:24Z",
+      "side": 1,
+      "message": "rather than calling it solib-search-path, maybe keep it generic: \"path to folder containing built libraries with debug information\"",
+      "range": {
+        "startLine": 120,
+        "startChar": 11,
+        "endLine": 120,
+        "endChar": 28
+      },
+      "revId": "ad28a485f66c4403087a6e93ae596073f85222e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8d8546_e2a7e087",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-14T23:54:24Z",
+      "side": 1,
+      "message": "I\u0027d keep it generic (\"e.g. for use by a debugger\") rather then explicitly specifying that it is for gdb setup.",
+      "range": {
+        "startLine": 120,
+        "startChar": 33,
+        "endLine": 120,
+        "endChar": 36
+      },
+      "revId": "ad28a485f66c4403087a6e93ae596073f85222e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eda6c9c2_028b0fef",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/NativeLibrary.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-14T23:54:24Z",
+      "side": 1,
+      "message": "paths",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 27
+      },
+      "revId": "ad28a485f66c4403087a6e93ae596073f85222e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8d8546_82829cd6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-14T23:54:24Z",
+      "side": 1,
+      "message": "configure",
+      "range": {
+        "startLine": 283,
+        "startChar": 19,
+        "endLine": 283,
+        "endChar": 29
+      },
+      "revId": "ad28a485f66c4403087a6e93ae596073f85222e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8d8546_c27ca46d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-14T23:54:24Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 285,
+        "startChar": 37,
+        "endLine": 285,
+        "endChar": 49
+      },
+      "revId": "ad28a485f66c4403087a6e93ae596073f85222e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8d8546_a2707889",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-14T23:54:24Z",
+      "side": 1,
+      "message": "Not sure if you want SoFolder and SolibSearchPath internally as well. I\u0027ll leave that up to you :)",
+      "range": {
+        "startLine": 287,
+        "startChar": 14,
+        "endLine": 287,
+        "endChar": 28
+      },
+      "revId": "ad28a485f66c4403087a6e93ae596073f85222e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
