@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edb169f2_ba9d2db3",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ParserFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-14T17:04:03Z",
+      "side": 1,
+      "message": "Any reason not to make this an interface? (Since in Java 8, interfaces more match the idea of a callback than an abstract class does)",
+      "revId": "cbe83791b1afc74b277342e2878c9222ea647d95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
