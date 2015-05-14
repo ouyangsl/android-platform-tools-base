@@ -16,6 +16,24 @@
       "revId": "cbe83791b1afc74b277342e2878c9222ea647d95",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eda6c9c2_83854e58",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ParserFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-05-14T17:16:21Z",
+      "side": 1,
+      "message": "We try to avoid interfaces in layoutlib-api. This is because if there\u0027s a new method needed it must be accompanied with an API increase. With abstract classes, we can add new methods with default implementation. This enables us to keep using the layoutlib with older versions of AS and not support the new method.",
+      "parentUuid": "edb169f2_ba9d2db3",
+      "revId": "cbe83791b1afc74b277342e2878c9222ea647d95",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
