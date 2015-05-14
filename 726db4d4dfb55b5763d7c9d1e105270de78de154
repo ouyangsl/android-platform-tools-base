@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "eda6c9c2_98ff7477",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/core/Abi.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T20:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd8d8546_ab905e1b",
+      "revId": "726db4d4dfb55b5763d7c9d1e105270de78de154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eda6c9c2_78665029",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/core/Toolchain.java",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-14T20:11:35Z",
       "side": 1,
       "message": "same, rename to getByName",
+      "revId": "726db4d4dfb55b5763d7c9d1e105270de78de154",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eda6c9c2_f80de03a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/core/Toolchain.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T20:17:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eda6c9c2_78665029",
       "revId": "726db4d4dfb55b5763d7c9d1e105270de78de154",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
