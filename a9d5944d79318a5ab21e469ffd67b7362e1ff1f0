@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cd8d8546_34a938df",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T03:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed2329ea_f0a87186",
+      "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad15b184_f82330a0",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-13T21:34:14Z",
       "side": 1,
       "message": "also use an ENUM, no need for a Map with 2 entries.",
+      "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eda6c9c2_15f0b4a9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T03:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad15b184_f82330a0",
       "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "cd8d8546_349218a7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T03:54:39Z",
+      "side": 1,
+      "message": "This matches the behavior for SDK.",
+      "parentUuid": "cd1ae5b3_c60497d3",
+      "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed2329ea_102705b1",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
         "patchSetId": 5
@@ -64,6 +118,24 @@
       "writtenOn": "2015-05-13T21:34:14Z",
       "side": 1,
       "message": "can\u0027t wait to see Enums here....",
+      "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da4fdb8_16b8bc08",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T03:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed2329ea_102705b1",
       "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "eda6c9c2_35f5b89a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T03:54:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed2329ea_f0bcf1a8",
+      "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed2329ea_d0a72d88",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.java",
         "patchSetId": 5
@@ -98,6 +188,24 @@
       "writtenOn": "2015-05-13T21:34:14Z",
       "side": 1,
       "message": "does it really need to be a Map, how many tool chains are we realistically expecting ?",
+      "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da4fdb8_76e02812",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/ModelBuilder.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-14T03:54:39Z",
+      "side": 1,
+      "message": "One per ABI, so there can be 7 of them.  It may be significant if there are many variants, but hard to say.",
+      "parentUuid": "ed2329ea_d0a72d88",
       "revId": "a9d5944d79318a5ab21e469ffd67b7362e1ff1f0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
