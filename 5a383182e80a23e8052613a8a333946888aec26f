@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d970d54_4c663f29",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/CompileOptions.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-14T09:11:07Z",
+      "side": 1,
+      "message": "Can you update this (and target compatibility) to describe what formats we support?",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 7
+      },
+      "revId": "5a383182e80a23e8052613a8a333946888aec26f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d970d54_2c61f30f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/CompileOptions.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-05-14T09:11:07Z",
+      "side": 1,
+      "message": "nit: Replace with @throws?",
+      "range": {
+        "startLine": 79,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 84
+      },
+      "revId": "5a383182e80a23e8052613a8a333946888aec26f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
