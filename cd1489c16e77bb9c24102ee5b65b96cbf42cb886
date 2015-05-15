@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eda6c9c2_5b1a5927",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/BaseConfig.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-15T18:13:27Z",
+      "side": 1,
+      "message": "I think it\u0027s better to use a List if order matters.",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 14
+      },
+      "revId": "cd1489c16e77bb9c24102ee5b65b96cbf42cb886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8d8546_991f6e15",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/DefaultProductFlavor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-15T18:13:27Z",
+      "side": 1,
+      "message": "nit: break line before this period to make it more readable.",
+      "range": {
+        "startLine": 471,
+        "startChar": 63,
+        "endLine": 471,
+        "endChar": 64
+      },
+      "revId": "cd1489c16e77bb9c24102ee5b65b96cbf42cb886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da4fdb8_c56bceeb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/ProductFlavor.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-15T18:13:27Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be Object so that user can pass any type that can be resolved by project.file()?\n\nAlso, as much as I like ImmutableList, this is missing the jarJarRuleFile method (without the \u0027s\u0027) that allows user to add single File.",
+      "range": {
+        "startLine": 421,
+        "startChar": 25,
+        "endLine": 421,
+        "endChar": 31
+      },
+      "revId": "cd1489c16e77bb9c24102ee5b65b96cbf42cb886",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
