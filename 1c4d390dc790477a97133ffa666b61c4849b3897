@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0da4fdb8_eb1343dd",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/blame/parser/AaptOutputParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-15T21:17:54Z",
+      "side": 1,
+      "message": "Tor mentioned that wildcard imports are not permitted in tools/base",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "1c4d390dc790477a97133ffa666b61c4849b3897",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
