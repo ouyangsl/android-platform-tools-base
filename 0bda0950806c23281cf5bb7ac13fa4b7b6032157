@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d9a7579_c7011cc1",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-15T04:29:44Z",
+      "side": 1,
+      "message": "remove comment",
+      "range": {
+        "startLine": 82,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 62
+      },
+      "revId": "0bda0950806c23281cf5bb7ac13fa4b7b6032157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
