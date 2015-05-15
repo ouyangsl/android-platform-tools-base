@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6dbd79c9_c755ae23",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-05-15T04:36:46Z",
+      "side": 1,
+      "message": "Nit: line up the right-side comment",
+      "revId": "8bb0fbfe266cd1f8571c79c2aca5195317e1bd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
