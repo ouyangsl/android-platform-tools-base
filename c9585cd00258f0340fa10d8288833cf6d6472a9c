@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdabc59c_7e2db18e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-16T01:48:59Z",
+      "side": 1,
+      "message": "Use underscores like the rest?",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
