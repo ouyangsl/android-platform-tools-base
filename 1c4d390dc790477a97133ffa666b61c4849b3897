@@ -22,6 +22,30 @@
       "revId": "1c4d390dc790477a97133ffa666b61c4849b3897",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6dbd79c9_8dc75596",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/blame/parser/AaptOutputParserTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1019910
+      },
+      "writtenOn": "2015-05-16T00:16:29Z",
+      "side": 1,
+      "message": "Oops, I just wanted to delete the unused constant Fixed.",
+      "parentUuid": "0da4fdb8_eb1343dd",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 41
+      },
+      "revId": "1c4d390dc790477a97133ffa666b61c4849b3897",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
