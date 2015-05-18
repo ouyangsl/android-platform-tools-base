@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eda409cd_a853fa6e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataSet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-18T21:09:14Z",
+      "side": 1,
+      "message": "see below : you could store Exceptions instead of just messages.",
+      "revId": "27ee237597e9912b478ef893e671b3f7c4b5a10c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cdabc59c_1beb54aa",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataSet.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-18T21:09:14Z",
+      "side": 1,
+      "message": "you probably should consider showing the stack trace leading to each exceptions (using the exception store above) ?",
+      "revId": "27ee237597e9912b478ef893e671b3f7c4b5a10c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
