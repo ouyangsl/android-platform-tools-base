@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0da23dbf_9aa19def",
+        "filename": "build-system/integration-test/test-projects/basic/src/androidTest/java/com/android/tests/basic/MainTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-18T21:12:11Z",
+      "side": 1,
+      "message": "add a note to the class than any test annotated with anything else than @MediumTest will be ignored.",
+      "revId": "7d6f3f1e31499abef929cfee75ff4eae147425f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
