@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dbb1df3_58679d50",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2015-05-18T02:49:13Z",
+      "side": 1,
+      "message": "i think that\u0027s unrelated. aiui, that\u0027s you talking directly to qemu over a telnet-like connection. so there you do want \\r\\n. (the only thing that looks odd in that class is the use of ISO-8859-1 instead of UTF-8.)",
+      "revId": "24106116e2f332495bbaddef9dc60c45fa06914c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
