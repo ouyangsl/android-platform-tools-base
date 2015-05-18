@@ -16,6 +16,24 @@
       "revId": "73510d3b743f36946a2af26b037750a74257cf02",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eda409cd_feef78b1",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/CombinedAbiDensityPureSplits.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-18T22:06:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd8d8546_31bdb4a3",
+      "revId": "73510d3b743f36946a2af26b037750a74257cf02",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
