@@ -16,6 +16,24 @@
       "revId": "7d6f3f1e31499abef929cfee75ff4eae147425f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0da23dbf_95c60ec8",
+        "filename": "build-system/integration-test/test-projects/basic/src/androidTest/java/com/android/tests/basic/MainTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-18T21:52:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0da23dbf_9aa19def",
+      "revId": "7d6f3f1e31499abef929cfee75ff4eae147425f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
