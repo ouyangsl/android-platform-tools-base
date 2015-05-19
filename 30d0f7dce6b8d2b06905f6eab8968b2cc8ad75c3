@@ -22,6 +22,30 @@
       "revId": "30d0f7dce6b8d2b06905f6eab8968b2cc8ad75c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eda409cd_32007188",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/LayoutlibCallback.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-05-19T00:43:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdabc59c_acd9c1f6",
+      "range": {
+        "startLine": 99,
+        "startChar": 30,
+        "endLine": 99,
+        "endChar": 36
+      },
+      "revId": "30d0f7dce6b8d2b06905f6eab8968b2cc8ad75c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
