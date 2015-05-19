@@ -166,6 +166,24 @@
     },
     {
       "key": {
+        "uuid": "2d37016d_d8014309",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T23:39:50Z",
+      "side": 1,
+      "message": "Sync to Tot and see what you mentioned. UPdated in Patch 5",
+      "parentUuid": "ed2329ea_86a1ff20",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad15b184_1cec3b08",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
         "patchSetId": 2
