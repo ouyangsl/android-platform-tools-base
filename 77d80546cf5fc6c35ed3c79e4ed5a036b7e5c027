@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d37016d_79712207",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/Util.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "Done. Actually just added as test code, removed now.",
+      "parentUuid": "cd1ae5b3_f24fcd8f",
+      "range": {
+        "startLine": 328,
+        "startChar": 68,
+        "endLine": 328,
+        "endChar": 74
+      },
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "edb169f2_573f8cd8",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeafNode.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2015-05-14T00:03:50Z",
       "side": 1,
       "message": "Not grammatical. Maybe \"Unsupported URL value: \"?\n(note also space after \":\")",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d37016d_d9586e8e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeafNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edb169f2_573f8cd8",
       "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "adfdb1c1_ff963f4a",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgNode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad15b184_9cc78b96",
+      "range": {
+        "startLine": 30,
+        "startChar": 12,
+        "endLine": 30,
+        "endChar": 14
+      },
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed2329ea_86a1ff20",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2015-05-14T00:03:50Z",
       "side": 1,
       "message": "This doesn\u0027t compile, since the constructor for PositionXmlParser is private. Additionally, though, it looks like a purely static class; there\u0027s no benefit to keeping an instance of it around even if it were possible to create one.",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_3fc0572a",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "It is in package com.android.utils;\nI am compiling fine. Not sure what compiling errors you got . \n\nI am keeping it for the usage below in getPosition",
+      "parentUuid": "ed2329ea_86a1ff20",
       "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "2d37016d_5453c53d",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad15b184_1cec3b08",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adc3f158_756ba8ed",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
         "patchSetId": 2
@@ -110,6 +212,24 @@
       "writtenOn": "2015-05-14T00:03:50Z",
       "side": 1,
       "message": "Sounds unusual. Maybe \"NNN more...\"?",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_ffeabfa3",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "Done.\nChange the UI to use a scrollPane such that I can show all of the error messages now.",
+      "parentUuid": "adc3f158_756ba8ed",
       "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "adfdb1c1_ff93df31",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6de499f7_5b3fc3d8",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adc3f158_956f64f8",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
         "patchSetId": 2
@@ -144,6 +282,24 @@
       "writtenOn": "2015-05-14T00:03:50Z",
       "side": 1,
       "message": "annotate as nullable. Also annotate other params appropriately as well?",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d8cfd85_977dc32e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-19T21:34:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adc3f158_956f64f8",
       "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
