@@ -2,6 +2,114 @@
   "comments": [
     {
       "key": {
+        "uuid": "6d7ad934_bfe9bfae",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-20T18:18:47Z",
+      "side": 1,
+      "message": "@Immutable",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_9f12c354",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-20T18:18:47Z",
+      "side": 1,
+      "message": "final",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_bf177f43",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-20T18:18:47Z",
+      "side": 1,
+      "message": "final",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 14
+      },
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_93ccdfb8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-20T18:18:47Z",
+      "side": 1,
+      "message": "final",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_ff98a74e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-20T18:18:47Z",
+      "side": 1,
+      "message": "remove ?",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_f3b2f3f9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-20T18:18:47Z",
+      "side": 1,
+      "message": "I would just rename is COMPILE, the fact it is abstract has no meaning to users.",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdabc59c_7e2db18e",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskType.java",
         "patchSetId": 1
