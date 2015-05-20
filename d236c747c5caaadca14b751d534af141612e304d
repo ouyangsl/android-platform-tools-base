@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2d6e217b_899db93d",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/AndroidComponentModelTestPlugin.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d179dd9_9eeadd71",
+      "range": {
+        "startLine": 61,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 104
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d20e12c_bfa23f79",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-20T10:18:07Z",
       "side": 1,
       "message": "Nit: keep specs.create together?",
+      "range": {
+        "startLine": 174,
+        "startChar": 50,
+        "endLine": 175,
+        "endChar": 31
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_33d64bed",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d20e12c_bfa23f79",
       "range": {
         "startLine": 174,
         "startChar": 50,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "adfdb1c1_f398b34e",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed19690f_bd0ec7b7",
+      "range": {
+        "startLine": 297,
+        "startChar": 32,
+        "endLine": 297,
+        "endChar": 60
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d179dd9_de193533",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2015-05-20T10:18:07Z",
       "side": 1,
       "message": "This should be indented further.",
+      "range": {
+        "startLine": 299,
+        "startChar": 32,
+        "endLine": 300,
+        "endChar": 95
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_d39db73c",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d179dd9_de193533",
       "range": {
         "startLine": 299,
         "startChar": 32,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "adfdb1c1_93a85f59",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/NdkComponentModelPlugin.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d20e12c_3faf0f5f",
+      "range": {
+        "startLine": 323,
+        "startChar": 32,
+        "endLine": 329,
+        "endChar": 21
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d20e12c_ff8197d4",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.java",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2015-05-20T10:18:07Z",
       "side": 1,
       "message": "No need for the static block, it\u0027s a single expression. Here and below.",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 25
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_1fd01378",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d20e12c_ff8197d4",
       "range": {
         "startLine": 46,
         "startChar": 8,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "6d7ad934_ffff47df",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/ClangNativeToolSpecification.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d179dd9_5e0e85e9",
+      "range": {
+        "startLine": 58,
+        "startChar": 25,
+        "endLine": 58,
+        "endChar": 50
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d20e12c_5f91a31d",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NativeToolSpecificationFactory.java",
         "patchSetId": 1
@@ -174,6 +342,30 @@
       "writtenOn": "2015-05-20T10:18:07Z",
       "side": 1,
       "message": "Put on a new line, so ? is aligned with :",
+      "range": {
+        "startLine": 39,
+        "startChar": 64,
+        "endLine": 39,
+        "endChar": 97
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_896ff9a9",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NativeToolSpecificationFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d20e12c_5f91a31d",
       "range": {
         "startLine": 39,
         "startChar": 64,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "2d6e217b_e9cc753c",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "I don\u0027t think we are suppose to line arguments to parenthesis.  I can put buildDir in the next line if you want arguments to line up.  Not sure if that\u0027s actually better.",
+      "parentUuid": "2d20e12c_1f8b2bf0",
+      "range": {
+        "startLine": 79,
+        "startChar": 39,
+        "endLine": 79,
+        "endChar": 40
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d179dd9_7e0b49d8",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/StlConfiguration.java",
         "patchSetId": 1
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "2d6e217b_49dca1e5",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/StlConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d179dd9_7e0b49d8",
+      "range": {
+        "startLine": 53,
+        "startChar": 25,
+        "endLine": 53,
+        "endChar": 56
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed19690f_5d3d2b3c",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/tasks/GdbSetupTask.java",
         "patchSetId": 1
@@ -243,6 +483,30 @@
       "writtenOn": "2015-05-20T10:18:07Z",
       "side": 1,
       "message": "Nit: keep fields on top?",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 27
+      },
+      "revId": "d236c747c5caaadca14b751d534af141612e304d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_3fbf0f0d",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/tasks/GdbSetupTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-20T18:32:31Z",
+      "side": 1,
+      "message": "Done.\nNot actually sure what is the standard format.  I kind of prefer to see all members at a glance as well.  Some prefer to have all the public API at the top.",
+      "parentUuid": "ed19690f_5d3d2b3c",
       "range": {
         "startLine": 84,
         "startChar": 4,
