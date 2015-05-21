@@ -16,6 +16,24 @@
       "revId": "8bb0fbfe266cd1f8571c79c2aca5195317e1bd67",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3ebd49_67718107",
+        "filename": "common/src/main/java/com/android/SdkConstants.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1070305
+      },
+      "writtenOn": "2015-05-21T09:06:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dbd79c9_c755ae23",
+      "revId": "8bb0fbfe266cd1f8571c79c2aca5195317e1bd67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
