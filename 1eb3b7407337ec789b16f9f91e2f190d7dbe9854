@@ -59,6 +59,48 @@
     },
     {
       "key": {
+        "uuid": "6d7ad934_b29ec4ab",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-21T19:47:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d6e217b_ba66af9a",
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_92a148ef",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-21T19:47:05Z",
+      "side": 1,
+      "message": "This component doesn\u0027t have a guava dependency and I don\u0027t really want to add it.",
+      "parentUuid": "6d7ad934_e609f6b2",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 21
+      },
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7ad934_66bc2648",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
         "patchSetId": 1
@@ -87,6 +129,24 @@
       "writtenOn": "2015-05-21T16:52:05Z",
       "side": 1,
       "message": "instead of build-tool/%1$s/bin here, could you just use %1$s and supply buildToolDir.getPath() ? (Otherwise for Windows users you\u0027ll show unix file separators. Not a big deal since it\u0027s error output, but might seem a little off.)",
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_6c887df1",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-21T19:47:05Z",
+      "side": 1,
+      "message": "it\u0027s the old SDK Manager only. I don\u0027t care much about it.",
+      "parentUuid": "adfdb1c1_92ef2ffe",
       "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
