@@ -16,6 +16,24 @@
       "revId": "22fd0302fbf89776220fbbd2dddc9cafa8e2ff6c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_f2178342",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ZipAlign.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1041673
+      },
+      "writtenOn": "2015-05-21T17:04:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adfdb1c1_53bd46a1",
+      "revId": "22fd0302fbf89776220fbbd2dddc9cafa8e2ff6c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
