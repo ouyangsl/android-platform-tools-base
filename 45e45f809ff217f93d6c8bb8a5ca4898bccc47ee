@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d031dc0_a1a804dc",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ArrayInstance.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-05-21T22:40:47Z",
+      "side": 1,
+      "message": "asByteArray should work the same as asCharArray. They are name the same but they have different meaning. This one should assert that mType \u003d\u003d Type.BYTE and return the byte array. elementCount should be called length.\n\nIf you want to have a \"asRawBytes\" private function that just reads a buffer, that\u0027s fine, but have them separate",
+      "range": {
+        "startLine": 53,
+        "startChar": 18,
+        "endLine": 53,
+        "endChar": 29
+      },
+      "revId": "45e45f809ff217f93d6c8bb8a5ca4898bccc47ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
