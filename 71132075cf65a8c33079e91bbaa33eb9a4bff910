@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adfdb1c1_f531ad1c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-21T17:48:44Z",
+      "side": 1,
+      "message": "why not storing FullRevision rather than String, make things clearer about what the map contains.",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_60ac069a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-21T17:48:44Z",
+      "side": 1,
+      "message": "shouldn\u0027t you be using the File.separatorChar.",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_2c383d00",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-21T17:48:44Z",
+      "side": 1,
+      "message": "could we switch this class from using String to express versions to FullRevision ? or is it too many changes.",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
