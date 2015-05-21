@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "6d7ad934_e609f6b2",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-21T16:50:16Z",
+      "side": 1,
+      "message": "I think the loop can be shortened to:\n\nJoiner.on(File.separatorChar).skipNulls().join(leafs)",
+      "range": {
+        "startLine": 247,
+        "startChar": 8,
+        "endLine": 247,
+        "endChar": 21
+      },
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7ad934_66bc2648",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
         "patchSetId": 1
