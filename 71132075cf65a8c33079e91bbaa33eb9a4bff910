@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "0d031dc0_78bce147",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-21T21:11:24Z",
+      "side": 1,
+      "message": "yes however, I am not so sure about how it would be displayed if there was an I/O exception. I guess you will be testing on windows that it all works, right ?",
+      "parentUuid": "6d7ad934_b7f236e5",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7ad934_2c383d00",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
         "patchSetId": 2
@@ -100,6 +118,24 @@
       "writtenOn": "2015-05-21T18:30:40Z",
       "side": 1,
       "message": "Done.",
+      "parentUuid": "6d7ad934_2c383d00",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd1ca521_96cc2c3c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-21T21:11:24Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "6d7ad934_2c383d00",
       "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
