@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6d7ad934_46056a96",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-21T16:52:05Z",
+      "side": 1,
+      "message": "micro-nit: plural of leaf is leaves",
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7ad934_e609f6b2",
         "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
         "patchSetId": 1
@@ -25,6 +42,23 @@
     },
     {
       "key": {
+        "uuid": "2d6e217b_ba66af9a",
+        "filename": "sdklib/src/main/java/com/android/sdklib/BuildToolInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-21T16:52:05Z",
+      "side": 1,
+      "message": "larger initial capacity here -- 256? (default is 16)",
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7ad934_66bc2648",
         "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
         "patchSetId": 1
@@ -36,6 +70,40 @@
       "writtenOn": "2015-05-21T16:46:46Z",
       "side": 1,
       "message": "tab ?",
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_92ef2ffe",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-21T16:52:05Z",
+      "side": 1,
+      "message": "instead of build-tool/%1$s/bin here, could you just use %1$s and supply buildToolDir.getPath() ? (Otherwise for Windows users you\u0027ll show unix file separators. Not a big deal since it\u0027s error output, but might seem a little off.)",
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d6e217b_1aa7bb36",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-21T16:52:05Z",
+      "side": 1,
+      "message": "ditto",
       "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
