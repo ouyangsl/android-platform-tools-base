@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6d7ad934_6c4ac5b3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-21T18:30:40Z",
+      "side": 1,
+      "message": "Done.\nMostly because FullRevision can produce a different String for some version number and I didn\u0027t know we have a PreciseRevision class.",
+      "parentUuid": "adfdb1c1_f531ad1c",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d6e217b_60ac069a",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "6d7ad934_b7f236e5",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-21T18:30:40Z",
+      "side": 1,
+      "message": "Does it matter? Doesn\u0027t the File class resolve it properly for all systems?",
+      "parentUuid": "2d6e217b_60ac069a",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7ad934_2c383d00",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2015-05-21T17:48:44Z",
       "side": 1,
       "message": "could we switch this class from using String to express versions to FullRevision ? or is it too many changes.",
+      "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_b756b62c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-21T18:30:40Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "6d7ad934_2c383d00",
       "revId": "71132075cf65a8c33079e91bbaa33eb9a4bff910",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
