@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d6e217b_7c91181e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-21T03:41:23Z",
+      "side": 1,
+      "message": "Would the below be better?\n\nif (androidVersion \u003d\u003d null) {\n    throw new InvalidUseDataException(compileSdkVersion + \" is not a valid compile SDK version.\")\n}",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 77,
+        "endChar": 57
+      },
+      "revId": "b46d57615ae3b28ad80e895d4792a63b5f9f5bed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
