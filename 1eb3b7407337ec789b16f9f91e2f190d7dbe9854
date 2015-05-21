@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d7ad934_66bc2648",
+        "filename": "sdklib/src/main/java/com/android/sdklib/internal/repository/packages/BuildToolPackage.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-21T16:46:46Z",
+      "side": 1,
+      "message": "tab ?",
+      "revId": "1eb3b7407337ec789b16f9f91e2f190d7dbe9854",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
