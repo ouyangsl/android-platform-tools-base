@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d031dc0_5f8e0d00",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-22T21:26:10Z",
+      "side": 1,
+      "message": "It it needs to be there, why not add it to the scope? Or is this a temporary fix?",
+      "revId": "41f8cdfb574281180ee910fc804b220286b5ebc8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
