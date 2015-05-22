@@ -321,6 +321,24 @@
       "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_ba98264e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-22T19:06:21Z",
+      "side": 1,
+      "message": "The return type should be annotated as well:\n@Nullable\npublic static BufferedImage getPreview...",
+      "parentUuid": "0d8cfd85_977dc32e",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
