@@ -339,6 +339,24 @@
       "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_f5ff4ff8",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-22T20:36:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d0995dc_ba98264e",
+      "revId": "77d80546cf5fc6c35ed3c79e4ed5a036b7e5c027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
