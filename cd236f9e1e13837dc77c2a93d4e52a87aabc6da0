@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d031dc0_9e3a6b92",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-05-22T19:06:21Z",
+      "side": 1,
+      "message": "space before :",
+      "range": {
+        "startLine": 115,
+        "startChar": 20,
+        "endLine": 115,
+        "endChar": 23
+      },
+      "revId": "cd236f9e1e13837dc77c2a93d4e52a87aabc6da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
