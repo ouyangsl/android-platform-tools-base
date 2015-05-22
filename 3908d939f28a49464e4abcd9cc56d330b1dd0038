@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cda1050e_d75336bf",
+        "filename": "build-system/integration-test/test-projects/minifyLibWithJavaRes/app/debug.keystore",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-05-22T00:42:05Z",
+      "side": 0,
+      "message": "There\u0027s no reason to commit this...",
+      "revId": "3908d939f28a49464e4abcd9cc56d330b1dd0038",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
