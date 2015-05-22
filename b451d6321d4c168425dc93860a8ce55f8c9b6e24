@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4daef5fa_95efe6b2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "change this method to take VariantScope instead of testVariantData and get the variant data from the scope if you need it.",
+      "range": {
+        "startLine": 1293,
+        "startChar": 34,
+        "endLine": 1293,
+        "endChar": 49
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda1050e_e2414efb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1316,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "Wouldn\u0027t we be missing assembleAndroidTest task if we have flavors?",
+      "range": {
+        "startLine": 1316,
+        "startChar": 54,
+        "endLine": 1316,
+        "endChar": 67
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda1050e_02661a27",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1320,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "break new line so that it\u0027s obvious it is an argument to ConfigAction instead of ConnectedDeviceProvider.",
+      "range": {
+        "startLine": 1320,
+        "startChar": 88,
+        "endLine": 1320,
+        "endChar": 89
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda1050e_a2c2a6d6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "AndroidTask has a named method",
+      "range": {
+        "startLine": 1322,
+        "startChar": 20,
+        "endLine": 1322,
+        "endChar": 38
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda1050e_02c29a87",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "Add coverage dir to the scope and use here.",
+      "range": {
+        "startLine": 1340,
+        "startChar": 16,
+        "endLine": 1341,
+        "endChar": 96
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_e9a2e179",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 1353,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "remove extra line",
+      "range": {
+        "startLine": 1353,
+        "startChar": 0,
+        "endLine": 1353,
+        "endChar": 0
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cda1050e_2256b62e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TestApplicationTaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "break lines with appropriate indentations.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 84
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d031dc0_d3e50325",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TestApplicationTaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "AndroidTask has a named method you can use instead.",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 50
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_6977f1cc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "remove extra space",
+      "range": {
+        "startLine": 298,
+        "startChar": 46,
+        "endLine": 298,
+        "endChar": 50
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d031dc0_f3092765",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 306,
+        "startChar": 12,
+        "endLine": 307,
+        "endChar": 12
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_2956992e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "Use Callable",
+      "range": {
+        "startLine": 317,
+        "startChar": 56,
+        "endLine": 318,
+        "endChar": 47
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_e94dc14d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T01:31:11Z",
+      "side": 1,
+      "message": "project.file doesn\u0027t do anything if the path is an absolute path.  You can remove the ConventionHelper and just set it since buildDir is always aboslute",
+      "range": {
+        "startLine": 367,
+        "startChar": 0,
+        "endLine": 374,
+        "endChar": 15
+      },
+      "revId": "b451d6321d4c168425dc93860a8ce55f8c9b6e24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
