@@ -22,6 +22,30 @@
       "revId": "cd236f9e1e13837dc77c2a93d4e52a87aabc6da0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d031dc0_04456c78",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgTree.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-05-22T20:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d031dc0_9e3a6b92",
+      "range": {
+        "startLine": 115,
+        "startChar": 20,
+        "endLine": 115,
+        "endChar": 23
+      },
+      "revId": "cd236f9e1e13837dc77c2a93d4e52a87aabc6da0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
