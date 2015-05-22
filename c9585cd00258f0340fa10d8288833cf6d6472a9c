@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "adc5b1ce_34055ecd",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T23:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7ad934_bfe9bfae",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d7ad934_9f12c354",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-20T18:18:47Z",
       "side": 1,
       "message": "final",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d031dc0_87dcdb0d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T23:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7ad934_9f12c354",
       "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "adc5b1ce_74ffd62c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T23:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7ad934_bf177f43",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 14
+      },
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adfdb1c1_93ccdfb8",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
         "patchSetId": 1
@@ -70,6 +130,24 @@
       "writtenOn": "2015-05-20T18:18:47Z",
       "side": 1,
       "message": "final",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d031dc0_e7d9571d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T23:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adfdb1c1_93ccdfb8",
       "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "0d031dc0_c7d6d3eb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T23:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d7ad934_ff98a74e",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adfdb1c1_f3b2f3f9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskType.java",
         "patchSetId": 1
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "0d031dc0_27eb4faa",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T23:22:50Z",
+      "side": 1,
+      "message": "Done.  Renamed to JAVA_COMPILE.",
+      "parentUuid": "adfdb1c1_f3b2f3f9",
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdabc59c_7e2db18e",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskType.java",
         "patchSetId": 1
@@ -121,6 +235,30 @@
       "writtenOn": "2015-05-16T01:48:59Z",
       "side": 1,
       "message": "Use underscores like the rest?",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 24
+      },
+      "revId": "c9585cd00258f0340fa10d8288833cf6d6472a9c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d031dc0_c7bd33a4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskType.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-22T23:22:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdabc59c_7e2db18e",
       "range": {
         "startLine": 40,
         "startChar": 4,
