@@ -16,6 +16,24 @@
       "revId": "d0afc7ff0fc7e9c9c1678f5306647a9232bd5985",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_68c9a1a6",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/NinePatchAaptProcessorTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-23T00:10:41Z",
+      "side": 1,
+      "message": "yes, I think its fine for this particular test, I see no reason to test against older/newer tool until we make some incompatible change.",
+      "parentUuid": "4d0995dc_8e636b8b",
+      "revId": "d0afc7ff0fc7e9c9c1678f5306647a9232bd5985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
