@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d0995dc_ee60190e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1028773
+      },
+      "writtenOn": "2015-05-25T06:17:46Z",
+      "side": 1,
+      "message": "Instead of choosing the highest version when the compileSdkVersion is not supported, I think it\u0027s better to choose the closest version to the compileSdkVersion. For ex: if android-19 and android-21 are present in NDK and 20 is specified as compileSdkVersion, I think it\u0027s better to choose 19 than 21, because when somebody wrote a native application targetting 20, they might have intention of using android-19 in NDK, because android-21 APIs in NDK are does not available when they wrote the native code.",
+      "range": {
+        "startLine": 101,
+        "startChar": 16,
+        "endLine": 101,
+        "endChar": 30
+      },
+      "revId": "0fdd74e1af3298138692053af2fffe7886e5936a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
