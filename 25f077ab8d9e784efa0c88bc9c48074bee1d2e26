@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d9499c1_649e1baf",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 1078,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-26T22:37:55Z",
+      "side": 1,
+      "message": "nit: do not break line.",
+      "range": {
+        "startLine": 1078,
+        "startChar": 0,
+        "endLine": 1078,
+        "endChar": 16
+      },
+      "revId": "25f077ab8d9e784efa0c88bc9c48074bee1d2e26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
