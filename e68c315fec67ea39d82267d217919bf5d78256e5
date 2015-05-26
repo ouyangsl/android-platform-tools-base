@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d9499c1_753de88a",
+        "filename": "build-system/google-services/src/main/groovy/com/google/gms/googleservices/GoogleServicesTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-26T22:07:40Z",
+      "side": 1,
+      "message": "nit: line too long.",
+      "revId": "e68c315fec67ea39d82267d217919bf5d78256e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
