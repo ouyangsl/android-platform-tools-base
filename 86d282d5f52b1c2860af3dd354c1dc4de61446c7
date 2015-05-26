@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d0995dc_c5824b02",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1041673
+      },
+      "writtenOn": "2015-05-26T22:53:35Z",
+      "side": 1,
+      "message": "I am a bit confused by these adapters.. what do they translate?",
+      "revId": "86d282d5f52b1c2860af3dd354c1dc4de61446c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
