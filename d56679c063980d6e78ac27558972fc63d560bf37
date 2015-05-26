@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d99cdfb_9c96254a",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ProductFlavor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-26T17:11:50Z",
+      "side": 1,
+      "message": "this is the wrong place for this. It should be in the Build Type. (although I guess it could be in the flavor too in which case, it belongs to BaseConfig).\n\nThe reason is that we\u0027ll want to keep the compression for debugging where we have to push the apk uncompressed to the device via adb.",
+      "range": {
+        "startLine": 191,
+        "startChar": 12,
+        "endLine": 191,
+        "endChar": 33
+      },
+      "revId": "d56679c063980d6e78ac27558972fc63d560bf37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
