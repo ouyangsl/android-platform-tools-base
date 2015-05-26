@@ -22,6 +22,30 @@
       "revId": "d56679c063980d6e78ac27558972fc63d560bf37",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d9499c1_a70bc524",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/ProductFlavor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1041673
+      },
+      "writtenOn": "2015-05-26T22:51:15Z",
+      "side": 1,
+      "message": "Done moved to BaseConfig",
+      "parentUuid": "8d99cdfb_9c96254a",
+      "range": {
+        "startLine": 191,
+        "startChar": 12,
+        "endLine": 191,
+        "endChar": 33
+      },
+      "revId": "d56679c063980d6e78ac27558972fc63d560bf37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
