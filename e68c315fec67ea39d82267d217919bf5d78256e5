@@ -16,6 +16,24 @@
       "revId": "e68c315fec67ea39d82267d217919bf5d78256e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d5f9dfa_bed66fea",
+        "filename": "build-system/google-services/src/main/groovy/com/google/gms/googleservices/GoogleServicesTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-05-26T22:10:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d9499c1_753de88a",
+      "revId": "e68c315fec67ea39d82267d217919bf5d78256e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
