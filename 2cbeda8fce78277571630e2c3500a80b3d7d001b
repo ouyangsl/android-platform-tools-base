@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d0995dc_d2717309",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MinifyLibAndAppWithJavaResTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-26T22:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d0995dc_864a27b0",
+      "range": {
+        "startLine": 61,
+        "startChar": 13,
+        "endLine": 61,
+        "endChar": 23
+      },
+      "revId": "2cbeda8fce78277571630e2c3500a80b3d7d001b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d0995dc_08b8e508",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MinifyLibAndAppWithJavaResTest.groovy",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2015-05-23T00:15:43Z",
       "side": 1,
       "message": "nit: releaseApk",
+      "range": {
+        "startLine": 76,
+        "startChar": 13,
+        "endLine": 76,
+        "endChar": 23
+      },
+      "revId": "2cbeda8fce78277571630e2c3500a80b3d7d001b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d5f9dfa_341fdb16",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MinifyLibAndAppWithJavaResTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-26T22:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d0995dc_08b8e508",
       "range": {
         "startLine": 76,
         "startChar": 13,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4d0995dc_7259878f",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MinifyListAndAppWithJavaResUsingJackTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-26T22:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adc5b1ce_9f042b9d",
+      "range": {
+        "startLine": 63,
+        "startChar": 13,
+        "endLine": 63,
+        "endChar": 23
+      },
+      "revId": "2cbeda8fce78277571630e2c3500a80b3d7d001b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adc5b1ce_ff09dfb2",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MinifyListAndAppWithJavaResUsingJackTest.groovy",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2015-05-23T00:15:43Z",
       "side": 1,
       "message": "nit: releaseApk",
+      "range": {
+        "startLine": 79,
+        "startChar": 13,
+        "endLine": 79,
+        "endChar": 23
+      },
+      "revId": "2cbeda8fce78277571630e2c3500a80b3d7d001b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_525e0378",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MinifyListAndAppWithJavaResUsingJackTest.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-26T22:41:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adc5b1ce_ff09dfb2",
       "range": {
         "startLine": 79,
         "startChar": 13,
