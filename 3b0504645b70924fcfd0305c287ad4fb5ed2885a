@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd3d85a0_a37c886e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/DeviceProviderInstrumentTestTask.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-05-27T21:48:28Z",
+      "side": 1,
+      "message": "Don\u0027t need isIgnoreFailures if you already have a get method.",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 5
+      },
+      "revId": "3b0504645b70924fcfd0305c287ad4fb5ed2885a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
