@@ -52,6 +52,24 @@
       "revId": "d0afc7ff0fc7e9c9c1678f5306647a9232bd5985",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d0995dc_089c5a67",
+        "filename": "build-system/builder/src/test/java/com/android/builder/png/NinePatchAaptProcessorTestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-05-27T16:12:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d0995dc_a8057943",
+      "revId": "d0afc7ff0fc7e9c9c1678f5306647a9232bd5985",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
