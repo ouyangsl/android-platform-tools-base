@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d54fde2_1cbdb2c6",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-05-28T21:50:30Z",
+      "side": 1,
+      "message": "may I suggest: bar (in case of a reference, the value may include the namespace. if the namespace is absent, default namespace is assumed based on isFramework (android namespace when isFramework\u003dtrue and app namespace when isFramework\u003dfalse)).",
+      "revId": "4b385d97314e29aa7df87b717e4fc9a26c29e81c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
