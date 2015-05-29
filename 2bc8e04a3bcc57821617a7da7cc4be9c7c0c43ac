@@ -52,6 +52,24 @@
       "revId": "2bc8e04a3bcc57821617a7da7cc4be9c7c0c43ac",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d42d931_a0a64037",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1052043
+      },
+      "writtenOn": "2015-05-29T14:44:21Z",
+      "side": 1,
+      "message": "but it IS the location of the enclosing style that is represented by the boolean, and NOT something specific to the item",
+      "parentUuid": "59115c41_fac0291f",
+      "revId": "2bc8e04a3bcc57821617a7da7cc4be9c7c0c43ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
