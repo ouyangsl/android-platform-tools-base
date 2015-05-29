@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3914a832_f995d710",
+        "filename": "layoutlib-api/src/main/java/com/android/ide/common/rendering/api/ItemResourceValue.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-05-29T14:16:42Z",
+      "side": 1,
+      "message": "I suggest not renaming the boolean. isFramework has the same meaning throughout the API and this diverges from it.",
+      "revId": "2bc8e04a3bcc57821617a7da7cc4be9c7c0c43ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
