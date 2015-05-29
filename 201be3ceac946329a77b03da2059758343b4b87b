@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3914a832_b9dabf8d",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/CallSuperDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-05-29T19:50:16Z",
+      "side": 1,
+      "message": "I\u0027m a little confused since this test passes for me even without your fix. Both the test and the fix look reasonable.",
+      "range": {
+        "startLine": 73,
+        "startChar": 55,
+        "endLine": 73,
+        "endChar": 60
+      },
+      "revId": "201be3ceac946329a77b03da2059758343b4b87b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
