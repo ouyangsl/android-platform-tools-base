@@ -22,6 +22,30 @@
       "revId": "201be3ceac946329a77b03da2059758343b4b87b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "190b6419_bbae331c",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/CallSuperDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-05-29T23:35:48Z",
+      "side": 1,
+      "message": "Sorry, that comment was obsolete; I\u0027ve removed it. The fix is still correct, I verified it manually -- but it actually only triggers the incorrect behavior when running the lint check inside the IDE (using the PSI back-end, not the Lombok back-end.) I\u0027ve now added a regression test to the tools/adt/idea change too where I manually verified that the test fails without the fix applied.",
+      "parentUuid": "3914a832_b9dabf8d",
+      "range": {
+        "startLine": 73,
+        "startChar": 55,
+        "endLine": 73,
+        "endChar": 60
+      },
+      "revId": "201be3ceac946329a77b03da2059758343b4b87b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
