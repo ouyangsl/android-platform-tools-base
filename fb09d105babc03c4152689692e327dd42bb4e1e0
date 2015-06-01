@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f95bf03c_47418eeb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ApplicationTaskManager.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-01T21:40:23Z",
+      "side": 1,
+      "message": "Remove blank line.",
+      "revId": "fb09d105babc03c4152689692e327dd42bb4e1e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
