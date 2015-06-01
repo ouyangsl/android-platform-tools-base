@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5984fccb_c216c279",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/testing/CustomTestRunListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-01T22:03:19Z",
+      "side": 1,
+      "message": "String formatting is built into ILogger.",
+      "range": {
+        "startLine": 114,
+        "startChar": 20,
+        "endLine": 114,
+        "endChar": 33
+      },
+      "revId": "8ab0538c4f9e52dc8d699e96b8f3bbb2f1f6e861",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
