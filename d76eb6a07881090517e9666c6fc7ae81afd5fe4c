@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f990500b_3fdc670d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/PostCompilationData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Some are strings of class names, sadly.\nThis can become AndroidTask\u003c? extends Task\u003e once the refactor is complete.",
+      "parentUuid": "f95bf03c_670ff2bc",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f95bf03c_c71fbee7",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/PostCompilationData.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2015-06-01T22:01:42Z",
       "side": 1,
       "message": "Do you know why this is a callable? Maybe we could make this guava Supplier so we get some helper functions to work with it (instead of the wrapValue below).",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f990500b_5fcdab59",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/PostCompilationData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "I tried supplier, but I would need to wrap it in a callable anyway when it is handed to gradle, so it seemed less horrible to (re)implement the helper method.",
+      "parentUuid": "f95bf03c_c71fbee7",
       "range": {
         "startLine": 38,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "198e04f0_6369fca1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/PostCompilationData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d929cc86_82040a87",
+      "range": {
+        "startLine": 77,
+        "startChar": 32,
+        "endLine": 77,
+        "endChar": 45
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f95bf03c_0735d664",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2015-06-01T22:01:42Z",
       "side": 1,
       "message": "???\n\nI\u0027m sure we can use Gradle Action instead?",
+      "range": {
+        "startLine": 164,
+        "startChar": 7,
+        "endLine": 164,
+        "endChar": 27
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "198e04f0_00ffc62d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Sadly not for TaskExecutionGraph.whenReady, although I\u0027d missed one that could be replaced with an Action.\n\nThis should go away once the lint tasks are refactored to use AndroidTask.",
+      "parentUuid": "f95bf03c_0735d664",
       "range": {
         "startLine": 164,
         "startChar": 7,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "f990500b_1fb5e33d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f95bf03c_c7cd7ed7",
+      "range": {
+        "startLine": 274,
+        "startChar": 20,
+        "endLine": 274,
+        "endChar": 21
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f942104b_a916d177",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
         "patchSetId": 5
@@ -128,6 +248,30 @@
       "writtenOn": "2015-06-01T22:01:42Z",
       "side": 1,
       "message": "This is not really helpful, just remove it. Here and below.",
+      "range": {
+        "startLine": 297,
+        "startChar": 7,
+        "endLine": 297,
+        "endChar": 38
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f990500b_3fba272f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f942104b_a916d177",
       "range": {
         "startLine": 297,
         "startChar": 7,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "5984fccb_e2f74603",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 334,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "I\u0027ve given them more descriptive names.",
+      "parentUuid": "f942104b_29b0a1fb",
+      "range": {
+        "startLine": 334,
+        "startChar": 37,
+        "endLine": 334,
+        "endChar": 39
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d929cc86_bdd4cb32",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
         "patchSetId": 5
@@ -174,6 +342,30 @@
       "writtenOn": "2015-06-01T22:01:42Z",
       "side": 1,
       "message": "Nit: Break here, not after \"get(\". Higher syntactic level etc.",
+      "range": {
+        "startLine": 577,
+        "startChar": 27,
+        "endLine": 577,
+        "endChar": 28
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f990500b_bff87742",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Sadly it doesn\u0027t fit.",
+      "parentUuid": "d929cc86_bdd4cb32",
       "range": {
         "startLine": 577,
         "startChar": 27,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "198e04f0_40970eca",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f942104b_69d229fd",
+      "range": {
+        "startLine": 687,
+        "startChar": 8,
+        "endLine": 687,
+        "endChar": 14
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d929cc86_7d2c23d3",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
         "patchSetId": 5
@@ -220,6 +436,30 @@
       "writtenOn": "2015-06-01T22:01:42Z",
       "side": 1,
       "message": "Replace with Boolean.TRUE.equals(bool) and inline.",
+      "range": {
+        "startLine": 888,
+        "startChar": 4,
+        "endLine": 890,
+        "endChar": 5
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "198e04f0_a02cda25",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 890,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d929cc86_7d2c23d3",
       "range": {
         "startLine": 888,
         "startChar": 4,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "198e04f0_a0f13a0f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f942104b_49a5258b",
+      "range": {
+        "startLine": 1087,
+        "startChar": 16,
+        "endLine": 1088,
+        "endChar": 45
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5984fccb_4214f27c",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManagerGroovyHelper.groovy",
         "patchSetId": 5
@@ -266,6 +530,30 @@
       "writtenOn": "2015-06-01T22:01:42Z",
       "side": 1,
       "message": "Can we just use project.property(\"archiveBaseName\")?",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f990500b_c29b2479",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManagerGroovyHelper.groovy",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-01T23:07:40Z",
+      "side": 1,
+      "message": "yes :)",
+      "parentUuid": "5984fccb_4214f27c",
       "range": {
         "startLine": 30,
         "startChar": 15,
