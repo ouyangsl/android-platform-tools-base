@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "b97b38ac_98f11910",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/PostCompilationData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-02T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59d23ce8_b56deaf9",
+      "range": {
+        "startLine": 32,
+        "startChar": 17,
+        "endLine": 32,
+        "endChar": 18
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f95bf03c_c71fbee7",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/PostCompilationData.java",
         "patchSetId": 5
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Then use Callables.returning from guava.",
       "parentUuid": "f990500b_5fcdab59",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "d76eb6a07881090517e9666c6fc7ae81afd5fe4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59d23ce8_38aa515d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/PostCompilationData.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-02T00:25:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39d588cf_91aebc1c",
       "range": {
         "startLine": 38,
         "startChar": 12,
