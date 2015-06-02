@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39d588cf_a4a60fc8",
+        "filename": "templates/activities/NativeActivityTemplate/template_native_activity.png",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-06-02T20:33:01Z",
+      "side": 1,
+      "message": "need a better image that is abstract. text on the image is not clearly visible at all screen densities.",
+      "revId": "82e6341143850a192d1e34c0f7c05b9b8b1819ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
