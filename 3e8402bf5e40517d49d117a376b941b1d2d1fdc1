@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59d23ce8_6d248e6f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/VariantConfiguration.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-02T20:35:24Z",
+      "side": 0,
+      "message": "This doesn\u0027t seem specific to test-only modules - are you sure this is not breaking anything else?",
+      "range": {
+        "startLine": 571,
+        "startChar": 8,
+        "endLine": 573,
+        "endChar": 9
+      },
+      "revId": "3e8402bf5e40517d49d117a376b941b1d2d1fdc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
