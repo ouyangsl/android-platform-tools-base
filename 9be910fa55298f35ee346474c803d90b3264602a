@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b97b38ac_414aa52a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-02T21:45:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b97b38ac_8f8d493c",
+      "range": {
+        "startLine": 117,
+        "startChar": 35,
+        "endLine": 117,
+        "endChar": 41
+      },
+      "revId": "9be910fa55298f35ee346474c803d90b3264602a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b97b38ac_efc07d1f",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "39d588cf_9fd236fa",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-02T21:45:54Z",
+      "side": 1,
+      "message": "Removed unnecessary convention mapping.",
+      "parentUuid": "b97b38ac_efc07d1f",
+      "range": {
+        "startLine": 168,
+        "startChar": 61,
+        "endLine": 168,
+        "endChar": 67
+      },
+      "revId": "9be910fa55298f35ee346474c803d90b3264602a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59d23ce8_3c5d5e4b",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-06-02T18:03:50Z",
       "side": 1,
       "message": "Nit: Maybe extract this to help with indentation?",
+      "range": {
+        "startLine": 168,
+        "startChar": 48,
+        "endLine": 177,
+        "endChar": 51
+      },
+      "revId": "9be910fa55298f35ee346474c803d90b3264602a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b97b38ac_e13ad1a1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-02T21:45:54Z",
+      "side": 1,
+      "message": "see above",
+      "parentUuid": "59d23ce8_3c5d5e4b",
       "range": {
         "startLine": 168,
         "startChar": 48,
