@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39d588cf_05b6f4c5",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/analysis/AlternateDominators.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-06-02T22:42:30Z",
+      "side": 1,
+      "message": "I believe this bit of code should be:\n\n                    if (retpath.get(i).object \u003d\u003d srcpath.get(i).object) {\n                        dominator \u003d retpath.get(i).object;\n                    } else {\n                        break;\n                    }\n\nright? you want the closest common ancestor of the two paths, correct? And this change fixes quite a few of the failing tests.\n\nAnyway, after reading and trying this a lot I found what I think is a flaw in the algorithm. My apologies if I misunderstood something but consider this test case:\n\n    public void testMultiplePaths() {\n        mSnapshot \u003d new SnapshotBuilder(8)\n                .addReferences(1, 7, 8)\n                .addReferences(7, 2, 3)\n                .addReferences(8, 2)\n                .addReferences(2, 4)\n                .addReferences(3, 5)\n                .addReferences(5, 4)\n                .addReferences(4, 6)\n                .addRoot(1)\n                .getSnapshot();\n\n        mSnapshot.computeAlternateDominators();\n\n        assertEquals(mSnapshot.findReference(1), mSnapshot.findReference(4).getImmediateDominator());\n        assertEquals(mSnapshot.findReference(4), mSnapshot.findReference(6).getImmediateDominator());\n        assertEquals(36, mSnapshot.findReference(1).getRetainedSize(1));\n        assertEquals(2, mSnapshot.findReference(2).getRetainedSize(1));\n        assertEquals(8, mSnapshot.findReference(3).getRetainedSize(1));\n    }\n\n\nThe issue I see is that when the algorithm finds a node that was seen before it only considers one path to the dominator and not all of them. In the example above when it finds the link from 5 to 4, the dominator of 4 is 2. and the path from 2 to the root goes R -\u003e 1 -\u003e 7 -\u003e 2, and the path to 5 is R -\u003e 1 -\u003e 7 -\u003e 3 -\u003e 5. Then this will mistakenly choose 7 as the new dominator. However there is another path to 2: R -\u003e 1 -\u003e 8 -\u003e 2. Which makes 1 the dominator of 4.\n\nSo this algorithm should be modified to have all the paths to the dominator and I believe that to not be trivial at all. \n\nOh, and the fact that when a node has been seen we go back up to the root makes this algorithm not linear, and even more if we consider all the paths.",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 21
+      },
+      "revId": "587bc63832ad5d9186ae791b0dc4488103b20671",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
