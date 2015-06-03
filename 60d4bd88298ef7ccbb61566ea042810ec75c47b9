@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d96c6c17_b6a56804",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/AbstractCompiles.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-03T18:25:18Z",
+      "side": 1,
+      "message": "Rename to AbstractCompilesUtil or AbstractCompilesHelper?",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "60d4bd88298ef7ccbb61566ea042810ec75c47b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
