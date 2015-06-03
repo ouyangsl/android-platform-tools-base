@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "d96c6c17_f6fb603d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T18:28:52Z",
+      "side": 1,
+      "message": "I\u0027ll add it, but that\u0027s sort of an anti-pattern now that IntelliJ supports showing parameter names inline in the source editor. But if that\u0027s the convention you prefer in the Gradle plugin codebase, I\u0027ll add it.",
+      "parentUuid": "7948e0a0_1e3b895d",
+      "range": {
+        "startLine": 163,
+        "startChar": 61,
+        "endLine": 163,
+        "endChar": 66
+      },
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59595c72_7d8c538d",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
         "patchSetId": 1
@@ -53,6 +77,24 @@
       "writtenOn": "2015-06-03T17:07:03Z",
       "side": 1,
       "message": "what is the default ?",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f955b039_f7808095",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T18:28:52Z",
+      "side": 1,
+      "message": "1.6, I\u0027ll update the doc",
+      "parentUuid": "59595c72_7d8c538d",
       "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "d96c6c17_f612400d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T18:28:52Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "59595c72_fd76a3fd",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "395ca863_bf39bfe2",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/Extractor.java",
         "patchSetId": 1
@@ -93,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "b967b830_753628a4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/Extractor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T18:28:52Z",
+      "side": 1,
+      "message": "It reverses the effect of calling addItem. Yeah, maybe I could rename those methods now since the tracked items are really for extracted annotations.",
+      "parentUuid": "395ca863_bf39bfe2",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59595c72_8020daa4",
         "filename": "build-system/gradle-core/src/test/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriverTest.java",
         "patchSetId": 1
@@ -104,6 +182,24 @@
       "writtenOn": "2015-06-03T17:07:03Z",
       "side": 1,
       "message": "how are u guaranteeing the order of the results ?",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9ae2c65_4dec2a40",
+        "filename": "build-system/gradle-core/src/test/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T18:28:52Z",
+      "side": 1,
+      "message": "Extractor#writeKeepRules performs Collections.sort(keepItems) before emitting the rules.",
+      "parentUuid": "59595c72_8020daa4",
       "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
