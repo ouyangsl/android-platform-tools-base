@@ -22,6 +22,30 @@
       "revId": "60d4bd88298ef7ccbb61566ea042810ec75c47b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f955b039_fa9ea56a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/AbstractCompiles.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-03T18:34:48Z",
+      "side": 1,
+      "message": "I was following this: https://sites.google.com/a/google.com/java-practices/utility-classes but I guess you\u0027re right - unfortunately most of our code uses *Util :(",
+      "parentUuid": "d96c6c17_b6a56804",
+      "range": {
+        "startLine": 32,
+        "startChar": 13,
+        "endLine": 32,
+        "endChar": 29
+      },
+      "revId": "60d4bd88298ef7ccbb61566ea042810ec75c47b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
