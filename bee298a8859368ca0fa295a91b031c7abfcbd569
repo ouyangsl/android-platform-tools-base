@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f955b039_a68898a6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/RmTypeDefs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T22:31:20Z",
+      "side": 1,
+      "message": "seems to end in the middle of the sentence, I\u0027ll fix this here and in the development/tools/rmtypedefs version",
+      "revId": "bee298a8859368ca0fa295a91b031c7abfcbd569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d96c6c17_2bf3a96c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/RmTypeDefs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T22:31:20Z",
+      "side": 1,
+      "message": "I\u0027ll need to change this to android/support/annotation/StringDef",
+      "revId": "bee298a8859368ca0fa295a91b031c7abfcbd569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_1eaf0c1b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/RmTypeDefs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T22:31:20Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "bee298a8859368ca0fa295a91b031c7abfcbd569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d96c6c17_4beee584",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/RmTypeDefs.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T22:31:20Z",
+      "side": 1,
+      "message": "No, this shouldn\u0027t be there in the supportlib version.",
+      "revId": "bee298a8859368ca0fa295a91b031c7abfcbd569",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
