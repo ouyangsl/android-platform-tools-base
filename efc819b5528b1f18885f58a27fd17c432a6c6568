@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f955b039_7d09ef33",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/TaskCollectionBuilderAdaptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-03T19:32:40Z",
+      "side": 1,
+      "message": "rename to TaskModelMapAdaptor ?",
+      "revId": "efc819b5528b1f18885f58a27fd17c432a6c6568",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
