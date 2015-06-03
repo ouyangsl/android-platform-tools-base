@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59595c72_40ffe279",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-03T17:07:03Z",
+      "side": 1,
+      "message": "/* sortAnnotations */",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7948e0a0_1e3b895d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-03T17:07:03Z",
+      "side": 1,
+      "message": "this one too add the param name.",
+      "range": {
+        "startLine": 163,
+        "startChar": 61,
+        "endLine": 163,
+        "endChar": 66
+      },
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59595c72_7d8c538d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-03T17:07:03Z",
+      "side": 1,
+      "message": "what is the default ?",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59595c72_fd76a3fd",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-03T17:07:03Z",
+      "side": 1,
+      "message": "we probably should standardize our arguments parsing with args4java or something equivalent at some point.",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "395ca863_bf39bfe2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/Extractor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-03T17:07:03Z",
+      "side": 1,
+      "message": "that quite unclear, maybe removeItem is not descriptive enough, is it more something like removeFromExtractAnnotationsResult type of behaviour ?",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59595c72_8020daa4",
+        "filename": "build-system/gradle-core/src/test/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriverTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-03T17:07:03Z",
+      "side": 1,
+      "message": "how are u guaranteeing the order of the results ?",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
