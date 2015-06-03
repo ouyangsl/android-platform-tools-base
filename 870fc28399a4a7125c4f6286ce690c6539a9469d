@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "f955b039_1d8713eb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ExtractAnnotations.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T19:45:38Z",
+      "side": 1,
+      "message": "Done. I extracted as local variables instead to make the meaning of the parameters really clear.",
+      "parentUuid": "d96c6c17_f6fb603d",
+      "range": {
+        "startLine": 163,
+        "startChar": 61,
+        "endLine": 163,
+        "endChar": 66
+      },
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "59595c72_7d8c538d",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
         "patchSetId": 1
@@ -95,6 +119,24 @@
       "side": 1,
       "message": "1.6, I\u0027ll update the doc",
       "parentUuid": "59595c72_7d8c538d",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_deabd90a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T19:45:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f955b039_f7808095",
       "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -136,6 +178,24 @@
     },
     {
       "key": {
+        "uuid": "d96c6c17_3c5019db",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/ExtractAnnotationsDriver.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T19:45:38Z",
+      "side": 1,
+      "message": "(this driver isn\u0027t used in the Gradle plugin, only for framework extraction at this time, so I don\u0027t want to add a whole new dependency for it, but when other parts of the toos add a dependency, I\u0027ll update this to be consistent.)",
+      "parentUuid": "d96c6c17_f612400d",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "395ca863_bf39bfe2",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/Extractor.java",
         "patchSetId": 1
@@ -165,6 +225,24 @@
       "side": 1,
       "message": "It reverses the effect of calling addItem. Yeah, maybe I could rename those methods now since the tracked items are really for extracted annotations.",
       "parentUuid": "395ca863_bf39bfe2",
+      "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b967b830_1e3b915d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/annotations/Extractor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 713,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-03T19:45:38Z",
+      "side": 1,
+      "message": "The addItem/removeItem methods are pretty generic and basically manipulate the list of known items.\n\nIn patch 2 I instead added a clarifying comment which explains that what this code does is first process all the items looking at the @Keep items, and once we\u0027ve written those to a separate file, we remove them from the list such that they aren\u0027t also emitted as external annotations, since that\u0027s not needed anymore.",
+      "parentUuid": "b967b830_753628a4",
       "revId": "870fc28399a4a7125c4f6286ce690c6539a9469d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
