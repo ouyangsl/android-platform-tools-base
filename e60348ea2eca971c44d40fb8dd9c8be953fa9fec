@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "790f0079_f68ce109",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/CompileOptions.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-04T23:24:24Z",
+      "side": 1,
+      "message": "If you are ignoring this warning, I feel you might as well just use a default locale.  But I don\u0027t understand enough about it to know what to use.  Consult the Java experts in our team.",
+      "range": {
+        "startLine": 117,
+        "startChar": 23,
+        "endLine": 117,
+        "endChar": 66
+      },
+      "revId": "e60348ea2eca971c44d40fb8dd9c8be953fa9fec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
