@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9ec18cf_505fd26a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/NdkHandler.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-04T00:36:04Z",
+      "side": 1,
+      "message": "it would be better to change the API to return Optional and make \"\" -\u003e Optional.Absent\n\nit\u0027s fine to do that in a subsequent CL.",
+      "revId": "4780d7692cf79324f17d93d536c92b99a1e04594",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
