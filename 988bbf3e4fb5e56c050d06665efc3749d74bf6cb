@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f955b039_ec542f9b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-04T00:11:34Z",
+      "side": 1,
+      "message": "nit: true /*compress*/)",
+      "revId": "988bbf3e4fb5e56c050d06665efc3749d74bf6cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d96c6c17_f37247c0",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/api/ReadOnlyBuildType.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-04T00:11:34Z",
+      "side": 1,
+      "message": "nit: should not be on one line.",
+      "revId": "988bbf3e4fb5e56c050d06665efc3749d74bf6cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f955b039_2c9d87ec",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-04T00:11:34Z",
+      "side": 1,
+      "message": "nit: add todo and new line.",
+      "revId": "988bbf3e4fb5e56c050d06665efc3749d74bf6cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
