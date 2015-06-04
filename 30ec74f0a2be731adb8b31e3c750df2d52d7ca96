@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "790f0079_4269b7a1",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-06-04T21:22:27Z",
+      "side": 1,
+      "message": "will do.",
+      "parentUuid": "f923f0e9_ea7527ab",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 7
+      },
+      "revId": "30ec74f0a2be731adb8b31e3c750df2d52d7ca96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f955b039_2ce2a74d",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2015-06-04T00:14:51Z",
       "side": 1,
       "message": "Nit: Ideally we would have a type here, like Scale.fitWidth(int) and Scale.factor(float). But maybe I\u0027m too strict when it comes to type safety...",
+      "range": {
+        "startLine": 41,
+        "startChar": 56,
+        "endLine": 41,
+        "endChar": 93
+      },
+      "revId": "30ec74f0a2be731adb8b31e3c750df2d52d7ca96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "790f0079_c295a711",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-06-04T21:22:27Z",
+      "side": 1,
+      "message": "Actually this is a good point. \nI can wrap these 2 variable into a new class: \nlike \nPreviewScale\n{\nboolean forcedWidth;  // basically either use imgWidth or scale.\nint imgWidth;\nfloat scale;\n}",
+      "parentUuid": "f955b039_2ce2a74d",
       "range": {
         "startLine": 41,
         "startChar": 56,
