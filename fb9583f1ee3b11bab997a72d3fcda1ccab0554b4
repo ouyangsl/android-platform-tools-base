@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9a690c2_2453c841",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JillTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-05T23:18:14Z",
+      "side": 1,
+      "message": "why is the licence removed ?",
+      "revId": "fb9583f1ee3b11bab997a72d3fcda1ccab0554b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
