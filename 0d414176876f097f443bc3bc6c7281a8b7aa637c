@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f9a690c2_8388ee70",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-06-05T21:03:14Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "99e914d2_591424cf",
+      "revId": "0d414176876f097f443bc3bc6c7281a8b7aa637c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99e914d2_d91f54e7",
         "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-05T20:53:13Z",
       "side": 1,
       "message": "Maybe use a Joiner here?",
+      "revId": "0d414176876f097f443bc3bc6c7281a8b7aa637c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9a690c2_63e78a5d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-06-05T21:03:14Z",
+      "side": 1,
+      "message": "Joiner doesn\u0027t support primitive array :(",
+      "parentUuid": "99e914d2_d91f54e7",
       "revId": "0d414176876f097f443bc3bc6c7281a8b7aa637c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
