@@ -16,6 +16,24 @@
       "revId": "97cb32abb96680110e0b7c1e14649daa1c0ac75b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e914d2_d2c00920",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ClassField.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-05T22:39:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99e914d2_b287fd16",
+      "revId": "97cb32abb96680110e0b7c1e14649daa1c0ac75b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
