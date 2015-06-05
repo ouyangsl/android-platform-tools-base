@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99e914d2_591424cf",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-06-05T20:53:13Z",
+      "side": 1,
+      "message": "Nit: It would be nice to add a minor comment why we strip this, perhaps with an example. Something like:\n\nbuild-tools-23-rc1 should be have the same installId as build-tools-23-rc2, so the latter replaces the previous.",
+      "revId": "0d414176876f097f443bc3bc6c7281a8b7aa637c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99e914d2_d91f54e7",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-06-05T20:53:13Z",
+      "side": 1,
+      "message": "Maybe use a Joiner here?",
+      "revId": "0d414176876f097f443bc3bc6c7281a8b7aa637c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
