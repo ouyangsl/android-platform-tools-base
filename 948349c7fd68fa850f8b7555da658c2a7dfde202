@@ -16,6 +16,24 @@
       "revId": "948349c7fd68fa850f8b7555da658c2a7dfde202",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59831c1d_30bcf00b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/MessageJsonSerializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-05T23:37:11Z",
+      "side": 1,
+      "message": "Yes, this was already the case, the semantic has not changed (other than if there are multiple elements which one is used might have changed, I don\u0027t know which one would have been returned in that case.)\n\nI think having this parser be fairly forgiving is good, especially as we start parsing external tool output.",
+      "parentUuid": "99e914d2_2dc8f242",
+      "revId": "948349c7fd68fa850f8b7555da658c2a7dfde202",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
