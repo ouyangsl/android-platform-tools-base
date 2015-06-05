@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "790f0079_d108cfe0",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/ComponentModelBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-05T00:05:32Z",
+      "side": 1,
+      "message": "constant?",
+      "range": {
+        "startLine": 78,
+        "startChar": 31,
+        "endLine": 78,
+        "endChar": 41
+      },
+      "revId": "c2a3eb7ba5b2f1a7ff40f824814e74aae0a10a89",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
