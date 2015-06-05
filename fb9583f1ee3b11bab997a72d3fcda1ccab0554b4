@@ -16,6 +16,24 @@
       "revId": "fb9583f1ee3b11bab997a72d3fcda1ccab0554b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9a690c2_c40f5c35",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JillTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-05T23:25:11Z",
+      "side": 1,
+      "message": "Oopt - the Refactor -\u003e to java has a habit of deleting some non-javadoc comments, and I didn\u0027t spot it.",
+      "parentUuid": "f9a690c2_2453c841",
+      "revId": "fb9583f1ee3b11bab997a72d3fcda1ccab0554b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
