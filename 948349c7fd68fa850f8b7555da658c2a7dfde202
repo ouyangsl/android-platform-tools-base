@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99e914d2_2dc8f242",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/MessageJsonSerializer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-05T23:25:23Z",
+      "side": 1,
+      "message": "this will allow malformed json files to be read correctly (wrong order, repeated elements that should only appear once). is this wanted ?",
+      "revId": "948349c7fd68fa850f8b7555da658c2a7dfde202",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
