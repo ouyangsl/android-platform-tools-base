@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "796b8031_03608e2c",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ClassObj.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-06-06T08:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96c6c17_39c935b9",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 29
+      },
+      "revId": "2c0dc1877d1d148474d3aede83d355ac888c76dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d96c6c17_7960cd2d",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-06-04T23:14:49Z",
       "side": 1,
       "message": "This doesn\u0027t belong in the parser. The knowledge that \"java.lang.ref.Reference\"  is a reference class, could well be inside the ClassObj. Or Snapshot iself. I\u0027d use ClassObj just for simplicity.",
+      "range": {
+        "startLine": 550,
+        "startChar": 0,
+        "endLine": 552,
+        "endChar": 9
+      },
+      "revId": "2c0dc1877d1d148474d3aede83d355ac888c76dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b8031_83d0fe70",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/HprofParser.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-06-06T08:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96c6c17_7960cd2d",
       "range": {
         "startLine": 550,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "59c15c6b_baba315e",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-06-06T08:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96c6c17_2bcb9894",
+      "range": {
+        "startLine": 182,
+        "startChar": 47,
+        "endLine": 182,
+        "endChar": 51
+      },
+      "revId": "2c0dc1877d1d148474d3aede83d355ac888c76dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d96c6c17_6ee2bec1",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2015-06-04T23:14:49Z",
       "side": 1,
       "message": "what about subclasses of subclasses ? like BasicPoolEntryRef",
+      "range": {
+        "startLine": 273,
+        "startChar": 16,
+        "endLine": 273,
+        "endChar": 33
+      },
+      "revId": "2c0dc1877d1d148474d3aede83d355ac888c76dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9ab8c9c_5e6af513",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Snapshot.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-06-06T08:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d96c6c17_6ee2bec1",
       "range": {
         "startLine": 273,
         "startChar": 16,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b9a6d8d3_7d0257c8",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-06-06T08:53:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "790f0079_7662b10c",
+      "range": {
+        "startLine": 189,
+        "startChar": 16,
+        "endLine": 189,
+        "endChar": 38
+      },
+      "revId": "2c0dc1877d1d148474d3aede83d355ac888c76dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "790f0079_f616a178",
         "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2015-06-04T23:14:49Z",
       "side": 1,
       "message": "Do we still need this comment? what is there to investigate?",
+      "range": {
+        "startLine": 210,
+        "startChar": 64,
+        "endLine": 210,
+        "endChar": 69
+      },
+      "revId": "2c0dc1877d1d148474d3aede83d355ac888c76dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b8031_c6ebe4eb",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-06-06T08:53:01Z",
+      "side": 1,
+      "message": "Removed this comment. I\u0027m guessing just making sure the unreachable instances is as we expected, which the new test checks.",
+      "parentUuid": "790f0079_f616a178",
       "range": {
         "startLine": 210,
         "startChar": 64,
