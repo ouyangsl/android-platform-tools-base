@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "796b8031_e5128d0d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T21:57:21Z",
+      "side": 1,
+      "message": "Not sure, but I think xav might have a preference for using String.format because {} looks weird.  I slightly prefer this way because this style can have better performance in some other situations.",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "9c47b5bfbd3a272114434841429808621e2450c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
