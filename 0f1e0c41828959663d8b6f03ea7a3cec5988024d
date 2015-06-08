@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9d9cc70_986d1a2d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T22:47:09Z",
+      "side": 1,
+      "message": "Make it clear that it is replaced by the component model NDK integration.",
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9d9cc70_b8b9f63b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T22:47:09Z",
+      "side": 1,
+      "message": "Maybe get rid of all of these explanations with the error messages and replace them with instructions to use the new integration.",
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_7c4a65d9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/NativeLibraryFactoryImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T22:47:09Z",
+      "side": 1,
+      "message": "Why not get the project from the global scope?",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
