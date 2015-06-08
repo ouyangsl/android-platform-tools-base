@@ -22,8 +22,11 @@ dependencies {
     compile project(':base:common')
     compile project(':base:manifest-merger')
     compile project(':base:ddmlib')
+<<<<<<< HEAD   (c0d459 Merge "Change BuildType and ProductFlavor to be a ModelMap.")
     compile project(':base:profile')
     compile project(':base:asset-studio')
+=======
+>>>>>>> BRANCH (fae969 Merge "fixed provided module status" into studio-1.3-dev)
 
     compile 'com.squareup:javawriter:2.5.0'
     compile 'org.bouncycastle:bcpkix-jdk15on:1.48'
@@ -102,6 +105,7 @@ dependencies {
 }
 
 sourceSets.main.compileClasspath += [configurations.provided]
+sourceSets.test.runtimeClasspath += [configurations.provided]
 tasks.compileJava.dependsOn(configurations.provided)
 tasks.sourcesJar.dependsOn(configurations.sourcesProvided)
 
