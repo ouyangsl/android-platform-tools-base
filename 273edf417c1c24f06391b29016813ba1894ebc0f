@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99ce74a2_b7d7e231",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ProductFlavor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-08T12:22:27Z",
+      "side": 1,
+      "message": "If the order matters, can you document it? If not, use set.",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 8
+      },
+      "revId": "273edf417c1c24f06391b29016813ba1894ebc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
