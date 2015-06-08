@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9d41838_c1a4d291",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2462,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T22:15:58Z",
+      "side": 1,
+      "message": "This is too long.  Make a temp variable.",
+      "range": {
+        "startLine": 2462,
+        "startChar": 30,
+        "endLine": 2462,
+        "endChar": 86
+      },
+      "revId": "3dddd9c9b8e352b11f6f6793d41afdf86845f3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b8031_0555e994",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T22:15:58Z",
+      "side": 1,
+      "message": "make private",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 10
+      },
+      "revId": "3dddd9c9b8e352b11f6f6793d41afdf86845f3ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
