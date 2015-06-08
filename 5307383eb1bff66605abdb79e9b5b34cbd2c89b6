@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "796b8031_f8e15593",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/DefaultNativeLibraryFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T18:36:28Z",
+      "side": 1,
+      "message": "Not sure this javadoc adds anything, perhaps explain that this is for the deprecated ndk integration?",
+      "revId": "5307383eb1bff66605abdb79e9b5b34cbd2c89b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b8031_58d189c4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/DefaultNativeLibraryFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T18:36:28Z",
+      "side": 1,
+      "message": "Why not pass the scope?",
+      "revId": "5307383eb1bff66605abdb79e9b5b34cbd2c89b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9ab8c9c_804ec4b7",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/ComponentModelBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T18:36:28Z",
+      "side": 1,
+      "message": "Extract to ModelConstants?",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 40
+      },
+      "revId": "5307383eb1bff66605abdb79e9b5b34cbd2c89b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9ab8c9c_fb1f7d61",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/NdkComponentModelTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T18:36:28Z",
+      "side": 1,
+      "message": "Is it deliberate to keep appending? Will these tests work if the execution order of the tests changes?",
+      "range": {
+        "startLine": 45,
+        "startChar": 26,
+        "endLine": 45,
+        "endChar": 28
+      },
+      "revId": "5307383eb1bff66605abdb79e9b5b34cbd2c89b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
