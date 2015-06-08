@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d9d9cc70_636ac014",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/DefaultNativeLibraryFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T21:46:54Z",
+      "side": 1,
+      "message": "Done.  Also move the file into the gradle project to make it clear it\u0027s not common code.",
+      "parentUuid": "796b8031_f8e15593",
+      "revId": "5307383eb1bff66605abdb79e9b5b34cbd2c89b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "796b8031_58d189c4",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/DefaultNativeLibraryFactory.java",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "796b8031_a5e7b5d1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/model/DefaultNativeLibraryFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T21:46:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796b8031_58d189c4",
+      "revId": "5307383eb1bff66605abdb79e9b5b34cbd2c89b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9ab8c9c_804ec4b7",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/ComponentModelBuilder.java",
         "patchSetId": 2
@@ -47,6 +83,30 @@
       "writtenOn": "2015-06-08T18:36:28Z",
       "side": 1,
       "message": "Extract to ModelConstants?",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 40
+      },
+      "revId": "5307383eb1bff66605abdb79e9b5b34cbd2c89b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b8031_259bc552",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/ComponentModelBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T21:46:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9ab8c9c_804ec4b7",
       "range": {
         "startLine": 101,
         "startChar": 30,
