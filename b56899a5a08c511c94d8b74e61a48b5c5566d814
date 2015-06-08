@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "796b8031_6583fd54",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/VariantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T22:20:07Z",
+      "side": 1,
+      "message": "break here",
+      "range": {
+        "startLine": 58,
+        "startChar": 42,
+        "endLine": 58,
+        "endChar": 43
+      },
+      "revId": "b56899a5a08c511c94d8b74e61a48b5c5566d814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_3cd5fd2d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/VariantHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-08T22:20:07Z",
+      "side": 1,
+      "message": "getByName",
+      "range": {
+        "startLine": 64,
+        "startChar": 72,
+        "endLine": 64,
+        "endChar": 77
+      },
+      "revId": "b56899a5a08c511c94d8b74e61a48b5c5566d814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
