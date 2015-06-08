@@ -22,6 +22,30 @@
       "revId": "9c47b5bfbd3a272114434841429808621e2450c1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9d9cc70_abecfe87",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/PrepareDependenciesTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-08T23:07:50Z",
+      "side": 1,
+      "message": "I\u0027ll submit it as is, it can always be changed later.",
+      "parentUuid": "796b8031_e5128d0d",
+      "range": {
+        "startLine": 62,
+        "startChar": 28,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "9c47b5bfbd3a272114434841429808621e2450c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
