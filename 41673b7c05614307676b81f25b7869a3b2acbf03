@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9a6d8d3_725b9ecd",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-06-09T21:43:30Z",
+      "side": 1,
+      "message": "Sanity checking: This is safe for all other mTypes besides PKG_TOOLS, PKG_PLATFORM_TOOLS, and PKG_BUILD_TOOLS?",
+      "revId": "41673b7c05614307676b81f25b7869a3b2acbf03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
