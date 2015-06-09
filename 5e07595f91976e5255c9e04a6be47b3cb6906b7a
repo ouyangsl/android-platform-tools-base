@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d9d9cc70_4250d4db",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-06-09T18:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99ce74a2_ba18e903",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "5e07595f91976e5255c9e04a6be47b3cb6906b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79c9c09b_99af7b9c",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "796b8031_9b305177",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-06-09T18:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79c9c09b_99af7b9c",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "5e07595f91976e5255c9e04a6be47b3cb6906b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9cfb89d_3baf3f1b",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
         "patchSetId": 2
@@ -59,6 +107,24 @@
       "writtenOn": "2015-06-09T10:28:57Z",
       "side": 1,
       "message": "Empty line.",
+      "revId": "5e07595f91976e5255c9e04a6be47b3cb6906b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9d9cc70_e5134a94",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-06-09T18:03:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9cfb89d_3baf3f1b",
       "revId": "5e07595f91976e5255c9e04a6be47b3cb6906b7a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
