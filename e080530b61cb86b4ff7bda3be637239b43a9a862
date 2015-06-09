@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9d9cc70_643e4399",
+        "filename": "sdklib/src/test/java/com/android/sdklib/internal/repository/packages/PreciseRevisionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-06-09T00:48:40Z",
+      "side": 1,
+      "message": "should this be 0 or a very large number? A very large number will make the comparison easier. One can then always get toIntArray(true) and then compare easily without having to check if its preview or not.",
+      "range": {
+        "startLine": 110,
+        "startChar": 35,
+        "endLine": 110,
+        "endChar": 36
+      },
+      "revId": "e080530b61cb86b4ff7bda3be637239b43a9a862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
