@@ -22,6 +22,30 @@
       "revId": "e080530b61cb86b4ff7bda3be637239b43a9a862",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_1031f42a",
+        "filename": "sdklib/src/test/java/com/android/sdklib/internal/repository/packages/PreciseRevisionTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-06-09T17:10:32Z",
+      "side": 1,
+      "message": "I guess you mean should PreciseRevision.NOT_A_PREVIEW be a large number (or perhaps a negative number would be better) rather than 0? Yes, to me that seems reasonable, but I don\u0027t know I\u0027d do that as part of this change.",
+      "parentUuid": "d9d9cc70_643e4399",
+      "range": {
+        "startLine": 110,
+        "startChar": 35,
+        "endLine": 110,
+        "endChar": 36
+      },
+      "revId": "e080530b61cb86b4ff7bda3be637239b43a9a862",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
