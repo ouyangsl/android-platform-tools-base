@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d9d9cc70_e97b2e72",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-09T00:04:40Z",
+      "side": 1,
+      "message": "This is not an DSL property, it\u0027s a gradle property https://docs.gradle.org/current/userguide/build_environment.html which can just be ignored.",
+      "parentUuid": "d9d9cc70_c9dbd215",
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9d9cc70_986d1a2d",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
         "patchSetId": 2
