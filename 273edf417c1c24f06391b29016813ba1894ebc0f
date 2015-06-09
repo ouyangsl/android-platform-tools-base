@@ -22,6 +22,30 @@
       "revId": "273edf417c1c24f06391b29016813ba1894ebc0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b8031_5697959b",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ProductFlavor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T01:07:31Z",
+      "side": 1,
+      "message": "Done.  Copied all the comments from the old DSL.",
+      "parentUuid": "99ce74a2_b7d7e231",
+      "range": {
+        "startLine": 144,
+        "startChar": 4,
+        "endLine": 144,
+        "endChar": 8
+      },
+      "revId": "273edf417c1c24f06391b29016813ba1894ebc0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
