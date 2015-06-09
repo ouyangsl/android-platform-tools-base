@@ -16,6 +16,24 @@
       "revId": "41673b7c05614307676b81f25b7869a3b2acbf03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d902ac8c_a68b2675",
+        "filename": "sdklib/src/main/java/com/android/sdklib/repository/descriptors/PkgDesc.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-06-09T22:23:57Z",
+      "side": 1,
+      "message": "Yes. Currently those are the only ones that have previews, but it seems like we might as well not limit ourselves if we decide to include other types in the future.",
+      "parentUuid": "b9a6d8d3_725b9ecd",
+      "revId": "41673b7c05614307676b81f25b7869a3b2acbf03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
