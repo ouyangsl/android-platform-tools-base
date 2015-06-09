@@ -175,6 +175,30 @@
       "revId": "bc363ef567fab912dfc645d61531a168bde75119",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79c9c09b_5cac3175",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T18:51:49Z",
+      "side": 1,
+      "message": "Ah sorry, missed that the empty set was an argument for firstNonNull.",
+      "parentUuid": "796b8031_3ed2eb45",
+      "range": {
+        "startLine": 67,
+        "startChar": 68,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
