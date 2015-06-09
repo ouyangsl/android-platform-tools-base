@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99ce74a2_ba18e903",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T10:28:57Z",
+      "side": 1,
+      "message": "encapsulates",
+      "range": {
+        "startLine": 32,
+        "startChar": 12,
+        "endLine": 32,
+        "endChar": 23
+      },
+      "revId": "5e07595f91976e5255c9e04a6be47b3cb6906b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79c9c09b_99af7b9c",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T10:28:57Z",
+      "side": 1,
+      "message": "Provide two different constructors for the two possible use cases? Or named static factory methods.",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "5e07595f91976e5255c9e04a6be47b3cb6906b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9cfb89d_3baf3f1b",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T10:28:57Z",
+      "side": 1,
+      "message": "Empty line.",
+      "revId": "5e07595f91976e5255c9e04a6be47b3cb6906b7a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
