@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "796b8031_fb69451e",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/BuildType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T18:09:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99ce74a2_7a8c91ba",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 74,
+        "endChar": 23
+      },
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99ce74a2_9a964dcc",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/BuildType.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2015-06-09T10:24:16Z",
       "side": 1,
       "message": "Nit: Use \u003cp\u003e to separate paragraphs.",
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_84100506",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/BuildType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T18:09:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99ce74a2_9a964dcc",
       "revId": "bc363ef567fab912dfc645d61531a168bde75119",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "796b8031_3b74bdf4",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ProductFlavor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T18:09:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9cfb89d_5ba2fb32",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99ce74a2_3a861999",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
         "patchSetId": 2
@@ -76,6 +142,30 @@
       "writtenOn": "2015-06-09T10:24:16Z",
       "side": 1,
       "message": "Nit: be consistent, one arg per line. Here and below.",
+      "range": {
+        "startLine": 67,
+        "startChar": 68,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "796b8031_3ed2eb45",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T18:09:53Z",
+      "side": 1,
+      "message": "It\u0027s nicer this way, no?  The rule I follow is to put everything one line if it fits and one arg per line if not for each method.\nFor ClassFieldImpl, it\u0027s one arg per line, but forObjects.firstNonNull, it fits one line.",
+      "parentUuid": "99ce74a2_3a861999",
       "range": {
         "startLine": 67,
         "startChar": 68,
