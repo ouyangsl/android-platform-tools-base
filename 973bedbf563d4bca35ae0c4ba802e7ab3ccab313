@@ -22,6 +22,30 @@
       "revId": "973bedbf563d4bca35ae0c4ba802e7ab3ccab313",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ce74a2_5d20af28",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T16:50:00Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s the SLF4J syntax.",
+      "parentUuid": "b9d41838_8aa371fd",
+      "range": {
+        "startLine": 488,
+        "startChar": 21,
+        "endLine": 488,
+        "endChar": 27
+      },
+      "revId": "973bedbf563d4bca35ae0c4ba802e7ab3ccab313",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
