@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99fcb4c6_e497daca",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1693,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-09T22:49:56Z",
+      "side": 1,
+      "message": "Maybe the following would be clearer, and it gets rid of indentation. \nif (!jackProviderOptional.isPresent()) {\n    throw new RuntimeException(\"Cannot find the jack tool, disable jack and file a bug\");\n}\nApi01Config .........",
+      "range": {
+        "startLine": 1683,
+        "startChar": 15,
+        "endLine": 1693,
+        "endChar": 17
+      },
+      "revId": "8f1c9c3dbb6ed5f04ffb78f1a0dc53b49b4df910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99fcb4c6_c49cdef1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-09T22:49:56Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 1696,
+        "startChar": 14,
+        "endLine": 1698,
+        "endChar": 82
+      },
+      "revId": "8f1c9c3dbb6ed5f04ffb78f1a0dc53b49b4df910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99fcb4c6_64776a4d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JackTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-09T22:49:56Z",
+      "side": 1,
+      "message": "why not just if (!job.await()) {\nthen you don\u0027t need the isSuccessful method.",
+      "range": {
+        "startLine": 114,
+        "startChar": 11,
+        "endLine": 115,
+        "endChar": 38
+      },
+      "revId": "8f1c9c3dbb6ed5f04ffb78f1a0dc53b49b4df910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5934fc65_82cefad0",
+        "filename": "build-system/profile/src/main/java/com/android/builder/tasks/Job.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-09T22:49:56Z",
+      "side": 1,
+      "message": "is this needed when await returns the result? See comment in JackTask.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 5
+      },
+      "revId": "8f1c9c3dbb6ed5f04ffb78f1a0dc53b49b4df910",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
