@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "796b8031_111a8776",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T01:36:40Z",
+      "side": 1,
+      "message": "We had a little bit more discussions afterwards.  As Chris said, we can ignore this when we want to.  An advantage of using Gradle properties instead of environment variable is that this becomes a per project variable.  Users won\u0027t be tempted to set it in their .profile and continue using the deprecated NDK for new projects.",
+      "parentUuid": "d9d9cc70_c9dbd215",
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9d9cc70_986d1a2d",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
         "patchSetId": 2
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "b9d41838_44eea284",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T01:36:40Z",
+      "side": 1,
+      "message": "I couldn\u0027t think of a succinct and accurate way to refer to the new plugin.  We need a link a to more thorough documentation.  Added TODO to link to documentation when available.",
+      "parentUuid": "796b8031_f6d40134",
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9d9cc70_b8b9f63b",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
         "patchSetId": 2
@@ -89,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "796b8031_d1e46fcf",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T01:36:40Z",
+      "side": 1,
+      "message": "I\u0027ll add a link to the documentations when it becomes available.  I think the warning here should still exist though.",
+      "parentUuid": "d9d9cc70_b8b9f63b",
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9d41838_7c4a65d9",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/NativeLibraryFactoryImpl.java",
         "patchSetId": 2
@@ -100,6 +154,30 @@
       "writtenOn": "2015-06-08T22:47:09Z",
       "side": 1,
       "message": "Why not get the project from the global scope?",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 25
+      },
+      "revId": "0f1e0c41828959663d8b6f03ea7a3cec5988024d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9d41838_241a762d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/internal/NativeLibraryFactoryImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-09T01:36:40Z",
+      "side": 1,
+      "message": "Good point.  Forget I can get it from the scope.",
+      "parentUuid": "b9d41838_7c4a65d9",
       "range": {
         "startLine": 45,
         "startChar": 18,
