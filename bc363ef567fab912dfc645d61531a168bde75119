@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99ce74a2_7a8c91ba",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/BuildType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T10:24:16Z",
+      "side": 1,
+      "message": "Nit: set, collection. Here and above.",
+      "range": {
+        "startLine": 74,
+        "startChar": 19,
+        "endLine": 74,
+        "endChar": 23
+      },
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ce74a2_9a964dcc",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/BuildType.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T10:24:16Z",
+      "side": 1,
+      "message": "Nit: Use \u003cp\u003e to separate paragraphs.",
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9cfb89d_5ba2fb32",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/ProductFlavor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T10:24:16Z",
+      "side": 1,
+      "message": "Nit: \u003cp\u003e",
+      "range": {
+        "startLine": 120,
+        "startChar": 7,
+        "endLine": 120,
+        "endChar": 9
+      },
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ce74a2_3a861999",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/BuildTypeAdaptor.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-09T10:24:16Z",
+      "side": 1,
+      "message": "Nit: be consistent, one arg per line. Here and below.",
+      "range": {
+        "startLine": 67,
+        "startChar": 68,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "bc363ef567fab912dfc645d61531a168bde75119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
