@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "796b8031_f8f4eb00",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-06-09T17:13:26Z",
+      "side": 1,
+      "message": "Should this version number be factored out? It looks like other hardcoded versions live in globals.xml.ftl.",
+      "revId": "85a2f19080605e7d300e353252aae69192f8dc44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
