@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9d41838_a4a0a1f0",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/SunburstComponent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-06-09T18:18:11Z",
+      "side": 1,
+      "message": "nit: like we joked offline, something like \"resetZoom()\" is probably better",
+      "range": {
+        "startLine": 248,
+        "startChar": 16,
+        "endLine": 248,
+        "endChar": 23
+      },
+      "revId": "e0a8388496cbf185395006f9d19037efbc35ef40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
