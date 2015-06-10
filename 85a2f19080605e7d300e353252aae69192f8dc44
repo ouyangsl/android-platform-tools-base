@@ -16,6 +16,24 @@
       "revId": "85a2f19080605e7d300e353252aae69192f8dc44",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9cfb89d_c47bc872",
+        "filename": "templates/gradle-projects/NewAndroidModule/root/build.gradle.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-10T13:13:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "796b8031_f8f4eb00",
+      "revId": "85a2f19080605e7d300e353252aae69192f8dc44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
