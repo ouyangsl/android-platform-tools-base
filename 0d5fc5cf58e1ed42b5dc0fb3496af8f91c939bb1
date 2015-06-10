@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39c4a87c_bb610a09",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1651,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-10T16:27:30Z",
+      "side": 1,
+      "message": "Use Boolean.valueOf to ensure that garbage \u003d\u003d false?",
+      "range": {
+        "startLine": 1651,
+        "startChar": 72,
+        "endLine": 1651,
+        "endChar": 73
+      },
+      "revId": "0d5fc5cf58e1ed42b5dc0fb3496af8f91c939bb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5934fc65_765db8f7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JackTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-10T16:27:30Z",
+      "side": 1,
+      "message": "same here?",
+      "range": {
+        "startLine": 128,
+        "startChar": 16,
+        "endLine": 128,
+        "endChar": 32
+      },
+      "revId": "0d5fc5cf58e1ed42b5dc0fb3496af8f91c939bb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
