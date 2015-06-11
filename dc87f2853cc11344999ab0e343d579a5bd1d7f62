@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59823c52_72d878e8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TestApplicationTaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-11T10:40:42Z",
+      "side": 1,
+      "message": "Use Callables.returning?",
+      "range": {
+        "startLine": 227,
+        "startChar": 37,
+        "endLine": 231,
+        "endChar": 17
+      },
+      "revId": "dc87f2853cc11344999ab0e343d579a5bd1d7f62",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
