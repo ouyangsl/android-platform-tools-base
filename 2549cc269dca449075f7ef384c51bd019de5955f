@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b95978ea_057772fb",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1671,
+      "author": {
+        "id": 1040223
+      },
+      "writtenOn": "2015-06-11T16:25:43Z",
+      "side": 1,
+      "message": "make this a constant",
+      "range": {
+        "startLine": 1671,
+        "startChar": 45,
+        "endLine": 1671,
+        "endChar": 92
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f967709d_0a2d3b20",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 1040223
+      },
+      "writtenOn": "2015-06-11T16:25:43Z",
+      "side": 1,
+      "message": "is this documented somewhere? Or did you just define this here?",
+      "range": {
+        "startLine": 1676,
+        "startChar": 40,
+        "endLine": 1676,
+        "endChar": 72
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b95978ea_656ae614",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1040223
+      },
+      "writtenOn": "2015-06-11T16:25:43Z",
+      "side": 1,
+      "message": "enforce this using Preconditions.checkNotNul() or throw if null",
+      "range": {
+        "startLine": 41,
+        "startChar": 71,
+        "endLine": 41,
+        "endChar": 88
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b95978ea_456d6a29",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1040223
+      },
+      "writtenOn": "2015-06-11T16:25:43Z",
+      "side": 1,
+      "message": "doesn\u0027t this use AOSP code conventions -\u003e mTestVariantConfig",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 12
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "995834e7_279cf470",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1040223
+      },
+      "writtenOn": "2015-06-11T16:25:43Z",
+      "side": 1,
+      "message": "ditto Preconditions",
+      "range": {
+        "startLine": 62,
+        "startChar": 41,
+        "endLine": 62,
+        "endChar": 75
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
