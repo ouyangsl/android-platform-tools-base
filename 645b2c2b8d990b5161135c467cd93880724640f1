@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59e07c3c_454e5c8c",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-11T10:47:37Z",
+      "side": 1,
+      "message": "Maybe we could define a helper class for constant closures, e.g. GroovyClosures.constant(false). I don\u0027t think the log is that useful...",
+      "range": {
+        "startLine": 83,
+        "startChar": 39,
+        "endLine": 89,
+        "endChar": 9
+      },
+      "revId": "645b2c2b8d990b5161135c467cd93880724640f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9ecd03d_7f1a0fa1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-11T10:47:37Z",
+      "side": 1,
+      "message": "Nit: consider MoreObjects.firstNonNull",
+      "range": {
+        "startLine": 127,
+        "startChar": 57,
+        "endLine": 129,
+        "endChar": 43
+      },
+      "revId": "645b2c2b8d990b5161135c467cd93880724640f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59e07c3c_8548647e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/InstallVariantTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-11T10:47:37Z",
+      "side": 1,
+      "message": "Move to FileUtils",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 6
+      },
+      "revId": "645b2c2b8d990b5161135c467cd93880724640f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
