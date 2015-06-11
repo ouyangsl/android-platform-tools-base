@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "797aa034_8e8b7b75",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-11T18:21:02Z",
+      "side": 1,
+      "message": "The project properties can be set by environment variable ORG_GRADLE_PROJECT_com.android ... so adding another one seems unnecessary.",
+      "parentUuid": "f967709d_0a2d3b20",
+      "range": {
+        "startLine": 1676,
+        "startChar": 40,
+        "endLine": 1676,
+        "endChar": 72
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b95978ea_656ae614",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
         "patchSetId": 1
@@ -82,6 +106,30 @@
       "writtenOn": "2015-06-11T16:25:43Z",
       "side": 1,
       "message": "doesn\u0027t this use AOSP code conventions -\u003e mTestVariantConfig",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 12
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "396e687b_8f2ff914",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-11T18:21:02Z",
+      "side": 1,
+      "message": "things in gradle-core, gradle and gradle-experimental match the gradle style.",
+      "parentUuid": "b95978ea_456d6a29",
       "range": {
         "startLine": 42,
         "startChar": 8,
