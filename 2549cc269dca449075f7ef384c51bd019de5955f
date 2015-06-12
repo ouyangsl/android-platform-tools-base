@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "59823c52_b5348a69",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1671,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-12T09:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b95978ea_057772fb",
+      "range": {
+        "startLine": 1671,
+        "startChar": 45,
+        "endLine": 1671,
+        "endChar": 92
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f967709d_0a2d3b20",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
         "patchSetId": 1
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "59823c52_952f0615",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-12T09:14:10Z",
+      "side": 1,
+      "message": "In most shells is hard to define an environment variable that contains a dot in the name, so having a dedicated one is a convenience.",
+      "parentUuid": "797aa034_8e8b7b75",
+      "range": {
+        "startLine": 1676,
+        "startChar": 40,
+        "endLine": 1676,
+        "endChar": 72
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b95978ea_656ae614",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
         "patchSetId": 1
@@ -83,6 +131,30 @@
       "writtenOn": "2015-06-11T16:25:43Z",
       "side": 1,
       "message": "enforce this using Preconditions.checkNotNul() or throw if null",
+      "range": {
+        "startLine": 41,
+        "startChar": 71,
+        "endLine": 41,
+        "endChar": 88
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79f8e0fa_fb5c6f50",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-12T09:14:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b95978ea_656ae614",
       "range": {
         "startLine": 41,
         "startChar": 71,
@@ -153,6 +225,30 @@
       "writtenOn": "2015-06-11T16:25:43Z",
       "side": 1,
       "message": "ditto Preconditions",
+      "range": {
+        "startLine": 62,
+        "startChar": 41,
+        "endLine": 62,
+        "endChar": 75
+      },
+      "revId": "2549cc269dca449075f7ef384c51bd019de5955f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59823c52_554afed8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/test/AbstractTestDataImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-12T09:14:10Z",
+      "side": 1,
+      "message": "No need, copyOf will throw an NPE just as well.",
+      "parentUuid": "995834e7_279cf470",
       "range": {
         "startLine": 62,
         "startChar": 41,
