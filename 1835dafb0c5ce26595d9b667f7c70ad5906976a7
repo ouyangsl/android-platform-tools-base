@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9733893_182069d1",
+        "filename": "build-system/changelog.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-15T14:32:37Z",
+      "side": 1,
+      "message": "What does this mean? So can I still get it manually? how?",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "1835dafb0c5ce26595d9b667f7c70ad5906976a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "799460c1_1e2049d1",
+        "filename": "build-system/changelog.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-15T14:32:37Z",
+      "side": 1,
+      "message": "Does this mean it\u0027s incremental by default or do I have to do something? Can I disable it?",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "1835dafb0c5ce26595d9b667f7c70ad5906976a7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
