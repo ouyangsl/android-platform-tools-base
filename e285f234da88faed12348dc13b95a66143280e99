@@ -34,6 +34,24 @@
       "revId": "e285f234da88faed12348dc13b95a66143280e99",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d98f0cac_612a9033",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/managed/adaptor/AndroidConfigAdaptor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-15T02:47:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198c4486_90bab45e",
+      "revId": "e285f234da88faed12348dc13b95a66143280e99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
