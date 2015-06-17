@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "192d2477_0b958147",
+        "filename": "build-system/profile/src/main/java/com/android/builder/profile/ThreadRecorder.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-17T20:49:32Z",
+      "side": 1,
+      "message": "Doesn\u0027t this mean the reports can\u0027t be opened in chrome tracing, as they can contain overlapping events one one thread... Should the lifecycle events use a different recorder implementation that writes async events?\n\nhttps://docs.google.com/document/d/1CvAClvFfyA5R-PhYUmn5OOQtYMH4h6I0nSsKchNAySU",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 10
+      },
+      "revId": "3aa52dc9e70168ae2cf77819edda5df5f73f25d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
