@@ -22,6 +22,30 @@
       "revId": "e88e67bae22ea74839b1d7226f7cfbd720fe0e77",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99abd4ef_3b8c23ba",
+        "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-17T07:15:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9ba1036_3e54154b",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "e88e67bae22ea74839b1d7226f7cfbd720fe0e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
