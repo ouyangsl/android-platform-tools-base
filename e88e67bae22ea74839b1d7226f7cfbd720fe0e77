@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9ba1036_3e54154b",
+        "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1043680
+      },
+      "writtenOn": "2015-06-17T07:10:08Z",
+      "side": 1,
+      "message": "This should be phrased in terms of what the method does. e.g. \"Manipulates the map once available.\"",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 35
+      },
+      "revId": "e88e67bae22ea74839b1d7226f7cfbd720fe0e77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
