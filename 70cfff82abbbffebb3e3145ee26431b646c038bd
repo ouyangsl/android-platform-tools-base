@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "be24fead_cd0ec939",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-18T01:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de29b286_8e455b66",
+      "range": {
+        "startLine": 7,
+        "startChar": 41,
+        "endLine": 7,
+        "endChar": 62
+      },
+      "revId": "70cfff82abbbffebb3e3145ee26431b646c038bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e5f8227_8a6c2bfc",
         "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-06-18T01:04:25Z",
       "side": 1,
       "message": "I think we should remove one of the permissions, since we need only one. Since there\u0027s currently a problem with course permissions, what do you think about specifying fine here?",
+      "range": {
+        "startLine": 8,
+        "startChar": 54,
+        "endLine": 8,
+        "endChar": 76
+      },
+      "revId": "70cfff82abbbffebb3e3145ee26431b646c038bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be24fead_ed11855d",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-18T01:26:09Z",
+      "side": 1,
+      "message": "Done.\nI have removed COARSE_LOCATION because of the bug in the API.",
+      "parentUuid": "5e5f8227_8a6c2bfc",
       "range": {
         "startLine": 8,
         "startChar": 54,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1e40aa41_b001983a",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-18T01:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de29b286_6efeaf7e",
+      "range": {
+        "startLine": 12,
+        "startChar": 9,
+        "endLine": 12,
+        "endChar": 75
+      },
+      "revId": "70cfff82abbbffebb3e3145ee26431b646c038bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e5f8227_aa6fefef",
         "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2015-06-18T01:04:25Z",
       "side": 1,
       "message": "Suggested wording:\n\nNote that the API key is linked to the encryption key used to sign the APK. You need a different API key for each encryption key, including the release key that is used to sign the APK for publishing.\nYou can define the keys for the debug and release targets in src/debug/ and src/release/.",
+      "range": {
+        "startLine": 20,
+        "startChar": 13,
+        "endLine": 22,
+        "endChar": 102
+      },
+      "revId": "70cfff82abbbffebb3e3145ee26431b646c038bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e5f8227_4aa513bd",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-18T01:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e5f8227_aa6fefef",
       "range": {
         "startLine": 20,
         "startChar": 13,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5e5f8227_0aaf1b9d",
+        "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-18T01:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de29b286_4e03f316",
+      "range": {
+        "startLine": 32,
+        "startChar": 28,
+        "endLine": 32,
+        "endChar": 39
+      },
+      "revId": "70cfff82abbbffebb3e3145ee26431b646c038bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e40aa41_7004504f",
         "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "fe5bd63c_a71a8a9c",
+        "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-18T01:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e40aa41_7004504f",
+      "range": {
+        "startLine": 33,
+        "startChar": 10,
+        "endLine": 33,
+        "endChar": 30
+      },
+      "revId": "70cfff82abbbffebb3e3145ee26431b646c038bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de29b286_ce0ec339",
         "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
         "patchSetId": 3
@@ -151,6 +295,30 @@
       "writtenOn": "2015-06-18T01:04:25Z",
       "side": 1,
       "message": "\"Google Play services\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 37
+      },
+      "revId": "70cfff82abbbffebb3e3145ee26431b646c038bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de29b286_4ef41354",
+        "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-18T01:26:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de29b286_ce0ec339",
       "range": {
         "startLine": 35,
         "startChar": 17,
