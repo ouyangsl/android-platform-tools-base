@@ -45,6 +45,29 @@
       "revId": "a9dfc5d4f7bb5777b7a8e05fae5c086506301035",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e9c462a_e718ad7e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/LibraryComponentPluginTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-18T23:37:26Z",
+      "side": 1,
+      "message": "I would move the assemble task exec in the BeforeClass and make the test be about checking the build config.",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 30
+      },
+      "revId": "a9dfc5d4f7bb5777b7a8e05fae5c086506301035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
