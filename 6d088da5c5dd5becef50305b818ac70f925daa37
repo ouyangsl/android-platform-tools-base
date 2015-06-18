@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e872ed3_c1d6c26a",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-18T03:02:44Z",
+      "side": 1,
+      "message": "Perhaps pull this action as a static inner class of the task, mirroring the rest of the more general config actions.",
+      "range": {
+        "startLine": 263,
+        "startChar": 16,
+        "endLine": 263,
+        "endChar": 52
+      },
+      "revId": "6d088da5c5dd5becef50305b818ac70f925daa37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e872ed3_61057682",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/tasks/StripDebugSymbolTask.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-18T03:02:44Z",
+      "side": 1,
+      "message": "nit: Line break after execute might be clearer.",
+      "range": {
+        "startLine": 93,
+        "startChar": 34,
+        "endLine": 94,
+        "endChar": 38
+      },
+      "revId": "6d088da5c5dd5becef50305b818ac70f925daa37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
