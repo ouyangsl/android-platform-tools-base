@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ebe4e91_f2e5beca",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/RequiredAttributeDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-19T00:04:07Z",
+      "side": 1,
+      "message": "This was the bug (now covered by unit tests)",
+      "revId": "60ca14bbc69ea107e937f39246e12f145b51bb74",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
