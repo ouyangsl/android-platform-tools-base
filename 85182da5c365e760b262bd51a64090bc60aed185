@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e700ec3_47bdccb1",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-20T03:27:24Z",
+      "side": 1,
+      "message": "nit: Remove indent",
+      "range": {
+        "startLine": 856,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 15
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e700ec3_67efb0ad",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/AndroidTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-20T03:27:24Z",
+      "side": 1,
+      "message": "This will not be needed if JavaResourcesProvider goes away.",
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e700ec3_c7fa3c6f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AndroidProGuardTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-20T03:27:24Z",
+      "side": 1,
+      "message": "Maybe pull this logic into the scope.",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 204,
+        "endChar": 46
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_003103a8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JavaResourcesProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-20T03:27:24Z",
+      "side": 1,
+      "message": "Is this interface necessary?\nCouldn\u0027t we have the getJavaResourcesProviders method in the variant scope and set that directly, rather than depend of the tasks? In all of the cases the output dir / file is just from the scope anyway...",
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5efea270_5b61af06",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MinifyLibWithJavaResUsingJackTest.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-20T03:27:24Z",
+      "side": 1,
+      "message": "I\u0027d prefer this and the test project to be unified with MinifyLibAndAppWithJavaResTest, so that the matrix test works correctly.",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 46
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e67ca0f_9faa45dd",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/packaging/PackagingUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-20T03:27:24Z",
+      "side": 1,
+      "message": "Use a static final field.",
+      "range": {
+        "startLine": 89,
+        "startChar": 40,
+        "endLine": 89,
+        "endChar": 65
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_60c5577f",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/packaging/PackagingUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-20T03:27:24Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 108,
+        "startChar": 40,
+        "endLine": 108,
+        "endChar": 64
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
