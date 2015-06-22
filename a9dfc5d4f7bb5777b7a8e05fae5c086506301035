@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e7adaa8_2f766b52",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/AppComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-22T20:53:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e700ec3_5fb6032f",
+      "range": {
+        "startLine": 91,
+        "startChar": 12,
+        "endLine": 91,
+        "endChar": 37
+      },
+      "revId": "a9dfc5d4f7bb5777b7a8e05fae5c086506301035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e9c462a_619a524e",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/LibraryComponentPluginTest.groovy",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3e2acebf_4c928fab",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/LibraryComponentPluginTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-22T20:53:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e9c462a_619a524e",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 45
+      },
+      "revId": "a9dfc5d4f7bb5777b7a8e05fae5c086506301035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7e9c462a_e718ad7e",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/LibraryComponentPluginTest.groovy",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-06-18T23:37:26Z",
       "side": 1,
       "message": "I would move the assemble task exec in the BeforeClass and make the test be about checking the build config.",
+      "range": {
+        "startLine": 87,
+        "startChar": 17,
+        "endLine": 87,
+        "endChar": 30
+      },
+      "revId": "a9dfc5d4f7bb5777b7a8e05fae5c086506301035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_af4b5bfd",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/LibraryComponentPluginTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-22T20:53:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e9c462a_e718ad7e",
       "range": {
         "startLine": 87,
         "startChar": 17,
