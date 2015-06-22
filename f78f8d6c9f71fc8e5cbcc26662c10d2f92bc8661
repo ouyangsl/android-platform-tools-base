@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5efea270_79d598b1",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/Groupable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-22T22:05:43Z",
+      "side": 1,
+      "message": "is Groupable the right name ? It seems that \"Dimensioned\" or DimensionAware be closer to reality ?",
+      "range": {
+        "startLine": 24,
+        "startChar": 17,
+        "endLine": 24,
+        "endChar": 26
+      },
+      "revId": "f78f8d6c9f71fc8e5cbcc26662c10d2f92bc8661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5efea270_d9d924ed",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/Groupable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-22T22:05:43Z",
+      "side": 1,
+      "message": "what does it mean to return null ? no dimension for this variant ?",
+      "revId": "f78f8d6c9f71fc8e5cbcc26662c10d2f92bc8661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_bacb9714",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/internal/NdkConfigHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-22T22:05:43Z",
+      "side": 1,
+      "message": "change",
+      "revId": "f78f8d6c9f71fc8e5cbcc26662c10d2f92bc8661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e2782f4_64884627",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/internal/NdkConfigHelper.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-22T22:05:43Z",
+      "side": 1,
+      "message": "are these if !\u003d null test necessary ? it looks like those collections can be empty but never null.",
+      "revId": "f78f8d6c9f71fc8e5cbcc26662c10d2f92bc8661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
