@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9efbba85_ecfc2b38",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/ArrayInstance.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-06-22T18:53:19Z",
+      "side": 1,
+      "message": "shouldn\u0027t the @ be before this and not inside the () ? That\u0027s what the other function does...",
+      "range": {
+        "startLine": 111,
+        "startChar": 36,
+        "endLine": 111,
+        "endChar": 37
+      },
+      "revId": "55c998fea4ed04b094ba5c53bd916a68d17983a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
