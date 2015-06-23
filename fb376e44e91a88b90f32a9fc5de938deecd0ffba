@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9e4d7ab1_f17c0a2f",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1060958
+      },
+      "writtenOn": "2015-06-23T05:51:23Z",
+      "side": 1,
+      "message": "I think it would be best to include the permission, since getting my location is a cool use case for Maps on Wear.",
+      "parentUuid": "5e594272_1d6717a0",
+      "range": {
+        "startLine": 6,
+        "startChar": 43,
+        "endLine": 6,
+        "endChar": 53
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e594272_7d6c5380",
         "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
         "patchSetId": 1
