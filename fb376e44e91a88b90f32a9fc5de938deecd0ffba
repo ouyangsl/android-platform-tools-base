@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e665a35_ba7c2999",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-23T04:50:41Z",
+      "side": 1,
+      "message": "Good question - I don\u0027t feel strongly either way. I\u0027m happy to leave it out here and ask developers to add it explicitly if they need it. \nWe do have COARSE in the other maps template - but I\u0027m not sure how uniform these should be. I\u0027m open either way, but I feel that we should only cover a basic use case here.",
+      "parentUuid": "5e594272_1d6717a0",
+      "range": {
+        "startLine": 6,
+        "startChar": 43,
+        "endLine": 6,
+        "endChar": 53
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e594272_7d6c5380",
         "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9e4d7ab1_f1c6ca37",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-23T04:50:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e594272_7d6c5380",
+      "range": {
+        "startLine": 10,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 117
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e594272_bd754b47",
         "filename": "templates/activities/GoogleMapsWearActivity/root/src/app_package/MapActivity.java.ftl",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2015-06-23T03:44:34Z",
       "side": 1,
       "message": "\"introductory\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 57,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be3ebeea_60230c69",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-23T04:50:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e594272_bd754b47",
       "range": {
         "startLine": 66,
         "startChar": 57,
@@ -110,6 +182,54 @@
         "startChar": 27,
         "endLine": 87,
         "endChar": 33
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e4d7ab1_d1e8eea3",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-23T04:50:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e5c8e63_9c72095b",
+      "range": {
+        "startLine": 87,
+        "startChar": 27,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e4d7ab1_b1e562cc",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-06-23T04:50:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e5c8e63_fc7fc520",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 53
       },
       "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
