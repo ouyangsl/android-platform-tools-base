@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e2782f4_60df8b4d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-23T00:52:53Z",
+      "side": 1,
+      "message": "sort with other imports.",
+      "range": {
+        "startLine": 39,
+        "startChar": 41,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "026476b5ad314566ba7d9d7c95dc278c573d097d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_e0d9609a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/CoreBuildType.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-23T00:52:53Z",
+      "side": 1,
+      "message": "we should have nullable annotation on there.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "026476b5ad314566ba7d9d7c95dc278c573d097d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e2782f4_603b0bfd",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/AndroidComponentModelPlugin.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-23T00:52:53Z",
+      "side": 1,
+      "message": "why not call the helper here?",
+      "range": {
+        "startLine": 132,
+        "startChar": 20,
+        "endLine": 132,
+        "endChar": 42
+      },
+      "revId": "026476b5ad314566ba7d9d7c95dc278c573d097d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
