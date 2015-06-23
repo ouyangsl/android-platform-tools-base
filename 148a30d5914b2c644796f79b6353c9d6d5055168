@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5efea270_6fbf864e",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/DefaultNativeToolSpecification.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-23T00:58:53Z",
+      "side": 1,
+      "message": "This is the default of ndk-build.  You can always overwrite them by setting the appropriate flags.  I am not sure what you are suggesting.  Do we want to automatically create a default properties files?",
+      "parentUuid": "5e2782f4_042b4a35",
+      "revId": "148a30d5914b2c644796f79b6353c9d6d5055168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ef6069f_45feee7d",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfiguration.java",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2015-06-23T00:42:16Z",
       "side": 1,
       "message": "do we really want to allocate a new one each time?",
+      "range": {
+        "startLine": 117,
+        "startChar": 28,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "148a30d5914b2c644796f79b6353c9d6d5055168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e7adaa8_80b98c3a",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-06-23T00:58:53Z",
+      "side": 1,
+      "message": "Done.\nIs there a conventional way of doing this?",
+      "parentUuid": "7ef6069f_45feee7d",
       "range": {
         "startLine": 117,
         "startChar": 28,
