@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "7eca863a_f168601a",
+        "filename": "build-system/builder-model/src/main/java/com/android/builder/model/Groupable.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-23T03:24:43Z",
+      "side": 1,
+      "message": "ok so document when it returns null and what it means. thx",
+      "parentUuid": "5e2782f4_47dc2190",
+      "revId": "f78f8d6c9f71fc8e5cbcc26662c10d2f92bc8661",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e7adaa8_bacb9714",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/internal/NdkConfigHelper.java",
         "patchSetId": 2
