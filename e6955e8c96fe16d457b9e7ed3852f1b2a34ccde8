@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e7526b8_6737ba72",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/testing/TestingSupportLibraryTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-23T10:02:45Z",
+      "side": 1,
+      "message": "I would also check the xml results, to see they are indeed ignored.",
+      "range": {
+        "startLine": 132,
+        "startChar": 16,
+        "endLine": 132,
+        "endChar": 37
+      },
+      "revId": "e6955e8c96fe16d457b9e7ed3852f1b2a34ccde8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
