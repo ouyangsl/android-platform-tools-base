@@ -16,6 +16,29 @@
       "revId": "148a30d5914b2c644796f79b6353c9d6d5055168",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ef6069f_45feee7d",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfiguration.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-23T00:42:16Z",
+      "side": 1,
+      "message": "do we really want to allocate a new one each time?",
+      "range": {
+        "startLine": 117,
+        "startChar": 28,
+        "endLine": 117,
+        "endChar": 58
+      },
+      "revId": "148a30d5914b2c644796f79b6353c9d6d5055168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
