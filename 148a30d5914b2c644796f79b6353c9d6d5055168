@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9e149a89_c7282011",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/DefaultNativeToolSpecification.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-23T18:51:53Z",
+      "side": 1,
+      "message": "as discussed, let\u0027s set up a meeting to design how we want to target disparate ndk-build and toolchains versions.",
+      "parentUuid": "5efea270_6fbf864e",
+      "revId": "148a30d5914b2c644796f79b6353c9d6d5055168",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ef6069f_45feee7d",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkConfiguration.java",
         "patchSetId": 4
