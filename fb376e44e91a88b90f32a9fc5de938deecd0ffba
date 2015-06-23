@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e594272_1d6717a0",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1060958
+      },
+      "writtenOn": "2015-06-23T03:44:34Z",
+      "side": 1,
+      "message": "Just checking: No location permission required?",
+      "range": {
+        "startLine": 6,
+        "startChar": 43,
+        "endLine": 6,
+        "endChar": 53
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e594272_7d6c5380",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060958
+      },
+      "writtenOn": "2015-06-23T03:44:34Z",
+      "side": 1,
+      "message": "A better link:\nhttps://developers.google.com/maps/documentation/android/start#get-key",
+      "range": {
+        "startLine": 10,
+        "startChar": 63,
+        "endLine": 10,
+        "endChar": 117
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e594272_bd754b47",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1060958
+      },
+      "writtenOn": "2015-06-23T03:44:34Z",
+      "side": 1,
+      "message": "\"introductory\"",
+      "range": {
+        "startLine": 66,
+        "startChar": 57,
+        "endLine": 66,
+        "endChar": 62
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e5c8e63_fc7fc520",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060958
+      },
+      "writtenOn": "2015-06-23T03:44:34Z",
+      "side": 1,
+      "message": "Please add a full stop.",
+      "range": {
+        "startLine": 87,
+        "startChar": 47,
+        "endLine": 87,
+        "endChar": 53
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e5c8e63_9c72095b",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1060958
+      },
+      "writtenOn": "2015-06-23T03:44:34Z",
+      "side": 1,
+      "message": "\"Sydney, Australia,\"",
+      "range": {
+        "startLine": 87,
+        "startChar": 27,
+        "endLine": 87,
+        "endChar": 33
+      },
+      "revId": "fb376e44e91a88b90f32a9fc5de938deecd0ffba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
