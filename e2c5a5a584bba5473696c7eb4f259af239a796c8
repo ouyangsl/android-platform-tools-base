@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1eb50aac_0f05c6c5",
+        "filename": "lint/libs/lint-tests/src/main/java/com/android/tools/lint/checks/infrastructure/LintDetectorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 0,
+      "message": "You shouldn\u0027t need this if you change your test from lintProject() to lintProjectIncrementally(). This is used to simulate what happens in Eclipse etc where there is no resource repository support.",
+      "revId": "e2c5a5a584bba5473696c7eb4f259af239a796c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

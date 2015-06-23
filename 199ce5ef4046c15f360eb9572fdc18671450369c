@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ebe4e91_3e36bd73",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 1,
+      "message": "AndroidManifest",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1eb50aac_af111a0c",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 1,
+      "message": "you can use lintProjectIncrementally here too.",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feb756b3_2121c2a8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 1,
+      "message": "\u0026\u0026 !path.startsWith(SdkConstants.PREFIX_RESOURCE_REF ?",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feb756b3_412636c2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 1,
+      "message": "maybe include the path variable here to make it clear to users that it considered the looked-up value (e.g. if it\u0027s just shown on @string/foo they might thing they have to replace @string/foo rather than the value it resolved to)",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7eca863a_941a2a9d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 1,
+      "message": "replaceUrlWithValue?",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "feb756b3_e13acad3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 1,
+      "message": "if (!client.supportsProjectResources()) { return }",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1eb50aac_ef0712ce",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-06-23T14:38:56Z",
+      "side": 1,
+      "message": "|| style.framework",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
