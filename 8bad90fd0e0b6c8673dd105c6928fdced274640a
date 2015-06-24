@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "febd96e6_178e94ff",
+        "filename": "templates/activities/AndroidTVActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-06-24T10:21:58Z",
+      "side": 1,
+      "message": "a -\u003e an\nditto for others.",
+      "range": {
+        "startLine": 88,
+        "startChar": 48,
+        "endLine": 88,
+        "endChar": 49
+      },
+      "revId": "8bad90fd0e0b6c8673dd105c6928fdced274640a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ee3ba1e_4c425f10",
+        "filename": "templates/activities/EmptyActivity/template.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-06-24T10:21:58Z",
+      "side": 1,
+      "message": "remove empty space",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 4
+      },
+      "revId": "8bad90fd0e0b6c8673dd105c6928fdced274640a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ec48e7c_1cffd9a2",
+        "filename": "templates/shared/_activities/deeplink.xml.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1071463
+      },
+      "writtenOn": "2015-06-24T10:21:58Z",
+      "side": 1,
+      "message": "Are you avoid using http if the name happens to be http? How about https?",
+      "range": {
+        "startLine": 6,
+        "startChar": 81,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "8bad90fd0e0b6c8673dd105c6928fdced274640a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
