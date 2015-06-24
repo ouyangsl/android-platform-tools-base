@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "de02928c_26d4d631",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-24T17:04:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e700ec3_47bdccb1",
+      "range": {
+        "startLine": 856,
+        "startChar": 8,
+        "endLine": 856,
+        "endChar": 15
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e700ec3_67efb0ad",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/AndroidTask.java",
         "patchSetId": 7
@@ -36,6 +60,24 @@
       "writtenOn": "2015-06-20T03:27:24Z",
       "side": 1,
       "message": "This will not be needed if JavaResourcesProvider goes away.",
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de02928c_86602a05",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/AndroidTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-24T17:04:25Z",
+      "side": 1,
+      "message": "see other response.",
+      "parentUuid": "3e700ec3_67efb0ad",
       "revId": "85182da5c365e760b262bd51a64090bc60aed185",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ded45230_768dd0b4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AndroidProGuardTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-24T17:04:25Z",
+      "side": 1,
+      "message": "it was already there ! cleaned up duplicated declarations, calculations and removed it from the VariantData as well.",
+      "parentUuid": "3e700ec3_c7fa3c6f",
+      "range": {
+        "startLine": 198,
+        "startChar": 12,
+        "endLine": 204,
+        "endChar": 46
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e7adaa8_003103a8",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JavaResourcesProvider.java",
         "patchSetId": 7
@@ -76,6 +142,24 @@
       "writtenOn": "2015-06-20T03:27:24Z",
       "side": 1,
       "message": "Is this interface necessary?\nCouldn\u0027t we have the getJavaResourcesProviders method in the variant scope and set that directly, rather than depend of the tasks? In all of the cases the output dir / file is just from the scope anyway...",
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e098aaf_a8341b0b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JavaResourcesProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-24T17:04:25Z",
+      "side": 1,
+      "message": "I prefer to have a Provider interface for several reasons : \n\n1. it\u0027s more extensible. if we need the java resources provider to also do something else in the future, we can extend the interface. An interface can also be composed more easily than actual results.\n\n2. it decouples the action of registering the provider in the scope (that can be done during evaluation) with the action of providing the results (which can only be available much later on). \n\n3. when reading a task implementing such interfaces, it\u0027s immediately more clear what the output/responsibilities of the task is.",
+      "parentUuid": "9e7adaa8_003103a8",
       "revId": "85182da5c365e760b262bd51a64090bc60aed185",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -128,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "de02928c_86da6a10",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/packaging/PackagingUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-24T17:04:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e67ca0f_9faa45dd",
+      "range": {
+        "startLine": 89,
+        "startChar": 40,
+        "endLine": 89,
+        "endChar": 65
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9e7adaa8_60c5577f",
         "filename": "sdk-common/src/main/java/com/android/ide/common/packaging/PackagingUtils.java",
         "patchSetId": 7
@@ -139,6 +247,30 @@
       "writtenOn": "2015-06-20T03:27:24Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 108,
+        "startChar": 40,
+        "endLine": 108,
+        "endChar": 64
+      },
+      "revId": "85182da5c365e760b262bd51a64090bc60aed185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "befddec1_c53f3ae6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/packaging/PackagingUtils.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-24T17:04:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e7adaa8_60c5577f",
       "range": {
         "startLine": 108,
         "startChar": 40,
