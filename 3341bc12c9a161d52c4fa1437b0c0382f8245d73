@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e6e4e7b_894a9927",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1806,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T09:33:24Z",
+      "side": 1,
+      "message": "Iterables.getOnlyElement? Can there be more?",
+      "range": {
+        "startLine": 1806,
+        "startChar": 60,
+        "endLine": 1806,
+        "endChar": 90
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e856e59_f1f9c87b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T09:33:24Z",
+      "side": 1,
+      "message": "wrap",
+      "range": {
+        "startLine": 87,
+        "startChar": 99,
+        "endLine": 87,
+        "endChar": 105
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe8e767f_2f3cc99b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T09:33:24Z",
+      "side": 1,
+      "message": "Nit: A",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 8
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe8e767f_afd439b6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T09:33:24Z",
+      "side": 1,
+      "message": "Remove or uncomment.",
+      "range": {
+        "startLine": 121,
+        "startChar": 51,
+        "endLine": 121,
+        "endChar": 87
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe8e767f_2fe12994",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T09:33:24Z",
+      "side": 1,
+      "message": "Why this change? If the resource preprocessing (i.e. vector-to-png generation) is enabled, this is the wrong task.",
+      "range": {
+        "startLine": 419,
+        "startChar": 55,
+        "endLine": 419,
+        "endChar": 80
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe8e767f_cfee5d82",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T09:33:24Z",
+      "side": 1,
+      "message": "This is not JavaDoc. Can you use \u003col\u003e?",
+      "range": {
+        "startLine": 904,
+        "startChar": 7,
+        "endLine": 904,
+        "endChar": 10
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e856e59_51e9b4a4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T09:33:24Z",
+      "side": 1,
+      "message": "4. What about vector to png which currently happens after the merging step?",
+      "range": {
+        "startLine": 912,
+        "startChar": 5,
+        "endLine": 912,
+        "endChar": 6
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
