@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e6e4e7b_09b8e9b0",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T08:47:39Z",
+      "side": 1,
+      "message": "Can you remove these comments now?",
+      "range": {
+        "startLine": 58,
+        "startChar": 19,
+        "endLine": 58,
+        "endChar": 20
+      },
+      "revId": "3c75d1fd1c984aed2016da21f194ffd651118e67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e6e4e7b_29b5adb9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T08:47:39Z",
+      "side": 1,
+      "message": "Is this package-private intentionally? Why not use a setter and make it private?",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 10
+      },
+      "revId": "3c75d1fd1c984aed2016da21f194ffd651118e67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e856e59_b12580b5",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T08:47:39Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 76
+      },
+      "revId": "3c75d1fd1c984aed2016da21f194ffd651118e67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe8e767f_af8199d5",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ProcessAndroidResources.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-25T08:47:39Z",
+      "side": 1,
+      "message": "break after (, not .\n\nHere and below.",
+      "range": {
+        "startLine": 202,
+        "startChar": 34,
+        "endLine": 202,
+        "endChar": 45
+      },
+      "revId": "3c75d1fd1c984aed2016da21f194ffd651118e67",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
