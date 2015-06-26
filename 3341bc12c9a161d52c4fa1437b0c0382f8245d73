@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "5e65c2c2_c0ca7211",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1535,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-26T00:39:36Z",
+      "side": 1,
+      "message": "Can we use a more appropriately sized array?",
+      "range": {
+        "startLine": 1535,
+        "startChar": 24,
+        "endLine": 1535,
+        "endChar": 56
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e6e4e7b_894a9927",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
         "patchSetId": 11
@@ -18,6 +41,29 @@
         "startChar": 60,
         "endLine": 1806,
         "endChar": 90
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de8ff2ab_c765343f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-26T00:39:36Z",
+      "side": 1,
+      "message": "this comment seems out of date.",
+      "range": {
+        "startLine": 71,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 25
       },
       "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -234,6 +280,30 @@
     },
     {
       "key": {
+        "uuid": "9e99fafb_e29222db",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/api/BaseVariantImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-26T00:39:36Z",
+      "side": 1,
+      "message": "This would break external users of it. I\u0027m ok adding a new name, and making the old one output a deprecation warning until 2.x",
+      "parentUuid": "3e0c8eed_d9aed39e",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 39
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e856e59_11e32cc7",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
         "patchSetId": 11
@@ -268,6 +338,30 @@
       "writtenOn": "2015-06-25T09:54:02Z",
       "side": 1,
       "message": "So why are we using Set? Is this a TODO?\n\nAnd why does order matter? What should be the order between dependencies?",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 84
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6116bc_bd97679b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-26T00:39:36Z",
+      "side": 1,
+      "message": "It would matter if you need \"pickFirst\" when resolving conflicts, but we\u0027re moving away from it, as we\u0027ll add pickFrom \u0027...\u0027 instead.\n\nBut pickFirst before didn\u0027t guarantee any order anyway.",
+      "parentUuid": "3e856e59_f19ea83e",
       "range": {
         "startLine": 50,
         "startChar": 4,
@@ -395,6 +489,30 @@
     },
     {
       "key": {
+        "uuid": "9e99fafb_82295e15",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-26T00:39:36Z",
+      "side": 1,
+      "message": "I\u0027d use Files.copy() directly, because FileUtils handles folders and there\u0027s no reason for this to ever work on folders.",
+      "parentUuid": "fe8e767f_6f05f1c4",
+      "range": {
+        "startLine": 152,
+        "startChar": 20,
+        "endLine": 161,
+        "endChar": 32
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e856e59_f18788e8",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
         "patchSetId": 11
@@ -429,6 +547,30 @@
       "writtenOn": "2015-06-26T00:31:36Z",
       "side": 1,
       "message": "I removed it in the next CL, this was not needed.",
+      "parentUuid": "3e856e59_f18788e8",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 233,
+        "endChar": 9
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e65c2c2_405ca2c2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-06-26T00:39:36Z",
+      "side": 1,
+      "message": "Yeah we should make this configurable through the DSL to add (or remove default) values.",
       "parentUuid": "3e856e59_f18788e8",
       "range": {
         "startLine": 227,
