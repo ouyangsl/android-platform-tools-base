@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3e7f2e4e_817dda2a",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1535,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-26T11:04:45Z",
+      "side": 1,
+      "message": "ImmutableList.of has a special case for size 1.",
+      "parentUuid": "5e65c2c2_c0ca7211",
+      "range": {
+        "startLine": 1535,
+        "startChar": 24,
+        "endLine": 1535,
+        "endChar": 56
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e6e4e7b_894a9927",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
         "patchSetId": 11
