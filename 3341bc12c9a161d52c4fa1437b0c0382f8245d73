@@ -418,6 +418,30 @@
     },
     {
       "key": {
+        "uuid": "be731e93_fb3ba787",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T00:31:36Z",
+      "side": 1,
+      "message": "I removed it in the next CL, this was not needed.",
+      "parentUuid": "3e856e59_f18788e8",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 233,
+        "endChar": 9
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e856e59_917cfc6a",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MergeJavaResourcesTask.java",
         "patchSetId": 11
