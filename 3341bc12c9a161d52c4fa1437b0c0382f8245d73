@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "de8ff2ab_b8604930",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1535,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "I cannot use ImmutableList because Jack modifies that list ! I set an expected size but that\u0027s a guesstimate. I will chat with them to stop messing with my parameters.",
+      "parentUuid": "3e7f2e4e_817dda2a",
+      "range": {
+        "startLine": 1535,
+        "startChar": 24,
+        "endLine": 1535,
+        "endChar": 56
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e6e4e7b_894a9927",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
         "patchSetId": 11
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "de8ff2ab_98738d0e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1806,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e6e4e7b_894a9927",
+      "range": {
+        "startLine": 1806,
+        "startChar": 60,
+        "endLine": 1806,
+        "endChar": 90
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de8ff2ab_c765343f",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
         "patchSetId": 11
@@ -83,6 +131,30 @@
       "writtenOn": "2015-06-26T00:39:36Z",
       "side": 1,
       "message": "this comment seems out of date.",
+      "range": {
+        "startLine": 71,
+        "startChar": 7,
+        "endLine": 71,
+        "endChar": 25
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e65c2c2_0e82dbd8",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de8ff2ab_c765343f",
       "range": {
         "startLine": 71,
         "startChar": 7,
@@ -129,6 +201,30 @@
       "writtenOn": "2015-06-25T09:33:24Z",
       "side": 1,
       "message": "Nit: A",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 103,
+        "endChar": 8
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6116bc_4b4845dd",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/Packager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe8e767f_2f3cc99b",
       "range": {
         "startLine": 103,
         "startChar": 7,
@@ -222,6 +318,30 @@
       "writtenOn": "2015-06-25T09:33:24Z",
       "side": 1,
       "message": "This is not JavaDoc. Can you use \u003col\u003e?",
+      "range": {
+        "startLine": 904,
+        "startChar": 7,
+        "endLine": 904,
+        "endChar": 10
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6116bc_cbe0d548",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "well, we don\u0027t generate javadoc for these classes so I am privileging readability of the code comment, rather than javadoc results.",
+      "parentUuid": "fe8e767f_cfee5d82",
       "range": {
         "startLine": 904,
         "startChar": 7,
@@ -351,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "fe6116bc_4bcda5d3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e856e59_11e32cc7",
+      "range": {
+        "startLine": 622,
+        "startChar": 26,
+        "endLine": 622,
+        "endChar": 54
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e856e59_f19ea83e",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
         "patchSetId": 11
@@ -398,6 +542,30 @@
     },
     {
       "key": {
+        "uuid": "fe6116bc_ab048187",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "it\u0027s using a Set because that\u0027s what ConfigConfiguration.getPackagedJars API return and that\u0027s the one that should potentially be changed. \nupdated the comment.",
+      "parentUuid": "fe6116bc_bd97679b",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 84
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e0c8eed_998d7b3b",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
         "patchSetId": 11
@@ -409,6 +577,30 @@
       "writtenOn": "2015-06-25T09:54:02Z",
       "side": 1,
       "message": "for (jarEntry : Collections.list(entries))",
+      "range": {
+        "startLine": 91,
+        "startChar": 22,
+        "endLine": 91,
+        "endChar": 48
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe6116bc_0bb9ed38",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Collections.list() is not a lazy list, it actually creates a list with all the elements of the enum, since I have no interest in the list but iterating, I am keeping my more verbose enum.",
+      "parentUuid": "3e0c8eed_998d7b3b",
       "range": {
         "startLine": 91,
         "startChar": 22,
@@ -467,6 +659,30 @@
     },
     {
       "key": {
+        "uuid": "5e65c2c2_ae500fde",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e856e59_31b510ba",
+      "range": {
+        "startLine": 142,
+        "startChar": 13,
+        "endLine": 142,
+        "endChar": 20
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e6e4e7b_29e12d94",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
         "patchSetId": 11
@@ -478,6 +694,30 @@
       "writtenOn": "2015-06-25T09:54:02Z",
       "side": 1,
       "message": "Files.createParentDirs",
+      "range": {
+        "startLine": 146,
+        "startChar": 16,
+        "endLine": 149,
+        "endChar": 17
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de8ff2ab_73b8a2b2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e6e4e7b_29e12d94",
       "range": {
         "startLine": 146,
         "startChar": 16,
@@ -525,6 +765,30 @@
       "side": 1,
       "message": "I\u0027d use Files.copy() directly, because FileUtils handles folders and there\u0027s no reason for this to ever work on folders.",
       "parentUuid": "fe8e767f_6f05f1c4",
+      "range": {
+        "startLine": 152,
+        "startChar": 20,
+        "endLine": 161,
+        "endChar": 32
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be731e93_69350de2",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "none of these APIs can use an InputStream as input, they all use File or ByteSource which mean loading the content in a buffer, etc.",
+      "parentUuid": "9e99fafb_82295e15",
       "range": {
         "startLine": 152,
         "startChar": 20,
@@ -608,6 +872,30 @@
     },
     {
       "key": {
+        "uuid": "be731e93_69ca6d3e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5e65c2c2_405ca2c2",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 233,
+        "endChar": 9
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e856e59_917cfc6a",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MergeJavaResourcesTask.java",
         "patchSetId": 11
@@ -648,6 +936,30 @@
     },
     {
       "key": {
+        "uuid": "5e65c2c2_cecaa311",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MergeJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "that would force me into wrapping IOException, not worth the trouble.",
+      "parentUuid": "3e856e59_7194f813",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 79,
+        "endChar": 9
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e856e59_318e7000",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MergeJavaResourcesTask.java",
         "patchSetId": 11
@@ -671,6 +983,30 @@
     },
     {
       "key": {
+        "uuid": "fe6116bc_8b4c1dc0",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MergeJavaResourcesTask.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e856e59_318e7000",
+      "range": {
+        "startLine": 196,
+        "startChar": 16,
+        "endLine": 196,
+        "endChar": 40
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fe8e767f_6f2e5147",
         "filename": "sdk-common/src/main/java/com/android/ide/common/packaging/PackagingUtils.java",
         "patchSetId": 11
@@ -682,6 +1018,30 @@
       "writtenOn": "2015-06-25T09:54:02Z",
       "side": 1,
       "message": "Add also LICENSE?",
+      "range": {
+        "startLine": 109,
+        "startChar": 26,
+        "endLine": 109,
+        "endChar": 38
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de8ff2ab_b3c5ca04",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/packaging/PackagingUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-26T16:39:06Z",
+      "side": 1,
+      "message": "actually, it was not present in the original code so I removed it !",
+      "parentUuid": "fe8e767f_6f2e5147",
       "range": {
         "startLine": 109,
         "startChar": 26,
