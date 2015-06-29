@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "138ee5ef_55c266ca",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/DataSet.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-06-29T18:46:31Z",
+      "side": 1,
+      "message": "this class used to have only final fields, can\u0027t this be set once for good in the constructor ?",
+      "revId": "1615398a275e74dd5fed7651f68babcb055b0727",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
