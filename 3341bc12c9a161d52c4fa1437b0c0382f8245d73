@@ -354,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "13b505ac_c831efa6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-29T11:07:15Z",
+      "side": 1,
+      "message": "Well, JavaDoc are meant to be read with your IDE anyway, Ctrl+Q to the rescue!",
+      "parentUuid": "fe6116bc_cbe0d548",
+      "range": {
+        "startLine": 904,
+        "startChar": 7,
+        "endLine": 904,
+        "endChar": 10
+      },
+      "revId": "3341bc12c9a161d52c4fa1437b0c0382f8245d73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e856e59_51e9b4a4",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
         "patchSetId": 11
