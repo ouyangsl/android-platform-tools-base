@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3ae0d65_86e20a99",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/VectorDrawableRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-29T11:00:47Z",
+      "side": 1,
+      "message": "Nit: Make it JavaDoc.",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 6
+      },
+      "revId": "58c63ff6e81d0667480749fe6b8f00274c61ee41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13b505ac_0838678b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/png/VectorDrawableRenderer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-06-29T11:00:47Z",
+      "side": 1,
+      "message": "Nit: mLogger.error(e, ...)",
+      "range": {
+        "startLine": 156,
+        "startChar": 20,
+        "endLine": 156,
+        "endChar": 27
+      },
+      "revId": "58c63ff6e81d0667480749fe6b8f00274c61ee41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
