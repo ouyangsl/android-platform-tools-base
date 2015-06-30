@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b3a6f9d3_8394a212",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/DeviceMonitor.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-06-30T23:51:57Z",
+      "side": 1,
+      "message": "As discussed offline, this mitigates the problem but if this thread is interrupted after this lock is released and before select is called, then things can go wrong. Not for this CL but we\u0027ll need to fix this.",
+      "range": {
+        "startLine": 615,
+        "startChar": 0,
+        "endLine": 616,
+        "endChar": 17
+      },
+      "revId": "bc72d63e3ccb9b5fef948ca0f92867f328d420d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
