@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5e98628f_2556f8a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ebe4e91_3e36bd73",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1eb50aac_af111a0c",
         "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-06-23T14:38:56Z",
       "side": 1,
       "message": "you can use lintProjectIncrementally here too.",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e701a1a_2a563bd9",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/checks/AppIndexingApiDetectorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eb50aac_af111a0c",
       "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9e701a1a_0a517fe0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb756b3_2121c2a8",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "feb756b3_412636c2",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2015-06-23T14:38:56Z",
       "side": 1,
       "message": "maybe include the path variable here to make it clear to users that it considered the looked-up value (e.g. if it\u0027s just shown on @string/foo they might thing they have to replace @string/foo rather than the value it resolved to)",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bea6bed3_43021a3f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb756b3_412636c2",
       "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "bea6bed3_631e3695",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7eca863a_941a2a9d",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "feb756b3_e13acad3",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
         "patchSetId": 3
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "bea6bed3_032d32cd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feb756b3_e13acad3",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1eb50aac_ef0712ce",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
         "patchSetId": 3
@@ -115,6 +223,24 @@
       "writtenOn": "2015-06-23T14:38:56Z",
       "side": 1,
       "message": "|| style.framework",
+      "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bea6bed3_832142d9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1eb50aac_ef0712ce",
       "revId": "199ce5ef4046c15f360eb9572fdc18671450369c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

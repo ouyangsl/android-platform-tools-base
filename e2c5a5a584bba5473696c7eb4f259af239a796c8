@@ -16,6 +16,24 @@
       "revId": "e2c5a5a584bba5473696c7eb4f259af239a796c8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7eb0c609_be07b520",
+        "filename": "lint/libs/lint-tests/src/main/java/com/android/tools/lint/checks/infrastructure/LintDetectorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-06-30T15:08:10Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "1eb50aac_0f05c6c5",
+      "revId": "e2c5a5a584bba5473696c7eb4f259af239a796c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
