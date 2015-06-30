@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "339be98e_f5b9e01a",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/DeviceMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-06-30T23:54:10Z",
+      "side": 1,
+      "message": "could this be made static and moved to its own file? It will make the dependencies with DeviceMonitor, explicit.",
+      "range": {
+        "startLine": 771,
+        "startChar": 18,
+        "endLine": 771,
+        "endChar": 42
+      },
+      "revId": "00f3bcdcc6ca1a1095255b2fb03b486f4c69e248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
