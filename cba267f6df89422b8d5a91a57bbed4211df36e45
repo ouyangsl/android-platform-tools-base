@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33c4c97c_5fa4233e",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-06-30T21:43:37Z",
+      "side": 1,
+      "message": "We need to add a more meaningful test than just changing this constant. ie. testWeakReferenceMembers",
+      "range": {
+        "startLine": 227,
+        "startChar": 22,
+        "endLine": 227,
+        "endChar": 26
+      },
+      "revId": "cba267f6df89422b8d5a91a57bbed4211df36e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
