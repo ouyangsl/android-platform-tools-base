@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f390710b_88d45be6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/BaseTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-30T01:07:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e7f2e4e_81e15a96",
+      "range": {
+        "startLine": 43,
+        "startChar": 22,
+        "endLine": 43,
+        "endChar": 32
+      },
+      "revId": "e595697e0529339cc5939ff44541b3bd3f61b83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e7f2e4e_0171ca59",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JillTask.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "f390710b_285bcf56",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/JillTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-30T01:07:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e7f2e4e_0171ca59",
+      "range": {
+        "startLine": 83,
+        "startChar": 14,
+        "endLine": 85,
+        "endChar": 13
+      },
+      "revId": "e595697e0529339cc5939ff44541b3bd3f61b83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e7ce256_2297ae1a",
         "filename": "common/src/main/java/com/android/utils/FileUtils.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-06-26T10:50:45Z",
       "side": 1,
       "message": "Why ignore? We should throw an exception if it exists but failed. I was actually planning to add a deleteFile method to FileUtils, maybe you could do that.",
+      "range": {
+        "startLine": 44,
+        "startChar": 35,
+        "endLine": 44,
+        "endChar": 60
+      },
+      "revId": "e595697e0529339cc5939ff44541b3bd3f61b83e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "934c958c_470cf077",
+        "filename": "common/src/main/java/com/android/utils/FileUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-06-30T01:07:36Z",
+      "side": 1,
+      "message": "Refactored",
+      "parentUuid": "5e7ce256_2297ae1a",
       "range": {
         "startLine": 44,
         "startChar": 35,
