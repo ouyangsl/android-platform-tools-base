@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53985d8f_65d640bb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/GradleDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-01T14:48:52Z",
+      "side": 1,
+      "message": "Since this is public now, it could be good to document that this method hits the network. (Also, what happens if no network connection is available?)\n\nCould also be good to specify in PreciseRevision is @Nullable or not.",
+      "revId": "34eb40104bfe6510e9a4a7bfe068dfd77f818189",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
