@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "531dbdf5_bab7b142",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AnnotationDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-07-01T20:58:35Z",
+      "side": 1,
+      "message": "nit: it would actually be nicer to see the constant name.",
+      "range": {
+        "startLine": 212,
+        "startChar": 86,
+        "endLine": 212,
+        "endChar": 90
+      },
+      "revId": "e8f6a7353d18f0559351963a3e2125b287c83f96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
