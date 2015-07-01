@@ -22,6 +22,30 @@
       "revId": "00f3bcdcc6ca1a1095255b2fb03b486f4c69e248",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3d44d30_1048dc03",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/DeviceMonitor.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-07-01T15:50:56Z",
+      "side": 1,
+      "message": "Actually, these two methods belong in this class (notice the two synchronization blocks). They are inside an inner class only because this class cannot implement that interface (because it is private).",
+      "parentUuid": "339be98e_f5b9e01a",
+      "range": {
+        "startLine": 771,
+        "startChar": 18,
+        "endLine": 771,
+        "endChar": 42
+      },
+      "revId": "00f3bcdcc6ca1a1095255b2fb03b486f4c69e248",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
