@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3d44d30_aa3c1780",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 2340,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-01T00:46:17Z",
+      "side": 1,
+      "message": "variantData.preBuildTask.dependsOn(MAIN_PREBUILD)",
+      "range": {
+        "startLine": 2340,
+        "startChar": 8,
+        "endLine": 2340,
+        "endChar": 88
+      },
+      "revId": "bf2e07fdc22fc5faa07efeb10443852ebdc991c1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
