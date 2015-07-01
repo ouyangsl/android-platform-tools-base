@@ -22,6 +22,30 @@
       "revId": "e8f6a7353d18f0559351963a3e2125b287c83f96",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3320492d_1c401905",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AnnotationDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-01T21:55:53Z",
+      "side": 1,
+      "message": "I can\u0027t get to it from the resolved annotation, sadly -- but I suppose I could use the index of the number to search the AST node and find it. I\u0027ll do that.",
+      "parentUuid": "531dbdf5_bab7b142",
+      "range": {
+        "startLine": 212,
+        "startChar": 86,
+        "endLine": 212,
+        "endChar": 90
+      },
+      "revId": "e8f6a7353d18f0559351963a3e2125b287c83f96",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
