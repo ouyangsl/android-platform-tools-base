@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "73a64129_6b46e173",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-02T03:57:26Z",
+      "side": 1,
+      "message": "Done.\n\nThanks - good catch!",
+      "parentUuid": "531dbdf5_7af839ba",
+      "range": {
+        "startLine": 8,
+        "startChar": 9,
+        "endLine": 8,
+        "endChar": 12
+      },
+      "revId": "23652cd9d1a8c7879e6a5f0cc58552c39265b01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3337696d_e47fd45d",
         "filename": "templates/activities/GoogleMapsWearActivity/root/debugRes/values/google_maps_api.xml.ftl",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2015-07-01T19:36:42Z",
       "side": 1,
       "message": "indent to match other indenting?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "23652cd9d1a8c7879e6a5f0cc58552c39265b01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33da09aa_a9373d0d",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/debugRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-02T03:57:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3337696d_e47fd45d",
       "range": {
         "startLine": 7,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "b39c39d9_2dc34d2e",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-02T03:57:26Z",
+      "side": 1,
+      "message": "Done.\n\nI have also update the comment to point out the difference between the debug and release signing keys.",
+      "parentUuid": "b34279dc_1d401305",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 5
+      },
+      "revId": "23652cd9d1a8c7879e6a5f0cc58552c39265b01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "531dbdf5_7a1fd98e",
         "filename": "templates/activities/GoogleMapsWearActivity/root/res/layout/activity_map.xml.ftl",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2015-07-01T19:36:42Z",
       "side": 1,
       "message": "this doesn\u0027t appear to be referenced",
+      "range": {
+        "startLine": 6,
+        "startChar": 8,
+        "endLine": 6,
+        "endChar": 13
+      },
+      "revId": "23652cd9d1a8c7879e6a5f0cc58552c39265b01e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33da09aa_893cf9f2",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/res/layout/activity_map.xml.ftl",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-02T03:57:26Z",
+      "side": 1,
+      "message": "This is on purpose.\nNow you can use \u0027map\u0027 properties on the MapFragment. (We don\u0027t want to specify any properties by default, but it\u0027s a stumbling block if developers try to set anything themselves.)",
+      "parentUuid": "531dbdf5_7a1fd98e",
       "range": {
         "startLine": 6,
         "startChar": 8,
