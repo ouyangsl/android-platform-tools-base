@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f305d1c3_baeb0d75",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/resources/configuration/ScreenRoundQualifierTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1017685
+      },
+      "writtenOn": "2015-07-02T00:23:30Z",
+      "side": 1,
+      "message": "Not sure what happened here. But fixed. There were no other occurrences of this anywhere else.",
+      "parentUuid": "d31c4d21_1662dc0b",
+      "revId": "6c6527bf73ec38c8765899bccd6a157a8df5f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f319510f_5d6f6b25",
         "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
         "patchSetId": 2
