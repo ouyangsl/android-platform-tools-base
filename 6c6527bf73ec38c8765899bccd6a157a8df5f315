@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d31c4d21_960b8c60",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/configuration/ResourceQualifier.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-02T00:00:03Z",
+      "side": 1,
+      "message": "for 1.4?",
+      "revId": "6c6527bf73ec38c8765899bccd6a157a8df5f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d31c4d21_1662dc0b",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/resources/configuration/ScreenRoundQualifierTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-02T00:00:03Z",
+      "side": 1,
+      "message": "something is missing",
+      "revId": "6c6527bf73ec38c8765899bccd6a157a8df5f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f319510f_5d6f6b25",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-02T00:00:03Z",
+      "side": 1,
+      "message": "assert bootProp.length \u003e 0 ? Or better yet pass in these two props as parameters instead of the array (with @NonNulls too)",
+      "revId": "6c6527bf73ec38c8765899bccd6a157a8df5f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f319510f_dd7a9be7",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-02T00:00:03Z",
+      "side": 1,
+      "message": "VALUE_TRUE",
+      "revId": "6c6527bf73ec38c8765899bccd6a157a8df5f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7311e108_f35ad050",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-02T00:00:03Z",
+      "side": 1,
+      "message": "VALUE_FALSE",
+      "revId": "6c6527bf73ec38c8765899bccd6a157a8df5f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7311e108_33656814",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-02T00:00:03Z",
+      "side": 1,
+      "message": "Splitter.omitEmpty()...",
+      "revId": "6c6527bf73ec38c8765899bccd6a157a8df5f315",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

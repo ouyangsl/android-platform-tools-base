@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f319510f_fd943f96",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/rendering/HardwareConfigHelperTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-02T00:00:03Z",
+      "side": 0,
+      "message": "try device.isRound() instead?",
+      "revId": "91e678a25a4ebbc7aaf1672435cd6371c5e43c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
