@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f305d1c3_32db945e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PermissionRequirement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-07-06T14:50:01Z",
+      "side": 1,
+      "message": "duplicated comment",
+      "range": {
+        "startLine": 162,
+        "startChar": 7,
+        "endLine": 162,
+        "endChar": 14
+      },
+      "revId": "dae3a8b02ce21e0bc5122fb4e9ef20401347639a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f36151bc_fa6f2574",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/PermissionRequirement.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-07-06T14:50:01Z",
+      "side": 1,
+      "message": "whether .. applies to ..",
+      "range": {
+        "startLine": 170,
+        "startChar": 15,
+        "endLine": 170,
+        "endChar": 23
+      },
+      "revId": "dae3a8b02ce21e0bc5122fb4e9ef20401347639a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
