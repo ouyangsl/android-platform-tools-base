@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "135425e3_99a29fb7",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-07-07T00:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "135425e3_d910a78a",
+      "revId": "d0fa8ed0708fd54f1c1643888b60e088bca35f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "736d61b3_e7830a0d",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-07T00:16:22Z",
       "side": 1,
       "message": "Should we have two addReference methods?\n\naddReference(@NonNull Instance reference)\naddReference(@NonNull Field field, @NonNull Instance reference)\n\n(It\u0027s possible the answer is no especially if there may be more arguments added here later)",
+      "revId": "d0fa8ed0708fd54f1c1643888b60e088bca35f2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "135425e3_d9ac27ad",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/Instance.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-07-07T00:32:41Z",
+      "side": 1,
+      "message": "Yeah, let\u0027s do that if more params are added.",
+      "parentUuid": "736d61b3_e7830a0d",
       "revId": "d0fa8ed0708fd54f1c1643888b60e088bca35f2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
