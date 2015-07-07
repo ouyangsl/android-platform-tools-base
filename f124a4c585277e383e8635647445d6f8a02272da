@@ -16,6 +16,24 @@
       "revId": "f124a4c585277e383e8635647445d6f8a02272da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "736d61b3_551fff8d",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdIcon.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-07T21:59:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "736d61b3_55f8dfb9",
+      "revId": "f124a4c585277e383e8635647445d6f8a02272da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
