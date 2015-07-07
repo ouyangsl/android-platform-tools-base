@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93201584_04a49606",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/ClassObjTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-07-07T00:15:45Z",
+      "side": 1,
+      "message": "we also need a test that tests that we support duplicate classes, more than testing the comparison itself. If the problem was on this code, like in subclasses for example, then we should add a test that two subclasses with the same name can be added to a given one.",
+      "range": {
+        "startLine": 47,
+        "startChar": 14,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "9be2d6f9d84accd24cb751e71cca353ecdf18b0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
