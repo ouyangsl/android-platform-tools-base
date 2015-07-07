@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18f28255_630b5c60",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MessageRewriteTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-07T11:42:29Z",
+      "side": 1,
+      "message": "nit: extra line",
+      "revId": "d69894029956669424c9e04efb6073a34c37edf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d829ca86_ee5dfff6",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MessageRewriteTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-07T11:42:29Z",
+      "side": 1,
+      "message": "nit : extra lines",
+      "revId": "d69894029956669424c9e04efb6073a34c37edf7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
