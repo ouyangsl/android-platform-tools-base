@@ -22,6 +22,30 @@
       "revId": "cba267f6df89422b8d5a91a57bbed4211df36e45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3219987_25d0ae6c",
+        "filename": "perflib/src/test/java/com/android/tools/perflib/heap/analysis/DominatorsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-07-07T00:01:49Z",
+      "side": 1,
+      "message": "Done -- added extra conditions to the reachability test (since testing the hard/soft references will need the same setup as reachability).",
+      "parentUuid": "33c4c97c_5fa4233e",
+      "range": {
+        "startLine": 227,
+        "startChar": 22,
+        "endLine": 227,
+        "endChar": 26
+      },
+      "revId": "cba267f6df89422b8d5a91a57bbed4211df36e45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
