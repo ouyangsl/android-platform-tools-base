@@ -57,7 +57,11 @@ import javax.xml.validation.Schema;
 public class DeviceParser {
 
     private static class DeviceHandler extends DefaultHandler {
+<<<<<<< HEAD   (65440c Merge "Fix test breakage when running tests on newer JDK" in)
         private static final Splitter sSpaceSplitter = Splitter.on(' ').omitEmptyStrings();
+=======
+        private static final String sSpaceRegex = "[\\s]+";
+>>>>>>> BRANCH (3e7d47 Merge "Set ScreenRoundQualifier when needed." into studio-1.)
         private static final String ROUND_BOOT_PROP = "ro.emulator.circular";
 
         private final List<Device> mDevices = new ArrayList<Device>();
@@ -374,7 +378,11 @@ public class DeviceParser {
             }
         }
 
+<<<<<<< HEAD   (65440c Merge "Fix test breakage when running tests on newer JDK" in)
         private static List<String> getStringList(StringBuilder stringAccumulator) {
+=======
+        private List<String> getStringList(StringBuilder stringAccumulator) {
+>>>>>>> BRANCH (3e7d47 Merge "Set ScreenRoundQualifier when needed." into studio-1.)
             List<String> filteredStrings = new ArrayList<String>();
             for (String s : sSpaceSplitter.split(stringAccumulator)) {
                 if (s != null && !s.isEmpty()) {
