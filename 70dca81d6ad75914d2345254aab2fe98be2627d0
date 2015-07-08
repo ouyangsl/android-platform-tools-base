@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f80dae2c_790c1aaf",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-08T21:25:14Z",
+      "side": 1,
+      "message": "Closeables.close(stream)",
+      "revId": "70dca81d6ad75914d2345254aab2fe98be2627d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
