@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1859a245_6eceab5a",
+        "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-08T22:18:00Z",
+      "side": 1,
+      "message": "I thought that was preferred for tools/base, there\u0027s quite a lot of it there, but I\u0027ll defer to Jerome.",
+      "parentUuid": "736d61b3_b8eaf6e9",
+      "range": {
+        "startLine": 158,
+        "startChar": 72,
+        "endLine": 158,
+        "endChar": 76
+      },
+      "revId": "cd89185d79abfd9364bdf3135c308276be6069c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f356b1ec_acdaba8a",
         "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
         "patchSetId": 1
