@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1840c241_f6a5d83d",
+        "filename": "testutils/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-08T20:04:21Z",
+      "side": 1,
+      "message": "not sure why this is necessary ?",
+      "revId": "1c6c03f8b1044e6d9878d67a390dfcb2f456dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
