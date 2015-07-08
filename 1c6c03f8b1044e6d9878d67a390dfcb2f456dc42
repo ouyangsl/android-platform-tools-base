@@ -16,6 +16,24 @@
       "revId": "1c6c03f8b1044e6d9878d67a390dfcb2f456dc42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3260d9c_09482de0",
+        "filename": "testutils/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-08T22:23:35Z",
+      "side": 1,
+      "message": "I don\u0027t know either. I just noticed that all the other libraries (that are published) seem to include this; I thought it might be a prerequisite. I\u0027d be happy to remove it.",
+      "parentUuid": "1840c241_f6a5d83d",
+      "revId": "1c6c03f8b1044e6d9878d67a390dfcb2f456dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
