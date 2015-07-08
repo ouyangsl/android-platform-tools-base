@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "135425e3_e2f5a87e",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-08T19:55:13Z",
+      "side": 1,
+      "message": "I thought that the convention for project properties was to use namespace (e.g. com.android.tools.something)",
+      "range": {
+        "startLine": 251,
+        "startChar": 59,
+        "endLine": 251,
+        "endChar": 81
+      },
+      "revId": "ee66357637a71d1ffb628ace34b4a010c1e36f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
