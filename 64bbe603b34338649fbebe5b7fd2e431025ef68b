@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d829ca86_b1e4facf",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/application/MessageRewriteTest.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-08T07:24:08Z",
+      "side": 1,
+      "message": "this is very dependent on the user of the framework to do the right thing meaning calling close(); \n\nwhy not doing :\n\nclass TremporaryProjectModification {\n\n   public interface ModifiedProjectTest {\n   \n        void apply(TemporaryProjetModification modifiedProject)\n   }\n\n   public static void do(Project project, ModificationProjectTest test) { \n   \n       TemporaryProjetModification modifiedProject \u003d new TemporaryProjectModification(project);\n       try { \n         test.apply(modifiedProject);\n       } finally {\n         modifiedProject.close();\n       }\n   }\n} \n\nand in the test : \n\nTemporaryProjectModification.do(project, new ModificationProjectTest() {\n...\n});",
+      "revId": "64bbe603b34338649fbebe5b7fd2e431025ef68b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
