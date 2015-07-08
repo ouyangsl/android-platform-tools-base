@@ -22,6 +22,30 @@
       "revId": "ee66357637a71d1ffb628ace34b4a010c1e36f5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f356b1ec_0ce666aa",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-08T20:28:27Z",
+      "side": 1,
+      "message": "you\u0027re right. I\u0027ll change that.",
+      "parentUuid": "135425e3_e2f5a87e",
+      "range": {
+        "startLine": 251,
+        "startChar": 59,
+        "endLine": 251,
+        "endChar": 81
+      },
+      "revId": "ee66357637a71d1ffb628ace34b4a010c1e36f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
