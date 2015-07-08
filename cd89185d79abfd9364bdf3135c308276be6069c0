@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "534a1d43_0dad82a6",
+        "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-08T20:43:37Z",
+      "side": 1,
+      "message": "Please change this to ..., true /*checkBom*/, true /*checkDtd*/);\n\nand other similar cases above.",
+      "range": {
+        "startLine": 158,
+        "startChar": 72,
+        "endLine": 158,
+        "endChar": 76
+      },
+      "revId": "cd89185d79abfd9364bdf3135c308276be6069c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f356b1ec_acdaba8a",
+        "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-08T20:43:37Z",
+      "side": 1,
+      "message": "checkDtd?",
+      "range": {
+        "startLine": 189,
+        "startChar": 81,
+        "endLine": 189,
+        "endChar": 85
+      },
+      "revId": "cd89185d79abfd9364bdf3135c308276be6069c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
