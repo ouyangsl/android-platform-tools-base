@@ -52,6 +52,24 @@
       "revId": "a3cb9c0d434fa6a23a52c1d24e8410ab3b1f9347",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8246aa6_b3752faa",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/Svg2Vector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-09T17:53:19Z",
+      "side": 1,
+      "message": "Sorry for the confusion, rewrite a bit and add more comments.\nBasically, I only want to write into outstream , when there is no error found.",
+      "parentUuid": "d8970a01_6163303e",
+      "revId": "a3cb9c0d434fa6a23a52c1d24e8410ab3b1f9347",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
