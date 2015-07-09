@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "387026c3_39ed6f3d",
+        "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-09T16:55:11Z",
+      "side": 1,
+      "message": "OK.",
+      "parentUuid": "1859a245_6eceab5a",
+      "range": {
+        "startLine": 158,
+        "startChar": 72,
+        "endLine": 158,
+        "endChar": 76
+      },
+      "revId": "cd89185d79abfd9364bdf3135c308276be6069c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f356b1ec_acdaba8a",
         "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "writtenOn": "2015-07-08T20:43:37Z",
       "side": 1,
       "message": "checkDtd?",
+      "range": {
+        "startLine": 189,
+        "startChar": 81,
+        "endLine": 189,
+        "endChar": 85
+      },
+      "revId": "cd89185d79abfd9364bdf3135c308276be6069c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "586ddaeb_3a89e174",
+        "filename": "common/src/main/java/com/android/utils/PositionXmlParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-09T16:55:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f356b1ec_acdaba8a",
       "range": {
         "startLine": 189,
         "startChar": 81,
