@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18f28255_298095d0",
+        "filename": "common/src/main/java/com/android/ide/common/blame/SourcePosition.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-09T08:42:12Z",
+      "side": 1,
+      "message": "This may be inconsistent with the equals method above (there are instances where a.compareTo(b) \u003d\u003d 0 but !a.equals(b). Maybe replace this with a static method that returns a Comparator?",
+      "range": {
+        "startLine": 188,
+        "startChar": 15,
+        "endLine": 188,
+        "endChar": 27
+      },
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
