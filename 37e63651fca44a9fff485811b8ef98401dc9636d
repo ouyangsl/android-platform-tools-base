@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d829ca86_57e26619",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/MergingLogRewriter.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-09T07:38:05Z",
+      "side": 1,
+      "message": "Nit: You can try FluentIterable.from(originalPositions).transform(mGetOriginalPosition).toList();",
+      "range": {
+        "startLine": 57,
+        "startChar": 24,
+        "endLine": 57,
+        "endChar": 55
+      },
+      "revId": "37e63651fca44a9fff485811b8ef98401dc9636d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
