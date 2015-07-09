@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9833d2f4_afc5b5a0",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ExtractJavaResourcesTask.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-09T00:49:58Z",
+      "side": 1,
+      "message": "This implements org.gradle.api.Action, which doesn\u0027t throw an exception.",
+      "parentUuid": "1840c241_131bcefc",
+      "range": {
+        "startLine": 78,
+        "startChar": 29,
+        "endLine": 78,
+        "endChar": 40
+      },
+      "revId": "c2375cd27a4d1ea618800b28adde234c2eff79de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8fb8a32_4143b4e7",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2015-07-08T10:37:24Z",
       "side": 1,
       "message": "Please don\u0027t do this, at least use a logger if you really want to silently swallow the error.",
+      "range": {
+        "startLine": 176,
+        "startChar": 14,
+        "endLine": 176,
+        "endChar": 29
+      },
+      "revId": "c2375cd27a4d1ea618800b28adde234c2eff79de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b81fb653_d22f8590",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/AidlCompile.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-09T00:49:58Z",
+      "side": 1,
+      "message": "Oops, that wasn\u0027t deliberate.",
+      "parentUuid": "d8fb8a32_4143b4e7",
       "range": {
         "startLine": 176,
         "startChar": 14,
