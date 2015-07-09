@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1840c241_397b5372",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/MessageJsonSerializer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-09T12:58:52Z",
+      "side": 1,
+      "message": "javadoc the file format.",
+      "revId": "521f8edd845f3427e89d6c0b029e7c652d80048d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
