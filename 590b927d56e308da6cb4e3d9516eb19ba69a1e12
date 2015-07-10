@@ -16,6 +16,24 @@
       "revId": "590b927d56e308da6cb4e3d9516eb19ba69a1e12",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1840c241_a4103a04",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-10T12:35:53Z",
+      "side": 1,
+      "message": "That\u0027s a good point, I\u0027m not sure now why I did that this way...",
+      "parentUuid": "1840c241_8481b6da",
+      "revId": "590b927d56e308da6cb4e3d9516eb19ba69a1e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
