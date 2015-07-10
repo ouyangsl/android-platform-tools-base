@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "d8c54a25_ce634310",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T15:50:33Z",
+      "side": 1,
+      "message": "what was the null property of this used for previously? or does it mean \"we don\u0027t know yet\"?",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 40,
+        "endChar": 13
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "987af2a8_5716ee08",
         "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
         "patchSetId": 1
@@ -30,6 +53,121 @@
       "writtenOn": "2015-07-10T15:42:20Z",
       "side": 1,
       "message": "Is this code safe to modify, or is this used externally? I\u0027m tempted to turn this into a copy constructor in a separate CL. :)",
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8c09616_4dfc3982",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T15:50:33Z",
+      "side": 1,
+      "message": "+chin",
+      "range": {
+        "startLine": 192,
+        "startChar": 21,
+        "endLine": 192,
+        "endChar": 33
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8c09616_ad759da9",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T15:50:33Z",
+      "side": 1,
+      "message": "may be able to remove if the nullness is going away?",
+      "range": {
+        "startLine": 212,
+        "startChar": 12,
+        "endLine": 212,
+        "endChar": 24
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cf5247_2c0bf32e",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T15:50:33Z",
+      "side": 1,
+      "message": "need chin here",
+      "range": {
+        "startLine": 215,
+        "startChar": 8,
+        "endLine": 215,
+        "endChar": 14
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cf5247_0c063728",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T15:50:33Z",
+      "side": 1,
+      "message": "may want to write to toString output if mChin !\u003d 0",
+      "range": {
+        "startLine": 244,
+        "startChar": 8,
+        "endLine": 244,
+        "endChar": 10
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98cf5247_cc0fcf37",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T15:50:33Z",
+      "side": 1,
+      "message": "to avoid duplicating of devices issues, would it be possible to match the wear device exactly? (I bet you\u0027ll see two chin devices if you add this one and also have an android wear 22 device installed)",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 7
+      },
       "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
