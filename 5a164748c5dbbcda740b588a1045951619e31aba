@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "586ddaeb_ee0087c2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-10T18:28:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1840c241_b6dbd08f",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 18
+      },
+      "revId": "5a164748c5dbbcda740b588a1045951619e31aba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f28255_69869df2",
         "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2015-07-09T08:37:13Z",
       "side": 1,
       "message": "Why not getErrorReporter?",
+      "range": {
+        "startLine": 273,
+        "startChar": 25,
+        "endLine": 273,
+        "endChar": 40
+      },
+      "revId": "5a164748c5dbbcda740b588a1045951619e31aba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98a11261_4bedf13b",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-10T18:28:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f28255_69869df2",
       "range": {
         "startLine": 273,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "586ddaeb_aefa8f36",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ExtraModelInfo.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-10T18:28:07Z",
+      "side": 1,
+      "message": "Done.\n\nIt is used in the receiveMessage method.",
+      "parentUuid": "d829ca86_b7eaaae8",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 79,
+        "endChar": 17
+      },
+      "revId": "5a164748c5dbbcda740b588a1045951619e31aba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8f4ce42_e5fd3232",
         "filename": "sdk-common/src/main/java/com/android/ide/common/blame/ParsingProcessOutputHandler.java",
         "patchSetId": 13
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "387026c3_0d5b8102",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/ParsingProcessOutputHandler.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-10T18:28:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8f4ce42_e5fd3232",
+      "range": {
+        "startLine": 30,
+        "startChar": 13,
+        "endLine": 30,
+        "endChar": 40
+      },
+      "revId": "5a164748c5dbbcda740b588a1045951619e31aba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1840c241_96d8cc93",
         "filename": "sdk-common/src/main/java/com/android/ide/common/blame/parser/JsonEncodedGradleMessageParser.java",
         "patchSetId": 13
@@ -105,6 +201,30 @@
       "writtenOn": "2015-07-09T08:37:13Z",
       "side": 1,
       "message": "Does this stand for anything?",
+      "range": {
+        "startLine": 36,
+        "startChar": 51,
+        "endLine": 36,
+        "endChar": 56
+      },
+      "revId": "5a164748c5dbbcda740b588a1045951619e31aba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98a11261_2be8a52c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/parser/JsonEncodedGradleMessageParser.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-10T18:28:07Z",
+      "side": 1,
+      "message": "See comment",
+      "parentUuid": "1840c241_96d8cc93",
       "range": {
         "startLine": 36,
         "startChar": 51,
