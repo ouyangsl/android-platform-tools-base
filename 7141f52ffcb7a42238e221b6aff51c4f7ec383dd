@@ -16,6 +16,24 @@
       "revId": "7141f52ffcb7a42238e221b6aff51c4f7ec383dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18dc42fc_70b79077",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-10T18:11:31Z",
+      "side": 0,
+      "message": "It was setting things to null, which was the problem: this method will be called more than once if there is more than one boot prop (it\u0027s a map). So in the case where we had the round prop and then another, the correct value was being overwritten by null.\nAdditionally, note that in the (common) case where there were no boot props we wouldn\u0027t come into this method at all.",
+      "parentUuid": "78753eb8_535364e7",
+      "revId": "7141f52ffcb7a42238e221b6aff51c4f7ec383dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
