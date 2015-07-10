@@ -16,6 +16,24 @@
       "revId": "521f8edd845f3427e89d6c0b029e7c652d80048d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18dc42fc_d01f5ce5",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/MessageJsonSerializer.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-10T18:04:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1840c241_397b5372",
+      "revId": "521f8edd845f3427e89d6c0b029e7c652d80048d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
