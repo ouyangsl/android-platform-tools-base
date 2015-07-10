@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "387026c3_4dec1989",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeafNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-10T00:29:59Z",
+      "side": 1,
+      "message": "allows",
+      "range": {
+        "startLine": 77,
+        "startChar": 11,
+        "endLine": 77,
+        "endChar": 16
+      },
+      "revId": "bee2a1f72c82e4645bb347547626a396f3f5a355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8970a01_d39c5671",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/SvgLeafNode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-10T00:29:59Z",
+      "side": 1,
+      "message": "doesn\u0027t",
+      "range": {
+        "startLine": 78,
+        "startChar": 38,
+        "endLine": 78,
+        "endChar": 43
+      },
+      "revId": "bee2a1f72c82e4645bb347547626a396f3f5a355",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
