@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "98cf5247_6fb9ed17",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-10T19:29:31Z",
+      "side": 1,
+      "message": "Sorry! No concern in this CL.\n\nI think this should be a copy constructor, since, I mean, why have a separate, unique function to handle this common case? I was thinking about cleaning it up after you checked in your code... but at the same time, this code is in tools/base, and I don\u0027t often edit code there because I worry it may impact Eclipse or something I\u0027m unaware of. Anyway doesn\u0027t really matter.",
+      "parentUuid": "78753eb8_961c8a99",
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8c09616_4dfc3982",
         "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
         "patchSetId": 1
