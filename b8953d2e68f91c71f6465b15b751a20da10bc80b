@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "782e1e92_51c9541d",
+        "filename": "build-system/manifest-merger/src/main/java/com/android/manifmerger/XmlAttribute.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-10T11:30:44Z",
+      "side": 1,
+      "message": "change last sentence into \"Attributes of \u003c\u003e elements are not merged\"",
+      "revId": "b8953d2e68f91c71f6465b15b751a20da10bc80b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
