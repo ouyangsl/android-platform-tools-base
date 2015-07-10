@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8c54a25_4e167309",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-10T19:26:18Z",
+      "side": 1,
+      "message": "Great comment, thanks.",
+      "revId": "08e52f799e27a5124233ef47f0e833a65e29c2b7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
