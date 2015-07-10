@@ -45,6 +45,30 @@
       "revId": "e0c05bdb3f4b6149305de3f63b9e3959ef1cb522",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38d586cf_54a282ba",
+        "filename": "sdklib/src/test/java/com/android/sdklib/devices/DeviceParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-10T19:24:09Z",
+      "side": 1,
+      "message": "Aw man, I thought that now that IJ\u0027s figured out that if a file is completely 4-space indented changes should also use 4-space indents I was safe to use the studio project to edit base files.... guess not :-(",
+      "parentUuid": "58d23ae8_b5d88a93",
+      "range": {
+        "startLine": 20,
+        "startChar": 29,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "e0c05bdb3f4b6149305de3f63b9e3959ef1cb522",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
