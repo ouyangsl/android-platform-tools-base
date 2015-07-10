@@ -402,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "987af2a8_7db98b17",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-10T18:59:33Z",
+      "side": 1,
+      "message": "Done, other than that I removed the useless keyboard states and switched the default orientation to landscape.",
+      "parentUuid": "58d23ae8_d54c2e96",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 7
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78ca9e3a_eb7b919b",
         "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
         "patchSetId": 1
