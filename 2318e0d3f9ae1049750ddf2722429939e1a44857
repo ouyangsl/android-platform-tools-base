@@ -171,6 +171,53 @@
       "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8c09616_4d8199d7",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T17:20:23Z",
+      "side": 1,
+      "message": "Bug that goes into this issue: https://b.corp.google.com/issues/19895620",
+      "parentUuid": "98cf5247_cc0fcf37",
+      "range": {
+        "startLine": 188,
+        "startChar": 6,
+        "endLine": 188,
+        "endChar": 7
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78ca9e3a_eb7b919b",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/wear.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T17:20:23Z",
+      "side": 1,
+      "message": "I\u0027ll want to make this change in our devices.xml as well to match. thanks!",
+      "range": {
+        "startLine": 258,
+        "startChar": 10,
+        "endLine": 258,
+        "endChar": 11
+      },
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
