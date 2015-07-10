@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38d586cf_14339a22",
+        "filename": "device_validator/dvlib/src/test/resources/com/android/dvlib/devices.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T19:17:30Z",
+      "side": 1,
+      "message": "may want to make this and the other test one exactly the same as the one in wear.xml? probably doesn\u0027t matter though",
+      "range": {
+        "startLine": 401,
+        "startChar": 7,
+        "endLine": 401,
+        "endChar": 13
+      },
+      "revId": "e0c05bdb3f4b6149305de3f63b9e3959ef1cb522",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58d23ae8_b5d88a93",
+        "filename": "sdklib/src/test/java/com/android/sdklib/devices/DeviceParserTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1023339
+      },
+      "writtenOn": "2015-07-10T19:17:30Z",
+      "side": 1,
+      "message": "* -\u003e expanded list?",
+      "range": {
+        "startLine": 20,
+        "startChar": 29,
+        "endLine": 20,
+        "endChar": 30
+      },
+      "revId": "e0c05bdb3f4b6149305de3f63b9e3959ef1cb522",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
