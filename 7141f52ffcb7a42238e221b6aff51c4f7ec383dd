@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78753eb8_535364e7",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/DeviceParser.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-10T15:42:20Z",
+      "side": 0,
+      "message": "It looks like as a side-effect this was setting things to null if roundness was not found. Was that just redundant which is why we can take it out now?",
+      "revId": "7141f52ffcb7a42238e221b6aff51c4f7ec383dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

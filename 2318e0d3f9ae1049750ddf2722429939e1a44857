@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "987af2a8_5716ee08",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-10T15:42:20Z",
+      "side": 1,
+      "message": "Lack of comments in this class saddens me. Can we at least add comments for what a chin is and what \"int chin\" represents? Is it an enumerated type? A length in mm?",
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "987af2a8_1720765d",
+        "filename": "sdklib/src/main/java/com/android/sdklib/devices/Screen.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-10T15:42:20Z",
+      "side": 1,
+      "message": "Is this code safe to modify, or is this used externally? I\u0027m tempted to turn this into a copy constructor in a separate CL. :)",
+      "revId": "2318e0d3f9ae1049750ddf2722429939e1a44857",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
