@@ -34,6 +34,24 @@
       "revId": "1c6c03f8b1044e6d9878d67a390dfcb2f456dc42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d829ca86_02a6da49",
+        "filename": "testutils/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-10T11:21:42Z",
+      "side": 1,
+      "message": "remove it for now, I will add it back if necessary.",
+      "parentUuid": "d3260d9c_09482de0",
+      "revId": "1c6c03f8b1044e6d9878d67a390dfcb2f456dc42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
