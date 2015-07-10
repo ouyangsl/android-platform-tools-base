@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1840c241_8481b6da",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-10T11:27:20Z",
+      "side": 1,
+      "message": "probably change Optional into Map directly and return emptyMap if there are no arguments.",
+      "revId": "590b927d56e308da6cb4e3d9516eb19ba69a1e12",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
