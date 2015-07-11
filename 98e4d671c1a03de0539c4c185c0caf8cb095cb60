@@ -19,6 +19,42 @@
     },
     {
       "key": {
+        "uuid": "78753eb8_5c25b1b7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-11T02:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f28255_c94249bf",
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58d23ae8_5b25cfb7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-11T02:46:59Z",
+      "side": 1,
+      "message": "The logger uses a whole directory structure to avoid reloading everything when doing an incremental merge, but I\u0027ll put them in a common log folder.",
+      "parentUuid": "18f28255_c94249bf",
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1867e20f_f8493183",
         "filename": "common/src/main/java/com/android/ide/common/blame/SourceFile.java",
         "patchSetId": 8
@@ -30,6 +66,24 @@
       "writtenOn": "2015-07-09T12:53:37Z",
       "side": 1,
       "message": "why is this necessary ?",
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "987af2a8_8af77487",
+        "filename": "common/src/main/java/com/android/ide/common/blame/SourceFile.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-11T02:46:59Z",
+      "side": 1,
+      "message": "Some tests were not using absolute files, I\u0027ll change them instead.",
+      "parentUuid": "1867e20f_f8493183",
       "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -76,6 +130,24 @@
     },
     {
       "key": {
+        "uuid": "38d586cf_57984451",
+        "filename": "common/src/main/java/com/android/utils/XmlUtils.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-11T02:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f28255_89de8185",
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d829ca86_374d9a42",
         "filename": "sdk-common/src/main/java/com/android/ide/common/blame/MergingLogPersistUtil.java",
         "patchSetId": 8
@@ -93,6 +165,24 @@
     },
     {
       "key": {
+        "uuid": "18dc42fc_9f78ffa0",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/blame/MergingLogPersistUtil.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-11T02:46:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d829ca86_374d9a42",
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f28255_49e8792d",
         "filename": "sdk-common/src/test/java/com/android/ide/common/res2/ResourceMergerTest.java",
         "patchSetId": 8
@@ -104,6 +194,24 @@
       "writtenOn": "2015-07-09T12:53:37Z",
       "side": 1,
       "message": "add comments with the variable names to all \"null\" values\n\nlike /* blameFolder */",
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38d586cf_57c4c408",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/res2/ResourceMergerTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-11T02:46:59Z",
+      "side": 1,
+      "message": "Done.\nCreated factory method to reduce duplication.",
+      "parentUuid": "18f28255_49e8792d",
       "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
