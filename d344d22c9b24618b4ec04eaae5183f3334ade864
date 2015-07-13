@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98e912d2_7ced593c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-13T12:55:39Z",
+      "side": 1,
+      "message": "Nit: You could use firstNonNull here as well, instead of the if statement above.",
+      "range": {
+        "startLine": 131,
+        "startChar": 28,
+        "endLine": 131,
+        "endChar": 40
+      },
+      "revId": "d344d22c9b24618b4ec04eaae5183f3334ade864",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
