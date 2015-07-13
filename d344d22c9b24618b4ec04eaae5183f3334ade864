@@ -22,6 +22,30 @@
       "revId": "d344d22c9b24618b4ec04eaae5183f3334ade864",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58d23ae8_c19c6c71",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/MergingException.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-13T17:46:42Z",
+      "side": 1,
+      "message": "I use it as fall-back for the original message text, so I\u0027d need to have that statement twice if I got rid of the if.",
+      "parentUuid": "98e912d2_7ced593c",
+      "range": {
+        "startLine": 131,
+        "startChar": 28,
+        "endLine": 131,
+        "endChar": 40
+      },
+      "revId": "d344d22c9b24618b4ec04eaae5183f3334ade864",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
