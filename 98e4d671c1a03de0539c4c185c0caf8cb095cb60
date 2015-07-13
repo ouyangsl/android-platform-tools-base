@@ -113,6 +113,30 @@
     },
     {
       "key": {
+        "uuid": "18dc42fc_cab247d0",
+        "filename": "common/src/main/java/com/android/ide/common/blame/SourcePosition.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-13T17:01:12Z",
+      "side": 1,
+      "message": "Good point - it is correct for SourcePositions from the same file, but doesn\u0027t make sense as a general comparator. I refactored it out.",
+      "parentUuid": "18f28255_298095d0",
+      "range": {
+        "startLine": 188,
+        "startChar": 15,
+        "endLine": 188,
+        "endChar": 27
+      },
+      "revId": "98e4d671c1a03de0539c4c185c0caf8cb095cb60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f28255_89de8185",
         "filename": "common/src/main/java/com/android/utils/XmlUtils.java",
         "patchSetId": 8
