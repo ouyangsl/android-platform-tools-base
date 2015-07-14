@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98975254_16c99948",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-14T19:45:51Z",
+      "side": 1,
+      "message": "remove space.",
+      "range": {
+        "startLine": 216,
+        "startChar": 21,
+        "endLine": 216,
+        "endChar": 22
+      },
+      "revId": "b01b07f4e04198e310afe0a39c98949b5c8fbf21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
