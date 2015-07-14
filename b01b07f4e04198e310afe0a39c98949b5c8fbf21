@@ -22,6 +22,52 @@
       "revId": "b01b07f4e04198e310afe0a39c98949b5c8fbf21",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "187d22ed_b1be22ac",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-14T19:47:47Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 706,
+        "startChar": 92,
+        "endLine": 706,
+        "endChar": 93
+      },
+      "revId": "b01b07f4e04198e310afe0a39c98949b5c8fbf21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9870321a_93f046dc",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-14T19:47:47Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 710,
+        "startChar": 76,
+        "endLine": 710,
+        "endChar": 77
+      },
+      "revId": "b01b07f4e04198e310afe0a39c98949b5c8fbf21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
