@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "98975254_d6a8f164",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-14T20:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98975254_16c99948",
+      "range": {
+        "startLine": 216,
+        "startChar": 21,
+        "endLine": 216,
+        "endChar": 22
+      },
+      "revId": "b01b07f4e04198e310afe0a39c98949b5c8fbf21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "187d22ed_b1be22ac",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "58987a8f_366510c2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-14T20:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "187d22ed_b1be22ac",
+      "range": {
+        "startLine": 706,
+        "startChar": 92,
+        "endLine": 706,
+        "endChar": 93
+      },
+      "revId": "b01b07f4e04198e310afe0a39c98949b5c8fbf21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9870321a_93f046dc",
         "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2015-07-14T19:47:47Z",
       "side": 1,
       "message": "space",
+      "range": {
+        "startLine": 710,
+        "startChar": 76,
+        "endLine": 710,
+        "endChar": 77
+      },
+      "revId": "b01b07f4e04198e310afe0a39c98949b5c8fbf21",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9870321a_3355d222",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-14T20:01:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9870321a_93f046dc",
       "range": {
         "startLine": 710,
         "startChar": 76,
