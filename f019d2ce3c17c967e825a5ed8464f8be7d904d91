@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "98975254_014eb8b9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/NamespaceDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1048338
+      },
+      "writtenOn": "2015-07-14T17:19:12Z",
+      "side": 1,
+      "message": "question: this check looks redundant to me, is it there to short-circuit the evaluation?",
+      "range": {
+        "startLine": 224,
+        "startChar": 32,
+        "endLine": 224,
+        "endChar": 40
+      },
+      "revId": "f019d2ce3c17c967e825a5ed8464f8be7d904d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
