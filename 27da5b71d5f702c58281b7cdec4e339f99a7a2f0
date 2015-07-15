@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "183e024a_20a04aaa",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:52:33Z",
+      "side": 1,
+      "message": "this is already in the dependency for Google Maps, so no need for this to appear in the template  - https://b.corp.google.com/issues/20079205",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 79
+      },
+      "revId": "27da5b71d5f702c58281b7cdec4e339f99a7a2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78f7fee1_e62ec0cb",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:52:33Z",
+      "side": 1,
+      "message": "this is already in the dependency for Google Maps, so no need for this to appear in the template  - https://b.corp.google.com/issues/20079205",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 77
+      },
+      "revId": "27da5b71d5f702c58281b7cdec4e339f99a7a2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3837466d_e15266e3",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:52:33Z",
+      "side": 1,
+      "message": "this is already in the dependency for Google Maps, so no need for this to appear in the template  - https://b.corp.google.com/issues/20079205",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 76
+      },
+      "revId": "27da5b71d5f702c58281b7cdec4e339f99a7a2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3837466d_0158aaff",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:52:33Z",
+      "side": 1,
+      "message": "this is already taken care  of in the Google Play services AAR dependency so no need to include in template: https://b.corp.google.com/issues/20071825",
+      "range": {
+        "startLine": 19,
+        "startChar": 7,
+        "endLine": 19,
+        "endChar": 121
+      },
+      "revId": "27da5b71d5f702c58281b7cdec4e339f99a7a2f0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
