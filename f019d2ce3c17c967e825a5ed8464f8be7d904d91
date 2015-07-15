@@ -22,6 +22,30 @@
       "revId": "f019d2ce3c17c967e825a5ed8464f8be7d904d91",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "183e024a_e3c34c00",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/NamespaceDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-07-15T20:58:21Z",
+      "side": 1,
+      "message": "Yes -- it\u0027s there to avoid creating a new string (XMLNS_PREFIX + APP_PREFIX) unless it\u0027s likely to succeed.",
+      "parentUuid": "98975254_014eb8b9",
+      "range": {
+        "startLine": 224,
+        "startChar": 32,
+        "endLine": 224,
+        "endChar": 40
+      },
+      "revId": "f019d2ce3c17c967e825a5ed8464f8be7d904d91",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
