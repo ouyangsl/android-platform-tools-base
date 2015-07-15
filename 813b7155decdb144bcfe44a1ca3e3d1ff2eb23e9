@@ -22,6 +22,30 @@
       "revId": "813b7155decdb144bcfe44a1ca3e3d1ff2eb23e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8404ed5_a2730091",
+        "filename": "build-system/integration-test/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-15T19:15:32Z",
+      "side": 1,
+      "message": "If the purpose is to have a shorter command line, you can just create an alias for it.  Unless there is another reason for it, I would prefer not to create another task.",
+      "parentUuid": "38e906fb_5161d406",
+      "range": {
+        "startLine": 52,
+        "startChar": 19,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "813b7155decdb144bcfe44a1ca3e3d1ff2eb23e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
