@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38e906fb_31cc1059",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/IOScheduleCodeChangeTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:19:45Z",
+      "side": 1,
+      "message": "Remove the commented values, or at least explain what\u0027s going on here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
