@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "985112ab_dcb14d84",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-15T12:58:25Z",
+      "side": 1,
+      "message": "you should be able to use Chris\u0027 framework, no ?\nhttps://android-review.googlesource.com/#/c/158316/",
+      "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38e906fb_31cc1059",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/IOScheduleCodeChangeTest.groovy",
         "patchSetId": 4
@@ -19,6 +36,23 @@
         "endLine": 39,
         "endChar": 42
       },
+      "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_fcb68979",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/IOScheduleResChangeTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-15T12:58:25Z",
+      "side": 1,
+      "message": "if you end up using Chris\u0027 stuff, u probably can merge the two tests.",
       "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
