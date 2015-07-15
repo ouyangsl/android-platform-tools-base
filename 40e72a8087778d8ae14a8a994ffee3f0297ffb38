@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "78f7fee1_069d5c6a",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/common/fixture/GradleTestProject.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1155,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-15T17:44:33Z",
+      "side": 1,
+      "message": "That\u0027s interesting. In this case I\u0027m not sure because restoring would also require another build (to restore the build folder), and that\u0027s not super useful. The other tests will simply do another (different) incremental build.",
+      "parentUuid": "985112ab_dcb14d84",
+      "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38e906fb_31cc1059",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/IOScheduleCodeChangeTest.groovy",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f8404ed5_9f697374",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/IOScheduleCodeChangeTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-15T17:44:33Z",
+      "side": 1,
+      "message": "I\u0027ll do that later (next  CL). I\u0027m going to enable these quickly",
+      "parentUuid": "38e906fb_31cc1059",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 42
+      },
+      "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "985112ab_fcb68979",
         "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/IOScheduleResChangeTest.groovy",
         "patchSetId": 4
@@ -53,6 +95,24 @@
       "writtenOn": "2015-07-15T12:58:25Z",
       "side": 1,
       "message": "if you end up using Chris\u0027 stuff, u probably can merge the two tests.",
+      "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78f7fee1_6c5e2ff4",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/performance/IOScheduleResChangeTest.groovy",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-15T17:44:33Z",
+      "side": 1,
+      "message": "Actually the reason I didn\u0027t merge them was because I didn\u0027t want this one to be parameterize. Though. now that I added the Resource Add change (following CL), I may want to parameterize it.",
+      "parentUuid": "985112ab_fcb68979",
       "revId": "40e72a8087778d8ae14a8a994ffee3f0297ffb38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
