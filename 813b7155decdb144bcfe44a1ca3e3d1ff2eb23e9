@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38e906fb_5161d406",
+        "filename": "build-system/integration-test/build.gradle",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T08:52:09Z",
+      "side": 1,
+      "message": "Maybe define a b:i:smokeTest task?",
+      "range": {
+        "startLine": 52,
+        "startChar": 19,
+        "endLine": 52,
+        "endChar": 29
+      },
+      "revId": "813b7155decdb144bcfe44a1ca3e3d1ff2eb23e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
