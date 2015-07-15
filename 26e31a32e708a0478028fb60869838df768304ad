@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38e906fb_513674ef",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "No need, the result is not modifiable.",
+      "range": {
+        "startLine": 180,
+        "startChar": 29,
+        "endLine": 180,
+        "endChar": 49
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e906fb_9123bcb2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "Just silently return?",
+      "range": {
+        "startLine": 201,
+        "startChar": 16,
+        "endLine": 201,
+        "endChar": 22
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e906fb_1130ecee",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "+ on the next line",
+      "range": {
+        "startLine": 215,
+        "startChar": 98,
+        "endLine": 215,
+        "endChar": 99
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_fc29a993",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "Remove the print statements?",
+      "range": {
+        "startLine": 217,
+        "startChar": 16,
+        "endLine": 217,
+        "endChar": 22
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8470aeb_fe00c10d",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "+ on the next line, indent",
+      "range": {
+        "startLine": 221,
+        "startChar": 94,
+        "endLine": 222,
+        "endChar": 21
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_9cd745e9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "Maybe we could add an overloaded version that takes a Runnable, to avoid Void and nulls?",
+      "range": {
+        "startLine": 296,
+        "startChar": 20,
+        "endLine": 296,
+        "endChar": 42
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8fdf6c1_4536aaef",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "It seems BuildAdapter provides a base class with empty methods. Use it here to override only the ones you care about.",
+      "range": {
+        "startLine": 349,
+        "startChar": 49,
+        "endLine": 349,
+        "endChar": 62
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_7cbfd9a9",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "indent",
+      "range": {
+        "startLine": 482,
+        "startChar": 12,
+        "endLine": 482,
+        "endChar": 25
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_3cc95149",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "+ on next line",
+      "range": {
+        "startLine": 667,
+        "startChar": 81,
+        "endLine": 667,
+        "endChar": 82
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e906fb_b1d7e0e8",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-15T10:16:33Z",
+      "side": 1,
+      "message": "+ on next line",
+      "range": {
+        "startLine": 704,
+        "startChar": 99,
+        "endLine": 704,
+        "endChar": 100
+      },
+      "revId": "26e31a32e708a0478028fb60869838df768304ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
