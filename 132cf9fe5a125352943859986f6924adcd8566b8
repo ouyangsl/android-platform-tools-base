@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78f7fee1_261df893",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:53:58Z",
+      "side": 1,
+      "message": "this is already in the dependency for Google Maps, so no need for this to appear in the template  - https://b.corp.google.com/issues/20079205",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 4,
+        "endChar": 79
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5834fa65_0290aa50",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:53:58Z",
+      "side": 1,
+      "message": "this is already in the dependency for Google Maps, so no need for this to appear in the template  - https://b.corp.google.com/issues/20079205",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8404ed5_5f4d2b8e",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:53:58Z",
+      "side": 1,
+      "message": "this is already in the dependency for Google Maps, so no need for this to appear in the template  - https://b.corp.google.com/issues/20079205",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 76
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3837466d_61473622",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1044603
+      },
+      "writtenOn": "2015-07-15T14:53:58Z",
+      "side": 1,
+      "message": "this is already taken care  of in the Google Play services AAR dependency: https://b.corp.google.com/issues/20071825",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 121
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
