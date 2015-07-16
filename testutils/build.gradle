@@ -1,5 +1,8 @@
 apply plugin: 'java'
+<<<<<<< HEAD   (bb99d7 Merge "resolve merge conflicts of a4b5aaa to studio-1.4-dev.)
 apply plugin: 'jacoco'
+=======
+>>>>>>> BRANCH (ee1dd1 Merge "Move lint issue registry check into builtin test" int)
 
 group = 'com.android.tools'
 archivesBaseName = 'testutils'
