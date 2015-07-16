@@ -1,5 +1,9 @@
 apply plugin: 'java'
+<<<<<<< HEAD   (f641c9 Merge "Trim spaces for user specified flags" into studio-1.4)
 apply plugin: 'jacoco'
+=======
+apply plugin: 'sdk-java-lib'
+>>>>>>> BRANCH (a4b5aa Merge "175161: Include testutils in distribution" into studi)
 
 group = 'com.android.tools'
 archivesBaseName = 'testutils'
@@ -15,3 +19,10 @@ sourceSets {
     main.resources.srcDir 'src/main/java'
     test.resources.srcDir 'src/test/java'
 }
+
+project.ext.pomName = 'Android Tools Test Utilities'
+project.ext.pomDesc = 'API used by lint testing infrastructure'
+
+apply from: "$rootDir/buildSrc/base/publish.gradle"
+apply from: "$rootDir/buildSrc/base/bintray.gradle"
+apply from: "$rootDir/buildSrc/base/javadoc.gradle"
