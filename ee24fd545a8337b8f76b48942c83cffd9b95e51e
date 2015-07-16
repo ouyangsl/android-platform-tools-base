@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "18f0c2db_162a1c32",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-16T12:29:22Z",
+      "side": 1,
+      "message": "we should have a generic \"res/\" outputdir method and both this method, and the one you added should use it as a parent directory.",
+      "range": {
+        "startLine": 361,
+        "startChar": 17,
+        "endLine": 361,
+        "endChar": 21
+      },
+      "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78f7fee1_5b6b19e6",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java",
         "patchSetId": 4
@@ -13,6 +36,41 @@
       "writtenOn": "2015-07-15T21:13:10Z",
       "side": 1,
       "message": "?final",
+      "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18f0c2db_d664949d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-16T12:29:22Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "78f7fee1_5b6b19e6",
+      "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8fdf6c1_0bb321d6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-16T12:29:22Z",
+      "side": 1,
+      "message": "this is not really an adoption. any reason why not calling this toXml() ?",
       "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

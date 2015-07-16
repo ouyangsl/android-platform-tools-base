@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8fdf6c1_4ba91966",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ApplicationTaskManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-16T12:29:22Z",
+      "side": 0,
+      "message": "comment the constant that it is now deprecated.",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18f0c2db_362d204a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-16T12:29:22Z",
+      "side": 0,
+      "message": "same.",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38e906fb_b45c6e74",
+        "filename": "build-system/profile/src/main/java/com/android/builder/profile/ExecutionType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-16T12:29:22Z",
+      "side": 0,
+      "message": "leave those and comment as deprecated.",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18f0c2db_f65f98c0",
+        "filename": "build-system/profile/src/main/java/com/android/builder/profile/ExecutionType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1041553
+      },
+      "writtenOn": "2015-07-16T12:29:22Z",
+      "side": 0,
+      "message": "same",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
