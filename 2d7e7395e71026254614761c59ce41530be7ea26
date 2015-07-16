@@ -1,0 +1,318 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "580f9ab1_ad1f8917",
+        "filename": ".idea/misc.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "You should exclude this file.",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "580f9ab1_8d24c572",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "You may use Guava: Sets.newHashSet()",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78de1e5c_9105fc83",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "Lists.newArrayList()\n\nI think usually we should add \"private List\u003cMethodInvocation\u003e\" to each member.",
+      "range": {
+        "startLine": 123,
+        "startChar": 63,
+        "endLine": 123,
+        "endChar": 79
+      },
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3812e6d8_cf33d131",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "No need to define the bool variable. Just\nif (!hasGMS(intent)) {\n...\n}",
+      "range": {
+        "startLine": 148,
+        "startChar": 25,
+        "endLine": 148,
+        "endChar": 26
+      },
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98e3d21e_157696b4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "com.android.tools.lint.detector.api.LintUtils has a util function getChildren",
+      "range": {
+        "startLine": 238,
+        "startChar": 53,
+        "endLine": 238,
+        "endChar": 56
+      },
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1809a2af_8b78316c",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "activitiesToCheck",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98e3d21e_1530d6ee",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "This error message is somewhat confusing. Maybe just \"Missing GoogleApiClient\"?",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1809a2af_6b5e1df4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "Missing app indexing api call?",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78de1e5c_11758cef",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "Usually we don\u0027t need to reset, IIUC, eachtime the detector was invoked, a new detector instance was created.",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3812e6d8_2f1dcd93",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "Try use \"LintUtils.getChildren\" to make it simpler",
+      "range": {
+        "startLine": 470,
+        "startChar": 48,
+        "endLine": 470,
+        "endChar": 68
+      },
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "580f9ab1_2d7ef924",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "lines too long",
+      "range": {
+        "startLine": 479,
+        "startChar": 98,
+        "endLine": 479,
+        "endChar": 112
+      },
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78de1e5c_91617c34",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "Don\u0027t just catch exception and do nothing, either solve it or throw it to the caller.",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1809a2af_2b682599",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "ditto, you may look at \"Effective Java\", don\u0027t use exception as control, just\nif (compilationUnit !\u003d null) {\n ...\n} else {\n ...\n}",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78de1e5c_114eacb9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "instance of ?",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78de1e5c_b4bd8605",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "a List but named set is confusing...\nMaybe List\u003c..\u003e methods",
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78de1e5c_94c28a79",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AppIndexingApiDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 1069977
+      },
+      "writtenOn": "2015-07-16T06:31:15Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 538,
+        "startChar": 63,
+        "endLine": 538,
+        "endChar": 79
+      },
+      "revId": "2d7e7395e71026254614761c59ce41530be7ea26",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
