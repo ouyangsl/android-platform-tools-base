@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "78f7fee1_c4ecca42",
+        "filename": "build-system/google-services/src/main/groovy/com/google/gms/googleservices/GoogleServicesPlugin.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-16T02:02:20Z",
+      "side": 1,
+      "message": "I would not submit this until you can change this to 8.0, or you\u0027ll forget and it\u0027ll fail.",
+      "range": {
+        "startLine": 34,
+        "startChar": 66,
+        "endLine": 34,
+        "endChar": 78
+      },
+      "revId": "eabf7cff4b78ff915016b17480bdcd4acba3604f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5834fa65_cb5e5d43",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/googleservices/BasicTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-16T02:02:20Z",
+      "side": 1,
+      "message": "Change to something that will work on our build server.",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 117
+      },
+      "revId": "eabf7cff4b78ff915016b17480bdcd4acba3604f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3837466d_ea0b1baf",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/googleservices/DisabledServiceTest.groovy",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-16T02:02:20Z",
+      "side": 1,
+      "message": "same.",
+      "range": {
+        "startLine": 69,
+        "startChar": 13,
+        "endLine": 69,
+        "endChar": 116
+      },
+      "revId": "eabf7cff4b78ff915016b17480bdcd4acba3604f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
