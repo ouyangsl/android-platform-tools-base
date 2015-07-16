@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38e906fb_d495b292",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1558,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-16T11:50:12Z",
+      "side": 1,
+      "message": "Why not e? This way we lose the stacktrace.",
+      "range": {
+        "startLine": 1558,
+        "startChar": 43,
+        "endLine": 1558,
+        "endChar": 57
+      },
+      "revId": "a45ccabfd81c4d856b137648f72da465a9ed7793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_5fa52f03",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/AndroidBuilder.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 1639,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-16T11:50:12Z",
+      "side": 1,
+      "message": "Can you add some JavaDoc here? What does it mean to convert a library to Jack? What are the input and output file formats?",
+      "range": {
+        "startLine": 1639,
+        "startChar": 29,
+        "endLine": 1639,
+        "endChar": 58
+      },
+      "revId": "a45ccabfd81c4d856b137648f72da465a9ed7793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_1f9fa7ad",
+        "filename": "build-system/builder/src/main/java/com/android/builder/core/BuildToolsServiceLoader.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-16T11:50:12Z",
+      "side": 1,
+      "message": "Nit: make it a second argument, it\u0027s not the most important one. Wouldn\u0027t it make more sense to keep that as a field in the loader?",
+      "range": {
+        "startLine": 187,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 31
+      },
+      "revId": "a45ccabfd81c4d856b137648f72da465a9ed7793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "985112ab_df793ff3",
+        "filename": "build-system/profile/src/main/java/com/android/builder/tasks/WorkQueue.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-16T11:50:12Z",
+      "side": 1,
+      "message": "Remove? We have the logging statement below.",
+      "range": {
+        "startLine": 229,
+        "startChar": 20,
+        "endLine": 229,
+        "endChar": 40
+      },
+      "revId": "a45ccabfd81c4d856b137648f72da465a9ed7793",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
