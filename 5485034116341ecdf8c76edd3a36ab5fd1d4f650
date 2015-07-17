@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "188c4286_1fcc8f58",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-17T19:57:42Z",
+      "side": 1,
+      "message": "What do you think about returning the signing info as a struct (or a list of strings) instead of calling into the methods twice each?",
+      "range": {
+        "startLine": 808,
+        "startChar": 12,
+        "endLine": 808,
+        "endChar": 62
+      },
+      "revId": "5485034116341ecdf8c76edd3a36ab5fd1d4f650",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
