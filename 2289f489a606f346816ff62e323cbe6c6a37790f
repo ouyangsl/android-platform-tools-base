@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18d1a28c_082007d3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/profile/SpanRecorders.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T09:51:22Z",
+      "side": 1,
+      "message": "Fits on the previous line.",
+      "range": {
+        "startLine": 53,
+        "startChar": 16,
+        "endLine": 53,
+        "endChar": 34
+      },
+      "revId": "2289f489a606f346816ff62e323cbe6c6a37790f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
