@@ -46,6 +46,52 @@
       "revId": "463617bdde2678b8424cf4cc6c307310965958a3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8754a3f_37541a97",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-17T16:57:59Z",
+      "side": 1,
+      "message": "this particular case is a bit weird. this is not a gradle external option. This is a property of the project that\u0027s defined by some plugin (and therefore could be optional).\n\nI know on the technical layer it\u0027s the same access, but the meaning is different.",
+      "range": {
+        "startLine": 256,
+        "startChar": 29,
+        "endLine": 256,
+        "endChar": 49
+      },
+      "revId": "463617bdde2678b8424cf4cc6c307310965958a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "188c4286_7954db49",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 815,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-17T16:57:59Z",
+      "side": 1,
+      "message": "You\u0027d need to replace this too. Otherwise you\u0027re only hiding half of the usage of the properties.",
+      "range": {
+        "startLine": 812,
+        "startChar": 12,
+        "endLine": 815,
+        "endChar": 66
+      },
+      "revId": "463617bdde2678b8424cf4cc6c307310965958a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
