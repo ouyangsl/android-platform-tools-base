@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "787a9e34_91287cbf",
+        "filename": "common/src/test/java/com/android/utils/SdkUtilsTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-17T01:20:00Z",
+      "side": 1,
+      "message": "Add a TODO to make the test use a Files.createTempDir() as the parent of all the paths in this test.",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 25
+      },
+      "revId": "440b01df991b51409fa474d84be9ded54a314610",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
