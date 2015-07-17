@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b817b6fa_1593f463",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/ApplicationTaskManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "b8fdf6c1_4ba91966",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f0c2db_362d204a",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-16T12:29:22Z",
       "side": 0,
       "message": "same.",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b817b6fa_75a068ab",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/LibraryTaskManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "18f0c2db_362d204a",
       "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "b817b6fa_3596f053",
+        "filename": "build-system/profile/src/main/java/com/android/builder/profile/ExecutionType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 0,
+      "message": "Why do we want to keep them? These two are actually duplicates of each other, I created the other one by mistake. They were never really used for anything...",
+      "parentUuid": "38e906fb_b45c6e74",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "18f0c2db_f65f98c0",
         "filename": "build-system/profile/src/main/java/com/android/builder/profile/ExecutionType.java",
         "patchSetId": 4
@@ -64,6 +118,24 @@
       "writtenOn": "2015-07-16T12:29:22Z",
       "side": 0,
       "message": "same",
+      "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8d3ee93_c737fe0a",
+        "filename": "build-system/profile/src/main/java/com/android/builder/profile/ExecutionType.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "18f0c2db_f65f98c0",
       "revId": "98331f589555962575a3a0f898b78a1b07dd7d2b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false

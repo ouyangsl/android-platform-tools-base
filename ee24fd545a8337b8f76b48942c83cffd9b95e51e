@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f8ba0e36_8f3d15ef",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f0c2db_162a1c32",
+      "range": {
+        "startLine": 361,
+        "startChar": 17,
+        "endLine": 361,
+        "endChar": 21
+      },
+      "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78f7fee1_5b6b19e6",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java",
         "patchSetId": 4
@@ -60,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "18d1a28c_e8849318",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f0c2db_d664949d",
+      "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8fdf6c1_0bb321d6",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java",
         "patchSetId": 4
@@ -77,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "18d1a28c_c889cf2e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 1,
+      "message": "Renamed the base method.",
+      "parentUuid": "b8fdf6c1_0bb321d6",
+      "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5834fa65_62fbb6ef",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
         "patchSetId": 4
@@ -88,6 +148,24 @@
       "writtenOn": "2015-07-15T21:13:10Z",
       "side": 1,
       "message": "Comment to explain this logic?",
+      "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "18d1a28c_087c8793",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-17T11:37:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5834fa65_62fbb6ef",
       "revId": "ee24fd545a8337b8f76b48942c83cffd9b95e51e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
