@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "386e667b_2cd93b97",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/AndroidGradleOptions.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-17T01:17:23Z",
+      "side": 1,
+      "message": "Would it make sense to move all of the definitions here too?",
+      "range": {
+        "startLine": 67,
+        "startChar": 50,
+        "endLine": 67,
+        "endChar": 75
+      },
+      "revId": "463617bdde2678b8424cf4cc6c307310965958a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
