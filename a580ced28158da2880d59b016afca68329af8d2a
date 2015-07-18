@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8754a3f_0b4e920f",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-18T00:10:23Z",
+      "side": 1,
+      "message": "I would do this on the first line of apply to make sure it\u0027s applied as early as possible.",
+      "range": {
+        "startLine": 340,
+        "startChar": 8,
+        "endLine": 340,
+        "endChar": 25
+      },
+      "revId": "a580ced28158da2880d59b016afca68329af8d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d8754a3f_2b7eee24",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BasePlugin.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-18T00:10:23Z",
+      "side": 1,
+      "message": "why not just rely on the test below?",
+      "range": {
+        "startLine": 422,
+        "startChar": 39,
+        "endLine": 422,
+        "endChar": 88
+      },
+      "revId": "a580ced28158da2880d59b016afca68329af8d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f88e8e7f_b8847817",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/internal/ExecutorSingleton.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-18T00:10:23Z",
+      "side": 1,
+      "message": "param should use the s prefix",
+      "range": {
+        "startLine": 54,
+        "startChar": 45,
+        "endLine": 54,
+        "endChar": 47
+      },
+      "revId": "a580ced28158da2880d59b016afca68329af8d2a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
