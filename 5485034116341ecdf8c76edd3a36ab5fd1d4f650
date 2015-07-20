@@ -22,6 +22,30 @@
       "revId": "5485034116341ecdf8c76edd3a36ab5fd1d4f650",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "58aebafa_f21f6816",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/VariantManager.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-20T08:44:39Z",
+      "side": 1,
+      "message": "Good idea.",
+      "parentUuid": "188c4286_1fcc8f58",
+      "range": {
+        "startLine": 808,
+        "startChar": 12,
+        "endLine": 808,
+        "endChar": 62
+      },
+      "revId": "5485034116341ecdf8c76edd3a36ab5fd1d4f650",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
