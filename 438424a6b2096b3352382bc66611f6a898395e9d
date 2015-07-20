@@ -16,6 +16,24 @@
       "revId": "438424a6b2096b3352382bc66611f6a898395e9d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "584a3a43_128f6cb1",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/ActionBarIconGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-20T20:59:57Z",
+      "side": 0,
+      "message": "Here is the reason: \nPreviously, I don\u0027t have a VectorIconGenerator, so I basically rely on a this density \u003d\u003d ANYDPI flag to differentiate we are working on Vector icon. \n\nNow having VectorIconGenerator, I can move the generation logic over there, cleaner and better. Therefore I can remove this part for good.",
+      "parentUuid": "786d3eb3_13d84ce5",
+      "revId": "438424a6b2096b3352382bc66611f6a898395e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

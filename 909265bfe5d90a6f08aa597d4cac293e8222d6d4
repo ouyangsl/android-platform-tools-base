@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "78429e31_ab4d4914",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-20T20:59:57Z",
+      "side": 1,
+      "message": "OK, I will separate the reading and overriding parts into 2 functions, a little bit of duplicate part, but hopefully more readable.\n\nA little bit on why this comes in this shape: \nUltimately, I wanna minimize the times we parse the whole XML file content (already in String object now).\n\nTechnically, I need to override the size, and at the same time, read back the original size info.\n\nAnd the reason I wanna read back the original size is that for a random svg with random aspect ratio, I think it will be nice that user have a chance to see and keep its own aspect ratio (size).",
+      "parentUuid": "384d865a_5189f4a8",
+      "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b83896b1_0dbcb124",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "384d865a_746b46e6",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-20T20:59:57Z",
+      "side": 1,
+      "message": "Currently, it will not show any image, it will show this error message in the error report area. Sounds good ?\n\nAnyway, this should rarely happen. And the image is guaranteed to be like one pixel width line. So drawing that line didn\u0027t help further for the user to triage.",
+      "parentUuid": "b83896b1_0dbcb124",
+      "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9847523e_8c5fc7c1",
         "filename": "asset-studio/src/test/java/com/android/assetstudiolib/GeneratorTest.java",
         "patchSetId": 3
@@ -47,6 +83,24 @@
       "writtenOn": "2015-07-20T19:51:15Z",
       "side": 1,
       "message": "debug code",
+      "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "584a3a43_12204c2c",
+        "filename": "asset-studio/src/test/java/com/android/assetstudiolib/GeneratorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-20T20:59:57Z",
+      "side": 1,
+      "message": "Ah, thanks !\nDone",
+      "parentUuid": "9847523e_8c5fc7c1",
       "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
