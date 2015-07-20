@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "384d865a_5189f4a8",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-20T19:51:15Z",
+      "side": 1,
+      "message": "As mentioned in the other change, the fact that srcSize (at least, maybe the other parameters as well) is modified here is pretty confusing.",
+      "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b83896b1_0dbcb124",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-20T19:51:15Z",
+      "side": 1,
+      "message": "In this case we still try to draw, it looks like. What will happen in this case? You\u0027ll just get something drawn that doesn\u0027t look exactly right?",
+      "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9847523e_8c5fc7c1",
+        "filename": "asset-studio/src/test/java/com/android/assetstudiolib/GeneratorTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-20T19:51:15Z",
+      "side": 1,
+      "message": "debug code",
+      "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "786d3eb3_13d84ce5",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/ActionBarIconGenerator.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-07-20T19:51:15Z",
+      "side": 0,
+      "message": "Why was this needed before and no longer needed now?",
+      "revId": "438424a6b2096b3352382bc66611f6a898395e9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
