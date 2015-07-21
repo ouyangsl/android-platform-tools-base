@@ -22,6 +22,30 @@
       "revId": "644ec5a9a348d979e2d1bd15c20164994ec6aacb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d471267_86678cc3",
+        "filename": "build-system/integration-test/test-projects/commonHeader.gradle",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:07:15Z",
+      "side": 1,
+      "message": "These are test properties so it\u0027s less necessary, but why not.",
+      "parentUuid": "2d0b8619_98cdb5aa",
+      "range": {
+        "startLine": 23,
+        "startChar": 21,
+        "endLine": 23,
+        "endChar": 68
+      },
+      "revId": "644ec5a9a348d979e2d1bd15c20164994ec6aacb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
