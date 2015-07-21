@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "d83d4aa0_426be217",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-07-21T18:58:30Z",
+      "side": 1,
+      "message": "Michal, this is not something we want people to play with, at least not for now. I don\u0027t know much gradle though so if there is a proper way to do it (besides letting build files change it in a convenient way), can you add more details?",
+      "parentUuid": "4d399acf_7128d8ba",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 44,
+        "endChar": 75
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2df2a655_20278ae9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
         "patchSetId": 10
@@ -82,6 +106,30 @@
       "writtenOn": "2015-07-21T11:03:25Z",
       "side": 1,
       "message": "What will this do? Should we handle errors somehow, use gradle logger, etc?",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d9c722b_1bd41b31",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-07-21T18:58:30Z",
+      "side": 1,
+      "message": "When data binding processor finds errors, we try to defer them if possible so that we can collect as many errors as possible. \nScope.assertNoError simply checks if we\u0027ve deferred any errors and if we did, throw an exception with a complete log. We configure it to throw machine readable error if invoked from IDE (the same param android plugin uses). FYI, the same class is also used in the annotation processor.",
+      "parentUuid": "2df2a655_20278ae9",
       "range": {
         "startLine": 46,
         "startChar": 7,
@@ -145,6 +193,30 @@
       "writtenOn": "2015-07-21T11:03:25Z",
       "side": 1,
       "message": "Add a comment to explain why this is?",
+      "range": {
+        "startLine": 208,
+        "startChar": 20,
+        "endLine": 208,
+        "endChar": 54
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "185442e3_cda61ecc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1060337
+      },
+      "writtenOn": "2015-07-21T18:58:30Z",
+      "side": 1,
+      "message": "LayoutXmlProcessor has to know whether it is processing a library variant or application/test variant. This seems hacky but couldn\u0027t find a more proper way to check this.",
+      "parentUuid": "4deb5a63_413852fa",
       "range": {
         "startLine": 208,
         "startChar": 20,
