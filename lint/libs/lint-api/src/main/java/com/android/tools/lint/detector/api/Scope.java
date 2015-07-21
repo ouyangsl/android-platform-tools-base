@@ -261,4 +261,7 @@ public enum Scope {
     /** Scope-set used for detectors which are affected by a single binary resource file */
     public static final EnumSet<Scope> BINARY_RESOURCE_FILE_SCOPE =
             EnumSet.of(BINARY_RESOURCE_FILE);
+    /** Scope-set used for detectors which are affected by Java source files and manifest files */
+    public static final EnumSet<Scope> MANIFEST_AND_JAVA_SCOPE =
+            EnumSet.of(JAVA_FILE, MANIFEST);
 }
