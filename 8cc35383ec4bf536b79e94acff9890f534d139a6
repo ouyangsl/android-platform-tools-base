@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "8d19d274_33ea489a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/IncrementalTask.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T16:37:38Z",
+      "side": 1,
+      "message": "See my other comment.",
+      "parentUuid": "b83896b1_01f63a88",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 39
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "185442e3_57d55bac",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
         "patchSetId": 6
@@ -94,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "ed296e86_eee3bfc0",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T16:37:38Z",
+      "side": 1,
+      "message": "Hm, I need to see why this was not caught by integration tests.",
+      "parentUuid": "185442e3_57d55bac",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8568eec_f8a64599",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
         "patchSetId": 6
@@ -105,6 +153,30 @@
       "writtenOn": "2015-07-21T16:05:01Z",
       "side": 1,
       "message": "I\u0027d like to understand why you need this.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 44
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd24aaaf_adbc9da3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T16:37:38Z",
+      "side": 1,
+      "message": "This is for integration testing, to make sure builds were incremental (since in most cases we swallow errors and fall back to full builds). I can remove this or do this only if running from tests - would that be OK?",
+      "parentUuid": "f8568eec_f8a64599",
       "range": {
         "startLine": 167,
         "startChar": 8,
