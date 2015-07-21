@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2df2a655_009a4645",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/PreprocessingOptions.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T18:23:30Z",
+      "side": 1,
+      "message": "For now I will go with all recommended densities. We can change it in a separate CL.",
+      "parentUuid": "6d849ecc_c286c29b",
+      "range": {
+        "startLine": 37,
+        "startChar": 17,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78429e31_5aebc9ee",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2015-07-21T16:05:01Z",
       "side": 1,
       "message": "does this need to be public?",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 10
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed296e86_ce96c31f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T18:23:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78429e31_5aebc9ee",
       "range": {
         "startLine": 360,
         "startChar": 4,
@@ -142,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "cd24aaaf_ad413d0d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T18:23:30Z",
+      "side": 1,
+      "message": "Hm, because it only stops the current task, I didn\u0027t know that.",
+      "parentUuid": "ed296e86_eee3bfc0",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8568eec_f8a64599",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
         "patchSetId": 6
@@ -200,6 +272,30 @@
       "writtenOn": "2015-07-21T16:05:01Z",
       "side": 1,
       "message": "why did you rename this?",
+      "range": {
+        "startLine": 675,
+        "startChar": 9,
+        "endLine": 675,
+        "endChar": 22
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad33f6f3_ac25c35d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T18:23:30Z",
+      "side": 1,
+      "message": "Jerome asked me to:\n\nhttps://android-review.googlesource.com/#/c/158444/4/sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java@61",
+      "parentUuid": "8d471267_4672b48c",
       "range": {
         "startLine": 675,
         "startChar": 9,
