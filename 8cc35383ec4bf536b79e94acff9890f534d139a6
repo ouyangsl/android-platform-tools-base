@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d849ecc_c286c29b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/dsl/PreprocessingOptions.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:05:01Z",
+      "side": 1,
+      "message": "all the possibly dependencies would be a better set (at least the one that returns true for isRecommended). Otherwise, we could also look at what densities there are in the project and use the same ones.",
+      "range": {
+        "startLine": 37,
+        "startChar": 17,
+        "endLine": 37,
+        "endChar": 51
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "78429e31_5aebc9ee",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/VariantScope.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:05:01Z",
+      "side": 1,
+      "message": "does this need to be public?",
+      "range": {
+        "startLine": 360,
+        "startChar": 4,
+        "endLine": 360,
+        "endChar": 10
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b83896b1_01f63a88",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/IncrementalTask.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:05:01Z",
+      "side": 1,
+      "message": "is this really needed?",
+      "range": {
+        "startLine": 50,
+        "startChar": 19,
+        "endLine": 50,
+        "endChar": 39
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "185442e3_57d55bac",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:05:01Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 157,
+        "startChar": 22,
+        "endLine": 157,
+        "endChar": 44
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_f8a64599",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:05:01Z",
+      "side": 1,
+      "message": "I\u0027d like to understand why you need this.",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 44
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d471267_4672b48c",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:05:01Z",
+      "side": 1,
+      "message": "why did you rename this?",
+      "range": {
+        "startLine": 675,
+        "startChar": 9,
+        "endLine": 675,
+        "endChar": 22
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f8568eec_58b671c6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-21T16:05:01Z",
+      "side": 1,
+      "message": "extra blank line",
+      "range": {
+        "startLine": 362,
+        "startChar": 16,
+        "endLine": 362,
+        "endChar": 26
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
