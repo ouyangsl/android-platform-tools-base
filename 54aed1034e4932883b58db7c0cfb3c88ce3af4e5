@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d19d274_b3153874",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2055,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "Can you add a comment why we need to handle both?",
+      "range": {
+        "startLine": 2047,
+        "startChar": 8,
+        "endLine": 2055,
+        "endChar": 5
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4deb5a63_813e5ae8",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "Empty line between between the method and the fields.",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 15
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d399acf_7128d8ba",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "Using fields directly will by-pass Gradle\u0027s convention mapping - was this a conscious choise?",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 44,
+        "endChar": 75
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2df2a655_20278ae9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "What will this do? Should we handle errors somehow, use gradle logger, etc?",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d8e26f0_8043d668",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "Empty line above.",
+      "range": {
+        "startLine": 92,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 92
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4deb5a63_6143566a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "Revert?",
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4deb5a63_413852fa",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "Add a comment to explain why this is?",
+      "range": {
+        "startLine": 208,
+        "startChar": 20,
+        "endLine": 208,
+        "endChar": 54
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad33f6f3_8c71e7d2",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "getDataBinding would be less surprising in the DSL. Here and in AndroidConfig.",
+      "range": {
+        "startLine": 500,
+        "startChar": 30,
+        "endLine": 500,
+        "endChar": 51
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d432251_cf18fdad",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/databinding/DatabindingTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "We don\u0027t use android sPrefix in integration tests.",
+      "range": {
+        "startLine": 33,
+        "startChar": 42,
+        "endLine": 33,
+        "endChar": 50
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d0b8619_d84e8d8e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/databinding/DatabindingTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-21T11:03:25Z",
+      "side": 1,
+      "message": "Nit: static import",
+      "range": {
+        "startLine": 54,
+        "startChar": 20,
+        "endLine": 54,
+        "endChar": 33
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
