@@ -16,6 +16,24 @@
       "revId": "0caf200c2c465a7318a3e0f156c17b8fe18b2f90",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d335a20_a1951e4d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/resources/ResourceResolver.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1064724
+      },
+      "writtenOn": "2015-07-22T12:19:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8da3927f_6306e25b",
+      "revId": "0caf200c2c465a7318a3e0f156c17b8fe18b2f90",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
