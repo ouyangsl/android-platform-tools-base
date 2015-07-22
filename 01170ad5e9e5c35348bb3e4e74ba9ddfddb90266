@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edc5ee24_912f9e8d",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkNamingScheme.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-22T00:48:54Z",
+      "side": 1,
+      "message": "maybe ndkBuildX rather than buildXNdk, which sounds like the NDK is being built.",
+      "range": {
+        "startLine": 75,
+        "startChar": 45,
+        "endLine": 75,
+        "endChar": 48
+      },
+      "revId": "01170ad5e9e5c35348bb3e4e74ba9ddfddb90266",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
