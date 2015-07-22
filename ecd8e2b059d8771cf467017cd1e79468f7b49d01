@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "188c4286_397653b5",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 2046,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-22T00:29:35Z",
+      "side": 1,
+      "message": "this should never be null at the point this is called.\nShould probably be set for javacTask and jackTask (if jackTask is not null)",
+      "range": {
+        "startLine": 2046,
+        "startChar": 12,
+        "endLine": 2046,
+        "endChar": 28
+      },
+      "revId": "ecd8e2b059d8771cf467017cd1e79468f7b49d01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8709650_73a2b8fe",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/databinding/DatabindingTest.groovy",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-22T00:29:35Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 38,
+        "startChar": 5,
+        "endLine": 41,
+        "endChar": 7
+      },
+      "revId": "ecd8e2b059d8771cf467017cd1e79468f7b49d01",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
