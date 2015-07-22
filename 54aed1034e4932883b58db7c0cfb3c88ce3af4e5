@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0d3de2ed_ffd05f43",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2055,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-22T09:00:32Z",
+      "side": 1,
+      "message": "One thing to remember is that we do compile with javac for unit tests, even if javaCompilerTask is jack.",
+      "parentUuid": "6dd2dee8_722798ba",
+      "range": {
+        "startLine": 2047,
+        "startChar": 8,
+        "endLine": 2055,
+        "endChar": 5
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4deb5a63_813e5ae8",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
         "patchSetId": 10
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "2d3aa6f6_40da4e62",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-22T09:00:32Z",
+      "side": 1,
+      "message": "The convention mapping mechanism allows us to delay the computation of task properties. The only case where it may affect you, seems to be if a user/plugin changes the output dir of mergeResources. Just check with Chris if this is something you want to support.",
+      "parentUuid": "d83d4aa0_426be217",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 44,
+        "endChar": 75
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2df2a655_20278ae9",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
         "patchSetId": 10
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "When data binding processor finds errors, we try to defer them if possible so that we can collect as many errors as possible. \nScope.assertNoError simply checks if we\u0027ve deferred any errors and if we did, throw an exception with a complete log. We configure it to throw machine readable error if invoked from IDE (the same param android plugin uses). FYI, the same class is also used in the annotation processor.",
       "parentUuid": "2df2a655_20278ae9",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad4db6b0_7cd45932",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-22T09:00:32Z",
+      "side": 1,
+      "message": "Make sense. Please just make sure the error message is printed correctly without the --stracktrace flag as well.\n\nAnother idea - should we catch the exception here and print a link to documentation before re-throwing it? Like we do in \n\nhttps://android.googlesource.com/platform/tools/base/+/studio-1.4-dev/build-system/manifest-merger/src/main/java/com/android/manifmerger/MergingReport.java#78",
+      "parentUuid": "8d9c722b_1bd41b31",
       "range": {
         "startLine": 46,
         "startChar": 7,
@@ -230,6 +302,29 @@
         "startChar": 7,
         "endLine": 92,
         "endChar": 92
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d335a20_e1cd66a9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-22T09:00:32Z",
+      "side": 1,
+      "message": "I would prefer variantData.getType().exportsDataBindingClassList() or similar, in case we add more variant types in the future.",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 79
       },
       "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
@@ -307,6 +402,30 @@
       "side": 1,
       "message": "LayoutXmlProcessor has to know whether it is processing a library variant or application/test variant. This seems hacky but couldn\u0027t find a more proper way to check this.",
       "parentUuid": "4deb5a63_413852fa",
+      "range": {
+        "startLine": 208,
+        "startChar": 20,
+        "endLine": 208,
+        "endChar": 54
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8da3927f_03d4ce30",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-22T09:00:32Z",
+      "side": 1,
+      "message": "And what is the difference from the point of view of the processor? \n\nI would use getType() here, e.g. \n\ngetType() \u003d\u003d VariantType.LIBRARY\n\nNow the question is what should happen for UNIT_TEST or ANDROID_TEST variants? If they are not supported, we should have a checkState at the top.\n\nMaybe it would be better to add a method to VariantType and call it like this:\n\ngetType().shouldDataBindingDoX()",
+      "parentUuid": "185442e3_cda61ecc",
       "range": {
         "startLine": 208,
         "startChar": 20,
