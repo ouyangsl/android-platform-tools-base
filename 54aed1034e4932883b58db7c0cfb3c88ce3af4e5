@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "cdc02a18_a7d05642",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 2055,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-23T03:26:25Z",
+      "side": 1,
+      "message": "Cleaned this up and added a throw InvalidUserDataException here to prevent later issues.",
+      "parentUuid": "0d3de2ed_ffd05f43",
+      "range": {
+        "startLine": 2047,
+        "startChar": 8,
+        "endLine": 2055,
+        "endChar": 5
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4deb5a63_813e5ae8",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
         "patchSetId": 10
@@ -179,6 +203,30 @@
       "side": 1,
       "message": "The convention mapping mechanism allows us to delay the computation of task properties. The only case where it may affect you, seems to be if a user/plugin changes the output dir of mergeResources. Just check with Chris if this is something you want to support.",
       "parentUuid": "d83d4aa0_426be217",
+      "range": {
+        "startLine": 44,
+        "startChar": 36,
+        "endLine": 44,
+        "endChar": 75
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dd51ace_b3ef327a",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-23T03:26:25Z",
+      "side": 1,
+      "message": "Moved to use the getters. I suspect that eventually we want an API for custom resource processing tasks.",
+      "parentUuid": "2d3aa6f6_40da4e62",
       "range": {
         "startLine": 44,
         "startChar": 36,
@@ -332,6 +380,30 @@
     },
     {
       "key": {
+        "uuid": "8d7552bb_07a7e606",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/databinding/DataBindingExportBuildInfoTask.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-23T03:26:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d335a20_e1cd66a9",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 79
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4deb5a63_6143566a",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
         "patchSetId": 10
@@ -426,6 +498,30 @@
       "side": 1,
       "message": "And what is the difference from the point of view of the processor? \n\nI would use getType() here, e.g. \n\ngetType() \u003d\u003d VariantType.LIBRARY\n\nNow the question is what should happen for UNIT_TEST or ANDROID_TEST variants? If they are not supported, we should have a checkState at the top.\n\nMaybe it would be better to add a method to VariantType and call it like this:\n\ngetType().shouldDataBindingDoX()",
       "parentUuid": "185442e3_cda61ecc",
+      "range": {
+        "startLine": 208,
+        "startChar": 20,
+        "endLine": 208,
+        "endChar": 54
+      },
+      "revId": "54aed1034e4932883b58db7c0cfb3c88ce3af4e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "edc5ee24_3d31db74",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-23T03:26:25Z",
+      "side": 1,
+      "message": "I had missed the addition of VariantType. I\u0027ll use getType() \u003d\u003d VariantType.LIBRARY for the moment.",
+      "parentUuid": "8da3927f_03d4ce30",
       "range": {
         "startLine": 208,
         "startChar": 20,
