@@ -285,6 +285,30 @@
     },
     {
       "key": {
+        "uuid": "6d301e13_22de2e8d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-23T15:22:28Z",
+      "side": 1,
+      "message": "I removed this for now, will re-enable for tests only in another CL.",
+      "parentUuid": "cd7bcaab_f7b293cf",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 44
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d471267_4672b48c",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
         "patchSetId": 6
