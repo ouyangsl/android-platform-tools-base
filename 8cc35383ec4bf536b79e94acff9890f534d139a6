@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "cd7bcaab_f7b293cf",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/MergeResources.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-23T15:07:58Z",
+      "side": 1,
+      "message": "yeah doing this only for tests would be better.",
+      "parentUuid": "cd24aaaf_adbc9da3",
+      "range": {
+        "startLine": 167,
+        "startChar": 8,
+        "endLine": 167,
+        "endChar": 44
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d471267_4672b48c",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
         "patchSetId": 6
@@ -296,6 +320,30 @@
       "side": 1,
       "message": "Jerome asked me to:\n\nhttps://android-review.googlesource.com/#/c/158444/4/sdk-common/src/main/java/com/android/ide/common/res2/GeneratedResourceItem.java@61",
       "parentUuid": "8d471267_4672b48c",
+      "range": {
+        "startLine": 675,
+        "startChar": 9,
+        "endLine": 675,
+        "endChar": 22
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dd51ace_3955614b",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-23T15:07:58Z",
+      "side": 1,
+      "message": "This returns NodeUtils.adoptNode though, which is counter to what Jerome said. It does adopt a node.",
+      "parentUuid": "ad33f6f3_ac25c35d",
       "range": {
         "startLine": 675,
         "startChar": 9,
