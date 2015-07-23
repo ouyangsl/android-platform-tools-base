@@ -404,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "2ddc66fc_77545fd4",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1001414
+      },
+      "writtenOn": "2015-07-23T17:11:00Z",
+      "side": 1,
+      "message": "oh I see now. sgtm.",
+      "parentUuid": "6d301e13_02404ab6",
+      "range": {
+        "startLine": 675,
+        "startChar": 9,
+        "endLine": 675,
+        "endChar": 22
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8568eec_58b671c6",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
         "patchSetId": 6
