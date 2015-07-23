@@ -356,6 +356,30 @@
     },
     {
       "key": {
+        "uuid": "6d301e13_02404ab6",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceItem.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-23T15:11:29Z",
+      "side": 1,
+      "message": "It does here, but the mechanism is generic. This is declared in DataItem and there\u0027s another implementation in GeneratedResourceItem that does not adopt anything.",
+      "parentUuid": "4dd51ace_3955614b",
+      "range": {
+        "startLine": 675,
+        "startChar": 9,
+        "endLine": 675,
+        "endChar": 22
+      },
+      "revId": "8cc35383ec4bf536b79e94acff9890f534d139a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8568eec_58b671c6",
         "filename": "sdk-common/src/main/java/com/android/ide/common/res2/ResourceMerger.java",
         "patchSetId": 6
