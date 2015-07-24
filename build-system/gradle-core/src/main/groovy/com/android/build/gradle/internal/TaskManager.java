@@ -130,6 +130,11 @@ import com.android.sdklib.IAndroidTarget;
 import com.android.utils.StringHelper;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Function;
+<<<<<<< HEAD   (8be938 Merge "A ProcessOutputHandler for each build step." into stu)
+=======
+import com.google.common.base.Optional;
+import com.google.common.base.Objects;
+>>>>>>> BRANCH (84da71 Merge "Fix issue with input of ProcessAndroidResource" into )
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
@@ -547,6 +552,8 @@ public abstract class TaskManager {
                 scope.getVariantData().prepareDependenciesTask,
                 scope.getResourceGenTask());
         scope.setMergeResourcesTask(mergeResourcesTask);
+        scope.setResourceOutputDir(
+                Objects.firstNonNull(outputLocation, scope.getDefaultMergeResourcesOutputDir()));
         return scope.getMergeResourcesTask();
     }
 
@@ -586,6 +593,64 @@ public abstract class TaskManager {
         scope.getResourceGenTask().dependsOn(tasks, generateResValuesTask);
     }
 
+<<<<<<< HEAD   (8be938 Merge "A ProcessOutputHandler for each build step." into stu)
+=======
+    public void createPreprocessResourcesTask(
+            @NonNull TaskFactory tasks,
+            @NonNull final VariantScope scope) {
+        if (!"true".equals(
+                project.getProperties().get(
+                        "com.android.build.gradle.experimentalPreprocessResources"))) {
+            return;
+        }
+
+        final BaseVariantData<? extends BaseVariantOutputData> variantData = scope.getVariantData();
+        int minSdk = variantData.getVariantConfiguration().getMinSdkVersion().getApiLevel();
+
+        if (extension.getPreprocessingOptions().getPreprocessResources()
+                && minSdk < PreprocessResourcesTask.MIN_SDK) {
+            // Otherwise mergeResources will rename files when merging and it's hard to keep track
+            // of PNGs that the user wanted to use instead of the generated ones.
+            checkArgument(extension.getBuildToolsRevision().compareTo(
+                            MergeResources.NORMALIZE_RESOURCES_BUILD_TOOLS) >= 0,
+                    "To preprocess resources, you have to use build tools >= %1$s",
+                    MergeResources.NORMALIZE_RESOURCES_BUILD_TOOLS);
+
+            scope.setPreprocessResourcesTask(androidTasks.create(
+                    tasks,
+                    scope.getTaskName("preprocess", "Resources"),
+                    PreprocessResourcesTask.class,
+                    new Action<PreprocessResourcesTask>() {
+                        @Override
+                        public void execute(PreprocessResourcesTask preprocessResourcesTask) {
+                            variantData.preprocessResourcesTask = preprocessResourcesTask;
+
+                            preprocessResourcesTask.dependsOn(variantData.mergeResourcesTask);
+
+                            preprocessResourcesTask.setVariantName(variantData.getName());
+
+                            String variantDirName =
+                                    variantData.getVariantConfiguration().getDirName();
+                            preprocessResourcesTask.setMergedResDirectory(
+                                    scope.getMergeResourcesOutputDir());
+                            preprocessResourcesTask.setGeneratedResDirectory(new File(
+                                    scope.getGlobalScope().getGeneratedDir(),
+                                    "res/pngs/" + variantDirName));
+                            preprocessResourcesTask.setOutputResDirectory(
+                                    scope.getPreprocessResourceOutputDir());
+                            preprocessResourcesTask.setIncrementalFolder(new File(
+                                    scope.getGlobalScope().getIntermediatesDir(),
+                                    "incremental/preprocessResourcesTask/" + variantDirName));
+
+                            preprocessResourcesTask.setDensitiesToGenerate(
+                                    extension.getPreprocessingOptions().getTypedDensities());
+                        }
+                    }));
+        }
+
+    }
+
+>>>>>>> BRANCH (84da71 Merge "Fix issue with input of ProcessAndroidResource" into )
     public void createProcessResTask(
             @NonNull TaskFactory tasks,
             @NonNull VariantScope scope,

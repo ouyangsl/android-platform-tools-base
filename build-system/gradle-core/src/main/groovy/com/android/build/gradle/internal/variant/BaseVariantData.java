@@ -648,11 +648,14 @@ public abstract class BaseVariantData<T extends BaseVariantOutputData> {
     }
 
     @NonNull
+<<<<<<< HEAD   (8be938 Merge "A ProcessOutputHandler for each build step." into stu)
     public File getFinalResourcesDir() {
         return mergeResourcesTask.getOutputDir();
     }
 
     @NonNull
+=======
+>>>>>>> BRANCH (84da71 Merge "Fix issue with input of ProcessAndroidResource" into )
     public VariantScope getScope() {
         return scope;
     }

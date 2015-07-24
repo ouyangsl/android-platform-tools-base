@@ -16,7 +16,11 @@
 package com.android.build.gradle.tasks;
 
 import com.android.annotations.NonNull;
+<<<<<<< HEAD   (8be938 Merge "A ProcessOutputHandler for each build step." into stu)
 import com.android.build.gradle.AndroidConfig;
+=======
+import com.android.annotations.Nullable;
+>>>>>>> BRANCH (84da71 Merge "Fix issue with input of ProcessAndroidResource" into )
 import com.android.build.gradle.internal.scope.ConventionMappingHelper;
 import com.android.build.gradle.internal.scope.TaskConfigAction;
 import com.android.build.gradle.internal.scope.VariantScope;
@@ -340,16 +344,19 @@ public class MergeResources extends IncrementalTask {
         @NonNull
         private String taskNamePrefix;
 
-        @NonNull
+        @Nullable
         private File outputLocation;
 
         private boolean includeDependencies;
 
         private boolean process9Patch;
 
-        public ConfigAction(@NonNull VariantScope scope, @NonNull String taskNamePrefix,
-                @NonNull File outputLocation,
-                boolean includeDependencies, boolean process9Patch) {
+        public ConfigAction(
+                @NonNull VariantScope scope,
+                @NonNull String taskNamePrefix,
+                @Nullable File outputLocation,
+                boolean includeDependencies,
+                boolean process9Patch) {
             this.scope = scope;
             this.taskNamePrefix = taskNamePrefix;
             this.outputLocation = outputLocation;
