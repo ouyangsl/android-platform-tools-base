@@ -123,6 +123,7 @@ public class JackTask extends AbstractAndroidCompile
 
     private void doMinification() throws ProcessException, IOException {
 
+<<<<<<< HEAD   (cd106c Merge "Avoids race condition that leads to NPE." into studio)
         if (System.getenv("USE_JACK_API") == null) {
             androidBuilder.convertByteCodeUsingJackApis(
                     getDestinationDir(),
@@ -138,6 +139,22 @@ public class JackTask extends AbstractAndroidCompile
                     isMultiDexEnabled(),
                     getMinSdkVersion());
         } else {
+=======
+        if (System.getenv("USE_JACK_API") != null ||
+                !androidBuilder.convertByteCodeUsingJackApis(
+                        getDestinationDir(),
+                        getJackFile(),
+                        getClasspath().getFiles(),
+                        getPackagedLibraries(),
+                        getSource().getFiles(),
+                        getProguardFiles(),
+                        getMappingFile(),
+                        getJarJarRuleFiles(),
+                        getIncrementalDir(),
+                        isMultiDexEnabled(),
+                        getMinSdkVersion())) {
+
+>>>>>>> BRANCH (26786a Merge "Don't use Jack APIs by default." into studio-1.3-dev)
             // no incremental support through command line so far.
             androidBuilder.convertByteCodeWithJack(
                     getDestinationDir(),
