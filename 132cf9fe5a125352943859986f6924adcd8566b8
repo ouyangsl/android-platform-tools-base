@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0da7a2c0_2f3d697c",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-24T05:04:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78f7fee1_261df893",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 4,
+        "endChar": 79
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5834fa65_0290aa50",
         "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2015-07-15T14:53:58Z",
       "side": 1,
       "message": "this is already in the dependency for Google Maps, so no need for this to appear in the template  - https://b.corp.google.com/issues/20079205",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 77
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed8dee45_91611e7c",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-24T05:04:06Z",
+      "side": 1,
+      "message": "We have removed this from the dependency - this is an optional permission that can be omitted. That\u0027s why we are calling it out in the comment. I feel that it would still make sense to leave it in here.\nSee also: https://b.corp.google.com/issues/22072010",
+      "parentUuid": "5834fa65_0290aa50",
       "range": {
         "startLine": 11,
         "startChar": 1,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0da7a2c0_ef228152",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-24T05:04:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8404ed5_5f4d2b8e",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 76
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3837466d_61473622",
         "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2015-07-15T14:53:58Z",
       "side": 1,
       "message": "this is already taken care  of in the Google Play services AAR dependency: https://b.corp.google.com/issues/20071825",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 121
+      },
+      "revId": "132cf9fe5a125352943859986f6924adcd8566b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d9ade79_f567b2c1",
+        "filename": "templates/activities/GoogleMapsActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-24T05:04:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3837466d_61473622",
       "range": {
         "startLine": 18,
         "startChar": 7,
