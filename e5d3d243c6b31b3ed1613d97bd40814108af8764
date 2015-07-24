@@ -22,6 +22,30 @@
       "revId": "e5d3d243c6b31b3ed1613d97bd40814108af8764",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d9ade79_bba6fb07",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/PackageSplitAbi.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-24T17:43:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed8dee45_f1126288",
+      "range": {
+        "startLine": 158,
+        "startChar": 32,
+        "endLine": 158,
+        "endChar": 35
+      },
+      "revId": "e5d3d243c6b31b3ed1613d97bd40814108af8764",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
