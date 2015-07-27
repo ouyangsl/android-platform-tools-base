@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "2d3e264a_2094ca14",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-27T19:26:41Z",
+      "side": 1,
+      "message": "Yes, my previous comment is outdated. \nWe are not parsing twice here now.",
+      "parentUuid": "4d9d1a6f_a00ec43d",
+      "revId": "909265bfe5d90a6f08aa597d4cac293e8222d6d4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b83896b1_0dbcb124",
         "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdPreview.java",
         "patchSetId": 3
