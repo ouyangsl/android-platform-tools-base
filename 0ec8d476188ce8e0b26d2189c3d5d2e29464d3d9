@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d6efa7b_89bcd907",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1078003
+      },
+      "writtenOn": "2015-07-27T21:43:55Z",
+      "side": 1,
+      "message": "if it is just a constant, you can use guava ImmutableMap",
+      "range": {
+        "startLine": 106,
+        "startChar": 32,
+        "endLine": 106,
+        "endChar": 41
+      },
+      "revId": "0ec8d476188ce8e0b26d2189c3d5d2e29464d3d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d255245_53c7648a",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1078003
+      },
+      "writtenOn": "2015-07-27T21:43:55Z",
+      "side": 1,
+      "message": "never used, remove it",
+      "range": {
+        "startLine": 374,
+        "startChar": 8,
+        "endLine": 381,
+        "endChar": 39
+      },
+      "revId": "0ec8d476188ce8e0b26d2189c3d5d2e29464d3d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d8c6686_70c4f084",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1078003
+      },
+      "writtenOn": "2015-07-27T21:43:55Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 391,
+        "startChar": 16,
+        "endLine": 391,
+        "endChar": 80
+      },
+      "revId": "0ec8d476188ce8e0b26d2189c3d5d2e29464d3d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d6bbe6a_eab78721",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 1078003
+      },
+      "writtenOn": "2015-07-27T21:43:55Z",
+      "side": 1,
+      "message": "not useful, remove it",
+      "range": {
+        "startLine": 406,
+        "startChar": 14,
+        "endLine": 408,
+        "endChar": 13
+      },
+      "revId": "0ec8d476188ce8e0b26d2189c3d5d2e29464d3d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d8c6686_30ce68a5",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 1078003
+      },
+      "writtenOn": "2015-07-27T21:43:55Z",
+      "side": 1,
+      "message": "12 ?",
+      "range": {
+        "startLine": 531,
+        "startChar": 30,
+        "endLine": 531,
+        "endChar": 32
+      },
+      "revId": "0ec8d476188ce8e0b26d2189c3d5d2e29464d3d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d8c6686_d0d91c6e",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/vectordrawable/VdParser.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1078003
+      },
+      "writtenOn": "2015-07-27T21:43:55Z",
+      "side": 1,
+      "message": "ret \u003d k",
+      "range": {
+        "startLine": 535,
+        "startChar": 16,
+        "endLine": 535,
+        "endChar": 22
+      },
+      "revId": "0ec8d476188ce8e0b26d2189c3d5d2e29464d3d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
