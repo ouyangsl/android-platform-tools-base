@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d06c2cf_57ba8ca7",
+        "filename": "templates/activities/GoogleMapsWearActivity/globals.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-28T14:47:22Z",
+      "side": 1,
+      "message": "Nit: simpleName is unused?",
+      "revId": "fb9ffb42a04b36cbe7592f3b3c93b43ab6811b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6dae5efb_92f41c80",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-28T14:47:22Z",
+      "side": 1,
+      "message": "Nit: Extra whitespace throughout this file",
+      "revId": "fb9ffb42a04b36cbe7592f3b3c93b43ab6811b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad1696fe_d47b3c65",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-28T14:47:22Z",
+      "side": 1,
+      "message": "Nit: whitespace throughout this file",
+      "revId": "fb9ffb42a04b36cbe7592f3b3c93b43ab6811b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
