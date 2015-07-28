@@ -22,6 +22,30 @@
       "revId": "09e7bda5e81763a9ef87eb827f4bbcd587d8be6e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd174afa_fed3b548",
+        "filename": "asset-studio/src/main/java/com/android/assetstudiolib/ActionBarIconGenerator.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-07-28T22:36:39Z",
+      "side": 1,
+      "message": "Sure, will fix in next patch.",
+      "parentUuid": "0d06c2cf_5da0eba2",
+      "range": {
+        "startLine": 19,
+        "startChar": 35,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "09e7bda5e81763a9ef87eb827f4bbcd587d8be6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
