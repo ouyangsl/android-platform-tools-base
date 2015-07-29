@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6d657ec3_3a452119",
+        "filename": "templates/activities/GoogleMapsActivity/root/releaseRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-29T03:53:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4db19a56_91cd3c60",
+      "revId": "00fa95e718396d17cb3e94e9e2a23124ccc4f6e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed1c0e21_564f34b8",
         "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
         "patchSetId": 11
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-28T14:56:25Z",
       "side": 1,
       "message": "I think you can remove this comment altogether - after all, every variable in Java is null until it has been initialized :) And this file is small enough that the code is easy enough to read on its own.",
+      "revId": "00fa95e718396d17cb3e94e9e2a23124ccc4f6e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d6d52b6_7377c0ad",
+        "filename": "templates/activities/GoogleMapsActivity/root/src/app_package/MapActivity.java.ftl",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-29T03:53:42Z",
+      "side": 1,
+      "message": "You are making a good point, this makes perfect sense - SGTM!\nRemoved the comment.",
+      "parentUuid": "ed1c0e21_564f34b8",
       "revId": "00fa95e718396d17cb3e94e9e2a23124ccc4f6e0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
