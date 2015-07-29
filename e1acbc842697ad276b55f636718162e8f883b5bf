@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd8aea9e_20c7a48b",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/scope/AndroidTask.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-29T15:12:37Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be needed, as Gradle already recurses through collections.",
+      "range": {
+        "startLine": 114,
+        "startChar": 23,
+        "endLine": 117,
+        "endChar": 25
+      },
+      "revId": "e1acbc842697ad276b55f636718162e8f883b5bf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
