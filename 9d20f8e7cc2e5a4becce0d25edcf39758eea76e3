@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ea24f4a5_3687d81f",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-07-29T17:14:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eda16e0d_bde92b79",
+      "revId": "9d20f8e7cc2e5a4becce0d25edcf39758eea76e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2db8e63c_79c7db38",
         "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-07-28T23:39:55Z",
       "side": 1,
       "message": "So, it seems we return -1 here if there\u0027s an issue getting the API level from the device. Now that getApiLevel() is public, it may be worth adding an INVALID_API_LEVEL constant here, but at least we should update the comment mentioning that -1 is a possible value if ??????? happens.\n\nHonestly, what I\u0027d probably do is create an unchecked exception (or just use InvalidStateException) and throw that instead of returning -1, if I felt comfortable that invalid API levels are extremely rare.\n\nTL;DR - I\u0027m hesitant about exposing return values which have special case meanings in public APIs, but at a minimum we should document it.",
+      "revId": "9d20f8e7cc2e5a4becce0d25edcf39758eea76e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a0b6c19_18d765f0",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/IDevice.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-07-29T17:14:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2db8e63c_79c7db38",
       "revId": "9d20f8e7cc2e5a4becce0d25edcf39758eea76e3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
