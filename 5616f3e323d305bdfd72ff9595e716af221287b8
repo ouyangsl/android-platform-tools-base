@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad1696fe_a3ee447c",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/debugRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1043680
+      },
+      "writtenOn": "2015-07-29T06:22:34Z",
+      "side": 1,
+      "message": "fwiw, the latest developer console UI has separate fields for these two variables, so there\u0027s no longer any need to semicolon-concatenate.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "5616f3e323d305bdfd72ff9595e716af221287b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
