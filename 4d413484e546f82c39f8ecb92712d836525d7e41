@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "0d8962a8_7f3f8f8e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-29T09:33:27Z",
+      "side": 1,
+      "message": "Should we move this to a config action as well?",
+      "range": {
+        "startLine": 1239,
+        "startChar": 39,
+        "endLine": 1239,
+        "endChar": 70
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad9936fb_1f1cc79f",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1267,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-29T09:33:27Z",
+      "side": 1,
+      "message": "These have to come from tasks, people do change them, e.g. output resources in the same directory as classes. We need to pick up these changes here.",
+      "range": {
+        "startLine": 1257,
+        "startChar": 32,
+        "endLine": 1267,
+        "endChar": 73
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd8aea9e_bd159f00",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.java",
         "patchSetId": 2
@@ -18,6 +64,29 @@
         "startChar": 14,
         "endLine": 125,
         "endChar": 18
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d68ba9e_b90f7fbd",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/UnitTestingComponentTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-29T09:33:27Z",
+      "side": 1,
+      "message": "Can\u0027t we use the same test projects as for the old plugin? They exercise all features I consider \"supported\".",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 52
       },
       "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
