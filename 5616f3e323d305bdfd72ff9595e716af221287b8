@@ -22,6 +22,30 @@
       "revId": "5616f3e323d305bdfd72ff9595e716af221287b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d06c2cf_cb0a75af",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/debugRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-07-29T14:55:26Z",
+      "side": 1,
+      "message": "Jan-Felix, I\u0027m going to submit your CL since it\u0027s been in the queue for too long already, but if you make this change in a separate CL, just add me as a reviewer and I\u0027ll submit it.",
+      "parentUuid": "ad1696fe_a3ee447c",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 39
+      },
+      "revId": "5616f3e323d305bdfd72ff9595e716af221287b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
