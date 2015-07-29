@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd8aea9e_bd159f00",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-29T08:41:06Z",
+      "side": 1,
+      "message": "?\nThis doesn\u0027t appear to need to be in convention mapping, unless I\u0027m missing things...\nAlthough I guess it does delay the computation for the old plugin.",
+      "range": {
+        "startLine": 125,
+        "startChar": 14,
+        "endLine": 125,
+        "endChar": 18
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
