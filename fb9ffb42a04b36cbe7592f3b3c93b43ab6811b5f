@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ed3dee9f_2e96c757",
+        "filename": "templates/activities/GoogleMapsWearActivity/globals.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-29T04:49:34Z",
+      "side": 1,
+      "message": "Good catch - removed.\n\nDone.",
+      "parentUuid": "0d06c2cf_57ba8ca7",
+      "revId": "fb9ffb42a04b36cbe7592f3b3c93b43ab6811b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6dae5efb_92f41c80",
         "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
         "patchSetId": 9
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "8d6d52b6_d3041422",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/AndroidManifest.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-29T04:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dae5efb_92f41c80",
+      "revId": "fb9ffb42a04b36cbe7592f3b3c93b43ab6811b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad1696fe_d47b3c65",
         "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
         "patchSetId": 9
@@ -47,6 +83,24 @@
       "writtenOn": "2015-07-28T14:47:22Z",
       "side": 1,
       "message": "Nit: whitespace throughout this file",
+      "revId": "fb9ffb42a04b36cbe7592f3b3c93b43ab6811b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d6242c0_b7ff8873",
+        "filename": "templates/activities/GoogleMapsWearActivity/root/releaseRes/values/google_maps_api.xml.ftl",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1060446
+      },
+      "writtenOn": "2015-07-29T04:49:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad1696fe_d47b3c65",
       "revId": "fb9ffb42a04b36cbe7592f3b3c93b43ab6811b5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
