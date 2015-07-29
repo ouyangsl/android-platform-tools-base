@@ -22,6 +22,30 @@
       "revId": "3b01c0a1c830ecc15c27bdad3888e4e63f600825",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad9936fb_ffee3bab",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/TestServerTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-29T15:03:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad9936fb_df217fd5",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 20
+      },
+      "revId": "3b01c0a1c830ecc15c27bdad3888e4e63f600825",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
