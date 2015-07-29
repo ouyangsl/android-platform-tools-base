@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd73ca92_159034d3",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/ValidateSigningTask.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-29T13:27:38Z",
+      "side": 1,
+      "message": "might be clearer as:\nif (!KeystoreHelper.defaultDebugKeystoreLocation().equals(storeFile.getAbsolutePath())) {\n    throw new ...\n}\ncheckState(signingConfig...",
+      "range": {
+        "startLine": 91,
+        "startChar": 14,
+        "endLine": 91,
+        "endChar": 18
+      },
+      "revId": "7419f59891f30fb620145f1fe91543f0aea017d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd73ca92_358d30ba",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/signing/KeystoreHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-29T13:27:38Z",
+      "side": 1,
+      "message": "Update this to match changed behaviour.",
+      "range": {
+        "startLine": 195,
+        "startChar": 7,
+        "endLine": 195,
+        "endChar": 49
+      },
+      "revId": "7419f59891f30fb620145f1fe91543f0aea017d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
