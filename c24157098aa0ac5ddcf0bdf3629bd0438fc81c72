@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4d68ba9e_bca04d22",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDeviceProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-30T13:43:59Z",
+      "side": 1,
+      "message": "Sure. That\u0027s actually a good point - do we want to have a generic confugration mechanism for the builder classes?",
+      "parentUuid": "2d862697_83232057",
+      "range": {
+        "startLine": 96,
+        "startChar": 41,
+        "endLine": 96,
+        "endChar": 73
+      },
+      "revId": "c24157098aa0ac5ddcf0bdf3629bd0438fc81c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd73ca92_35c45084",
         "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDeviceProvider.java",
         "patchSetId": 1
