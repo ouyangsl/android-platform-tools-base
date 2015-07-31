@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d9472c2_e1a86263",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-31T09:42:07Z",
+      "side": 1,
+      "message": "A general thought - why don\u0027t we make the rule methods static, as it makes no difference other than not triggering these warnings.",
+      "range": {
+        "startLine": 55,
+        "startChar": 24,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8aea9e_c33c4a82",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-31T09:42:07Z",
+      "side": 1,
+      "message": "perhaps (tasks, task, dependency) would be clearer names.",
+      "range": {
+        "startLine": 149,
+        "startChar": 28,
+        "endLine": 149,
+        "endChar": 37
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
