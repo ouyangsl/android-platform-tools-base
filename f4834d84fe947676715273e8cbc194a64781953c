@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4a6260ef_92557dd3",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-31T19:22:46Z",
+      "side": 1,
+      "message": "Made the methods static.  Didn\u0027t know Gradle still works with static methods.\n\nThe unused is for the Rule class.  Do you know how to suppress warning for just the class and not methods inside the class?  One way is to name the class Ignore, but that\u0027s kind of weird.",
+      "parentUuid": "2d862697_06639e34",
+      "range": {
+        "startLine": 55,
+        "startChar": 24,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd8aea9e_23cdeeda",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
         "patchSetId": 2
@@ -60,6 +84,30 @@
       "writtenOn": "2015-07-31T13:20:16Z",
       "side": 1,
       "message": "JavaDoc?",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 31
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a5ce834_1b864bf1",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-31T19:22:46Z",
+      "side": 1,
+      "message": "This comment applies to all the methods below instead of just one method though.",
+      "parentUuid": "cd8aea9e_23cdeeda",
       "range": {
         "startLine": 90,
         "startChar": 8,
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "0a5ce834_9b911b28",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-31T19:22:46Z",
+      "side": 1,
+      "message": "I think having both tasks and task is kind of confusing...",
+      "parentUuid": "cd8aea9e_c33c4a82",
+      "range": {
+        "startLine": 149,
+        "startChar": 28,
+        "endLine": 149,
+        "endChar": 37
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d862697_2658a284",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
         "patchSetId": 2
@@ -106,6 +178,30 @@
       "writtenOn": "2015-07-31T13:20:16Z",
       "side": 1,
       "message": "Can you move this to StringHelper?",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 174,
+        "endChar": 9
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea295486_02493a35",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-31T19:22:46Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "2d862697_2658a284",
       "range": {
         "startLine": 161,
         "startChar": 8,
