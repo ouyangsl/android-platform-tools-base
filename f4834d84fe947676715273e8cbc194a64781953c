@@ -25,6 +25,53 @@
     },
     {
       "key": {
+        "uuid": "2d862697_06639e34",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-31T13:20:16Z",
+      "side": 1,
+      "message": "I believe the thinking behind the IJ inspection is to remove virtual calls for slight performance improvement. Fair enough. If Gradle can handle static rule methods, let\u0027s use them. If not - add a comment to @SuppressWarnings.\n\nAs for unused - it seems this is suppressed for methods with @Model or @Mutate - why do we need to suppress it for the whole class?",
+      "parentUuid": "8d9472c2_e1a86263",
+      "range": {
+        "startLine": 55,
+        "startChar": 24,
+        "endLine": 55,
+        "endChar": 41
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8aea9e_23cdeeda",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-31T13:20:16Z",
+      "side": 1,
+      "message": "JavaDoc?",
+      "range": {
+        "startLine": 90,
+        "startChar": 8,
+        "endLine": 94,
+        "endChar": 31
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd8aea9e_c33c4a82",
         "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
         "patchSetId": 2
@@ -41,6 +88,52 @@
         "startChar": 28,
         "endLine": 149,
         "endChar": 37
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d862697_2658a284",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/model/StandaloneNdkComponentModelPlugin.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-31T13:20:16Z",
+      "side": 1,
+      "message": "Can you move this to StringHelper?",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 174,
+        "endChar": 9
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd8aea9e_63d7f66a",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkNamingScheme.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-31T13:20:16Z",
+      "side": 1,
+      "message": "We also have FileUtils.join, but it starts with a File. Still - maybe we should just add an overload for FileUtils.join?",
+      "range": {
+        "startLine": 93,
+        "startChar": 15,
+        "endLine": 99,
+        "endChar": 54
       },
       "revId": "f4834d84fe947676715273e8cbc194a64781953c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
