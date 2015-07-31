@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "2d862697_89cee1a2",
+        "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDeviceProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1056183
+      },
+      "writtenOn": "2015-07-31T14:35:22Z",
+      "side": 1,
+      "message": "I\u0027ve filed https://code.google.com/p/android/issues/detail?id\u003d181790 to track",
+      "parentUuid": "4d68ba9e_bca04d22",
+      "range": {
+        "startLine": 96,
+        "startChar": 41,
+        "endLine": 96,
+        "endChar": 73
+      },
+      "revId": "c24157098aa0ac5ddcf0bdf3629bd0438fc81c72",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd73ca92_35c45084",
         "filename": "build-system/builder/src/main/java/com/android/builder/testing/ConnectedDeviceProvider.java",
         "patchSetId": 1
