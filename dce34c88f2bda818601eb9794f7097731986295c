@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d9472c2_e1706254",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-07-31T13:32:43Z",
+      "side": 1,
+      "message": "We have to change this. We either need to change the class hierarchy and have a separate type for per-variant tasks or allow this to be null (i.e. change the recording build listener). Either way, this method should never accept an empty string.",
+      "range": {
+        "startLine": 1428,
+        "startChar": 28,
+        "endLine": 1428,
+        "endChar": 64
+      },
+      "revId": "dce34c88f2bda818601eb9794f7097731986295c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
