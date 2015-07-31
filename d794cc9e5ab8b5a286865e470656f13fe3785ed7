@@ -22,6 +22,30 @@
       "revId": "d794cc9e5ab8b5a286865e470656f13fe3785ed7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa33dcf3_1b7be766",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AdbHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-07-31T20:50:56Z",
+      "side": 0,
+      "message": "Yes.\n\nIf you\u0027re wondering in terms of consequences of this change, it may be the same as TimeoutException. However, it is technically a different exception, and which is why it was done this way.\n\nThis thread gets interrupted via \"myExecutingTask.cancel(true);\" in DeviceSampler.java. This issue isn\u0027t occurring here. I\u0027m not too sure about logcat\u0027s implementation, but that also needs to be fixed.",
+      "parentUuid": "aa33dcf3_7bf1cb8f",
+      "range": {
+        "startLine": 514,
+        "startChar": 29,
+        "endLine": 514,
+        "endChar": 49
+      },
+      "revId": "d794cc9e5ab8b5a286865e470656f13fe3785ed7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
