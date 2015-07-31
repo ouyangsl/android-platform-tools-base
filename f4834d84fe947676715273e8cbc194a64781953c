@@ -234,6 +234,30 @@
       "revId": "f4834d84fe947676715273e8cbc194a64781953c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa33dcf3_c0520e63",
+        "filename": "build-system/gradle-experimental/src/main/groovy/com/android/build/gradle/ndk/internal/NdkNamingScheme.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-07-31T19:23:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd8aea9e_63d7f66a",
+      "range": {
+        "startLine": 93,
+        "startChar": 15,
+        "endLine": 99,
+        "endChar": 54
+      },
+      "revId": "f4834d84fe947676715273e8cbc194a64781953c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
