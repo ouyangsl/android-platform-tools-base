@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa33dcf3_7bf1cb8f",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AdbHelper.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1010055
+      },
+      "writtenOn": "2015-07-31T20:35:10Z",
+      "side": 0,
+      "message": "Is this and line 595 - 598 the only places that have really changed?\n\nI\u0027d like to make sure that there is a clear distinction between the existing TimeoutException, and the InterruptedException. (Note that this introduces a new API and will break gradle, tradefed, etc.)\n\nHow does this thread get interrupted?",
+      "range": {
+        "startLine": 514,
+        "startChar": 29,
+        "endLine": 514,
+        "endChar": 49
+      },
+      "revId": "d794cc9e5ab8b5a286865e470656f13fe3785ed7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
