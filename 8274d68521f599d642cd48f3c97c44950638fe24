@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed8faeab_47b044c7",
+        "filename": "build-system/gradle/src/main/groovy/com/android/build/gradle/BaseExtension.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 0,
+      "message": "This will break a lot of projects - I think we should keep this method, ignore the action and print out a warning that this is now ignored. We can remove it in 2 versions?",
+      "range": {
+        "startLine": 446,
+        "startChar": 3,
+        "endLine": 452,
+        "endChar": 5
+      },
+      "revId": "8274d68521f599d642cd48f3c97c44950638fe24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

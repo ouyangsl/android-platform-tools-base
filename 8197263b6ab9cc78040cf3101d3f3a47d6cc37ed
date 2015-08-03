@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad9936fb_456e8023",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoInstrumentTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "Files.isFile(). Can you extract this to FileUtils.getAllFiles()?",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 75,
+        "endChar": 19
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d9472c2_61a45200",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoInstrumentTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "Nit: See if FileUtils.relativePath can help here?",
+      "range": {
+        "startLine": 92,
+        "startChar": 12,
+        "endLine": 94,
+        "endChar": 95
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad9936fb_657b7ce4",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoInstrumentTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "Follow the IJ warning and initialize the stream before the try block, then just close it in finally. Resources only need closing if they were opened correctly.",
+      "range": {
+        "startLine": 102,
+        "startChar": 20,
+        "endLine": 102,
+        "endChar": 51
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad9936fb_857888e7",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoInstrumentTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "Nit: Files.createParentDirs()",
+      "range": {
+        "startLine": 106,
+        "startChar": 24,
+        "endLine": 106,
+        "endChar": 60
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d68ba9e_bfdd9f91",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoInstrumentTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "Nit: Can you indent it in to be on the same level as instrumenter.instrument(...)? This looks like it\u0027s an argument to instrument.",
+      "range": {
+        "startLine": 109,
+        "startChar": 67,
+        "endLine": 109,
+        "endChar": 77
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d657ec3_c3427c65",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoInstrumentTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "Wrap",
+      "range": {
+        "startLine": 172,
+        "startChar": 80,
+        "endLine": 172,
+        "endChar": 130
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad9936fb_a563c435",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/coverage/JacocoInstrumentTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "should\u0027t the field be private in Java-land?",
+      "range": {
+        "startLine": 182,
+        "startChar": 36,
+        "endLine": 182,
+        "endChar": 55
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad9936fb_e55dcc77",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/IncrementalTask.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-03T09:09:52Z",
+      "side": 1,
+      "message": "I think this should be either abstract or call doFullTaskAction...",
+      "range": {
+        "startLine": 70,
+        "startChar": 47,
+        "endLine": 70,
+        "endChar": 50
+      },
+      "revId": "8197263b6ab9cc78040cf3101d3f3a47d6cc37ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
