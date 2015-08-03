@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea6cf416_19a9ef94",
+        "filename": "lint/cli/src/test/java/com/android/tools/lint/detector/api/TextFormatTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-03T14:21:37Z",
+      "side": 1,
+      "message": "I simply dedented this block one level (I noticed it was incorrectly indented). I don\u0027t know why the diff is displayed so poorly here.\n\nThe key part is the new unit test at the bottom of this class.",
+      "revId": "2efa3ecb115b799bd664774af84c98eb5d1d5eaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
