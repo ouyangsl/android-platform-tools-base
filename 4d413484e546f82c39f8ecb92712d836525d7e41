@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aae91cd1_1cae15ef",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1239,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-03T23:02:43Z",
+      "side": 1,
+      "message": "Done.  Created UnitTestConfigAction.",
+      "parentUuid": "0d8962a8_7f3f8f8e",
+      "range": {
+        "startLine": 1239,
+        "startChar": 39,
+        "endLine": 1239,
+        "endChar": 70
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad9936fb_1f1cc79f",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2ad60c0d_a0625a7d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/TaskManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1267,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-03T23:02:43Z",
+      "side": 1,
+      "message": "I made the changes to check for the existence of the tasks so that it does not affect behavior of the old plugin.  For the new plugin, we assume the value do not change for now.  We can fix this when Gradle provides a better way for connecting different tasks.",
+      "parentUuid": "ad9936fb_1f1cc79f",
+      "range": {
+        "startLine": 1257,
+        "startChar": 32,
+        "endLine": 1267,
+        "endChar": 73
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd8aea9e_bd159f00",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.java",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-07-29T08:41:06Z",
       "side": 1,
       "message": "?\nThis doesn\u0027t appear to need to be in convention mapping, unless I\u0027m missing things...\nAlthough I guess it does delay the computation for the old plugin.",
+      "range": {
+        "startLine": 125,
+        "startChar": 14,
+        "endLine": 125,
+        "endChar": 18
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cadad034_5d917ba9",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/tasks/MockableAndroidJarTask.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-03T23:02:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd8aea9e_bd159f00",
       "range": {
         "startLine": 125,
         "startChar": 14,
@@ -106,6 +178,30 @@
       "side": 1,
       "message": "@cmw: Chris, what\u0027s the status of supporting multiple build.gradle in a test project?",
       "parentUuid": "4d68ba9e_b90f7fbd",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 52
+      },
+      "revId": "4d413484e546f82c39f8ecb92712d836525d7e41",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eadf9421_41c7d40e",
+        "filename": "build-system/integration-test/src/test/groovy/com/android/build/gradle/integration/component/UnitTestingComponentTest.groovy",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-03T23:02:43Z",
+      "side": 1,
+      "message": "I will add the tests when Chris has done some work on supporting multiple build.gradle for the test projects.",
+      "parentUuid": "6a11e441_43872c1e",
       "range": {
         "startLine": 37,
         "startChar": 4,
