@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4acfc072_fbe88fed",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-04T18:56:26Z",
+      "side": 1,
+      "message": "Could you put this in the scope instead?",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 35
+      },
+      "revId": "eca9529d6bf8f4c31edde94d9c85d1a42ef406a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
