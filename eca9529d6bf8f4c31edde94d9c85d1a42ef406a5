@@ -22,6 +22,30 @@
       "revId": "eca9529d6bf8f4c31edde94d9c85d1a42ef406a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2aafec90_d84cad96",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/internal/variant/BaseVariantData.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-04T19:34:26Z",
+      "side": 1,
+      "message": "I wanted to keep this change small (for 1.3), and the code that creates the task does not use scopes or AndroidTask\u003cT\u003e. Is there a way to keep in the scope without moving too much code (I\u0027m afraid of breaking 1.3)?",
+      "parentUuid": "4acfc072_fbe88fed",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 35
+      },
+      "revId": "eca9529d6bf8f4c31edde94d9c85d1a42ef406a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
