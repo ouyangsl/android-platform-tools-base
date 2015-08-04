@@ -45,6 +45,30 @@
       "revId": "7419f59891f30fb620145f1fe91543f0aea017d1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea1a34b3_46d712ef",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/signing/KeystoreHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-04T10:36:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd73ca92_358d30ba",
+      "range": {
+        "startLine": 195,
+        "startChar": 7,
+        "endLine": 195,
+        "endChar": 49
+      },
+      "revId": "7419f59891f30fb620145f1fe91543f0aea017d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
