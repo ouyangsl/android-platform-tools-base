@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6acc847d_b1e46acc",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-04T18:50:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a2724f5_4aea7368",
+      "range": {
+        "startLine": 46,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed8faeab_27717804",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-08-04T08:54:37Z",
       "side": 1,
       "message": "Nit: Predicates.compose(equalTo(FN_FRAMEWORK_LIBRARY), FileUtils.GET_NAME)). I miss groovy sometimes...",
+      "range": {
+        "startLine": 88,
+        "startChar": 32,
+        "endLine": 95,
+        "endChar": 35
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4acfc072_9064c23d",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-04T18:50:39Z",
+      "side": 1,
+      "message": "Made minor changes to simplify the code.\nThere is \"not\" in the expression, so the statement will be Predicates.not(Predicates.compose(Predicates.equalTo(FN_FRAMEWORK_LIBRARY), FileUtils.GET_NAME));\nAlso, GET_NAME will need to change from private to public.  I think that\u0027s actually less clear than what it is now, but if you still prefer to use Predicates, I am not strongly oppose to changing it and will make a quick fix.",
+      "parentUuid": "ed8faeab_27717804",
       "range": {
         "startLine": 88,
         "startChar": 32,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4acfc072_f0526e62",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-04T18:50:39Z",
+      "side": 1,
+      "message": "This is not exposed in the variant API, so the user shouldn\u0027t be changing it.",
+      "parentUuid": "6d657ec3_e3bea04e",
+      "range": {
+        "startLine": 118,
+        "startChar": 24,
+        "endLine": 118,
+        "endChar": 91
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea1a34b3_463ef2e6",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2015-08-04T08:54:37Z",
       "side": 1,
       "message": "Unnecessary?",
+      "range": {
+        "startLine": 120,
+        "startChar": 83,
+        "endLine": 120,
+        "endChar": 93
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca157084_74ae369e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-04T18:50:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea1a34b3_463ef2e6",
       "range": {
         "startLine": 120,
         "startChar": 83,
