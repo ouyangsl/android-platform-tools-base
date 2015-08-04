@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca157084_5f7b5365",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/vectordrawable/VectorDrawbleGeneratorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-08-04T21:36:33Z",
+      "side": 1,
+      "message": "This string is just for logging purpose.",
+      "range": {
+        "startLine": 57,
+        "startChar": 15,
+        "endLine": 57,
+        "endChar": 34
+      },
+      "revId": "2907a06f39f808d144efd464763d02e2f7aab477",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
