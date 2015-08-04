@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a2724f5_4aea7368",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-04T08:54:37Z",
+      "side": 1,
+      "message": "Change.",
+      "range": {
+        "startLine": 46,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed8faeab_27717804",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-04T08:54:37Z",
+      "side": 1,
+      "message": "Nit: Predicates.compose(equalTo(FN_FRAMEWORK_LIBRARY), FileUtils.GET_NAME)). I miss groovy sometimes...",
+      "range": {
+        "startLine": 88,
+        "startChar": 32,
+        "endLine": 95,
+        "endChar": 35
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d657ec3_e3bea04e",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-04T08:54:37Z",
+      "side": 1,
+      "message": "Check the task first as well?",
+      "range": {
+        "startLine": 118,
+        "startChar": 24,
+        "endLine": 118,
+        "endChar": 91
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea1a34b3_463ef2e6",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/UnitTestConfigAction.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-04T08:54:37Z",
+      "side": 1,
+      "message": "Unnecessary?",
+      "range": {
+        "startLine": 120,
+        "startChar": 83,
+        "endLine": 120,
+        "endChar": 93
+      },
+      "revId": "a881e5d45ade30adc9b469040c031574b3d04b7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
