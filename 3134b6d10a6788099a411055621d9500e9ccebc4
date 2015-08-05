@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4d7fda4c_75b33083",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/ProcessJavaResConfigAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-05T09:06:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ad60c0d_34fa0885",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "3134b6d10a6788099a411055621d9500e9ccebc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa14bc88_a466b718",
         "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/ProcessJavaResConfigAction.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-08-04T19:09:55Z",
       "side": 1,
       "message": "move to top?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 31
+      },
+      "revId": "3134b6d10a6788099a411055621d9500e9ccebc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad9936fb_2b9a2546",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/factory/ProcessJavaResConfigAction.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1057413
+      },
+      "writtenOn": "2015-08-05T09:06:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa14bc88_a466b718",
       "range": {
         "startLine": 96,
         "startChar": 0,
