@@ -16,6 +16,24 @@
       "revId": "3da7d7e4a0c3f69f81e4f55201e30c3b3a617275",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea1cf420_fc22a1d8",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/VdIcon.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2015-08-06T18:13:03Z",
+      "side": 1,
+      "message": "Very good point. \nI am using URL now in a new CL.",
+      "parentUuid": "eaa1540d_4eddf3d7",
+      "revId": "3da7d7e4a0c3f69f81e4f55201e30c3b3a617275",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
