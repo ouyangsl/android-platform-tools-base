@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eaa1540d_4eddf3d7",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/VdIcon.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2015-08-06T04:27:12Z",
+      "side": 1,
+      "message": "From looking at the code and running this through in the debugger for different cases, I can\u0027t figure out why you would need to have both the path and the url. It seems to me like a url should always be sufficient.\n\nThis just worries me, since it seems like other people might have the same problem you did, where getResourcePath returns something that isn\u0027t necessarily useful. Having a single absolute descriptor seems better.",
+      "revId": "3da7d7e4a0c3f69f81e4f55201e30c3b3a617275",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
