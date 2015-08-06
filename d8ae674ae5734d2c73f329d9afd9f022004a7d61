@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa33dcf3_401dfe6c",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "call this time to be consistent with the function above",
+      "range": {
+        "startLine": 83,
+        "startChar": 46,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ac9b89e_1c147974",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "This won\u0027t be accurate, when converted to float this values lost precision. Which is fine for the UI, but bringing them back to long will increase the error too much. I\u0027d recommend dealing with floats in seconds since mStart, which is simply lastSample.time",
+      "range": {
+        "startLine": 86,
+        "startChar": 51,
+        "endLine": 86,
+        "endChar": 81
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0abea8e2_fdd77f6f",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "keep this in floats",
+      "range": {
+        "startLine": 88,
+        "startChar": 8,
+        "endLine": 88,
+        "endChar": 18
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a06a8cf_57a28cf5",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "If you are going to use this variable, declare at the top and also use it for the other areas.length",
+      "range": {
+        "startLine": 90,
+        "startChar": 12,
+        "endLine": 90,
+        "endChar": 22
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0a06a8cf_57772cf6",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "Don\u0027t use an Integer list with boxing/unboxing. The size is known so you can just use a float[]",
+      "range": {
+        "startLine": 93,
+        "startChar": 39,
+        "endLine": 93,
+        "endChar": 48
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eaa1540d_ee193f3b",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "you won\u0027t be able to do this with floats, but it\u0027s fine, it\u0027s not a big cost to sample all",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 13
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea1cf420_5688d4a6",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "avoid calling things speed, as this is generic",
+      "range": {
+        "startLine": 117,
+        "startChar": 20,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2abb6cf3_01c2d0ff",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "instead of checking the original end time, isn\u0027t it enough to check whether the value is less than 0? This way you can just sort in place the original float array.",
+      "range": {
+        "startLine": 119,
+        "startChar": 30,
+        "endLine": 119,
+        "endChar": 40
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a09e4dc_bd282bbb",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-06T05:31:24Z",
+      "side": 1,
+      "message": "because you will have the time already as a float in seconds since mStart you\u0027ll need to create a new private add that already works with that time and factor it out the other add",
+      "range": {
+        "startLine": 134,
+        "startChar": 12,
+        "endLine": 134,
+        "endChar": 34
+      },
+      "revId": "d8ae674ae5734d2c73f329d9afd9f022004a7d61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
