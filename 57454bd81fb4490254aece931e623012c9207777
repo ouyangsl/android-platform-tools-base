@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e780afc6_7651b0af",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1023072
+      },
+      "writtenOn": "2015-08-07T21:16:05Z",
+      "side": 1,
+      "message": "Can we instead say\n\n\"On sdk version 23 and up, your app data will be automatically backed up, and restored on app install. Your GCM regid will not work across restores, so you must ensure that it is excluded from the back-up set. Use the attribute `android:fullBackupContent`  to specify an `@xml` resource which configures which files to backup. more info:\u003clink\u003e\"",
+      "range": {
+        "startLine": 843,
+        "startChar": 39,
+        "endLine": 843,
+        "endChar": 42
+      },
+      "revId": "57454bd81fb4490254aece931e623012c9207777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "076a23d9_973d6447",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 1023072
+      },
+      "writtenOn": "2015-08-07T21:16:05Z",
+      "side": 1,
+      "message": "a little bit of context: you can set fullBackupContent as a boolean, but only because we were considering making it an opt-in feature so we built in the ability to have it either on or off by default.\nFor launch it is an opt-out feature, which means that setting fullBackupContent\u003d\"true\" doesn\u0027t make sense, and you can set allowBackup\u003d\"false\" to do the same as fullBackupContent\u003d\"false\"\n\n SO,\ntl;dr;\ncan we not refer to the fact that fullBackupContent is also a boolean? Instead phrase it as only an xml resource as that\u0027s how we expect it to be used:\n\n\"On sdk version 23 and up, your app data will be automatically backed up. and restored on app install. You should consider adding the attribute `android:fullBackupContent` to specify an `@xml` resource which configures which files to backup. more info:\u003clink\u003e\"",
+      "range": {
+        "startLine": 848,
+        "startChar": 24,
+        "endLine": 851,
+        "endChar": 51
+      },
+      "revId": "57454bd81fb4490254aece931e623012c9207777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
