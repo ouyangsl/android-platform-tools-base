@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67303f13_62daf615",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/ZipAlign.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-07T22:52:55Z",
+      "side": 1,
+      "message": "packageApplicationTask could be null in the new plugin.  It should fall back to scope.getPackageApk() when that happens.",
+      "range": {
+        "startLine": 119,
+        "startChar": 27,
+        "endLine": 120,
+        "endChar": 51
+      },
+      "revId": "d00936877bb38c494ea54ef7b62873fe40275065",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
