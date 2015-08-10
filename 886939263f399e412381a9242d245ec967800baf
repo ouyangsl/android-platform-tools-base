@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67e67f2a_660ad62e",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/hprof/Hprof.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-10T23:24:07Z",
+      "side": 1,
+      "message": "No, it\u0027s not. Look at the rest of the lib. If you are using intellij you should be able to just use the auto-formatter.",
+      "parentUuid": "e7d42f30_457c5490",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 2
+      },
+      "revId": "886939263f399e412381a9242d245ec967800baf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67e67f2a_4601123d",
         "filename": "perflib/src/main/java/com/android/tools/perflib/heap/hprof/HprofRootUnknown.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2015-08-10T22:53:06Z",
       "side": 1,
       "message": "Is this the right way to coerce 0xFF into a byte?",
+      "range": {
+        "startLine": 22,
+        "startChar": 36,
+        "endLine": 22,
+        "endChar": 42
+      },
+      "revId": "886939263f399e412381a9242d245ec967800baf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47e97bf9_0502e280",
+        "filename": "perflib/src/main/java/com/android/tools/perflib/heap/hprof/HprofRootUnknown.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-10T23:24:07Z",
+      "side": 1,
+      "message": "yes.",
+      "parentUuid": "67e67f2a_4601123d",
       "range": {
         "startLine": 22,
         "startChar": 36,
