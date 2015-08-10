@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "87c9b39e_99f09b88",
+        "filename": "build-system/gradle-core/src/main/groovy/com/android/build/gradle/tasks/NdkCompile.groovy",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1044651
+      },
+      "writtenOn": "2015-08-10T18:14:04Z",
+      "side": 0,
+      "message": "@xav: Do you know why we add cutils?  I can\u0027t find this library in the NDK.",
+      "range": {
+        "startLine": 198,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 36
+      },
+      "revId": "6b4c635534332a404ad12ebb6802d21e2df2120a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
