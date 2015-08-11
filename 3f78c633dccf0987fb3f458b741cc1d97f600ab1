@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a7ceb7a1_69604daf",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2015-08-11T06:14:23Z",
+      "side": 1,
+      "message": "Err! fixing",
+      "parentUuid": "8ac9b89e_1c40f906",
+      "revId": "3f78c633dccf0987fb3f458b741cc1d97f600ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07bea3e2_b1bb702c",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-11T03:05:08Z",
       "side": 1,
       "message": "We really need to perform the check in the build.gradle file, since that\u0027s the default place version codes are defined in Gradle projects, and the value set there will override whatever is set in the manifest file.",
+      "revId": "3f78c633dccf0987fb3f458b741cc1d97f600ab1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07bea3e2_0ccb234f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/ManifestDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2015-08-11T06:14:23Z",
+      "side": 1,
+      "message": "Acknowledged. I\u0027ll move this Issue into GradleDetector and only check this on the gradle.",
+      "parentUuid": "07bea3e2_b1bb702c",
       "revId": "3f78c633dccf0987fb3f458b741cc1d97f600ab1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
