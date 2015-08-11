@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47c41b7d_487d87d3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SetTextDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-11T03:04:08Z",
+      "side": 1,
+      "message": "In older versions of lint, the issue summary was a single line summary of the issue. A while back I switched over to IntelliJ\u0027s type of inspection summaries, which are really just a few words for each category (e.g. \"Unused Resources\", or \"Ambiguous Operators\", and so on.) This one is too long.\n\nI think here you should combine all three separate issues into a single issue, called \"SetTextI18n\", with summary \"SetText Pitfalls\", and combine the three explanation bodies, maybe as a bulleted list, e.g. something like:\n\nWhen calling `TextView#setText` you should\n\n* Never call `Number#toString` to format numbers; it will not handle fraction separators properly. Consider using `String#format` with proper format sepcifications (`%d` or `%f`) instead.\n\n* Do not pass a string literal (e.g. \"Hello\") to display test to the user. Hardcoded text can not be properly translated to other languages.\n\n* Do not build messages contatenating text chunks in setText. (etc)\n\n(There\u0027s a small amount of overhead added for each individual issue we add (e.g. the IDE iterates over the issues in a linear fashion, we statically register an inspection for each one), so when issues that are all found by the same detector are closely related (e.g. cover same general area, have same general category, same general priority, same general severity (error vs warning etc), in that case I just reuse the issue and make the issue explanation slightly more general -- each error message can still be as specific as necessary.",
+      "revId": "a6407199f8c58fe67ca04bc0f9ca60d3b5bfed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87c9b39e_e83e9775",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SetTextDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-11T03:04:08Z",
+      "side": 1,
+      "message": "Surround each code reference with ` ` such that in the IDE, it will be syntax highlighted with code font. (This is true everywhere now - in issue explanations, error messages, issue summaries, etc.)\n\nExample: Do not call `toString()` to convert...",
+      "revId": "a6407199f8c58fe67ca04bc0f9ca60d3b5bfed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a7ceb7a1_a982e5db",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SetTextDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-11T03:04:08Z",
+      "side": 1,
+      "message": "maybe require at least 2-3 characters in the word? Also, it looks like Java considers digits to be word characters, so I worry that this would flag strings that are purely numeric, which seems like it might trigger in code like \n   // populate initial score\n   score.setText(\"0000\");\nMaybe use \\p{Alpha} ?",
+      "revId": "a6407199f8c58fe67ca04bc0f9ca60d3b5bfed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "47c41b7d_e898dbcf",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SetTextDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-11T03:04:08Z",
+      "side": 1,
+      "message": "getSuperClass() is nullable (e.g. could be a problem if you have a setText(foo) where the static type of foo is java.lang.Object)",
+      "revId": "a6407199f8c58fe67ca04bc0f9ca60d3b5bfed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87c9b39e_a821bf5e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SetTextDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-11T03:04:08Z",
+      "side": 1,
+      "message": "Use astOperator() \u003d\u003d BinaryOperator.PLUS instead\n\n(nit - space after if)",
+      "revId": "a6407199f8c58fe67ca04bc0f9ca60d3b5bfed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7cf2b9d_846390bc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SetTextDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-11T03:04:08Z",
+      "side": 1,
+      "message": "This should also check that you don\u0027t have literal strings in node.astLeft()  and node.astRight().  If you do, this might be innocuous code which is just concatenating in the source AST to comply with source code line width requirements. The lint source code itself is full of this:\n     \u003cdeep indentation because of loops and conditioals\u003e\n                  foo.setText(\"This is hardcoded string\" +\n                                    \"which spans multiple \" +\n                                    \"lines.\");\n\n(yeah, you still want to flag these individual literal strings, but you\u0027ll catch them in your nested loop below).",
+      "revId": "a6407199f8c58fe67ca04bc0f9ca60d3b5bfed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07bea3e2_d1b6e443",
+        "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/SetTextDetectorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-08-11T03:04:08Z",
+      "side": 1,
+      "message": "The .class files were needed in byte-code based checks. They\u0027re not needed for AST-based checks, and I\u0027ve tried to move away from byte-code based checks as much as possible (since in Android Studio, we perform lint checks on the fly during editing, not just when the code is compiled). So you don\u0027t need to check in the .class files here. And you also don\u0027t need the .classpath file or project.properties19 file for that.\n\nFinally, instead of checking in these .java.txt\u003d\u003e.java files (which were needed in the Eclipse days when I didn\u0027t want the Eclipse workspace to flag errors in these files as if they were part of the lint project as source code), we have a better way to do this now which I\u0027m using in all newly written unit tests for lint. Take a look at the second unit test in CallSuperDetectorTest.java for example.\n\nInstead of lintProject(String...) use lintProject(TestFile...). First just migrate what you have here by replacing each string like this:\n\n\"bytecode/AndroidManifest.xml\u003d\u003eAndroidManifest.xml\")\n\u003d\u003e\n\ncopy(\"bytecode/AndroidManifest.xml\", \"AndroidManirest.xml\")\n\nNow you have a list of TestFiles instead and your tests should continue to pass.\nBut now instead of copy() you can call for example\nxml()\nor\njava()\nto create files on the fly inlined in the file.\n\nFor example, replace your copy(\"bytecode/CustomScreen.java.txt\", \"...\") line with\njava(\"src/test/pkg/CustomScreen.java\", \"\" +\n  \"\u003cpaste in actual source code here\");\n\nNotice how you do how the literal string gets syntax highlighted as actual Java code in the IDE.\n\n(Let me know if you have any questions about this; the conversion should be trivial.)",
+      "revId": "a6407199f8c58fe67ca04bc0f9ca60d3b5bfed66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
