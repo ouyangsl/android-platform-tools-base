@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "243ac5f6_c7e94df4",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-17T21:35:48Z",
+      "side": 1,
+      "message": "period sounds like something that is repeated. Maybe call it \"elapsed\" or something like that?",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64591d73_b76eff21",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-17T21:35:48Z",
+      "side": 1,
+      "message": "Float.compare is better suited to deal with NaN and Infinity, it will not give you a better comparison than \u003e. So use \u003e here, as it will be more readable",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 29
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_90cf9957",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-17T21:35:48Z",
+      "side": 1,
+      "message": "Just for safety add a check at the top that if period \u003c\u003d 0, return",
+      "range": {
+        "startLine": 89,
+        "startChar": 46,
+        "endLine": 89,
+        "endChar": 52
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04806112_505162df",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-17T21:35:48Z",
+      "side": 1,
+      "message": "add a comment here that because of the first if, lastValue will not be zero.",
+      "range": {
+        "startLine": 96,
+        "startChar": 45,
+        "endLine": 96,
+        "endChar": 55
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4aeed64_10096936",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-17T21:35:48Z",
+      "side": 1,
+      "message": "same here, it\u0027s fine if you leave this if here, but it will almost never happen. Comparing floats with \u003d\u003d is almost sure a false, unless it\u0027s the very same valued copied, not recalculated. We don\u0027t need to do epsilon comparison as if we add an extra sample, it\u0027s fine.",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 108,
+        "endChar": 29
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4a8755c_3ad31e4b",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-17T21:35:48Z",
+      "side": 1,
+      "message": "I would not name \"time\" to values that represent a span of time between lastSampleTime and a time t, Otherwise it looks confusing as here, for example you are adding two times, and it not clear which one refers to a span or to an absolute (since mStart) time",
+      "range": {
+        "startLine": 118,
+        "startChar": 38,
+        "endLine": 118,
+        "endChar": 65
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "243ac5f6_8763c50d",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-17T21:35:48Z",
+      "side": 1,
+      "message": "Not sure why you return a Sample[] that you create from a List\u003cSample\u003e, if it\u0027s gonna be just used for iteration here.",
+      "range": {
+        "startLine": 140,
+        "startChar": 29,
+        "endLine": 140,
+        "endChar": 50
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
