@@ -22,6 +22,30 @@
       "revId": "2c35118dac07a92f990abf1ba4293d995238efc9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4a8755c_3561ef2e",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/AdbHelper.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1047759
+      },
+      "writtenOn": "2015-08-18T00:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4aeed64_a3b36d80",
+      "range": {
+        "startLine": 507,
+        "startChar": 48,
+        "endLine": 507,
+        "endChar": 55
+      },
+      "revId": "2c35118dac07a92f990abf1ba4293d995238efc9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
