@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "243ac5f6_40424369",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1072938
+      },
+      "writtenOn": "2015-08-18T21:30:27Z",
+      "side": 1,
+      "message": "Is interval straight forward? It is easier to use the interval/elapsed for the shape\u0027s area calculation.",
+      "parentUuid": "243ac5f6_c7e94df4",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64591d73_b76eff21",
         "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-08-17T21:35:48Z",
       "side": 1,
       "message": "Float.compare is better suited to deal with NaN and Infinity, it will not give you a better comparison than \u003e. So use \u003e here, as it will be more readable",
+      "range": {
+        "startLine": 87,
+        "startChar": 16,
+        "endLine": 87,
+        "endChar": 29
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a4fb1585_22de2fd5",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1072938
+      },
+      "writtenOn": "2015-08-18T21:30:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64591d73_b76eff21",
       "range": {
         "startLine": 87,
         "startChar": 16,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a4a8755c_3c4eb790",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1072938
+      },
+      "writtenOn": "2015-08-18T21:30:27Z",
+      "side": 1,
+      "message": "Returns an empty sample list.",
+      "parentUuid": "e4aeed64_90cf9957",
+      "range": {
+        "startLine": 89,
+        "startChar": 46,
+        "endLine": 89,
+        "endChar": 52
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04806112_505162df",
         "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2015-08-17T21:35:48Z",
       "side": 1,
       "message": "add a comment here that because of the first if, lastValue will not be zero.",
+      "range": {
+        "startLine": 96,
+        "startChar": 45,
+        "endLine": 96,
+        "endChar": 55
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4a9e95f_53660748",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1072938
+      },
+      "writtenOn": "2015-08-18T21:30:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04806112_505162df",
       "range": {
         "startLine": 96,
         "startChar": 45,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "e4aeed64_5773535c",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1072938
+      },
+      "writtenOn": "2015-08-18T21:30:27Z",
+      "side": 1,
+      "message": "yes, using comparison to skip will not work for the values smaller than the maxInterval, because those time values are calculated, each of them would have a sample. Also the sorted interval array can include multiple maxInterval array items which are copied. It will be better to jump out of loop when the first maxInterval is reached.",
+      "parentUuid": "e4aeed64_10096936",
+      "range": {
+        "startLine": 108,
+        "startChar": 22,
+        "endLine": 108,
+        "endChar": 29
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a4a8755c_3ad31e4b",
         "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
         "patchSetId": 4
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "c471e91c_5f5ed349",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1072938
+      },
+      "writtenOn": "2015-08-18T21:30:27Z",
+      "side": 1,
+      "message": "Same as previous comment, renamed to interval.",
+      "parentUuid": "a4a8755c_3ad31e4b",
+      "range": {
+        "startLine": 118,
+        "startChar": 38,
+        "endLine": 118,
+        "endChar": 65
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "243ac5f6_8763c50d",
         "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
         "patchSetId": 4
@@ -151,6 +295,30 @@
       "writtenOn": "2015-08-17T21:35:48Z",
       "side": 1,
       "message": "Not sure why you return a Sample[] that you create from a List\u003cSample\u003e, if it\u0027s gonna be just used for iteration here.",
+      "range": {
+        "startLine": 140,
+        "startChar": 29,
+        "endLine": 140,
+        "endChar": 50
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04b861a5_19ed0900",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1072938
+      },
+      "writtenOn": "2015-08-18T21:30:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "243ac5f6_8763c50d",
       "range": {
         "startLine": 140,
         "startChar": 29,
