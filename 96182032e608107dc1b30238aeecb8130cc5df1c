@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a4a8755c_7f73c15c",
+        "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2015-08-18T22:44:08Z",
+      "side": 1,
+      "message": "interval sounds fine to me",
+      "parentUuid": "243ac5f6_40424369",
+      "range": {
+        "startLine": 81,
+        "startChar": 14,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "96182032e608107dc1b30238aeecb8130cc5df1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64591d73_b76eff21",
         "filename": "chartlib/src/main/java/com/android/tools/chartlib/TimelineData.java",
         "patchSetId": 4
