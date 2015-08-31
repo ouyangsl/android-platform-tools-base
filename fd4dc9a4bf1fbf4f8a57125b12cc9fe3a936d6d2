@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6424bead_9027ba77",
+        "filename": "sdklib/src/main/java/com/android/sdklib/SdkVersionInfo.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1078623
+      },
+      "writtenOn": "2015-08-31T21:26:48Z",
+      "side": 1,
+      "message": "Can be @NonNull; done in Change 759730 (and abandoned Change 759725).",
+      "revId": "fd4dc9a4bf1fbf4f8a57125b12cc9fe3a936d6d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
