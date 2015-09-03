@@ -387,6 +387,24 @@
     },
     {
       "key": {
+        "uuid": "84529221_c948dff5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T20:45:26Z",
+      "side": 1,
+      "message": "Sorry, I misinterpreted this check. I didn\u0027t notice the negation there...",
+      "parentUuid": "647bdead_5b2dbb5d",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64159e82_c8af8f5f",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
         "patchSetId": 1
