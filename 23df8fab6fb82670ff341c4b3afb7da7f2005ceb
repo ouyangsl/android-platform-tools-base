@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64159e82_68bf7b98",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "No need to break this line.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e486eed4_54e90577",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "I\u0027d suggest making this more specific. It\u0027s currently missing \"TLS/SSL\" and \"trust\". How about \"Overly permissive TLS/SSL trust manager\" or \"Insecure TLS/SSL trust manager\"?",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6492fe15_9c37bc17",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "Suggestion: \"an X509TrustManager that contains ... \" -\u003e \"X509TrustManager implementations whose checkServerTrusted or checkClientTrusted methods do nothing (thus trusting any certificate chain) ...\"",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_475390dd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "\"Trusting unauthorized certificates\" doesn\u0027t tell most developers (even those who copy-paste an iffy X509TrustManager code from elsewhere) much. How about \"which could result in insecure network traffic caused by trusting arbitrary TLS/SSL certificates presented by peers.\"",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_0780787f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "Suggestion: Rename for clarity. For example, TrustAllX509TrustManagerDetector or similar. As much as we\u0027d like to detect all \"insecure TLS/SSL traffic\", this detector only scratches the surface. It\u0027s pretty specific to detecting issues in X509TrustManager.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e486eed4_14f37d69",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "Nit: It\u0027s usually safer to use \"getAcceptedIssuers\".equals(method.name) to get \"false\" instead of NullPointerException in case the non-literal is null. Same comment for the other two method comparisons below.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64159e82_c8182f80",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "Optimization: Break out of the loop early here. Same comment for the other two methods below.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64159e82_28b583b8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "Returning null/empty from getAcceptedIssuers is a common practice and doesn\u0027t lower security. I suggest removing this check.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84529221_08727523",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "I\u0027d suggest looking only at the methods whose return type is void.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "644d9e85_a7939948",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "The return type of these two methods is void. Thus, they can\u0027t return null.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_075998ff",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "I don\u0027t think you need to check for return in these methods.",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64159e82_c8af8f5f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/InsecureTLSDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T15:44:30Z",
+      "side": 1,
+      "message": "How about \"cause insecure network traffic due to trusting arbitrary TLS/SSL certificates presented by peer\"?",
+      "revId": "23df8fab6fb82670ff341c4b3afb7da7f2005ceb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
