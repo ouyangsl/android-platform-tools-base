@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "644d9e85_fd424274",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T21:49:51Z",
+      "side": 1,
+      "message": "I\u0027ve confirmed that the policy is that all new files MUST use \"Copyright (C) \u003cyear\u003e The Android Open Source Project\" here.",
+      "parentUuid": "0484e2ca_13a5d0e6",
+      "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e486eed4_cf3d7ba9",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
         "patchSetId": 2
