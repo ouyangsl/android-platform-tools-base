@@ -1,0 +1,344 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e486eed4_afe118ba",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "* Please indent continuation lines by 8.\n* Also, please break lines at highest possible semantic level. In this case, before \"extends\" or before \"implements\".",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8497f201_352b1419",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Please rename to UnsafeProtectedBroadcastReceiver to avoid ambiguity with future checks.",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_ea688302",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Please break lines at 100 columns max (here and below).",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e486eed4_0f004474",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "drop \"before acting\"",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84529221_8e32edbd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "For clarity: doesn\u0027t require that the caller has BROADCAST_SMS permission",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8497f201_5542602e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Why public? Wouldn\u0027t private work just fine?",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_c64b0447",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Why not private? Also, a small javadoc comment about what the String values are would help. Alternatively, rename for clarity to avoid the need for the javadoc comment.",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84529221_4e23d5e7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "This leaves out classes that subclass a class that subclasses BroadcastReceiver. I wonder if you can simply skip this check. The next check will anyway filter out what you want. So what if the class doesn\u0027t really subclass BroadcastReceiver and thus won\u0027t be able to receive broadcasts?",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6492fe15_5cf4d400",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Nit: method -\u003e methods",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cce27b_ebfa81aa",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Style/safety: !\"onReceive\".equals(method.name)  (here and in lots of places below)",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "240f267a_263818b8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "You can\u0027t rely on aload_2 unless you check what arguments the method takes. There can be lots of different onReceive methods in a class.",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_ca3ca7f8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "if -\u003e else if",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e486eed4_4faaccee",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Style: space missing between if and (",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e486eed4_ef316085",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "This message and the one below are missing an explanation of why checking the received Intent\u0027s action is actually needed. My understanding is that it\u0027s needed because this onReceive can be maliciously triggered by a broadcast with an arbitrary action. What\u0027s harder to explain succinctly in an error message is that it might be a problem because one of the actions in intent-filter in the manifest is protected and the security of this onReceive might be relying on this protection.",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "644d9e85_c77e95ef",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "intent -\u003e Intent",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cce27b_2b2469f1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "This can probably all fit into one line.",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e486eed4_8f0694e5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Safer check: TAG_INTENT_FILTER.equals(tagName) (here and below)",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_2a51fbff",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "String.replace(char, char) might be more efficient that String.replace(CharSequence, CharSequence).",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6492fe15_3c854890",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "A safer and shorter check if \"android.provider.Telephony.SMS_DELIVER\".equals(actionName). It\u0027ll never throw a NullPointerExceptiion. It\u0027ll return false if actionName \u003d\u003d null. Same comment for the permission check below.",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8497f201_f5fccc38",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-09-03T18:23:20Z",
+      "side": 1,
+      "message": "Why not simply store the PROTECTED_BROADCASTS as a Set\u003cString\u003e and the use PROTECTED_BROADCAST.contains(actionName) here?",
+      "revId": "293ea15eddf7051a95ab01bea7fa88a9eeb3b71a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
