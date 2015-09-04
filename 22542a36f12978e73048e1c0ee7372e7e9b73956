@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6492fe15_90c9dde8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-04T19:56:29Z",
+      "side": 1,
+      "message": "This (the issue summary) used to be a single line summary of the problem -- but a while back I changed it to instead follow IntelliJ\u0027s approach, which is just a 2-4 word synopsis, e.g. \"Internationalization Problems\", \"Spelling Errors\", \"Accidental Assignments\", \"Unused Variables\", and so on. Can you change these to something similarly brief (it doesn\u0027t need to be very descriptive; in the Inspections view it\u0027s just used to group errors, and the full explanation is shown once you select it.)\n\nPossible suggestion: \"Unsafe Protected BroadcastReceivers\" and \"Unprocted SMS BroadcastReceivers\".",
+      "revId": "22542a36f12978e73048e1c0ee7372e7e9b73956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_b9c6e3a0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-04T19:56:29Z",
+      "side": 1,
+      "message": "In PermissionRequirementTest#testDbUpToDate I added something similar for the dangerous permission list that\u0027s used in that detector; if it has a reference to the Android source code it will generate a live list and compare it to the current hardcoded set. (Not saying you need to do this now, just as an FYI, maybe a TODO in the unit test.)",
+      "revId": "22542a36f12978e73048e1c0ee7372e7e9b73956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_99c32791",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-04T19:56:29Z",
+      "side": 1,
+      "message": "rename to mReceiversWith ... (AOSP code style)",
+      "revId": "22542a36f12978e73048e1c0ee7372e7e9b73956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44141a88_f9d05b57",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeBroadcastReceiverDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-04T19:56:29Z",
+      "side": 1,
+      "message": "nit -- instead of \"\".equals(permission), use permission.isEmpty()",
+      "revId": "22542a36f12978e73048e1c0ee7372e7e9b73956",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
