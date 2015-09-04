@@ -37,6 +37,42 @@
     },
     {
       "key": {
+        "uuid": "c452ca50_de3e357e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-09-04T02:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0484e2ca_13a5d0e6",
+      "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44a17a5d_8bba19a7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-09-04T02:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "644d9e85_fd424274",
+      "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e486eed4_cf3d7ba9",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
         "patchSetId": 2
@@ -48,6 +84,24 @@
       "writtenOn": "2015-09-03T20:45:26Z",
       "side": 1,
       "message": "Style: Indent by 8.",
+      "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64dafe36_1daff3b8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-09-04T02:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e486eed4_cf3d7ba9",
       "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -71,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "c452ca50_fe417900",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-09-04T02:22:07Z",
+      "side": 1,
+      "message": "I agree. I added a comment along these lines. Probably not hard - would need to attempt to write representative example cases, see what the bytecode looks like, and update the lint check accordingly.",
+      "parentUuid": "644d9e85_22767761",
+      "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0484e2ca_3375740c",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
         "patchSetId": 2
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "647bdead_9bf913f1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-09-04T02:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0484e2ca_3375740c",
+      "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e486eed4_af06f7e4",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
         "patchSetId": 2
@@ -99,6 +189,24 @@
       "writtenOn": "2015-09-03T20:45:26Z",
       "side": 1,
       "message": "Style: Indent by 8",
+      "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24472669_97e0d4ff",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-09-04T02:22:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e486eed4_af06f7e4",
       "revId": "15a6463c5cf1ee54ed625a582c83852cf8d91e5c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
