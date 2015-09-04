@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "240f267a_f2fcf638",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-04T21:02:29Z",
+      "side": 1,
+      "message": "put `backticks` around the method names (`checkServerTrusted`) here; when the explanation is displayed in for example Android Studio it will format those using code formatting instead (similarly you can use asterisk for *bold* etc)",
+      "revId": "bf79cf3cdaacde2a65381e152d10ba15f43af27a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cce27b_0c4fb856",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-04T21:02:29Z",
+      "side": 1,
+      "message": "This is good -- but just FYI, I\u0027ve been trying to migrate most of the lint checks *away* from bytecode analysis and rewrite them as AST detectors instead (JavaScanner).\n\nThe primary reason for this is that in IntelliJ and Android Studio, there\u0027s no immediate compilation, so to get background editor warnings (which in IntelliJ you get immediately, not just when you save the file as in Eclipse where it looks at saved state) it can\u0027t really be bytecode based.\n\nA second reason is that on an AST it\u0027s much easier to get accurate position information (for error highlights etc) -- in the bytecode we really only have line number references, and we don\u0027t have line number information for places like class declarations and things so there are heuristics which search backwards for string matches in the source etc.\n\nA third reason is that analysis is typically easier at the AST level.\n\nInitially most lint checks were doing bytecode analysis because we didn\u0027t have type attribution in the AST, so it was easier to do it with a bytecode check if you needed to be certain about the final exact type of something.\n\nBut that\u0027s no longer a limitation; you can resolve types in the AST too.\n\nNo need to rewrite this now -- it will work when lint is run from Gradle on the build server etc -- I just thought I\u0027d let you know since you\u0027ve already contributed several checks, in case you\u0027re thinking of adding more.",
+      "revId": "bf79cf3cdaacde2a65381e152d10ba15f43af27a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64159e82_4e0e0241",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TrustAllX509TrustManagerDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-04T21:02:29Z",
+      "side": 1,
+      "message": "FYI There\u0027s a ControlFlowGraph I\u0027m using for example from the WakelockDetector and from the ApiDetector if you want to very accurately determine whether there are any possible exits.",
+      "revId": "bf79cf3cdaacde2a65381e152d10ba15f43af27a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
