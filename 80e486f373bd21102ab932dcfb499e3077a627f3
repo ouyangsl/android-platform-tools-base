@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "44141a88_3edc9900",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84253145_27736b5e",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4485f957_53f7664d",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-08-28T00:08:57Z",
       "side": 1,
       "message": "Can you move this to the previous line?",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6492fe15_b5888bea",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4485f957_53f7664d",
       "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "04cce27b_b720da62",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84253145_273a8b80",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c42ba915_38406fef",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2015-08-28T00:08:57Z",
       "side": 1,
       "message": ".put(..) to next line",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e486eed4_f8b287c9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c42ba915_38406fef",
       "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "0484e2ca_5959399a",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Some other detectors like DublicateIdDetector are listed as FAST even though they are complicated, but we\u0027ll see what Tor says.",
+      "parentUuid": "c42ba915_f872f757",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4485f957_6ed5dd5e",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2015-08-28T00:08:57Z",
       "side": 1,
       "message": "Similar to custom-lint-rules, don\u0027t show an error for libraries since they are merged. I think most rules from afterCheckFile(..) and afterCheckProject(..) are valid here.",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6492fe15_558d87f7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4485f957_6ed5dd5e",
       "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "44141a88_1ee1ddb8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a47f9520_5e9a08c7",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4485f957_3340a2ef",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
         "patchSetId": 1
@@ -132,6 +258,24 @@
       "writtenOn": "2015-08-28T00:08:57Z",
       "side": 1,
       "message": "The indentation across the project seems to suggest the following: Can you please change it.\ncontext.report(MISSING_LEANBACK_SUPPORT, fileLocation,\n      \"Expecting ...\" +\n      \"android:required\u003d..\");",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84529221_ef939847",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4485f957_3340a2ef",
       "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -172,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "04cce27b_d71d5e29",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4700952_4ff1fb07",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "248c8586_61bba02c",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
         "patchSetId": 1
@@ -189,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "e486eed4_98db3b06",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "248c8586_61bba02c",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "048f817d_e0fa3935",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
         "patchSetId": 1
@@ -200,6 +380,24 @@
       "writtenOn": "2015-08-28T00:08:57Z",
       "side": 1,
       "message": "\u003e100",
+      "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84529221_cf80dceb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/TVDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 1078283
+      },
+      "writtenOn": "2015-09-04T13:37:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "048f817d_e0fa3935",
       "revId": "80e486f373bd21102ab932dcfb499e3077a627f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
