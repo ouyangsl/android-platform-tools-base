@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49c27358_bda1a30f",
+        "filename": "templates/other/WatchFaceService/root/src/app_package/MyAnalogWatchFaceService.java.ftl",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1047533
+      },
+      "writtenOn": "2015-09-18T18:43:52Z",
+      "side": 1,
+      "message": "Just making sure... we don\u0027t need to call super.onTapCommand?",
+      "revId": "afd3c7845b34499c31677e32c1c3caaef8c24e4c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
