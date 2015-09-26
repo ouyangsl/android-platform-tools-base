@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e4c398b_dfc89ce0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-26T15:34:39Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e52b121_ed43b631",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-26T15:34:39Z",
+      "side": 1,
+      "message": "Lint guarantees that within a project, the manifest file will be processed first (before resource files, which in turn are processed before java files etc). This guaranteed iteration order means that you don\u0027t have to defer processing until after the project.\n\nRecord what you need from the manifest files, then when you come across the res/xml file, you can report the error immediately. And that means that you can report the error using the XmlContext, which makes it easier to for example report errors for a specific part of an XML element (e.g. you can report the error on an element or attribute, or for just the name part of an element (the tag) or the name part of an attribute, or the value range of an attribute. When you supply the node as the second attribute lint will also automatically check to see if the error has been suppressed.",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e4c398b_bfc5e0c6",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-26T15:34:39Z",
+      "side": 1,
+      "message": "FYI one thing I\u0027m planning to add to lint is providing the merged manifest to the detectors, so that they don\u0027t have to do this \"aggregation\" themselves to figure out if something is set in any file, and better yet, to use Gradle\u0027s exact merging logic (which allows one manifest to override another etc) and correctly use the exact same value as the build will.  That should make these kinds of checks much simpler!",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e5fa128_e53d0df2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-26T15:34:39Z",
+      "side": 1,
+      "message": "As mentioned above you are guaranteed to come across this file *after* the manifest files in this project have been processed, so here you could instead report a problem: \"You seem to be using Android Auto, but you did not declare it in the manifest; add a blah blah blah element etc.\"",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e4d7d85_02a93bc7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-26T15:34:39Z",
+      "side": 1,
+      "message": "More accurate: use JavaContext (pass to this visitor and hold on to it as a field), then call mContext.resolve(node) and if returns a ResolvedMethod you can do accurate type-resolved operations on that method. (That way you can for example check whether the types extend rather than exactly match the thing you\u0027re looking for etc.)",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
