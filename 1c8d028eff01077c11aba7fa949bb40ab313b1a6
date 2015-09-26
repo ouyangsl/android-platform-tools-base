@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e4d7d85_22ac37d8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/WearDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-26T15:20:57Z",
+      "side": 1,
+      "message": "Permissions shouldn\u0027t need special checks for each API; as of 1.3 there\u0027s a general permission check (implemented inside SupportAnnotationDetector) which should be able to handle *all* permission requirements.\n\nThe way this works is that the API which requires the permission (sounds like it\u0027s the watch face service) should be annotated with @RequiresPermission(allOf\u003d{permission-name-1, permission-name-2} and then the rest should work automatically. The error will show up at the place in the code where your own service extends the class annotated with @RequiresPermission (and there will be a quickfix to add it etc). For more info on this see go/android-annotations/.",
+      "revId": "1c8d028eff01077c11aba7fa949bb40ab313b1a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e2e2591_1774d754",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/WearDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-09-26T15:20:57Z",
+      "side": 1,
+      "message": "Is that class marked as deprecated in code (with @Deprecated) ? If so, it should already be shown as deprecated in the code by IntelliJ etc right?",
+      "revId": "1c8d028eff01077c11aba7fa949bb40ab313b1a6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
