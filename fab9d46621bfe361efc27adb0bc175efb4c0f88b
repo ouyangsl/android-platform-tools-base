@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "ee86cdd4_8082ebf2",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2015-09-28T17:30:48Z",
+      "side": 1,
+      "message": "Brilliant! This implies that I can get away by just using a single pass over the manifest + resources.",
+      "parentUuid": "8e52b121_ed43b631",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e4c398b_bfc5e0c6",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
         "patchSetId": 3
