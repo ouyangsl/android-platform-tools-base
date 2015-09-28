@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ae5bf53d_480bc92e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2015-09-28T23:40:27Z",
+      "side": 1,
+      "message": "Thank you, Tor. I\u0027ve made the detector a single phase detector based on your input. \n\nre: XmlContext \u0026 Location (Please advice if this looks correct)\nGive that I was reporting the errors in AndroidManifest.xml while processing the res/xml/\u003cautomotive_descriptor\u003e, I pass in a Location.Handle that \n1. Points to the \u003capplication\u003e element of the AndroidManifest.xml since I\u0027m reporting missing elements. \n2. Store the element as clientData on the location Handle and then pass this as the second parameter in XmlContext.report(..)",
+      "parentUuid": "ee86cdd4_8082ebf2",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e4c398b_bfc5e0c6",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
         "patchSetId": 3
@@ -65,6 +83,24 @@
       "writtenOn": "2015-09-26T15:34:39Z",
       "side": 1,
       "message": "FYI one thing I\u0027m planning to add to lint is providing the merged manifest to the detectors, so that they don\u0027t have to do this \"aggregation\" themselves to figure out if something is set in any file, and better yet, to use Gradle\u0027s exact merging logic (which allows one manifest to override another etc) and correctly use the exact same value as the build will.  That should make these kinds of checks much simpler!",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee616dea_3ac57f98",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2015-09-28T23:40:27Z",
+      "side": 1,
+      "message": "Awesome!",
+      "parentUuid": "4e4c398b_bfc5e0c6",
       "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -88,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "2e2e2591_1e762ccf",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2015-09-28T23:40:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e5fa128_e53d0df2",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e4d7d85_02a93bc7",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
         "patchSetId": 3
@@ -99,6 +153,24 @@
       "writtenOn": "2015-09-26T15:34:39Z",
       "side": 1,
       "message": "More accurate: use JavaContext (pass to this visitor and hold on to it as a field), then call mContext.resolve(node) and if returns a ResolvedMethod you can do accurate type-resolved operations on that method. (That way you can for example check whether the types extend rather than exactly match the thing you\u0027re looking for etc.)",
+      "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae5bf53d_08cf1142",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AndroidAutoDetector.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2015-09-28T23:40:27Z",
+      "side": 1,
+      "message": "Done. \nI used JavaContext.resolve(node) and was able to easily identify the method parameters. \nThe only issue was that the test required me to create a stub for String and Bundle. I\u0027m using the lintProject(..) version that takes TestFile\u0027s and couldn\u0027t figure out a better way to do this.",
+      "parentUuid": "6e4d7d85_02a93bc7",
       "revId": "fab9d46621bfe361efc27adb0bc175efb4c0f88b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
