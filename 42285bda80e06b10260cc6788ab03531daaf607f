@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90673931_7781038b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-10-08T18:18:36Z",
+      "side": 1,
+      "message": "What if this dropped the check for setHostnameVerifier and only checked for new AllowAllHostnameVerifier() and SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER? I do\u0027t think there\u0027s a reason to invoke that constructor and use that field, regardless of whether the resulting object is passed into setHostnameVerifier.",
+      "revId": "42285bda80e06b10260cc6788ab03531daaf607f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
