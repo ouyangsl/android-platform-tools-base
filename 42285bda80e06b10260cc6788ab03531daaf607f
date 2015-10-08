@@ -16,6 +16,24 @@
       "revId": "42285bda80e06b10260cc6788ab03531daaf607f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0a315b1_539a566b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-08T18:46:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90673931_7781038b",
+      "revId": "42285bda80e06b10260cc6788ab03531daaf607f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
