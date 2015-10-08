@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c50571c4_77c3506b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-08T18:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "704d65ae_c30f85fc",
+      "revId": "8dae5214a4134eba21dc37606b2ff557899a9be6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "504861a0_844627e3",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "2509eddd_3ae0a1fb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-08T18:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "504861a0_844627e3",
+      "revId": "8dae5214a4134eba21dc37606b2ff557899a9be6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5061411e_f5ad0bd8",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2015-10-08T17:54:42Z",
       "side": 1,
       "message": "Please expand this impl comment to outline what this JavaScanner does. I can\u0027t figure out why setHostnameVerifier method is involved.",
+      "revId": "8dae5214a4134eba21dc37606b2ff557899a9be6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45118108_33b9e807",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-08T18:17:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5061411e_f5ad0bd8",
       "revId": "8dae5214a4134eba21dc37606b2ff557899a9be6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
