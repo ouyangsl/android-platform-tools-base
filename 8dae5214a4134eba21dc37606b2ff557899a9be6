@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "704d65ae_c30f85fc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-10-08T17:54:42Z",
+      "side": 1,
+      "message": "I don\u0027t think this is needed. The no-arg public constructor is implied unless other constructors are explicitly declared.",
+      "revId": "8dae5214a4134eba21dc37606b2ff557899a9be6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "504861a0_844627e3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-10-08T17:54:42Z",
+      "side": 1,
+      "message": "Suggestion: trusting TLS/SSL server certificates for wrong hostnames. Same comment for the two messages below.",
+      "revId": "8dae5214a4134eba21dc37606b2ff557899a9be6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5061411e_f5ad0bd8",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/AllowAllHostnameVerifierDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-10-08T17:54:42Z",
+      "side": 1,
+      "message": "Please expand this impl comment to outline what this JavaScanner does. I can\u0027t figure out why setHostnameVerifier method is involved.",
+      "revId": "8dae5214a4134eba21dc37606b2ff557899a9be6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
