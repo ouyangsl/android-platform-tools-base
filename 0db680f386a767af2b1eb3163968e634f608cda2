@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f66f95e4_13b6442b",
+        "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/SecurityDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-10-23T17:43:06Z",
+      "side": 1,
+      "message": "\"is very dangerous\" -\u003e \"can be risky\" for consistency with stuff below.",
+      "revId": "0db680f386a767af2b1eb3163968e634f608cda2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
