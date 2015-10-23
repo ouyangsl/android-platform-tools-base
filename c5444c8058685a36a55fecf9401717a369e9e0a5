@@ -16,6 +16,24 @@
       "revId": "c5444c8058685a36a55fecf9401717a369e9e0a5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96c81977_16c99c8b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-23T20:02:01Z",
+      "side": 1,
+      "message": "Done . Thanks!",
+      "parentUuid": "96df3923_3e7ca9e4",
+      "revId": "c5444c8058685a36a55fecf9401717a369e9e0a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
