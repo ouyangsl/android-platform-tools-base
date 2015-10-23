@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96df3923_3e7ca9e4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SecurityDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-10-23T19:55:50Z",
+      "side": 1,
+      "message": "Instead of\n   \"true\".equals(node.astArguments().first().toString()\nyou could instead do\n    Boolean.TRUE.equals(ConstantEvaluator.evaluate(context, node.astArguments().first())\n\nFor \"true\", these will do the same thing, but the constant evaluator can also handle cases where there is an expression in the argument place, such as a reference to a static field with a known value.\n\nThis might not be a big deal for these methods -- I bet most uses are going to be a literal occurrences of true or false, but good to know if you\u0027re doing more Java based detectors :-)",
+      "revId": "c5444c8058685a36a55fecf9401717a369e9e0a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
