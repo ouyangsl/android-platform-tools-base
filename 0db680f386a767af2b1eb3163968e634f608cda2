@@ -16,6 +16,24 @@
       "revId": "0db680f386a767af2b1eb3163968e634f608cda2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6235deb_27badaaa",
+        "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/SecurityDetectorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-23T18:15:05Z",
+      "side": 1,
+      "message": "Done -\nI was thinking about proposing changes to the MODE_WORLD_READABLE and MODE_WORLD_WRITABLE warnings to make them sound more serious (especially since they\u0027re deprecated now) but I\u0027ll save that for a separate proposal.",
+      "parentUuid": "f66f95e4_13b6442b",
+      "revId": "0db680f386a767af2b1eb3163968e634f608cda2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
