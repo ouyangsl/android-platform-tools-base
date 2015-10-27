@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96c81977_d9003785",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-27T03:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e4cdf6_1da7e67f",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6ae1193_9f1214db",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-10-27T02:24:46Z",
       "side": 1,
       "message": "Is there a brief suggestion we can make here for how to fix it?",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36bdadca_f6589e18",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-27T03:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6ae1193_9f1214db",
       "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "96c81977_f9fdf3cb",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-27T03:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6d53101_f5641a4d",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6b795e1_53bf9c99",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
         "patchSetId": 2
@@ -64,6 +118,24 @@
       "writtenOn": "2015-10-27T02:24:46Z",
       "side": 1,
       "message": "maybe SSL_CERTIFICATE_SOCKET_FACTORY_CLASS instead? (for readaiblity)",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b6a6fdc1_6fcbf1a9",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-27T03:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6b795e1_53bf9c99",
       "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "76880537_4df479f5",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-27T03:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6ceb575_c3d67dd7",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "76d48537_c7c2a267",
         "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetectorTest.java",
         "patchSetId": 2
@@ -98,6 +188,24 @@
       "writtenOn": "2015-10-27T02:24:46Z",
       "side": 1,
       "message": "Here you can inline the source code (which gets nested syntax highlighting etc) -- replace \n   lintProject(\"src/...\")\nwith\n  lintProject(java(\"rc/test/pkg/SSLCertificateSocketFactoryTest.java\",\n     \"\u003ccontents of the .java.text file here\u003e\"))\n\nFor an example, open PrivateResourceDetectorTest\n\n(I\u0027m switching more and more tests over to that format.)",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "169a6978_35a5badc",
+        "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetectorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-10-27T03:50:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76d48537_c7c2a267",
       "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
