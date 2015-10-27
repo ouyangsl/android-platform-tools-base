@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36e4cdf6_1da7e67f",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-10-27T02:24:46Z",
+      "side": 1,
+      "message": "Maybe add \"One way to verify the server\u0027s identity is to use getDefaultHostnameVerifier() to get a HostnameVerifier to verify the certificate hostname.\" here? (I grabbed that from the http://developer.android.com/reference/android/net/SSLCertificateSocketFactory.html docs; seems useful to point people to a suggestion for what to do about the warning.)",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6ae1193_9f1214db",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-10-27T02:24:46Z",
+      "side": 1,
+      "message": "Is there a brief suggestion we can make here for how to fix it?",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6d53101_f5641a4d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-10-27T02:24:46Z",
+      "side": 1,
+      "message": "maybe INET_ADDRESS_CLASS insteaD?",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6b795e1_53bf9c99",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-10-27T02:24:46Z",
+      "side": 1,
+      "message": "maybe SSL_CERTIFICATE_SOCKET_FACTORY_CLASS instead? (for readaiblity)",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6ceb575_c3d67dd7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetector.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-10-27T02:24:46Z",
+      "side": 1,
+      "message": "Nit - just return Arrays.asList(\"createSockets\", \"getInsecure\") instead?",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76d48537_c7c2a267",
+        "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/SSLCertificateSocketFactoryDetectorTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2015-10-27T02:24:46Z",
+      "side": 1,
+      "message": "Here you can inline the source code (which gets nested syntax highlighting etc) -- replace \n   lintProject(\"src/...\")\nwith\n  lintProject(java(\"rc/test/pkg/SSLCertificateSocketFactoryTest.java\",\n     \"\u003ccontents of the .java.text file here\u003e\"))\n\nFor an example, open PrivateResourceDetectorTest\n\n(I\u0027m switching more and more tests over to that format.)",
+      "revId": "02a53b033a9a80e01881c89fe803187778d185a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
