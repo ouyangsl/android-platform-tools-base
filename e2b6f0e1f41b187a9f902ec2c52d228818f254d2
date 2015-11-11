@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76d4867d_13482f08",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeNativeCodeDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-11-11T18:10:36Z",
+      "side": 1,
+      "message": "Nit: java.lang.System is final and thus cannot have subclasses. Is there a faster check than isSubclassOf?",
+      "revId": "e2b6f0e1f41b187a9f902ec2c52d228818f254d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
