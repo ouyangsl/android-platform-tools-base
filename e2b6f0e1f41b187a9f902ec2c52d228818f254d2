@@ -16,6 +16,24 @@
       "revId": "e2b6f0e1f41b187a9f902ec2c52d228818f254d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b0be317_9e091d41",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/UnsafeNativeCodeDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1019164
+      },
+      "writtenOn": "2015-11-12T14:09:03Z",
+      "side": 1,
+      "message": "Done - using matches instead of isSubclassOf for java.lang.System",
+      "parentUuid": "76d4867d_13482f08",
+      "revId": "e2b6f0e1f41b187a9f902ec2c52d228818f254d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
