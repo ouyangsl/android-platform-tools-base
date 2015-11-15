@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56278298_c91535cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1069415
+      },
+      "writtenOn": "2015-11-15T18:38:51Z",
+      "side": 1,
+      "message": "Please wrap commit message to 72 characters",
+      "revId": "3a4be4999ee7796bbf5cce605e57a3d494b69f66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
