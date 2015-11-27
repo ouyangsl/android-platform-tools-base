@@ -40,6 +40,8 @@ public class DexOptions implements com.android.builder.core.DexOptions {
 
     private Integer maxProcessCount = null;
 
+    private Integer maxNumberOfIdxPerDex = null;
+
     public void setIncremental(boolean isIncremental) {
         // TODO: Print out a warning, that this is ignored.
         isIncrementalFlag = isIncremental;
@@ -135,4 +137,12 @@ public class DexOptions implements com.android.builder.core.DexOptions {
         this.maxProcessCount = maxProcessCount;
     }
 
+    /**
+     * Returns the maxiumum number of indices per dex file.
+     */
+    @Nullable
+    @Override
+    Integer getMaxNumberOfIdxPerDex() {
+        return maxNumberOfIdxPerDex;
+    }
 }

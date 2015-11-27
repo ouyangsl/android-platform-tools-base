@@ -207,6 +207,11 @@ public class DexProcessBuilder extends ProcessEnvBuilder<DexProcessBuilder> {
             if (mMainDexList != null ) {
                 builder.addArgs("--main-dex-list", mMainDexList.getAbsolutePath());
             }
+
+            Integer maxIdx = dexOptions.getMaxNumberOfIdxPerDex();
+            if (maxIdx != null) {
+                builder.addArgs("--set-max-idx-number=" + maxIdx);
+            }
         }
 
         if (mAdditionalParams != null) {

@@ -30,4 +30,6 @@ public interface DexOptions {
     Integer getThreadCount();
     @Nullable
     Integer getMaxProcessCount();
+    @Nullable
+    Integer getMaxNumberOfIdxPerDex();
 }
