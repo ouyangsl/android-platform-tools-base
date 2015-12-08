@@ -579,7 +579,9 @@ public class VariantManager implements VariantModel {
                 variantProviders.toArray(new ConfigurationProvider[variantProviders.size()]));
         variantData.setVariantDependency(variantDep);
 
-        if (variantConfig.isMultiDexEnabled() && variantConfig.isLegacyMultiDexMode()) {
+        if (variantType != VariantType.ANDROID_TEST &&
+                variantConfig.isMultiDexEnabled() && 
+                variantConfig.isLegacyMultiDexMode()) {
             project.getDependencies().add(
                     variantDep.getCompileConfiguration().getName(), COM_ANDROID_SUPPORT_MULTIDEX);
             project.getDependencies().add(
