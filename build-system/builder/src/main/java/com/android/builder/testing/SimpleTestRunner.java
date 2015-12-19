@@ -29,7 +29,6 @@ import com.android.utils.ILogger;
 import com.google.common.collect.ImmutableList;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +54,6 @@ public class SimpleTestRunner implements TestRunner {
             @NonNull List<? extends DeviceConnector> deviceList,
                      int maxThreads,
                      int timeoutInMs,
-            @NonNull Collection<String> installOptions,
             @NonNull File resultsDir,
             @NonNull File coverageDir,
             @NonNull ILogger logger) throws TestException, NoAuthorizedDeviceFoundException, InterruptedException {
@@ -89,7 +87,7 @@ public class SimpleTestRunner implements TestRunner {
                     compatibleDevices++;
                     executor.execute(new SimpleTestCallable(device, projectName, variantName,
                             testApk, testedApks, mAdbExec, testData,
-                            resultsDir, coverageDir, timeoutInMs, installOptions, logger));
+                            resultsDir, coverageDir, timeoutInMs, logger));
                 }
             } else {
                 unAuthorizedDevices++;

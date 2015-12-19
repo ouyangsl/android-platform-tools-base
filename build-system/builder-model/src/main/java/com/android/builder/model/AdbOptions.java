@@ -16,10 +16,6 @@
 
 package com.android.builder.model;
 
-import com.android.annotations.NonNull;
-
-import java.util.Collection;
-
 /**
  * Options for adb.
  */
@@ -30,9 +26,4 @@ public interface AdbOptions {
      * @return the time out in milliseconds.
      */
     int getTimeOutInMs();
-
-    /**
-     * Returns the list of APK installation options.
-     */
-    Collection<String> getInstallOptions();
 }

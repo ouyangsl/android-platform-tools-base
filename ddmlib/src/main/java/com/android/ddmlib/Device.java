@@ -24,7 +24,6 @@ import com.android.ddmlib.log.LogReceiver;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
@@ -35,7 +34,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -837,15 +835,7 @@ final class Device implements IDevice {
     }
 
     @Override
-    public String installPackage(String packageFilePath, boolean reinstall)
-            throws InstallException {
-        return installPackage(
-                packageFilePath, reinstall, ImmutableList.<String>of() /* extraArgs */);
-    }
-
-    @Override
-    public String installPackage(String packageFilePath, boolean reinstall,
-            @NonNull Collection<String> extraArgs)
+    public String installPackage(String packageFilePath, boolean reinstall, String... extraArgs)
             throws InstallException {
         try {
             String remoteFilePath = syncPackageToDevice(packageFilePath);
@@ -865,7 +855,7 @@ final class Device implements IDevice {
 
     @Override
     public void installPackages(List<String> apkFilePaths, int timeOutInMs, boolean reinstall,
-            @NonNull Collection<String> extraArgs) throws InstallException {
+            String... extraArgs) throws InstallException {
 
         assert(!apkFilePaths.isEmpty());
         if (getApiLevel() < 21) {
@@ -881,7 +871,7 @@ final class Device implements IDevice {
         try {
 
             // create a installation session.
-            String sessionId = createMultiInstallSession(apkFilePaths, extraArgs, reinstall);
+            String sessionId = createMultiInstallSession(apkFilePaths, reinstall);
             if (sessionId == null) {
                 Log.d(mainPackageFilePath, "Failed to establish session, quit installation");
                 throw new InstallException("Failed to establish session");
@@ -961,8 +951,7 @@ final class Device implements IDevice {
     }
 
     @Nullable
-    private String createMultiInstallSession(List<String> apkFileNames,
-            @NonNull Collection<String> extraArgs, boolean reinstall)
+    private String createMultiInstallSession(List<String> apkFileNames, boolean reinstall)
             throws TimeoutException, AdbCommandRejectedException, ShellCommandUnresponsiveException,
             IOException {
 
@@ -981,14 +970,9 @@ final class Device implements IDevice {
                 throw new IllegalArgumentException(apkFile.getAbsolutePath() + " is not a file");
             }
         }
-        StringBuilder parameters = new StringBuilder();
-        if (reinstall) {
-            parameters.append(("-r "));
-        }
-        parameters.append(Joiner.on(' ').join(extraArgs));
         MultiInstallReceiver receiver = new MultiInstallReceiver();
         String cmd = String.format("pm install-create %1$s -S %2$d",
-                parameters.toString(),
+                reinstall ? "-r" : "",
                 totalFileSize);
         executeShellCommand(cmd, receiver, DdmPreferences.getTimeOut());
         return receiver.getSessionId();
@@ -1094,14 +1078,17 @@ final class Device implements IDevice {
 
     @Override
     public String installRemotePackage(String remoteFilePath, boolean reinstall,
-            @NonNull Collection<String> extraArgs) throws InstallException {
+            String... extraArgs) throws InstallException {
         try {
             InstallReceiver receiver = new InstallReceiver();
             StringBuilder optionString = new StringBuilder();
             if (reinstall) {
                 optionString.append("-r ");
             }
-            optionString.append(Joiner.on(' ').join(extraArgs));
+            for (String arg : extraArgs) {
+                optionString.append(arg);
+                optionString.append(' ');
+            }
             String cmd = String.format("pm install %1$s \"%2$s\"", optionString.toString(),
                     remoteFilePath);
             executeShellCommand(cmd, receiver, INSTALL_TIMEOUT_MINUTES, TimeUnit.MINUTES);
