@@ -464,7 +464,7 @@ public class NdkHandler {
             includeDirs.add(new File(stlBaseDir, "gabi++/include"));
         } else if (stlName.equals("c++")) {
             includeDirs.add(new File(stlBaseDir, "llvm-libc++/libcxx/include"));
-            includeDirs.add(new File(stlBaseDir, "gabi++/include"));
+            includeDirs.add(new File(stlBaseDir, "llvm-libc++abi/libcxxabi/include"));
             includeDirs.add(new File(stlBaseDir, "../android/support/include"));
         }
 

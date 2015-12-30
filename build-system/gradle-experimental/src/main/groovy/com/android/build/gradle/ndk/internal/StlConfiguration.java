@@ -71,7 +71,7 @@ public class StlConfiguration {
                             "llvm-libc++",
                             "../android/compiler-rt",
                             "llvm-libc++/libcxx/include",
-                            "gabi++/include",
+                            "llvm-libc++abi/libcxxabi/include",
                             "../android/support/include"))
                     .build();
 
