@@ -224,6 +224,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(SslCertificateSocketFactoryDetector.CREATE_SOCKET);
         issues.add(SslCertificateSocketFactoryDetector.GET_INSECURE);
         issues.add(StateListDetector.ISSUE);
+        issues.add(StringAuthLeakDetector.AUTH_LEAK);
         issues.add(StringFormatDetector.ARG_COUNT);
         issues.add(StringFormatDetector.ARG_TYPES);
         issues.add(StringFormatDetector.INVALID);
