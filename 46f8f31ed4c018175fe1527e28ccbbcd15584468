@@ -223,6 +223,23 @@
     },
     {
       "key": {
+        "uuid": "a2e32149_5b011b52",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:58:17Z",
+      "side": 1,
+      "message": "Could this also be hardcoded in resources such as strings.xml?",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c26bb568_2a2914cc",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
         "patchSetId": 1
