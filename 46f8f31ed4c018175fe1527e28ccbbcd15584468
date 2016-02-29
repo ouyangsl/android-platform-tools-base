@@ -1,0 +1,276 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e27a7932_be1e98f4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can you please make the imports fully qualified.",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2e32149_10381285",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "brief javadoc statement. \nsomething like:\n/**\n * Detector that looks for leaked credentials in strings.\n */",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02feade5_d0622ce7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "Is there a way to add a link for more information? with Issue.addMoreInfo(link)",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a26ec178_63017e52",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "remove \"be\"?",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62be89e4_390e0b14",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "default value for Issue.mEnabledByDefault is already true so this isn\u0027t needed.",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02594de9_0da0f917",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82ea9d1e_7476b067",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02594de9_cd6ae17e",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02594de9_ed6f9d8b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2e32149_3068b660",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed since this is the same as the default",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02feade5_f05648fd",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c26bb568_6a2f0cd3",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02594de9_ad69a588",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "can be removed. I think you only need \n1. getApplicableNodeTypes() \n2. createJavaVistor(..)",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c26bb568_2a2914cc",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "private final?",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82ea9d1e_9465348b",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "Can you please add a unit test in lint-tests. You can see ManifestDetectorTest or AndroidTvDetectorTest for example.\nI\u0027d like to see what the root looks like in this case.\n\nI\u0027m thinking that just using node for the location creation would give you the entire string?\n\n\"xyzhttp://user@pass:\u003curl\u003e\"\n    ~~~~~~~~~~~~~~~\n\nwhich also brings up another question that I had:\nDo strings tend to be directly defined as \"https://user@pass:foo.com\" (seems like it) \nOR \n\"abchttps://user@pass:foo.com\"? \n\nIf the former then matcher.matches() might work better?",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02594de9_2da4d512",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:51:18Z",
+      "side": 1,
+      "message": "nit: is it better to call this credential leak?",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
