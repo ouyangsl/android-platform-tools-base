@@ -257,6 +257,24 @@
     },
     {
       "key": {
+        "uuid": "02594de9_0d655988",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-02-29T23:57:10Z",
+      "side": 1,
+      "message": "opps error in url should\u0027ve been user:pass@url",
+      "parentUuid": "82ea9d1e_9465348b",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02594de9_2da4d512",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
         "patchSetId": 1
