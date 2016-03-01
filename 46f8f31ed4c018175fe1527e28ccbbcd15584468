@@ -492,6 +492,24 @@
     },
     {
       "key": {
+        "uuid": "82ea9d1e_b585d233",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1060700
+      },
+      "writtenOn": "2016-03-01T07:22:29Z",
+      "side": 1,
+      "message": "Actually what i meant was: Is it possible for a developer to use such a URL in strings.xml? example:\n\n\u003cstring name\u003d\"test\"\u003ehttps://user:pass@example.com/foo\u003c/string\u003e\n\nIf yes then this detector should also scan strings.xml?",
+      "parentUuid": "62be89e4_a7caf690",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c26bb568_2a2914cc",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
         "patchSetId": 1
