@@ -510,6 +510,24 @@
     },
     {
       "key": {
+        "uuid": "22ef3134_a6a76718",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1014994
+      },
+      "writtenOn": "2016-03-01T07:26:27Z",
+      "side": 1,
+      "message": "In theory yes, but I don\u0027t think I would do that. At least it would not be in strings.xml but one of the not translatable ones.\n\nShould we make sure we want this lint check before adding that?",
+      "parentUuid": "82ea9d1e_b585d233",
+      "revId": "46f8f31ed4c018175fe1527e28ccbbcd15584468",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c26bb568_2a2914cc",
         "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/StringAuthLeakDetector.java",
         "patchSetId": 1
