@@ -27,7 +27,6 @@ import static com.android.tools.lint.LintCliFlags.ERRNO_USAGE;
 import static com.android.tools.lint.detector.api.LintUtils.endsWith;
 import static com.android.tools.lint.detector.api.TextFormat.TEXT;
 
-import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.checks.BuiltinIssueRegistry;
@@ -61,7 +60,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 /**
  * Command line driver for the lint framework
@@ -103,6 +101,7 @@ public class Main {
     private static final String ARG_ALL_ERROR  = "-Werror";        //$NON-NLS-1$
 
     private static final String PROP_WORK_DIR = "com.android.tools.lint.workdir"; //$NON-NLS-1$
+
     private LintCliFlags mFlags = new LintCliFlags();
     private IssueRegistry mGlobalRegistry;
 
@@ -136,9 +135,6 @@ public class Main {
         // since those projects may have custom project configuration that the command line
         // runner won't know about.
         LintCliClient client = new LintCliClient(mFlags, LintClient.CLIENT_CLI) {
-
-            Pattern mAndroidAnnotationPattern;
-
             @NonNull
             @Override
             protected Project createProject(@NonNull File dir, @NonNull File referenceDir) {
@@ -195,24 +191,6 @@ public class Main {
                    };
                 }
                 return super.getConfiguration(project, driver);
-            }
-
-            @NonNull
-            @Override
-            public String readFile(@NonNull File file) {
-                String contents = super.readFile(file);
-                if (Project.isAospBuildEnvironment()
-                        && file.getPath().endsWith(SdkConstants.DOT_JAVA)) {
-                    if (mAndroidAnnotationPattern == null) {
-                        mAndroidAnnotationPattern =
-                                Pattern.compile("android\\.annotation");//$NON-NLS-1$
-                    }
-                    return mAndroidAnnotationPattern
-                            .matcher(contents)
-                            .replaceAll("android.support.annotation"); //$NON-NLS-1$
-                } else {
-                    return contents;
-                }
             }
         };
 

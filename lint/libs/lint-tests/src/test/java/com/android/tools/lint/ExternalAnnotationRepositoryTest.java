@@ -25,7 +25,6 @@ import static org.mockito.Mockito.when;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.testutils.SdkTestCase;
-import com.android.testutils.TestUtils;
 import com.android.tools.lint.client.api.JavaParser.DefaultTypeDescriptor;
 import com.android.tools.lint.client.api.JavaParser.ResolvedAnnotation;
 import com.android.tools.lint.client.api.JavaParser.ResolvedClass;
@@ -75,7 +74,7 @@ public class ExternalAnnotationRepositoryTest extends SdkTestCase {
     @Nullable
     private ExternalAnnotationRepository getExternalAnnotations(@NonNull String pkg,
             @NonNull String contents) throws IOException {
-        File dir = TestUtils.createTempDirDeletedOnExit();
+        File dir = Files.createTempDir();
         try {
             File pkgDir = new File(dir, pkg.replace('.', separatorChar));
             boolean mkdirs = pkgDir.mkdirs();

@@ -19,19 +19,21 @@ package com.android.tools.lint.checks;
 import com.android.annotations.NonNull;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Detector;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiImportStatement;
+import com.android.tools.lint.detector.api.Speed;
 
 import java.util.Collections;
 import java.util.List;
+
+import lombok.ast.AstVisitor;
+import lombok.ast.ForwardingAstVisitor;
+import lombok.ast.ImportDeclaration;
+import lombok.ast.Node;
 
 /**
  * Checks for "import android.R", which seems to be a common source of confusion
@@ -45,7 +47,7 @@ import java.util.List;
  * break. Look out for these erroneous import statements and delete them.
  * </blockquote>
  */
-public class WrongImportDetector extends Detector implements JavaPsiScanner {
+public class WrongImportDetector extends Detector implements Detector.JavaScanner {
     /** Is android.R being imported? */
     public static final Issue ISSUE = Issue.create(
             "SuspiciousImport", //$NON-NLS-1$
@@ -68,20 +70,26 @@ public class WrongImportDetector extends Detector implements JavaPsiScanner {
     public WrongImportDetector() {
     }
 
-    // ---- Implements JavaScanner ----
+    @NonNull
+    @Override
+    public Speed getSpeed() {
+        return Speed.FAST;
+    }
+
+    // ---- Implements Detector.JavaScanner ----
 
     @Override
-    public List<Class<? extends PsiElement>> getApplicablePsiTypes() {
-        return Collections.<Class<? extends PsiElement>>singletonList(PsiImportStatement.class);
+    public List<Class<? extends Node>> getApplicableNodeTypes() {
+        return Collections.<Class<? extends Node>> singletonList(
+                ImportDeclaration.class);
     }
 
     @Override
-    public JavaElementVisitor createPsiVisitor(@NonNull JavaContext context) {
+    public AstVisitor createJavaVisitor(@NonNull JavaContext context) {
         return new ImportVisitor(context);
     }
 
-
-    private static class ImportVisitor extends JavaElementVisitor {
+    private static class ImportVisitor extends ForwardingAstVisitor {
         private final JavaContext mContext;
 
         public ImportVisitor(JavaContext context) {
@@ -90,14 +98,15 @@ public class WrongImportDetector extends Detector implements JavaPsiScanner {
         }
 
         @Override
-        public void visitImportStatement(PsiImportStatement statement) {
-            String qualifiedName = statement.getQualifiedName();
-            if ("android.R".equals(qualifiedName)) {
-                Location location = mContext.getLocation(statement);
-                mContext.report(ISSUE, statement, location,
-                        "Don't include `android.R` here; use a fully qualified name for "
-                                + "each usage instead");
+        public boolean visitImportDeclaration(ImportDeclaration node) {
+            String fqn = node.asFullyQualifiedName();
+            if (fqn.equals("android.R")) { //$NON-NLS-1$
+                Location location = mContext.getLocation(node);
+                mContext.report(ISSUE, node, location,
+                    "Don't include `android.R` here; use a fully qualified name for "
+                            + "each usage instead");
             }
+            return false;
         }
     }
 }

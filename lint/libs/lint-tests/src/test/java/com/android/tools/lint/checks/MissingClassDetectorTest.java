@@ -22,6 +22,7 @@ import static com.android.tools.lint.checks.MissingClassDetector.MISSING;
 import static com.android.tools.lint.detector.api.TextFormat.TEXT;
 
 import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
 import com.android.tools.lint.client.api.LintClient;
 import com.android.tools.lint.detector.api.Context;
 import com.android.tools.lint.detector.api.Detector;
@@ -223,7 +224,10 @@ public class MissingClassDetectorTest extends AbstractCheckTest {
     public void testLibraryWithMissingClass() throws Exception {
         mScopes = null;
         mEnabled = Sets.newHashSet(MISSING);
-        assertEquals("No warnings.",
+        assertEquals("AndroidManifest.xml:11: Error: Class referenced in the manifest, test.pkg.TestService, was not found in the project or the libraries [MissingRegistered]\n"
+                        + "        <service android:name=\".TestService\" />\n"
+                        + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                        + "1 errors, 0 warnings\n",
                 lintProject(
                         xml("AndroidManifest.xml", ""
                                 + "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n"
@@ -252,52 +256,6 @@ public class MissingClassDetectorTest extends AbstractCheckTest {
                                 + "android.library=true\n"
                                 + "manifestmerger.enabled=true\n"))
         );
-    }
-
-    public void testLibraryWithMissingClassInApp() throws Exception {
-        mScopes = null;
-        mEnabled = Sets.newHashSet(MISSING);
-
-        File master = getProjectDir("MasterProject",
-                // Master project
-                xml("AndroidManifest.xml", ""
-                        + "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n"
-                        + "    package=\"test.pkg.app\">\n"
-                        + "</manifest>"),
-                copy("bytecode/TestProvider2.class.data",
-                        "bin/classes/test/pkg/TestProvider2.class"),
-                projectProperties().dependsOn("../LibraryProject").manifestMerger(true).compileSdk(14)
-        );
-        File library = getProjectDir("LibraryProject",
-                // Library project
-                xml("AndroidManifest.xml", ""
-                        + "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\n"
-                        + "    package=\"test.pkg\"\n"
-                        + "    android:versionCode=\"1\"\n"
-                        + "    android:versionName=\"1.0\" >\n"
-                        + "\n"
-                        + "    <uses-sdk android:minSdkVersion=\"14\" />\n"
-                        + "\n"
-                        + "    <application\n"
-                        + "        android:icon=\"@drawable/ic_launcher\"\n"
-                        + "        android:label=\"@string/app_name\" >\n"
-                        + "        <service android:name=\".TestService\" />\n"
-                        + "\n"
-                        + "    </application>\n"
-                        + "\n"
-                        + "</manifest>"),
-                projectProperties().library(true).compileSdk(14),
-                copy("bytecode/TestProvider2.class.data",
-                        "bin/classes/test/pkg/TestProvider2.class"),
-                copy("bytecode/.classpath", ".classpath")
-        );
-
-        assertEquals(""
-                + "LibraryProject/AndroidManifest.xml:11: Error: Class referenced in the manifest, test.pkg.app.TestService, was not found in the project or the libraries [MissingRegistered]\n"
-                + "        <service android:name=\".TestService\" />\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "1 errors, 0 warnings\n",
-                checkLint(Arrays.asList(master, library)).replace("/TESTROOT/",""));
     }
 
     public void testInnerClassStatic() throws Exception {
@@ -527,6 +485,7 @@ public class MissingClassDetectorTest extends AbstractCheckTest {
                 ));
     }
 
+
     public void testMissingClass() throws Exception {
         mScopes = null;
         mEnabled = Sets.newHashSet(MISSING, INSTANTIATABLE, INNERCLASS);
@@ -598,7 +557,7 @@ public class MissingClassDetectorTest extends AbstractCheckTest {
 
     @Override
     protected void checkReportedError(@NonNull Context context, @NonNull Issue issue,
-            @NonNull Severity severity, @NonNull Location location, @NonNull String message) {
+            @NonNull Severity severity, @Nullable Location location, @NonNull String message) {
         if (issue == INNERCLASS) {
             assertNotNull(message, MissingClassDetector.getOldValue(issue, message, TEXT));
             assertNotNull(message, MissingClassDetector.getNewValue(issue, message, TEXT));

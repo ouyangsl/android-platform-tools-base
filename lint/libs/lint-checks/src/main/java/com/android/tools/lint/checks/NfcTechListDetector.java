@@ -20,11 +20,13 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.resources.ResourceFolderType;
 import com.android.tools.lint.detector.api.Category;
+import com.android.tools.lint.detector.api.Detector.JavaScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.ResourceXmlDetector;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
+import com.android.tools.lint.detector.api.Speed;
 import com.android.tools.lint.detector.api.XmlContext;
 
 import org.w3c.dom.Element;
@@ -38,7 +40,7 @@ import java.util.Collections;
  * Check which makes sure NFC tech lists do not include spaces around {@code <tech>} values
  * since that's not handled correctly by the inflater
  */
-public class NfcTechListDetector extends ResourceXmlDetector {
+public class NfcTechListDetector extends ResourceXmlDetector implements JavaScanner {
     /** The main issue discovered by this detector */
     public static final Issue ISSUE = Issue.create(
             "NfcTechWhitespace", //$NON-NLS-1$
@@ -67,6 +69,12 @@ public class NfcTechListDetector extends ResourceXmlDetector {
     @Override
     public boolean appliesTo(@NonNull ResourceFolderType folderType) {
         return folderType == ResourceFolderType.XML;
+    }
+
+    @NonNull
+    @Override
+    public Speed getSpeed() {
+        return Speed.FAST;
     }
 
     @Override

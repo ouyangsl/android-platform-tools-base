@@ -26,11 +26,13 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.resources.ResourceFolderType;
 import com.android.tools.lint.detector.api.Category;
+import com.android.tools.lint.detector.api.Detector.JavaScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.ResourceXmlDetector;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
+import com.android.tools.lint.detector.api.Speed;
 import com.android.tools.lint.detector.api.XmlContext;
 
 import org.w3c.dom.Element;
@@ -41,7 +43,7 @@ import java.util.Collections;
 /**
  * Check which makes sure menu items specify a title
  */
-public class TitleDetector extends ResourceXmlDetector {
+public class TitleDetector extends ResourceXmlDetector implements JavaScanner {
     /** The main issue discovered by this detector */
     public static final Issue ISSUE = Issue.create(
             "MenuTitle", //$NON-NLS-1$
@@ -76,6 +78,12 @@ public class TitleDetector extends ResourceXmlDetector {
     @Override
     public boolean appliesTo(@NonNull ResourceFolderType folderType) {
         return folderType == ResourceFolderType.MENU;
+    }
+
+    @NonNull
+    @Override
+    public Speed getSpeed() {
+        return Speed.FAST;
     }
 
     @Override

@@ -265,8 +265,6 @@ public class GradleDetector extends Detector implements Detector.GradleScanner {
 
     /** Group ID for GMS */
     public static final String GMS_GROUP_ID = "com.google.android.gms";
-    public static final String GOOGLE_SUPPORT_GROUP_ID = "com.google.android.support";
-    public static final String ANDROID_WEAR_GROUP_ID = "com.google.android.support";
 
     private int mMinSdkVersion;
     private int mCompileSdkVersion;
@@ -720,7 +718,7 @@ public class GradleDetector extends Detector implements Detector.GradleScanner {
     }
 
     private static boolean isModelOlderThan011(@NonNull Context context) {
-        return LintUtils.isModelOlderThan(context.getProject(), 0, 11, 0);
+        return LintUtils.isModelOlderThan(context.getProject().getGradleProjectModel(), 0, 11, 0);
     }
 
     private static int sMajorBuildTools;
@@ -742,7 +740,7 @@ public class GradleDetector extends Detector implements Detector.GradleScanner {
 
             List<Revision> revisions = Lists.newArrayList();
             if (major == 23) {
-                revisions.add(new Revision(23, 0, 2));
+                revisions.add(new Revision(23, 0, 1));
             } else if (major == 22) {
                 revisions.add(new Revision(22, 0, 1));
             } else if (major == 21) {
@@ -833,9 +831,7 @@ public class GradleDetector extends Detector implements Detector.GradleScanner {
                             + "compileSdkVersion < 21 is not necessary");
             }
             return;
-        } else if ((GMS_GROUP_ID.equals(dependency.getGroupId())
-                || GOOGLE_SUPPORT_GROUP_ID.equals(dependency.getGroupId())
-                || ANDROID_WEAR_GROUP_ID.equals(dependency.getGroupId()))
+        } else if (GMS_GROUP_ID.equals(dependency.getGroupId())
                 && dependency.getArtifactId() != null) {
 
             // 5.2.08 is not supported; special case and warn about this
@@ -1075,7 +1071,7 @@ public class GradleDetector extends Detector implements Detector.GradleScanner {
         GradleCoordinate latestPlugin = GradleCoordinate.parseCoordinateString(
                 SdkConstants.GRADLE_PLUGIN_NAME +
                         GRADLE_PLUGIN_MINIMUM_VERSION);
-        if (COMPARE_PLUS_HIGHER.compare(dependency, latestPlugin) < 0) {
+        if (GradleCoordinate.COMPARE_PLUS_HIGHER.compare(dependency, latestPlugin) < 0) {
             String message = "You must use a newer version of the Android Gradle plugin. The "
                     + "minimum supported version is " + GRADLE_PLUGIN_MINIMUM_VERSION +
                     " and the recommended version is " + GRADLE_PLUGIN_RECOMMENDED_VERSION;
@@ -1297,7 +1293,7 @@ public class GradleDetector extends Detector implements Detector.GradleScanner {
       return cookie;
     }
 
-    @SuppressWarnings({"MethodMayBeStatic", "UnusedParameters"})
+    @SuppressWarnings("MethodMayBeStatic")
     protected int getStartOffset(@NonNull Context context, @NonNull Object cookie) {
         return -1;
     }

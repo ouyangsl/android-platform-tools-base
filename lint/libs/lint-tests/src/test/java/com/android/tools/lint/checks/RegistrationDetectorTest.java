@@ -71,8 +71,7 @@ public class RegistrationDetectorTest extends AbstractCheckTest {
                         mTestService,
                         mTestProvider,
                         mTestProvider2,
-                        mTestReceiver,
-                        mSuppressedApplication));
+                        mTestReceiver));
     }
 
     public void testNoDot() throws Exception {
@@ -273,19 +272,9 @@ public class RegistrationDetectorTest extends AbstractCheckTest {
 
     private TestFile mApplication = java("src/test/pkg/MyApplication.java", ""
             + "package test.pkg;\n"
-            + "\n"
-            + "import android.app.Application;\n"
-            + "\n"
-            + "public class MyApplication extends Application {\n"
-            + "}\n");
-
-    private TestFile mSuppressedApplication = java("src/test/pkg/MySuppressedApplication.java", ""
-            + "package test.pkg;\n"
-            + "\n"
-            + "import android.app.Application;\n"
-            +  "import android.annotation.SuppressLint;\n"
-            + "\n"
-            + "@SuppressLint(\"Registered\")\n"
-            + "public class MySuppressedApplication extends Application {\n"
-            + "}\n");
+            +"\n"
+            +"import android.app.Application;\n"
+            +"\n"
+            +"public class MyApplication extends Application {\n"
+            +"}\n");
 }

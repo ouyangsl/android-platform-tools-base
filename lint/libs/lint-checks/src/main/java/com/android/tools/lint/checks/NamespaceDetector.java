@@ -24,6 +24,7 @@ import static com.android.SdkConstants.TOOLS_URI;
 import static com.android.SdkConstants.URI_PREFIX;
 import static com.android.SdkConstants.XMLNS_PREFIX;
 
+import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Implementation;

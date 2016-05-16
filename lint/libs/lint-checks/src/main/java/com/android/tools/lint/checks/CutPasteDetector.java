@@ -17,11 +17,11 @@
 package com.android.tools.lint.checks;
 
 import static com.android.SdkConstants.RESOURCE_CLZ_ID;
-import static com.android.tools.lint.detector.api.LintUtils.skipParentheses;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.detector.api.Category;
+import com.android.tools.lint.detector.api.Context;
 import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
@@ -30,36 +30,30 @@ import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.google.common.collect.Maps;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiArrayAccessExpression;
-import com.intellij.psi.PsiAssignmentExpression;
-import com.intellij.psi.PsiBinaryExpression;
-import com.intellij.psi.PsiBreakStatement;
-import com.intellij.psi.PsiContinueStatement;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiExpression;
-import com.intellij.psi.PsiIfStatement;
-import com.intellij.psi.PsiJavaToken;
-import com.intellij.psi.PsiLocalVariable;
-import com.intellij.psi.PsiLoopStatement;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiMethodCallExpression;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiReferenceExpression;
-import com.intellij.psi.PsiReturnStatement;
-import com.intellij.psi.PsiStatement;
-import com.intellij.psi.PsiTypeCastExpression;
-import com.intellij.psi.PsiWhiteSpace;
-import com.intellij.psi.util.PsiTreeUtil;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import lombok.ast.ArrayAccess;
+import lombok.ast.AstVisitor;
+import lombok.ast.BinaryExpression;
+import lombok.ast.Cast;
+import lombok.ast.Expression;
+import lombok.ast.ForwardingAstVisitor;
+import lombok.ast.If;
+import lombok.ast.MethodInvocation;
+import lombok.ast.Node;
+import lombok.ast.Select;
+import lombok.ast.Statement;
+import lombok.ast.VariableDefinitionEntry;
+import lombok.ast.VariableReference;
+
 /**
  * Detector looking for cut & paste issues
  */
-public class CutPasteDetector extends Detector implements Detector.JavaPsiScanner {
+public class CutPasteDetector extends Detector implements Detector.JavaScanner {
     /** The main issue discovered by this detector */
     public static final Issue ISSUE = Issue.create(
             "CutPasteId", //$NON-NLS-1$
@@ -79,13 +73,18 @@ public class CutPasteDetector extends Detector implements Detector.JavaPsiScanne
                     CutPasteDetector.class,
                     Scope.JAVA_FILE_SCOPE));
 
-    private PsiMethod mLastMethod;
-    private Map<String, PsiMethodCallExpression> mIds;
+    private Node mLastMethod;
+    private Map<String, MethodInvocation> mIds;
     private Map<String, String> mLhs;
     private Map<String, String> mCallOperands;
 
     /** Constructs a new {@link CutPasteDetector} check */
     public CutPasteDetector() {
+    }
+
+    @Override
+    public boolean appliesTo(@NonNull Context context, @NonNull File file) {
+        return true;
     }
 
     // ---- Implements JavaScanner ----
@@ -96,16 +95,16 @@ public class CutPasteDetector extends Detector implements Detector.JavaPsiScanne
     }
 
     @Override
-    public void visitMethod(@NonNull JavaContext context, @Nullable JavaElementVisitor visitor,
-            @NonNull PsiMethodCallExpression call, @NonNull PsiMethod calledMethod) {
+    public void visitMethod(@NonNull JavaContext context, @Nullable AstVisitor visitor,
+            @NonNull MethodInvocation call) {
         String lhs = getLhs(call);
         if (lhs == null) {
             return;
         }
 
-        PsiMethod method = PsiTreeUtil.getParentOfType(call, PsiMethod.class, false);
+        Node method = JavaContext.findSurroundingMethod(call);
         if (method == null) {
-            return; // prevent doing the same work for multiple findViewById calls in same method
+            return;
         } else if (method != mLastMethod) {
             mIds = Maps.newHashMap();
             mLhs = Maps.newHashMap();
@@ -113,22 +112,16 @@ public class CutPasteDetector extends Detector implements Detector.JavaPsiScanne
             mLastMethod = method;
         }
 
-        PsiReferenceExpression methodExpression = call.getMethodExpression();
-        String callOperand = methodExpression.getQualifier() != null
-                ? methodExpression.getQualifier().getText() : "";
+        String callOperand = call.astOperand() != null ? call.astOperand().toString() : "";
 
-        PsiExpression[] arguments = call.getArgumentList().getExpressions();
-        if (arguments.length == 0) {
-            return;
-        }
-        PsiExpression first = arguments[0];
-        if (first instanceof PsiReferenceExpression) {
-            PsiReferenceExpression psiReferenceExpression = (PsiReferenceExpression) first;
-            String id = psiReferenceExpression.getReferenceName();
-            PsiElement operand = psiReferenceExpression.getQualifier();
-            if (operand instanceof PsiReferenceExpression) {
-                PsiReferenceExpression type = (PsiReferenceExpression) operand;
-                if (RESOURCE_CLZ_ID.equals(type.getReferenceName())) {
+        Expression first = call.astArguments().first();
+        if (first instanceof Select) {
+            Select select = (Select) first;
+            String id = select.astIdentifier().astValue();
+            Expression operand = select.astOperand();
+            if (operand instanceof Select) {
+                Select type = (Select) operand;
+                if (type.astIdentifier().astValue().equals(RESOURCE_CLZ_ID)) {
                     if (mIds.containsKey(id)) {
                         if (lhs.equals(mLhs.get(id))) {
                             return;
@@ -136,7 +129,7 @@ public class CutPasteDetector extends Detector implements Detector.JavaPsiScanne
                         if (!callOperand.equals(mCallOperands.get(id))) {
                             return;
                         }
-                        PsiMethodCallExpression earlierCall = mIds.get(id);
+                        MethodInvocation earlierCall = mIds.get(id);
                         if (!isReachableFrom(method, earlierCall, call)) {
                             return;
                         }
@@ -145,144 +138,105 @@ public class CutPasteDetector extends Detector implements Detector.JavaPsiScanne
                         secondary.setMessage("First usage here");
                         location.setSecondary(secondary);
                         context.report(ISSUE, call, location, String.format(
-                                "The id `%1$s` has already been looked up in this method; possible "
-                                        +
-                                        "cut & paste error?", first.getText()));
+                            "The id `%1$s` has already been looked up in this method; possible " +
+                            "cut & paste error?", first.toString()));
                     } else {
                         mIds.put(id, call);
                         mLhs.put(id, lhs);
                         mCallOperands.put(id, callOperand);
                     }
                 }
-
             }
         }
     }
 
     @Nullable
-    private static String getLhs(@NonNull PsiMethodCallExpression call) {
-        PsiElement parent = skipParentheses(call.getParent());
-        if (parent instanceof PsiTypeCastExpression) {
+    private static String getLhs(@NonNull MethodInvocation call) {
+        Node parent = call.getParent();
+        if (parent instanceof Cast) {
             parent = parent.getParent();
         }
 
-        if (parent instanceof PsiLocalVariable) {
-            return ((PsiLocalVariable)parent).getName();
-        } else if (parent instanceof PsiBinaryExpression) {
-            PsiBinaryExpression be = (PsiBinaryExpression) parent;
-            PsiExpression left = be.getLOperand();
-            if (left instanceof PsiReference) {
-                return left.getText();
-            } else if (left instanceof PsiArrayAccessExpression) {
-                PsiArrayAccessExpression aa = (PsiArrayAccessExpression) left;
-                return aa.getArrayExpression().getText();
-            }
-        } else if (parent instanceof PsiAssignmentExpression) {
-            PsiExpression left = ((PsiAssignmentExpression) parent).getLExpression();
-            if (left instanceof PsiReference) {
-                return left.getText();
-            } else if (left instanceof PsiArrayAccessExpression) {
-                PsiArrayAccessExpression aa = (PsiArrayAccessExpression) left;
-                return aa.getArrayExpression().getText();
+        if (parent instanceof VariableDefinitionEntry) {
+            VariableDefinitionEntry vde = (VariableDefinitionEntry) parent;
+            return vde.astName().astValue();
+        } else if (parent instanceof BinaryExpression) {
+            BinaryExpression be = (BinaryExpression) parent;
+            Expression left = be.astLeft();
+            if (left instanceof VariableReference || left instanceof Select) {
+                return be.astLeft().toString();
+            } else if (left instanceof ArrayAccess) {
+                ArrayAccess aa = (ArrayAccess) left;
+                return aa.astOperand().toString();
             }
         }
 
         return null;
     }
 
-    static boolean isReachableFrom(
-            @NonNull PsiMethod method,
-            @NonNull PsiElement from,
-            @NonNull PsiElement to) {
-        PsiElement prev = from;
-        PsiElement curr = next(method, from, to, null);
-        //noinspection ConstantConditions
-        while (curr != null) {
-            if (containsElement(method, curr, to)) {
-                return true;
-            }
-            curr = next(method, curr, to, prev);
-            prev = curr;
-        }
+    private static boolean isReachableFrom(
+            @NonNull Node method,
+            @NonNull MethodInvocation from,
+            @NonNull MethodInvocation to) {
+        ReachableVisitor visitor = new ReachableVisitor(from, to);
+        method.accept(visitor);
 
-        return false;
+        return visitor.isReachable();
     }
 
-    @Nullable
-    static PsiElement next(
-            @NonNull PsiMethod method,
-            @NonNull PsiElement curr,
-            @NonNull PsiElement target,
-            @Nullable PsiElement prev) {
+    private static class ReachableVisitor extends ForwardingAstVisitor {
+        @NonNull private final MethodInvocation mFrom;
+        @NonNull private final MethodInvocation mTo;
+        private boolean mReachable;
+        private boolean mSeenEnd;
 
-        if (curr instanceof PsiMethod) {
-            return null;
+        public ReachableVisitor(@NonNull MethodInvocation from, @NonNull MethodInvocation to) {
+            mFrom = from;
+            mTo = to;
         }
 
-        PsiElement parent = curr.getParent();
-        if (curr instanceof PsiContinueStatement) {
-            PsiStatement continuedStatement = ((PsiContinueStatement) curr)
-                    .findContinuedStatement();
-            if (continuedStatement != null) {
-                if (containsElement(method, continuedStatement, target)) {
-                    return target;
-                }
-                return next(method, continuedStatement, target, curr);
-            } else {
-                return next(method, parent, target, curr);
+        boolean isReachable() {
+            return mReachable;
+        }
+
+        @Override
+        public boolean visitMethodInvocation(MethodInvocation node) {
+            if (node == mFrom) {
+                mReachable = true;
+            } else if (node == mTo) {
+                mSeenEnd = true;
+
             }
-        } else if (curr instanceof PsiBreakStatement) {
-            PsiStatement exitedStatement = ((PsiBreakStatement) curr).findExitedStatement();
-            if (exitedStatement != null) {
-                return next(method, exitedStatement, target, curr);
-            } else {
-                return next(method, parent, target, curr);
+            return super.visitMethodInvocation(node);
+        }
+
+        @Override
+        public boolean visitIf(If node) {
+            Expression condition = node.astCondition();
+            Statement body = node.astStatement();
+            Statement elseBody = node.astElseStatement();
+            if (condition != null) {
+                condition.accept(this);
             }
-        } else if (curr instanceof PsiReturnStatement) {
-            return null;
-        } else if (curr instanceof PsiLoopStatement && prev != null &&
-                containsElement(method, curr, prev)) {
-            // If we stepped *up* (from a last child nested in the loop) up to the loop
-            // itself, mark all children in the loop as reachable since we're iterating
-            if (containsElement(method, curr, target)) {
-                return target;
+            if (body != null) {
+                boolean wasReachable = mReachable;
+                body.accept(this);
+                mReachable = wasReachable;
             }
-        }
-
-        PsiElement sibling = curr.getNextSibling();
-        while (sibling instanceof PsiWhiteSpace || sibling instanceof PsiJavaToken) {
-            // Skip whitespaces and tokens such as PsiJavaToken.SEMICOLON etc
-            sibling = sibling.getNextSibling();
-        }
-        if (sibling == null) {
-            return next(method, parent, target, curr);
-        }
-
-        if (parent instanceof PsiIfStatement &&
-                curr == ((PsiIfStatement)parent).getThenBranch()) {
-            return next(method, parent, target, curr);
-        } else if (parent instanceof PsiLoopStatement) {
-            if (containsElement(method, parent, target)) {
-                return target;
-            }
-        }
-
-        return sibling;
-    }
-
-    private static boolean containsElement(@
-            NonNull PsiMethod method,
-            @NonNull PsiElement root,
-            @NonNull PsiElement element) {
-        //noinspection ConstantConditions
-        while (element != null && element != method) {
-            if (root.equals(element)) {
-                return true;
+            if (elseBody != null) {
+                boolean wasReachable = mReachable;
+                elseBody.accept(this);
+                mReachable = wasReachable;
             }
 
-            element = element.getParent();
+            endVisit(node);
+
+            return false;
         }
 
-        return false;
+        @Override
+        public boolean visitNode(Node node) {
+            return mSeenEnd;
+        }
     }
 }

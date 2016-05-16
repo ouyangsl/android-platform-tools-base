@@ -31,7 +31,7 @@ import java.util.List;
 public class BuiltinIssueRegistry extends IssueRegistry {
     private static final List<Issue> sIssues;
 
-    static final int INITIAL_CAPACITY = 255;
+    static final int INITIAL_CAPACITY = 253;
 
     static {
         List<Issue> issues = new ArrayList<Issue>(INITIAL_CAPACITY);
@@ -45,7 +45,6 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(AndroidAutoDetector.MISSING_INTENT_FILTER_FOR_MEDIA_SEARCH);
         issues.add(AndroidAutoDetector.MISSING_MEDIA_BROWSER_SERVICE_ACTION_ISSUE);
         issues.add(AndroidAutoDetector.MISSING_ON_PLAY_FROM_SEARCH);
-        issues.add(AnnotationDetector.ANNOTATION_USAGE);
         issues.add(AnnotationDetector.FLAG_STYLE);
         issues.add(AnnotationDetector.INSIDE_METHOD);
         issues.add(AnnotationDetector.SWITCH_TYPE_DEF);
@@ -75,7 +74,6 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(CipherGetInstanceDetector.ISSUE);
         issues.add(CleanupDetector.COMMIT_FRAGMENT);
         issues.add(CleanupDetector.RECYCLE_RESOURCE);
-        issues.add(CleanupDetector.SHARED_PREF);
         issues.add(ClickableViewAccessibilityDetector.ISSUE);
         issues.add(CommentDetector.EASTER_EGG);
         issues.add(CommentDetector.STOP_SHIP);
@@ -203,8 +201,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(PxUsageDetector.PX_ISSUE);
         issues.add(PxUsageDetector.SMALL_SP_ISSUE);
         issues.add(ReadParcelableDetector.ISSUE);
-        issues.add(RecyclerViewDetector.DATA_BINDER);
-        issues.add(RecyclerViewDetector.FIXED_POSITION);
+        issues.add(RecyclerViewDetector.ISSUE);
         issues.add(RegistrationDetector.ISSUE);
         issues.add(RelativeOverlapDetector.ISSUE);
         issues.add(RequiredAttributeDetector.ISSUE);
@@ -230,6 +227,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(SecurityDetector.WORLD_WRITEABLE);
         issues.add(ServiceCastDetector.ISSUE);
         issues.add(SetJavaScriptEnabledDetector.ISSUE);
+        issues.add(SharedPrefsDetector.ISSUE);
         issues.add(SignatureOrSystemDetector.ISSUE);
         issues.add(SQLiteDetector.ISSUE);
         issues.add(SslCertificateSocketFactoryDetector.CREATE_SOCKET);
@@ -314,13 +312,13 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         } else {
             int initialSize = 12;
             if (scope.contains(Scope.RESOURCE_FILE)) {
-                initialSize += 78;
+                initialSize += 75;
             } else if (scope.contains(Scope.ALL_RESOURCE_FILES)) {
-                initialSize += 12;
+                initialSize += 10;
             }
 
             if (scope.contains(Scope.JAVA_FILE)) {
-                initialSize += 74;
+                initialSize += 72;
             } else if (scope.contains(Scope.CLASS_FILE)) {
                 initialSize += 15;
             } else if (scope.contains(Scope.MANIFEST)) {

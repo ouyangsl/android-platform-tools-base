@@ -37,11 +37,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.io.Files;
-import com.intellij.psi.JavaTokenType;
-import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiAnnotationParameterList;
-import com.intellij.psi.PsiLiteral;
-import com.intellij.psi.PsiNameValuePair;
 
 import junit.framework.TestCase;
 
@@ -58,30 +53,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import lombok.ast.BinaryOperator;
+
 public class PermissionRequirementTest extends TestCase {
-    private static PsiAnnotation createAnnotation(
+    private static ResolvedAnnotation createAnnotation(
             @NonNull String name,
-            // TODO: Put better mocks in here
             @NonNull ResolvedAnnotation.Value... values) {
-        PsiAnnotation annotation = mock(PsiAnnotation.class);
-        when(annotation.getQualifiedName()).thenReturn(name);
-
-        PsiAnnotationParameterList parameterList = mock(PsiAnnotationParameterList.class);
-        when(annotation.getParameterList()).thenReturn(parameterList);
-
-        List<PsiNameValuePair> pairs = Lists.newArrayListWithCapacity(10);
+        ResolvedAnnotation annotation = mock(ResolvedAnnotation.class);
+        when(annotation.getName()).thenReturn(name);
+        when(annotation.getValues()).thenReturn(Arrays.asList(values));
         for (ResolvedAnnotation.Value value : values) {
-            PsiNameValuePair pair = mock(PsiNameValuePair.class);
-            when (pair.getName()).thenReturn(value.name);
-            PsiLiteral literal = mock(PsiLiteral.class);
-            when(literal.getValue()).thenReturn(value.value);
-            when (pair.getValue()).thenReturn(literal);
-
-            when(annotation.findAttributeValue(value.name)).thenReturn(literal);
+            when(annotation.getValue(value.name)).thenReturn(value.value);
         }
-        PsiNameValuePair[] attributes = pairs.toArray(PsiNameValuePair.EMPTY_ARRAY);
-        when(parameterList.getAttributes()).thenReturn(attributes);
-
         return annotation;
     }
 
@@ -90,7 +73,7 @@ public class PermissionRequirementTest extends TestCase {
                 "android.permission.ACCESS_FINE_LOCATION");
         Set<String> emptySet = Collections.emptySet();
         Set<String> fineSet = Collections.singleton("android.permission.ACCESS_FINE_LOCATION");
-        PsiAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
+        ResolvedAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
         PermissionRequirement req = PermissionRequirement.create(null, annotation);
         assertTrue(req.isRevocable(new SetPermissionLookup(emptySet)));
 
@@ -117,7 +100,7 @@ public class PermissionRequirementTest extends TestCase {
                 "android.permission.ACCESS_FINE_LOCATION",
                 "android.permission.ACCESS_COARSE_LOCATION");
 
-        PsiAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
+        ResolvedAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
         PermissionRequirement req = PermissionRequirement.create(null, annotation);
         assertTrue(req.isRevocable(new SetPermissionLookup(emptySet)));
         assertFalse(req.isSatisfied(new SetPermissionLookup(emptySet)));
@@ -129,7 +112,7 @@ public class PermissionRequirementTest extends TestCase {
                 req.describeMissingPermissions(new SetPermissionLookup(emptySet)));
         assertEquals(bothSet, req.getMissingPermissions(new SetPermissionLookup(emptySet)));
         assertEquals(bothSet, req.getRevocablePermissions(new SetPermissionLookup(emptySet)));
-        assertSame(JavaTokenType.OROR, req.getOperator());
+        assertSame(BinaryOperator.LOGICAL_OR, req.getOperator());
     }
 
     public void testAll() {
@@ -143,7 +126,7 @@ public class PermissionRequirementTest extends TestCase {
                 "android.permission.ACCESS_FINE_LOCATION",
                 "android.permission.ACCESS_COARSE_LOCATION");
 
-        PsiAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
+        ResolvedAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
         PermissionRequirement req = PermissionRequirement.create(null, annotation);
         assertTrue(req.isRevocable(new SetPermissionLookup(emptySet)));
         assertFalse(req.isSatisfied(new SetPermissionLookup(emptySet)));
@@ -164,14 +147,14 @@ public class PermissionRequirementTest extends TestCase {
                 req.describeMissingPermissions(new SetPermissionLookup(coarseSet)));
         assertEquals(fineSet, req.getMissingPermissions(new SetPermissionLookup(coarseSet)));
         assertEquals(bothSet, req.getRevocablePermissions(new SetPermissionLookup(emptySet)));
-        assertSame(JavaTokenType.ANDAND, req.getOperator());
+        assertSame(BinaryOperator.LOGICAL_AND, req.getOperator());
     }
 
     public void testSingleAsArray() {
         // Annotations let you supply a single string to an array method
         ResolvedAnnotation.Value values = new ResolvedAnnotation.Value("allOf",
                 "android.permission.ACCESS_FINE_LOCATION");
-        PsiAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
+        ResolvedAnnotation annotation = createAnnotation(PERMISSION_ANNOTATION, values);
         assertTrue(PermissionRequirement.create(null, annotation).isSingle());
     }
 
@@ -187,7 +170,7 @@ public class PermissionRequirementTest extends TestCase {
     }
 
     public void testAppliesTo() {
-        PsiAnnotation annotation;
+        ResolvedAnnotation annotation;
         PermissionRequirement req;
 
         // No date range applies to permission

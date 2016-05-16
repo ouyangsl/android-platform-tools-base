@@ -17,14 +17,12 @@
 package com.android.tools.lint;
 
 import static com.android.SdkConstants.ATTR_NAME;
-import static com.android.SdkConstants.ATTR_VALUE;
 import static com.android.SdkConstants.DOT_JAR;
 import static com.android.SdkConstants.FN_ANNOTATIONS_ZIP;
 import static com.android.SdkConstants.VALUE_FALSE;
 import static com.android.SdkConstants.VALUE_TRUE;
 import static com.android.tools.lint.checks.SupportAnnotationDetector.CHECK_RESULT_ANNOTATION;
 import static com.android.tools.lint.checks.SupportAnnotationDetector.PERMISSION_ANNOTATION;
-import static com.android.tools.lint.psi.EcjPsiManager.getTypeName;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -35,6 +33,7 @@ import com.android.builder.model.Dependencies;
 import com.android.builder.model.Variant;
 import com.android.tools.lint.client.api.JavaParser.DefaultTypeDescriptor;
 import com.android.tools.lint.client.api.JavaParser.ResolvedAnnotation;
+import com.android.tools.lint.client.api.JavaParser.ResolvedAnnotation.Value;
 import com.android.tools.lint.client.api.JavaParser.ResolvedClass;
 import com.android.tools.lint.client.api.JavaParser.ResolvedField;
 import com.android.tools.lint.client.api.JavaParser.ResolvedMethod;
@@ -43,11 +42,6 @@ import com.android.tools.lint.client.api.JavaParser.TypeDescriptor;
 import com.android.tools.lint.client.api.LintClient;
 import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Project;
-import com.android.tools.lint.psi.ExternalPsiAnnotation;
-import com.android.tools.lint.psi.ExternalPsiAnnotationLiteralMemberValue;
-import com.android.tools.lint.psi.ExternalPsiArrayInitializerMemberValue;
-import com.android.tools.lint.psi.ExternalPsiNameValuePair;
-import com.android.tools.lint.psi.ExternalPsiReferenceExpressionMemberValue;
 import com.android.utils.XmlUtils;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
@@ -59,19 +53,7 @@ import com.google.common.collect.Sets;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
 import com.google.common.io.Files;
-import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiAnnotationMemberValue;
-import com.intellij.psi.PsiArrayInitializerMemberValue;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiLiteral;
-import com.intellij.psi.PsiNameValuePair;
-import com.intellij.psi.PsiReferenceExpression;
 
-import org.eclipse.jdt.internal.compiler.lookup.FieldBinding;
-import org.eclipse.jdt.internal.compiler.lookup.MethodBinding;
-import org.eclipse.jdt.internal.compiler.lookup.PackageBinding;
-import org.eclipse.jdt.internal.compiler.lookup.ReferenceBinding;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -117,18 +99,8 @@ public class ExternalAnnotationRepository {
     @NonNull
     public static synchronized ExternalAnnotationRepository get(@NonNull LintClient client) {
         if (sSingleton == null) {
-            Collection<Project> projects = client.getKnownProjects();
-            if (Project.isAospBuildEnvironment()) {
-                for (Project project : projects) {
-                    // If we are dealing with the AOSP frameworks project, we explicitly
-                    // set the ExternalAnnotationRepository to a no-op.
-                    if (Project.isAospFrameworksProject(project.getDir())) {
-                        return sSingleton = new ExternalAnnotationRepository(
-                                Collections.<AnnotationsDatabase>emptyList());
-                    }
-                }
-            }
             HashSet<AndroidLibrary> seen = Sets.newHashSet();
+            Collection<Project> projects = client.getKnownProjects();
             List<File> files = Lists.newArrayListWithExpectedSize(2);
             for (Project project : projects) {
                 if (project.isGradleProject()) {
@@ -246,7 +218,7 @@ public class ExternalAnnotationRepository {
     private static AnnotationsDatabase getDatabase(
             @NonNull LintClient client,
             @NonNull AndroidLibrary library) {
-        // TODO: As of 1.2 this is available in the model:
+        // As of 1.2 this is available in the model:
         //  https://android-review.googlesource.com/#/c/137750/
         // Switch over to this when it's in more common usage
         // (until it is, we'll pay for failed proxying errors)
@@ -279,69 +251,6 @@ public class ExternalAnnotationRepository {
 
         return null;
     }
-
-    @Nullable
-    public Collection<PsiAnnotation> getAnnotations(@NonNull ReferenceBinding cls) {
-        for (AnnotationsDatabase database : mDatabases) {
-            Collection<PsiAnnotation> annotations = database.getAnnotations(cls);
-            if (annotations != null) {
-                return annotations;
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public Collection<PsiAnnotation> getAnnotations(@NonNull MethodBinding method) {
-        for (AnnotationsDatabase database : mDatabases) {
-            Collection<PsiAnnotation> annotations = database.getAnnotations(method);
-            if (annotations != null) {
-                return annotations;
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public Collection<PsiAnnotation> getParameterAnnotations(@NonNull MethodBinding method,
-            int parameterIndex) {
-        for (AnnotationsDatabase database : mDatabases) {
-            Collection<PsiAnnotation> annotations = database.getAnnotations(method,
-                    parameterIndex);
-            if (annotations != null) {
-                return annotations;
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public Collection<PsiAnnotation> getAnnotations(@NonNull FieldBinding field) {
-        for (AnnotationsDatabase database : mDatabases) {
-            Collection<PsiAnnotation> annotations = database.getAnnotations(field);
-            if (annotations != null) {
-                return annotations;
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public Collection<PsiAnnotation> getAnnotations(@NonNull PackageBinding pkg) {
-        for (AnnotationsDatabase database : mDatabases) {
-            Collection<PsiAnnotation> annotations = database.getAnnotations(pkg);
-            if (annotations != null) {
-                return annotations;
-            }
-        }
-
-        return null;
-    }
-
 
     @Nullable
     public ResolvedAnnotation getAnnotation(@NonNull ResolvedMethod method,
@@ -463,124 +372,20 @@ public class ExternalAnnotationRepository {
     /** Map from class fully qualified name to the class annotations info */
     // Query database
     private static class ClassInfo {
-        private List<ResolvedAnnotation> annotations;
+        public List<ResolvedAnnotation> annotations;
         public Multimap<String,MethodInfo> methods;
         public Map<String,FieldInfo> fields;
-        public List<PsiAnnotation> psiAnnotations;
-
-        public List<ResolvedAnnotation> getAnnotations() {
-            if (annotations == null) {
-                annotations = wrapAnnotations(psiAnnotations);
-            }
-            return annotations;
-        }
-
-        public void setAnnotations(
-                List<ResolvedAnnotation> annotations) {
-            this.annotations = annotations;
-        }
     }
 
-    @Nullable
-    private static Multimap<Integer,ResolvedAnnotation> wrapAnnotations(@Nullable Multimap<Integer,PsiAnnotation> psiAnnotations) {
-        if (psiAnnotations != null) {
-            Multimap<Integer,ResolvedAnnotation> result = ArrayListMultimap.create();
-            for (Map.Entry<Integer, PsiAnnotation> entry : psiAnnotations.entries()) {
-                result.put(entry.getKey(), wrapAnnotation(entry.getValue()));
-            }
-            return result;
-        }
-        return null;
-    }
-
-    @Nullable
-    private static List<ResolvedAnnotation> wrapAnnotations(@Nullable List<PsiAnnotation> psiAnnotations) {
-        if (psiAnnotations != null) {
-            List<ResolvedAnnotation> result = Lists.newArrayListWithCapacity(psiAnnotations.size());
-            for (PsiAnnotation annotation : psiAnnotations) {
-                result.add(wrapAnnotation(annotation));
-            }
-            return result;
-        }
-        return null;
-    }
-
-    @NonNull
-    private static ResolvedAnnotation wrapAnnotation(@NonNull PsiAnnotation psiAnnotation) {
-        String qualifiedName = psiAnnotation.getQualifiedName();
-        assert qualifiedName != null; // always true for external annotations
-        AnnotationsDatabase.ResolvedExternalAnnotation annotation =
-                new AnnotationsDatabase.ResolvedExternalAnnotation(qualifiedName);
-        for (PsiNameValuePair pairValue : psiAnnotation.getParameterList().getAttributes()) {
-            PsiAnnotationMemberValue value = pairValue.getValue();
-            String name = pairValue.getName();
-            Object value1;
-            if (value instanceof PsiArrayInitializerMemberValue) {
-                PsiAnnotationMemberValue[] initializers = ((PsiArrayInitializerMemberValue) value)
-                        .getInitializers();
-                Object[] o = new Object[initializers.length];
-                for (int i = 0; i < initializers.length; i++) {
-                    PsiAnnotationMemberValue initializer = initializers[i];
-                    if (initializer instanceof PsiLiteral) {
-                        o[i] = ((PsiLiteral) initializer).getValue();
-                    } else if (initializer instanceof PsiReferenceExpression) {
-                        PsiReferenceExpression ref = (PsiReferenceExpression) initializer;
-                        PsiElement resolved = ref.resolve();
-                        assert resolved instanceof PsiField;
-                        o[i] = new ResolvedExternalField(ref.getQualifiedName());
-                    } else {
-                        assert false : initializer;
-                        o[i] = null;
-                    }
-                }
-                value1 = o;
-            } else if (value instanceof PsiLiteral) {
-                value1 = ((PsiLiteral) value).getValue();
-            } else {
-                assert false : value;
-                value1 = null;
-            }
-            if (name == null) {
-                name = ATTR_VALUE;
-            }
-            annotation.addValue(new ResolvedAnnotation.Value(name, value1));
-        }
-
-        return annotation;
-    }
     private static class MethodInfo {
         public String parameters;
         public boolean constructor;
-        private List<ResolvedAnnotation> annotations;
-        private Multimap<Integer,ResolvedAnnotation> parameterAnnotations;
-        private Multimap<Integer,PsiAnnotation> psiParameterAnnotations;
-        public List<PsiAnnotation> psiAnnotations;
-
-        public List<ResolvedAnnotation> getAnnotations() {
-            if (annotations == null) {
-                annotations = wrapAnnotations(psiAnnotations);
-            }
-            return annotations;
-        }
-
-        public Multimap<Integer, ResolvedAnnotation> getParameterAnnotations() {
-            if (parameterAnnotations == null) {
-                parameterAnnotations = wrapAnnotations(psiParameterAnnotations);
-            }
-            return parameterAnnotations;
-        }
+        public List<ResolvedAnnotation> annotations;
+        public Multimap<Integer,ResolvedAnnotation> parameterAnnotations;
     }
 
     private static class FieldInfo {
-        private List<ResolvedAnnotation> annotations;
-        public List<PsiAnnotation> psiAnnotations;
-
-        public List<ResolvedAnnotation> getAnnotations() {
-            if (annotations == null) {
-                annotations = wrapAnnotations(psiAnnotations);
-            }
-            return annotations;
-        }
+        public List<ResolvedAnnotation> annotations;
     }
 
     /** An {@linkplain AnnotationsDatabase} corresponds to a single external annotations .zip
@@ -611,9 +416,8 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            List<ResolvedAnnotation> annotations = m.getAnnotations();
-            if (annotations != null) {
-                for (ResolvedAnnotation annotation : annotations) {
+            if (m.annotations != null) {
+                for (ResolvedAnnotation annotation : m.annotations) {
                     if (type.equals(annotation.getSignature())) {
                         return annotation;
                     }
@@ -629,7 +433,7 @@ public class ExternalAnnotationRepository {
             if (m == null) {
                 return null;
             }
-            return m.getAnnotations();
+            return m.annotations;
         }
 
         @Nullable
@@ -640,8 +444,8 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            if (m.getParameterAnnotations() != null) {
-                Collection<ResolvedAnnotation> annotations = m.getParameterAnnotations().get(parameterIndex);
+            if (m.parameterAnnotations != null) {
+                Collection<ResolvedAnnotation> annotations = m.parameterAnnotations.get(parameterIndex);
                 if (annotations != null) {
                     for (ResolvedAnnotation annotation : annotations) {
                         if (type.equals(annotation.getSignature())) {
@@ -663,8 +467,8 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            if (m.getParameterAnnotations() != null) {
-                return m.getParameterAnnotations().get(parameterIndex);
+            if (m.parameterAnnotations != null) {
+                return m.parameterAnnotations.get(parameterIndex);
             }
 
             return null;
@@ -677,9 +481,8 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            List<ResolvedAnnotation> annotations = c.getAnnotations();
-            if (annotations != null) {
-                for (ResolvedAnnotation annotation : annotations) {
+            if (c.annotations != null) {
+                for (ResolvedAnnotation annotation : c.annotations) {
                     if (type.equals(annotation.getSignature())) {
                         return annotation;
                     }
@@ -696,56 +499,7 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            return c.getAnnotations();
-        }
-
-        public Collection<PsiAnnotation> getAnnotations(@NonNull ReferenceBinding cls) {
-            ClassInfo c = findClass(cls);
-            if (c == null) {
-                return null;
-            }
-
-            return c.psiAnnotations;
-        }
-
-        public Collection<PsiAnnotation> getAnnotations(@NonNull MethodBinding method) {
-            MethodInfo m = findMethod(method);
-            if (m == null) {
-                return null;
-            }
-            return m.psiAnnotations;
-        }
-
-
-        public Collection<PsiAnnotation> getAnnotations(@NonNull MethodBinding method,
-                int parameterIndex) {
-            MethodInfo m = findMethod(method);
-            if (m == null) {
-                return null;
-            }
-
-            if (m.psiParameterAnnotations != null) {
-                return m.psiParameterAnnotations.get(parameterIndex);
-            }
-
-            return null;
-        }
-
-        public Collection<PsiAnnotation> getAnnotations(@NonNull FieldBinding field) {
-            FieldInfo m = findField(field);
-            if (m == null) {
-                return null;
-            }
-            return m.psiAnnotations;
-        }
-
-        public Collection<PsiAnnotation> getAnnotations(@NonNull PackageBinding pkg) {
-            ClassInfo c = findPackage(pkg);
-
-            if (c == null) {
-                return null;
-            }
-            return c.psiAnnotations;
+            return c.annotations;
         }
 
         @Nullable
@@ -755,7 +509,7 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            return c.getAnnotations();
+            return c.annotations;
         }
 
         @Nullable
@@ -766,9 +520,8 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            List<ResolvedAnnotation> annotations = c.getAnnotations();
-            if (annotations != null) {
-                for (ResolvedAnnotation annotation : annotations) {
+            if (c.annotations != null) {
+                for (ResolvedAnnotation annotation : c.annotations) {
                     if (type.equals(annotation.getSignature())) {
                         return annotation;
                     }
@@ -785,7 +538,7 @@ public class ExternalAnnotationRepository {
                 return null;
             }
 
-            return c.getAnnotations();
+            return c.annotations;
         }
 
         @Nullable
@@ -795,9 +548,8 @@ public class ExternalAnnotationRepository {
             if (f == null) {
                 return null;
             }
-            List<ResolvedAnnotation> annotations = f.getAnnotations();
-            if (annotations != null) {
-                for (ResolvedAnnotation annotation : annotations) {
+            if (f.annotations != null) {
+                for (ResolvedAnnotation annotation : f.annotations) {
                     if (type.equals(annotation.getSignature())) {
                         return annotation;
                     }
@@ -814,7 +566,7 @@ public class ExternalAnnotationRepository {
             if (f == null) {
                 return null;
             }
-            return f.getAnnotations();
+            return f.annotations;
         }
 
         // ---- Initialization ----
@@ -916,17 +668,6 @@ public class ExternalAnnotationRepository {
         }
 
         @Nullable
-        private ClassInfo findClass(@NonNull ReferenceBinding cls) {
-            return cls.compoundName != null ? mClassMap.get(getTypeName(cls.compoundName)) : null;
-        }
-
-        @Nullable
-        private ClassInfo findPackage(@NonNull PackageBinding pkg) {
-            return pkg.compoundName != null
-                    ? mClassMap.get(getTypeName(pkg.compoundName) + ".package-info") : null;
-        }
-
-        @Nullable
         private ClassInfo findClass(@NonNull ResolvedAnnotation cls) {
             return mClassMap.get(cls.getName());
         }
@@ -1015,88 +756,6 @@ public class ExternalAnnotationRepository {
             return null;
         }
 
-        @Nullable
-        private MethodInfo findMethod(@NonNull MethodBinding method) {
-            ClassInfo c = findClass(method.declaringClass);
-            if (c == null) {
-                return null;
-            }
-            if (c.methods == null) {
-                return null;
-            }
-
-            // TODO: Instead of making a string, consider iterating through list and comparing
-            Collection<MethodInfo> methods = c.methods.get(new String(method.selector));
-            if (methods == null) {
-                return null;
-            }
-            boolean constructor = method.isConstructor();
-            for (MethodInfo m : methods) {
-                if (constructor != m.constructor) {
-                    continue;
-                }
-                // Check parameter types
-                // TODO: Perform faster parameter check! This is inefficient
-                // Stash parameter count such that I can quickly compare the two
-                String signature = m.parameters;
-                int index = 0;
-                boolean matches = true;
-                for (int i = 0, n = method.parameters.length; i < n; i++) {
-                    String parameterType = new String(method.parameters[i].readableName());
-                    int length = parameterType.indexOf('<');
-                    if (length == -1) {
-                        length = parameterType.length();
-                    }
-                    if (!signature.regionMatches(false, index, parameterType, 0, length)) {
-                        // Check if we have a varargs match: x... vs x[]
-                        if (length <= 3 || index <= 3 || ((parameterType.charAt(length - 1) != '.')
-                                && (signature.length() < index + length
-                                || signature.charAt(index + length - 1) != '.'))
-                                || !isVarArgsMatch(signature, index, parameterType, length)) {
-                            matches = false;
-                            break;
-                        }
-                    }
-                    index += length;
-                    if (i < n - 1) {
-                        if (index == signature.length()) {
-                            matches = false;
-                            break;
-                        } else if (signature.charAt(index) == '<') {
-                            // Skip raw types
-                            int balance = 1;
-                            for (int j = index + 1, max = signature.length(); j < max; j++) {
-                                char ch = signature.charAt(j);
-                                if (ch == '<') {
-                                    balance++;
-                                } else if (ch == '>') {
-                                    balance--;
-                                    if (balance == 0) {
-                                        index = j + 1;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (balance > 0) {
-                                matches = false;
-                                break;
-                            }
-                        } else if (signature.charAt(index) != ',') {
-                            matches = false;
-                            break;
-                        }
-                    }
-                    index++; // skip comma
-                }
-
-                if (matches) {
-                    return m;
-                }
-            }
-
-            return null;
-        }
-
         /**
          * Checks whether the string at parameterType(0,length) and signature(index,index+length)
          * are the same, except with one possibly ending with [] and the other with ... - if
@@ -1126,23 +785,6 @@ public class ExternalAnnotationRepository {
                 return null;
             }
             return c.fields.get(field.getName());
-        }
-
-        @Nullable
-        private FieldInfo findField(@NonNull FieldBinding field) {
-            ReferenceBinding containingClass = field.declaringClass;
-            if (containingClass == null) {
-                return null;
-            }
-            ClassInfo c = findClass(containingClass);
-            if (c == null) {
-                return null;
-            }
-            if (c.fields == null) {
-                return null;
-            }
-            // TODO: Iterate over possibilities instead of making new string?
-            return c.fields.get(new String(field.name));
         }
 
         @NonNull
@@ -1205,52 +847,53 @@ public class ExternalAnnotationRepository {
             parameters = fixParameterString(parameters);
 
             MethodInfo method = createMethod(containingClass, methodName, constructor, parameters);
-            List<PsiAnnotation> annotations = createAnnotations(item);
+            List<ResolvedAnnotation> annotations = createAnnotations(item);
 
             String argNum = matcher.group(7);
             if (argNum != null) {
                 argNum = argNum.trim();
                 int parameter = Integer.parseInt(argNum);
 
-                if (method.psiParameterAnnotations == null) {
+                if (method.parameterAnnotations == null) {
                     // Do I know the parameter count here?
                     int parameterCount = 4;
-                    method.psiParameterAnnotations = ArrayListMultimap.create(parameterCount, annotations.size());
+                    method.parameterAnnotations = ArrayListMultimap
+                            .create(parameterCount, annotations.size());
                 }
-                for (PsiAnnotation annotation : annotations) {
-                    method.psiParameterAnnotations.put(parameter, annotation);
+                for (ResolvedAnnotation annotation : annotations) {
+                    method.parameterAnnotations.put(parameter, annotation);
                 }
             } else {
-                if (method.psiAnnotations == null) {
-                    method.psiAnnotations = method.psiAnnotations = Lists.newArrayListWithExpectedSize(annotations.size());
+                if (method.annotations == null) {
+                    method.annotations = Lists.newArrayListWithExpectedSize(annotations.size());
                 }
-                method.psiAnnotations.addAll(annotations);
+                method.annotations.addAll(annotations);
             }
         }
 
         private void mergeField(Element item, String containingClass, String fieldName) {
             FieldInfo field = createField(containingClass, fieldName);
-            List<PsiAnnotation> annotations = createAnnotations(item);
-            if (field.psiAnnotations == null) {
-                field.psiAnnotations = Lists.newArrayListWithExpectedSize(annotations.size());
+            List<ResolvedAnnotation> annotations = createAnnotations(item);
+            if (field.annotations == null) {
+                field.annotations = Lists.newArrayListWithExpectedSize(annotations.size());
             }
-            field.psiAnnotations.addAll(annotations);
+            field.annotations.addAll(annotations);
         }
 
         private void mergeClass(Element item, String containingClass) {
             ClassInfo cls = createClass(containingClass);
-            List<PsiAnnotation> annotations = createAnnotations(item);
-            if (cls.psiAnnotations == null) {
-                cls.psiAnnotations = Lists.newArrayListWithExpectedSize(annotations.size());
+            List<ResolvedAnnotation> annotations = createAnnotations(item);
+            if (cls.annotations == null) {
+                cls.annotations = Lists.newArrayListWithExpectedSize(annotations.size());
             }
-            cls.psiAnnotations.addAll(annotations);
+            cls.annotations.addAll(annotations);
         }
 
-        private List<PsiAnnotation> createAnnotations(Element itemElement) {
+        private List<ResolvedAnnotation> createAnnotations(Element itemElement) {
             List<Element> children = getChildren(itemElement);
-            List<PsiAnnotation> result = Lists.newArrayListWithExpectedSize(children.size());
+            List<ResolvedAnnotation> result = Lists.newArrayListWithExpectedSize(children.size());
             for (Element annotationElement : children) {
-                PsiAnnotation annotation = createAnnotation(annotationElement);
+                ResolvedAnnotation annotation = createAnnotation(annotationElement);
                 result.add(annotation);
             }
 
@@ -1324,20 +967,20 @@ public class ExternalAnnotationRepository {
             }
         }
 
-        private Map<String, ExternalPsiAnnotation> mMarkerAnnotations = Maps.newHashMapWithExpectedSize(30);
+        private Map<String, ResolvedExternalAnnotation> mMarkerAnnotations = Maps.newHashMapWithExpectedSize(30);
 
-        private PsiAnnotation createAnnotation(Element annotationElement) {
+        private ResolvedAnnotation createAnnotation(Element annotationElement) {
             String tagName = annotationElement.getTagName();
             assert tagName.equals("annotation") : tagName;
             String name = annotationElement.getAttribute(ATTR_NAME);
             assert name != null && !name.isEmpty();
 
-            ExternalPsiAnnotation annotation = mMarkerAnnotations.get(name);
+            ResolvedExternalAnnotation annotation = mMarkerAnnotations.get(name);
             if (annotation != null) {
                 return annotation;
             }
 
-            annotation = new ExternalPsiAnnotation(name);
+            annotation = new ResolvedExternalAnnotation(name);
 
             List<Element> valueElements = getChildren(annotationElement);
             if (valueElements.isEmpty()
@@ -1351,24 +994,20 @@ public class ExternalAnnotationRepository {
                 return annotation;
             }
 
-            List<PsiNameValuePair> pairs = Lists.newArrayListWithCapacity(valueElements.size());
             for (Element valueElement : valueElements) {
                 if (valueElement.getTagName().equals("val")) {
                     String valueName = valueElement.getAttribute(ATTR_NAME);
                     String valueString = valueElement.getAttribute("val");
                     if (!valueName.isEmpty() && !valueString.isEmpty()) {
                         // Guess type
+                        Object value;
                         if (valueString.equals(VALUE_TRUE)) {
-                            pairs.add(new ExternalPsiNameValuePair(valueName, valueString,
-                                    new ExternalPsiAnnotationLiteralMemberValue(true)));
+                            value = true;
                         } else if (valueString.equals(VALUE_FALSE)) {
-                            pairs.add(new ExternalPsiNameValuePair(valueName, valueString,
-                                    new ExternalPsiAnnotationLiteralMemberValue(false)));
+                            value = false;
                         } else if (valueString.startsWith("\"") && valueString.endsWith("\"") &&
                                 valueString.length() >= 2) {
-                            String s = valueString.substring(1, valueString.length() - 1);
-                            pairs.add(new ExternalPsiNameValuePair(valueName, valueString,
-                                    new ExternalPsiAnnotationLiteralMemberValue(s)));
+                            value = valueString.substring(1, valueString.length() - 1);
                         } else if (valueString.startsWith("{") && valueString.endsWith("}")) {
                             // Array of values
                             String listString = valueString.substring(1, valueString.length() - 1);
@@ -1377,25 +1016,26 @@ public class ExternalAnnotationRepository {
                             // field references. We can't know the types of the fields; it's
                             // not part of the annotation metadata. We'll place them in an Object[]
                             // for now.
+                            boolean allStrings = true;
                             Splitter splitter = Splitter.on(',').omitEmptyStrings().trimResults();
-                            List<PsiAnnotationMemberValue> result = Lists.newArrayList();
+                            List<Object> result = Lists.newArrayList();
                             for (String reference : splitter.split(listString)) {
                                 if (reference.startsWith("\"")) {
-                                    String s = reference.substring(1, reference.length() - 1);
-                                    result.add(new ExternalPsiAnnotationLiteralMemberValue(s));
+                                    result.add(reference.substring(1, reference.length() - 1));
                                 } else {
-                                    result.add(new ExternalPsiReferenceExpressionMemberValue(reference));
+                                    result.add(new ResolvedExternalField(reference));
+                                    allStrings = false;
                                 }
                             }
-                            PsiAnnotationMemberValue[] initializers = result.toArray(
-                                    PsiAnnotationMemberValue.EMPTY_ARRAY);
-                            pairs.add(new ExternalPsiNameValuePair(valueName, valueString,
-                                    new ExternalPsiArrayInitializerMemberValue(initializers)));
+                            if (allStrings) {
+                                value = result.toArray(new String[result.size()]);
+                            } else {
+                                value = result.toArray();
+                            }
 
                             // We don't know the actual type of these fields; we'll assume they're
                             // a special form of
                         } else if (Character.isDigit(valueString.charAt(0))) {
-                            Object value;
                             try {
                                 if (valueString.contains(".")) {
                                     value = Double.parseDouble(valueString);
@@ -1405,16 +1045,14 @@ public class ExternalAnnotationRepository {
                             } catch (NumberFormatException nufe) {
                                 value = valueString;
                             }
-                            pairs.add(new ExternalPsiNameValuePair(valueName, valueString,
-                                    new ExternalPsiAnnotationLiteralMemberValue(value)));
                         } else {
-                            pairs.add(new ExternalPsiNameValuePair(valueName, valueString,
-                                    new ExternalPsiAnnotationLiteralMemberValue(valueString)));
+                            value = valueString; // unknown type
                         }
+                        annotation.addValue(new Value(valueName, value));
                     }
                 }
             }
-            annotation.setAttributes(pairs.toArray(PsiNameValuePair.EMPTY_ARRAY));
+
             return annotation;
         }
     }

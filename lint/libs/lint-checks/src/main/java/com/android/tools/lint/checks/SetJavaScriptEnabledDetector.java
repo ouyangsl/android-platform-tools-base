@@ -19,26 +19,23 @@ package com.android.tools.lint.checks;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.detector.api.Category;
-import com.android.tools.lint.detector.api.ConstantEvaluator;
 import com.android.tools.lint.detector.api.Detector;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiExpression;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiMethodCallExpression;
 
 import java.util.Collections;
 import java.util.List;
 
+import lombok.ast.AstVisitor;
+import lombok.ast.MethodInvocation;
+
 /**
  * Looks for invocations of android.webkit.WebSettings.setJavaScriptEnabled.
  */
-public class SetJavaScriptEnabledDetector extends Detector implements JavaPsiScanner {
+public class SetJavaScriptEnabledDetector extends Detector implements Detector.JavaScanner {
     /** Invocations of setJavaScriptEnabled */
     public static final Issue ISSUE = Issue.create("SetJavaScriptEnabled", //$NON-NLS-1$
             "Using `setJavaScriptEnabled`",
@@ -62,16 +59,13 @@ public class SetJavaScriptEnabledDetector extends Detector implements JavaPsiSca
     // ---- Implements JavaScanner ----
 
     @Override
-    public void visitMethod(@NonNull JavaContext context, @Nullable JavaElementVisitor visitor,
-            @NonNull PsiMethodCallExpression call, @NonNull PsiMethod method) {
-        PsiExpression[] arguments = call.getArgumentList().getExpressions();
-        if (arguments.length == 1) {
-            Object constant = ConstantEvaluator.evaluate(context, arguments[0]);
-            if (constant != null && !Boolean.FALSE.equals(constant)) {
-                context.report(ISSUE, call, context.getLocation(call),
-                        "Using `setJavaScriptEnabled` can introduce XSS vulnerabilities " +
-                                "into you application, review carefully.");
-            }
+    public void visitMethod(@NonNull JavaContext context, @Nullable AstVisitor visitor,
+            @NonNull MethodInvocation node) {
+        if (node.astArguments().size() == 1
+                && !node.astArguments().first().toString().equals("false")) { //$NON-NLS-1$
+            context.report(ISSUE, node, context.getLocation(node),
+                    "Using `setJavaScriptEnabled` can introduce XSS vulnerabilities " +
+                            "into you application, review carefully.");
         }
     }
 

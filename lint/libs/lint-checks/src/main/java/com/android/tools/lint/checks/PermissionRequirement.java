@@ -25,20 +25,27 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.annotations.VisibleForTesting;
 import com.android.sdklib.AndroidVersion;
-import com.android.tools.lint.detector.api.ConstantEvaluator;
+import com.android.tools.lint.client.api.JavaParser;
+import com.android.tools.lint.client.api.JavaParser.ResolvedAnnotation;
+import com.android.tools.lint.client.api.JavaParser.ResolvedField;
+import com.android.tools.lint.detector.api.Context;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.intellij.psi.JavaTokenType;
-import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiAnnotationMemberValue;
-import com.intellij.psi.PsiArrayInitializerMemberValue;
-import com.intellij.psi.tree.IElementType;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
+
+import lombok.ast.BinaryExpression;
+import lombok.ast.BinaryOperator;
+import lombok.ast.Expression;
+import lombok.ast.ForwardingAstVisitor;
+import lombok.ast.Node;
+import lombok.ast.Select;
+import lombok.ast.VariableDefinitionEntry;
 
 /**
  * A permission requirement is a boolean expression of permission names that a
@@ -48,7 +55,7 @@ public abstract class PermissionRequirement {
     public static final String ATTR_PROTECTION_LEVEL = "protectionLevel"; //$NON-NLS-1$
     public static final String VALUE_DANGEROUS = "dangerous"; //$NON-NLS-1$
 
-    protected final PsiAnnotation annotation;
+    protected final ResolvedAnnotation annotation;
     private int firstApi;
     private int lastApi;
 
@@ -91,7 +98,7 @@ public abstract class PermissionRequirement {
 
         @Nullable
         @Override
-        public IElementType getOperator() {
+        public BinaryOperator getOperator() {
             return null;
         }
 
@@ -102,33 +109,42 @@ public abstract class PermissionRequirement {
         }
     };
 
-    private PermissionRequirement(@NonNull PsiAnnotation annotation) {
+    private PermissionRequirement(@NonNull ResolvedAnnotation annotation) {
         this.annotation = annotation;
     }
 
     @NonNull
     public static PermissionRequirement create(
-            @NonNull JavaContext context,
-            @NonNull PsiAnnotation annotation) {
-
-        String value = getAnnotationStringValue(annotation, ATTR_VALUE);
+            @Nullable Context context,
+            @NonNull ResolvedAnnotation annotation) {
+        String value = (String)annotation.getValue(ATTR_VALUE);
         if (value != null && !value.isEmpty()) {
+            for (int i = 0, n = value.length(); i < n; i++) {
+                char c = value.charAt(i);
+                // See if it's a complex expression and if so build it up
+                if (c == '&' || c == '|' || c == '^') {
+                    return Complex.parse(annotation, context, value);
+                }
+            }
+
             return new Single(annotation, value);
         }
 
-        String[] anyOf = getAnnotationStringValues(annotation, ATTR_ANY_OF);
+        Object v = annotation.getValue(ATTR_ANY_OF);
+        String[] anyOf = getAnnotationStrings(v);
         if (anyOf != null) {
             if (anyOf.length > 1) {
-                return new Many(annotation, JavaTokenType.OROR, anyOf);
+                return new Many(annotation, BinaryOperator.LOGICAL_OR, anyOf);
             } else if (anyOf.length == 1) {
                 return new Single(annotation, anyOf[0]);
             }
         }
 
-        String[] allOf = getAnnotationStringValues(annotation, ATTR_ALL_OF);
+        v = annotation.getValue(ATTR_ALL_OF);
+        String[] allOf = getAnnotationStrings(v);
         if (allOf != null) {
             if (allOf.length > 1) {
-                return new Many(annotation, JavaTokenType.ANDAND, allOf);
+                return new Many(annotation, BinaryOperator.LOGICAL_AND, allOf);
             } else if (allOf.length == 1) {
                 return new Single(annotation, allOf[0]);
             }
@@ -138,128 +154,25 @@ public abstract class PermissionRequirement {
     }
 
     @Nullable
-    public static Boolean getAnnotationBooleanValue(@Nullable PsiAnnotation annotation,
-            @NonNull String name) {
-        if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findAttributeValue(name);
-            if (attributeValue == null && ATTR_VALUE.equals(name)) {
-                attributeValue = annotation.findAttributeValue(null);
-            }
-            // Use constant evaluator since we want to resolve field references as well
-            if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
-                if (o instanceof Boolean) {
-                    return (Boolean) o;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public static Long getAnnotationLongValue(@Nullable PsiAnnotation annotation,
-            @NonNull String name) {
-        if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findAttributeValue(name);
-            if (attributeValue == null && ATTR_VALUE.equals(name)) {
-                attributeValue = annotation.findAttributeValue(null);
-            }
-            // Use constant evaluator since we want to resolve field references as well
-            if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
-                if (o instanceof Number) {
-                    return ((Number)o).longValue();
-                }
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public static Double getAnnotationDoubleValue(@Nullable PsiAnnotation annotation,
-            @NonNull String name) {
-        if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findAttributeValue(name);
-            if (attributeValue == null && ATTR_VALUE.equals(name)) {
-                attributeValue = annotation.findAttributeValue(null);
-            }
-            // Use constant evaluator since we want to resolve field references as well
-            if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
-                if (o instanceof Number) {
-                    return ((Number)o).doubleValue();
-                }
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public static String getAnnotationStringValue(@Nullable PsiAnnotation annotation,
-            @NonNull String name) {
-        if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findAttributeValue(name);
-            if (attributeValue == null && ATTR_VALUE.equals(name)) {
-                attributeValue = annotation.findAttributeValue(null);
-            }
-            // Use constant evaluator since we want to resolve field references as well
-            if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
-                if (o instanceof String) {
-                    return (String) o;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    @Nullable
-    public static String[] getAnnotationStringValues(@Nullable PsiAnnotation annotation,
-            @NonNull String name) {
-        if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findAttributeValue(name);
-            if (attributeValue == null && ATTR_VALUE.equals(name)) {
-                attributeValue = annotation.findAttributeValue(null);
-            }
-            if (attributeValue instanceof PsiArrayInitializerMemberValue) {
-                PsiAnnotationMemberValue[] initializers =
-                        ((PsiArrayInitializerMemberValue) attributeValue).getInitializers();
-                List<String> result = Lists.newArrayListWithCapacity(initializers.length);
-                ConstantEvaluator constantEvaluator = new ConstantEvaluator(null);
-                for (PsiAnnotationMemberValue element : initializers) {
-                    Object o = constantEvaluator.evaluate(element);
-                    if (o instanceof String) {
-                        result.add((String)o);
-                    }
-                }
-                if (result.isEmpty()) {
-                    return null;
-                } else {
-                    return result.toArray(new String[0]);
-                }
-            } else {
-                // Use constant evaluator since we want to resolve field references as well
-                if (attributeValue != null) {
-                    Object o = ConstantEvaluator.evaluate(null, attributeValue);
-                    if (o instanceof String) {
-                        return new String[]{(String) o};
-                    } else if (o instanceof String[]) {
-                        return (String[])o;
-                    } else if (o instanceof Object[]) {
-                        Object[] array = (Object[]) o;
-                        List<String> strings = Lists.newArrayListWithCapacity(array.length);
-                        for (Object element : array) {
-                            if (element instanceof String) {
-                                strings.add((String) element);
-                            }
+    private static String[] getAnnotationStrings(@Nullable Object v) {
+        if (v != null) {
+            if (v instanceof String[]) {
+                return (String[])v;
+            } else if (v instanceof String) {
+                return new String[] { (String)v };
+            } else if (v instanceof Object[]) {
+                List<String> strings = Lists.newArrayList();
+                for (Object o : (Object[])v) {
+                    if (o instanceof ResolvedField) {
+                        Object vs = ((ResolvedField)o).getValue();
+                        if (vs instanceof String) {
+                            strings.add((String)vs);
                         }
-                        return strings.toArray(new String[0]);
+                    } else if (o instanceof String) {
+                        strings.add((String)o);
                     }
                 }
+                return strings.toArray(new String[strings.size()]);
             }
         }
 
@@ -286,8 +199,9 @@ public abstract class PermissionRequirement {
             firstApi = -1; // initialized, not specified
 
             // Not initialized
-            String range = getAnnotationStringValue(annotation, "apis");
-            if (range != null) {
+            Object o = annotation.getValue("apis");
+            if (o instanceof String) {
+                String range = (String)o;
                 // Currently only support the syntax "a..b" where a and b are inclusive end points
                 // and where "a" and "b" are optional
                 int index = range.indexOf("..");
@@ -341,9 +255,14 @@ public abstract class PermissionRequirement {
      * @return true if this requirement is conditional
      */
     public boolean isConditional() {
-        Boolean o = getAnnotationBooleanValue(annotation, ATTR_CONDITIONAL);
-        if (o != null) {
-            return o;
+        Object o = annotation.getValue(ATTR_CONDITIONAL);
+        if (o instanceof Boolean) {
+            return (Boolean)o;
+        } else if (o instanceof ResolvedField) {
+            o = ((ResolvedField)o).getValue();
+            if (o instanceof Boolean) {
+                return (Boolean)o;
+            }
         }
         return false;
     }
@@ -404,7 +323,7 @@ public abstract class PermissionRequirement {
      * for leaf nodes
      */
     @Nullable
-    public abstract IElementType getOperator();
+    public abstract BinaryOperator getOperator();
 
     /**
      * Returns nested requirements, combined via {@link #getOperator()}
@@ -416,7 +335,7 @@ public abstract class PermissionRequirement {
     private static class Single extends PermissionRequirement {
         public final String name;
 
-        public Single(@NonNull PsiAnnotation annotation, @NonNull String name) {
+        public Single(@NonNull ResolvedAnnotation annotation, @NonNull String name) {
             super(annotation);
             this.name = name;
         }
@@ -428,7 +347,7 @@ public abstract class PermissionRequirement {
 
         @Nullable
         @Override
-        public IElementType getOperator() {
+        public BinaryOperator getOperator() {
             return null;
         }
 
@@ -475,14 +394,14 @@ public abstract class PermissionRequirement {
         }
     }
 
-    protected static void appendOperator(StringBuilder sb, IElementType operator) {
+    protected static void appendOperator(StringBuilder sb, BinaryOperator operator) {
         sb.append(' ');
-        if (operator == JavaTokenType.ANDAND) {
+        if (operator == BinaryOperator.LOGICAL_AND) {
             sb.append("and");
-        } else if (operator == JavaTokenType.OROR) {
+        } else if (operator == BinaryOperator.LOGICAL_OR) {
             sb.append("or");
         } else {
-            assert operator == JavaTokenType.XOR : operator;
+            assert operator == BinaryOperator.BITWISE_XOR : operator;
             sb.append("xor");
         }
         sb.append(' ');
@@ -492,16 +411,16 @@ public abstract class PermissionRequirement {
      * Require a series of permissions, all with the same operator.
      */
     private static class Many extends PermissionRequirement {
-        public final IElementType operator;
+        public final BinaryOperator operator;
         public final List<PermissionRequirement> permissions;
 
         public Many(
-                @NonNull PsiAnnotation annotation,
-                IElementType operator,
+                @NonNull ResolvedAnnotation annotation,
+                BinaryOperator operator,
                 String[] names) {
             super(annotation);
-            assert operator == JavaTokenType.OROR
-                    || operator == JavaTokenType.ANDAND : operator;
+            assert operator == BinaryOperator.LOGICAL_OR
+                    || operator == BinaryOperator.LOGICAL_AND : operator;
             assert names.length >= 2;
             this.operator = operator;
             this.permissions = Lists.newArrayListWithExpectedSize(names.length);
@@ -531,7 +450,7 @@ public abstract class PermissionRequirement {
 
         @Override
         public boolean isSatisfied(@NonNull PermissionHolder available) {
-            if (operator == JavaTokenType.ANDAND) {
+            if (operator == BinaryOperator.LOGICAL_AND) {
                 for (PermissionRequirement requirement : permissions) {
                     if (!requirement.isSatisfied(available) && requirement.appliesTo(available)) {
                         return false;
@@ -539,7 +458,7 @@ public abstract class PermissionRequirement {
                 }
                 return true;
             } else {
-                assert operator == JavaTokenType.OROR : operator;
+                assert operator == BinaryOperator.LOGICAL_OR : operator;
                 for (PermissionRequirement requirement : permissions) {
                     if (requirement.isSatisfied(available) || !requirement.appliesTo(available)) {
                         return true;
@@ -587,7 +506,7 @@ public abstract class PermissionRequirement {
         @Override
         public boolean isRevocable(@NonNull PermissionHolder revocable) {
             // TODO: Pass in the available set of permissions here, and if
-            // the operator is JavaTokenType.OROR, only return revocable=true
+            // the operator is BinaryOperator.LOGICAL_OR, only return revocable=true
             // if an unsatisfied permission is also revocable. In other words,
             // if multiple permissions are allowed, and some of them are satisfied and
             // not revocable the overall permission requirement is not revocable.
@@ -601,7 +520,7 @@ public abstract class PermissionRequirement {
 
         @Nullable
         @Override
-        public IElementType getOperator() {
+        public BinaryOperator getOperator() {
             return operator;
         }
 
@@ -609,6 +528,217 @@ public abstract class PermissionRequirement {
         @Override
         public Iterable<PermissionRequirement> getChildren() {
             return permissions;
+        }
+    }
+
+    /**
+     * Require multiple permissions. This is a group of permissions with some
+     * associated boolean logic, such as "B or (C and (D or E))".
+     */
+    private static class Complex extends PermissionRequirement {
+        public final BinaryOperator operator;
+        public final PermissionRequirement left;
+        public final PermissionRequirement right;
+
+        public Complex(
+                @NonNull ResolvedAnnotation annotation,
+                BinaryOperator operator,
+                PermissionRequirement left,
+                PermissionRequirement right) {
+            super(annotation);
+            this.operator = operator;
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public boolean isSingle() {
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+
+            boolean needsParentheses = left instanceof Complex &&
+                    ((Complex) left).operator != BinaryOperator.LOGICAL_AND;
+            if (needsParentheses) {
+                sb.append('(');
+            }
+            sb.append(left.toString());
+            if (needsParentheses) {
+                sb.append(')');
+            }
+
+            appendOperator(sb, operator);
+
+            needsParentheses = right instanceof Complex &&
+                    ((Complex) right).operator != BinaryOperator.LOGICAL_AND;
+            if (needsParentheses) {
+                sb.append('(');
+            }
+            sb.append(right.toString());
+            if (needsParentheses) {
+                sb.append(')');
+            }
+
+            return sb.toString();
+        }
+
+        @Override
+        public boolean isSatisfied(@NonNull PermissionHolder available) {
+            boolean satisfiedLeft = left.isSatisfied(available) || !left.appliesTo(available);
+            boolean satisfiedRight = right.isSatisfied(available) || !right.appliesTo(available);
+            if (operator == BinaryOperator.LOGICAL_AND) {
+                return satisfiedLeft && satisfiedRight;
+            } else if (operator == BinaryOperator.LOGICAL_OR) {
+                return satisfiedLeft || satisfiedRight;
+            } else {
+                assert operator == BinaryOperator.BITWISE_XOR : operator;
+                return satisfiedLeft ^ satisfiedRight;
+            }
+        }
+
+        @Override
+        public String describeMissingPermissions(@NonNull PermissionHolder available) {
+            boolean satisfiedLeft = left.isSatisfied(available);
+            boolean satisfiedRight = right.isSatisfied(available);
+            if (operator == BinaryOperator.LOGICAL_AND || operator == BinaryOperator.LOGICAL_OR) {
+                if (satisfiedLeft) {
+                    if (satisfiedRight) {
+                        return "";
+                    }
+                    return right.describeMissingPermissions(available);
+                } else if (satisfiedRight) {
+                    return left.describeMissingPermissions(available);
+                } else {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(left.describeMissingPermissions(available));
+                    appendOperator(sb, operator);
+                    sb.append(right.describeMissingPermissions(available));
+                    return sb.toString();
+                }
+            } else {
+                assert operator == BinaryOperator.BITWISE_XOR : operator;
+                return toString();
+            }
+        }
+
+        @Override
+        protected void addMissingPermissions(@NonNull PermissionHolder available,
+          @NonNull Set<String> missing) {
+            boolean satisfiedLeft = left.isSatisfied(available);
+            boolean satisfiedRight = right.isSatisfied(available);
+            if (operator == BinaryOperator.LOGICAL_AND || operator == BinaryOperator.LOGICAL_OR) {
+                if (satisfiedLeft) {
+                    if (satisfiedRight) {
+                        return;
+                    }
+                    right.addMissingPermissions(available, missing);
+                } else if (satisfiedRight) {
+                    left.addMissingPermissions(available, missing);
+                } else {
+                    left.addMissingPermissions(available, missing);
+                    right.addMissingPermissions(available, missing);
+                }
+            } else {
+                assert operator == BinaryOperator.BITWISE_XOR : operator;
+                left.addMissingPermissions(available, missing);
+                right.addMissingPermissions(available, missing);
+            }
+        }
+
+        @Override
+        protected void addRevocablePermissions(@NonNull Set<String> result,
+                @NonNull PermissionHolder revocable) {
+            left.addRevocablePermissions(result, revocable);
+            right.addRevocablePermissions(result, revocable);
+        }
+
+        @Override
+        public boolean isRevocable(@NonNull PermissionHolder revocable) {
+            // TODO: If operator == BinaryOperator.LOGICAL_OR only return
+            // revocable the there isn't a non-revocable term which is also satisfied.
+            return left.isRevocable(revocable) || right.isRevocable(revocable);
+        }
+
+        @NonNull
+        public static PermissionRequirement parse(@NonNull ResolvedAnnotation annotation,
+                @Nullable Context context, @NonNull final String value) {
+            // Parse an expression of the form (A op1 B op2 C) op3 (D op4 E) etc.
+            // We'll just use the Java parser to handle this to ensure that operator
+            // precedence etc is correct.
+            if (context == null) {
+                return NONE;
+            }
+            JavaParser javaParser = context.getClient().getJavaParser(null);
+            if (javaParser == null) {
+                return NONE;
+            }
+            try {
+                JavaContext javaContext = new JavaContext(context.getDriver(),
+                        context.getProject(), context.getMainProject(), context.file,
+                        javaParser) {
+                    @Nullable
+                    @Override
+                    public String getContents() {
+                        return ""
+                                + "class Test { void test() {\n"
+                                + "boolean result=" + value
+                                + ";\n}\n}";
+                    }
+                };
+                Node node = javaParser.parseJava(javaContext);
+                if (node != null) {
+                    final AtomicReference<Expression> reference = new AtomicReference<Expression>();
+                    node.accept(new ForwardingAstVisitor() {
+                        @Override
+                        public boolean visitVariableDefinitionEntry(VariableDefinitionEntry node) {
+                            reference.set(node.astInitializer());
+                            return true;
+                        }
+                    });
+                    Expression expression = reference.get();
+                    if (expression != null) {
+                        return parse(annotation, expression);
+                    }
+                }
+
+                return NONE;
+            } finally {
+                javaParser.dispose();
+            }
+        }
+
+        private static PermissionRequirement parse(
+                @NonNull ResolvedAnnotation annotation,
+                @NonNull Expression expression) {
+            if (expression instanceof Select) {
+                return new Single(annotation, expression.toString());
+            } else if (expression instanceof BinaryExpression) {
+                BinaryExpression binaryExpression = (BinaryExpression) expression;
+                BinaryOperator operator = binaryExpression.astOperator();
+                if (operator == BinaryOperator.LOGICAL_AND
+                        || operator == BinaryOperator.LOGICAL_OR
+                        || operator == BinaryOperator.BITWISE_XOR) {
+                    PermissionRequirement left = parse(annotation, binaryExpression.astLeft());
+                    PermissionRequirement right = parse(annotation, binaryExpression.astRight());
+                    return new Complex(annotation, operator, left, right);
+                }
+            }
+            return NONE;
+        }
+
+        @Nullable
+        @Override
+        public BinaryOperator getOperator() {
+            return operator;
+        }
+
+        @NonNull
+        @Override
+        public Iterable<PermissionRequirement> getChildren() {
+            return Arrays.asList(left, right);
         }
     }
 

@@ -20,6 +20,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.resources.ResourceFolderType;
 import com.android.tools.lint.detector.api.Category;
+import com.android.tools.lint.detector.api.Detector.JavaScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Location;
@@ -44,7 +45,7 @@ import java.util.List;
 /**
  * Check which makes sure that a full-backup-content descriptor file is valid and logical
  */
-public class FullBackupContentDetector extends ResourceXmlDetector {
+public class FullBackupContentDetector extends ResourceXmlDetector implements JavaScanner {
     /**
      * Validation of {@code <full-backup-content>} XML elements
      */

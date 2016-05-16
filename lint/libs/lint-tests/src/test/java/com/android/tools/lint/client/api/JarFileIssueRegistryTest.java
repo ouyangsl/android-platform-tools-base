@@ -17,7 +17,6 @@ package com.android.tools.lint.client.api;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.testutils.TestUtils;
 import com.android.tools.lint.checks.AbstractCheckTest;
 import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Severity;
@@ -40,7 +39,7 @@ public class JarFileIssueRegistryTest extends AbstractCheckTest {
     }
 
     public void testCached() throws Exception {
-        File targetDir = TestUtils.createTempDirDeletedOnExit();
+        File targetDir = Files.createTempDir();
         File file1 = getTestfile(targetDir, "rules/appcompat.jar.data");
         File file2 = getTestfile(targetDir, "apicheck/unsupported.jar.data");
         assertTrue(file1.getPath(), file1.exists());
@@ -76,7 +75,7 @@ public class JarFileIssueRegistryTest extends AbstractCheckTest {
 
         assertEquals(
                 "Custom lint rule jar " + file2.getPath() + " does not contain a valid "
-                        + "registry manifest key (Lint-Registry-v2).\n"
+                        + "registry manifest key (Lint-Registry).\n"
                         + "Either the custom jar is invalid, or it uses an outdated API not "
                         + "supported this lint client", mLoggedWarnings.toString());
     }

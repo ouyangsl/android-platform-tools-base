@@ -20,28 +20,30 @@ import static com.android.tools.lint.client.api.JavaParser.TYPE_STRING;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.tools.lint.client.api.JavaEvaluator;
+import com.android.tools.lint.client.api.JavaParser.ResolvedMethod;
+import com.android.tools.lint.client.api.JavaParser.ResolvedNode;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.ConstantEvaluator;
 import com.android.tools.lint.detector.api.Detector;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiExpression;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiMethodCallExpression;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+
+import lombok.ast.AstVisitor;
+import lombok.ast.Expression;
+import lombok.ast.MethodInvocation;
+import lombok.ast.Node;
 
 /**
  * Detector which looks for problems related to SQLite usage
  */
-public class SQLiteDetector extends Detector implements JavaPsiScanner {
+public class SQLiteDetector extends Detector implements Detector.JavaScanner {
     private static final Implementation IMPLEMENTATION = new Implementation(
           SQLiteDetector.class, Scope.JAVA_FILE_SCOPE);
 
@@ -82,30 +84,33 @@ public class SQLiteDetector extends Detector implements JavaPsiScanner {
     }
 
     @Override
-    public void visitMethod(@NonNull JavaContext context, @Nullable JavaElementVisitor visitor,
-            @NonNull PsiMethodCallExpression node, @NonNull PsiMethod method) {
-        JavaEvaluator evaluator = context.getEvaluator();
-        if (!evaluator.isMemberInClass(method, "android.database.sqlite.SQLiteDatabase")) {
+    public void visitMethod(@NonNull JavaContext context, @Nullable AstVisitor visitor,
+            @NonNull MethodInvocation node) {
+        ResolvedNode resolved = context.resolve(node);
+        if (!(resolved instanceof ResolvedMethod)) {
             return;
         }
 
-        int parameterCount = evaluator.getParameterCount(method);
-        if (parameterCount == 0) {
+        ResolvedMethod method = (ResolvedMethod) resolved;
+        if (!method.getContainingClass().matches("android.database.sqlite.SQLiteDatabase")) {
             return;
         }
-        if (!evaluator.parameterHasType(method, 0, TYPE_STRING)) {
-            return;
-        }
+
         // Try to resolve the String and look for STRING keys
-        PsiExpression argument = node.getArgumentList().getExpressions()[0];
-        String sql = ConstantEvaluator.evaluateString(context, argument, true);
-        if (sql != null && (sql.startsWith("CREATE TABLE") || sql.startsWith("ALTER TABLE"))
-                && sql.matches(".*\\bSTRING\\b.*")) {
-            String message = "Using column type STRING; did you mean to use TEXT? "
-                    + "(STRING is a numeric type and its value can be adjusted; for example, "
-                    + "strings that look like integers can drop leading zeroes. See issue "
-                    + "explanation for details.)";
-            context.report(ISSUE, node, context.getLocation(node), message);
+        if (method.getArgumentCount() > 0
+                && method.getArgumentType(0).matchesSignature(TYPE_STRING)
+                && node.astArguments().size() == method.getArgumentCount()) {
+            Iterator<Expression> iterator = node.astArguments().iterator();
+            Node argument = iterator.next();
+            String sql = ConstantEvaluator.evaluateString(context, argument, true);
+            if (sql != null && (sql.startsWith("CREATE TABLE") || sql.startsWith("ALTER TABLE"))
+                    && sql.matches(".*\\bSTRING\\b.*")) {
+                String message = "Using column type STRING; did you mean to use TEXT? "
+                        + "(STRING is a numeric type and its value can be adjusted; for example,"
+                        + "strings that look like integers can drop leading zeroes. See issue "
+                        + "explanation for details.)";
+                context.report(ISSUE, node, context.getLocation(node), message);
+            }
         }
     }
 }

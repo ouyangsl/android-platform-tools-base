@@ -17,6 +17,9 @@
 package com.android.tools.lint.checks;
 
 import com.android.tools.lint.detector.api.Detector;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 @SuppressWarnings({"javadoc", "ClassNameDiffersFromFileName", "ImplicitArrayToString",
         "MethodMayBeStatic"})

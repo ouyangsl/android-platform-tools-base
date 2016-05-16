@@ -49,7 +49,6 @@ import com.android.tools.lint.client.api.Configuration;
 import com.android.tools.lint.client.api.DefaultConfiguration;
 import com.android.tools.lint.client.api.IssueRegistry;
 import com.android.tools.lint.client.api.JavaParser;
-import com.android.tools.lint.client.api.JavaPsiVisitor;
 import com.android.tools.lint.client.api.JavaVisitor;
 import com.android.tools.lint.client.api.LintClient;
 import com.android.tools.lint.client.api.LintDriver;
@@ -64,7 +63,6 @@ import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.android.tools.lint.detector.api.TextFormat;
-import com.android.tools.lint.psi.EcjPsiBuilder;
 import com.android.utils.FileUtils;
 import com.android.utils.ILogger;
 import com.android.utils.SdkUtils;
@@ -102,7 +100,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.CodeSource;
@@ -132,12 +129,12 @@ import javax.xml.bind.DatatypeConverter;
 @Beta
 @SuppressWarnings("javadoc")
 public abstract class LintDetectorTest extends SdkTestCase {
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         BuiltinIssueRegistry.reset();
         JavaVisitor.clearCrashCount();
-        JavaPsiVisitor.clearCrashCount();
     }
 
     @Override
@@ -154,9 +151,7 @@ public abstract class LintDetectorTest extends SdkTestCase {
         }
         for (Issue issue : issues) {
             if (issue.getImplementation().getScope().contains(Scope.JAVA_FILE)) {
-                if (JavaVisitor.getCrashCount() > 0 || JavaPsiVisitor.getCrashCount() > 0) {
-                    fail("There was a crash during lint execution; consult log for details");
-                }
+                assertEquals(0, JavaVisitor.getCrashCount());
                 break;
             }
         }
@@ -175,18 +170,6 @@ public abstract class LintDetectorTest extends SdkTestCase {
     }
 
     protected boolean allowCompilationErrors() {
-        return false;
-    }
-
-    /**
-     * If false (the default), lint will run your detectors <b>twice</b>, first on the
-     * plain source code, and then a second time where it has inserted whitespace
-     * and parentheses pretty much everywhere, to help catch bugs where your detector
-     * is only checking direct parents or siblings rather than properly allowing for
-     * whitespace and parenthesis nodes which can be present for example when using
-     * PSI inside the IDE.
-     */
-    protected boolean skipExtraTokenChecks() {
         return false;
     }
 
@@ -243,37 +226,6 @@ public abstract class LintDetectorTest extends SdkTestCase {
         mOutput = new StringBuilder();
         String result = lintClient.analyze(files);
 
-        if (getDetector() instanceof Detector.JavaPsiScanner && !skipExtraTokenChecks()) {
-            mOutput.setLength(0);
-            lintClient.reset();
-            try {
-                //lintClient.mWarnings.clear();
-                Field field = LintCliClient.class.getDeclaredField("mWarnings");
-                field.setAccessible(true);
-                List list = (List)field.get(lintClient);
-                list.clear();
-            } catch (Throwable t) {
-                fail(t.toString());
-            }
-
-            String secondResult;
-            try {
-                EcjPsiBuilder.setDebugOptions(true, true);
-                secondResult = lintClient.analyze(files);
-            } finally {
-                EcjPsiBuilder.setDebugOptions(false, false);
-            }
-
-            assertEquals("The lint check produced different results when run on the "
-                    + "normal test files and a version where parentheses and whitespace tokens "
-                    + "have been inserted everywhere. The lint check should be resilient towards "
-                    + "these kinds of differences (since in the IDE, PSI will include both "
-                    + "types of nodes. Your detector should call LintUtils.skipParenthes(parent) "
-                    + "to jump across parentheses nodes when checking parents, and there are "
-                    + "similar methods in LintUtils to skip across whitespace siblings.\n",
-                    result, secondResult);
-        }
-
         // The output typically contains a few directory/filenames.
         // On Windows we need to change the separators to the unix-style
         // forward slash to make the test as OS-agnostic as possible.
@@ -292,7 +244,7 @@ public abstract class LintDetectorTest extends SdkTestCase {
             @NonNull Context context,
             @NonNull Issue issue,
             @NonNull Severity severity,
-            @NonNull Location location,
+            @Nullable Location location,
             @NonNull String message) {
     }
 
@@ -513,12 +465,6 @@ public abstract class LintDetectorTest extends SdkTestCase {
 
         public PropertyTestFile library(boolean isLibrary) {
             mStringBuilder.append("android.library=").append(Boolean.toString(isLibrary))
-                    .append('\n');
-            return this;
-        }
-
-        public PropertyTestFile manifestMerger(boolean merger) {
-            mStringBuilder.append("manifestmerger.enabled=").append(Boolean.toString(merger))
                     .append('\n');
             return this;
         }
@@ -881,12 +827,6 @@ public abstract class LintDetectorTest extends SdkTestCase {
             return super.getSuperClass(project, name);
         }
 
-        @Override
-        public void reset() {
-            super.reset();
-            mWriter.getBuffer().setLength(0);
-        }
-
         public String analyze(List<File> files) throws Exception {
             mDriver = new LintDriver(new CustomIssueRegistry(), this);
             configureDriver(mDriver);
@@ -1002,14 +942,13 @@ public abstract class LintDetectorTest extends SdkTestCase {
                 @NonNull Context context,
                 @NonNull Issue issue,
                 @NonNull Severity severity,
-                @NonNull Location location,
+                @Nullable Location location,
                 @NonNull String message,
                 @NonNull TextFormat format) {
-            assertNotNull(location);
-
             if (ignoreSystemErrors() && (issue == IssueRegistry.LINT_ERROR)) {
                 return;
             }
+
             // Use plain ascii in the test golden files for now. (This also ensures
             // that the markup is well-formed, e.g. if we have a ` without a matching
             // closing `, the ` would show up in the plain text.)
@@ -1024,7 +963,7 @@ public abstract class LintDetectorTest extends SdkTestCase {
 
             // For messages into all secondary locations to ensure they get
             // specifically included in the text report
-            if (location.getSecondary() != null) {
+            if (location != null && location.getSecondary() != null) {
                 Location l = location.getSecondary();
                 if (l == location) {
                     fail("Location link cycle");
@@ -1066,9 +1005,7 @@ public abstract class LintDetectorTest extends SdkTestCase {
             System.err.println(sb);
 
             if (exception != null) {
-                // Ensure that we get the full cause
-                //fail(exception.toString());
-                throw new RuntimeException(exception);
+                fail(exception.toString());
             }
         }
 
@@ -1264,7 +1201,6 @@ public abstract class LintDetectorTest extends SdkTestCase {
 
                                     // Creating the resource file will set the source of
                                     // idItem.
-                                    //noinspection ResultOfObjectAllocationIgnored
                                     new ResourceFile(file, idItem, qualifiers);
                                     idMap.put(id, idItem);
                                 }

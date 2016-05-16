@@ -15,31 +15,32 @@
  */
 package com.android.tools.lint.checks;
 
-import static com.android.SdkConstants.CLASS_PARCELABLE;
+import static com.android.tools.lint.client.api.JavaParser.ResolvedClass;
+import static com.android.tools.lint.client.api.JavaParser.ResolvedField;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Detector;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.PsiAnonymousClass;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiModifier;
+
+import org.objectweb.asm.Opcodes;
 
 import java.util.Collections;
 import java.util.List;
 
+import lombok.ast.ClassDeclaration;
+import lombok.ast.Node;
+
 /**
  * Looks for Parcelable classes that are missing a CREATOR field
  */
-public class ParcelDetector extends Detector implements JavaPsiScanner {
+public class ParcelDetector extends Detector implements Detector.JavaScanner {
 
     /** The main issue discovered by this detector */
     public static final Issue ISSUE = Issue.create(
@@ -59,7 +60,7 @@ public class ParcelDetector extends Detector implements JavaPsiScanner {
                     Scope.JAVA_FILE_SCOPE))
             .addMoreInfo("http://developer.android.com/reference/android/os/Parcelable.html");
 
-    /** Constructs a new {@link ParcelDetector} check */
+    /** Constructs a new {@link com.android.tools.lint.checks.ParcelDetector} check */
     public ParcelDetector() {
     }
 
@@ -68,36 +69,31 @@ public class ParcelDetector extends Detector implements JavaPsiScanner {
     @Nullable
     @Override
     public List<String> applicableSuperClasses() {
-        return Collections.singletonList(CLASS_PARCELABLE);
+        return Collections.singletonList("android.os.Parcelable");
     }
 
     @Override
-    public void checkClass(@NonNull JavaContext context, @NonNull PsiClass declaration) {
-        if (declaration instanceof PsiAnonymousClass) {
+    public void checkClass(@NonNull JavaContext context, @Nullable ClassDeclaration node,
+            @NonNull Node declarationOrAnonymous, @NonNull ResolvedClass cls) {
+        if (node == null) {
             // Anonymous classes aren't parcelable
             return;
         }
-
         // Only applies to concrete classes
-        if (declaration.isInterface()) {
-            return;
-        }
-        if (declaration.hasModifierProperty(PsiModifier.ABSTRACT)) {
+        int flags = node.astModifiers().getExplicitModifierFlags();
+        if ((flags & (Opcodes.ACC_INTERFACE | Opcodes.ACC_ABSTRACT)) != 0) {
             return;
         }
 
         // Parceling spans is handled in TextUtils#CHAR_SEQUENCE_CREATOR
-        if (context.getEvaluator().implementsInterface(declaration,
-                "android.text.ParcelableSpan", false)) {
-            return;
-        }
-
-        PsiField field = declaration.findFieldByName("CREATOR", false);
-        if (field == null) {
-            Location location = context.getNameLocation(declaration);
-            context.report(ISSUE, declaration, location,
-                    "This class implements `Parcelable` but does not "
-                            + "provide a `CREATOR` field");
+        if (!cls.isImplementing("android.text.ParcelableSpan", false)) {
+            ResolvedField field = cls.getField("CREATOR", false);
+            if (field == null) {
+                Location location = context.getLocation(node.astName());
+                context.report(ISSUE, node, location,
+                        "This class implements `Parcelable` but does not "
+                                + "provide a `CREATOR` field");
+            }
         }
     }
 }

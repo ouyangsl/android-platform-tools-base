@@ -57,10 +57,9 @@ public class SecureRandomDetectorTest extends AbstractCheckTest {
                 + "src/test/pkg/SecureRandomTest.java:47: Warning: Do not call setSeed() on a SecureRandom with a fixed seed: it is not secure. Use getSeed(). [SecureRandom]\n"
                 + "        random2.setSeed(seedBytes); // Wrong\n"
                 + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "src/test/pkg/SecureRandomTest.java:55: Warning: Do not call setSeed() on a SecureRandom with a fixed seed: it is not secure. Use getSeed(). [SecureRandom]\n"
-                + "        random2.setSeed(fixedSeed); // Wrong\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
-                + "0 errors, 11 warnings\n",
+                + "0 errors, 10 warnings\n",
+                // Error on line 55 is only found in the IDE where we can map from ResolvedNodes to AST nodes
+
                 lintProject(java("src/test/pkg/SecureRandomTest.java", ""
                         + "package test.pkg;\n"
                         + "\n"

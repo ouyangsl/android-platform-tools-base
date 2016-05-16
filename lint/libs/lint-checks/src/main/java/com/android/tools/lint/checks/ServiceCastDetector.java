@@ -19,31 +19,30 @@ package com.android.tools.lint.checks;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.detector.api.Category;
+import com.android.tools.lint.detector.api.Context;
 import com.android.tools.lint.detector.api.Detector;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
-import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.google.common.collect.Maps;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiExpression;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiMethodCallExpression;
-import com.intellij.psi.PsiReferenceExpression;
-import com.intellij.psi.PsiTypeCastExpression;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import lombok.ast.AstVisitor;
+import lombok.ast.Cast;
+import lombok.ast.Expression;
+import lombok.ast.MethodInvocation;
+import lombok.ast.StrictListAccessor;
+
 /**
  * Detector looking for casts on th result of context.getSystemService which are suspect
  */
-public class ServiceCastDetector extends Detector implements JavaPsiScanner {
+public class ServiceCastDetector extends Detector implements Detector.JavaScanner {
     /** The main issue discovered by this detector */
     public static final Issue ISSUE = Issue.create(
             "ServiceCast", //$NON-NLS-1$
@@ -64,6 +63,11 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
     public ServiceCastDetector() {
     }
 
+    @Override
+    public boolean appliesTo(@NonNull Context context, @NonNull File file) {
+        return true;
+    }
+
     // ---- Implements JavaScanner ----
 
     @Override
@@ -72,18 +76,16 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
     }
 
     @Override
-    public void visitMethod(@NonNull JavaContext context, @Nullable JavaElementVisitor visitor,
-            @NonNull PsiMethodCallExpression call, @NonNull PsiMethod method) {
-        PsiElement parent = LintUtils.skipParentheses(call.getParent());
-        if (parent instanceof PsiTypeCastExpression) {
-            PsiTypeCastExpression cast = (PsiTypeCastExpression) parent;
-
-            PsiExpression[] args = call.getArgumentList().getExpressions();
-            if (args.length == 1 && args[0] instanceof PsiReferenceExpression) {
-                String name = ((PsiReferenceExpression)args[0]).getReferenceName();
+    public void visitMethod(@NonNull JavaContext context, @Nullable AstVisitor visitor,
+            @NonNull MethodInvocation node) {
+        if (node.getParent() instanceof Cast) {
+            Cast cast = (Cast) node.getParent();
+            StrictListAccessor<Expression, MethodInvocation> args = node.astArguments();
+            if (args.size() == 1) {
+                String name = stripPackage(args.first().toString());
                 String expectedClass = getExpectedType(name);
-                if (expectedClass != null && cast.getCastType() != null) {
-                    String castType = cast.getCastType().getType().getCanonicalText();
+                if (expectedClass != null) {
+                    String castType = cast.astTypeReference().getTypeName();
                     if (castType.indexOf('.') == -1) {
                         expectedClass = stripPackage(expectedClass);
                     }
@@ -97,7 +99,7 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
                         String message = String.format(
                                 "Suspicious cast to `%1$s` for a `%2$s`: expected `%3$s`",
                                 stripPackage(castType), name, stripPackage(expectedClass));
-                        context.report(ISSUE, call, context.getLocation(cast), message);
+                        context.report(ISSUE, node, context.getLocation(cast), message);
                     }
                 }
 
@@ -120,8 +122,8 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
     }
 
     @Nullable
-    private static String getExpectedType(@Nullable String value) {
-        return value != null ? getServiceMap().get(value) : null;
+    private static String getExpectedType(@NonNull String value) {
+        return getServiceMap().get(value);
     }
 
     @NonNull
@@ -181,7 +183,7 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
             sServiceMap.put("USB_SERVICE", "android.hardware.usb.UsbManager");
             sServiceMap.put("USER_SERVICE", "android.os.UserManager");
             sServiceMap.put("VIBRATOR_SERVICE", "android.os.Vibrator");
-            sServiceMap.put("WALLPAPER_SERVICE", "android.service.wallpaper.WallpaperService");
+            sServiceMap.put("WALLPAPER_SERVICE", "com.android.server.WallpaperService");
             sServiceMap.put("WIFI_P2P_SERVICE", "android.net.wifi.p2p.WifiP2pManager");
             sServiceMap.put("WIFI_SERVICE", "android.net.wifi.WifiManager");
             sServiceMap.put("WINDOW_SERVICE", "android.view.WindowManager");

@@ -34,6 +34,9 @@ import static com.android.SdkConstants.DRAWABLE_PREFIX;
 import static com.android.SdkConstants.DRAWABLE_XHDPI;
 import static com.android.SdkConstants.DRAWABLE_XXHDPI;
 import static com.android.SdkConstants.DRAWABLE_XXXHDPI;
+import static com.android.SdkConstants.MENU_TYPE;
+import static com.android.SdkConstants.R_CLASS;
+import static com.android.SdkConstants.R_DRAWABLE_PREFIX;
 import static com.android.SdkConstants.TAG_ACTIVITY;
 import static com.android.SdkConstants.TAG_APPLICATION;
 import static com.android.SdkConstants.TAG_ITEM;
@@ -46,42 +49,27 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.builder.model.ProductFlavor;
 import com.android.builder.model.ProductFlavorContainer;
-import com.android.ide.common.resources.ResourceUrl;
 import com.android.resources.Density;
 import com.android.resources.ResourceFolderType;
-import com.android.resources.ResourceType;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Context;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
+import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Project;
-import com.android.tools.lint.detector.api.ResourceEvaluator;
 import com.android.tools.lint.detector.api.ResourceXmlDetector;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
+import com.android.tools.lint.detector.api.Speed;
 import com.android.tools.lint.detector.api.XmlContext;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.JavaRecursiveElementVisitor;
-import com.intellij.psi.PsiAnonymousClass;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiExpression;
-import com.intellij.psi.PsiExpressionList;
-import com.intellij.psi.PsiJavaCodeReferenceElement;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiMethodCallExpression;
-import com.intellij.psi.PsiNewExpression;
-import com.intellij.psi.PsiReferenceExpression;
-import com.intellij.psi.util.PsiTreeUtil;
 
 import org.w3c.dom.Element;
 
@@ -111,11 +99,24 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
+import lombok.ast.AstVisitor;
+import lombok.ast.ConstructorInvocation;
+import lombok.ast.Expression;
+import lombok.ast.ForwardingAstVisitor;
+import lombok.ast.MethodDeclaration;
+import lombok.ast.MethodInvocation;
+import lombok.ast.Node;
+import lombok.ast.Select;
+import lombok.ast.StrictListAccessor;
+import lombok.ast.TypeReference;
+import lombok.ast.TypeReferencePart;
+import lombok.ast.VariableReference;
+
 /**
  * Checks for common icon problems, such as wrong icon sizes, placing icons in the
  * density independent drawable folder, etc.
  */
-public class IconDetector extends ResourceXmlDetector implements JavaPsiScanner {
+public class IconDetector extends ResourceXmlDetector implements Detector.JavaScanner {
 
     private static final boolean INCLUDE_LDPI;
     static {
@@ -379,6 +380,12 @@ public class IconDetector extends ResourceXmlDetector implements JavaPsiScanner 
 
     /** Constructs a new {@link IconDetector} check */
     public IconDetector() {
+    }
+
+    @NonNull
+    @Override
+    public Speed getSpeed() {
+        return Speed.SLOW;
     }
 
     @Override
@@ -699,9 +706,7 @@ public class IconDetector extends ResourceXmlDetector implements JavaPsiScanner 
                             String message = String.format(
                                 "The `%1$s` icon has identical contents in the following configuration folders: %2$s",
                                         lastName, sb.toString());
-                            if (location != null) {
                                 context.report(DUPLICATES_CONFIGURATIONS, location, message);
-                            }
                         } else {
                             StringBuilder sb = new StringBuilder(sameFiles.size() * 16);
                             for (File file : sameFiles) {
@@ -915,9 +920,7 @@ public class IconDetector extends ResourceXmlDetector implements JavaPsiScanner 
                         "The image `%1$s` varies significantly in its density-independent (dip) " +
                         "size across the various density versions: %2$s",
                             name, sb.toString());
-                    if (location != null) {
-                        context.report(ICON_DIP_SIZE, location, message);
-                    }
+                    context.report(ICON_DIP_SIZE, location, message);
                 }
             }
         }
@@ -1964,85 +1967,92 @@ public class IconDetector extends ResourceXmlDetector implements JavaPsiScanner 
 
     // ---- Implements JavaScanner ----
 
-    private static final String NOTIFICATION_CLASS = "Notification";
-    private static final String NOTIFICATION_BUILDER_CLASS = "Notification.Builder";
-    private static final String NOTIFICATION_COMPAT_BUILDER_CLASS = "NotificationCompat.Builder";
-    private static final String SET_SMALL_ICON = "setSmallIcon";
-    private static final String ON_CREATE_OPTIONS_MENU = "onCreateOptionsMenu";
+    private static final String NOTIFICATION_CLASS = "Notification";              //$NON-NLS-1$
+    private static final String NOTIFICATION_COMPAT_CLASS = "NotificationCompat"; //$NON-NLS-1$
+    private static final String BUILDER_CLASS = "Builder";                        //$NON-NLS-1$
+    private static final String SET_SMALL_ICON = "setSmallIcon";                  //$NON-NLS-1$
+    private static final String ON_CREATE_OPTIONS_MENU = "onCreateOptionsMenu";   //$NON-NLS-1$
 
     @Override
-    public List<Class<? extends PsiElement>> getApplicablePsiTypes() {
-        List<Class<? extends PsiElement>> types = new ArrayList<Class<? extends PsiElement>>(2);
-        types.add(PsiNewExpression.class);
-        types.add(PsiMethod.class);
-        return types;
-    }
-
     @Nullable
-    @Override
-    public JavaElementVisitor createPsiVisitor(@NonNull JavaContext context) {
+    public AstVisitor createJavaVisitor(@NonNull JavaContext context) {
         return new NotificationFinder();
     }
 
-    private final class NotificationFinder extends JavaElementVisitor {
+    @Override
+    @Nullable
+    public List<Class<? extends Node>> getApplicableNodeTypes() {
+        List<Class<? extends Node>> types = new ArrayList<Class<? extends Node>>(3);
+        types.add(MethodDeclaration.class);
+        types.add(ConstructorInvocation.class);
+        return types;
+    }
 
+    private final class NotificationFinder extends ForwardingAstVisitor {
         @Override
-        public void visitMethod(PsiMethod method) {
-            if (ON_CREATE_OPTIONS_MENU.equals(method.getName())) {
+        public boolean visitMethodDeclaration(MethodDeclaration node) {
+            if (ON_CREATE_OPTIONS_MENU.equals(node.astMethodName().astValue())) {
                 // Gather any R.menu references found in this method
-                method.accept(new MenuFinder());
+                node.accept(new MenuFinder());
             }
+
+            return super.visitMethodDeclaration(node);
         }
 
         @Override
-        public void visitNewExpression(PsiNewExpression node) {
-            PsiJavaCodeReferenceElement classReference = node.getClassReference();
-            if (classReference == null) {
-                return;
-            }
-            PsiElement resolved = classReference.resolve();
-            if (!(resolved instanceof PsiClass)) {
-                return;
-            }
-            String typeName = ((PsiClass)resolved).getName();
+        public boolean visitConstructorInvocation(ConstructorInvocation node) {
+            TypeReference reference = node.astTypeReference();
+            StrictListAccessor<TypeReferencePart, TypeReference> parts = reference.astParts();
+            String typeName = parts.last().astIdentifier().astValue();
             if (NOTIFICATION_CLASS.equals(typeName)) {
-                PsiExpressionList argumentList = node.getArgumentList();
-                PsiExpression[] args = argumentList != null
-                        ? argumentList.getExpressions() : PsiExpression.EMPTY_ARRAY;
-                if (args.length == 3) {
-                    if (args[0] instanceof PsiReferenceExpression && handleSelect(args[0])) {
-                        return;
+                StrictListAccessor<Expression, ConstructorInvocation> args = node.astArguments();
+                if (args.size() == 3) {
+                    if (args.first() instanceof Select && handleSelect((Select) args.first())) {
+                        return super.visitConstructorInvocation(node);
                     }
 
-                    ResourceUrl url = ResourceEvaluator.getResource(null, args[0]);
-                    if (url != null
-                            && (url.type == ResourceType.DRAWABLE
-                            || url.type == ResourceType.COLOR
-                            || url.type == ResourceType.MIPMAP)) {
-                        if (mNotificationIcons == null) {
-                            mNotificationIcons = Sets.newHashSet();
+                    Node method = StringFormatDetector.getParentMethod(node);
+                    if (method != null) {
+                        // Must track local types
+                        String name = StringFormatDetector.getResourceForFirstArg(method, node);
+                        if (name != null) {
+                            if (mNotificationIcons == null) {
+                                mNotificationIcons = Sets.newHashSet();
+                            }
+                            mNotificationIcons.add(name);
                         }
-                        mNotificationIcons.add(url.name);
                     }
                 }
-            } else if (NOTIFICATION_BUILDER_CLASS.equals(typeName)
-                    || NOTIFICATION_COMPAT_BUILDER_CLASS.equals(typeName)) {
-                PsiMethod method = PsiTreeUtil.getParentOfType(node, PsiMethod.class, true);
-                if (method != null) {
-                    SetIconFinder finder = new SetIconFinder();
-                    method.accept(finder);
+            } else if (BUILDER_CLASS.equals(typeName)) {
+                boolean isBuilder = false;
+                if (parts.size() == 1) {
+                    isBuilder = true;
+                } else if (parts.size() == 2) {
+                    String clz = parts.first().astIdentifier().astValue();
+                    if (NOTIFICATION_CLASS.equals(clz) || NOTIFICATION_COMPAT_CLASS.equals(clz)) {
+                        isBuilder = true;
+                    }
+                }
+                if (isBuilder) {
+                    Node method = StringFormatDetector.getParentMethod(node);
+                    if (method != null) {
+                        SetIconFinder finder = new SetIconFinder();
+                        method.accept(finder);
+                    }
                 }
             }
+
+            return super.visitConstructorInvocation(node);
         }
     }
 
-    private boolean handleSelect(PsiElement select) {
-        ResourceUrl url = ResourceEvaluator.getResourceConstant(select);
-        if (url != null && url.type == ResourceType.DRAWABLE && !url.framework) {
+    private boolean handleSelect(Select select) {
+        if (select.toString().startsWith(R_DRAWABLE_PREFIX)) {
+            String name = select.astIdentifier().astValue();
             if (mNotificationIcons == null) {
                 mNotificationIcons = Sets.newHashSet();
             }
-            mNotificationIcons.add(url.name);
+            mNotificationIcons.add(name);
 
             return true;
         }
@@ -2050,45 +2060,48 @@ public class IconDetector extends ResourceXmlDetector implements JavaPsiScanner 
         return false;
     }
 
-    private final class SetIconFinder extends JavaRecursiveElementVisitor {
+    private final class SetIconFinder extends ForwardingAstVisitor {
         @Override
-        public void visitMethodCallExpression(PsiMethodCallExpression expression) {
-            super.visitMethodCallExpression(expression);
-            if (SET_SMALL_ICON.equals(expression.getMethodExpression().getReferenceName())) {
-                PsiExpression[] arguments = expression.getArgumentList().getExpressions();
-                if (arguments.length == 1 && arguments[0] instanceof PsiReferenceExpression) {
-                    handleSelect(arguments[0]);
+        public boolean visitMethodInvocation(MethodInvocation node) {
+            if (SET_SMALL_ICON.equals(node.astName().astValue())) {
+                StrictListAccessor<Expression,MethodInvocation> arguments = node.astArguments();
+                if (arguments.size() == 1 && arguments.first() instanceof Select) {
+                    handleSelect((Select) arguments.first());
                 }
             }
-        }
-
-        @Override
-        public void visitAnonymousClass(PsiAnonymousClass aClass) {
+            return super.visitMethodInvocation(node);
         }
     }
 
-    private final class MenuFinder extends JavaRecursiveElementVisitor {
+    private final class MenuFinder extends ForwardingAstVisitor {
         @Override
-        public void visitReferenceExpression(PsiReferenceExpression node) {
-            super.visitReferenceExpression(node);
+        public boolean visitSelect(Select node) {
+            // R.type.name
+            if (node.astOperand() instanceof Select) {
+                Select select = (Select) node.astOperand();
+                if (select.astOperand() instanceof VariableReference) {
+                    VariableReference reference = (VariableReference) select.astOperand();
+                    if (reference.astIdentifier().astValue().equals(R_CLASS)) {
+                        String type = select.astIdentifier().astValue();
 
-            ResourceUrl url = ResourceEvaluator.getResourceConstant(node);
-            if (url != null && url.type == ResourceType.MENU && !url.framework) {
-                // Reclassify icons in the given menu as action bar icons
-                if (mMenuToIcons != null) {
-                    Collection<String> icons = mMenuToIcons.get(url.name);
-                    if (icons != null) {
-                        if (mActionBarIcons == null) {
-                            mActionBarIcons = Sets.newHashSet();
+                        if (type.equals(MENU_TYPE)) {
+                            String name = node.astIdentifier().astValue();
+                            // Reclassify icons in the given menu as action bar icons
+                            if (mMenuToIcons != null) {
+                                Collection<String> icons = mMenuToIcons.get(name);
+                                if (icons != null) {
+                                    if (mActionBarIcons == null) {
+                                        mActionBarIcons = Sets.newHashSet();
+                                    }
+                                    mActionBarIcons.addAll(icons);
+                                }
+                            }
                         }
-                        mActionBarIcons.addAll(icons);
                     }
                 }
             }
-        }
 
-        @Override
-        public void visitAnonymousClass(PsiAnonymousClass aClass) {
+            return super.visitSelect(node);
         }
     }
 }

@@ -22,7 +22,6 @@ import static java.io.File.pathSeparatorChar;
 
 import com.android.annotations.NonNull;
 import com.android.tools.lint.EcjParser;
-import com.android.tools.lint.EcjSourceFile;
 import com.google.common.base.Charsets;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -30,6 +29,8 @@ import com.google.common.io.Files;
 
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration;
+import org.eclipse.jdt.internal.compiler.batch.CompilationUnit;
+import org.eclipse.jdt.internal.compiler.env.ICompilationUnit;
 import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.eclipse.jdt.internal.compiler.util.Util;
 
@@ -362,11 +363,11 @@ public class ExtractAnnotationsDriver {
             @NonNull String encoding,
             long languageLevel)
             throws IOException {
-        List<EcjSourceFile> sourceUnits = Lists.newArrayListWithExpectedSize(100);
+        List<ICompilationUnit> sourceUnits = Lists.newArrayListWithExpectedSize(100);
 
         for (File source : gatherJavaSources(sourcePaths)) {
             char[] contents = Util.getFileCharContent(source, encoding);
-            EcjSourceFile unit = new EcjSourceFile(contents, source, encoding);
+            ICompilationUnit unit = new CompilationUnit(contents, source.getPath(), encoding);
             sourceUnits.add(unit);
         }
 

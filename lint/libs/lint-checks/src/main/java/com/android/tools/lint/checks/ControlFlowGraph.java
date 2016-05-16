@@ -391,7 +391,6 @@ public class ControlFlowGraph {
      * @return a dot description of this control flow graph,
      *    useful for debugging
      */
-    @SuppressWarnings("unused")
     public String toDot(@Nullable Set<Node> highlight) {
         StringBuilder sb = new StringBuilder();
         sb.append("digraph G {\n");
