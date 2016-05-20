@@ -130,7 +130,7 @@ public class Main {
                             FileChannel outputChannel = fos.getChannel();
                             int capacity = sTempBuf.capacity();
                             long length = f.getLength();
-                            for ( long pos = 0; pos < length; pos++ ) {
+                            for ( long pos = 0; pos < length;) {
                                 int readLength = (int)(length-pos > capacity ? capacity : length-pos);
                                 sTempBuf.rewind();
                                 sTempBuf.limit(readLength);
