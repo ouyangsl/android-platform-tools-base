@@ -16,13 +16,10 @@
 
 package com.android.sdklib.internal.repository.updater;
 
-import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.VisibleForTesting;
 import com.android.annotations.VisibleForTesting.Visibility;
-import com.android.prefs.AndroidLocation.AndroidLocationException;
 import com.android.sdklib.SdkManager;
-import com.android.sdklib.internal.avd.AvdManager;
 import com.android.sdklib.internal.repository.AdbWrapper;
 import com.android.sdklib.internal.repository.DownloadCache;
 import com.android.sdklib.internal.repository.ITask;
@@ -33,7 +30,6 @@ import com.android.sdklib.internal.repository.NullTaskMonitor;
 import com.android.sdklib.internal.repository.archives.Archive;
 import com.android.sdklib.internal.repository.archives.ArchiveInstaller;
 import com.android.sdklib.internal.repository.packages.AddonPackage;
-import com.android.sdklib.repository.License;
 import com.android.sdklib.internal.repository.packages.Package;
 import com.android.sdklib.internal.repository.packages.PlatformToolPackage;
 import com.android.sdklib.internal.repository.packages.ToolPackage;
@@ -43,6 +39,7 @@ import com.android.sdklib.internal.repository.sources.SdkSourceCategory;
 import com.android.sdklib.internal.repository.sources.SdkSources;
 import com.android.sdklib.internal.repository.updater.SettingsController.OnChangedListener;
 import com.android.sdklib.repository.ISdkChangeListener;
+import com.android.sdklib.repository.License;
 import com.android.sdklib.repository.SdkAddonConstants;
 import com.android.sdklib.repository.SdkRepoConstants;
 import com.android.sdklib.util.LineUtil;
@@ -100,7 +97,6 @@ public class UpdaterData implements IUpdaterData {
     private ITaskFactory mTaskFactory;
 
     private SdkManager mSdkManager;
-    private AvdManager mAvdManager;
     /**
      * The current {@link PackageLoader} to use.
      * Lazily created in {@link #getPackageLoader()}.
@@ -111,7 +107,6 @@ public class UpdaterData implements IUpdaterData {
      * Lazily created in {@link #getDownloadCache()}.
      */
     private DownloadCache mDownloadCache;
-    private AndroidLocationException mAvdManagerInitError;
 
     /**
      * Creates a new updater data.
@@ -172,11 +167,6 @@ public class UpdaterData implements IUpdaterData {
     }
 
     @Override
-    public AvdManager getAvdManager() {
-        return mAvdManager;
-    }
-
-    @Override
     public SettingsController getSettingsController() {
         return mSettingsController;
     }
@@ -201,35 +191,6 @@ public class UpdaterData implements IUpdaterData {
         return mPackageLoader;
     }
 
-    /**
-     * Check if any error occurred during initialization.
-     * If it did, display an error message.
-     *
-     * @return True if an error occurred, false if we should continue.
-     */
-    public boolean checkIfInitFailed() {
-        if (mAvdManagerInitError != null) {
-            String example;
-            if (SdkConstants.currentPlatform() == SdkConstants.PLATFORM_WINDOWS) {
-                example = "%USERPROFILE%";     //$NON-NLS-1$
-            } else {
-                example = "~";                 //$NON-NLS-1$
-            }
-
-            String error = String.format(
-                "The AVD manager normally uses the user's profile directory to store " +
-                "AVD files. However it failed to find the default profile directory. " +
-                "\n" +
-                "To fix this, please set the environment variable ANDROID_SDK_HOME to " +
-                "a valid path such as \"%s\".",
-                example);
-
-            displayInitError(error);
-
-            return true;
-        }
-        return false;
-    }
 
     protected void displayInitError(String error) {
         mSdkLog.error(null /* Throwable */, "%s", error);  //$NON-NLS-1$
@@ -248,27 +209,12 @@ public class UpdaterData implements IUpdaterData {
     }
 
     /**
-     * Initializes the {@link SdkManager} and the {@link AvdManager}.
+     * Initializes the {@link SdkManager}.
      * Extracted so that we can override this in unit tests.
      */
     @VisibleForTesting(visibility=Visibility.PRIVATE)
     protected void initSdk() {
         setSdkManager(SdkManager.createManager(mOsSdkRoot, mSdkLog));
-        try {
-          mAvdManager = null;
-          mAvdManager = AvdManager.getInstance(mSdkManager.getLocalSdk(), mSdkLog);
-        } catch (AndroidLocationException e) {
-            mSdkLog.error(e, "Unable to read AVDs: " + e.getMessage());  //$NON-NLS-1$
-
-            // Note: we used to continue here, but the thing is that
-            // mAvdManager==null so nothing is really going to work as
-            // expected. Let's just display an error later in checkIfInitFailed()
-            // and abort right there. This step is just too early in the SWT
-            // setup process to display a message box yet.
-
-            mAvdManagerInitError = e;
-        }
-
         // notify listeners.
         broadcastOnSdkReload();
     }
@@ -310,43 +256,16 @@ public class UpdaterData implements IUpdaterData {
     /**
      * Reloads the SDK content (targets).
      * <p/>
-     * This also reloads the AVDs in case their status changed.
-     * <p/>
      * This does not notify the listeners ({@link ISdkChangeListener}).
      */
     public void reloadSdk() {
         // reload SDK
         mSdkManager.reloadSdk(mSdkLog);
 
-        // reload AVDs
-        if (mAvdManager != null) {
-            try {
-                mAvdManager.reloadAvds(mSdkLog);
-            } catch (AndroidLocationException e) {
-                // FIXME
-            }
-        }
-
         mLocalSdkParser.clearPackages();
 
         // notify listeners
         broadcastOnSdkReload();
-    }
-
-    /**
-     * Reloads the AVDs.
-     * <p/>
-     * This does not notify the listeners.
-     */
-    public void reloadAvds() {
-        // reload AVDs
-        if (mAvdManager != null) {
-            try {
-                mAvdManager.reloadAvds(mSdkLog);
-            } catch (AndroidLocationException e) {
-                mSdkLog.error(e, null);
-            }
-        }
     }
 
     /**
@@ -649,13 +568,13 @@ public class UpdaterData implements IUpdaterData {
         String msg = null;
         if ((flags & TOOLS_MSG_UPDATED_FROM_ADT) == TOOLS_MSG_UPDATED_FROM_ADT) {
             msg =
-            "The Android SDK and AVD Manager that you are currently using has been updated. " +
+            "The Android SDK that you are currently using has been updated. " +
             "Please also run Eclipse > Help > Check for Updates to see if the Android " +
             "plug-in needs to be updated.";
 
         } else if ((flags & TOOLS_MSG_UPDATED_FROM_SDKMAN) == TOOLS_MSG_UPDATED_FROM_SDKMAN) {
             msg =
-            "The Android SDK and AVD Manager that you are currently using has been updated. " +
+            "The Android SDK that you are currently using has been updated. " +
             "It is recommended that you now close the manager window and re-open it. " +
             "If you use Eclipse, please run Help > Check for Updates to see if the Android " +
             "plug-in needs to be updated.";

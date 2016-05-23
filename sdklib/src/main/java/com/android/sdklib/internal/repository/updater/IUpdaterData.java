@@ -42,8 +42,6 @@ public interface IUpdaterData {
 
     SdkManager getSdkManager();
 
-    AvdManager getAvdManager();
-
     SettingsController getSettingsController();
 
 }

@@ -93,14 +93,6 @@ public class SdkUpdaterNoWindow {
         // Use a factory that only outputs to the given ILogger.
         mUpdaterData.setTaskFactory(new ConsoleTaskFactory());
 
-        // Check that the AVD Manager has been correctly initialized. This is done separately
-        // from the constructor in the GUI-based UpdaterWindowImpl to give time to the UI to
-        // initialize before displaying a message box. Since we don't have any GUI here
-        // we can call it whenever we want.
-        if (mUpdaterData.checkIfInitFailed()) {
-            return;
-        }
-
         // Setup the default sources including the getenv overrides.
         mUpdaterData.setupDefaultSources();
 

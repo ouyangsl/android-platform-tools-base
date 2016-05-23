@@ -45,7 +45,6 @@ import com.android.sdklib.devices.Software;
 import com.android.sdklib.devices.State;
 import com.android.sdklib.devices.Storage;
 import com.android.sdklib.devices.Storage.Unit;
-import com.android.sdklib.internal.avd.AvdManager;
 import com.android.sdklib.io.FileOp;
 import com.android.sdklib.mock.MockLog;
 import com.android.sdklib.repository.FullRevision;
@@ -53,7 +52,6 @@ import com.android.sdklib.repository.PkgProps;
 import com.android.sdklib.repository.SdkRepoConstants;
 import com.android.sdklib.repository.local.LocalPlatformPkgInfo;
 import com.android.sdklib.repository.local.LocalSysImgPkgInfo;
-import com.android.utils.ILogger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -63,8 +61,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base Test case that allocates a temporary SDK, a temporary AVD base folder with an SdkManager and
- * an AvdManager that points to them. <p/> Also overrides the {@link AndroidLocation} to point to
+ * Base Test case that allocates a temporary SDK with an SdkManager
+ * that points to it. <p/> Also overrides the {@link AndroidLocation} to point to
  * temp one.
  */
 public abstract class SdkManagerTestCase extends AndroidLocationTestCase {
@@ -76,8 +74,6 @@ public abstract class SdkManagerTestCase extends AndroidLocationTestCase {
     private MockLog mLog;
 
     private SdkManager mSdkManager;
-
-    private AvdManager mAvdManager;
 
     private int mRepoXsdLevel;
 
@@ -96,58 +92,28 @@ public abstract class SdkManagerTestCase extends AndroidLocationTestCase {
     }
 
     /**
-     * Returns the {@link AvdManager} for this test case.
-     */
-    public AvdManager getAvdManager() {
-        return mAvdManager;
-    }
-
-    /**
-     * Sets up a {@link MockLog}, a fake SDK in a temporary directory and an AVD Manager pointing to
-     * an initially-empty AVD directory.
+     * Sets up a {@link MockLog}, and a fake SDK.
      */
     public void setUp(int repoXsdLevel) throws Exception {
         super.setUp();
         mRepoXsdLevel = repoXsdLevel;
         mLog = new MockLog();
         makeFakeSdk();
-        createSdkAvdManagers();
+        createSdkManager();
     }
 
     /**
-     * Recreate the SDK and AVD Managers from scratch even if they already existed. Useful for tests
+     * Recreate the SDK Manager from scratch even if they already existed. Useful for tests
      * that want to reset their state without recreating the android-home or the fake SDK. The SDK
      * will be reparsed.
      */
-    protected void createSdkAvdManagers() throws AndroidLocationException {
+    protected void createSdkManager() throws AndroidLocationException {
         mSdkManager = SdkManager.createManager(mFakeSdk.getAbsolutePath(), mLog);
         assertNotNull("SdkManager location was invalid", mSdkManager);
-        // Note: it's safe to use the default AvdManager implementation since makeFakeAndroidHome
-        // above overrides the ANDROID_HOME folder to use a temp folder; consequently all
-        // the AVDs created here will be located in this temp folder and will not alter
-        // or pollute the default user's AVD folder.
-        mAvdManager = new AvdManager(mSdkManager.getLocalSdk(), mLog) {
-            @Override
-            protected boolean createSdCard(
-                    String toolLocation,
-                    String size,
-                    String location,
-                    ILogger log) {
-                if (new File(toolLocation).exists()) {
-                    log.info("[EXEC] %1$s %2$s %3$s\n", toolLocation, size, location);
-                    return true;
-                } else {
-                    log.error(null, "Failed to create the SD card.\n");
-                    return false;
-                }
-
-            }
-        };
     }
 
     /**
-     * Sets up a {@link MockLog}, a fake SDK in a temporary directory and an AVD Manager pointing to
-     * an initially-empty AVD directory.
+     * Sets up a {@link MockLog}, a fake SDK in a temporary directory.
      */
     @Override
     public void setUp() throws Exception {
@@ -155,7 +121,7 @@ public abstract class SdkManagerTestCase extends AndroidLocationTestCase {
     }
 
     /**
-     * Removes the temporary SDK and AVD directories.
+     * Removes the temporary SDK directorie.
      */
     @Override
     public void tearDown() throws Exception {
@@ -165,7 +131,7 @@ public abstract class SdkManagerTestCase extends AndroidLocationTestCase {
 
     /**
      * Build enough of a skeleton SDK to make the tests pass. <p/> Ideally this wouldn't touch the
-     * file system but the current structure of the SdkManager and AvdManager makes this
+     * file system but the current structure of the SdkManager makes this
      * impossible.
      */
     private void makeFakeSdk() throws IOException {
