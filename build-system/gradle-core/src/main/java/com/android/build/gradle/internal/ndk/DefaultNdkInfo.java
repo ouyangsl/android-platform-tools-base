@@ -156,14 +156,27 @@ public class DefaultNdkInfo implements NdkInfo {
             return toolchainPaths[0];
         }
 
+	String hostArch, suffix64, suffix32;
+	hostArch = System.getProperty("os.arch", "unknown");
+        if (hostArch.startsWith("ppc")) {
+	    suffix64 = "-ppc64";
+	    suffix32 = "-ppc";
+	} else if(hostArch.startsWith("arm") || hostArch.startsWith("aarch")) {
+	    suffix64 = "-arm64";
+	    suffix32 = "-arm";
+	} else {
+	    suffix64 = "-x86_64";
+	    suffix32 = "-x86";
+	}
+
         // Use 64-bit toolchain if available.
-        File toolchainPath = new File(prebuiltFolder, hostOs + "-x86_64");
+        File toolchainPath = new File(prebuiltFolder, hostOs + suffix64);
         if (toolchainPath.isDirectory()) {
             return toolchainPath;
         }
 
         // Fallback to 32-bit if we can't find the 64-bit toolchain.
-        String osString = (osName.equals("windows")) ? hostOs : hostOs + "-x86";
+        String osString = (osName.equals("windows")) ? hostOs : hostOs + suffix32;
         toolchainPath = new File(prebuiltFolder, osString);
         if (toolchainPath.isDirectory()) {
             return toolchainPath;
