@@ -47,7 +47,9 @@ test {
         events "failed"
     }
 
-    maxParallelForks = Runtime.runtime.availableProcessors() / 2
+    if (Runtime.runtime.availableProcessors() >= 2) {
+        maxParallelForks = Runtime.runtime.availableProcessors() / 2
+    }
 }
 
 groovydoc {
