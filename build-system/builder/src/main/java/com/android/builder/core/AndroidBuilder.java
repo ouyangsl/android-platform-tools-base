@@ -1809,7 +1809,7 @@ public class AndroidBuilder {
                                     BuildToolInfo.PathId.JACK_COVERAGE_PLUGIN);
                         } else {
                             File coveragePlugin = new File(coveragePluginPath);
-                            if (coveragePlugin.isFile()) {
+                            if (!coveragePlugin.isFile()) {
                                 mLogger.warning(
                                         "Unable to find coverage plugin '%s'.  Disabling code "
                                                 + "coverage.",
