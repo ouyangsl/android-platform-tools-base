@@ -31,7 +31,7 @@ import java.util.List;
 public class BuiltinIssueRegistry extends IssueRegistry {
     private static final List<Issue> sIssues;
 
-    static final int INITIAL_CAPACITY = 263;
+    static final int INITIAL_CAPACITY = 266;
 
     static {
         List<Issue> issues = new ArrayList<Issue>(INITIAL_CAPACITY);
@@ -73,6 +73,9 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(CallSuperDetector.ISSUE);
         issues.add(ChildCountDetector.ADAPTER_VIEW_ISSUE);
         issues.add(ChildCountDetector.SCROLLVIEW_ISSUE);
+        issues.add(ChromeOSDetector.PERMISSION_IMPLIES_UNSUPPORTED_HARDWARE);
+        issues.add(ChromeOSDetector.TARGET_SDK_PRIOR_TO_N);
+        issues.add(ChromeOSDetector.UNSUPPORTED_CHROME_OS_HARDWARE);
         issues.add(CipherGetInstanceDetector.ISSUE);
         issues.add(CleanupDetector.COMMIT_FRAGMENT);
         issues.add(CleanupDetector.RECYCLE_RESOURCE);
@@ -332,7 +335,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
             } else if (scope.contains(Scope.CLASS_FILE)) {
                 initialSize += 15;
             } else if (scope.contains(Scope.MANIFEST)) {
-                initialSize += 38;
+                initialSize += 41;
             } else if (scope.contains(Scope.GRADLE_FILE)) {
                 initialSize += 5;
             }
