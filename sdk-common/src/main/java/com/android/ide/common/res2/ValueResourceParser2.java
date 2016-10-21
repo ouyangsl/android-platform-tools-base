@@ -124,18 +124,20 @@ class ValueResourceParser2 {
             throws MergingException {
         ResourceType type = getType(node, from);
         String name = getName(node);
-
+        ResourceItem item = null;
         if (name != null) {
             if (type != null) {
                 ValueResourceNameValidator.validate(name, type, from);
-                return new ResourceItem(name, type, node);
+                item = new ResourceItem(name, type, node);
             }
         } else if (type == ResourceType.PUBLIC) {
             // Allow a <public /> node with no name: this means all resources are private
-            return new ResourceItem("", type, node);
+            item = new ResourceItem("", type, node);
         }
-
-        return null;
+        if (item != null) {
+            item.setProduct(getValue(node, "product"));
+        }
+        return item;
     }
 
     /**
@@ -176,8 +178,12 @@ class ValueResourceParser2 {
      * @param node the node.
      * @return the name or null if it could not be inferred.
      */
-    static String getName(@NonNull Node node) {
-        Attr attribute = (Attr) node.getAttributes().getNamedItemNS(null, ATTR_NAME);
+    static String getName(@NonNull Node node){
+        return getValue(node, ATTR_NAME);
+    }
+
+    static String getValue(@NonNull Node node, @NonNull String localName) {
+        Attr attribute = (Attr) node.getAttributes().getNamedItemNS(null, localName);
 
         if (attribute != null) {
             return attribute.getValue();
@@ -252,7 +258,7 @@ class ValueResourceParser2 {
             return;
         }
 
-        String name = resource.getName();
+        String name = resource.getName() + resource.getProduct();
         Set<String> set = map.get(resource.getType());
         if (set == null) {
             set = Sets.newHashSet(name);

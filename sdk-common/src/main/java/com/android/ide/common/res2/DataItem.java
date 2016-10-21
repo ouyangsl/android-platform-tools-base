@@ -38,6 +38,7 @@ abstract class DataItem<F extends DataFile> {
 
     private final String mName;
     private F mSource;
+    @Nullable private String mProduct;
 
     /**
      * The status of the Item. It's a bit mask as opposed to an enum
@@ -63,6 +64,15 @@ abstract class DataItem<F extends DataFile> {
     @NonNull
     public String getName() {
         return mName;
+    }
+
+    public void setProduct(@Nullable String product) {
+        mProduct = product;
+    }
+
+    @Nullable
+    public String getProduct() {
+        return mProduct;
     }
 
     /**
