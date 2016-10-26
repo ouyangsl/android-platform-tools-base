@@ -20,14 +20,14 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.ide.common.blame.SourcePosition;
 import com.android.utils.PositionXmlParser;
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import java.awt.geom.AffineTransform;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -50,7 +50,7 @@ class SvgTree {
     private float mScaleFactor = 1;
 
     private SvgGroupNode mRoot;
-    private String mFileName;
+    private String mInputName;
 
     private ArrayList<String> mErrorLines = new ArrayList<String>();
 
@@ -79,9 +79,12 @@ class SvgTree {
         WARNING
     }
 
-    public Document parse(File f) throws Exception {
-        mFileName = f.getName();
-        Document doc = PositionXmlParser.parse(new FileInputStream(f), false);
+    public Document parse(@NonNull String inputName, @NonNull InputStream inputStream)
+            throws Exception {
+        Preconditions.checkNotNull(inputName);
+        Preconditions.checkNotNull(inputStream);
+        mInputName = inputName;
+        Document doc = PositionXmlParser.parse(inputStream, false);
         return doc;
     }
 
@@ -98,7 +101,7 @@ class SvgTree {
     }
 
     public void dump(SvgGroupNode root) {
-        logger.log(Level.FINE, "current file is :" + mFileName);
+        logger.log(Level.FINE, "current input is :" + mInputName);
         root.dumpNode("");
     }
 
@@ -130,7 +133,7 @@ class SvgTree {
     public String getErrorLog() {
         StringBuilder errorBuilder = new StringBuilder();
         if (!mErrorLines.isEmpty()) {
-            errorBuilder.append("In " + mFileName + ":\n");
+            errorBuilder.append("In " + mInputName + ":\n");
         }
         for (String log : mErrorLines) {
             errorBuilder.append(log);
