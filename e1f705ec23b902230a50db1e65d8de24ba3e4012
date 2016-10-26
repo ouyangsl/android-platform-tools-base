@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "211bd82a_7e6a05ca",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2016-10-26T23:53:25Z",
+      "side": 1,
+      "message": "line too long and there are other cases below.",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 112
+      },
+      "revId": "e1f705ec23b902230a50db1e65d8de24ba3e4012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "211bd82a_9e70c1c1",
         "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
         "patchSetId": 1
