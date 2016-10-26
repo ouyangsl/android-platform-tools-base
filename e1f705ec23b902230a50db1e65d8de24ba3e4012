@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "211bd82a_9e70c1c1",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2016-10-26T23:52:25Z",
+      "side": 1,
+      "message": "parseSvgFileToXml",
+      "range": {
+        "startLine": 677,
+        "startChar": 25,
+        "endLine": 677,
+        "endChar": 38
+      },
+      "revId": "e1f705ec23b902230a50db1e65d8de24ba3e4012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "211bd82a_be6bfdd1",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1040058
+      },
+      "writtenOn": "2016-10-26T23:52:25Z",
+      "side": 1,
+      "message": "maybe parseSvgStreamToXml",
+      "range": {
+        "startLine": 701,
+        "startChar": 25,
+        "endLine": 701,
+        "endChar": 38
+      },
+      "revId": "e1f705ec23b902230a50db1e65d8de24ba3e4012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
