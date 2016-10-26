@@ -17,8 +17,11 @@
 package com.android.ide.common.vectordrawable;
 
 import com.android.annotations.NonNull;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+import com.google.common.io.Closeables;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -112,9 +115,9 @@ public class Svg2Vector {
         "clipPath", "color-profile", "cursor", "filter", "foreignObject", "script", "view");
 
     @NonNull
-    private static SvgTree parse(File f) throws Exception {
+    private static SvgTree parse(@NonNull String inputName, @NonNull InputStream inputStream) throws Exception {
         SvgTree svgTree = new SvgTree();
-        Document doc = svgTree.parse(f);
+        Document doc = svgTree.parse(inputName, inputStream);
         NodeList nSvgNode;
 
         // Parse svg elements
@@ -667,22 +670,49 @@ public class Svg2Vector {
      *
      * @param inputSVG the input SVG file
      * @param outStream the converted VectorDrawable's content. This can be
-     *                  empty if there is any error found during parsing
+     *                  empty if there are any errors found during parsing
      * @return the error messages, which contain things like all the tags
-     *         VectorDrawble don't support or exception message.
+     *         VectorDrawable doesn't support or exception messages.
      */
-    public static String parseSvgToXml(File inputSVG, OutputStream outStream) {
+    public static String parseSvgToXml(@NonNull File inputSVG, @NonNull OutputStream outStream) {
+        Preconditions.checkNotNull(inputSVG);
+        Preconditions.checkNotNull(outStream);
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(inputSVG);
+            return parseSvgToXml(inputSVG.getName(), inputStream, outStream);
+        } catch (FileNotFoundException e) {
+            return "EXCEPTION in parsing " + inputSVG + ":\n" + e.getMessage();
+        } finally {
+            Closeables.closeQuietly(inputStream);
+        }
+    }
+
+    /**
+     * Convert an SVG byte stream into VectorDrawable's XML content, if no error is found.
+     *
+     * @param svgInputName a name associated with the input SVG content, for example the file name if the content is coming from a file
+     * @param svgInputStream the input SVG content
+     * @param outStream the converted VectorDrawable's content. This can be
+     *                  empty if there are any errors found during parsing
+     * @return the error messages, which contain things like all the tags
+     *         VectorDrawable doesn't support or exception messages.
+     */
+    public static String parseSvgToXml(@NonNull String svgInputName, @NonNull InputStream svgInputStream, @NonNull OutputStream outStream) {
+        Preconditions.checkNotNull(svgInputName);
+        Preconditions.checkNotNull(svgInputStream);
+        Preconditions.checkNotNull(outStream);
         // Write all the error message during parsing into SvgTree. and return here as getErrorLog().
         // We will also log the exceptions here.
         String errorLog = null;
         try {
-            SvgTree svgTree = parse(inputSVG);
+            SvgTree svgTree = parse(svgInputName, svgInputStream);
             errorLog = svgTree.getErrorLog();
             if (svgTree.getHasLeafNode()) {
                 writeFile(outStream, svgTree);
             }
         } catch (Exception e) {
-            errorLog = "EXCEPTION in parsing " + inputSVG.getName() + ":\n" + e.getMessage();
+            errorLog = "EXCEPTION in parsing " + svgInputName + ":\n" + e.getMessage();
         }
         return errorLog;
     }
