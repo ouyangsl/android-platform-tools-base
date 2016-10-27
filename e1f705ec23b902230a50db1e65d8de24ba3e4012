@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "211bd82a_9e28c14e",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1127244
+      },
+      "writtenOn": "2016-10-27T00:57:09Z",
+      "side": 1,
+      "message": "Removed the new arg annotations for this private method here.",
+      "parentUuid": "211bd82a_7e6a05ca",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 112
+      },
+      "revId": "e1f705ec23b902230a50db1e65d8de24ba3e4012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "211bd82a_9e70c1c1",
         "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "211bd82a_9e83a126",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1127244
+      },
+      "writtenOn": "2016-10-27T00:57:09Z",
+      "side": 1,
+      "message": "My thought here was to keep the existing public method signature the same in case there are other callers out there.",
+      "parentUuid": "211bd82a_9e70c1c1",
+      "range": {
+        "startLine": 677,
+        "startChar": 25,
+        "endLine": 677,
+        "endChar": 38
+      },
+      "revId": "e1f705ec23b902230a50db1e65d8de24ba3e4012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "211bd82a_be6bfdd1",
         "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2016-10-26T23:52:25Z",
       "side": 1,
       "message": "maybe parseSvgStreamToXml",
+      "range": {
+        "startLine": 701,
+        "startChar": 25,
+        "endLine": 701,
+        "endChar": 38
+      },
+      "revId": "e1f705ec23b902230a50db1e65d8de24ba3e4012",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "211bd82a_5e71098d",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 1127244
+      },
+      "writtenOn": "2016-10-27T00:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "211bd82a_be6bfdd1",
       "range": {
         "startLine": 701,
         "startChar": 25,
