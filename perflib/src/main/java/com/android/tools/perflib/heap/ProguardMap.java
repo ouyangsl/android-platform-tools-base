@@ -214,8 +214,18 @@ public class ProguardMap {
     // Returns the deobfuscated version of the given class name. If no
     // deobfuscated version is known, the original string is returned.
     public String getClassName(String obfuscatedClassName) {
-        ClassData classData = mClassesFromObfuscatedName.get(obfuscatedClassName);
-        return classData == null ? obfuscatedClassName : classData.getClearName();
+        // Class names for arrays may have trailing [] that need to be
+        // stripped before doing the lookup.
+        String baseName = obfuscatedClassName;
+        String arraySuffix = "";
+        while (baseName.endsWith("[]")) {
+            arraySuffix += "[]";
+            baseName = baseName.substring(0, baseName.length() - 2);
+        }
+
+        ClassData classData = mClassesFromObfuscatedName.get(baseName);
+        String clearBaseName = classData == null ? baseName : classData.getClearName();
+        return clearBaseName + arraySuffix;
     }
 
     // Returns the deobfuscated version of the given field name for the given
