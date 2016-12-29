@@ -30,7 +30,6 @@ import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassType;
 import com.intellij.psi.PsiElement;
@@ -39,14 +38,19 @@ import com.intellij.psi.PsiKeyword;
 import com.intellij.psi.PsiModifier;
 import com.intellij.psi.PsiModifierList;
 import com.intellij.psi.PsiType;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UField;
+import org.jetbrains.uast.UVariable;
+import org.jetbrains.uast.visitor.AbstractUastVisitor;
+import org.jetbrains.uast.visitor.UastVisitor;
 
 /**
  * Looks for leaks via static fields
  */
-public class LeakDetector extends Detector implements Detector.JavaPsiScanner {
+public class LeakDetector extends Detector implements Detector.UastScanner {
     /** Leaking data via static fields */
     public static final Issue ISSUE = Issue.create(
             "StaticFieldLeak",
@@ -65,19 +69,19 @@ public class LeakDetector extends Detector implements Detector.JavaPsiScanner {
     public LeakDetector() {
     }
 
-    // ---- Implements JavaScanner ----
+    // ---- Implements UastScanner ----
 
     @Override
-    public List<Class<? extends PsiElement>> getApplicablePsiTypes() {
-        return Collections.singletonList(PsiField.class);
+    public List<Class<? extends UElement>> getApplicableUastTypes() {
+        return Arrays.asList(UVariable.class, UField.class);
     }
 
     @Override
-    public JavaElementVisitor createPsiVisitor(@NonNull JavaContext context) {
+    public UastVisitor createUastVisitor(@NonNull JavaContext context) {
         return new FieldChecker(context);
     }
 
-    private static class FieldChecker extends JavaElementVisitor {
+    private static class FieldChecker extends AbstractUastVisitor {
         private final JavaContext mContext;
 
         public FieldChecker(JavaContext context) {
@@ -85,7 +89,14 @@ public class LeakDetector extends Detector implements Detector.JavaPsiScanner {
         }
 
         @Override
-        public void visitField(PsiField field) {
+        public boolean visitVariable(UVariable node) {
+            if (node instanceof UField) {
+                checkField((UField) node);
+            }
+            return true;
+        }
+
+        private void checkField(UField field) {
             PsiModifierList modifierList = field.getModifierList();
             if (modifierList == null || !modifierList.hasModifierProperty(PsiModifier.STATIC)) {
                 return;

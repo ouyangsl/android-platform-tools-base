@@ -25,18 +25,18 @@ import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.CommonClassNames;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiLiteralExpression;
-import com.intellij.psi.PsiType;
 import java.util.Collections;
 import java.util.List;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.ULiteralExpression;
+import org.jetbrains.uast.UastLiteralUtils;
+import org.jetbrains.uast.visitor.AbstractUastVisitor;
+import org.jetbrains.uast.visitor.UastVisitor;
 
 /**
  * Looks for hardcoded references to /sdcard/.
  */
-public class SdCardDetector extends Detector implements Detector.JavaPsiScanner {
+public class SdCardDetector extends Detector implements Detector.UastScanner {
     /** Hardcoded /sdcard/ references */
     public static final Issue ISSUE = Issue.create(
             "SdCardPath",
@@ -63,36 +63,32 @@ public class SdCardDetector extends Detector implements Detector.JavaPsiScanner 
     }
 
 
-    // ---- Implements JavaScanner ----
+    // ---- Implements UastScanner ----
 
     @Override
-    public List<Class<? extends PsiElement>> getApplicablePsiTypes() {
-        return Collections.singletonList(PsiLiteralExpression.class);
+    public List<Class<? extends UElement>> getApplicableUastTypes() {
+        return Collections.singletonList(ULiteralExpression.class);
     }
 
     @Override
-    public JavaElementVisitor createPsiVisitor(@NonNull JavaContext context) {
+    public UastVisitor createUastVisitor(@NonNull JavaContext context) {
         return new StringChecker(context);
     }
 
-    private static class StringChecker extends JavaElementVisitor {
-        private final JavaContext mContext;
+    private static class StringChecker extends AbstractUastVisitor {
+        private final JavaContext context;
 
         public StringChecker(JavaContext context) {
-            mContext = context;
+            this.context = context;
         }
 
         @Override
-        public void visitLiteralExpression(PsiLiteralExpression node) {
-            PsiType type = node.getType();
-            if (type != null && type.getCanonicalText().equals(CommonClassNames.JAVA_LANG_STRING)) {
-                String s = (String)node.getValue();
-                if (s == null || s.isEmpty()) {
-                    return;
-                }
+        public boolean visitLiteralExpression(ULiteralExpression node) {
+            String s = UastLiteralUtils.getValueIfStringLiteral(node);
+            if (s != null && !s.isEmpty()) {
                 char c = s.charAt(0);
                 if (c != '/' && c != 'f') {
-                    return;
+                    return false;
                 }
 
                 if (s.startsWith("/sdcard")
@@ -102,16 +98,18 @@ public class SdCardDetector extends Detector implements Detector.JavaPsiScanner 
                         || s.startsWith("file:///sdcard/")) {
                     String message = "Do not hardcode \"/sdcard/\"; " +
                             "use `Environment.getExternalStorageDirectory().getPath()` instead";
-                    Location location = mContext.getLocation(node);
-                    mContext.report(ISSUE, node, location, message);
+                    Location location = context.getLocation(node);
+                    context.report(ISSUE, node, location, message);
                 } else if (s.startsWith("/data/data/")
                         || s.startsWith("/data/user/")) {
                     String message = "Do not hardcode \"`/data/`\"; " +
                             "use `Context.getFilesDir().getPath()` instead";
-                    Location location = mContext.getLocation(node);
-                    mContext.report(ISSUE, node, location, message);
+                    Location location = context.getLocation(node);
+                    context.report(ISSUE, node, location, message);
                 }
             }
+
+            return false;
         }
     }
 }

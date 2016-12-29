@@ -11,7 +11,9 @@ version = rootProject.ext.baseVersion
 
 dependencies {
     compile project(':base:lint-checks')
-    compile 'org.eclipse.jdt.core.compiler:ecj:4.5.1'
+    compile 'org.eclipse.jdt.core.compiler:ecj:4.5.1' // for old PSI bridge
+    compile 'org.jetbrains.kotlin:kotlin-runtime:1.0.6' // for UAST
+    compile 'org.jetbrains.kotlin:kotlin-reflect:1.0.6' // for UAST
 }
 
 sourceSets {

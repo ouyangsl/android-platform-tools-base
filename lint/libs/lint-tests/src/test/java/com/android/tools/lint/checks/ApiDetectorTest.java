@@ -3162,7 +3162,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
         assertEquals(""
                 + "src/test/pkg/TryWithResources.java:13: Error: Try-with-resources requires API level 19 (current min is 1) [NewApi]\n"
                 + "        try (BufferedReader br = new BufferedReader(new FileReader(path))) {\n"
-                + "            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + "src/test/pkg/TryWithResources.java:21: Error: Multi-catch with these reflection exceptions requires API level 19 (current min is 1) because they get compiled to the common but new super type ReflectiveOperationException. As a workaround either create individual catch statements, or catch Exception. [NewApi]\n"
                 + "        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {\n"
                 + "                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
@@ -3540,7 +3540,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
     public void testReflectiveOperationException() throws Exception {
         //noinspection all // Sample code
         checkApiCheck(""
-                + "src/test/pkg/Java7API.java:8: Error: Multi-catch with these reflection exceptions requires API level 19 (current min is 1) because they get compiled to the common but new super type ReflectiveOperationException. As a workaround either create individual catch statements, or catch Exception. [NewApi]\n"
+                + "src/test/pkg/Java7API.java:8: Error: Class requires API level 19 (current min is 1): java.lang.ReflectiveOperationException [NewApi]\n"
                 + "        } catch (ReflectiveOperationException e) {\n"
                 + "                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
                 + "1 errors, 0 warnings\n",
@@ -4581,7 +4581,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 + "        ~~~~~~~~~~~~~~\n"
                 + "src/test/pkg/TestRequiresApi.java:9: Error: Call requires API level 21 (current min is 15): LollipopClass [NewApi]\n"
                 + "        LollipopClass lollipopClass = new LollipopClass();\n"
-                + "                                          ~~~~~~~~~~~~~\n"
+                + "                                      ~~~~~~~~~~~~~~~~~\n"
                 + "src/test/pkg/TestRequiresApi.java:10: Error: Call requires API level 21 (current min is 15): requiresLollipop [NewApi]\n"
                 + "        lollipopClass.requiresLollipop(); // ERROR - requires 21\n"
                 + "                      ~~~~~~~~~~~~~~~~\n"
@@ -4676,7 +4676,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .expect(""
                         + "src/android/support/v7/app/RequiresApiTest.java:8: Error: Call requires API level 16 (current min is 1): ParentClass [NewApi]\n"
                         + "        new ParentClass().foo1(); // ERROR\n"
-                        + "            ~~~~~~~~~~~\n"
+                        + "        ~~~~~~~~~~~~~~~\n"
                         + "src/android/support/v7/app/RequiresApiTest.java:8: Error: Call requires API level 18 (current min is 1): foo1 [NewApi]\n"
                         + "        new ParentClass().foo1(); // ERROR\n"
                         + "                          ~~~~\n"

@@ -60,7 +60,7 @@ import com.android.annotations.Nullable;
 import com.android.annotations.VisibleForTesting;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Context;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
+import com.android.tools.lint.detector.api.Detector.UastScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
@@ -71,10 +71,8 @@ import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.android.tools.lint.detector.api.XmlContext;
-import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiReferenceExpression;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,13 +80,17 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.USimpleNameReferenceExpression;
+import org.jetbrains.uast.visitor.AbstractUastVisitor;
+import org.jetbrains.uast.visitor.UastVisitor;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
  * Check which looks for RTL issues (right-to-left support) in layouts
  */
-public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
+public class RtlDetector extends LayoutDetector implements UastScanner {
 
     @SuppressWarnings("unchecked")
     private static final Implementation IMPLEMENTATION = new Implementation(
@@ -544,16 +546,16 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
         return name.startsWith(ATTR_PADDING);
     }
 
-    // ---- Implements JavaScanner ----
+    // ---- Implements UastScanner ----
 
     @Override
-    public List<Class<? extends PsiElement>> getApplicablePsiTypes() {
-        return Collections.singletonList(PsiReferenceExpression.class);
+    public List<Class<? extends UElement>> getApplicableUastTypes() {
+        return Collections.singletonList(USimpleNameReferenceExpression.class);
     }
 
     @Nullable
     @Override
-    public JavaElementVisitor createPsiVisitor(@NonNull JavaContext context) {
+    public UastVisitor createUastVisitor(@NonNull JavaContext context) {
         if (rtlApplies(context)) {
             return new IdentifierChecker(context);
         }
@@ -561,30 +563,29 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
         return null;
     }
 
-    private static class IdentifierChecker extends JavaElementVisitor {
-        private final JavaContext mContext;
+    private static class IdentifierChecker extends AbstractUastVisitor {
+        private final JavaContext context;
 
         public IdentifierChecker(JavaContext context) {
-            mContext = context;
+            this.context = context;
         }
 
         @Override
-        public void visitReferenceExpression(PsiReferenceExpression node) {
-            String identifier = node.getReferenceName();
+        public boolean visitSimpleNameReferenceExpression(USimpleNameReferenceExpression element) {
+            String identifier = element.getIdentifier();
             boolean isLeft = LEFT_FIELD.equals(identifier);
             boolean isRight = RIGHT_FIELD.equals(identifier);
             if (!isLeft && !isRight) {
-                return;
+                return true;
             }
 
-
-            PsiElement resolved = node.resolve();
+            PsiElement resolved = element.resolve();
             if (!(resolved instanceof PsiField)) {
-                return;
+                return true;
             } else {
                 PsiField field = (PsiField) resolved;
-                if (!mContext.getEvaluator().isMemberInClass(field, FQCN_GRAVITY)) {
-                    return;
+                if (!context.getEvaluator().isMemberInClass(field, FQCN_GRAVITY)) {
+                    return true;
                 }
             }
 
@@ -593,12 +594,9 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
                             + "behavior in right-to-left locales",
                     (isLeft ? GRAVITY_VALUE_START : GRAVITY_VALUE_END).toUpperCase(Locale.US),
                     (isLeft ? GRAVITY_VALUE_LEFT : GRAVITY_VALUE_RIGHT).toUpperCase(Locale.US));
-            PsiElement locationNode = node.getReferenceNameElement();
-            if (locationNode == null) {
-                locationNode = node;
-            }
-            Location location = mContext.getLocation(locationNode);
-            mContext.report(USE_START, node, location, message);
+            Location location = context.getLocation(element);
+            context.report(USE_START, element, location, message);
+            return true;
         }
     }
 }

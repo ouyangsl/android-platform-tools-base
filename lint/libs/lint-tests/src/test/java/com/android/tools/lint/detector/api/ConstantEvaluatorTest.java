@@ -286,4 +286,6 @@ public class ConstantEvaluatorTest extends TestCase {
                         + "int z = condition ? 5 : -4;\n",
                 "z");
     }
+
+    // TODO: Test UAST variation
 }

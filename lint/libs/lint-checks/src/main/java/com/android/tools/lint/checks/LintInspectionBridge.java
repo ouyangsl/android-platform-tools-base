@@ -30,6 +30,9 @@ import com.intellij.psi.PsiElement;
 import java.io.File;
 import java.util.Collection;
 import java.util.Map;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UMethod;
+import org.jetbrains.uast.UastContext;
 
 /**
  * Interface implemented by some lint checks which need to bridge to
@@ -47,10 +50,17 @@ public abstract class LintInspectionBridge {
       @NonNull PsiElement scopeNode,
       @NonNull String message);
 
+    public abstract void report(@NonNull Issue issue,
+            @NonNull UElement locationNode,
+            @NonNull UElement scopeNode,
+            @NonNull String message);
+
     public abstract boolean isTestSource();
 
     @Nullable
     public abstract Dependencies getDependencies();
+
+    public abstract UastContext getUastContext();
 
     /**
      * Return the Gradle group id for the given element, <b>if</b> applicable. For example, for
@@ -58,7 +68,26 @@ public abstract class LintInspectionBridge {
      */
     @Nullable
     public MavenCoordinates getLibrary(@NonNull PsiElement element) {
-        String jarFile = getEvaluator().findJarPath(element);
+        return getLibrary(getEvaluator().findJarPath(element));
+    }
+
+    /**
+     * Return the Gradle group id for the given element, <b>if</b> applicable. For example, for
+     * a method in the appcompat library, this would return "com.android.support".
+     */
+    @Nullable
+    public MavenCoordinates getLibrary(@NonNull UElement element) {
+        return getLibrary(getEvaluator().findJarPath(element));
+    }
+
+    /** Disambiguate between UElement and PsiElement since a UMethod is both */
+    @Nullable
+    public MavenCoordinates getLibrary(@NonNull UMethod element) {
+        return getLibrary((PsiElement)element);
+    }
+
+    @Nullable
+    private MavenCoordinates getLibrary(@Nullable String jarFile) {
         if (jarFile != null) {
             if (jarToGroup == null) {
                 jarToGroup = Maps.newHashMap();

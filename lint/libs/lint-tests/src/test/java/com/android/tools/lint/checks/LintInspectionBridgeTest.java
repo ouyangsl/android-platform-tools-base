@@ -32,6 +32,8 @@ import com.intellij.psi.PsiElement;
 import java.io.File;
 import java.util.Collection;
 import junit.framework.TestCase;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UastContext;
 
 public class LintInspectionBridgeTest extends TestCase {
     public static void checkFindLibrary(boolean useBuildCache) {
@@ -158,6 +160,12 @@ public class LintInspectionBridgeTest extends TestCase {
         }
 
         @Override
+        public void report(@NonNull Issue issue, @NonNull UElement locationNode,
+                @NonNull UElement scopeNode, @NonNull String message) {
+            fail("Not used in this test");
+        }
+
+        @Override
         public boolean isTestSource() {
             fail("Not used in this test");
             return false;
@@ -167,6 +175,12 @@ public class LintInspectionBridgeTest extends TestCase {
         @Override
         public Dependencies getDependencies() {
             return dependencies;
+        }
+
+        @Override
+        public UastContext getUastContext() {
+            fail("Not used in this test");
+            return null;
         }
 
         @NonNull

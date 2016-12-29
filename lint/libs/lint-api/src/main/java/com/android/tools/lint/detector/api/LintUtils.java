@@ -113,6 +113,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import lombok.ast.ImportDeclaration;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UParenthesizedExpression;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -1514,6 +1516,15 @@ public class LintUtils {
     public static PsiElement skipParentheses(@Nullable PsiElement element) {
         while (element instanceof PsiParenthesizedExpression) {
             element = element.getParent();
+        }
+
+        return element;
+    }
+
+    @Nullable
+    public static UElement skipParentheses(@Nullable UElement element) {
+        while (element instanceof UParenthesizedExpression) {
+            element = element.getContainingElement();
         }
 
         return element;

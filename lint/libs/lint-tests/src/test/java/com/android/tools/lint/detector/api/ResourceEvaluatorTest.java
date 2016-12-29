@@ -191,4 +191,6 @@ public class ResourceEvaluatorTest extends TestCase {
                         + "int w = toString().indexOf('x') > 2 ? z : R.string.foo",
                 "w");
     }
+
+    // TODO: Test UAST variation
 }

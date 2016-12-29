@@ -28,7 +28,6 @@ import com.android.tools.lint.checks.infrastructure.ProjectDescription;
 import com.android.tools.lint.client.api.JavaParser.ResolvedAnnotation;
 import com.android.tools.lint.client.api.JavaParser.ResolvedMethod;
 import com.android.tools.lint.detector.api.Detector;
-import java.io.IOException;
 
 @SuppressWarnings("all") // Lots of test sample projects with faulty code
 public class SupportAnnotationDetectorTest extends AbstractCheckTest {
@@ -2725,13 +2724,13 @@ public class SupportAnnotationDetectorTest extends AbstractCheckTest {
                 + "            ~~~~~~~~~~~\n"
                 + "src/test/otherpkg/OtherPkg.java:8: Warning: This method should only be accessed from tests or within protected scope [VisibleForTests]\n"
                 + "        new ProductionCode().testHelper3(); // ERROR\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                             ~~~~~~~~~~~\n"
                 + "src/test/otherpkg/OtherPkg.java:9: Warning: This method should only be accessed from tests or within private scope [VisibleForTests]\n"
                 + "        new ProductionCode().testHelper4(); // ERROR\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                             ~~~~~~~~~~~\n"
                 + "src/test/otherpkg/OtherPkg.java:10: Warning: This method should only be accessed from tests or within package private scope [VisibleForTests]\n"
                 + "        new ProductionCode().testHelper5(); // ERROR\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                             ~~~~~~~~~~~\n"
                 + "2 errors, 3 warnings\n",
                 lintProject(
                         java(""

@@ -49,6 +49,8 @@ import com.intellij.psi.impl.file.impl.JavaFileManager;
 import com.intellij.psi.meta.MetaDataContributor;
 import com.intellij.psi.stubs.BinaryFileStubBuilders;
 import com.intellij.psi.util.JavaClassSupers;
+import org.jetbrains.uast.UastContext;
+import org.jetbrains.uast.UastLanguagePlugin;
 
 public class LintCoreApplicationEnvironment extends JavaCoreApplicationEnvironment {
     private static LintCoreApplicationEnvironment environment;
@@ -104,10 +106,12 @@ public class LintCoreApplicationEnvironment extends JavaCoreApplicationEnvironme
     static void registerProjectExtensionPoints(ExtensionsArea area) {
         CoreApplicationEnvironment.registerExtensionPoint(area, PsiTreeChangePreprocessor.EP_NAME, PsiTreeChangePreprocessor.class);
         CoreApplicationEnvironment.registerExtensionPoint(area, PsiElementFinder.EP_NAME, PsiElementFinder.class);
+        CoreApplicationEnvironment.registerExtensionPoint(area, "org.jetbrains.uast.uastLanguagePlugin", UastLanguagePlugin.class);
     }
 
     public static void registerProjectServices(JavaCoreProjectEnvironment projectEnvironment) {
         MockProject project = projectEnvironment.getProject();
+        project.registerService(UastContext.class, new UastContext(project));
         project.registerService(ExternalAnnotationsManager.class, LintExternalAnnotationsManager.class);
         project.registerService(InferredAnnotationsManager.class, LintInferredAnnotationsManager.class);
     }
@@ -119,10 +123,12 @@ public class LintCoreApplicationEnvironment extends JavaCoreApplicationEnvironme
                 (CoreJavaFileManager) ServiceManager.getService(project, JavaFileManager.class));
 
         ExtensionsArea area = Extensions.getArea(project);
-
         area.getExtensionPoint(PsiElementFinder.EP_NAME).registerExtension(
                 new PsiElementFinderImpl(
                         project, ServiceManager.getService(
                         project, JavaFileManager.class)));
+
+        area.getExtensionPoint("org.jetbrains.uast.uastLanguagePlugin").registerExtension(
+                new org.jetbrains.uast.java.JavaUastLanguagePlugin(project));
     }
 }
