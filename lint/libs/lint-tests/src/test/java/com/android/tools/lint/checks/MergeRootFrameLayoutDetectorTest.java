@@ -25,13 +25,6 @@ public class MergeRootFrameLayoutDetectorTest extends AbstractCheckTest {
         return new MergeRootFrameLayoutDetector();
     }
 
-    @Override
-    protected boolean allowCompilationErrors() {
-        // Some of these unit tests are still relying on source code that references
-        // unresolved symbols etc.
-        return true;
-    }
-
     public void testMergeRefFromJava() throws Exception {
         //noinspection all // Sample code
         assertEquals(""
@@ -53,6 +46,11 @@ public class MergeRootFrameLayoutDetectorTest extends AbstractCheckTest {
                             + "    public void onCreate(Bundle savedInstanceState) {\n"
                             + "        super.onCreate(savedInstanceState);\n"
                             + "        setContentView(R.layout.simple);\n"
+                            + "    }\n"
+                            + "    public static final class R {\n"
+                            + "        public static final class layout {\n"
+                            + "            public static final int simple = 0x7f0a0000;\n"
+                            + "        }\n"
                             + "    }\n"
                             + "}\n")
                     ));

@@ -30,7 +30,6 @@ import com.intellij.psi.PsiElement;
 import java.io.File;
 import java.util.Collection;
 import java.util.Map;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Interface implemented by some lint checks which need to bridge to
