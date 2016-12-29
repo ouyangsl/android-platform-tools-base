@@ -316,10 +316,12 @@ public class ResourceEvaluator {
                         && name.startsWith("get")) {
                     PsiExpression[] args = call.getArgumentList().getExpressions();
                     if (args.length > 0) {
-                        types = getResourceTypes(args[0]);
-                        if (types != null) {
-                            return types;
-                        }
+                        // NO! Calling "getColor" on resources does NOT return a @ColorRes,
+                        // it returns a @ColorInt! This is simply wrong!
+                        //types = getResourceTypes(args[0]);
+                        //if (types != null) {
+                        //    return types;
+                        //}
                     }
                 }
             }

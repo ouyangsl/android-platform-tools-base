@@ -1550,7 +1550,7 @@ public class SupportAnnotationDetectorTest extends AbstractCheckTest {
                 + "5 errors, 0 warnings\n",
 
                 lintProject(
-                        java("src/test/pkg/ThreadTest.java", ""
+                        java("src/test/pkg/BigClass.java", ""
                                 + "package test.pkg;\n"
                                 + "\n"
                                 + "import android.support.annotation.UiThread;\n"
@@ -1564,6 +1564,7 @@ public class SupportAnnotationDetectorTest extends AbstractCheckTest {
                                 + "    void f100() { }\n"
                                 + "    @WorkerThread // this single method is not UI, it's something else\n"
                                 + "    void g() { }\n"
+                                + "    BigClass() { }\n"
                                 + "}\n"),
                         java("src/test/pkg/BigClassClient.java", ""
                                 + "package test.pkg;\n"

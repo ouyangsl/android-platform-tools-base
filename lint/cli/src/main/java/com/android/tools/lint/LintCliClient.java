@@ -27,6 +27,7 @@ import static com.android.tools.lint.detector.api.CharSequences.indexOf;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.annotations.VisibleForTesting;
+import com.android.sdklib.IAndroidTarget;
 import com.android.tools.lint.Reporter.Stats;
 import com.android.tools.lint.checks.HardcodedValuesDetector;
 import com.android.tools.lint.client.api.Configuration;
@@ -52,6 +53,9 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.io.Closeables;
+import com.intellij.openapi.vfs.StandardFileSystems;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileSystem;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -258,7 +262,7 @@ public class LintCliClient extends LintClient {
 
     @Override
     public JavaParser getJavaParser(@Nullable Project project) {
-        return new EcjParser(this, project);
+        return new EcjParser(this, project, ideaProject);
     }
 
     @Override
@@ -787,6 +791,58 @@ public class LintCliClient extends LintClient {
 
     public Configuration createConfigurationFromFile(File file) {
         return new CliConfiguration(file, flags.isFatalOnly());
+    }
+
+
+    @Nullable private com.intellij.openapi.project.Project ideaProject;
+    @Nullable private LintCoreProjectEnvironment ideaProjectEnvironment;
+
+    @Nullable
+    public com.intellij.openapi.project.Project getIdeaProject() {
+        return ideaProject;
+    }
+
+    @Override
+    public void initializeProjects(@NonNull Collection<Project> knownProjects) {
+        // Initialize the associated idea project to use
+
+        LintCoreProjectEnvironment projectEnvironment = LintCoreProjectEnvironment.create();
+
+        ideaProjectEnvironment = projectEnvironment;
+        ideaProject = projectEnvironment.getProject();
+
+        for (Project project : knownProjects) {
+            VirtualFileSystem local = StandardFileSystems.local();
+            for (File dir : project.getJavaSourceFolders()) {
+                VirtualFile virtualFile = local.findFileByPath(dir.getPath());
+                if (virtualFile != null) {
+                    projectEnvironment.addSourcesToClasspath(virtualFile);
+                }
+            }
+            IAndroidTarget buildTarget = project.getBuildTarget();
+            if (buildTarget != null) {
+                String path = buildTarget.getPath(IAndroidTarget.ANDROID_JAR);
+                if (path != null) {
+                    projectEnvironment.addJarToClassPath(new File(path));
+                }
+            }
+
+            for (File library : project.getJavaLibraries(true)) {
+                projectEnvironment.addJarToClassPath(library);
+            }
+        }
+
+        super.initializeProjects(knownProjects);
+    }
+
+    @Override
+    public void disposeProjects(@NonNull Collection<Project> knownProjects) {
+        // TODO: Dispose the environment -- how do I do that?
+
+        ideaProject = null;
+        ideaProjectEnvironment = null;
+
+        super.disposeProjects(knownProjects);
     }
 
     @Override
