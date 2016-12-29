@@ -75,10 +75,6 @@ import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiReferenceExpression;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Element;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -86,6 +82,8 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 
 /**
  * Check which looks for RTL issues (right-to-left support) in layouts
@@ -102,7 +100,7 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
     );
 
     public static final Issue USE_START = Issue.create(
-        "RtlHardcoded", //$NON-NLS-1$
+        "RtlHardcoded",
         "Using left/right instead of start/end attributes",
 
         "Using `Gravity#LEFT` and `Gravity#RIGHT` can lead to problems when a layout is " +
@@ -111,8 +109,8 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
         "attributes, use `start` rather than `left`.\n" +
         "\n" +
         "For XML attributes such as paddingLeft and `layout_marginLeft`, use `paddingStart` " +
-        "and `layout_marginStart`. *NOTE*: If your `minSdkVersion` is less than 17, you should " +
-        "add *both* the older left/right attributes *as well as* the new start/right " +
+        "and `layout_marginStart`. **NOTE**: If your `minSdkVersion` is less than 17, you should " +
+        "add **both** the older left/right attributes **as well as** the new start/right " +
         "attributes. On older platforms, where RTL is not supported and the start/right " +
         "attributes are unknown and therefore ignored, you need the older left/right " +
         "attributes. There is a separate lint check which catches that type of error.\n" +
@@ -125,18 +123,18 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
         Category.RTL, 5, Severity.WARNING, IMPLEMENTATION);
 
     public static final Issue COMPAT = Issue.create(
-        "RtlCompat", //$NON-NLS-1$
+        "RtlCompat",
         "Right-to-left text compatibility issues",
 
         "API 17 adds a `textAlignment` attribute to specify text alignment. However, " +
-        "if you are supporting older versions than API 17, you must *also* specify a " +
+        "if you are supporting older versions than API 17, you must **also** specify a " +
         "gravity or layout_gravity attribute, since older platforms will ignore the " +
         "`textAlignment` attribute.",
 
         Category.RTL, 6, Severity.ERROR, IMPLEMENTATION);
 
     public static final Issue SYMMETRY = Issue.create(
-        "RtlSymmetry", //$NON-NLS-1$
+        "RtlSymmetry",
         "Padding and margin symmetry",
 
         "If you specify padding or margin on the left side of a layout, you should " +
@@ -147,7 +145,7 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
 
 
     public static final Issue ENABLED = Issue.create(
-        "RtlEnabled", //$NON-NLS-1$
+        "RtlEnabled",
         "Using RTL attributes without enabling RTL support",
 
         "To enable right-to-left support, when running on API 17 and higher, you must " +
@@ -160,17 +158,17 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
 
     /* TODO:
     public static final Issue FIELD = Issue.create(
-        "RtlFieldAccess", //$NON-NLS-1$
+        "RtlFieldAccess",
         "Accessing margin and padding fields directly",
 
         "Modifying the padding and margin constants in view objects directly is " +
         "problematic when using RTL support, since it can lead to inconsistent states. You " +
-        "*must* use the corresponding setter methods instead (`View#setPadding` etc).",
+        "**must** use the corresponding setter methods instead (`View#setPadding` etc).",
 
         Category.RTL, 3, Severity.WARNING, IMPLEMENTATION).setEnabledByDefault(false);
 
     public static final Issue AWARE = Issue.create(
-        "RtlAware", //$NON-NLS-1$
+        "RtlAware",
         "View code not aware of RTL APIs",
 
         "When manipulating views, and especially when implementing custom layouts, " +
@@ -182,11 +180,11 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
         Category.RTL, 3, Severity.WARNING, IMPLEMENTATION).setEnabledByDefault(false);
     */
 
-    private static final String RIGHT_FIELD = "RIGHT";                          //$NON-NLS-1$
-    private static final String LEFT_FIELD = "LEFT";                            //$NON-NLS-1$
-    private static final String FQCN_GRAVITY = "android.view.Gravity";          //$NON-NLS-1$
-    private static final String ATTR_TEXT_ALIGNMENT = "textAlignment";          //$NON-NLS-1$
-    static final String ATTR_SUPPORTS_RTL = "supportsRtl";                      //$NON-NLS-1$
+    private static final String RIGHT_FIELD = "RIGHT";
+    private static final String LEFT_FIELD = "LEFT";
+    private static final String FQCN_GRAVITY = "android.view.Gravity";
+    private static final String ATTR_TEXT_ALIGNMENT = "textAlignment";
+    static final String ATTR_SUPPORTS_RTL = "supportsRtl";
 
     /** API version in which RTL support was added */
     private static final int RTL_API = 17;
@@ -322,7 +320,7 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
     @Override
     public Collection<String> getApplicableAttributes() {
         int size = ATTRIBUTES.length + 4;
-        List<String> attributes = new ArrayList<String>(size);
+        List<String> attributes = new ArrayList<>(size);
 
         // For detecting whether RTL support is enabled
         attributes.add(ATTR_SUPPORTS_RTL);
@@ -405,7 +403,7 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
                     if (expectedGravity != null) {
                         String message = String.format(
                                 "To support older versions than API 17 (project specifies %1$d) "
-                                    + "you must *also* specify `gravity` or `layout_gravity=\"%2$s\"`",
+                                    + "you must **also** specify `gravity` or `layout_gravity=\"%2$s\"`",
                                 project.getMinSdk(), expectedGravity);
                         context.report(COMPAT, attribute,
                                 context.getNameLocation(attribute), message);
@@ -527,7 +525,7 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
             }
             String message = String.format(
                     "To support older versions than API 17 (project specifies %1$d) "
-                            + "you should *also* add `%2$s:%3$s=\"%4$s\"`",
+                            + "you should **also** add `%2$s:%3$s=\"%4$s\"`",
                     project.getMinSdk(), attribute.getPrefix(), old,
                     convertNewToOld(value));
             context.report(COMPAT, attribute, context.getNameLocation(attribute), message);
@@ -550,7 +548,7 @@ public class RtlDetector extends LayoutDetector implements JavaPsiScanner {
 
     @Override
     public List<Class<? extends PsiElement>> getApplicablePsiTypes() {
-        return Collections.<Class<? extends PsiElement>>singletonList(PsiReferenceExpression.class);
+        return Collections.singletonList(PsiReferenceExpression.class);
     }
 
     @Nullable

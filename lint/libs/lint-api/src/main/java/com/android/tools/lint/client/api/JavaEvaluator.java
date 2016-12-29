@@ -16,27 +16,42 @@
 
 package com.android.tools.lint.client.api;
 
+import static com.android.SdkConstants.CONSTRUCTOR_NAME;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
+import com.android.builder.model.AndroidLibrary;
+import com.android.builder.model.Dependencies;
+import com.android.builder.model.JavaLibrary;
+import com.android.builder.model.Library;
+import com.android.builder.model.MavenCoordinates;
 import com.android.tools.lint.detector.api.ClassContext;
+import com.google.common.collect.Maps;
 import com.intellij.psi.PsiAnnotation;
+import com.intellij.psi.PsiAnnotationOwner;
 import com.intellij.psi.PsiAnonymousClass;
+import com.intellij.psi.PsiArrayType;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassType;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiEllipsisType;
 import com.intellij.psi.PsiMember;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.PsiModifier;
 import com.intellij.psi.PsiModifierList;
 import com.intellij.psi.PsiModifierListOwner;
+import com.intellij.psi.PsiPackage;
 import com.intellij.psi.PsiParameter;
 import com.intellij.psi.PsiParameterList;
+import com.intellij.psi.PsiPrimitiveType;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiType;
-
+import com.intellij.psi.PsiTypeVisitor;
+import com.intellij.psi.PsiWildcardType;
 import java.io.File;
+import java.util.Collection;
+import java.util.Map;
 
 @SuppressWarnings("MethodMayBeStatic") // Some of these methods may be overridden by LintClients
 public abstract class JavaEvaluator {
@@ -222,7 +237,7 @@ public abstract class JavaEvaluator {
         return null;
     }
 
-    @NonNull
+    @Nullable
     public String getInternalName(@NonNull PsiClass psiClass) {
         String qualifiedName = psiClass.getQualifiedName();
         if (qualifiedName == null) {
@@ -236,9 +251,203 @@ public abstract class JavaEvaluator {
         return ClassContext.getInternalName(qualifiedName);
     }
 
-    @NonNull
+    @Nullable
     public String getInternalName(@NonNull PsiClassType psiClassType) {
         return ClassContext.getInternalName(psiClassType.getCanonicalText());
+    }
+
+    /**
+     * Computes the internal JVM description of the given method. This is in the same
+     * format as the ASM desc fields for methods; meaning that a method named foo which for example takes an
+     * int and a String and returns a void will have description {@code foo(ILjava/lang/String;):V}.
+     *
+     * @param method the method to look up the description for
+     * @param includeName whether the name should be included
+     * @param includeReturn whether the return type should be included
+     * @return the internal JVM description for this method
+     */
+    @Nullable
+    public String getInternalDescription(@NonNull PsiMethod method, boolean includeName,
+            boolean includeReturn) {
+        assert !includeName; // not yet tested
+        assert !includeReturn; // not yet tested
+
+        StringBuilder signature = new StringBuilder();
+
+        if (includeName) {
+            if (method.isConstructor()) {
+                final PsiClass declaringClass = method.getContainingClass();
+                if (declaringClass != null) {
+                    final PsiClass outerClass = declaringClass.getContainingClass();
+                    if (outerClass != null) {
+                        // declaring class is an inner class
+                        if (!declaringClass.hasModifierProperty(PsiModifier.STATIC)) {
+                            if (!appendJvmTypeName(signature, outerClass)) {
+                                return null;
+                            }
+                        }
+                    }
+                }
+                signature.append(CONSTRUCTOR_NAME);
+            } else {
+                signature.append(method.getName());
+            }
+        }
+
+        signature.append('(');
+
+        for (PsiParameter psiParameter : method.getParameterList().getParameters()) {
+            if (!appendJvmSignature(signature, psiParameter.getType())) {
+                return null;
+            }
+        }
+        signature.append(')');
+        if (includeReturn) {
+            if (!method.isConstructor()) {
+                if (!appendJvmSignature(signature, method.getReturnType())) {
+                    return null;
+                }
+            }
+            else {
+                signature.append('V');
+            }
+        }
+        return signature.toString();
+    }
+
+    private boolean appendJvmTypeName(@NonNull StringBuilder signature, @NonNull PsiClass outerClass) {
+        String className = getInternalName(outerClass);
+        if (className == null) {
+            return false;
+        }
+        signature.append('L').append(className.replace('.', '/')).append(';');
+        return true;
+    }
+
+    private boolean appendJvmSignature(@NonNull StringBuilder buffer, @Nullable PsiType type) {
+        if (type == null) {
+            return false;
+        }
+        final PsiType psiType = erasure(type);
+        if (psiType instanceof PsiArrayType) {
+            buffer.append('[');
+            appendJvmSignature(buffer, ((PsiArrayType)psiType).getComponentType());
+        }
+        else if (psiType instanceof PsiClassType) {
+            PsiClass resolved = ((PsiClassType)psiType).resolve();
+            if (resolved == null) {
+                return false;
+            }
+            if (!appendJvmTypeName(buffer, resolved)) {
+                return false;
+            }
+        }
+        else if (psiType instanceof PsiPrimitiveType) {
+            buffer.append(getPrimitiveSignature(psiType.getCanonicalText()));
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean areSignaturesEqual(@NonNull PsiMethod method1, @NonNull PsiMethod method2) {
+        PsiParameterList parameterList1 = method1.getParameterList();
+        PsiParameterList parameterList2 = method2.getParameterList();
+        if (parameterList1.getParametersCount() != parameterList2.getParametersCount()) {
+            return false;
+        }
+
+        PsiParameter[] parameters1 = parameterList1.getParameters();
+        PsiParameter[] parameters2 = parameterList2.getParameters();
+
+        for (int i = 0, n = parameters1.length; i < n; i++) {
+            PsiParameter parameter1 = parameters1[i];
+            PsiParameter parameter2 = parameters2[i];
+            PsiType type1 = parameter1.getType();
+            PsiType type2 = parameter2.getType();
+            if (!type1.equals(type2)) {
+                type1 = erasure(parameter1.getType());
+                type2 = erasure(parameter2.getType());
+                if (!type1.equals(type2)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    @Nullable
+    public static PsiType erasure(@Nullable final PsiType type) {
+        if (type == null) {
+            return null;
+        }
+        return type.accept(new PsiTypeVisitor<PsiType>() {
+            @Nullable
+            @Override
+            public PsiType visitType(PsiType type) {
+                return type;
+            }
+
+            @Override
+            public PsiType visitClassType(PsiClassType classType) {
+                return classType.rawType();
+            }
+
+            @Override
+            public PsiType visitWildcardType(PsiWildcardType wildcardType) {
+                return wildcardType;
+            }
+
+            @Override
+            public PsiType visitPrimitiveType(PsiPrimitiveType primitiveType) {
+                return primitiveType;
+            }
+
+            @Override
+            public PsiType visitEllipsisType(PsiEllipsisType ellipsisType) {
+                final PsiType componentType = ellipsisType.getComponentType();
+                final PsiType newComponentType = componentType.accept(this);
+                if (newComponentType == componentType) return ellipsisType;
+                return newComponentType != null ? newComponentType.createArrayType() : null;
+            }
+
+            @Override
+            public PsiType visitArrayType(PsiArrayType arrayType) {
+                final PsiType componentType = arrayType.getComponentType();
+                final PsiType newComponentType = componentType.accept(this);
+                if (newComponentType == componentType) return arrayType;
+                return newComponentType != null ? newComponentType.createArrayType() : null;
+            }
+        });
+    }
+
+    @Nullable
+    @SuppressWarnings({"HardCodedStringLiteral"})
+    public static String getPrimitiveSignature(String typeName) {
+        switch (typeName) {
+            case "boolean":
+                return "Z";
+            case "byte":
+                return "B";
+            case "char":
+                return "C";
+            case "short":
+                return "S";
+            case "int":
+                return "I";
+            case "long":
+                return "J";
+            case "float":
+                return "F";
+            case "double":
+                return "D";
+            case "void":
+                return "V";
+            default:
+                return null;
+        }
     }
 
     @Nullable
@@ -261,6 +470,201 @@ public abstract class JavaEvaluator {
             @Nullable PsiModifierListOwner listOwner,
             @NonNull String... annotationNames);
 
+    /**
+     * Try to determine the path to the .jar file containing the element, <b>if</b> applicable
+     */
     @Nullable
-    public abstract File getFile(@NonNull PsiFile file);
+    public abstract String findJarPath(@NonNull PsiElement element);
+
+    /**
+     * Returns true if the given annotation is inherited (instead of being defined directly
+     * on the given modifier list holder
+     *
+     * @param annotation the annotation to check
+     * @param owner      the owner potentially declaring the annotation
+     * @return true if the annotation is inherited rather than being declared directly on this owner
+     */
+    public boolean isInherited(@NonNull PsiAnnotation annotation,
+            @NonNull PsiModifierListOwner owner) {
+        PsiAnnotationOwner annotationOwner = annotation.getOwner();
+        return annotationOwner == null || !annotationOwner.equals(owner.getModifierList());
+    }
+
+    @Nullable
+    public abstract PsiPackage getPackage(@NonNull PsiElement node);
+
+    /**
+     * Return the Gradle group id for the given element, <b>if</b> applicable. For example, for
+     * a method in the appcompat library, this would return "com.android.support".
+     */
+    @Nullable
+    public MavenCoordinates getLibrary(@NonNull PsiElement element) {
+        return getLibrary(findJarPath(element));
+    }
+
+    public abstract Dependencies getDependencies();
+
+    @Nullable
+    private MavenCoordinates getLibrary(@Nullable String jarFile) {
+        if (jarFile != null) {
+            if (jarToGroup == null) {
+                jarToGroup = Maps.newHashMap();
+            }
+            MavenCoordinates coordinates = jarToGroup.get(jarFile);
+            if (coordinates == null) {
+                Library library = findOwnerLibrary(jarFile);
+                if (library != null) {
+                    coordinates = library.getResolvedCoordinates();
+                }
+                if (coordinates == null) {
+                    // Use string location to figure it out. Note however that
+                    // this doesn't work when the build cache is in effect.
+                    // Example:
+                    // $PROJECT_DIRECTORY/app/build/intermediates/exploded-aar/com.android.support/
+                    //          /appcompat-v7/25.0.0-SNAPSHOT/jars/classes.jar
+                    // and we want to pick out "com.android.support" and "appcompat-v7"
+                    int index = jarFile.indexOf("exploded-aar");
+                    if (index != -1) {
+                        index += 13; // "exploded-aar/".length()
+                        for (int i = index; i < jarFile.length(); i++) {
+                            char c = jarFile.charAt(i);
+                            if (c == '/' || c == File.separatorChar) {
+                                String groupId = jarFile.substring(index, i);
+                                i++;
+                                for (int j = i; j < jarFile.length(); j++) {
+                                    c = jarFile.charAt(j);
+                                    if (c == '/' || c == File.separatorChar) {
+                                        String artifactId = jarFile.substring(i, j);
+                                        coordinates = new MyMavenCoordinates(groupId, artifactId);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (coordinates == null) {
+                    coordinates = MyMavenCoordinates.NONE;
+                }
+                jarToGroup.put(jarFile, coordinates);
+            }
+            return coordinates == MyMavenCoordinates.NONE ? null : coordinates;
+        }
+
+        return null;
+    }
+
+    @Nullable
+    public Library findOwnerLibrary(@NonNull String jarFile) {
+        Dependencies dependencies = getDependencies();
+        if (dependencies != null) {
+            Library match = findOwnerLibrary(dependencies.getLibraries(), jarFile);
+            if (match != null) {
+                return match;
+            }
+            match = findOwnerJavaLibrary(dependencies.getJavaLibraries(), jarFile);
+            if (match != null) {
+                return match;
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private static Library findOwnerJavaLibrary(
+            @NonNull Collection<? extends JavaLibrary> dependencies,
+            @NonNull String jarFile) {
+        for (JavaLibrary library : dependencies) {
+            if (jarFile.equals(library.getJarFile().getPath())) {
+                return library;
+            }
+            Library match = findOwnerJavaLibrary(library.getDependencies(), jarFile);
+            if (match != null) {
+                return match;
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    private static Library findOwnerLibrary(
+            @NonNull Collection<? extends AndroidLibrary> dependencies,
+            @NonNull String jarFile) {
+        for (AndroidLibrary library : dependencies) {
+            if (jarFile.equals(library.getJarFile().getPath())) {
+                return library;
+            }
+            for (File jar : library.getLocalJars()) {
+                if (jarFile.equals(jar.getPath())) {
+                    return library;
+                }
+            }
+            Library match = findOwnerLibrary(library.getLibraryDependencies(), jarFile);
+            if (match != null) {
+                return match;
+            }
+
+            match = findOwnerJavaLibrary(library.getJavaDependencies(), jarFile);
+            if (match != null) {
+                return match;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Cache for {@link #getLibrary(PsiElement)}
+     */
+    private Map<String, MavenCoordinates> jarToGroup;
+
+    /**
+     * Dummy implementation of {@link com.android.builder.model.MavenCoordinates} which
+     * only stores group and artifact id's for now
+     */
+    private static class MyMavenCoordinates implements MavenCoordinates {
+
+        private static final MyMavenCoordinates NONE = new MyMavenCoordinates("", "");
+
+        private final String groupId;
+        private final String artifactId;
+
+        public MyMavenCoordinates(@NonNull String groupId, @NonNull String artifactId) {
+            this.groupId = groupId;
+            this.artifactId = artifactId;
+        }
+
+        @NonNull
+        @Override
+        public String getGroupId() {
+            return groupId;
+        }
+
+        @NonNull
+        @Override
+        public String getArtifactId() {
+            return artifactId;
+        }
+
+        @NonNull
+        @Override
+        public String getVersion() {
+            return "";
+        }
+
+        @NonNull
+        @Override
+        public String getPackaging() {
+            return "";
+        }
+
+        @Nullable
+        @Override
+        public String getClassifier() {
+            return "";
+        }
+    }
 }

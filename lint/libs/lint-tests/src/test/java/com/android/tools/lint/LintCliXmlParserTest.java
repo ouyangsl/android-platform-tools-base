@@ -30,18 +30,15 @@ import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Severity;
 import com.android.tools.lint.detector.api.TextFormat;
 import com.android.tools.lint.detector.api.XmlContext;
-
-import junit.framework.TestCase;
-
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
+import junit.framework.TestCase;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 @SuppressWarnings("javadoc")
 public class LintCliXmlParserTest extends TestCase {
@@ -203,7 +200,8 @@ public class LintCliXmlParserTest extends TestCase {
                 @NonNull Severity severity,
                 @NonNull Location location,
                 @NonNull String message,
-                @NonNull TextFormat format) {
+                @NonNull TextFormat format,
+                @Nullable Object quickfixData) {
             System.out.println(location + ":" + message);
         }
     }

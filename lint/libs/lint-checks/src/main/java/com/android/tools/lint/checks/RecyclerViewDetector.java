@@ -48,7 +48,6 @@ import com.intellij.psi.PsiReferenceExpression;
 import com.intellij.psi.PsiStatement;
 import com.intellij.psi.PsiVariable;
 import com.intellij.psi.util.PsiTreeUtil;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -63,15 +62,15 @@ public class RecyclerViewDetector extends Detector implements JavaPsiScanner {
             Scope.JAVA_FILE_SCOPE);
 
     public static final Issue FIXED_POSITION = Issue.create(
-            "RecyclerView", //$NON-NLS-1$
+            "RecyclerView",
             "RecyclerView Problems",
-            "`RecyclerView` will *not* call `onBindViewHolder` again when the position of " +
+            "`RecyclerView` will **not** call `onBindViewHolder` again when the position of " +
             "the item changes in the data set unless the item itself is " +
             "invalidated or the new position cannot be determined.\n" +
             "\n" +
-            "For this reason, you should *only* use the position parameter " +
+            "For this reason, you should **only** use the position parameter " +
             "while acquiring the related data item inside this method, and " +
-            "should *not* keep a copy of it.\n" +
+            "should **not** keep a copy of it.\n" +
             "\n" +
             "If you need the position of an item later on (e.g. in a click " +
             "listener), use `getAdapterPosition()` which will have the updated " +
@@ -82,9 +81,9 @@ public class RecyclerViewDetector extends Detector implements JavaPsiScanner {
             IMPLEMENTATION);
 
     public static final Issue DATA_BINDER = Issue.create(
-            "PendingBindings", //$NON-NLS-1$
+            "PendingBindings",
             "Missing Pending Bindings",
-            "When using a `ViewDataBinding` in a `onBindViewHolder` method, you *must* " +
+            "When using a `ViewDataBinding` in a `onBindViewHolder` method, you **must** " +
             "call `executePendingBindings()` before the method exits; otherwise " +
             "the data binding runtime will update the UI in the next animation frame " +
             "causing a delayed update and potential jumps if the item resizes.",
@@ -93,8 +92,8 @@ public class RecyclerViewDetector extends Detector implements JavaPsiScanner {
             Severity.ERROR,
             IMPLEMENTATION);
 
-    private static final String VIEW_ADAPTER = "android.support.v7.widget.RecyclerView.Adapter"; //$NON-NLS-1$
-    private static final String ON_BIND_VIEW_HOLDER = "onBindViewHolder"; //$NON-NLS-1$
+    private static final String VIEW_ADAPTER = "android.support.v7.widget.RecyclerView.Adapter";
+    private static final String ON_BIND_VIEW_HOLDER = "onBindViewHolder";
 
     // ---- Implements JavaScanner ----
 
@@ -243,7 +242,7 @@ public class RecyclerViewDetector extends Detector implements JavaPsiScanner {
                 @NonNull PsiClass bindClass,
                 @NonNull PsiParameter variable) {
             mContext = context;
-            mVariables = Lists.<PsiVariable>newArrayList(variable);
+            mVariables = Lists.newArrayList(variable);
             mBindClass = bindClass;
         }
 

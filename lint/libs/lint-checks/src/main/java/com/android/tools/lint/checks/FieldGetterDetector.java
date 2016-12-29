@@ -27,9 +27,12 @@ import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.android.tools.lint.detector.api.Speed;
 import com.google.common.collect.Maps;
-
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -39,12 +42,6 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * Looks for getter calls within the same class that could be replaced by
  * direct field references instead.
@@ -52,7 +49,7 @@ import java.util.Set;
 public class FieldGetterDetector extends Detector implements Detector.ClassScanner {
     /** The main issue discovered by this detector */
     public static final Issue ISSUE = Issue.create(
-            "FieldGetter", //$NON-NLS-1$
+            "FieldGetter",
             "Using getter instead of field",
 
             "Accessing a field within the class that defines a getter for that field is " +
@@ -60,7 +57,7 @@ public class FieldGetterDetector extends Detector implements Detector.ClassScann
             "nothing other than return the field, you might want to just reference the " +
             "local field directly instead.\n" +
             "\n" +
-            "*NOTE*: As of Android 2.3 (Gingerbread), this optimization is performed " +
+            "**NOTE**: As of Android 2.3 (Gingerbread), this optimization is performed " +
             "automatically by Dalvik, so there is no need to change your code; this is " +
             "only relevant if you are targeting older versions of Android.",
 
@@ -73,17 +70,11 @@ public class FieldGetterDetector extends Detector implements Detector.ClassScann
             // This is a micro-optimization: not enabled by default
             setEnabledByDefault(false).
             addMoreInfo(
-            "http://developer.android.com/guide/practices/design/performance.html#internal_get_set"); //$NON-NLS-1$
+            "http://developer.android.com/guide/practices/design/performance.html#internal_get_set");
     private ArrayList<Entry> mPendingCalls;
 
     /** Constructs a new {@link FieldGetterDetector} check */
     public FieldGetterDetector() {
-    }
-
-    @NonNull
-    @Override
-    public Speed getSpeed() {
-        return Speed.FAST;
     }
 
     // ---- Implements ClassScanner ----
@@ -123,9 +114,9 @@ public class FieldGetterDetector extends Detector implements Detector.ClassScann
             return;
         }
 
-        if (((name.startsWith("get") && name.length() > 3     //$NON-NLS-1$
+        if (((name.startsWith("get") && name.length() > 3
                 && Character.isUpperCase(name.charAt(3)))
-            || (name.startsWith("is") && name.length() > 2    //$NON-NLS-1$
+            || (name.startsWith("is") && name.length() > 2
                 && Character.isUpperCase(name.charAt(2))))
                 && owner.equals(classNode.name)) {
             // Calling a potential getter method on self. We now need to
@@ -137,7 +128,7 @@ public class FieldGetterDetector extends Detector implements Detector.ClassScann
             // second pass over the bytecode, initiated by the finish()
             // method.
             if (mPendingCalls == null) {
-                mPendingCalls = new ArrayList<Entry>();
+                mPendingCalls = new ArrayList<>();
             }
 
             mPendingCalls.add(new Entry(name, node, method));
@@ -151,7 +142,7 @@ public class FieldGetterDetector extends Detector implements Detector.ClassScann
         ClassContext context = (ClassContext) c;
 
         if (mPendingCalls != null) {
-            Set<String> names = new HashSet<String>(mPendingCalls.size());
+            Set<String> names = new HashSet<>(mPendingCalls.size());
             for (Entry entry : mPendingCalls) {
                 names.add(entry.name);
             }
@@ -221,7 +212,7 @@ public class FieldGetterDetector extends Detector implements Detector.ClassScann
         for (Object methodObject : methods) {
             MethodNode method = (MethodNode) methodObject;
             if (names.contains(method.name)
-                    && method.desc.startsWith("()")) { //$NON-NLS-1$ // (): No arguments
+                    && method.desc.startsWith("()")) {  // (): No arguments
                 InsnList instructions = method.instructions;
                 int mState = 1;
                 for (AbstractInsnNode curr = instructions.getFirst();

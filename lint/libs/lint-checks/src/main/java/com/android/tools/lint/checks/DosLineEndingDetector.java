@@ -24,9 +24,7 @@ import com.android.tools.lint.detector.api.LayoutDetector;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.android.tools.lint.detector.api.Speed;
 import com.android.tools.lint.detector.api.XmlContext;
-
 import org.w3c.dom.Document;
 
 /**
@@ -35,11 +33,11 @@ import org.w3c.dom.Document;
 public class DosLineEndingDetector extends LayoutDetector {
     /** Detects mangled DOS line ending documents */
     public static final Issue ISSUE = Issue.create(
-            "MangledCRLF", //$NON-NLS-1$
+            "MangledCRLF",
             "Mangled file line endings",
 
             "On Windows, line endings are typically recorded as carriage return plus " +
-            "newline: \\r\\n.\n" +
+            "newline: \\\\r\\\\n.\n" +
             "\n" +
             "This detector looks for invalid line endings with repeated carriage return " +
             "characters (without newlines). Previous versions of the ADT plugin could " +
@@ -53,21 +51,15 @@ public class DosLineEndingDetector extends LayoutDetector {
                     DosLineEndingDetector.class,
                     Scope.RESOURCE_FILE_SCOPE))
             .setEnabledByDefault(false) // This check is probably not relevant for most users anymore
-            .addMoreInfo("https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421"); //$NON-NLS-1$
+            .addMoreInfo("https://bugs.eclipse.org/bugs/show_bug.cgi?id=375421");
 
      /** Constructs a new {@link DosLineEndingDetector} */
     public DosLineEndingDetector() {
     }
 
-    @NonNull
-    @Override
-    public Speed getSpeed() {
-        return Speed.NORMAL;
-    }
-
     @Override
     public void visitDocument(@NonNull XmlContext context, @NonNull Document document) {
-        String contents = context.getContents();
+        CharSequence contents = context.getContents();
         if (contents == null) {
             return;
         }

@@ -37,7 +37,6 @@ import com.intellij.psi.PsiExpression;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.util.PsiTreeUtil;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -52,15 +51,15 @@ public class LocaleDetector extends Detector implements JavaPsiScanner {
 
     /** Calling risky convenience methods */
     public static final Issue STRING_LOCALE = Issue.create(
-            "DefaultLocale", //$NON-NLS-1$
+            "DefaultLocale",
             "Implied default locale in case conversion",
 
-            "Calling `String#toLowerCase()` or `#toUpperCase()` *without specifying an " +
-            "explicit locale* is a common source of bugs. The reason for that is that those " +
+            "Calling `String#toLowerCase()` or `#toUpperCase()` **without specifying an " +
+            "explicit locale** is a common source of bugs. The reason for that is that those " +
             "methods will use the current locale on the user's device, and even though the " +
             "code appears to work correctly when you are developing the app, it will fail " +
             "in some locales. For example, in the Turkish locale, the uppercase replacement " +
-            "for `i` is *not* `I`.\n" +
+            "for `i` is **not** `I`.\n" +
             "\n" +
             "If you want the methods to just perform ASCII replacement, for example to convert " +
             "an enum name, call `String#toUpperCase(Locale.US)` instead. If you really want to " +
@@ -71,7 +70,7 @@ public class LocaleDetector extends Detector implements JavaPsiScanner {
             Severity.WARNING,
             IMPLEMENTATION)
             .addMoreInfo(
-            "http://developer.android.com/reference/java/util/Locale.html#default_locale"); //$NON-NLS-1$
+            "http://developer.android.com/reference/java/util/Locale.html#default_locale");
 
     /** Constructs a new {@link LocaleDetector} */
     public LocaleDetector() {
@@ -89,8 +88,8 @@ public class LocaleDetector extends Detector implements JavaPsiScanner {
         } else {
             return Arrays.asList(
                     // Only when not running in the IDE
-                    "toLowerCase", //$NON-NLS-1$
-                    "toUpperCase", //$NON-NLS-1$
+                    "toLowerCase",
+                    "toUpperCase",
                     FORMAT_METHOD
             );
         }
@@ -106,8 +105,9 @@ public class LocaleDetector extends Detector implements JavaPsiScanner {
             } else if (method.getParameterList().getParametersCount() == 0) {
                 Location location = context.getNameLocation(call);
                 String message = String.format(
-                        "Implicitly using the default locale is a common source of bugs: " +
-                                "Use `%1$s(Locale)` instead", name);
+                        "Implicitly using the default locale is a common source of bugs: "
+                                + "Use `%1$s(Locale)` instead. For strings meant to be internal "
+                                + "use `Locale.ROOT`, otherwise `Locale.getDefault()`.", name);
                 context.report(STRING_LOCALE, call, location, message);
             }
         }
