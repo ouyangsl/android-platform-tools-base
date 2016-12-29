@@ -35,7 +35,6 @@ import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 import com.android.sdklib.IAndroidTarget;
 import com.android.testutils.TestUtils;
-import com.android.tools.lint.EcjParser;
 import com.android.tools.lint.ExternalAnnotationRepository;
 import com.android.tools.lint.LintCliClient;
 import com.android.tools.lint.LintCliFlags;
@@ -62,14 +61,12 @@ import com.android.tools.lint.client.api.LintRequest;
 import com.android.tools.lint.detector.api.Context;
 import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Issue;
-import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.android.tools.lint.detector.api.TextFormat;
-import com.android.tools.lint.psi.EcjPsiBuilder;
 import com.android.utils.ILogger;
 import com.android.utils.StdLogger;
 import com.android.utils.XmlUtils;
@@ -96,9 +93,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.imageio.ImageIO;
-import org.eclipse.jdt.core.compiler.CategorizedProblem;
-import org.eclipse.jdt.core.compiler.IProblem;
-import org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration;
 import org.intellij.lang.annotations.Language;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -121,7 +115,7 @@ public abstract class LintDetectorTest extends BaseLintDetectorTest {
         super.setUp();
         BuiltinIssueRegistry.reset();
         LintDriver.clearCrashCount();
-        EcjParser.skipComputingEcjErrors = false;
+        //EcjParser.skipComputingEcjErrors = false;
     }
 
     @Override
@@ -274,10 +268,10 @@ public abstract class LintDetectorTest extends BaseLintDetectorTest {
 
             String secondResult;
             try {
-                EcjPsiBuilder.setDebugOptions(true, true);
+                //EcjPsiBuilder.setDebugOptions(true, true);
                 secondResult = lintClient.analyze(files);
             } finally {
-                EcjPsiBuilder.setDebugOptions(false, false);
+                //EcjPsiBuilder.setDebugOptions(false, false);
             }
 
             assertEquals("The lint check produced different results when run on the "
@@ -763,48 +757,48 @@ public abstract class LintDetectorTest extends BaseLintDetectorTest {
             return writer.toString();
         }
 
-        @Override
-        public JavaParser getJavaParser(@Nullable Project project) {
-            return new EcjParser(this, project) {
-                @Override
-                public boolean prepareJavaParse(@NonNull List<JavaContext> contexts) {
-                    boolean success = super.prepareJavaParse(contexts);
-                    if (forceErrors()) {
-                        success = false;
-                    }
-                    if (!allowCompilationErrors() && ecjResult != null) {
-                        StringBuilder sb = new StringBuilder();
-                        for (CompilationUnitDeclaration unit : ecjResult.getCompilationUnits()) {
-                            // so maybe I don't need my map!!
-                            CategorizedProblem[] problems = unit.compilationResult()
-                                    .getAllProblems();
-                            if (problems != null) {
-                                for (IProblem problem : problems) {
-                                    if (problem == null || !problem.isError()) {
-                                        continue;
-                                    }
-                                    String filename = new File(new String(
-                                            problem.getOriginatingFileName())).getName();
-                                    sb.append(filename)
-                                            .append(":")
-                                            .append(problem.isError() ? "Error" : "Warning")
-                                            .append(": ").append(problem.getSourceLineNumber())
-                                            .append(": ").append(problem.getMessage())
-                                            .append('\n');
-                                }
-                            }
-                        }
-                        if (sb.length() > 0) {
-                            fail("Found compilation problems in lint test not overriding "
-                                    + "allowCompilationErrors():\n" + sb);
-                        }
-
-                    }
-
-                    return success;
-                }
-            };
-        }
+        //@Override
+        //public JavaParser getJavaParser(@Nullable Project project) {
+        //    return new EcjParser(this, project) {
+        //        @Override
+        //        public boolean prepareJavaParse(@NonNull List<JavaContext> contexts) {
+        //            boolean success = super.prepareJavaParse(contexts);
+        //            if (forceErrors()) {
+        //                success = false;
+        //            }
+        //            if (!allowCompilationErrors() && ecjResult != null) {
+        //                StringBuilder sb = new StringBuilder();
+        //                for (CompilationUnitDeclaration unit : ecjResult.getCompilationUnits()) {
+        //                    // so maybe I don't need my map!!
+        //                    CategorizedProblem[] problems = unit.compilationResult()
+        //                            .getAllProblems();
+        //                    if (problems != null) {
+        //                        for (IProblem problem : problems) {
+        //                            if (problem == null || !problem.isError()) {
+        //                                continue;
+        //                            }
+        //                            String filename = new File(new String(
+        //                                    problem.getOriginatingFileName())).getName();
+        //                            sb.append(filename)
+        //                                    .append(":")
+        //                                    .append(problem.isError() ? "Error" : "Warning")
+        //                                    .append(": ").append(problem.getSourceLineNumber())
+        //                                    .append(": ").append(problem.getMessage())
+        //                                    .append('\n');
+        //                        }
+        //                    }
+        //                }
+        //                if (sb.length() > 0) {
+        //                    fail("Found compilation problems in lint test not overriding "
+        //                            + "allowCompilationErrors():\n" + sb);
+        //                }
+        //
+        //            }
+        //
+        //            return success;
+        //        }
+        //    };
+        //}
 
         @Override
         public void report(

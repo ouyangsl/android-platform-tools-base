@@ -87,9 +87,12 @@ import com.intellij.psi.CommonClassNames;
 import com.intellij.psi.PsiCallExpression;
 import com.intellij.psi.PsiClassType;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiImportStatement;
+import com.intellij.psi.PsiJavaCodeReferenceElement;
 import com.intellij.psi.PsiLiteral;
 import com.intellij.psi.PsiMethod;
+import com.intellij.psi.PsiNewExpression;
 import com.intellij.psi.PsiParenthesizedExpression;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.PsiWhiteSpace;
@@ -144,6 +147,21 @@ public class LintUtils {
 
     @Nullable
     public static PsiElement getCallName(@NonNull PsiCallExpression expression) {
+        if (expression instanceof PsiNewExpression) {
+            //PsiElement reference = ((PsiNewExpression) expression).getClassReference();
+            //if (reference != null) {
+                //// Just use the identifier; don't include the "new" keyword
+                //PsiElement child = reference.getFirstChild();
+                //while (child != null) {
+                //    if (child instanceof PsiIdentifier) {
+                //        return child;
+                //    }
+                //    child = child.getNextSibling();
+                //}
+            //    return reference;
+            //}
+            //return expression.;
+        }
         PsiElement firstChild = expression.getFirstChild();
         while (firstChild != null) {
             if (firstChild instanceof PsiWhiteSpace) {

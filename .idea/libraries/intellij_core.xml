@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="intellij-core">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../prebuilts/tools/common/intellij-core/162.2228.14/annotations.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../prebuilts/tools/common/intellij-core/162.2228.14/asm-all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../prebuilts/tools/common/intellij-core/162.2228.14/intellij-core.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../prebuilts/tools/common/intellij-core/162.2228.14/picocontainer.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../prebuilts/tools/common/intellij-core/162.2228.14/trove4j.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

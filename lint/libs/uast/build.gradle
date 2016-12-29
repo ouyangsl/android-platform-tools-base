@@ -5,11 +5,22 @@ archivesBaseName = 'uast'
 version = '162.2228.14'
 
 jar {
-    from zipTree("../../../../../prebuilts/tools/common/uast/uast-" + version + ".jar")
+    // IntelliJ core
+    from zipTree("../../../../../prebuilts/tools/common/intellij-core/162.2228.14/intellij-core.jar")
+    from zipTree("../../../../../prebuilts/tools/common/intellij-core/162.2228.14/jdom.jar")
+    from zipTree("../../../../../prebuilts/tools/common/intellij-core/162.2228.14/picocontainer.jar")
+    from zipTree("../../../../../prebuilts/tools/common/intellij-core/162.2228.14/annotations.jar")
+    from zipTree("../../../../../prebuilts/tools/common/intellij-core/162.2228.14/asm-all.jar")
+
+    // TODO: Switch to
+    //  compile group: 'net.sf.trove4j', name: 'trove4j', version: '2.0.4'
+    // but apparently IntelliJ (according to build/scripts/libLicenses.gant) is
+    // using version "1.1 (with patches by JetBrains)"; not sure how to pull that in
+    from zipTree("../../../../../prebuilts/tools/common/intellij-core/162.2228.14/trove4j.jar")
 }
 
-project.ext.pomName = 'IntelliJ IDEA AST API (PSI) Subset'
-project.ext.pomDesc = 'A subset of IntelliJ IDEA\'s AST APIs and implementation, focusing on the read-only aspects, intended for use by Android Lint when running outside of the IDE (typically from Gradle.). Based on IntelliJ IDEA tag idea/' + version + '.'
+project.ext.pomName = 'IntelliJ IDEA Core and AST APIs'
+project.ext.pomDesc = 'IntelliJ IDEA Core and AST APIs'
 
 apply from: "$rootDir/buildSrc/base/publish.gradle"
 apply from: "$rootDir/buildSrc/base/bintray.gradle"
