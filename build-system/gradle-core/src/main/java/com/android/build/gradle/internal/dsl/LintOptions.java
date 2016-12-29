@@ -29,21 +29,16 @@ import com.android.annotations.Nullable;
 import com.android.tools.lint.HtmlReporter;
 import com.android.tools.lint.LintCliClient;
 import com.android.tools.lint.LintCliFlags;
+import com.android.tools.lint.Reporter;
 import com.android.tools.lint.TextReporter;
 import com.android.tools.lint.XmlReporter;
 import com.android.tools.lint.checks.BuiltinIssueRegistry;
+import com.android.tools.lint.client.api.DefaultConfiguration;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.Severity;
 import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
-import org.gradle.api.GradleException;
-import org.gradle.api.tasks.Input;
-import org.gradle.api.tasks.InputFile;
-import org.gradle.api.tasks.Optional;
-import org.gradle.api.tasks.OutputFile;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -53,6 +48,11 @@ import java.io.Serializable;
 import java.io.Writer;
 import java.util.Map;
 import java.util.Set;
+import org.gradle.api.GradleException;
+import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.InputFile;
+import org.gradle.api.tasks.Optional;
+import org.gradle.api.tasks.OutputFile;
 
 /**
  * DSL object for configuring lint options.
@@ -91,6 +91,7 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
     private File xmlOutput;
 
     private Map<String,Severity> severities = Maps.newHashMap();
+    private File baselineFile;
 
     public LintOptions() {
     }
@@ -116,6 +117,7 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
             boolean showAll,
             boolean explainIssues,
             boolean checkReleaseBuilds,
+            @Nullable File baselineFile,
             @Nullable Map<String,Integer> severityOverrides) {
         this.disable = disable;
         this.enable = enable;
@@ -137,6 +139,7 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
         this.showAll = showAll;
         this.explainIssues = explainIssues;
         this.checkReleaseBuilds = checkReleaseBuilds;
+        this.baselineFile = baselineFile;
 
         if (severityOverrides != null) {
             for (Map.Entry<String,Integer> entry : severityOverrides.entrySet()) {
@@ -168,6 +171,7 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
                 source.isShowAll(),
                 source.isExplainIssues(),
                 source.isCheckReleaseBuilds(),
+                source.getBaselineFile(),
                 source.getSeverityOverrides()
         );
     }
@@ -410,6 +414,11 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
     }
 
     public void setXmlOutput(@NonNull File xmlOutput) {
+        if (xmlOutput.getName().equals(DefaultConfiguration.CONFIG_FILE_NAME)) {
+            throw new GradleException("Don't set the xmlOutput file to \"" +
+                    DefaultConfiguration.CONFIG_FILE_NAME + "\"; that's a "
+                    + "reserved filename used for for lint configuration files, not reports.");
+        }
         this.xmlOutput = xmlOutput;
     }
 
@@ -493,6 +502,7 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
         flags.setDefaultConfiguration(lintConfig);
         flags.setSeverityOverrides(severities);
         flags.setExplainIssues(explainIssues);
+        flags.setBaselineFile(baselineFile);
 
         if (report || flags.isFatalOnly() && this.abortOnError) {
             if (textReport || flags.isFatalOnly()) {
@@ -522,7 +532,7 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
                     }
                     closeWriter = true;
                 }
-                flags.getReporters().add(new TextReporter(client, flags, file, writer,
+                flags.getReporters().add(Reporter.createTextReporter(client, flags, file, writer,
                         closeWriter));
             }
             if (htmlReport) {
@@ -534,7 +544,8 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
                 }
                 output = validateOutputFile(output);
                 try {
-                    flags.getReporters().add(new HtmlReporter(client, output));
+                    flags.getReporters().add(Reporter.createHtmlReporter(client, output, flags,
+                            false));
                 } catch (IOException e) {
                     throw new GradleException("HTML invalid argument.", e);
                 }
@@ -548,7 +559,7 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
                 }
                 output = validateOutputFile(output);
                 try {
-                    flags.getReporters().add(new XmlReporter(client, output));
+                    flags.getReporters().add(Reporter.createXmlReporter(client, output, false));
                 } catch (IOException e) {
                     throw new org.gradle.api.GradleException("XML invalid argument.", e);
                 }
@@ -607,6 +618,30 @@ public class LintOptions implements com.android.builder.model.LintOptions, Seria
         }
         base.append(extension);
         return new File(project.getBuildDir(), base.toString());
+    }
+
+    @Override @Nullable
+    public File getBaselineFile() {
+        return baselineFile;
+    }
+
+    public void setBaselineFile(@Nullable File baselineFile) {
+        this.baselineFile = baselineFile;
+    }
+
+    // DSL method
+    public void baseline(@NonNull String baseline) {
+        File file = new File(baseline);
+        if (!file.isAbsolute()) {
+            // If I had the project context, I could do
+            //   project.file(baselineFile.getPath())
+            file = file.getAbsoluteFile();
+        }
+        this.baselineFile = file;
+    }
+
+    public void baseline(@NonNull File baselineFile) {
+        this.baselineFile = baselineFile;
     }
 
     /**

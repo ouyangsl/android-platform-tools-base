@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.tasks;
 
+import static com.android.SdkConstants.VALUE_FALSE;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.android.annotations.NonNull;
@@ -31,17 +32,27 @@ import com.android.builder.model.AndroidProject;
 import com.android.builder.model.Variant;
 import com.android.tools.lint.LintCliFlags;
 import com.android.tools.lint.Reporter;
+import com.android.tools.lint.Reporter.Stats;
 import com.android.tools.lint.Warning;
 import com.android.tools.lint.checks.BuiltinIssueRegistry;
 import com.android.tools.lint.checks.GradleDetector;
 import com.android.tools.lint.checks.UnusedResourceDetector;
 import com.android.tools.lint.client.api.IssueRegistry;
+import com.android.tools.lint.client.api.LintBaseline;
 import com.android.tools.lint.detector.api.Issue;
+import com.android.tools.lint.detector.api.LintUtils;
 import com.android.tools.lint.detector.api.Severity;
+import com.android.utils.Pair;
 import com.android.utils.StringHelper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.gradle.api.GradleException;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
@@ -51,13 +62,6 @@ import org.gradle.api.tasks.ParallelizableTask;
 import org.gradle.api.tasks.TaskAction;
 import org.gradle.tooling.provider.model.ToolingModelBuilder;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @ParallelizableTask
 public class Lint extends BaseTask {
@@ -75,29 +79,30 @@ public class Lint extends BaseTask {
      * is a risky fix, we're putting it behind a flag now and as soon as we get some real
      * user testing, we should enable this by default and remove the old code.
      */
-    public static final boolean MODEL_LIBRARIES = Boolean.getBoolean(MODEL_LIBRARIES_PROPERTY);
+    public static final boolean MODEL_LIBRARIES =
+            !VALUE_FALSE.equals(System.getProperty(MODEL_LIBRARIES_PROPERTY));
 
     private static final Logger LOG = Logging.getLogger(Lint.class);
 
-    @Nullable private LintOptions mLintOptions;
-    @Nullable private File mSdkHome;
-    private boolean mFatalOnly;
-    private ToolingModelBuilderRegistry mToolingRegistry;
+    @Nullable private LintOptions lintOptions;
+    @Nullable private File sdkHome;
+    private boolean fatalOnly;
+    private ToolingModelBuilderRegistry toolingRegistry;
 
     public void setLintOptions(@NonNull LintOptions lintOptions) {
-        mLintOptions = lintOptions;
+        this.lintOptions = lintOptions;
     }
 
     public void setSdkHome(@NonNull File sdkHome) {
-        mSdkHome = sdkHome;
+        this.sdkHome = sdkHome;
     }
 
     public void setToolingRegistry(ToolingModelBuilderRegistry toolingRegistry) {
-        mToolingRegistry = toolingRegistry;
+        this.toolingRegistry = toolingRegistry;
     }
 
     public void setFatalOnly(boolean fatalOnly) {
-        mFatalOnly = fatalOnly;
+        this.fatalOnly = fatalOnly;
     }
 
     @TaskAction
@@ -125,21 +130,27 @@ public class Lint extends BaseTask {
         UnusedResourceDetector.sIncludeInactiveReferences = false;
 
         Map<Variant,List<Warning>> warningMap = Maps.newHashMap();
+        List<LintBaseline> baselines = Lists.newArrayList();
         for (Variant variant : modelProject.getVariants()) {
-            List<Warning> warnings = runLint(modelProject, variant, false);
+            Pair<List<Warning>,LintBaseline> pair = runLint(modelProject, variant, false);
+            List<Warning> warnings = pair.getFirst();
             warningMap.put(variant, warnings);
+            LintBaseline baseline = pair.getSecond();
+            if (baseline != null) {
+                baselines.add(baseline);
+            }
         }
 
         // Compute error matrix
         boolean quiet = false;
-        if (mLintOptions != null) {
-            quiet = mLintOptions.isQuiet();
+        if (lintOptions != null) {
+            quiet = lintOptions.isQuiet();
         }
 
         for (Map.Entry<Variant,List<Warning>> entry : warningMap.entrySet()) {
             Variant variant = entry.getKey();
             List<Warning> warnings = entry.getValue();
-            if (!mFatalOnly && !quiet) {
+            if (!fatalOnly && !quiet) {
                 LOG.warn("Ran lint on variant {}: {} issues found",
                         variant.getName(), warnings.size());
             }
@@ -156,10 +167,8 @@ public class Lint extends BaseTask {
             }
         }
 
-        /*
-         * We pick the first variant to generate the full report and don't generate if we don't
-         * have any variants.
-         */
+        // We pick the first variant to generate the full report and don't generate if we don't
+        // have any variants.
         if (!modelProject.getVariants().isEmpty()) {
             Set<Variant> allVariants = Sets.newTreeSet(
                     (v1, v2) -> v1.getName().compareTo(v2.getName()));
@@ -171,11 +180,79 @@ public class Lint extends BaseTask {
             LintCliFlags flags = new LintCliFlags();
             LintGradleClient client = new LintGradleClient(
                     registry, flags, getProject(), modelProject,
-                    mSdkHome, variant, getBuildTools());
-            syncOptions(mLintOptions, client, flags, variant, getProject(), true, mFatalOnly);
+                    sdkHome, variant, getBuildTools());
+            syncOptions(lintOptions, client, flags, null, getProject(), true, fatalOnly);
+
+            // Compute baseline counts. This is tricky because an error could appear in
+            // multiple variants, and in that case it should only be counted as filtered
+            // from the baseline once, but if there are errors that appear only in individual
+            // variants, then they shouldn't count as one. To correctly account for this we
+            // need to ask the baselines themselves to merge their results. Right now they
+            // only contain the remaining (fixed) issues; to address this we'd need to move
+            // found issues to a different map such that at the end we can successively
+            // merge the baseline instances together to a final one which has the full set
+            // of filtered and remaining counts.
+            int baselineErrorCount = 0;
+            int baselineWarningCount = 0;
+            int fixedCount = 0;
+            if (!baselines.isEmpty()) {
+                // Figure out the actual overlap; later I could stash these into temporary
+                // objects to compare
+                // For now just combine them in a dumb way
+                for (LintBaseline baseline : baselines) {
+                    baselineErrorCount = Math.max(baselineErrorCount,
+                            baseline.getFoundErrorCount());
+                    baselineWarningCount = Math.max(baselineWarningCount,
+                            baseline.getFoundWarningCount());
+                    fixedCount = Math.max(fixedCount, baseline.getFixedCount());
+                }
+            }
+
+            Stats stats = new Stats(errorCount, warningCount, baselineErrorCount,
+                    baselineWarningCount, fixedCount);
 
             for (Reporter reporter : flags.getReporters()) {
-                reporter.write(errorCount, warningCount, mergedWarnings);
+                reporter.write(stats, mergedWarnings);
+            }
+
+            File baselineFile = flags.getBaselineFile();
+            if (baselineFile != null && !baselineFile.exists()) {
+                File dir = baselineFile.getParentFile();
+                boolean ok = true;
+                if (!dir.isDirectory()) {
+                    ok = dir.mkdirs();
+                }
+                if (!ok) {
+                    System.err.println("Couldn't create baseline folder " + dir);
+                } else {
+                    Reporter reporter = Reporter.createXmlReporter(client, baselineFile, true);
+                    reporter.write(stats, mergedWarnings);
+                    System.err.println("Created baseline file " + baselineFile);
+                    System.err.println("(Also breaking build in case this was not intentional.)");
+                    String message = ""
+                            + "Created baseline file " + baselineFile + "\n"
+                            + "\n"
+                            + "Also breaking the build in case this was not intentional. If you\n"
+                            + "deliberately created the baseline file, re-run the build and this\n"
+                            + "time it should succeed without warnings.\n"
+                            + "\n"
+                            + "If not, investigate the baseline path in the lintOptions config\n"
+                            + "or verify that the baseline file has been checked into version\n"
+                            + "control.\n";
+                    throw new GradleException(message);
+                }
+            }
+
+            if (baselineErrorCount > 0 || baselineWarningCount > 0) {
+                System.out.println(String.format("%1$s were filtered out because "
+                                + "they were listed in the baseline file, %2$s\n",
+                        LintUtils.describeCounts(baselineErrorCount, baselineWarningCount, false),
+                        baselineFile));
+            }
+            if (fixedCount > 0) {
+                System.out.println(String.format("%1$d errors/warnings were listed in the "
+                        + "baseline file (%2$s) but not found in the project; perhaps they have "
+                        + "been fixed?\n", fixedCount, baselineFile));
             }
 
             if (flags.isSetExitCode() && errorCount > 0) {
@@ -186,7 +263,7 @@ public class Lint extends BaseTask {
 
     private void abort() {
         String message;
-        if (mFatalOnly) {
+        if (fatalOnly) {
             message = "" +
                     "Lint found fatal errors while assembling a release target.\n" +
                     "\n" +
@@ -225,7 +302,7 @@ public class Lint extends BaseTask {
     }
 
     /** Runs lint on the given variant and returns the set of warnings */
-    private List<Warning> runLint(
+    private Pair<List<Warning>,LintBaseline> runLint(
             /*
              * Note that as soon as we disable {@link #MODEL_LIBRARIES} this is
              * unused and we can delete it and all the callers passing it recursively
@@ -236,21 +313,22 @@ public class Lint extends BaseTask {
         IssueRegistry registry = createIssueRegistry();
         LintCliFlags flags = new LintCliFlags();
         LintGradleClient client = new LintGradleClient(registry, flags, getProject(), modelProject,
-                mSdkHome, variant, getBuildTools());
-        if (mFatalOnly) {
-            if (mLintOptions != null && !mLintOptions.isCheckReleaseBuilds()) {
-                return Collections.emptyList();
+                sdkHome, variant, getBuildTools());
+        if (fatalOnly) {
+            if (lintOptions != null && !lintOptions.isCheckReleaseBuilds()) {
+                return Pair.of(Collections.emptyList(), null);
             }
             flags.setFatalOnly(true);
         }
-        if (mLintOptions != null) {
-            syncOptions(mLintOptions, client, flags, variant, getProject(), report, mFatalOnly);
+        if (lintOptions != null) {
+            syncOptions(lintOptions, client, flags, variant, getProject(), report, fatalOnly);
         }
-        if (!report || mFatalOnly) {
+        if (!report || fatalOnly) {
             flags.setQuiet(true);
         }
+        flags.setWriteBaselineIfMissing(report);
 
-        List<Warning> warnings;
+        Pair<List<Warning>,LintBaseline> warnings;
         try {
             warnings = client.run(registry);
         } catch (IOException e) {
@@ -268,22 +346,21 @@ public class Lint extends BaseTask {
             @NonNull LintOptions options,
             @NonNull LintGradleClient client,
             @NonNull LintCliFlags flags,
-            @NonNull Variant variant,
+            @Nullable Variant variant,
             @NonNull Project project,
             boolean report,
             boolean fatalOnly) {
-        options.syncTo(client, flags, variant.getName(), project, report);
+        options.syncTo(client, flags, variant != null ? variant.getName() : null, project, report);
 
-        if (fatalOnly || flags.isQuiet()) {
-            for (Reporter reporter : flags.getReporters()) {
-                reporter.setDisplayEmpty(false);
-            }
+        boolean displayEmpty = !(fatalOnly || flags.isQuiet());
+        for (Reporter reporter : flags.getReporters()) {
+            reporter.setDisplayEmpty(displayEmpty);
         }
     }
 
     private AndroidProject createAndroidProject(@NonNull Project gradleProject) {
         String modelName = AndroidProject.class.getName();
-        ToolingModelBuilder modelBuilder = mToolingRegistry.getBuilder(modelName);
+        ToolingModelBuilder modelBuilder = toolingRegistry.getBuilder(modelName);
         assert modelBuilder != null;
         return (AndroidProject) modelBuilder.buildAll(modelName, gradleProject);
     }
