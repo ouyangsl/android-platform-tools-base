@@ -200,4 +200,6 @@ public class ResourceEvaluatorTest extends TestCase {
         assertEquals(ResourceType.LAYOUT, ResourceEvaluator.getTypeFromAnnotationSignature(
                 ResourceEvaluator.LAYOUT_RES_ANNOTATION));
     }
+
+    // TODO: Test UAST variation
 }

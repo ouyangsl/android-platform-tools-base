@@ -20,10 +20,12 @@ jar {
     // TODO: This is the repackaged IntelliJ version (org/jetbrains/); find out
     // where to fetch this from
     from zipTree("../../../../../prebuilts/tools/common/uast/asm-all.jar")
+    from zipTree("../../../../../prebuilts/tools/common/uast/uast-common.jar")
+    from zipTree("../../../../../prebuilts/tools/common/uast/uast-java.jar")
 }
 
-project.ext.pomName = 'IntelliJ IDEA AST API (PSI) Subset'
-project.ext.pomDesc = 'A subset of IntelliJ IDEA\'s AST APIs and implementation, focusing on the read-only aspects, intended for use by Android Lint when running outside of the IDE (typically from Gradle.). Based on IntelliJ IDEA tag idea/' + version + '.'
+project.ext.pomName = 'IntelliJ IDEA AST API'
+project.ext.pomDesc = 'Universal AST API'
 
 apply from: "$rootDir/buildSrc/base/publish.gradle"
 apply from: "$rootDir/buildSrc/base/bintray.gradle"

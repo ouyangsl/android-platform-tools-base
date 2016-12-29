@@ -2752,13 +2752,13 @@ public class SupportAnnotationDetectorTest extends AbstractCheckTest {
                 + "            ~~~~~~~~~~~\n"
                 + "src/test/otherpkg/OtherPkg.java:8: Warning: This method should only be accessed from tests or within protected scope [VisibleForTests]\n"
                 + "        new ProductionCode().testHelper3(); // ERROR\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                             ~~~~~~~~~~~\n"
                 + "src/test/otherpkg/OtherPkg.java:9: Warning: This method should only be accessed from tests or within private scope [VisibleForTests]\n"
                 + "        new ProductionCode().testHelper4(); // ERROR\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                             ~~~~~~~~~~~\n"
                 + "src/test/otherpkg/OtherPkg.java:10: Warning: This method should only be accessed from tests or within package private scope [VisibleForTests]\n"
                 + "        new ProductionCode().testHelper5(); // ERROR\n"
-                + "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+                + "                             ~~~~~~~~~~~\n"
                 + "2 errors, 3 warnings\n",
                 lintProject(
                         java(""

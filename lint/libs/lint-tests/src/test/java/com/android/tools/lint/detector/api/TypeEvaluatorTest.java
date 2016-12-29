@@ -266,4 +266,6 @@ public class TypeEvaluatorTest extends TestCase {
                         + "Object bar = o;\n",
                 "bar");
     }
+
+    // TODO: Test UAST variation
 }

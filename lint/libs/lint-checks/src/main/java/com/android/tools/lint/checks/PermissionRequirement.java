@@ -26,17 +26,20 @@ import com.android.annotations.Nullable;
 import com.android.annotations.VisibleForTesting;
 import com.android.sdklib.AndroidVersion;
 import com.android.tools.lint.detector.api.ConstantEvaluator;
+import com.android.tools.lint.detector.api.JavaContext;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.intellij.psi.JavaTokenType;
-import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiAnnotationMemberValue;
-import com.intellij.psi.PsiArrayInitializerMemberValue;
 import com.intellij.psi.tree.IElementType;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import org.jetbrains.uast.UAnnotation;
+import org.jetbrains.uast.UCallExpression;
+import org.jetbrains.uast.UExpression;
+import org.jetbrains.uast.UNamedExpression;
+import org.jetbrains.uast.util.UastExpressionUtils;
 
 /**
  * A permission requirement is a boolean expression of permission names that a
@@ -46,12 +49,13 @@ public abstract class PermissionRequirement {
     public static final String ATTR_PROTECTION_LEVEL = "protectionLevel";
     public static final String VALUE_DANGEROUS = "dangerous";
 
-    protected final PsiAnnotation annotation;
+    protected final JavaContext context;
+    protected final UAnnotation annotation;
     private int firstApi;
     private int lastApi;
 
     @SuppressWarnings("ConstantConditions")
-    public static final PermissionRequirement NONE = new PermissionRequirement(null) {
+    public static final PermissionRequirement NONE = new PermissionRequirement(null, null) {
         @Override
         public boolean isSatisfied(@NonNull PermissionHolder available) {
             return true;
@@ -100,34 +104,35 @@ public abstract class PermissionRequirement {
         }
     };
 
-    private PermissionRequirement(@NonNull PsiAnnotation annotation) {
+    private PermissionRequirement(@NonNull JavaContext context, @NonNull UAnnotation annotation) {
+        this.context = context;
         this.annotation = annotation;
     }
 
     @NonNull
     public static PermissionRequirement create(
-            @NonNull PsiAnnotation annotation) {
-
-        String value = getAnnotationStringValue(annotation, ATTR_VALUE);
+            @NonNull JavaContext context,
+            @NonNull UAnnotation annotation) {
+        String value = getAnnotationStringValue(context, annotation, ATTR_VALUE);
         if (value != null && !value.isEmpty()) {
-            return new Single(annotation, value);
+            return new Single(context, annotation, value);
         }
 
-        String[] anyOf = getAnnotationStringValues(annotation, ATTR_ANY_OF);
+        String[] anyOf = getAnnotationStringValues(context, annotation, ATTR_ANY_OF);
         if (anyOf != null) {
             if (anyOf.length > 1) {
-                return new Many(annotation, JavaTokenType.OROR, anyOf);
+                return new Many(context, annotation, JavaTokenType.OROR, anyOf);
             } else if (anyOf.length == 1) {
-                return new Single(annotation, anyOf[0]);
+                return new Single(context, annotation, anyOf[0]);
             }
         }
 
-        String[] allOf = getAnnotationStringValues(annotation, ATTR_ALL_OF);
+        String[] allOf = getAnnotationStringValues(context, annotation, ATTR_ALL_OF);
         if (allOf != null) {
             if (allOf.length > 1) {
-                return new Many(annotation, JavaTokenType.ANDAND, allOf);
+                return new Many(context, annotation, JavaTokenType.ANDAND, allOf);
             } else if (allOf.length == 1) {
-                return new Single(annotation, allOf[0]);
+                return new Single(context, annotation, allOf[0]);
             }
         }
 
@@ -135,16 +140,18 @@ public abstract class PermissionRequirement {
     }
 
     @Nullable
-    public static Boolean getAnnotationBooleanValue(@Nullable PsiAnnotation annotation,
+    public static Boolean getAnnotationBooleanValue(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
             @NonNull String name) {
         if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findDeclaredAttributeValue(name);
+            UNamedExpression attributeValue = annotation.findDeclaredAttributeValue(name);
             if (attributeValue == null && ATTR_VALUE.equals(name)) {
                 attributeValue = annotation.findDeclaredAttributeValue(null);
             }
             // Use constant evaluator since we want to resolve field references as well
             if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
+                Object o = ConstantEvaluator.evaluate(context, attributeValue.getExpression());
                 if (o instanceof Boolean) {
                     return (Boolean) o;
                 }
@@ -154,17 +161,31 @@ public abstract class PermissionRequirement {
         return null;
     }
 
+    public static boolean getAnnotationBooleanValue(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
+            @NonNull String name,
+            boolean defaultValue) {
+        Boolean value = getAnnotationBooleanValue(context, annotation, name);
+        if (value != null) {
+            return value;
+        }
+        return defaultValue;
+    }
+
     @Nullable
-    public static Long getAnnotationLongValue(@Nullable PsiAnnotation annotation,
+    public static Long getAnnotationLongValue(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
             @NonNull String name) {
         if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findDeclaredAttributeValue(name);
+            UNamedExpression attributeValue = annotation.findDeclaredAttributeValue(name);
             if (attributeValue == null && ATTR_VALUE.equals(name)) {
                 attributeValue = annotation.findDeclaredAttributeValue(null);
             }
             // Use constant evaluator since we want to resolve field references as well
             if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
+                Object o = ConstantEvaluator.evaluate(context, attributeValue.getExpression());
                 if (o instanceof Number) {
                     return ((Number)o).longValue();
                 }
@@ -174,17 +195,31 @@ public abstract class PermissionRequirement {
         return null;
     }
 
+    public static long getAnnotationLongValue(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
+            @NonNull String name,
+            long defaultValue) {
+        Long value = getAnnotationLongValue(context, annotation, name);
+        if (value != null) {
+            return value;
+        }
+        return defaultValue;
+    }
+
     @Nullable
-    public static Double getAnnotationDoubleValue(@Nullable PsiAnnotation annotation,
+    public static Double getAnnotationDoubleValue(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
             @NonNull String name) {
         if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findDeclaredAttributeValue(name);
+            UNamedExpression attributeValue = annotation.findDeclaredAttributeValue(name);
             if (attributeValue == null && ATTR_VALUE.equals(name)) {
                 attributeValue = annotation.findDeclaredAttributeValue(null);
             }
             // Use constant evaluator since we want to resolve field references as well
             if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
+                Object o = ConstantEvaluator.evaluate(context, attributeValue.getExpression());
                 if (o instanceof Number) {
                     return ((Number)o).doubleValue();
                 }
@@ -194,17 +229,31 @@ public abstract class PermissionRequirement {
         return null;
     }
 
+    public static double getAnnotationDoubleValue(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
+            @NonNull String name,
+            double defaultValue) {
+        Double value = getAnnotationDoubleValue(context, annotation, name);
+        if (value != null) {
+            return value;
+        }
+        return defaultValue;
+    }
+
     @Nullable
-    public static String getAnnotationStringValue(@Nullable PsiAnnotation annotation,
+    public static String getAnnotationStringValue(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
             @NonNull String name) {
         if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findDeclaredAttributeValue(name);
+            UNamedExpression attributeValue = annotation.findDeclaredAttributeValue(name);
             if (attributeValue == null && ATTR_VALUE.equals(name)) {
                 attributeValue = annotation.findDeclaredAttributeValue(null);
             }
             // Use constant evaluator since we want to resolve field references as well
             if (attributeValue != null) {
-                Object o = ConstantEvaluator.evaluate(null, attributeValue);
+                Object o = ConstantEvaluator.evaluate(context, attributeValue.getExpression());
                 if (o instanceof String) {
                     return (String) o;
                 }
@@ -215,19 +264,24 @@ public abstract class PermissionRequirement {
     }
 
     @Nullable
-    public static String[] getAnnotationStringValues(@Nullable PsiAnnotation annotation,
+    public static String[] getAnnotationStringValues(
+            @NonNull JavaContext context,
+            @Nullable UAnnotation annotation,
             @NonNull String name) {
         if (annotation != null) {
-            PsiAnnotationMemberValue attributeValue = annotation.findDeclaredAttributeValue(name);
+            UNamedExpression attributeValue = annotation.findDeclaredAttributeValue(name);
             if (attributeValue == null && ATTR_VALUE.equals(name)) {
                 attributeValue = annotation.findDeclaredAttributeValue(null);
             }
-            if (attributeValue instanceof PsiArrayInitializerMemberValue) {
-                PsiAnnotationMemberValue[] initializers =
-                        ((PsiArrayInitializerMemberValue) attributeValue).getInitializers();
-                List<String> result = Lists.newArrayListWithCapacity(initializers.length);
-                ConstantEvaluator constantEvaluator = new ConstantEvaluator(null);
-                for (PsiAnnotationMemberValue element : initializers) {
+            if (attributeValue == null) {
+                return null;
+            }
+            if (UastExpressionUtils.isArrayInitializer(attributeValue.getExpression())) {
+                List<UExpression> initializers =
+                        ((UCallExpression) attributeValue.getExpression()).getValueArguments();
+                List<String> result = Lists.newArrayListWithCapacity(initializers.size());
+                ConstantEvaluator constantEvaluator = new ConstantEvaluator(context);
+                for (UExpression element : initializers) {
                     Object o = constantEvaluator.evaluate(element);
                     if (o instanceof String) {
                         result.add((String)o);
@@ -240,22 +294,20 @@ public abstract class PermissionRequirement {
                 }
             } else {
                 // Use constant evaluator since we want to resolve field references as well
-                if (attributeValue != null) {
-                    Object o = ConstantEvaluator.evaluate(null, attributeValue);
-                    if (o instanceof String) {
-                        return new String[]{(String) o};
-                    } else if (o instanceof String[]) {
-                        return (String[])o;
-                    } else if (o instanceof Object[]) {
-                        Object[] array = (Object[]) o;
-                        List<String> strings = Lists.newArrayListWithCapacity(array.length);
-                        for (Object element : array) {
-                            if (element instanceof String) {
-                                strings.add((String) element);
-                            }
+                Object o = ConstantEvaluator.evaluate(context, attributeValue.getExpression());
+                if (o instanceof String) {
+                    return new String[]{(String) o};
+                } else if (o instanceof String[]) {
+                    return (String[])o;
+                } else if (o instanceof Object[]) {
+                    Object[] array = (Object[]) o;
+                    List<String> strings = Lists.newArrayListWithCapacity(array.length);
+                    for (Object element : array) {
+                        if (element instanceof String) {
+                            strings.add((String) element);
                         }
-                        return strings.toArray(new String[0]);
                     }
+                    return strings.toArray(new String[0]);
                 }
             }
         }
@@ -317,7 +369,7 @@ public abstract class PermissionRequirement {
             lastApi = Integer.MAX_VALUE;
 
             // Not initialized
-            String range = getAnnotationStringValue(annotation, "apis");
+            String range = getAnnotationStringValue(context, annotation, "apis");
             if (range != null) {
                 // Currently only support the syntax "a..b" where a and b are inclusive end points
                 // and where "a" and "b" are optional
@@ -359,7 +411,7 @@ public abstract class PermissionRequirement {
      * @return true if this requirement is conditional
      */
     public boolean isConditional() {
-        Boolean o = getAnnotationBooleanValue(annotation, ATTR_CONDITIONAL);
+        Boolean o = getAnnotationBooleanValue(context, annotation, ATTR_CONDITIONAL);
         if (o != null) {
             return o;
         }
@@ -434,8 +486,9 @@ public abstract class PermissionRequirement {
     private static class Single extends PermissionRequirement {
         public final String name;
 
-        public Single(@NonNull PsiAnnotation annotation, @NonNull String name) {
-            super(annotation);
+        public Single(@NonNull JavaContext context, @NonNull UAnnotation annotation,
+                @NonNull String name) {
+            super(context, annotation);
             this.name = name;
         }
 
@@ -514,17 +567,18 @@ public abstract class PermissionRequirement {
         public final List<PermissionRequirement> permissions;
 
         public Many(
-                @NonNull PsiAnnotation annotation,
+                @NonNull JavaContext context,
+                @NonNull UAnnotation annotation,
                 IElementType operator,
                 String[] names) {
-            super(annotation);
+            super(context, annotation);
             assert operator == JavaTokenType.OROR
                     || operator == JavaTokenType.ANDAND : operator;
             assert names.length >= 2;
             this.operator = operator;
             this.permissions = Lists.newArrayListWithExpectedSize(names.length);
             for (String name : names) {
-                permissions.add(new Single(annotation, name));
+                permissions.add(new Single(context, annotation, name));
             }
         }
 

@@ -41,6 +41,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.intellij.codeInsight.ExternalAnnotationsManager;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.vfs.StandardFileSystems;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -154,6 +155,9 @@ import org.eclipse.jdt.internal.compiler.problem.DefaultProblem;
 import org.eclipse.jdt.internal.compiler.problem.DefaultProblemFactory;
 import org.eclipse.jdt.internal.compiler.problem.ProblemReporter;
 import org.eclipse.jdt.internal.compiler.problem.ProblemSeverities;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UFile;
+import org.jetbrains.uast.UastContext;
 
 /**
  * Java parser which uses ECJ for parsing and type attribution
@@ -195,6 +199,7 @@ public class EcjParser extends JavaParser {
     @Deprecated private Map<String, TypeDeclaration> typeUnits;
     private Parser parser;
     protected EcjResult ecjResult;
+    private final UastContext uastContext;
 
     public EcjParser(@NonNull LintCliClient client, @Nullable Project project,
             @NonNull com.intellij.openapi.project.Project p) {
@@ -202,6 +207,7 @@ public class EcjParser extends JavaParser {
         this.project = project;
         parser = getParser();
         javaEvaluator = new LintPsiJavaEvaluator(p, project);
+        uastContext = ServiceManager.getService(p, UastContext.class);
     }
 
     private static void checkEcjVersion() {
@@ -714,6 +720,38 @@ public class EcjParser extends JavaParser {
         }
 
         return (PsiJavaFile)psiFile;
+    }
+
+    @Nullable
+    @Override
+    public UFile parseToUast(@NonNull JavaContext context) {
+        com.intellij.openapi.project.Project ideaProject = uastContext.getProject();
+
+        VirtualFile virtualFile = StandardFileSystems.local().findFileByPath(context.file.getAbsolutePath());
+        if (virtualFile == null) {
+            return null;
+        }
+
+        PsiFile psiFile = PsiManager.getInstance(ideaProject).findFile(virtualFile);
+        if (psiFile == null) {
+            return null;
+        }
+
+        UElement uElement = uastContext.convertElementWithParent(psiFile, UFile.class);
+        if (!(uElement instanceof UFile)) {
+            // No need to log this; the parser should be reporting
+            // a full warning (such as IssueRegistry#PARSER_ERROR)
+            // with details, location, etc.
+            return null;
+        }
+
+        return (UFile) uElement;
+    }
+
+    @Nullable
+    @Override
+    public UastContext getUastContext() {
+        return uastContext;
     }
 
     @Override

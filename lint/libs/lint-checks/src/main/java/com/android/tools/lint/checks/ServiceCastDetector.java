@@ -26,38 +26,40 @@ import com.android.annotations.Nullable;
 import com.android.tools.lint.client.api.JavaEvaluator;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Detector;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
+import com.android.tools.lint.detector.api.Detector.UastScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.LintUtils;
+import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.JavaElementVisitor;
-import com.intellij.psi.PsiAssignmentExpression;
+import com.android.tools.lint.detector.api.UastLintUtils;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiClassType;
-import com.intellij.psi.PsiDeclarationStatement;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiExpression;
-import com.intellij.psi.PsiExpressionStatement;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiLocalVariable;
 import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.PsiParameter;
-import com.intellij.psi.PsiReferenceExpression;
-import com.intellij.psi.PsiStatement;
 import com.intellij.psi.PsiType;
-import com.intellij.psi.PsiTypeCastExpression;
-import com.intellij.psi.util.PsiTreeUtil;
 import java.util.Collections;
 import java.util.List;
+import org.jetbrains.uast.UBinaryExpressionWithType;
+import org.jetbrains.uast.UCallExpression;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UExpression;
+import org.jetbrains.uast.UMethod;
+import org.jetbrains.uast.UQualifiedReferenceExpression;
+import org.jetbrains.uast.UastUtils;
+import org.jetbrains.uast.expressions.UReferenceExpression;
+import org.jetbrains.uast.util.UastExpressionUtils;
+import org.jetbrains.uast.visitor.UastVisitor;
 
 /**
  * Detector looking for casts on th result of context.getSystemService which are suspect
  */
-public class ServiceCastDetector extends Detector implements JavaPsiScanner {
+public class ServiceCastDetector extends Detector implements UastScanner {
     public static final Implementation IMPLEMENTATION = new Implementation(
         ServiceCastDetector.class,
         Scope.JAVA_FILE_SCOPE);
@@ -112,11 +114,14 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
             Severity.WARNING,
             IMPLEMENTATION);
 
+    private static final String GET_APPLICATION_CONTEXT = "getApplicationContext";
+    private static final String WIFI_SERVICE = "WIFI_SERVICE";
+
     /** Constructs a new {@link ServiceCastDetector} check */
     public ServiceCastDetector() {
     }
 
-    // ---- Implements JavaScanner ----
+    // ---- Implements UastScanner ----
 
     @Override
     public List<String> getApplicableMethodNames() {
@@ -124,24 +129,30 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
     }
 
     @Override
-    public void visitMethod(@NonNull JavaContext context, @Nullable JavaElementVisitor visitor,
-            @NonNull PsiMethodCallExpression call, @NonNull PsiMethod method) {
-        PsiExpression[] args = call.getArgumentList().getExpressions();
-        if (args.length == 1 && args[0] instanceof PsiReferenceExpression) {
-            String name = ((PsiReferenceExpression)args[0]).getReferenceName();
+    public void visitMethod(@NonNull JavaContext context, @Nullable UastVisitor visitor,
+            @NonNull UCallExpression call, @NonNull UMethod method) {
+        List<UExpression> args = call.getValueArguments();
+        if (args.size() == 1 && args.get(0) instanceof UReferenceExpression) {
+            PsiElement resolvedServiceConst = ((UReferenceExpression) args.get(0)).resolve();
+            if (!(resolvedServiceConst instanceof PsiField)) {
+                return;
+            }
+            String name = ((PsiField) resolvedServiceConst).getName();
 
             // Check WIFI_SERVICE context origin
-            if ("WIFI_SERVICE".equals(name)) {
+            if (WIFI_SERVICE.equals(name)) {
                 checkWifiService(context, call);
             }
 
-            // Check cast
-            PsiElement parent = LintUtils.skipParentheses(call.getParent());
-            if (parent instanceof PsiTypeCastExpression) {
-                PsiTypeCastExpression cast = (PsiTypeCastExpression) parent;
+            UElement parent = LintUtils.skipParentheses(
+                    UastUtils.getQualifiedParentOrThis(call).getContainingElement());
+            if (UastExpressionUtils.isTypeCast(parent)) {
+                UBinaryExpressionWithType cast = (UBinaryExpressionWithType) parent;
+
+                // Check cast
                 String expectedClass = getExpectedType(name);
-                if (expectedClass != null && cast.getCastType() != null) {
-                    String castType = cast.getCastType().getType().getCanonicalText();
+                if (expectedClass != null && cast != null) {
+                    String castType = cast.getType().getCanonicalText();
                     if (castType.indexOf('.') == -1) {
                         expectedClass = stripPackage(expectedClass);
                     }
@@ -167,12 +178,10 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
      * using the application context
      */
     private static void checkWifiService(@NonNull JavaContext context,
-            @NonNull PsiMethodCallExpression call) {
+            @NonNull UCallExpression call) {
         JavaEvaluator evaluator = context.getEvaluator();
-        PsiReferenceExpression methodExpression = call.getMethodExpression();
-        PsiExpression qualifier = methodExpression.getQualifierExpression();
-
-        PsiMethod resolvedMethod = call.resolveMethod();
+        UExpression qualifier = call.getReceiver();
+        PsiMethod resolvedMethod = call.resolve();
         if (resolvedMethod != null &&
                 (evaluator.isMemberInSubClassOf(resolvedMethod, CLASS_ACTIVITY, false) ||
                         (evaluator.isMemberInSubClassOf(resolvedMethod, CLASS_VIEW, false)))) {
@@ -181,7 +190,7 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
         }
         if (qualifier == null) {
             // Implicit: check surrounding class
-            PsiMethod currentMethod = PsiTreeUtil.getParentOfType(call, PsiMethod.class, true);
+            UMethod currentMethod = UastUtils.getParentOfType(call, UMethod.class, true);
             if (currentMethod != null
                     && !evaluator.isMemberInSubClassOf(currentMethod, CLASS_APPLICATION, true)) {
                 reportWifiServiceLeak(WIFI_MANAGER, context, call);
@@ -203,20 +212,29 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
      */
     private static boolean checkContextReference(
             @NonNull JavaContext context,
-            @Nullable PsiElement element,
-            @NonNull PsiMethodCallExpression call) {
+            @Nullable UElement element,
+            @NonNull UCallExpression call) {
         if (element == null) {
             return false;
         }
-        if (element instanceof PsiMethodCallExpression) {
-            PsiMethod resolvedMethod = ((PsiMethodCallExpression) element).resolveMethod();
-            if (resolvedMethod != null && !"getApplicationContext".equals(resolvedMethod.getName())) {
+        if (element instanceof UCallExpression) {
+            PsiMethod resolvedMethod = ((UCallExpression) element).resolve();
+            if (resolvedMethod != null && !GET_APPLICATION_CONTEXT
+                    .equals(resolvedMethod.getName())) {
                 reportWifiServiceLeak(WIFI_MANAGER, context, call);
                 return true;
             }
-        } else if (element instanceof PsiReferenceExpression) {
+        } else if (element instanceof UQualifiedReferenceExpression) {
+            UQualifiedReferenceExpression refExp = (UQualifiedReferenceExpression) element;
+            PsiElement resolved = refExp.resolve();
+            if (resolved instanceof PsiMethod && !GET_APPLICATION_CONTEXT
+                    .equals(refExp.getResolvedName())) {
+                reportWifiServiceLeak(WIFI_MANAGER, context, call);
+                return true;
+            }
+        } else if (element instanceof UReferenceExpression) {
             // Check variable references backwards
-            PsiElement resolved = ((PsiReferenceExpression) element).resolve();
+            PsiElement resolved = ((UReferenceExpression) element).resolve();
             if (resolved instanceof PsiField) {
                 PsiType type = ((PsiField) resolved).getType();
                 return checkWifiContextType(context, call, type, true);
@@ -234,44 +252,10 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
 
                 // Walk backwards through assignments to find the most recent initialization
                 // of this variable
-                PsiStatement statement = PsiTreeUtil.getParentOfType(element, PsiStatement.class,
-                        false);
-                if (statement != null) {
-                    PsiStatement prev = PsiTreeUtil.getPrevSiblingOfType(statement,
-                            PsiStatement.class);
-                    String targetName = variable.getName();
-                    if (targetName == null) {
-                        return false;
-                    }
-                    while (prev != null) {
-                        if (prev instanceof PsiDeclarationStatement) {
-                            for (PsiElement st :
-                                    ((PsiDeclarationStatement) prev).getDeclaredElements()) {
-                                if (variable.equals(st)) {
-                                    return checkContextReference(context,
-                                            variable.getInitializer(), call);
-                                }
-                            }
-                        } else if (prev instanceof PsiExpressionStatement) {
-                            PsiExpression expression = ((PsiExpressionStatement) prev)
-                                    .getExpression();
-                            if (expression instanceof PsiAssignmentExpression) {
-                                PsiAssignmentExpression assign
-                                        = (PsiAssignmentExpression) expression;
-                                PsiExpression lhs = assign.getLExpression();
-                                if (lhs instanceof PsiReferenceExpression) {
-                                    PsiReferenceExpression reference = (PsiReferenceExpression) lhs;
-                                    if (targetName.equals(reference.getReferenceName()) &&
-                                            reference.getQualifier() == null) {
-                                        return checkContextReference(context,
-                                                assign.getRExpression(), call);
-                                    }
-                                }
-                            }
-                        }
-                        prev = PsiTreeUtil.getPrevSiblingOfType(prev,
-                                PsiStatement.class);
-                    }
+                UExpression lastAssignment = UastLintUtils.findLastAssignment(variable, call,
+                        context.getUastContext());
+                if (lastAssignment != null) {
+                    return checkContextReference(context, lastAssignment, call);
                 }
             }
         }
@@ -287,7 +271,7 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
      * Returns true if it finds and reports a problem.
      */
     private static boolean checkWifiContextType(@NonNull JavaContext context,
-            @NonNull PsiMethodCallExpression call, @NonNull PsiType type,
+            @NonNull UCallExpression call, @NonNull PsiType type,
             boolean flagPlainContext) {
         JavaEvaluator evaluator = context.getEvaluator();
         if (type instanceof PsiClassType) {
@@ -309,20 +293,21 @@ public class ServiceCastDetector extends Detector implements JavaPsiScanner {
     }
 
     private static void reportWifiServiceLeak(@NonNull Issue issue, @NonNull JavaContext context,
-            @NonNull PsiMethodCallExpression call) {
+            @NonNull UCallExpression call) {
         if (context.getMainProject().getMinSdk() >= 24) {
             // Bug is fixed in Nougat
             return;
         }
 
         String qualifier = "";
-        if (call.getMethodExpression().getQualifierExpression() != null) {
-            qualifier = call.getMethodExpression().getQualifierExpression().getText();
+        if (call.getReceiver() != null) {
+            qualifier = call.getReceiver().asSourceString();
         }
         String message = String.format("The WIFI_SERVICE must be looked up on the "
                 + "Application context or memory will leak on devices < Android N. "
                 + "Try changing `%1$s` to `%1$s.getApplicationContext()` ", qualifier);
-        context.report(issue, call, context.getLocation(call), message);
+        Location location = context.getCallLocation(call, true, true);
+        context.report(issue, call, location, message);
     }
 
     private static boolean isClipboard(@NonNull String cls) {

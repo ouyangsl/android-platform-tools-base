@@ -36,7 +36,7 @@ import com.android.builder.model.ProductFlavorContainer;
 import com.android.builder.model.SourceProviderContainer;
 import com.android.tools.lint.client.api.JavaEvaluator;
 import com.android.tools.lint.detector.api.Category;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
+import com.android.tools.lint.detector.api.Detector.UastScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
@@ -47,20 +47,20 @@ import com.android.tools.lint.detector.api.Severity;
 import com.android.tools.lint.detector.api.XmlContext;
 import com.android.utils.SdkUtils;
 import com.google.common.collect.Maps;
-import com.intellij.psi.PsiClass;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.uast.UClass;
 import org.w3c.dom.Element;
 
 /**
  * Checks for missing manifest registrations for activities, services etc
  * and also makes sure that they are registered with the correct tag
  */
-public class RegistrationDetector extends LayoutDetector implements JavaPsiScanner {
+public class RegistrationDetector extends LayoutDetector implements UastScanner {
     /** Unregistered activities and services */
     public static final Issue ISSUE = Issue.create(
             "Registered",
@@ -143,7 +143,7 @@ public class RegistrationDetector extends LayoutDetector implements JavaPsiScann
         return className;
     }
 
-    // ---- Implements JavaScanner ----
+    // ---- Implements UastScanner ----
 
     @Nullable
     @Override
@@ -157,7 +157,13 @@ public class RegistrationDetector extends LayoutDetector implements JavaPsiScann
     }
 
     @Override
-    public void checkClass(@NonNull JavaContext context, @NonNull PsiClass cls) {
+    public void checkClass(@NonNull JavaContext context, @NonNull UClass cls) {
+        // If a library project provides additional activities, it is not an error to
+        // not register all of those here
+        if (context.getProject().isLibrary()) {
+            return;
+        }
+
         if (cls.getName() == null) {
             // anonymous class; can't be registered
             return;
@@ -193,7 +199,7 @@ public class RegistrationDetector extends LayoutDetector implements JavaPsiScann
 
     private static void reportWrongTag(
             @NonNull JavaContext context,
-            @NonNull PsiClass node,
+            @NonNull UClass node,
             @NonNull String rightTag,
             @NonNull String className,
             @NonNull String framework) {
@@ -215,7 +221,7 @@ public class RegistrationDetector extends LayoutDetector implements JavaPsiScann
 
     private static void reportMissing(
             @NonNull JavaContext context,
-            @NonNull PsiClass node,
+            @NonNull UClass node,
             @NonNull String className,
             @NonNull String tag) {
         if (tag.equals(TAG_RECEIVER)) {
@@ -262,7 +268,7 @@ public class RegistrationDetector extends LayoutDetector implements JavaPsiScann
         context.report(ISSUE, node, location, message);
     }
 
-    private static String getTag(@NonNull JavaEvaluator evaluator, @NonNull PsiClass cls) {
+    private static String getTag(@NonNull JavaEvaluator evaluator, @NonNull UClass cls) {
         String tag = null;
         for (String s : sClasses) {
             if (evaluator.extendsClass(cls, s, false)) {
