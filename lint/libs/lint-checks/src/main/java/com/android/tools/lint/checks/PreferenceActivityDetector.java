@@ -27,7 +27,7 @@ import com.android.annotations.Nullable;
 import com.android.tools.lint.client.api.JavaEvaluator;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Detector;
-import com.android.tools.lint.detector.api.Detector.JavaPsiScanner;
+import com.android.tools.lint.detector.api.Detector.UastScanner;
 import com.android.tools.lint.detector.api.Detector.XmlScanner;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
@@ -44,13 +44,14 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.uast.UClass;
 import org.w3c.dom.Element;
 
 /**
  * Ensures that PreferenceActivity and its subclasses are never exported.
  */
 public class PreferenceActivityDetector extends Detector
-        implements XmlScanner, JavaPsiScanner {
+        implements XmlScanner, UastScanner {
     public static final Issue ISSUE = Issue.create(
             "ExportedPreferenceActivity",
             "PreferenceActivity should not be exported",
@@ -114,7 +115,7 @@ public class PreferenceActivityDetector extends Detector
         return activityClassName;
     }
 
-    // ---- Implements JavaScanner ----
+    // ---- Implements UastScanner ----
 
     @Nullable
     @Override
@@ -123,7 +124,7 @@ public class PreferenceActivityDetector extends Detector
     }
 
     @Override
-    public void checkClass(@NonNull JavaContext context, @NonNull PsiClass declaration) {
+    public void checkClass(@NonNull JavaContext context, @NonNull UClass declaration) {
         if (!context.getProject().getReportIssues()) {
             return;
         }

@@ -49,6 +49,7 @@ import com.android.tools.lint.detector.api.Project;
 import com.android.tools.lint.detector.api.Severity;
 import com.android.tools.lint.detector.api.TextFormat;
 import com.google.common.annotations.Beta;
+import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -838,28 +839,79 @@ public class LintCliClient extends LintClient {
         ideaProjectEnvironment = projectEnvironment;
         ideaProject = projectEnvironment.getProject();
 
+        // knownProject only lists root projects, not dependencies
+        Set<Project> allProjects = Sets.newIdentityHashSet();
         for (Project project : knownProjects) {
-            VirtualFileSystem local = StandardFileSystems.local();
-            for (File dir : project.getJavaSourceFolders()) {
-                VirtualFile virtualFile = local.findFileByPath(dir.getPath());
-                if (virtualFile != null) {
-                    projectEnvironment.addSourcesToClasspath(virtualFile);
-                }
-            }
-            IAndroidTarget buildTarget = project.getBuildTarget();
-            if (buildTarget != null) {
-                String path = buildTarget.getPath(IAndroidTarget.ANDROID_JAR);
-                if (path != null) {
-                    projectEnvironment.addJarToClassPath(new File(path));
-                }
-            }
+            allProjects.add(project);
+            allProjects.addAll(project.getAllLibraries());
+        }
 
-            for (File library : project.getJavaLibraries(true)) {
-                projectEnvironment.addJarToClassPath(library);
+        Set<File> files = Sets.newHashSetWithExpectedSize(50);
+        Set<VirtualFile> virtualFiles = Sets.newHashSetWithExpectedSize(50);
+
+        VirtualFileSystem local = StandardFileSystems.local();
+
+        for (Project project : allProjects) {
+            registerClassPath(projectEnvironment, files, virtualFiles, local,
+                    project.getJavaSourceFolders());
+
+            registerClassPath(projectEnvironment, files, virtualFiles, local,
+                    project.getJavaLibraries(true));
+
+            registerClassPath(projectEnvironment, files, virtualFiles, local,
+                    project.getJavaClassFolders());
+
+            registerClassPath(projectEnvironment, files, virtualFiles, local,
+                    project.getTestLibraries());
+        }
+
+        IAndroidTarget buildTarget = null;
+        for (Project project : knownProjects) {
+            IAndroidTarget t = project.getBuildTarget();
+            if (t != null) {
+                if (buildTarget == null) {
+                    buildTarget = t;
+                } else if (buildTarget.getVersion().compareTo(t.getVersion()) > 0) {
+                    buildTarget = t;
+                }
+            }
+        }
+
+        if (buildTarget != null) {
+            String path = buildTarget.getPath(IAndroidTarget.ANDROID_JAR);
+            if (path != null) {
+                File file = new File(path);
+                files.add(file);
+                projectEnvironment.addJarToClassPath(file);
             }
         }
 
         super.initializeProjects(knownProjects);
+    }
+
+    private static void registerClassPath(LintCoreProjectEnvironment projectEnvironment,
+            Set<File> files,
+            Set<VirtualFile> virtualFiles, VirtualFileSystem local, List<File> javaClassFolders) {
+        for (File dir : javaClassFolders) {
+            if (dir.exists()) {
+                if (dir.isFile()) {
+                    if (files.contains(dir)) {
+                        continue;
+                    }
+                    files.add(dir);
+                    projectEnvironment.addJarToClassPath(dir);
+                } else if (dir.isDirectory()) {
+                    VirtualFile virtualFile = local.findFileByPath(dir.getPath());
+                    if (virtualFile != null) {
+                        if (virtualFiles.contains(virtualFile)) {
+                            continue;
+                        }
+                        virtualFiles.add(virtualFile);
+                        projectEnvironment.addSourcesToClasspath(virtualFile);
+                    }
+                }
+            }
+        }
     }
 
     @Override

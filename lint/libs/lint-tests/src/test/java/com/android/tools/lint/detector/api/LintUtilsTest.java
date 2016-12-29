@@ -77,6 +77,7 @@ import java.util.regex.Pattern;
 import junit.framework.TestCase;
 import lombok.ast.Node;
 import org.intellij.lang.annotations.Language;
+import org.jetbrains.uast.UFile;
 
 @SuppressWarnings("javadoc")
 public class LintUtilsTest extends TestCase {
@@ -464,16 +465,21 @@ public class LintUtilsTest extends TestCase {
 
     public static JavaContext parse(@Language("JAVA") final String javaSource,
             final File relativePath) {
-        return parse(javaSource, relativePath, true, false);
+        return parse(javaSource, relativePath, true, false, false);
     }
 
     public static JavaContext parsePsi(@Language("JAVA") final String javaSource,
             final File relativePath) {
-        return parse(javaSource, relativePath, false, true);
+        return parse(javaSource, relativePath, false, true, false);
+    }
+
+    public static JavaContext parseUast(@Language("JAVA") final String javaSource,
+            final File relativePath) {
+        return parse(javaSource, relativePath, false, true, true);
     }
 
     public static JavaContext parse(@Language("JAVA") final String javaSource,
-            final File relativePath, boolean lombok, boolean psi) {
+            final File relativePath, boolean lombok, boolean psi, boolean uast) {
         // TODO: Clean up -- but where?
         File dir = Files.createTempDir();
         final File fullPath = new File(dir, relativePath.getPath());
@@ -526,10 +532,14 @@ public class LintUtilsTest extends TestCase {
             assertNotNull(javaSource, compilationUnit);
             context.setCompilationUnit(compilationUnit);
         }
-        if (psi) {
+        if (psi || uast) {
             PsiJavaFile javaFile = parser.parseJavaToPsi(context);
             assertNotNull("Couldn't parse source", javaFile);
             context.setJavaFile(javaFile);
+            if (uast) {
+                UFile uFile = context.getParser().parseToUast(context);
+                context.setUFile(uFile);
+            }
         }
         client.disposeProjects(Collections.singletonList(project));
         return context;

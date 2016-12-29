@@ -29,6 +29,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.ide.common.resources.ResourceUrl;
 import com.android.resources.ResourceType;
+import com.android.tools.lint.client.api.AndroidReference;
 import com.android.tools.lint.client.api.JavaEvaluator;
 import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiAssignmentExpression;
@@ -48,8 +49,19 @@ import com.intellij.psi.PsiParenthesizedExpression;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceExpression;
 import com.intellij.psi.PsiStatement;
+import com.intellij.psi.PsiVariable;
 import com.intellij.psi.util.PsiTreeUtil;
 import java.util.EnumSet;
+import java.util.List;
+import org.jetbrains.uast.UAnnotation;
+import org.jetbrains.uast.UCallExpression;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UExpression;
+import org.jetbrains.uast.UIfExpression;
+import org.jetbrains.uast.UParenthesizedExpression;
+import org.jetbrains.uast.UQualifiedReferenceExpression;
+import org.jetbrains.uast.UastUtils;
+import org.jetbrains.uast.expressions.UReferenceExpression;
 
 /** Evaluates constant expressions */
 public class ResourceEvaluator {
@@ -140,6 +152,21 @@ public class ResourceEvaluator {
     }
 
     /**
+     * Evaluates the given node and returns the resource reference (type and name) it
+     * points to, if any
+     *
+     * @param evaluator the evaluator to use to look up annotations
+     * @param element the node to compute the constant value for
+     * @return the corresponding resource url (type and name)
+     */
+    @Nullable
+    public static ResourceUrl getResource(
+            @NonNull JavaEvaluator evaluator,
+            @NonNull UElement element) {
+        return new ResourceEvaluator(evaluator).getResource(element);
+    }
+
+    /**
      * Evaluates the given node and returns the resource types implied by the given element,
      * if any.
      *
@@ -152,6 +179,93 @@ public class ResourceEvaluator {
             @Nullable JavaEvaluator evaluator,
             @NonNull PsiElement element) {
         return new ResourceEvaluator(evaluator).getResourceTypes(element);
+    }
+
+    /**
+     * Evaluates the given node and returns the resource types implied by the given element,
+     * if any.
+     *
+     * @param evaluator the evaluator to use to look up annotations
+     * @param element the node to compute the constant value for
+     * @return the corresponding resource types
+     */
+    @Nullable
+    public static EnumSet<ResourceType> getResourceTypes(
+            @Nullable JavaEvaluator evaluator,
+            @NonNull UElement element) {
+        return new ResourceEvaluator(evaluator).getResourceTypes(element);
+    }
+
+    /**
+     * Evaluates the given node and returns the resource reference (type and name) it
+     * points to, if any
+     *
+     * @param element the node to compute the constant value for
+     * @return the corresponding constant value - a String, an Integer, a Float, and so on
+     */
+    @Nullable
+    public ResourceUrl getResource(@Nullable UElement element) {
+        if (element == null) {
+            return null;
+        }
+
+        if (element instanceof UIfExpression) {
+            UIfExpression expression = (UIfExpression) element;
+            Object known = ConstantEvaluator.evaluate(null, expression.getCondition());
+            if (known == Boolean.TRUE && expression.getThenExpression() != null) {
+                return getResource(expression.getThenExpression());
+            } else if (known == Boolean.FALSE && expression.getElseExpression() != null) {
+                return getResource(expression.getElseExpression());
+            }
+        } else if (element instanceof UParenthesizedExpression) {
+            UParenthesizedExpression parenthesizedExpression = (UParenthesizedExpression) element;
+            return getResource(parenthesizedExpression.getExpression());
+        } else if (allowDereference && element instanceof UQualifiedReferenceExpression) {
+            UQualifiedReferenceExpression qualifiedExpression = (UQualifiedReferenceExpression) element;
+            UExpression selector = qualifiedExpression.getSelector();
+            if ((selector instanceof UCallExpression)) {
+                UCallExpression call = (UCallExpression) selector;
+                PsiMethod function = call.resolve();
+                PsiClass containingClass = UastUtils.getContainingClass(function);
+                if (function != null && containingClass != null) {
+                    String qualifiedName = containingClass.getQualifiedName();
+                    String name = call.getMethodName();
+                    if ((CLASS_RESOURCES.equals(qualifiedName)
+                            || CLASS_CONTEXT.equals(qualifiedName)
+                            || CLASS_FRAGMENT.equals(qualifiedName)
+                            || CLASS_V4_FRAGMENT.equals(qualifiedName)
+                            || CLS_TYPED_ARRAY.equals(qualifiedName))
+                            && name != null
+                            && name.startsWith("get")) {
+                        List<UExpression> args = call.getValueArguments();
+                        if (!args.isEmpty()) {
+                            return getResource(args.get(0));
+                        }
+                    }
+                }
+            }
+        }
+
+        if (element instanceof UReferenceExpression) {
+            ResourceUrl url = getResourceConstant(element);
+            if (url != null) {
+                return url;
+            }
+            PsiElement resolved = ((UReferenceExpression) element).resolve();
+            if (resolved instanceof PsiVariable) {
+                PsiVariable variable = (PsiVariable) resolved;
+                UElement lastAssignment = UastLintUtils.findLastAssignment(
+                                variable, element);
+
+                if (lastAssignment != null) {
+                    return getResource(lastAssignment);
+                }
+
+                return null;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -266,6 +380,96 @@ public class ResourceEvaluator {
      * @return the corresponding resource types
      */
     @Nullable
+    public EnumSet<ResourceType> getResourceTypes(@Nullable UElement element) {
+        if (element == null) {
+            return null;
+        }
+        if (element instanceof UIfExpression) {
+            UIfExpression expression = (UIfExpression) element;
+            Object known = ConstantEvaluator.evaluate(null, expression.getCondition());
+            if (known == Boolean.TRUE && expression.getThenExpression() != null) {
+                return getResourceTypes(expression.getThenExpression());
+            } else if (known == Boolean.FALSE && expression.getElseExpression() != null) {
+                return getResourceTypes(expression.getElseExpression());
+            } else {
+                EnumSet<ResourceType> left = getResourceTypes(
+                        expression.getThenExpression());
+                EnumSet<ResourceType> right = getResourceTypes(
+                        expression.getElseExpression());
+                if (left == null) {
+                    return right;
+                } else if (right == null) {
+                    return left;
+                } else {
+                    EnumSet<ResourceType> copy = EnumSet.copyOf(left);
+                    copy.addAll(right);
+                    return copy;
+                }
+            }
+        } else if (element instanceof UParenthesizedExpression) {
+            UParenthesizedExpression parenthesizedExpression = (UParenthesizedExpression) element;
+            return getResourceTypes(parenthesizedExpression.getExpression());
+        } else if ((element instanceof UQualifiedReferenceExpression)
+                || element instanceof UCallExpression) {
+            UElement probablyCallExpression = element;
+            if (element instanceof UQualifiedReferenceExpression) {
+                UQualifiedReferenceExpression qualifiedExpression =
+                        (UQualifiedReferenceExpression) element;
+                probablyCallExpression = qualifiedExpression.getSelector();
+            }
+            if ((probablyCallExpression instanceof UCallExpression)) {
+                UCallExpression call = (UCallExpression) probablyCallExpression;
+                PsiMethod method = call.resolve();
+                PsiClass containingClass = UastUtils.getContainingClass(method);
+                if (method != null && containingClass != null) {
+                    EnumSet<ResourceType> types = getTypesFromAnnotations(method);
+                    if (types != null) {
+                        return types;
+                    }
+                }
+            }
+        }
+
+        if (element instanceof UReferenceExpression) {
+            ResourceUrl url = getResourceConstant(element);
+            if (url != null) {
+                return EnumSet.of(url.type);
+            }
+
+            PsiElement resolved = ((UReferenceExpression) element).resolve();
+
+            if (resolved instanceof PsiModifierListOwner) {
+                EnumSet<ResourceType> types = getTypesFromAnnotations(
+                        (PsiModifierListOwner) resolved);
+                if (types != null && !types.isEmpty()) {
+                    return types;
+                }
+            }
+
+            if (resolved instanceof PsiVariable) {
+                PsiVariable variable = (PsiVariable) resolved;
+                UElement lastAssignment =
+                        UastLintUtils.findLastAssignment(variable, element);
+
+                if (lastAssignment != null) {
+                    return getResourceTypes(lastAssignment);
+                }
+
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Evaluates the given node and returns the resource types applicable to the
+     * node, if any.
+     *
+     * @param element the element to compute the types for
+     * @return the corresponding resource types
+     */
+    @Nullable
     public EnumSet<ResourceType> getResourceTypes(@Nullable PsiElement element) {
         if (element == null) {
             return null;
@@ -295,7 +499,7 @@ public class ResourceEvaluator {
         } else if (element instanceof PsiParenthesizedExpression) {
             PsiParenthesizedExpression parenthesizedExpression = (PsiParenthesizedExpression) element;
             return getResourceTypes(parenthesizedExpression.getExpression());
-        } else if (element instanceof PsiMethodCallExpression && allowDereference) {
+        } else if (element instanceof PsiMethodCallExpression) {
             PsiMethodCallExpression call = (PsiMethodCallExpression) element;
             PsiReferenceExpression expression = call.getMethodExpression();
             PsiMethod method = call.resolveMethod();
@@ -303,26 +507,6 @@ public class ResourceEvaluator {
                 EnumSet<ResourceType> types = getTypesFromAnnotations(method);
                 if (types != null) {
                     return types;
-                }
-
-                String qualifiedName = method.getContainingClass().getQualifiedName();
-                String name = expression.getReferenceName();
-                if ((CLASS_RESOURCES.equals(qualifiedName)
-                        || CLASS_CONTEXT.equals(qualifiedName)
-                        || CLASS_FRAGMENT.equals(qualifiedName)
-                        || CLASS_V4_FRAGMENT.equals(qualifiedName)
-                        || CLS_TYPED_ARRAY.equals(qualifiedName))
-                        && name != null
-                        && name.startsWith("get")) {
-                    PsiExpression[] args = call.getArgumentList().getExpressions();
-                    if (args.length > 0) {
-                        // NO! Calling "getColor" on resources does NOT return a @ColorRes,
-                        // it returns a @ColorInt! This is simply wrong!
-                        //types = getResourceTypes(args[0]);
-                        //if (types != null) {
-                        //    return types;
-                        //}
-                    }
                 }
             }
         } else if (element instanceof PsiReference) {
@@ -410,6 +594,39 @@ public class ResourceEvaluator {
             @NonNull PsiAnnotation[] annotations) {
         EnumSet<ResourceType> resources = null;
         for (PsiAnnotation annotation : annotations) {
+            String signature = annotation.getQualifiedName();
+            if (signature == null) {
+                continue;
+            }
+            switch (signature) {
+                case COLOR_INT_ANNOTATION:
+                    return EnumSet.of(COLOR_INT_MARKER_TYPE);
+                case PX_ANNOTATION:
+                case DIMENSION_ANNOTATION:
+                    return EnumSet.of(DIMENSION_MARKER_TYPE);
+                case ANY_RES_ANNOTATION:
+                    return getAnyRes();
+                default: {
+                    ResourceType type = getTypeFromAnnotationSignature(signature);
+                    if (type != null) {
+                        if (resources == null) {
+                            resources = EnumSet.of(type);
+                        } else {
+                            resources.add(type);
+                        }
+                    }
+                }
+            }
+        }
+
+        return resources;
+    }
+
+    @Nullable
+    public static EnumSet<ResourceType> getTypesFromAnnotations(
+            @NonNull List<UAnnotation> annotations) {
+        EnumSet<ResourceType> resources = null;
+        for (UAnnotation annotation : annotations) {
             String signature = annotation.getQualifiedName();
             if (signature == null) {
                 continue;
@@ -534,6 +751,21 @@ public class ResourceEvaluator {
             }
         }
         return null;
+    }
+
+    /** Returns a resource URL based on the field reference in the code */
+    @Nullable
+    public static ResourceUrl getResourceConstant(@NonNull UElement node) {
+        AndroidReference androidReference = AndroidReference.toAndroidReferenceViaResolve(node);
+        if (androidReference == null) {
+            return null;
+        }
+
+        String name = androidReference.getName();
+        ResourceType type = androidReference.getType();
+        boolean isFramework = androidReference.getPackage().equals("android");
+
+        return ResourceUrl.create(type, name, isFramework, false);
     }
 
     private static EnumSet<ResourceType> getAnyRes() {

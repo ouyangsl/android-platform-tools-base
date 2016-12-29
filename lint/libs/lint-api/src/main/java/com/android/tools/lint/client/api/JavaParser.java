@@ -51,6 +51,15 @@ import lombok.ast.Throw;
 import lombok.ast.TypeReference;
 import lombok.ast.TypeReferencePart;
 import lombok.ast.While;
+import org.jetbrains.uast.UCallExpression;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UExpression;
+import org.jetbrains.uast.UFile;
+import org.jetbrains.uast.UIdentifier;
+import org.jetbrains.uast.UastContext;
+import org.jetbrains.uast.UastUtils;
+import org.jetbrains.uast.psi.PsiElementBacked;
+import org.jetbrains.uast.psi.UElementWithLocation;
 
 /**
  * A wrapper for a Java parser. This allows tools integrating lint to map directly
@@ -126,6 +135,22 @@ public abstract class JavaParser {
     public abstract PsiJavaFile parseJavaToPsi(@NonNull JavaContext context);
 
     /**
+     * Parse the file pointed to by the given context.
+     *
+     * @param context the context pointing to the file to be parsed, typically
+     *            via {@link Context#getContents()} but the file handle (
+     *            {@link Context#file} can also be used to map to an existing
+     *            editor buffer in the surrounding tool, etc)
+     * @return the compilation unit node for the file
+     */
+    @Nullable
+    public abstract UFile parseToUast(@NonNull JavaContext context);
+
+    /** Returns a UastContext which can provide UAST representations for source files */
+    @Nullable
+    public abstract UastContext getUastContext();
+
+    /**
      * Returns an evaluator which can perform various resolution tasks,
      * evaluate inheritance lookup etc.
      *
@@ -180,6 +205,66 @@ public abstract class JavaParser {
                                range.getEndOffset());
     }
 
+    @SuppressWarnings("MethodMayBeStatic") // subclasses may want to override/optimize
+    @NonNull
+    public Location getLocation(@NonNull JavaContext context, @NonNull UElement element) {
+        if (element instanceof UElementWithLocation) {
+            UFile file = UastUtils.getContainingFile(element);
+            if (file == null) {
+                return Location.NONE;
+            }
+            File ioFile = UastUtils.getIoFile(file);
+            if (ioFile == null) {
+                return Location.NONE;
+            }
+            UElementWithLocation segment = (UElementWithLocation) element;
+            return Location.create(ioFile, file.getPsi().getText(),
+                    segment.getStartOffset(), segment.getEndOffset());
+        } else if (element instanceof PsiElementBacked) {
+            PsiElement psiElement = ((PsiElementBacked) element).getPsi();
+            if (psiElement != null) {
+                return getLocation(context, psiElement);
+            }
+            UElement parent = element.getContainingElement();
+            if (parent != null) {
+                return getLocation(context, parent);
+            }
+        }
+
+        return Location.NONE;
+    }
+
+    @SuppressWarnings("MethodMayBeStatic") // subclasses may want to override/optimize
+    @NonNull
+    public Location getCallLocation(
+            @NonNull JavaContext context,
+            @NonNull UCallExpression call,
+            boolean includeReceiver,
+            boolean includeArguments) {
+        UExpression receiver = call.getReceiver();
+        if (!includeReceiver || receiver == null) {
+            if (includeArguments) {
+                // Method with arguments but no receiver is the default range for UCallExpressions
+                return getLocation(context, call);
+            }
+            // Just the method name
+            UIdentifier methodIdentifier = call.getMethodIdentifier();
+            if (methodIdentifier != null) {
+                return getLocation(context, methodIdentifier);
+            }
+        } else {
+            if (!includeArguments) {
+                UIdentifier methodIdentifier = call.getMethodIdentifier();
+                if (methodIdentifier != null) {
+                    return getRangeLocation(context, receiver, 0, methodIdentifier, 0);
+                }
+            }
+            return getRangeLocation(context, receiver, 0, call, 0);
+        }
+
+        return getLocation(context, call);
+    }
+
     @Nullable
     public abstract File getFile(@NonNull PsiFile file);
 
@@ -200,6 +285,34 @@ public abstract class JavaParser {
         contents = getFileContents(containingFile);
         return Location.create(file, contents, range.getStartOffset(),
                 range.getEndOffset());
+    }
+
+    @NonNull
+    public Location createLocation(@NonNull UElement element) {
+        if (element instanceof UElementWithLocation) {
+            UFile file = UastUtils.getContainingFile(element);
+            if (file == null) {
+                return Location.NONE;
+            }
+            File ioFile = UastUtils.getIoFile(file);
+            if (ioFile == null) {
+                return Location.NONE;
+            }
+            UElementWithLocation segment = (UElementWithLocation) element;
+            return Location.create(ioFile, file.getPsi().getText(),
+                    segment.getStartOffset(), segment.getEndOffset());
+        } else if (element instanceof PsiElementBacked) {
+            PsiElement psiElement = ((PsiElementBacked) element).getPsi();
+            if (psiElement != null) {
+                return createLocation(psiElement);
+            }
+            UElement parent = element.getContainingElement();
+            if (parent != null) {
+                return createLocation(parent);
+            }
+        }
+
+        return Location.NONE;
     }
 
     /**
@@ -255,6 +368,46 @@ public abstract class JavaParser {
         return Location.create(context.file, contents, start, end);
     }
 
+    @Nullable
+    private static TextRange getTextRange(@NonNull UElement element) {
+        if (element instanceof UElementWithLocation) {
+            UElementWithLocation segment = (UElementWithLocation) element;
+            return new TextRange(segment.getStartOffset(), segment.getEndOffset());
+        } else if (element instanceof PsiElementBacked) {
+            PsiElement psiElement = ((PsiElementBacked) element).getPsi();
+            if (psiElement != null) {
+                return psiElement.getTextRange();
+            }
+        }
+
+        return null;
+    }
+
+    @SuppressWarnings("MethodMayBeStatic") // subclasses may want to override/optimize
+    @NonNull
+    public Location getRangeLocation(
+            @NonNull JavaContext context,
+            @NonNull UElement from,
+            int fromDelta,
+            @NonNull UElement to,
+            int toDelta) {
+        CharSequence contents = context.getContents();
+        TextRange fromRange = getTextRange(from);
+        TextRange toRange = getTextRange(to);
+        if (fromRange != null && toRange != null) {
+            int start = Math.max(0, fromRange.getStartOffset() + fromDelta);
+            int end = Math.min(contents == null ? Integer.MAX_VALUE : contents.length(),
+                    toRange.getEndOffset() + toDelta);
+            if (end <= start) {
+                // Some AST nodes don't have proper bounds, such as empty parameter lists
+                return Location.create(context.file, contents, start, fromRange.getEndOffset());
+            }
+            return Location.create(context.file, contents, start, end);
+        }
+
+        return Location.create(context.file);
+    }
+
     /**
      * Like {@link #getRangeLocation(JavaContext, PsiElement, int, PsiElement, int)}
      * but both offsets are relative to the starting offset of the given node. This is
@@ -276,6 +429,21 @@ public abstract class JavaParser {
             int toDelta) {
         return getRangeLocation(context, from, fromDelta, from,
                 -(from.getTextRange().getLength() - toDelta));
+    }
+
+    @SuppressWarnings("MethodMayBeStatic") // subclasses may want to override/optimize
+    @NonNull
+    public Location getRangeLocation(
+            @NonNull JavaContext context,
+            @NonNull UElement from,
+            int fromDelta,
+            int toDelta) {
+        TextRange fromRange = getTextRange(from);
+        if (fromRange != null) {
+            return getRangeLocation(context, from, fromDelta, from,
+                    -(fromRange.getLength() - toDelta));
+        }
+        return Location.create(context.file);
     }
 
     /**
@@ -349,6 +517,21 @@ public abstract class JavaParser {
         return getLocation(context, element);
     }
 
+    @NonNull
+    public Location getNameLocation(@NonNull JavaContext context, @NonNull UElement element) {
+        UElement nameNode = JavaContext.findNameElement(element);
+        if (nameNode != null) {
+            element = nameNode;
+        } else if (element instanceof PsiNameIdentifierOwner) {
+            PsiElement nameIdentifier = ((PsiNameIdentifierOwner) element).getNameIdentifier();
+            if (nameIdentifier != null) {
+                return getLocation(context, nameIdentifier);
+            }
+        }
+
+        return getLocation(context, element);
+    }
+
     /**
      * Creates a light-weight handle to a location for the given node. It can be
      * turned into a full fledged location by
@@ -381,6 +564,14 @@ public abstract class JavaParser {
      * @param compilationUnit the compilation unit being disposed
      */
     public void dispose(@NonNull JavaContext context, @NonNull PsiJavaFile compilationUnit) {
+    }
+
+    /**
+     * Dispose any data structures held for the given context.
+     * @param context information about the file previously parsed
+     * @param compilationUnit the compilation unit being disposed
+     */
+    public void dispose(@NonNull JavaContext context, @NonNull UFile compilationUnit) {
     }
 
     /**

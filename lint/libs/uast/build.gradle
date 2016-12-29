@@ -17,6 +17,10 @@ jar {
     // but apparently IntelliJ (according to build/scripts/libLicenses.gant) is
     // using version "1.1 (with patches by JetBrains)"; not sure how to pull that in
     from zipTree("../../../../../prebuilts/tools/common/intellij-core/162.2228.14/trove4j.jar")
+
+    // UAST
+    from zipTree("../../../../../prebuilts/tools/common/uast/uast-common-1.0.jar")
+    from zipTree("../../../../../prebuilts/tools/common/uast/uast-java-1.0.jar")
 }
 
 project.ext.pomName = 'IntelliJ IDEA Core and AST APIs'

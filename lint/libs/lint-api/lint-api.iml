@@ -17,7 +17,6 @@
     <orderEntry type="module" module-name="sdk-common" exported="" />
     <orderEntry type="module" module-name="layoutlib-api" exported="" />
     <orderEntry type="module" module-name="java-psi-api" exported="" />
-    <orderEntry type="module" module-name="uast-common" exported="" />
-    <orderEntry type="module" module-name="uast-java" exported="" />
+    <orderEntry type="library" exported="" name="uast" level="project" />
   </component>
 </module>

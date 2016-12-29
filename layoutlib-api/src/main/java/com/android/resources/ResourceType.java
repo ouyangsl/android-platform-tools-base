@@ -17,6 +17,7 @@
 package com.android.resources;
 
 
+import com.android.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,6 +102,7 @@ public enum ResourceType {
      * @param name name of the resource
      * @return the matching {@link ResourceType} or <code>null</code> if no match was found.
      */
+    @Nullable
     public static ResourceType getEnum(String name) {
         return sNameToType.get(name);
     }

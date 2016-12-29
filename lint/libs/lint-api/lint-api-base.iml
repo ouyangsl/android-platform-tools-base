@@ -19,5 +19,7 @@
     <orderEntry type="module" module-name="repository" />
     <orderEntry type="library" name="kxml2" level="project" />
     <orderEntry type="library" exported="" name="intellij-core" level="project" />
+    <orderEntry type="library" exported="" name="uast-common" level="project" />
+    <orderEntry type="library" exported="" name="uast-java" level="project" />
   </component>
 </module>

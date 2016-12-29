@@ -26,14 +26,15 @@ import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiMethodCallExpression;
 import java.util.Collections;
 import java.util.List;
+import org.jetbrains.uast.UCallExpression;
+import org.jetbrains.uast.UClass;
+import org.jetbrains.uast.UMethod;
 
-public class FirebaseMessagingDetector extends Detector implements Detector.JavaPsiScanner {
+public class FirebaseMessagingDetector extends Detector implements Detector.UastScanner {
 
     private static final String FIREBASE_IID_PACKAGE = "com.google.firebase.iid";
     private static final String FIREBASE_IID_CLASS_NAME = FIREBASE_IID_PACKAGE
@@ -61,7 +62,7 @@ public class FirebaseMessagingDetector extends Detector implements Detector.Java
                     "https://firebase.google.com/docs/cloud-messaging/android/client#monitor-token-generation");
 
     private boolean mIsOnTokenRefreshDefined;
-    private PsiMethodCallExpression mGetTokenCallSite;
+    private UCallExpression mGetTokenCallSite;
     private JavaContext mGetTokenContext;
 
     /**
@@ -78,8 +79,8 @@ public class FirebaseMessagingDetector extends Detector implements Detector.Java
     }
 
     @Override
-    public void visitMethod(@NonNull JavaContext context, @Nullable JavaElementVisitor visitor,
-            @NonNull PsiMethodCallExpression call, @NonNull PsiMethod method) {
+    public void visitMethod(@NonNull JavaContext context, @NonNull UCallExpression call,
+            @NonNull UMethod method) {
         PsiClass containingClass = method.getContainingClass();
         if (containingClass != null &&
                 FIREBASE_IID_CLASS_NAME.equals(containingClass.getQualifiedName())) {
@@ -92,7 +93,7 @@ public class FirebaseMessagingDetector extends Detector implements Detector.Java
     }
 
     @Override
-    public void checkClass(@NonNull JavaContext context, @NonNull PsiClass declaration) {
+    public void checkClass(@NonNull JavaContext context, @NonNull UClass declaration) {
         if (!FIREBASE_IID_SERVICE_CLASS_NAME.equals(declaration.getQualifiedName())) {
             for (PsiMethod method : declaration.getMethods()) {
                 if (method.getName().equals(ON_TOKEN_REFRESH_METHOD_NAME)) {

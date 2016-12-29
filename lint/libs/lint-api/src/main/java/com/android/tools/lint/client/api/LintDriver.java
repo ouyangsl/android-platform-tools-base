@@ -119,6 +119,7 @@ import lombok.ast.StringLiteral;
 import lombok.ast.TypeDeclaration;
 import lombok.ast.TypeReference;
 import lombok.ast.VariableDefinition;
+import org.jetbrains.uast.UElement;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -787,6 +788,7 @@ public class LintDriver {
             if (javaCodeDetectors != null) {
                 for (Detector detector : javaCodeDetectors) {
                     assert detector instanceof Detector.JavaScanner ||
+                            detector instanceof Detector.UastScanner ||
                             detector instanceof Detector.JavaPsiScanner : detector;
                 }
             }
@@ -794,6 +796,7 @@ public class LintDriver {
             if (javaFileDetectors != null) {
                 for (Detector detector : javaFileDetectors) {
                     assert detector instanceof Detector.JavaScanner ||
+                            detector instanceof Detector.UastScanner ||
                             detector instanceof Detector.JavaPsiScanner : detector;
                 }
             }
@@ -1662,9 +1665,12 @@ public class LintDriver {
         // PSI. Until that's complete, remove them from the list here
         //List<Detector> scanners = checks;
         List<Detector> scanners = Lists.newArrayListWithCapacity(checks.size());
+        List<Detector> uastScanners = Lists.newArrayListWithCapacity(checks.size());
         for (Detector detector : checks) {
             if (detector instanceof Detector.JavaPsiScanner) {
                 scanners.add(detector);
+            } else if (detector instanceof Detector.UastScanner) {
+                uastScanners.add(detector);
             }
         }
 
@@ -1679,6 +1685,20 @@ public class LintDriver {
             if (canceled) {
                 return;
             }
+        }
+
+        if (!uastScanners.isEmpty()) {
+            final UElementVisitor uElementVisitor = new UElementVisitor(javaParser, uastScanners);
+            uElementVisitor.prepare(contexts);
+            for (final JavaContext context : contexts) {
+                fireEvent(EventType.SCANNING_FILE, context);
+                client.runReadAction(() -> uElementVisitor.visitFile(context));
+                if (canceled) {
+                    return;
+                }
+            }
+
+            uElementVisitor.dispose();
         }
 
         // Only if the user is using some custom lint rules that haven't been updated
@@ -2750,6 +2770,31 @@ public class LintDriver {
             }
 
             scope = scope.getParent();
+        }
+
+        return false;
+    }
+
+    public boolean isSuppressed(@Nullable JavaContext context, @NonNull Issue issue,
+            @Nullable UElement scope) {
+        boolean checkComments = client.checkForSuppressComments() &&
+                context != null && context.containsCommentSuppress();
+        while (scope != null) {
+            if (scope instanceof PsiModifierListOwner) {
+                PsiModifierListOwner owner = (PsiModifierListOwner) scope;
+                if (isSuppressed(issue, owner.getModifierList())) {
+                    return true;
+                }
+            }
+
+            if (checkComments && context.isSuppressedWithComment(scope, issue)) {
+                return true;
+            }
+
+            scope = scope.getContainingElement();
+            if (scope instanceof PsiFile) {
+                return false;
+            }
         }
 
         return false;

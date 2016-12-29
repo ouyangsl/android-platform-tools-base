@@ -53,6 +53,9 @@ import com.intellij.psi.util.InheritanceUtil;
 import com.intellij.psi.util.MethodSignatureUtil;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.util.TypeConversionUtil;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UFile;
+import org.jetbrains.uast.UastUtils;
 
 public class LintPsiJavaEvaluator extends JavaEvaluator {
     private final com.intellij.openapi.project.Project myProject;
@@ -158,9 +161,52 @@ public class LintPsiJavaEvaluator extends JavaEvaluator {
 
     @Nullable
     @Override
+    public String findJarPath(@NonNull UElement element) {
+        UFile uFile = UastUtils.getContainingFile(element);
+        if (uFile != null) {
+            PsiFile containingFile = uFile.getPsi();
+            if (containingFile instanceof PsiCompiledFile) {
+                ///This code is roughly similar to the following:
+                //      VirtualFile jarVirtualFile = PsiUtil.getJarFile(containingFile);
+                //      if (jarVirtualFile != null) {
+                //        return jarVirtualFile.getPath();
+                //      }
+                // However, the above methods will do some extra string manipulation and
+                // VirtualFile lookup which we don't actually need (we're just after the
+                // raw URL suffix)
+                VirtualFile file = containingFile.getVirtualFile();
+                if (file != null && file.getFileSystem().getProtocol().equals("jar")) {
+                    String path = file.getPath();
+                    final int separatorIndex = path.indexOf("!/");
+                    if (separatorIndex >= 0) {
+                        return path.substring(0, separatorIndex);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    @Nullable
+    @Override
     public PsiPackage getPackage(@NonNull PsiElement node) {
         PsiFile containingFile = node.getContainingFile();
         if (containingFile != null) {
+            PsiDirectory dir = containingFile.getParent();
+            if (dir != null) {
+                return JavaDirectoryService.getInstance().getPackage(dir);
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public PsiPackage getPackage(@NonNull UElement node) {
+        UFile uFile = UastUtils.getContainingFile(node);
+        if (uFile != null) {
+            PsiFile containingFile = uFile.getPsi();
             PsiDirectory dir = containingFile.getParent();
             if (dir != null) {
                 return JavaDirectoryService.getInstance().getPackage(dir);

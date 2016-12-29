@@ -18,6 +18,7 @@ package com.android.tools.lint.checks;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
+import com.android.tools.lint.client.api.UElementHandler;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Implementation;
@@ -26,21 +27,27 @@ import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
-import com.intellij.psi.JavaElementVisitor;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiJavaCodeReferenceElement;
 import com.intellij.psi.PsiMember;
 import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiReferenceExpression;
-import java.util.Collections;
+import com.intellij.psi.PsiTypeElement;
+import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.uast.UElement;
+import org.jetbrains.uast.UImportStatement;
+import org.jetbrains.uast.UQualifiedReferenceExpression;
+import org.jetbrains.uast.USimpleNameReferenceExpression;
+import org.jetbrains.uast.UVariable;
+import org.jetbrains.uast.expressions.UReferenceExpression;
 
 /**
  * Checks for errors related to the Exif Interface
  */
-public class ExifInterfaceDetector extends Detector implements Detector.JavaPsiScanner {
+public class ExifInterfaceDetector extends Detector implements Detector.UastScanner {
+
     public static final String EXIF_INTERFACE = "ExifInterface";
     public static final String OLD_EXIF_INTERFACE = "android.media.ExifInterface";
 
@@ -66,36 +73,175 @@ public class ExifInterfaceDetector extends Detector implements Detector.JavaPsiS
     public ExifInterfaceDetector() {
     }
 
-    // ---- Implements JavaScanner ----
+    // ---- Implements UastScanner ----
 
-    @Nullable
-    @Override
-    public List<String> getApplicableReferenceNames() {
-        return Collections.singletonList(EXIF_INTERFACE);
-    }
-
-    @Override
-    public void visitReference(@NonNull JavaContext context, @Nullable JavaElementVisitor visitor,
-            @NonNull PsiJavaCodeReferenceElement reference, @NonNull PsiElement resolved) {
-        if (!reference.isQualified()) {
-            return;
+    private static void fix(@NonNull JavaContext context, @NonNull UElement reference,
+            @NonNull PsiElement referenced) {
+        // Can't just check for PsiMember, because we explicitly don't want to include PsiClass
+        // (which is also a PsiMember)
+        if (referenced instanceof PsiMethod || referenced instanceof PsiField) {
+            referenced = ((PsiMember) referenced).getContainingClass();
         }
-        if (resolved instanceof PsiMethod || resolved instanceof PsiField) { // !PsiClass
-            resolved = ((PsiMember) resolved).getContainingClass();
-        }
-        if (resolved instanceof PsiClass) {
-            String qualifiedName = ((PsiClass) resolved).getQualifiedName();
+        if (referenced instanceof PsiClass) {
+            String qualifiedName = ((PsiClass) referenced).getQualifiedName();
             if (qualifiedName != null && OLD_EXIF_INTERFACE.equals(qualifiedName)) {
-                PsiElement locationNode = reference;
-                while (locationNode.getParent() instanceof PsiReferenceExpression) {
-                    locationNode = locationNode.getParent();
-                }
-
-                Location location = context.getLocation(reference);
-                String message = "Avoid using `android.media.ExifInterface`; use "
-                        + "`android.support.media.ExifInterface` from the support library instead";
-                context.report(ISSUE, reference, location, message);
+                replace(context, reference);
             }
         }
     }
+
+    private static void replace(@NonNull JavaContext context, @NonNull UElement reference) {
+        UElement locationNode = reference;
+        //noinspection ConstantConditions
+        while (locationNode.getContainingElement() instanceof UReferenceExpression) {
+            locationNode = locationNode.getContainingElement();
+        }
+
+        Location location = context.getLocation(reference);
+        String message = getErrorMessage();
+        context.report(ISSUE, reference, location, message);
+    }
+
+    private static void replace(@NonNull JavaContext context, @NonNull PsiElement reference) {
+        Location location = context.getLocation(reference);
+        String message = getErrorMessage();
+        context.report(ISSUE, reference, location, message);
+    }
+
+    @NonNull
+    private static String getErrorMessage() {
+        return "Avoid using `android.media.ExifInterface`; use "
+                    + "`android.support.media.ExifInterface` from the support library instead";
+    }
+
+    @Override
+    public List<Class<? extends UElement>> getApplicableUastTypes() {
+        List<Class<? extends UElement>> types = new ArrayList<>(4);
+        types.add(USimpleNameReferenceExpression.class);
+        types.add(UQualifiedReferenceExpression.class);
+        types.add(UImportStatement.class);
+        types.add(UVariable.class);
+        return types;
+    }
+
+    @Nullable
+    @Override
+    public UElementHandler createUastHandler(@NonNull JavaContext context) {
+        return new MyVisitor(context);
+    }
+
+    private static final class MyVisitor extends UElementHandler {
+
+        private final JavaContext context;
+
+        private MyVisitor(JavaContext context) {
+            this.context = context;
+        }
+
+        @Override
+        public void visitSimpleNameReferenceExpression(
+                @NonNull USimpleNameReferenceExpression node) {
+            // Temporary workaround: We get qualified expressions wrapped as
+            // USimpleNameReferenceExpression when qualified names are used in
+            // constructor expressions
+            String identifier = node.getIdentifier();
+            if (OLD_EXIF_INTERFACE.equals(identifier)) {
+                replace(context, node);
+            }
+        }
+
+        @Override
+        public void visitQualifiedReferenceExpression(@NonNull UQualifiedReferenceExpression node) {
+            String resolvedName = node.getResolvedName();
+            if (EXIF_INTERFACE.equals(resolvedName)) {
+                PsiElement resolved = node.resolve();
+                if (resolved != null) {
+                    fix(context, node, resolved);
+                }
+            }
+        }
+
+        @Override
+        public void visitImportStatement(@NonNull UImportStatement node) {
+            // We don't get UQualifiedReferenceExpressions for import statements so
+            // visit these separately
+            UElement importReference = node.getImportReference();
+            if (importReference != null) {
+                PsiElement resolved = node.resolve();
+                // Can't just check PsiMember because we don't want to include PsiClass which
+                // is also a PsiMember
+                if (resolved instanceof PsiField) {
+                    resolved = ((PsiField) resolved).getContainingClass();
+                } else if (resolved instanceof PsiMethod) {
+                    resolved = ((PsiMethod) resolved).getContainingClass();
+                }
+                if (resolved instanceof PsiClass) {
+                    PsiClass cls = (PsiClass) resolved;
+                    if (EXIF_INTERFACE.equals(cls.getName()) &&
+                            OLD_EXIF_INTERFACE.equals(cls.getQualifiedName())) {
+                        fix(context, importReference, resolved);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void visitVariable(@NonNull UVariable node) {
+            // We don't get UQualifiedReferenceExpressions for fully qualified type
+            // references in variable declarations, so visit these separately
+
+            // PSI workaround: node.getTypeReference just returns null. Operate on PSI
+            // type element instead for now since UVariable has a PSI getTypeElement
+            // accessor.
+            PsiTypeElement typeElement = node.getTypeElement();
+            if (typeElement != null) {
+                PsiJavaCodeReferenceElement referenceElement = typeElement
+                        .getInnermostComponentReferenceElement();
+                if (referenceElement != null
+                        && EXIF_INTERFACE.equals(referenceElement.getReferenceName())
+                        && OLD_EXIF_INTERFACE.equals(referenceElement.getText())) {
+                    replace(context, referenceElement);
+                }
+            }
+        }
+    }
+
+    // Older implementation used visitReference. However, these don't trigger in import
+    // statements, type references etc anymore, so using explicit visitor for now.
+    // Leaving original code during UAST port in case we revisit this (and as a TODO to
+    // make sure we finalize this.)
+    //
+    //@Nullable
+    //@Override
+    //public List<String> getApplicableReferenceNames() {
+    //    return Collections.singletonList(EXIF_INTERFACE);
+    //}
+    //
+    //@Override
+    //public void visitReference(@NonNull JavaContext context, @Nullable UastVisitor visitor,
+    //        @NonNull UReferenceExpression reference, @NonNull PsiElement referenced) {
+    //    if (!reference.isQualified()) {
+    //        return;
+    //    }
+    //    // Can't just check for PsiMember, because we explicitly don't want to include PsiClass
+    //    // (which is also a PsiMember)
+    //    if (referenced instanceof PsiMethod || referenced instanceof PsiField) {
+    //        referenced = ((PsiMember) referenced).getContainingClass();
+    //    }
+    //    if (referenced instanceof PsiClass) {
+    //        String qualifiedName = ((PsiClass) referenced).getQualifiedName();
+    //        if (qualifiedName != null && OLD_EXIF_INTERFACE.equals(qualifiedName)) {
+    //            UElement locationNode = reference;
+    //            //noinspection ConstantConditions
+    //            while (locationNode.getContainingElement() instanceof UReferenceExpression) {
+    //                locationNode = locationNode.getContainingElement();
+    //            }
+    //
+    //            Location location = context.getLocation(reference);
+    //            String message = "Avoid using `android.media.ExifInterface`; use "
+    //                    + "`android.support.media.ExifInterface` from the support library instead";
+    //            context.report(ISSUE, reference, location, message);
+    //        }
+    //    }
+    //}
 }
