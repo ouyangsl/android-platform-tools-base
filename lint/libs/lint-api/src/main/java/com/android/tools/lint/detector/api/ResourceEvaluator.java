@@ -49,9 +49,7 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceExpression;
 import com.intellij.psi.PsiStatement;
 import com.intellij.psi.util.PsiTreeUtil;
-
 import java.util.EnumSet;
-import java.util.Locale;
 
 /** Evaluates constant expressions */
 public class ResourceEvaluator {
@@ -70,15 +68,39 @@ public class ResourceEvaluator {
      * have a corresponding {@code *Res} constant (and ResourceType is an enum we can't
      * just create new constants for.)
      */
-    public static final ResourceType PX_MARKER_TYPE = ResourceType.DECLARE_STYLEABLE;
+    public static final ResourceType DIMENSION_MARKER_TYPE = ResourceType.DECLARE_STYLEABLE;
 
-    public static final String COLOR_INT_ANNOTATION = SUPPORT_ANNOTATIONS_PREFIX + "ColorInt"; //$NON-NLS-1$
-    public static final String PX_ANNOTATION = SUPPORT_ANNOTATIONS_PREFIX + "Px"; //$NON-NLS-1$
+    public static final String COLOR_INT_ANNOTATION = SUPPORT_ANNOTATIONS_PREFIX + "ColorInt";
+    public static final String PX_ANNOTATION = SUPPORT_ANNOTATIONS_PREFIX + "Px";
+    public static final String DIMENSION_ANNOTATION = SUPPORT_ANNOTATIONS_PREFIX + "Dimension";
     public static final String RES_SUFFIX = "Res";
 
-    private final JavaEvaluator mEvaluator;
+    public static final String INTEGER_RES_ANNOTATION = "android.support.annotation.IntegerRes";
+    public static final String MENU_RES_ANNOTATION = "android.support.annotation.MenuRes";
+    public static final String INTERPOLATOR_RES_ANNOTATION = "android.support.annotation.InterpolatorRes";
+    public static final String ID_RES_ANNOTATION = "android.support.annotation.IdRes";
+    public static final String TRANSITION_RES_ANNOTATION = "android.support.annotation.TransitionRes";
+    public static final String STYLE_RES_ANNOTATION = "android.support.annotation.StyleRes";
+    public static final String STRING_RES_ANNOTATION = "android.support.annotation.StringRes";
+    public static final String XML_RES_ANNOTATION = "android.support.annotation.XmlRes";
+    public static final String BOOL_RES_ANNOTATION = "android.support.annotation.BoolRes";
+    public static final String FRACTION_RES_ANNOTATION = "android.support.annotation.FractionRes";
+    public static final String COLOR_RES_ANNOTATION = "android.support.annotation.ColorRes";
+    public static final String DRAWABLE_RES_ANNOTATION = "android.support.annotation.DrawableRes";
+    public static final String DIMEN_RES_ANNOTATION = "android.support.annotation.DimenRes";
+    public static final String RAW_RES_ANNOTATION = "android.support.annotation.RawRes";
+    public static final String ATTR_RES_ANNOTATION = "android.support.annotation.AttrRes";
+    public static final String ARRAY_RES_ANNOTATION = "android.support.annotation.ArrayRes";
+    public static final String STYLEABLE_RES_ANNOTATION = "android.support.annotation.StyleableRes";
+    public static final String ANIMATOR_RES_ANNOTATION = "android.support.annotation.AnimatorRes";
+    public static final String LAYOUT_RES_ANNOTATION = "android.support.annotation.LayoutRes";
+    public static final String PLURALS_RES_ANNOTATION = "android.support.annotation.PluralsRes";
+    public static final String ANIM_RES_ANNOTATION = "android.support.annotation.AnimRes";
+    public static final String ANY_RES_ANNOTATION = "android.support.annotation.AnyRes";
 
-    private boolean mAllowDereference = true;
+    private final JavaEvaluator evaluator;
+
+    private boolean allowDereference = true;
 
     /**
      * Creates a new resource evaluator
@@ -86,7 +108,7 @@ public class ResourceEvaluator {
      * @param evaluator the evaluator to use to resolve annotations references, if any
      */
     public ResourceEvaluator(@Nullable JavaEvaluator evaluator) {
-        mEvaluator = evaluator;
+        this.evaluator = evaluator;
     }
 
     /**
@@ -98,7 +120,7 @@ public class ResourceEvaluator {
      * @return this for constructor chaining
      */
     public ResourceEvaluator allowDereference(boolean allow) {
-        mAllowDereference = allow;
+        allowDereference = allow;
         return this;
     }
 
@@ -155,7 +177,7 @@ public class ResourceEvaluator {
         } else if (element instanceof PsiParenthesizedExpression) {
             PsiParenthesizedExpression parenthesizedExpression = (PsiParenthesizedExpression) element;
             return getResource(parenthesizedExpression.getExpression());
-        } else if (element instanceof PsiMethodCallExpression && mAllowDereference) {
+        } else if (element instanceof PsiMethodCallExpression && allowDereference) {
             PsiMethodCallExpression call = (PsiMethodCallExpression) element;
             PsiReferenceExpression expression = call.getMethodExpression();
             PsiMethod method = call.resolveMethod();
@@ -273,7 +295,7 @@ public class ResourceEvaluator {
         } else if (element instanceof PsiParenthesizedExpression) {
             PsiParenthesizedExpression parenthesizedExpression = (PsiParenthesizedExpression) element;
             return getResourceTypes(parenthesizedExpression.getExpression());
-        } else if (element instanceof PsiMethodCallExpression && mAllowDereference) {
+        } else if (element instanceof PsiMethodCallExpression && allowDereference) {
             PsiMethodCallExpression call = (PsiMethodCallExpression) element;
             PsiReferenceExpression expression = call.getMethodExpression();
             PsiMethod method = call.resolveMethod();
@@ -307,6 +329,14 @@ public class ResourceEvaluator {
                 return EnumSet.of(url.type);
             }
             PsiElement resolved = ((PsiReference) element).resolve();
+            if (resolved instanceof PsiModifierListOwner) {
+                EnumSet<ResourceType> types = getTypesFromAnnotations(
+                        (PsiModifierListOwner) resolved);
+                if (types != null && !types.isEmpty()) {
+                    return types;
+                }
+            }
+
             if (resolved instanceof PsiField) {
                 url = getResourceConstant(resolved);
                 if (url != null) {
@@ -366,33 +396,91 @@ public class ResourceEvaluator {
 
     @Nullable
     private EnumSet<ResourceType> getTypesFromAnnotations(PsiModifierListOwner owner) {
-        if (mEvaluator == null) {
+        if (evaluator == null) {
             return null;
         }
-        for (PsiAnnotation annotation : mEvaluator.getAllAnnotations(owner, true)) {
+        PsiAnnotation[] annotations = evaluator.getAllAnnotations(owner, true);
+        return getTypesFromAnnotations(annotations);
+    }
+
+    @Nullable
+    public static EnumSet<ResourceType> getTypesFromAnnotations(
+            @NonNull PsiAnnotation[] annotations) {
+        EnumSet<ResourceType> resources = null;
+        for (PsiAnnotation annotation : annotations) {
             String signature = annotation.getQualifiedName();
             if (signature == null) {
                 continue;
             }
-            if (signature.equals(COLOR_INT_ANNOTATION)) {
-                return EnumSet.of(COLOR_INT_MARKER_TYPE);
-            }
-            if (signature.equals(PX_ANNOTATION)) {
-                return EnumSet.of(PX_MARKER_TYPE);
-            }
-            if (signature.endsWith(RES_SUFFIX)
-                    && signature.startsWith(SUPPORT_ANNOTATIONS_PREFIX)) {
-                String typeString = signature
-                        .substring(SUPPORT_ANNOTATIONS_PREFIX.length(),
-                                signature.length() - RES_SUFFIX.length())
-                        .toLowerCase(Locale.US);
-                ResourceType type = ResourceType.getEnum(typeString);
-                if (type != null) {
-                    return EnumSet.of(type);
-                } else if (typeString.equals("any")) { // @AnyRes
+            switch (signature) {
+                case COLOR_INT_ANNOTATION:
+                    return EnumSet.of(COLOR_INT_MARKER_TYPE);
+                case PX_ANNOTATION:
+                case DIMENSION_ANNOTATION:
+                    return EnumSet.of(DIMENSION_MARKER_TYPE);
+                case ANY_RES_ANNOTATION:
                     return getAnyRes();
+                default: {
+                    ResourceType type = getTypeFromAnnotationSignature(signature);
+                    if (type != null) {
+                        if (resources == null) {
+                            resources = EnumSet.of(type);
+                        } else {
+                            resources.add(type);
+                        }
+                    }
                 }
             }
+        }
+
+        return resources;
+    }
+
+    @Nullable
+    public static ResourceType getTypeFromAnnotationSignature(@NonNull String signature) {
+        switch (signature) {
+            case ANIMATOR_RES_ANNOTATION:
+                return ResourceType.ANIMATOR;
+            case ANIM_RES_ANNOTATION:
+                return ResourceType.ANIM;
+            case ARRAY_RES_ANNOTATION:
+                return ResourceType.ARRAY;
+            case ATTR_RES_ANNOTATION:
+                return ResourceType.ATTR;
+            case BOOL_RES_ANNOTATION:
+                return ResourceType.BOOL;
+            case COLOR_RES_ANNOTATION:
+                return ResourceType.COLOR;
+            case DIMEN_RES_ANNOTATION:
+                return ResourceType.DIMEN;
+            case DRAWABLE_RES_ANNOTATION:
+                return ResourceType.DRAWABLE;
+            case FRACTION_RES_ANNOTATION:
+                return ResourceType.FRACTION;
+            case ID_RES_ANNOTATION:
+                return ResourceType.ID;
+            case INTEGER_RES_ANNOTATION:
+                return ResourceType.INTEGER;
+            case INTERPOLATOR_RES_ANNOTATION:
+                return ResourceType.INTERPOLATOR;
+            case LAYOUT_RES_ANNOTATION:
+                return ResourceType.LAYOUT;
+            case MENU_RES_ANNOTATION:
+                return ResourceType.MENU;
+            case PLURALS_RES_ANNOTATION:
+                return ResourceType.PLURALS;
+            case RAW_RES_ANNOTATION:
+                return ResourceType.RAW;
+            case STRING_RES_ANNOTATION:
+                return ResourceType.STRING;
+            case STYLEABLE_RES_ANNOTATION:
+                return ResourceType.STYLEABLE;
+            case STYLE_RES_ANNOTATION:
+                return ResourceType.STYLE;
+            case TRANSITION_RES_ANNOTATION:
+                return ResourceType.TRANSITION;
+            case XML_RES_ANNOTATION:
+                return ResourceType.XML;
         }
 
         return null;
@@ -448,8 +536,8 @@ public class ResourceEvaluator {
 
     private static EnumSet<ResourceType> getAnyRes() {
         EnumSet<ResourceType> types = EnumSet.allOf(ResourceType.class);
-        types.remove(ResourceEvaluator.COLOR_INT_MARKER_TYPE);
-        types.remove(ResourceEvaluator.PX_MARKER_TYPE);
+        types.remove(COLOR_INT_MARKER_TYPE);
+        types.remove(DIMENSION_MARKER_TYPE);
         return types;
     }
 }

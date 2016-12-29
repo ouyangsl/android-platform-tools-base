@@ -131,6 +131,8 @@ public final class SdkConstants {
     public static final String FN_INTENT_ACTIONS_SERVICE = "service_actions.txt";     //$NON-NLS-1$
     /** Intent category list file */
     public static final String FN_INTENT_CATEGORIES = "categories.txt";               //$NON-NLS-1$
+    /** Name of the lint library, i.e. "lint.jar" */
+    public static final String FN_LINT_JAR = "lint.jar";                              //$NON-NLS-1$
 
     /** annotations support jar */
     public static final String FN_ANNOTATIONS_JAR = "annotations.jar";                //$NON-NLS-1$
@@ -273,6 +275,8 @@ public final class SdkConstants {
     public static final String FN_GDBSERVER = "gdbserver";              //$NON-NLS-1$
     public static final String FN_GDB_SETUP = "gdb.setup";              //$NON-NLS-1$
 
+    /** proguard config file in a bundle. */
+    public static final String FN_PROGUARD_TXT = "proguard.txt";        //$NON-NLS-1$
     /** global Android proguard config file */
     public static final String FN_ANDROID_PROGUARD_FILE = "proguard-android.txt";   //$NON-NLS-1$
     /** global Android proguard config file with optimization enabled */
@@ -384,6 +388,7 @@ public final class SdkConstants {
     public static final String FD_SAMPLES = "samples";                  //$NON-NLS-1$
     /** Name of the SDK extras folder. */
     public static final String FD_EXTRAS = "extras";                    //$NON-NLS-1$
+    public static final String FD_ANDROID_EXTRAS = "android";           //$NON-NLS-1$
     public static final String FD_M2_REPOSITORY = "m2repository";       //$NON-NLS-1$
     public static final String FD_NDK = "ndk-bundle";                   //$NON-NLS-1$
     public static final String FD_LLDB = "lldb";                        //$NON-NLS-1$
@@ -415,6 +420,14 @@ public final class SdkConstants {
     public static final String FD_ANDROID_SOURCES = "sources";          //$NON-NLS-1$
     /** Name of the addon libs folder. */
     public static final String FD_ADDON_LIBS = "libs";                  //$NON-NLS-1$
+    /** Name of the merged resources folder. */
+    public static final String FD_MERGED = "merged";                    //$NON-NLS-1$
+    /** Name of the output dex folder. */
+    public static final String FD_DEX = "dex";                          //$NON-NLS-1$
+    /** Name of the generated source folder. */
+    public static final String FD_SOURCE_GEN = "source";
+    /** Name of the generated R.class source folder */
+    public static final String FD_RES_CLASS = "r";
 
     /** Name of the cache folder in the $HOME/.android. */
     public static final String FD_CACHE = "cache";                      //$NON-NLS-1$
@@ -620,6 +633,7 @@ public final class SdkConstants {
     public static final String CLASS_DATA_BINDING_BASE_BINDING = "android.databinding.ViewDataBinding";
 
     /* Android Support Class Constants */
+    public static final String CLASS_APP_COMPAT_ACTIVITY = "android.support.v7.app.AppCompatActivity"; //$NON-NLS-1$
     public static final String CLASS_COORDINATOR_LAYOUT = "android.support.design.widget.CoordinatorLayout"; //$NON-NLS-1$
     public static final String CLASS_APP_BAR_LAYOUT = "android.support.design.widget.AppBarLayout"; //$NON-NLS-1$
     public static final String CLASS_FLOATING_ACTION_BUTTON = "android.support.design.widget.FloatingActionButton"; //$NON-NLS-1$
@@ -768,6 +782,8 @@ public final class SdkConstants {
     /** The default prefix used for the {@link #ANDROID_URI} name space including the colon  */
     public static final String ANDROID_NS_NAME_PREFIX = "android:";          //$NON-NLS-1$
     public static final int ANDROID_NS_NAME_PREFIX_LEN = ANDROID_NS_NAME_PREFIX.length();
+    /** The default prefix used for the {@link #TOOLS_URI} name space including the colon  */
+    public static final String TOOLS_NS_NAME_PREFIX = "tools:";          //$NON-NLS-1$
 
     /** The default prefix used for the app */
     public static final String APP_PREFIX = "app";                          //$NON-NLS-1$
@@ -781,6 +797,8 @@ public final class SdkConstants {
     public static final String LT_ENTITY = "&lt;";                           //$NON-NLS-1$
     /** The entity for the greater than character */
     public static final String GT_ENTITY = "&gt;";                           //$NON-NLS-1$
+    /** The entity for a newline */
+    public static final String NEWLINE_ENTITY = "&#xA;";                     //$NON-NLS-1$
 
     // ---- Elements and Attributes ----
 
@@ -796,12 +814,16 @@ public final class SdkConstants {
     /** Namespace used for auto-adjusting namespaces */
     public static final String AUTO_URI =
             "http://schemas.android.com/apk/res-auto";                 //$NON-NLS-1$
+    public static final String AAPT_URI =
+            "http://schemas.android.com/aapt";                         //$NON-NLS-1$
     /** Namespace for xliff in string resources. */
     public static final String XLIFF_URI = "urn:oasis:names:tc:xliff:document:1.2";
     /** Default prefix used for tools attributes */
     public static final String TOOLS_PREFIX = "tools";                 //$NON-NLS-1$
     /** Default prefix used for xliff tags. */
     public static final String XLIFF_PREFIX = "xliff";                 //$NON-NLS-1$
+    /** Default prefix used for aapt attributes */
+    public static final String AAPT_PREFIX = "aapt";                   //$NON-NLS-1$
     public static final String R_CLASS = "R";                          //$NON-NLS-1$
     public static final String ANDROID_PKG = "android";                //$NON-NLS-1$
 
@@ -820,6 +842,7 @@ public final class SdkConstants {
     public static final String TAG_INTENT_FILTER = "intent-filter";    //$NON-NLS-1$
     public static final String TAG_USES_SDK = "uses-sdk";              //$NON-NLS-1$
     public static final String TAG_ACTIVITY = "activity";              //$NON-NLS-1$
+    public static final String TAG_ACTIVITY_ALIAS = "activity-alias";  //$NON-NLS-1$
     public static final String TAG_RECEIVER = "receiver";              //$NON-NLS-1$
     public static final String TAG_PROVIDER = "provider";              //$NON-NLS-1$
     public static final String TAG_GRANT_PERMISSION = "grant-uri-permission"; //$NON-NLS-1$
@@ -847,6 +870,7 @@ public final class SdkConstants {
     public static final String TAG_EAT_COMMENT = "eat-comment";        //$NON-NLS-1$
     public static final String TAG_SKIP = "skip";                      //$NON-NLS-1$
     public static final String TAG_SELECTOR = "selector";              //$NON-NLS-1$
+    public static final String TAG_PUBLIC = "public";                  //$NON-NLS-1$
 
     // Tags: XML
     public static final String TAG_HEADER = "header";                  //$NON-NLS-1$
@@ -962,9 +986,11 @@ public final class SdkConstants {
     // Attributes: Manifest
     public static final String ATTR_EXPORTED = "exported";             //$NON-NLS-1$
     public static final String ATTR_PERMISSION = "permission";         //$NON-NLS-1$
+    public static final String ATTR_PROCESS = "process";               //$NON-NLS-1$
     public static final String ATTR_MIN_SDK_VERSION = "minSdkVersion"; //$NON-NLS-1$
     public static final String ATTR_TARGET_SDK_VERSION = "targetSdkVersion"; //$NON-NLS-1$
     public static final String ATTR_ICON = "icon";                     //$NON-NLS-1$
+    public static final String ATTR_ROUND_ICON = "roundIcon";          //$NON-NLS-1$
     public static final String ATTR_PACKAGE = "package";               //$NON-NLS-1$
     public static final String ATTR_CORE_APP = "coreApp";              //$NON-NLS-1$
     public static final String ATTR_THEME = "theme";                   //$NON-NLS-1$
@@ -980,8 +1006,10 @@ public final class SdkConstants {
     public static final String ATTR_VERSION_CODE = "versionCode";      //$NON_NLS-1$
     public static final String ATTR_VERSION_NAME = "versionName";      //$NON_NLS-1$
     public static final String ATTR_FULL_BACKUP_CONTENT = "fullBackupContent"; //$NON_NLS-1$
+    public static final String ATTR_TEST_ONLY = "testOnly";            //$NON-NLS-1$
 
     // Attributes: Resources
+    public static final String ATTR_ATTR = "attr";
     public static final String ATTR_NAME = "name";                     //$NON-NLS-1$
     public static final String ATTR_FRAGMENT = "fragment";             //$NON-NLS-1$
     public static final String ATTR_TYPE = "type";                     //$NON-NLS-1$
@@ -1149,6 +1177,14 @@ public final class SdkConstants {
     public static final String ATTR_LAYOUT_HORIZONTAL_BIAS = "layout_constraintHorizontal_bias"; //$NON-NLS-1$
     public static final String ATTR_LAYOUT_VERTICAL_BIAS = "layout_constraintVertical_bias"; //$NON-NLS-1$
     public static final String ATTR_LAYOUT_DIMENSION_RATIO = "layout_constraintDimensionRatio"; //$NON-NLS-1$
+    public static final String ATTR_LAYOUT_VERTICAL_CHAIN_STYLE = "layout_constraintVertical_chainStyle"; //$NON-NLS-1$
+    public static final String ATTR_LAYOUT_HORIZONTAL_CHAIN_STYLE = "layout_constraintHorizontal_chainStyle"; //$NON-NLS-1$
+    public static final String ATTR_LAYOUT_VERTICAL_WEIGHT = "layout_constraintVertical_weight"; //$NON-NLS-1$
+    public static final String ATTR_LAYOUT_HORIZONTAL_WEIGHT = "layout_constraintHorizontal_weight"; //$NON-NLS-1$
+    public static final String ATTR_LAYOUT_CHAIN_SPREAD = "spread"; //$NON_NLS-1$
+    public static final String ATTR_LAYOUT_CHAIN_SPREAD_INSIDE = "spread_inside"; //$NON_NLS-1$
+    public static final String ATTR_LAYOUT_CHAIN_PACKED = "packed"; //$NON_NLS-1$
+
     public static final String ATTR_GUIDELINE_ORIENTATION_HORIZONTAL = "horizontal"; //$NON-NLS-1$
     public static final String ATTR_GUIDELINE_ORIENTATION_VERTICAL = "vertical"; //$NON-NLS-1$
     public static final String LAYOUT_CONSTRAINT_GUIDE_BEGIN = "layout_constraintGuide_begin"; //$NON-NLS-1$
@@ -1414,6 +1450,7 @@ public final class SdkConstants {
     public static final String FN_BUILD_CONFIG = FN_BUILD_CONFIG_BASE + DOT_JAVA;
 
     public static final String DRAWABLE_FOLDER = "drawable";           //$NON-NLS-1$
+    public static final String MIPMAP_FOLDER = "mipmap";               //$NON-NLS-1$
     public static final String DRAWABLE_XHDPI = "drawable-xhdpi";      //$NON-NLS-1$
     public static final String DRAWABLE_XXHDPI = "drawable-xxhdpi";    //$NON-NLS-1$
     public static final String DRAWABLE_XXXHDPI = "drawable-xxxhdpi";    //$NON-NLS-1$
@@ -1439,6 +1476,7 @@ public final class SdkConstants {
     public static final String STRING_PREFIX = "@string/";              //$NON-NLS-1$
     public static final String DIMEN_PREFIX = "@dimen/";                //$NON-NLS-1$
     public static final String MIPMAP_PREFIX = "@mipmap/";              //$NON-NLS-1$
+    public static final String AAPT_ATTR_PREFIX = "@aapt:_aapt/";
 
     public static final String ANDROID_LAYOUT_RESOURCE_PREFIX = "@android:layout/"; //$NON-NLS-1$
     public static final String ANDROID_STYLE_RESOURCE_PREFIX = "@android:style/";   //$NON-NLS-1$
@@ -1713,6 +1751,27 @@ public final class SdkConstants {
     /** The fully qualified class name of a Button view */
     public static final String FQCN_BUTTON = "android.widget.Button"; //$NON-NLS-1$
 
+    /** The fully qualified class name of a CheckBox view */
+    public static final String FQCN_CHECK_BOX = "android.widget.CheckBox"; //$NON-NLS-1$
+
+    /** The fully qualified class name of a CheckedTextView view */
+    public static final String FQCN_CHECKED_TEXT_VIEW = "android.widget.CheckedTextView"; //$NON-NLS-1$
+
+    /** The fully qualified class name of an ImageButton view */
+    public static final String FQCN_IMAGE_BUTTON = "android.widget.ImageButton"; //$NON-NLS-1$
+
+    /** The fully qualified class name of a RatingBar view */
+    public static final String FQCN_RATING_BAR = "android.widget.RatingBar"; //$NON-NLS-1$
+
+    /** The fully qualified class name of a SeekBar view */
+    public static final String FQCN_SEEK_BAR = "android.widget.SeekBar"; //$NON-NLS-1$
+
+    /** The fully qualified class name of a MultiAutoCompleteTextView view */
+    public static final String FQCN_AUTO_COMPLETE_TEXT_VIEW = "android.widget.AutoCompleteTextView"; //$NON-NLS-1$
+
+    /** The fully qualified class name of a MultiAutoCompleteTextView view */
+    public static final String FQCN_MULTI_AUTO_COMPLETE_TEXT_VIEW = "android.widget.MultiAutoCompleteTextView"; //$NON-NLS-1$
+
     /** The fully qualified class name of a RadioButton view */
     public static final String FQCN_RADIO_BUTTON = "android.widget.RadioButton"; //$NON-NLS-1$
 
@@ -1777,6 +1836,7 @@ public final class SdkConstants {
     public static final String GRADLE_TEST_COMPILE_CONFIGURATION = "testCompile";
     public static final String GRADLE_ANDROID_TEST_COMPILE_CONFIGURATION = "androidTestCompile";
     public static final String MIN_BUILD_TOOLS_VERSION = "19.1.0";
+    public static final String SUPPORT_LIB_GROUP_ID = "com.android.support";
     public static final String SUPPORT_LIB_ARTIFACT = "com.android.support:support-v4";
     public static final String DESIGN_LIB_ARTIFACT = "com.android.support:design";
     public static final String APPCOMPAT_LIB_ARTIFACT = "com.android.support:appcompat-v7";
