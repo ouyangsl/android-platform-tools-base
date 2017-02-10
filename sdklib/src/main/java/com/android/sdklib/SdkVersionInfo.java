@@ -47,7 +47,7 @@ public class SdkVersionInfo {
      * downloadable system images for wearables to see if there are more recent
      * versions.
      */
-    public static final int HIGHEST_KNOWN_API_WEAR = 23;
+    public static final int HIGHEST_KNOWN_API_WEAR = 25;
 
     /**
      * The lowest active api for wearables. This number will change over time
