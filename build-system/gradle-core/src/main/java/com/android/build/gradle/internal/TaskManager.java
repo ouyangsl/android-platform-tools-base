@@ -37,6 +37,7 @@ import com.android.build.api.transform.Transform;
 import com.android.build.gradle.AndroidConfig;
 import com.android.build.gradle.AndroidGradleOptions;
 import com.android.build.gradle.ProguardFiles;
+import com.android.build.gradle.TestedAndroidConfig;
 import com.android.build.gradle.internal.core.Abi;
 import com.android.build.gradle.internal.core.GradleVariantConfiguration;
 import com.android.build.gradle.internal.coverage.JacocoReportTask;
@@ -1768,8 +1769,18 @@ public abstract class TaskManager {
 
         // ----- External Transforms -----
         // apply all the external transforms.
-        List<Transform> customTransforms = extension.getTransforms();
-        List<List<Object>> customTransformsDependencies = extension.getTransformsDependencies();
+        VariantType type = variantScope.getVariantData().getType();
+        boolean isTest = type == VariantType.ANDROID_TEST || type == VariantType.UNIT_TEST;
+        List<Transform> customTransforms;
+        List<List<Object>> customTransformsDependencies;
+        if (isTest) {
+            TestedAndroidConfig testedExtension = (TestedAndroidConfig) extension;
+            customTransforms = testedExtension.getTestTransforms();
+            customTransformsDependencies = testedExtension.getTestTransformsDependencies();
+        } else {
+            customTransforms = extension.getTransforms();
+            customTransformsDependencies = extension.getTransformsDependencies();
+        }
 
         for (int i = 0, count = customTransforms.size() ; i < count ; i++) {
             Transform transform = customTransforms.get(i);
