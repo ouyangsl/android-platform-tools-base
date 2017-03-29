@@ -4,6 +4,7 @@ import static com.android.builder.core.VariantType.ANDROID_TEST;
 import static com.android.builder.core.VariantType.UNIT_TEST;
 
 import com.android.annotations.NonNull;
+import com.android.build.api.transform.Transform;
 import com.android.build.gradle.api.TestVariant;
 import com.android.build.gradle.api.UnitTestVariant;
 import com.android.build.gradle.internal.ExtraModelInfo;
@@ -12,6 +13,9 @@ import com.android.build.gradle.internal.dsl.BuildType;
 import com.android.build.gradle.internal.dsl.ProductFlavor;
 import com.android.build.gradle.internal.dsl.SigningConfig;
 import com.android.builder.core.AndroidBuilder;
+
+import java.util.List;
+
 import org.gradle.api.DomainObjectSet;
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Project;
@@ -97,5 +101,17 @@ public abstract class TestedExtension extends BaseExtension implements TestedAnd
 
     public void setTestBuildType(String testBuildType) {
         this.testBuildType = testBuildType;
+    }
+
+    @Override
+    @NonNull
+    public List<Transform> getTestTransforms() {
+        return getTransforms();
+    }
+
+    @Override
+    @NonNull
+    public List<List<Object>> getTestTransformsDependencies() {
+        return getTransformsDependencies();
     }
 }

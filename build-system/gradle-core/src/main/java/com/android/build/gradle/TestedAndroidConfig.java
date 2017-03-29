@@ -17,8 +17,11 @@
 package com.android.build.gradle;
 
 import com.android.annotations.NonNull;
+import com.android.build.api.transform.Transform;
 import com.android.build.gradle.api.TestVariant;
 import com.android.build.gradle.api.UnitTestVariant;
+
+import java.util.List;
 
 import org.gradle.api.DomainObjectSet;
 
@@ -46,4 +49,12 @@ public interface TestedAndroidConfig extends AndroidConfig {
      */
     @NonNull
     DomainObjectSet<UnitTestVariant> getUnitTestVariants();
+
+    /**
+     * Returns the list of transforms for test variants.
+     */
+    @NonNull
+    List<Transform> getTestTransforms();
+    @NonNull
+    List<List<Object>> getTestTransformsDependencies();
 }

@@ -1,6 +1,7 @@
 package com.android.build.gradle;
 
 import com.android.annotations.NonNull;
+import com.android.build.api.transform.Transform;
 import com.android.build.gradle.api.BaseVariant;
 import com.android.build.gradle.api.LibraryVariant;
 import com.android.build.gradle.internal.ExtraModelInfo;
@@ -10,9 +11,15 @@ import com.android.build.gradle.internal.dsl.BuildType;
 import com.android.build.gradle.internal.dsl.ProductFlavor;
 import com.android.build.gradle.internal.dsl.SigningConfig;
 import com.android.builder.core.AndroidBuilder;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Project;
 import org.gradle.api.internal.DefaultDomainObjectSet;
@@ -29,6 +36,9 @@ public class LibraryExtension extends TestedExtension {
     private boolean packageBuildConfig = true;
 
     private Collection<String> aidlPackageWhiteList = null;
+
+    private final List<Transform> testTransforms = Lists.newArrayList();
+    private final List<List<Object>> testTransformDependencies = Lists.newArrayList();
 
     public LibraryExtension(
             @NonNull Project project,
@@ -98,5 +108,22 @@ public class LibraryExtension extends TestedExtension {
     @Override
     public Collection<String> getAidlPackageWhiteList() {
         return aidlPackageWhiteList;
+    }
+
+    public void registerTestTransform(@NonNull Transform transform, Object... dependencies) {
+        testTransforms.add(transform);
+        testTransformDependencies.add(Arrays.asList(dependencies));
+    }
+
+    @Override
+    @NonNull
+    public List<Transform> getTestTransforms() {
+        return ImmutableList.copyOf(Iterables.concat(getTransforms(), testTransforms));
+    }
+
+    @Override
+    @NonNull
+    public List<List<Object>> getTestTransformsDependencies() {
+        return ImmutableList.copyOf(Iterables.concat(getTransformsDependencies(), testTransformDependencies));
     }
 }
