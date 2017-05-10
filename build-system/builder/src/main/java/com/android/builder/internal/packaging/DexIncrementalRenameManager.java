@@ -654,14 +654,24 @@ class DexIncrementalRenameManager implements Closeable {
         public int compare(RelativeFile f1, RelativeFile f2) {
             String s1 = f1.getOsIndependentRelativePath();
             String s2 = f2.getOsIndependentRelativePath();
-
-            if (s1.equals(SdkConstants.FN_APK_CLASSES_DEX)) {
+            int dexIndex1 = getDexIndex(s1);
+            int dexIndex2 = getDexIndex(s2);
+            if (dexIndex1 < dexIndex2) {
                 return -1;
-            } else if (s2.equals(SdkConstants.FN_APK_CLASSES_DEX)) {
+            } else if (dexIndex1 > dexIndex2) {
                 return 1;
             } else {
-                return s1.compareTo(s2);
+                return 0;
             }
+        }
+
+        public static int getDexIndex(String dexName) {
+            int index = 1;
+            if (!"classes.dex".equals(dexName)) {
+                int eIndex = dexName.indexOf(".dex");
+                index = Integer.parseInt(dexName.substring(7, eIndex));
+            }
+            return index;
         }
     }
 
