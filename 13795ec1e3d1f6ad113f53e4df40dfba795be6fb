@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f6887c0_638624dc",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1104608
+      },
+      "writtenOn": "2017-05-18T01:48:02Z",
+      "side": 1,
+      "message": "nit: missing javadoc",
+      "range": {
+        "startLine": 668,
+        "startChar": 26,
+        "endLine": 668,
+        "endChar": 37
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd39f938_20416445",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1104608
+      },
+      "writtenOn": "2017-05-18T01:48:02Z",
+      "side": 1,
+      "message": "@NonNull",
+      "range": {
+        "startLine": 668,
+        "startChar": 38,
+        "endLine": 668,
+        "endChar": 44
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df44acd0_2aa21164",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1104608
+      },
+      "writtenOn": "2017-05-18T01:48:02Z",
+      "side": 1,
+      "message": "private",
+      "range": {
+        "startLine": 668,
+        "startChar": 8,
+        "endLine": 668,
+        "endChar": 14
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f0fce87_1c1a294f",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1104608
+      },
+      "writtenOn": "2017-05-18T01:48:02Z",
+      "side": 1,
+      "message": "Use constants from SdkConstants",
+      "range": {
+        "startLine": 670,
+        "startChar": 16,
+        "endLine": 670,
+        "endChar": 30
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96bde396_81859574",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1104608
+      },
+      "writtenOn": "2017-05-18T01:48:02Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 671,
+        "startChar": 45,
+        "endLine": 671,
+        "endChar": 51
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
