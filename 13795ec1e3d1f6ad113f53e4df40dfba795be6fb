@@ -71,6 +71,78 @@
     },
     {
       "key": {
+        "uuid": "adeba577_9f9370d1",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1167838
+      },
+      "writtenOn": "2017-05-19T08:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bd39f938_20416445",
+      "range": {
+        "startLine": 668,
+        "startChar": 38,
+        "endLine": 668,
+        "endChar": 44
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b81f_ee480c38",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1167838
+      },
+      "writtenOn": "2017-05-19T08:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f6887c0_638624dc",
+      "range": {
+        "startLine": 668,
+        "startChar": 26,
+        "endLine": 668,
+        "endChar": 37
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25ad79d1_39c9518e",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1167838
+      },
+      "writtenOn": "2017-05-19T08:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df44acd0_2aa21164",
+      "range": {
+        "startLine": 668,
+        "startChar": 8,
+        "endLine": 668,
+        "endChar": 14
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f0fce87_1c1a294f",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "dcfc4bdb_6a4b7cd6",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1167838
+      },
+      "writtenOn": "2017-05-19T08:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f0fce87_1c1a294f",
+      "range": {
+        "startLine": 670,
+        "startChar": 16,
+        "endLine": 670,
+        "endChar": 30
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96bde396_81859574",
         "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2017-05-18T01:48:02Z",
       "side": 1,
       "message": "Same here.",
+      "range": {
+        "startLine": 671,
+        "startChar": 45,
+        "endLine": 671,
+        "endChar": 51
+      },
+      "revId": "13795ec1e3d1f6ad113f53e4df40dfba795be6fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "616fb703_54a404eb",
+        "filename": "build-system/builder/src/main/java/com/android/builder/internal/packaging/DexIncrementalRenameManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1167838
+      },
+      "writtenOn": "2017-05-19T08:28:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96bde396_81859574",
       "range": {
         "startLine": 671,
         "startChar": 45,
