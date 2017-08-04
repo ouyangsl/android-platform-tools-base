@@ -318,6 +318,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(ViewTypeDetector.ISSUE);
         issues.add(WakelockDetector.ISSUE);
         issues.add(WebViewDetector.ISSUE);
+        issues.add(WebViewSslErrorHandlingDetector.ISSUE);
         issues.add(WrongCallDetector.ISSUE);
         issues.add(WrongCaseDetector.WRONG_CASE);
         issues.add(WrongIdDetector.INVALID);
