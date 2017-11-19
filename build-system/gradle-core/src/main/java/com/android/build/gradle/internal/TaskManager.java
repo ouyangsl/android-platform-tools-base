@@ -223,8 +223,10 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import org.gradle.api.Action;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.GradleException;
+import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.artifacts.Configuration;
@@ -3353,6 +3355,16 @@ public abstract class TaskManager {
                 .add(
                         "annotationProcessor",
                         SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT + ":" + version);
+
+        project.getPlugins().withId("org.jetbrains.kotlin.kapt", plugin -> {
+            if (project.getConfigurations().findByName("kapt") != null) {
+                project.getDependencies()
+                        .add(
+                                "kapt",
+                                SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT + ":" + version);
+            }
+        });
+
         if (options.isEnabledForTests() || this instanceof LibraryTaskManager) {
             project.getDependencies().add("androidTestAnnotationProcessor",
                     SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT + ":" +
