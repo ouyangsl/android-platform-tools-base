@@ -52,8 +52,6 @@ local_repository(
       name = "blaze",
       path = "tools/vendor/google3/blaze",
 )
-load("@blaze//:bind.bzl", "blaze_binds")
-blaze_binds()
 
 bind(
     name = "gtest_main",
