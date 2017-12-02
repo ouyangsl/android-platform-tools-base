@@ -106,6 +106,7 @@ public class AaptOutputParserTest {
         }
     }
 
+    @Test
     public void testParseDisplayingUnhandledMessages() {
         String output = " **--- HELLO WORLD ---**";
         List<Message> gradleMessages = parser.parseToolOutput(output);
@@ -115,6 +116,7 @@ public class AaptOutputParserTest {
         assertEquals(Message.Kind.SIMPLE, message.getKind());
     }
 
+    @Test
     public void testParseAaptOutputWithRange1() throws IOException {
         createTempXmlFile();
         writeToFile("<manifest xmlns:android='http://schemas.android.com/apk/res/android'",
@@ -128,6 +130,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 4, 61);
     }
 
+    @Test
     public void testParseAaptOutputWithRange2() throws IOException {
         // Check that when the actual aapt error occurs on a line later than the original error line,
         // the forward search which looks for a value match does not stop on an earlier line that
@@ -145,6 +148,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 5, 8);
     }
 
+    @Test
     public void testParseAaptOutputWithRange3() throws IOException {
         // Check that when we have a duplicate resource error, we highlight both the original property
         // and the original definition.
@@ -162,6 +166,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 6, 17);
     }
 
+    @Test
     public void testParseAaptOutputWithRange4() throws IOException {
         // Check that when we have a duplicate resource error, we highlight both the original property
         // and the original definition.
@@ -177,6 +182,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 3, 5);
     }
 
+    @Test
     public void testParseAaptOutputWithRange5() throws IOException {
         // Check for aapt error which occurs when the attribute name in an item style declaration is
         // non-existent.
@@ -190,6 +196,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 3, 17);
     }
 
+    @Test
     public void testParseAaptOutputWithRange6() throws IOException {
         // Test missing resource name.
         createTempXmlFile();
@@ -201,6 +208,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 2, 3);
     }
 
+    @Test
     public void testParseAaptOutputWithRange7() throws IOException {
         createTempXmlFile();
         writeToFile("<resources xmlns:android='http://schemas.android.com/apk/res/android'>",
@@ -211,6 +219,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 2, 3);
     }
 
+    @Test
     public void testParseAaptOutputWithRange8() throws IOException {
         createTempXmlFile();
         writeToFile("<resources xmlns:android='http://schemas.android.com/apk/res/android'>",
@@ -221,6 +230,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 2, 3);
     }
 
+    @Test
     public void testParseAaptOutputWithRange9() throws IOException {
         createTempXmlFile();
         writeToFile("<resources xmlns:android='http://schemas.android.com/apk/res/android'>",
@@ -232,6 +242,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 3, 21);
     }
 
+    @Test
     public void testParseAaptOutputWithRange10() throws IOException {
         createTempXmlFile();
         writeToFile("<FrameLayout",
@@ -249,6 +260,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 8, 34);
     }
 
+    @Test
     public void testParseAaptOutputWithRange11() throws IOException {
         createTempXmlFile();
         writeToFile("<FrameLayout",
@@ -266,6 +278,7 @@ public class AaptOutputParserTest {
         assertHasCorrectErrorMessage(messages, messageText, 9, 35);
     }
 
+    @Test
     public void testParseAaptOutputWithRange12() throws IOException {
         createTempXmlFile();
         writeToFile("<FrameLayout",
@@ -513,6 +526,7 @@ public class AaptOutputParserTest {
         // TODO: Test encoding issues (e.g. & in path where the XML source comment would be &amp; instead)
     }
 
+    @Test
     public void test() throws Exception {
         File tempDir = temporaryFolder.newFolder();
         sourceFile = new File(tempDir, "values.xml"); // Name matters for position search
