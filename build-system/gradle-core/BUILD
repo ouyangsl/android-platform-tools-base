@@ -39,6 +39,7 @@ kotlin_library(
         "org.jacoco:org.jacoco.report": ["org.ow2.asm:asm-debug-all"],
     },
     java_srcs = [":proguard-parser"],
+    javacopts = ["-XepAllErrorsAsWarnings"],
     plugins = [
         "//tools/base:auto-value-plugin",
     ],

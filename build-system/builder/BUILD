@@ -37,7 +37,7 @@ kotlin_library(
         "//tools/dx/dalvik/dx",
         "//tools/external/r8",
     ],
-    javacopts = ["-Xep:MissingCasesInEnumSwitch:WARN"],
+    javacopts = ["-XepAllErrorsAsWarnings"],
     plugins = [
         "//tools/base:auto-value-plugin",
     ],
