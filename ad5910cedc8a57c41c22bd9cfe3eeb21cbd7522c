@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7fc80d9_87c90709",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1152904
+      },
+      "writtenOn": "2017-12-09T02:25:56Z",
+      "side": 1,
+      "message": "cach -\u003e cache",
+      "range": {
+        "startLine": 7,
+        "startChar": 7,
+        "endLine": 7,
+        "endChar": 11
+      },
+      "revId": "ad5910cedc8a57c41c22bd9cfe3eeb21cbd7522c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf8f0dd1_a6bfc7f9",
+        "filename": "ddmlib/src/main/java/com/android/ddmlib/PropertyFetcher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1152904
+      },
+      "writtenOn": "2017-12-09T02:25:56Z",
+      "side": 1,
+      "message": "This code would be much easier to understand if isRoProp was renamed to isImmutableProperty.",
+      "range": {
+        "startLine": 160,
+        "startChar": 20,
+        "endLine": 160,
+        "endChar": 28
+      },
+      "revId": "ad5910cedc8a57c41c22bd9cfe3eeb21cbd7522c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
