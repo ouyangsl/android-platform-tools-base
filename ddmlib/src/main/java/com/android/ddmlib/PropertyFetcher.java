@@ -112,7 +112,7 @@ class PropertyFetcher {
         SettableFuture<String> result;
         if (mCacheState.equals(CacheState.FETCHING)) {
             result = addPendingRequest(name);
-        } else if (mDevice.isOnline() && mCacheState.equals(CacheState.UNPOPULATED) || !isRoProp(name)) {
+        } else if (mDevice.isOnline() && mCacheState.equals(CacheState.UNPOPULATED) || !isImmutableProperty(name)) {
             // cache is empty, or this is a volatile prop that requires a query
             result = addPendingRequest(name);
             mCacheState = CacheState.FETCHING;
@@ -156,10 +156,18 @@ class PropertyFetcher {
     private synchronized void populateCache(@NonNull Map<String, String> props) {
         mCacheState = props.isEmpty() ? CacheState.UNPOPULATED : CacheState.POPULATED;
         if (!props.isEmpty()) {
-            mProperties.putAll(props);
+            for (Map.Entry<String, String> entry : props.entrySet()) {
+                if (isImmutableProperty(entry.getKey())) {
+                    mProperties.put(entry.getKey(), entry.getValue());
+                }
+            }
         }
         for (Map.Entry<String, SettableFuture<String>> entry : mPendingRequests.entrySet()) {
-            entry.getValue().set(mProperties.get(entry.getKey()));
+            if (isImmutableProperty(entry.getKey())) {
+                entry.getValue().set(mProperties.get(entry.getKey()));
+            } else {
+                entry.getValue().set(props.get(entry.getKey()));
+            }
         }
         mPendingRequests.clear();
     }
@@ -186,7 +194,7 @@ class PropertyFetcher {
         return CacheState.POPULATED.equals(mCacheState);
     }
 
-    private static boolean isRoProp(@NonNull String propName) {
+    private static boolean isImmutableProperty(@NonNull String propName) {
         return propName.startsWith("ro.") || propName.equals(IDevice.PROP_DEVICE_EMULATOR_DENSITY);
     }
 }
