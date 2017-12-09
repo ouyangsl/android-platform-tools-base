@@ -156,10 +156,18 @@ class PropertyFetcher {
     private synchronized void populateCache(@NonNull Map<String, String> props) {
         mCacheState = props.isEmpty() ? CacheState.UNPOPULATED : CacheState.POPULATED;
         if (!props.isEmpty()) {
-            mProperties.putAll(props);
+            for (Map.Entry<String, String> entry : props.entrySet()) {
+                if (isRoProp(entry.getKey())) {
+                    mProperties.put(entry.getKey(), entry.getValue());
+                }
+            }
         }
         for (Map.Entry<String, SettableFuture<String>> entry : mPendingRequests.entrySet()) {
-            entry.getValue().set(mProperties.get(entry.getKey()));
+            if (isRoProp(entry.getKey())) {
+                entry.getValue().set(mProperties.get(entry.getKey()));
+            } else {
+                entry.getValue().set(props.get(entry.getKey()));
+            }
         }
         mPendingRequests.clear();
     }
