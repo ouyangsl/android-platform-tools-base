@@ -30,7 +30,7 @@ import java.util.List;
 public class BuiltinIssueRegistry extends IssueRegistry {
     private static final List<Issue> sIssues;
 
-    static final int INITIAL_CAPACITY = 313;
+    static final int INITIAL_CAPACITY = 319;
 
     static {
         List<Issue> issues = new ArrayList<>(INITIAL_CAPACITY);
@@ -72,6 +72,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(AppLinksValidDetector.TEST_URL);
         issues.add(ArraySizeDetector.INCONSISTENT);
         issues.add(AssertDetector.ISSUE);
+        issues.add(AssignmentInConditionalDetector.ISSUE);
         issues.add(BadHostnameVerifierDetector.ISSUE);
         issues.add(BatteryDetector.ISSUE);
         issues.add(ButtonDetector.BACK_BUTTON);
@@ -228,6 +229,9 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(NetworkSecurityConfigDetector.PIN_SET_EXPIRY);
         issues.add(NfcTechListDetector.ISSUE);
         issues.add(NonInternationalizedSmsDetector.ISSUE);
+        issues.add(NullAnnotationUsageDetector.ISSUE);
+        issues.add(NullPointerExceptionDetector.ISSUE);
+        issues.add(NullWithOptionalDetector.ISSUE);
         issues.add(ObjectAnimatorDetector.BROKEN_PROPERTY);
         issues.add(ObjectAnimatorDetector.MISSING_KEEP);
         issues.add(ObsoleteLayoutParamsDetector.ISSUE);
@@ -254,6 +258,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(ReadParcelableDetector.ISSUE);
         issues.add(RecyclerViewDetector.DATA_BINDER);
         issues.add(RecyclerViewDetector.FIXED_POSITION);
+        issues.add(ReferenceEqualityDetector.ISSUE);
         issues.add(RegistrationDetector.ISSUE);
         issues.add(RelativeOverlapDetector.ISSUE);
         issues.add(RequiredAttributeDetector.ISSUE);
@@ -324,6 +329,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(UseCompoundDrawableDetector.ISSUE);
         issues.add(UselessViewDetector.USELESS_LEAF);
         issues.add(UselessViewDetector.USELESS_PARENT);
+        issues.add(UrlEqualsDetector.ISSUE);
         issues.add(Utf8Detector.ISSUE);
         issues.add(VectorDetector.ISSUE);
         issues.add(VectorDrawableCompatDetector.ISSUE);
