@@ -43,7 +43,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class UnitTestingAndroidResourcesTest {
 
-    public static final String PLATFORM_JAR_NAME = "android-all-7.0.0_r1-robolectric-0.jar";
+    public static final String PLATFORM_JAR_NAME = "android-all-7.0.0_r1-robolectric-r1.jar";
 
     enum Plugin {
         LIBRARY,
@@ -55,19 +55,26 @@ public class UnitTestingAndroidResourcesTest {
         MERGE
     }
 
+    enum ResourcesMode {
+        RAW,
+        COMPILED
+    }
+
     @Rule
     public GradleTestProject project =
             GradleTestProject.builder().fromTestProject("unitTestingAndroidResources").create();
 
-    @Parameterized.Parameters(name = "plugin={0}  librarySetup={1}  aaptGeneration={2}")
+    @Parameterized.Parameters(name = "plugin={0}  librarySetup={1}  aaptGeneration={2}  resourcesMode={3}")
     public static Object[][] data() {
         return new Object[][] {
-            {Plugin.APPLICATION, null, AaptGeneration.AAPT_V1},
-            {Plugin.APPLICATION, null, AaptGeneration.AAPT_V2_DAEMON_MODE},
-            {Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V1},
-            {Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V1},
-            {Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE},
-            {Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE},
+            //{Plugin.APPLICATION, null, AaptGeneration.AAPT_V1, ResourcesMode.RAW},
+            //{Plugin.APPLICATION, null, AaptGeneration.AAPT_V1, ResourcesMode.COMPILED},
+            //{Plugin.APPLICATION, null, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.RAW},
+            {Plugin.APPLICATION, null, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.COMPILED},
+            //{Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V1, ResourcesMode.RAW},
+            //{Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V1, ResourcesMode.COMPILED},
+            //{Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.COMPILED},
+            //{Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.RAW},
         };
     }
 
@@ -78,6 +85,9 @@ public class UnitTestingAndroidResourcesTest {
 
     @Parameterized.Parameter(value = 2)
     public AaptGeneration aaptGeneration;
+
+    @Parameterized.Parameter(value = 3)
+    public ResourcesMode resourcesMode;
 
     @Before
     public void changePlugin() throws Exception {
@@ -97,7 +107,7 @@ public class UnitTestingAndroidResourcesTest {
         for (Path path : GradleTestProject.getLocalRepositories()) {
             Path platformJar =
                     path.resolve(
-                            "org/robolectric/android-all/7.0.0_r1-robolectric-0/"
+                            "org/robolectric/android-all/7.0.0_r1-robolectric-r1/"
                                     + PLATFORM_JAR_NAME);
             if (Files.exists(platformJar)) {
                 found = true;
@@ -123,6 +133,10 @@ public class UnitTestingAndroidResourcesTest {
                     BooleanOption.DISABLE_RES_MERGE_IN_LIBRARY,
                     librarySetup == LibrarySetup.BYPASS_MERGE);
         }
+
+        runGradleTasks.with(
+                BooleanOption.ENABLE_UNIT_TEST_BINARY_RESOURCES,
+                resourcesMode == ResourcesMode.COMPILED);
 
         runGradleTasks.run("testDebugUnitTest");
 
@@ -182,6 +196,10 @@ public class UnitTestingAndroidResourcesTest {
                         assertThat(Paths.get(value.toString())).exists();
                     }
                 });
+
+        if (resourcesMode == ResourcesMode.COMPILED) {
+            assertThat(Paths.get(properties.getProperty("android_resource_apk"))).isNotNull();
+        }
     }
 
     @Nullable

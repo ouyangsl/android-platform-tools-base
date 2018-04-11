@@ -57,6 +57,8 @@ public enum BooleanOption implements Option<Boolean> {
     IDE_GENERATE_SOURCES_ONLY(AndroidProject.PROPERTY_GENERATE_SOURCES_ONLY),
     ENABLE_SEPARATE_APK_RESOURCES("android.enableSeparateApkRes", false),
     ENABLE_BUILDSCRIPT_CLASSPATH_CHECK("android.enableBuildScriptClasspathCheck", true),
+
+    ENABLE_UNIT_TEST_BINARY_RESOURCES("android.enableUnitTestBinaryResources", false),
     ;
 
     @NonNull private final String propertyName;

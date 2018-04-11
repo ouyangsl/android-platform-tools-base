@@ -1724,15 +1724,26 @@ public abstract class TaskManager {
                 checkNotNull(variantScope.getTestedVariantData(), "Not a unit test variant");
         VariantScope testedVariantScope = testedVariantData.getScope();
 
-        createPreBuildTasks(tasks, variantScope);
+        boolean includeAndroidResources = extension.getTestOptions().getUnitTests()
+                .isIncludeAndroidResources();
+        boolean enableBinaryResources = includeAndroidResources
+                && globalScope.getProjectOptions().get(
+                        BooleanOption.ENABLE_UNIT_TEST_BINARY_RESOURCES);
+
+        if (enableBinaryResources) {
+            createAnchorTasks(tasks, variantScope);
+        } else {
+            createPreBuildTasks(tasks, variantScope);
+            createCompileAnchorTask(tasks, variantScope);
+        }
 
         // Create all current streams (dependencies mostly at this point)
         createDependencyStreams(tasks, variantScope);
 
+        // process java resources
         createProcessJavaResTask(tasks, variantScope);
-        createCompileAnchorTask(tasks, variantScope);
 
-        if (extension.getTestOptions().getUnitTests().isIncludeAndroidResources()) {
+        if (includeAndroidResources) {
             File unitTestConfigDir =
                     new File(
                             globalScope.getIntermediatesDir(),
@@ -1740,7 +1751,30 @@ public abstract class TaskManager {
             AndroidTask<GenerateTestConfig> generateTestConfig =
                     androidTasks.create(
                             tasks,
-                            new GenerateTestConfig.ConfigAction(variantScope, unitTestConfigDir));
+                            new GenerateTestConfig.ConfigAction(variantScope, unitTestConfigDir,
+                                    enableBinaryResources));
+
+            if (enableBinaryResources) {
+                // Add a task to process the manifest
+                createProcessTestManifestTask(tasks, variantScope,
+                        variantScope.getTestedVariantData().getScope());
+
+                // Add a task to create the res values
+                createGenerateResValuesTask(tasks, variantScope);
+
+                // Add a task to merge the resource folders
+                createMergeResourcesTask(tasks, variantScope, true);
+
+                // Add a task to merge the assets folders
+                createMergeAssetsTask(tasks, variantScope, null);
+
+                // TODO: these appear to be unnecessary?
+                // Add a task to generate resource source files
+                //createApkProcessResTask(tasks, variantScope);
+
+                //createPackagingTask(tasks, variantScope, null /* buildInfoGeneratorTask */);
+            }
+
             variantScope.addTaskOutput(
                     TaskOutputHolder.TaskOutputType.UNIT_TEST_CONFIG_DIRECTORY,
                     unitTestConfigDir,
@@ -1755,7 +1789,7 @@ public abstract class TaskManager {
                 tasks,
                 variantScope.getProcessJavaResourcesTask(),
                 testedVariantScope.getProcessJavaResourcesTask());
-        if (extension.getTestOptions().getUnitTests().isIncludeAndroidResources()) {
+        if (includeAndroidResources) {
             compileTask.dependsOn(tasks, testedVariantScope.getMergeResourcesTask());
             compileTask.dependsOn(tasks, testedVariantScope.getMergeAssetsTask());
             compileTask.dependsOn(tasks, testedVariantScope.getManifestProcessorTask());
@@ -1800,7 +1834,6 @@ public abstract class TaskManager {
         createRenderscriptTask(tasks, variantScope);
 
         // Add a task to merge the resource folders
-
         createMergeResourcesTask(tasks, variantScope, true);
 
         // Add a task to merge the assets folders

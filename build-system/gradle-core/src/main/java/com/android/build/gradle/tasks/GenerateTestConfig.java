@@ -25,10 +25,12 @@ import com.android.annotations.VisibleForTesting;
 import com.android.build.gradle.internal.dsl.TestOptions;
 import com.android.build.gradle.internal.scope.BuildOutput;
 import com.android.build.gradle.internal.scope.BuildOutputs;
+import com.android.build.gradle.internal.scope.GlobalScope;
 import com.android.build.gradle.internal.scope.OutputScope;
 import com.android.build.gradle.internal.scope.TaskConfigAction;
 import com.android.build.gradle.internal.scope.TaskOutputHolder;
 import com.android.build.gradle.internal.scope.VariantScope;
+import com.android.utils.FileUtils;
 import com.google.common.base.Preconditions;
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +44,7 @@ import org.gradle.api.file.FileCollection;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.OutputDirectory;
+import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
 
 /**
@@ -58,6 +61,7 @@ public class GenerateTestConfig extends DefaultTask {
     File generatedJavaResourcesDirectory;
     OutputScope outputScope;
     FileCollection manifests;
+    File apkFile;
     String packageForR;
 
     @InputFiles
@@ -83,6 +87,7 @@ public class GenerateTestConfig extends DefaultTask {
                 sdkHome,
                 packageForR,
                 checkNotNull(output, "Unable to find manifest output").getOutputFile().toPath(),
+                apkFile,
                 generatedJavaResourcesDirectory.toPath().toAbsolutePath());
     }
 
@@ -93,6 +98,7 @@ public class GenerateTestConfig extends DefaultTask {
             @NonNull Path sdkHome,
             @NonNull String packageForR,
             @NonNull Path manifest,
+            File apkFile,
             @NonNull Path outputDir)
             throws IOException {
 
@@ -102,6 +108,10 @@ public class GenerateTestConfig extends DefaultTask {
         properties.setProperty("android_merged_assets", assetsDir.toAbsolutePath().toString());
         properties.setProperty("android_merged_manifest", manifest.toAbsolutePath().toString());
         properties.setProperty("android_custom_package", packageForR);
+        if (apkFile != null) {
+            properties.setProperty("android_resource_apk",
+                    apkFile.toPath().toAbsolutePath().toString());
+        }
 
         Path output =
                 outputDir
@@ -131,6 +141,11 @@ public class GenerateTestConfig extends DefaultTask {
         return sdkHome.toString();
     }
 
+    @OutputFile
+    public File getApkFile() {
+        return apkFile;
+    }
+
     @OutputDirectory
     public File getOutputFile() {
         return generatedJavaResourcesDirectory;
@@ -146,14 +161,17 @@ public class GenerateTestConfig extends DefaultTask {
         @NonNull private final VariantScope scope;
         @NonNull private final VariantScope testedScope;
         @NonNull private final File outputDirectory;
+        private final boolean enableBinaryResources;
 
-        public ConfigAction(@NonNull VariantScope scope, @NonNull File outputDirectory) {
+        public ConfigAction(@NonNull VariantScope scope, @NonNull File outputDirectory,
+                boolean enableBinaryResources) {
             this.scope = scope;
             this.testedScope =
                     Preconditions.checkNotNull(
                                     scope.getTestedVariantData(), "Not a unit test variant.")
                             .getScope();
             this.outputDirectory = outputDirectory;
+            this.enableBinaryResources = enableBinaryResources;
         }
 
         @NonNull
@@ -179,6 +197,20 @@ public class GenerateTestConfig extends DefaultTask {
             task.dependsOn(task.assetsDirectory);
             task.manifests =
                     testedScope.getOutput(TaskOutputHolder.TaskOutputType.MERGED_MANIFESTS);
+
+            if (enableBinaryResources) {
+                GlobalScope globalScope = scope.getGlobalScope();
+                task.apkFile = FileUtils.join(globalScope.getIntermediatesDir(),
+                        "res",
+                        testedScope.getVariantConfiguration().getDirName(),
+                        "resources-" + testedScope.getVariantConfiguration().getBaseName() +
+                                ".ap_");
+
+                if (task.apkFile != null) {
+                    task.dependsOn(globalScope.getProject().files(task.apkFile));
+                }
+            }
+
             task.outputScope = testedScope.getOutputScope();
             task.sdkHome =
                     Paths.get(scope.getGlobalScope().getAndroidBuilder().getTarget().getLocation());

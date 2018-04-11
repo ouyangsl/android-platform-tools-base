@@ -511,7 +511,7 @@ maven_repo(
         "//prebuilts/tools/common/m2/repository/org/ow2/asm/asm-tree/5.0.1:jar",
         "//prebuilts/tools/common/m2/repository/org/ow2/asm/asm/5.0.1:jar",
         "//prebuilts/tools/common/m2/repository/org/reflections/reflections/0.9.10:jar",
-        "//prebuilts/tools/common/m2/repository/org/robolectric/android-all/7.0.0_r1-robolectric-0:jar",
+        "//prebuilts/tools/common/m2/repository/org/robolectric/android-all/7.0.0_r1-robolectric-r1:jar",
         "//prebuilts/tools/common/m2/repository/org/robolectric/robolectric-annotations/3.3.2:jar",
         "//prebuilts/tools/common/m2/repository/org/robolectric/robolectric-junit/3.3.2:jar",
         "//prebuilts/tools/common/m2/repository/org/robolectric/robolectric-resources/3.3.2:jar",

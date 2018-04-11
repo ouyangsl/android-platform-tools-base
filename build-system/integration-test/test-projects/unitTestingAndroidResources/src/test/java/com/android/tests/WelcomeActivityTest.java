@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 @RunWith(RobolectricTestRunner.class)
@@ -17,6 +18,9 @@ public class WelcomeActivityTest {
 
     @Test
     public void clickingLogin_shouldStartLoginActivity() {
+        System.err.println("robolectric.resourcesMode="
+                + (RuntimeEnvironment.useLegacyResources() ? "legacy" : "binary"));
+
         WelcomeActivity activity = Robolectric.setupActivity(WelcomeActivity.class);
         activity.findViewById(R.id.login).performClick();
 

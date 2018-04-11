@@ -45,6 +45,7 @@ public class GenerateTestConfigTest {
                 fileSystem.getPath("/sdk"),
                 "com.example.app",
                 buildDirectory.resolve("mergedManifest.xml"),
+                null,
                 outputDir);
 
         Path expectedOutputPath = outputDir.resolve("com/android/tools/test_config.properties");
@@ -58,6 +59,36 @@ public class GenerateTestConfigTest {
             expected.put("android_custom_package", "com.example.app");
             expected.put("android_merged_assets", "/project/build/mergedAssets");
             expected.put("android_merged_manifest", FileUtils.join("", "project", "build", "mergedManifest.xml"));
+            Truth.assertThat(result).containsExactlyEntriesIn(expected);
+        }
+    }
+
+    @Test
+    public void smokeTest_binaryMode() throws Exception {
+        FileSystem fileSystem = Jimfs.newFileSystem(Configuration.unix());
+        Path buildDirectory = fileSystem.getPath("/project", "build");
+        Path outputDir = fileSystem.getPath("outputDir");
+        GenerateTestConfig.generateTestConfigForOutput(
+                buildDirectory.resolve("mergedAssets"),
+                buildDirectory.resolve("mergedResources"),
+                fileSystem.getPath("/sdk"),
+                "com.example.app",
+                buildDirectory.resolve("mergedManifest.xml"),
+                buildDirectory.resolve("/app.ap_").toFile(),
+                outputDir);
+
+        Path expectedOutputPath = outputDir.resolve("com/android/tools/test_config.properties");
+        assertThat(expectedOutputPath).isFile();
+        try (Reader reader = Files.newBufferedReader(expectedOutputPath)) {
+            Properties result = new Properties();
+            result.load(reader);
+            Map<String, String> expected = new HashMap<>();
+            expected.put("android_sdk_home", "/sdk");
+            expected.put("android_merged_resources", "/project/build/mergedResources");
+            expected.put("android_custom_package", "com.example.app");
+            expected.put("android_merged_assets", "/project/build/mergedAssets");
+            expected.put("android_merged_manifest", FileUtils.join("", "project", "build", "mergedManifest.xml"));
+            expected.put("android_resource_apk", "/project/build/app.ap_");
             Truth.assertThat(result).containsExactlyEntriesIn(expected);
         }
     }

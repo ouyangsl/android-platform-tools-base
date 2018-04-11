@@ -47,7 +47,8 @@ public class UnitTest {
                     throw new AssertionError("Expected R class in package " + value, e);
                 }
             } else {
-                assertTrue(key + " = " + value + " exists", new File(value).exists());
+                assertTrue(key + " = " + value + " doesn't exist",
+                        new File(value).exists());
             }
         }
     }
