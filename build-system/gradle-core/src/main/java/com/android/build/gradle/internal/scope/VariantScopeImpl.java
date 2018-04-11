@@ -1495,6 +1495,7 @@ public class VariantScopeImpl extends GenericVariantScopeImpl implements Variant
                         "manifests",
                         "full",
                         getVariantConfiguration().getDirName());
+            case UNIT_TEST:
             case ANDROID_TEST:
                 return FileUtils.join(
                         getGlobalScope().getIntermediatesDir(),

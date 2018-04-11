@@ -21,6 +21,11 @@ apply plugin: 'com.android.application'
 
 apply from: "../commonLocalRepo.gradle"
 
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
 android {
     compileSdkVersion rootProject.latestCompileSdk
     buildToolsVersion = rootProject.buildToolsVersion
@@ -40,5 +45,5 @@ dependencies {
     compile "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
     compile "com.android.support.constraint:constraint-layout:${rootProject.constraintLayoutVersion}"
     testCompile 'junit:junit:4.12'
-    testCompile "org.robolectric:robolectric:3.3.2"
+    testCompile "org.robolectric:robolectric:3.9-SNAPSHOT"
 }
