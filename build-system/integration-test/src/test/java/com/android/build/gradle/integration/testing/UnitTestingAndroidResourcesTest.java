@@ -67,14 +67,14 @@ public class UnitTestingAndroidResourcesTest {
     @Parameterized.Parameters(name = "plugin={0}  librarySetup={1}  aaptGeneration={2}  resourcesMode={3}")
     public static Object[][] data() {
         return new Object[][] {
-            //{Plugin.APPLICATION, null, AaptGeneration.AAPT_V1, ResourcesMode.RAW},
-            //{Plugin.APPLICATION, null, AaptGeneration.AAPT_V1, ResourcesMode.COMPILED},
-            //{Plugin.APPLICATION, null, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.RAW},
+            {Plugin.APPLICATION, null, AaptGeneration.AAPT_V1, ResourcesMode.RAW},
+            {Plugin.APPLICATION, null, AaptGeneration.AAPT_V1, ResourcesMode.COMPILED},
+            {Plugin.APPLICATION, null, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.RAW},
             {Plugin.APPLICATION, null, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.COMPILED},
-            //{Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V1, ResourcesMode.RAW},
-            //{Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V1, ResourcesMode.COMPILED},
-            //{Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.COMPILED},
-            //{Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.RAW},
+            {Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V1, ResourcesMode.RAW},
+            {Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V1, ResourcesMode.COMPILED},
+            {Plugin.LIBRARY, LibrarySetup.BYPASS_MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.COMPILED},
+            {Plugin.LIBRARY, LibrarySetup.MERGE, AaptGeneration.AAPT_V2_DAEMON_MODE, ResourcesMode.RAW},
         };
     }
 

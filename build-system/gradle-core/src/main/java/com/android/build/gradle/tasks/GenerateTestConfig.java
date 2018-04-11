@@ -43,6 +43,7 @@ import org.gradle.api.DefaultTask;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
+import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.TaskAction;
@@ -141,6 +142,7 @@ public class GenerateTestConfig extends DefaultTask {
         return sdkHome.toString();
     }
 
+    @Optional
     @OutputFile
     public File getApkFile() {
         return apkFile;
