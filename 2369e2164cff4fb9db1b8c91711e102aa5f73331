@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9038ecd4_a7a6d392",
+        "filename": "sdk-common/src/test/java/com/android/ide/common/xml/XmlPrettyPrinterTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2018-05-09T23:59:03Z",
+      "side": 1,
+      "message": "Note: This change impacted this preexisting test. I think that impact is reasonable? If not, let me know what you\u0027d expect to happen here.",
+      "revId": "2369e2164cff4fb9db1b8c91711e102aa5f73331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}

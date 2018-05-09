@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "180af3ac_ec2bbc59",
+        "filename": "sdk-common/src/main/java/com/android/ide/common/xml/XmlPrettyPrinter.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2018-05-09T23:59:03Z",
+      "side": 0,
+      "message": "Note: The old code never checked isMarkupElement((Element)right); the new code does. Was there a reason this check was omitted before?",
+      "revId": "ec8e2b78ea42ac57d6e63bf88a3e09e1713bcc08",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
