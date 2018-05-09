@@ -209,7 +209,7 @@ public class XmlPrettyPrinterTest {
                 "<!-- This is not a comment! -->\n" +
                 "and <this is not an element>\n" +
                 "]]>\n" +
-                "This is text: &lt; and &amp;\n" +
+                " This is text: &lt; and &amp;\n" +
                 "    <!-- comment 1 \"test\"... -->\n" +
                 "    <!-- ... comment2 -->\n" +
                 "%ISOLat2;        \n" +
@@ -1186,6 +1186,32 @@ public class XmlPrettyPrinterTest {
                 + "\n"
                 + "</resources>",
             xml);
+    }
+
+    @Test
+    public void testCdata() throws Exception {
+        String xml = ""
+                + "<resources>\n"
+                + "    <string name=\"cdata\">Some text\n"
+                + "        <![CDATA[and then CDATA text]]></string>\n"
+                + "    <string name=\"cdata2\">Some text<![CDATA[ and then CDATA text]]></string>\n"
+                + "    <string name=\"cdata3\"><![CDATA[CDATA text]]> <![CDATA[more CDATA text]]></string>\n"
+                + "</resources>";
+
+        Document doc = parse(xml);
+        assertNotNull(doc);
+
+        xml = prettyPrint(doc);
+        assertEquals(""
+                        + "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+                        + "<resources>\n"
+                        + "\n"
+                        + "    <string name=\"cdata\">Some text <![CDATA[and then CDATA text]]></string>\n"
+                        + "    <string name=\"cdata2\">Some text<![CDATA[ and then CDATA text]]></string>\n"
+                        + "    <string name=\"cdata3\"><![CDATA[CDATA text]]> <![CDATA[more CDATA text]]></string>\n"
+                        + "\n"
+                        + "</resources>",
+                xml);
     }
 
     @Test
