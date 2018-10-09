@@ -31,7 +31,7 @@ import java.util.List;
 public class BuiltinIssueRegistry extends IssueRegistry {
     private static final List<Issue> sIssues;
 
-    public static final int INITIAL_CAPACITY = 342;
+    public static final int INITIAL_CAPACITY = 343;
 
     static {
         List<Issue> issues = new ArrayList<>(INITIAL_CAPACITY);
@@ -168,6 +168,7 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(IconDetector.NOTIFICATION_ICON_COMPATIBILITY);
         issues.add(IconDetector.WEBP_ELIGIBLE);
         issues.add(IconDetector.WEBP_UNSUPPORTED);
+        issues.add(IgnoreWithoutReasonDetector.ISSUE);
         issues.add(IncludeDetector.ISSUE);
         issues.add(InefficientWeightDetector.BASELINE_WEIGHTS);
         issues.add(InefficientWeightDetector.INEFFICIENT_WEIGHT);
