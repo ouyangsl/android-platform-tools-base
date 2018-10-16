@@ -121,6 +121,24 @@
     },
     {
       "key": {
+        "uuid": "7e052664_f16f13ab",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1377222
+      },
+      "writtenOn": "2018-10-16T20:46:43Z",
+      "side": 1,
+      "message": "What would the quickfix look like?",
+      "parentUuid": "2329146b_9e1b3212",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "760300fe_4ddd027b",
         "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetectorTest.kt",
         "patchSetId": 1
