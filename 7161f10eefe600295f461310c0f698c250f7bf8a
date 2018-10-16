@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ad641e0_3b8707a4",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "By convention this is even briefer (this is basically what turns into the header section in the inspections list in IntelliJ), e.g.\n\"@Ignore without Reason\"",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b747ff65_c33dd5c7",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "This is probably too high, I\u0027d say 2.",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d25a5e2c_b16e9dc1",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "Switch from PsiModifierListOwner here to UAnnotated",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da61aa91_535aed82",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "Why not just it.qualifiedName() \u003d\u003d \"org.junit.Ignore\" ? Are there various other @Ignore annotations you\u0027d like to pick up here?",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c5d036a_62e8d58d",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "Once you switch to UAnnotated here you\u0027ll want to use the ConstantEvaluator to look up the string, or since it\u0027s unlikely anyone will ever try to compose ignore strings from concatenations etc, just do something like (value as? ULiteralExpression)?.value as? String",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5acf5c90_4779ea38",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "s/given/giving/",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2329146b_9e1b3212",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetector.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "Would be cool with a quickfix too :-)",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "760300fe_4ddd027b",
+        "filename": "lint/libs/lint-tests/src/test/java/com/android/tools/lint/checks/IgnoreWithoutReasonDetectorTest.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2018-10-16T13:57:46Z",
+      "side": 1,
+      "message": "Don\u0027t need TestFiles. prefix here since it\u0027s imported above",
+      "revId": "7161f10eefe600295f461310c0f698c250f7bf8a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
