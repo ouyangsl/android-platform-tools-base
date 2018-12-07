@@ -379,6 +379,28 @@ public class BuiltinIssueRegistry extends IssueRegistry {
         issues.add(WrongLocationDetector.ISSUE);
         issues.add(WrongThreadInterproceduralDetector.ISSUE);
 
+        // Registration of the ICC code smell detectors:
+        // issues.add(CustomSchemeChannelDetector.ISSUE);
+        // issues.add(WeakHashFunctionDetector.ISSUE);
+        // issues.add(InsufficientRSAKeySizeDetector.ISSUE);
+        // issues.add(BroadcastStickyPermissionDetector.ISSUE);
+        // issues.add(StickyBroadcastDetector.ISSUE);
+        // issues.add(UnprotectedPermissionDetector.ISSUE);
+        // issues.add(UnsafeDynamicBroadcastReceiverDetector.ISSUE);
+        // issues.add(WebViewClientMethodMisuseDetector.PROCEED_ON_SSL_ERROR);
+        // issues.add(WebViewClientMethodMisuseDetector.UNRESTRICTED_INTERCEPT_REQUEST);
+        // issues.add(WebViewClientMethodMisuseDetector.UNRESTRICTED_OVERRIDE_URL_LOADING);
+        // issues.add(CallingOrSelfPermissionCheckDetector.ISSUE);
+        // issues.add(ImplicitUnprotectedIntentSendDetector.IMPLICIT_INTENT_SENDED_UNPROTECTED);
+        // issues.add(ImplicitUnprotectedIntentSendDetector.IMPLICIT_PENDING_INTENT);
+        // issues.add(PermissionCheckMisuseDetector.ISSUE);
+        // issues.add(TaskAffinityDetector.ACTIVITY_TASK_AFFINITY_SET);
+        // issues.add(TaskAffinityDetector.APPLICATION_TASK_AFFINITY_NOT_EMPTY);
+        // issues.add(UnrevokedUriPermissionDetector.ISSUE);
+        // issues.add(UnrestrictedWebViewDetector.ISSUE);
+        // issues.add(WrongPathPermissionPrecedenceDetector.ISSUE);
+        // issues.add(PathPermissionProblematicUriMatchingDetector.ISSUE);
+
         sIssues = Collections.unmodifiableList(issues);
     }
 
