@@ -16,6 +16,10 @@
 
 package com.android.tools.lint.checks;
 
+import static lint.ConstantEvaluatorWrapper.resolveAsLong;
+import static lint.ConstantEvaluatorWrapper.resolveAsString;
+import static lint.UastHelper.methodHasName;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.VisibleForTesting;
 import com.android.tools.lint.client.api.JavaEvaluator;
@@ -28,32 +32,24 @@ import com.android.tools.lint.detector.api.JavaContext;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.intellij.psi.PsiMethod;
-
+import java.util.Collections;
+import java.util.List;
 import org.jetbrains.uast.UCallExpression;
 import org.jetbrains.uast.UElement;
 import org.jetbrains.uast.UExpression;
 import org.jetbrains.uast.UMethod;
 import org.jetbrains.uast.visitor.AbstractUastVisitor;
 
-import java.util.Collections;
-import java.util.List;
-
-import static lint.ConstantEvaluatorWrapper.resolveAsLong;
-import static lint.ConstantEvaluatorWrapper.resolveAsString;
-import static lint.UastHelper.methodHasName;
-
 /**
- * Checks for the initialization of a RSA key pair generator with a key size lower than 2048
- * bits.
+ * Checks for the initialization of a RSA key pair generator with a key size lower than 2048 bits.
  *
- * Note that this check is limited to key pair generators created and initialized within the
- * same method.
+ * <p>Note that this check is limited to key pair generators created and initialized within the same
+ * method.
  *
- * For further details please read the paper "Security code smells in Android ICC",
- * available at http://scg.unibe.ch/archive/papers/Gadi18a.pdf
+ * <p>For further details please read the paper "Security code smells in Android ICC", available at
+ * http://scg.unibe.ch/archive/papers/Gadi18a.pdf
  *
- * University of Bern, Software Composition Group
- *
+ * <p>University of Bern, Software Composition Group
  */
 public class InsufficientRSAKeySizeDetector extends Detector implements Detector.UastScanner {
 
@@ -61,21 +57,26 @@ public class InsufficientRSAKeySizeDetector extends Detector implements Detector
     private static final String GET_INSTANCE = "getInstance";
     private static final String INITIALIZE = "initialize";
     private static final int MIN_KEY_SIZE = 2048;
+
     @VisibleForTesting
-    public static final String MESSAGE = "RSA should be initialized with a key size of at least 2048 bits";
+    public static final String MESSAGE =
+            "RSA should be initialized with a key size of at least 2048 bits";
 
-    public static final Issue ISSUE = Issue.create("InsufficientRSAKeySize", //$NON-NLS-1$
-            "SM00: Insufficient RSA KeySize | Using RSA with a key size lower than " + MIN_KEY_SIZE + " bits",
-
-            "It is recommended to use a key size of at least 2048 bits for the RSA algorithm" +
-                    " to ensure a minimal level of security.",
-            Category.SECURITY,
-            6,
-            Severity.WARNING,
-            new Implementation(
-                    InsufficientRSAKeySizeDetector.class,
-                    Scope.JAVA_FILE_SCOPE))
-            .addMoreInfo("http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57Pt3r1.pdf");
+    public static final Issue ISSUE =
+            Issue.create(
+                            "InsufficientRSAKeySize", //$NON-NLS-1$
+                            "SM00: Insufficient RSA KeySize | Using RSA with a key size lower than "
+                                    + MIN_KEY_SIZE
+                                    + " bits",
+                            "It is recommended to use a key size of at least 2048 bits for the RSA algorithm"
+                                    + " to ensure a minimal level of security.",
+                            Category.SECURITY,
+                            6,
+                            Severity.WARNING,
+                            new Implementation(
+                                    InsufficientRSAKeySizeDetector.class, Scope.JAVA_FILE_SCOPE))
+                    .addMoreInfo(
+                            "http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57Pt3r1.pdf");
 
     @Override
     public UElementHandler createUastHandler(JavaContext context) {
@@ -92,18 +93,18 @@ public class InsufficientRSAKeySizeDetector extends Detector implements Detector
     // reimplementation of many methods is required).
     // According to UElementHandler this is the proposed approach
     // (creating a handler to create a visitor).
-    private class  VisitorToMethodPasser extends UElementHandler{
+    private class VisitorToMethodPasser extends UElementHandler {
         private JavaContext context;
 
-        public VisitorToMethodPasser(JavaContext context){
+        public VisitorToMethodPasser(JavaContext context) {
             this.context = context;
         }
+
         @Override
         public void visitMethod(UMethod uMethod) {
             uMethod.accept(new InsufficientRSAKeySizeVisitor(context));
         }
     }
-
 
     private class InsufficientRSAKeySizeVisitor extends AbstractUastVisitor {
         private boolean foundGetInstance = false;
@@ -113,7 +114,6 @@ public class InsufficientRSAKeySizeDetector extends Detector implements Detector
         private InsufficientRSAKeySizeVisitor(@NonNull JavaContext context) {
             this.context = context;
         }
-
 
         @Override
         public boolean visitCallExpression(@NonNull UCallExpression methodInvocation) {
@@ -125,10 +125,9 @@ public class InsufficientRSAKeySizeDetector extends Detector implements Detector
         private void checkIsGettingRSAInstance(@NonNull UCallExpression methodInvocation) {
             PsiMethod resolvedMethod = methodInvocation.resolve();
             JavaEvaluator evaluator = context.getEvaluator();
-            if (resolvedMethod == null ||
-                    !evaluator.isMemberInSubClassOf(resolvedMethod, KEY_PAIR_GENERATOR, false) ||
-                    !methodHasName(methodInvocation, GET_INSTANCE))
-                return;
+            if (resolvedMethod == null
+                    || !evaluator.isMemberInSubClassOf(resolvedMethod, KEY_PAIR_GENERATOR, false)
+                    || !methodHasName(methodInvocation, GET_INSTANCE)) return;
             List<UExpression> argumentList = methodInvocation.getValueArguments();
             if ((argumentList.size() == 1 || argumentList.size() == 2)) {
                 UExpression expression = argumentList.get(0);
@@ -140,12 +139,11 @@ public class InsufficientRSAKeySizeDetector extends Detector implements Detector
         }
 
         private void checkSetsRSAKeySize(@NonNull UCallExpression methodInvocation) {
-            JavaEvaluator evaluator= context.getEvaluator();
+            JavaEvaluator evaluator = context.getEvaluator();
             PsiMethod resolvedMethod = methodInvocation.resolve();
-            if (resolvedMethod == null ||
-                    !evaluator.isMemberInSubClassOf(resolvedMethod, KEY_PAIR_GENERATOR, false) ||
-                    !methodHasName(methodInvocation, INITIALIZE))
-                return;
+            if (resolvedMethod == null
+                    || !evaluator.isMemberInSubClassOf(resolvedMethod, KEY_PAIR_GENERATOR, false)
+                    || !methodHasName(methodInvocation, INITIALIZE)) return;
             List<UExpression> argumentList = methodInvocation.getValueArguments();
             if (argumentList.size() == 1) {
                 UExpression expression = argumentList.get(0);
@@ -156,15 +154,17 @@ public class InsufficientRSAKeySizeDetector extends Detector implements Detector
             }
         }
 
-
         @Override
         public void afterVisitMethod(@NonNull UMethod methodDeclaration) {
             if (foundGetInstance && lowKeySizeInitializeCall != null) {
-                context.report(ISSUE, lowKeySizeInitializeCall, context.getLocation(lowKeySizeInitializeCall), MESSAGE);
+                context.report(
+                        ISSUE,
+                        lowKeySizeInitializeCall,
+                        context.getLocation(lowKeySizeInitializeCall),
+                        MESSAGE);
             }
             foundGetInstance = false;
             lowKeySizeInitializeCall = null;
         }
-
     }
 }

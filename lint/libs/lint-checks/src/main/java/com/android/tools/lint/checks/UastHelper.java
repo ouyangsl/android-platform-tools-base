@@ -22,7 +22,6 @@ import com.android.tools.lint.detector.api.UastLintUtils;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiType;
 import com.intellij.psi.PsiVariable;
-
 import org.jetbrains.uast.UCallExpression;
 import org.jetbrains.uast.UExpression;
 import org.jetbrains.uast.USimpleNameReferenceExpression;
@@ -31,40 +30,36 @@ import org.jetbrains.uast.UastUtils;
 /**
  * Helper class for Uast manipulations.
  *
- * For further details please read the paper "Security code smells in Android ICC",
- * available at http://scg.unibe.ch/archive/papers/Gadi18a.pdf
+ * <p>For further details please read the paper "Security code smells in Android ICC", available at
+ * http://scg.unibe.ch/archive/papers/Gadi18a.pdf
  *
- * University of Bern, Software Composition Group
- *
+ * <p>University of Bern, Software Composition Group
  */
 class UastHelper {
 
-    static boolean methodHasName(@NonNull UCallExpression methodCall, @Nullable String expectedMethodName) {
+    static boolean methodHasName(
+            @NonNull UCallExpression methodCall, @Nullable String expectedMethodName) {
         String methodName = methodCall.getMethodName();
         return methodName != null && methodName.equals(expectedMethodName);
     }
 
-    static boolean hasClassOrSuperClass(PsiType type, String qualifiedClassName)
-    {
-        if(type == null)
-            return false;
-        if(type.getCanonicalText().equals(qualifiedClassName))
-            return true;
+    static boolean hasClassOrSuperClass(PsiType type, String qualifiedClassName) {
+        if (type == null) return false;
+        if (type.getCanonicalText().equals(qualifiedClassName)) return true;
         PsiType[] superTypes = type.getSuperTypes();
-        for(PsiType superType : superTypes){
-            if(superType.getCanonicalText().equals(qualifiedClassName))
-                return true;
+        for (PsiType superType : superTypes) {
+            if (superType.getCanonicalText().equals(qualifiedClassName)) return true;
         }
         return false;
     }
 
-    static UExpression getLastAssignedExpression(@Nullable UExpression variable, @Nullable UCallExpression call) {
+    static UExpression getLastAssignedExpression(
+            @Nullable UExpression variable, @Nullable UCallExpression call) {
         if (variable instanceof USimpleNameReferenceExpression) {
             PsiElement e = UastUtils.tryResolve(variable);
             if (e instanceof PsiVariable) {
                 UExpression assignedValue = UastLintUtils.findLastAssignment((PsiVariable) e, call);
-                if (assignedValue != null)
-                    return assignedValue;
+                if (assignedValue != null) return assignedValue;
             }
         }
         return null;

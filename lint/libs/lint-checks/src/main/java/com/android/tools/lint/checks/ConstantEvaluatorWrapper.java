@@ -19,18 +19,16 @@ package com.android.tools.lint.checks;
 import com.android.annotations.Nullable;
 import com.android.tools.lint.detector.api.ConstantEvaluator;
 import com.android.tools.lint.detector.api.JavaContext;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UExpression;
 
 /**
  * Helper class for evaluating constants.
  *
- * For further details please read the paper "Security code smells in Android ICC",
- * available at http://scg.unibe.ch/archive/papers/Gadi18a.pdf
+ * <p>For further details please read the paper "Security code smells in Android ICC", available at
+ * http://scg.unibe.ch/archive/papers/Gadi18a.pdf
  *
- * University of Bern, Software Composition Group
- *
+ * <p>University of Bern, Software Composition Group
  */
 class ConstantEvaluatorWrapper {
 
@@ -55,7 +53,6 @@ class ConstantEvaluatorWrapper {
         ConstantEvaluator evaluator = new ConstantEvaluator();
         evaluator.allowFieldInitializers();
         Object value = evaluator.evaluate(expression);
-        return value instanceof String ? (String)value : null;
+        return value instanceof String ? (String) value : null;
     }
-
 }
