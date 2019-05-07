@@ -121,6 +121,7 @@ import com.android.build.gradle.internal.tasks.InstallVariantTask;
 import com.android.build.gradle.internal.tasks.JacocoTask;
 import com.android.build.gradle.internal.tasks.LintCompile;
 import com.android.build.gradle.internal.tasks.MergeAaptProguardFilesCreationAction;
+import com.android.build.gradle.internal.tasks.MergeClassesTask;
 import com.android.build.gradle.internal.tasks.MergeGeneratedProguardFilesCreationAction;
 import com.android.build.gradle.internal.tasks.MergeJavaResourceTask;
 import com.android.build.gradle.internal.tasks.MergeNativeLibsTask;
@@ -158,7 +159,6 @@ import com.android.build.gradle.internal.transforms.DesugarTransform;
 import com.android.build.gradle.internal.transforms.DexArchiveBuilderTransform;
 import com.android.build.gradle.internal.transforms.DexArchiveBuilderTransformBuilder;
 import com.android.build.gradle.internal.transforms.DexSplitterTransform;
-import com.android.build.gradle.internal.transforms.MergeClassesTransform;
 import com.android.build.gradle.internal.transforms.ProGuardTransform;
 import com.android.build.gradle.internal.transforms.ProguardConfigurable;
 import com.android.build.gradle.internal.transforms.R8Transform;
@@ -2036,11 +2036,11 @@ public abstract class TaskManager {
                     });
         }
 
-        // Add transform to create merged runtime classes if this is a feature, a dynamic-feature,
+        // Add a task to create merged runtime classes if this is a feature, a dynamic-feature,
         // or a base module consuming feature jars. Merged runtime classes are needed if code
         // minification is enabled in a project with features or dynamic-features.
         if (variantData.getType().isFeatureSplit() || variantScope.consumesFeatureJars()) {
-            createMergeClassesTransform(variantScope);
+            taskFactory.register(new MergeClassesTask.CreationAction(variantScope));
         }
 
         // ----- Android studio profiling transforms
@@ -3367,41 +3367,6 @@ public abstract class TaskManager {
         }
     }
 
-    private void createMergeClassesTransform(@NonNull VariantScope variantScope) {
-
-        File outputJar = variantScope.getMergedClassesJarFile();
-
-        MergeClassesTransform transform = new MergeClassesTransform(outputJar);
-
-        Optional<TaskProvider<TransformTask>> transformTask =
-                variantScope
-                        .getTransformManager()
-                        .addTransform(
-                                taskFactory,
-                                variantScope,
-                                transform,
-                                taskName -> {
-                                    variantScope
-                                            .getArtifacts()
-                                            .appendArtifact(
-                                                    InternalArtifactType
-                                                            .MODULE_AND_RUNTIME_DEPS_CLASSES,
-                                                    ImmutableList.of(outputJar),
-                                                    taskName);
-                                },
-                                null,
-                                null);
-
-        if (!transformTask.isPresent()) {
-            globalScope
-                    .getErrorHandler()
-                    .reportError(
-                            Type.GENERIC,
-                            new EvalIssueException(
-                                    "Internal error, could not add the MergeClassesTransform"));
-        }
-    }
-
     /**
      * Method to reliably generate matching feature file names when dex splitter is used.
      *
@@ -3622,61 +3587,81 @@ public abstract class TaskManager {
         return logger;
     }
 
-    public void addDataBindingDependenciesIfNecessary(
+    public void addBindingDependenciesIfNecessary(
             DataBindingOptions options, List<VariantScope> variantScopes) {
-        if (!options.isEnabled()) {
-            return;
-        }
-        boolean useAndroidX = globalScope.getProjectOptions().get(BooleanOption.USE_ANDROID_X);
-        String version = MoreObjects.firstNonNull(options.getVersion(),
-                dataBindingBuilder.getCompilerVersion());
-        String baseLibArtifact =
-                useAndroidX
-                        ? SdkConstants.ANDROIDX_DATA_BINDING_BASELIB_ARTIFACT
-                        : SdkConstants.DATA_BINDING_BASELIB_ARTIFACT;
-        project.getDependencies()
-                .add(
-                        "api",
-                        baseLibArtifact + ":" + dataBindingBuilder.getBaseLibraryVersion(version));
-        project.getDependencies()
-                .add(
-                        "annotationProcessor",
-                        SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT + ":" + version);
-        // TODO load config name from source sets
-        if (options.isEnabledForTests()
-                || this instanceof LibraryTaskManager
-                || this instanceof MultiTypeTaskManager) {
-            project.getDependencies()
-                    .add(
-                            "androidTestAnnotationProcessor",
-                            SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT
-                                    + ":"
-                                    + version);
-        }
-        if (options.getAddDefaultAdapters()) {
-            String libArtifact =
-                    useAndroidX
-                            ? SdkConstants.ANDROIDX_DATA_BINDING_LIB_ARTIFACT
-                            : SdkConstants.DATA_BINDING_LIB_ARTIFACT;
-            String adaptersArtifact =
-                    useAndroidX
-                            ? SdkConstants.ANDROIDX_DATA_BINDING_ADAPTER_LIB_ARTIFACT
-                            : SdkConstants.DATA_BINDING_ADAPTER_LIB_ARTIFACT;
-            project.getDependencies()
-                    .add("api", libArtifact + ":" + dataBindingBuilder.getLibraryVersion(version));
+        ProjectOptions projectOptions = globalScope.getProjectOptions();
+        boolean useAndroidX = projectOptions.get(BooleanOption.USE_ANDROID_X);
+        boolean viewBindingEnabled = projectOptions.get(BooleanOption.ENABLE_VIEW_BINDING);
+        boolean dataBindingEnabled = options.isEnabled();
+
+        if (viewBindingEnabled) {
             project.getDependencies()
                     .add(
                             "api",
-                            adaptersArtifact
-                                    + ":"
-                                    + dataBindingBuilder.getBaseAdaptersVersion(version));
+                            useAndroidX
+                                    ? SdkConstants.ANDROIDX_ANNOTATIONS_ARTIFACT + ":1.0.0"
+                                    : SdkConstants.ANNOTATIONS_LIB_ARTIFACT + ":28.0.0");
         }
-        project.getPluginManager()
-                .withPlugin(
-                        "org.jetbrains.kotlin.kapt",
-                        appliedPlugin -> {
-                            configureKotlinKaptTasksForDataBinding(project, variantScopes, version);
-                        });
+
+        if (dataBindingEnabled) {
+            String version =
+                    MoreObjects.firstNonNull(
+                            options.getVersion(), dataBindingBuilder.getCompilerVersion());
+            String baseLibArtifact =
+                    useAndroidX
+                            ? SdkConstants.ANDROIDX_DATA_BINDING_BASELIB_ARTIFACT
+                            : SdkConstants.DATA_BINDING_BASELIB_ARTIFACT;
+            project.getDependencies()
+                    .add(
+                            "api",
+                            baseLibArtifact
+                                    + ":"
+                                    + dataBindingBuilder.getBaseLibraryVersion(version));
+            project.getDependencies()
+                    .add(
+                            "annotationProcessor",
+                            SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT
+                                    + ":"
+                                    + version);
+            // TODO load config name from source sets
+            if (options.isEnabledForTests()
+                    || this instanceof LibraryTaskManager
+                    || this instanceof MultiTypeTaskManager) {
+                project.getDependencies()
+                        .add(
+                                "androidTestAnnotationProcessor",
+                                SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT
+                                        + ":"
+                                        + version);
+            }
+            if (options.getAddDefaultAdapters()) {
+                String libArtifact =
+                        useAndroidX
+                                ? SdkConstants.ANDROIDX_DATA_BINDING_LIB_ARTIFACT
+                                : SdkConstants.DATA_BINDING_LIB_ARTIFACT;
+                String adaptersArtifact =
+                        useAndroidX
+                                ? SdkConstants.ANDROIDX_DATA_BINDING_ADAPTER_LIB_ARTIFACT
+                                : SdkConstants.DATA_BINDING_ADAPTER_LIB_ARTIFACT;
+                project.getDependencies()
+                        .add(
+                                "api",
+                                libArtifact + ":" + dataBindingBuilder.getLibraryVersion(version));
+                project.getDependencies()
+                        .add(
+                                "api",
+                                adaptersArtifact
+                                        + ":"
+                                        + dataBindingBuilder.getBaseAdaptersVersion(version));
+            }
+            project.getPluginManager()
+                    .withPlugin(
+                            "org.jetbrains.kotlin.kapt",
+                            appliedPlugin -> {
+                                configureKotlinKaptTasksForDataBinding(
+                                        project, variantScopes, version);
+                            });
+        }
     }
 
     private void configureKotlinKaptTasksForDataBinding(

@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.android.repository.util
 
-package com.android.build.gradle.internal.cxx.services
+import com.android.repository.api.RepoPackage
 
-import com.android.build.gradle.internal.scope.GlobalScope
+fun getRepoPackagePrefix(pathOrPrefix: String): String = pathOrPrefix.substringBeforeLast(RepoPackage.PATH_SEPARATOR)
 
-/**
- * Create the default service registry.
- */
-fun createDefaultServiceRegistry(global : GlobalScope) : CxxServiceRegistry {
-    val registry = CxxServiceRegistryBuilder()
-    createProcessJunctionService(global, registry)
-    createEvalIssueReporterService(global, registry)
-    return registry.build()
-}
+fun getAllRepoPackagePrefixes(path: String): List<String> = generateSequence(path) {
+  it.substringBeforeLast(RepoPackage.PATH_SEPARATOR, "").takeIf { it.isNotEmpty() }
+}.toList()
