@@ -28,6 +28,7 @@ import com.google.common.base.Joiner
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
 import com.google.gson.annotations.SerializedName
+import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.Directory
@@ -47,6 +48,7 @@ import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.logging.Level
 import java.util.logging.Logger
+import kotlin.reflect.KProperty1
 
 typealias Report = Map<ArtifactType, List<BuildArtifactsHolder.BuildableArtifactData>>
 
@@ -209,13 +211,18 @@ abstract class BuildArtifactsHolder(
      * @param taskProvider the [TaskProvider] for the task ultimately responsible for producing the
      * artifact.
      * @param product the [Provider] of the artifact [RegularFile]
+     * @param buildDirectory the destination directory of the produced artifact or not provided if
+     * using the default location.
      * @param fileName the desired produced file name.
      */
-    fun producesFile(artifactType: ArtifactType,
+    fun <T: Task> producesFile(
+        artifactType: ArtifactType,
         operationType: OperationType,
-        taskProvider: TaskProvider<*>,
-        product: Provider<Property<RegularFile>>,
-        fileName: String) {
+        taskProvider: TaskProvider<out T>,
+        productProvider: (T) -> RegularFileProperty,
+        buildDirectory: Provider<Directory> = project.layout.buildDirectory,
+        fileName: String
+    ) {
 
         val settableProperty = project.objects.fileProperty()
 
@@ -223,9 +230,10 @@ abstract class BuildArtifactsHolder(
             fileProducersMap,
             operationType,
             taskProvider,
-            product,
+            productProvider,
             settableProperty,
-            fileName)
+            fileName,
+            buildDirectory)
     }
 
     /**
@@ -258,60 +266,82 @@ abstract class BuildArtifactsHolder(
      * [OperationType.INITIAL] but many [OperationType.APPEND] or [OperationType.TRANSFORM]
      * @param taskProvider the [TaskProvider] for the task ultimately responsible for producing the
      * artifact.
+     * @param buildDirectory the destination directory of the produced artifact or not provided if
+     * using the default location.
      * @param product the [Provider] of the artifact [Directory]
+     *
      * @param fileName the desired produced file name.
      */
-    fun producesDir(artifactType: ArtifactType,
+    fun <T: Task> producesDir(
+        artifactType: ArtifactType,
         operationType: OperationType,
-        taskProvider: TaskProvider<*>,
-        product: Provider<Property<Directory>>,
-        fileName: String = "out") {
+        taskProvider: TaskProvider<out T>,
+        productProvider: (T) -> DirectoryProperty,
+        buildDirectory: Provider<Directory> = project.layout.buildDirectory,
+        fileName: String = "out"
+    ) {
 
         produces(artifactType,
             directoryProducersMap,
             operationType,
             taskProvider,
-            product,
+            productProvider,
             project.objects.directoryProperty(),
-            fileName)
+            fileName,
+            buildDirectory)
     }
+
+    // TODO : remove these 2 APIs once all java tasks stopped using those after Kotlin translation.
+    fun <T: Task> producesFile(
+        artifactType: ArtifactType,
+        operationType: OperationType,
+        taskProvider: TaskProvider<out T>,
+        productProvider: (T) -> RegularFileProperty,
+        fileName: String = "out"
+    )= producesFile(artifactType, operationType, taskProvider, productProvider, project.layout.buildDirectory, fileName)
+
+
+    fun <T: Task> producesDir(
+        artifactType: ArtifactType,
+        operationType: OperationType,
+        taskProvider: TaskProvider<out T>,
+        propertyProvider: (T) -> DirectoryProperty,
+        fileName: String = "out"
+    )= producesDir(artifactType, operationType, taskProvider, propertyProvider, project.layout.buildDirectory, fileName)
 
     private val dummyTask by lazy {
-        project.tasks.register("dummy" + getIdentifier())
+
+        project.tasks.register("dummy" + getIdentifier(), DummyTask::class.java)
     }
 
-    fun emptyDir(artifactType: ArtifactType) {
-        produces<Directory>(artifactType,
-            directoryProducersMap,
-            OperationType.INITIAL,
-            dummyTask,
-            dummyTask.map { project.objects.directoryProperty() },
-            project.objects.directoryProperty(),
-            "out"
-        )
+    abstract class DummyTask: DefaultTask() {
+        abstract val emptyFileProperty: RegularFileProperty
     }
 
     fun emptyFile(artifactType: ArtifactType) {
-        produces<RegularFile>(artifactType,
+        produces<RegularFile, DummyTask>(artifactType,
             fileProducersMap,
             OperationType.INITIAL,
             dummyTask,
-            dummyTask.map { project.objects.fileProperty() },
+            DummyTask::emptyFileProperty,
             project.objects.fileProperty(),
-            "out"
+            "out",
+            project.layout.buildDirectory
         )
     }
 
 
-    private fun <T : FileSystemLocation> produces(artifactType: ArtifactType,
+    private fun <T : FileSystemLocation, U: Task> produces(artifactType: ArtifactType,
         producersMap: ProducersMap<T>,
         operationType: OperationType,
-        taskProvider: TaskProvider<*>,
-        product: Provider<Property<T>>,
+        taskProvider: TaskProvider<out U>,
+        productProvider: (U) -> Property<T>,
         settableFileLocation: Property<T>,
-        fileName: String) {
+        fileName: String,
+        buildDirectory: Provider<Directory>) {
 
-        val producers = producersMap.getProducers(artifactType)
+        val producers = producersMap.getProducers(artifactType, buildDirectory)
+        val product= taskProvider.map { productProvider(it) }
 
         when(operationType) {
             OperationType.INITIAL -> {
@@ -336,7 +366,7 @@ abstract class BuildArtifactsHolder(
         // note that this configuration block may be called immediately in case the task has
         // already been initialized.
         taskProvider.configure {
-            
+
             product.get().set(settableFileLocation)
 
             // add a new configuration action to make sure the producers are configured even

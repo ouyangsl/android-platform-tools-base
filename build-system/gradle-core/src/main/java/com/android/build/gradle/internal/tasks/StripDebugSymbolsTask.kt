@@ -126,8 +126,8 @@ abstract class StripDebugSymbolsTask @Inject constructor(objects: ObjectFactory)
                 STRIPPED_NATIVE_LIBS,
                 BuildArtifactsHolder.OperationType.APPEND,
                 taskProvider,
-                taskProvider.map { it.outputDir },
-                "out"
+                StripDebugSymbolsTask::outputDir,
+                fileName = "out"
             )
         }
 

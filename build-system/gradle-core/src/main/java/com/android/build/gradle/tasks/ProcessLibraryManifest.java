@@ -45,6 +45,7 @@ import com.google.common.collect.ImmutableMap;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.io.UncheckedIOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -69,7 +70,7 @@ import org.gradle.workers.WorkerExecutor;
 
 /** a Task that only merge a single manifest with its overlays. */
 @CacheableTask
-public class ProcessLibraryManifest extends ManifestProcessorTask {
+public abstract class ProcessLibraryManifest extends ManifestProcessorTask {
 
     private Supplier<String> minSdkVersion;
     private Supplier<String> targetSdkVersion;
@@ -122,6 +123,7 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
                             manifestOutputFile.get().getAsFile(),
                             variantConfiguration.getManifestPlaceholders(),
                             getReportFile(),
+                            getMergeBlameFile().get().getAsFile(),
                             manifestOutputDirectory.isPresent()
                                     ? manifestOutputDirectory.get().getAsFile()
                                     : null,
@@ -147,6 +149,7 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
         @NonNull private final File manifestOutputFile;
         @NonNull private final Map<String, Object> manifestPlaceholders;
         @NonNull private final File reportFile;
+        @NonNull private final File mergeBlameFile;
         @Nullable private final File manifestOutputDirectory;
         @Nullable private final File aaptFriendlyManifestOutputDirectory;
         @NonNull private final ApkData mainSplit;
@@ -166,6 +169,7 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
                 @NonNull File manifestOutputFile,
                 @NonNull Map<String, Object> manifestPlaceholders,
                 @NonNull File reportFile,
+                @NonNull File mergeBlameFile,
                 @Nullable File manifestOutputDirectory,
                 @Nullable File aaptFriendlyManifestOutputDirectory,
                 @NonNull ApkData mainSplit) {
@@ -183,6 +187,7 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
             this.manifestOutputFile = manifestOutputFile;
             this.manifestPlaceholders = manifestPlaceholders;
             this.reportFile = reportFile;
+            this.mergeBlameFile = mergeBlameFile;
             this.manifestOutputDirectory = manifestOutputDirectory;
             this.aaptFriendlyManifestOutputDirectory = aaptFriendlyManifestOutputDirectory;
             this.mainSplit = mainSplit;
@@ -232,6 +237,12 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
 
             XmlDocument mergedXmlDocument =
                     mergingReport.getMergedXmlDocument(MergingReport.MergedManifestKind.MERGED);
+
+            try {
+                outputMergeBlameContents(mergingReport, params.mergeBlameFile);
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
 
             ImmutableMap<String, String> properties =
                     mergedXmlDocument != null
@@ -403,8 +414,7 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
                             InternalArtifactType.AAPT_FRIENDLY_MERGED_MANIFESTS,
                             BuildArtifactsHolder.OperationType.INITIAL,
                             taskProvider,
-                            taskProvider.map(
-                                    ManifestProcessorTask::getAaptFriendlyManifestOutputDirectory),
+                            ManifestProcessorTask::getAaptFriendlyManifestOutputDirectory,
                             "aapt");
 
             scope.getArtifacts()
@@ -412,7 +422,7 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
                             InternalArtifactType.MERGED_MANIFESTS,
                             BuildArtifactsHolder.OperationType.INITIAL,
                             taskProvider,
-                            taskProvider.map(ManifestProcessorTask::getManifestOutputDirectory),
+                            ManifestProcessorTask::getManifestOutputDirectory,
                             "");
 
             scope.getArtifacts()
@@ -420,8 +430,19 @@ public class ProcessLibraryManifest extends ManifestProcessorTask {
                             InternalArtifactType.LIBRARY_MANIFEST,
                             BuildArtifactsHolder.OperationType.INITIAL,
                             taskProvider,
-                            taskProvider.map(ProcessLibraryManifest::getManifestOutputFile),
+                            ProcessLibraryManifest::getManifestOutputFile,
                             SdkConstants.ANDROID_MANIFEST_XML);
+
+            getVariantScope()
+                    .getArtifacts()
+                    .producesFile(
+                            InternalArtifactType.MANIFEST_MERGE_BLAME_FILE,
+                            BuildArtifactsHolder.OperationType.INITIAL,
+                            taskProvider,
+                            ProcessLibraryManifest::getMergeBlameFile,
+                            "manifest-merger-blame-"
+                                    + getVariantScope().getVariantConfiguration().getBaseName()
+                                    + "-report.txt");
         }
 
         @Override

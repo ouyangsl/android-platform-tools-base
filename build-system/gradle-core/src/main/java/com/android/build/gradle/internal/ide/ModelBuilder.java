@@ -736,15 +736,24 @@ public class ModelBuilder<Extension extends AndroidConfig>
                             .getAsFile());
         }
         // The separately compile R class, if applicable.
-        VariantScope testedScope = Objects.requireNonNull(scope.getTestedVariantData()).getScope();
-        if (testedScope
-                .getArtifacts()
-                .hasFinalProduct(InternalArtifactType.COMPILE_ONLY_NOT_NAMESPACED_R_CLASS_JAR)) {
+        BuildArtifactsHolder testedArtifacts =
+                Objects.requireNonNull(scope.getTestedVariantData()).getScope().getArtifacts();
+        if (testedArtifacts.hasFinalProduct(
+                InternalArtifactType.COMPILE_ONLY_NOT_NAMESPACED_R_CLASS_JAR)) {
             additionalTestClasses.add(
-                    testedScope
-                            .getArtifacts()
+                    testedArtifacts
                             .getFinalProduct(
                                     InternalArtifactType.COMPILE_ONLY_NOT_NAMESPACED_R_CLASS_JAR)
+                            .get()
+                            .getAsFile());
+        }
+        if (testedArtifacts.hasFinalProduct(
+                InternalArtifactType.COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR)) {
+            additionalTestClasses.add(
+                    testedArtifacts
+                            .getFinalProduct(
+                                    InternalArtifactType
+                                            .COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR)
                             .get()
                             .getAsFile());
         }
@@ -1020,11 +1029,16 @@ public class ModelBuilder<Extension extends AndroidConfig>
                                         mainApkInfo.getType(),
                                         mainApkInfo.getFilters(),
                                         mainApkInfo.getVersionCode(),
-                                        BuildableArtifactUtil.singleFile(
+                                        new File(
                                                 variantScope
                                                         .getArtifacts()
-                                                        .getFinalArtifactFiles(
-                                                                InternalArtifactType.AAR)))));
+                                                        .getFinalProduct(InternalArtifactType.AAR)
+                                                        .get()
+                                                        .getAsFile(),
+                                                variantScope
+                                                        .getOutputScope()
+                                                        .getMainSplit()
+                                                        .getOutputFileName()))));
             case ANDROID_TEST:
                 return new BuildOutputsSupplier(
                         ImmutableList.of(InternalArtifactType.APK),
@@ -1177,9 +1191,9 @@ public class ModelBuilder<Extension extends AndroidConfig>
 
         folders.add(
                 scope.getArtifacts()
-                        .getFinalArtifactFiles(InternalArtifactType.AIDL_SOURCE_OUTPUT_DIR)
+                        .getFinalProduct(InternalArtifactType.AIDL_SOURCE_OUTPUT_DIR)
                         .get()
-                        .getSingleFile());
+                        .getAsFile());
         folders.add(scope.getBuildConfigSourceOutputDir());
         Boolean ndkMode = variantData.getVariantConfiguration().getMergedFlavor().getRenderscriptNdkModeEnabled();
         if (ndkMode == null || !ndkMode) {

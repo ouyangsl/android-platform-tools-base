@@ -39,7 +39,6 @@ import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
-import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkerExecutor
 import java.io.File
@@ -149,7 +148,7 @@ open class DexFileDependenciesTask
                 artifactType = InternalArtifactType.EXTERNAL_FILE_LIB_DEX_ARCHIVES,
                 operationType = BuildArtifactsHolder.OperationType.INITIAL,
                 taskProvider = taskProvider,
-                product = taskProvider.map(DexFileDependenciesTask::outputDirectory),
+                productProvider = DexFileDependenciesTask::outputDirectory,
                 fileName = "out"
             )
         }

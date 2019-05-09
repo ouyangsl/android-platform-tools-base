@@ -19,7 +19,9 @@ package com.android.build.gradle.tasks
 import android.databinding.tool.DataBindingBuilder
 import com.android.SdkConstants
 import com.android.build.gradle.AndroidConfig
+import com.android.build.gradle.internal.scope.BuildArtifactsHolder
 import com.android.build.gradle.internal.scope.InternalArtifactType
+import com.android.build.gradle.internal.scope.InternalArtifactType.LIBRARY_AND_LOCAL_JARS_JNI
 import com.android.build.gradle.internal.scope.VariantScope
 import com.android.build.gradle.internal.tasks.VariantAwareTask
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
@@ -33,10 +35,9 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.bundling.Zip
-import java.io.File
 
 /** Custom Zip task to allow archive name to be set lazily. */
-open class BundleAar : Zip(), VariantAwareTask {
+abstract class BundleAar : Zip(), VariantAwareTask {
 
     @Internal
     override lateinit var variantName: String
@@ -51,18 +52,16 @@ open class BundleAar : Zip(), VariantAwareTask {
         override val type: Class<BundleAar>
             get() = BundleAar::class.java
 
-        override fun preConfigure(taskName: String) {
-            super.preConfigure(taskName)
-            variantScope.artifacts.appendArtifact(
-                InternalArtifactType.AAR,
-                listOf(File(variantScope.aarLocation,
-                    variantScope.outputScope.mainSplit.outputFileName)),
-                taskName)
-        }
-
         override fun handleProvider(taskProvider: TaskProvider<out BundleAar>) {
             super.handleProvider(taskProvider)
             variantScope.taskContainer.bundleLibraryTask = taskProvider
+            variantScope.artifacts.producesDir(InternalArtifactType.AAR,
+                BuildArtifactsHolder.OperationType.INITIAL,
+                taskProvider,
+                BundleAar::getDestinationDirectory,
+                variantScope.globalScope.project.layout.buildDirectory.dir(
+                    variantScope.aarLocation.absolutePath),
+                "")
         }
 
         override fun configure(task: BundleAar) {
@@ -82,11 +81,10 @@ open class BundleAar : Zip(), VariantAwareTask {
                     + variantScope.variantConfiguration.fullName
                     + ".")
 
-            task.destinationDirectory.set(variantScope.aarLocation)
-            task.archiveFileName.set(variantScope.outputScope.mainSplit.outputFileName!!)
+            task.archiveFileName.set(variantScope.outputScope.mainSplit.outputFileName)
             task.archiveExtension.set(BuilderConstants.EXT_LIB_ARCHIVE)
             task.from(
-                variantScope.artifacts.getArtifactFiles(
+                variantScope.artifacts.getFinalProduct<Directory>(
                     InternalArtifactType.AIDL_PARCELABLE
                 ),
                 prependToCopyPath(SdkConstants.FD_AIDL)
@@ -139,7 +137,7 @@ open class BundleAar : Zip(), VariantAwareTask {
                 task.from(artifacts.getFinalArtifactFiles(InternalArtifactType.RES_STATIC_LIBRARY))
             }
             task.from(
-                artifacts.getFinalArtifactFiles(InternalArtifactType.LIBRARY_AND_LOCAL_JARS_JNI),
+                artifacts.getFinalProduct<Directory>(LIBRARY_AND_LOCAL_JARS_JNI),
                 prependToCopyPath(SdkConstants.FD_JNI)
             )
             task.from(variantScope.globalScope.artifacts

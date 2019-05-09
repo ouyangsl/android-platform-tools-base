@@ -181,8 +181,8 @@ abstract class GenerateLibraryRFileTask @Inject constructor(
                 InternalArtifactType.COMPILE_ONLY_NOT_NAMESPACED_R_CLASS_JAR,
                 BuildArtifactsHolder.OperationType.INITIAL,
                 taskProvider,
-                taskProvider.map { it.rClassOutputJar },
-                "R.jar"
+                GenerateLibraryRFileTask::rClassOutputJar,
+                fileName = "R.jar"
             )
         }
 

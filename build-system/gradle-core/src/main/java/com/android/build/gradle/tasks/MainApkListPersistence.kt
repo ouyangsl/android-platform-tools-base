@@ -17,6 +17,7 @@
 package com.android.build.gradle.tasks
 
 import com.android.SdkConstants
+import com.android.build.gradle.internal.scope.ApkData
 import com.android.build.gradle.internal.scope.BuildArtifactsHolder
 import com.android.build.gradle.internal.scope.ExistingBuildElements
 import com.android.build.gradle.internal.scope.InternalArtifactType
@@ -26,10 +27,9 @@ import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.utils.FileUtils
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.CacheableTask
-import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskProvider
-import java.io.File
 
 /**
  * Task to persist the {@see OutputScope#apkdatas} which allows downstream tasks to depend
@@ -43,13 +43,14 @@ abstract class MainApkListPersistence : NonIncrementalTask() {
     @get:OutputFile
     abstract val outputFile: RegularFileProperty
 
-    @get:Input
-    lateinit var apkDataListJson : String
+    @get:Nested
+    lateinit var apkDataList : List<ApkData>
         private set
 
     public override fun doTaskAction() {
         FileUtils.deleteIfExists(outputFile.get().asFile)
-        FileUtils.createFile(outputFile.get().asFile, apkDataListJson)
+        FileUtils.createFile(outputFile.get().asFile,
+            ExistingBuildElements.persistApkList(apkDataList))
     }
 
     class CreationAction(
@@ -69,15 +70,15 @@ abstract class MainApkListPersistence : NonIncrementalTask() {
                 InternalArtifactType.APK_LIST,
                 BuildArtifactsHolder.OperationType.INITIAL,
                 taskProvider,
-                taskProvider.map { task -> task.outputFile },
-                SdkConstants.FN_APK_LIST)
+                MainApkListPersistence::outputFile,
+                fileName = SdkConstants.FN_APK_LIST
+            )
         }
 
         override fun configure(task: MainApkListPersistence) {
             super.configure(task)
 
-            task.apkDataListJson =
-                    ExistingBuildElements.persistApkList(variantScope.outputScope.apkDatas)
+            task.apkDataList = variantScope.outputScope.apkDatas
         }
     }
 }

@@ -69,7 +69,6 @@ import org.gradle.api.Project;
 import org.gradle.api.Task;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.ConfigurableFileTree;
-import org.gradle.api.file.Directory;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.FileSystemLocation;
 import org.gradle.api.logging.Logging;
@@ -580,16 +579,6 @@ public abstract class BaseVariantData {
                         ((AndroidSourceSet) provider).getJava().getSourceDirectoryTrees());
             }
 
-            // then all the generated src folders.
-            if (scope.getArtifacts()
-                    .hasFinalProduct(InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES)) {
-                Provider<Directory> rClassSource =
-                        scope.getArtifacts()
-                                .getFinalProduct(
-                                        InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES);
-                sourceSets.add(project.fileTree(rClassSource).builtBy(rClassSource));
-            }
-
             // for the other, there's no duplicate so no issue.
             if (taskContainer.getGenerateBuildConfigTask() != null) {
                 sourceSets.add(
@@ -598,12 +587,10 @@ public abstract class BaseVariantData {
             }
 
             if (taskContainer.getAidlCompileTask() != null) {
-                // FIXME we need to get a configurableFileTree directly from the BuildableArtifact.
-                FileCollection aidlFC =
+                Provider<FileSystemLocation> aidlFC =
                         scope.getArtifacts()
-                                .getFinalArtifactFiles(InternalArtifactType.AIDL_SOURCE_OUTPUT_DIR)
-                                .get();
-                sourceSets.add(project.fileTree(aidlFC.getSingleFile()).builtBy(aidlFC));
+                                .getFinalProduct(InternalArtifactType.AIDL_SOURCE_OUTPUT_DIR);
+                sourceSets.add(project.fileTree(aidlFC).builtBy(aidlFC));
             }
 
             if (scope.getGlobalScope().getExtension().getDataBinding().isEnabled()
@@ -639,22 +626,6 @@ public abstract class BaseVariantData {
         return defaultJavaSources;
     }
 
-    @NonNull
-    public List<Provider<? extends FileSystemLocation>> getGeneratedSources() {
-        ImmutableList.Builder<Provider<? extends FileSystemLocation>> listBuilder =
-                ImmutableList.builder();
-
-        // then all the generated src folders.
-        if (scope.getArtifacts()
-                .hasFinalProduct(InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES)) {
-            Provider<Directory> rClassSource =
-                    scope.getArtifacts()
-                            .getFinalProduct(InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES);
-            listBuilder.add(rClassSource);
-        }
-        return listBuilder.build();
-    }
-
     /**
      * Returns the Java folders needed for code coverage report.
      *
@@ -676,10 +647,7 @@ public abstract class BaseVariantData {
 
         // then all the generated src folders, except the ones for the R/Manifest and
         // BuildConfig classes.
-        fc.from(
-                scope.getArtifacts()
-                        .getFinalArtifactFiles(InternalArtifactType.AIDL_SOURCE_OUTPUT_DIR)
-                        .get());
+        fc.from(scope.getArtifacts().getFinalProduct(InternalArtifactType.AIDL_SOURCE_OUTPUT_DIR));
 
         if (!variantConfiguration.getRenderscriptNdkModeEnabled()) {
             fc.from(

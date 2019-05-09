@@ -30,7 +30,6 @@ import com.android.builder.internal.aapt.v2.Aapt2RenamingConventions
 import com.android.ide.common.resources.CompileResourceRequest
 import com.android.ide.common.resources.FileStatus
 import com.android.utils.FileUtils
-import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.model.ObjectFactory
@@ -214,7 +213,7 @@ open class CompileSourceSetResources
                 InternalArtifactType.PARTIAL_R_FILES,
                 BuildArtifactsHolder.OperationType.APPEND,
                 taskProvider,
-                taskProvider.map { it.partialRDirectory })
+                CompileSourceSetResources::partialRDirectory)
         }
 
         override fun configure(task: CompileSourceSetResources) {

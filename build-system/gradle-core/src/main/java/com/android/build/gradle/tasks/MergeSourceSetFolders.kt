@@ -339,8 +339,8 @@ abstract class MergeSourceSetFolders @Inject constructor(
                     outputArtifactType,
                     BuildArtifactsHolder.OperationType.INITIAL,
                     taskProvider,
-                    taskProvider.map { it.outputDir },
-                    "out"
+                    MergeSourceSetFolders::outputDir,
+                    fileName = "out"
                 )
             variantScope.taskContainer.mergeAssetsTask = taskProvider
         }
@@ -400,8 +400,8 @@ abstract class MergeSourceSetFolders @Inject constructor(
                     InternalArtifactType.MERGED_JNI_LIBS,
                     BuildArtifactsHolder.OperationType.INITIAL,
                     taskProvider,
-                    taskProvider.map { it.outputDir },
-                    "out"
+                    MergeSourceSetFolders::outputDir,
+                    fileName = "out"
                 )
         }
 
@@ -431,8 +431,8 @@ abstract class MergeSourceSetFolders @Inject constructor(
                     InternalArtifactType.MERGED_SHADERS,
                     BuildArtifactsHolder.OperationType.INITIAL,
                     taskProvider,
-                    taskProvider.map { it.outputDir },
-                    "out"
+                    MergeSourceSetFolders::outputDir,
+                    fileName = "out"
                 )
         }
 

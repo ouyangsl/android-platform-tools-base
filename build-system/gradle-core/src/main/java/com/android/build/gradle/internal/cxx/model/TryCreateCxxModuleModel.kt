@@ -40,6 +40,7 @@ import com.android.build.gradle.internal.cxx.logging.errorln
 import com.android.build.gradle.internal.cxx.services.createDefaultServiceRegistry
 import com.android.build.gradle.internal.ndk.Stl
 import com.android.build.gradle.tasks.NativeBuildSystem
+import com.android.repository.Revision
 import com.android.utils.FileUtils
 import com.android.utils.FileUtils.join
 import org.gradle.api.InvalidUserDataException
@@ -83,7 +84,12 @@ import java.util.function.Consumer
  * Since 'by lazy' is not costly in terms of memory or time it's preferable just
  * to always use it.
  */
-fun tryCreateCxxModuleModel(global : GlobalScope, cmakeLocator : CmakeLocator) : CxxModuleModel? {
+fun tryCreateCxxModuleModel(
+    global : GlobalScope,
+    cmakeLocator : CmakeLocator,
+    cmakeVersionProvider : (File) -> Revision
+) : CxxModuleModel? {
+
     val (buildSystem, makeFile, buildStagingDirectory) =
         getProjectPath(global.extension.externalNativeBuild) ?: return null
 
@@ -98,15 +104,16 @@ fun tryCreateCxxModuleModel(global : GlobalScope, cmakeLocator : CmakeLocator) :
         override val services by lazy { createDefaultServiceRegistry(global) }
         private val ndkHandler by lazy {
             val ndkHandler = global.sdkComponents.ndkHandlerSupplier.get()
+            val locatorRecord = join(cxxFolder, "ndk_locator_record.json")
             try {
                 if (!ndkHandler.ndkPlatform.isConfigured) {
                     global.sdkComponents.installNdk(ndkHandler)
                     if (!ndkHandler.ndkPlatform.isConfigured) {
-                        throw InvalidUserDataException("NDK not configured. Download it with SDK manager.")
+                        throw InvalidUserDataException("NDK not configured. Download it with SDK manager. Log: $locatorRecord")
                     }
                 }
             } finally {
-                ndkHandler.writeNdkLocatorRecord(join(cxxFolder, "ndk_locator_record.json"))
+                ndkHandler.writeNdkLocatorRecord(locatorRecord)
             }
             ndkHandler
         }
@@ -129,7 +136,7 @@ fun tryCreateCxxModuleModel(global : GlobalScope, cmakeLocator : CmakeLocator) :
                         }
                         override val foundCmakeVersion by lazy {
                             try {
-                                CmakeUtils.getVersion(File(cmakeFolder, "bin"))
+                                cmakeVersionProvider(File(cmakeFolder, "bin"))
                             } catch (e: IOException) {
                                 // For pre-ENABLE_SIDE_BY_SIDE_CMAKE case, the text of this message triggers
                                 // Android Studio to prompt for download.
@@ -212,7 +219,9 @@ fun tryCreateCxxModuleModel(global : GlobalScope, cmakeLocator : CmakeLocator) :
     }
 }
 
-fun tryCreateCxxModuleModel(global : GlobalScope) = tryCreateCxxModuleModel(global, CmakeLocator())
+fun tryCreateCxxModuleModel(global : GlobalScope) = tryCreateCxxModuleModel(
+    global,
+    CmakeLocator()) { cmake -> CmakeUtils.getVersion(cmake) }
 
 /**
  * Resolve the CMake or ndk-build path and buildStagingDirectory of native build project.
@@ -254,7 +263,7 @@ private fun findCxxFolder(
     buildStagingDirectory: File?,
     buildFolder: File): File {
     val defaultCxxFolder =
-        FileUtils.join(
+        join(
             moduleRootFolder,
             CXX_DEFAULT_CONFIGURATION_SUBFOLDER
         )

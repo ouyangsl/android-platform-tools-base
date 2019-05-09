@@ -52,6 +52,7 @@ class Aapt2ProcessResourcesRunnable @Inject constructor(
                     exception,
                     params.errorFormatMode,
                     params.mergeBlameFolder,
+                    params.manifestMergeBlameFile,
                     logger
                 )
             }
@@ -62,7 +63,8 @@ class Aapt2ProcessResourcesRunnable @Inject constructor(
         val aapt2ServiceKey: Aapt2ServiceKey,
         val request: AaptPackageConfig,
         val errorFormatMode: SyncOptions.ErrorFormatMode,
-        val mergeBlameFolder: File?
+        val mergeBlameFolder: File?,
+        val manifestMergeBlameFile: File?
     ) : Serializable
 }
 
@@ -105,7 +107,7 @@ fun processResources(
         )
 
         val finalIds = aaptConfig.useFinalIds
-        if (rJar != null) { // not yet used, will be used in non-namespaced case
+        if (rJar != null) { // non-namespaced case
             // replace the default values from the dependency table with the allocated values
             // from the main table
             depSymbolTables = depSymbolTables.asSequence().map { t -> t.withValuesFrom(mainSymbols) }.toSet()

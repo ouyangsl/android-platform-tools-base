@@ -197,8 +197,8 @@ open class MergeJavaResourceTask
                 MERGED_JAVA_RES,
                 BuildArtifactsHolder.OperationType.APPEND,
                 taskProvider,
-                taskProvider.map { it.outputFile },
-                "out.jar"
+                MergeJavaResourceTask::outputFile,
+                fileName = "out.jar"
             )
         }
 

@@ -29,14 +29,11 @@ import com.android.build.gradle.internal.transforms.LibraryAarJarsTransform
 import com.android.builder.packaging.JarMerger
 import com.android.ide.common.workers.WorkerExecutorFacade
 import org.gradle.api.file.FileCollection
-import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkerExecutor
 import java.io.File
@@ -138,8 +135,8 @@ abstract class BundleLibraryClasses @Inject constructor(workerExecutor: WorkerEx
                 else InternalArtifactType.RUNTIME_LIBRARY_CLASSES,
                 BuildArtifactsHolder.OperationType.APPEND,
                 taskProvider,
-                taskProvider.map { it.output },
-                FN_CLASSES_JAR
+                BundleLibraryClasses::output,
+                fileName = FN_CLASSES_JAR
             )
         }
 

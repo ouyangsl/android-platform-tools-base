@@ -158,8 +158,8 @@ open class PerModuleReportDependenciesTask @Inject constructor(objectFactory: Ob
                     InternalArtifactType.METADATA_LIBRARY_DEPENDENCIES_REPORT,
                     BuildArtifactsHolder.OperationType.INITIAL,
                     taskProvider,
-                    taskProvider.map { task -> task.dependenciesList },
-                    "dependencies.pb"
+                    PerModuleReportDependenciesTask::dependenciesList,
+                    fileName = "dependencies.pb"
                 )
         }
 

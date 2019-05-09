@@ -115,8 +115,9 @@ open class GenerateTestConfig @Inject constructor(workerExecutor: WorkerExecutor
                     InternalArtifactType.UNIT_TEST_CONFIG_DIRECTORY,
                     BuildArtifactsHolder.OperationType.INITIAL,
                     taskProvider,
-                    taskProvider.map { task -> task.outputDirectory },
-                    "out")
+                    GenerateTestConfig::outputDirectory,
+                    fileName = "out"
+                )
         }
 
         override fun configure(task: GenerateTestConfig) {

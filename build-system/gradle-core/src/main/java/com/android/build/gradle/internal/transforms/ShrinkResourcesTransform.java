@@ -65,6 +65,8 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.xml.parsers.ParserConfigurationException;
 import org.gradle.api.file.Directory;
+import org.gradle.api.file.DirectoryProperty;
+import org.gradle.api.file.RegularFile;
 import org.gradle.api.logging.LogLevel;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
@@ -99,23 +101,22 @@ public class ShrinkResourcesTransform extends Transform {
 
     @NonNull private final Logger logger;
 
-    @NonNull private final Provider<Directory> sourceDir;
+    @NonNull private final Provider<RegularFile> lightRClasses;
     @NonNull private final BuildableArtifact resourceDir;
     @Nullable private final BuildableArtifact mappingFileSrc;
     @NonNull private final Provider<Directory> mergedManifests;
-    @NonNull private final BuildableArtifact uncompressedResources;
+    @NonNull private final Provider<Directory> uncompressedResources;
 
     @NonNull private final AaptOptions aaptOptions;
     @NonNull private final VariantType variantType;
     private final boolean isDebuggableBuildType;
     @NonNull private final MultiOutputPolicy multiOutputPolicy;
 
-    @NonNull private final File compressedResources;
+    @NonNull private DirectoryProperty compressedResources;
 
     public ShrinkResourcesTransform(
             @NonNull BaseVariantData variantData,
-            @NonNull BuildableArtifact uncompressedResources,
-            @NonNull File compressedResources,
+            @NonNull Provider<Directory> uncompressedResources,
             @NonNull Logger logger) {
         VariantScope variantScope = variantData.getScope();
         GlobalScope globalScope = variantScope.getGlobalScope();
@@ -125,8 +126,11 @@ public class ShrinkResourcesTransform extends Transform {
         this.logger = logger;
 
         BuildArtifactsHolder artifacts = variantScope.getArtifacts();
-        this.sourceDir =
-                artifacts.getFinalProduct(InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES);
+
+        this.lightRClasses =
+                artifacts.getFinalProduct(
+                        InternalArtifactType.COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR);
+
         this.resourceDir = variantScope.getArtifacts().getFinalArtifactFiles(
                 InternalArtifactType.MERGED_NOT_COMPILED_RES);
         this.mappingFileSrc =
@@ -142,8 +146,6 @@ public class ShrinkResourcesTransform extends Transform {
         this.variantType = variantData.getType();
         this.isDebuggableBuildType = variantConfig.getBuildType().isDebuggable();
         this.multiOutputPolicy = variantData.getMultiOutputPolicy();
-
-        this.compressedResources = compressedResources;
     }
 
     @NonNull
@@ -178,13 +180,23 @@ public class ShrinkResourcesTransform extends Transform {
         return TransformManager.SCOPE_FULL_PROJECT;
     }
 
+    /**
+     * Sets the directory where we should output compressed resources
+     *
+     * @param directory the output directory
+     */
+    @Override
+    public void setOutputDirectory(DirectoryProperty directory) {
+        compressedResources = directory;
+    }
+
     @NonNull
     @Override
     public Collection<SecondaryFile> getSecondaryFiles() {
         Collection<SecondaryFile> secondaryFiles = Lists.newLinkedList();
 
         // FIXME use Task output to get FileCollection for sourceDir/resourceDir
-        secondaryFiles.add(SecondaryFile.nonIncremental(sourceDir.get().getAsFile()));
+        secondaryFiles.add(SecondaryFile.nonIncremental(lightRClasses.get().getAsFile()));
         secondaryFiles.add(SecondaryFile.nonIncremental(resourceDir));
 
         if (mappingFileSrc != null) {
@@ -192,7 +204,7 @@ public class ShrinkResourcesTransform extends Transform {
         }
 
         secondaryFiles.add(SecondaryFile.nonIncremental(mergedManifests.get().getAsFile()));
-        secondaryFiles.add(SecondaryFile.nonIncremental(uncompressedResources));
+        secondaryFiles.add(SecondaryFile.nonIncremental(uncompressedResources.get().getAsFile()));
 
         return secondaryFiles;
     }
@@ -226,7 +238,7 @@ public class ShrinkResourcesTransform extends Transform {
     @NonNull
     @Override
     public Collection<File> getSecondaryDirectoryOutputs() {
-        return ImmutableList.of(compressedResources);
+        return ImmutableList.of(compressedResources.get().getAsFile());
     }
 
     @Override
@@ -272,7 +284,9 @@ public class ShrinkResourcesTransform extends Transform {
                                             mergedManifestsOutputs,
                                             classes,
                                             this))
-                    .into(InternalArtifactType.SHRUNK_PROCESSED_RES, compressedResources);
+                    .into(
+                            InternalArtifactType.SHRUNK_PROCESSED_RES,
+                            compressedResources.get().getAsFile());
         }
     }
 
@@ -312,7 +326,7 @@ public class ShrinkResourcesTransform extends Transform {
             // Analyze resources and usages and strip out unused
             ResourceUsageAnalyzer analyzer =
                     new ResourceUsageAnalyzer(
-                            params.sourceDir,
+                            params.lightRClasses,
                             params.classes,
                             params.mergedManifest.getOutputFile(),
                             params.mappingFile,
@@ -387,7 +401,7 @@ public class ShrinkResourcesTransform extends Transform {
         @NonNull private final List<File> classes;
         @Nullable private final File mappingFile;
         private final String buildTypeName;
-        private final File sourceDir;
+        private final File lightRClasses;
         private final File resourceDir;
         private final boolean isInfoLoggingEnabled;
         private final boolean isDebugLoggingEnabled;
@@ -403,7 +417,7 @@ public class ShrinkResourcesTransform extends Transform {
             this.classes = classes;
             compressedResourceFile =
                     new File(
-                            transform.compressedResources,
+                            transform.compressedResources.get().getAsFile(),
                             "resources-" + apkInfo.getBaseName() + "-stripped.ap_");
             mappingFile =
                     transform.mappingFileSrc != null
@@ -411,7 +425,8 @@ public class ShrinkResourcesTransform extends Transform {
                             : null;
             buildTypeName =
                     transform.variantData.getVariantConfiguration().getBuildType().getName();
-            sourceDir = transform.sourceDir.get().getAsFile();
+
+            lightRClasses = transform.lightRClasses.get().getAsFile();
             resourceDir = BuildableArtifactUtil.singleFile(transform.resourceDir);
             isInfoLoggingEnabled = transform.logger.isEnabled(LogLevel.INFO);
             isDebugLoggingEnabled = transform.logger.isEnabled(LogLevel.DEBUG);

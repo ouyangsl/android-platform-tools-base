@@ -18,6 +18,7 @@ package com.android.build.gradle.internal.res
 
 import com.android.SdkConstants
 import com.android.SdkConstants.FN_RES_BASE
+import com.android.SdkConstants.FN_R_CLASS_JAR
 import com.android.SdkConstants.RES_QUALIFIER_SEP
 import com.android.build.VariantOutput
 import com.android.build.api.artifact.BuildableArtifact
@@ -69,6 +70,7 @@ import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.file.RegularFile
 import org.gradle.api.logging.Logging
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Provider
@@ -80,11 +82,13 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.tooling.BuildException
 import org.gradle.workers.WorkerExecutor
+import sun.awt.image.ImageWatched
 import java.io.File
 import java.io.IOException
 import java.io.Serializable
@@ -124,6 +128,10 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
     @get:org.gradle.api.tasks.OutputFile
     @get:Optional
     var proguardOutputFile: File? = null
+
+    @get:Optional
+    @get:OutputFile
+    abstract val rClassOutputJar: RegularFileProperty
 
     @get:org.gradle.api.tasks.OutputFile
     @get:Optional
@@ -182,8 +190,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         private set
 
     @get:OutputDirectory
-    lateinit var resPackageOutputFolder: File
-        private set
+    abstract val resPackageOutputFolder: DirectoryProperty
 
     @get:Input
     lateinit var projectBaseName: String
@@ -238,6 +245,9 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
     var useFinalIds: Boolean = true
         private set
 
+    // Not an input as it is only used to rewrite exception and doesn't affect task output
+    private lateinit var manifestMergeBlameFile: Provider<RegularFile>
+
     private var compiledRemoteResources: ArtifactCollection? = null
 
     private lateinit var errorFormatMode: SyncOptions.ErrorFormatMode
@@ -246,7 +256,8 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
 
     // FIXME : make me incremental !
     override fun doFullTaskAction() {
-        FileUtils.deleteDirectoryContents(resPackageOutputFolder)
+        val outputDirectory = resPackageOutputFolder.get().asFile
+        FileUtils.deleteDirectoryContents(outputDirectory)
 
         val manifestBuildElements = ExistingBuildElements.from(taskInputType, manifestFiles)
 
@@ -291,7 +302,8 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                     true,
                     aapt2ServiceKey,
                     compiledRemoteResourcesDirs,
-                    this
+                    this,
+                    rClassOutputJar.orNull?.asFile
                 )
             )
 
@@ -343,7 +355,8 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                 // In case we generated pure splits, we may have more than one
                 // resource AP_ in the output directory. reconcile with the
                 // splits list and save it for downstream tasks.
-                val packagedResForSplit = findPackagedResForSplit(resPackageOutputFolder, apkInfo)
+                val packagedResForSplit = findPackagedResForSplit(
+                    outputDirectory, apkInfo)
 
                 if (packagedResForSplit != null) {
                     AaptSplitInvoker.appendOutput(
@@ -352,7 +365,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                             apkInfo,
                             packagedResForSplit
                         ),
-                        resPackageOutputFolder
+                        outputDirectory
                     )
                 } else {
                     logger.warn("Cannot find output for $apkInfo")
@@ -401,7 +414,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         private val baseName: String?,
         private val isLibrary: Boolean
     ) : VariantTaskCreationAction<LinkApplicationAndroidResourcesTask>(scope) {
-        private lateinit var resPackageOutputFolder: File
         private lateinit var proguardOutputFile: File
         private lateinit var aaptMainDexListProguardOutputFile: File
 
@@ -416,10 +428,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         override fun preConfigure(taskName: String) {
             super.preConfigure(taskName)
             val variantScope = variantScope
-
-            resPackageOutputFolder = variantScope
-                .artifacts
-                .appendArtifact(InternalArtifactType.PROCESSED_RES, taskName, "out")
 
             if (ProcessAndroidResources.generatesProguardOutputFile(variantScope)) {
                 proguardOutputFile = variantScope.processAndroidResourcesProguardOutputFile
@@ -449,6 +457,10 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         ) {
             super.handleProvider(taskProvider)
             variantScope.taskContainer.processAndroidResTask = taskProvider
+            variantScope.artifacts.producesDir(InternalArtifactType.PROCESSED_RES,
+                BuildArtifactsHolder.OperationType.INITIAL,
+                taskProvider,
+                LinkApplicationAndroidResourcesTask::resPackageOutputFolder)
         }
 
         override fun configure(task: LinkApplicationAndroidResourcesTask) {
@@ -460,7 +472,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
 
             preconditionsCheck(variantData)
 
-            task.resPackageOutputFolder = resPackageOutputFolder
             task.aapt2FromMaven = getAapt2FromMaven(variantScope.globalScope)
 
             task.applicationId = TaskInputHelper.memoize { config.applicationId }
@@ -561,6 +572,10 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
             task.errorFormatMode = SyncOptions.getErrorFormatMode(
                 variantScope.globalScope.projectOptions
             )
+
+            task.manifestMergeBlameFile = variantScope.artifacts.getFinalProduct(
+                InternalArtifactType.MANIFEST_MERGE_BLAME_FILE
+            )
         }
     }
 
@@ -589,11 +604,23 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         override fun handleProvider(taskProvider: TaskProvider<out LinkApplicationAndroidResourcesTask>) {
             super.handleProvider(taskProvider)
 
-            variantScope.artifacts.producesDir(InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES,
-                BuildArtifactsHolder.OperationType.INITIAL,
-                taskProvider,
-                taskProvider.map { it.sourceOutputDir },
-                SdkConstants.FD_RES_CLASS)
+            variantScope
+                .artifacts
+                .producesFile(
+                    InternalArtifactType.COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR,
+                    BuildArtifactsHolder.OperationType.INITIAL,
+                    taskProvider,
+                    LinkApplicationAndroidResourcesTask::rClassOutputJar,
+                    FN_R_CLASS_JAR)
+
+            if (variantScope.globalScope.projectOptions[BooleanOption.GENERATE_R_JAVA]) {
+                variantScope.artifacts.producesDir(
+                    InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES,
+                    BuildArtifactsHolder.OperationType.INITIAL,
+                    taskProvider,
+                    LinkApplicationAndroidResourcesTask::sourceOutputDir,
+                    fileName = SdkConstants.FD_RES_CLASS
+                )}
         }
 
         override fun configure(task: LinkApplicationAndroidResourcesTask) {
@@ -637,11 +664,13 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         override fun handleProvider(taskProvider: TaskProvider<out LinkApplicationAndroidResourcesTask>) {
             super.handleProvider(taskProvider)
 
-            variantScope.artifacts.producesDir(InternalArtifactType.RUNTIME_R_CLASS_SOURCES,
+            variantScope.artifacts.producesDir(
+                InternalArtifactType.RUNTIME_R_CLASS_SOURCES,
                 BuildArtifactsHolder.OperationType.INITIAL,
                 taskProvider,
-                taskProvider.map { it.sourceOutputDir },
-                "out")
+                LinkApplicationAndroidResourcesTask::sourceOutputDir,
+                fileName = "out"
+            )
         }
 
         override fun configure(task: LinkApplicationAndroidResourcesTask) {
@@ -825,13 +854,17 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                             processResources(
                                 aaptDaemon,
                                 configBuilder.build(),
-                                null,
+                                params.rClassOutputJar,
                                 LoggerWrapper(logger)
                             )
                         }
                     } catch (e: Aapt2Exception) {
                         throw rewriteLinkException(
-                            e, params.errorFormatMode, params.mergeBlameFolder, logger
+                            e,
+                            params.errorFormatMode,
+                            params.mergeBlameFolder,
+                            params.manifestMergeBlameFile,
+                            logger
                         )
                     }
 
@@ -880,12 +913,13 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         val generateCode: Boolean,
         val aapt2ServiceKey: Aapt2ServiceKey?,
         val compiledRemoteResourcesDirs: List<File>,
-        task: LinkApplicationAndroidResourcesTask
+        task: LinkApplicationAndroidResourcesTask,
+        val rClassOutputJar: File? = null
     ) : Serializable {
         val resourceConfigs: Set<String> = splitList.resourceConfigs
         val multiOutputPolicySplitList: Set<String> = splitList.getSplits(task.multiOutputPolicy)
         val variantScopeMainSplit: ApkData = task.variantScope.outputScope.mainSplit
-        val resPackageOutputFolder: File = task.resPackageOutputFolder
+        val resPackageOutputFolder: File = task.resPackageOutputFolder.get().asFile
         val isNamespaced: Boolean = task.isNamespaced
         val variantDataType: VariantType = task.variantScope.variantData.type
         val originalApplicationId: String? = task.originalApplicationId.get()
@@ -910,6 +944,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         val useConditionalKeepRules: Boolean = task.useConditionalKeepRules
         val useFinalIds: Boolean = task.useFinalIds
         val errorFormatMode: SyncOptions.ErrorFormatMode = task.errorFormatMode
+        val manifestMergeBlameFile: File? = task.manifestMergeBlameFile.orNull?.asFile
     }
 
     @Input
@@ -935,7 +970,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
     }
 
     override fun getSourceOutputDir(): File? {
-        return sourceOutputDir.get().asFile
+        return sourceOutputDir.orNull?.asFile
     }
 
     @org.gradle.api.tasks.OutputFile
