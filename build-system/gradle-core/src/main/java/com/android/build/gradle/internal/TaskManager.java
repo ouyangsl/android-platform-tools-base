@@ -1875,26 +1875,28 @@ public abstract class TaskManager {
                             testVariantData,
                             testVariantScope
                                     .getArtifacts()
-                                    .getFinalArtifactFiles(InternalArtifactType.APK),
+                                    .getFinalProduct(InternalArtifactType.APK),
                             FeatureSplitUtils.getFeatureName(globalScope.getProject().getPath()),
                             baseVariantData
                                     .getScope()
                                     .getArtifactFileCollection(
                                             RUNTIME_CLASSPATH, PROJECT, APKS_FROM_BUNDLE));
         } else {
+            ConfigurableFileCollection testedApkFileCollection =
+                    project.files(
+                            testVariantData
+                                    .getTestedVariantData()
+                                    .getScope()
+                                    .getArtifacts()
+                                    .getFinalProduct(InternalArtifactType.APK));
+
             testData =
                     new TestDataImpl(
                             testVariantData,
                             testVariantScope
                                     .getArtifacts()
-                                    .getFinalArtifactFiles(InternalArtifactType.APK),
-                            isLibrary
-                                    ? null
-                                    : testVariantData
-                                            .getTestedVariantData()
-                                            .getScope()
-                                            .getArtifacts()
-                                            .getFinalArtifactFiles(InternalArtifactType.APK));
+                                    .getFinalProduct(InternalArtifactType.APK),
+                            isLibrary ? null : testedApkFileCollection);
         }
 
         configureTestData(testData);
@@ -3162,8 +3164,8 @@ public abstract class TaskManager {
         final ConfigurableFileCollection configurationFiles =
                 project.files(
                         proguardConfigFiles,
-                        scope.getArtifacts().getFinalArtifactFiles(aaptProguardFileType),
-                        scope.getArtifacts().getFinalArtifactFiles(GENERATED_PROGUARD_FILE),
+                        scope.getArtifacts().getFinalProduct(aaptProguardFileType),
+                        scope.getArtifacts().getFinalProduct(GENERATED_PROGUARD_FILE),
                         scope.getArtifactFileCollection(
                                 RUNTIME_CLASSPATH, ALL, CONSUMER_PROGUARD_RULES));
 
@@ -3580,12 +3582,13 @@ public abstract class TaskManager {
         boolean dataBindingEnabled = options.isEnabled();
 
         if (viewBindingEnabled) {
-            project.getDependencies()
-                    .add(
-                            "api",
-                            useAndroidX
-                                    ? SdkConstants.ANDROIDX_ANNOTATIONS_ARTIFACT + ":1.0.0"
-                                    : SdkConstants.ANNOTATIONS_LIB_ARTIFACT + ":28.0.0");
+            String version =
+                    dataBindingBuilder.getLibraryVersion(dataBindingBuilder.getCompilerVersion());
+            String groupAndArtifact =
+                    useAndroidX
+                            ? SdkConstants.ANDROIDX_VIEW_BINDING_ARTIFACT
+                            : SdkConstants.VIEW_BINDING_ARTIFACT;
+            project.getDependencies().add("api", groupAndArtifact + ":" + version);
         }
 
         if (dataBindingEnabled) {

@@ -57,8 +57,12 @@ import javax.inject.Inject
 open class MergeNativeLibsTask
 @Inject constructor(workerExecutor: WorkerExecutor, objects: ObjectFactory) : IncrementalTask() {
 
+    // PathSensitivity.ABSOLUTE necessary here because of incorrect incremental info from Gradle
+    // when using RELATIVE or NAME_ONLY: https://github.com/gradle/gradle/issues/9320, and we can't
+    // use @Classpath because we need support for changing .so file names. A better solution will be
+    // custom snapshots from gradle: https://github.com/gradle/gradle/issues/8503
     @get:InputFiles
-    @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:PathSensitive(PathSensitivity.ABSOLUTE)
     val projectNativeLibs: FileCollection
         get() = getProjectNativeLibs(variantScope).asFileTree.filter(spec)
 

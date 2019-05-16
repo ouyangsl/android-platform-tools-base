@@ -88,7 +88,8 @@ class CacheabilityTest {
                     ":app:mergeDebugJavaResource",
                     ":app:mergeDebugNativeLibs",
                     ":app:mergeDexDebug",
-                    ":app:stripDebugDebugSymbols"
+                    ":app:stripDebugDebugSymbols",
+                    ":app:extractDeepLinksDebug"
                 ),
                 /*
                  * Tasks that should be cacheable but are not yet cacheable.
@@ -134,10 +135,6 @@ class CacheabilityTest {
             TestFileUtils.appendToFile(
                 project.getSubproject(":app").buildFile,
                 "android { testOptions { unitTests { includeAndroidResources = true } } }"
-            )
-            TestFileUtils.appendToFile(
-                project.gradlePropertiesFile,
-                "${BooleanOption.USE_RELATIVE_PATH_IN_TEST_CONFIG.propertyName}=true"
             )
         }
     }

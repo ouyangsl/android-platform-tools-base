@@ -17,16 +17,22 @@
 package com.android.build.gradle.internal.ndk
 
 import com.android.build.gradle.internal.core.Abi
+import com.android.build.gradle.internal.cxx.logging.errorln
 import com.google.gson.annotations.SerializedName
 
 /** Information about an ABI.  */
 data class AbiInfo(
-    val abi: Abi,
+    val abi: Abi = Abi.X86,
+    @SerializedName("bitness")
+    val bitness: Int = 64,
     @SerializedName("deprecated")
-    val isDeprecated: Boolean,
+    val isDeprecated: Boolean = false,
     @SerializedName("default")
-    val isDefault: Boolean) {
-
-    // Default constructor to be used by GSON to initialize default values.
-    constructor() : this(Abi.X86, false, true)
+    val isDefault: Boolean = true) {
+    init {
+        if (bitness != 32 && bitness != 64) {
+            errorln("ABI ${abi.tag} had an invalid value: $bitness")
+        }
+    }
 }
+

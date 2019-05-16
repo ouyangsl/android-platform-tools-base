@@ -19,10 +19,10 @@ package com.android.build.gradle.tasks;
 import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.build.OutputFile;
-import com.android.build.api.artifact.BuildableArtifact;
 import com.android.build.gradle.internal.core.VariantConfiguration;
 import com.android.build.gradle.internal.packaging.IncrementalPackagerBuilder;
 import com.android.build.gradle.internal.scope.ApkData;
+import com.android.build.gradle.internal.scope.BuildArtifactsHolder;
 import com.android.build.gradle.internal.scope.BuildElementsTransformParams;
 import com.android.build.gradle.internal.scope.BuildElementsTransformRunnable;
 import com.android.build.gradle.internal.scope.ExistingBuildElements;
@@ -51,6 +51,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import javax.inject.Inject;
+import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
@@ -60,11 +61,7 @@ import org.gradle.tooling.BuildException;
 import org.gradle.workers.WorkerExecutor;
 
 /** Package a abi dimension specific split APK */
-public class PackageSplitAbi extends NonIncrementalTask {
-
-    private BuildableArtifact processedAbiResources;
-
-    private File outputDirectory;
+public abstract class PackageSplitAbi extends NonIncrementalTask {
 
     private boolean jniDebuggable;
 
@@ -92,14 +89,10 @@ public class PackageSplitAbi extends NonIncrementalTask {
     }
 
     @InputFiles
-    public BuildableArtifact getProcessedAbiResources() {
-        return processedAbiResources;
-    }
+    public abstract DirectoryProperty getProcessedAbiResources();
 
     @OutputDirectory
-    public File getOutputDirectory() {
-        return outputDirectory;
-    }
+    public abstract DirectoryProperty getOutputDirectory();
 
     @Input
     public Set<String> getSplits() {
@@ -146,13 +139,15 @@ public class PackageSplitAbi extends NonIncrementalTask {
         FileUtils.cleanOutputDir(incrementalDir);
 
         ExistingBuildElements.from(
-                        InternalArtifactType.ABI_PROCESSED_SPLIT_RES, processedAbiResources)
+                        InternalArtifactType.ABI_PROCESSED_SPLIT_RES, getProcessedAbiResources())
                 .transform(
                         workers,
                         PackageSplitAbiTransformRunnable.class,
                         (apkInfo, input) ->
                                 new PackageSplitAbiTransformParams(apkInfo, input, this))
-                .into(InternalArtifactType.ABI_PACKAGED_SPLIT, outputDirectory);
+                .into(
+                        InternalArtifactType.ABI_PACKAGED_SPLIT,
+                        getOutputDirectory().get().getAsFile());
     }
 
     private static class PackageSplitAbiTransformRunnable extends BuildElementsTransformRunnable {
@@ -213,7 +208,7 @@ public class PackageSplitAbi extends NonIncrementalTask {
             this.input = input;
             output =
                     new File(
-                            task.outputDirectory,
+                            task.getOutputDirectory().get().getAsFile(),
                             getApkName(
                                     apkInfo,
                                     (String)
@@ -248,7 +243,6 @@ public class PackageSplitAbi extends NonIncrementalTask {
 
     public static class CreationAction extends VariantTaskCreationAction<PackageSplitAbi> {
 
-        private File outputDirectory;
         private final boolean packageCustomClassDependencies;
 
         public CreationAction(VariantScope scope, boolean packageCustomClassDependencies) {
@@ -269,19 +263,17 @@ public class PackageSplitAbi extends NonIncrementalTask {
         }
 
         @Override
-        public void preConfigure(@NonNull String taskName) {
-            super.preConfigure(taskName);
-            outputDirectory =
-                    getVariantScope()
-                            .getArtifacts()
-                            .appendArtifact(
-                                    InternalArtifactType.ABI_PACKAGED_SPLIT, taskName, "out");
-        }
-
-        @Override
         public void handleProvider(@NonNull TaskProvider<? extends PackageSplitAbi> taskProvider) {
             super.handleProvider(taskProvider);
             getVariantScope().getTaskContainer().setPackageSplitAbiTask(taskProvider);
+            getVariantScope()
+                    .getArtifacts()
+                    .producesDir(
+                            InternalArtifactType.ABI_PACKAGED_SPLIT,
+                            BuildArtifactsHolder.OperationType.INITIAL,
+                            taskProvider,
+                            PackageSplitAbi::getOutputDirectory,
+                            "out");
         }
 
         @Override
@@ -291,11 +283,11 @@ public class PackageSplitAbi extends NonIncrementalTask {
             final GlobalScope globalScope = scope.getGlobalScope();
 
             VariantConfiguration config = scope.getVariantConfiguration();
-            task.processedAbiResources =
-                    scope.getArtifacts()
-                            .getFinalArtifactFiles(InternalArtifactType.ABI_PROCESSED_SPLIT_RES);
+            scope.getArtifacts()
+                    .setTaskInputToFinalProduct(
+                            InternalArtifactType.ABI_PROCESSED_SPLIT_RES,
+                            task.getProcessedAbiResources());
             task.signingConfig = scope.getSigningConfigFileCollection();
-            task.outputDirectory = outputDirectory;
             task.minSdkVersion = config.getMinSdkVersion();
             task.incrementalDir = scope.getIncrementalDir(task.getName());
 

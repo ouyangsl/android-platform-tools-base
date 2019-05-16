@@ -78,7 +78,6 @@ enum class BooleanOption(
     ENABLE_VIEW_BINDING("android.enableViewBinding"),
     CONDITIONAL_KEEP_RULES("android.useConditionalKeepRules", false),
     ENFORCE_UNIQUE_PACKAGE_NAMES("android.uniquePackageNames", false, status = Option.Status.STABLE),
-    USE_RELATIVE_PATH_IN_TEST_CONFIG("android.testConfig.useRelativePath", false),
     ENABLE_INCREMENTAL_DATA_BINDING("android.databinding.incremental", false, Option.Status.STABLE),
     KEEP_SERVICES_BETWEEN_BUILDS("android.keepWorkerActionServicesBetweenBuilds", false),
     USE_NON_FINAL_RES_IDS("android.nonFinalResIds", false),
@@ -105,6 +104,7 @@ enum class BooleanOption(
     ENABLE_PARALLEL_NATIVE_JSON_GEN("android.enableParallelJsonGen", true),
     ENABLE_SIDE_BY_SIDE_CMAKE("android.enableSideBySideCmake", true),
     ENABLE_NATIVE_COMPILER_SETTINGS_CACHE("android.enableNativeCompilerSettingsCache", false),
+    ENABLE_CMAKE_BUILD_COHABITATION("android.enableCmakeBuildCohabitation", false),
     ENABLE_PROGUARD_RULES_EXTRACTION("android.proguard.enableRulesExtraction", true),
     ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE("android.bundle.enableUncompressedNativeLibs", true),
     USE_DEPENDENCY_CONSTRAINTS("android.dependency.useConstraints", true),
@@ -113,6 +113,7 @@ enum class BooleanOption(
     ENABLE_DUPLICATE_CLASSES_CHECK("android.enableDuplicateClassesCheck", true),
     ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform.desugaring", true),
     GENERATE_R_JAVA("android.generateRJava", false),
+    USE_RELATIVE_PATH_IN_TEST_CONFIG("android.testConfig.useRelativePath", true, Option.Status.STABLE),
 
     // ---------------
     // Lifecycle flags: Deprecated stage, feature is stable and we want to get rid of the ability to revert to older code path
