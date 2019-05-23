@@ -37,7 +37,6 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.Directory
-import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFile
@@ -48,7 +47,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import org.mockito.ArgumentCaptor
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
@@ -90,11 +88,6 @@ class PerModuleBundleTaskTest {
 
         Mockito.`when`(variantScope.variantConfiguration).thenReturn(variantConfiguration)
         Mockito.`when`(variantConfiguration.supportedAbis).thenReturn(setOf())
-
-        Mockito.`when`(artifacts.getFinalArtifactFiles(InternalArtifactType.LINKED_RES_FOR_BUNDLE))
-            .thenReturn(resFiles)
-        Mockito.`when`(resFiles.iterator()).thenReturn(
-            listOf(testFolder.newFile("res")).iterator())
 
         Mockito.`when`(variantScope.needsMergedJavaResStream).thenReturn(false)
         Mockito.`when`(artifacts.getFinalProduct<RegularFile>(InternalArtifactType.MERGED_JAVA_RES))
@@ -143,8 +136,9 @@ class PerModuleBundleTaskTest {
         }
 
         Mockito.`when`(featureSetMetadata.singleFile).thenReturn(featureMetadata)
-        Mockito.`when`(artifacts.appendArtifact(InternalArtifactType.MODULE_BUNDLE, task.name))
-            .thenReturn(testFolder.newFolder("out"))
+
+        task.resFiles.set(testFolder.newFile("res"))
+        task.outputDir.set(testFolder.newFolder("out"))
 
 
         val configAction = PerModuleBundleTask.CreationAction(variantScope, false)
@@ -158,7 +152,7 @@ class PerModuleBundleTaskTest {
         Mockito.`when`(dexFiles.files).thenReturn(
             setOf(createDex(dexFolder, "classes.dex")))
         task.doTaskAction()
-        verifyOutputZip(task.outputDir.listFiles().single(), 1)
+        verifyOutputZip(task.outputDir.get().asFileTree.singleFile, 1)
     }
 
     @Test
@@ -170,7 +164,7 @@ class PerModuleBundleTaskTest {
                 createDex(dexFolder, "classes2.dex"),
                 createDex(dexFolder, "classes3.dex")))
         task.doTaskAction()
-        verifyOutputZip(task.outputDir.listFiles().single(), 3)
+        verifyOutputZip(task.outputDir.get().asFileTree.singleFile, 3)
     }
 
     @Test
@@ -187,7 +181,7 @@ class PerModuleBundleTaskTest {
         task.doTaskAction()
 
         // verify naming and shuffling of names.
-        verifyOutputZip(task.outputDir.listFiles().single(), 5)
+        verifyOutputZip(task.outputDir.get().asFileTree.singleFile, 5)
     }
 
     @Test
@@ -201,7 +195,7 @@ class PerModuleBundleTaskTest {
         task.doTaskAction()
 
         // verify classes.dex has not been renamed.
-        verifyOutputZip(task.outputDir.listFiles().single(), 3)
+        verifyOutputZip(task.outputDir.get().asFileTree.singleFile, 3)
     }
 
     private fun verifyOutputZip(zipFile: File, expectedNumberOfDexFiles: Int) {

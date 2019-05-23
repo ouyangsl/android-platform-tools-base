@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- TODO: check include Cpp support; add driver module template -->
+<!-- TODO: Add driver module template -->
 <#import "root://activities/common/kotlin_macros.ftl" as kt>
 <recipe>
     <@kt.addKotlinToBaseProject />
@@ -29,9 +29,7 @@
 <dependency mavenUrl="com.android.support.test.espresso:espresso-core:+" gradleConfiguration="androidTestCompile" />
 <dependency mavenUrl="com.google.android.things:androidthings:+" gradleConfiguration="provided" />
 
-<#if !createActivity>
     <mkdir at="${escapeXmlAttribute(srcOut)}" />
-</#if>
 
 <#if makeIgnore>
     <copy from="root://gradle-projects/common/gitignore"
@@ -47,15 +45,6 @@
         <copy from="root/res/values/colors.xml"
                 to="${escapeXmlAttribute(resOut)}/values/colors.xml" />
     </#if>
-</#if>
-
-<#if includeCppSupport>
-    <mkdir at="${escapeXmlAttribute(nativeSrcOut)}" />
-
-    <instantiate from="root/CMakeLists.txt.ftl"
-                   to="${escapeXmlAttribute(nativeSrcOut)}/CMakeLists.txt" />
-    <instantiate from="root/native-lib.cpp.ftl"
-                   to="${escapeXmlAttribute(nativeSrcOut)}/native-lib.cpp" />
 </#if>
 
 </recipe>

@@ -78,6 +78,7 @@ import javax.xml.bind.JAXBException;
 import org.gradle.api.GradleException;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
+import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
@@ -97,8 +98,6 @@ public abstract class MergeResources extends ResourceAwareTask {
     /**
      * Directory to write the merged resources to
      */
-    private File outputDir;
-
     private File generatedPngsOutputDir;
 
     // ----- PRIVATE TASK API -----
@@ -106,8 +105,6 @@ public abstract class MergeResources extends ResourceAwareTask {
     /**
      * Optional file to write any publicly imported resource types and names to
      */
-    private File publicFile;
-
     private boolean processResources;
 
     private boolean crunchPng;
@@ -195,7 +192,7 @@ public abstract class MergeResources extends ResourceAwareTask {
         ResourcePreprocessor preprocessor = getPreprocessor();
 
         // this is full run, clean the previous outputs
-        File destinationDir = getOutputDir();
+        File destinationDir = getOutputDir().get().getAsFile();
         FileUtils.cleanOutputDir(destinationDir);
         if (getDataBindingLayoutInfoOutFolder().isPresent()) {
             FileUtils.deleteDirectoryContents(
@@ -232,11 +229,13 @@ public abstract class MergeResources extends ResourceAwareTask {
                         }
                     });
 
+            File publicFile =
+                    getPublicFile().isPresent() ? getPublicFile().get().getAsFile() : null;
             MergedResourceWriter writer =
                     new MergedResourceWriter(
                             workerExecutorFacade,
                             destinationDir,
-                            getPublicFile(),
+                            publicFile,
                             mergingLog,
                             preprocessor,
                             resourceCompiler,
@@ -350,11 +349,13 @@ public abstract class MergeResources extends ResourceAwareTask {
                             processResources,
                             getLogger())) {
 
+                File publicFile =
+                        getPublicFile().isPresent() ? getPublicFile().get().getAsFile() : null;
                 MergedResourceWriter writer =
                         new MergedResourceWriter(
                                 workerExecutorFacade,
-                                getOutputDir(),
-                                getPublicFile(),
+                                getOutputDir().get().getAsFile(),
+                                publicFile,
                                 mergingLog,
                                 preprocessor,
                                 resourceCompiler,
@@ -494,13 +495,7 @@ public abstract class MergeResources extends ResourceAwareTask {
     }
 
     @OutputDirectory
-    public File getOutputDir() {
-        return outputDir;
-    }
-
-    public void setOutputDir(File outputDir) {
-        this.outputDir = outputDir;
-    }
+    public abstract DirectoryProperty getOutputDir();
 
     @Input
     public boolean getCrunchPng() {
@@ -514,13 +509,7 @@ public abstract class MergeResources extends ResourceAwareTask {
 
     @Optional
     @OutputFile
-    public File getPublicFile() {
-        return publicFile;
-    }
-
-    public void setPublicFile(File publicFile) {
-        this.publicFile = publicFile;
-    }
+    public abstract RegularFileProperty getPublicFile();
 
     // Synthetic input: the validation flag is set on the resource sets in CreationAction.execute.
     @Input
@@ -568,9 +557,7 @@ public abstract class MergeResources extends ResourceAwareTask {
     @Nullable
     @OutputDirectory
     @Optional
-    public File getMergedNotCompiledResourcesOutputDirectory() {
-        return mergedNotCompiledResourcesOutputDirectory;
-    }
+    public abstract DirectoryProperty getMergedNotCompiledResourcesOutputDirectory();
 
     @Input
     public boolean isPseudoLocalesEnabled() {
@@ -586,8 +573,6 @@ public abstract class MergeResources extends ResourceAwareTask {
         @NonNull private final TaskManager.MergeType mergeType;
         @NonNull
         private final String taskNamePrefix;
-        @Nullable
-        private final File outputLocation;
         @Nullable private final File mergedNotCompiledOutputDirectory;
         private final boolean includeDependencies;
         private final boolean processResources;
@@ -598,7 +583,6 @@ public abstract class MergeResources extends ResourceAwareTask {
                 @NonNull VariantScope variantScope,
                 @NonNull TaskManager.MergeType mergeType,
                 @NonNull String taskNamePrefix,
-                @Nullable File outputLocation,
                 @Nullable File mergedNotCompiledOutputDirectory,
                 boolean includeDependencies,
                 boolean processResources,
@@ -606,7 +590,6 @@ public abstract class MergeResources extends ResourceAwareTask {
             super(variantScope);
             this.mergeType = mergeType;
             this.taskNamePrefix = taskNamePrefix;
-            this.outputLocation = outputLocation;
             this.mergedNotCompiledOutputDirectory = mergedNotCompiledOutputDirectory;
             this.includeDependencies = includeDependencies;
             this.processResources = processResources;
@@ -701,7 +684,6 @@ public abstract class MergeResources extends ResourceAwareTask {
                                     .getVariantConfiguration()
                                     .getSourceFiles(SourceProvider::getResDirectories);
 
-            task.outputDir = outputLocation;
             if (!task.disableVectorDrawables) {
                 task.generatedPngsOutputDir = variantScope.getGeneratedPngsOutputDir();
             }

@@ -27,3 +27,12 @@ fun createDefaultServiceRegistry(global : GlobalScope) : CxxServiceRegistry {
     createEvalIssueReporterService(global, registry)
     return registry.build()
 }
+
+/**
+ * Create the default module-level service registry.
+ */
+fun createDefaultAbiServiceRegistry() : CxxServiceRegistry {
+    val registry = CxxServiceRegistryBuilder()
+    createSyncListenerService(registry)
+    return registry.build()
+}

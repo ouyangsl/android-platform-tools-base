@@ -32,16 +32,18 @@ import com.android.tools.build.bundletool.commands.BuildBundleCommand
 import com.android.utils.FileUtils
 import com.google.common.base.Preconditions
 import com.google.common.collect.ImmutableList
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
-import org.gradle.api.file.RegularFile
-import org.gradle.api.provider.Provider
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.Optional
-import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkerExecutor
 import java.io.File
 import java.io.Serializable
@@ -51,15 +53,14 @@ import javax.inject.Inject
 /**
  * Task that generates the bundle (.aab) with all the modules.
  */
-open class PackageBundleTask @Inject constructor(workerExecutor: WorkerExecutor) :
+abstract class PackageBundleTask @Inject constructor(workerExecutor: WorkerExecutor) :
     NonIncrementalTask() {
 
     private val workers = Workers.preferWorkers(project.name, path, workerExecutor)
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
-    lateinit var baseModuleZip: BuildableArtifact
-        private set
+    abstract val baseModuleZip: DirectoryProperty
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
@@ -71,11 +72,10 @@ open class PackageBundleTask @Inject constructor(workerExecutor: WorkerExecutor)
     lateinit var bundleDeps: BuildableArtifact
         private set
 
-    @get:InputFiles
+    @get:InputFile
     @get:Optional
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
-    var mainDexList: BuildableArtifact? = null
-        private set
+    abstract val mainDexList: RegularFileProperty
 
     @get:InputFiles
     @get:Optional
@@ -95,25 +95,22 @@ open class PackageBundleTask @Inject constructor(workerExecutor: WorkerExecutor)
     lateinit var bundleFlags: BundleFlags
         private set
 
-    @get:OutputDirectory
+    @get:OutputFile
     @get:PathSensitive(PathSensitivity.NONE)
-    val bundleLocation: File
-        get() = bundleFile.get().asFile.parentFile
+    abstract val bundleFile: RegularFileProperty
 
     @get:Input
     val fileName: String
         get() = bundleFile.get().asFile.name
-
-    private lateinit var bundleFile: Provider<RegularFile>
 
     override fun doTaskAction() {
         workers.use {
             it.submit(
                 BundleToolRunnable::class.java,
                 Params(
-                    baseModuleFile = baseModuleZip.singleFile(),
+                    baseModuleFile = baseModuleZip.get().asFileTree.singleFile,
                     featureFiles = featureZips.files,
-                    mainDexList = mainDexList?.singleFile(),
+                    mainDexList = mainDexList.orNull?.asFile,
                     obfuscationMappingFile = obsfuscationMappingFile?.singleFile(),
                     aaptOptionsNoCompress = aaptOptionsNoCompress,
                     bundleOptions = bundleOptions,
@@ -145,7 +142,7 @@ open class PackageBundleTask @Inject constructor(workerExecutor: WorkerExecutor)
             FileUtils.cleanOutputDir(bundleFile.parentFile)
 
             val builder = ImmutableList.builder<Path>()
-            builder.add(getBundlePath(params.baseModuleFile))
+            builder.add(params.baseModuleFile.toPath())
             params.featureFiles.forEach { builder.add(getBundlePath(it)) }
 
             val noCompressGlobsForBundle =
@@ -227,25 +224,24 @@ open class PackageBundleTask @Inject constructor(workerExecutor: WorkerExecutor)
         override val type: Class<PackageBundleTask>
             get() = PackageBundleTask::class.java
 
-        private lateinit var bundleFile: Provider<RegularFile>
-
-        override fun preConfigure(taskName: String) {
-            super.preConfigure(taskName)
+        override fun handleProvider(taskProvider: TaskProvider<out PackageBundleTask>) {
+            super.handleProvider(taskProvider)
 
             val bundleName = "${variantScope.globalScope.projectBaseName}-${variantScope.variantConfiguration.baseName}.aab"
-
-            bundleFile = variantScope.artifacts.createArtifactFile(
+            variantScope.artifacts.producesFile(
                 InternalArtifactType.INTERMEDIARY_BUNDLE,
                 BuildArtifactsHolder.OperationType.INITIAL,
-                taskName,
-                bundleName)
+                taskProvider,
+                PackageBundleTask::bundleFile,
+                bundleName
+            )
         }
 
         override fun configure(task: PackageBundleTask) {
             super.configure(task)
 
-            task.bundleFile = bundleFile
-            task.baseModuleZip = variantScope.artifacts.getFinalArtifactFiles(InternalArtifactType.MODULE_BUNDLE)
+            variantScope.artifacts.setTaskInputToFinalProduct(
+                InternalArtifactType.MODULE_BUNDLE, task.baseModuleZip)
 
             task.featureZips = variantScope.getArtifactFileCollection(
                 AndroidArtifacts.ConsumedConfigType.METADATA_VALUES,
@@ -271,10 +267,9 @@ open class PackageBundleTask @Inject constructor(workerExecutor: WorkerExecutor)
             )
 
             if (variantScope.needsMainDexListForBundle) {
-                task.mainDexList =
-                        variantScope.artifacts.getFinalArtifactFiles(
-                            InternalArtifactType.MAIN_DEX_LIST_FOR_BUNDLE
-                        )
+                variantScope.artifacts.setTaskInputToFinalProduct(
+                    InternalArtifactType.MAIN_DEX_LIST_FOR_BUNDLE,
+                    task.mainDexList)
                 // The dex files from this application are still processed for legacy multidex
                 // in this case, as if none of the dynamic features are fused the bundle tool will
                 // not reprocess the dex files.

@@ -27,9 +27,7 @@
     <dependency mavenUrl="com.android.support.test.espresso:espresso-core:+" gradleConfiguration="androidTestCompile" />
 </#if>
 
-<#if !createActivity>
     <mkdir at="${escapeXmlAttribute(srcOut)}" />
-</#if>
 
     <dependency mavenUrl="com.android.support:appcompat-v7:${buildApi}.+" />
 
@@ -67,9 +65,7 @@
             to="${destination}/mipmap-xxxhdpi/${icon}" />
 </#macro>
 
-<#if copyIcons>
-    <@copyIconCommands destination=escapeXmlAttribute(resOut)/>
-</#if>
+<@copyIconCommands destination=escapeXmlAttribute(resOut)/>
 
 <#if !isLibraryProject>
     <instantiate from="root/res/values/styles.xml.ftl"

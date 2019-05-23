@@ -17,8 +17,7 @@
 package com.android.build.gradle.internal.res
 
 import com.android.SdkConstants
-import com.android.build.api.artifact.BuildableArtifact
-import com.android.build.gradle.internal.api.artifact.singleFile
+import com.android.build.gradle.internal.scope.BuildArtifactsHolder
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.scope.VariantScope
 import com.android.build.gradle.internal.tasks.NonIncrementalTask
@@ -28,12 +27,15 @@ import com.android.ide.common.symbols.IdProvider
 import com.android.ide.common.symbols.SymbolIo
 import com.android.ide.common.symbols.SymbolTable
 import com.android.ide.common.symbols.parseResourceSourceSetDirectory
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkerExecutor
 import java.io.File
 import java.io.Serializable
@@ -49,7 +51,7 @@ import javax.inject.Inject
  * TODO(imorlowska): Refactor the parsers to work with workers, so we can parse files in parallel.
  */
 @CacheableTask
-open class ParseLibraryResourcesTask @Inject constructor(workerExecutor: WorkerExecutor)
+abstract class ParseLibraryResourcesTask @Inject constructor(workerExecutor: WorkerExecutor)
     : NonIncrementalTask() {
     private val workers = Workers.preferWorkers(project.name, path, workerExecutor)
 
@@ -60,21 +62,19 @@ open class ParseLibraryResourcesTask @Inject constructor(workerExecutor: WorkerE
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    lateinit var inputResourcesDir: BuildableArtifact
-        private set
+    abstract val inputResourcesDir: DirectoryProperty
 
     @get:OutputFile
-    lateinit var librarySymbolsFile: File
-        private set
+    abstract val librarySymbolsFile: RegularFileProperty
 
     override fun doTaskAction() {
         workers.use {
             it.submit(
                 ParseResourcesRunnable::class.java,
                 ParseResourcesParams(
-                    inputResDir = inputResourcesDir.singleFile(),
+                    inputResDir = inputResourcesDir.get().asFile,
                     platformAttrsRTxt = platformAttrRTxt.singleFile,
-                    librarySymbolsFile = librarySymbolsFile
+                    librarySymbolsFile = librarySymbolsFile.get().asFile
                 )
             )
         }
@@ -119,15 +119,15 @@ open class ParseLibraryResourcesTask @Inject constructor(workerExecutor: WorkerE
         override val type: Class<ParseLibraryResourcesTask>
             get() = ParseLibraryResourcesTask::class.java
 
-        private lateinit var librarySymbolsFile: File
-
-        override fun preConfigure(taskName: String) {
-            super.preConfigure(taskName)
-
-            librarySymbolsFile = variantScope.artifacts.appendArtifact(
+        override fun handleProvider(taskProvider: TaskProvider<out ParseLibraryResourcesTask>) {
+            super.handleProvider(taskProvider)
+            variantScope.artifacts.producesFile(
                 InternalArtifactType.LOCAL_ONLY_SYMBOL_LIST,
-                taskName,
-                SdkConstants.FN_R_DEF_TXT)
+                BuildArtifactsHolder.OperationType.INITIAL,
+                taskProvider,
+                ParseLibraryResourcesTask::librarySymbolsFile,
+                SdkConstants.FN_R_DEF_TXT
+            )
         }
 
         override fun configure(task: ParseLibraryResourcesTask) {
@@ -135,10 +135,10 @@ open class ParseLibraryResourcesTask @Inject constructor(workerExecutor: WorkerE
 
             task.platformAttrRTxt = variantScope.globalScope.platformAttrs
 
-            task.inputResourcesDir = variantScope.artifacts.getFinalArtifactFiles(
-                InternalArtifactType.PACKAGED_RES)
-
-            task.librarySymbolsFile = librarySymbolsFile
+            variantScope.artifacts.setTaskInputToFinalProduct(
+                InternalArtifactType.PACKAGED_RES,
+                task.inputResourcesDir
+            )
         }
     }
 }

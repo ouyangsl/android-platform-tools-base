@@ -82,7 +82,7 @@ struct CpuServiceTest : testing::Test {
       const profiler::proto::DaemonConfig::CpuConfig& config) {
     // Set up CPU service.
     return std::unique_ptr<CpuServiceImpl>(new CpuServiceImpl(
-        &clock_, &cache_, &sampler_, &thread_monitor_, config,
+        &clock_, &cache_, &file_cache_, &sampler_, &thread_monitor_, config,
         termination_service_.get(), ActivityManager::Instance(),
         std::unique_ptr<SimpleperfManager>(new SimpleperfManager(
             &clock_, std::unique_ptr<Simpleperf>(new FakeSimpleperf()))),
@@ -112,10 +112,11 @@ struct CpuServiceTest : testing::Test {
     CpuProfilingAppStartRequest start_request;
     start_request.mutable_session()->set_session_id(kSessionId);
     start_request.mutable_session()->set_pid(kPid);
-    start_request.mutable_configuration()->set_trace_mode(
-        CpuTraceMode::SAMPLED);
-    start_request.mutable_configuration()->set_trace_type(CpuTraceType::ATRACE);
-    start_request.mutable_configuration()->set_buffer_size_in_mb(8);
+    auto user_options =
+        start_request.mutable_configuration()->mutable_user_options();
+    user_options->set_trace_mode(CpuTraceMode::SAMPLED);
+    user_options->set_trace_type(CpuTraceType::ATRACE);
+    user_options->set_buffer_size_in_mb(8);
     CpuProfilingAppStartResponse start_response;
 
     // Expect a success result.
@@ -153,7 +154,7 @@ struct CpuServiceTest : testing::Test {
   FileCache file_cache_{
       std::unique_ptr<profiler::FileSystem>(new profiler::MemoryFileSystem()),
       "/"};
-  CpuCache cache_{100, &clock_, &file_cache_};
+  CpuCache cache_{100, &clock_};
   CpuUsageSampler sampler_{&clock_, &cache_};
   ThreadMonitor thread_monitor_{&clock_, &cache_};
   std::unique_ptr<TestTerminationService> termination_service_{
@@ -172,9 +173,10 @@ TEST_F(CpuServiceTest, StopSimpleperfTraceWhenPerfdTerminated) {
   CpuProfilingAppStartRequest start_request;
   start_request.mutable_session()->set_session_id(kSessionId);
   start_request.mutable_session()->set_pid(kPid);
-  start_request.mutable_configuration()->set_trace_mode(CpuTraceMode::SAMPLED);
-  start_request.mutable_configuration()->set_trace_type(
-      CpuTraceType::SIMPLEPERF);
+  auto* user_options =
+      start_request.mutable_configuration()->mutable_user_options();
+  user_options->set_trace_mode(CpuTraceMode::SAMPLED);
+  user_options->set_trace_type(CpuTraceType::SIMPLEPERF);
   CpuProfilingAppStartResponse start_response;
   cpu_service->StartProfilingApp(&context, &start_request, &start_response);
   // Now, verify that no command has been issued to kill simpleperf.
@@ -211,6 +213,7 @@ TEST_F(CpuServiceTest, StopArtTraceWhenPerfdTerminated) {
   CpuServiceImpl cpu_service{
       &clock_,
       &cache_,
+      &file_cache_,
       &sampler_,
       &thread_monitor_,
       cpu_config,
@@ -229,8 +232,10 @@ TEST_F(CpuServiceTest, StopArtTraceWhenPerfdTerminated) {
   CpuProfilingAppStartRequest start_request;
   start_request.mutable_session()->set_session_id(kSessionId);
   start_request.mutable_session()->set_pid(kPid);
-  start_request.mutable_configuration()->set_trace_mode(CpuTraceMode::SAMPLED);
-  start_request.mutable_configuration()->set_trace_type(CpuTraceType::ART);
+  auto* user_options =
+      start_request.mutable_configuration()->mutable_user_options();
+  user_options->set_trace_mode(CpuTraceMode::SAMPLED);
+  user_options->set_trace_type(CpuTraceType::ART);
   CpuProfilingAppStartResponse start_response;
   cpu_service.StartProfilingApp(&context, &start_request, &start_response);
   EXPECT_THAT(cmd_1, StartsWith(kAmExecutable));

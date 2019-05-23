@@ -27,10 +27,7 @@ namespace profiler {
 // capture mean the same thing as profiling and they are (almost)
 // interchangeable.
 struct ProfilingApp {
-  std::string app_pkg_name;
-  // Absolute on-device path to the trace file. Activity manager or simpleperf
-  // determines the path and populate the file with trace data.
-  std::string trace_path;
+  int64_t trace_id;
   // The timestamp when the last start profiling request was processed
   // successfully.
   int64_t start_timestamp;
@@ -38,10 +35,7 @@ struct ProfilingApp {
   // |end_timestamp| being -1 means the trace is in progress.
   int64_t end_timestamp;
   // The last start profiling requests processed successfully.
-  profiler::proto::CpuProfilerConfiguration configuration;
-  profiler::proto::TraceInitiationType initiation_type;
-  int64_t trace_id;
-  bool is_startup_profiling = false;
+  profiler::proto::CpuTraceConfiguration configuration;
 };
 
 }  // namespace profiler

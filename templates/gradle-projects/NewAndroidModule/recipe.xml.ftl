@@ -36,9 +36,7 @@
     <dependency mavenUrl="com.android.support.test.espresso:espresso-core:+" gradleConfiguration="androidTestCompile" />
 </#if>
 
-<#if !createActivity>
     <mkdir at="${escapeXmlAttribute(srcOut)}" />
-</#if>
 
     <dependency mavenUrl="com.android.support:appcompat-v7:${buildApi}.+" />
 
@@ -120,12 +118,10 @@
             to="${destination}/mipmap-xxxhdpi/${icon}" />
 </#macro>
 
-<#if copyIcons>
-    <#if !isLibraryProject>
-        <@copyIconCommands destination=escapeXmlAttribute(resOut)/>
-    <#elseif hasInstantAppWrapper || isBaseFeature>
-        <@copyIconCommands destination=escapeXmlAttribute(baseFeatureResOut)/>
-    </#if>
+<#if !isLibraryProject>
+  <@copyIconCommands destination=escapeXmlAttribute(resOut)/>
+<#elseif hasInstantAppWrapper || isBaseFeature>
+  <@copyIconCommands destination=escapeXmlAttribute(baseFeatureResOut)/>
 </#if>
 
 <#if !isLibraryProject>

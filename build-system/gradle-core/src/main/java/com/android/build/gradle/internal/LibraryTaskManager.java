@@ -45,9 +45,8 @@ import com.android.build.gradle.internal.tasks.MergeConsumerProguardFilesTask;
 import com.android.build.gradle.internal.tasks.MergeGeneratedProguardFilesCreationAction;
 import com.android.build.gradle.internal.tasks.PackageRenderscriptTask;
 import com.android.build.gradle.internal.tasks.StripDebugSymbolsTask;
-import com.android.build.gradle.internal.tasks.factory.PreConfigAction;
-import com.android.build.gradle.internal.tasks.factory.TaskConfigAction;
 import com.android.build.gradle.internal.tasks.factory.TaskFactoryUtils;
+import com.android.build.gradle.internal.tasks.factory.TaskProviderCallback;
 import com.android.build.gradle.internal.transforms.LibraryAarJarsTransform;
 import com.android.build.gradle.internal.variant.VariantFactory;
 import com.android.build.gradle.internal.variant.VariantHelper;
@@ -296,8 +295,8 @@ public class LibraryTaskManager extends TaskManager {
                 new LibraryAarJarsTransform(
                         classesJar,
                         libsDirectory,
-                        artifacts.hasArtifact(InternalArtifactType.ANNOTATIONS_TYPEDEF_FILE)
-                                ? artifacts.getFinalArtifactFiles(
+                        artifacts.hasFinalProduct(InternalArtifactType.ANNOTATIONS_TYPEDEF_FILE)
+                                ? artifacts.getFinalProduct(
                                         InternalArtifactType.ANNOTATIONS_TYPEDEF_FILE)
                                 : null,
                         variantConfig::getPackageFromManifest,
@@ -402,27 +401,25 @@ public class LibraryTaskManager extends TaskManager {
                                 .build());
     }
 
-    private static class MergeResourceCallback
-            implements PreConfigAction, TaskConfigAction<MergeResources> {
+    private static class MergeResourceCallback implements TaskProviderCallback<MergeResources> {
         private final VariantScope variantScope;
-        private File publicFile;
 
         private MergeResourceCallback(VariantScope variantScope) {
             this.variantScope = variantScope;
         }
 
         @Override
-        public void preConfigure(@NonNull String taskName) {
-            publicFile =
-                    variantScope
-                            .getArtifacts()
-                            .appendArtifact(
-                                    InternalArtifactType.PUBLIC_RES, taskName, FN_PUBLIC_TXT);
-        }
+        public void handleProvider(@NonNull TaskProvider<? extends MergeResources> taskProvider) {
 
-        @Override
-        public void configure(@NonNull MergeResources task) {
-            task.setPublicFile(publicFile);
+            variantScope
+                    .getArtifacts()
+                    .producesFile(
+                            InternalArtifactType.PUBLIC_RES,
+                            BuildArtifactsHolder.OperationType.INITIAL,
+                            taskProvider,
+                            MergeResources::getPublicFile,
+                            FN_PUBLIC_TXT);
+
         }
     }
 
@@ -449,7 +446,6 @@ public class LibraryTaskManager extends TaskManager {
                 false,
                 false,
                 flags,
-                callback,
                 callback);
 
 

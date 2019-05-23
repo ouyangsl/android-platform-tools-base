@@ -48,7 +48,6 @@ import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.logging.Level
 import java.util.logging.Logger
-import kotlin.reflect.KProperty1
 
 typealias Report = Map<ArtifactType, List<BuildArtifactsHolder.BuildableArtifactData>>
 
@@ -173,11 +172,25 @@ abstract class BuildArtifactsHolder(
      * This does not remove the original elements from the source [BuildArtifactsHolder].
      *
      * @param artifactType artifact type to copy to this holder.
-     * @param from souce [BuildArtifactsHolder] to copy the produced artifacts from.
+     * @param from source [BuildArtifactsHolder] to copy the produced artifacts from.
      */
     fun copy(artifactType: ArtifactType, from: BuildArtifactsHolder) {
+        copy(artifactType, from, artifactType)
+    }
+
+    /**
+     * Copies a published [ArtifactType] from another instance of [BuildArtifactsHolder] to this
+     * instance.
+     * This does not remove the original elements from the source [BuildArtifactsHolder].
+     *
+     * @param artifactType artifact type to copy to this holder.
+     * @param from source [BuildArtifactsHolder] to copy the produced artifacts from.
+     * @param originalArtifactType artifact type under which the producers are registered in the
+     * source [BuildArtifactsHolder], by default is the same [artifactType]
+     */
+    fun copy(artifactType: ArtifactType, from: BuildArtifactsHolder, originalArtifactType: ArtifactType = artifactType) {
         getProducerMap(artifactType).copy(artifactType,
-            from.getProducerMap(artifactType))
+            from.getProducerMap(originalArtifactType).getProducers(originalArtifactType))
     }
 
     /**
@@ -225,7 +238,6 @@ abstract class BuildArtifactsHolder(
     ) {
 
         val settableProperty = project.objects.fileProperty()
-
         produces(artifactType,
             fileProducersMap,
             operationType,
@@ -458,6 +470,30 @@ abstract class BuildArtifactsHolder(
         val finalProduct = getFinalProduct<T>(artifactType)
         taskInputProperty.set(finalProduct)
     }
+
+    /**
+     * Sets a [ListProperty] value to all producers for the given artifact type.
+     *
+     * The simplest way to use the mechanism is as follow :
+     * <pre>
+     *     abstract class MyTask: Task() {
+     *          @InputFiles
+     *          abstract val inputFiles: ListProperty<RegularFile>
+     *     }
+     *
+     *     val myTaskProvider = taskFactory.register("myTask", MyTask::class.java) {
+     *          scope.artifacts.setTaskInputToFinalProducts(InternalArtifactTYpe.SOME_ID, it.inputFiles)
+     *     }
+     * </pre>
+     *
+     * @param artifactType requested artifact type
+     * @param taskInputProperty the [ListProperty] to set the producers on.
+     */
+    fun <T: FileSystemLocation> setTaskInputToFinalProducts(artifactType: ArtifactType, taskInputProperty: ListProperty<T>) {
+        val finalProducts = getFinalProducts<T>(artifactType)
+        taskInputProperty.set(finalProducts)
+    }
+
     /**
      * Sets a [ListProperty] value to all the produces for the given artifact type.
      *
@@ -584,20 +620,6 @@ abstract class BuildArtifactsHolder(
     }
 
     /**
-     * Returns the final [BuildableArtifact] associated with the `artifactType` or `null` if no
-     * [BuildableArtifact] has been registered for this artifact type.
-     *
-     * See [getFinalArtifactFiles] for more details.
-     */
-    fun getFinalArtifactFilesIfPresent(artifactType: ArtifactType): BuildableArtifact? {
-        return if (hasArtifact(artifactType)) {
-            getFinalArtifactFiles(artifactType)
-        } else {
-            null
-        }
-    }
-
-    /**
      * Returns whether the artifactType exists in the holder.
      */
     fun hasArtifact(artifactType: ArtifactType) : Boolean {
@@ -688,31 +710,6 @@ abstract class BuildArtifactsHolder(
     @Deprecated("Use createBuildableArtifact/createDirectory/createArtifactFile APIs")
     fun appendArtifact(
         artifactType: ArtifactType,
-        task : Task,
-        fileName: String = "out") : File {
-        val output = createFile(task.name, artifactType, fileName)
-        doAppendArtifact(artifactType,
-            createFileCollection(
-                artifactType,
-                OperationType.APPEND,
-                listOf(output),
-                task.name))
-        return output
-    }
-
-    /**
-     * Append a new file or folder to a specified artifact type. The new content will be added
-     * after any existing content.
-     *
-     * @param artifactType [ArtifactType] the new file or folder will be classified under.
-     * @param task [Task] producing the file or folder.
-     * @param fileName expected file name for the file (location is determined by the build)
-     * @return [File] handle to use to create the file or folder (potentially with subfolders
-     * or multiple files)
-     */
-    @Deprecated("Use createBuildableArtifact/createDirectory/createArtifactFile APIs")
-    fun appendArtifact(
-        artifactType: ArtifactType,
         taskName: String,
         fileName: String = "out") : File {
         val output = createFile(taskName, artifactType, fileName)
@@ -754,7 +751,7 @@ abstract class BuildArtifactsHolder(
      * @param taskName name of the producer task.
      * @param file file location to use, relative to the project build output.
      */
-    fun createArtifactFile(
+    private fun createArtifactFile(
         artifactType: ArtifactType,
         operationType: OperationType,
         taskName: String,

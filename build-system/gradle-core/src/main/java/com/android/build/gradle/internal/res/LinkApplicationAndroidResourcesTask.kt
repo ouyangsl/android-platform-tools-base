@@ -21,10 +21,8 @@ import com.android.SdkConstants.FN_RES_BASE
 import com.android.SdkConstants.FN_R_CLASS_JAR
 import com.android.SdkConstants.RES_QUALIFIER_SEP
 import com.android.build.VariantOutput
-import com.android.build.api.artifact.BuildableArtifact
 import com.android.build.gradle.internal.LoggerWrapper
 import com.android.build.gradle.internal.TaskManager
-import com.android.build.gradle.internal.api.artifact.singleFile
 import com.android.build.gradle.internal.dsl.convert
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope.ALL
@@ -134,8 +132,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
 
     @get:org.gradle.api.tasks.OutputFile
     @get:Optional
-    var mainDexListProguardOutputFile: File? = null
-        private set
+    abstract val mainDexListProguardOutputFile: RegularFileProperty
 
     @get:InputFiles
     @get:Optional
@@ -225,8 +222,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
     @get:InputFiles
     @get:Optional
     @get:PathSensitive(PathSensitivity.RELATIVE)
-    var inputResourcesDir: BuildableArtifact? = null
-        private set
+    abstract val inputResourcesDir: DirectoryProperty
 
     private lateinit var variantScope: VariantScope
 
@@ -412,7 +408,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         private val baseName: String?,
         private val isLibrary: Boolean
     ) : VariantTaskCreationAction<LinkApplicationAndroidResourcesTask>(scope) {
-        private lateinit var aaptMainDexListProguardOutputFile: File
 
         override val name: String
             get() = variantScope.getTaskName("process", "Resources")
@@ -421,22 +416,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
             get() = LinkApplicationAndroidResourcesTask::class.java
 
         protected open fun preconditionsCheck(variantData: BaseVariantData) {}
-
-        override fun preConfigure(taskName: String) {
-            super.preConfigure(taskName)
-            val variantScope = variantScope
-
-            if (generateLegacyMultidexMainDexProguardRules) {
-                aaptMainDexListProguardOutputFile = variantScope
-                    .artifacts
-                    .appendArtifact(
-                        InternalArtifactType
-                            .LEGACY_MULTIDEX_AAPT_DERIVED_PROGUARD_RULES,
-                        taskName,
-                        "manifest_keep.txt"
-                    )
-            }
-        }
 
         override fun handleProvider(
             taskProvider: TaskProvider<out LinkApplicationAndroidResourcesTask>
@@ -454,6 +433,16 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                     taskProvider,
                     LinkApplicationAndroidResourcesTask::proguardOutputFile,
                     SdkConstants.FN_AAPT_RULES)
+            }
+
+            if (generateLegacyMultidexMainDexProguardRules) {
+                variantScope.artifacts.producesFile(
+                    InternalArtifactType.LEGACY_MULTIDEX_AAPT_DERIVED_PROGUARD_RULES,
+                    BuildArtifactsHolder.OperationType.INITIAL,
+                    taskProvider,
+                    LinkApplicationAndroidResourcesTask::mainDexListProguardOutputFile,
+                    "manifest_keep.txt"
+                )
             }
         }
 
@@ -506,10 +495,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
             task.multiOutputPolicy = variantData.multiOutputPolicy
             variantScope.artifacts.setTaskInputToFinalProduct(
                 InternalArtifactType.APK_LIST, task.apkList)
-
-            if (generateLegacyMultidexMainDexProguardRules) {
-                task.setAaptMainDexListProguardOutputFile(aaptMainDexListProguardOutputFile)
-            }
 
             task.variantScope = variantScope
             task.outputScope = variantData.outputScope
@@ -622,10 +607,10 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                     ALL,
                     AndroidArtifacts.ArtifactType.SYMBOL_LIST_WITH_PACKAGE_NAME
                 )
-
-            task.inputResourcesDir = variantScope
-                .artifacts
-                .getFinalArtifactFiles(sourceArtifactType.outputType)
+            variantScope.artifacts.setTaskInputToFinalProduct(
+                sourceArtifactType.outputType,
+                task.inputResourcesDir
+            )
 
             @Suppress("UNCHECKED_CAST")
             task.textSymbolOutputDir = symbolLocation as Supplier<File?>
@@ -670,7 +655,9 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
 
             val dependencies = ArrayList<FileCollection>(2)
             dependencies.add(
-                variantScope.artifacts.getFinalArtifactFiles(InternalArtifactType.RES_STATIC_LIBRARY).get()
+                variantScope.globalScope.project.files(
+                    variantScope.artifacts.getFinalProduct<RegularFile>(
+                        InternalArtifactType.RES_STATIC_LIBRARY))
             )
             dependencies.add(
                 variantScope.getArtifactFileCollection(
@@ -913,7 +900,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         val sourceOutputDir: File? = task.getSourceOutputDir()
         val textSymbolOutputDir: File? = task.textSymbolOutputDir.get()
         val proguardOutputFile: File? = task.proguardOutputFile.orNull?.asFile
-        val mainDexListProguardOutputFile: File? = task.mainDexListProguardOutputFile
+        val mainDexListProguardOutputFile: File? = task.mainDexListProguardOutputFile.orNull?.asFile
         val buildTargetDensity: String? = task.buildTargetDensity
         val aaptOptions: AaptOptions = task.aaptOptions
         val variantType: VariantType = task.type
@@ -923,7 +910,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         val androidJarPath: String =
             task.androidJar.get().absolutePath
         val convertedLibraryDependenciesFile= task.convertedLibraryDependencies.orNull?.asFile
-        val inputResourcesDir: File? = task.inputResourcesDir?.singleFile()
+        val inputResourcesDir: File? = task.inputResourcesDir.orNull?.asFile
         val mergeBlameFolder: File = task.mergeBlameLogFolder
         val isLibrary: Boolean = task.isLibrary
         val symbolsWithPackageNameOutputFile: File? = task.symbolsWithPackageNameOutputFile
@@ -967,10 +954,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
             File(outputDir, SdkConstants.R_CLASS + SdkConstants.DOT_TXT)
         else
             null
-    }
-
-    fun setAaptMainDexListProguardOutputFile(mainDexListProguardOutputFile: File) {
-        this.mainDexListProguardOutputFile = mainDexListProguardOutputFile
     }
 
     @Input

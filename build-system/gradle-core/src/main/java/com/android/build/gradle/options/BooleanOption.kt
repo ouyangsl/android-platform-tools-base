@@ -78,11 +78,12 @@ enum class BooleanOption(
     ENABLE_VIEW_BINDING("android.enableViewBinding"),
     CONDITIONAL_KEEP_RULES("android.useConditionalKeepRules", false),
     ENFORCE_UNIQUE_PACKAGE_NAMES("android.uniquePackageNames", false, status = Option.Status.STABLE),
-    ENABLE_INCREMENTAL_DATA_BINDING("android.databinding.incremental", false, Option.Status.STABLE),
     KEEP_SERVICES_BETWEEN_BUILDS("android.keepWorkerActionServicesBetweenBuilds", false),
     USE_NON_FINAL_RES_IDS("android.nonFinalResIds", false),
     ENABLE_SIDE_BY_SIDE_NDK("android.enableSideBySideNdk", true),
-    PRECOMPILE_REMOTE_RESOURCES("android.precompileRemoteResources", false),
+    PRECOMPILE_REMOTE_RESOURCES("android.precompileRemoteResources", true),
+    // Flag added to work around b/130596259.
+    FORCE_JACOCO_OUT_OF_PROCESS("android.forceJacocoOutOfProcess", false, status = Option.Status.STABLE),
 
     // ---------------
     // Lifecycle flags: Stable stage, Enabled by default, can be disabled
@@ -106,7 +107,7 @@ enum class BooleanOption(
     ENABLE_NATIVE_COMPILER_SETTINGS_CACHE("android.enableNativeCompilerSettingsCache", false),
     ENABLE_CMAKE_BUILD_COHABITATION("android.enableCmakeBuildCohabitation", false),
     ENABLE_PROGUARD_RULES_EXTRACTION("android.proguard.enableRulesExtraction", true),
-    ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE("android.bundle.enableUncompressedNativeLibs", true),
+    ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE("android.bundle.enableUncompressedNativeLibs", true, status=Option.Status.STABLE),
     USE_DEPENDENCY_CONSTRAINTS("android.dependency.useConstraints", true),
     ENABLE_DEXING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform", true, status=Option.Status.STABLE),
     ENABLE_UNIT_TEST_BINARY_RESOURCES("android.enableUnitTestBinaryResources", true, Option.Status.STABLE),
@@ -114,6 +115,7 @@ enum class BooleanOption(
     ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform.desugaring", true),
     GENERATE_R_JAVA("android.generateRJava", false),
     USE_RELATIVE_PATH_IN_TEST_CONFIG("android.testConfig.useRelativePath", true, Option.Status.STABLE),
+    ENABLE_INCREMENTAL_DATA_BINDING("android.databinding.incremental", true, Option.Status.STABLE),
 
     // ---------------
     // Lifecycle flags: Deprecated stage, feature is stable and we want to get rid of the ability to revert to older code path

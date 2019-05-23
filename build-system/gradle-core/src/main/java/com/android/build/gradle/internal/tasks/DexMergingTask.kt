@@ -28,6 +28,7 @@ import com.android.build.gradle.internal.errors.MessageReceiverImpl
 import com.android.build.gradle.internal.pipeline.ExtendedContentType
 import com.android.build.gradle.internal.pipeline.StreamFilter
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
+import com.android.build.gradle.internal.scope.BuildArtifactsHolder
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.scope.VariantScope
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
@@ -50,6 +51,7 @@ import com.google.common.base.Throwables
 import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.logging.Logging
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
@@ -61,13 +63,17 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkerExecutor
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
 import java.io.File
 import java.io.Serializable
 import java.nio.file.Files
 import java.util.Collections
 import java.util.concurrent.ForkJoinPool
 import java.util.concurrent.TimeUnit
+import java.util.zip.ZipFile
 import javax.inject.Inject
 
 /**
@@ -120,8 +126,7 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
     @get:Optional
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.NONE)
-    var mainDexListFile: BuildableArtifact? = null
-        private set
+    abstract val mainDexListFile: RegularFileProperty
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.NONE)
@@ -141,8 +146,7 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
         private set
 
     @get:OutputDirectory
-    lateinit var outputDir: File
-        private set
+    abstract val outputDir: DirectoryProperty
 
     @get:Internal
     lateinit var errorFormatMode: SyncOptions.ErrorFormatMode
@@ -158,10 +162,10 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
                     minSdkVersion,
                     isDebuggable,
                     mergingThreshold,
-                    mainDexListFile?.singleFile(),
+                    mainDexListFile.orNull?.asFile,
                     dexFiles.files,
                     fileDependencyDexFiles.orNull?.asFile,
-                    outputDir
+                    outputDir.get().asFile
                 )
             )
         }
@@ -186,10 +190,14 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
         override val name = internalName
         override val type = DexMergingTask::class.java
 
-        private lateinit var output: File
-
-        override fun preConfigure(taskName: String) {
-            output = variantScope.artifacts.appendArtifact(outputType, taskName)
+        override fun handleProvider(taskProvider: TaskProvider<out DexMergingTask>) {
+            super.handleProvider(taskProvider)
+            variantScope.artifacts.producesDir(
+                outputType,
+                BuildArtifactsHolder.OperationType.APPEND,
+                taskProvider,
+                DexMergingTask::outputDir
+            )
         }
 
         override fun configure(task: DexMergingTask) {
@@ -200,8 +208,9 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
 
             task.dexingType = dexingType
             if (DexMergingAction.MERGE_ALL == action && dexingType === DexingType.LEGACY_MULTIDEX) {
-                task.mainDexListFile =
-                        variantScope.artifacts.getFinalArtifactFiles(InternalArtifactType.LEGACY_MULTIDEX_MAIN_DEX_LIST)
+                variantScope.artifacts.setTaskInputToFinalProduct(
+                    InternalArtifactType.LEGACY_MULTIDEX_MAIN_DEX_LIST,
+                    task.mainDexListFile)
             }
 
             task.errorFormatMode =
@@ -222,7 +231,6 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
             } else {
                 task.fileDependencyDexFiles.set(null as Directory?)
             }
-            task.outputDir = output
         }
 
         private fun getDexFiles(action: DexMergingAction): FileCollection {
@@ -290,7 +298,7 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
                                 // be dex'ed in a task, so we need to fetch the output directly.
                                 // Otherwise, it will be in the dex'ed in the dex builder transform.
                                 files.from(
-                                    testedVariantData.scope.artifacts.getFinalArtifactFiles(
+                                    testedVariantData.scope.artifacts.getFinalProducts<Directory>(
                                         InternalArtifactType.DEX
                                     )
                                 )
@@ -300,18 +308,28 @@ abstract class DexMergingTask @Inject constructor(workerExecutor: WorkerExecutor
                         return files
                     }
                     DexMergingAction.MERGE_ALL -> {
-                        val external = if (dexingType == DexingType.LEGACY_MULTIDEX) {
-                            // we have to dex it
-                            forAction(DexMergingAction.MERGE_EXTERNAL_LIBS)
-                        } else {
-                            // we merge external dex in a separate task
-                            variantScope.artifacts
-                                .getFinalArtifactFiles(InternalArtifactType.EXTERNAL_LIBS_DEX)
-                                .get()
+                        // technically, the Provider<> may not be needed, but the code would
+                        // then assume that EXTERNAL_LIBS_DEX has already been registered by a
+                        // Producer. Better to execute as late as possible.
+                        val external = variantScope.globalScope.project.provider {
+                            if (dexingType == DexingType.LEGACY_MULTIDEX) {
+                                // we have to dex it
+                                forAction(DexMergingAction.MERGE_EXTERNAL_LIBS)
+                            } else {
+                                // we merge external dex in a separate task
+                                if (variantScope.artifacts.hasFinalProduct(InternalArtifactType.EXTERNAL_LIBS_DEX)) {
+                                    variantScope.globalScope.project.files(
+                                        variantScope.artifacts.getFinalProduct<Directory>(
+                                            InternalArtifactType.EXTERNAL_LIBS_DEX
+                                        )
+                                    )
+                                } else variantScope.globalScope.project.files()
+                            }
                         }
-                        return forAction(DexMergingAction.MERGE_PROJECT) +
-                                forAction(DexMergingAction.MERGE_LIBRARY_PROJECTS) +
-                                external
+                        return variantScope.globalScope.project.files(
+                                forAction(DexMergingAction.MERGE_PROJECT),
+                                forAction(DexMergingAction.MERGE_LIBRARY_PROJECTS),
+                                external)
                     }
                 }
             }
@@ -436,8 +454,25 @@ class DexMergingTaskRunnable @Inject constructor(
                     params.isDebuggable
                 ).call()
             } else {
-                for (file in getAllRegularFiles(dexFiles).withIndex()) {
-                    file.value.copyTo(params.outputDir.resolve("classes_${file.index}.${SdkConstants.EXT_DEX}"))
+                val outputPath =
+                    { id: Int -> params.outputDir.resolve("classes_$id.${SdkConstants.EXT_DEX}") }
+                var index = 0
+                for (file in getAllRegularFiles(dexFiles)) {
+                    if (file.extension == SdkConstants.EXT_JAR) {
+                        // Dex files can also come from jars when dexing is not done in artifact
+                        // transforms. See b/130965921 for details.
+                        ZipFile(file).use {
+                            for (entry in it.entries()) {
+                                BufferedInputStream(it.getInputStream(entry)).use { inputStream ->
+                                    BufferedOutputStream(outputPath(index++).outputStream()).use { outputStream ->
+                                        inputStream.copyTo(outputStream)
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        file.copyTo(outputPath(index++))
+                    }
                 }
             }
         } catch (e: Exception) {

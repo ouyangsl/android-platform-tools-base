@@ -68,7 +68,7 @@ public enum InternalArtifactType implements ArtifactType {
     LIBRARY_JAVA_RES(Kind.FILE),
 
     // Full jar with both classes and java res.
-    FULL_JAR,
+    FULL_JAR(Kind.FILE),
 
     // A folder with classes instrumented with jacoco. Internal folder file structure reflects
     // the hierarchy of namespaces
@@ -103,9 +103,9 @@ public enum InternalArtifactType implements ArtifactType {
     // Resources defined within the AAR.
     DEFINED_ONLY_SYMBOL_LIST,
     //Resources defined within the current module.
-    LOCAL_ONLY_SYMBOL_LIST,
+    LOCAL_ONLY_SYMBOL_LIST(Kind.FILE),
     // public.txt output
-    PUBLIC_RES,
+    PUBLIC_RES(Kind.FILE),
     SHRUNK_PROCESSED_RES,
     DENSITY_OR_LANGUAGE_SPLIT_PROCESSED_RES,
     ABI_PROCESSED_SPLIT_RES,
@@ -114,11 +114,11 @@ public enum InternalArtifactType implements ArtifactType {
     INSTANT_RUN_PACKAGED_RESOURCES,
     INSTANT_RUN_SPLIT_APK_RESOURCES,
     // linked res for the unified bundle
-    LINKED_RES_FOR_BUNDLE,
-    SHRUNK_LINKED_RES_FOR_BUNDLE,
+    LINKED_RES_FOR_BUNDLE(Kind.FILE),
+    SHRUNK_LINKED_RES_FOR_BUNDLE(Kind.FILE),
 
     // Artifacts for legacy multidex
-    LEGACY_MULTIDEX_AAPT_DERIVED_PROGUARD_RULES,
+    LEGACY_MULTIDEX_AAPT_DERIVED_PROGUARD_RULES(Kind.FILE),
     LEGACY_MULTIDEX_MAIN_DEX_LIST(Kind.FILE),
 
     // The R class jar generated from R.txt for application and tests
@@ -131,7 +131,7 @@ public enum InternalArtifactType implements ArtifactType {
     // Compiled resources (directory of .flat files) for the local library
     RES_COMPILED_FLAT_FILES,
     // An AAPT2 static library, containing only the current sub-project's resources.
-    RES_STATIC_LIBRARY,
+    RES_STATIC_LIBRARY(Kind.FILE),
     // A directory of AAPT2 static libraries generated from all non-namepaced remote dependencies.
     RES_CONVERTED_NON_NAMESPACED_REMOTE_DEPENDENCIES,
     // Compiled R class jar (for compilation only, packaged in AAR)
@@ -192,11 +192,11 @@ public enum InternalArtifactType implements ArtifactType {
     AAPT_FRIENDLY_MERGED_MANIFESTS,
     INSTANT_APP_MANIFEST,
     MANIFEST_METADATA,
-    MANIFEST_MERGE_REPORT,
+    MANIFEST_MERGE_REPORT(Kind.FILE),
     MANIFEST_MERGE_BLAME_FILE(Kind.FILE),
     // Simplified android manifest with original package name.
     // It's used to create namespaced res.apk static library.
-    STATIC_LIBRARY_MANIFEST,
+    STATIC_LIBRARY_MANIFEST(Kind.FILE),
 
     // List of annotation processors for metrics.
     ANNOTATION_PROCESSOR_LIST(Kind.FILE),
@@ -229,15 +229,15 @@ public enum InternalArtifactType implements ArtifactType {
     DATA_BINDING_BASE_CLASS_SOURCE_OUT(Category.GENERATED),
 
     // The lint JAR to be used for the current module.
-    LINT_JAR,
+    LINT_JAR(Kind.FILE),
     // The lint JAR to be published in the AAR.
-    LINT_PUBLISH_JAR,
+    LINT_PUBLISH_JAR(Kind.FILE),
 
     // the zip file output of the extract annotation class.
-    ANNOTATIONS_ZIP,
+    ANNOTATIONS_ZIP(Kind.FILE),
     // Optional recipe file (only used for libraries) which describes typedefs defined in the
     // library, and how to process them (typically which typedefs to omit during packaging).
-    ANNOTATIONS_TYPEDEF_FILE,
+    ANNOTATIONS_TYPEDEF_FILE(Kind.FILE),
     // the associated proguard file
     ANNOTATIONS_PROGUARD,
     // The classes.jar for the AAR
@@ -248,7 +248,7 @@ public enum InternalArtifactType implements ArtifactType {
     ABI_PACKAGED_SPLIT,
     FULL_APK,
     APK,
-    APK_FOR_LOCAL_TEST,
+    APK_FOR_LOCAL_TEST(Kind.FILE),
     APK_MAPPING,
     AAR,
     INSTANTAPP_BUNDLE,
@@ -269,7 +269,7 @@ public enum InternalArtifactType implements ArtifactType {
     // This is only valid for the base module.
     INTERMEDIARY_BUNDLE(Category.INTERMEDIATES, Kind.FILE),
     // APK Set archive with APKs generated from a bundle.
-    APKS_FROM_BUNDLE,
+    APKS_FROM_BUNDLE(Kind.FILE),
     // output of ExtractApks applied to APKS_FROM_BUNDLE and a device config.
     EXTRACTED_APKS,
     // Universal APK from the bundle
@@ -280,17 +280,17 @@ public enum InternalArtifactType implements ArtifactType {
     // file containing the metadata for the full feature set. This contains the feature names,
     // the res ID offset, both tied to the feature module path. Published by the base for the
     // other features to consume and find their own metadata.
-    FEATURE_SET_METADATA,
+    FEATURE_SET_METADATA(Kind.FILE),
     // file containing the module information (like its application ID) to synchronize all base
     // and dynamic feature. This is published by the base feature and installed application module.
-    METADATA_BASE_MODULE_DECLARATION,
+    METADATA_BASE_MODULE_DECLARATION(Kind.FILE),
     // file containing only the application ID. It is used to synchronize all feature plugins
     // with the application module's application ID.
-    METADATA_APPLICATION_ID,
+    METADATA_APPLICATION_ID(Kind.FILE),
     FEATURE_RESOURCE_PKG,
     // File containing the list of transitive dependencies of a given feature. This is consumed
     // by other features to avoid repackaging the same thing.
-    FEATURE_TRANSITIVE_DEPS,
+    FEATURE_TRANSITIVE_DEPS(Kind.FILE),
     // The information about the features in the app that is necessary for the data binding
     // annotation processor (for base feature compilation). Created by the
     // DataBindingExportFeatureApplicationIdsTask and passed down to the annotation processor via
@@ -317,7 +317,7 @@ public enum InternalArtifactType implements ArtifactType {
     // Project metadata
     METADATA_FEATURE_DECLARATION,
     METADATA_FEATURE_MANIFEST,
-    METADATA_INSTALLED_BASE_DECLARATION,
+    METADATA_INSTALLED_BASE_DECLARATION(Kind.FILE),
     // The metadata for the library dependencies, direct and indirect, published for each module.
     METADATA_LIBRARY_DEPENDENCIES_REPORT(Kind.FILE),
 

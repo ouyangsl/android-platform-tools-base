@@ -17,12 +17,13 @@
 #ifndef DEPLOYER_DELTA_INSTALL_H
 #define DEPLOYER_DELTA_INSTALL_H
 
+#include "tools/base/deploy/installer/base_install.h"
 #include "tools/base/deploy/installer/command.h"
 #include "tools/base/deploy/proto/deploy.pb.h"
 
 namespace deploy {
 
-class DeltaInstallCommand : public Command {
+class DeltaInstallCommand : public BaseInstallCommand {
  public:
   explicit DeltaInstallCommand(Workspace& workspace);
   virtual ~DeltaInstallCommand() = default;
@@ -30,14 +31,11 @@ class DeltaInstallCommand : public Command {
   virtual void Run();
 
  private:
-  bool SendApkToPackageManager(const proto::PatchInstruction& patch,
-                               const std::string& session_id);
   // Install using pm install interface which requires temporary hard storage.
   void Install();
   // Install using pm install-create, install-write, install-commit streaming
   // API where data is streamed directely to the Package Manager.
   void StreamInstall();
-  proto::DeltaInstallRequest request_;
 };
 
 }  // namespace deploy

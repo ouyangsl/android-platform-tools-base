@@ -32,6 +32,7 @@ import com.android.sdklib.AndroidVersion
 import com.android.utils.FileUtils
 import com.android.utils.ILogger
 import org.gradle.api.GradleException
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.provider.Provider
@@ -51,7 +52,7 @@ import javax.inject.Inject
  * Task installing an app variant. It looks at connected device and install the best matching
  * variant output on each device.
  */
-open class InstallVariantViaBundleTask  @Inject constructor(workerExecutor: WorkerExecutor) : NonIncrementalTask() {
+abstract class InstallVariantViaBundleTask  @Inject constructor(workerExecutor: WorkerExecutor) : NonIncrementalTask() {
 
     private val workers = Workers.preferWorkers(project.name, path, workerExecutor)
 
@@ -69,9 +70,8 @@ open class InstallVariantViaBundleTask  @Inject constructor(workerExecutor: Work
     lateinit var adbExecutableProvider: Provider<File>
         private set
 
-    @get:InputFiles
-    lateinit var apkBundle: BuildableArtifact
-        private set
+    @get:InputFile
+    abstract val apkBundle: RegularFileProperty
 
     init {
         this.outputs.upToDateWhen { false }
@@ -83,7 +83,7 @@ open class InstallVariantViaBundleTask  @Inject constructor(workerExecutor: Work
                 InstallRunnable::class.java,
                 Params(
                     adbExecutableProvider.get(),
-                    apkBundle.singleFile(),
+                    apkBundle.get().asFile,
                     timeOutInMs,
                     installOptions,
                     projectName,
@@ -112,14 +112,12 @@ open class InstallVariantViaBundleTask  @Inject constructor(workerExecutor: Work
             val logger: Logger = Logging.getLogger(InstallVariantViaBundleTask::class.java)
             val iLogger = LoggerWrapper(logger)
             val deviceProvider = createDeviceProvider(iLogger)
-            deviceProvider.init()
 
-            var successfulInstallCount = 0
-            val devices = deviceProvider.devices
+            deviceProvider.use {
+                var successfulInstallCount = 0
+                val devices = deviceProvider.devices
 
-            val androidVersion = AndroidVersion(params.minSdkVersion, params.minApiCodeName)
-
-            try {
+                val androidVersion = AndroidVersion(params.minSdkVersion, params.minApiCodeName)
                 for (device in devices) {
                     if (!InstallUtils.checkDeviceApiLevel(
                             device, androidVersion, iLogger, params.projectName, params.variantName)
@@ -174,8 +172,6 @@ open class InstallVariantViaBundleTask  @Inject constructor(workerExecutor: Work
                         if (successfulInstallCount == 1) "device" else "devices"
                     )
                 }
-            } finally {
-                deviceProvider.terminate()
             }
         }
 
@@ -217,7 +213,10 @@ open class InstallVariantViaBundleTask  @Inject constructor(workerExecutor: Work
                 task.installOptions.addAll(it)
             }
 
-            task.apkBundle = variantScope.artifacts.getFinalArtifactFiles(InternalArtifactType.APKS_FROM_BUNDLE)
+            variantScope.artifacts.setTaskInputToFinalProduct(
+                InternalArtifactType.APKS_FROM_BUNDLE,
+                task.apkBundle
+            )
 
             task.timeOutInMs = variantScope.globalScope.extension.adbOptions.timeOutInMs
 

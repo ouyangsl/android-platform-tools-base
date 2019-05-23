@@ -142,12 +142,11 @@ import com.android.build.gradle.internal.tasks.databinding.DataBindingExportBuil
 import com.android.build.gradle.internal.tasks.databinding.DataBindingGenBaseClassesTask;
 import com.android.build.gradle.internal.tasks.databinding.DataBindingMergeBaseClassLogTask;
 import com.android.build.gradle.internal.tasks.databinding.DataBindingMergeDependencyArtifactsTask;
-import com.android.build.gradle.internal.tasks.factory.PreConfigAction;
-import com.android.build.gradle.internal.tasks.factory.TaskConfigAction;
 import com.android.build.gradle.internal.tasks.factory.TaskCreationAction;
 import com.android.build.gradle.internal.tasks.factory.TaskFactory;
 import com.android.build.gradle.internal.tasks.factory.TaskFactoryImpl;
 import com.android.build.gradle.internal.tasks.factory.TaskFactoryUtils;
+import com.android.build.gradle.internal.tasks.factory.TaskProviderCallback;
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction;
 import com.android.build.gradle.internal.tasks.featuresplit.FeatureSplitUtils;
 import com.android.build.gradle.internal.test.AbstractTestDataImpl;
@@ -499,14 +498,8 @@ public abstract class TaskManager {
 
         // publish the local lint.jar to all the variants. This is not for the task output itself
         // but for the artifact publishing.
-        BuildableArtifact lintJar =
-                globalScope.getArtifacts().getFinalArtifactFiles(LINT_PUBLISH_JAR);
         for (VariantScope scope : variants) {
-            scope.getArtifacts()
-                    .createBuildableArtifact(
-                            InternalArtifactType.LINT_PUBLISH_JAR,
-                            BuildArtifactsHolder.OperationType.INITIAL,
-                            lintJar);
+            scope.getArtifacts().copy(LINT_PUBLISH_JAR, globalScope.getArtifacts());
         }
     }
 
@@ -824,7 +817,6 @@ public abstract class TaskManager {
                 processResources,
                 alsoOutputNotCompiledResources,
                 flags,
-                null /*preConfigCallback*/,
                 null /*configCallback*/);
     }
 
@@ -860,11 +852,7 @@ public abstract class TaskManager {
             final boolean processResources,
             boolean alsoOutputNotCompiledResources,
             @NonNull ImmutableSet<MergeResources.Flag> flags,
-            @Nullable PreConfigAction preConfigCallback,
-            @Nullable TaskConfigAction<MergeResources> configCallback) {
-
-        File mergedOutputDir = MoreObjects
-                .firstNonNull(outputLocation, scope.getDefaultMergeResourcesOutputDir());
+            @Nullable TaskProviderCallback<MergeResources> taskProviderCallback) {
 
         String taskNamePrefix = mergeType.name().toLowerCase(Locale.ENGLISH);
 
@@ -882,27 +870,40 @@ public abstract class TaskManager {
                                 scope,
                                 mergeType,
                                 taskNamePrefix,
-                                mergedOutputDir,
                                 mergedNotCompiledDir,
                                 includeDependencies,
                                 processResources,
                                 flags),
-                        preConfigCallback,
-                        configCallback,
-                        null);
+                        null,
+                        null,
+                        taskProviderCallback);
 
         scope.getArtifacts()
-                .appendArtifact(
+                .producesDir(
                         mergeType.getOutputType(),
-                        ImmutableList.of(mergedOutputDir),
-                        mergeResourcesTask.getName());
+                        BuildArtifactsHolder.OperationType.INITIAL,
+                        mergeResourcesTask,
+                        MergeResources::getOutputDir,
+                        project.getLayout()
+                                .getBuildDirectory()
+                                .dir(
+                                        MoreObjects.firstNonNull(
+                                                        outputLocation,
+                                                        scope.getDefaultMergeResourcesOutputDir())
+                                                .getAbsolutePath()),
+                        "");
 
         if (alsoOutputNotCompiledResources) {
             scope.getArtifacts()
-                    .appendArtifact(
-                            InternalArtifactType.MERGED_NOT_COMPILED_RES,
-                            ImmutableList.of(mergedNotCompiledDir),
-                            mergeResourcesTask.getName());
+                    .producesDir(
+                            MERGED_NOT_COMPILED_RES,
+                            BuildArtifactsHolder.OperationType.INITIAL,
+                            mergeResourcesTask,
+                            MergeResources::getMergedNotCompiledResourcesOutputDirectory,
+                            project.getLayout()
+                                    .getBuildDirectory()
+                                    .dir(mergedNotCompiledDir.getAbsolutePath()),
+                            "");
         }
 
         if (extension.getTestOptions().getUnitTests().isIncludeAndroidResources()) {
@@ -994,7 +995,7 @@ public abstract class TaskManager {
                             useAaptToGenerateLegacyMultidexMainDexProguardRules);
 
             FileCollection rFiles =
-                    scope.getArtifacts().getFinalArtifactFiles(RUNTIME_R_CLASS_CLASSES).get();
+                    project.files(scope.getArtifacts().getFinalProduct(RUNTIME_R_CLASS_CLASSES));
 
             scope.getTransformManager()
                     .addStream(
@@ -1515,12 +1516,10 @@ public abstract class TaskManager {
                     // TODO: don't implicitly subtract tested component in APKs, as that only
                     // makes sense for instrumentation tests. For now, rely on the production
                     // merged resources.
-                    artifacts.createBuildableArtifact(
+                    artifacts.copy(
                             InternalArtifactType.MERGED_RES,
-                            BuildArtifactsHolder.OperationType.INITIAL,
-                            testedVariantScope
-                                    .getArtifacts()
-                                    .getFinalArtifactFiles(MERGED_NOT_COMPILED_RES));
+                            testedVariantScope.getArtifacts(),
+                            MERGED_NOT_COMPILED_RES);
                 }
             } else {
                 throw new IllegalStateException(
@@ -1913,6 +1912,8 @@ public abstract class TaskManager {
                                                         .get(),
                                         extension.getAdbOptions().getTimeOutInMs(),
                                         new LoggerWrapper(logger)),
+                                DeviceProviderInstrumentTestTask.CreationAction.Type
+                                        .INTERNAL_CONNECTED_DEVICE_PROVIDER,
                                 testData,
                                 project.files() /* testTargetMetadata */));
 
@@ -1949,6 +1950,8 @@ public abstract class TaskManager {
                             new DeviceProviderInstrumentTestTask.CreationAction(
                                     testVariantData.getScope(),
                                     deviceProvider,
+                                    DeviceProviderInstrumentTestTask.CreationAction.Type
+                                            .CUSTOM_DEVICE_PROVIDER,
                                     testData,
                                     project.files() /* testTargetMetadata */));
 
@@ -2347,10 +2350,11 @@ public abstract class TaskManager {
                                 .addContentTypes(ExtendedContentType.DEX)
                                 .addScope(Scope.PROJECT)
                                 .setFileCollection(
-                                        variantScope
-                                                .getArtifacts()
-                                                .getFinalArtifactFiles(InternalArtifactType.DEX)
-                                                .get())
+                                        variantScope.getGlobalScope().getProject().files(
+                                            variantScope
+                                                    .getArtifacts()
+                                                    .getFinalProducts(InternalArtifactType.DEX)
+                                        ))
                                 .build());
     }
 
@@ -2949,8 +2953,7 @@ public abstract class TaskManager {
                             "Assembles bundle for variant "
                                     + scope.getVariantConfiguration().getFullName());
                     task.dependsOn(
-                            scope.getArtifacts()
-                                    .getFinalArtifactFiles(InternalArtifactType.BUNDLE));
+                            scope.getArtifacts().getFinalProduct(InternalArtifactType.BUNDLE));
                 },
                 taskProvider -> scope.getTaskContainer().setBundleTask(taskProvider));
     }
@@ -3000,14 +3003,12 @@ public abstract class TaskManager {
                                     mappingFileCollection,
                                     (transform, taskName) -> {
                                         if (variantScope.getNeedsMainDexListForBundle()) {
-                                            File mainDexListFile =
+                                            Provider<RegularFile> mainDexListFile =
                                                     variantScope
                                                             .getArtifacts()
-                                                            .appendArtifact(
+                                                            .getFinalProduct(
                                                                     InternalArtifactType
-                                                                            .MAIN_DEX_LIST_FOR_BUNDLE,
-                                                                    taskName,
-                                                                    "mainDexList.txt");
+                                                                            .MAIN_DEX_LIST_FOR_BUNDLE);
                                             ((R8Transform) transform)
                                                     .setMainDexListOutput(mainDexListFile);
                                         }
@@ -3278,11 +3279,14 @@ public abstract class TaskManager {
                                 .getArtifacts()
                                 .getFinalArtifactFiles(InternalArtifactType.APK_MAPPING)
                         : null;
-        BuildableArtifact mainDexList =
+        Provider<RegularFile> mainDexList =
                 variantScope
-                        .getArtifacts()
-                        .getFinalArtifactFilesIfPresent(
-                                InternalArtifactType.MAIN_DEX_LIST_FOR_BUNDLE);
+                                .getArtifacts()
+                                .hasFinalProduct(InternalArtifactType.MAIN_DEX_LIST_FOR_BUNDLE)
+                        ? variantScope
+                                .getArtifacts()
+                                .getFinalProduct(InternalArtifactType.MAIN_DEX_LIST_FOR_BUNDLE)
+                        : null;
 
         DexSplitterTransform transform =
                 new DexSplitterTransform(
@@ -3307,6 +3311,9 @@ public abstract class TaskManager {
 
         if (transformTask.isPresent()) {
             publishFeatureDex(variantScope);
+            if (mainDexList != null) {
+                transformTask.get().configure(it -> it.dependsOn(mainDexList));
+            }
         } else {
             globalScope
                     .getErrorHandler()

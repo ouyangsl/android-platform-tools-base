@@ -28,7 +28,6 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.build.VariantOutput;
 import com.android.build.api.artifact.ArtifactType;
-import com.android.build.api.artifact.BuildableArtifact;
 import com.android.build.gradle.AndroidConfig;
 import com.android.build.gradle.FeaturePlugin;
 import com.android.build.gradle.TestAndroidConfig;
@@ -37,7 +36,6 @@ import com.android.build.gradle.internal.ExtraModelInfo;
 import com.android.build.gradle.internal.ProductFlavorData;
 import com.android.build.gradle.internal.TaskManager;
 import com.android.build.gradle.internal.VariantManager;
-import com.android.build.gradle.internal.api.artifact.BuildableArtifactUtil;
 import com.android.build.gradle.internal.core.GradleVariantConfiguration;
 import com.android.build.gradle.internal.dsl.TestOptions;
 import com.android.build.gradle.internal.ide.dependencies.BuildMappingUtils;
@@ -85,6 +83,7 @@ import com.android.builder.model.ModelBuilderParameter;
 import com.android.builder.model.ProductFlavor;
 import com.android.builder.model.ProductFlavorContainer;
 import com.android.builder.model.ProjectBuildOutput;
+import com.android.builder.model.ProjectSyncIssues;
 import com.android.builder.model.SigningConfig;
 import com.android.builder.model.SourceProvider;
 import com.android.builder.model.SyncIssue;
@@ -100,6 +99,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
@@ -153,6 +153,8 @@ public class ModelBuilder<Extension extends AndroidConfig>
      */
     private ImmutableMap<String, String> buildMapping = null;
 
+    // TODO: Stop buildAndroidProject from manually populating
+    //       this field and use the syncIssueHandler instead.
     private Set<SyncIssue> syncIssues = Sets.newLinkedHashSet();
 
     public ModelBuilder(
@@ -181,7 +183,8 @@ public class ModelBuilder<Extension extends AndroidConfig>
         return modelName.equals(AndroidProject.class.getName())
                 || modelName.equals(GlobalLibraryMap.class.getName())
                 || modelName.equals(ProjectBuildOutput.class.getName())
-                || modelName.equals(Variant.class.getName());
+                || modelName.equals(Variant.class.getName())
+                || modelName.equals(ProjectSyncIssues.class.getName());
     }
 
     @NonNull
@@ -229,8 +232,13 @@ public class ModelBuilder<Extension extends AndroidConfig>
     private Object buildNonParameterizedModels(@NonNull String modelName) {
         if (modelName.equals(ProjectBuildOutput.class.getName())) {
             return buildMinimalisticModel();
+        } else if (modelName.equals(GlobalLibraryMap.class.getName())) {
+            return buildGlobalLibraryMap();
+        } else if (modelName.equals(ProjectSyncIssues.class.getName())) {
+            return buildProjectSyncIssuesModel();
         }
-        return buildGlobalLibraryMap();
+
+        throw new RuntimeException("Invalid model requested: " + modelName);
     }
 
     @Override
@@ -297,6 +305,15 @@ public class ModelBuilder<Extension extends AndroidConfig>
 
     private static Object buildGlobalLibraryMap() {
         return new GlobalLibraryMapImpl(LibraryUtils.getGlobalLibMap());
+    }
+
+    private Object buildProjectSyncIssuesModel() {
+        // TODO: Lock the issue handler object so any attempt to register new issues should throw.
+        return new DefaultProjectSyncIssues(
+                ImmutableSet.<SyncIssue>builder()
+                        .addAll(syncIssues)
+                        .addAll(extraModelInfo.getSyncIssueHandler().getSyncIssues())
+                        .build());
     }
 
     private Object buildAndroidProject(Project project, boolean shouldBuildVariant) {
@@ -1177,7 +1194,7 @@ public class ModelBuilder<Extension extends AndroidConfig>
 
         boolean addDataBindingSources =
                 globalScope.getExtension().getDataBinding().isEnabled()
-                        && artifacts.hasArtifact(DATA_BINDING_BASE_CLASS_SOURCE_OUT);
+                        && artifacts.hasFinalProduct(DATA_BINDING_BASE_CLASS_SOURCE_OUT);
         List<File> extraFolders = getGeneratedSourceFoldersForUnitTests(variantData);
 
         // Set this to the number of folders you expect to add explicitly in the code below.
@@ -1199,15 +1216,16 @@ public class ModelBuilder<Extension extends AndroidConfig>
         if (ndkMode == null || !ndkMode) {
             folders.add(
                     scope.getArtifacts()
-                            .getFinalArtifactFiles(
-                                    InternalArtifactType.RENDERSCRIPT_SOURCE_OUTPUT_DIR)
+                            .getFinalProduct(InternalArtifactType.RENDERSCRIPT_SOURCE_OUTPUT_DIR)
                             .get()
-                            .getSingleFile());
+                            .getAsFile());
         }
         if (addDataBindingSources) {
-            BuildableArtifact output =
-                    scope.getArtifacts().getFinalArtifactFiles(DATA_BINDING_BASE_CLASS_SOURCE_OUT);
-            folders.add(BuildableArtifactUtil.singleFile(output));
+            folders.add(
+                    scope.getArtifacts()
+                            .getFinalProduct(DATA_BINDING_BASE_CLASS_SOURCE_OUT)
+                            .get()
+                            .getAsFile());
         }
         return folders;
     }

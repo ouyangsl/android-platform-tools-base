@@ -20,12 +20,15 @@ import com.android.SdkConstants.CMAKE_DIR_PROPERTY
 import com.android.SdkConstants.CURRENT_PLATFORM
 import com.android.SdkConstants.NDK_SYMLINK_DIR
 import com.android.SdkConstants.PLATFORM_WINDOWS
-import com.android.build.gradle.external.cmake.CmakeUtils
 import com.android.build.gradle.internal.core.Abi
 import com.android.build.gradle.internal.cxx.configure.ANDROID_GRADLE_PLUGIN_FIXED_DEFAULT_NDK_VERSION
 import com.android.build.gradle.internal.cxx.configure.CXX_DEFAULT_CONFIGURATION_SUBFOLDER
 import com.android.build.gradle.internal.cxx.configure.CmakeLocator
+import com.android.build.gradle.internal.cxx.configure.NdkAbiFile
+import com.android.build.gradle.internal.cxx.configure.NdkMetaPlatforms
+import com.android.build.gradle.internal.cxx.configure.findCmakeVersion
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.android.build.gradle.internal.cxx.configure.ndkMetaAbisFile
 import com.android.build.gradle.internal.cxx.configure.trySymlinkNdk
 import com.android.build.gradle.internal.model.CoreExternalNativeBuild
 import com.android.build.gradle.internal.scope.GlobalScope
@@ -35,14 +38,12 @@ import com.android.build.gradle.internal.cxx.logging.errorln
 import com.android.build.gradle.internal.cxx.logging.infoln
 import com.android.build.gradle.internal.cxx.services.createDefaultServiceRegistry
 import com.android.build.gradle.internal.ndk.Stl
-import com.android.build.gradle.options.BooleanOption.ENABLE_CMAKE_BUILD_COHABITATION
 import com.android.build.gradle.tasks.NativeBuildSystem
-import com.android.repository.Revision
 import com.android.utils.FileUtils
 import com.android.utils.FileUtils.join
 import org.gradle.api.InvalidUserDataException
 import java.io.File
-import java.io.IOException
+import java.io.FileReader
 import java.util.function.Consumer
 
 /**
@@ -82,9 +83,8 @@ import java.util.function.Consumer
  * to always use it.
  */
 fun tryCreateCxxModuleModel(
-    global : GlobalScope,
-    cmakeLocator : CmakeLocator,
-    cmakeVersionProvider : (File) -> Revision
+    global: GlobalScope,
+    cmakeLocator: CmakeLocator
 ) : CxxModuleModel? {
 
     val (buildSystem, makeFile, buildStagingDirectory) =
@@ -128,11 +128,26 @@ fun tryCreateCxxModuleModel(
             }
             ndkHandler
         }
+        override val ndkMetaPlatforms by lazy {
+            val ndkMetaPlatformsFile = NdkMetaPlatforms.jsonFile(ndkFolder)
+            if (ndkMetaPlatformsFile.isFile) {
+                NdkMetaPlatforms.fromReader(FileReader(ndkMetaPlatformsFile))
+            } else {
+                null
+            }
+        }
+        override val ndkMetaAbiList by lazy {
+            NdkAbiFile(ndkMetaAbisFile(ndkFolder)).abiInfoList
+        }
         override val cmake
             get() =
                 if (buildSystem == CMAKE) {
                     val exe = if (CURRENT_PLATFORM == PLATFORM_WINDOWS) ".exe" else ""
                     object: CxxCmakeModuleModel {
+                        override val minimumCmakeVersion by lazy {
+                            findCmakeVersion(
+                                global.extension.externalNativeBuild.cmake.version)
+                        }
                         private val cmakeFolder by lazy {
                             cmakeLocator.findCmakePath(
                                 global.extension.externalNativeBuild.cmake.version,
@@ -142,21 +157,6 @@ fun tryCreateCxxModuleModel(
                         }
                         override val cmakeExe by lazy {
                             join(cmakeFolder, "bin", "cmake$exe")
-                        }
-                        override val foundCmakeVersion by lazy {
-                            try {
-                                cmakeVersionProvider(File(cmakeFolder, "bin"))
-                            } catch (e: IOException) {
-                                // For pre-ENABLE_SIDE_BY_SIDE_CMAKE case, the text of this message triggers
-                                // Android Studio to prompt for download.
-                                // Post-ENABLE_SIDE_BY_SIDE different messages may be thrown from
-                                // CmakeLocatorKt.findCmakePath to trigger download of particular versions of
-                                // CMake from the SDK.
-                                throw RuntimeException(
-                                    "Unable to get the CMake version located at: " +
-                                            File(cmakeFolder, "bin").absolutePath
-                                )
-                            }
                         }
                         override val ninjaExe by lazy {
                             join(cmakeFolder, "bin", "ninja$exe")
@@ -214,7 +214,8 @@ fun tryCreateCxxModuleModel(
 
 fun tryCreateCxxModuleModel(global : GlobalScope) = tryCreateCxxModuleModel(
     global,
-    CmakeLocator()) { cmake -> CmakeUtils.getVersion(cmake) }
+    CmakeLocator()
+)
 
 /**
  * Resolve the CMake or ndk-build path and buildStagingDirectory of native build project.

@@ -17,7 +17,6 @@ package com.android.build.gradle.tasks;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.build.api.artifact.BuildableArtifact;
 import com.android.build.gradle.internal.tasks.IncrementalTask;
 import com.android.manifmerger.MergingReport;
 import com.android.utils.FileUtils;
@@ -59,23 +58,12 @@ public abstract class ManifestProcessorTask extends IncrementalTask {
 
     @Nonnull private final DirectoryProperty aaptFriendlyManifestOutputDirectory;
 
-    private File metadataFeatureManifestOutputDirectory;
-
-    private File bundleManifestOutputDirectory;
-
     @Nonnull private final DirectoryProperty instantAppManifestOutputDirectory;
-
-    private File reportFile;
-
-    @SuppressWarnings("unused")
-    protected BuildableArtifact checkManifestResult;
 
     @InputFiles
     @PathSensitive(PathSensitivity.NONE)
     @Optional
-    public BuildableArtifact getCheckManifestResult() {
-        return checkManifestResult;
-    }
+    public abstract DirectoryProperty getCheckManifestResult();
 
     /**
      * The aapt friendly processed Manifest. In case we are processing a library manifest, some
@@ -113,13 +101,7 @@ public abstract class ManifestProcessorTask extends IncrementalTask {
      */
     @OutputDirectory
     @Optional
-    public File getBundleManifestOutputDirectory() {
-        return bundleManifestOutputDirectory;
-    }
-
-    protected void setBundleManifestOutputDirectory(File bundleManifestOutputDirectory) {
-        this.bundleManifestOutputDirectory = bundleManifestOutputDirectory;
-    }
+    public abstract DirectoryProperty getBundleManifestOutputDirectory();
 
     /**
      * The feature manifest which is consumed by its base feature (as opposed to the one packaged
@@ -128,14 +110,7 @@ public abstract class ManifestProcessorTask extends IncrementalTask {
      */
     @OutputDirectory
     @Optional
-    public File getMetadataFeatureManifestOutputDirectory() {
-        return metadataFeatureManifestOutputDirectory;
-    }
-
-    protected void setMetadataFeatureManifestOutputDirectory(
-            File metadataFeatureManifestOutputDirectory) {
-        this.metadataFeatureManifestOutputDirectory = metadataFeatureManifestOutputDirectory;
-    }
+    public abstract DirectoryProperty getMetadataFeatureManifestOutputDirectory();
 
     /** The instant app manifest which is used if we are deploying the app as an instant app. */
     @OutputDirectory
@@ -147,13 +122,7 @@ public abstract class ManifestProcessorTask extends IncrementalTask {
 
     @OutputFile
     @Optional
-    public File getReportFile() {
-        return reportFile;
-    }
-
-    public void setReportFile(File reportFile) {
-        this.reportFile = reportFile;
-    }
+    public abstract RegularFileProperty getReportFile();
 
     @OutputFile
     @Optional

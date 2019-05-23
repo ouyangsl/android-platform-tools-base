@@ -1,9 +1,6 @@
 package ${packageName};
 
 import android.os.Bundle;
-<#if includeCppSupport!false>
-import android.widget.TextView;
-</#if>
 import ${getMaterialComponentName('android.support.design.widget.FloatingActionButton', useMaterial2)};
 import ${getMaterialComponentName('android.support.design.widget.Snackbar', useMaterial2)};
 import ${getMaterialComponentName('android.support.v7.app.AppCompatActivity', useAndroidX)};
@@ -34,10 +31,6 @@ public class ${activityClass} extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-<#if parentActivityClass != "">
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-</#if>
-<#include "../../../../common/jni_code_usage.java.ftl">
     }
 
 <#if isNewProject>

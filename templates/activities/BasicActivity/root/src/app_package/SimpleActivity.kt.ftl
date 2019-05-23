@@ -12,13 +12,6 @@ import ${applicationPackage}.R
 </#if>
 
 import kotlinx.android.synthetic.main.${layoutName}.*
-<#if includeCppSupport!false>
-<#if useFragment!false>
-import kotlinx.android.synthetic.main.${fragmentLayoutName}.*
-<#else>
-import kotlinx.android.synthetic.main.${simpleLayoutName}.*
-</#if>
-</#if>
 
 class ${activityClass} : AppCompatActivity() {
 
@@ -31,10 +24,6 @@ class ${activityClass} : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
-<#if parentActivityClass?has_content>
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-</#if>
-<#include "../../../../common/jni_code_usage.kt.ftl">
     }
 
 <#if isNewProject>
@@ -54,5 +43,4 @@ class ${activityClass} : AppCompatActivity() {
         }
     }
 </#if>
-<#include "../../../../common/jni_code_snippet.kt.ftl">
 }

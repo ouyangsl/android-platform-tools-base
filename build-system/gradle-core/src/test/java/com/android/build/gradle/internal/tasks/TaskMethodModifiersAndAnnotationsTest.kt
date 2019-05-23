@@ -105,7 +105,6 @@ class TaskMethodModifiersAndAnnotationsTest {
                 "com.android.build.gradle.internal.coverage.JacocoReportTask::setReportDir",
                 "com.android.build.gradle.internal.coverage.JacocoReportTask::setReportName",
                 "com.android.build.gradle.internal.coverage.JacocoReportTask::setTabWidth",
-                "com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask::setAaptMainDexListProguardOutputFile",
                 "com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask::setDebuggable",
                 "com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask::setMergeBlameLogFolder",
                 "com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask::setType",
@@ -160,7 +159,6 @@ class TaskMethodModifiersAndAnnotationsTest {
                 "com.android.build.gradle.tasks.ExtractAnnotations::setBootClasspath",
                 "com.android.build.gradle.tasks.ExtractAnnotations::setClassDir",
                 "com.android.build.gradle.tasks.ExtractAnnotations::setEncoding",
-                "com.android.build.gradle.tasks.ExtractAnnotations::setOutput",
                 "com.android.build.gradle.tasks.GenerateBuildConfig::setBuildTypeName",
                 "com.android.build.gradle.tasks.GenerateBuildConfig::setSourceOutputDir",
                 "com.android.build.gradle.tasks.GenerateResValues::setItems",
@@ -168,11 +166,8 @@ class TaskMethodModifiersAndAnnotationsTest {
                 "com.android.build.gradle.tasks.InvokeManifestMerger::setMainManifestFile",
                 "com.android.build.gradle.tasks.InvokeManifestMerger::setOutputFile",
                 "com.android.build.gradle.tasks.InvokeManifestMerger::setSecondaryManifestFiles",
-                "com.android.build.gradle.tasks.ManifestProcessorTask::setReportFile",
                 "com.android.build.gradle.tasks.LintPerVariantTask::setVariantName",
                 "com.android.build.gradle.tasks.MergeResources::setBlameLogFolder",
-                "com.android.build.gradle.tasks.MergeResources::setOutputDir",
-                "com.android.build.gradle.tasks.MergeResources::setPublicFile",
                 "com.android.build.gradle.tasks.PackageAndroidArtifact::setAbiFilters",
                 "com.android.build.gradle.tasks.PackageAndroidArtifact::setDebugBuild",
                 "com.android.build.gradle.tasks.PackageAndroidArtifact::setJniDebugBuild",
@@ -188,10 +183,8 @@ class TaskMethodModifiersAndAnnotationsTest {
                 "com.android.build.gradle.tasks.RenderscriptCompile::setObjOutputDir",
                 "com.android.build.gradle.tasks.RenderscriptCompile::setOptimLevel",
                 "com.android.build.gradle.tasks.RenderscriptCompile::setResOutputDir",
-                "com.android.build.gradle.tasks.RenderscriptCompile::setSourceOutputDir",
                 "com.android.build.gradle.tasks.RenderscriptCompile::setSupportMode",
                 "com.android.build.gradle.tasks.ShaderCompile::setDefaultArgs",
-                "com.android.build.gradle.tasks.ShaderCompile::setOutputDir",
                 "com.android.build.gradle.tasks.ShaderCompile::setScopedArgs"
             )
 
