@@ -82,6 +82,7 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension;
 import com.android.build.gradle.internal.dsl.CoreProductFlavor;
 import com.android.build.gradle.internal.dsl.DataBindingOptions;
 import com.android.build.gradle.internal.dsl.PackagingOptions;
+import com.android.build.gradle.internal.dsl.ViewBindingOptions;
 import com.android.build.gradle.internal.packaging.GradleKeystoreHelper;
 import com.android.build.gradle.internal.pipeline.ExtendedContentType;
 import com.android.build.gradle.internal.pipeline.OriginalStream;
@@ -2124,11 +2125,12 @@ public abstract class TaskManager {
                                     .addContentTypes(TransformManager.CONTENT_CLASS)
                                     .addScope(Scope.EXTERNAL_LIBRARIES)
                                     .setFileCollection(
-                                            variantScope
-                                                    .getArtifacts()
-                                                    .getFinalArtifactFiles(
-                                                            InternalArtifactType.FIXED_STACK_FRAMES)
-                                                    .get()
+                                            project.files(
+                                                            variantScope
+                                                                    .getArtifacts()
+                                                                    .getFinalProduct(
+                                                                            InternalArtifactType
+                                                                                    .FIXED_STACK_FRAMES))
                                                     .getAsFileTree())
                                     .build());
 
@@ -2220,7 +2222,11 @@ public abstract class TaskManager {
                                 SyncOptions.getErrorFormatMode(
                                         variantScope.getGlobalScope().getProjectOptions()))
                         .setUserLevelCache(userLevelCache)
-                        .setMinSdkVersion(variantScope.getMinSdkVersion().getFeatureLevel())
+                        .setMinSdkVersion(
+                                variantScope
+                                        .getVariantConfiguration()
+                                        .getMinSdkVersionWithTargetDeviceApi()
+                                        .getFeatureLevel())
                         .setDexer(variantScope.getDexer())
                         .setUseGradleWorkers(
                                 projectOptions.get(BooleanOption.ENABLE_GRADLE_WORKERS))
@@ -2453,16 +2459,14 @@ public abstract class TaskManager {
                 project.files(
                         variantScope
                                 .getArtifacts()
-                                .getFinalArtifactFiles(
-                                        InternalArtifactType.JACOCO_INSTRUMENTED_CLASSES)
-                                .get(),
-                        variantScope
-                                .getArtifacts()
-                                .getFinalArtifactFiles(
-                                        InternalArtifactType.JACOCO_INSTRUMENTED_JARS)
-                                .get()
+                                .getFinalProduct(InternalArtifactType.JACOCO_INSTRUMENTED_CLASSES),
+                        project.files(
+                                        variantScope
+                                                .getArtifacts()
+                                                .getFinalProduct(
+                                                        InternalArtifactType
+                                                                .JACOCO_INSTRUMENTED_JARS))
                                 .getAsFileTree());
-
         variantScope
                 .getTransformManager()
                 .addStream(
@@ -2474,7 +2478,9 @@ public abstract class TaskManager {
     }
 
     private void createDataBindingMergeArtifactsTask(@NonNull VariantScope variantScope) {
-        if (!extension.getDataBinding().isEnabled()) {
+        boolean dataBindingEnabled = extension.getDataBinding().isEnabled();
+        boolean viewBindingEnabled = extension.getViewBinding().isEnabled();
+        if (!dataBindingEnabled && !viewBindingEnabled) {
             return;
         }
         final BaseVariantData variantData = variantScope.getVariantData();
@@ -2504,7 +2510,9 @@ public abstract class TaskManager {
 
     protected void createDataBindingTasksIfNecessary(
             @NonNull VariantScope scope, @NonNull MergeType mergeType) {
-        if (!extension.getDataBinding().isEnabled()) {
+        boolean dataBindingEnabled = extension.getDataBinding().isEnabled();
+        boolean viewBindingEnabled = extension.getViewBinding().isEnabled();
+        if (!dataBindingEnabled && !viewBindingEnabled) {
             return;
         }
         createDataBindingMergeBaseClassesTask(scope);
@@ -2521,10 +2529,12 @@ public abstract class TaskManager {
 
         dataBindingBuilder.setDebugLogEnabled(getLogger().isDebugEnabled());
 
-        taskFactory.register(new DataBindingExportBuildInfoTask.CreationAction(scope));
         taskFactory.register(new DataBindingGenBaseClassesTask.CreationAction(scope));
 
-        setDataBindingAnnotationProcessorParams(scope, mergeType);
+        if (dataBindingEnabled) {
+            taskFactory.register(new DataBindingExportBuildInfoTask.CreationAction(scope));
+            setDataBindingAnnotationProcessorParams(scope, mergeType);
+        }
     }
 
     private void setDataBindingAnnotationProcessorParams(
@@ -3582,11 +3592,13 @@ public abstract class TaskManager {
     }
 
     public void addBindingDependenciesIfNecessary(
-            DataBindingOptions options, List<VariantScope> variantScopes) {
+            ViewBindingOptions viewBindingOptions,
+            DataBindingOptions dataBindingOptions,
+            List<VariantScope> variantScopes) {
         ProjectOptions projectOptions = globalScope.getProjectOptions();
         boolean useAndroidX = projectOptions.get(BooleanOption.USE_ANDROID_X);
-        boolean viewBindingEnabled = projectOptions.get(BooleanOption.ENABLE_VIEW_BINDING);
-        boolean dataBindingEnabled = options.isEnabled();
+        boolean viewBindingEnabled = viewBindingOptions.isEnabled();
+        boolean dataBindingEnabled = dataBindingOptions.isEnabled();
 
         if (viewBindingEnabled) {
             String version =
@@ -3601,7 +3613,8 @@ public abstract class TaskManager {
         if (dataBindingEnabled) {
             String version =
                     MoreObjects.firstNonNull(
-                            options.getVersion(), dataBindingBuilder.getCompilerVersion());
+                            dataBindingOptions.getVersion(),
+                            dataBindingBuilder.getCompilerVersion());
             String baseLibArtifact =
                     useAndroidX
                             ? SdkConstants.ANDROIDX_DATA_BINDING_BASELIB_ARTIFACT
@@ -3619,7 +3632,7 @@ public abstract class TaskManager {
                                     + ":"
                                     + version);
             // TODO load config name from source sets
-            if (options.isEnabledForTests()
+            if (dataBindingOptions.isEnabledForTests()
                     || this instanceof LibraryTaskManager
                     || this instanceof MultiTypeTaskManager) {
                 project.getDependencies()
@@ -3629,7 +3642,7 @@ public abstract class TaskManager {
                                         + ":"
                                         + version);
             }
-            if (options.getAddDefaultAdapters()) {
+            if (dataBindingOptions.getAddDefaultAdapters()) {
                 String libArtifact =
                         useAndroidX
                                 ? SdkConstants.ANDROIDX_DATA_BINDING_LIB_ARTIFACT

@@ -57,7 +57,7 @@ public enum InternalArtifactType implements ArtifactType {
     DEX,
     // the packaged classes published by APK modules.
     // This is for external usage. For usage inside a module use ALL_CLASSES
-    APP_CLASSES,
+    APP_CLASSES(Kind.FILE),
 
     // --- java res ---
     // java processing output
@@ -241,7 +241,7 @@ public enum InternalArtifactType implements ArtifactType {
     // the associated proguard file
     ANNOTATIONS_PROGUARD,
     // The classes.jar for the AAR
-    AAR_MAIN_JAR,
+    AAR_MAIN_JAR(Kind.FILE),
     // The libs/ directory for the AAR, containing secondary jars
     AAR_LIBS_DIRECTORY,
 

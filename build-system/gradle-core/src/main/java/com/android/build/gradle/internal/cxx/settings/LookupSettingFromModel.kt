@@ -16,11 +16,13 @@
 
 package com.android.build.gradle.internal.cxx.settings
 
+import com.android.build.gradle.internal.cxx.cmake.cmakeBoolean
 import com.android.build.gradle.internal.cxx.model.CxxAbiModel
 import com.android.build.gradle.internal.cxx.model.CxxModuleModel
 import com.android.build.gradle.internal.cxx.model.CxxProjectModel
 import com.android.build.gradle.internal.cxx.model.CxxVariantModel
 import com.android.utils.FileUtils.join
+import com.google.common.base.Joiner
 import java.lang.RuntimeException
 import java.util.Locale
 
@@ -35,6 +37,8 @@ fun CxxAbiModel.resolveMacroValue(macro : Macro) : String {
         Macro.ABI_IS_DEFAULT -> cmakeBoolean(info.isDefault)
         Macro.ABI_IS_DEPRECATED -> cmakeBoolean(info.isDeprecated)
         Macro.GRADLE_BUILD_ROOT -> cxxBuildFolder.absolutePath
+        Macro.GRADLE_C_FLAGS -> Joiner.on(" ").join(variant.cFlagsList)
+        Macro.GRADLE_CPP_FLAGS -> Joiner.on(" ").join(variant.cppFlagsList)
         Macro.GRADLE_LIBRARY_OUTPUT_DIRECTORY -> soFolder.absolutePath
         Macro.PLATFORM -> "android-$abiPlatformVersion"
         Macro.PLATFORM_CODE -> platformCode()
@@ -42,11 +46,6 @@ fun CxxAbiModel.resolveMacroValue(macro : Macro) : String {
         else -> variant.resolveMacroValue(macro)
     }
 }
-
-/**
- * Convert boolean to "1" or "0" for CMake.
- */
-private fun cmakeBoolean(bool : Boolean) = if (bool) "1" else "0"
 
 /**
  * Get the platform codename (like 'Q')

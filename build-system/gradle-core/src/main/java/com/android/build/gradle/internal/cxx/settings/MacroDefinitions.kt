@@ -158,6 +158,16 @@ enum class Macro(
         environment = GRADLE,
         tag = "buildRoot",
         example = "${GRADLE_MODULE_DIR.ref}/.cxx/cmake/debug/x86_64"),
+    GRADLE_C_FLAGS(
+        description = "The value of cFlags from android.config.externalNativeBuild.cFlags in build.gradle.",
+        environment = GRADLE,
+        tag = "cFlags",
+        example = "-DC_FLAG_DEFINED"),
+    GRADLE_CPP_FLAGS(
+        description = "The value of cppFlags from android.config.externalNativeBuild.cppFlags in build.gradle.",
+        environment = GRADLE,
+        tag = "cppFlags",
+        example = "-DCPP_FLAG_DEFINED"),
     GRADLE_LIBRARY_OUTPUT_DIRECTORY(
         description = "The default CMake CMAKE_LIBRARY_OUTPUT_DIRECTORY that gradle uses.",
         environment = GRADLE,
@@ -256,9 +266,9 @@ enum class Environment(
     /**
      * Environment produced by the NDK for particular ABI.
      */
-    NDK_ABI("android-ndk-abi-\${gradle.abi}", "ndk"),
+    NDK_ABI("android-ndk-abi-\${ndk.abi}", "ndk"),
     /**
-     * Environment for macros exposed by Android Gradle Plugin. For example, ${gradle.ABI} is the
+     * Environment for macros exposed by Android Gradle Plugin. For example, ${ndk.ABI} is the
      * name of the ABI that is currently being built.
      */
     GRADLE("android-gradle", "ndk"),
