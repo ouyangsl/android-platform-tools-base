@@ -16,7 +16,7 @@
 
 package com.android.build.gradle.integration.sanity;
 
-import com.android.builder.model.Version;
+import com.android.Version;
 import com.android.testutils.TestUtils;
 import com.android.utils.FileUtils;
 import com.google.common.base.Splitter;
@@ -132,7 +132,6 @@ public class JarContentsTest {
                 "com/android/builder/",
                 "com/android/builder/model/",
                 "com/android/builder/model/level2/",
-                "com/android/builder/model/version.properties",
                 "META-INF/",
                 "META-INF/MANIFEST.MF",
                 "NOTICE");
@@ -156,7 +155,6 @@ public class JarContentsTest {
         expected.putAll(
                 "com/android/tools/build/aapt2:windows",
                 "aapt2.exe",
-                "libwinpthread-1.dll",
                 "META-INF/",
                 "META-INF/MANIFEST.MF",
                 "NOTICE");
@@ -933,8 +931,6 @@ public class JarContentsTest {
                 "com/android/sdklib/repository/sources/sdk-sites-list-2.xsd",
                 "com/android/sdklib/repository/sources/sdk-sites-list-3.xsd",
                 "com/android/sdklib/repository/targets/",
-                "com/android/sdklib/tool/",
-                "com/android/sdklib/tool/sdkmanager/",
                 "com/android/sdklib/util/",
                 "META-INF/",
                 "META-INF/MANIFEST.MF",
@@ -956,6 +952,7 @@ public class JarContentsTest {
                 "com/android/utils/",
                 "com/android/utils/concurrency/",
                 "com/android/utils/reflection/",
+                "com/android/version.properties",
                 "com/android/xml/",
                 "migrateToAndroidx/",
                 "migrateToAndroidx/migration.xml",

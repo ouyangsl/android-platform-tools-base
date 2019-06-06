@@ -1,9 +1,9 @@
-load("//tools/base/bazel:bazel.bzl", "iml_module")
-load("//tools/base/bazel:bazel.bzl", "fileset")
+load("//tools/base/bazel:bazel.bzl", "iml_module", "fileset")
 load("//tools/base/bazel:kotlin.bzl", "kotlin_library", "kotlin_test")
 load("//tools/base/bazel:maven.bzl", "maven_pom")
+load("//tools/base/bazel:utils.bzl", "dir_archive")
 
-# managed by go/iml_to_build
+# do not generate: resources removed manually
 iml_module(
     name = "studio.android.sdktools.common",
     srcs = ["src/main/java"],
@@ -11,6 +11,7 @@ iml_module(
         "src/main/java/com/android/SdkConstants.java",
     ],
     iml_files = ["android.sdktools.common.iml"],
+    res_zips = [":extra_res"],
     resources = ["src/main/resources"],
     visibility = ["//visibility:public"],
     # do not sort: must match IML order
@@ -34,12 +35,27 @@ fileset(
     },
 )
 
+fileset(
+    name = "version.properties",
+    srcs = ["//tools/buildSrc/base:version.properties"],
+    mappings = {"//tools/buildSrc/base:": "com/android/"},
+)
+
+dir_archive(
+    name = "extra_res",
+    dir = "tools/base/common",
+    files = [":version.properties"],
+)
+
 kotlin_library(
     name = "tools.common",
     srcs = ["src/main/java"],
     pom = ":pom",
     resource_strip_prefix = "tools/base/common",
-    resources = [":tools.common.resources"],
+    resources = [
+        ":tools.common.resources",
+        ":version.properties",
+    ],
     visibility = ["//visibility:public"],
     deps = [
         "//tools/base/annotations",

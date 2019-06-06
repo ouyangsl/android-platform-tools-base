@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.builder.model;
+package com.android;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -24,6 +24,7 @@ import java.util.Properties;
 
 /** Version strings for this builder-model artifact. */
 public final class Version {
+    public static final String TOOLS_VERSION;
     public static final String ANDROID_GRADLE_PLUGIN_VERSION;
     public static final String ANDROID_TOOLS_BASE_VERSION;
     public static final int BUILDER_MODEL_API_VERSION;
@@ -43,6 +44,7 @@ public final class Version {
             throw new UncheckedIOException(e);
         }
         ANDROID_GRADLE_PLUGIN_VERSION = properties.getProperty("buildVersion");
+        TOOLS_VERSION = properties.getProperty("buildVersion");
         ANDROID_TOOLS_BASE_VERSION = properties.getProperty("baseVersion");
         BUILDER_MODEL_API_VERSION = Integer.parseInt(properties.getProperty("apiVersion"));
         BUILDER_NATIVE_MODEL_API_VERSION =

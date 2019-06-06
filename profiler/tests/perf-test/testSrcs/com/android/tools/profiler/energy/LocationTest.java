@@ -22,18 +22,14 @@ import com.android.tools.fakeandroid.FakeAndroidDriver;
 import com.android.tools.profiler.GrpcUtils;
 import com.android.tools.profiler.PerfDriver;
 import com.android.tools.profiler.TestUtils;
+import com.android.tools.profiler.TransportStubWrapper;
+import com.android.tools.profiler.proto.Common;
 import com.android.tools.profiler.proto.Common.Session;
-import com.android.tools.profiler.proto.EnergyProfiler.EnergyEvent;
-import com.android.tools.profiler.proto.EnergyProfiler.EnergyEvent.MetadataCase;
+import com.android.tools.profiler.proto.Energy.*;
+import com.android.tools.profiler.proto.Energy.EnergyEventData.MetadataCase;
+import com.android.tools.profiler.proto.Energy.LocationRequest.Priority;
 import com.android.tools.profiler.proto.EnergyProfiler.EnergyEventsResponse;
-import com.android.tools.profiler.proto.EnergyProfiler.Location;
-import com.android.tools.profiler.proto.EnergyProfiler.LocationChanged;
-import com.android.tools.profiler.proto.EnergyProfiler.LocationRequest;
-import com.android.tools.profiler.proto.EnergyProfiler.LocationRequest.Priority;
-import com.android.tools.profiler.proto.EnergyProfiler.LocationUpdateRemoved;
-import com.android.tools.profiler.proto.EnergyProfiler.LocationUpdateRequested;
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,9 +39,9 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class LocationTest {
-    @Parameters
-    public static Collection<Integer> data() {
-        return Arrays.asList(26, 28);
+    @Parameters(name = "{index}: SdkLevel={0}, UnifiedPipeline={1}")
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][] {{26, false}, {26, true}, {28, false}, {28, false}});
     }
 
     private static final String ACTIVITY_CLASS = "com.activity.energy.LocationActivity";
@@ -53,223 +49,353 @@ public class LocationTest {
 
     @Rule public final PerfDriver myPerfDriver;
 
+    private boolean myIsUnifiedPipeline;
     private GrpcUtils myGrpc;
     private FakeAndroidDriver myAndroidDriver;
-    private EnergyStubWrapper myStubWrapper;
+    private EnergyStubWrapper myEnergyWrapper;
+    private TransportStubWrapper myTransportWrapper;
     private Session mySession;
 
-    public LocationTest(int sdkLevel) {
-        myPerfDriver = new PerfDriver(ACTIVITY_CLASS, sdkLevel);
+    public LocationTest(int sdkLevel, boolean isUnifiedPipeline) {
+        myPerfDriver = new PerfDriver(ACTIVITY_CLASS, sdkLevel, isUnifiedPipeline);
+        myIsUnifiedPipeline = isUnifiedPipeline;
     }
 
     @Before
     public void setUp() throws Exception {
         myAndroidDriver = myPerfDriver.getFakeAndroidDriver();
         myGrpc = myPerfDriver.getGrpc();
-        myStubWrapper = new EnergyStubWrapper(myGrpc.getEnergyStub());
+        myEnergyWrapper = new EnergyStubWrapper(myGrpc.getEnergyStub());
+        myTransportWrapper = new TransportStubWrapper(myGrpc.getTransportStub());
         mySession = myPerfDriver.getSession();
     }
 
     @Test
-    public void testListenerLocationRequest() {
-        String methodName = "listenerRequestAndRemoveLocationUpdates";
-        myAndroidDriver.triggerMethod(ACTIVITY_CLASS, methodName);
-        assertThat(myAndroidDriver.waitForInput("LISTENER LOCATION UPDATES")).isTrue();
+    public void testListenerLocationRequest() throws Exception {
+        final String methodName = "listenerRequestAndRemoveLocationUpdates";
+        final String expectedResponse = "LISTENER LOCATION UPDATES";
 
-        EnergyEventsResponse response =
-                TestUtils.waitForAndReturn(
-                        () -> myStubWrapper.getAllEnergyEvents(mySession),
-                        resp -> resp.getEventsCount() == 3);
-        assertThat(response.getEventsCount()).isEqualTo(3);
+        List<Common.Event> energyEvents = new ArrayList<>();
+        if (myIsUnifiedPipeline) {
+            Map<Long, List<Common.Event>> eventGroups =
+                    myTransportWrapper.getEvents(
+                            3,
+                            event -> event.getKind() == Common.Event.Kind.ENERGY_EVENT,
+                            (unused) -> triggerMethod(methodName, expectedResponse));
+            for (List<Common.Event> eventList : eventGroups.values()) {
+                energyEvents.addAll(eventList);
+            }
+        } else {
+            triggerMethod(methodName, expectedResponse);
+            EnergyEventsResponse response =
+                    TestUtils.waitForAndReturn(
+                            () -> myEnergyWrapper.getAllEnergyEvents(mySession),
+                            resp -> resp.getEventsCount() == 3);
+            energyEvents.addAll(response.getEventsList());
+        }
+        assertThat(energyEvents).hasSize(3);
 
-        EnergyEvent requestEvent = response.getEvents(0);
+        Common.Event requestEvent = energyEvents.get(0);
         assertThat(requestEvent.getTimestamp()).isGreaterThan(0L);
         assertThat(requestEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(requestEvent.getEventId()).isGreaterThan(0);
-        assertThat(requestEvent.getIsTerminal()).isFalse();
-        assertThat(requestEvent.getMetadataCase())
+        assertThat(requestEvent.getGroupId()).isGreaterThan(0L);
+        assertThat(requestEvent.getIsEnded()).isFalse();
+        assertThat(requestEvent.getEnergyEvent().getMetadataCase())
                 .isEqualTo(MetadataCase.LOCATION_UPDATE_REQUESTED);
-        assertThat(requestEvent.getLocationUpdateRequested().getActionCase())
+        assertThat(requestEvent.getEnergyEvent().getLocationUpdateRequested().getActionCase())
                 .isEqualTo(LocationUpdateRequested.ActionCase.LISTENER);
-        LocationRequest request = requestEvent.getLocationUpdateRequested().getRequest();
+        LocationRequest request =
+                requestEvent.getEnergyEvent().getLocationUpdateRequested().getRequest();
         assertThat(request.getProvider()).isEqualTo("gps");
         assertThat(request.getIntervalMs()).isEqualTo(1000);
         assertThat(request.getFastestIntervalMs()).isEqualTo(1000);
         assertThat(request.getSmallestDisplacementMeters()).isWithin(EPSILON).of(100.0f);
         assertThat(request.getPriority()).isEqualTo(Priority.HIGH_ACCURACY);
 
-        EnergyEvent locationChangeEvent = response.getEvents(1);
+        Common.Event locationChangeEvent = energyEvents.get(1);
         assertThat(locationChangeEvent.getTimestamp()).isAtLeast(requestEvent.getTimestamp());
         assertThat(locationChangeEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(locationChangeEvent.getEventId()).isEqualTo(requestEvent.getEventId());
-        assertThat(locationChangeEvent.getIsTerminal()).isFalse();
-        assertThat(locationChangeEvent.getMetadataCase()).isEqualTo(MetadataCase.LOCATION_CHANGED);
-        assertThat(locationChangeEvent.getLocationChanged().getActionCase())
+        assertThat(locationChangeEvent.getGroupId()).isEqualTo(requestEvent.getGroupId());
+        assertThat(locationChangeEvent.getIsEnded()).isFalse();
+        assertThat(locationChangeEvent.getEnergyEvent().getMetadataCase())
+                .isEqualTo(MetadataCase.LOCATION_CHANGED);
+        assertThat(locationChangeEvent.getEnergyEvent().getLocationChanged().getActionCase())
                 .isEqualTo(LocationChanged.ActionCase.LISTENER);
-        Location location = locationChangeEvent.getLocationChanged().getLocation();
+        Location location = locationChangeEvent.getEnergyEvent().getLocationChanged().getLocation();
         assertThat(location.getProvider()).isEqualTo("network");
         assertThat(location.getAccuracy()).isWithin(EPSILON).of(100.0f);
         assertThat(location.getLatitude()).isWithin(EPSILON).of(30.0f);
         assertThat(location.getLongitude()).isWithin(EPSILON).of(60.0f);
 
-        EnergyEvent removeEvent = response.getEvents(2);
+        Common.Event removeEvent = energyEvents.get(2);
         assertThat(removeEvent.getTimestamp()).isAtLeast(locationChangeEvent.getTimestamp());
         assertThat(removeEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(removeEvent.getEventId()).isEqualTo(requestEvent.getEventId());
-        assertThat(removeEvent.getIsTerminal()).isTrue();
-        assertThat(removeEvent.getMetadataCase()).isEqualTo(MetadataCase.LOCATION_UPDATE_REMOVED);
-        assertThat(removeEvent.getLocationUpdateRemoved().getActionCase())
+        assertThat(removeEvent.getGroupId()).isEqualTo(requestEvent.getGroupId());
+        assertThat(removeEvent.getIsEnded()).isTrue();
+        assertThat(removeEvent.getEnergyEvent().getMetadataCase())
+                .isEqualTo(MetadataCase.LOCATION_UPDATE_REMOVED);
+        assertThat(removeEvent.getEnergyEvent().getLocationUpdateRemoved().getActionCase())
                 .isEqualTo(LocationUpdateRemoved.ActionCase.LISTENER);
 
-        String requestStack = TestUtils.getBytes(myGrpc, requestEvent.getTraceId());
-        assertThat(requestStack).contains(methodName);
-        String removeStack = TestUtils.getBytes(myGrpc, removeEvent.getTraceId());
-        assertThat(removeStack).contains(methodName);
+        if (myIsUnifiedPipeline) {
+            // TODO(b/129355112): call stack is not yet implemented.
+        } else {
+            String requestStack =
+                    TestUtils.getBytes(myGrpc, requestEvent.getEnergyEvent().getTraceId());
+            assertThat(requestStack).contains(methodName);
+            String removeStack =
+                    TestUtils.getBytes(myGrpc, removeEvent.getEnergyEvent().getTraceId());
+            assertThat(removeStack).contains(methodName);
+        }
     }
 
     @Test
-    public void testIntentLocationRequest() {
-        String methodName = "intentRequestAndRemoveLocationUpdates";
-        myAndroidDriver.triggerMethod(ACTIVITY_CLASS, methodName);
-        assertThat(myAndroidDriver.waitForInput("INTENT LOCATION UPDATES")).isTrue();
+    public void testIntentLocationRequest() throws Exception {
+        final String methodName = "intentRequestAndRemoveLocationUpdates";
+        final String expectedResponse = "INTENT LOCATION UPDATES";
 
-        EnergyEventsResponse response =
-                TestUtils.waitForAndReturn(
-                        () -> myStubWrapper.getAllEnergyEvents(mySession),
-                        resp -> resp.getEventsCount() == 3);
-        assertThat(response.getEventsCount()).isEqualTo(3);
+        List<Common.Event> energyEvents = new ArrayList<>();
+        if (myIsUnifiedPipeline) {
+            Map<Long, List<Common.Event>> eventGroups =
+                    myTransportWrapper.getEvents(
+                            3,
+                            event -> event.getKind() == Common.Event.Kind.ENERGY_EVENT,
+                            (unused) -> triggerMethod(methodName, expectedResponse));
+            for (List<Common.Event> eventList : eventGroups.values()) {
+                energyEvents.addAll(eventList);
+            }
+        } else {
+            triggerMethod(methodName, expectedResponse);
+            EnergyEventsResponse response =
+                    TestUtils.waitForAndReturn(
+                            () -> myEnergyWrapper.getAllEnergyEvents(mySession),
+                            resp -> resp.getEventsCount() == 3);
+            energyEvents.addAll(response.getEventsList());
+        }
+        assertThat(energyEvents).hasSize(3);
 
-        EnergyEvent requestEvent = response.getEvents(0);
+        Common.Event requestEvent = energyEvents.get(0);
         assertThat(requestEvent.getTimestamp()).isGreaterThan(0L);
         assertThat(requestEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(requestEvent.getEventId()).isGreaterThan(0);
-        assertThat(requestEvent.getIsTerminal()).isFalse();
-        assertThat(requestEvent.getMetadataCase())
+        assertThat(requestEvent.getGroupId()).isGreaterThan(0L);
+        assertThat(requestEvent.getIsEnded()).isFalse();
+        assertThat(requestEvent.getEnergyEvent().getMetadataCase())
                 .isEqualTo(MetadataCase.LOCATION_UPDATE_REQUESTED);
-        assertThat(requestEvent.getLocationUpdateRequested().getActionCase())
+        assertThat(requestEvent.getEnergyEvent().getLocationUpdateRequested().getActionCase())
                 .isEqualTo(LocationUpdateRequested.ActionCase.INTENT);
-        assertThat(requestEvent.getLocationUpdateRequested().getIntent().getCreatorPackage())
+        assertThat(
+                        requestEvent
+                                .getEnergyEvent()
+                                .getLocationUpdateRequested()
+                                .getIntent()
+                                .getCreatorPackage())
                 .isEqualTo("com.example");
-        assertThat(requestEvent.getLocationUpdateRequested().getIntent().getCreatorUid())
+        assertThat(
+                        requestEvent
+                                .getEnergyEvent()
+                                .getLocationUpdateRequested()
+                                .getIntent()
+                                .getCreatorUid())
                 .isEqualTo(123);
-        LocationRequest request = requestEvent.getLocationUpdateRequested().getRequest();
+        LocationRequest request =
+                requestEvent.getEnergyEvent().getLocationUpdateRequested().getRequest();
         assertThat(request.getProvider()).isEqualTo("");
         assertThat(request.getIntervalMs()).isEqualTo(2000);
         assertThat(request.getFastestIntervalMs()).isEqualTo(2000);
         assertThat(request.getSmallestDisplacementMeters()).isWithin(EPSILON).of(50.0f);
         assertThat(request.getPriority()).isEqualTo(Priority.BALANCED);
 
-        EnergyEvent locationChangeEvent = response.getEvents(1);
+        Common.Event locationChangeEvent = energyEvents.get(1);
         assertThat(locationChangeEvent.getTimestamp()).isAtLeast(requestEvent.getTimestamp());
         assertThat(locationChangeEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(locationChangeEvent.getEventId()).isEqualTo(requestEvent.getEventId());
-        assertThat(locationChangeEvent.getIsTerminal()).isFalse();
-        assertThat(locationChangeEvent.getMetadataCase()).isEqualTo(MetadataCase.LOCATION_CHANGED);
-        assertThat(locationChangeEvent.getLocationChanged().getActionCase())
+        assertThat(locationChangeEvent.getGroupId()).isEqualTo(requestEvent.getGroupId());
+        assertThat(locationChangeEvent.getIsEnded()).isFalse();
+        assertThat(locationChangeEvent.getEnergyEvent().getMetadataCase())
+                .isEqualTo(MetadataCase.LOCATION_CHANGED);
+        assertThat(locationChangeEvent.getEnergyEvent().getLocationChanged().getActionCase())
                 .isEqualTo(LocationChanged.ActionCase.INTENT);
-        assertThat(locationChangeEvent.getLocationChanged().getIntent().getCreatorPackage())
+        assertThat(
+                        locationChangeEvent
+                                .getEnergyEvent()
+                                .getLocationChanged()
+                                .getIntent()
+                                .getCreatorPackage())
                 .isEqualTo("com.example");
-        assertThat(locationChangeEvent.getLocationChanged().getIntent().getCreatorUid())
+        assertThat(
+                        locationChangeEvent
+                                .getEnergyEvent()
+                                .getLocationChanged()
+                                .getIntent()
+                                .getCreatorUid())
                 .isEqualTo(123);
-        Location location = locationChangeEvent.getLocationChanged().getLocation();
+        Location location = locationChangeEvent.getEnergyEvent().getLocationChanged().getLocation();
         assertThat(location.getProvider()).isEqualTo("passive");
         assertThat(location.getAccuracy()).isWithin(EPSILON).of(50.0f);
         assertThat(location.getLatitude()).isWithin(EPSILON).of(60.0);
         assertThat(location.getLongitude()).isWithin(EPSILON).of(30.0);
 
-        EnergyEvent removeEvent = response.getEvents(2);
+        Common.Event removeEvent = energyEvents.get(2);
         assertThat(removeEvent.getTimestamp()).isAtLeast(locationChangeEvent.getTimestamp());
         assertThat(removeEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(removeEvent.getEventId()).isEqualTo(requestEvent.getEventId());
-        assertThat(removeEvent.getIsTerminal()).isTrue();
-        assertThat(removeEvent.getMetadataCase()).isEqualTo(MetadataCase.LOCATION_UPDATE_REMOVED);
-        assertThat(removeEvent.getLocationUpdateRemoved().getActionCase())
+        assertThat(removeEvent.getGroupId()).isEqualTo(requestEvent.getGroupId());
+        assertThat(removeEvent.getIsEnded()).isTrue();
+        assertThat(removeEvent.getEnergyEvent().getMetadataCase())
+                .isEqualTo(MetadataCase.LOCATION_UPDATE_REMOVED);
+        assertThat(removeEvent.getEnergyEvent().getLocationUpdateRemoved().getActionCase())
                 .isEqualTo(LocationUpdateRemoved.ActionCase.INTENT);
 
-        String requestStack = TestUtils.getBytes(myGrpc, requestEvent.getTraceId());
-        assertThat(requestStack).contains(methodName);
-        String removeStack = TestUtils.getBytes(myGrpc, removeEvent.getTraceId());
-        assertThat(removeStack).contains(methodName);
+        if (myIsUnifiedPipeline) {
+            // TODO(b/129355112): call stack is not yet implemented.
+        } else {
+            String requestStack =
+                    TestUtils.getBytes(myGrpc, requestEvent.getEnergyEvent().getTraceId());
+            assertThat(requestStack).contains(methodName);
+            String removeStack =
+                    TestUtils.getBytes(myGrpc, removeEvent.getEnergyEvent().getTraceId());
+            assertThat(removeStack).contains(methodName);
+        }
     }
 
     @Test
-    public void testGmsIntentLocationRequest() {
-        String methodName = "gmsIntentRequestAndRemoveLocationUpdates";
-        myAndroidDriver.triggerMethod(ACTIVITY_CLASS, methodName);
-        assertThat(myAndroidDriver.waitForInput("GMS INTENT LOCATION UPDATES")).isTrue();
+    public void testGmsIntentLocationRequest() throws Exception {
+        final String methodName = "gmsIntentRequestAndRemoveLocationUpdates";
+        final String expectedResponse = "GMS INTENT LOCATION UPDATES";
 
-        EnergyEventsResponse response =
-                TestUtils.waitForAndReturn(
-                        () -> myStubWrapper.getAllEnergyEvents(mySession),
-                        resp -> resp.getEventsCount() == 3);
-        assertThat(response.getEventsCount()).isEqualTo(3);
+        List<Common.Event> energyEvents = new ArrayList<>();
+        if (myIsUnifiedPipeline) {
+            Map<Long, List<Common.Event>> eventGroups =
+                    myTransportWrapper.getEvents(
+                            3,
+                            event -> event.getKind() == Common.Event.Kind.ENERGY_EVENT,
+                            (unused) -> triggerMethod(methodName, expectedResponse));
+            for (List<Common.Event> eventList : eventGroups.values()) {
+                energyEvents.addAll(eventList);
+            }
+        } else {
+            triggerMethod(methodName, expectedResponse);
+            EnergyEventsResponse response =
+                    TestUtils.waitForAndReturn(
+                            () -> myEnergyWrapper.getAllEnergyEvents(mySession),
+                            resp -> resp.getEventsCount() == 3);
+            energyEvents.addAll(response.getEventsList());
+        }
+        assertThat(energyEvents).hasSize(3);
 
-        EnergyEvent requestEvent = response.getEvents(0);
+        Common.Event requestEvent = energyEvents.get(0);
         assertThat(requestEvent.getTimestamp()).isGreaterThan(0L);
         assertThat(requestEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(requestEvent.getEventId()).isGreaterThan(0);
-        assertThat(requestEvent.getIsTerminal()).isFalse();
-        assertThat(requestEvent.getMetadataCase())
+        assertThat(requestEvent.getGroupId()).isGreaterThan(0L);
+        assertThat(requestEvent.getIsEnded()).isFalse();
+        assertThat(requestEvent.getEnergyEvent().getMetadataCase())
                 .isEqualTo(MetadataCase.LOCATION_UPDATE_REQUESTED);
-        assertThat(requestEvent.getLocationUpdateRequested().getActionCase())
+        assertThat(requestEvent.getEnergyEvent().getLocationUpdateRequested().getActionCase())
                 .isEqualTo(LocationUpdateRequested.ActionCase.INTENT);
-        assertThat(requestEvent.getLocationUpdateRequested().getIntent().getCreatorPackage())
+        assertThat(
+                        requestEvent
+                                .getEnergyEvent()
+                                .getLocationUpdateRequested()
+                                .getIntent()
+                                .getCreatorPackage())
                 .isEqualTo("com.google.gms");
-        assertThat(requestEvent.getLocationUpdateRequested().getIntent().getCreatorUid())
+        assertThat(
+                        requestEvent
+                                .getEnergyEvent()
+                                .getLocationUpdateRequested()
+                                .getIntent()
+                                .getCreatorUid())
                 .isEqualTo(1);
-        LocationRequest request = requestEvent.getLocationUpdateRequested().getRequest();
+        LocationRequest request =
+                requestEvent.getEnergyEvent().getLocationUpdateRequested().getRequest();
         assertThat(request.getProvider()).isEqualTo("fused");
         assertThat(request.getIntervalMs()).isEqualTo(100);
         assertThat(request.getFastestIntervalMs()).isEqualTo(10);
         assertThat(request.getSmallestDisplacementMeters()).isWithin(EPSILON).of(1.0f);
         assertThat(request.getPriority()).isEqualTo(Priority.HIGH_ACCURACY);
 
-        EnergyEvent locationChangeEvent = response.getEvents(1);
+        Common.Event locationChangeEvent = energyEvents.get(1);
         assertThat(locationChangeEvent.getTimestamp()).isAtLeast(requestEvent.getTimestamp());
         assertThat(locationChangeEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(locationChangeEvent.getEventId()).isEqualTo(requestEvent.getEventId());
-        assertThat(locationChangeEvent.getIsTerminal()).isFalse();
-        assertThat(locationChangeEvent.getMetadataCase()).isEqualTo(MetadataCase.LOCATION_CHANGED);
-        assertThat(locationChangeEvent.getLocationChanged().getActionCase())
+        assertThat(locationChangeEvent.getGroupId()).isEqualTo(requestEvent.getGroupId());
+        assertThat(locationChangeEvent.getIsEnded()).isFalse();
+        assertThat(locationChangeEvent.getEnergyEvent().getMetadataCase())
+                .isEqualTo(MetadataCase.LOCATION_CHANGED);
+        assertThat(locationChangeEvent.getEnergyEvent().getLocationChanged().getActionCase())
                 .isEqualTo(LocationChanged.ActionCase.INTENT);
-        assertThat(locationChangeEvent.getLocationChanged().getIntent().getCreatorPackage())
+        assertThat(
+                        locationChangeEvent
+                                .getEnergyEvent()
+                                .getLocationChanged()
+                                .getIntent()
+                                .getCreatorPackage())
                 .isEqualTo("com.google.gms");
-        assertThat(locationChangeEvent.getLocationChanged().getIntent().getCreatorUid())
+        assertThat(
+                        locationChangeEvent
+                                .getEnergyEvent()
+                                .getLocationChanged()
+                                .getIntent()
+                                .getCreatorUid())
                 .isEqualTo(1);
-        Location location = locationChangeEvent.getLocationChanged().getLocation();
+        Location location = locationChangeEvent.getEnergyEvent().getLocationChanged().getLocation();
         assertThat(location.getProvider()).isEqualTo("gps");
         assertThat(location.getAccuracy()).isWithin(EPSILON).of(10.0f);
         assertThat(location.getLatitude()).isWithin(EPSILON).of(45.0);
         assertThat(location.getLongitude()).isWithin(EPSILON).of(45.0);
 
-        EnergyEvent removeEvent = response.getEvents(2);
+        Common.Event removeEvent = energyEvents.get(2);
         assertThat(removeEvent.getTimestamp()).isAtLeast(locationChangeEvent.getTimestamp());
         assertThat(removeEvent.getPid()).isEqualTo(mySession.getPid());
-        assertThat(removeEvent.getEventId()).isEqualTo(requestEvent.getEventId());
-        assertThat(removeEvent.getIsTerminal()).isTrue();
-        assertThat(removeEvent.getMetadataCase()).isEqualTo(MetadataCase.LOCATION_UPDATE_REMOVED);
-        assertThat(removeEvent.getLocationUpdateRemoved().getActionCase())
+        assertThat(removeEvent.getGroupId()).isEqualTo(requestEvent.getGroupId());
+        assertThat(removeEvent.getIsEnded()).isTrue();
+        assertThat(removeEvent.getEnergyEvent().getMetadataCase())
+                .isEqualTo(MetadataCase.LOCATION_UPDATE_REMOVED);
+        assertThat(removeEvent.getEnergyEvent().getLocationUpdateRemoved().getActionCase())
                 .isEqualTo(LocationUpdateRemoved.ActionCase.INTENT);
 
-        String requestStack = TestUtils.getBytes(myGrpc, requestEvent.getTraceId());
-        assertThat(requestStack).contains(methodName);
-        String removeStack = TestUtils.getBytes(myGrpc, removeEvent.getTraceId());
-        assertThat(removeStack).contains(methodName);
+        if (myIsUnifiedPipeline) {
+            // TODO(b/129355112): call stack is not yet implemented.
+        } else {
+            String requestStack =
+                    TestUtils.getBytes(myGrpc, requestEvent.getEnergyEvent().getTraceId());
+            assertThat(requestStack).contains(methodName);
+            String removeStack =
+                    TestUtils.getBytes(myGrpc, removeEvent.getEnergyEvent().getTraceId());
+            assertThat(removeStack).contains(methodName);
+        }
     }
 
     @Test
-    public void testMissingRequestStarted() {
-        myAndroidDriver.triggerMethod(ACTIVITY_CLASS, "updateLocationWithoutStartingRequest");
-        assertThat(myAndroidDriver.waitForInput("LISTENER LOCATION UPDATES")).isTrue();
+    public void testMissingRequestStarted() throws Exception {
+        final String methodName = "updateLocationWithoutStartingRequest";
+        final String expectedResponse = "LISTENER LOCATION UPDATES";
 
-        EnergyEventsResponse response =
-                TestUtils.waitForAndReturn(
-                        () -> myStubWrapper.getAllEnergyEvents(mySession),
-                        resp -> resp.getEventsCount() == 1);
-        assertThat(response.getEventsCount()).isEqualTo(1);
+        List<Common.Event> energyEvents = new ArrayList<>();
+        if (myIsUnifiedPipeline) {
+            Map<Long, List<Common.Event>> eventGroups =
+                    myTransportWrapper.getEvents(
+                            1,
+                            event -> event.getKind() == Common.Event.Kind.ENERGY_EVENT,
+                            (unused) -> triggerMethod(methodName, expectedResponse));
+            for (List<Common.Event> eventList : eventGroups.values()) {
+                energyEvents.addAll(eventList);
+            }
+        } else {
+            triggerMethod(methodName, expectedResponse);
+            EnergyEventsResponse response =
+                    TestUtils.waitForAndReturn(
+                            () -> myEnergyWrapper.getAllEnergyEvents(mySession),
+                            resp -> resp.getEventsCount() == 1);
+            energyEvents.addAll(response.getEventsList());
+        }
+        assertThat(energyEvents).hasSize(1);
 
-        EnergyEvent locationChangeEvent = response.getEvents(0);
-        assertThat(locationChangeEvent.getEventId()).isGreaterThan(0);
-        assertThat(locationChangeEvent.getMetadataCase()).isEqualTo(MetadataCase.LOCATION_CHANGED);
+        Common.Event locationChangeEvent = energyEvents.get(0);
+        assertThat(locationChangeEvent.getGroupId()).isGreaterThan(0L);
+        assertThat(locationChangeEvent.getEnergyEvent().getMetadataCase())
+                .isEqualTo(MetadataCase.LOCATION_CHANGED);
+    }
+
+    private void triggerMethod(String methodName, String expectedResponse) {
+        myAndroidDriver.triggerMethod(ACTIVITY_CLASS, methodName);
+        assertThat(myAndroidDriver.waitForInput(expectedResponse)).isTrue();
     }
 }

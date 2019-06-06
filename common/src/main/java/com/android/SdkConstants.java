@@ -412,8 +412,10 @@ public final class SdkConstants {
      * are installed inside a project.
      */
     public static final String FD_PKG_SOURCES = "sources"; //$NON-NLS-1$
-    /** Name of the SDK tools folder. */
+    /** Name of the legacy SDK tools folder. */
     public static final String FD_TOOLS = "tools"; //$NON-NLS-1$
+    /** Name of the SDK command-line tools folder. */
+    public static final String FD_CMDLINE_TOOLS = "cmdline-tools";
     /** Name of the SDK emulator folder. */
     public static final String FD_EMULATOR = "emulator"; //$NON-NLS-1$
     /** Name of the SDK tools/support folder. */
@@ -1123,6 +1125,7 @@ public final class SdkConstants {
     public static final String TAG_EAT_COMMENT = "eat-comment"; //$NON-NLS-1$
     public static final String TAG_SKIP = "skip"; //$NON-NLS-1$
     public static final String TAG_PUBLIC = "public"; //$NON-NLS-1$
+    public static final String TAG_PUBLIC_GROUP = "public-group";
 
     // Tags: Adaptive icon
     public static final String TAG_ADAPTIVE_ICON = "adaptive-icon";

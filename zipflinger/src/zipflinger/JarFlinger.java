@@ -17,7 +17,6 @@ package zipflinger;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.builder.packaging.JarCreator;
 import com.android.utils.PathUtils;
 import com.google.common.collect.ImmutableSortedMap;
 import java.io.BufferedInputStream;
@@ -93,19 +92,20 @@ public class JarFlinger implements JarCreator {
         ImmutableSortedMap<String, Path> sortedFiles = candidateFiles.build();
         for (Map.Entry<String, Path> entry : sortedFiles.entrySet()) {
             String entryPath = entry.getKey();
-            try (InputStream is = new BufferedInputStream(Files.newInputStream(entry.getValue()))) {
                 if (transformer != null) {
+                try (InputStream is =
+                        new BufferedInputStream(Files.newInputStream(entry.getValue()))) {
                     @Nullable InputStream is2 = transformer.filter(entryPath, is);
                     if (is2 != null) {
                         InputStreamSource source = new InputStreamSource(is2, entryPath, compress);
                         zipArchive.add(source);
                     }
+                }
                 } else {
                     FileSource source =
                             new FileSource(entry.getValue().toFile(), entryPath, compress);
                     zipArchive.add(source);
                 }
-            }
         }
     }
 
@@ -125,7 +125,7 @@ public class JarFlinger implements JarCreator {
         ZipSource source = new ZipSource(file);
         Map<String, Entry> entries = source.entries();
         for (Entry entry : entries.values()) {
-            if (entry.getUncompressedSize() == 0) {
+            if (entry.isDirectory()) {
                 continue;
             }
             String name = entry.getName();

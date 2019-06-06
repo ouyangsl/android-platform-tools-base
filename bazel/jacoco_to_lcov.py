@@ -134,13 +134,13 @@ def main():
       './tools/adt/idea/smali/gen',
       # external
       './tools/base/jobb',
+      './tools/base/zipflinger',
       './tools/dx',
       './tools/external',
       './tools/idea',
       './tools/sherpa',
       './tools/studio',
       './tools/swing-testing',
-      './tools/swt',
       './tools/vendor',
   ]
   # file extensions we care about

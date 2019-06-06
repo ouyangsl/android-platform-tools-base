@@ -59,8 +59,7 @@ abstract class BundleAar : Zip(), VariantAwareTask {
                 BuildArtifactsHolder.OperationType.INITIAL,
                 taskProvider,
                 BundleAar::getDestinationDirectory,
-                variantScope.globalScope.project.layout.buildDirectory.dir(
-                    variantScope.aarLocation.absolutePath),
+                variantScope.aarLocation.absolutePath,
                 "")
         }
 
@@ -94,7 +93,7 @@ abstract class BundleAar : Zip(), VariantAwareTask {
             if (extension.dataBinding.isEnabled) {
                 task.from(
                     variantScope.globalScope.project.provider {
-                        variantScope.artifacts.getFinalArtifactFiles(
+                        variantScope.artifacts.getFinalProduct<Directory>(
                             InternalArtifactType.DATA_BINDING_ARTIFACT) },
                     prependToCopyPath(DataBindingBuilder.DATA_BINDING_ROOT_FOLDER_IN_AAR)
                 )
@@ -109,7 +108,7 @@ abstract class BundleAar : Zip(), VariantAwareTask {
 
             if (!variantScope.globalScope.extension.aaptOptions.namespaced) {
                 // TODO: this should be unconditional b/69358522
-                task.from(artifacts.getFinalArtifactFiles(InternalArtifactType.SYMBOL_LIST))
+                task.from(artifacts.getFinalProduct<RegularFile>(InternalArtifactType.SYMBOL_LIST))
                 task.from(
                     artifacts.getFinalProduct<Directory>(InternalArtifactType.PACKAGED_RES),
                     prependToCopyPath(SdkConstants.FD_RES)

@@ -38,6 +38,8 @@ import com.android.testutils.truth.MoreTruth.assertThatDex
 import com.android.utils.FileUtils
 import com.google.common.truth.Truth
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.Directory
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
@@ -73,7 +75,7 @@ class DexSplitterTransformTest {
     private lateinit var featureClasses: File
 
     @Mock private lateinit var mappingFileSrc: BuildableArtifact
-    @Mock private lateinit var baseJars: BuildableArtifact
+    @Mock private lateinit var baseJars: RegularFile
 
     @Before
     fun setUp() {
@@ -88,10 +90,10 @@ class DexSplitterTransformTest {
         dexSplitterOutputDir = tmp.newFolder()
 
         baseClasses = File(tmp.root, "base/base.jar")
+        `when`(baseJars.asFile).thenReturn(baseClasses)
         FileUtils.mkdirs(baseClasses.parentFile)
         TestInputsGenerator.jarWithEmptyClasses(baseClasses.toPath(), listOf("base/A", "base/B"))
-        Mockito.`when`(baseJars.iterator())
-            .thenReturn(listOf(baseClasses).iterator())
+
 
         featureClasses = File(tmp.root, "feature-foo.jar")
         FileUtils.mkdirs(featureClasses.parentFile)
@@ -108,7 +110,7 @@ class DexSplitterTransformTest {
         val r8Dex = getDex(r8OutputProviderDir.toPath())
         assertThat(r8Dex).containsClasses("Lbase/A;", "Lbase/B;", "Lfeature/A;", "Lfeature/B;")
 
-        runDexSplitter(File(r8OutputProviderDir, "main"), listOf(featureClasses), baseJars)
+        runDexSplitter(File(r8OutputProviderDir, "main"), listOf(featureClasses), FakeGradleProvider(baseJars))
 
         checkDexSplitterOutputs()
     }
@@ -129,7 +131,7 @@ class DexSplitterTransformTest {
         runDexSplitter(
             File(r8OutputProviderDir, "main"),
             listOf(featureClasses),
-            baseJars,
+            FakeGradleProvider(baseJars),
             mappingFileSrc)
 
         checkDexSplitterOutputs()
@@ -148,6 +150,7 @@ class DexSplitterTransformTest {
                 }
             }
         }
+        `when`(baseJars.asFile).thenReturn(baseSplit)
         runR8(listOf(baseSplit, featureClasses), "class ** { *; }")
 
         val primaryDex = listOf("test/A0", "test/A1", "test/A${numClasses - 1}")
@@ -160,7 +163,7 @@ class DexSplitterTransformTest {
         runDexSplitter(
             File(r8OutputProviderDir, "main"),
             listOf(featureClasses),
-            createBuildArtifact(baseSplit),
+            FakeGradleProvider(baseJars),
             mappingFileSrc = null,
 
 
@@ -174,7 +177,7 @@ class DexSplitterTransformTest {
     private fun runDexSplitter(
         dexDir: File,
         featureJars: List<File>,
-        baseJars: BuildableArtifact,
+        baseJars: Provider<RegularFile>,
         mappingFileSrc: BuildableArtifact? = null,
         mainDexList: Provider<RegularFile>? = null
     ) {
@@ -189,12 +192,17 @@ class DexSplitterTransformTest {
 
         val dexSplitterTransform =
                 DexSplitterTransform(
-                        dexSplitterOutputDir,
                         FakeFileCollection(featureJars),
                         baseJars,
                         mappingFileSrc = mappingFileSrc,
                         mainDexList = mainDexList)
 
+        val directoryMock = Mockito.mock(Directory::class.java)
+        `when`(directoryMock.asFile).thenReturn(dexSplitterOutputDir)
+        val directoryPropertyMock = Mockito.mock(DirectoryProperty::class.java)
+        `when`(directoryPropertyMock.get()).thenReturn(directoryMock)
+
+        dexSplitterTransform.setOutputDirectory(directoryPropertyMock)
         dexSplitterTransform.transform(dexSplitterInvocation)
     }
 

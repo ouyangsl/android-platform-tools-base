@@ -233,7 +233,7 @@ abstract class BuildArtifactsHolder(
         operationType: OperationType,
         taskProvider: TaskProvider<out T>,
         productProvider: (T) -> RegularFileProperty,
-        buildDirectory: Provider<Directory> = project.layout.buildDirectory,
+        buildDirectory: String? = null,
         fileName: String
     ) {
 
@@ -289,7 +289,7 @@ abstract class BuildArtifactsHolder(
         operationType: OperationType,
         taskProvider: TaskProvider<out T>,
         productProvider: (T) -> DirectoryProperty,
-        buildDirectory: Provider<Directory> = project.layout.buildDirectory,
+        buildDirectory: String? = null,
         fileName: String = "out"
     ) {
 
@@ -310,7 +310,7 @@ abstract class BuildArtifactsHolder(
         taskProvider: TaskProvider<out T>,
         productProvider: (T) -> RegularFileProperty,
         fileName: String = "out"
-    )= producesFile(artifactType, operationType, taskProvider, productProvider, project.layout.buildDirectory, fileName)
+    )= producesFile(artifactType, operationType, taskProvider, productProvider, null, fileName)
 
 
     fun <T: Task> producesDir(
@@ -319,7 +319,7 @@ abstract class BuildArtifactsHolder(
         taskProvider: TaskProvider<out T>,
         propertyProvider: (T) -> DirectoryProperty,
         fileName: String = "out"
-    )= producesDir(artifactType, operationType, taskProvider, propertyProvider, project.layout.buildDirectory, fileName)
+    )= producesDir(artifactType, operationType, taskProvider, propertyProvider, null, fileName)
 
     private val dummyTask by lazy {
 
@@ -337,8 +337,7 @@ abstract class BuildArtifactsHolder(
             dummyTask,
             DummyTask::emptyFileProperty,
             project.objects.fileProperty(),
-            "out",
-            project.layout.buildDirectory
+            "out"
         )
     }
 
@@ -350,7 +349,7 @@ abstract class BuildArtifactsHolder(
         productProvider: (U) -> Property<T>,
         settableFileLocation: Property<T>,
         fileName: String,
-        buildDirectory: Provider<Directory>) {
+        buildDirectory: String? = null) {
 
         val producers = producersMap.getProducers(artifactType, buildDirectory)
         val product= taskProvider.map { productProvider(it) }
@@ -436,7 +435,7 @@ abstract class BuildArtifactsHolder(
      */
     fun <T: FileSystemLocation> getFinalProduct(artifactType: ArtifactType): Provider<T> {
         val producers = getProducerMap(artifactType).getProducers(artifactType)
-        if (producers.hasMultipleProducers()) {
+        if (producers.size > 1) {
             throw java.lang.RuntimeException(
                 """A single producer of $artifactType was requested, but the following tasks
                     |produce it: ${Joiner.on(',').join(
@@ -599,27 +598,6 @@ abstract class BuildArtifactsHolder(
     }
 
     /**
-     * Returns the final [BuildableArtifact] associated with the artifactType or an empty
-     * BuildableArtifact if no [BuildableArtifact] has been registered for this artifact type.
-     *
-     * Irrespective of the timing of this method call, it will always return the final version of
-     * the [BuildableArtifact] for the passed artifact type or an empty one.
-     *
-     * This should not be used to transform further the artifact type.
-     *
-     * @param artifactType the requested [BuildableArtifact] artifact type.
-     * @return the possibly empty final [BuildableArtifact] for this artifact type.
-     */
-
-    fun getOptionalFinalArtifactFiles(artifactType: ArtifactType): BuildableArtifact {
-        return if (hasArtifact(artifactType)) {
-            getFinalArtifactFiles(artifactType)
-        } else {
-            BuildableArtifactImpl(project.files())
-        }
-    }
-
-    /**
      * Returns whether the artifactType exists in the holder.
      */
     fun hasArtifact(artifactType: ArtifactType) : Boolean {
@@ -752,25 +730,6 @@ abstract class BuildArtifactsHolder(
         }
     }
 
-    /**
-     * Create a [Provider] of [Directory] that can be used as a task output.
-     *
-     * @param artifactType the intended artifact type stored in the directory.
-     * @param taskName name of the producer task.
-     * @param fileName name of the directory or "out" by default.
-     */
-    fun createDirectory(artifactType: ArtifactType,
-        taskName: String,
-        fileName: String = "out"): Provider<Directory> =
-
-        createDirectory(artifactType,
-            OperationType.APPEND,
-            taskName,
-            File(FileUtils.join(
-                artifactType.getOutputPath(),
-                artifactType.name().toLowerCase(Locale.US),
-                getIdentifier(),
-                fileName)))
     /**
      * Create a [Provider] of [Directory] that can be used as a task output.
      *
@@ -908,7 +867,7 @@ abstract class BuildArtifactsHolder(
         artifactType: ArtifactType,
         operationType: OperationType,
         newFiles: Any,
-        builtBy: String?= null): FileCollection {
+        builtBy: String? = null): FileCollection {
 
         val artifactRecord = artifactRecordMap[artifactType]
         @Suppress("REDUNDANT_ELSE_IN_WHEN")
