@@ -1,0 +1,9 @@
+Autosubmit+1: Bob Badour <bbadour@google.com>
+Code-Review+1: Romain Guy <romainguy@android.com>
+Presubmit-Verified-1: Treehugger Robot <treehugger-gerrit@google.com>
+Build-Cop-Override+1: Bob Badour <bbadour@google.com>
+Submitted-by: Bob Badour <bbadour@google.com>
+Submitted-at: Wed, 12 Jun 2019 03:29:01 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/tools/base/+/977918
+Project: platform/tools/base
+Branch: refs/heads/master
