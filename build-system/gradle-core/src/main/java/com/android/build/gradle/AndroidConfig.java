@@ -37,7 +37,6 @@ import com.android.build.gradle.internal.model.CoreExternalNativeBuild;
 import com.android.builder.core.LibraryRequest;
 import com.android.builder.model.DataBindingOptions;
 import com.android.builder.model.SigningConfig;
-import com.android.builder.model.ViewBindingOptions;
 import com.android.builder.testing.api.DeviceProvider;
 import com.android.builder.testing.api.TestServer;
 import com.android.repository.Revision;
@@ -51,7 +50,12 @@ import org.gradle.api.tasks.Internal;
 
 /**
  * User configuration settings for all android plugins.
+ *
+ * <p>DO NOT ADD ANYTHING THERE.
+ *
+ * @deprecated Use {@link BaseExtension} instead.
  */
+@Deprecated
 public interface AndroidConfig {
 
 
@@ -615,9 +619,6 @@ public interface AndroidConfig {
      * bind your application logic and layouts.
      */
     DataBindingOptions getDataBinding();
-
-    /** Specifies options for the View Binding library. */
-    ViewBindingOptions getViewBinding();
 
     /** Whether the feature module is the base feature. */
     Boolean getBaseFeature();

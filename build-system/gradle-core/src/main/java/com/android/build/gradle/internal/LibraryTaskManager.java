@@ -27,12 +27,11 @@ import com.android.build.api.transform.QualifiedContent;
 import com.android.build.api.transform.QualifiedContent.Scope;
 import com.android.build.api.transform.QualifiedContent.ScopeType;
 import com.android.build.api.transform.Transform;
-import com.android.build.gradle.AndroidConfig;
+import com.android.build.gradle.BaseExtension;
 import com.android.build.gradle.internal.core.GradleVariantConfiguration;
 import com.android.build.gradle.internal.pipeline.OriginalStream;
 import com.android.build.gradle.internal.pipeline.TransformManager;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts;
-import com.android.build.gradle.internal.scope.AnchorOutputType;
 import com.android.build.gradle.internal.scope.BuildArtifactsHolder;
 import com.android.build.gradle.internal.scope.GlobalScope;
 import com.android.build.gradle.internal.scope.InternalArtifactType;
@@ -86,7 +85,7 @@ public class LibraryTaskManager extends TaskManager {
             @NonNull Project project,
             @NonNull ProjectOptions projectOptions,
             @NonNull DataBindingBuilder dataBindingBuilder,
-            @NonNull AndroidConfig extension,
+            @NonNull BaseExtension extension,
             @NonNull VariantFactory variantFactory,
             @NonNull ToolingModelBuilderRegistry toolingRegistry,
             @NonNull Recorder recorder) {
@@ -189,7 +188,7 @@ public class LibraryTaskManager extends TaskManager {
         // TODO: remove this hack once tests are moved to a version that doesn't do this
         // b/37564303
         if (projectOptions.get(BooleanOption.ENABLE_EXTRACT_ANNOTATIONS)) {
-            taskFactory.register(new ExtractAnnotations.CreationAction(extension, variantScope));
+            taskFactory.register(new ExtractAnnotations.CreationAction(variantScope));
         }
 
         final boolean instrumented = variantConfig.getBuildType().isTestCoverageEnabled();
@@ -279,7 +278,7 @@ public class LibraryTaskManager extends TaskManager {
 
         // ----- Minify next -----
         maybeCreateJavaCodeShrinkerTransform(variantScope);
-        maybeCreateResourcesShrinkerTransform(variantScope);
+        maybeCreateResourcesShrinkerTasks(variantScope);
 
         // now add a task that will take all the classes and java resources and package them
         // into the main and secondary jar files that goes in the AAR.
@@ -335,7 +334,7 @@ public class LibraryTaskManager extends TaskManager {
 
     private void createBundleTask(@NonNull VariantScope variantScope) {
         TaskProvider<BundleAar> bundle =
-                taskFactory.register(new BundleAar.CreationAction(extension, variantScope));
+                taskFactory.register(new BundleAar.CreationAction(variantScope));
 
         TaskFactoryUtils.dependsOn(variantScope.getTaskContainer().getAssembleTask(), bundle);
 
@@ -435,7 +434,7 @@ public class LibraryTaskManager extends TaskManager {
                                 scope.getArtifacts().getFinalProduct(JAVAC),
                                 scope.getVariantData().getAllPreJavacGeneratedBytecode(),
                                 scope.getVariantData().getAllPostJavacGeneratedBytecode());
-        scope.getArtifacts().appendArtifact(AnchorOutputType.ALL_CLASSES, files);
+        scope.getArtifacts().appendToAllClasses(files);
 
         // Create jar used for publishing to API elements (for other projects to compile against).
         taskFactory.register(

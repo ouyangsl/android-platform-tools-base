@@ -25,9 +25,14 @@ import static com.android.build.gradle.internal.cxx.logging.LoggingEnvironmentKt
 import static com.android.build.gradle.internal.cxx.logging.PassThroughRecordingLoggingEnvironmentKt.toJsonString;
 import static com.android.build.gradle.internal.cxx.model.CreateCxxAbiModelKt.createCxxAbiModel;
 import static com.android.build.gradle.internal.cxx.model.CreateCxxVariantModelKt.createCxxVariantModel;
+import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getBuildCommandFile;
+import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getBuildOutputFile;
+import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getJsonFile;
+import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getJsonGenerationLoggingRecordFile;
 import static com.android.build.gradle.internal.cxx.model.GetCxxBuildModelKt.getCxxBuildModel;
 import static com.android.build.gradle.internal.cxx.services.CxxCompleteModelServiceKt.registerAbi;
 import static com.android.build.gradle.internal.cxx.services.CxxEvalIssueReporterServiceKt.evalIssueReporter;
+import static com.android.build.gradle.internal.cxx.services.CxxModelDependencyServiceKt.jsonGenerationInputDependencyFileCollection;
 import static com.android.build.gradle.internal.cxx.services.CxxSyncListenerServiceKt.executeListenersOnceAfterJsonGeneration;
 
 import com.android.annotations.NonNull;
@@ -41,10 +46,12 @@ import com.android.build.gradle.internal.cxx.logging.IssueReporterLoggingEnviron
 import com.android.build.gradle.internal.cxx.logging.PassThroughRecordingLoggingEnvironment;
 import com.android.build.gradle.internal.cxx.logging.ThreadLoggingEnvironment;
 import com.android.build.gradle.internal.cxx.model.CxxAbiModel;
+import com.android.build.gradle.internal.cxx.model.CxxAbiModelKt;
 import com.android.build.gradle.internal.cxx.model.CxxBuildModel;
 import com.android.build.gradle.internal.cxx.model.CxxCmakeModuleModel;
 import com.android.build.gradle.internal.cxx.model.CxxModuleModel;
 import com.android.build.gradle.internal.cxx.model.CxxVariantModel;
+import com.android.build.gradle.internal.cxx.model.CxxVariantModelKt;
 import com.android.build.gradle.internal.profile.AnalyticsUtil;
 import com.android.build.gradle.internal.scope.VariantScope;
 import com.android.builder.profile.ProcessProfileWriter;
@@ -73,10 +80,14 @@ import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.gradle.api.GradleException;
+import org.gradle.api.file.FileCollection;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
+import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputFiles;
+import org.gradle.api.tasks.PathSensitive;
+import org.gradle.api.tasks.PathSensitivity;
 
 /**
  * Base class for generation of native JSON.
@@ -232,14 +243,14 @@ public abstract class ExternalNativeJsonGenerator {
                 JsonGenerationInvalidationState invalidationState =
                         new JsonGenerationInvalidationState(
                                 forceJsonGeneration,
-                                abi.getJsonFile(),
-                                abi.getBuildCommandFile(),
+                                getJsonFile(abi),
+                                getBuildCommandFile(abi),
                                 currentBuildCommand,
-                                getPreviousBuildCommand(abi.getBuildCommandFile()),
-                                getDependentBuildFiles(abi.getJsonFile()));
+                                getPreviousBuildCommand(getBuildCommandFile(abi)),
+                                getDependentBuildFiles(getJsonFile(abi)));
 
                 if (invalidationState.getRebuild()) {
-                    infoln("rebuilding JSON %s due to:", abi.getJsonFile());
+                    infoln("rebuilding JSON %s due to:", getJsonFile(abi));
                     for (String reason : invalidationState.getRebuildReasons()) {
                         infoln(reason);
                     }
@@ -253,7 +264,7 @@ public abstract class ExternalNativeJsonGenerator {
                     // *.so basis.
                     // - If there is some other cause to recreate the JSon, such as command-line
                     // changed then wipe out the whole JSon folder.
-                    if (variant.getJsonFolder().exists()) {
+                    if (abi.getCxxBuildFolder().getParentFile().exists()) {
                         if (invalidationState.getSoftRegeneration()) {
                             infoln(
                                     "keeping json folder '%s' but regenerating project",
@@ -274,17 +285,16 @@ public abstract class ExternalNativeJsonGenerator {
                     infoln("done executing %s", getNativeBuildSystem().getTag());
 
                     // Write the captured process output to a file for diagnostic purposes.
-                    infoln("write build output %s", abi.getBuildOutputFile().getAbsolutePath());
+                    infoln("write build output %s", getBuildOutputFile(abi).getAbsolutePath());
                     Files.write(
-                            abi.getBuildOutputFile().toPath(),
-                            buildOutput.getBytes(Charsets.UTF_8));
+                            getBuildOutputFile(abi).toPath(), buildOutput.getBytes(Charsets.UTF_8));
                     processBuildOutput(buildOutput, abi);
 
-                    if (!abi.getJsonFile().exists()) {
+                    if (!getJsonFile(abi).exists()) {
                         throw new GradleException(
                                 String.format(
                                         "Expected json generation to create '%s' but it didn't",
-                                        abi.getJsonFile()));
+                                        getJsonFile(abi)));
                     }
 
                     synchronized (stats) {
@@ -294,22 +304,22 @@ public abstract class ExternalNativeJsonGenerator {
                         // legitimate. This is to prevent unexpected .so files from being packaged in
                         // the APK.
                         removeUnexpectedSoFiles(
-                                abi.getObjFolder(),
+                                CxxAbiModelKt.getSoFolder(abi),
                                 AndroidBuildGradleJsons.getNativeBuildMiniConfig(
-                                        abi.getJsonFile(), stats));
+                                        getJsonFile(abi), stats));
                     }
 
                     // Write the ProcessInfo to a file, this has all the flags used to generate the
                     // JSON. If any of these change later the JSON will be regenerated.
-                    infoln("write command file %s", abi.getBuildCommandFile().getAbsolutePath());
+                    infoln("write command file %s", getBuildCommandFile(abi).getAbsolutePath());
                     Files.write(
-                            abi.getBuildCommandFile().toPath(),
+                            getBuildCommandFile(abi).toPath(),
                             currentBuildCommand.getBytes(Charsets.UTF_8));
 
                     // Record the outcome. JSON was built.
                     variantStats.setOutcome(GenerationOutcome.SUCCESS_BUILT);
                 } else {
-                    infoln("JSON '%s' was up-to-date", abi.getJsonFile());
+                    infoln("JSON '%s' was up-to-date", getJsonFile(abi));
                     variantStats.setOutcome(GenerationOutcome.SUCCESS_UP_TO_DATE);
                 }
                 infoln("JSON generation completed without problems");
@@ -322,9 +332,9 @@ public abstract class ExternalNativeJsonGenerator {
                 synchronized (stats) {
                     stats.addNativeBuildConfig(variantStats);
                 }
-                abi.getJsonGenerationLoggingRecordFile().getParentFile().mkdirs();
+                getJsonGenerationLoggingRecordFile(abi).getParentFile().mkdirs();
                 Files.write(
-                        abi.getJsonGenerationLoggingRecordFile().toPath(),
+                        getJsonGenerationLoggingRecordFile(abi).toPath(),
                         toJsonString(recorder.getRecord()).getBytes(Charsets.UTF_8));
                 executeListenersOnceAfterJsonGeneration(abi);
             }
@@ -537,6 +547,13 @@ public abstract class ExternalNativeJsonGenerator {
         return variant.isDebuggableEnabled();
     }
 
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+    @NonNull
+    public FileCollection getJsonGenerationDependencyFiles() {
+        return jsonGenerationInputDependencyFileCollection(variant.getModule(), abis);
+    }
+
     @NonNull
     @Optional
     @Input
@@ -563,7 +580,7 @@ public abstract class ExternalNativeJsonGenerator {
     public List<File> getNativeBuildConfigurationsJsons() {
         List<File> generatedJsonFiles = new ArrayList<>();
         for (CxxAbiModel abi : abis) {
-            generatedJsonFiles.add(abi.getJsonFile());
+            generatedJsonFiles.add(getJsonFile(abi));
         }
         return generatedJsonFiles;
     }
@@ -571,7 +588,7 @@ public abstract class ExternalNativeJsonGenerator {
     @NonNull
     @Input // We don't need contents of the files in the generated JSON, just the path.
     public File getSoFolder() {
-        return variant.getSoFolder();
+        return CxxVariantModelKt.getSoFolder(variant);
     }
 
     @NonNull

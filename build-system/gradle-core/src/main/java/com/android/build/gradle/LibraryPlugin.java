@@ -21,13 +21,10 @@ import com.android.build.gradle.api.BaseVariantOutput;
 import com.android.build.gradle.internal.ExtraModelInfo;
 import com.android.build.gradle.internal.LibraryTaskManager;
 import com.android.build.gradle.internal.TaskManager;
-import com.android.build.gradle.internal.api.dsl.extensions.LibraryExtensionImpl;
 import com.android.build.gradle.internal.dependency.SourceSetManager;
 import com.android.build.gradle.internal.dsl.BuildType;
 import com.android.build.gradle.internal.dsl.ProductFlavor;
 import com.android.build.gradle.internal.dsl.SigningConfig;
-import com.android.build.gradle.internal.plugin.LibPluginDelegate;
-import com.android.build.gradle.internal.plugin.TypedPluginDelegate;
 import com.android.build.gradle.internal.scope.GlobalScope;
 import com.android.build.gradle.internal.variant.LibraryVariantFactory;
 import com.android.build.gradle.internal.variant.VariantFactory;
@@ -41,7 +38,7 @@ import org.gradle.api.Project;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 
 /** Gradle plugin class for 'library' projects. */
-public class LibraryPlugin extends BasePlugin<LibraryExtensionImpl> {
+public class LibraryPlugin extends BasePlugin {
 
     @Inject
     public LibraryPlugin(ToolingModelBuilderRegistry registry) {
@@ -88,10 +85,8 @@ public class LibraryPlugin extends BasePlugin<LibraryExtensionImpl> {
 
     @NonNull
     @Override
-    protected VariantFactory createVariantFactory(
-            @NonNull GlobalScope globalScope,
-            @NonNull AndroidConfig androidConfig) {
-        return new LibraryVariantFactory(globalScope, androidConfig);
+    protected VariantFactory createVariantFactory(@NonNull GlobalScope globalScope) {
+        return new LibraryVariantFactory(globalScope);
     }
 
     @Override
@@ -106,7 +101,7 @@ public class LibraryPlugin extends BasePlugin<LibraryExtensionImpl> {
             @NonNull Project project,
             @NonNull ProjectOptions projectOptions,
             @NonNull DataBindingBuilder dataBindingBuilder,
-            @NonNull AndroidConfig androidConfig,
+            @NonNull BaseExtension extension,
             @NonNull VariantFactory variantFactory,
             @NonNull ToolingModelBuilderRegistry toolingRegistry,
             @NonNull Recorder recorder) {
@@ -115,7 +110,7 @@ public class LibraryPlugin extends BasePlugin<LibraryExtensionImpl> {
                 project,
                 projectOptions,
                 dataBindingBuilder,
-                androidConfig,
+                extension,
                 variantFactory,
                 toolingRegistry,
                 recorder);
@@ -123,11 +118,6 @@ public class LibraryPlugin extends BasePlugin<LibraryExtensionImpl> {
 
     @Override
     protected void pluginSpecificApply(@NonNull Project project) {
-    }
-
-    @Override
-    protected TypedPluginDelegate<LibraryExtensionImpl> getTypedDelegate() {
-        return new LibPluginDelegate();
     }
 
     @Override

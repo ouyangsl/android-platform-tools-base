@@ -23,13 +23,11 @@ import com.android.build.gradle.internal.ExtraModelInfo;
 import com.android.build.gradle.internal.InstantAppTaskManager;
 import com.android.build.gradle.internal.TaskManager;
 import com.android.build.gradle.internal.VariantManager;
-import com.android.build.gradle.internal.api.dsl.extensions.BaseExtension2;
 import com.android.build.gradle.internal.dependency.SourceSetManager;
 import com.android.build.gradle.internal.dsl.BuildType;
 import com.android.build.gradle.internal.dsl.ProductFlavor;
 import com.android.build.gradle.internal.dsl.SigningConfig;
 import com.android.build.gradle.internal.ide.InstantAppModelBuilder;
-import com.android.build.gradle.internal.plugin.TypedPluginDelegate;
 import com.android.build.gradle.internal.scope.GlobalScope;
 import com.android.build.gradle.internal.variant.InstantAppVariantFactory;
 import com.android.build.gradle.internal.variant.VariantFactory;
@@ -43,7 +41,7 @@ import org.gradle.api.Project;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 
 /** Gradle plugin class for 'instantapp' projects. */
-public class InstantAppPlugin extends BasePlugin<BaseExtension2> {
+public class InstantAppPlugin extends BasePlugin {
     @Inject
     public InstantAppPlugin(ToolingModelBuilderRegistry registry) {
         super(registry);
@@ -94,7 +92,7 @@ public class InstantAppPlugin extends BasePlugin<BaseExtension2> {
             @NonNull Project project,
             @NonNull ProjectOptions projectOptions,
             @NonNull DataBindingBuilder dataBindingBuilder,
-            @NonNull AndroidConfig androidConfig,
+            @NonNull BaseExtension extension,
             @NonNull VariantFactory variantFactory,
             @NonNull ToolingModelBuilderRegistry toolingRegistry,
             @NonNull Recorder recorder) {
@@ -103,7 +101,7 @@ public class InstantAppPlugin extends BasePlugin<BaseExtension2> {
                 project,
                 projectOptions,
                 dataBindingBuilder,
-                androidConfig,
+                extension,
                 variantFactory,
                 toolingRegistry,
                 recorder);
@@ -114,10 +112,10 @@ public class InstantAppPlugin extends BasePlugin<BaseExtension2> {
             @NonNull ToolingModelBuilderRegistry registry,
             @NonNull GlobalScope globalScope,
             @NonNull VariantManager variantManager,
-            @NonNull AndroidConfig config,
+            @NonNull BaseExtension extension,
             @NonNull ExtraModelInfo extraModelInfo) {
         InstantAppModelBuilder instantAppModelBuilder =
-                new InstantAppModelBuilder(variantManager, config, extraModelInfo);
+                new InstantAppModelBuilder(variantManager, extension, extraModelInfo);
         registry.register(instantAppModelBuilder);
     }
 
@@ -128,14 +126,7 @@ public class InstantAppPlugin extends BasePlugin<BaseExtension2> {
 
     @NonNull
     @Override
-    protected InstantAppVariantFactory createVariantFactory(
-            @NonNull GlobalScope globalScope,
-            @NonNull AndroidConfig androidConfig) {
-        return new InstantAppVariantFactory(globalScope, androidConfig);
-    }
-
-    @Override
-    protected TypedPluginDelegate<BaseExtension2> getTypedDelegate() {
-        return null;
+    protected InstantAppVariantFactory createVariantFactory(@NonNull GlobalScope globalScope) {
+        return new InstantAppVariantFactory(globalScope);
     }
 }

@@ -35,13 +35,13 @@ import static com.android.build.gradle.internal.scope.CodeShrinker.R8;
 import static com.android.build.gradle.options.BooleanOption.ENABLE_D8;
 import static com.android.build.gradle.options.BooleanOption.ENABLE_D8_DESUGARING;
 import static com.android.build.gradle.options.BooleanOption.ENABLE_R8_DESUGARING;
+import static com.android.build.gradle.options.BooleanOption.USE_ZIPFLINGER_FOR_JAR_MERGING;
 import static com.android.build.gradle.options.OptionalBooleanOption.ENABLE_R8;
 import static com.android.builder.model.AndroidProject.FD_GENERATED;
 import static com.android.builder.model.AndroidProject.FD_OUTPUTS;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.build.api.artifact.BuildableArtifact;
 import com.android.build.gradle.FeaturePlugin;
 import com.android.build.gradle.internal.BaseConfigAdapter;
 import com.android.build.gradle.internal.PostprocessingFeatures;
@@ -61,6 +61,7 @@ import com.android.build.gradle.internal.dependency.VariantDependencies;
 import com.android.build.gradle.internal.dsl.BuildType;
 import com.android.build.gradle.internal.dsl.CoreBuildType;
 import com.android.build.gradle.internal.dsl.CoreProductFlavor;
+import com.android.build.gradle.internal.packaging.JarCreatorType;
 import com.android.build.gradle.internal.pipeline.TransformManager;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope;
@@ -213,14 +214,13 @@ public class VariantScopeImpl implements VariantScope {
     /**
      * Publish an intermediate artifact.
      *
-     * @param artifact BuildableArtifact to be published. Must not be an appendable
-     *     BuildableArtifact.
+     * @param artifact FileCollection to be published.
      * @param artifactType the artifact type.
      * @param configTypes the PublishedConfigType. (e.g. api, runtime, etc)
      */
     @Override
     public void publishIntermediateArtifact(
-            @NonNull BuildableArtifact artifact,
+            @NonNull FileCollection artifact,
             @NonNull ArtifactType artifactType,
             @NonNull Collection<PublishedConfigType> configTypes) {
         // Create Provider so that the BuildableArtifact is not resolved until needed.
@@ -641,11 +641,8 @@ public class VariantScopeImpl implements VariantScope {
                     .get(BooleanOption.CONVERT_NON_NAMESPACED_DEPENDENCIES)) {
                 mainCollection =
                         mainCollection.plus(
-                                getProject()
-                                        .files(
-                                                artifacts.getFinalProduct(
-                                                        InternalArtifactType
-                                                                .NAMESPACED_CLASSES_JAR)));
+                                artifacts.getFinalProductAsFileCollection(
+                                        InternalArtifactType.NAMESPACED_CLASSES_JAR));
 
                 mainCollection =
                         mainCollection.plus(
@@ -839,25 +836,12 @@ public class VariantScopeImpl implements VariantScope {
                     final com.android.build.api.artifact.ArtifactType taskOutputType =
                             taskOutputSpec.getOutputType();
                     BuildArtifactsHolder testedArtifacts = testedScope.getArtifacts();
-                    if (testedArtifacts.hasFinalProduct(taskOutputType)) {
-                        artifacts =
-                                ArtifactCollectionWithExtraArtifact.makeExtraCollectionForTest(
-                                        artifacts,
-                                        getProject()
-                                                .files(
-                                                        testedArtifacts.getFinalProduct(
-                                                                taskOutputType)),
-                                        getProject().getPath(),
-                                        testedScope.getFullVariantName());
-                    }
-                    if (testedArtifacts.hasArtifact(taskOutputType)) {
-                        artifacts =
-                                ArtifactCollectionWithExtraArtifact.makeExtraCollectionForTest(
-                                        artifacts,
-                                        testedArtifacts.getFinalArtifactFiles(taskOutputType).get(),
-                                        getProject().getPath(),
-                                        testedScope.getFullVariantName());
-                    }
+                    artifacts =
+                            ArtifactCollectionWithExtraArtifact.makeExtraCollectionForTest(
+                                    artifacts,
+                                    testedArtifacts.getFinalProductAsFileCollection(taskOutputType),
+                                    getProject().getPath(),
+                                    testedScope.getFullVariantName());
                 }
             }
         }
@@ -1337,17 +1321,6 @@ public class VariantScopeImpl implements VariantScope {
 
     @NonNull
     @Override
-    public File getOutputProguardMappingFile() {
-        return FileUtils.join(
-                globalScope.getBuildDir(),
-                FD_OUTPUTS,
-                "mapping",
-                getVariantConfiguration().getDirName(),
-                "mapping.txt");
-    }
-
-    @NonNull
-    @Override
     public FileCollection getBootClasspath() {
         return globalScope.getBootClasspath();
     }
@@ -1400,5 +1373,15 @@ public class VariantScopeImpl implements VariantScope {
         return new File(
                 globalScope.getIntermediatesDir(),
                 "symbols/" + variantData.getVariantConfiguration().getDirName());
+    }
+
+    @NonNull
+    @Override
+    public JarCreatorType getJarCreatorType() {
+        if (globalScope.getProjectOptions().get(USE_ZIPFLINGER_FOR_JAR_MERGING)) {
+            return JarCreatorType.JAR_FLINGER;
+        } else {
+            return JarCreatorType.JAR_MERGER;
+        }
     }
 }

@@ -51,8 +51,9 @@ using profiler::proto::GetThreadsRequest;
 using profiler::proto::GetThreadsResponse;
 using profiler::proto::GetTraceInfoRequest;
 using profiler::proto::GetTraceInfoResponse;
-using profiler::proto::ProfilingStateRequest;
-using profiler::proto::ProfilingStateResponse;
+using profiler::proto::TraceStartStatus;
+using profiler::proto::TraceStopStatus;
+
 using std::map;
 using std::string;
 using std::vector;
@@ -130,9 +131,7 @@ grpc::Status CpuServiceImpl::GetTraceInfo(ServerContext* context,
       app_name, request->from_timestamp(), request->to_timestamp());
   for (const auto& datum : data) {
     CpuTraceInfo* info = response->add_trace_info();
-    info->set_trace_type(datum.configuration.user_options().trace_type());
-    info->set_trace_mode(datum.configuration.user_options().trace_mode());
-    info->set_initiation_type(datum.configuration.initiation_type());
+    info->mutable_configuration()->CopyFrom(datum.configuration);
     info->set_from_timestamp(datum.start_timestamp);
     info->set_to_timestamp(datum.end_timestamp);
     info->set_trace_id(datum.trace_id);
@@ -179,11 +178,12 @@ grpc::Status CpuServiceImpl::StartProfilingApp(
   string error;
   auto* capture = trace_manager_->StartProfiling(
       clock_->GetCurrentTime(), request->configuration(), &error);
+  auto* status = response->mutable_status();
   if (capture != nullptr) {
-    response->set_status(CpuProfilingAppStartResponse::SUCCESS);
+    status->set_status(TraceStartStatus::SUCCESS);
   } else {
-    response->set_status(CpuProfilingAppStartResponse::FAILURE);
-    response->set_error_message(error);
+    status->set_status(TraceStartStatus::FAILURE);
+    status->set_error_message(error);
   }
 
   return Status::OK;
@@ -198,14 +198,14 @@ grpc::Status CpuServiceImpl::StopProfilingApp(
 
 void CpuServiceImpl::DoStopProfilingApp(const string& app_name,
                                         CpuProfilingAppStopResponse* response) {
-  proto::CpuProfilingAppStopResponse::Status status;
+  proto::TraceStopStatus::Status status;
   string error;
   bool need_response = response != nullptr;
   ProfilingApp* capture =
       trace_manager_->StopProfiling(app_name, need_response, &status, &error);
 
   if (need_response) {
-    if (status == CpuProfilingAppStopResponse::SUCCESS) {
+    if (status == TraceStopStatus::SUCCESS) {
       assert(capture != nullptr);
       response->set_trace_id(capture->trace_id);
       // Move over the file to the shared cached to be access via |GetBytes|
@@ -219,41 +219,21 @@ void CpuServiceImpl::DoStopProfilingApp(const string& app_name,
       bool move_failed =
           fs.MoveFile(capture->configuration.temp_path(), oss.str());
       if (move_failed) {
-        status = CpuProfilingAppStopResponse::CANNOT_READ_FILE;
+        status = TraceStopStatus::CANNOT_READ_FILE;
         error = "Failed to read trace from device";
       }
     }
-    response->set_status(status);
+
+    auto* stop_status = response->mutable_status();
+    stop_status->set_status(status);
     // Empty if success but simply set it for all cases.
-    response->set_error_message(error);
+    stop_status->set_error_message(error);
   }
 
   if (capture != nullptr) {
     // No more use of this file. Delete it.
     remove(capture->configuration.temp_path().c_str());
   }
-}
-
-grpc::Status CpuServiceImpl::CheckAppProfilingState(
-    ServerContext* context, const ProfilingStateRequest* request,
-    ProfilingStateResponse* response) {
-  string app_name = ProcessManager::GetCmdlineForPid(request->session().pid());
-  ProfilingApp* app = trace_manager_->GetOngoingCapture(app_name);
-
-  // Whether the app is being profiled (there is a stored start profiling
-  // request corresponding to the app)
-  response->set_check_timestamp(clock_->GetCurrentTime());
-  bool is_being_profiled = app != nullptr;
-  response->set_being_profiled(is_being_profiled);
-
-  if (is_being_profiled) {
-    // App is being profiled. Include the start profiling request and its
-    // timestamp in the response.
-    response->set_start_timestamp(app->start_timestamp);
-    *(response->mutable_configuration()) = app->configuration;
-  }
-
-  return Status::OK;
 }
 
 grpc::Status CpuServiceImpl::StartStartupProfiling(

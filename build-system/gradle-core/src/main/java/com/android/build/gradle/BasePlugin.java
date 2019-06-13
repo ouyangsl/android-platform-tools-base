@@ -39,7 +39,6 @@ import com.android.build.gradle.internal.SdkComponents;
 import com.android.build.gradle.internal.SdkLocator;
 import com.android.build.gradle.internal.TaskManager;
 import com.android.build.gradle.internal.VariantManager;
-import com.android.build.gradle.internal.api.dsl.extensions.BaseExtension2;
 import com.android.build.gradle.internal.crash.CrashReporting;
 import com.android.build.gradle.internal.dependency.SourceSetManager;
 import com.android.build.gradle.internal.dsl.BuildType;
@@ -54,9 +53,6 @@ import com.android.build.gradle.internal.errors.SyncIssueHandler;
 import com.android.build.gradle.internal.ide.ModelBuilder;
 import com.android.build.gradle.internal.ide.NativeModelBuilder;
 import com.android.build.gradle.internal.packaging.GradleKeystoreHelper;
-import com.android.build.gradle.internal.plugin.PluginDelegate;
-import com.android.build.gradle.internal.plugin.ProjectWrapper;
-import com.android.build.gradle.internal.plugin.TypedPluginDelegate;
 import com.android.build.gradle.internal.profile.AnalyticsUtil;
 import com.android.build.gradle.internal.profile.ProfileAgent;
 import com.android.build.gradle.internal.profile.ProfilerInitializer;
@@ -120,8 +116,7 @@ import org.gradle.api.tasks.StopExecutionException;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 
 /** Base class for all Android plugins */
-public abstract class BasePlugin<E extends BaseExtension2>
-        implements Plugin<Project>, ToolingRegistryProvider {
+public abstract class BasePlugin implements Plugin<Project>, ToolingRegistryProvider {
 
     @VisibleForTesting
     public static final GradleVersion GRADLE_MIN_VERSION =
@@ -180,9 +175,7 @@ public abstract class BasePlugin<E extends BaseExtension2>
     protected abstract GradleBuildProject.PluginType getAnalyticsPluginType();
 
     @NonNull
-    protected abstract VariantFactory createVariantFactory(
-            @NonNull GlobalScope globalScope,
-            @NonNull AndroidConfig androidConfig);
+    protected abstract VariantFactory createVariantFactory(@NonNull GlobalScope globalScope);
 
     @NonNull
     protected abstract TaskManager createTaskManager(
@@ -190,7 +183,7 @@ public abstract class BasePlugin<E extends BaseExtension2>
             @NonNull Project project,
             @NonNull ProjectOptions projectOptions,
             @NonNull DataBindingBuilder dataBindingBuilder,
-            @NonNull AndroidConfig androidConfig,
+            @NonNull BaseExtension extension,
             @NonNull VariantFactory variantFactory,
             @NonNull ToolingModelBuilderRegistry toolingRegistry,
             @NonNull Recorder threadRecorder);
@@ -254,71 +247,26 @@ public abstract class BasePlugin<E extends BaseExtension2>
                 .setPluginGeneration(GradleBuildProject.PluginGeneration.FIRST)
                 .setOptions(AnalyticsUtil.toProto(projectOptions));
 
-        if (!projectOptions.get(BooleanOption.ENABLE_NEW_DSL_AND_API)) {
+        threadRecorder.record(
+                ExecutionType.BASE_PLUGIN_PROJECT_CONFIGURE,
+                project.getPath(),
+                null,
+                this::configureProject);
 
-            threadRecorder.record(
-                    ExecutionType.BASE_PLUGIN_PROJECT_CONFIGURE,
-                    project.getPath(),
-                    null,
-                    this::configureProject);
+        threadRecorder.record(
+                ExecutionType.BASE_PLUGIN_PROJECT_BASE_EXTENSION_CREATION,
+                project.getPath(),
+                null,
+                this::configureExtension);
 
-            threadRecorder.record(
-                    ExecutionType.BASE_PLUGIN_PROJECT_BASE_EXTENSION_CREATION,
-                    project.getPath(),
-                    null,
-                    this::configureExtension);
-
-            threadRecorder.record(
-                    ExecutionType.BASE_PLUGIN_PROJECT_TASKS_CREATION,
-                    project.getPath(),
-                    null,
-                    this::createTasks);
-        } else {
-            // Apply the Java plugin
-            project.getPlugins().apply(JavaBasePlugin.class);
-
-            // create the delegate
-            ProjectWrapper projectWrapper = new ProjectWrapper(project);
-            PluginDelegate<E> delegate =
-                    new PluginDelegate<>(
-                            project.getPath(),
-                            project.getObjects(),
-                            project.getExtensions(),
-                            project.getConfigurations(),
-                            projectWrapper,
-                            projectWrapper,
-                            project.getLogger(),
-                            projectOptions,
-                            getTypedDelegate());
-
-            delegate.prepareForEvaluation();
-
-            // after evaluate callbacks
-            project.afterEvaluate(
-                    CrashReporting.afterEvaluate(
-                            p -> {
-                                threadRecorder.record(
-                                        ExecutionType.BASE_PLUGIN_CREATE_ANDROID_TASKS,
-                                        p.getPath(),
-                                        null,
-                                        delegate::afterEvaluate);
-                            }));
-        }
+        threadRecorder.record(
+                ExecutionType.BASE_PLUGIN_PROJECT_TASKS_CREATION,
+                project.getPath(),
+                null,
+                this::createTasks);
     }
 
     protected abstract void pluginSpecificApply(@NonNull Project project);
-
-    /**
-     * Returns the typed plugin delegate.
-     *
-     * <p>This is the delegate that is specific to the actual plugin that is applied (app, lib,
-     * etc...)
-     *
-     * <p>In the long term when the old code path is removed this can be passed via the constructor.
-     *
-     * @return the typed delegate
-     */
-    protected abstract TypedPluginDelegate<E> getTypedDelegate();
 
     private void configureProject() {
         final Gradle gradle = project.getGradle();
@@ -375,7 +323,6 @@ public abstract class BasePlugin<E extends BaseExtension2>
                 new GlobalScope(
                         project,
                         creator,
-                        new ProjectWrapper(project),
                         projectOptions,
                         dslScope,
                         sdkComponents,
@@ -501,7 +448,7 @@ public abstract class BasePlugin<E extends BaseExtension2>
 
         globalScope.setExtension(extension);
 
-        variantFactory = createVariantFactory(globalScope, extension);
+        variantFactory = createVariantFactory(globalScope);
 
         taskManager =
                 createTaskManager(
@@ -562,10 +509,10 @@ public abstract class BasePlugin<E extends BaseExtension2>
             @NonNull ToolingModelBuilderRegistry registry,
             @NonNull GlobalScope globalScope,
             @NonNull VariantManager variantManager,
-            @NonNull AndroidConfig config,
+            @NonNull BaseExtension extension,
             @NonNull ExtraModelInfo extraModelInfo) {
         // Register a builder for the custom tooling model
-        registerModelBuilder(registry, globalScope, variantManager, config, extraModelInfo);
+        registerModelBuilder(registry, globalScope, variantManager, extension, extraModelInfo);
 
         // Register a builder for the native tooling model
         NativeModelBuilder nativeModelBuilder = new NativeModelBuilder(globalScope, variantManager);
@@ -577,14 +524,14 @@ public abstract class BasePlugin<E extends BaseExtension2>
             @NonNull ToolingModelBuilderRegistry registry,
             @NonNull GlobalScope globalScope,
             @NonNull VariantManager variantManager,
-            @NonNull AndroidConfig config,
+            @NonNull BaseExtension extension,
             @NonNull ExtraModelInfo extraModelInfo) {
         registry.register(
                 new ModelBuilder<>(
                         globalScope,
                         variantManager,
                         taskManager,
-                        config,
+                        extension,
                         extraModelInfo,
                         getProjectType()));
     }

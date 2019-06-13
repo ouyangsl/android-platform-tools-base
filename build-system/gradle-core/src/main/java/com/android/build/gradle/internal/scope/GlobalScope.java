@@ -26,12 +26,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.build.gradle.AndroidConfig;
+import com.android.build.gradle.BaseExtension;
 import com.android.build.gradle.FeatureExtension;
 import com.android.build.gradle.internal.FeatureModelBuilder;
 import com.android.build.gradle.internal.SdkComponents;
 import com.android.build.gradle.internal.api.dsl.DslScope;
-import com.android.build.gradle.internal.api.sourcesets.FilesProvider;
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension;
 import com.android.build.gradle.internal.errors.SyncIssueHandler;
 import com.android.build.gradle.internal.process.GradleJavaProcessExecutor;
@@ -58,10 +57,9 @@ import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 public class GlobalScope implements TransformGlobalScope {
 
     @NonNull private final Project project;
-    @NonNull private final FilesProvider filesProvider;
     @NonNull private final GradleProcessExecutor processExecutor;
     @NonNull private final GradleJavaProcessExecutor javaProcessExecutor;
-    @NonNull private AndroidConfig extension;
+    @NonNull private BaseExtension extension;
     @NonNull private final SdkComponents sdkComponents;
     @NonNull private final ToolingModelBuilderRegistry toolingRegistry;
     @NonNull private final Set<OptionalCompilationStep> optionalCompilationSteps;
@@ -84,7 +82,6 @@ public class GlobalScope implements TransformGlobalScope {
     public GlobalScope(
             @NonNull Project project,
             @NonNull String createdBy,
-            @NonNull FilesProvider filesProvider,
             @NonNull ProjectOptions projectOptions,
             @NonNull DslScope dslScope,
             @NonNull SdkComponents sdkComponents,
@@ -96,7 +93,6 @@ public class GlobalScope implements TransformGlobalScope {
         this.project = checkNotNull(project);
         this.createdBy = createdBy;
         this.dslScope = checkNotNull(dslScope);
-        this.filesProvider = filesProvider;
         this.sdkComponents = checkNotNull(sdkComponents);
         this.toolingRegistry = checkNotNull(toolingRegistry);
         this.optionalCompilationSteps = checkNotNull(projectOptions.getOptionalCompilationSteps());
@@ -113,7 +109,7 @@ public class GlobalScope implements TransformGlobalScope {
 
     }
 
-    public void setExtension(@NonNull AndroidConfig extension) {
+    public void setExtension(@NonNull BaseExtension extension) {
         this.extension = checkNotNull(extension);
     }
 
@@ -129,12 +125,7 @@ public class GlobalScope implements TransformGlobalScope {
     }
 
     @NonNull
-    public FilesProvider getFilesProvider() {
-        return filesProvider;
-    }
-
-    @NonNull
-    public AndroidConfig getExtension() {
+    public BaseExtension getExtension() {
         return extension;
     }
 
@@ -343,7 +334,7 @@ public class GlobalScope implements TransformGlobalScope {
     }
 
     public boolean hasDynamicFeatures() {
-        final AndroidConfig extension = getExtension();
+        final BaseExtension extension = getExtension();
         if (extension instanceof BaseAppModuleExtension) {
             return !((BaseAppModuleExtension) extension).getDynamicFeatures().isEmpty();
         }

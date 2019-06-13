@@ -110,15 +110,47 @@ enum TraceInitiationType {
   INITIATED_BY_STARTUP = 3;
 }
 
+message TraceStartStatus {
+  enum Status {
+    UNSPECIFIED = 0;
+    SUCCESS = 1;
+    FAILURE = 2;
+  }
+
+  Status status = 1;
+  string error_message = 2;
+}
+
+message TraceStopStatus {
+  enum Status {
+    UNSPECIFIED = 0;
+    SUCCESS = 1;
+    NO_ONGOING_PROFILING = 2;
+    APP_PROCESS_DIED = 3;
+    APP_PID_CHANGED = 4;
+    PROFILER_PROCESS_DIED = 5;
+    STOP_COMMAND_FAILED = 6;
+    STILL_PROFILING_AFTER_STOP = 7;
+    CANNOT_START_WAITING = 8;
+    WAIT_TIMEOUT = 9;
+    WAIT_FAILED = 10;
+    CANNOT_READ_WAIT_EVENT = 11;
+    CANNOT_COPY_FILE = 12;
+    CANNOT_FORM_FILE = 13;
+    CANNOT_READ_FILE = 14;
+  }
+
+  Status status = 1;
+  string error_message = 2;
+}
+
 // A CpuTraceInfo contains the information regarding a trace
 // and should be returned if its time overlaps with the request time range.
 message CpuTraceInfo {
   int64 trace_id = 1;
-  CpuTraceType trace_type = 2;
-  CpuTraceMode trace_mode = 3;
-  TraceInitiationType initiation_type = 4;
-  int64 from_timestamp = 5;  // inclusive
-  int64 to_timestamp = 6;    // inclusive
+  int64 from_timestamp = 2;  // inclusive
+  int64 to_timestamp = 3;    // inclusive
+  CpuTraceConfiguration configuration = 4;
 }
 
 message StartCpuTrace {

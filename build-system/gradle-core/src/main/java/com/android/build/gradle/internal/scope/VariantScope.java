@@ -18,11 +18,11 @@ package com.android.build.gradle.internal.scope;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
-import com.android.build.api.artifact.BuildableArtifact;
 import com.android.build.gradle.internal.PostprocessingFeatures;
 import com.android.build.gradle.internal.core.Abi;
 import com.android.build.gradle.internal.core.GradleVariantConfiguration;
 import com.android.build.gradle.internal.dependency.VariantDependencies;
+import com.android.build.gradle.internal.packaging.JarCreatorType;
 import com.android.build.gradle.internal.pipeline.TransformManager;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType;
@@ -58,7 +58,7 @@ public interface VariantScope extends TransformVariantScope {
     PublishingSpecs.VariantSpec getPublishingSpec();
 
     void publishIntermediateArtifact(
-            @NonNull BuildableArtifact artifact,
+            @NonNull FileCollection artifact,
             @NonNull ArtifactType artifactType,
             @NonNull Collection<AndroidArtifacts.PublishedConfigType> configTypes);
 
@@ -280,9 +280,6 @@ public interface VariantScope extends TransformVariantScope {
     ConfigurableFileCollection getTryWithResourceRuntimeSupportJar();
 
     @NonNull
-    File getOutputProguardMappingFile();
-
-    @NonNull
     FileCollection getBootClasspath();
 
     @NonNull
@@ -293,4 +290,7 @@ public interface VariantScope extends TransformVariantScope {
 
     @NonNull
     File getSymbolTableFile();
+
+    @NonNull
+    JarCreatorType getJarCreatorType();
 }

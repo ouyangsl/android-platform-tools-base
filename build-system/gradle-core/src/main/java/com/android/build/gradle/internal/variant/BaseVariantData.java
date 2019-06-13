@@ -23,8 +23,7 @@ import android.databinding.tool.LayoutXmlProcessor;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.build.OutputFile;
-import com.android.build.api.artifact.BuildableArtifact;
-import com.android.build.gradle.AndroidConfig;
+import com.android.build.gradle.BaseExtension;
 import com.android.build.gradle.api.AndroidSourceSet;
 import com.android.build.gradle.internal.TaskManager;
 import com.android.build.gradle.internal.core.GradleVariantConfiguration;
@@ -126,14 +125,13 @@ public abstract class BaseVariantData {
 
     public BaseVariantData(
             @NonNull GlobalScope globalScope,
-            @NonNull AndroidConfig androidConfig,
             @NonNull TaskManager taskManager,
             @NonNull GradleVariantConfiguration variantConfiguration,
             @NonNull Recorder recorder) {
         this.variantConfiguration = variantConfiguration;
         this.taskManager = taskManager;
 
-        final Splits splits = androidConfig.getSplits();
+        final Splits splits = globalScope.getExtension().getSplits();
         boolean splitsEnabled =
                 splits.getDensity().isEnable()
                         || splits.getAbi().isEnable()
@@ -141,7 +139,7 @@ public abstract class BaseVariantData {
 
         // eventually, this will require a more open ended comparison.
         multiOutputPolicy =
-                (androidConfig.getGeneratePureSplits()
+                (globalScope.getExtension().getGeneratePureSplits()
                                         || variantConfiguration.getType().isHybrid()) // == FEATURE
                                 && variantConfiguration.getMinSdkVersionValue() >= 21
                         ? MultiOutputPolicy.SPLITS
@@ -149,7 +147,7 @@ public abstract class BaseVariantData {
 
         // warn the user if we are forced to ignore the generatePureSplits flag.
         if (splitsEnabled
-                && androidConfig.getGeneratePureSplits()
+                && globalScope.getExtension().getGeneratePureSplits()
                 && multiOutputPolicy != MultiOutputPolicy.SPLITS) {
             Logging.getLogger(BaseVariantData.class).warn(
                     String.format("Variant %s, MinSdkVersion %s is too low (<21) "
@@ -443,8 +441,8 @@ public abstract class BaseVariantData {
                             .getArtifactFiles();
             allRes = allRes.plus(libraries);
 
-            Iterator<BuildableArtifact> sourceSets = getAndroidResources().values().iterator();
-            FileCollection mainSourceSet = sourceSets.next().get();
+            Iterator<FileCollection> sourceSets = getAndroidResources().values().iterator();
+            FileCollection mainSourceSet = sourceSets.next();
             FileCollection generated =
                     project.files(
                             scope.getRenderscriptResOutputDir(),
@@ -454,7 +452,7 @@ public abstract class BaseVariantData {
             allRes = allRes.plus(mainSourceSet.plus(generated));
 
             while (sourceSets.hasNext()) {
-                allRes = allRes.plus(sourceSets.next().get());
+                allRes = allRes.plus(sourceSets.next());
             }
 
             rawAndroidResources = allRes;
@@ -543,7 +541,7 @@ public abstract class BaseVariantData {
         return sourceSets.build();
     }
 
-    public LinkedHashMap<String, BuildableArtifact> getAndroidResources() {
+    public LinkedHashMap<String, FileCollection> getAndroidResources() {
         return getVariantConfiguration()
                 .getSortedSourceProviders()
                 .stream()
@@ -603,7 +601,7 @@ public abstract class BaseVariantData {
                 sourceSets.add(project.fileTree(aidlFC).builtBy(aidlFC));
             }
 
-            AndroidConfig extension = scope.getGlobalScope().getExtension();
+            BaseExtension extension = scope.getGlobalScope().getExtension();
             boolean isDataBindingEnabled = extension.getDataBinding().isEnabled();
             boolean isViewBindingEnabled = extension.getViewBinding().isEnabled();
             if (isDataBindingEnabled || isViewBindingEnabled) {

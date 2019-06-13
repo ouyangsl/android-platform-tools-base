@@ -29,7 +29,7 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.build.VariantOutput;
 import com.android.build.api.artifact.ArtifactType;
-import com.android.build.gradle.AndroidConfig;
+import com.android.build.gradle.BaseExtension;
 import com.android.build.gradle.FeaturePlugin;
 import com.android.build.gradle.TestAndroidConfig;
 import com.android.build.gradle.internal.BuildTypeData;
@@ -63,7 +63,6 @@ import com.android.build.gradle.internal.variant.TestedVariantData;
 import com.android.build.gradle.options.BooleanOption;
 import com.android.build.gradle.options.ProjectOptions;
 import com.android.build.gradle.options.SyncOptions;
-import com.android.build.gradle.tasks.ExternalNativeJsonGenerator;
 import com.android.builder.core.DefaultManifestParser;
 import com.android.builder.core.ManifestAttributeSupplier;
 import com.android.builder.core.VariantType;
@@ -132,11 +131,10 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.artifacts.component.BuildIdentifier;
 import org.gradle.api.artifacts.result.ResolvedArtifactResult;
 import org.gradle.api.file.FileCollection;
-import org.gradle.api.provider.Provider;
 import org.gradle.tooling.provider.model.ParameterizedToolingModelBuilder;
 
 /** Builder for the custom Android model. */
-public class ModelBuilder<Extension extends AndroidConfig>
+public class ModelBuilder<Extension extends BaseExtension>
         implements ParameterizedToolingModelBuilder<ModelBuilderParameter> {
 
     @NonNull protected final GlobalScope globalScope;
@@ -372,24 +370,6 @@ public class ModelBuilder<Extension extends AndroidConfig>
         ViewBindingOptions viewBindingOptions =
                 ViewBindingOptionsImpl.create(extension.getViewBinding());
 
-        // For modules that have C/C++, construct the JSON generators to get sync errors.
-        // This doesn't do the slow work of actually generating the JSON.
-        for (VariantScope variantScope : variantManager.getVariantScopes()) {
-            if (!variantScope.getVariantData().getType().isTestComponent()) {
-                if (shouldBuildVariant) {
-                    Provider<ExternalNativeJsonGenerator> provider =
-                            variantScope.getTaskContainer().getExternalNativeJsonGenerator();
-                    if (provider != null) {
-                        // This path will only execute if the module has native code.
-                        // It will cause ExternalNativeJsonGenerator#create to be invoked.
-                        // This function does work, like trying to located the NDK, that
-                        // can trigger sync messages.
-                        provider.get().build(false);
-                    }
-                }
-            }
-        }
-
         syncIssues.addAll(extraModelInfo.getSyncIssueHandler().getSyncIssues());
 
         List<String> flavorDimensionList =
@@ -429,8 +409,12 @@ public class ModelBuilder<Extension extends AndroidConfig>
             }
         }
 
+        // get groupId/artifactId for project
+        String groupId = project.getGroup().toString();
+
         return new DefaultAndroidProject(
                 project.getName(),
+                groupId,
                 defaultConfig,
                 flavorDimensionList,
                 buildTypes,
@@ -1099,7 +1083,8 @@ public class ModelBuilder<Extension extends AndroidConfig>
                                             variantData.getVariantConfiguration().getVersionCode(),
                                             variantScope
                                                     .getArtifacts()
-                                                    .getFinalArtifactFiles(testedOutputType)
+                                                    .getFinalProductAsFileCollection(
+                                                            testedOutputType)
                                                     // We used to call .getSingleFile() but Kotlin
                                                     // projects currently have 2 output dirs
                                                     // specified for test classes. This supplier is

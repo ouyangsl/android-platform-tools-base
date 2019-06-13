@@ -17,12 +17,10 @@
 package com.android.build.gradle.internal.api
 
 import com.android.SdkConstants
-import com.android.build.api.artifact.ArtifactType
 import com.android.build.gradle.api.AndroidSourceDirectorySet
 import com.android.build.gradle.api.AndroidSourceFile
 import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.internal.api.artifact.SourceArtifactType
-import com.android.build.gradle.internal.api.dsl.DslScope
 import com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_NAME_ANNOTATION_PROCESSOR
 import com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_NAME_API
 import com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_NAME_APK
@@ -33,12 +31,7 @@ import com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_N
 import com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_NAME_PUBLISH
 import com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_NAME_RUNTIME_ONLY
 import com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_NAME_WEAR_APP
-import com.android.build.gradle.internal.scope.BuildArtifactsHolder
-import com.android.build.gradle.internal.scope.DelayedActionsExecutor
-import com.android.build.gradle.internal.scope.VariantBuildArtifactsHolder
-import com.android.builder.model.AndroidProject.FD_INTERMEDIATES
 import com.android.builder.model.SourceProvider
-import com.android.utils.FileUtils
 import com.android.utils.appendCapitalized
 import groovy.lang.Closure
 import org.gradle.api.Project
@@ -49,11 +42,10 @@ import java.io.File
 import javax.inject.Inject
 
 open class DefaultAndroidSourceSet @Inject constructor(
-        private val name: String,
-        project: Project,
-        private val publishPackage: Boolean,
-        dslScope: DslScope,
-        delayedActionsExecutor : DelayedActionsExecutor)
+    private val name: String,
+    project: Project,
+    private val publishPackage: Boolean
+)
         : AndroidSourceSet, SourceProvider {
 
     private val javaSource: AndroidSourceDirectorySet
@@ -67,67 +59,52 @@ open class DefaultAndroidSourceSet @Inject constructor(
     private val jniLibs: AndroidSourceDirectorySet
     private val shaders: AndroidSourceDirectorySet
     private val displayName : String = GUtil.toWords(this.name)
-    private val buildArtifactsHolder: BuildArtifactsHolder =
-            VariantBuildArtifactsHolder(
-                project,
-                name,
-                FileUtils.join(project.buildDir, FD_INTERMEDIATES, "sources", name),
-                dslScope)
-
-    internal val buildArtifactsReport
-            : Map<ArtifactType, List<BuildArtifactsHolder.BuildableArtifactData>>
-        get() = buildArtifactsHolder.createReport()
 
     init {
         javaSource = DefaultAndroidSourceDirectorySet(
-            "$displayName Java source", project, SourceArtifactType.JAVA_SOURCES, dslScope
+            "$displayName Java source", project, SourceArtifactType.JAVA_SOURCES
         )
         javaSource.getFilter().include("**/*.java")
 
         javaResources = DefaultAndroidSourceDirectorySet(
             "$displayName Java resources",
-                project,
-                SourceArtifactType.JAVA_RESOURCES,
-                dslScope
+            project,
+            SourceArtifactType.JAVA_RESOURCES
         )
         javaResources.getFilter().exclude("**/*.java")
 
         manifest = DefaultAndroidSourceFile("$displayName manifest", project)
 
         assets = DefaultAndroidSourceDirectorySet(
-            "$displayName assets", project, SourceArtifactType.ASSETS, dslScope
+            "$displayName assets", project, SourceArtifactType.ASSETS
         )
 
         res = DefaultAndroidSourceDirectorySet(
             "$displayName resources",
-                project,
-                SourceArtifactType.ANDROID_RESOURCES,
-                dslScope,
-                buildArtifactsHolder,
-                delayedActionsExecutor
+            project,
+            SourceArtifactType.ANDROID_RESOURCES
         )
 
         aidl = DefaultAndroidSourceDirectorySet(
-            "$displayName aidl", project, SourceArtifactType.AIDL, dslScope
+            "$displayName aidl", project, SourceArtifactType.AIDL
         )
 
         renderscript = DefaultAndroidSourceDirectorySet(
             "$displayName renderscript",
-                project,
-                SourceArtifactType.RENDERSCRIPT,
-                dslScope
+            project,
+            SourceArtifactType.RENDERSCRIPT
         )
 
         jni = DefaultAndroidSourceDirectorySet(
-            "$displayName jni", project, SourceArtifactType.JNI, dslScope
+            "$displayName jni", project, SourceArtifactType.JNI
         )
 
         jniLibs = DefaultAndroidSourceDirectorySet(
-            "$displayName jniLibs", project, SourceArtifactType.JNI_LIBS, dslScope
+            "$displayName jniLibs", project, SourceArtifactType.JNI_LIBS
         )
 
         shaders = DefaultAndroidSourceDirectorySet(
-            "$displayName shaders", project, SourceArtifactType.SHADERS, dslScope
+            "$displayName shaders", project, SourceArtifactType.SHADERS
         )
 
         initRoot("src/$name")
