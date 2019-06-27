@@ -61,12 +61,14 @@ java_library(
 
 java_test(
     name = "testParsing",
+    size = "small",
     srcs = [
         "test/src/java/zipflinger/TestParsing.java",
     ],
     data = glob([
         "test/resource/zip_no_fd.zip",
         "test/resource/zip_with_fd.zip",
+        "test/resource/stripped.ap_",
     ]),
     jvm_flags = ["-Dtest.suite.jar=testParsing.jar"],
     test_class = "com.android.testutils.JarTestSuite",
@@ -80,6 +82,7 @@ java_test(
 
 java_test(
     name = "testsFreeStore",
+    size = "small",
     srcs = [
         "test/src/java/zipflinger/TestFreeStore.java",
     ],
@@ -106,6 +109,7 @@ java_test(
         "test/resource/1-2-3files.zip",
         "test/resource/4-5files.zip",
         "test/resource/file4.txt",
+        "test/resource/text.txt",
         "test/resource/zip_with_directories.zip",
     ]),
     jvm_flags = ["-Dtest.suite.jar=testsZipFlinger.jar"],
@@ -120,6 +124,7 @@ java_test(
 
 java_test(
     name = "testsCompressor",
+    size = "small",
     srcs = [
         "test/src/java/zipflinger/TestCompressor.java",
     ],
@@ -138,6 +143,7 @@ java_test(
 
 java_test(
     name = "testsMerge",
+    size = "small",
     srcs = [
         "test/src/java/zipflinger/TestZipMerge.java",
     ],
@@ -157,6 +163,7 @@ java_test(
 
 java_test(
     name = "testsJarFlinger",
+    size = "small",
     srcs = [
         "test/src/java/zipflinger/TestJarFlinger.java",
     ],

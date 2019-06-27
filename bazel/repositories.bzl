@@ -1,5 +1,25 @@
 _repositories = [
     {
+        "name": "freetype_repo",
+        "build_file": "tools/base/dynamic-layout-inspector/external/freetype.BUILD",
+        "path": "external/freetype",
+    },
+    {
+        "name": "skia_repo",
+        "build_file": "tools/base/dynamic-layout-inspector/external/skia.BUILD",
+        "path": "external/skia",
+    },
+    {
+        # files in tools/base that need to be referenced by the skia_repo BUILD
+        "name": "skia_extra",
+        "path": "tools/base/dynamic-layout-inspector/external/skia-extra",
+    },
+    {
+        "name": "libpng_repo",
+        "build_file": "tools/base/dynamic-layout-inspector/external/libpng.BUILD",
+        "path": "external/libpng",
+    },
+    {
         "name": "gmock_repo",
         "build_file": "tools/base/profiler/native/external/gmock.BUILD",
         "path": "external/googletest/googlemock",

@@ -88,11 +88,13 @@ public class AndroidArtifacts {
     private static final String TYPE_MAPPING = "android-mapping";
     private static final String TYPE_METADATA = "android-metadata";
 
+    // types for APK to APK support (base/feature/tests)
+    private static final String TYPE_PACKAGED_DEPENDENCIES = "android-packaged-dependencies";
+
     // types for feature-split content.
     private static final String TYPE_FEATURE_SET_METADATA = "android-feature-all-metadata";
     private static final String TYPE_FEATURE_APPLICATION_ID = "android-feature-application-id";
     private static final String TYPE_FEATURE_RESOURCE_PKG = "android-feature-res-ap_";
-    private static final String TYPE_FEATURE_TRANSITIVE_DEPS = "android-feature-transitive-deps";
     private static final String TYPE_FEATURE_DEX = "android-feature-dex";
     private static final String TYPE_FEATURE_SIGNING_CONFIG = "android-feature-signing-config";
 
@@ -110,8 +112,6 @@ public class AndroidArtifacts {
             Attribute.of("returnDefaultValues", Boolean.class);
     // attr info extracted from the platform android.jar
     public static final String TYPE_PLATFORM_ATTR = "android-platform-attr";
-
-    private static final String TYPE_BUNDLE_MANIFEST = "android-bundle-manifest";
 
     private static final String TYPE_NAVIGATION_JSON = "android-navigation-json";
 
@@ -239,8 +239,6 @@ public class AndroidArtifacts {
         BUNDLE(TYPE_BUNDLE),
         // apks produced from the bundle, for consumption by tests.
         APKS_FROM_BUNDLE(TYPE_APKS_FROM_BUNDLE),
-        // the manifest to be used by bundle-tool
-        BUNDLE_MANIFEST(TYPE_BUNDLE_MANIFEST),
         // intermediate library dependencies on a per module basis for eventual packaging in the
         // bundle.
         LIB_DEPENDENCIES(TYPE_LIB_DEPENDENCIES),
@@ -260,9 +258,9 @@ public class AndroidArtifacts {
         // ?
         FEATURE_RESOURCE_PKG(TYPE_FEATURE_RESOURCE_PKG),
 
-        // File containing the list of transitive dependencies of a given feature. This is consumed
-        // by other features to avoid repackaging the same thing.
-        FEATURE_TRANSITIVE_DEPS(TYPE_FEATURE_TRANSITIVE_DEPS),
+        // File containing the list of dependencies packaged in a given APK. This is consumed
+        // by other APKs to avoid repackaging the same thing.
+        PACKAGED_DEPENDENCIES(TYPE_PACKAGED_DEPENDENCIES),
 
         // The feature dex files output by the DexSplitter from the base. The base produces and
         // publishes these files when there's multi-apk code shrinking.

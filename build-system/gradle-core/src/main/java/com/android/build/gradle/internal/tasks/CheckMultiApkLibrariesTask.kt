@@ -43,7 +43,6 @@ open class CheckMultiApkLibrariesTask : NonIncrementalTask() {
     private lateinit var featureTransitiveDeps : ArtifactCollection
 
     @InputFiles
-    @NonNull
     @PathSensitive(PathSensitivity.RELATIVE)
     fun getFeatureTransitiveDepsFiles() : FileCollection = featureTransitiveDeps.artifactFiles
 
@@ -108,7 +107,7 @@ open class CheckMultiApkLibrariesTask : NonIncrementalTask() {
                     variantScope.getArtifactCollection(
                         AndroidArtifacts.ConsumedConfigType.METADATA_VALUES,
                         AndroidArtifacts.ArtifactScope.PROJECT,
-                        AndroidArtifacts.ArtifactType.FEATURE_TRANSITIVE_DEPS
+                        AndroidArtifacts.ArtifactType.PACKAGED_DEPENDENCIES
                     )
             task.fakeOutputDir =
                     FileUtils.join(

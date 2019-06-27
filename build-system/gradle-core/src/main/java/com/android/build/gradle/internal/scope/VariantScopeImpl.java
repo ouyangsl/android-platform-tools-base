@@ -35,6 +35,7 @@ import static com.android.build.gradle.internal.scope.CodeShrinker.R8;
 import static com.android.build.gradle.options.BooleanOption.ENABLE_D8;
 import static com.android.build.gradle.options.BooleanOption.ENABLE_D8_DESUGARING;
 import static com.android.build.gradle.options.BooleanOption.ENABLE_R8_DESUGARING;
+import static com.android.build.gradle.options.BooleanOption.USE_APK_FLINGER;
 import static com.android.build.gradle.options.BooleanOption.USE_ZIPFLINGER_FOR_JAR_MERGING;
 import static com.android.build.gradle.options.OptionalBooleanOption.ENABLE_R8;
 import static com.android.builder.model.AndroidProject.FD_GENERATED;
@@ -87,6 +88,7 @@ import com.android.builder.dexing.DexerTool;
 import com.android.builder.dexing.DexingType;
 import com.android.builder.errors.EvalIssueException;
 import com.android.builder.errors.EvalIssueReporter.Type;
+import com.android.builder.internal.packaging.ApkCreatorType;
 import com.android.builder.model.OptionalCompilationStep;
 import com.android.sdklib.AndroidTargetHash;
 import com.android.sdklib.AndroidVersion;
@@ -97,7 +99,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import java.io.File;
@@ -220,12 +221,11 @@ public class VariantScopeImpl implements VariantScope {
      */
     @Override
     public void publishIntermediateArtifact(
-            @NonNull FileCollection artifact,
+            @NonNull Provider<FileCollection> artifact,
             @NonNull ArtifactType artifactType,
             @NonNull Collection<PublishedConfigType> configTypes) {
         // Create Provider so that the BuildableArtifact is not resolved until needed.
-        Provider<File> file =
-                getProject().provider(() -> Iterables.getOnlyElement(artifact.getFiles()));
+        Provider<File> file = artifact.map(fileCollection -> fileCollection.getSingleFile());
 
         Preconditions.checkState(!configTypes.isEmpty());
 
@@ -333,6 +333,15 @@ public class VariantScopeImpl implements VariantScope {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean isPrecompileRemoteResourcesEnabled() {
+        // Resource shrinker expects MergeResources task to have all the resources merged and with
+        // overlay rules applied, so we have to go through the MergeResources pipeline in case it's
+        // enabled, see b/134766811.
+        return globalScope.getProjectOptions().get(BooleanOption.PRECOMPILE_REMOTE_RESOURCES)
+                && !useResourceShrinker();
     }
 
     @Override
@@ -641,8 +650,10 @@ public class VariantScopeImpl implements VariantScope {
                     .get(BooleanOption.CONVERT_NON_NAMESPACED_DEPENDENCIES)) {
                 mainCollection =
                         mainCollection.plus(
-                                artifacts.getFinalProductAsFileCollection(
-                                        InternalArtifactType.NAMESPACED_CLASSES_JAR));
+                                artifacts
+                                        .getFinalProductAsFileCollection(
+                                                InternalArtifactType.NAMESPACED_CLASSES_JAR)
+                                        .get());
 
                 mainCollection =
                         mainCollection.plus(
@@ -672,8 +683,8 @@ public class VariantScopeImpl implements VariantScope {
                                 InternalArtifactType.COMPILE_ONLY_NOT_NAMESPACED_R_CLASS_JAR);
                 mainCollection = getProject().files(mainCollection, rJar);
             } else if (getType().isApk()) {
-                Provider<FileSystemLocation> rJar =
-                        artifacts.getFinalProduct(
+                Provider<FileCollection> rJar =
+                        artifacts.getFinalProductAsFileCollection(
                                 InternalArtifactType
                                         .COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR);
                 mainCollection = getProject().files(mainCollection, rJar);
@@ -689,8 +700,8 @@ public class VariantScopeImpl implements VariantScope {
                                     InternalArtifactType.COMPILE_ONLY_NOT_NAMESPACED_R_CLASS_JAR);
                     mainCollection = getProject().files(mainCollection, rJar);
                 } else if (testedScope.getType().isApk()) {
-                    Provider<FileSystemLocation> rJar =
-                            testedArtifacts.getFinalProduct(
+                    Provider<FileCollection> rJar =
+                            testedArtifacts.getFinalProductAsFileCollection(
                                     InternalArtifactType
                                             .COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR);
                     mainCollection = getProject().files(mainCollection, rJar);
@@ -748,13 +759,13 @@ public class VariantScopeImpl implements VariantScope {
 
         if (configType == RUNTIME_CLASSPATH
                 && getType().isFeatureSplit()
-                && artifactType != ArtifactType.FEATURE_TRANSITIVE_DEPS) {
+                && artifactType != ArtifactType.PACKAGED_DEPENDENCIES) {
 
             FileCollection excludedDirectories =
                     computeArtifactCollection(
                                     RUNTIME_CLASSPATH,
                                     PROJECT,
-                                    ArtifactType.FEATURE_TRANSITIVE_DEPS,
+                                    ArtifactType.PACKAGED_DEPENDENCIES,
                                     attributeMap)
                             .getArtifactFiles();
 
@@ -790,13 +801,13 @@ public class VariantScopeImpl implements VariantScope {
 
         if (configType == RUNTIME_CLASSPATH
                 && getType().isFeatureSplit()
-                && artifactType != ArtifactType.FEATURE_TRANSITIVE_DEPS) {
+                && artifactType != ArtifactType.PACKAGED_DEPENDENCIES) {
 
             FileCollection excludedDirectories =
                     computeArtifactCollection(
                                     RUNTIME_CLASSPATH,
                                     PROJECT,
-                                    ArtifactType.FEATURE_TRANSITIVE_DEPS,
+                                    ArtifactType.PACKAGED_DEPENDENCIES,
                                     null)
                             .getArtifactFiles();
             artifacts =
@@ -816,7 +827,7 @@ public class VariantScopeImpl implements VariantScope {
         TestedVariantData tested = ((TestVariantData) variantData).getTestedVariantData();
         final VariantScope testedScope = tested.getScope();
 
-        // we only add the tested component to the MODULE | ALL scopes.
+        // we only add the tested component to the PROJECT | ALL scopes.
         if (scope == ArtifactScope.PROJECT || scope == ALL) {
             VariantSpec testedSpec = testedScope.getPublishingSpec().getTestingSpec(getType());
 
@@ -839,7 +850,9 @@ public class VariantScopeImpl implements VariantScope {
                     artifacts =
                             ArtifactCollectionWithExtraArtifact.makeExtraCollectionForTest(
                                     artifacts,
-                                    testedArtifacts.getFinalProductAsFileCollection(taskOutputType),
+                                    testedArtifacts
+                                            .getFinalProductAsFileCollection(taskOutputType)
+                                            .get(),
                                     getProject().getPath(),
                                     testedScope.getFullVariantName());
                 }
@@ -1382,6 +1395,16 @@ public class VariantScopeImpl implements VariantScope {
             return JarCreatorType.JAR_FLINGER;
         } else {
             return JarCreatorType.JAR_MERGER;
+        }
+    }
+
+    @NonNull
+    @Override
+    public ApkCreatorType getApkCreatorType() {
+        if (globalScope.getProjectOptions().get(USE_APK_FLINGER)) {
+            return ApkCreatorType.APK_FLINGER;
+        } else {
+            return ApkCreatorType.APK_Z_FILE_CREATOR;
         }
     }
 }

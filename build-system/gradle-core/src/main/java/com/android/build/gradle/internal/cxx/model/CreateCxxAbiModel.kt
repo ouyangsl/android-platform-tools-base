@@ -17,14 +17,13 @@
 package com.android.build.gradle.internal.cxx.model
 
 import com.android.build.gradle.internal.core.Abi
-import com.android.build.gradle.internal.cxx.configure.isCmakeForkVersion
 import com.android.build.gradle.internal.cxx.services.createDefaultAbiServiceRegistry
+import com.android.build.gradle.internal.cxx.settings.CMakeSettingsConfiguration
 import com.android.build.gradle.internal.scope.GlobalScope
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.tasks.NativeBuildSystem
 import com.android.sdklib.AndroidVersion
 import com.android.utils.FileUtils.join
-import java.io.File
 
 /**
  * Construct a [CxxAbiModel], careful to be lazy with module level fields.
@@ -41,8 +40,12 @@ fun createCxxAbiModel(
         override val info by lazy {
             variant.module.ndkMetaAbiList.single { it.abi == abi }
         }
-        override val cxxBuildFolder: File
-            get() = join(variant.jsonFolder(global), abi.tag)
+        override val originalCxxBuildFolder by lazy {
+            join(variant.jsonFolder, abi.tag)
+        }
+        override val cxxBuildFolder by lazy {
+            join(variant.jsonFolder, abi.tag)
+        }
         override val abiPlatformVersion by lazy {
             val minSdkVersion =
                 baseVariantData.variantConfiguration.mergedFlavor.minSdkVersion
@@ -62,16 +65,16 @@ fun createCxxAbiModel(
         override val cmake by lazy {
             if (variant.module.buildSystem == NativeBuildSystem.CMAKE) {
                 object : CxxCmakeAbiModel {
-                    override val generator: String
-                        get() = if (variant.module.cmake!!.minimumCmakeVersion.isCmakeForkVersion()) {
-                            "Android Gradle - Ninja"
-                        } else {
-                            "Ninja"
-                        }
-                    override val cmakeWrappingBaseFolder: File
-                        get() = join(variant.gradleBuildOutputFolder(global), abi.tag)
-                    override val cmakeArtifactsBaseFolder: File
-                        get() = join(variant.jsonFolder(global), abi.tag)
+                    override val cmakeServerLogFile by lazy {
+                        join(cmakeArtifactsBaseFolder, "cmake_server_log.txt")
+                    }
+                    override val effectiveConfiguration by lazy { CMakeSettingsConfiguration() }
+                    override val cmakeWrappingBaseFolder by lazy {
+                       join(variant.gradleBuildOutputFolder, abi.tag)
+                    }
+                    override val cmakeArtifactsBaseFolder by lazy {
+                        join(variant.jsonFolder, abi.tag)
+                    }
                 }
             } else {
                 null
@@ -79,5 +82,3 @@ fun createCxxAbiModel(
         }
     }
 }
-
-

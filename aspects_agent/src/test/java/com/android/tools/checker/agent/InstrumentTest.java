@@ -150,6 +150,50 @@ public class InstrumentTest {
     }
 
     @Test
+    public void testConflictingAnnotationsNoAspect()
+            throws NoSuchMethodException, IllegalAccessException, IOException,
+                    InstantiationException, RulesFileException {
+        Set<String> notFound = new HashSet<>();
+        ImmutableMap<String, String> matcher =
+                ImmutableMap.of(
+                        "@com.android.tools.checker.AnotherTestAnnotation",
+                        "com.android.tools.checker.TestAssertions#count");
+        Object instance =
+                loadAndTransform("Test2", matcher, notFound::add, "group_threading.json")
+                        .newInstance();
+        TestAssertions.count = 0;
+        // conflictingMethod is not intercepted by @ConflictingAnnotation (method-level) annotation
+        // because there are no aspects defined for it. However, because it belongs to the same
+        // group as the class-level annotation @AnotherTestAnnotation, we ignore the class's.
+        callMethod(instance, "conflictingMethod");
+        assertEquals(0, TestAssertions.count);
+    }
+
+    @Test
+    public void testIgnoreLambdaMethods()
+            throws IOException, IllegalAccessException, InstantiationException,
+                    NoSuchMethodException, RulesFileException {
+        Set<String> notFound = new HashSet<>();
+        ImmutableMap<String, String> matcher =
+                ImmutableMap.of(
+                        "@com.android.tools.checker.AnotherTestAnnotation",
+                        "com.android.tools.checker.TestAssertions#count");
+        Object instance = loadAndTransform("Test2", matcher, notFound::add).newInstance();
+        TestAssertions.count = 0;
+        assertEquals(0, TestAssertions.count);
+        callMethod(instance, "methodWithStaticLambda");
+        // methodWithLambda contains a call to a lambda. Lambdas are internally converted into
+        // methods but we explicitly ignore them in InterceptVisitor. Therefore, count should be 1
+        // instead of 2, which would be the case if we considered the lambda in addition to the
+        // method itself.
+        assertEquals(1, TestAssertions.count);
+        callMethod(instance, "methodWithLambda");
+        // As aforementioned, we should not intercept the lambda method. Therefore, we increment
+        // count by 1 instead of 2.
+        assertEquals(2, TestAssertions.count);
+    }
+
+    @Test
     public void testStaticMethod()
             throws IOException, IllegalAccessException, NoSuchMethodException, RulesFileException {
         Set<String> notFound = new HashSet<>();

@@ -70,6 +70,11 @@ Path to CMake executable.
 - example: ${ndk.sdkDir}/cmake/3.10.2/bin/cmake
 - environment: android-ndk
 
+## ${ndk.configurationHash}
+Hash of this CMakeSettings configuration.
+- example: 1m6w461rf3l272y5d5d5c2m651a4i4j1c3n69zm476ys1g403j69363k4519
+- environment: android-gradle
+
 ## ${ndk.cppFlags}
 The value of cppFlags from android.config.externalNativeBuild.cppFlags in build.gradle.
 - example: -DCPP_FLAG_DEFINED
@@ -77,7 +82,7 @@ The value of cppFlags from android.config.externalNativeBuild.cppFlags in build.
 
 ## ${ndk.dir}
 Folder of the current Android NDK.
-- example: ${ndk.sdkDir}/ndk/19.2.5345600
+- example: ${ndk.sdkDir}/ndk/20.0.5594570
 - environment: android-ndk
 
 ## ${ndk.libraryOutputDir}
@@ -130,6 +135,11 @@ Folder of the current Android SDK.
 - example: $HOME/Library/Android/sdk
 - environment: android-gradle
 
+## ${ndk.shortConfigurationHash}
+First eight characters of ${ndk.configurationHash}.
+- example: 1m6w461r
+- environment: android-gradle
+
 ## ${ndk.systemVersion}
 The currently targeted Android system version, suitable for passing to CMake in CMAKE_SYSTEM_VERSION.
 - example: 19
@@ -147,16 +157,16 @@ Name of the gradle variant.
 
 ## ${ndk.version}
 Version of NDK.
-- example: 19.2.5345600
+- example: 20.0.5594570
 - environment: android-ndk
 
 ## ${ndk.versionMajor}
 Version number major part.
-- example: 19
+- example: 20
 - environment: android-ndk
 
 ## ${ndk.versionMinor}
 Version number minor part.
-- example: 2
+- example: 0
 - environment: android-ndk
 

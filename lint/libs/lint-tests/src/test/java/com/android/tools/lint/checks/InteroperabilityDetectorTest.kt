@@ -121,6 +121,29 @@ class InteroperabilityDetectorTest : AbstractCheckTest() {
         )
     }
 
+    fun testLambdaLast2() {
+        // Regression test for https://issuetracker.google.com/135275901
+        lint().files(
+            java(
+                """
+                package test.pkg;
+
+                import java.util.concurrent.Executor;
+
+                public class LambdaLastTest {
+                    public void registerCallback(Executor executor, Callback callback) {
+                    }
+                }
+
+                class Callback {
+                    public void action() {
+                    }
+                }
+                """
+            ).indented()
+        ).issues(InteroperabilityDetector.LAMBDA_LAST).run().expectClean()
+    }
+
     fun testNullness() {
         lint().files(
             java(
@@ -839,5 +862,49 @@ class InteroperabilityDetectorTest : AbstractCheckTest() {
             SUPPORT_ANNOTATIONS_CLASS_PATH,
             SUPPORT_ANNOTATIONS_JAR
         ).issues(InteroperabilityDetector.PLATFORM_NULLNESS).run().expectClean()
+    }
+
+    fun testPlatformPropagation() {
+        // Regression test for https://issuetracker.google.com/134237547
+        lint().files(
+            kotlin(
+                """
+                package test.pkg
+
+                import java.util.concurrent.LinkedBlockingQueue
+                import java.util.concurrent.TimeUnit
+
+                class Foo(val requestQueue: LinkedBlockingQueue<String>) {
+                    fun takeRequest(timeout: Long, unit: TimeUnit) = requestQueue.poll(timeout, unit) // ERROR
+                    fun something() = listOf<String>("foo", "bar") // OK
+                    fun takeRequestOk(timeout: Long, unit: TimeUnit): String = requestQueue.poll(timeout, unit) // OK
+                    fun takeRequestOkTransitive(timeout: Long, unit: TimeUnit) = takeRequestOk(timeout, unit) // OK
+                    val type = Integer.TYPE // ERROR
+                    val typeClz: Class<Int> = Integer.TYPE // OK
+                    val typeClz2 = typeClz // OK
+                    fun ok() = Bar.getString() // OK
+                }
+                """
+            ).indented(),
+            java(
+                """
+                package test.pkg;
+
+                public class Bar {
+                    @android.support.annotation.NonNull
+                    public static String getString() { return "hello"; }
+                }
+                """
+            ),
+            SUPPORT_ANNOTATIONS_CLASS_PATH,
+            SUPPORT_ANNOTATIONS_JAR
+        ).issues(InteroperabilityDetector.PLATFORM_NULLNESS).run().expect(
+            """
+            src/test/pkg/Foo.kt:7: Warning: Should explicitly declare type here since implicit type does not specify nullness [UnknownNullness]
+                fun takeRequest(timeout: Long, unit: TimeUnit) = requestQueue.poll(timeout, unit) // ERROR
+                    ~~~~~~~~~~~
+            0 errors, 1 warnings
+            """
+        )
     }
 }

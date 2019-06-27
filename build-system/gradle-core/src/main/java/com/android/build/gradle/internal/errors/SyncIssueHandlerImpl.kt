@@ -27,21 +27,29 @@ import com.google.common.collect.ImmutableList
 import com.google.common.collect.Maps
 import org.gradle.api.GradleException
 import org.gradle.api.logging.Logger
+import javax.annotation.concurrent.GuardedBy
 
 class SyncIssueHandlerImpl(
         private val mode: EvaluationMode,
         private val logger: Logger)
     : SyncIssueHandler {
 
+    @GuardedBy("this")
     private val _syncIssues = Maps.newHashMap<SyncIssueKey, SyncIssue>()
 
+    @GuardedBy("this")
+    private var handlerLocked = false
+
+    @get:Synchronized
     override val syncIssues: ImmutableList<SyncIssue>
         get() = ImmutableList.copyOf(_syncIssues.values)
 
+    @Synchronized
     override fun hasSyncIssue(type: EvalIssueReporter.Type): Boolean {
         return _syncIssues.values.any { issue -> issue.type == type.type }
     }
 
+    @Synchronized
     override fun reportIssue(
             type: EvalIssueReporter.Type,
             severity: EvalIssueReporter.Severity,
@@ -56,6 +64,9 @@ class SyncIssueHandlerImpl(
             }
 
             EvaluationMode.IDE -> {
+                if (handlerLocked) {
+                    throw IllegalStateException("Issue registered after handler locked.", exception)
+                }
                 _syncIssues.put(syncIssueKeyFrom(issue), issue)
             }
             else -> throw RuntimeException("Unknown SyncIssue type")
@@ -63,19 +74,26 @@ class SyncIssueHandlerImpl(
 
         return issue
     }
+
+    @Synchronized
+    override fun lockHandler() {
+        handlerLocked = true
+    }
 }
 
 /**
  * Creates a key from a SyncIssue to use in a map.
  */
 private fun syncIssueKeyFrom(syncIssue: SyncIssue): SyncIssueKey {
-    return SyncIssueKey(syncIssue.type, syncIssue.data)
+    // If data is not available we use the message part to disambiguate between issues with the
+    // same type.
+    return SyncIssueKey(syncIssue.type, syncIssue.data ?: syncIssue.message)
 }
 
 @Immutable
 internal data class SyncIssueKey constructor(
         private val type: Int,
-        private val data: String?) {
+        private val data: String) {
 
     override fun toString(): String {
         return MoreObjects.toStringHelper(this)

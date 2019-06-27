@@ -174,6 +174,8 @@ filegroup(
 # Version-specific rule left private in hopes we can depend on platforms/latest instead.
 platform_filegroup(
     name = "platforms/android-27",
+    # TODO: Restrict the visibility of this group. Although the comment above says "private", the default
+    # visibility is public.
 )
 
 platform_filegroup(
@@ -190,7 +192,10 @@ platform_filegroup(
 
 platform_filegroup(
     name = "platforms/android-25",
-    visibility = ["//tools/adt/idea/android-uitests:__pkg__"],
+    visibility = [
+        "//tools/adt/idea/android-uitests:__pkg__",
+        "//tools/vendor/google/android-apk:__subpackages__",
+    ],
 )
 
 platform_filegroup(
@@ -253,7 +258,7 @@ filegroup(
 filegroup(
     name = "ndk",
     srcs = sdk_glob(
-        include = ["ndk/19.2.5345600/**"],
+        include = ["ndk/20.0.5594570/**"],
     ),
     visibility = ["//visibility:public"],
 )

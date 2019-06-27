@@ -28,12 +28,13 @@ import com.android.build.gradle.options.StringOption
 import com.android.build.gradle.tasks.NativeBuildSystem
 import com.android.builder.model.NativeAndroidProject
 import com.android.builder.model.NativeArtifact
+import com.android.testutils.TestUtils
 import com.android.testutils.truth.PathSubject.assertThat
-import com.android.utils.FileUtils
 import com.android.utils.FileUtils.join
 import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.Lists
 import com.google.common.truth.Truth
+import org.junit.Assume
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -252,10 +253,17 @@ class CmakeBasicProjectTest(private val cmakeVersionInDsl: String) {
 
     @Test
     fun generateAttributionFile() {
+        // Disable this test for Gradle since it somehow fails if multiple tests are executed
+        // at the same time. See b/133222337
+        Assume.assumeTrue(TestUtils.runningFromBazel())
         project.execute("clean", "assembleDebug")
-        val files = FileUtils.join(project.testDir, ".cxx", "attribution").listFiles()
-        assertThat(files!!.size).isEqualTo(1)
-        val attributionFile = files[0]
+        val directories = join(project.testDir, ".cxx", "attribution").listFiles()
+        assertThat(directories!!.size).isEqualTo(1)
+        val attributionFiles = directories[0].listFiles().sorted()
+        assertThat(attributionFiles.size).isEqualTo(2)
+        val traceFile = attributionFiles[0]
+        assertThat(traceFile.name).matches("ninja_build_log_\\d+\\.json.gz")
+        val attributionFile = attributionFiles[1]
         assertThat(attributionFile.name).matches("ninja_build_log_\\d+\\.zip")
         ZipFile(attributionFile).use { z ->
             assertThat(

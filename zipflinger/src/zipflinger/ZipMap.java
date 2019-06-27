@@ -233,7 +233,7 @@ class ZipMap {
         if (hasDataDescriptor && accountDataDescriptors) {
             // This is expensive. Fortunately ZIP archive rarely use DD nowadays.
             channel.position(end);
-            parseDataDescriptor(channel, entry, isCompressed);
+            parseDataDescriptor(channel, entry);
         }
     }
 
@@ -257,41 +257,35 @@ class ZipMap {
         entry.setNameBytes(pathBytes);
     }
 
-    private static void parseDataDescriptor(
-            @NonNull FileChannel channel, @NonNull Entry entry, boolean isCompressed)
+    private static void parseDataDescriptor(@NonNull FileChannel channel, @NonNull Entry entry)
             throws IOException {
         // If zip entries have data descriptor, we need to go an fetch every single entry to look if
         // the "optional" marker is there. Adjust zip entry area accordingly.
 
-        ByteBuffer dataDescriptorBuffer = ByteBuffer.allocate(28).order(ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer dataDescriptorBuffer = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
         channel.read(dataDescriptorBuffer);
         dataDescriptorBuffer.rewind();
 
         int dataDescriptorLength = 12;
         if (dataDescriptorBuffer.getInt() == CentralDirectoryRecord.DATA_DESCRIPTOR_SIGNATURE) {
             dataDescriptorLength += 4;
-        } else {
-            dataDescriptorBuffer.rewind();
         }
 
-        // TODO: Zip64 -> fields here are 8 bytes long instead of 4 bytes long.
-        dataDescriptorBuffer.getInt(); // crc32
-        long compressedSize = dataDescriptorBuffer.getInt(); // compressed size
-        long uncompresseSize = dataDescriptorBuffer.getInt(); // uncompressed size
-
-        long payloadSize = isCompressed ? compressedSize : uncompresseSize;
         Location adjustedLocation =
                 new Location(
                         entry.getLocation().first,
-                        entry.getLocation().size() + payloadSize + dataDescriptorLength);
+                        entry.getLocation().size() + dataDescriptorLength);
         entry.setLocation(adjustedLocation);
     }
 
     private static void parseExtra(ByteBuffer buf, int length) {
-        while (length > 0) {
+        while (length >= 4) { // Only parse if this is a value ID-size-payload pair.
             buf.getShort(); // id
             // TODO: Zip64 -> id==1 is where offset, size and usize and specified.
             int size = buf.getShort() & 0xFFFF;
+            if (buf.remaining() < size) {
+                throw new IllegalStateException("Invalid zip entry, extra size > remaining data");
+            }
             buf.position(buf.position() + size);
             length -=
                     size

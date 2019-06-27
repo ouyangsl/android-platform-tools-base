@@ -16,8 +16,6 @@
 
 package com.android.build.gradle.internal.transforms
 
-import com.android.build.api.artifact.BuildableArtifact
-import com.android.build.gradle.internal.api.artifact.singleFile
 import com.android.build.gradle.internal.pipeline.StreamFilter
 import com.android.build.gradle.internal.scope.ApkData
 import com.android.build.gradle.internal.scope.BuildArtifactsHolder
@@ -181,8 +179,13 @@ abstract class ShrinkBundleResourcesTask : NonIncrementalTask() {
             )
             task.mainSplit = variantScope.variantData.outputScope.mainSplit
 
-            task.dex = variantScope.transformManager.getPipelineOutputAsFileCollection(StreamFilter.DEX)
-
+            task.dex = if (variantScope.artifacts.hasFinalProduct(InternalArtifactType.BASE_DEX)) {
+                variantScope
+                    .artifacts
+                    .getFinalProductAsFileCollection(InternalArtifactType.BASE_DEX).get()
+            } else {
+                variantScope.transformManager.getPipelineOutputAsFileCollection(StreamFilter.DEX)
+            }
             variantScope.artifacts.setTaskInputToFinalProduct(
                 InternalArtifactType.COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR,
                 task.lightRClasses

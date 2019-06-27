@@ -20,6 +20,7 @@ import com.android.build.gradle.internal.core.Abi
 import com.android.build.gradle.internal.cxx.configure.NdkMetaPlatforms
 import com.android.build.gradle.internal.cxx.json.PlainFileGsonTypeAdaptor
 import com.android.build.gradle.internal.cxx.services.CxxServiceRegistry
+import com.android.build.gradle.internal.cxx.settings.CMakeSettingsConfiguration
 import com.android.build.gradle.internal.ndk.AbiInfo
 import com.android.build.gradle.internal.ndk.Stl
 import com.android.build.gradle.tasks.NativeBuildSystem
@@ -149,9 +150,11 @@ data class CxxModuleModelData(
     override val buildSystem: NativeBuildSystem = NativeBuildSystem.CMAKE,
     override val cmake: CxxCmakeModuleModelData? = null,
     override val cmakeToolchainFile: File = File("."),
+    override val cxxFolder: File = File("."),
     override val gradleModulePathName: String = "",
     override val intermediatesFolder: File = File("."),
     override val makeFile: File = File("."),
+    override val moduleBuildFile: File = File("."),
     override val moduleRootFolder: File = File("."),
     override val ndkDefaultAbiList: List<Abi> = listOf(),
     override val ndkFolder: File = File("."),
@@ -172,9 +175,11 @@ private fun CxxModuleModel.toData() = CxxModuleModelData(
     buildSystem = buildSystem,
     cmake = cmake?.toData(),
     cmakeToolchainFile = cmakeToolchainFile,
+    cxxFolder = cxxFolder,
     gradleModulePathName = gradleModulePathName,
     intermediatesFolder = intermediatesFolder,
     makeFile = makeFile,
+    moduleBuildFile = moduleBuildFile,
     moduleRootFolder = moduleRootFolder,
     ndkDefaultAbiList = ndkDefaultAbiList,
     ndkFolder = ndkFolder,
@@ -213,7 +218,6 @@ internal data class CxxVariantModelData(
     override val cmakeSettingsConfiguration: String = "",
     override val cppFlagsList: List<String> = listOf(),
     override val isDebuggableEnabled: Boolean = false,
-    override val jsonFolder: File = File("."),
     override val module: CxxModuleModelData = CxxModuleModelData(),
     override val objFolder: File = File("."),
     override val variantName: String = "",
@@ -228,7 +232,6 @@ private fun CxxVariantModel.toData() =
         cmakeSettingsConfiguration = cmakeSettingsConfiguration,
         cppFlagsList = cppFlagsList,
         isDebuggableEnabled = isDebuggableEnabled,
-        jsonFolder = jsonFolder,
         module = module.toData(),
         objFolder = objFolder,
         validAbiList = validAbiList,
@@ -246,6 +249,7 @@ internal data class CxxAbiModelData(
     override val cmake: CxxCmakeAbiModelData? = null,
     override val cxxBuildFolder: File = File("."),
     override val info: AbiInfo = AbiInfo(),
+    override val originalCxxBuildFolder: File = File("."),
     override val variant: CxxVariantModelData = CxxVariantModelData()
 ) : CxxAbiModel {
     override val services: CxxServiceRegistry
@@ -258,6 +262,7 @@ private fun CxxAbiModel.toData(): CxxAbiModel = CxxAbiModelData(
     cmake = cmake?.toData(),
     cxxBuildFolder = cxxBuildFolder,
     info = info,
+    originalCxxBuildFolder = originalCxxBuildFolder,
     variant = variant.toData()
 )
 
@@ -268,13 +273,16 @@ private fun CxxAbiModel.toData(): CxxAbiModel = CxxAbiModelData(
 @VisibleForTesting
 internal data class CxxCmakeAbiModelData(
     override val cmakeArtifactsBaseFolder: File,
+    override val cmakeServerLogFile: File,
     override val cmakeWrappingBaseFolder: File,
-    override val generator: String
+    override val effectiveConfiguration: CMakeSettingsConfiguration
+
 ) : CxxCmakeAbiModel
 
 private fun CxxCmakeAbiModel.toData() = CxxCmakeAbiModelData(
     cmakeArtifactsBaseFolder = cmakeArtifactsBaseFolder,
+    cmakeServerLogFile = cmakeServerLogFile,
     cmakeWrappingBaseFolder = cmakeWrappingBaseFolder,
-    generator = generator
+    effectiveConfiguration = effectiveConfiguration
 )
 

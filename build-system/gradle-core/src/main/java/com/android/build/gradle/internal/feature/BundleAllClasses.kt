@@ -44,6 +44,7 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkerExecutor
 import java.io.File
+import java.util.zip.Deflater
 import javax.inject.Inject
 
 /**
@@ -109,11 +110,14 @@ abstract class BundleAllClasses @Inject constructor(workerExecutor: WorkerExecut
 
         workers.use {
             it.submit(
+                // Don't compress because compressing takes extra time, and this jar doesn't go
+                // into any APKs or AARs.
                 JarWorkerRunnable::class.java, JarRequest(
                     toFile = outputJar.get().asFile,
                     jarCreatorType = jarCreatorType,
                     fromJars = dependencyRClassClasses?.files?.toList() ?: listOf(),
-                    fromFiles = files
+                    fromFiles = files,
+                    compressionLevel = Deflater.NO_COMPRESSION
                 )
             )
         }
@@ -159,14 +163,13 @@ abstract class BundleAllClasses @Inject constructor(workerExecutor: WorkerExecut
                 // thisRClassClasses expects *.class files as an input while this is *.jar. Thus,
                 // put it to dependencyRClassClasses and it will be processed properly.
                 task.dependencyRClassClasses =
-                    variantScope.globalScope.project.files(
                         variantScope
                             .artifacts
-                            .getFinalProduct<RegularFile>(
+                            .getFinalProductAsFileCollection(
                                 InternalArtifactType
                                     .COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR
-                            )
-                    )
+                            ).get()
+
 
             }
         }

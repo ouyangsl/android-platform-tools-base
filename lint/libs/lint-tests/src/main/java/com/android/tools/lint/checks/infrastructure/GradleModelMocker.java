@@ -279,6 +279,7 @@ public class GradleModelMocker {
         int apiVersion = modelVersion.getMajor() >= 2 ? 3 : 2;
         when(project.getApiVersion()).thenReturn(apiVersion);
         when(project.getFlavorDimensions()).thenReturn(Lists.newArrayList());
+        when(project.getName()).thenReturn("test_project");
 
         variant = mock(Variant.class);
 
@@ -678,6 +679,10 @@ public class GradleModelMocker {
         if (index != -1) {
             return key.substring(index + 1, key.indexOf('"', index + 1));
         }
+        index = key.indexOf('=');
+        if (index != -1) {
+            return key.substring(index + 1);
+        }
         index = key.indexOf(' ');
         if (index != -1) {
             return key.substring(index + 1);
@@ -827,6 +832,9 @@ public class GradleModelMocker {
         } else if (key.startsWith("android.resourcePrefix ")) {
             String value = getUnquotedValue(key);
             when(project.getResourcePrefix()).thenReturn(value);
+        } else if (key.startsWith("group=")) {
+            String value = getUnquotedValue(key);
+            when(project.getGroupId()).thenReturn(value);
         } else if (key.startsWith("android.buildToolsVersion ")) {
             String value = getUnquotedValue(key);
             when(project.getBuildToolsVersion()).thenReturn(value);

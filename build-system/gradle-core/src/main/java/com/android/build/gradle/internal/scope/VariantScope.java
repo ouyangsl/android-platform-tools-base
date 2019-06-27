@@ -32,6 +32,7 @@ import com.android.builder.core.VariantType;
 import com.android.builder.dexing.DexMergerTool;
 import com.android.builder.dexing.DexerTool;
 import com.android.builder.dexing.DexingType;
+import com.android.builder.internal.packaging.ApkCreatorType;
 import com.android.sdklib.AndroidVersion;
 import java.io.File;
 import java.util.Collection;
@@ -58,7 +59,7 @@ public interface VariantScope extends TransformVariantScope {
     PublishingSpecs.VariantSpec getPublishingSpec();
 
     void publishIntermediateArtifact(
-            @NonNull FileCollection artifact,
+            @NonNull Provider<FileCollection> artifact,
             @NonNull ArtifactType artifactType,
             @NonNull Collection<AndroidArtifacts.PublishedConfigType> configTypes);
 
@@ -98,6 +99,8 @@ public interface VariantScope extends TransformVariantScope {
     PostprocessingFeatures getPostprocessingFeatures();
 
     boolean useResourceShrinker();
+
+    boolean isPrecompileRemoteResourcesEnabled();
 
     boolean isCrunchPngs();
 
@@ -293,4 +296,7 @@ public interface VariantScope extends TransformVariantScope {
 
     @NonNull
     JarCreatorType getJarCreatorType();
+
+    @NonNull
+    ApkCreatorType getApkCreatorType();
 }

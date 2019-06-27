@@ -38,6 +38,7 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkerExecutor
 import java.io.File
+import java.util.zip.Deflater
 import javax.inject.Inject
 
 /**
@@ -86,12 +87,15 @@ abstract class MergeClassesTask
             workers.use { workers ->
                 workers.submit(
                     JarWorkerRunnable::class.java,
+                    // Don't compress because compressing takes extra time, and this jar doesn't go
+                    // into any APKs or AARs.
                     JarRequest(
                         toFile = outputFile,
                         jarCreatorType = jarCreatorType,
                         fromDirectories = fromDirectories,
                         fromJars = fromJars,
-                        filter = { CLASS_MATCHER.test(it) }
+                        filter = { CLASS_MATCHER.test(it) },
+                        compressionLevel = Deflater.NO_COMPRESSION
                     )
                 )
             }

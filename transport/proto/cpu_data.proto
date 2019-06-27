@@ -142,6 +142,8 @@ message TraceStopStatus {
 
   Status status = 1;
   string error_message = 2;
+  // The time taken to stop the trace;
+  int64 stopping_time_ns = 3;
 }
 
 // A CpuTraceInfo contains the information regarding a trace
@@ -151,6 +153,30 @@ message CpuTraceInfo {
   int64 from_timestamp = 2;  // inclusive
   int64 to_timestamp = 3;    // inclusive
   CpuTraceConfiguration configuration = 4;
+  TraceStartStatus start_status = 5;
+  TraceStopStatus stop_status = 6;
+}
+
+message CpuTraceData {
+  message TraceStarted {
+    CpuTraceInfo trace_info = 1;
+  }
+
+  message TraceEnded {
+    CpuTraceInfo trace_info = 1;
+  }
+
+  oneof union {
+    TraceStarted trace_started = 1;
+    TraceEnded trace_ended = 2;
+  }
+}
+
+message CpuTraceStatusData {
+  oneof union {
+    TraceStartStatus trace_start_status = 1;
+    TraceStopStatus trace_stop_status = 2;
+  }
 }
 
 message StartCpuTrace {
@@ -171,7 +197,7 @@ message StopCpuTrace {
     int64 stop_timestamp = 1;
     // The raw bytes of the trace. The daemon is responsible for storing
     // this in the generic cache that can be referenced via the trace's id.
-    string trace_content = 2;
+    bytes trace_content = 2;
   }
   CpuTraceConfiguration configuration = 1;
     // Set only if configuration's initiation_type is |INITIATED_BY_API|.

@@ -18,8 +18,10 @@ package com.android.build.gradle.tasks;
 
 import static com.android.build.gradle.external.cmake.CmakeUtils.getObjectToString;
 import static com.android.build.gradle.internal.cxx.cmake.MakeCmakeMessagePathsAbsoluteKt.makeCmakeMessagePathsAbsolute;
-import static com.android.build.gradle.internal.cxx.configure.CmakeCommandLineBuilderKt.getCmakeCommandLineVariables;
 import static com.android.build.gradle.internal.cxx.configure.CmakeCommandLineKt.convertCmakeCommandLineArgumentsToStringList;
+import static com.android.build.gradle.internal.cxx.configure.CmakeCommandLineKt.getBuildRootFolder;
+import static com.android.build.gradle.internal.cxx.configure.CmakeCommandLineKt.getGenerator;
+import static com.android.build.gradle.internal.cxx.configure.CmakeCommandLineKt.onlyKeepServerArguments;
 import static com.android.build.gradle.internal.cxx.configure.CmakeSourceFileNamingKt.hasCmakeHeaderFileExtensions;
 import static com.android.build.gradle.internal.cxx.json.CompilationDatabaseIndexingVisitorKt.indexCompilationDatabase;
 import static com.android.build.gradle.internal.cxx.json.CompilationDatabaseToolchainVisitorKt.populateCompilationDatabaseToolchains;
@@ -27,8 +29,8 @@ import static com.android.build.gradle.internal.cxx.logging.LoggingEnvironmentKt
 import static com.android.build.gradle.internal.cxx.logging.LoggingEnvironmentKt.infoln;
 import static com.android.build.gradle.internal.cxx.logging.LoggingEnvironmentKt.warnln;
 import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getJsonFile;
-import static com.android.build.gradle.internal.cxx.model.CxxCmakeAbiModelKt.getCmakeServerLogFile;
 import static com.android.build.gradle.internal.cxx.model.CxxCmakeAbiModelKt.getCompileCommandsJsonFile;
+import static com.android.build.gradle.internal.cxx.settings.CxxAbiModelCMakeSettingsRewriterKt.getFinalCmakeCommandLineArguments;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -52,6 +54,7 @@ import com.android.build.gradle.external.cmake.server.Target;
 import com.android.build.gradle.external.cmake.server.receiver.InteractiveMessage;
 import com.android.build.gradle.external.cmake.server.receiver.ServerReceiver;
 import com.android.build.gradle.internal.LoggerWrapper;
+import com.android.build.gradle.internal.cxx.configure.CommandLineArgument;
 import com.android.build.gradle.internal.cxx.json.AndroidBuildGradleJsons;
 import com.android.build.gradle.internal.cxx.json.CompilationDatabaseToolchain;
 import com.android.build.gradle.internal.cxx.json.NativeBuildConfigValue;
@@ -63,6 +66,7 @@ import com.android.build.gradle.internal.cxx.json.StringTable;
 import com.android.build.gradle.internal.cxx.logging.PassThroughPrintWriterLoggingEnvironment;
 import com.android.build.gradle.internal.cxx.logging.ThreadLoggingEnvironment;
 import com.android.build.gradle.internal.cxx.model.CxxAbiModel;
+import com.android.build.gradle.internal.cxx.model.CxxBuildModel;
 import com.android.build.gradle.internal.cxx.model.CxxVariantModel;
 import com.android.ide.common.process.ProcessException;
 import com.android.repository.Revision;
@@ -99,10 +103,11 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
     private static final String CMAKE_SERVER_LOG_PREFIX = "CMAKE SERVER: ";
 
     public CmakeServerExternalNativeJsonGenerator(
+            @NonNull CxxBuildModel build,
             @NonNull CxxVariantModel variant,
             @NonNull List<CxxAbiModel> abis,
             @NonNull GradleBuildVariant.Builder stats) {
-        super(variant, abis, stats);
+        super(build, variant, abis, stats);
     }
 
     /**
@@ -139,11 +144,11 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
         // - perform a handshake
         // - configure and compute.
         // Create the NativeBuildConfigValue and write the required JSON file.
+        File cmakeServerLogFile = abi.getCmake().getCmakeServerLogFile().getAbsoluteFile();
+        cmakeServerLogFile.getParentFile().mkdirs();
         try (ThreadLoggingEnvironment ignore =
                 new PassThroughPrintWriterLoggingEnvironment(
-                        new PrintWriter(
-                                getCmakeServerLogFile(abi.getCmake()).getAbsoluteFile(), "UTF-8"),
-                        CMAKE_SERVER_LOG_PREFIX)) {
+                        new PrintWriter(cmakeServerLogFile, "UTF-8"), CMAKE_SERVER_LOG_PREFIX)) {
             // Create a new cmake server for the given Cmake and configure the given project.
             ServerReceiver serverReceiver =
                     new ServerReceiver()
@@ -174,15 +179,18 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
             }
 
             try {
-
+                List<CommandLineArgument> arguments = getFinalCmakeCommandLineArguments(abi);
                 List<String> cacheArgumentsList =
                         convertCmakeCommandLineArgumentsToStringList(
-                                getCmakeCommandLineVariables(abi));
+                                onlyKeepServerArguments(arguments));
                 ConfigureCommandResult configureCommandResult;
-                File cmakeListsFolder = variant.getModule().getMakeFile().getParentFile();
 
                 // Handshake
-                doHandshake(cmakeListsFolder, abi.getCxxBuildFolder(), cmakeServer);
+                doHandshake(
+                        getGenerator(arguments),
+                        variant.getModule().getMakeFile().getParentFile(),
+                        new File(getBuildRootFolder(arguments)),
+                        cmakeServer);
 
                 // Configure
                 String[] argsArray = cacheArgumentsList.toArray(new String[0]);
@@ -257,6 +265,7 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
      *     invalid/erroneous handshake result.
      */
     private void doHandshake(
+            @NonNull String generator,
             @NonNull File sourceDirectory,
             @NonNull File buildDirectory,
             @NonNull Server cmakeServer)
@@ -272,7 +281,10 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
         HandshakeResult handshakeResult =
                 cmakeServer.handshake(
                         getHandshakeRequest(
-                                sourceDirectory, buildDirectory, supportedProtocolVersions.get(0)));
+                                generator,
+                                sourceDirectory,
+                                buildDirectory,
+                                supportedProtocolVersions.get(0)));
         if (!ServerUtils.isHandshakeResultValid(handshakeResult)) {
             throw new RuntimeException(
                     String.format(
@@ -287,6 +299,7 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
      * @return handshake request
      */
     private HandshakeRequest getHandshakeRequest(
+            @NonNull String generator,
             @NonNull File sourceDirectory,
             @NonNull File buildDirectory,
             @NonNull ProtocolVersion cmakeServerProtocolVersion) {
@@ -295,7 +308,7 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
         }
         HandshakeRequest handshakeRequest = new HandshakeRequest();
         handshakeRequest.cookie = "gradle-cmake-cookie";
-        handshakeRequest.generator = getGenerator(getBuildArguments());
+        handshakeRequest.generator = generator;
         handshakeRequest.protocolVersion = cmakeServerProtocolVersion;
         handshakeRequest.buildDirectory = normalizeFilePath(buildDirectory);
         handshakeRequest.sourceDirectory = normalizeFilePath(sourceDirectory);
@@ -312,26 +325,6 @@ class CmakeServerExternalNativeJsonGenerator extends CmakeExternalNativeJsonGene
      */
     private static ComputeResult doCompute(@NonNull Server cmakeServer) throws IOException {
         return cmakeServer.compute();
-    }
-
-    /**
-     * Gets the generator set explicitly by the user (overriding our default).
-     *
-     * @param buildArguments - build arguments
-     */
-    @NonNull
-    private static String getGenerator(@NonNull List<String> buildArguments) {
-        String generatorArgument = "-G";
-        for (String argument : buildArguments) {
-            if (!argument.startsWith(generatorArgument)) {
-                continue;
-            }
-
-            int startIndex = argument.indexOf(generatorArgument) + generatorArgument.length();
-            return argument.substring(startIndex).trim();
-        }
-        // Return the default generator, i.e., "Ninja"
-        return "Ninja";
     }
 
     /**

@@ -31,6 +31,8 @@ import java.io.File
  */
 interface CxxModuleModel {
 
+    val cxxFolder : File
+
     /**
      * The abiFilters from build.gradle
      *   ex, android.splits.abiFilters 'x86', 'x86_64'
@@ -54,6 +56,11 @@ interface CxxModuleModel {
      *   ex, source-root/Source/Android/app
      */
     val moduleRootFolder: File
+
+    /**
+     * The build.gradle file
+     */
+    val moduleBuildFile: File
 
     /**
      * The makefile
@@ -110,7 +117,15 @@ interface CxxModuleModel {
     val ndkMetaAbiList: List<AbiInfo>
 
     /**
-     * Path to the CMake toolchain in NDK
+     * Path to the CMake toolchain in NDK as it was before any rewrites.
+     * ex, /path/to/ndk/android.toolchain.cmake
+     */
+    val originalCmakeToolchainFile: File
+        get() = join(ndkFolder, "build", "cmake", "android.toolchain.cmake")
+
+    /**
+     * Path to the CMake toolchain in NDK after wrapping (if necessary). For NDK 15 and above,
+     * this is equal to the originalCmakeToolchainFile.
      * ex, /path/to/ndk/android.toolchain.cmake
      */
     val cmakeToolchainFile: File
@@ -147,5 +162,6 @@ interface CxxModuleModel {
 val CxxModuleModel.ndkCmakeSettingsJsonFile: File
     get() = join(ndkFolder, "meta", "CMakeSettings.json")
 
-
-
+/** The user's CMakeSettings.json file next to CMakeLists.txt */
+val CxxModuleModel.cmakeSettingsFile: File
+    get() = join(makeFile.parentFile, "CMakeSettings.json")

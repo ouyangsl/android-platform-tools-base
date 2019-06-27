@@ -22,7 +22,6 @@ import com.android.build.gradle.internal.scope.GlobalScope
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.tasks.NativeBuildSystem
 import com.android.utils.FileUtils.join
-import java.io.File
 
 /**
  * Construct a [CxxVariantModel], careful to be lazy with module-level fields.
@@ -31,9 +30,6 @@ fun createCxxVariantModel(
     module: CxxModuleModel,
     baseVariantData: BaseVariantData) : CxxVariantModel {
     return object : CxxVariantModel {
-        override val jsonFolder by lazy {
-            jsonFolder(baseVariantData.scope.globalScope)
-        }
         private val buildSystem by lazy {
             createNativeBuildSystemVariantConfig(
                 module.buildSystem,
@@ -81,13 +77,13 @@ fun createCxxVariantModel(
  * Base folder for android_gradle_build.json files
  *   ex, $moduleRootFolder/.cxx/cmake/debug
  */
-fun CxxVariantModel.jsonFolder(global : GlobalScope)
-        = join(module.cxxFolder(global), module.buildSystem.tag, variantName)
-
+val CxxVariantModel.jsonFolder
+        get() = join(module.cxxFolder, module.buildSystem.tag, variantName)
 
 /**
  * The gradle build output folder
  *   ex, '$moduleRootFolder/.cxx/cxx/debug'
  */
-fun CxxVariantModel.gradleBuildOutputFolder(global : GlobalScope)
-        = join(module.cxxFolder(global), "cxx", variantName)
+val CxxVariantModel.gradleBuildOutputFolder
+        get() = join(module.cxxFolder, "cxx", variantName)
+

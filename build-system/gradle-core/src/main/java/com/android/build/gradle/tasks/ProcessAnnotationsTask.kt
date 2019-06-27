@@ -33,7 +33,7 @@ import org.gradle.api.tasks.compile.JavaCompile
  * Task to perform annotation processing only, without compiling.
  *
  * This task may or may not be created depending on whether it is needed. See the documentation of
- * [AndroidJavaCompile] for more details.
+ * [JavaCompileCreationAction] for more details.
  */
 class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScope) :
     TaskCreationAction<JavaCompile>() {
@@ -52,7 +52,7 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
         output.set(AP_GENERATED_SOURCES.getOutputDirectory(
             variantScope.globalScope.project.layout.buildDirectory,
             variantScope.artifacts.getIdentifier(),
-            name
+            "out" // in order to preserve previous output path, pass out as taskName
         ))
 
         variantScope.artifacts.producesDir(
@@ -68,8 +68,7 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
         task.dependsOn(taskContainer.preBuildTask)
         task.extensions.add(PROPERTY_VARIANT_NAME_KEY, variantScope.fullVariantName)
 
-        // Configure properties that are shared between AndroidJavaCompile and
-        // ProcessAnnotationTask
+        // Configure properties that are shared between JavaCompile and ProcessAnnotationTask
         task.configureProperties(variantScope)
 
         // Configure properties for annotation processing
@@ -83,7 +82,7 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
         // annotation processor output directory for convenience.
         task.destinationDir = output.get().asFile
 
-        // manually declare our output directory as a Task output since it's not annotated as
+        // Manually declare our output directory as a Task output since it's not annotated as
         // an OutputDirectoy on the task implementation.
         task.outputs.dir(output)
 
@@ -101,8 +100,8 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
 /**
  * Determine whether task for separate annotation processing should be created.
  *
- * As documented at [AndroidJavaCompile], separate annotation processing is needed if all of the
- * following conditions are met:
+ * As documented at [JavaCompileCreationAction], separate annotation processing is needed if
+ * all of the following conditions are met:
  *   1. Incremental compilation is requested (either by the user through the DSL or by
  *      default)
  *   2. Kapt is not used

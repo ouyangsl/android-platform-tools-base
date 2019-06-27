@@ -22,7 +22,7 @@ import static com.android.build.gradle.internal.cxx.configure.CmakeLocatorKt.isC
 import static com.android.build.gradle.internal.cxx.configure.ExternalNativeJsonGenerationUtilKt.registerWriteModelAfterJsonGeneration;
 import static com.android.build.gradle.internal.cxx.logging.LoggingEnvironmentKt.errorln;
 import static com.android.build.gradle.internal.cxx.logging.LoggingEnvironmentKt.infoln;
-import static com.android.build.gradle.internal.cxx.logging.PassThroughRecordingLoggingEnvironmentKt.toJsonString;
+import static com.android.build.gradle.internal.cxx.logging.PassThroughDeduplicatingLoggingEnvironmentKt.toJsonString;
 import static com.android.build.gradle.internal.cxx.model.CreateCxxAbiModelKt.createCxxAbiModel;
 import static com.android.build.gradle.internal.cxx.model.CreateCxxVariantModelKt.createCxxVariantModel;
 import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getBuildCommandFile;
@@ -30,10 +30,12 @@ import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getBuild
 import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getJsonFile;
 import static com.android.build.gradle.internal.cxx.model.CxxAbiModelKt.getJsonGenerationLoggingRecordFile;
 import static com.android.build.gradle.internal.cxx.model.GetCxxBuildModelKt.getCxxBuildModel;
+import static com.android.build.gradle.internal.cxx.services.CxxBuildModelListenerServiceKt.executeListenersOnceBeforeJsonGeneration;
 import static com.android.build.gradle.internal.cxx.services.CxxCompleteModelServiceKt.registerAbi;
 import static com.android.build.gradle.internal.cxx.services.CxxEvalIssueReporterServiceKt.evalIssueReporter;
 import static com.android.build.gradle.internal.cxx.services.CxxModelDependencyServiceKt.jsonGenerationInputDependencyFileCollection;
 import static com.android.build.gradle.internal.cxx.services.CxxSyncListenerServiceKt.executeListenersOnceAfterJsonGeneration;
+import static com.android.build.gradle.internal.cxx.settings.CxxAbiModelCMakeSettingsRewriterKt.rewriteCxxAbiModelWithCMakeSettings;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -43,7 +45,7 @@ import com.android.build.gradle.internal.cxx.json.AndroidBuildGradleJsons;
 import com.android.build.gradle.internal.cxx.json.NativeBuildConfigValueMini;
 import com.android.build.gradle.internal.cxx.json.NativeLibraryValueMini;
 import com.android.build.gradle.internal.cxx.logging.IssueReporterLoggingEnvironment;
-import com.android.build.gradle.internal.cxx.logging.PassThroughRecordingLoggingEnvironment;
+import com.android.build.gradle.internal.cxx.logging.PassThroughPrefixingLoggingEnvironment;
 import com.android.build.gradle.internal.cxx.logging.ThreadLoggingEnvironment;
 import com.android.build.gradle.internal.cxx.model.CxxAbiModel;
 import com.android.build.gradle.internal.cxx.model.CxxAbiModelKt;
@@ -93,14 +95,19 @@ import org.gradle.api.tasks.PathSensitivity;
  * Base class for generation of native JSON.
  */
 public abstract class ExternalNativeJsonGenerator {
+
+    @NonNull protected final CxxBuildModel build;
     @NonNull protected final CxxVariantModel variant;
     @NonNull protected final List<CxxAbiModel> abis;
     @NonNull protected final GradleBuildVariant.Builder stats;
 
+
     ExternalNativeJsonGenerator(
+            @NonNull CxxBuildModel build,
             @NonNull CxxVariantModel variant,
             @NonNull List<CxxAbiModel> abis,
             @NonNull GradleBuildVariant.Builder stats) {
+        this.build = build;
         this.variant = variant;
         this.abis = abis;
         this.stats = stats;
@@ -220,8 +227,10 @@ public abstract class ExternalNativeJsonGenerator {
 
     private void buildForOneConfiguration(boolean forceJsonGeneration, CxxAbiModel abi)
             throws GradleException, IOException, ProcessException {
-        try (PassThroughRecordingLoggingEnvironment recorder =
-                new PassThroughRecordingLoggingEnvironment()) {
+        try (PassThroughPrefixingLoggingEnvironment recorder =
+                new PassThroughPrefixingLoggingEnvironment(
+                        abi.getVariant().getModule().getMakeFile(),
+                        abi.getVariant().getVariantName() + "|" + abi.getAbi().getTag())) {
 
             GradleBuildVariant.NativeBuildConfigInfo.Builder variantStats =
                     GradleBuildVariant.NativeBuildConfigInfo.newBuilder();
@@ -235,6 +244,10 @@ public abstract class ExternalNativeJsonGenerator {
                         abi.getAbiPlatformVersion(),
                         abi.getAbi().getTag(),
                         abi.getAbiPlatformVersion());
+                if (!executeListenersOnceBeforeJsonGeneration(build)) {
+                    infoln("Errors seen in validation before JSON generation started");
+                    return;
+                }
                 ProcessInfoBuilder processBuilder = getProcessBuilder(abi);
 
                 // See whether the current build command matches a previously written build command.
@@ -440,8 +453,12 @@ public abstract class ExternalNativeJsonGenerator {
                 getCxxBuildModel(scope.getGlobalScope().getProject().getGradle());
         for (Abi abi : variant.getValidAbiList()) {
             CxxAbiModel model =
-                    createCxxAbiModel(variant, abi, scope.getGlobalScope(), scope.getVariantData());
+                    rewriteCxxAbiModelWithCMakeSettings(
+                            createCxxAbiModel(
+                                    variant, abi, scope.getGlobalScope(), scope.getVariantData()));
             abis.add(model);
+
+            // Register this ABI with the complete build model.
             registerAbi(cxxBuildModel, model);
 
             // Register callback to write Json after generation finishes.
@@ -456,13 +473,14 @@ public abstract class ExternalNativeJsonGenerator {
 
         switch (module.getBuildSystem()) {
             case NDK_BUILD:
-                return new NdkBuildExternalNativeJsonGenerator(variant, abis, stats);
+                return new NdkBuildExternalNativeJsonGenerator(cxxBuildModel, variant, abis, stats);
             case CMAKE:
                 CxxCmakeModuleModel cmake = Objects.requireNonNull(variant.getModule().getCmake());
                 Revision cmakeRevision = cmake.getMinimumCmakeVersion();
                 stats.setNativeCmakeVersion(cmakeRevision.toString());
                 if (isCmakeForkVersion(cmakeRevision)) {
-                    return new CmakeAndroidNinjaExternalNativeJsonGenerator(variant, abis, stats);
+                    return new CmakeAndroidNinjaExternalNativeJsonGenerator(
+                            cxxBuildModel, variant, abis, stats);
                 }
 
                 if (cmakeRevision.getMajor() < 3
@@ -473,7 +491,8 @@ public abstract class ExternalNativeJsonGenerator {
                                     + ". Try 3.7.0 or later.");
                 }
 
-                return new CmakeServerExternalNativeJsonGenerator(variant, abis, stats);
+                return new CmakeServerExternalNativeJsonGenerator(
+                        cxxBuildModel, variant, abis, stats);
             default:
                 throw new IllegalArgumentException("Unknown ExternalNativeJsonGenerator type");
         }
@@ -527,13 +546,6 @@ public abstract class ExternalNativeJsonGenerator {
     @Input // We don't need contents of the files in the generated JSON, just the path.
     public File getObjFolder() {
         return variant.getObjFolder();
-    }
-
-    @NonNull
-    // This should not be annotated with @OutputDirectory because getNativeBuildConfigurationsJsons
-    // is already annotated with @OutputFiles
-    public File getJsonFolder() {
-        return variant.getJsonFolder();
     }
 
     @NonNull
@@ -606,5 +618,4 @@ public abstract class ExternalNativeJsonGenerator {
         }
         return result;
     }
-
 }

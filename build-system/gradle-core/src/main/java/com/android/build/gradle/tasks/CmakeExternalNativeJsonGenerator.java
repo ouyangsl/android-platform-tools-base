@@ -17,15 +17,18 @@
 package com.android.build.gradle.tasks;
 
 import static com.android.build.gradle.internal.cxx.cmake.MakeCmakeMessagePathsAbsoluteKt.makeCmakeMessagePathsAbsolute;
-import static com.android.build.gradle.internal.cxx.configure.CmakeCommandLineBuilderKt.getCmakeCommandLineVariables;
 import static com.android.build.gradle.internal.cxx.configure.CmakeCommandLineKt.convertCmakeCommandLineArgumentsToStringList;
 import static com.android.build.gradle.internal.cxx.logging.LoggingEnvironmentKt.errorln;
+import static com.android.build.gradle.internal.cxx.settings.CxxAbiModelCMakeSettingsRewriterKt.getFinalCmakeCommandLineArguments;
 
 import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
 import com.android.build.gradle.internal.core.Abi;
 import com.android.build.gradle.internal.cxx.configure.CommandLineArgument;
 import com.android.build.gradle.internal.cxx.model.CxxAbiModel;
+import com.android.build.gradle.internal.cxx.model.CxxBuildModel;
 import com.android.build.gradle.internal.cxx.model.CxxCmakeModuleModel;
+import com.android.build.gradle.internal.cxx.model.CxxModuleModelKt;
 import com.android.build.gradle.internal.cxx.model.CxxVariantModel;
 import com.android.build.gradle.internal.ndk.Stl;
 import com.android.ide.common.process.ProcessException;
@@ -40,6 +43,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.gradle.api.tasks.InputFile;
+import org.gradle.api.tasks.Optional;
+import org.gradle.api.tasks.PathSensitive;
+import org.gradle.api.tasks.PathSensitivity;
 
 /**
  * CMake JSON generation logic. This is separated from the corresponding CMake task so that JSON can
@@ -49,10 +56,11 @@ abstract class CmakeExternalNativeJsonGenerator extends ExternalNativeJsonGenera
     @NonNull protected final CxxCmakeModuleModel cmake;
 
     CmakeExternalNativeJsonGenerator(
+            @NonNull CxxBuildModel build,
             @NonNull CxxVariantModel variant,
             @NonNull List<CxxAbiModel> abis,
             @NonNull GradleBuildVariant.Builder stats) {
-        super(variant, abis, stats);
+        super(build, variant, abis, stats);
         this.stats.setNativeBuildSystemType(GradleNativeAndroidModule.NativeBuildSystemType.CMAKE);
         this.cmake = Objects.requireNonNull(variant.getModule().getCmake());
 
@@ -103,14 +111,8 @@ abstract class CmakeExternalNativeJsonGenerator extends ExternalNativeJsonGenera
 
         builder.setExecutable(cmake.getCmakeExe());
         List<CommandLineArgument> arguments = Lists.newArrayList();
-        arguments.add(
-                CommandLineArgument.CmakeListsPath.from(
-                        variant.getModule().getMakeFile().getParentFile().getPath()));
-        arguments.add(CommandLineArgument.BinaryOutputPath.from(abi.getCxxBuildFolder().getPath()));
-
-        arguments.addAll(getCmakeCommandLineVariables(abi));
+        arguments.addAll(getFinalCmakeCommandLineArguments(abi));
         builder.addArgs(convertCmakeCommandLineArgumentsToStringList(arguments));
-
         return builder;
     }
 
@@ -152,5 +154,17 @@ abstract class CmakeExternalNativeJsonGenerator extends ExternalNativeJsonGenera
         return variant.getModule().getStlSharedObjectMap().get(stl).entrySet().stream()
                 .filter(e -> getAbis().contains(e.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    @InputFile
+    @PathSensitive(PathSensitivity.RELATIVE)
+    @Nullable
+    @Optional
+    public File getCmakeSettingsJson() {
+        File cmakeSettings = CxxModuleModelKt.getCmakeSettingsFile(variant.getModule());
+        if (cmakeSettings.isFile()) {
+            return cmakeSettings;
+        }
+        return null;
     }
 }

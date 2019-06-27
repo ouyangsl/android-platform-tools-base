@@ -15,16 +15,47 @@ py_library(
     srcs = ["merge_lcov.py"],
 )
 
+# This should be a py_binary, but due to a Bazel bug
+# using py_binary as a tool in a genrule doesn't work
+py_library(
+    name = "filter_lcov",
+    srcs = ["filter_lcov.py"],
+)
+
 # This is just an example report for testing during development
 # run tests: bazel test --define agent_coverage=true --config=remote -- @cov//:example:suite
 # make lcov: bazel build --config=remote -- @cov//:example.lcov
 coverage_report(
     name = "example",
+    srcpath_exclude = [
+        "tools/base/lint/libs",
+        "tools/base/usb-devices/src/com/android/tools/usb/parser",
+    ],
+    srcpath_include = [
+        "tools/adt/idea/adt-branding",
+        "tools/base/lint",
+        "tools/base/usb-devices",
+    ],
     tests = [
         "//tools/adt/idea/android-kotlin:intellij.android.kotlin.tests_tests",  # 5 shard 1 exec
         "//tools/base/build-system/integration-test/application:automatic-tests",  # 8 shard 2 exec
         "//tools/base/build-system/integration-test/native:AbiPureSplits",  # 1 shard 2 exec
         "//tools/base/lint/libs/lint-tests:tests.test",  # 1 shard 1 exec
+    ],
+)
+
+coverage_report(
+    name = "databinding",
+    srcpath_include = [
+        "tools/adt/idea/android-lang-databinding",
+        "tools/adt/idea/databinding/",
+        "tools/adt/idea/android/src/com/android/tools/idea/databinding",
+        "tools/adt/idea/android/src/com/android/tools/idea/lang/databinding",
+    ],
+    tests = [
+        "//tools/adt/idea/android:intellij.android.core.tests_tests",
+        "//tools/adt/idea/android-lang-databinding:intellij.android.lang-databinding.tests_tests",
+        "//tools/adt/idea/databinding:intellij.android.databinding.tests_tests",
     ],
 )
 
@@ -53,6 +84,7 @@ coverage_report(
         "//tools/adt/idea/designer:intellij.android.designer.tests_tests",
         "//tools/adt/idea/kotlin-integration:kotlin-integration-tests_tests",
         "//tools/adt/idea/layout-inspector:intellij.android.layout-inspector_tests",
+        "//tools/adt/idea/layout-ui:intellij.android.layout-ui_tests",
         "//tools/adt/idea/layoutlib:intellij.android.layoutlib-loader.tests_tests",
         "//tools/adt/idea/native-symbolizer:native-symbolizer_tests",
         "//tools/adt/idea/naveditor:intellij.android.naveditor.tests_tests",
@@ -63,7 +95,6 @@ coverage_report(
         "//tools/adt/idea/profilers-ui:intellij.android.profilers.ui_tests",
         "//tools/adt/idea/project-system:intellij.android.projectSystem.tests_tests",
         "//tools/adt/idea/project-system-gradle:intellij.android.projectSystem.gradle.tests_tests",
-        "//tools/adt/idea/property-editor:intellij.android.property-editor_tests",
         "//tools/adt/idea/resources-aar:intellij.android.resources-aar.tests_tests",
         "//tools/adt/idea/sdk-updates:intellij.android.sdkUpdates.tests_tests",
         "//tools/adt/idea/smali:intellij.android.smali_tests",
@@ -108,7 +139,6 @@ coverage_report(
         "//tools/base/build-system/integration-test/application/src/test/java/com/android/build/gradle/integration/testing/unit:tests",
         "//tools/base/build-system/integration-test/databinding:tests",
         "//tools/base/build-system/integration-test/framework:framework_tests.test",
-        "//tools/base/build-system/integration-test/java-library-model-builder:tests",
         "//tools/base/build-system/integration-test/native:AbiPureSplits",
         "//tools/base/build-system/integration-test/native:CmakeBasicProjectTest",
         "//tools/base/build-system/integration-test/native:CmakeExtensionsTest",
@@ -143,7 +173,6 @@ coverage_report(
         "//tools/base/build-system/integration-test/native:RsEnabledAnnotationTest",
         "//tools/base/build-system/integration-test/native:RsSupportModeTest",
         "//tools/base/build-system/integration-test/native:VulkanTest",
-        "//tools/base/build-system/java-lib-plugin/java-lib-model-builder:builder_tests.test",
         "//tools/base/build-system/profile:tests",
         "//tools/base/common:studio.android.sdktools.common.tests_tests",
         "//tools/base/common:tools.tests.test",
