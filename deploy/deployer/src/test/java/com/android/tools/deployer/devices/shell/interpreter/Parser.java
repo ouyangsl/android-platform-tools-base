@@ -50,6 +50,7 @@ import com.android.tools.deployer.devices.shell.interpreter.Expression.ForExpres
 import com.android.tools.deployer.devices.shell.interpreter.Expression.IfExpression;
 import com.android.tools.deployer.devices.shell.interpreter.Expression.ListExpression;
 import com.android.tools.deployer.devices.shell.interpreter.Expression.PipeStatement;
+import com.android.tools.deployer.devices.shell.interpreter.Expression.SubshellExpression;
 import com.android.tools.deployer.devices.shell.interpreter.Expression.VarSubExpression;
 import java.util.ArrayList;
 import java.util.List;
@@ -167,7 +168,7 @@ public class Parser {
      */
     @NonNull
     private static Expression parseExpression(@NonNull BashTokenizer tokenizer) {
-        Token token = tokenizer.peekToken(IF, FOR, FILE_PATH, QUOTED_STRING, BACKTICK, VAR);
+        Token token = tokenizer.peekToken(IF, FOR, VAR, FILE_PATH, QUOTED_STRING, BACKTICK);
         switch (token.getType()) {
             case IF:
                 return parseIf(tokenizer);
@@ -203,7 +204,10 @@ public class Parser {
             switch (value.getType()) {
                 case BACKTICK:
                     assignmentExpression =
-                            new AssignmentExpression(varName, parseScript(tokenizer));
+                            new AssignmentExpression(
+                                    varName,
+                                    new SubshellExpression(
+                                            parseScript(tokenizer.extractToEndingBacktick())));
                     tokenizer.parseToken(BACKTICK);
                     break;
                 case QUOTED_STRING:
@@ -223,7 +227,9 @@ public class Parser {
         CommandExpression commandExpression;
         if (command.getType() == BACKTICK) {
             commandExpression =
-                    new CommandExpression(parseScript(tokenizer.extractToEndingBacktick()), true);
+                    new CommandExpression(
+                            new SubshellExpression(
+                                    parseScript(tokenizer.extractToEndingBacktick())));
             tokenizer.parseToken(BACKTICK);
         } else {
             commandExpression = new CommandExpression(new VarSubExpression(command.getText()));
@@ -253,7 +259,9 @@ public class Parser {
                     break;
                 case BACKTICK:
                     tokenizer.parseToken(BACKTICK);
-                    commandExpression.addParam(parseScript(tokenizer));
+                    commandExpression.addParam(
+                            new SubshellExpression(
+                                    parseScript(tokenizer.extractToEndingBacktick())));
                     tokenizer.parseToken(BACKTICK);
                     break;
                 default:
@@ -291,16 +299,27 @@ public class Parser {
 
         BinaryExpression conditionalExpression = new ChainedStatement(new EmptyExpression());
         while (true) {
-            Token firstParam = tokenizer.parseToken(DOUBLE_CONDITIONAL_UNARY, FILE_PATH);
+            Token firstParam = tokenizer.parseToken(DOUBLE_CONDITIONAL_UNARY, BACKTICK, FILE_PATH);
             String operator;
             Expression firstExpression;
             Expression secondExpression;
-            if (firstParam.getType() == DOUBLE_CONDITIONAL_UNARY) {
-                firstExpression = new EmptyExpression();
-                operator = firstParam.getText();
-            } else {
-                firstExpression = new VarSubExpression(firstParam.getText());
-                operator = tokenizer.parseToken(DOUBLE_CONDITIONAL_BINARY).getText();
+            switch (firstParam.getType()) {
+                case DOUBLE_CONDITIONAL_UNARY:
+                    firstExpression = new EmptyExpression();
+                    operator = firstParam.getText();
+                    break;
+                case BACKTICK:
+                    firstExpression =
+                            new SubshellExpression(
+                                    parseScript(tokenizer.extractToEndingBacktick()));
+                    tokenizer.parseToken(BACKTICK);
+                    operator = tokenizer.parseToken(DOUBLE_CONDITIONAL_BINARY).getText();
+                    break;
+                case FILE_PATH:
+                default:
+                    firstExpression = new VarSubExpression(firstParam.getText());
+                    operator = tokenizer.parseToken(DOUBLE_CONDITIONAL_BINARY).getText();
+                    break;
             }
             secondExpression =
                     new VarSubExpression(tokenizer.parseToken(FILE_PATH, QUOTED_STRING).getText());
@@ -319,6 +338,7 @@ public class Parser {
         tokenizer.parseToken(SEMICOLON); // We're hacking the list.
         tokenizer.parseToken(THEN);
 
+        // TODO support "else if" and "else"
         Expression body = parseBody(tokenizer);
         tokenizer.parseToken(FI);
 

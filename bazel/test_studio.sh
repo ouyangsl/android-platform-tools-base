@@ -11,15 +11,7 @@ readonly script_dir="$(dirname "$0")"
 build_tag_filters=-no_linux
 test_tag_filters=-no_linux,-no_test_linux,-qa_sanity,-qa_fast,-qa_unreliable,-perfgate_only
 
-# If the build number starts with a 'P', this is a pre-submit builder.
-if [[ "${build_number:0:1}" == "P" ]]; then
-  test_tag_filters="${test_tag_filters},-no_psq"
-  config_options="--config=presubmit"
-else
-  config_options="--config=postsubmit"
-fi
-
-config_options="${config_options} --config=remote"
+config_options="--config=remote"
 
 # Grab the location of the command_log file for bazel daemon so we can search it later.
 readonly command_log="$("${script_dir}"/bazel info ${config_options} command_log)"
@@ -28,6 +20,7 @@ readonly command_log="$("${script_dir}"/bazel info ${config_options} command_log
 "${script_dir}/bazel" \
   --max_idle_secs=60 \
   test \
+  --keep_going \
   ${config_options} \
   --build_tag_filters=${build_tag_filters} \
   --test_tag_filters=${test_tag_filters} \
@@ -50,9 +43,6 @@ if [[ -d "${dist_dir}" ]]; then
   readonly testlogs_dir="$("${script_dir}/bazel" info bazel-testlogs ${config_options})"
   mkdir "${dist_dir}"/bazel-testlogs
   (cd "${testlogs_dir}" && zip -R "${dist_dir}"/bazel-testlogs/xml_files.zip "*.xml")
-
-  # Upload perfgate performance files
-  (cd "${testlogs_dir}" && zip -R "${dist_dir}"/perfgate_data.zip "*outputs.zip")
 
   # Create profile html in ${dist_dir} so it ends up in Artifacts.
 ${script_dir}/bazel analyze-profile --html ${dist_dir}/prof

@@ -51,11 +51,13 @@ import static com.android.build.gradle.internal.scope.InternalArtifactType.PROCE
 import static com.android.build.gradle.internal.scope.InternalArtifactType.RUNTIME_R_CLASS_CLASSES;
 import static com.android.builder.core.BuilderConstants.CONNECTED;
 import static com.android.builder.core.BuilderConstants.DEVICE;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Strings.nullToEmpty;
 
 import android.databinding.tool.DataBindingBuilder;
+
 import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -106,7 +108,9 @@ import com.android.build.gradle.internal.tasks.CheckManifest;
 import com.android.build.gradle.internal.tasks.CheckProguardFiles;
 import com.android.build.gradle.internal.tasks.D8MainDexListTask;
 import com.android.build.gradle.internal.tasks.DependencyReportTask;
+import com.android.build.gradle.internal.tasks.DesugarTask;
 import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestTask;
+import com.android.build.gradle.internal.tasks.DexArchiveBuilderTask;
 import com.android.build.gradle.internal.tasks.DexFileDependenciesTask;
 import com.android.build.gradle.internal.tasks.DexMergingAction;
 import com.android.build.gradle.internal.tasks.DexMergingTask;
@@ -152,9 +156,6 @@ import com.android.build.gradle.internal.test.AbstractTestDataImpl;
 import com.android.build.gradle.internal.test.BundleTestDataImpl;
 import com.android.build.gradle.internal.test.TestDataImpl;
 import com.android.build.gradle.internal.transforms.CustomClassTransform;
-import com.android.build.gradle.internal.transforms.DesugarTransform;
-import com.android.build.gradle.internal.transforms.DexArchiveBuilderTransform;
-import com.android.build.gradle.internal.transforms.DexArchiveBuilderTransformBuilder;
 import com.android.build.gradle.internal.transforms.ProGuardTransform;
 import com.android.build.gradle.internal.transforms.ProguardConfigurable;
 import com.android.build.gradle.internal.transforms.R8Transform;
@@ -166,10 +167,8 @@ import com.android.build.gradle.internal.variant.MultiOutputPolicy;
 import com.android.build.gradle.internal.variant.TestVariantData;
 import com.android.build.gradle.internal.variant.VariantFactory;
 import com.android.build.gradle.options.BooleanOption;
-import com.android.build.gradle.options.IntegerOption;
 import com.android.build.gradle.options.ProjectOptions;
 import com.android.build.gradle.options.StringOption;
-import com.android.build.gradle.options.SyncOptions;
 import com.android.build.gradle.tasks.AidlCompile;
 import com.android.build.gradle.tasks.AnalyzeDependenciesTask;
 import com.android.build.gradle.tasks.BuildArtifactReportTask;
@@ -216,9 +215,9 @@ import com.android.builder.testing.ConnectedDeviceProvider;
 import com.android.builder.testing.api.DeviceProvider;
 import com.android.builder.testing.api.TestServer;
 import com.android.builder.utils.FileCache;
-import com.android.ide.common.repository.GradleVersion;
 import com.android.sdklib.AndroidVersion;
 import com.android.utils.StringHelper;
+
 import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
@@ -229,17 +228,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
-import java.io.File;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+
 import org.gradle.api.Action;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
@@ -258,7 +247,6 @@ import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.FileSystemLocation;
 import org.gradle.api.file.RegularFile;
 import org.gradle.api.file.RegularFileProperty;
-import org.gradle.api.logging.LogLevel;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.Logging;
 import org.gradle.api.plugins.BasePlugin;
@@ -272,6 +260,18 @@ import org.gradle.api.tasks.TaskInputs;
 import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.compile.JavaCompile;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
+
+import java.io.File;
+import java.util.Collection;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /** Manages tasks creation. */
 public abstract class TaskManager {
@@ -2009,6 +2009,7 @@ public abstract class TaskManager {
         }
 
         // ----- Minify next -----
+        maybeCreateCheckDuplicateClassesTask(variantScope);
         CodeShrinker shrinker = maybeCreateJavaCodeShrinkerTransform(variantScope);
         if (shrinker == CodeShrinker.R8) {
             maybeCreateResourcesShrinkerTasks(variantScope);
@@ -2066,34 +2067,7 @@ public abstract class TaskManager {
                     new RecalculateStackFramesTask.CreationAction(
                             variantScope, userCache, isTestCoverageEnabled));
 
-            variantScope
-                    .getTransformManager()
-                    .addStream(
-                            OriginalStream.builder(project, "fixed-stack-frames-classes")
-                                    .addContentTypes(TransformManager.CONTENT_CLASS)
-                                    .addScope(Scope.EXTERNAL_LIBRARIES)
-                                    .setFileCollection(
-                                            project.files(
-                                                            variantScope
-                                                                    .getArtifacts()
-                                                                    .getFinalProduct(
-                                                                            InternalArtifactType
-                                                                                    .FIXED_STACK_FRAMES))
-                                                    .getAsFileTree())
-                                    .build());
-
-            DesugarTransform desugarTransform =
-                    new DesugarTransform(
-                            variantScope.getBootClasspath(),
-                            userCache,
-                            minSdk.getFeatureLevel(),
-                            globalScope.getJavaProcessExecutor(),
-                            project.getLogger().isEnabled(LogLevel.INFO),
-                            projectOptions.get(BooleanOption.ENABLE_GRADLE_WORKERS),
-                            variantScope.getGlobalScope().getTmpFolder().toPath(),
-                            getProjectVariantId(variantScope),
-                            enableDesugarBugFixForJacoco(variantScope));
-            transformManager.addTransform(taskFactory, variantScope, desugarTransform);
+            taskFactory.register(new DesugarTask.CreationAction(variantScope));
 
             if (minSdk.getFeatureLevel()
                     >= DesugarProcessArgs.MIN_SUPPORTED_API_TRY_WITH_RESOURCES) {
@@ -2161,43 +2135,10 @@ public abstract class TaskManager {
                         && supportsDesugaring
                         && !appliesCustomClassTransforms(variantScope, projectOptions);
         FileCache userLevelCache = getUserDexCache(minified, dexOptions.getPreDexLibraries());
-        DexArchiveBuilderTransform preDexTransform =
-                new DexArchiveBuilderTransformBuilder()
-                        .setAndroidJarClasspath(globalScope.getFilteredBootClasspath())
-                        .setDexOptions(dexOptions)
-                        .setMessageReceiver(variantScope.getGlobalScope().getMessageReceiver())
-                        .setErrorFormatMode(
-                                SyncOptions.getErrorFormatMode(
-                                        variantScope.getGlobalScope().getProjectOptions()))
-                        .setUserLevelCache(userLevelCache)
-                        .setMinSdkVersion(
-                                variantScope
-                                        .getVariantConfiguration()
-                                        .getMinSdkVersionWithTargetDeviceApi()
-                                        .getFeatureLevel())
-                        .setDexer(variantScope.getDexer())
-                        .setUseGradleWorkers(
-                                projectOptions.get(BooleanOption.ENABLE_GRADLE_WORKERS))
-                        .setInBufferSize(projectOptions.get(IntegerOption.DEXING_READ_BUFFER_SIZE))
-                        .setOutBufferSize(
-                                projectOptions.get(IntegerOption.DEXING_WRITE_BUFFER_SIZE))
-                        .setIsDebuggable(
-                                variantScope
-                                        .getVariantConfiguration()
-                                        .getBuildType()
-                                        .isDebuggable())
-                        .setJava8LangSupportType(java8SLangSupport)
-                        .setProjectVariant(getProjectVariantId(variantScope))
-                        .setNumberOfBuckets(
-                                projectOptions.get(IntegerOption.DEXING_NUMBER_OF_BUCKETS))
-                        .setIncludeFeaturesInScope(variantScope.consumesFeatureJars())
-                        .setEnableDexingArtifactTransform(enableDexingArtifactTransform)
-                        .createDexArchiveBuilderTransform();
-        transformManager.addTransform(taskFactory, variantScope, preDexTransform);
 
-        if (projectOptions.get(BooleanOption.ENABLE_DUPLICATE_CLASSES_CHECK)) {
-            taskFactory.register(new CheckDuplicateClassesTask.CreationAction(variantScope));
-        }
+        taskFactory.register(
+                new DexArchiveBuilderTask.CreationAction(
+                        dexOptions, enableDexingArtifactTransform, userLevelCache, variantScope));
 
         createDexMergingTasks(variantScope, dexingType, enableDexingArtifactTransform);
     }
@@ -2378,20 +2319,6 @@ public abstract class TaskManager {
                     .getVariantDependencies()
                     .getRuntimeClasspath()
                     .resolutionStrategy(r -> r.force(jacocoAgentRuntimeDependency));
-        }
-    }
-
-    /**
-     * If a fix in Desugar should be enabled to handle broken bytecode produced by older Jacoco, see
-     * http://b/62623509.
-     */
-    private boolean enableDesugarBugFixForJacoco(@NonNull VariantScope scope) {
-        try {
-            GradleVersion current = GradleVersion.parse(JacocoTask.getJacocoVersion(scope));
-            return JacocoConfigurations.MIN_WITHOUT_BROKEN_BYTECODE.compareTo(current) > 0;
-        } catch (Throwable ignored) {
-            // Cannot determine using version comparison, avoid passing the flag.
-            return true;
         }
     }
 
@@ -3652,5 +3579,11 @@ public abstract class TaskManager {
         testData.setAnimationsDisabled(extension.getTestOptions().getAnimationsDisabled());
         testData.setExtraInstrumentationTestRunnerArgs(
                 projectOptions.getExtraInstrumentationTestRunnerArgs());
+    }
+
+    private void maybeCreateCheckDuplicateClassesTask(@NonNull VariantScope variantScope) {
+        if (projectOptions.get(BooleanOption.ENABLE_DUPLICATE_CLASSES_CHECK)) {
+            taskFactory.register(new CheckDuplicateClassesTask.CreationAction(variantScope));
+        }
     }
 }

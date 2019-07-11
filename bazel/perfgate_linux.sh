@@ -11,9 +11,7 @@ readonly script_dir="$(dirname "$0")"
 build_tag_filters=-no_linux
 test_tag_filters=perfgate_multi_run,perfgate_only,-no_perfgate,-no_linux,-no_test_linux
 
-config_options="--config=postsubmit"
-
-config_options="${config_options} --config=remote"
+config_options="--config=remote"
 
 # Grab the location of the command_log file for bazel daemon so we can search it later.
 readonly command_log="$("${script_dir}"/bazel info ${config_options} command_log)"
@@ -22,11 +20,12 @@ readonly command_log="$("${script_dir}"/bazel info ${config_options} command_log
 "${script_dir}/bazel" \
   --max_idle_secs=60 \
   test \
+  --keep_going \
   ${config_options} \
   --build_tag_filters=${build_tag_filters} \
   --test_tag_filters=${test_tag_filters} \
   --profile=${dist_dir}/prof \
-  --runs_per_test=3 \
+  --runs_per_test=5 \
   -- \
   $(< "${script_dir}/targets")
 

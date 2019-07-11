@@ -19,6 +19,7 @@ package com.android.build.gradle.internal.scope;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.build.api.artifact.ArtifactType;
+
 import java.io.File;
 import java.util.Locale;
 
@@ -48,6 +49,19 @@ public enum InternalArtifactType implements ArtifactType {
     // Jacoco instrumentation (b/109771903).
     COMPILE_LIBRARY_CLASSES(Kind.FILE),
 
+    // Dex archive artifacts for project.
+    PROJECT_DEX_ARCHIVE,
+    // Dex archive artifacts for sub projects.
+    SUB_PROJECT_DEX_ARCHIVE,
+    // Dex archive artifacts for external (Maven) libraries.
+    EXTERNAL_LIBS_DEX_ARCHIVE,
+    // Dex archive artifacts for dex'ed classes coming from mixed scopes (to support legacy
+    // Transform API that can output classes belonging to multiple scopes).
+    MIXED_SCOPE_DEX_ARCHIVE,
+    // Artifact for supporting faster incremental dex archive building. This artifact contains
+    // information about inputs and it should not be consumed by other tasks.
+    DEX_ARCHIVE_INPUT_JAR_HASHES,
+
     // External libraries' dex files only.
     EXTERNAL_LIBS_DEX,
     // External file library dex archives (Desugared separately from module & project dependencies)
@@ -57,6 +71,15 @@ public enum InternalArtifactType implements ArtifactType {
     // the packaged classes published by APK modules.
     // This is for external usage. For usage inside a module use ALL_CLASSES
     APP_CLASSES(Kind.FILE),
+
+    // Outputs of Desugar tool for project classes.
+    DESUGAR_PROJECT_CLASSES,
+    // Outputs of Desugar tool for sub-project classes.
+    DESUGAR_SUB_PROJECT_CLASSES,
+    // Outputs of Desugar tool for external (Maven) library classes.
+    DESUGAR_EXTERNAL_LIBS_CLASSES,
+    // Local state output for desugar.
+    DESUGAR_LOCAL_STATE_OUTPUT,
 
     // --- java res ---
     // java processing output

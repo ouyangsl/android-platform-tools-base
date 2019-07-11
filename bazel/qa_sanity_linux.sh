@@ -8,7 +8,7 @@ readonly build_number="$3"
 
 readonly script_dir="$(dirname "$0")"
 
-config_options="--config=postsubmit --config=remote"
+config_options="--config=remote"
 
 # Grab the location of the command_log file for bazel daemon so we can search it later.
 readonly command_log="$("${script_dir}"/bazel info ${config_options} command_log)"
@@ -24,6 +24,7 @@ target_filters=qa_sanity,-qa_unreliable,-no_linux,-no_test_linux,-requires_emula
 "${script_dir}/bazel" \
   --max_idle_secs=60 \
   test \
+  --keep_going \
   ${config_options} \
   --jobs 4 \
   --build_tag_filters=${target_filters} \
@@ -44,6 +45,7 @@ target_filters=qa_sanity_emu,-qa_unreliable,-no_linux,-no_test_linux
 QA_ANDROID_SDK_ROOT=${HOME}/Android_emulator/sdk "${script_dir}/bazel" \
   --max_idle_secs=60 \
   test \
+  --keep_going \
   ${config_options} \
   --build_tag_filters=${target_filters} \
   --test_tag_filters=${target_filters} \

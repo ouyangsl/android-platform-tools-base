@@ -20,6 +20,7 @@
 #include <unordered_map>
 
 #include "daemon/daemon.h"
+#include "heap_dump_manager.h"
 #include "internal_memory_service.h"
 #include "memory_collector.h"
 #include "proto/common.pb.h"
@@ -32,11 +33,12 @@ class MemoryServiceImpl final
     : public ::profiler::proto::MemoryService::Service {
  public:
   MemoryServiceImpl(InternalMemoryServiceImpl* private_service, Clock* clock,
-                    FileCache* file_cache,
+                    FileCache* file_cache, HeapDumpManager* heap_dumper,
                     std::unordered_map<int32_t, MemoryCollector>* collectors)
       : private_service_(private_service),
         clock_(clock),
         file_cache_(file_cache),
+        heap_dumper_(heap_dumper),
         collectors_(*collectors) {}
   virtual ~MemoryServiceImpl() = default;
 
@@ -62,11 +64,6 @@ class MemoryServiceImpl final
       ::grpc::ServerContext* context,
       const ::profiler::proto::TriggerHeapDumpRequest* request,
       ::profiler::proto::TriggerHeapDumpResponse* response) override;
-
-  ::grpc::Status GetHeapDump(
-      ::grpc::ServerContext* context,
-      const ::profiler::proto::DumpDataRequest* request,
-      ::profiler::proto::DumpDataResponse* response) override;
 
   ::grpc::Status TrackAllocations(
       ::grpc::ServerContext* context,
@@ -102,14 +99,6 @@ class MemoryServiceImpl final
                           "Not implemented on device");
   }
 
-  ::grpc::Status GetLegacyAllocationDump(
-      ::grpc::ServerContext* context,
-      const ::profiler::proto::DumpDataRequest* request,
-      ::profiler::proto::DumpDataResponse* response) override {
-    return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED,
-                          "Not implemented on device");
-  }
-
   ::grpc::Status ForceGarbageCollection(
       ::grpc::ServerContext* context,
       const ::profiler::proto::ForceGarbageCollectionRequest* request,
@@ -124,6 +113,7 @@ class MemoryServiceImpl final
   InternalMemoryServiceImpl* private_service_;
   Clock* clock_;
   FileCache* file_cache_;
+  HeapDumpManager* heap_dumper_;
   // Maps pid to MemoryCollector
   std::unordered_map<int32_t, MemoryCollector>& collectors_;
 };

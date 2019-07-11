@@ -18,7 +18,6 @@ package com.android.build.gradle.internal.dependency
 
 import com.android.SdkConstants
 import com.android.SdkConstants.FD_RES
-import com.android.SdkConstants.FD_RES_LAYOUT
 import com.android.SdkConstants.FD_RES_VALUES
 import com.android.build.gradle.internal.LoggerWrapper
 import com.android.build.gradle.internal.res.Aapt2CompileRunnable
@@ -31,7 +30,9 @@ import org.gradle.api.artifacts.transform.TransformAction
 import org.gradle.api.artifacts.transform.TransformOutputs
 import org.gradle.api.artifacts.transform.TransformParameters
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.FileSystemLocation
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Internal
 import java.io.BufferedInputStream
@@ -43,20 +44,19 @@ abstract class AarResourcesCompilerTransform :
     TransformAction<AarResourcesCompilerTransform.Parameters> {
 
     @get:InputArtifact
-    abstract val primaryInput: File
+    abstract val primaryInput: Provider<FileSystemLocation>
 
     override fun transform(transformOutputs: TransformOutputs) {
-        val manifest = primaryInput.resolve(SdkConstants.FN_ANDROID_MANIFEST_XML)
+        val inputFile = primaryInput.get().asFile
+        val manifest = inputFile.resolve(SdkConstants.FN_ANDROID_MANIFEST_XML)
         val outputDir = transformOutputs.dir(getPackage(manifest.toPath()))
         outputDir.mkdirs()
 
-        val resourceDir = File(primaryInput, FD_RES)
+        val resourceDir = File(inputFile, FD_RES)
 
         val resourceFolders = if (resourceDir.exists()) {
             resourceDir.listFiles { dir, name ->
-                dir.isDirectory && !name.startsWith(FD_RES_LAYOUT) && !name.startsWith(
-                    FD_RES_VALUES
-                )
+                dir.isDirectory && !name.startsWith(FD_RES_VALUES)
             }
         } else {
             arrayOf<File>()

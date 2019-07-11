@@ -98,6 +98,8 @@ class MemoryTrackingEnv : public GlobalRefListener {
                              void* caller_address) override;
   void BeforeGlobalRefDeleted(jobject gref, void* caller_address) override;
 
+  void SetSamplingRate(int32_t sampling_num_interval);
+
  private:
   // POD for encoding the method/instruction location data into trie.
   struct FrameInfo {
@@ -118,7 +120,6 @@ class MemoryTrackingEnv : public GlobalRefListener {
   void Initialize();
   void StartLiveTracking(int64_t timestamp);
   void StopLiveTracking(int64_t timestamp);
-  void SetSamplingRate(int32_t sampling_num_interval);
   const AllocatedClass& RegisterNewClass(jvmtiEnv* jvmti, JNIEnv* jni,
                                          jclass klass);
   void SendBackClassData();
@@ -198,7 +199,8 @@ class MemoryTrackingEnv : public GlobalRefListener {
       const std::string& thread_name,
       google::protobuf::RepeatedPtrField<proto::ThreadInfo>* threads);
 
-  void FillJniEventsModuleMap(BatchJNIGlobalRefEvent* batch);
+  void FillJniEventsModuleMap(BatchJNIGlobalRefEvent* batch,
+                              proto::MemoryMap* memory_map);
 
   // For a particular class object, populate |klass_info| with the corresponding
   // values.

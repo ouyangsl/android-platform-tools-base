@@ -25,10 +25,9 @@
 
 using profiler::proto::AllocationContextsResponse;
 using profiler::proto::AllocationsInfo;
-using profiler::proto::DumpDataRequest;
-using profiler::proto::DumpDataResponse;
 using profiler::proto::ForceGarbageCollectionRequest;
 using profiler::proto::ForceGarbageCollectionResponse;
+using profiler::proto::HeapDumpStatus;
 using profiler::proto::LegacyAllocationContextsRequest;
 using profiler::proto::LegacyAllocationEventsRequest;
 using profiler::proto::LegacyAllocationEventsResponse;
@@ -148,43 +147,33 @@ grpc::Status MemoryServiceImpl::StopMonitoringApp(
     ::grpc::ServerContext* context, const TriggerHeapDumpRequest* request,
     TriggerHeapDumpResponse* response) {
   Trace trace("MEM:TriggerHeapDump");
-  auto result = collectors_.find(request->session().pid());
+  int32_t pid = request->session().pid();
+  auto result = collectors_.find(pid);
+  auto* status = response->mutable_status();
   PROFILER_MEMORY_SERVICE_RETURN_IF_NOT_FOUND_WITH_STATUS(
-      result, collectors_, response, TriggerHeapDumpResponse::FAILURE_UNKNOWN)
+      result, collectors_, status, HeapDumpStatus::FAILURE_UNKNOWN)
 
-  if ((result->second).IsRunning()) {
-    if ((result->second).TriggerHeapDump(response)) {
-      response->set_status(TriggerHeapDumpResponse::SUCCESS);
+  auto& collector = result->second;
+  if (collector.IsRunning()) {
+    int64_t request_time = clock_->GetCurrentTime();
+
+    auto* cache = collector.memory_cache();
+    bool dump_started = heap_dumper_->TriggerHeapDump(
+        pid, request_time, [this, cache](bool dump_success) {
+          cache->EndHeapDump(clock_->GetCurrentTime(), dump_success);
+        });
+    if (dump_started) {
+      cache->StartHeapDump(request_time, response);
+      status->set_status(HeapDumpStatus::SUCCESS);
+      status->set_start_time(request_time);
     } else {
-      response->set_status(TriggerHeapDumpResponse::IN_PROGRESS);
+      status->set_status(HeapDumpStatus::IN_PROGRESS);
     }
   } else {
-    response->set_status(TriggerHeapDumpResponse::NOT_PROFILING);
+    status->set_status(HeapDumpStatus::NOT_PROFILING);
   }
 
   return ::grpc::Status::OK;
-}
-
-::grpc::Status MemoryServiceImpl::GetHeapDump(::grpc::ServerContext* context,
-                                              const DumpDataRequest* request,
-                                              DumpDataResponse* response) {
-  Trace trace("MEM:GetHeapDump");
-  auto result = collectors_.find(request->session().pid());
-  PROFILER_MEMORY_SERVICE_RETURN_IF_NOT_FOUND_WITH_STATUS(
-      result, collectors_, response, DumpDataResponse::FAILURE_UNKNOWN)
-
-  (result->second).GetHeapDumpData(request->dump_time(), response);
-  switch (response->status()) {
-    case DumpDataResponse::NOT_READY:
-    case DumpDataResponse::SUCCESS:
-      return ::grpc::Status::OK;
-    case DumpDataResponse::NOT_FOUND:
-      return ::grpc::Status(::grpc::StatusCode::NOT_FOUND,
-                            "The requested file_id was not matched to a file.");
-    default:
-      return ::grpc::Status(::grpc::StatusCode::UNKNOWN,
-                            "Unknown issue when attempting to retrieve file.");
-  }
 }
 
 ::grpc::Status MemoryServiceImpl::TrackAllocations(

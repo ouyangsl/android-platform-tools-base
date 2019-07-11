@@ -8,18 +8,7 @@ set OUTDIR=%1
 set DISTDIR=%2
 set BUILDNUMBER=%3
 
-set TESTTAGFILTERSPOST=-no_windows,-no_test_windows,-qa_sanity,-qa_fast,-qa_unreliable,-perfgate_only
-set TESTTAGFILTERSPSQ=-no_windows,-no_test_windows,-qa_sanity,-qa_fast,-qa_unreliable,-no_psq,-perfgate_only
-set TESTTAGFILTERS=%TESTTAGFILTERSPOST%
-
-set CONFIGOPTIONSPOST=--config=postsubmit
-set CONFIGOPTIONSPSQ=--config=presubmit
-set CONFIGOPTIONS=%CONFIGOPTIONSPOST%
-
-IF "%BUILDNUMBER:~0,1%"=="P" (
-  set TESTTAGFILTERS=%TESTTAGFILTERSPSQ%
-  set CONFIGOPTIONS=%CONFIGOPTIONSPSQ%
-)
+set TESTTAGFILTERS=-no_windows,-no_test_windows,-qa_sanity,-qa_fast,-qa_unreliable,-perfgate_only
 
 @rem The current directory the executing script is in.
 set SCRIPTDIR=%~dp0
@@ -42,7 +31,7 @@ set TARGETS=
 for /f %%i in (%SCRIPTDIR%targets.win) do set TARGETS=!TARGETS! %%i
 
 @rem Run Bazel
-CALL %SCRIPTDIR%bazel.cmd --max_idle_secs=60 test %CONFIGOPTIONS% --config=remote --build_tag_filters=-no_rbe_windows,-no_windows --test_tag_filters=-no_rbe_windows,%TESTTAGFILTERS% --profile=%DISTDIR%\prof  -- %TARGETS%
+CALL %SCRIPTDIR%bazel.cmd --max_idle_secs=60 test --keep_going --config=remote --build_tag_filters=-no_rbe_windows,-no_windows --test_tag_filters=-no_rbe_windows,%TESTTAGFILTERS% --profile=%DISTDIR%\prof  -- %TARGETS%
 SET EXITCODE=%errorlevel%
 
 IF NOT EXIST %DISTDIR%\ GOTO ENDSCRIPT

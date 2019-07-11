@@ -17,7 +17,6 @@
 package com.android.build.gradle.internal.tasks
 
 import com.android.SdkConstants
-import com.android.build.gradle.internal.res.getAapt2FromMaven
 import com.android.build.gradle.internal.res.getAapt2FromMavenAndVersion
 import com.android.build.gradle.internal.scope.BuildArtifactsHolder
 import com.android.build.gradle.internal.scope.InternalArtifactType
@@ -59,7 +58,7 @@ abstract class BundleToApkTask @Inject constructor(workerExecutor: WorkerExecuto
     abstract val aapt2FromMaven: ConfigurableFileCollection
 
     @get:InputFiles
-    @get:PathSensitive(PathSensitivity.ABSOLUTE)
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     lateinit var signingConfig: FileCollection
         private set
 
@@ -69,7 +68,7 @@ abstract class BundleToApkTask @Inject constructor(workerExecutor: WorkerExecuto
     private val workers = Workers.preferWorkers(project.name, path, workerExecutor)
 
     override fun doTaskAction() {
-        val config = SigningConfigMetadata.load(signingConfig)
+        val config = SigningConfigUtils.load(signingConfig)
         workers.use {
             it.submit(
                 BundleToolRunnable::class.java,

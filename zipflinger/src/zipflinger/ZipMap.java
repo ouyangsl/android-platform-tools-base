@@ -18,10 +18,10 @@ package zipflinger;
 import com.android.annotations.NonNull;
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,10 +54,9 @@ class ZipMap {
     }
 
     private void parse() throws IOException {
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r");
-                FileChannel channel = raf.getChannel()) {
+        try (FileChannel channel = FileChannel.open(file.toPath(), StandardOpenOption.READ)) {
 
-            fileSize = raf.length();
+            fileSize = channel.size();
 
             // TODO: Zip64 -> Retrieve more to get the "zip64 end of central directory locator"
             int sizeToRead = (int) Math.min(fileSize, EOCD_MAX_SIZE);
@@ -189,9 +188,20 @@ class ZipMap {
 
         parseName(buf, pathLength, entry);
 
-        // The extra field is not guaranteed to be the same in the LFH and in the CDH. In practice there is
-        // often padding space that is not in the CD. We need to read the LFH.
-        int localExtraLength = readLocalExtraLength(start + 28, entry, channel);
+        // Retrieve the local header extra size since there are no guarantee it is the same as the
+        // central directory size.
+        // Semi-paranoid mode: Also check that the local name size is the same as the cd name size.
+        ByteBuffer localFieldBuffer =
+                readLocalFields(start + LocalFileHeader.OFFSET_TO_NAME, entry, channel);
+        int localPathLength = localFieldBuffer.getShort() & 0xFFFF;
+        int localExtraLength = localFieldBuffer.getShort() & 0xFFFF;
+        if (pathLength != localPathLength) {
+            String message =
+                    String.format(
+                            "Entry '%s' name differ (%d vs %d)",
+                            entry.getName(), localPathLength, pathLength);
+            throw new IllegalStateException(message);
+        }
 
         // TODO Test the impact on performance to read the LFH. This is only useful to check if general status
         // flag differs from the CDR which so far does not seem to happen.
@@ -230,25 +240,29 @@ class ZipMap {
         boolean hasDataDescriptor =
                 ((flags & CentralDirectoryRecord.DATA_DESCRIPTOR_FLAG)
                         == CentralDirectoryRecord.DATA_DESCRIPTOR_FLAG);
-        if (hasDataDescriptor && accountDataDescriptors) {
-            // This is expensive. Fortunately ZIP archive rarely use DD nowadays.
-            channel.position(end);
-            parseDataDescriptor(channel, entry);
+        if (hasDataDescriptor) {
+            if (accountDataDescriptors) {
+                // This is expensive. Fortunately ZIP archive rarely use DD nowadays.
+                channel.position(end);
+                parseDataDescriptor(channel, entry);
+            } else {
+                entry.setLocation(Location.INVALID);
+            }
         }
     }
 
-    private int readLocalExtraLength(long offset, Entry entry, FileChannel channel)
+    private ByteBuffer readLocalFields(long offset, Entry entry, FileChannel channel)
             throws IOException {
         // The extra field is not guaranteed to be the same in the LFH and in the CDH. In practice there is
         // often padding space that is not in the CD. We need to read the LFH.
-        ByteBuffer localExtraLengthBuffer = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
-        if (offset < 0 || (offset + 2) > fileSize) {
+        ByteBuffer localFieldsBuffer = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
+        if (offset < 0 || (offset + 4) > fileSize) {
             throw new IllegalStateException(
                     "Entry :" + entry.getName() + " invalid offset (" + offset + ")");
         }
-        channel.read(localExtraLengthBuffer, offset);
-        localExtraLengthBuffer.rewind();
-        return localExtraLengthBuffer.getShort() & 0xFFFF;
+        channel.read(localFieldsBuffer, offset);
+        localFieldsBuffer.rewind();
+        return localFieldsBuffer;
     }
 
     private static void parseName(@NonNull ByteBuffer buf, int length, @NonNull Entry entry) {

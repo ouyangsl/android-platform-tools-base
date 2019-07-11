@@ -39,8 +39,6 @@ service MemoryService {
   }
   rpc TriggerHeapDump(TriggerHeapDumpRequest) returns (TriggerHeapDumpResponse) {
   }
-  rpc GetHeapDump(DumpDataRequest) returns (DumpDataResponse) {
-  }
   // List all heap dump records for an app within a specified time request.
   rpc ListHeapDumpInfos(ListDumpInfosRequest) returns (ListHeapDumpInfosResponse) {
   }
@@ -64,8 +62,7 @@ service MemoryService {
   // ids provided in the request.
   rpc GetLegacyAllocationContexts(LegacyAllocationContextsRequest)
       returns (LegacyAllocationContextsResponse) {}
-  // Pre-O only: Used by Studio only for exporting legacy tracking data.
-  rpc GetLegacyAllocationDump(DumpDataRequest) returns (DumpDataResponse) {}
+
   // Pre-O only: Import saved allocation records.
   rpc ImportLegacyAllocations(ImportLegacyAllocationsRequest)
       returns (ImportLegacyAllocationsResponse) {}
@@ -97,11 +94,7 @@ service MemoryService {
   // O+ studio-side only: Given a time interval returns a set of all events
   // related to creations and deletions of global JNI references.
   rpc GetJNIGlobalRefsEvents(JNIGlobalRefsEventsRequest)
-      returns (BatchJNIGlobalRefEvent) {}
-
-  // Turn list of addresses into symbolized native callstack frames.
-  rpc ResolveNativeBacktrace(ResolveNativeBacktraceRequest)
-      returns (NativeCallStack) {}
+      returns (JNIGlobalRefsEventsResponse) {}
 }
 
 message MemoryStartRequest {
@@ -166,21 +159,6 @@ message MemoryData {
   repeated BatchJNIGlobalRefEvent jni_reference_event_batches = 9;
   repeated AllocationSamplingRateEvent alloc_sampling_rate_events = 10;
 }
-// Proto for describing a heap dump record.
-// A HeapDumpInfo is returned if either the start_time or end_time falls
-// within the requested time window.
-// e.g. An info can be returned across multiple requests:
-// 1. When a heap dump is first triggered with start_time specified.
-// 2. When the heap dump completes/fails with end_time specified.
-//
-// It is the responsibility of the requester to dedupe a completed info if
-// there was an unfinished info that was previously sent.
-message HeapDumpInfo {
-  int64 start_time = 1;
-  int64 end_time = 2;
-  string file_name = 3;
-  bool success = 4;
-}
 
 message TriggerHeapDumpRequest {
   Session session = 1;
@@ -188,34 +166,10 @@ message TriggerHeapDumpRequest {
 }
 
 message TriggerHeapDumpResponse {
-  enum Status {
-    UNSPECIFIED = 0;
-    SUCCESS = 1;
-    IN_PROGRESS = 2;
-    NOT_PROFILING = 3;
-    FAILURE_UNKNOWN = 4;
-  }
-  Status status = 1;
+  HeapDumpStatus status = 1;
   // Returns the HeapDumpInfo immediately so the caller can
   // optionally track its completion
   HeapDumpInfo info = 2;
-}
-
-message DumpDataRequest {
-  Session session = 1;
-  int64 dump_time = 2;
-}
-
-message DumpDataResponse {
-  enum Status {
-    UNSPECIFIED = 0;
-    SUCCESS = 1;
-    NOT_READY = 2;
-    NOT_FOUND = 3;
-    FAILURE_UNKNOWN = 4;
-  }
-  Status status = 1;
-  bytes data = 2;
 }
 
 message ImportHeapDumpRequest {
@@ -276,19 +230,11 @@ message TrackAllocationsResponse {
 }
 
 // Represents an event when live allocations are recorded with a new
-// AllocationSamplingRate. Note that this message is not used by the legacy
+// MemoryAllocSamplingData. Note that this message is not used by the legacy
 // allocation tracking.
 message AllocationSamplingRateEvent {
   int64 timestamp = 1;
-  AllocationSamplingRate sampling_rate = 2;
-}
-
-message AllocationSamplingRate {
-  // Number of allocations between samples.
-  // e.g. when set to 100, we only track 1 out of every 100 allocations.
-  // When set to 0, allocation tracking is turned off.
-  // When set to 1, every allocation is tracked (i.e. full tracking).
-  int32 sampling_num_interval = 1;
+  MemoryAllocSamplingData sampling_rate = 2;
 }
 
 message TrackAllocationsRequest {
@@ -410,28 +356,10 @@ message JNIGlobalRefsEventsRequest {
   Session session = 1;
   int64 start_time = 2;  // inclusive;
   int64 end_time = 3; // exclusive;
-
-  // Ignore |start_time| - include only objects that are still
-  // alive at point in time specified by |end_time|
-  bool live_objects_only = 4;
 }
 
-message ResolveNativeBacktraceRequest {
-  Session session = 1;
-  NativeBacktrace backtrace = 2;
-}
-
-message NativeCallStack {
-  message NativeFrame {
-    int64 address = 1;
-    int64 module_offset = 2;
-    string module_name = 3;
-    string symbol_name = 4;
-    string file_name = 5;
-    int32 line_number = 6;
-  }
-
-  repeated NativeFrame frames = 1;
+message JNIGlobalRefsEventsResponse {
+  repeated BatchJNIGlobalRefEvent events = 1;
 }
 
 message ForceGarbageCollectionRequest {
@@ -442,7 +370,7 @@ message ForceGarbageCollectionResponse {}
 
 message SetAllocationSamplingRateRequest {
   Session session = 1;
-  AllocationSamplingRate sampling_rate = 2;
+  MemoryAllocSamplingData sampling_rate = 2;
 }
 
 message SetAllocationSamplingRateResponse {}

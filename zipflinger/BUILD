@@ -9,6 +9,7 @@ maven_java_library(
     visibility = [
         "//tools/base/build-system:__subpackages__",
         "//tools/base/lint:__subpackages__",
+        "//tools/base/signflinger:__subpackages__",
     ],
     deps = [
         "//prebuilts/tools/common/m2/repository/com/google/guava/guava/27.0.1-jre:jar",
@@ -102,6 +103,7 @@ java_test(
 
 java_test(
     name = "testsZipFlinger",
+    size = "small",
     srcs = [
         "test/src/java/zipflinger/TestZipFlinger.java",
     ],
@@ -111,6 +113,7 @@ java_test(
         "test/resource/file4.txt",
         "test/resource/text.txt",
         "test/resource/zip_with_directories.zip",
+        "test/resource/two_files.zip",
     ]),
     jvm_flags = ["-Dtest.suite.jar=testsZipFlinger.jar"],
     test_class = "com.android.testutils.JarTestSuite",

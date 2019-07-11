@@ -94,8 +94,9 @@ coverage_report(
         "//tools/adt/idea/profilers-android:intellij.android.profilersAndroid_tests",
         "//tools/adt/idea/profilers-ui:intellij.android.profilers.ui_tests",
         "//tools/adt/idea/project-system:intellij.android.projectSystem.tests_tests",
-        "//tools/adt/idea/project-system-gradle:intellij.android.projectSystem.gradle.tests_tests",
-        "//tools/adt/idea/resources-aar:intellij.android.resources-aar.tests_tests",
+        # TODO(b/136028658): too flaky for use in coverage runs
+        #"//tools/adt/idea/project-system-gradle:intellij.android.projectSystem.gradle.tests_tests",
+        "//tools/adt/idea/resources-base:intellij.android.resources-base.tests_tests",
         "//tools/adt/idea/sdk-updates:intellij.android.sdkUpdates.tests_tests",
         "//tools/adt/idea/smali:intellij.android.smali_tests",
         "//tools/adt/idea/swingp:intellij.android.adt.swingp_tests",
@@ -208,5 +209,6 @@ coverage_report(
         "//tools/data-binding:studio.compiler_tests",
         "//tools/data-binding:tools.compilerCommon_tests.test",
         "//tools/idea/updater:integration_test",
+        "//tools/vendor/google/android-ndk:android-ndk_tests",
     ],
 )

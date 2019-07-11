@@ -27,6 +27,7 @@ using profiler::proto::AllocationsInfo;
 using profiler::proto::BatchAllocationContexts;
 using profiler::proto::BatchAllocationEvents;
 using profiler::proto::BatchJNIGlobalRefEvent;
+using profiler::proto::HeapDumpStatus;
 using profiler::proto::MemoryData;
 using profiler::proto::TrackAllocationsResponse;
 using profiler::proto::TriggerHeapDumpResponse;
@@ -126,45 +127,43 @@ TEST(MemoryCache, HeapDump) {
   EXPECT_EQ(false, cache.EndHeapDump(5, false));
 
   // Triggers a heap dump
-  bool success = cache.StartHeapDump("dummy_path", 5, &response);
+  bool success = cache.StartHeapDump(5, &response);
   EXPECT_EQ(true, success);
-  EXPECT_EQ("dummy_path", response.info().file_name());
   EXPECT_EQ(5, response.info().start_time());
   EXPECT_EQ(profiler::MemoryCache::kUnfinishedTimestamp,
             response.info().end_time());
-  EXPECT_EQ(false, response.info().success());
+  EXPECT_FALSE(response.info().success());
 
   // Ensure calling StartheapDump the second time fails and
   // returns the previous sample.
-  success = cache.StartHeapDump("dummy_path2", 10, &response);
+  success = cache.StartHeapDump(10, &response);
   EXPECT_EQ(false, success);
-  EXPECT_EQ("dummy_path", response.info().file_name());
   EXPECT_EQ(5, response.info().start_time());
   EXPECT_EQ(profiler::MemoryCache::kUnfinishedTimestamp,
             response.info().end_time());
+  EXPECT_FALSE(response.info().success());
 
   // Completes a heap dump
   EXPECT_EQ(true, cache.EndHeapDump(15, true));
 
   // Triggers a second heap dump
-  success = cache.StartHeapDump("dummy_path2", 20, &response);
+  success = cache.StartHeapDump(20, &response);
   EXPECT_EQ(true, success);
-  EXPECT_EQ("dummy_path2", response.info().file_name());
   EXPECT_EQ(20, response.info().start_time());
   EXPECT_EQ(profiler::MemoryCache::kUnfinishedTimestamp,
             response.info().end_time());
-  EXPECT_EQ(false, response.info().success());
+  EXPECT_FALSE(response.info().success());
 
   // Ensures validity of the HeapDumpInfos returned via LoadMemoryData
   MemoryData data_response;
   cache.LoadMemoryData(10, 20, &data_response);
   EXPECT_EQ(2, data_response.heap_dump_infos().size());
 
-  EXPECT_EQ(true, data_response.heap_dump_infos(0).success());
+  EXPECT_TRUE(data_response.heap_dump_infos(0).success());
   EXPECT_EQ(5, data_response.heap_dump_infos(0).start_time());
   EXPECT_EQ(15, data_response.heap_dump_infos(0).end_time());
 
-  EXPECT_EQ(false, data_response.heap_dump_infos(1).success());
+  EXPECT_FALSE(data_response.heap_dump_infos(1).success());
   EXPECT_EQ(20, data_response.heap_dump_infos(1).start_time());
   EXPECT_EQ(profiler::MemoryCache::kUnfinishedTimestamp,
             data_response.heap_dump_infos(1).end_time());
