@@ -15,6 +15,7 @@
  */
 package com.android.build.gradle.tasks;
 
+import static com.android.SdkConstants.FD_RES_VALUES;
 import static com.android.build.gradle.internal.TaskManager.MergeType.MERGE;
 import static com.android.build.gradle.internal.scope.InternalArtifactType.DATA_BINDING_LAYOUT_INFO_TYPE_MERGE;
 import static com.android.build.gradle.internal.scope.InternalArtifactType.DATA_BINDING_LAYOUT_INFO_TYPE_PACKAGE;
@@ -72,10 +73,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import javax.inject.Inject;
 import javax.xml.bind.JAXBException;
 import kotlin.Pair;
 import org.gradle.api.GradleException;
+import org.gradle.api.artifacts.ArtifactCollection;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
@@ -91,7 +92,6 @@ import org.gradle.api.tasks.OutputFile;
 import org.gradle.api.tasks.PathSensitive;
 import org.gradle.api.tasks.PathSensitivity;
 import org.gradle.api.tasks.TaskProvider;
-import org.gradle.workers.WorkerExecutor;
 
 @CacheableTask
 public abstract class MergeResources extends ResourceAwareTask {
@@ -141,6 +141,8 @@ public abstract class MergeResources extends ResourceAwareTask {
 
     private boolean precompileRemoteResources;
 
+    private boolean precompileLocalResources;
+
     private ImmutableSet<Flag> flags;
 
     @NonNull
@@ -176,21 +178,18 @@ public abstract class MergeResources extends ResourceAwareTask {
         return true;
     }
 
+    @Internal
+    @NonNull
+    public WorkerExecutorFacade getAaptWorkerFacade() {
+        return Workers.INSTANCE.getWorkerForAapt2(getProjectName(), getPath(), getWorkerExecutor());
+    }
+
     @NonNull
     @OutputDirectory
     @Optional
     public abstract DirectoryProperty getDataBindingLayoutInfoOutFolder();
 
-    private final WorkerExecutorFacade workerExecutorFacade;
-
     private SyncOptions.ErrorFormatMode errorFormatMode;
-
-    @Inject
-    public MergeResources(WorkerExecutor workerExecutor) {
-        this.workerExecutorFacade =
-                Workers.INSTANCE.getWorkerForAapt2(
-                        getProject().getName(), getPath(), workerExecutor);
-    }
 
     @Override
     protected void doFullTaskAction() throws IOException, JAXBException {
@@ -214,14 +213,15 @@ public abstract class MergeResources extends ResourceAwareTask {
             mergingLog = new MergingLog(blameLogFolder);
         }
 
-        try (ResourceCompilationService resourceCompiler =
-                getResourceProcessor(
-                        getAapt2FromMaven(),
-                        workerExecutorFacade,
-                        errorFormatMode,
-                        flags,
-                        processResources,
-                        getLogger())) {
+        try (WorkerExecutorFacade workerExecutorFacade = getAaptWorkerFacade();
+                ResourceCompilationService resourceCompiler =
+                        getResourceProcessor(
+                                getAapt2FromMaven(),
+                                workerExecutorFacade,
+                                errorFormatMode,
+                                flags,
+                                processResources,
+                                getLogger())) {
 
             Blocks.recordSpan(
                     getProject().getName(),
@@ -287,6 +287,24 @@ public abstract class MergeResources extends ResourceAwareTask {
         }
     }
 
+    /**
+     * Check if the changed file is filtered out from the input to be compiled in compile library
+     * resources task, if it is then it should be ignored.
+     */
+    private boolean isFilteredOutLibraryResource(File changedFile) {
+        ArtifactCollection localLibraryResources = getResourcesComputer().getLocalLibraries();
+        File parentFile = changedFile.getParentFile();
+        if (localLibraryResources == null || parentFile.getName().startsWith(FD_RES_VALUES)) {
+            return false;
+        }
+        for (File resDir : localLibraryResources.getArtifactFiles()) {
+            if (parentFile.getAbsolutePath().startsWith(resDir.getAbsolutePath())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     protected void doIncrementalTaskAction(@NonNull Map<File, ? extends FileStatus> changedInputs)
             throws IOException, JAXBException {
@@ -298,6 +316,21 @@ public abstract class MergeResources extends ResourceAwareTask {
             if (!merger.loadFromBlob(getIncrementalFolder(), true /*incrementalState*/)) {
                 doFullTaskAction();
                 return;
+            }
+
+            if (precompileLocalResources) {
+                changedInputs =
+                        changedInputs
+                                .entrySet()
+                                .stream()
+                                .filter(
+                                        fileEntry ->
+                                                !isFilteredOutLibraryResource(fileEntry.getKey()))
+                                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
+                if (changedInputs.isEmpty()) {
+                    return;
+                }
             }
 
             for (ResourceSet resourceSet : merger.getDataSets()) {
@@ -345,14 +378,15 @@ public abstract class MergeResources extends ResourceAwareTask {
             MergingLog mergingLog =
                     getBlameLogFolder() != null ? new MergingLog(getBlameLogFolder()) : null;
 
-            try (ResourceCompilationService resourceCompiler =
-                    getResourceProcessor(
-                            getAapt2FromMaven(),
-                            workerExecutorFacade,
-                            errorFormatMode,
-                            flags,
-                            processResources,
-                            getLogger())) {
+            try (WorkerExecutorFacade workerExecutorFacade = getAaptWorkerFacade();
+                    ResourceCompilationService resourceCompiler =
+                            getResourceProcessor(
+                                    getAapt2FromMaven(),
+                                    workerExecutorFacade,
+                                    errorFormatMode,
+                                    flags,
+                                    processResources,
+                                    getLogger())) {
 
                 File publicFile =
                         getPublicFile().isPresent() ? getPublicFile().get().getAsFile() : null;
@@ -413,12 +447,12 @@ public abstract class MergeResources extends ResourceAwareTask {
                 // Add gradle-specific error message.
                 throw new GradleException(
                         String.format(
-                                "Can't process attribute %1$s=\"%2$s\": "
-                                        + "references to other resources are not supported by "
-                                        + "build-time PNG generation.\n"
+                                "Can't process attribute %1$s=\"%2$s\": references to other"
+                                        + " resources are not supported by build-time PNG"
+                                        + " generation.\n"
                                         + "%3$s\n"
-                                        + "See http://developer.android.com/tools/help/vector-asset-studio.html "
-                                        + "for details.",
+                                        + "See http://developer.android.com/tools/help/vector-asset-studio.html"
+                                        + " for details.",
                                 e.getName(),
                                 e.getValue(),
                                 getPreprocessingReasonDescription(original)));
@@ -453,7 +487,9 @@ public abstract class MergeResources extends ResourceAwareTask {
         // back to full task run. Because the cached ResourceList is modified we don't want
         // to recompute this twice (plus, why recompute it twice anyway?)
         if (processedInputs == null) {
-            processedInputs = getResourcesComputer().compute(precompileRemoteResources);
+            processedInputs =
+                    getResourcesComputer()
+                            .compute(precompileRemoteResources, precompileLocalResources);
             List<ResourceSet> generatedSets = new ArrayList<>(processedInputs.size());
 
             for (ResourceSet resourceSet : processedInputs) {
@@ -582,6 +618,7 @@ public abstract class MergeResources extends ResourceAwareTask {
         private final boolean processResources;
         private final boolean processVectorDrawables;
         @NonNull private final ImmutableSet<Flag> flags;
+        private boolean isLibrary;
 
         public CreationAction(
                 @NonNull VariantScope variantScope,
@@ -590,7 +627,8 @@ public abstract class MergeResources extends ResourceAwareTask {
                 @Nullable File mergedNotCompiledOutputDirectory,
                 boolean includeDependencies,
                 boolean processResources,
-                @NonNull ImmutableSet<Flag> flags) {
+                @NonNull ImmutableSet<Flag> flags,
+                boolean isLibrary) {
             super(variantScope);
             this.mergeType = mergeType;
             this.taskNamePrefix = taskNamePrefix;
@@ -599,6 +637,7 @@ public abstract class MergeResources extends ResourceAwareTask {
             this.processResources = processResources;
             this.processVectorDrawables = flags.contains(Flag.PROCESS_VECTOR_DRAWABLES);
             this.flags = flags;
+            this.isLibrary = isLibrary;
         }
 
         @NonNull
@@ -752,7 +791,13 @@ public abstract class MergeResources extends ResourceAwareTask {
 
             task.errorFormatMode = SyncOptions.getErrorFormatMode(globalScope.getProjectOptions());
 
-            task.precompileRemoteResources = variantScope.isPrecompileRemoteResourcesEnabled();
+            task.precompileRemoteResources =
+                    mergeType.equals(MERGE) && variantScope.isPrecompileRemoteResourcesEnabled();
+
+            task.precompileLocalResources =
+                    mergeType.equals(MERGE)
+                            && !isLibrary
+                            && variantScope.isPrecompileLocalResourcesEnabled();
 
             task.dependsOn(variantScope.getTaskContainer().getResourceGenTask());
 

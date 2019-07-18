@@ -30,13 +30,10 @@ import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.scope.VariantScope
 import com.android.build.gradle.internal.tasks.NonIncrementalTask
 import com.android.build.gradle.internal.tasks.TaskInputHelper
-import com.android.build.gradle.internal.tasks.Workers
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.build.gradle.internal.tasks.featuresplit.FeatureSetMetadata
-import com.android.build.gradle.options.StringOption
 import com.android.build.gradle.internal.utils.toImmutableList
-import com.android.build.gradle.options.BooleanOption
-
+import com.android.build.gradle.options.StringOption
 import com.android.build.gradle.options.SyncOptions
 import com.android.builder.core.VariantTypeImpl
 import com.android.builder.internal.aapt.AaptOptions
@@ -64,20 +61,15 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
-import org.gradle.workers.WorkerExecutor
 import java.io.File
 import java.io.IOException
 import java.util.function.Supplier
-import javax.inject.Inject
 
 /**
  * Task to link app resources into a proto format so that it can be consumed by the bundle tool.
  */
 @CacheableTask
-abstract class LinkAndroidResForBundleTask
-@Inject constructor(workerExecutor: WorkerExecutor) : NonIncrementalTask() {
-
-    private val workers = Workers.preferWorkers(project.name, path, workerExecutor)
+abstract class LinkAndroidResForBundleTask : NonIncrementalTask() {
 
     @get:Input
     var debuggable: Boolean = false
@@ -138,6 +130,8 @@ abstract class LinkAndroidResForBundleTask
 
     private var compiledRemoteResources: ArtifactCollection? = null
 
+    private var compiledLocalResources: ArtifactCollection? = null
+
     override fun doTaskAction() {
 
         val manifestFile = ExistingBuildElements.from(InternalArtifactType.BUNDLE_MANIFEST, manifestFiles)
@@ -160,11 +154,10 @@ abstract class LinkAndroidResForBundleTask
         }
 
         val compiledRemoteResourcesDirs =
-            if (getCompiledRemoteResources() == null) emptyList<File>()
-            else {
-                // the order of the artifact is descending order, so we need to reverse it.
-                getCompiledRemoteResources()!!.reversed().toImmutableList()
-            }
+            getCompiledRemoteResources()?.reversed()?.toImmutableList() ?: emptyList<File>()
+
+        val compiledLocalResourcesDirs =
+            getCompiledLocalResources()?.reversed()?.toImmutableList() ?: emptyList<File>()
 
         val config = AaptPackageConfig(
             androidJarPath = androidJar.get().absolutePath,
@@ -177,9 +170,9 @@ abstract class LinkAndroidResForBundleTask
             packageId = resOffset,
             allowReservedPackageId = minSdkVersion < AndroidVersion.VersionCodes.O,
             dependentFeatures = featurePackagesBuilder.build(),
-            resourceDirs = ImmutableList.Builder<File>().addAll(compiledRemoteResourcesDirs).add(
-                checkNotNull(getInputResourcesDir().orNull?.asFile)
-            ).build(),
+            resourceDirs = ImmutableList.Builder<File>().addAll(compiledRemoteResourcesDirs).addAll(
+                compiledLocalResourcesDirs
+            ).add(checkNotNull(getInputResourcesDir().orNull?.asFile)).build(),
             resourceConfigs = ImmutableSet.copyOf(resConfig)
         )
         if (logger.isInfoEnabled) {
@@ -190,7 +183,7 @@ abstract class LinkAndroidResForBundleTask
             aapt2FromMaven = aapt2FromMaven,
             logger = LoggerWrapper(logger)
         )
-        workers.use {
+        getWorkerFacadeWithWorkers().use {
             it.submit(
                 Aapt2ProcessResourcesRunnable::class.java,
                 Aapt2ProcessResourcesRunnable.Params(
@@ -230,6 +223,13 @@ abstract class LinkAndroidResForBundleTask
     @PathSensitive(PathSensitivity.RELATIVE)
     fun getCompiledRemoteResources(): FileCollection? {
         return compiledRemoteResources?.artifactFiles
+    }
+
+    @Optional
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+    fun getCompiledLocalResources(): FileCollection? {
+        return compiledLocalResources?.artifactFiles
     }
 
     @get:Input
@@ -326,6 +326,14 @@ abstract class LinkAndroidResForBundleTask
                         AndroidArtifacts.ArtifactScope.ALL,
                         AndroidArtifacts.ArtifactType.COMPILED_REMOTE_RESOURCES
                     )
+            }
+
+            if (variantScope.isPrecompileLocalResourcesEnabled) {
+                task.compiledLocalResources = variantScope.getArtifactCollection(
+                    AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
+                    AndroidArtifacts.ArtifactScope.ALL,
+                    AndroidArtifacts.ArtifactType.COMPILED_LOCAL_RESOURCES
+                )
             }
         }
     }

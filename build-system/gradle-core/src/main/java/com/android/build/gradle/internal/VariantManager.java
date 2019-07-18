@@ -66,7 +66,6 @@ import com.android.build.gradle.internal.dsl.BaseFlavor;
 import com.android.build.gradle.internal.dsl.BuildType;
 import com.android.build.gradle.internal.dsl.CoreBuildType;
 import com.android.build.gradle.internal.dsl.CoreProductFlavor;
-import com.android.build.gradle.internal.dsl.CoreSigningConfig;
 import com.android.build.gradle.internal.errors.SyncIssueHandler;
 import com.android.build.gradle.internal.profile.AnalyticsUtil;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts;
@@ -93,7 +92,6 @@ import com.android.builder.core.DefaultProductFlavor;
 import com.android.builder.core.DefaultProductFlavor.DimensionRequest;
 import com.android.builder.core.ManifestAttributeSupplier;
 import com.android.builder.core.VariantType;
-import com.android.builder.errors.EvalIssueException;
 import com.android.builder.errors.EvalIssueReporter;
 import com.android.builder.model.ProductFlavor;
 import com.android.builder.model.SigningConfig;
@@ -173,7 +171,7 @@ public class VariantManager implements VariantModel {
     @NonNull private final Map<String, SigningConfig> signingConfigs;
     @NonNull private final Map<File, ManifestAttributeSupplier> manifestParserMap;
     @NonNull protected final GlobalScope globalScope;
-    @Nullable private final CoreSigningConfig signingOverride;
+    @Nullable private final SigningConfig signingOverride;
     // We cannot use gradle's state of executed as that returns true while inside afterEvalute.
     // Wew want this to only be true after all tasks have been create.
     private boolean hasCreatedTasks = false;
@@ -996,10 +994,9 @@ public class VariantManager implements VariantModel {
                         .getErrorHandler()
                         .reportError(
                                 EvalIssueReporter.Type.UNNAMED_FLAVOR_DIMENSION,
-                                new EvalIssueException(
-                                        "All flavors must now belong to a named flavor dimension."
-                                                + " Learn more at "
-                                                + "https://d.android.com/r/tools/flavorDimensions-missing-error-message.html"));
+                                "All flavors must now belong to a named flavor dimension."
+                                        + " Learn more at "
+                                        + "https://d.android.com/r/tools/flavorDimensions-missing-error-message.html");
             } else if (flavorDimensionList.size() == 1) {
                 // if there's only one dimension, auto-assign the dimension to all the flavors.
                 String dimensionName = flavorDimensionList.get(0);
@@ -1465,7 +1462,7 @@ public class VariantManager implements VariantModel {
         }
     }
 
-    private CoreSigningConfig createSigningOverride() {
+    private SigningConfig createSigningOverride() {
         SigningOptions signingOptions = SigningOptions.readSigningOptions(projectOptions);
         if (signingOptions != null) {
             com.android.build.gradle.internal.dsl.SigningConfig signingConfigDsl =
@@ -1709,9 +1706,8 @@ public class VariantManager implements VariantModel {
         Collections.sort(buildTypesMarkedAsDefault);
 
         if (buildTypesMarkedAsDefault.size() > 1) {
-            syncIssueHandler.reportIssue(
+            syncIssueHandler.reportWarning(
                     EvalIssueReporter.Type.AMBIGUOUS_BUILD_TYPE_DEFAULT,
-                    EvalIssueReporter.Severity.WARNING,
                     "Ambiguous default build type: '"
                             + Joiner.on("', '").join(buildTypesMarkedAsDefault)
                             + "'.\n"
@@ -1762,9 +1758,8 @@ public class VariantManager implements VariantModel {
             }
             if (userDefault.size() > 1) {
                 // Report the ambiguous default setting.
-                syncIssueHandler.reportIssue(
+                syncIssueHandler.reportWarning(
                         EvalIssueReporter.Type.AMBIGUOUS_PRODUCT_FLAVOR_DEFAULT,
-                        EvalIssueReporter.Severity.WARNING,
                         "Ambiguous default product flavors for flavor dimension '"
                                 + dimension
                                 + "': '"

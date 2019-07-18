@@ -35,7 +35,6 @@ import com.android.build.gradle.internal.scope.VariantScope;
 import com.android.build.gradle.internal.variant.TestVariantFactory;
 import com.android.build.gradle.options.BooleanOption;
 import com.android.builder.core.VariantType;
-import com.android.builder.errors.EvalIssueException;
 import com.android.builder.errors.EvalIssueReporter;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
@@ -351,13 +350,9 @@ public class VariantDependencies {
                 runtimeElementsAttributes.attribute(VariantAttr.ATTRIBUTE, variantNameAttr);
                 runtimeElementsAttributes.attribute(Usage.USAGE_ATTRIBUTE, runtimeUsage);
                 runtimeElementsAttributes.attribute(AndroidTypeAttr.ATTRIBUTE, publishType);
-
-                // if the variant is not a library, then the publishing configuration should
-                // not extend from anything. It's mostly there to access the artifacts from
-                // another project but it shouldn't bring any dependencies with it.
-                if (variantType.isAar()) {
-                    runtimeElements.extendsFrom(runtimeClasspath);
-                }
+                // always extend from the runtimeClasspath. Let the FilteringSpec handle what
+                // should be packaged.
+                runtimeElements.extendsFrom(runtimeClasspath);
                 elements.put(RUNTIME_ELEMENTS, runtimeElements);
 
                 Configuration apiElements = configurations.maybeCreate(variantName + "ApiElements");
@@ -411,9 +406,8 @@ public class VariantDependencies {
                         if (!notFound.isEmpty()) {
                             errorReporter.reportError(
                                     EvalIssueReporter.Type.GENERIC,
-                                    new EvalIssueException(
-                                            "Unable to find matching projects for Dynamic Features: "
-                                                    + notFound));
+                                    "Unable to find matching projects for Dynamic Features: "
+                                            + notFound);
                         }
                     } else {
                         //noinspection deprecation

@@ -29,6 +29,8 @@ public class V2Signer {
 
         SignedApkOptions.Builder builder =
                 new SignedApkOptions.Builder()
+                        .setV2Enabled(true)
+                        .setV1Enabled(false)
                         .setPrivateKey(signerConfig.privateKey)
                         .setCertificates(signerConfig.certificates)
                         .setExecutor(Utils.createExecutor());

@@ -86,7 +86,6 @@ import com.android.builder.core.VariantType;
 import com.android.builder.dexing.DexMergerTool;
 import com.android.builder.dexing.DexerTool;
 import com.android.builder.dexing.DexingType;
-import com.android.builder.errors.EvalIssueException;
 import com.android.builder.errors.EvalIssueReporter.Type;
 import com.android.builder.internal.packaging.ApkCreatorType;
 import com.android.builder.model.OptionalCompilationStep;
@@ -302,8 +301,7 @@ public class VariantScopeImpl implements VariantScope {
                     .getErrorHandler()
                     .reportError(
                             Type.GENERIC,
-                            new EvalIssueException(
-                                    "Resource shrinker cannot be used for multi-apk applications"));
+                            "Resource shrinker cannot be used for multi-apk applications");
             return false;
         }
 
@@ -312,9 +310,7 @@ public class VariantScopeImpl implements VariantScope {
                 globalScope
                         .getErrorHandler()
                         .reportError(
-                                Type.GENERIC,
-                                new EvalIssueException(
-                                        "Resource shrinker cannot be used for libraries."));
+                                Type.GENERIC, "Resource shrinker cannot be used for libraries.");
             }
             return false;
         }
@@ -324,10 +320,9 @@ public class VariantScopeImpl implements VariantScope {
                     .getErrorHandler()
                     .reportError(
                             Type.GENERIC,
-                            new EvalIssueException(
-                                    "Removing unused resources requires unused code shrinking to be turned on. See "
-                                            + "http://d.android.com/r/tools/shrink-resources.html "
-                                            + "for more information."));
+                            "Removing unused resources requires unused code shrinking to be turned on. See "
+                                    + "http://d.android.com/r/tools/shrink-resources.html "
+                                    + "for more information.");
 
             return false;
         }
@@ -341,6 +336,15 @@ public class VariantScopeImpl implements VariantScope {
         // overlay rules applied, so we have to go through the MergeResources pipeline in case it's
         // enabled, see b/134766811.
         return globalScope.getProjectOptions().get(BooleanOption.PRECOMPILE_REMOTE_RESOURCES)
+                && !useResourceShrinker();
+    }
+
+    @Override
+    public boolean isPrecompileLocalResourcesEnabled() {
+        // Resource shrinker expects MergeResources task to have all the resources merged and with
+        // overlay rules applied, so we have to go through the MergeResources pipeline in case it's
+        // enabled, see b/134766811.
+        return globalScope.getProjectOptions().get(BooleanOption.PRECOMPILE_LOCAL_RESOURCES)
                 && !useResourceShrinker();
     }
 
@@ -1270,13 +1274,12 @@ public class VariantScopeImpl implements VariantScope {
                 .getErrorHandler()
                 .reportError(
                         Type.GENERIC,
-                        new EvalIssueException(
-                                String.format(
-                                        "Please add '%s=true' to your "
-                                                + "gradle.properties file to enable Java 8 "
-                                                + "language support.",
-                                        missingFlag.name()),
-                                getVariantConfiguration().getFullName()));
+                        String.format(
+                                "Please add '%s=true' to your "
+                                        + "gradle.properties file to enable Java 8 "
+                                        + "language support.",
+                                missingFlag.name()),
+                        getVariantConfiguration().getFullName());
         return Java8LangSupport.INVALID;
     }
 
@@ -1301,9 +1304,7 @@ public class VariantScopeImpl implements VariantScope {
             String msg = String.format(template, flag.getPropertyName(), String.join(",", invalid));
             globalScope
                     .getErrorHandler()
-                    .reportError(
-                            Type.GENERIC,
-                            new EvalIssueException(msg, getVariantConfiguration().getFullName()));
+                    .reportError(Type.GENERIC, msg, getVariantConfiguration().getFullName());
             return false;
         }
     }

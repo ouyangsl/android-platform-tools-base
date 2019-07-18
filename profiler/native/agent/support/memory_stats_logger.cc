@@ -18,6 +18,10 @@
 
 #include <jni.h>
 
+#include <cassert>
+#include <climits>
+#include <vector>
+
 #include "agent/agent.h"
 #include "utils/clock.h"
 #include "utils/log.h"
@@ -38,6 +42,7 @@ using profiler::proto::InternalMemoryService;
 using profiler::proto::JNIRefEventsRequest;
 using profiler::proto::MemoryData;
 using profiler::proto::SendEventRequest;
+using profiler::proto::TrackStatus;
 
 namespace {
 const SteadyClock& GetClock() {
@@ -50,25 +55,38 @@ namespace profiler {
 
 void EnqueueAllocStats(int32_t alloc_count, int32_t free_count) {
   if (Agent::Instance().agent_config().common().profiler_unified_pipeline()) {
-    return;
+    Agent::Instance().SubmitAgentTasks(
+        {[alloc_count, free_count](AgentService::Stub& stub,
+                                   ClientContext& ctx) {
+          SendEventRequest request;
+          auto* event = request.mutable_event();
+          event->set_pid(getpid());
+          event->set_kind(Event::MEMORY_ALLOC_STATS);
+
+          auto* stats = event->mutable_memory_alloc_stats();
+          stats->set_java_allocation_count(alloc_count);
+          stats->set_java_free_count(free_count);
+
+          EmptyResponse response;
+          return stub.SendEvent(&ctx, request, &response);
+        }});
+  } else {
+    int64_t timestamp = GetClock().GetCurrentTime();
+    Agent::Instance().wait_and_get_memory_component().SubmitMemoryTasks(
+        {[alloc_count, free_count, timestamp](InternalMemoryService::Stub& stub,
+                                              ClientContext& ctx) {
+          AllocStatsRequest alloc_stats_request;
+          alloc_stats_request.set_pid(getpid());
+          auto* sample = alloc_stats_request.mutable_alloc_stats_sample();
+          sample->set_timestamp(timestamp);
+          auto* stats = sample->mutable_alloc_stats();
+          stats->set_java_allocation_count(alloc_count);
+          stats->set_java_free_count(free_count);
+
+          EmptyMemoryReply reply;
+          return stub.RecordAllocStats(&ctx, alloc_stats_request, &reply);
+        }});
   }
-
-  int64_t timestamp = GetClock().GetCurrentTime();
-  int32_t pid = getpid();
-  Agent::Instance().wait_and_get_memory_component().SubmitMemoryTasks(
-      {[alloc_count, free_count, pid, timestamp](
-           InternalMemoryService::Stub& stub, ClientContext& ctx) {
-        AllocStatsRequest alloc_stats_request;
-        alloc_stats_request.set_pid(pid);
-        MemoryData::AllocStatsSample* stats =
-            alloc_stats_request.mutable_alloc_stats_sample();
-        stats->set_timestamp(timestamp);
-        stats->set_java_allocation_count(alloc_count);
-        stats->set_java_free_count(free_count);
-
-        EmptyMemoryReply reply;
-        return stub.RecordAllocStats(&ctx, alloc_stats_request, &reply);
-      }});
 }
 
 void EnqueueGcStats(int64_t start_time, int64_t end_time) {
@@ -104,27 +122,132 @@ void EnqueueGcStats(int64_t start_time, int64_t end_time) {
   }
 }
 
+void EnqueueAllocationInfoEvents(const proto::Command& command,
+                                 int64_t track_start_timestamp,
+                                 bool command_success) {
+  assert(Agent::Instance().agent_config().common().profiler_unified_pipeline());
+
+  bool is_start_command = command.has_start_alloc_tracking();
+  bool request_timestamp = is_start_command
+                               ? command.start_alloc_tracking().request_time()
+                               : command.stop_alloc_tracking().request_time();
+
+  // Task for sending the MEMORY_ALLOC_TRACKING_STATUS event.
+  Agent::Instance().SubmitAgentTasks(
+      {[command, track_start_timestamp, command_success, is_start_command](
+           AgentService::Stub& stub, ClientContext& ctx) {
+        SendEventRequest request;
+        auto* event = request.mutable_event();
+        event->set_pid(getpid());
+        event->set_kind(Event::MEMORY_ALLOC_TRACKING_STATUS);
+        event->set_command_id(command.command_id());
+        auto* status =
+            event->mutable_memory_alloc_tracking_status()->mutable_status();
+        status->set_start_time(track_start_timestamp);
+        if (command_success) {
+          status->set_status(TrackStatus::SUCCESS);
+        } else {
+          status->set_status(is_start_command ? TrackStatus::IN_PROGRESS
+                                              : TrackStatus::NOT_ENABLED);
+        }
+
+        EmptyResponse response;
+        return stub.SendEvent(&ctx, request, &response);
+      }});
+
+  // Task for sending the MEMORY_ALLOC_TRACKING event.
+  if (command_success) {
+    Agent::Instance().SubmitAgentTasks(
+        {[command, track_start_timestamp, is_start_command, request_timestamp](
+             AgentService::Stub& stub, ClientContext& ctx) {
+          SendEventRequest request;
+          auto* event = request.mutable_event();
+          event->set_pid(getpid());
+          event->set_kind(Event::MEMORY_ALLOC_TRACKING);
+          event->set_group_id(track_start_timestamp);
+          auto* info = event->mutable_memory_alloc_tracking()->mutable_info();
+          info->set_start_time(track_start_timestamp);
+          if (is_start_command) {
+            // start event.
+            info->set_end_time(LLONG_MAX);
+          } else {
+            // end event.
+            event->set_is_ended(true);
+            info->set_end_time(request_timestamp);
+            info->set_success(true);
+          }
+
+          EmptyResponse response;
+          return stub.SendEvent(&ctx, request, &response);
+        }});
+  }
+}
+
 void EnqueueAllocationEvents(const proto::BatchAllocationContexts& contexts,
                              const proto::BatchAllocationEvents& events) {
   if (Agent::Instance().agent_config().common().profiler_unified_pipeline()) {
-    return;
-  }
+    Agent::Instance().SubmitAgentTasks(
+        {[contexts](AgentService::Stub& stub, ClientContext& ctx) {
+           SendEventRequest request;
+           auto* event = request.mutable_event();
+           event->set_pid(getpid());
+           event->set_kind(Event::MEMORY_ALLOC_CONTEXTS);
+           auto* data = event->mutable_memory_alloc_contexts();
+           data->mutable_contexts()->CopyFrom(contexts);
 
-  AllocationEventsRequest request;
-  request.set_pid(getpid());
-  request.mutable_contexts()->CopyFrom(contexts);
-  request.mutable_events()->CopyFrom(events);
-  Agent::Instance().wait_and_get_memory_component().SubmitMemoryTasks(
-      {[request](InternalMemoryService::Stub& stub, ClientContext& ctx) {
-        EmptyMemoryReply reply;
-        return stub.RecordAllocationEvents(&ctx, request, &reply);
-      }});
+           EmptyResponse response;
+           return stub.SendEvent(&ctx, request, &response);
+         },
+         [events](AgentService::Stub& stub, ClientContext& ctx) {
+           SendEventRequest request;
+           auto* event = request.mutable_event();
+           event->set_pid(getpid());
+           event->set_kind(Event::MEMORY_ALLOC_EVENTS);
+           auto* data = event->mutable_memory_alloc_events();
+           data->mutable_events()->CopyFrom(events);
+
+           EmptyResponse response;
+           return stub.SendEvent(&ctx, request, &response);
+         }});
+  } else {
+    AllocationEventsRequest request;
+    request.set_pid(getpid());
+    request.mutable_contexts()->CopyFrom(contexts);
+    request.mutable_events()->CopyFrom(events);
+    Agent::Instance().wait_and_get_memory_component().SubmitMemoryTasks(
+        {[request](InternalMemoryService::Stub& stub, ClientContext& ctx) {
+          EmptyMemoryReply reply;
+          return stub.RecordAllocationEvents(&ctx, request, &reply);
+        }});
+  }
 }
 
 void EnqueueJNIGlobalRefEvents(const proto::BatchAllocationContexts& contexts,
                                const proto::BatchJNIGlobalRefEvent& events) {
   if (Agent::Instance().agent_config().common().profiler_unified_pipeline()) {
-    return;
+    Agent::Instance().SubmitAgentTasks(
+        {[contexts](AgentService::Stub& stub, ClientContext& ctx) {
+           SendEventRequest request;
+           auto* event = request.mutable_event();
+           event->set_pid(getpid());
+           event->set_kind(Event::MEMORY_ALLOC_CONTEXTS);
+           auto* data = event->mutable_memory_alloc_contexts();
+           data->mutable_contexts()->CopyFrom(contexts);
+
+           EmptyResponse response;
+           return stub.SendEvent(&ctx, request, &response);
+         },
+         [events](AgentService::Stub& stub, ClientContext& ctx) {
+           SendEventRequest request;
+           auto* event = request.mutable_event();
+           event->set_pid(getpid());
+           event->set_kind(Event::MEMORY_JNI_REF_EVENTS);
+           auto* data = event->mutable_memory_jni_ref_events();
+           data->mutable_events()->CopyFrom(events);
+
+           EmptyResponse response;
+           return stub.SendEvent(&ctx, request, &response);
+         }});
   }
 
   JNIRefEventsRequest request;

@@ -16,6 +16,9 @@
 
 package com.android.build.gradle.internal.tasks
 
+import com.android.build.gradle.internal.core.VariantConfiguration
+import com.android.build.gradle.internal.scope.VariantScope
+import com.android.ide.common.workers.WorkerExecutorFacade
 import com.google.common.reflect.ClassPath
 import com.google.common.reflect.TypeToken
 import com.google.common.truth.Truth
@@ -39,6 +42,7 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.SkipWhenEmpty
 import org.junit.Test
 import java.lang.reflect.AnnotatedElement
+import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 
 class TaskMethodModifiersAndAnnotationsTest {
@@ -132,7 +136,6 @@ class TaskMethodModifiersAndAnnotationsTest {
                 "com.android.build.gradle.internal.tasks.IncrementalTask::setIncrementalFolder",
                 "com.android.build.gradle.internal.tasks.InstallVariantTask::setInstallOptions",
                 "com.android.build.gradle.internal.tasks.InstallVariantTask::setProcessExecutor",
-                "com.android.build.gradle.internal.tasks.InstallVariantTask::setProjectName",
                 "com.android.build.gradle.internal.tasks.InstallVariantTask::setTimeOutInMs",
                 "com.android.build.gradle.internal.tasks.InstallVariantTask::setVariantData",
                 "com.android.build.gradle.internal.tasks.LintCompile::setOutputDirectory",
@@ -170,8 +173,6 @@ class TaskMethodModifiersAndAnnotationsTest {
                 "com.android.build.gradle.tasks.PackageAndroidArtifact::setDebugBuild",
                 "com.android.build.gradle.tasks.PackageAndroidArtifact::setJniDebugBuild",
                 "com.android.build.gradle.tasks.PackageAndroidArtifact::setSigningConfig",
-                "com.android.build.gradle.tasks.ProcessApplicationManifest::setVariantConfiguration",
-                "com.android.build.gradle.tasks.ProcessLibraryManifest::setVariantConfiguration",
                 "com.android.build.gradle.tasks.ProcessTestManifest::setTestManifestFile",
                 "com.android.build.gradle.tasks.ProcessTestManifest::setTmpDir",
                 "com.android.build.gradle.tasks.RenderscriptCompile::setDebugBuild",
@@ -205,6 +206,32 @@ class TaskMethodModifiersAndAnnotationsTest {
             .containsExactlyElementsIn(whiteListedSetters)
     }
 
+    @Test
+    fun checkWorkerFacadeIsNotAField() {
+        Truth.assertThat(findTaskFieldsOfType(WorkerExecutorFacade::class.java)).isEmpty()
+    }
+
+    @Test
+    fun checkVariantScopeIsNotAField() {
+        Truth.assertThat(findTaskFieldsOfType(VariantScope::class.java)).isEmpty()
+    }
+
+    @Test
+    fun checkVariantConfigurationIsNotAField() {
+        Truth.assertThat(findTaskFieldsOfType(VariantConfiguration::class.java)).isEmpty()
+    }
+
+    private fun findTaskFieldsOfType(ofType: Class<*>): List<Field> {
+        val classPath = ClassPath.from(this.javaClass.classLoader)
+        val taskInterface = TypeToken.of(Task::class.java)
+        val fieldType = TypeToken.of(ofType)
+        return classPath
+            .getTopLevelClassesRecursive("com.android.build")
+            .map { classInfo -> classInfo.load() as Class<*> }
+            .filter { clazz -> TypeToken.of(clazz).types.contains(taskInterface) }
+            .flatMap { it.declaredFields.asIterable() }
+            .filter { TypeToken.of(it.type).isSubtypeOf(fieldType) }
+    }
 
     private fun AnnotatedElement.hasGradleInputOrOutputAnnotation(): Boolean {
         // look for all org.gradle.api.tasks annotations, except @CacheableTask, @Internal, and

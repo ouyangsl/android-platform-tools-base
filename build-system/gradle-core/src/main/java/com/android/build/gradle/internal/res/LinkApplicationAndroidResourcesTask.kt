@@ -17,6 +17,7 @@
 package com.android.build.gradle.internal.res
 
 import com.android.SdkConstants
+
 import com.android.SdkConstants.FN_RES_BASE
 import com.android.SdkConstants.FN_R_CLASS_JAR
 import com.android.SdkConstants.RES_QUALIFIER_SEP
@@ -42,7 +43,6 @@ import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.scope.SplitList
 import com.android.build.gradle.internal.scope.VariantScope
 import com.android.build.gradle.internal.tasks.TaskInputHelper
-import com.android.build.gradle.internal.tasks.Workers
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.build.gradle.internal.tasks.featuresplit.FeatureSetMetadata
 import com.android.build.gradle.internal.utils.toImmutableList
@@ -59,7 +59,6 @@ import com.android.builder.internal.aapt.AaptPackageConfig
 import com.android.builder.internal.aapt.v2.Aapt2Exception
 import com.android.ide.common.process.ProcessException
 import com.android.ide.common.symbols.SymbolIo
-import com.android.ide.common.workers.WorkerExecutorFacade
 import com.android.utils.FileUtils
 import com.google.common.base.Preconditions
 import com.google.common.collect.ImmutableList
@@ -68,10 +67,11 @@ import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
-import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.file.RegularFile
+import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.logging.Logging
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
@@ -86,7 +86,6 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.tooling.BuildException
-import org.gradle.workers.WorkerExecutor
 import java.io.File
 import java.io.IOException
 import java.io.Serializable
@@ -97,9 +96,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 @CacheableTask
-abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
-    objects: ObjectFactory,
-    workerExecutor: WorkerExecutor) :
+abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: ObjectFactory) :
     ProcessAndroidResources() {
 
     companion object {
@@ -161,6 +158,12 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         private set
     @get:Internal
     abstract val aapt2FromMaven: ConfigurableFileCollection
+
+    @get:Input
+    val canHaveSplits: Property<Boolean> = objects.property(Boolean::class.java)
+
+    @get:Input
+    val isFeatureVariantType: Property<Boolean> = objects.property(Boolean::class.java)
 
     private var debuggable: Boolean = false
 
@@ -227,8 +230,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
     @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val inputResourcesDir: DirectoryProperty
 
-    private lateinit var variantScope: VariantScope
-
     @get:Input
     var isLibrary: Boolean = false
         private set
@@ -247,9 +248,9 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
 
     private var compiledRemoteResources: ArtifactCollection? = null
 
-    private lateinit var errorFormatMode: SyncOptions.ErrorFormatMode
+    private var compiledLocalResources: ArtifactCollection? = null
 
-    private val workers: WorkerExecutorFacade = Workers.preferWorkers(project.name, path, workerExecutor)
+    private lateinit var errorFormatMode: SyncOptions.ErrorFormatMode
 
     // FIXME : make me incremental !
     override fun doFullTaskAction() {
@@ -275,17 +276,17 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
             aapt2FromMaven, LoggerWrapper(logger)
         )
 
-        workers.use {
+        val workers = getWorkerFacadeWithWorkers().use {
             val unprocessedManifest = manifestBuildElements.toMutableList()
             val mainOutput = chooseOutput(manifestBuildElements)
 
             unprocessedManifest.remove(mainOutput)
 
             val compiledRemoteResourcesDirs =
-                if (getCompiledRemoteResources() == null) emptyList<File>() else {
-                    // the order of the artifact is descending order, so we need to reverse it.
-                    getCompiledRemoteResources()!!.reversed().toImmutableList()
-                }
+                getCompiledRemoteResources()?.reversed()?.toImmutableList() ?: emptyList<File>()
+
+            val compiledLocalResourcesDirs =
+                getCompiledLocalResources()?.reversed()?.toImmutableList() ?: emptyList<File>()
 
             it.submit(
                 AaptSplitInvoker::class.java,
@@ -299,12 +300,13 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                     true,
                     aapt2ServiceKey,
                     compiledRemoteResourcesDirs,
+                    compiledLocalResourcesDirs,
                     this,
                     rClassOutputJar.orNull?.asFile
                 )
             )
 
-            if (variantScope.type.canHaveSplits) {
+            if (canHaveSplits.get()) {
                 // If there are remaining splits to be processed we await for the main split to
                 // finish since the output of the main split is used by the full splits bellow.
                 it.await()
@@ -324,12 +326,14 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                                 false,
                                 aapt2ServiceKey,
                                 compiledRemoteResourcesDirs,
+                                compiledLocalResourcesDirs,
                                 this
                             )
                         )
                     }
                 }
             }
+            it
         }
 
         if (multiOutputPolicy === MultiOutputPolicy.SPLITS) {
@@ -501,7 +505,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
             variantScope.artifacts.setTaskInputToFinalProduct(
                 InternalArtifactType.APK_LIST, task.apkList)
 
-            task.variantScope = variantScope
             task.outputScope = variantData.outputScope
             task.originalApplicationId = TaskInputHelper.memoize { config.originalApplicationId }
 
@@ -521,6 +524,8 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
             task.buildTargetDensity = projectOptions.get(StringOption.IDE_BUILD_TARGET_DENSITY)
 
             task.useConditionalKeepRules = projectOptions.get(BooleanOption.CONDITIONAL_KEEP_RULES)
+            task.canHaveSplits.set(variantScope.type.canHaveSplits)
+            task.isFeatureVariantType.set(variantScope.type == VariantTypeImpl.FEATURE)
 
             task.setMergeBlameLogFolder(variantScope.resourceBlameLogDir)
 
@@ -640,6 +645,14 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                         RUNTIME_CLASSPATH, ALL,
                         AndroidArtifacts.ArtifactType.COMPILED_REMOTE_RESOURCES
                     )
+            }
+
+            if (variantScope.isPrecompileLocalResourcesEnabled) {
+                task.compiledLocalResources = variantScope.getArtifactCollection(
+                    RUNTIME_CLASSPATH,
+                    ALL,
+                    AndroidArtifacts.ArtifactType.COMPILED_LOCAL_RESOURCES
+                )
             }
         }
     }
@@ -765,7 +778,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                 // workaround for b/74068247. Until that's fixed, if it's a namespaced feature,
                 // an extra empty dummy R.java file will be generated as well
                 packageForR =
-                    if (params.isNamespaced && params.variantDataType === VariantTypeImpl.FEATURE) {
+                    if (params.isNamespaced && params.isFeatureVariantType) {
                         "dummy"
                     } else {
                         params.originalApplicationId
@@ -819,6 +832,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
                         .setUseConditionalKeepRules(params.useConditionalKeepRules)
                         .setUseFinalIds(params.useFinalIds)
                         .addResourceDirectories(params.compiledRemoteResourcesDirs)
+                        .addResourceDirectories(params.compiledLocalResourcesDirs)
 
                     if (params.isNamespaced) {
                         val packagedDependencies = ImmutableList.builder<File>()
@@ -901,15 +915,16 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         val generateCode: Boolean,
         val aapt2ServiceKey: Aapt2ServiceKey?,
         val compiledRemoteResourcesDirs: List<File>,
+        val compiledLocalResourcesDirs: List<File>,
         task: LinkApplicationAndroidResourcesTask,
         val rClassOutputJar: File? = null
     ) : Serializable {
         val resourceConfigs: Set<String> = splitList.resourceConfigs
         val multiOutputPolicySplitList: Set<String> = splitList.getSplits(task.multiOutputPolicy)
-        val variantScopeMainSplit: ApkData = task.variantScope.outputScope.mainSplit
+        val variantScopeMainSplit: ApkData = task.outputScope.mainSplit
         val resPackageOutputFolder: File = task.resPackageOutputFolder.get().asFile
         val isNamespaced: Boolean = task.isNamespaced
-        val variantDataType: VariantType = task.variantScope.variantData.type
+        val isFeatureVariantType: Boolean = task.isFeatureVariantType.get()
         val originalApplicationId: String? = task.originalApplicationId.get()
         val sourceOutputDir: File? = task.getSourceOutputDir()
         val textSymbolOutputFile: File? = task.textSymbolOutputFileProperty.orNull?.asFile
@@ -932,11 +947,6 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
         val useFinalIds: Boolean = task.useFinalIds
         val errorFormatMode: SyncOptions.ErrorFormatMode = task.errorFormatMode
         val manifestMergeBlameFile: File? = task.manifestMergeBlameFile.orNull?.asFile
-    }
-
-    @Input
-    fun canHaveSplits(): Boolean {
-        return variantScope.type.canHaveSplits
     }
 
     @Input
@@ -995,6 +1005,13 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(
     @PathSensitive(PathSensitivity.RELATIVE)
     fun getCompiledRemoteResources(): FileCollection? {
         return compiledRemoteResources?.artifactFiles
+    }
+
+    @Optional
+    @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
+    fun getCompiledLocalResources(): FileCollection? {
+        return compiledLocalResources?.artifactFiles
     }
 
     @Input

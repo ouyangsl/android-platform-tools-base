@@ -18,23 +18,11 @@ package com.android.build.gradle.internal.dsl
 
 import com.android.builder.errors.EvalIssueException
 import com.android.builder.errors.EvalIssueReporter
-import com.android.builder.model.SyncIssue
 
-class NoOpIssueReporter: EvalIssueReporter {
-
-    object FAKE_ISSUE: SyncIssue {
-        override fun getSeverity() = 0
-        override fun getType() = 0
-        override fun getData(): String? = null
-        override fun getMessage() = ""
-        override fun getMultiLineMessage(): MutableList<String>? = null
-    }
-
+class NoOpIssueReporter: EvalIssueReporter() {
     override fun reportIssue(
-        type: EvalIssueReporter.Type,
-        severity: EvalIssueReporter.Severity,
+        type: Type,
+        severity: Severity,
         exception: EvalIssueException
-    ): SyncIssue {
-        return FAKE_ISSUE
-    }
+    ) { }
 }
