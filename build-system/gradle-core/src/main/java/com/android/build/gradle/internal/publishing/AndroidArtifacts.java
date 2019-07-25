@@ -73,7 +73,8 @@ public class AndroidArtifacts {
     private static final String TYPE_SYMBOL = "android-symbol";
     private static final String TYPE_SYMBOL_WITH_PACKAGE_NAME = "android-symbol-with-package-name";
     private static final String TYPE_DEFINED_ONLY_SYMBOL = "defined-only-android-symbol";
-    private static final String TYPE_CONSUMER_PROGUARD_RULES = "android-consumer-proguard-rules";
+    private static final String TYPE_UNFILTERED_PROGUARD_RULES = "android-consumer-proguard-rules";
+    private static final String TYPE_FILTERED_PROGUARD_RULES = "android-filtered-proguard-rules";
     private static final String TYPE_AAPT_PROGUARD_RULES = "android-aapt-proguard-rules";
     private static final String TYPE_DATA_BINDING_ARTIFACT = "android-databinding";
     private static final String TYPE_DATA_BINDING_BASE_CLASS_LOG_ARTIFACT =
@@ -212,7 +213,7 @@ public class AndroidArtifacts {
         ANDROID_RES(TYPE_ANDROID_RES),
         ASSETS(TYPE_ASSETS),
         SHARED_ASSETS(TYPE_SHARED_ASSETS),
-        SYMBOL_LIST(TYPE_SYMBOL),
+        COMPILE_SYMBOL_LIST(TYPE_SYMBOL),
         COMPILED_REMOTE_RESOURCES(TYPE_COMPILED_REMOTE_RESOURCES),
         COMPILED_LOCAL_RESOURCES(TYPE_COMPILED_LOCAL_RESOURCES),
         /**
@@ -226,7 +227,8 @@ public class AndroidArtifacts {
         SHARED_JNI(TYPE_SHARED_JNI),
         ANNOTATIONS(TYPE_EXT_ANNOTATIONS),
         PUBLIC_RES(TYPE_PUBLIC_RES),
-        CONSUMER_PROGUARD_RULES(TYPE_CONSUMER_PROGUARD_RULES),
+        UNFILTERED_PROGUARD_RULES(TYPE_UNFILTERED_PROGUARD_RULES),
+        FILTERED_PROGUARD_RULES(TYPE_FILTERED_PROGUARD_RULES),
         AAPT_PROGUARD_RULES(TYPE_AAPT_PROGUARD_RULES),
 
         LINT(TYPE_LINT_JAR),

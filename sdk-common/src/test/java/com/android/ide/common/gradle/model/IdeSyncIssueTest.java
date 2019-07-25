@@ -15,7 +15,9 @@
  */
 package com.android.ide.common.gradle.model;
 
-import static com.android.ide.common.gradle.model.IdeModelTestUtils.*;
+import static com.android.ide.common.gradle.model.IdeModelTestUtils.assertEqualsOrSimilar;
+import static com.android.ide.common.gradle.model.IdeModelTestUtils.createEqualsVerifier;
+import static com.android.ide.common.gradle.model.IdeModelTestUtils.verifyUsageOfImmutableCollections;
 import static com.google.common.truth.Truth.assertThat;
 import static org.junit.Assert.assertEquals;
 
@@ -23,17 +25,10 @@ import com.android.builder.model.SyncIssue;
 import com.android.ide.common.gradle.model.stubs.SyncIssueStub;
 import com.android.testutils.Serialization;
 import java.io.Serializable;
-import org.junit.Before;
 import org.junit.Test;
 
 /** Tests for {@link IdeSyncIssue}. */
 public class IdeSyncIssueTest {
-    private ModelCache myModelCache;
-
-    @Before
-    public void setUp() throws Exception {
-        myModelCache = new ModelCache();
-    }
 
     @Test
     public void serializable() {
@@ -42,7 +37,7 @@ public class IdeSyncIssueTest {
 
     @Test
     public void serialization() throws Exception {
-        IdeSyncIssue syncIssue = new IdeSyncIssue(new SyncIssueStub(), myModelCache);
+        IdeSyncIssue syncIssue = new IdeSyncIssue(new SyncIssueStub());
         byte[] bytes = Serialization.serialize(syncIssue);
         Object o = Serialization.deserialize(bytes);
         assertEquals(syncIssue, o);
@@ -51,7 +46,7 @@ public class IdeSyncIssueTest {
     @Test
     public void constructor() throws Throwable {
         SyncIssue original = new SyncIssueStub();
-        IdeSyncIssue copy = new IdeSyncIssue(original, myModelCache);
+        IdeSyncIssue copy = new IdeSyncIssue(original);
         assertEqualsOrSimilar(original, copy);
         verifyUsageOfImmutableCollections(copy);
     }

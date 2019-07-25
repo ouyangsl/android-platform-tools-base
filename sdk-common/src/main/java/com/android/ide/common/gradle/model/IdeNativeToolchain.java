@@ -19,10 +19,11 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.builder.model.NativeToolchain;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Objects;
 
 /** Creates a deep copy of a {@link NativeToolchain}. */
-public final class IdeNativeToolchain extends IdeModel implements NativeToolchain {
+public final class IdeNativeToolchain implements NativeToolchain, Serializable {
     // Increase the value when adding/removing fields or when changing the serialization/deserialization mechanism.
     private static final long serialVersionUID = 1L;
 
@@ -31,8 +32,7 @@ public final class IdeNativeToolchain extends IdeModel implements NativeToolchai
     @Nullable private final File myCppCompilerExecutable;
     private final int myHashCode;
 
-    public IdeNativeToolchain(@NonNull NativeToolchain toolchain, @NonNull ModelCache modelCache) {
-        super(toolchain, modelCache);
+    public IdeNativeToolchain(@NonNull NativeToolchain toolchain) {
         myName = toolchain.getName();
         myCCompilerExecutable = toolchain.getCCompilerExecutable();
         myCppCompilerExecutable = toolchain.getCppCompilerExecutable();

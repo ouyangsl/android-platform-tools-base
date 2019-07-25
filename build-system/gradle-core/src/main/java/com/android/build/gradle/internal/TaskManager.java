@@ -16,7 +16,6 @@
 
 package com.android.build.gradle.internal;
 
-import static com.android.SdkConstants.FN_RESOURCE_TEXT;
 import static com.android.build.api.transform.QualifiedContent.DefaultContentType.RESOURCES;
 import static com.android.build.gradle.internal.cxx.model.TryCreateCxxModuleModelKt.tryCreateCxxModuleModel;
 import static com.android.build.gradle.internal.dependency.VariantDependencies.CONFIG_NAME_ANDROID_APIS;
@@ -28,7 +27,7 @@ import static com.android.build.gradle.internal.publishing.AndroidArtifacts.Arti
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope.PROJECT;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.APKS_FROM_BUNDLE;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.CLASSES;
-import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.CONSUMER_PROGUARD_RULES;
+import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.FILTERED_PROGUARD_RULES;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.JAVA_RES;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.METADATA_CLASSES;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ConsumedConfigType.METADATA_VALUES;
@@ -226,6 +225,7 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Lists;
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -771,18 +771,10 @@ public abstract class TaskManager {
             boolean processResources,
             ImmutableSet<MergeResources.Flag> flags) {
 
-        boolean unitTestRawResources =
-                globalScope
-                                .getExtension()
-                                .getTestOptions()
-                                .getUnitTests()
-                                .isIncludeAndroidResources()
-                        && !projectOptions.get(BooleanOption.ENABLE_UNIT_TEST_BINARY_RESOURCES);
-
         boolean alsoOutputNotCompiledResources =
                 scope.getType().isApk()
                         && !scope.getType().isForTesting()
-                        && (scope.useResourceShrinker() || unitTestRawResources);
+                        && scope.useResourceShrinker();
 
         return basicCreateMergeResourcesTask(
                 scope,
@@ -797,9 +789,7 @@ public abstract class TaskManager {
 
     /** Defines the merge type for {@link #basicCreateMergeResourcesTask} */
     public enum MergeType {
-        /**
-         * Merge all resources with all the dependencies resources.
-         */
+        /** Merge all resources with all the dependencies resources (i.e. "big merge"). */
         MERGE {
             @Override
             public InternalArtifactType getOutputType() {
@@ -807,7 +797,7 @@ public abstract class TaskManager {
             }
         },
         /**
-         * Merge all resources without the dependencies resources for an aar.
+         * Merge all resources without the dependencies resources for an aar (i.e. "small merge").
          */
         PACKAGE {
             @Override
@@ -929,14 +919,26 @@ public abstract class TaskManager {
         }
     }
 
-    private void createApkProcessResTask(@NonNull VariantScope scope,
-            InternalArtifactType packageOutputType) {
+    private void createApkProcessResTask(
+            @NonNull VariantScope scope, @Nullable InternalArtifactType packageOutputType) {
+
+        // Create the APK_ file with processed resources and manifest. Generate the R class.
         createProcessResTask(
                 scope,
-                scope.getSymbolTableFile(),
                 packageOutputType,
                 MergeType.MERGE,
                 scope.getGlobalScope().getProjectBaseName());
+
+        if (projectOptions.get(BooleanOption.ENABLE_APP_COMPILE_TIME_R_CLASS)) {
+            // Generate the COMPILE TIME only R class using the local resources instead of waiting
+            // for the above full link to finish. Linking will still output the RUN TIME R class.
+            // Since we're gonna use AAPT2 to generate the keep rules, do not generate them here.
+            createProcessResTask(
+                    scope,
+                    packageOutputType,
+                    MergeType.PACKAGE,
+                    scope.getGlobalScope().getProjectBaseName());
+        }
     }
 
     protected boolean isLibrary() {
@@ -945,7 +947,6 @@ public abstract class TaskManager {
 
     public void createProcessResTask(
             @NonNull VariantScope scope,
-            @NonNull File symbolLocation,
             @Nullable InternalArtifactType packageOutputType,
             @NonNull MergeType mergeType,
             @NonNull String baseName) {
@@ -958,6 +959,7 @@ public abstract class TaskManager {
         boolean useAaptToGenerateLegacyMultidexMainDexProguardRules = scope.getNeedsMainDexList();
 
         if (scope.getGlobalScope().getExtension().getAaptOptions().getNamespaced()) {
+            // TODO: make sure we generate the proguard rules in the namespaced case.
             new NamespacedResourcesTaskManager(globalScope, taskFactory, scope)
                     .createNamespacedResourceTasks(
                             packageOutputType,
@@ -983,7 +985,6 @@ public abstract class TaskManager {
         }
         createNonNamespacedResourceTasks(
                 scope,
-                symbolLocation,
                 packageOutputType,
                 mergeType,
                 baseName,
@@ -992,13 +993,11 @@ public abstract class TaskManager {
 
     private void createNonNamespacedResourceTasks(
             @NonNull VariantScope scope,
-            @NonNull File symbolDirectory,
             InternalArtifactType packageOutputType,
             @NonNull MergeType mergeType,
             @NonNull String baseName,
             boolean useAaptToGenerateLegacyMultidexMainDexProguardRules) {
 
-        File symbolFile = new File(symbolDirectory, FN_RESOURCE_TEXT);
         BuildArtifactsHolder artifacts = scope.getArtifacts();
         if (mergeType == MergeType.PACKAGE) {
             // MergeType.PACKAGE means we will only merged the resources from our current module
@@ -1010,8 +1009,9 @@ public abstract class TaskManager {
             // First collect symbols from this module.
             taskFactory.register(new ParseLibraryResourcesTask.CreateAction(scope));
 
-            // Only generate the keep rules when we need them.
-            if (generatesProguardOutputFile(scope)) {
+            // Only generate the keep rules when we need them. We don't need to generate them here
+            // for non-library modules since AAPT2 will generate them from MergeType.MERGE.
+            if (generatesProguardOutputFile(scope) && isLibrary()) {
                 taskFactory.register(new GenerateLibraryProguardRulesTask.CreationAction(scope));
             }
 
@@ -1412,9 +1412,6 @@ public abstract class TaskManager {
 
         boolean includeAndroidResources = extension.getTestOptions().getUnitTests()
                 .isIncludeAndroidResources();
-        boolean enableBinaryResources = includeAndroidResources
-                && globalScope.getProjectOptions().get(
-                        BooleanOption.ENABLE_UNIT_TEST_BINARY_RESOURCES);
 
         createAnchorTasks(variantScope);
 
@@ -1435,31 +1432,20 @@ public abstract class TaskManager {
                 // Add a task to merge the assets folders
                 createMergeAssetsTask(variantScope);
 
-                if (enableBinaryResources) {
-                    createMergeResourcesTask(variantScope, true, ImmutableSet.of());
-                    // Add a task to process the Android Resources and generate source files
-                    createApkProcessResTask(variantScope, FEATURE_RESOURCE_PKG);
-                    taskFactory.register(new PackageForUnitTest.CreationAction(variantScope));
-                } else {
-                    createMergeResourcesTask(variantScope, false, ImmutableSet.of());
-                }
-            } else if (testedVariantScope.getType().isApk()) {
-                if (enableBinaryResources) {
-                    // The IDs will have been inlined for an non-namespaced application
-                    // so just re-export the artifacts here.
-                    artifacts.copy(PROCESSED_RES, testedVariantScope.getArtifacts());
-                    artifacts.copy(MERGED_ASSETS, testedVariantScope.getArtifacts());
+                createMergeResourcesTask(variantScope, true, ImmutableSet.of());
+                // Add a task to process the Android Resources and generate source files
+                createApkProcessResTask(variantScope, FEATURE_RESOURCE_PKG);
+                taskFactory.register(new PackageForUnitTest.CreationAction(variantScope));
 
-                    taskFactory.register(new PackageForUnitTest.CreationAction(variantScope));
-                } else {
-                    // TODO: don't implicitly subtract tested component in APKs, as that only
-                    // makes sense for instrumentation tests. For now, rely on the production
-                    // merged resources.
-                    artifacts.copy(
-                            InternalArtifactType.MERGED_RES,
-                            testedVariantScope.getArtifacts(),
-                            MERGED_NOT_COMPILED_RES);
-                }
+                // Add data binding tasks if enabled
+                createDataBindingTasksIfNecessary(variantScope, MergeType.MERGE);
+            } else if (testedVariantScope.getType().isApk()) {
+                // The IDs will have been inlined for an non-namespaced application
+                // so just re-export the artifacts here.
+                artifacts.copy(PROCESSED_RES, testedVariantScope.getArtifacts());
+                artifacts.copy(MERGED_ASSETS, testedVariantScope.getArtifacts());
+
+                taskFactory.register(new PackageForUnitTest.CreationAction(variantScope));
             } else {
                 throw new IllegalStateException(
                         "Tested variant "
@@ -1493,11 +1479,6 @@ public abstract class TaskManager {
                         taskInputs
                                 .files(testConfigInputs.getResourceApk())
                                 .withPropertyName("resourceApk")
-                                .optional()
-                                .withPathSensitivity(PathSensitivity.RELATIVE);
-                        taskInputs
-                                .files(testConfigInputs.getMergedResources())
-                                .withPropertyName("mergedResources")
                                 .optional()
                                 .withPathSensitivity(PathSensitivity.RELATIVE);
                         taskInputs
@@ -2957,7 +2938,10 @@ public abstract class TaskManager {
                     project.files(
                             (Callable<Collection<File>>) testedScope::getTestProguardFiles,
                             variantScope.getArtifactFileCollection(
-                                    RUNTIME_CLASSPATH, ALL, CONSUMER_PROGUARD_RULES));
+                                    RUNTIME_CLASSPATH,
+                                    ALL,
+                                    FILTERED_PROGUARD_RULES,
+                                    maybeGetCodeShrinkerAttrMap(variantScope)));
             maybeAddFeatureProguardRules(variantScope, configurationFiles);
             transform.setConfigurationFiles(configurationFiles);
         } else if (variantScope.getType().isForTesting()
@@ -2970,7 +2954,10 @@ public abstract class TaskManager {
                     project.files(
                             (Callable<Collection<File>>) variantScope::getTestProguardFiles,
                             variantScope.getArtifactFileCollection(
-                                    RUNTIME_CLASSPATH, ALL, CONSUMER_PROGUARD_RULES));
+                                    RUNTIME_CLASSPATH,
+                                    ALL,
+                                    FILTERED_PROGUARD_RULES,
+                                    maybeGetCodeShrinkerAttrMap(variantScope)));
             maybeAddFeatureProguardRules(variantScope, configurationFiles);
             transform.setConfigurationFiles(configurationFiles);
         } else {
@@ -3054,7 +3041,10 @@ public abstract class TaskManager {
                         scope.getArtifacts().getFinalProduct(aaptProguardFileType),
                         scope.getArtifacts().getFinalProduct(GENERATED_PROGUARD_FILE),
                         scope.getArtifactFileCollection(
-                                RUNTIME_CLASSPATH, ALL, CONSUMER_PROGUARD_RULES));
+                                RUNTIME_CLASSPATH,
+                                ALL,
+                                FILTERED_PROGUARD_RULES,
+                                maybeGetCodeShrinkerAttrMap(scope)));
 
         if (scope.getType().isHybrid() && scope.getType().isBaseModule()) {
             Callable<Collection<File>> consumerProguardFiles = scope::getConsumerProguardFiles;
@@ -3078,14 +3068,26 @@ public abstract class TaskManager {
         }
     }
 
-    private void maybeAddFeatureProguardRules(
+    private static void maybeAddFeatureProguardRules(
             @NonNull VariantScope variantScope,
             @NonNull ConfigurableFileCollection configurationFiles) {
         if (variantScope.consumesFeatureJars()) {
             configurationFiles.from(
                     variantScope.getArtifactFileCollection(
-                            METADATA_VALUES, PROJECT, CONSUMER_PROGUARD_RULES));
+                            METADATA_VALUES,
+                            PROJECT,
+                            FILTERED_PROGUARD_RULES,
+                            maybeGetCodeShrinkerAttrMap(variantScope)));
         }
+    }
+
+    @Nullable
+    private static Map<Attribute<String>, String> maybeGetCodeShrinkerAttrMap(
+            @NonNull VariantScope variantScope) {
+        return variantScope.getCodeShrinker() != null
+                ? Collections.singletonMap(
+                        VariantManager.SHRINKER_ATTR, variantScope.getCodeShrinker().toString())
+                : null;
     }
 
     @NonNull
@@ -3434,12 +3436,13 @@ public abstract class TaskManager {
             if (dataBindingOptions.isEnabledForTests()
                     || this instanceof LibraryTaskManager
                     || this instanceof MultiTypeTaskManager) {
+                String dataBindingArtifact =
+                        SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT + ":" + version;
                 project.getDependencies()
-                        .add(
-                                "androidTestAnnotationProcessor",
-                                SdkConstants.DATA_BINDING_ANNOTATION_PROCESSOR_ARTIFACT
-                                        + ":"
-                                        + version);
+                        .add("androidTestAnnotationProcessor", dataBindingArtifact);
+                if (extension.getTestOptions().getUnitTests().isIncludeAndroidResources()) {
+                    project.getDependencies().add("testAnnotationProcessor", dataBindingArtifact);
+                }
             }
             if (dataBindingOptions.getAddDefaultAdapters()) {
                 String libArtifact =

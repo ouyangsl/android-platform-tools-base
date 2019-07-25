@@ -28,6 +28,7 @@ import com.android.SdkConstants;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.build.gradle.internal.LoggerWrapper;
+import com.android.build.gradle.internal.process.GradleProcessExecutor;
 import com.android.build.gradle.internal.scope.BuildArtifactsHolder;
 import com.android.build.gradle.internal.scope.ExistingBuildElements;
 import com.android.build.gradle.internal.scope.InternalArtifactType;
@@ -80,6 +81,7 @@ import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.plugins.JavaBasePlugin;
+import org.gradle.api.provider.Property;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFile;
@@ -154,6 +156,14 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
         File resultsOutDir = getResultsDir();
         FileUtils.cleanOutputDir(resultsOutDir);
 
+        final File additionalTestOutputDir;
+        if (getAdditionalTestOutputEnabled().get()) {
+            additionalTestOutputDir = getAdditionalTestOutputDir().get().getAsFile();
+            FileUtils.cleanOutputDir(additionalTestOutputDir);
+        } else {
+            additionalTestOutputDir = null;
+        }
+
         File coverageOutDir = getCoverageDir().get().getAsFile();
         FileUtils.cleanOutputDir(coverageOutDir);
 
@@ -173,12 +183,13 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
             emptyCoverageFile.createNewFile();
             success = true;
         } else {
+            GradleProcessExecutor gradleProcessExecutor = new GradleProcessExecutor(getProject());
             success =
                     deviceProvider.use(
                             () -> {
                                 TestRunner testRunner =
                                         testRunnerFactory.build(
-                                                getSplitSelectExec().get(), getProcessExecutor());
+                                                getSplitSelectExec().get(), gradleProcessExecutor);
                                 Collection<String> extraArgs =
                                         installOptions == null || installOptions.isEmpty()
                                                 ? ImmutableList.of()
@@ -193,6 +204,8 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                                             deviceProvider.getTimeoutInMs(),
                                             extraArgs,
                                             resultsOutDir,
+                                            getAdditionalTestOutputEnabled().get(),
+                                            additionalTestOutputDir,
                                             coverageOutDir,
                                             new LoggerWrapper(getLogger()));
                                 } catch (Exception e) {
@@ -276,6 +289,10 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
         this.resultsDir = resultsDir;
     }
 
+    @Optional
+    @OutputDirectory
+    public abstract DirectoryProperty getAdditionalTestOutputDir();
+
     @OutputDirectory
     public DirectoryProperty getCoverageDir() {
         return coverageDir;
@@ -297,6 +314,9 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
     public void setFlavorName(String flavorName) {
         this.flavorName = flavorName;
     }
+
+    @Input
+    public abstract Property<Boolean> getAdditionalTestOutputEnabled();
 
     @Optional
     @Input
@@ -328,15 +348,6 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
     @PathSensitive(PathSensitivity.NONE)
     public Provider<File> getSplitSelectExec() {
         return splitSelectExecProvider;
-    }
-
-    @Internal
-    public ProcessExecutor getProcessExecutor() {
-        return processExecutor;
-    }
-
-    public void setProcessExecutor(ProcessExecutor processExecutor) {
-        this.processExecutor = processExecutor;
     }
 
     @Override
@@ -432,7 +443,23 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                 @NonNull TaskProvider<? extends DeviceProviderInstrumentTestTask> taskProvider) {
             super.handleProvider(taskProvider);
 
+            boolean isAdditionalAndroidTestOutputEnabled =
+                    getVariantScope()
+                            .getGlobalScope()
+                            .getProjectOptions()
+                            .get(BooleanOption.ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT);
+
             if (type == Type.INTERNAL_CONNECTED_DEVICE_PROVIDER) {
+                if (isAdditionalAndroidTestOutputEnabled) {
+                    getVariantScope()
+                            .getArtifacts()
+                            .producesDir(
+                                    InternalArtifactType.CONNECTED_ANDROID_TEST_ADDITIONAL_OUTPUT,
+                                    BuildArtifactsHolder.OperationType.INITIAL,
+                                    taskProvider,
+                                    DeviceProviderInstrumentTestTask::getAdditionalTestOutputDir,
+                                    deviceProvider.getName());
+                }
                 getVariantScope()
                         .getArtifacts()
                         .producesDir(
@@ -444,6 +471,17 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
             } else {
                 // NOTE : This task will be created per device provider, assume several tasks instances
                 // will exist in the variant scope.
+                if (isAdditionalAndroidTestOutputEnabled) {
+                    getVariantScope()
+                            .getArtifacts()
+                            .producesDir(
+                                    InternalArtifactType
+                                            .DEVICE_PROVIDER_ANDROID_TEST_ADDITIONAL_OUTPUT,
+                                    BuildArtifactsHolder.OperationType.INITIAL,
+                                    taskProvider,
+                                    DeviceProviderInstrumentTestTask::getAdditionalTestOutputDir,
+                                    deviceProvider.getName());
+                }
                 getVariantScope()
                         .getArtifacts()
                         .producesDir(
@@ -491,6 +529,10 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                                         + " using provider: ",
                                 deviceProvider.getName()));
             }
+
+            task.getAdditionalTestOutputEnabled()
+                    .set(projectOptions.get(BooleanOption.ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT));
+
             task.setGroup(JavaBasePlugin.VERIFICATION_GROUP);
             task.setTestData(testData);
             task.setFlavorName(testData.getFlavorName());
@@ -498,7 +540,6 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
             task.testTargetManifests = testTargetManifests;
             task.setInstallOptions(
                     scope.getGlobalScope().getExtension().getAdbOptions().getInstallOptions());
-            task.setProcessExecutor(scope.getGlobalScope().getProcessExecutor());
 
             boolean shardBetweenDevices = projectOptions.get(BooleanOption.ENABLE_TEST_SHARDING);
 

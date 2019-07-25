@@ -28,8 +28,8 @@ import com.android.build.gradle.internal.scope.InternalArtifactType.APP_CLASSES
 import com.android.build.gradle.internal.scope.InternalArtifactType.AAPT_PROGUARD_FILE
 import com.android.build.gradle.internal.scope.InternalArtifactType.BUNDLE
 import com.android.build.gradle.internal.scope.InternalArtifactType.COMPILE_ONLY_NAMESPACED_R_CLASS_JAR
+import com.android.build.gradle.internal.scope.InternalArtifactType.CONSUMER_PROGUARD_DIR
 import com.android.build.gradle.internal.scope.InternalArtifactType.COMPILED_LOCAL_RESOURCES
-import com.android.build.gradle.internal.scope.InternalArtifactType.CONSUMER_PROGUARD_FILE
 import com.android.build.gradle.internal.scope.InternalArtifactType.DATA_BINDING_ARTIFACT
 import com.android.build.gradle.internal.scope.InternalArtifactType.DATA_BINDING_BASE_CLASS_LOG_ARTIFACT
 import com.android.build.gradle.internal.scope.InternalArtifactType.DEFINED_ONLY_SYMBOL_LIST
@@ -59,7 +59,7 @@ import com.android.build.gradle.internal.scope.InternalArtifactType.PACKAGED_RES
 import com.android.build.gradle.internal.scope.InternalArtifactType.PUBLIC_RES
 import com.android.build.gradle.internal.scope.InternalArtifactType.RENDERSCRIPT_HEADERS
 import com.android.build.gradle.internal.scope.InternalArtifactType.RES_STATIC_LIBRARY
-import com.android.build.gradle.internal.scope.InternalArtifactType.SYMBOL_LIST
+import com.android.build.gradle.internal.scope.InternalArtifactType.COMPILE_SYMBOL_LIST
 import com.android.build.gradle.internal.scope.InternalArtifactType.SYMBOL_LIST_WITH_PACKAGE_NAME
 import com.android.build.gradle.internal.scope.AnchorOutputType.ALL_CLASSES
 import com.android.build.gradle.internal.scope.InternalArtifactType
@@ -197,7 +197,7 @@ class PublishingSpecs {
                 metadata(METADATA_FEATURE_MANIFEST, ArtifactType.METADATA_FEATURE_MANIFEST)
                 metadata(MODULE_AND_RUNTIME_DEPS_CLASSES, ArtifactType.METADATA_CLASSES)
                 metadata(MERGED_JAVA_RES, ArtifactType.METADATA_JAVA_RES)
-                metadata(CONSUMER_PROGUARD_FILE, ArtifactType.CONSUMER_PROGUARD_RULES)
+                metadata(CONSUMER_PROGUARD_DIR, ArtifactType.UNFILTERED_PROGUARD_RULES)
                 metadata(AAPT_PROGUARD_FILE, ArtifactType.AAPT_PROGUARD_RULES)
                 metadata(PACKAGED_DEPENDENCIES, ArtifactType.PACKAGED_DEPENDENCIES)
                 runtime(NAVIGATION_JSON, ArtifactType.NAVIGATION_JSON)
@@ -244,10 +244,10 @@ class PublishingSpecs {
                 runtime(LIBRARY_ASSETS, ArtifactType.ASSETS)
                 runtime(PACKAGED_RES, ArtifactType.ANDROID_RES)
                 runtime(PUBLIC_RES, ArtifactType.PUBLIC_RES)
-                runtime(SYMBOL_LIST, ArtifactType.SYMBOL_LIST)
+                runtime(COMPILE_SYMBOL_LIST, ArtifactType.COMPILE_SYMBOL_LIST)
                 runtime(DEFINED_ONLY_SYMBOL_LIST, ArtifactType.DEFINED_ONLY_SYMBOL_LIST)
                 runtime(LIBRARY_JAVA_RES, ArtifactType.JAVA_RES)
-                runtime(CONSUMER_PROGUARD_FILE, ArtifactType.CONSUMER_PROGUARD_RULES)
+                runtime(CONSUMER_PROGUARD_DIR, ArtifactType.UNFILTERED_PROGUARD_RULES)
                 runtime(LIBRARY_JNI, ArtifactType.JNI)
                 runtime(LINT_PUBLISH_JAR, ArtifactType.LINT)
                 runtime(NAVIGATION_JSON, ArtifactType.NAVIGATION_JSON)
@@ -288,7 +288,7 @@ class PublishingSpecs {
                 metadata(METADATA_FEATURE_MANIFEST, ArtifactType.METADATA_FEATURE_MANIFEST)
                 metadata(MODULE_AND_RUNTIME_DEPS_CLASSES, ArtifactType.METADATA_CLASSES)
                 metadata(MERGED_JAVA_RES, ArtifactType.METADATA_JAVA_RES)
-                metadata(CONSUMER_PROGUARD_FILE, ArtifactType.CONSUMER_PROGUARD_RULES)
+                metadata(CONSUMER_PROGUARD_DIR, ArtifactType.UNFILTERED_PROGUARD_RULES)
                 metadata(AAPT_PROGUARD_FILE, ArtifactType.AAPT_PROGUARD_RULES)
                 metadata(PACKAGED_DEPENDENCIES, ArtifactType.PACKAGED_DEPENDENCIES)
                 metadata(MODULE_BUNDLE, ArtifactType.MODULE_BUNDLE)

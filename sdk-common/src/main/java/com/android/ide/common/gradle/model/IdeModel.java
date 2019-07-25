@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,18 @@ import com.android.annotations.Nullable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
-import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class IdeModel implements Serializable {
-    // Increase the value when adding/removing fields or when changing the serialization/deserialization mechanism.
-    private static final long serialVersionUID = 1L;
-
-    protected IdeModel(@NonNull Object original, @NonNull ModelCache modelCache) {
-        modelCache.putDisallowingReplacement(original, this);
-    }
-
+public class IdeModel {
     @Nullable
-    protected static <K, V> V copyNewProperty(
+    public static <K, V> V copyNewProperty(
             @NonNull ModelCache modelCache,
             @NonNull Supplier<K> keyCreator,
             @NonNull Function<K, V> mapper,
@@ -48,8 +45,18 @@ public abstract class IdeModel implements Serializable {
     }
 
     @Nullable
-    protected static <T> T copyNewProperty(
-            @NonNull Supplier<T> propertyInvoker, @Nullable T defaultValue) {
+    public static <T> T copyNewProperty(
+            @NonNull Supplier<? extends T> propertyInvoker, @Nullable T defaultValue) {
+        try {
+            return propertyInvoker.get();
+        } catch (UnsupportedOperationException ignored) {
+            return defaultValue;
+        }
+    }
+
+    @NonNull
+    public static <T> T copyNewPropertyNonNull(
+            @NonNull Supplier<? extends T> propertyInvoker, @NotNull T defaultValue) {
         try {
             return propertyInvoker.get();
         } catch (UnsupportedOperationException ignored) {
@@ -58,7 +65,7 @@ public abstract class IdeModel implements Serializable {
     }
 
     @Nullable
-    protected static <T> T copyNewPropertyWithDefault(
+    public static <T> T copyNewPropertyWithDefault(
             @NonNull Supplier<T> propertyInvoker, @NonNull Supplier<T> defaultValue) {
         try {
             return propertyInvoker.get();
@@ -68,7 +75,7 @@ public abstract class IdeModel implements Serializable {
     }
 
     @NonNull
-    protected static <K, V> List<K> copy(
+    public static <K, V> List<K> copy(
             @NonNull Collection<K> original,
             @NonNull ModelCache modelCache,
             @NonNull Function<K, V> mapper) {
@@ -85,7 +92,7 @@ public abstract class IdeModel implements Serializable {
     }
 
     @NonNull
-    protected static <K, V> List<K> copy(
+    public static <K, V> List<K> copy(
             @NonNull Supplier<Collection<K>> propertyInvoker,
             @NonNull ModelCache modelCache,
             @NonNull Function<K, V> mapper) {
@@ -98,7 +105,7 @@ public abstract class IdeModel implements Serializable {
     }
 
     @NonNull
-    protected static <K, V> Map<K, V> copy(
+    public static <K, V> Map<K, V> copy(
             @NonNull Map<K, V> original,
             @NonNull ModelCache modelCache,
             @NonNull Function<V, V> mapper) {
@@ -115,7 +122,7 @@ public abstract class IdeModel implements Serializable {
     }
 
     @Nullable
-    protected static Set<String> copy(@Nullable Set<String> original) {
+    public static Set<String> copy(@Nullable Set<String> original) {
         return original != null ? ImmutableSet.copyOf(original) : null;
     }
 }

@@ -18,11 +18,12 @@ package com.android.ide.common.gradle.model;
 import com.android.annotations.NonNull;
 import com.android.builder.model.BuildTypeContainer;
 import com.android.builder.model.SourceProviderContainer;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Creates a deep copy of a {@link BuildTypeContainer}. */
-public final class IdeBuildTypeContainer extends IdeModel implements BuildTypeContainer {
+public final class IdeBuildTypeContainer implements BuildTypeContainer, Serializable {
     // Increase the value when adding/removing fields or when changing the serialization/deserialization mechanism.
     private static final long serialVersionUID = 1L;
 
@@ -33,17 +34,15 @@ public final class IdeBuildTypeContainer extends IdeModel implements BuildTypeCo
 
     public IdeBuildTypeContainer(
             @NonNull BuildTypeContainer container, @NonNull ModelCache modelCache) {
-        super(container, modelCache);
         myBuildType =
                 modelCache.computeIfAbsent(
                         container.getBuildType(),
                         buildType -> new IdeBuildType(buildType, modelCache));
         mySourceProvider =
                 modelCache.computeIfAbsent(
-                        container.getSourceProvider(),
-                        provider -> new IdeSourceProvider(provider, modelCache));
+                        container.getSourceProvider(), provider -> new IdeSourceProvider(provider));
         myExtraSourceProviders =
-                copy(
+                IdeModel.copy(
                         container.getExtraSourceProviders(),
                         modelCache,
                         sourceProviderContainer ->

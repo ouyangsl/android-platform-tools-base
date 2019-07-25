@@ -20,6 +20,7 @@ package com.android.builder.dexing
 
 import com.android.SdkConstants.DOT_CLASS
 import com.android.SdkConstants.PROGUARD_RULES_FOLDER
+import com.android.SdkConstants.TOOLS_CONFIGURATION_FOLDER
 import com.android.builder.dexing.r8.ClassFileProviderFactory
 import com.android.ide.common.blame.MessageReceiver
 import com.android.tools.r8.ArchiveProgramResourceProvider
@@ -55,6 +56,12 @@ fun isProguardRule(name: String): Boolean {
     val lowerCaseName = name.toLowerCase(Locale.US)
     return lowerCaseName.startsWith("$PROGUARD_RULES_FOLDER/")
             || lowerCaseName.startsWith("/$PROGUARD_RULES_FOLDER/")
+}
+
+fun isToolsConfigurationFile(name: String): Boolean {
+    val lowerCaseName = name.toLowerCase(Locale.US)
+    return lowerCaseName.startsWith("$TOOLS_CONFIGURATION_FOLDER/")
+            || lowerCaseName.startsWith("/$TOOLS_CONFIGURATION_FOLDER/")
 }
 
 fun getR8Version(): String = Version.getVersionString()
@@ -119,10 +126,18 @@ fun runR8(
         )
     }
 
-    if (proguardConfig.proguardMapOutput != null) {
-        Files.deleteIfExists(proguardConfig.proguardMapOutput)
-        Files.createDirectories(proguardConfig.proguardMapOutput.parent)
-        r8CommandBuilder.setProguardMapOutputPath(proguardConfig.proguardMapOutput)
+    if (proguardConfig.proguardOutputFiles != null) {
+        val proguardOutputFiles = proguardConfig.proguardOutputFiles
+        Files.deleteIfExists(proguardOutputFiles.proguardMapOutput)
+        Files.deleteIfExists(proguardOutputFiles.proguardSeedsOutput)
+        Files.deleteIfExists(proguardOutputFiles.proguardUsageOutput)
+
+        Files.createDirectories(proguardOutputFiles.proguardMapOutput.parent)
+        r8CommandBuilder.setProguardMapOutputPath(proguardOutputFiles.proguardMapOutput)
+        r8CommandBuilder.setProguardSeedsConsumer(
+            StringConsumer.FileConsumer(proguardOutputFiles.proguardSeedsOutput))
+        r8CommandBuilder.setProguardUsageConsumer(
+            StringConsumer.FileConsumer(proguardOutputFiles.proguardUsageOutput))
     }
 
     val compilationMode =
@@ -200,7 +215,7 @@ fun runR8(
         R8.run(r8CommandBuilder.build())
     }
 
-    proguardConfig.proguardMapOutput?.let {
+    proguardConfig.proguardOutputFiles?.proguardMapOutput?.let {
         if (Files.notExists(it)) {
             // R8 might not create a mapping file, so we have to create it, http://b/37053758.
             Files.createFile(it)
@@ -224,9 +239,15 @@ data class MainDexListConfig(
 /** Proguard-related parameters for the R8 tool. */
 data class ProguardConfig(
     val proguardConfigurationFiles: List<Path>,
-    val proguardMapOutput: Path?,
     val proguardMapInput: Path?,
-    val proguardConfigurations: List<String>
+    val proguardConfigurations: List<String>,
+    val proguardOutputFiles: ProguardOutputFiles?
+)
+
+data class ProguardOutputFiles(
+    val proguardMapOutput: Path,
+    val proguardSeedsOutput: Path,
+    val proguardUsageOutput: Path
 )
 
 /** Configuration parameters for the R8 tool. */
@@ -247,7 +268,7 @@ private class ProGuardRulesFilteringVisitor(
     }
 
     override fun visit(resource: DataEntryResource) {
-        if (!isProguardRule(resource.getName())) {
+        if (!isProguardRule(resource.getName()) && !isToolsConfigurationFile(resource.getName())) {
             visitor?.visit(resource)
         }
     }

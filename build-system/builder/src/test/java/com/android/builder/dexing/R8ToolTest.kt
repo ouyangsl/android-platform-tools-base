@@ -18,7 +18,6 @@ package com.android.builder.dexing
 
 import com.android.builder.core.NoOpMessageReceiver
 import com.android.ide.common.blame.MessageReceiver
-import com.android.testutils.TestClassesGenerator
 import com.android.testutils.TestInputsGenerator
 import com.android.testutils.TestUtils
 import com.android.testutils.truth.MoreTruth.assertThatDex
@@ -43,7 +42,7 @@ class R8ToolTest {
 
     @Test
     fun testClassesFromDir() {
-        val proguardConfig = ProguardConfig(listOf(), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(), null, listOf(), null)
         val mainDexConfig = MainDexListConfig(listOf(), listOf())
         val toolConfig = ToolConfig(
                 minSdkVersion = 21,
@@ -66,7 +65,7 @@ class R8ToolTest {
 
     @Test
     fun testClassesFromJar() {
-        val proguardConfig = ProguardConfig(listOf(), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(), null, listOf(), null)
         val mainDexConfig = MainDexListConfig(listOf(), listOf())
         val toolConfig = ToolConfig(
                 minSdkVersion = 21,
@@ -88,7 +87,7 @@ class R8ToolTest {
 
     @Test
     fun testClassesAndResources() {
-        val proguardConfig = ProguardConfig(listOf(), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(), null, listOf(), null)
         val mainDexConfig = MainDexListConfig(listOf(), listOf())
         val toolConfig = ToolConfig(
             minSdkVersion = 21,
@@ -129,7 +128,7 @@ class R8ToolTest {
 
     @Test
     fun testClassesAndResources_fullR8() {
-        val proguardConfig = ProguardConfig(listOf(), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(), null, listOf(), null)
         val mainDexConfig = MainDexListConfig(listOf(), listOf())
         val toolConfig = ToolConfig(
             minSdkVersion = 21,
@@ -164,7 +163,7 @@ class R8ToolTest {
 
     @Test
     fun testMainDexList() {
-        val proguardConfig = ProguardConfig(listOf(), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(), null, listOf(), null)
         val toolConfig = ToolConfig(
                 minSdkVersion = 19,
                 isDebuggable = true,
@@ -192,7 +191,7 @@ class R8ToolTest {
 
     @Test
     fun testMainDexListRules() {
-        val proguardConfig = ProguardConfig(listOf(), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(), null, listOf(), null)
         val toolConfig = ToolConfig(
                 minSdkVersion = 19,
                 isDebuggable = true,
@@ -232,7 +231,7 @@ class R8ToolTest {
 
         val proguardRules = tmp.newFile().toPath()
         Files.write(proguardRules, listOf("-keep class test.A"))
-        val proguardConfig = ProguardConfig(listOf(proguardRules), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(proguardRules), null, listOf(), null)
 
         val output = tmp.newFolder().toPath()
         val javaRes = tmp.root.resolve("res.jar").toPath()
@@ -254,25 +253,80 @@ class R8ToolTest {
                 r8OutputType = R8OutputType.DEX
         )
 
-        val classes = tmp.newFolder().toPath().resolve("classes.jar")
-        TestInputsGenerator.dirWithEmptyClasses(classes, listOf("test/A", "test/B"))
+        val testClasses = tmp.newFolder().toPath().resolve("testClasses.jar")
+        TestInputsGenerator.pathWithClasses(
+                testClasses,
+                listOf(ExampleClasses.TestClass::class.java))
+
+        val programClasses = tmp.newFolder().toPath().resolve("programClasses.jar")
+        TestInputsGenerator.pathWithClasses(
+                programClasses,
+                listOf(ExampleClasses::class.java, ExampleClasses.ProgramClass::class.java))
+
+        val libraries = mutableListOf(programClasses)
+        libraries.addAll(bootClasspath)
 
         val proguardInputMapping = tmp.newFile("space in name.txt").toPath()
-        Files.write(proguardInputMapping, listOf("test.A -> a.Changed:"))
+        Files.write(
+                proguardInputMapping,
+                listOf(
+                        "com.android.builder.dexing.ExampleClasses\$ProgramClass -> foo.Bar:",
+                        "  1:1:void method():42:42 -> baz"))
         val proguardConfig =
                 ProguardConfig(
                         listOf(),
-                        tmp.root.toPath().resolve("mapping.txt"),
                         proguardInputMapping,
-                        listOf()
+                        listOf(),
+                        ProguardOutputFiles(
+                            tmp.root.toPath().resolve("mapping.txt"),
+                            tmp.root.toPath().resolve("seeds.txt"),
+                            tmp.root.toPath().resolve("usage.txt")
+                        )
                 )
 
         val output = tmp.newFolder().toPath()
         val javaRes = tmp.root.resolve("res.jar").toPath()
-        runR8(listOf(classes), output, listOf(), javaRes, bootClasspath, toolConfig, proguardConfig, mainDexConfig, NoOpMessageReceiver())
+        runR8(listOf(testClasses), output, listOf(), javaRes, libraries, toolConfig, proguardConfig, mainDexConfig, NoOpMessageReceiver())
         assertThat(getDexFileCount(output)).isEqualTo(1)
-        assertThatDex(output.resolve("classes.dex").toFile()).containsClass("La/Changed;")
-        assertThat(Files.exists(proguardConfig.proguardMapOutput)).isTrue()
+        assertThatDex(output.resolve("classes.dex").toFile())
+            .containsClass("Lcom/android/builder/dexing/ExampleClasses\$TestClass;")
+            .that()
+            .hasMethodThatInvokes("test", "Lfoo/Bar;->baz()V")
+        assertThat(Files.exists(proguardConfig.proguardOutputFiles?.proguardMapOutput)).isTrue()
+    }
+
+    @Test
+    fun testUsageAndSeeds() {
+        val mainDexConfig = MainDexListConfig(listOf(), listOf())
+        val toolConfig = ToolConfig(
+            minSdkVersion = 21,
+            isDebuggable = true,
+            disableTreeShaking = false,
+            disableDesugaring = true,
+            disableMinification = false,
+            r8OutputType = R8OutputType.DEX
+        )
+        val classes = tmp.newFolder().toPath().resolve("classes.jar")
+        TestInputsGenerator.dirWithEmptyClasses(classes, listOf("test/A", "test/B"))
+        val output = tmp.newFolder().toPath()
+        val javaRes = tmp.root.resolve("res.jar").toPath()
+
+        val proguardSeedsOutput = tmp.root.toPath().resolve("seeds.txt")
+        val proguardUsageOutput = tmp.root.toPath().resolve("usage.txt")
+        val proguardConfig =
+            ProguardConfig(
+                listOf(),
+                null,
+                listOf(),
+                ProguardOutputFiles(
+                    tmp.root.toPath().resolve("mapping.txt"),
+                    proguardSeedsOutput,
+                    proguardUsageOutput
+                )
+            )
+        runR8(listOf(classes), output, listOf(), javaRes, bootClasspath, toolConfig, proguardConfig, mainDexConfig, NoOpMessageReceiver())
+        assertThat(Files.exists(proguardSeedsOutput)).isTrue()
+        assertThat(Files.exists(proguardUsageOutput)).isTrue()
     }
 
     @Test
@@ -289,7 +343,7 @@ class R8ToolTest {
 
         val proguardRules = tmp.newFile().toPath()
         Files.write(proguardRules, listOf("wrongRuleExample"))
-        val proguardConfig = ProguardConfig(listOf(proguardRules), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(proguardRules), null, listOf(), null)
 
         val output = tmp.newFolder().toPath()
         val javaRes = tmp.root.resolve("res.jar").toPath()
@@ -322,7 +376,7 @@ class R8ToolTest {
 
     @Test
     fun testMultiReleaseFromDir() {
-        val proguardConfig = ProguardConfig(listOf(), null, null, listOf())
+        val proguardConfig = ProguardConfig(listOf(), null, listOf(), null)
         val mainDexConfig = MainDexListConfig(listOf(), listOf())
         val toolConfig = ToolConfig(
             minSdkVersion = 21,

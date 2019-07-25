@@ -75,6 +75,7 @@ enum class BooleanOption(
     ENABLE_SEPARATE_ANNOTATION_PROCESSING("android.enableSeparateAnnotationProcessing", false),
     FULL_R8("android.enableR8.fullMode", false),
     CONDITIONAL_KEEP_RULES("android.useConditionalKeepRules", false),
+    MINIMAL_KEEP_RULES("android.useMinimalKeepRules", false),
     ENFORCE_UNIQUE_PACKAGE_NAMES("android.uniquePackageNames", false, status = Option.Status.STABLE),
     KEEP_SERVICES_BETWEEN_BUILDS("android.keepWorkerActionServicesBetweenBuilds", false),
     USE_NON_FINAL_RES_IDS("android.nonFinalResIds", false),
@@ -84,12 +85,12 @@ enum class BooleanOption(
     FORCE_JACOCO_OUT_OF_PROCESS("android.forceJacocoOutOfProcess", false, status = Option.Status.STABLE),
     USE_APK_FLINGER("android.useApkFlinger", false),
     /** When set R classes are treated as compilation classpath in libraries, rather than runtime classpath, with values set to 0. */
-    COMPILE_CLASSPATH_LIBRARY_R_CLASSES("android.useCompileClasspathLibraryRClasses", false),
     PRECOMPILE_LOCAL_RESOURCES("android.precompileLocalResources", false),
-
+    ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT("android.enableAdditionalTestOutput", false),
+    ENABLE_APP_COMPILE_TIME_R_CLASS("android.enableAppCompileTimeRClass", false),
     // ---------------
     // Lifecycle flags: Stable stage, Enabled by default, can be disabled
-
+    COMPILE_CLASSPATH_LIBRARY_R_CLASSES("android.useCompileClasspathLibraryRClasses", true),
     ENABLE_BUILD_CACHE("android.enableBuildCache", true),
     ENABLE_INTERMEDIATE_ARTIFACTS_CACHE("android.enableIntermediateArtifactsCache", true),
     ENABLE_EXTRACT_ANNOTATIONS("android.enableExtractAnnotations", true),
@@ -112,7 +113,6 @@ enum class BooleanOption(
     ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE("android.bundle.enableUncompressedNativeLibs", true, status=Option.Status.STABLE),
     USE_DEPENDENCY_CONSTRAINTS("android.dependency.useConstraints", true),
     ENABLE_DEXING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform", true, status=Option.Status.STABLE),
-    ENABLE_UNIT_TEST_BINARY_RESOURCES("android.enableUnitTestBinaryResources", true, Option.Status.STABLE),
     ENABLE_DUPLICATE_CLASSES_CHECK("android.enableDuplicateClassesCheck", true),
     ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform.desugaring", true),
     GENERATE_R_JAVA("android.generateRJava", false),

@@ -1,6 +1,6 @@
 load("//tools/base/bazel:coverage.bzl", "coverage_java_test")
 load("//tools/base/bazel:bazel.bzl", "iml_module")
-load("//tools/base/bazel:bazel.bzl", "java_jarjar")
+load("//tools/base/bazel:utils.bzl", "java_jarjar")
 load("//tools/base/bazel:proto.bzl", "PROTOC_VERSION")
 
 exports_files(["jarjar_rules.txt"])
@@ -318,6 +318,7 @@ java_library(
         "//tools/base/common:tools.common",
         "//tools/base/perf-logger:studio.perf-logger_testlib",
         "//tools/base/third_party:com.google.guava_guava",
+        "//tools/base/third_party:junit_junit",
     ],
 )
 
@@ -430,12 +431,6 @@ config_setting(
 config_setting(
     name = "android_cpu_armeabi",
     values = {"cpu": "armeabi"},
-    visibility = ["//visibility:public"],
-)
-
-config_setting(
-    name = "coverage",
-    values = {"define": "coverage=true"},
     visibility = ["//visibility:public"],
 )
 

@@ -23,6 +23,12 @@ import com.android.apksig.DefaultApkSignerEngine;
 import com.android.apksig.apk.ApkFormatException;
 import com.android.apksig.util.DataSource;
 import com.android.apksig.util.DataSources;
+import com.android.zipflinger.Archive;
+import com.android.zipflinger.BytesSource;
+import com.android.zipflinger.Source;
+import com.android.zipflinger.ZipArchive;
+import com.android.zipflinger.ZipInfo;
+import com.android.zipflinger.ZipSource;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -35,12 +41,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.zip.Deflater;
-import zipflinger.Archive;
-import zipflinger.BytesSource;
-import zipflinger.Source;
-import zipflinger.ZipArchive;
-import zipflinger.ZipInfo;
-import zipflinger.ZipSource;
 
 public class SignedApk implements Archive {
 
@@ -121,8 +121,9 @@ public class SignedApk implements Archive {
     public void add(@NonNull ZipSource sources) throws IOException {
         archive.add(sources);
         if (options.v1Enabled) {
-            for (String name : sources.entries().keySet()) {
-                ApkSignerEngine.InspectJarEntryRequest req = signer.outputJarEntry(name);
+            for (Source source : sources.getSelectedEntries()) {
+                ApkSignerEngine.InspectJarEntryRequest req =
+                        signer.outputJarEntry(source.getName());
                 processRequest(req);
             }
         }
@@ -191,7 +192,12 @@ public class SignedApk implements Archive {
         if (req == null) {
             return;
         }
-        ByteBuffer content = archive.getContent(req.getEntryName());
+        String name = req.getEntryName();
+        ByteBuffer content = archive.getContent(name);
+        if (content == null) {
+            String err = String.format("Cannot find and therefore inspect entry %s.", name);
+            throw new IllegalStateException(err);
+        }
         req.getDataSink().consume(content);
         req.done();
     }

@@ -18,10 +18,11 @@ package com.android.ide.common.gradle.model;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.builder.model.ApiVersion;
+import java.io.Serializable;
 import java.util.Objects;
 
 /** Creates a deep copy of an {@link ApiVersion}. */
-public final class IdeApiVersion extends IdeModel implements ApiVersion {
+public final class IdeApiVersion implements ApiVersion, Serializable {
     // Increase the value when adding/removing fields or when changing the serialization/deserialization mechanism.
     private static final long serialVersionUID = 1L;
 
@@ -30,8 +31,7 @@ public final class IdeApiVersion extends IdeModel implements ApiVersion {
     private final int myApiLevel;
     private final int myHashCode;
 
-    public IdeApiVersion(@NonNull ApiVersion version, @NonNull ModelCache modelCache) {
-        super(version, modelCache);
+    public IdeApiVersion(@NonNull ApiVersion version) {
         myApiString = version.getApiString();
         myCodename = version.getCodename();
         myApiLevel = version.getApiLevel();

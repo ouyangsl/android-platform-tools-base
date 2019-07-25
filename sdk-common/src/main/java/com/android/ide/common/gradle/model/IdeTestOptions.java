@@ -18,18 +18,18 @@ package com.android.ide.common.gradle.model;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.builder.model.TestOptions;
+import java.io.Serializable;
 import java.util.Objects;
 
 /** Creates a deep copy of a {@link TestOptions}. */
-public class IdeTestOptions extends IdeModel implements TestOptions {
+public class IdeTestOptions implements TestOptions, Serializable {
     private static final long serialVersionUID = 1L;
 
     private final boolean myAnimationsDisabled;
     @Nullable private final Execution myExecutionEnum;
     private final int myHashCode;
 
-    public IdeTestOptions(@NonNull TestOptions testOptions, @NonNull ModelCache modelCache) {
-        super(testOptions, modelCache);
+    public IdeTestOptions(@NonNull TestOptions testOptions) {
         myAnimationsDisabled = testOptions.getAnimationsDisabled();
         myExecutionEnum = testOptions.getExecution();
         myHashCode = calculateHashCode();

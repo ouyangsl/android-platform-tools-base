@@ -24,6 +24,7 @@ import static com.android.SdkConstants.FD_RENDERSCRIPT;
 import static com.android.SdkConstants.FD_RES;
 import static com.android.SdkConstants.FN_ANDROID_MANIFEST_XML;
 import static com.android.SdkConstants.FN_ANNOTATIONS_ZIP;
+import static com.android.SdkConstants.FN_CLASSES_JAR;
 import static com.android.SdkConstants.FN_LINT_JAR;
 import static com.android.SdkConstants.FN_PROGUARD_TXT;
 import static com.android.SdkConstants.FN_PUBLIC_TXT;
@@ -86,11 +87,11 @@ public class AarTransform extends ArtifactTransform {
             ArtifactType.SHARED_JNI,
             ArtifactType.AIDL,
             ArtifactType.RENDERSCRIPT,
-            ArtifactType.CONSUMER_PROGUARD_RULES,
+            ArtifactType.UNFILTERED_PROGUARD_RULES,
             ArtifactType.LINT,
             ArtifactType.ANNOTATIONS,
             ArtifactType.PUBLIC_RES,
-            ArtifactType.SYMBOL_LIST,
+            ArtifactType.COMPILE_SYMBOL_LIST,
             ArtifactType.DATA_BINDING_ARTIFACT,
             ArtifactType.DATA_BINDING_BASE_CLASS_LOG_ARTIFACT,
             ArtifactType.COMPILE_ONLY_NAMESPACED_R_CLASS_JAR,
@@ -153,13 +154,18 @@ public class AarTransform extends ArtifactTransform {
                 return listIfExists(new File(input, FD_AIDL));
             case RENDERSCRIPT:
                 return listIfExists(new File(input, FD_RENDERSCRIPT));
-            case CONSUMER_PROGUARD_RULES:
-                return listIfExists(new File(input, FN_PROGUARD_TXT));
+            case UNFILTERED_PROGUARD_RULES:
+                List<File> list =
+                        ExtractProGuardRulesTransform.performTransform(
+                                FileUtils.join(input, FD_JARS, FN_CLASSES_JAR),
+                                getOutputDirectory(),
+                                false);
+                return list.isEmpty() ? listIfExists(new File(input, FN_PROGUARD_TXT)) : list;
             case ANNOTATIONS:
                 return listIfExists(new File(input, FN_ANNOTATIONS_ZIP));
             case PUBLIC_RES:
                 return listIfExists(new File(input, FN_PUBLIC_TXT));
-            case SYMBOL_LIST:
+            case COMPILE_SYMBOL_LIST:
                 return listIfExists(new File(input, FN_RESOURCE_TEXT));
             case RES_STATIC_LIBRARY:
                 return isShared(input)

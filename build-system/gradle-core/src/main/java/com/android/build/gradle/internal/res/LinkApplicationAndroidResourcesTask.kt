@@ -191,6 +191,10 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
     var useConditionalKeepRules: Boolean = false
         private set
 
+    @get:Input
+    var useMinimalKeepRules: Boolean = false
+        private set
+
     @get:OutputDirectory
     abstract val resPackageOutputFolder: DirectoryProperty
 
@@ -524,6 +528,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
             task.buildTargetDensity = projectOptions.get(StringOption.IDE_BUILD_TARGET_DENSITY)
 
             task.useConditionalKeepRules = projectOptions.get(BooleanOption.CONDITIONAL_KEEP_RULES)
+            task.useMinimalKeepRules = projectOptions.get(BooleanOption.MINIMAL_KEEP_RULES)
             task.canHaveSplits.set(variantScope.type.canHaveSplits)
             task.isFeatureVariantType.set(variantScope.type == VariantTypeImpl.FEATURE)
 
@@ -607,22 +612,24 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
             }
 
             variantScope.artifacts.producesFile(
-                InternalArtifactType.SYMBOL_LIST,
+                InternalArtifactType.RUNTIME_SYMBOL_LIST,
                 BuildArtifactsHolder.OperationType.INITIAL,
                 taskProvider,
                 LinkApplicationAndroidResourcesTask::textSymbolOutputFileProperty,
                 SdkConstants.FN_RESOURCE_TEXT
             )
 
-            // Synthetic output for AARs (see SymbolTableWithPackageNameTransform), and created in
-            // process resources for local subprojects.
-            variantScope.artifacts.producesFile(
-                InternalArtifactType.SYMBOL_LIST_WITH_PACKAGE_NAME,
-                BuildArtifactsHolder.OperationType.INITIAL,
-                taskProvider,
-                LinkApplicationAndroidResourcesTask::symbolsWithPackageNameOutputFile,
-                "package-aware-r.txt"
-            )
+            if (!variantScope.globalScope.projectOptions[BooleanOption.ENABLE_APP_COMPILE_TIME_R_CLASS]) {
+                // Synthetic output for AARs (see SymbolTableWithPackageNameTransform), and created
+                // in process resources for local subprojects.
+                variantScope.artifacts.producesFile(
+                    InternalArtifactType.SYMBOL_LIST_WITH_PACKAGE_NAME,
+                    BuildArtifactsHolder.OperationType.INITIAL,
+                    taskProvider,
+                    LinkApplicationAndroidResourcesTask::symbolsWithPackageNameOutputFile,
+                    "package-aware-r.txt"
+                )
+            }
         }
 
         override fun configure(task: LinkApplicationAndroidResourcesTask) {
@@ -830,6 +837,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
                         .setIntermediateDir(params.incrementalFolder)
                         .setAndroidJarPath(params.androidJarPath)
                         .setUseConditionalKeepRules(params.useConditionalKeepRules)
+                        .setUseMinimalKeepRules(params.useMinimalKeepRules)
                         .setUseFinalIds(params.useFinalIds)
                         .addResourceDirectories(params.compiledRemoteResourcesDirs)
                         .addResourceDirectories(params.compiledLocalResourcesDirs)
@@ -944,6 +952,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
         val isLibrary: Boolean = task.isLibrary
         val symbolsWithPackageNameOutputFile: File? = task.symbolsWithPackageNameOutputFile.orNull?.asFile
         val useConditionalKeepRules: Boolean = task.useConditionalKeepRules
+        val useMinimalKeepRules: Boolean = task.useMinimalKeepRules
         val useFinalIds: Boolean = task.useFinalIds
         val errorFormatMode: SyncOptions.ErrorFormatMode = task.errorFormatMode
         val manifestMergeBlameFile: File? = task.manifestMergeBlameFile.orNull?.asFile

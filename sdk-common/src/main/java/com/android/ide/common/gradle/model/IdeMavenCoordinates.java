@@ -19,10 +19,11 @@ import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.builder.model.MavenCoordinates;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Objects;
 
 /** Creates a deep copy of a {@link MavenCoordinates}. */
-public final class IdeMavenCoordinates extends IdeModel implements MavenCoordinates {
+public final class IdeMavenCoordinates implements MavenCoordinates, Serializable {
     // Increase the value when adding/removing fields or when changing the serialization/deserialization mechanism.
     private static final long serialVersionUID = 2L;
 
@@ -33,9 +34,7 @@ public final class IdeMavenCoordinates extends IdeModel implements MavenCoordina
     @Nullable private final String myClassifier;
     private final int myHashCode;
 
-    public IdeMavenCoordinates(
-            @NonNull MavenCoordinates coordinates, @NonNull ModelCache modelCache) {
-        super(coordinates, modelCache);
+    public IdeMavenCoordinates(@NonNull MavenCoordinates coordinates) {
         myGroupId = coordinates.getGroupId();
         myArtifactId = coordinates.getArtifactId();
         myVersion = coordinates.getVersion();
@@ -45,8 +44,7 @@ public final class IdeMavenCoordinates extends IdeModel implements MavenCoordina
         myHashCode = calculateHashCode();
     }
 
-    public IdeMavenCoordinates(@NonNull File localJar, @NonNull ModelCache modelCache) {
-        super(localJar, modelCache);
+    public IdeMavenCoordinates(@NonNull File localJar) {
         myGroupId = "__local_aars__";
         myArtifactId = localJar.getPath();
         myVersion = "unspecified";
