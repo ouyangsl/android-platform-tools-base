@@ -21,7 +21,7 @@ maven_java_library(
 maven_pom(
     name = "pom",
     artifact = "zipflinger",
-    group = "zipflinger",
+    group = "com.android",
     source = "//tools/buildSrc/base:base_version",
 )
 
@@ -127,6 +127,7 @@ java_library(
     ],
     deps = [
         ":zipflinger",
+        "//tools/base/testutils:tools.testutils",
         "//tools/base/third_party:junit_junit",
     ],
 )
@@ -174,7 +175,7 @@ java_test(
 
 java_test(
     name = "testsZipFlinger",
-    size = "small",
+    size = "medium",
     srcs = [
         "test/src/java/com/android/zipflinger/TestZipFlinger.java",
     ],
@@ -239,19 +240,14 @@ java_test(
 )
 
 java_test(
-    name = "testsJarFlinger",
+    name = "testsInt",
     size = "small",
     srcs = [
-        "test/src/java/com/android/zipflinger/TestJarFlinger.java",
+        "test/src/java/com/android/zipflinger/TestInts.java",
     ],
-    data = glob([
-        "test/resource/1-2-3files.zip",
-        "test/resource/fake.apk",
-    ]),
-    jvm_flags = ["-Dtest.suite.jar=testsJarFlinger.jar"],
+    jvm_flags = ["-Dtest.suite.jar=testsInts.jar"],
     test_class = "com.android.testutils.JarTestSuite",
     deps = [
-        ":test_utils",
         ":zipflinger",
         "//tools/base/testutils:tools.testutils",
         "//tools/base/third_party:junit_junit",

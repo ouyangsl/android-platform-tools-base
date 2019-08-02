@@ -18,28 +18,23 @@
                    to="${escapeXmlAttribute(resOut)}/values/strings.xml" />
     <instantiate from="root://gradle-projects/NewAndroidModule/root/test/app_package/ExampleInstrumentedTest.${ktOrJavaExt}.ftl"
                    to="${escapeXmlAttribute(testOut)}/ExampleInstrumentedTest.${ktOrJavaExt}" />
-
-<#if unitTestsSupported>
     <instantiate from="root://gradle-projects/NewAndroidModule/root/test/app_package/ExampleUnitTest.${ktOrJavaExt}.ftl"
                    to="${escapeXmlAttribute(unitTestOut)}/ExampleUnitTest.${ktOrJavaExt}" />
     <dependency mavenUrl="junit:junit:4.12" gradleConfiguration="testCompile" />
-</#if>
 
-<dependency mavenUrl="com.android.support.test:runner:+" gradleConfiguration="androidTestCompile" />
-<dependency mavenUrl="com.android.support.test.espresso:espresso-core:+" gradleConfiguration="androidTestCompile" />
-<dependency mavenUrl="com.google.android.things:androidthings:+" gradleConfiguration="provided" />
+    <dependency mavenUrl="com.android.support.test:runner:+" gradleConfiguration="androidTestCompile" />
+    <dependency mavenUrl="com.android.support.test.espresso:espresso-core:+" gradleConfiguration="androidTestCompile" />
+    <dependency mavenUrl="com.google.android.things:androidthings:+" gradleConfiguration="provided" />
 
     <mkdir at="${escapeXmlAttribute(srcOut)}" />
 
     <#include "root://gradle-projects/common/proguard_recipe.xml.ftl"/>
 
-<#if !isLibraryProject && generateLayout!false>
     <instantiate from="root/res/values/styles.xml.ftl"
                    to="${escapeXmlAttribute(resOut)}/values/styles.xml" />
     <#if buildApi gte 22>
         <copy from="root/res/values/colors.xml"
                 to="${escapeXmlAttribute(resOut)}/values/colors.xml" />
     </#if>
-</#if>
 
 </recipe>

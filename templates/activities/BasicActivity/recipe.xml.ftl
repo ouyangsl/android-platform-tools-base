@@ -15,18 +15,16 @@
     <#--
         This block is equivalent to recipe_simple.xml.ftl except for the fragment contains NavHostFragment.
     -->
-    <#if !(hasDependency('com.android.support:appcompat-v7'))>
-        <dependency mavenUrl="com.android.support:appcompat-v7:${buildApi}.+"/>
-    </#if>
-        <dependency mavenUrl="com.android.support.constraint:constraint-layout:+" />
-        <instantiate from="root/res/layout/fragment_simple.xml.ftl"
-                     to="${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml" />
+    <dependency mavenUrl="com.android.support:appcompat-v7:${buildApi}.+"/>
+    <dependency mavenUrl="com.android.support.constraint:constraint-layout:+" />
+    <instantiate from="root/res/layout/fragment_simple.xml.ftl"
+                 to="${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml" />
     <#if (isNewProject!false) && !(excludeMenu!false)>
         <#include "../common/recipe_simple_menu.xml.ftl" />
     </#if>
     <#--------->
 
-    <instantiate from="root/src/app_package/SimpleActivity.${ktOrJavaExt}.ftl"
+    <instantiate from="root/src/app_package/BasicActivity.${ktOrJavaExt}.ftl"
                    to="${escapeXmlAttribute(srcOut)}/${activityClass}.${ktOrJavaExt}" />
 
     <instantiate from="../common/navigation/src/ui/FirstFragment.${ktOrJavaExt}.ftl"
@@ -44,8 +42,14 @@
     <merge from="../common/navigation/src/res/values/strings.xml.ftl"
              to="${escapeXmlAttribute(resOut)}/values/strings.xml" />
 
-    <dependency mavenUrl="android.arch.navigation:navigation-fragment-ktx:+"/>
-    <dependency mavenUrl="android.arch.navigation:navigation-ui-ktx:+"/>
+
+    <#if generateKotlin>
+        <dependency mavenUrl="android.arch.navigation:navigation-fragment-ktx:+"/>
+        <dependency mavenUrl="android.arch.navigation:navigation-ui-ktx:+"/>
+    <#else>
+        <dependency mavenUrl="android.arch.navigation:navigation-fragment:+"/>
+        <dependency mavenUrl="android.arch.navigation:navigation-ui:+"/>
+    </#if>
     <@navigation.addSafeArgsPlugin />
 
     <open file="${escapeXmlAttribute(srcOut)}/${activityClass}.${ktOrJavaExt}" />

@@ -7,14 +7,15 @@ readonly dist_dir="$2"
 readonly build_number="$3"
 
 readonly script_dir="$(dirname "$0")"
+readonly script_name="$(basename "$0")"
 
 build_tag_filters=-no_linux
 test_tag_filters=perfgate_multi_run,perfgate_only,-no_perfgate,-no_linux,-no_test_linux
 
 config_options="--config=remote"
 
-# Grab the location of the command_log file for bazel daemon so we can search it later.
-readonly command_log="$("${script_dir}"/bazel info ${config_options} command_log)"
+# Generate a UUID for use as the bazel invocation id
+readonly invocation_id="$(uuidgen)"
 
 # Run Bazel
 "${script_dir}/bazel" \
@@ -22,9 +23,12 @@ readonly command_log="$("${script_dir}"/bazel info ${config_options} command_log
   test \
   --keep_going \
   ${config_options} \
+  --invocation_id=${invocation_id} \
   --build_tag_filters=${build_tag_filters} \
+  --define=meta_android_build_number=${build_number} \
   --test_tag_filters=${test_tag_filters} \
-  --profile=${dist_dir}/prof \
+  --tool_tag=${script_name} \
+  --profile=${dist_dir}/perfgate-profile-${build_number}.json \
   --runs_per_test=5 \
   -- \
   $(< "${script_dir}/targets")
@@ -33,9 +37,8 @@ readonly bazel_status=$?
 
 if [[ -d "${dist_dir}" ]]; then
 
-  # Grab the upsalite_id from the stdout of the bazel command.  This is captured in command.log
-  readonly upsalite_id="$(sed -n 's/\r$//;s/^.* invocation_id: //p' "${command_log}")"
-  echo "<meta http-equiv=\"refresh\" content=\"0; URL='https://source.cloud.google.com/results/invocations/${upsalite_id}'\" />" > "${dist_dir}"/upsalite_test_results.html
+  # Generate a simple html page that redirects to the test results page.
+  echo "<meta http-equiv=\"refresh\" content=\"0; URL='https://source.cloud.google.com/results/invocations/${invocation_id}'\" />" > "${dist_dir}"/upsalite_test_results.html
 
   readonly testlogs_dir="$("${script_dir}/bazel" info bazel-testlogs ${config_options})"
 
@@ -46,9 +49,6 @@ if [[ -d "${dist_dir}" ]]; then
   find "${testlogs_dir}" -type f -name outputs.zip -exec zip -d {} \*.gz \;
   # Upload perfgate performance files
   find "${testlogs_dir}" -type f -name outputs.zip -exec zip -r "${dist_dir}/perfgate_data.zip" {} \;
-
-  # Create profile html in ${dist_dir} so it ends up in Artifacts.
-  ${script_dir}/bazel analyze-profile --html ${dist_dir}/prof
 
 fi
 

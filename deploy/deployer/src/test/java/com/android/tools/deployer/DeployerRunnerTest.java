@@ -19,7 +19,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import com.android.annotations.NonNull;
@@ -33,6 +32,7 @@ import com.android.tools.deployer.devices.FakeDevice;
 import com.android.tools.deployer.devices.FakeDeviceHandler;
 import com.android.tools.deployer.devices.FakeDeviceLibrary;
 import com.android.tools.deployer.devices.FakeDeviceLibrary.DeviceId;
+import com.android.tools.perflogger.Benchmark;
 import com.android.utils.ILogger;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +43,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.mockito.ArgumentMatchers;
@@ -51,6 +53,7 @@ import org.mockito.Mockito;
 
 @RunWith(Parameterized.class)
 public class DeployerRunnerTest {
+    @Rule public TestName name = new TestName();
 
     private static final String BASE = "tools/base/deploy/deployer/src/test/resource/";
 
@@ -59,12 +62,15 @@ public class DeployerRunnerTest {
     private FakeAdbServer myAdbServer;
     private ILogger logger;
 
+    private Benchmark benchmark;
+    private long startTime;
+
     @Parameterized.Parameters(name = "{0}")
     public static DeviceId[] getDevices() {
         return DeviceId.values();
     }
 
-    public DeployerRunnerTest(DeviceId id) {
+    public DeployerRunnerTest(DeviceId id) throws Exception {
         this.device = new FakeDeviceLibrary().build(id);
     }
 
@@ -82,10 +88,30 @@ public class DeployerRunnerTest {
         this.service = Mockito.mock(UIService.class);
         logger = new TestLogger();
         AndroidDebugBridge.enableFakeAdbServerMode(myAdbServer.getPort());
+
+        if ("true".equals(System.getProperty("dashboards.enabled"))) {
+            // Put all APIs (parameters) of a particular test into one benchmark.
+            String benchmarkName = name.getMethodName().replaceAll("\\[.*", "");
+            benchmark =
+                    new Benchmark.Builder(benchmarkName)
+                            .setProject("Android Studio Deployment")
+                            .build();
+            startTime = System.currentTimeMillis();
+        }
     }
 
     @After
     public void tearDown() throws Exception {
+        long currentTime = System.currentTimeMillis();
+        if (benchmark != null) {
+            long timeTaken = currentTime - startTime;
+
+            // Benchmark names can only include [a-zA-Z0-9_-] characters in them.
+            String metricName =
+                    name.getMethodName().replace('[', '-').replace("]", "").replace(',', '_');
+            benchmark.log(metricName + "_time", timeTaken);
+        }
+
         Mockito.verifyNoMoreInteractions(service);
         AndroidDebugBridge.terminate();
         myAdbServer.close();
@@ -1056,22 +1082,30 @@ public class DeployerRunnerTest {
         }
     }
 
-
     @Test
     public void testStartApp() throws Exception {
-        // Install the base apk:
+        AssumeUtil.assumeNotWindows(); // This test runs the installer on the host
         assertTrue(device.getApps().isEmpty());
+        device.setShellBridge(DeployerTestUtils.getShell());
+        File installersPath = DeployerTestUtils.prepareInstaller();
+
+        // Install the base apk:
         ApkFileDatabase db = new SqlApkFileDatabase(File.createTempFile("test_db", ".bin"), null);
         DeployerRunner runner = new DeployerRunner(db, service);
         File file = TestUtils.getWorkspaceFile(BASE + "apks/simple.apk");
-        String[] args = {"install", "com.example.simpleapp", file.getAbsolutePath()};
+        String[] args = {
+            "install",
+            "com.example.simpleapp",
+            file.getAbsolutePath(),
+            "--installers-path=" + installersPath.getAbsolutePath()
+        };
         int retcode = runner.run(args, logger);
         assertEquals(0, retcode);
         assertEquals(1, device.getApps().size());
         assertInstalled("com.example.simpleapp", file);
 
         String cmd = "am start -n com.example.simpleapp/.MainActivity -a android.intent.action.MAIN";
-        assertEquals(0, device.executeScript(cmd, new byte[]{}).value);
+        assertEquals(0, device.executeScript(cmd, new byte[] {}).value);
         List<FakeDevice.AndroidProcess> processes = device.getProcesses();
         assertEquals(1, processes.size());
         assertEquals("com.example.simpleapp", processes.get(0).application.packageName);
@@ -1113,10 +1147,10 @@ public class DeployerRunnerTest {
         DeployerRunner runner = new DeployerRunner(db, service);
         File file = TestUtils.getWorkspaceFile(BASE + "apks/simple.apk");
         String[] args = {
-          "install",
-          "com.example.simpleapp",
-          file.getAbsolutePath(),
-          "--installers-path=" + installersPath.getAbsolutePath()
+            "install",
+            "com.example.simpleapp",
+            file.getAbsolutePath(),
+            "--installers-path=" + installersPath.getAbsolutePath()
         };
         int retcode = runner.run(args, logger);
         assertEquals(0, retcode);
@@ -1125,28 +1159,28 @@ public class DeployerRunnerTest {
 
         if (device.getApi() < 24) {
             assertMetrics(
-              runner.getMetrics(),
-              "DELTAINSTALL:API_NOT_SUPPORTED",
-              "INSTALL:OK",
-              "DDMLIB_UPLOAD",
-              "DDMLIB_INSTALL");
+                    runner.getMetrics(),
+                    "DELTAINSTALL:API_NOT_SUPPORTED",
+                    "INSTALL:OK",
+                    "DDMLIB_UPLOAD",
+                    "DDMLIB_INSTALL");
         } else {
             assertMetrics(
-              runner.getMetrics(),
-              "DELTAINSTALL:DUMP_UNKNOWN_PACKAGE",
-              "INSTALL:OK",
-              "DDMLIB_UPLOAD",
-              "DDMLIB_INSTALL");
+                    runner.getMetrics(),
+                    "DELTAINSTALL:DUMP_UNKNOWN_PACKAGE",
+                    "INSTALL:OK",
+                    "DDMLIB_UPLOAD",
+                    "DDMLIB_INSTALL");
         }
 
         file = TestUtils.getWorkspaceFile(BASE + "apks/simple+code.apk");
         args =
-          new String[] {
-            "codeswap",
-            "com.example.simpleapp",
-            file.getAbsolutePath(),
-            "--installers-path=" + installersPath.getAbsolutePath()
-          };
+                new String[] {
+                    "codeswap",
+                    "com.example.simpleapp",
+                    file.getAbsolutePath(),
+                    "--installers-path=" + installersPath.getAbsolutePath()
+                };
 
         // We create a empty database. This simulate an installed APK not found in the database.
         db = new SqlApkFileDatabase(File.createTempFile("test_db_empty", ".bin"), null);
@@ -1164,15 +1198,15 @@ public class DeployerRunnerTest {
         } else {
             assertMetrics(runner.getMetrics(), "DELTAPREINSTALL_WRITE");
             assertHistory(
-              device,
-              "getprop",
-              "/data/local/tmp/.studio/bin/installer -version=$VERSION dump com.example.simpleapp",
-              "/system/bin/run-as com.example.simpleapp id -u",
-              "id -u",
-              "/system/bin/cmd package path com.example.simpleapp",
-              "/data/local/tmp/.studio/bin/installer -version=$VERSION deltapreinstall",
-              "/system/bin/cmd package install-create -t -r --dont-kill",
-              "cmd package install-write -S ${size:com.example.simpleapp} 2 base.apk");
+                    device,
+                    "getprop",
+                    "/data/local/tmp/.studio/bin/installer -version=$VERSION dump com.example.simpleapp",
+                    "/system/bin/run-as com.example.simpleapp id -u",
+                    "id -u",
+                    "/system/bin/cmd package path com.example.simpleapp",
+                    "/data/local/tmp/.studio/bin/installer -version=$VERSION deltapreinstall",
+                    "/system/bin/cmd package install-create -t -r --dont-kill",
+                    "cmd package install-write -S ${size:com.example.simpleapp} 2 base.apk");
         }
     }
 

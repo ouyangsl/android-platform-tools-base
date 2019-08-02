@@ -40,6 +40,7 @@ class LocalFileHeader {
     // This is the extra marker value as what apkzlib uses.
     private static final short ALIGN_SIGNATURE = (short) 0xd935;
 
+    static final long VIRTUAL_ENTRY_MAX_SIZE = LOCAL_FILE_HEADER_SIZE + Ints.USHRT_MAX;
     static final long OFFSET_TO_NAME = 26;
 
     private final byte[] nameBytes;
@@ -62,6 +63,11 @@ class LocalFileHeader {
         this.compressedSize = compressedSize;
         this.uncompressedSize = uncompressedSize;
         this.extraPadding = extraPadding;
+
+        if (extraPadding > Ints.USHRT_MAX) {
+            String err = String.format("Padding cannot be more than %s bytes", Ints.USHRT_MAX);
+            throw new IllegalStateException(err);
+        }
     }
 
 
@@ -78,13 +84,13 @@ class LocalFileHeader {
         virtualEntry.putInt(0); // uncompressed size
         virtualEntry.putShort((short) 0); // file name length
         // -2 for the short we are about to write
-        virtualEntry.putShort((short) (virtualEntry.remaining() - 2));
+        virtualEntry.putShort(Ints.intToUshort(virtualEntry.remaining() - 2));
 
         // Write the extra field header
         virtualEntry.putShort(ALIGN_SIGNATURE);
 
         // -2 for the short we are about to write
-        short extraFieldSize = (short) (virtualEntry.remaining() - 2);
+        short extraFieldSize = Ints.intToUshort(virtualEntry.remaining() - 2);
         virtualEntry.putShort(extraFieldSize);
 
         virtualEntry.rewind();
@@ -102,10 +108,10 @@ class LocalFileHeader {
         buffer.putShort((short) 0); // time
         buffer.putShort((short) 0); // date
         buffer.putInt(crc);
-        buffer.putInt((int) compressedSize);
-        buffer.putInt((int) uncompressedSize);
-        buffer.putShort((short) nameBytes.length);
-        buffer.putShort((short) extraField.capacity()); // Extra size
+        buffer.putInt(Ints.longToUint(compressedSize));
+        buffer.putInt(Ints.longToUint(uncompressedSize));
+        buffer.putShort(Ints.intToUshort(nameBytes.length));
+        buffer.putShort(Ints.intToUshort(extraField.capacity())); // Extra size
         buffer.put(nameBytes);
         buffer.put(extraField);
 
@@ -126,7 +132,7 @@ class LocalFileHeader {
                 bytesNeeded
                         - CentralDirectoryRecord.EXTRA_ID_FIELD_SIZE
                         - CentralDirectoryRecord.EXTRA_SIZE_FIELD_SIZE;
-        buffer.putShort((short) paddingSize);
+        buffer.putShort(Ints.intToUshort(paddingSize));
         buffer.put(new byte[paddingSize]);
         buffer.rewind();
 

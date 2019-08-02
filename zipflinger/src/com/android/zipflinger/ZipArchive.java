@@ -93,7 +93,7 @@ public class ZipArchive implements Archive {
             return null;
         }
         Location loc = extractInfo.getLocation();
-        ByteBuffer payloadByteBuffer = ByteBuffer.allocate((int) loc.size());
+        ByteBuffer payloadByteBuffer = ByteBuffer.allocate(Math.toIntExact(loc.size()));
         reader.read(payloadByteBuffer, loc.first);
         if (extractInfo.isCompressed()) {
             return Compressor.inflate(payloadByteBuffer.array());
@@ -225,10 +225,16 @@ public class ZipArchive implements Archive {
         }
 
         while (spaceToFill > 0) {
-            long entrySize =
-                    Math.min(Ints.USHRT_MAX - LocalFileHeader.VIRTUAL_HEADER_SIZE, spaceToFill);
-            ByteBuffer virtualEntry =
-                    ByteBuffer.allocate((int) (entrySize)).order(ByteOrder.LITTLE_ENDIAN);
+            long entrySize;
+            if (spaceToFill <= LocalFileHeader.VIRTUAL_ENTRY_MAX_SIZE) {
+                // Consume all the remaining space.
+                entrySize = spaceToFill;
+            } else {
+                // Consume as much as possible while leaving enough for the next LFH entry.
+                entrySize = Ints.USHRT_MAX;
+            }
+            int size = Math.toIntExact(entrySize);
+            ByteBuffer virtualEntry = ByteBuffer.allocate(size).order(ByteOrder.LITTLE_ENDIAN);
             LocalFileHeader.fillVirtualEntry(virtualEntry);
             writer.write(virtualEntry, location.first + location.size() - spaceToFill);
             spaceToFill -= virtualEntry.capacity();
@@ -248,7 +254,7 @@ public class ZipArchive implements Archive {
         int paddingForAlignment;
         if (source.isAligned()) {
             loc = freestore.alloc(bytesNeeded, headerSize, source.getAlignment());
-            paddingForAlignment = (int) (loc.size() - bytesNeeded);
+            paddingForAlignment = Math.toIntExact(loc.size() - bytesNeeded);
         } else {
             loc = freestore.ualloc(bytesNeeded);
             paddingForAlignment = 0;
