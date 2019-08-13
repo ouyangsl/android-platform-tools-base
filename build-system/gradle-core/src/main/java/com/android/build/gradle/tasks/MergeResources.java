@@ -41,7 +41,6 @@ import com.android.build.gradle.internal.tasks.Workers;
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction;
 import com.android.build.gradle.internal.variant.BaseVariantData;
 import com.android.build.gradle.options.SyncOptions;
-import com.android.builder.model.SourceProvider;
 import com.android.builder.model.VectorDrawablesOptions;
 import com.android.builder.png.VectorDrawableRenderer;
 import com.android.ide.common.blame.MergingLog;
@@ -84,13 +83,10 @@ import org.gradle.api.file.RegularFileProperty;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
-import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.Internal;
 import org.gradle.api.tasks.Optional;
 import org.gradle.api.tasks.OutputDirectory;
 import org.gradle.api.tasks.OutputFile;
-import org.gradle.api.tasks.PathSensitive;
-import org.gradle.api.tasks.PathSensitivity;
 import org.gradle.api.tasks.TaskProvider;
 
 @CacheableTask
@@ -112,9 +108,6 @@ public abstract class MergeResources extends ResourceAwareTask {
     private boolean crunchPng;
 
     private File blameLogFolder;
-
-    // file inputs as raw files, lazy behind a memoized/bypassed supplier
-    private Supplier<Collection<File>> sourceFolderInputs;
 
     private List<ResourceSet> processedInputs;
 
@@ -139,9 +132,7 @@ public abstract class MergeResources extends ResourceAwareTask {
 
     private boolean pseudoLocalesEnabled;
 
-    private boolean precompileRemoteResources;
-
-    private boolean precompileLocalResources;
+    private boolean precompileDependenciesResources;
 
     private ImmutableSet<Flag> flags;
 
@@ -292,7 +283,7 @@ public abstract class MergeResources extends ResourceAwareTask {
      * resources task, if it is then it should be ignored.
      */
     private boolean isFilteredOutLibraryResource(File changedFile) {
-        ArtifactCollection localLibraryResources = getResourcesComputer().getLocalLibraries();
+        ArtifactCollection localLibraryResources = getResourcesComputer().getLibraries();
         File parentFile = changedFile.getParentFile();
         if (localLibraryResources == null || parentFile.getName().startsWith(FD_RES_VALUES)) {
             return false;
@@ -318,7 +309,7 @@ public abstract class MergeResources extends ResourceAwareTask {
                 return;
             }
 
-            if (precompileLocalResources) {
+            if (precompileDependenciesResources) {
                 changedInputs =
                         changedInputs
                                 .entrySet()
@@ -487,9 +478,7 @@ public abstract class MergeResources extends ResourceAwareTask {
         // back to full task run. Because the cached ResourceList is modified we don't want
         // to recompute this twice (plus, why recompute it twice anyway?)
         if (processedInputs == null) {
-            processedInputs =
-                    getResourcesComputer()
-                            .compute(precompileRemoteResources, precompileLocalResources);
+            processedInputs = getResourcesComputer().compute(precompileDependenciesResources);
             List<ResourceSet> generatedSets = new ArrayList<>(processedInputs.size());
 
             for (ResourceSet resourceSet : processedInputs) {
@@ -527,12 +516,6 @@ public abstract class MergeResources extends ResourceAwareTask {
     private void cleanup() {
         fileValidity.clear();
         processedInputs = null;
-    }
-
-    @InputFiles
-    @PathSensitive(PathSensitivity.RELATIVE)
-    public Collection<File> getSourceFolderInputs() {
-        return sourceFolderInputs.get();
     }
 
     @OutputDirectory
@@ -724,11 +707,6 @@ public abstract class MergeResources extends ResourceAwareTask {
                     Boolean.TRUE.equals(vectorDrawablesOptions.getUseSupportLibrary());
 
             task.getResourcesComputer().initFromVariantScope(variantScope, includeDependencies);
-            task.sourceFolderInputs =
-                    () ->
-                            variantData
-                                    .getVariantConfiguration()
-                                    .getSourceFiles(SourceProvider::getResDirectories);
 
             if (!task.disableVectorDrawables) {
                 task.generatedPngsOutputDir = variantScope.getGeneratedPngsOutputDir();
@@ -801,13 +779,10 @@ public abstract class MergeResources extends ResourceAwareTask {
 
             task.errorFormatMode = SyncOptions.getErrorFormatMode(globalScope.getProjectOptions());
 
-            task.precompileRemoteResources =
-                    mergeType.equals(MERGE) && variantScope.isPrecompileRemoteResourcesEnabled();
-
-            task.precompileLocalResources =
+            task.precompileDependenciesResources =
                     mergeType.equals(MERGE)
                             && !isLibrary
-                            && variantScope.isPrecompileLocalResourcesEnabled();
+                            && variantScope.isPrecompileDependenciesResourcesEnabled();
 
             task.dependsOn(variantScope.getTaskContainer().getResourceGenTask());
 

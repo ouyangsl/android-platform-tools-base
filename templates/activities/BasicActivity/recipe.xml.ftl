@@ -19,7 +19,7 @@
     <dependency mavenUrl="com.android.support.constraint:constraint-layout:+" />
     <instantiate from="root/res/layout/fragment_simple.xml.ftl"
                  to="${escapeXmlAttribute(resOut)}/layout/${simpleLayoutName}.xml" />
-    <#if (isNewProject!false) && !(excludeMenu!false)>
+    <#if (isNewModule!false) && !(excludeMenu!false)>
         <#include "../common/recipe_simple_menu.xml.ftl" />
     </#if>
     <#--------->
@@ -27,21 +27,18 @@
     <instantiate from="root/src/app_package/BasicActivity.${ktOrJavaExt}.ftl"
                    to="${escapeXmlAttribute(srcOut)}/${activityClass}.${ktOrJavaExt}" />
 
-    <instantiate from="../common/navigation/src/ui/FirstFragment.${ktOrJavaExt}.ftl"
+    <instantiate from="root/src/app_package/FirstFragment.${ktOrJavaExt}.ftl"
                    to="${escapeXmlAttribute(srcOut)}/${firstFragmentClass}.${ktOrJavaExt}" />
-    <instantiate from="../common/navigation/src/ui/SecondFragment.${ktOrJavaExt}.ftl"
+    <instantiate from="root/src/app_package/SecondFragment.${ktOrJavaExt}.ftl"
                    to="${escapeXmlAttribute(srcOut)}/${secondFragmentClass}.${ktOrJavaExt}" />
-    <instantiate from="../common/navigation/src/res/layout/fragment_first.xml.ftl"
+    <instantiate from="root/res/layout/fragment_first.xml.ftl"
                    to="${escapeXmlAttribute(resOut)}/layout/${firstFragmentLayoutName}.xml" />
-    <instantiate from="../common/navigation/src/res/layout/fragment_second.xml.ftl"
+    <instantiate from="root/res/layout/fragment_second.xml.ftl"
                    to="${escapeXmlAttribute(resOut)}/layout/${secondFragmentLayoutName}.xml" />
-    <merge from="../common/navigation/src/res/navigation/nav_graph.xml.ftl"
+    <merge from="root/res/navigation/nav_graph.xml.ftl"
              to="${escapeXmlAttribute(resOut)}/navigation/nav_graph.xml" />
     <merge from="root/res/values/strings.xml.ftl"
              to="${escapeXmlAttribute(resOut)}/values/strings.xml" />
-    <merge from="../common/navigation/src/res/values/strings.xml.ftl"
-             to="${escapeXmlAttribute(resOut)}/values/strings.xml" />
-
 
     <#if generateKotlin>
         <dependency mavenUrl="android.arch.navigation:navigation-fragment-ktx:+"/>

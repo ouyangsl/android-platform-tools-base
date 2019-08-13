@@ -337,20 +337,11 @@ public class VariantScopeImpl implements VariantScope {
     }
 
     @Override
-    public boolean isPrecompileRemoteResourcesEnabled() {
+    public boolean isPrecompileDependenciesResourcesEnabled() {
         // Resource shrinker expects MergeResources task to have all the resources merged and with
         // overlay rules applied, so we have to go through the MergeResources pipeline in case it's
         // enabled, see b/134766811.
-        return globalScope.getProjectOptions().get(BooleanOption.PRECOMPILE_REMOTE_RESOURCES)
-                && !useResourceShrinker();
-    }
-
-    @Override
-    public boolean isPrecompileLocalResourcesEnabled() {
-        // Resource shrinker expects MergeResources task to have all the resources merged and with
-        // overlay rules applied, so we have to go through the MergeResources pipeline in case it's
-        // enabled, see b/134766811.
-        return globalScope.getProjectOptions().get(BooleanOption.PRECOMPILE_LOCAL_RESOURCES)
+        return globalScope.getProjectOptions().get(BooleanOption.PRECOMPILE_DEPENDENCIES_RESOURCES)
                 && !useResourceShrinker();
     }
 
@@ -689,7 +680,14 @@ public class VariantScopeImpl implements VariantScope {
         } else {
             //noinspection VariableNotUsedInsideIf
             if (tested == null) {
-                if (getType().isAar()) {
+                // TODO(b/138780301): Also use it in android tests.
+                boolean useCompileRClassInApp =
+                        globalScope
+                                        .getProjectOptions()
+                                        .get(BooleanOption.ENABLE_APP_COMPILE_TIME_R_CLASS)
+                                && !getType().isForTesting();
+
+                if (getType().isAar() || useCompileRClassInApp) {
                     Provider<FileSystemLocation> rJar =
                             artifacts.getFinalProduct(COMPILE_ONLY_NOT_NAMESPACED_R_CLASS_JAR);
                     mainCollection = getProject().files(mainCollection, rJar);
@@ -882,7 +880,7 @@ public class VariantScopeImpl implements VariantScope {
                 && configType == RUNTIME_CLASSPATH
                 && getType().isApk()) {
             if (artifactType == ArtifactType.ANDROID_RES
-                    || artifactType == ArtifactType.COMPILED_REMOTE_RESOURCES) {
+                    || artifactType == ArtifactType.COMPILED_DEPENDENCIES_RESOURCES) {
                 artifacts =
                         new AndroidTestResourceArtifactCollection(
                                 artifacts,

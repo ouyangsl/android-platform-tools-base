@@ -19,35 +19,33 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.android.annotations.Nullable;
 import com.android.builder.model.JavaLibrary;
-import com.android.ide.common.gradle.model.ModelCache;
-import com.android.ide.common.gradle.model.stubs.level2.AndroidLibraryStub;
+import com.android.ide.common.gradle.model.stubs.level2.AndroidLibraryStubBuilder;
+import com.android.ide.common.gradle.model.stubs.level2.JavaLibraryStubBuilder;
 import com.android.ide.common.gradle.model.stubs.level2.ModuleLibraryStub;
+import com.android.ide.common.gradle.model.stubs.level2.ModuleLibraryStubBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
 /** Tests for {@link IdeLibraryFactory}. */
 public class IdeLibraryFactoryTest {
     private IdeLibraryFactory myLibraryFactory;
-    private ModelCache myModelCache;
 
     @Before
     public void setUp() throws Exception {
         myLibraryFactory = new IdeLibraryFactory();
-        myModelCache = new ModelCache();
     }
 
     @Test
     public void createFromL2Library() {
         com.android.builder.model.level2.Library androidLibrary =
-                myLibraryFactory.create(new AndroidLibraryStub());
+                myLibraryFactory.create(new AndroidLibraryStubBuilder().build());
         assertThat(androidLibrary).isInstanceOf(IdeAndroidLibrary.class);
 
         com.android.builder.model.level2.Library javaLibrary =
-                myLibraryFactory.create(
-                        new com.android.ide.common.gradle.model.stubs.level2.JavaLibraryStub());
+                myLibraryFactory.create(new JavaLibraryStubBuilder().build());
         assertThat(javaLibrary).isInstanceOf(IdeJavaLibrary.class);
 
-        ModuleLibraryStub moduleLibrary = new ModuleLibraryStub();
+        ModuleLibraryStub moduleLibrary = new ModuleLibraryStubBuilder().build();
         assertThat(myLibraryFactory.create(moduleLibrary)).isInstanceOf(IdeModuleLibrary.class);
     }
 

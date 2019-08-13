@@ -110,8 +110,9 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
         }
     }
 
-    @Internal
-    private var sourceOutputDir= objects.directoryProperty()
+    @get:OutputDirectory
+    @get:Optional
+    abstract val sourceOutputDirProperty: DirectoryProperty
 
     @get:OutputFile
     @get:Optional
@@ -163,7 +164,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
     val canHaveSplits: Property<Boolean> = objects.property(Boolean::class.java)
 
     @get:Input
-    val isFeatureVariantType: Property<Boolean> = objects.property(Boolean::class.java)
+    val hasFeatureVariantType: Property<Boolean> = objects.property(Boolean::class.java)
 
     private var debuggable: Boolean = false
 
@@ -250,9 +251,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
     // Not an input as it is only used to rewrite exception and doesn't affect task output
     private lateinit var manifestMergeBlameFile: Provider<RegularFile>
 
-    private var compiledRemoteResources: ArtifactCollection? = null
-
-    private var compiledLocalResources: ArtifactCollection? = null
+    private var compiledDependenciesResources: ArtifactCollection? = null
 
     private lateinit var errorFormatMode: SyncOptions.ErrorFormatMode
 
@@ -286,11 +285,9 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
 
             unprocessedManifest.remove(mainOutput)
 
-            val compiledRemoteResourcesDirs =
-                getCompiledRemoteResources()?.reversed()?.toImmutableList() ?: emptyList<File>()
-
-            val compiledLocalResourcesDirs =
-                getCompiledLocalResources()?.reversed()?.toImmutableList() ?: emptyList<File>()
+            val compiledDependenciesResourcesDirs =
+                getCompiledDependenciesResources()?.reversed()?.toImmutableList()
+                    ?: emptyList<File>()
 
             it.submit(
                 AaptSplitInvoker::class.java,
@@ -303,8 +300,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
                     mainOutput.apkData,
                     true,
                     aapt2ServiceKey,
-                    compiledRemoteResourcesDirs,
-                    compiledLocalResourcesDirs,
+                    compiledDependenciesResourcesDirs,
                     this,
                     rClassOutputJar.orNull?.asFile
                 )
@@ -329,8 +325,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
                                 apkInfo,
                                 false,
                                 aapt2ServiceKey,
-                                compiledRemoteResourcesDirs,
-                                compiledLocalResourcesDirs,
+                                compiledDependenciesResourcesDirs,
                                 this
                             )
                         )
@@ -530,7 +525,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
             task.useConditionalKeepRules = projectOptions.get(BooleanOption.CONDITIONAL_KEEP_RULES)
             task.useMinimalKeepRules = projectOptions.get(BooleanOption.MINIMAL_KEEP_RULES)
             task.canHaveSplits.set(variantScope.type.canHaveSplits)
-            task.isFeatureVariantType.set(variantScope.type == VariantTypeImpl.FEATURE)
+            task.hasFeatureVariantType.set(variantScope.type == VariantTypeImpl.FEATURE)
 
             task.setMergeBlameLogFolder(variantScope.resourceBlameLogDir)
 
@@ -597,7 +592,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
                     InternalArtifactType.NOT_NAMESPACED_R_CLASS_SOURCES,
                     BuildArtifactsHolder.OperationType.INITIAL,
                     taskProvider,
-                    LinkApplicationAndroidResourcesTask::sourceOutputDir,
+                    LinkApplicationAndroidResourcesTask::sourceOutputDirProperty,
                     fileName = SdkConstants.FD_RES_CLASS
                 )
             } else {
@@ -646,20 +641,13 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
                 task.inputResourcesDir
             )
 
-            if (variantScope.isPrecompileRemoteResourcesEnabled) {
-                task.compiledRemoteResources =
+            if (variantScope.isPrecompileDependenciesResourcesEnabled) {
+                task.compiledDependenciesResources =
                     variantScope.getArtifactCollection(
-                        RUNTIME_CLASSPATH, ALL,
-                        AndroidArtifacts.ArtifactType.COMPILED_REMOTE_RESOURCES
+                        RUNTIME_CLASSPATH,
+                        ALL,
+                        AndroidArtifacts.ArtifactType.COMPILED_DEPENDENCIES_RESOURCES
                     )
-            }
-
-            if (variantScope.isPrecompileLocalResourcesEnabled) {
-                task.compiledLocalResources = variantScope.getArtifactCollection(
-                    RUNTIME_CLASSPATH,
-                    ALL,
-                    AndroidArtifacts.ArtifactType.COMPILED_LOCAL_RESOURCES
-                )
             }
         }
     }
@@ -681,7 +669,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
                 InternalArtifactType.RUNTIME_R_CLASS_SOURCES,
                 BuildArtifactsHolder.OperationType.INITIAL,
                 taskProvider,
-                LinkApplicationAndroidResourcesTask::sourceOutputDir,
+                LinkApplicationAndroidResourcesTask::sourceOutputDirProperty,
                 fileName = "out"
             )
         }
@@ -839,8 +827,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
                         .setUseConditionalKeepRules(params.useConditionalKeepRules)
                         .setUseMinimalKeepRules(params.useMinimalKeepRules)
                         .setUseFinalIds(params.useFinalIds)
-                        .addResourceDirectories(params.compiledRemoteResourcesDirs)
-                        .addResourceDirectories(params.compiledLocalResourcesDirs)
+                        .addResourceDirectories(params.compiledDependenciesResourcesDirs)
 
                     if (params.isNamespaced) {
                         val packagedDependencies = ImmutableList.builder<File>()
@@ -922,8 +909,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
         val apkData: ApkData,
         val generateCode: Boolean,
         val aapt2ServiceKey: Aapt2ServiceKey?,
-        val compiledRemoteResourcesDirs: List<File>,
-        val compiledLocalResourcesDirs: List<File>,
+        val compiledDependenciesResourcesDirs: List<File>,
         task: LinkApplicationAndroidResourcesTask,
         val rClassOutputJar: File? = null
     ) : Serializable {
@@ -932,7 +918,7 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
         val variantScopeMainSplit: ApkData = task.outputScope.mainSplit
         val resPackageOutputFolder: File = task.resPackageOutputFolder.get().asFile
         val isNamespaced: Boolean = task.isNamespaced
-        val isFeatureVariantType: Boolean = task.isFeatureVariantType.get()
+        val isFeatureVariantType: Boolean = task.hasFeatureVariantType.get()
         val originalApplicationId: String? = task.originalApplicationId.get()
         val sourceOutputDir: File? = task.getSourceOutputDir()
         val textSymbolOutputFile: File? = task.textSymbolOutputFileProperty.orNull?.asFile
@@ -969,14 +955,9 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
         return resOffsetSupplier?.get()
     }
 
-    @OutputDirectory
-    @Optional
-    fun getSourceOutputFolder(): DirectoryProperty {
-        return sourceOutputDir
-    }
-
+    @Internal // sourceOutputDirProperty is already marked as @OutputDirectory
     override fun getSourceOutputDir(): File? {
-        return sourceOutputDir.orNull?.asFile
+        return sourceOutputDirProperty.orNull?.asFile
     }
 
     @Suppress("unused") // Used by butterknife
@@ -1006,21 +987,14 @@ abstract class LinkApplicationAndroidResourcesTask @Inject constructor(objects: 
     }
 
     /**
-     * Returns a file collection of the directories containing the compiled remote libraries
-     * resource files.
+     * Returns a file collection of the directories containing the compiled dependencies resource
+     * files.
      */
     @Optional
     @InputFiles
     @PathSensitive(PathSensitivity.RELATIVE)
-    fun getCompiledRemoteResources(): FileCollection? {
-        return compiledRemoteResources?.artifactFiles
-    }
-
-    @Optional
-    @InputFiles
-    @PathSensitive(PathSensitivity.RELATIVE)
-    fun getCompiledLocalResources(): FileCollection? {
-        return compiledLocalResources?.artifactFiles
+    fun getCompiledDependenciesResources(): FileCollection? {
+        return compiledDependenciesResources?.artifactFiles
     }
 
     @Input

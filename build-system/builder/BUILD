@@ -47,6 +47,7 @@ kotlin_library(
         "//tools/base/repository:tools.repository",
         "//tools/base/sdk-common:tools.sdk-common",
         "//tools/base/sdklib:tools.sdklib",
+        "//tools/base/signflinger",
         "//tools/base/third_party:com.google.code.findbugs_jsr305",
         "//tools/base/third_party:com.google.code.gson_gson",
         "//tools/base/third_party:com.google.guava_guava",
@@ -95,6 +96,7 @@ kotlin_test(
         ":builder",
         "//tools/apkzlib",
         "//tools/base/annotations",
+        "//tools/base/build-system:tools.apksig",
         "//tools/base/build-system:tools.manifest-merger",
         "//tools/base/build-system/builder-model",
         "//tools/base/build-system/builder-test-api:tools.builder-test-api",
@@ -104,6 +106,7 @@ kotlin_test(
         "//tools/base/repository:tools.repository",
         "//tools/base/sdk-common:tools.sdk-common",
         "//tools/base/sdklib:tools.sdklib",
+        "//tools/base/signflinger",
         "//tools/base/testutils:tools.testutils",
         "//tools/base/third_party:com.google.jimfs_jimfs",
         "//tools/base/third_party:com.google.truth_truth",
@@ -114,6 +117,111 @@ kotlin_test(
         "//tools/base/third_party:org.jetbrains.kotlin_kotlin-test",
         "//tools/base/third_party:org.mockito_mockito-core",
         "//tools/base/third_party:org.ow2.asm_asm",
+        "//tools/base/zipflinger",
+    ],
+)
+
+java_library(
+    name = "benchmarks_utils",
+    srcs = [
+        "src/benchmarks/java/com/android/builder/benchmarks/StopWatch.java",
+        "src/benchmarks/java/com/android/builder/benchmarks/TreeCreator.java",
+        "src/benchmarks/java/com/android/builder/benchmarks/Utils.java",
+        "src/benchmarks/java/com/android/builder/benchmarks/ZipCreator.java",
+    ],
+    deps = [
+        "//tools/base/annotations",
+    ],
+)
+
+java_test(
+    name = "testBenchmarkAdd",
+    size = "large",
+    srcs = [
+        "src/benchmarks/java/com/android/builder/benchmarks/BenchmarkAdd.java",
+    ],
+    jvm_flags = ["-Dtest.suite.jar=testBenchmarkAdd.jar"],
+    tags = [
+        "manual",
+    ],
+    test_class = "com.android.testutils.JarTestSuite",
+    deps = [
+        ":benchmarks_utils",
+        "//prebuilts/tools/common/m2/repository/com/google/guava/guava/27.0.1-jre:jar",
+        "//tools/apkzlib",
+        "//tools/base/annotations",
+        "//tools/base/build-system/builder",
+        "//tools/base/testutils:tools.testutils",
+        "//tools/base/third_party:junit_junit",
+        "//tools/base/zipflinger",
+    ],
+)
+
+java_test(
+    name = "testBenchmarkJarMerge",
+    size = "large",
+    srcs = [
+        "src/benchmarks/java/com/android/builder/benchmarks/BenchmarkJarMerge.java",
+    ],
+    jvm_flags = ["-Dtest.suite.jar=testBenchmarkJarMerge.jar"],
+    tags = [
+        "manual",
+    ],
+    test_class = "com.android.testutils.JarTestSuite",
+    deps = [
+        ":benchmarks_utils",
+        "//prebuilts/tools/common/m2/repository/com/google/guava/guava/27.0.1-jre:jar",
+        "//tools/apkzlib",
+        "//tools/base/annotations",
+        "//tools/base/build-system/builder",
+        "//tools/base/testutils:tools.testutils",
+        "//tools/base/third_party:junit_junit",
+        "//tools/base/zipflinger",
+    ],
+)
+
+java_test(
+    name = "testBenchmarkList",
+    size = "large",
+    srcs = [
+        "src/benchmarks/java/com/android/builder/benchmarks/BenchmarkList.java",
+    ],
+    jvm_flags = ["-Dtest.suite.jar=testBenchmarkList.jar"],
+    tags = [
+        "manual",
+    ],
+    test_class = "com.android.testutils.JarTestSuite",
+    deps = [
+        ":benchmarks_utils",
+        "//prebuilts/tools/common/m2/repository/com/google/guava/guava/27.0.1-jre:jar",
+        "//tools/apkzlib",
+        "//tools/base/annotations",
+        "//tools/base/build-system/builder",
+        "//tools/base/testutils:tools.testutils",
+        "//tools/base/third_party:junit_junit",
+        "//tools/base/zipflinger",
+    ],
+)
+
+java_test(
+    name = "testBenchmarkFolderMerge",
+    size = "large",
+    srcs = [
+        "src/benchmarks/java/com/android/builder/benchmarks/BenchmarkFolderMerge.java",
+    ],
+    jvm_flags = ["-Dtest.suite.jar=testBenchmarkAdd.jar"],
+    tags = [
+        "manual",
+    ],
+    test_class = "com.android.testutils.JarTestSuite",
+    deps = [
+        ":benchmarks_utils",
+        "//prebuilts/tools/common/m2/repository/com/google/guava/guava/27.0.1-jre:jar",
+        "//tools/apkzlib",
+        "//tools/base/annotations",
+        "//tools/base/build-system/builder",
+        "//tools/base/testutils:tools.testutils",
+        "//tools/base/third_party:junit_junit",
         "//tools/base/zipflinger",
     ],
 )
