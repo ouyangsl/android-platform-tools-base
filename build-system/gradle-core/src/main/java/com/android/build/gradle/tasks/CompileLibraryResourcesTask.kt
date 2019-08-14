@@ -18,9 +18,8 @@ package com.android.build.gradle.tasks
 
 import com.android.SdkConstants.FD_RES_VALUES
 import com.android.build.gradle.internal.LoggerWrapper
-import com.android.build.gradle.internal.aapt.SharedExecutorResourceCompilationService
+import com.android.build.gradle.internal.res.Aapt2CompileRunnable
 import com.android.build.gradle.internal.res.getAapt2FromMavenAndVersion
-import com.android.build.gradle.internal.res.namespaced.Aapt2ServiceKey
 import com.android.build.gradle.internal.res.namespaced.registerAaptService
 import com.android.build.gradle.internal.scope.BuildArtifactsHolder
 import com.android.build.gradle.internal.scope.InternalArtifactType
@@ -187,14 +186,14 @@ abstract class CompileLibraryResourcesTask : NewIncrementalTask() {
             // Generated resources override normal resources so we need to add them at the end
             requests.addAll(generatedFilesRequests.build())
 
+            // TODO: split the requests between more workers so the work is done more in parallel
+            //       once we have a better daemon handling strategy
             workers.submit(
-                CompileLibraryResourcesRunnable::class.java,
-                CompileLibraryResourcesParams(
-                    projectName,
-                    path,
+                Aapt2CompileRunnable::class.java,
+                Aapt2CompileRunnable.Params(
                     aapt2ServiceKey,
-                    errorFormatMode,
-                    requests.build()
+                    requests.build(),
+                    errorFormatMode
                 )
             )
         }
@@ -309,28 +308,6 @@ abstract class CompileLibraryResourcesTask : NewIncrementalTask() {
 
     private data class FileIdentifier(val fileName: String, val parentName: String) {
         constructor(file: File) : this(file.name, file.parentFile.name)
-    }
-
-    private data class CompileLibraryResourcesParams(
-        val projectName: String,
-        val owner: String,
-        val aapt2ServiceKey: Aapt2ServiceKey,
-        val errorFormatMode: SyncOptions.ErrorFormatMode,
-        val requests: List<CompileResourceRequest>
-    ) : Serializable
-
-    private class CompileLibraryResourcesRunnable
-    @Inject constructor(private val params: CompileLibraryResourcesParams) : Runnable {
-        override fun run() {
-            SharedExecutorResourceCompilationService(
-                params.projectName,
-                params.owner,
-                params.aapt2ServiceKey,
-                params.errorFormatMode
-            ).use {
-                it.submitCompile(params.requests)
-            }
-        }
     }
 
     class CreationAction(variantScope: VariantScope) :

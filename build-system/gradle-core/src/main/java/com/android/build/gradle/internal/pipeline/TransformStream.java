@@ -220,13 +220,17 @@ public abstract class TransformStream {
     /**
      * Returns a FileCollection that contains the outputs.
      *
-     * <p>The type/scope of the output is filtered by a StreamFilter.
+     * The type/scope of the output is filtered by a StreamFilter.
      *
      * @param project a Projet object to create new FileCollection
      * @param streamFilter the stream filter.
+     *
      * @return the FileCollection
      */
     @NonNull
-    abstract FileCollection getOutputFileCollection(
-            @NonNull Project project, @NonNull StreamFilter streamFilter);
+    FileCollection getOutputFileCollection(
+            @NonNull Project project,
+            @NonNull StreamFilter streamFilter) {
+        return fileCollection;
+    }
 }

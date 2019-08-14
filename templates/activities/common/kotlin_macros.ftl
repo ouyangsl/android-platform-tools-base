@@ -12,11 +12,6 @@ apply plugin: 'kotlin-android-extensions'
 <#if generateKotlin>${getConfigurationName("compile")} "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"</#if>
 </#macro>
 
-<#macro setKotlinVersion>
-  <setExtVar name="kotlin_version" value="${kotlinVersion}" />
-  <classpath mavenUrl="org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version" />
-</#macro>
-
 // TODO: <apply plugin /> Is adding the dependencies at the *end* of build.gradle
 // TODO: The two macros above, addKotlinPlugins and addKotlinDependencies, are duplicating the work of addAllKotlinDependencies, when
 //       creating a new project (isNewModule == true). The only reason is the above bug on <apply plugin />
@@ -26,13 +21,15 @@ apply plugin: 'kotlin-android-extensions'
     <apply plugin="kotlin-android-extensions" />
     <#if !hasDependency('org.jetbrains.kotlin:kotlin-stdlib')>
         <dependency mavenUrl="org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"/>
-        <@setKotlinVersion />
+        <merge from="root://activities/common/kotlin.gradle.ftl"
+                 to="${escapeXmlAttribute(topOut)}/build.gradle" />
     </#if>
   </#if>
 </#macro>
 
 <#macro addKotlinToBaseProject>
   <#if !(isNewProject!false) && (language!'Java')?string == 'Kotlin'>
-    <@setKotlinVersion />
+    <merge from="root://activities/common/kotlin.gradle.ftl"
+             to="${escapeXmlAttribute(topOut)}/build.gradle" />
   </#if>
 </#macro>

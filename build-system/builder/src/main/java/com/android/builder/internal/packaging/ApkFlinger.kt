@@ -23,7 +23,8 @@ import com.android.tools.build.apkzlib.sign.SigningOptions
 import com.android.tools.build.apkzlib.zfile.ApkCreator
 import com.android.tools.build.apkzlib.zfile.ApkCreatorFactory
 import com.android.tools.build.apkzlib.zfile.NativeLibrariesPackagingMode
-import com.android.zipflinger.BytesSource
+import com.android.zipflinger.Archive
+import com.android.zipflinger.FileSource
 import com.android.zipflinger.ZipArchive
 import com.android.zipflinger.ZipSource
 import com.google.common.base.Function
@@ -31,11 +32,7 @@ import com.google.common.base.Preconditions
 import com.google.common.base.Predicate
 import java.io.File
 import java.io.IOException
-import java.nio.file.Files
 import java.nio.file.InvalidPathException
-import java.util.concurrent.Callable
-import java.util.concurrent.ForkJoinPool
-import java.util.concurrent.ForkJoinTask
 import java.util.zip.Deflater
 
 // TODO ensure that all input zip entries have desired compression -
@@ -47,21 +44,14 @@ class ApkFlinger(
     private val compressionLevel: Int
 ) : ApkCreator {
 
-    /**
-     * The archive file, which must be synchronized because we make async calls to it in the
-     * writeFile method below, in order to do compression in parallel.
-     * */
-    private val archive: SynchronizedArchive
+    /** The archive file.  */
+    private val archive: Archive
 
     /** Predicate defining which files should not be compressed.  */
     private val noCompressPredicate: Predicate<String>
 
     /** Predicate defining which files should be page aligned.  */
     private val pageAlignPredicate: Predicate<String>
-
-    /** forkJoinPool used so that compression can occur in parallel */
-    private val forkJoinPool = ForkJoinPool.commonPool()
-    private val subTasks = mutableListOf<ForkJoinTask<Unit>>()
 
     init {
         when (creationData.nativeLibrariesPackagingMode) {
@@ -82,7 +72,7 @@ class ApkFlinger(
         }
         val signingOptions: SigningOptions? = creationData.signingOptions.orNull()
         if (signingOptions == null) {
-            archive = SynchronizedArchive(ZipArchive(creationData.apkPath))
+            archive = ZipArchive(creationData.apkPath)
         } else {
             val signedApkOptionsBuilder =
                 SignedApkOptions.Builder()
@@ -96,10 +86,7 @@ class ApkFlinger(
             if (signingOptions.executor != null) {
                 signedApkOptionsBuilder.setExecutor(signingOptions.executor!!)
             }
-            archive =
-                SynchronizedArchive(
-                    SignedApk(creationData.apkPath, signedApkOptionsBuilder.build())
-                )
+            archive = SignedApk(creationData.apkPath, signedApkOptionsBuilder.build())
         }
     }
 
@@ -166,27 +153,21 @@ class ApkFlinger(
      */
     @Throws(IOException::class)
     override fun writeFile(inputFile: File, apkPath: String) {
-        subTasks.add(
-            forkJoinPool.submit(
-                Callable<Unit> {
-                    val mayCompress = !noCompressPredicate.apply(apkPath)
-                    val bytesSource = BytesSource(
-                        Files.readAllBytes(inputFile.toPath()),
-                        apkPath,
-                        if (mayCompress) compressionLevel else Deflater.NO_COMPRESSION
-                    )
-                    if (!mayCompress) {
-                        if (pageAlignPredicate.apply(apkPath)) {
-                            bytesSource.align(PAGE_ALIGNMENT)
-                        } else {
-                            // by default all uncompressed entries are aligned at 4 byte boundaries.
-                            bytesSource.align(DEFAULT_ALIGNMENT)
-                        }
-                    }
-                    archive.add(bytesSource)
-                }
-            )
+        val mayCompress = !noCompressPredicate.apply(apkPath)
+        val fileSource = FileSource(
+            inputFile,
+            apkPath,
+            if (mayCompress) compressionLevel else Deflater.NO_COMPRESSION
         )
+        if (!mayCompress) {
+            if (pageAlignPredicate.apply(apkPath)) {
+                fileSource.align(PAGE_ALIGNMENT)
+            } else {
+                // by default all uncompressed entries are aligned at 4 byte boundaries.
+                fileSource.align(DEFAULT_ALIGNMENT)
+            }
+        }
+        archive.add(fileSource)
     }
 
     /**
@@ -212,7 +193,6 @@ class ApkFlinger(
 
     @Throws(IOException::class)
     override fun close() {
-        subTasks.forEach { it.join() }
         archive.close()
     }
 }
