@@ -24,6 +24,7 @@ import com.android.build.gradle.internal.MultiTypeTaskManager;
 import com.android.build.gradle.internal.TaskManager;
 import com.android.build.gradle.internal.VariantManager;
 import com.android.build.gradle.internal.dependency.VariantDependencies;
+import com.android.build.gradle.internal.plugins.LibraryPlugin;
 import com.android.build.gradle.internal.scope.GlobalScope;
 import com.android.build.gradle.internal.variant.MultiTypeVariantFactory;
 import com.android.build.gradle.internal.variant.VariantFactory;
@@ -34,14 +35,16 @@ import com.google.wireless.android.sdk.stats.GradleBuildProject;
 import javax.inject.Inject;
 import org.gradle.api.Project;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.component.SoftwareComponentFactory;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 
 /** Gradle plugin class for 'feature' projects. */
 public class FeaturePlugin extends LibraryPlugin {
 
     @Inject
-    public FeaturePlugin(ToolingModelBuilderRegistry registry) {
-        super(registry);
+    public FeaturePlugin(
+            ToolingModelBuilderRegistry registry, SoftwareComponentFactory componentFactory) {
+        super(registry, componentFactory);
     }
 
     @Override

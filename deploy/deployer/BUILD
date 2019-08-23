@@ -14,7 +14,7 @@ iml_module(
         "//tools/base/bazel:windows": [],
         "//conditions:default": [
             "//tools/base/deploy/installer:test-installer",
-            "//tools/base/deploy/installer:bash_bridge",
+            "//tools/base/deploy/installer/tests:fake_shell",
         ],
     }),
     test_resources = ["src/test/resource"],
@@ -43,6 +43,8 @@ iml_module(
         "//tools/base/fakeadbserver:studio.android.sdktools.fakeadbserver[module, test]",
         "//tools/idea/.idea/libraries:studio-proto",
         "//tools/base/perf-logger:studio.perf-logger[module, test]",
+        "//tools/base/deploy/installer/tests:fake_device_proto[test]",
+        "//tools/idea/.idea/libraries:studio-grpc[test]",
     ],
 )
 
@@ -107,7 +109,7 @@ coverage_java_test(
         "//tools/base/bazel:windows": [],
         "//conditions:default": [
             "//tools/base/deploy/installer:test-installer",
-            "//tools/base/deploy/installer:bash_bridge",
+            "//tools/base/deploy/installer/tests:fake_shell",
         ],
     }),
     jvm_flags = [
@@ -122,17 +124,20 @@ coverage_java_test(
     deps = [
         ":java_version",
         ":tools.deployer",
+        "//prebuilts/r8:r8-master",
         "//prebuilts/tools/common/m2/repository/com/google/guava/guava/23.0:jar",
         "//prebuilts/tools/common/m2/repository/com/google/protobuf/protobuf-java/3.4.0:jar",
         "//tools/base/annotations",
         "//tools/base/common:tools.common",
         "//tools/base/ddmlib:tools.ddmlib",
+        "//tools/base/deploy/installer/tests:fake_device_proto",
         "//tools/base/deploy/proto:deploy_java_proto",
         "//tools/base/fakeadbserver:tools.fakeadbserver",
         "//tools/base/perf-logger:studio.perf-logger_testlib",
         "//tools/base/testutils:tools.testutils",
         "//tools/base/third_party:junit_junit",
         "//tools/base/third_party:org.mockito_mockito-core",
+        "//tools/idea/.idea/libraries:studio-grpc",
         "//tools/idea/.idea/libraries:studio-proto",
     ],
 )

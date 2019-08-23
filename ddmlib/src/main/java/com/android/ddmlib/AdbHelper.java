@@ -343,16 +343,6 @@ final class AdbHelper {
     }
 
     /**
-     * @deprecated Use {@link #executeRemoteCommand(java.net.InetSocketAddress, String, IDevice, IShellOutputReceiver, long, java.util.concurrent.TimeUnit)}.
-     */
-    @Deprecated
-    static void executeRemoteCommand(InetSocketAddress adbSockAddr,
-            String command, IDevice device, IShellOutputReceiver rcvr, int maxTimeToOutputResponse)
-            throws TimeoutException, AdbCommandRejectedException, ShellCommandUnresponsiveException, IOException {
-        executeRemoteCommand(adbSockAddr, command, device, rcvr, maxTimeToOutputResponse, TimeUnit.MILLISECONDS);
-    }
-
-    /**
      * Executes a shell command on the device and retrieve the output. The output is handed to
      * <var>rcvr</var> as it arrives.
      *
@@ -482,9 +472,6 @@ final class AdbHelper {
             @Nullable InputStream is)
             throws TimeoutException, AdbCommandRejectedException, ShellCommandUnresponsiveException,
                     IOException {
-        if (SwingUtilities.isEventDispatchThread()) { // TODO: Remove when runtime checks for @Slow annotations is completely operational
-            Log.e("ddms", "execute: called '" + command + "' from the Event Dispatch Thread!");
-        }
         long maxTimeToOutputMs = 0;
         if (maxTimeToOutputResponse > 0) {
             if (maxTimeUnits == null) {

@@ -20,6 +20,8 @@ import com.android.build.gradle.internal.errors.SyncIssueHandler
 import com.android.build.gradle.internal.fixture.TestConstants
 import com.android.build.gradle.internal.fixture.TestProjects
 import com.android.build.gradle.internal.ide.SyncIssueImpl
+import com.android.build.gradle.internal.plugins.AppPlugin
+import com.android.build.gradle.internal.plugins.LibraryPlugin
 import com.android.builder.errors.EvalIssueException
 import com.android.builder.model.SyncIssue
 import com.google.common.collect.ImmutableList
@@ -342,6 +344,20 @@ class DefaultVariantTest {
                 pluginType = TestProjects.Plugin.FEATURE
             )
         ).isEqualTo("debug")
+    }
+
+    @Test
+    fun `default respects tested build type`() {
+        assertThat(
+            computeDefaultVariant(
+                dsl = """
+                    buildTypes {
+                        a
+                    }
+                    testBuildType = 'a'
+                    """
+            )
+        ).isEqualTo("a")
     }
 
     private class Result(val defaultVariant: String?, val syncIssues: Set<SyncIssue>)

@@ -18,10 +18,11 @@ package com.android.tools.deployer;
 import com.android.tools.deployer.model.ApkEntry;
 import com.android.tools.deployer.model.DexClass;
 import com.google.common.annotations.VisibleForTesting;
+import java.util.Collection;
 import java.util.List;
 
 public interface ApkFileDatabase {
-    void addClasses(List<DexClass> allClasses);
+    void addClasses(Collection<DexClass> allClasses);
 
     List<DexClass> getClasses(ApkEntry dex);
 

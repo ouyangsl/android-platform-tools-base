@@ -54,12 +54,16 @@ public class SignedApk implements Archive {
     static final String MANIFEST_CREATED_BY = "Created-By";
     static final String MANIFEST_BUILT_BY = "Built-By";
     static final String MANIFEST_VERSION = "Manifest-Version";
-    private static final Long DEFAULT_ALIGNMENT = 4L;
 
     public SignedApk(@NonNull File file, @NonNull SignedApkOptions options)
             throws InvalidKeyException, IOException {
-        this.archive = new ZipArchive(file);
         this.options = options;
+        if (options.v1Enabled) {
+            // Improve V1 signing performance by briefly caching zip entry content.
+            this.archive = new CachedZipArchive(file);
+        } else {
+            this.archive = new ZipArchive(file);
+        }
 
         // TODO: Exploit bottom-up parsing of Android and request
         // zipflinger to not generate virtual entries on close
@@ -117,7 +121,7 @@ public class SignedApk implements Archive {
 
     /** See Archive.add documentation */
     @Override
-    public void add(@NonNull Source source) throws IOException {
+    public void add(@NonNull BytesSource source) throws IOException {
         archive.add(source);
         if (options.v1Enabled) {
             ApkSignerEngine.InspectJarEntryRequest req = signer.outputJarEntry(source.getName());
@@ -191,23 +195,6 @@ public class SignedApk implements Archive {
 
     }
 
-    private void processInstructions(
-            @NonNull ApkSignerEngine.InputJarEntryInstructions instructions,
-            @NonNull String entryName)
-            throws IOException {
-        switch (instructions.getOutputPolicy()) {
-            case SKIP:
-                break;
-            case OUTPUT_BY_ENGINE:
-                archive.delete(entryName);
-                break;
-            case OUTPUT:
-                ApkSignerEngine.InspectJarEntryRequest req = signer.outputJarEntry(entryName);
-                processRequest(req);
-                break;
-        }
-    }
-
     private void processRequest(@Nullable ApkSignerEngine.InspectJarEntryRequest req)
             throws IOException {
         if (req == null) {
@@ -243,8 +230,7 @@ public class SignedApk implements Archive {
                 addV1SignatureRequest.getAdditionalJarEntries()) {
             archive.delete(entry.getName());
             BytesSource source =
-                    new BytesSource(entry.getData(), entry.getName(), Deflater.NO_COMPRESSION);
-            source.align(DEFAULT_ALIGNMENT);
+                    new BytesSource(entry.getData(), entry.getName(), Deflater.BEST_SPEED);
             archive.add(source);
             ApkSignerEngine.InspectJarEntryRequest request = signer.outputJarEntry(entry.getName());
             processRequest(request);

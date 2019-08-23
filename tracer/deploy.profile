@@ -18,7 +18,7 @@ Trace: com.android.tools.idea.gradle.run.DefaultGradleTaskRunner::*
 Trace: com.android.tools.idea.gradle.project.build.invoker.GradleBuildInvoker::*
 
 # Android plugin gradle side
-Trace: com.android.build.gradle.BasePlugin
+Trace: com.android.build.gradle.internal.plugins.BasePlugin
 # START REPO MANAGER (Bug #122905819)
 Trace: com.android.repository.impl.manager.RepoManagerImpl::*
 Trace: com.android.repository.impl.manager.LocalRepoLoaderImpl::*
@@ -34,6 +34,11 @@ Trace: org.gradle.api.tasks.compile.JavaCompile::compile
 Trace: org.jetbrains.kotlin.gradle.plugin.AbstractKotlinCompile::execute
 # Kotlin Daemon (Unless you modify how Kotlin daemon is started, you need to see _JAVA_OPTIONS for this)
 Trace: org.jetbrains.kotlin.daemon.CompileServiceImpl::execIncrementalCompiler
+Trace: com.android.tools.r8.dex.ApplicationReader::*
+Trace: com.android.tools.r8.dex.ApplicationWriter::*
+Trace: com.android.tools.r8.graph.DexItemFactory::sort
+
+
 
 # Apk step
 Trace: com.android.build.gradle.tasks.PackageAndroidArtifact::doIncrementalTaskAction

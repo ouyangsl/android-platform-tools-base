@@ -3,8 +3,7 @@
 <recipe>
     <@kt.addKotlinToBaseProject />
 
-    <merge from="root/base_build.gradle.ftl"
-           to="${escapeXmlAttribute(topOut)}/build.gradle" />
+    <classpath mavenUrl="${resolveDependency("androidx.benchmark:benchmark-gradle-plugin:+", "1.0.0-alpha04")}" />
 
     <merge from="root/settings.gradle.ftl"
              to="${escapeXmlAttribute(topOut)}/settings.gradle" />
@@ -16,7 +15,7 @@
     <dependency mavenUrl="androidx.test:runner:+" gradleConfiguration="androidTestImplementation" />
     <dependency mavenUrl="androidx.test.ext:junit:+" gradleConfiguration="androidTestImplementation" />
     <dependency mavenUrl="junit:junit:4.12" gradleConfiguration="androidTestImplementation" />
-    <dependency mavenUrl="androidx.benchmark:benchmark:+" gradleConfiguration="androidTestImplementation" />
+    <dependency mavenUrl="${resolveDependency("androidx.benchmark:benchmark-junit4:+", "1.0.0-alpha04")}" gradleConfiguration="androidTestImplementation" />
 
     <instantiate from="root/src/main/AndroidManifest.xml.ftl"
                  to="${escapeXmlAttribute(projectOut)}/src/main/AndroidManifest.xml" />
