@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import ${getMaterialComponentName('android.support.annotation.NonNull', useAndroidX)};
 import ${getMaterialComponentName('android.support.v4.app.Fragment', useAndroidX)};
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -20,7 +21,7 @@ public class ${secondFragmentClass} extends Fragment {
         return inflater.inflate(R.layout.${secondFragmentLayoutName}, container, false);
     }
 
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         String myArg = ${secondFragmentClass}Args.fromBundle(getArguments()).getMyArg();

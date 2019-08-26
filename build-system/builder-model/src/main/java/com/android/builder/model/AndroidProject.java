@@ -38,7 +38,13 @@ public interface AndroidProject {
     // Sent by Studio 2.4+. Additional model feature trigger on a case by case basis
     // Value is simply true to enable.
     String PROPERTY_BUILD_MODEL_FEATURE_FULL_DEPENDENCIES = "android.injected.build.model.feature.full.dependencies";
-    // property to disable source download during model sync. This is used for lint.
+    /**
+     * Was a property to disable source download during model sync, which is no longer done by AGP.
+     *
+     * @deprecated Only has effect in AGP 3.5. Android Studio 3.6 onwards downloads sources using an
+     *     injected gradle tooling model and model builder.
+     */
+    @Deprecated
     String PROPERTY_BUILD_MODEL_DISABLE_SRC_DOWNLOAD =
             "android.injected.build.model.disable.src.download";
 
@@ -119,8 +125,6 @@ public interface AndroidProject {
      * project's path.
      */
     String PROPERTY_APK_LOCATION = "android.injected.apk.location";
-
-    String PROPERTY_SEPARATE_R_CLASS_COMPILATION = "android.enableSeparateRClassCompilation";
 
     String ARTIFACT_MAIN = "_main_";
     String ARTIFACT_ANDROID_TEST = "_android_test_";

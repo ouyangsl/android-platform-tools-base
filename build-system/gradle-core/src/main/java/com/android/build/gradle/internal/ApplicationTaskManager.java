@@ -43,6 +43,7 @@ import com.android.build.gradle.internal.tasks.ApplicationIdWriterTask;
 import com.android.build.gradle.internal.tasks.BundleReportDependenciesTask;
 import com.android.build.gradle.internal.tasks.BundleToApkTask;
 import com.android.build.gradle.internal.tasks.BundleToStandaloneApkTask;
+import com.android.build.gradle.internal.tasks.CheckManifest;
 import com.android.build.gradle.internal.tasks.CheckMultiApkLibrariesTask;
 import com.android.build.gradle.internal.tasks.ExportConsumerProguardFilesTask;
 import com.android.build.gradle.internal.tasks.ExtractApksTask;
@@ -124,7 +125,7 @@ public class ApplicationTaskManager extends TaskManager {
 
         taskFactory.register(new ExtractDeepLinksTask.CreationAction(variantScope));
 
-        createCheckManifestTask(variantScope);
+        taskFactory.register(new CheckManifest.CreationAction(variantScope));
 
         handleMicroApp(variantScope);
 
@@ -210,7 +211,7 @@ public class ApplicationTaskManager extends TaskManager {
         }
 
         // Add data binding tasks if enabled
-        createDataBindingTasksIfNecessary(variantScope, MergeType.MERGE);
+        createDataBindingTasksIfNecessary(variantScope);
 
         // Add a compile task
         createCompileTask(variantScope);
