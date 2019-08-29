@@ -200,13 +200,17 @@ open class DefaultJavaEvaluator(
     }
 
     override fun getProject(element: PsiElement): Project? {
+        val virtualFile = element.containingFile?.virtualFile ?: return null
+        val file = VfsUtilCore.virtualToIoFile(virtualFile)
+        return getProject(file)
+    }
+
+    fun getProject(file: File): Project? {
         val projects = myLintProject?.client?.knownProjects ?: return null
         if (projects.isEmpty()) {
             return null
         }
 
-        val virtualFile = element.containingFile?.virtualFile ?: return null
-        val file = VfsUtilCore.virtualToIoFile(virtualFile)
         val path = file.path
         return projects.asSequence()
             .filter { path == it.dir.path || path.startsWith(it.dir.path + File.separator) }
@@ -331,7 +335,9 @@ open class DefaultJavaEvaluator(
         val parameters = parameterList.parameters
 
         var j = 0
-        if (parameters.firstOrNull()?.name?.startsWith("\$this") == true &&
+        val first = parameters.firstOrNull()?.name
+        // check if "$self" for UltraLightParameter
+        if ((first?.startsWith("\$this") == true || first?.startsWith("\$self") == true) &&
             isKotlin(call.sourcePsi)
         ) {
             // Kotlin extension method.

@@ -488,9 +488,9 @@ public class Project {
     }
 
     /**
-     * Returns the list of source folders for Java source files
+     * Returns the list of source folders for Java and Kotlin source files
      *
-     * @return a list of source folders to search for .java files
+     * @return a list of source folders to search for .java and .kt files
      */
     @NonNull
     public List<File> getJavaSourceFolders() {
@@ -994,7 +994,7 @@ public class Project {
             if (androidProject != null) {
                 String groupId = androidProject.getGroupId();
                 if (groupId != null) {
-                    mavenCoordinates = new DefaultMavenCoordinates(groupId, "");
+                    mavenCoordinates = new DefaultMavenCoordinates(groupId, "", "");
                 }
             }
         }

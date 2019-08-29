@@ -1282,8 +1282,11 @@ public final class SdkConstants {
     public static final String ATTR_FORMAT = "format"; //$NON-NLS-1$
     public static final String ATTR_PREPROCESSING = "preprocessing"; //$NON-NLS-1$
 
-    // Attributes: Data-Binding
+    // Attributes: Data Binding
     public static final String ATTR_ALIAS = "alias"; //$NON-NLS-1$
+
+    // Attributes: View Binding
+    public static final String ATTR_VIEW_BINDING_IGNORE = "viewBindingIgnore";
 
     // Attributes: Layout
     public static final String ATTR_LAYOUT_RESOURCE_PREFIX = "layout_"; //$NON-NLS-1$
@@ -1640,6 +1643,9 @@ public final class SdkConstants {
     public static final String ATTR_LAYOUT_CONSTRAINT_CIRCLE_RADIUS = "layout_constraintCircleRadius"; //$NON_NLS-1$
     public static final String ATTR_LAYOUT_CONSTRAINED_HEIGHT = "layout_constrainedHeight"; //$NON_NLS-1$
     public static final String ATTR_LAYOUT_CONSTRAINED_WIDTH = "layout_constrainedWidth"; //$NON_NLS-1$
+    public static final String ATTR_CONSTRAINT_SET_START = "constraintSetStart";
+    public static final String ATTR_CONSTRAINT_SET_END = "constraintSetEnd";
+    public static final String ATTR_DERIVE_CONSTRAINTS_FROM = "deriveConstraintsFrom";
 
     public static final String ATTR_GUIDELINE_ORIENTATION_HORIZONTAL = "horizontal"; //$NON-NLS-1$
     public static final String ATTR_GUIDELINE_ORIENTATION_VERTICAL = "vertical"; //$NON-NLS-1$

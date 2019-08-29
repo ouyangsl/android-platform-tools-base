@@ -51,12 +51,21 @@ coverage_report(
         "tools/adt/idea/databinding/",
         "tools/adt/idea/android/src/com/android/tools/idea/databinding",
         "tools/adt/idea/android/src/com/android/tools/idea/lang/databinding",
-        "tools/adt/idea/android/src/com/android/tools/idea/res/binding",
     ],
     tests = [
         "//tools/adt/idea/android:intellij.android.core.tests_tests",
         "//tools/adt/idea/android-lang-databinding:intellij.android.lang-databinding.tests_tests",
         "//tools/adt/idea/databinding:intellij.android.databinding.tests_tests",
+    ],
+)
+
+coverage_report(
+    name = "navigationeditor",
+    srcpath_include = [
+        "tools/adt/idea/naveditor/src/com/android/tools/idea/naveditor",
+    ],
+    tests = [
+        "//tools/adt/idea/naveditor:intellij.android.naveditor.tests_tests",
     ],
 )
 
@@ -209,6 +218,7 @@ coverage_report(
         "//tools/data-binding:studio.compiler_tests",
         "//tools/data-binding:tools.compilerCommon_tests.test",
         "//tools/idea/updater:integration_test",
-        "//tools/vendor/google/android-ndk:android-ndk_tests",
+        # TODO(b/140178289): too flaky for use in the coverage suite
+        #"//tools/vendor/google/android-ndk:android-ndk_tests",
     ],
 )

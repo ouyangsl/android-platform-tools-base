@@ -25,6 +25,7 @@
 
 #include "agent/agent.h"
 #include "agent/jni_wrappers.h"
+#include "utils/agent_task.h"
 #include "utils/clock.h"
 
 using grpc::ClientContext;
@@ -89,34 +90,15 @@ struct PayloadBuffer {
               .agent_config()
               .common()
               .profiler_unified_pipeline()) {
-        Agent::Instance().SubmitAgentTasks(
-            {[juid, this](AgentService::Stub &stub, ClientContext &ctx) {
-              std::ostringstream batched_bytes;
-              {
-                std::lock_guard<std::mutex> guard(payload_mutex);
-                for (const std::string &chunk : chunks[juid]) {
-                  batched_bytes << chunk;
-                }
-                chunks.erase(juid);
-              }
-
-              std::stringstream payload_name;
-              payload_name << juid << name_suffix;
-              SendBytesRequest request;
-              request.set_name(payload_name.str());
-              request.set_bytes(batched_bytes.str());
-
-              EmptyResponse response;
-              Status result = stub.SendBytes(&ctx, request, &response);
-
-              // Send failed, push the chunks back into front of deque
-              if (!result.ok()) {
-                std::lock_guard<std::mutex> guard(payload_mutex);
-                chunks[juid].push_front(batched_bytes.str());
-              }
-
-              return result;
-            }});
+        std::ostringstream batched_bytes;
+        for (const std::string &chunk : chunks[juid]) {
+          batched_bytes << chunk;
+        }
+        chunks.erase(juid);
+        std::ostringstream payload_name;
+        payload_name << juid << name_suffix;
+        Agent::Instance().SubmitAgentTasks(profiler::CreateTasksToSendPayload(
+            payload_name.str(), batched_bytes.str(), false));
       } else {
         Agent::Instance().SubmitNetworkTasks({[juid, this](
             InternalNetworkService::Stub &stub, ClientContext &ctx) {
@@ -250,7 +232,7 @@ Java_com_android_tools_profiler_support_network_HttpTracker_00024InputStreamTrac
   if (Agent::Instance().agent_config().common().profiler_unified_pipeline()) {
     SendEventRequest request;
     PrepopulateEventRequest(&request, juid);
-    std::stringstream ss;
+    std::ostringstream ss;
     ss << juid << kResponsePayloadSuffix;
     std::string payload_name = ss.str();
     Agent::Instance().SubmitAgentTasks(
@@ -312,7 +294,7 @@ Java_com_android_tools_profiler_support_network_HttpTracker_00024OutputStreamTra
   if (Agent::Instance().agent_config().common().profiler_unified_pipeline()) {
     SendEventRequest request;
     PrepopulateEventRequest(&request, juid);
-    std::stringstream ss;
+    std::ostringstream ss;
     ss << juid << kRequestPayloadSuffix;
     std::string payload_name = ss.str();
     Agent::Instance().SubmitAgentTasks(

@@ -16,9 +16,14 @@
 
 package com.android.tools.idea.wizard.template.impl
 
+import com.android.tools.idea.wizard.template.Template
 import com.android.tools.idea.wizard.template.WizardTemplateProvider
 
 /**
  * Implementation of the Android Wizard Template plugin extension point.
  */
-class WizardTemplateProviderImpl : WizardTemplateProvider()
+class WizardTemplateProviderImpl : WizardTemplateProvider() {
+  override fun getTemplates(): List<Template> {
+    TODO("not implemented")
+  }
+}

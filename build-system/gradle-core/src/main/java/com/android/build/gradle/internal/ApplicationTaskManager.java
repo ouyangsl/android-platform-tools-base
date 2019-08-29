@@ -51,6 +51,7 @@ import com.android.build.gradle.internal.tasks.FinalizeBundleTask;
 import com.android.build.gradle.internal.tasks.InstallVariantViaBundleTask;
 import com.android.build.gradle.internal.tasks.ModuleMetadataWriterTask;
 import com.android.build.gradle.internal.tasks.PackageBundleTask;
+import com.android.build.gradle.internal.tasks.ParseIntegrityConfigTask;
 import com.android.build.gradle.internal.tasks.PerModuleBundleTask;
 import com.android.build.gradle.internal.tasks.PerModuleReportDependenciesTask;
 import com.android.build.gradle.internal.tasks.SigningConfigWriterTask;
@@ -125,8 +126,6 @@ public class ApplicationTaskManager extends TaskManager {
 
         taskFactory.register(new ExtractDeepLinksTask.CreationAction(variantScope));
 
-        taskFactory.register(new CheckManifest.CreationAction(variantScope));
-
         handleMicroApp(variantScope);
 
         // Create all current streams (dependencies mostly at this point)
@@ -137,6 +136,9 @@ public class ApplicationTaskManager extends TaskManager {
 
         taskFactory.register(new MainApkListPersistence.CreationAction(variantScope));
         createBuildArtifactReportTask(variantScope);
+
+        // Add a task to check the manifest
+        taskFactory.register(new CheckManifest.CreationAction(variantScope));
 
         // Add a task to process the manifest(s)
         createMergeApkManifestsTask(variantScope);
@@ -419,6 +421,7 @@ public class ApplicationTaskManager extends TaskManager {
         taskFactory.register(new PerModuleReportDependenciesTask.CreationAction(scope));
 
         if (scope.getType().isBaseModule()) {
+            taskFactory.register(new ParseIntegrityConfigTask.CreationAction(scope));
             taskFactory.register(new PackageBundleTask.CreationAction(scope));
             taskFactory.register(new FinalizeBundleTask.CreationAction(scope));
             taskFactory.register(new BundleReportDependenciesTask.CreationAction(scope));
