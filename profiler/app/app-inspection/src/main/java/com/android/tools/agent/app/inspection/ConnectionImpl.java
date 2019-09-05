@@ -18,7 +18,7 @@ package com.android.tools.agent.app.inspection;
 
 import androidx.inspection.Connection;
 
-public class ConnectionImpl extends Connection {
+class ConnectionImpl extends Connection {
 
     private String mInspectorId;
 
@@ -28,8 +28,7 @@ public class ConnectionImpl extends Connection {
 
     @Override
     public void sendEvent(byte[] data) {
-        sendEvent(data, data.length, mInspectorId);
+        Responses.sendEvent(data, data.length, mInspectorId);
     }
 
-    private native void sendEvent(byte[] eventData, int length, String inspectorId);
 }

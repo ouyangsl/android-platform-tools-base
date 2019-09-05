@@ -43,9 +43,13 @@ import org.gradle.api.Action
 import org.gradle.api.file.FileType
 import org.gradle.work.ChangeType
 import org.gradle.work.FileChange
+import org.gradle.workers.ClassLoaderWorkerSpec
+import org.gradle.workers.ProcessWorkerSpec
+import org.gradle.workers.WorkQueue
 import org.gradle.workers.WorkerConfiguration
 import org.gradle.workers.WorkerExecutionException
 import org.gradle.workers.WorkerExecutor
+import org.gradle.workers.WorkerSpec
 import org.junit.Assume
 import org.junit.Before
 import org.junit.Rule
@@ -99,6 +103,30 @@ class  DexArchiveBuilderDelegateTest(private var dexerTool: DexerTool) {
         @Throws(WorkerExecutionException::class)
         override fun await() {
             // do nothing;
+        }
+
+        override fun processIsolation(): WorkQueue {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun processIsolation(p0: Action<ProcessWorkerSpec>?): WorkQueue {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun noIsolation(): WorkQueue {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun noIsolation(p0: Action<WorkerSpec>?): WorkQueue {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun classLoaderIsolation(): WorkQueue {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun classLoaderIsolation(p0: Action<ClassLoaderWorkerSpec>?): WorkQueue {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
 
@@ -530,7 +558,8 @@ class  DexArchiveBuilderDelegateTest(private var dexerTool: DexerTool) {
         projectOutput: File = tmpDir.newFolder(),
         externalLibsOutput: File = tmpDir.newFolder(),
         java8Desugaring: VariantScope.Java8LangSupport = VariantScope.Java8LangSupport.UNUSED,
-        desugaringClasspath: Set<File> = emptySet()
+        desugaringClasspath: Set<File> = emptySet(),
+        libConfiguration: String? = null
     ): DexArchiveBuilderTaskDelegate {
         return DexArchiveBuilderTaskDelegate(
             isIncremental = isIncremental,
@@ -561,6 +590,7 @@ class  DexArchiveBuilderDelegateTest(private var dexerTool: DexerTool) {
             projectVariant = "myVariant",
             numberOfBuckets = 1,
             isDxNoOptimizeFlagPresent = false,
+            libConfiguration = libConfiguration,
             messageReceiver = NoOpMessageReceiver(),
             userLevelCache = userCache.takeIf { withCache },
             workerExecutor = workerExecutor

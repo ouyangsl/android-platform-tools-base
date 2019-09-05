@@ -17,6 +17,7 @@
 package com.android.flags;
 
 import com.android.annotations.NonNull;
+import java.util.Locale;
 
 /**
  * A flag is a setting with an unique ID and some value. Flags are often used to gate features (e.g.
@@ -66,6 +67,31 @@ public final class Flag<T> {
                     return strValue;
                 }
             };
+
+    /**
+     * Creates a {@link ValueConverter} for the given enum class. Values are stored using their
+     * names, to make it easier to override them using JVM properties (lower-case names are also
+     * recognized).
+     *
+     * @see Enum#name()
+     */
+    private static <T extends Enum<T>> ValueConverter<T> enumConverter(Class<T> enumClass) {
+        return new ValueConverter<T>() {
+
+            @NonNull
+            @Override
+            public String serialize(@NonNull T value) {
+                return value.name();
+            }
+
+            @NonNull
+            @Override
+            public T deserialize(@NonNull String strValue) {
+                return Enum.valueOf(enumClass, strValue.toUpperCase(Locale.US));
+            }
+        };
+    }
+
     private final FlagGroup group;
     private final String name;
     private final String displayName;
@@ -75,7 +101,7 @@ public final class Flag<T> {
     @NonNull private final String defaultValue;
 
     /** Use one of the {@code Flag#create} convenience methods to construct this class. */
-    protected Flag(
+    private Flag(
             @NonNull FlagGroup group,
             @NonNull String name,
             @NonNull String displayName,
@@ -89,9 +115,10 @@ public final class Flag<T> {
         this.valueConverter = valueConverter;
         this.defaultValue = valueConverter.serialize(defaultValue);
 
-        Flag.verifyFlagIdFormat(getId());
-        Flag.verifyDispayTextFormat(displayName);
-        Flag.verifyDispayTextFormat(description);
+        verifyDefaultValue(defaultValue, this.defaultValue, valueConverter);
+        verifyFlagIdFormat(getId());
+        verifyDisplayTextFormat(displayName);
+        verifyDisplayTextFormat(description);
         group.getFlags().verifyUniqueId(this);
     }
 
@@ -107,9 +134,24 @@ public final class Flag<T> {
     }
 
     /** Verify that display text is correctly formatted. */
-    public static void verifyDispayTextFormat(@NonNull String name) {
+    public static void verifyDisplayTextFormat(@NonNull String name) {
         if (name.isEmpty() || name.charAt(0) == ' ' || name.charAt(name.length() - 1) == ' ') {
             throw new IllegalArgumentException("Invalid name: " + name);
+        }
+    }
+
+    private static <T> void verifyDefaultValue(
+            @NonNull T defaultValue,
+            @NonNull String stringDefaultValue,
+            @NonNull ValueConverter<T> converter) {
+        T deserialized;
+        try {
+            deserialized = converter.deserialize(stringDefaultValue);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Default value cannot be deserialized.");
+        }
+        if (!deserialized.equals(defaultValue)) {
+            throw new IllegalArgumentException("Default value cannot be deserialized.");
         }
     }
 
@@ -152,6 +194,23 @@ public final class Flag<T> {
         return new Flag<>(group, name, displayName, description, defaultValue, PASSTHRU_CONVERTER);
     }
 
+    @NonNull
+    public static <T extends Enum<T>> Flag<T> create(
+            @NonNull FlagGroup group,
+            @NonNull String name,
+            @NonNull String displayName,
+            @NonNull String description,
+            T defaultValue) {
+        //noinspection unchecked: getClass() will return the type of T, which is an enum.
+        return new Flag<>(
+                group,
+                name,
+                displayName,
+                description,
+                defaultValue,
+                enumConverter((Class<T>) defaultValue.getClass()));
+    }
+
     /** Returns the {@link FlagGroup} that this flag is part of. */
     public FlagGroup getGroup() {
         return group;
@@ -178,7 +237,11 @@ public final class Flag<T> {
             strValue = defaultValue;
         }
 
-        return valueConverter.deserialize(strValue);
+        try {
+            return valueConverter.deserialize(strValue);
+        } catch (Exception e) {
+            return valueConverter.deserialize(defaultValue);
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-package com.android.build.gradle.tasks
+package com.android.tools.agent.app.inspection;
 
-import com.android.build.gradle.internal.scope.InternalArtifactType
+import androidx.inspection.Inspector;
 
-/**
- * Identification Id for internal artifact type (buildable artifacts).
- *
- * IDs are [InternalArtifactType] enum values.
- */
-@Target(AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.FIELD, AnnotationTarget.FUNCTION)
-@IDProvider(fieldName="value")
-annotation class InternalID(val value: InternalArtifactType)
+class CommandCallbackImpl implements Inspector.CommandCallback {
+    private String mInspectorId;
+    private int mCommandId;
+
+    CommandCallbackImpl(String inspectorId, int commandId) {
+        mInspectorId = inspectorId;
+        mCommandId = commandId;
+    }
+
+    @Override
+    public void reply(byte[] bytes) {
+        Responses.sendEvent(mCommandId, bytes, bytes.length, mInspectorId);
+    }
+}

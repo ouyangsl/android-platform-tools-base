@@ -17,6 +17,7 @@
 package com.android.build.gradle.internal;
 
 import static com.android.build.gradle.internal.dependency.DexingTransformKt.getDexingArtifactConfigurations;
+import static com.android.build.gradle.internal.dependency.L8DexDesugarLibTransformKt.getDesugarLibConfigurations;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.AAR;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.EXPLODED_AAR;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.FILTERED_PROGUARD_RULES;
@@ -24,6 +25,7 @@ import static com.android.build.gradle.internal.publishing.AndroidArtifacts.Arti
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.PROCESSED_JAR;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.UNFILTERED_PROGUARD_RULES;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.MOCKABLE_JAR_RETURN_DEFAULT_VALUES;
+import static com.android.build.gradle.internal.utils.DesugarLibUtils.getDesugarLibConfig;
 import static com.android.builder.core.BuilderConstants.LINT;
 import static com.android.builder.core.VariantTypeImpl.ANDROID_TEST;
 import static com.android.builder.core.VariantTypeImpl.UNIT_TEST;
@@ -51,6 +53,7 @@ import com.android.build.gradle.internal.dependency.AndroidTypeAttr;
 import com.android.build.gradle.internal.dependency.AndroidTypeAttrCompatRule;
 import com.android.build.gradle.internal.dependency.AndroidTypeAttrDisambRule;
 import com.android.build.gradle.internal.dependency.AndroidXDependencySubstitution;
+import com.android.build.gradle.internal.dependency.DesugarLibConfiguration;
 import com.android.build.gradle.internal.dependency.DexingArtifactConfiguration;
 import com.android.build.gradle.internal.dependency.ExtractAarTransform;
 import com.android.build.gradle.internal.dependency.ExtractProGuardRulesTransform;
@@ -523,8 +526,8 @@ public class VariantManager implements VariantModel {
         BuildArtifactsHolder buildArtifactsHolder = variantScope.getArtifacts();
         for (PublishingSpecs.OutputSpec outputSpec :
                 variantScope.getPublishingSpec().getOutputs()) {
-            com.android.build.api.artifact.ArtifactType buildArtifactType =
-                    outputSpec.getOutputType();
+            com.android.build.api.artifact.ArtifactType<? extends FileSystemLocation>
+                    buildArtifactType = outputSpec.getOutputType();
 
             // Gradle only support publishing single file.  Therefore, unless Gradle starts
             // supporting publishing multiple files, PublishingSpecs should not contain any
@@ -539,14 +542,16 @@ public class VariantManager implements VariantModel {
 
             if (buildArtifactsHolder.hasFinalProduct(buildArtifactType)) {
                 Pair<Provider<String>, Provider<FileSystemLocation>> finalProduct =
-                        buildArtifactsHolder.getFinalProductWithTaskName(buildArtifactType);
+                        buildArtifactsHolder.getFinalProductWithTaskName(
+                                (com.android.build.api.artifact.ArtifactType<FileSystemLocation>)
+                                        buildArtifactType);
                 variantScope.publishIntermediateArtifact(
                         finalProduct.getSecond(),
                         finalProduct.getFirst(),
                         outputSpec.getArtifactType(),
                         outputSpec.getPublishedConfigTypes());
             } else {
-                if (buildArtifactType == AnchorOutputType.ALL_CLASSES) {
+                if (buildArtifactType == AnchorOutputType.ALL_CLASSES.INSTANCE) {
                     variantScope.publishIntermediateArtifact(
                             buildArtifactsHolder.getFinalProductAsFileCollection(buildArtifactType),
                             outputSpec.getArtifactType(),
@@ -845,13 +850,13 @@ public class VariantManager implements VariantModel {
         DependencyHandler dependencies = project.getDependencies();
 
         if (globalScope.getProjectOptions().get(BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM)) {
-
             for (DexingArtifactConfiguration artifactConfiguration :
                     getDexingArtifactConfigurations(variantScopes)) {
                 artifactConfiguration.registerTransform(
                         globalScope.getProject().getName(),
                         dependencies,
                         globalScope.getBootClasspath(),
+                        getDesugarLibConfig(globalScope.getProject()),
                         SyncOptions.getErrorFormatMode(globalScope.getProjectOptions()));
             }
         }
@@ -884,6 +889,10 @@ public class VariantManager implements VariantModel {
                                     });
                         });
             }
+        }
+
+        for (DesugarLibConfiguration configuration : getDesugarLibConfigurations(variantScopes)) {
+            configuration.registerTransform(dependencies);
         }
     }
 

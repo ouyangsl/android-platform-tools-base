@@ -291,7 +291,8 @@ public class ApplicationTaskManager extends TaskManager {
 
     @Override
     protected void postJavacCreation(@NonNull VariantScope scope) {
-        final Provider<Directory> javacOutput = scope.getArtifacts().getFinalProduct(JAVAC);
+        final Provider<Directory> javacOutput =
+                scope.getArtifacts().getFinalProduct(JAVAC.INSTANCE);
         final FileCollection preJavacGeneratedBytecode =
                 scope.getVariantData().getAllPreJavacGeneratedBytecode();
         final FileCollection postJavacGeneratedBytecode =
@@ -418,13 +419,17 @@ public class ApplicationTaskManager extends TaskManager {
         taskFactory.register(
                 new PerModuleBundleTask.CreationAction(
                         scope, packagesCustomClassDependencies(scope, projectOptions)));
-        taskFactory.register(new PerModuleReportDependenciesTask.CreationAction(scope));
+        if (addBundleDependenciesTask(scope)) {
+            taskFactory.register(new PerModuleReportDependenciesTask.CreationAction(scope));
+        }
 
         if (scope.getType().isBaseModule()) {
             taskFactory.register(new ParseIntegrityConfigTask.CreationAction(scope));
             taskFactory.register(new PackageBundleTask.CreationAction(scope));
             taskFactory.register(new FinalizeBundleTask.CreationAction(scope));
-            taskFactory.register(new BundleReportDependenciesTask.CreationAction(scope));
+            if (addBundleDependenciesTask(scope)) {
+                taskFactory.register(new BundleReportDependenciesTask.CreationAction(scope));
+            }
 
             taskFactory.register(new BundleToApkTask.CreationAction(scope));
             taskFactory.register(new BundleToStandaloneApkTask.CreationAction(scope));
@@ -451,12 +456,16 @@ public class ApplicationTaskManager extends TaskManager {
             basicCreateMergeResourcesTask(
                     variantScope,
                     MergeType.PACKAGE,
-                    variantScope.getIntermediateDir(InternalArtifactType.PACKAGED_RES),
+                    variantScope.getIntermediateDir(InternalArtifactType.PACKAGED_RES.INSTANCE),
                     false,
                     false,
                     false,
                     ImmutableSet.of(),
                     null);
         }
+    }
+
+    private static boolean addBundleDependenciesTask(@NonNull VariantScope scope) {
+        return !scope.getVariantConfiguration().getBuildType().isDebuggable();
     }
 }

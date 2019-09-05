@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
+ * Copyright (C) 2019 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.build.gradle.internal.scope;
+package com.android.tools.agent.app.inspection;
 
-import com.android.annotations.NonNull;
-import com.android.build.api.artifact.ArtifactType;
+class Responses {
+    public static native void replyError(int commandId, String errorMessage);
 
-public class MissingTaskOutputException extends RuntimeException {
+    public static native void replySuccess(int commandId);
 
-    @NonNull private final ArtifactType outputType;
+    public static native void sendEvent(
+            int commandId, byte[] eventData, int length, String inspectorId);
 
-    public MissingTaskOutputException(@NonNull ArtifactType outputType) {
-        super("No output of type: " + outputType);
-        this.outputType = outputType;
-    }
-
-    @NonNull
-    public ArtifactType getOutputType() {
-        return outputType;
+    public static void sendEvent(byte[] eventData, int length, String inspectorId) {
+        sendEvent(0, eventData, length, inspectorId);
     }
 }

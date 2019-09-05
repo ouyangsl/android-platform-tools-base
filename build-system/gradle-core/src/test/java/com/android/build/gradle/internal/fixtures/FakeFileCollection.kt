@@ -19,7 +19,9 @@ package com.android.build.gradle.internal.fixtures
 import groovy.lang.Closure
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
+import org.gradle.api.file.FileSystemLocation
 import org.gradle.api.file.FileTree
+import org.gradle.api.provider.Provider
 import org.gradle.api.specs.Spec
 import org.gradle.api.tasks.TaskDependency
 import java.io.File
@@ -43,6 +45,7 @@ open class FakeFileCollection(vararg collection : Any?) : FileCollection {
             is String -> resolvedFiles.add(File(obj))
             is File -> resolvedFiles.add(obj)
             is Iterable<*> -> obj.forEach { resolveObject(it) }
+            is Provider<*> -> resolveObject(obj.get())
             null -> throw NullPointerException("Null object found in FakeFileCollection")
             else -> throw IllegalStateException(
                     """FakeFileCollection can only resolve object of type:
@@ -50,6 +53,7 @@ open class FakeFileCollection(vararg collection : Any?) : FileCollection {
                          |    File
                          |    Iterable<String>
                          |    Iterable<File>
+                         |    Provider
                          |It cannot resolve '$obj' of type ${obj.javaClass}""".trimMargin())
         }
     }
@@ -119,4 +123,7 @@ open class FakeFileCollection(vararg collection : Any?) : FileCollection {
                             "files: $files")
     }
 
+    override fun getElements(): Provider<MutableSet<FileSystemLocation>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

@@ -337,6 +337,11 @@ public final class SdkConstants {
     public static final String FN_ADVANCED_FEATURES = "advancedFeatures.ini";
     /** File holding a list of advanced features when user is on canary channel */
     public static final String FN_ADVANCED_FEATURES_CANARY = "advancedFeaturesCanary.ini";
+    /**
+     * File contains a serialized AndroidGradlePluginAttributionData object to be deserialized and
+     * used in the IDE build attribution.
+     */
+    public static final String FN_AGP_ATTRIBUTION_DATA = "androidGradlePluginAttributionData";
 
     /* Folder Names for Android Projects . */
 
@@ -511,6 +516,9 @@ public final class SdkConstants {
     /** Name of the cache folder in the $HOME/.android. */
     public static final String FD_CACHE = "cache"; //$NON-NLS-1$
 
+    /** Name of the build attribution internal output folder */
+    public static final String FD_BUILD_ATTRIBUTION = "build-attribution"; //$NON-NLS-1$
+
     /** API codename of a release (non preview) system image or platform. */
     public static final String CODENAME_RELEASE = "REL"; //$NON-NLS-1$
 
@@ -673,6 +681,7 @@ public final class SdkConstants {
     public static final String CLASS_BUNDLE = "android.os.Bundle"; //$NON-NLS-1$
     public static final String CLASS_R = "android.R"; //$NON-NLS-1$
     public static final String CLASS_R_PREFIX = CLASS_R + "."; //$NON-NLS-1$
+    public static final String CLASS_MANIFEST = "android.Manifest";
     public static final String CLASS_MANIFEST_PERMISSION =
             "android.Manifest$permission"; //$NON-NLS-1$
     public static final String CLASS_INTENT = "android.content.Intent"; //$NON-NLS-1$
@@ -2596,7 +2605,7 @@ public final class SdkConstants {
     public static final String VALUE_HORIZONTAL = "horizontal"; //$NON-NLS-1$
 
     public static final String GRADLE_PLUGIN_NAME = "com.android.tools.build:gradle:";
-    public static final String GRADLE_MINIMUM_VERSION = "5.5";
+    public static final String GRADLE_MINIMUM_VERSION = "5.6.1";
     public static final String GRADLE_LATEST_VERSION = GRADLE_MINIMUM_VERSION;
     public static final String GRADLE_PLUGIN_MINIMUM_VERSION = "1.0.0";
     public static final String GRADLE_PLUGIN_RECOMMENDED_VERSION = "3.3.2";
@@ -2699,6 +2708,8 @@ public final class SdkConstants {
             AndroidxName.of("android.databinding.", "ViewStubProxy");
     public static final AndroidxName BINDING_ADAPTER_ANNOTATION =
             AndroidxName.of("android.databinding.", "BindingAdapter");
+    public static final AndroidxName BINDING_CONVERSION_ANNOTATION =
+            AndroidxName.of("android.databinding.", "BindingConversion");
     public static final AndroidxName BINDING_METHODS_ANNOTATION =
             AndroidxName.of("android.databinding.", "BindingMethods");
     public static final AndroidxName INVERSE_BINDING_ADAPTER_ANNOTATION =

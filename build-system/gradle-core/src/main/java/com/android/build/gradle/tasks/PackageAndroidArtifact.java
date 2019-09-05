@@ -27,6 +27,7 @@ import com.android.annotations.Nullable;
 import com.android.build.FilterData;
 import com.android.build.OutputFile;
 import com.android.build.VariantOutput;
+import com.android.build.api.artifact.ArtifactType;
 import com.android.build.gradle.internal.core.Abi;
 import com.android.build.gradle.internal.core.GradleVariantConfiguration;
 import com.android.build.gradle.internal.dsl.AbiSplitOptions;
@@ -51,6 +52,7 @@ import com.android.build.gradle.internal.tasks.NewIncrementalTask;
 import com.android.build.gradle.internal.tasks.PerModuleBundleTaskKt;
 import com.android.build.gradle.internal.tasks.TaskInputHelper;
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction;
+import com.android.build.gradle.internal.utils.DesugarLibUtils;
 import com.android.build.gradle.internal.variant.MultiOutputPolicy;
 import com.android.build.gradle.options.BooleanOption;
 import com.android.build.gradle.options.IntegerOption;
@@ -153,7 +155,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
     @OutputDirectory
     public abstract DirectoryProperty getIncrementalFolder();
 
-    protected InternalArtifactType manifestType;
+    protected ArtifactType<Directory> manifestType;
 
     @Input
     public String getManifestTypeName() {
@@ -319,7 +321,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
         File getOutputFile(@NonNull ApkData apkData);
     }
 
-    InternalArtifactType taskInputType;
+    protected ArtifactType<Directory> taskInputType;
 
     @Input
     public String getTaskInputTypeName() {
@@ -366,7 +368,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
             ApkData apkInfo,
             OutputFileProvider outputFileProvider,
             File outputDirectory,
-            InternalArtifactType expectedOutputType) {
+            ArtifactType<Directory> expectedOutputType) {
         File outputFile =
                 outputFileProvider != null
                         ? outputFileProvider.getOutputFile(apkInfo)
@@ -385,7 +387,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
     }
 
     @Internal
-    protected abstract InternalArtifactType getInternalArtifactType();
+    protected abstract ArtifactType<Directory> getInternalArtifactType();
 
     @Override
     public void doTaskAction(@NonNull InputChanges changes) {
@@ -476,7 +478,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
         @NonNull protected final SerializableInputChanges assetsFiles;
         @NonNull protected final SerializableInputChanges jniFiles;
         @NonNull protected final SerializableInputChanges javaResourceFiles;
-        @NonNull protected final InternalArtifactType manifestType;
+        @NonNull protected final ArtifactType<Directory> manifestType;
         @NonNull protected final IncrementalPackagerBuilder.ApkFormat apkFormat;
         @Nullable protected final SigningConfigProviderParams signingConfig;
         @NonNull protected final Set<String> abiFilters;
@@ -847,17 +849,17 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
 
         protected final Project project;
         @NonNull protected final Provider<Directory> manifests;
-        @NonNull protected final InternalArtifactType inputResourceFilesType;
+        @NonNull protected final ArtifactType<Directory> inputResourceFilesType;
         @NonNull protected final OutputScope outputScope;
         @Nullable private final com.android.builder.utils.FileCache fileCache;
-        @NonNull private final InternalArtifactType manifestType;
+        @NonNull private final ArtifactType<Directory> manifestType;
         private final boolean packageCustomClassDependencies;
 
         public CreationAction(
                 @NonNull VariantScope variantScope,
-                @NonNull InternalArtifactType inputResourceFilesType,
+                @NonNull ArtifactType<Directory> inputResourceFilesType,
                 @NonNull Provider<Directory> manifests,
-                @NonNull InternalArtifactType manifestType,
+                @NonNull ArtifactType<Directory> manifestType,
                 @Nullable com.android.builder.utils.FileCache fileCache,
                 @NonNull OutputScope outputScope,
                 boolean packageCustomClassDependencies) {
@@ -915,7 +917,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
 
             packageAndroidArtifact
                     .getAssets()
-                    .set(variantScope.getArtifacts().getFinalProduct(MERGED_ASSETS));
+                    .set(variantScope.getArtifacts().getFinalProduct(MERGED_ASSETS.INSTANCE));
             packageAndroidArtifact.setJniDebugBuild(
                     variantConfiguration.getBuildType().isJniDebuggable());
             packageAndroidArtifact.setDebugBuild(
@@ -984,7 +986,8 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
 
             variantScope
                     .getArtifacts()
-                    .setTaskInputToFinalProduct(InternalArtifactType.APK_LIST, task.getApkList());
+                    .setTaskInputToFinalProduct(
+                            InternalArtifactType.APK_LIST.INSTANCE, task.getApkList());
 
             task.setSigningConfig(SigningConfigProvider.create(variantScope));
         }
@@ -993,20 +996,22 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
         public FileCollection getDexFolders() {
             BuildArtifactsHolder artifacts = getVariantScope().getArtifacts();
 
-            if (artifacts.hasFinalProduct(InternalArtifactType.BASE_DEX)) {
+            if (artifacts.hasFinalProduct(InternalArtifactType.BASE_DEX.INSTANCE)) {
                 return artifacts
-                        .getFinalProductAsFileCollection(InternalArtifactType.BASE_DEX)
-                        .get();
+                        .getFinalProductAsFileCollection(InternalArtifactType.BASE_DEX.INSTANCE)
+                        .get()
+                        .plus(getDesugarLibDexIfExists());
             } else {
-                return project.files(artifacts.getFinalProducts(InternalArtifactType.DEX));
+                return project.files(artifacts.getFinalProducts(InternalArtifactType.DEX.INSTANCE))
+                        .plus(getDesugarLibDexIfExists());
             }
         }
 
         @NonNull
         public FileCollection getJavaResources() {
-            if (getVariantScope().getArtifacts().hasFinalProduct(SHRUNK_JAVA_RES)) {
+            if (getVariantScope().getArtifacts().hasFinalProduct(SHRUNK_JAVA_RES.INSTANCE)) {
                 Provider<RegularFile> mergedJavaResProvider =
-                        getVariantScope().getArtifacts().getFinalProduct(SHRUNK_JAVA_RES);
+                        getVariantScope().getArtifacts().getFinalProduct(SHRUNK_JAVA_RES.INSTANCE);
                 return project.getLayout().files(mergedJavaResProvider);
             } else if (getVariantScope().getNeedsMergedJavaResStream()) {
                 return getVariantScope()
@@ -1014,7 +1019,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
                         .getPipelineOutputAsFileCollection(StreamFilter.RESOURCES);
             } else {
                 Provider<RegularFile> mergedJavaResProvider =
-                        getVariantScope().getArtifacts().getFinalProduct(MERGED_JAVA_RES);
+                        getVariantScope().getArtifacts().getFinalProduct(MERGED_JAVA_RES.INSTANCE);
                 return project.getLayout().files(mergedJavaResProvider);
             }
         }
@@ -1046,6 +1051,17 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
                             .filter(abi -> allowedAbis.contains(abi))
                             .findFirst();
             return firstValidAbi.isPresent() ? ImmutableSet.of(firstValidAbi.get()) : null;
+        }
+
+        @NonNull
+        private FileCollection getDesugarLibDexIfExists() {
+            BuildArtifactsHolder artifacts = getVariantScope().getArtifacts();
+            if (artifacts.hasFinalProduct(InternalArtifactType.DESUGAR_LIB_DEX.INSTANCE)) {
+                return project.files(
+                        artifacts.getFinalProduct(InternalArtifactType.DESUGAR_LIB_DEX.INSTANCE));
+            } else {
+                return DesugarLibUtils.getDesugarLibDexFromTransform(getVariantScope());
+            }
         }
     }
 }

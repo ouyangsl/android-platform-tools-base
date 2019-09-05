@@ -13,13 +13,6 @@ test_tag_filters=-no_linux,-no_test_linux,-qa_sanity,-qa_fast,-qa_unreliable,-pe
 
 config_options="--config=remote"
 
-# Enable "Builds without Bytes" which reduces downloading of all action outputs
-# These settings are made here rather than in the bazelrc files:
-#   - many of our linux invocations (coverage, qa, perf, ..) assume that logs
-#     will be available locally, which isn't true with these flags
-#   - This doesn't work on Windows as yet (b/139655502)
-readonly MINIMAL_DOWNLOADS="--experimental_inmemory_jdeps_files --experimental_inmemory_dotd_files --experimental_remote_download_outputs=minimal"
-
 # Generate a UUID for use as the bazel invocation id
 readonly invocation_id="$(uuidgen)"
 
@@ -29,7 +22,6 @@ readonly invocation_id="$(uuidgen)"
   test \
   --keep_going \
   ${config_options} \
-  ${MINIMAL_DOWNLOADS} \
   --invocation_id=${invocation_id} \
   --build_tag_filters=${build_tag_filters} \
   --build_event_binary_file="${DIST_DIR:-/tmp}/bazel-${BUILD_NUMBER}.bes" \
@@ -55,6 +47,10 @@ if [[ -d "${DIST_DIR}" ]]; then
   readonly testlogs_dir="$("${script_dir}/bazel" info bazel-testlogs ${config_options})"
   mkdir "${DIST_DIR}"/bazel-testlogs
   (cd "${testlogs_dir}" && zip -R "${DIST_DIR}"/bazel-testlogs/xml_files.zip "*.xml")
+
+  # Additional logging to debug b/140193822
+  (cd tools/base && git log --oneline -5 && git diff --stat) > "${DIST_DIR}"/b140193822-tools-base.txt
+  (cd tools/adt/idea && git log --oneline -5 && git diff --stat) > "${DIST_DIR}"/b140193822-tools-adt-idea.txt
 
 fi
 
