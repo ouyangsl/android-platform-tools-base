@@ -263,6 +263,10 @@ public interface IdeAndroidProject extends Serializable {
     @Nullable
     String getGroupId();
 
+    /** Various flags from AGP */
+    @NonNull
+    IdeAndroidGradlePluginProjectFlags getAgpFlags();
+
     void forEachVariant(@NonNull Consumer<IdeVariant> action);
 
     /**

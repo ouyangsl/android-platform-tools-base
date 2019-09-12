@@ -68,8 +68,12 @@ void DeltaInstallCommand::Run() {
 
 void DeltaInstallCommand::Install() {
   Phase p("DeltaInstallCommand::Install");
+
+  auto response = new proto::DeltaInstallResponse();
+  workspace_.GetResponse().set_allocated_deltainstall_response(response);
+
   if (install_info_.patchinstructions().size() != 1) {
-    // TODO: ERROR GOES HERE
+    ErrEvent("Illegal operation, multiple APKs not supported");
     return;
   }
 
@@ -77,6 +81,11 @@ void DeltaInstallCommand::Install() {
       workspace_.GetTmpFolder() + to_string(GetTime()) + ".tmp.apk";
   // Create and open tmp apk
   int dst_fd = open(tmp_apk_path.c_str(), O_CREAT, O_WRONLY);
+  if (dst_fd == -1) {
+    ErrEvent("Unable to create tmp file"_s + tmp_apk_path);
+    response->set_status(proto::DeltaStatus::ERROR);
+    return;
+  }
 
   // Write content of the tmp apk
   PatchApplier patchApplier(workspace_.GetRoot());
@@ -97,9 +106,6 @@ void DeltaInstallCommand::Install() {
     options.emplace_back(option);
   }
   pm.Install(tmp_apk_path, options, &output);
-
-  proto::DeltaInstallResponse* response =
-      workspace_.GetResponse().mutable_deltainstall_response();
   response->set_install_output(output);
 
   // Clean up tmp apk
@@ -124,7 +130,7 @@ void DeltaInstallCommand::StreamInstall() {
     session_id = output;
   } else {
     ErrEvent("Unable to create session"_s + output);
-    response->set_status(proto::DeltaInstallResponse_Status_ERROR);
+    response->set_status(proto::DeltaStatus::ERROR);
     response->set_install_output(output);
     return;
   }
@@ -132,7 +138,7 @@ void DeltaInstallCommand::StreamInstall() {
   LogEvent("DeltaInstall created session: '"_s + session_id + "'");
 
   if (!SendApksToPackageManager(session_id)) {
-    response->set_status(proto::DeltaInstallResponse::ERROR);
+    response->set_status(proto::DeltaStatus::STREAM_APK_FAILED);
     return;
   }
 
@@ -145,6 +151,6 @@ void DeltaInstallCommand::StreamInstall() {
   // Since old versions of Android do not return a proper status code,
   // commit_result cannot be reliable used to determine if the installation
   // succedded.
-  response->set_status(proto::DeltaInstallResponse_Status_OK);
+  response->set_status(proto::DeltaStatus::OK);
 }
 }  // namespace deploy

@@ -58,17 +58,18 @@ void DeltaPreinstallCommand::Run() {
     session_id = output;
     response->set_session_id(session_id);
   } else {
+    ErrEvent("Unable to create session");
     ErrEvent(output);
-    response->set_status(proto::DeltaPreinstallResponse::ERROR);
+    response->set_status(proto::DeltaStatus::ERROR);
     return;
   }
 
   if (!SendApksToPackageManager(session_id)) {
-    response->set_status(proto::DeltaPreinstallResponse::ERROR);
+    response->set_status(proto::DeltaStatus::STREAM_APK_FAILED);
     return;
   }
 
-  response->set_status(proto::DeltaPreinstallResponse::OK);
+  response->set_status(proto::DeltaStatus::OK);
 }
 
 }  // namespace deploy

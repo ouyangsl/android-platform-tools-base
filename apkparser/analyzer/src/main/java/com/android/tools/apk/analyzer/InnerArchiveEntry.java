@@ -19,7 +19,7 @@ package com.android.tools.apk.analyzer;
 import com.android.annotations.NonNull;
 import java.nio.file.Path;
 
-public class InnerArchiveEntry extends ArchiveEntry {
+public class InnerArchiveEntry extends ArchivePathEntry {
     @NonNull private final Archive innerArchive;
 
     public InnerArchiveEntry(
@@ -33,6 +33,6 @@ public class InnerArchiveEntry extends ArchiveEntry {
 
     @NonNull
     public ArchiveEntry asArchiveEntry() {
-        return new ArchiveEntry(innerArchive, innerArchive.getContentRoot(), getPathPrefix());
+        return new ArchivePathEntry(innerArchive, innerArchive.getContentRoot(), getPathPrefix());
     }
 }
