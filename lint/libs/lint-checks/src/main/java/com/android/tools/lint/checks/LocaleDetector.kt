@@ -77,7 +77,7 @@ class LocaleDetector : Detector(), SourceCodeScanner {
 
         if (context.evaluator.isMemberInClass(method, KOTLIN_STRINGS_JVM_KT)) {
             when (method.name) {
-                CAPITALIZE, DECAPITALIZE -> checkCapitalize(context, method, node)
+                CAPITALIZE, DECAPITALIZE -> checkStringsKtToCapitalizeCase(context, method, node)
                 TO_LOWER_CASE, TO_UPPER_CASE -> checkStringsKtToUpperLowerCase(context, method, node)
             }
         }
@@ -94,6 +94,15 @@ class LocaleDetector : Detector(), SourceCodeScanner {
         if (LintClient.isStudio) return
         if (method.parameterList.parametersCount != 0) return
         reportToUpperLoweCase(context,method,node)
+    }
+
+    private fun checkStringsKtToCapitalizeCase(
+        context: JavaContext,
+        method: PsiMethod,
+        node: UCallExpression
+    ) {
+        if (method.parameterList.parametersCount > 1) return
+        checkCapitalize(context,method,node)
     }
 
     private fun checkStringsKtToUpperLowerCase(

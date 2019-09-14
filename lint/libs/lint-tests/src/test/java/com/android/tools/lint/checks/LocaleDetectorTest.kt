@@ -133,16 +133,16 @@ class LocaleDetectorTest : AbstractCheckTest() {
     fun testKotlinCapitalize() {
         val expected =
             """
-            src/test/pkg/LocaleTest.kt:2: Warning: Implicitly using the default locale is a common source of bugs. [DefaultLocale]
+            src/test/pkg/LocaleTest.kt:3: Warning: Implicitly using the default locale is a common source of bugs. [DefaultLocale]
                 "wrong".capitalize()
                         ~~~~~~~~~~
-            src/test/pkg/LocaleTest.kt:3: Warning: Implicitly using the default locale is a common source of bugs. [DefaultLocale]
+            src/test/pkg/LocaleTest.kt:4: Warning: Implicitly using the default locale is a common source of bugs. [DefaultLocale]
                 "Wrong".decapitalize()
                         ~~~~~~~~~~~~
-            src/test/pkg/LocaleTest.kt:4: Warning: Implicitly using the default locale is a common source of bugs: Use toUpperCase(Locale) instead. For strings meant to be internal use Locale.ROOT, otherwise Locale.getDefault(). [DefaultLocale]
+            src/test/pkg/LocaleTest.kt:7: Warning: Implicitly using the default locale is a common source of bugs: Use toUpperCase(Locale) instead. For strings meant to be internal use Locale.ROOT, otherwise Locale.getDefault(). [DefaultLocale]
                 "wrong".toUpperCase()
                         ~~~~~~~~~~~
-            src/test/pkg/LocaleTest.kt:6: Warning: Implicitly using the default locale is a common source of bugs: Use toLowerCase(Locale) instead. For strings meant to be internal use Locale.ROOT, otherwise Locale.getDefault(). [DefaultLocale]
+            src/test/pkg/LocaleTest.kt:9: Warning: Implicitly using the default locale is a common source of bugs: Use toLowerCase(Locale) instead. For strings meant to be internal use Locale.ROOT, otherwise Locale.getDefault(). [DefaultLocale]
                 "WRONG".toLowerCase()
                         ~~~~~~~~~~~
             0 errors, 4 warnings
@@ -151,9 +151,12 @@ class LocaleDetectorTest : AbstractCheckTest() {
         lint().files(
             kotlin(
                 "src/test/pkg/LocaleTest.kt", """
+                    @ExperimentalStdlibApi
                     fun useMethods() {
                         "wrong".capitalize()
                         "Wrong".decapitalize()
+                        "ok".capitalize(Locale.US)
+                        "ok".decapitalize(Locale.US)
                         "wrong".toUpperCase()
                         "ok".toUpperCase(Locale.US)
                         "WRONG".toLowerCase()
