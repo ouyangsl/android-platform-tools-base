@@ -20,12 +20,14 @@ package com.android.build.gradle.tasks
 
 import com.android.build.gradle.internal.profile.PROPERTY_VARIANT_NAME_KEY
 import com.android.build.gradle.internal.scope.BuildArtifactsHolder
+import com.android.build.gradle.internal.scope.InternalArtifactType
+import com.android.build.gradle.internal.scope.InternalArtifactType.AP_GENERATED_CLASSES
 import com.android.build.gradle.internal.scope.InternalArtifactType.AP_GENERATED_SOURCES
 import com.android.build.gradle.internal.scope.MutableTaskContainer
 import com.android.build.gradle.internal.scope.VariantScope
-import com.android.build.gradle.internal.scope.getOutputDirectory
 import com.android.build.gradle.internal.tasks.factory.TaskCreationAction
 import com.android.build.gradle.options.BooleanOption
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.compile.JavaCompile
 
@@ -44,7 +46,9 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
     override val type: Class<JavaCompile>
         get() = JavaCompile::class.java
 
-    private val output = variantScope.globalScope.project.objects.directoryProperty()
+    private val sourcesOutputDir = variantScope.globalScope.project.objects.directoryProperty()
+
+    private val classesOutputDir = variantScope.globalScope.project.objects.directoryProperty()
 
     override fun handleProvider(taskProvider: TaskProvider<out JavaCompile>) {
         super.handleProvider(taskProvider)
@@ -53,7 +57,15 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
             AP_GENERATED_SOURCES,
             BuildArtifactsHolder.OperationType.INITIAL,
             taskProvider,
-            { output }
+            { sourcesOutputDir }
+        )
+
+        // Some annotation processors generate files in the class output directory too.
+        variantScope.artifacts.producesDir(
+            AP_GENERATED_CLASSES,
+            BuildArtifactsHolder.OperationType.INITIAL,
+            taskProvider,
+            { classesOutputDir }
         )
     }
 
@@ -66,19 +78,17 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
         task.configureProperties(variantScope)
 
         // Configure properties for annotation processing
-        task.configurePropertiesForAnnotationProcessing(variantScope, output)
+        task.configurePropertiesForAnnotationProcessing(variantScope, sourcesOutputDir)
 
         // Collect the list of source files to process
         task.source = task.project.files({ variantScope.variantData.javaSources }).asFileTree
 
-        // Since this task does not output compiled classes, destinationDir will not be used.
-        // However, Gradle requires this property to be set, so let's just set it to the
-        // annotation processor output directory for convenience.
-        task.setDestinationDir(output.asFile)
+        task.setDestinationDir(classesOutputDir.asFile)
 
-        // Manually declare our output directory as a Task output since it's not annotated as
-        // an OutputDirectory on the task implementation.
-        task.outputs.dir(output)
+        // Manually declare the output directories as task outputs (since they are not annotated as
+        // @OutputDirectory in the task implementation).
+        task.outputs.dir(sourcesOutputDir)
+        task.outputs.dir(classesOutputDir)
 
         task.options.compilerArgs.add(PROC_ONLY)
         // Disable incremental mode as Gradle's JavaCompile currently does not work correctly in
@@ -86,8 +96,16 @@ class ProcessAnnotationsTaskCreationAction(private val variantScope: VariantScop
         // investigate what it means for an annotation-processing-only task to be incremental.
         task.options.isIncremental = false
 
-        // Perform annotation processing only (but only if the user did not request -proc:none)
-        task.onlyIf { PROC_NONE !in task.options.compilerArgs }
+        // Perform annotation processing only, except when -proc:none is requested or no annotation
+        // processors are present (see bug 140602661).
+        val apList =
+            variantScope.artifacts.getFinalProduct(InternalArtifactType.ANNOTATION_PROCESSOR_LIST)
+        task.inputs.files(apList).withPathSensitivity(PathSensitivity.NONE)
+            .withPropertyName("annotationProcessorList")
+        task.onlyIf {
+            !(PROC_NONE in task.options.compilerArgs
+                    || readAnnotationProcessorsFromJsonFile(apList.get().asFile).isEmpty())
+        }
     }
 }
 

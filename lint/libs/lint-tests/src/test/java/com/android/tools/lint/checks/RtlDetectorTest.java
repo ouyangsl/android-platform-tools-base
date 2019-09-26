@@ -532,30 +532,35 @@ public class RtlDetectorTest extends AbstractCheckTest {
                 .verifyFixes()
                 .window(1)
                 .expectFixDiffs(
-                        "Fix for res/layout/rtl_quick_fixed.xml line 9: Replace with android:layout_marginStart=\"35dip\":\n"
+                        "Fix for res/layout/rtl_quick_fixed.xml line 10: Replace with android:layout_marginStart=\"35dip\":\n"
                                 + "@@ -10 +10\n"
                                 + "          android:layout_height=\"match_parent\"\n"
                                 + "-         android:layout_marginLeft=\"35dip\"\n"
                                 + "+         android:layout_marginStart=\"35dip\"\n"
                                 + "          android:layout_marginRight=\"40dip\"\n"
-                                + "Fix for res/layout/rtl_quick_fixed.xml line 10: Replace with android:layout_marginEnd=\"40dip\":\n"
+                                + "Fix for res/layout/rtl_quick_fixed.xml line 11: Replace with android:layout_marginEnd=\"40dip\":\n"
                                 + "@@ -11 +11\n"
                                 + "          android:layout_marginLeft=\"35dip\"\n"
                                 + "-         android:layout_marginRight=\"40dip\"\n"
                                 + "+         android:layout_marginEnd=\"40dip\"\n"
                                 + "          android:paddingLeft=\"25dip\"\n"
-                                + "Fix for res/layout/rtl_quick_fixed.xml line 11: Replace with android:paddingStart=\"25dip\":\n"
+                                + "Fix for res/layout/rtl_quick_fixed.xml line 12: Replace with android:paddingStart=\"25dip\":\n"
                                 + "@@ -12 +12\n"
                                 + "          android:layout_marginRight=\"40dip\"\n"
                                 + "-         android:paddingLeft=\"25dip\"\n"
                                 + "+         android:paddingStart=\"25dip\"\n"
                                 + "          android:paddingRight=\"20dip\"\n"
-                                + "Fix for res/layout/rtl_quick_fixed.xml line 12: Replace with android:paddingEnd=\"20dip\":\n"
+                                + "Fix for res/layout/rtl_quick_fixed.xml line 13: Replace with android:paddingEnd=\"20dip\":\n"
                                 + "@@ -13 +13\n"
                                 + "          android:paddingLeft=\"25dip\"\n"
                                 + "-         android:paddingRight=\"20dip\"\n"
                                 + "+         android:paddingEnd=\"20dip\"\n"
-                                + "          android:text=\"@string/creating_instant_mix\"\n");
+                                + "          android:text=\"@string/creating_instant_mix\"\n"
+                                + "Fix for res/layout/rtl_quick_fixed.xml line 18: Delete layout_marginLeft:\n"
+                                + "@@ -20 +20\n"
+                                + "          android:id=\"@+id/text2\"\n"
+                                + "-         android:layout_marginLeft=\"35dip\"\n"
+                                + "          android:layout_marginStart=\"35dip\"\n");
     }
 
     public void testJava() throws Exception {
@@ -790,6 +795,26 @@ public class RtlDetectorTest extends AbstractCheckTest {
                                         + "            android:singleLine=\"true\"\n"
                                         + "            android:textAlignment=\"center\"/> <!-- ERROR -->\n"
                                         + "\n"
+                                        + "    <TextView\n"
+                                        + "            android:id=\"@android:id/text2\"\n"
+                                        + "            style=\"?android:attr/spinnerItemStyle\"\n"
+                                        + "            android:layout_width=\"match_parent\"\n"
+                                        + "            android:layout_height=\"wrap_content\"\n"
+                                        + "            android:ellipsize=\"marquee\"\n"
+                                        + "            android:singleLine=\"true\"\n"
+                                        + "            android:gravity=\"center_horizontal\"\n"
+                                        + "            android:textAlignment=\"center\"/> <!-- OK -->\n"
+                                        + "\n"
+                                        + "    <TextView\n"
+                                        + "            android:id=\"@android:id/text2\"\n"
+                                        + "            style=\"?android:attr/spinnerItemStyle\"\n"
+                                        + "            android:layout_width=\"match_parent\"\n"
+                                        + "            android:layout_height=\"wrap_content\"\n"
+                                        + "            android:ellipsize=\"marquee\"\n"
+                                        + "            android:singleLine=\"true\"\n"
+                                        + "            android:gravity=\"center\"\n"
+                                        + "            android:textAlignment=\"center\"/> <!-- OK -->\n"
+                                        + "\n"
                                         + "</merge>\n")));
     }
 
@@ -1013,6 +1038,11 @@ public class RtlDetectorTest extends AbstractCheckTest {
                             + "        android:paddingRight=\"20dip\"\n"
                             + "        android:text=\"@string/creating_instant_mix\"\n"
                             + "        android:textAppearance=\"?android:attr/textAppearanceMedium\" />\n"
+                            + "    <TextView\n"
+                            + "        android:id=\"@+id/text2\"\n"
+                            + "        android:layout_marginLeft=\"35dip\"\n"
+                            + "        android:layout_marginStart=\"35dip\"\n"
+                            + "        android:text=\"@string/creating_instant_mix\" />\n"
                             + "</FrameLayout>\n");
 
     @SuppressWarnings("all") // Sample code
