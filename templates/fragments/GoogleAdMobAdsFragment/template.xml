@@ -8,7 +8,6 @@
     minBuildApi="14"
     description="Creates an fragment with AdMob Ad fragment.">
 
-    <category value="Fragment" />
     <formfactor value="Mobile" />
 
     <parameter

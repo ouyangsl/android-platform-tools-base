@@ -7,7 +7,6 @@
     minApi="8"
     minBuildApi="14">
 
-    <category value="Fragment" />
     <formfactor value="Mobile" />
 
     <parameter
