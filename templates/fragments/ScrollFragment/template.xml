@@ -7,7 +7,6 @@
     minBuildApi="22"
     description="Creates a new vertical scrolling fragment.">
 
-    <category value="Fragment" />
     <formfactor value="Mobile" />
 
     <parameter

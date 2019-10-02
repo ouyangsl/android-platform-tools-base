@@ -9,7 +9,6 @@
         requireAndroidX="true"
         category="Fragment">
 
-    <category value="Fragment"/>
     <formfactor value="Mobile"/>
 
     <parameter
