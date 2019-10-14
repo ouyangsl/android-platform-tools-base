@@ -44,6 +44,8 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import com.android.builder.packaging.JarCreator
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.Property
 import org.gradle.api.tasks.InputFiles
 import java.io.File
 import java.util.function.Predicate
@@ -65,11 +67,11 @@ import java.util.zip.Deflater
 // TODO(b/132975663): add workers
 @CacheableTask
 abstract class LibraryAarJarsTask : NonIncrementalTask() {
-    abstract var excludeListProvider: Supplier<List<String>>
-        protected set
+    @get:Input
+    abstract val excludeList: ListProperty<String>
 
-    abstract var packageNameSupplier: Supplier<String>
-        protected set
+    @get:Input
+    abstract val packageName: Property<String>
 
     @get:Optional
     @get:InputFile
@@ -79,12 +81,6 @@ abstract class LibraryAarJarsTask : NonIncrementalTask() {
     @get:Input
     abstract var packageBuildConfig: Boolean
         protected set
-
-    @Input
-    fun getExcludeList() = excludeListProvider.get()
-
-    @Input
-    fun getPackageName() = packageNameSupplier.get()
 
     @get:Classpath
     abstract var mainScopeClassFiles: FileCollection
@@ -150,9 +146,9 @@ abstract class LibraryAarJarsTask : NonIncrementalTask() {
 
     private fun computeExcludeList(): List<Pattern> {
         val excludes = getDefaultExcludes(
-            getPackageName().replace(".", "/"), packageBuildConfig)
+            packageName.get().replace(".", "/"), packageBuildConfig)
 
-        excludes.addAll(getExcludeList())
+        excludes.addAll(excludeList.get())
 
         // create Pattern Objects.
         return excludes.map { Pattern.compile(it) }
@@ -325,7 +321,12 @@ abstract class LibraryAarJarsTask : NonIncrementalTask() {
         override fun configure(task: LibraryAarJarsTask) {
             super.configure(task)
 
-            task.excludeListProvider = excludeListProvider
+            task.excludeList.set(
+                variantScope.globalScope.project.provider {
+                    excludeListProvider.get()
+                }
+            )
+            task.excludeList.disallowChanges()
 
             val artifacts = variantScope.artifacts
 
@@ -336,8 +337,12 @@ abstract class LibraryAarJarsTask : NonIncrementalTask() {
                 )
             }
 
-            task.packageNameSupplier = Supplier {
-                variantScope.variantConfiguration.packageFromManifest }
+            task.packageName.set(
+                variantScope.globalScope.project.provider {
+                    variantScope.variantConfiguration.packageFromManifest
+                }
+            )
+            task.packageName.disallowChanges()
 
             task.packageBuildConfig = packageBuildConfig
 

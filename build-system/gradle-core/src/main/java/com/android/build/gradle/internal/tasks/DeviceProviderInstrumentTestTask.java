@@ -328,6 +328,7 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
         this.installOptions = installOptions;
     }
 
+    @Internal
     public DeviceProvider getDeviceProvider() {
         return deviceProvider;
     }
@@ -336,6 +337,7 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
         this.deviceProvider = deviceProvider;
     }
 
+    @Internal
     public AbstractTestDataImpl getTestData() {
         return testData;
     }
