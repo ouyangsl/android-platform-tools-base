@@ -30,6 +30,8 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import java.io.File
 
@@ -39,10 +41,12 @@ abstract class DataBindingMergeBaseClassLogTask: IncrementalTask() {
     abstract val outFolder: DirectoryProperty
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     lateinit var moduleClassLog: FileCollection
         private set
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     lateinit var externalClassLog: FileCollection
         private set
 

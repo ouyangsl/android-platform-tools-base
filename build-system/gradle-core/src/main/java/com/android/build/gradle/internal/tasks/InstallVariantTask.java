@@ -186,6 +186,7 @@ public abstract class InstallVariantTask extends NonIncrementalTask {
     }
 
     @InputFile
+    @PathSensitive(PathSensitivity.NAME_ONLY)
     public Provider<File> getAdbExe() {
         return adbExecutableProvider;
     }
@@ -217,6 +218,7 @@ public abstract class InstallVariantTask extends NonIncrementalTask {
     }
 
     @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
     public abstract DirectoryProperty getApkDirectory();
 
     @Internal("This task is always executed")
