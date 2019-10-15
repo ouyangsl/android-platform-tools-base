@@ -31,6 +31,8 @@ import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.tooling.BuildException
 import java.io.File
@@ -46,7 +48,10 @@ import javax.inject.Inject
 abstract class DataBindingExportFeatureApplicationIdsTask : NonIncrementalTask() {
     // where to keep the log of the task
     @get:OutputDirectory abstract val packageListOutFolder: DirectoryProperty
-    @get:InputFiles lateinit var featureDeclarations: FileCollection
+
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NONE)
+    lateinit var featureDeclarations: FileCollection
         private set
 
     override fun doTaskAction() {
