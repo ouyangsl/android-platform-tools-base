@@ -37,6 +37,8 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 
 /**
@@ -51,13 +53,16 @@ abstract class CopyOutputs : NonIncrementalTask() {
     abstract val destinationDir: DirectoryProperty
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val fullApks: DirectoryProperty
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:Optional
     abstract val abiSplits: DirectoryProperty
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:Optional
     abstract val resourcesSplits: DirectoryProperty
 

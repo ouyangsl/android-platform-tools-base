@@ -160,6 +160,7 @@ public abstract class GenerateSplitAbiRes extends NonIncrementalTask {
     }
 
     @InputFiles
+    @PathSensitive(PathSensitivity.NAME_ONLY)
     @Optional
     @Nullable
     public FileCollection getApplicationIdOverride() {

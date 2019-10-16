@@ -31,6 +31,8 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 
 /**
@@ -65,6 +67,7 @@ abstract class ModuleMetadataWriterTask : NonIncrementalTask() {
     private set
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
     @get:Optional
     var metadataFromInstalledModule: FileCollection? = null
         private set
