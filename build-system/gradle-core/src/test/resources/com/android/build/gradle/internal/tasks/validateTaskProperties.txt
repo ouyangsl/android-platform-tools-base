@@ -1,8 +1,0 @@
-Warning: Type 'com.android.build.gradle.internal.tasks.ModuleMetadataWriterTask': property 'metadataFromInstalledModule' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
-Warning: Type 'com.android.build.gradle.tasks.CopyOutputs': property 'abiSplits' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
-Warning: Type 'com.android.build.gradle.tasks.CopyOutputs': property 'fullApks' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
-Warning: Type 'com.android.build.gradle.tasks.CopyOutputs': property 'resourcesSplits' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
-Warning: Type 'com.android.build.gradle.tasks.GenerateSplitAbiRes': property 'applicationIdOverride' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
-Warning: Type 'com.android.build.gradle.tasks.PackageSplitAbi': property 'jniFolders' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
-Warning: Type 'com.android.build.gradle.tasks.PackageSplitAbi': property 'processedAbiResources' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
-Warning: Type 'com.android.build.gradle.tasks.PackageSplitRes': property 'processedResources' is missing a normalization annotation, defaulting to PathSensitivity.ABSOLUTE.
