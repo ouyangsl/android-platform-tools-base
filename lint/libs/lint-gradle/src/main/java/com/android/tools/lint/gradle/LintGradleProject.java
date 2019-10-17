@@ -19,8 +19,6 @@ package com.android.tools.lint.gradle;
 import static com.android.SdkConstants.ANDROIDX_APPCOMPAT_LIB_ARTIFACT;
 import static com.android.SdkConstants.ANDROIDX_LEANBACK_ARTIFACT;
 import static com.android.SdkConstants.ANDROIDX_SUPPORT_LIB_ARTIFACT;
-import static com.android.SdkConstants.FN_R_CLASS_JAR;
-import static java.io.File.separator;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -59,6 +57,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -393,6 +392,19 @@ public class LintGradleProject extends Project {
             return assetFolders;
         }
 
+        private void removeDuplicateFiles(List<File> files) {
+            Set<File> uniqueFiles = new LinkedHashSet<>();
+            for (File file : files) {
+                try {
+                    uniqueFiles.add(file.getCanonicalFile());
+                } catch (IOException e) {
+                    client.log(e, "IO error while getting canonical path for: %s", file);
+                }
+            }
+            files.clear();
+            files.addAll(uniqueFiles);
+        }
+
         @NonNull
         @Override
         public List<File> getJavaSourceFolders() {
@@ -400,11 +412,13 @@ public class LintGradleProject extends Project {
                 javaSourceFolders = Lists.newArrayList();
                 for (SourceProvider provider : getSourceProviders()) {
                     Collection<File> srcDirs = provider.getJavaDirectories();
-                    // model returns path whether or not it exists
+                    // Model returns path whether or not it exists.
                     javaSourceFolders.addAll(
                             srcDirs.stream().filter(File::exists).collect(Collectors.toList()));
                 }
                 javaSourceFolders.addAll(kotlinSourceFolders);
+                // The Kotlin source folders might overlap with the Java source folders.
+                removeDuplicateFiles(javaSourceFolders);
             }
 
             return javaSourceFolders;
@@ -447,22 +461,12 @@ public class LintGradleProject extends Project {
         @Override
         public List<File> getJavaClassFolders() {
             if (javaClassFolders == null) {
-                javaClassFolders = new ArrayList<>(3); // common: javac, kotlinc, rjar
+                javaClassFolders = new ArrayList<>(3); // common: javac, kotlinc, R.jar
                 AndroidArtifact mainArtifact = mVariant.getMainArtifact();
                 File outputClassFolder = mainArtifact.getClassesFolder();
                 if (outputClassFolder.exists()) {
                     javaClassFolders.add(outputClassFolder);
-                    for (File file : mainArtifact.getAdditionalClassesFolders()) {
-                        if (file.isDirectory()) {
-                            javaClassFolders.add(file);
-                        }
-                    }
-
-                    // R.jar file? Sadly not part of the builder-model.
-                    File rJar = findRjar(outputClassFolder);
-                    if (rJar != null) {
-                        javaClassFolders.add(rJar);
-                    }
+                    javaClassFolders.addAll(mainArtifact.getAdditionalClassesFolders());
                 } else if (isLibrary()) {
                     // For libraries we build the release variant instead
                     for (Variant variant : mProject.getVariants()) {
@@ -471,18 +475,7 @@ public class LintGradleProject extends Project {
                             outputClassFolder = mainArtifact.getClassesFolder();
                             if (outputClassFolder.exists()) {
                                 javaClassFolders.add(outputClassFolder);
-                                for (File file : mainArtifact.getAdditionalClassesFolders()) {
-                                    if (file.isDirectory()) {
-                                        javaClassFolders.add(file);
-                                    }
-                                }
-
-                                // R.jar file? Sadly not part of the builder-model.
-                                File rJar = findRjar(outputClassFolder);
-                                if (rJar != null) {
-                                    javaClassFolders.add(rJar);
-                                }
-
+                                javaClassFolders.addAll(mainArtifact.getAdditionalClassesFolders());
                                 break;
                             }
                         }
@@ -491,37 +484,6 @@ public class LintGradleProject extends Project {
             }
 
             return javaClassFolders;
-        }
-
-        /**
-         * Locates the R.jar file relative to a given javac class folder. Temporary until this is
-         * added to the builder-model (or the upcoming lint-model). Tracked in b/133326990.
-         */
-        @Nullable
-        private static File findRjar(@NonNull File f) {
-            // from classes/debug/ go to
-            // ../../../compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
-            File p1 = f.getParentFile();
-            if (p1 == null) {
-                return null;
-            }
-            String variant = p1.getName();
-            File p2 = p1.getParentFile(); // classes
-            if (p2 == null) {
-                return null;
-            }
-            File p3 = p2.getParentFile();
-            if (p3 == null) {
-                return null;
-            }
-            // From gradle-core
-            // String root =InternalArtifactType.COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR;
-            String root = "compile_and_runtime_not_namespaced_r_class_jar";
-            File rJar = new File(p3, root + separator + variant + separator + FN_R_CLASS_JAR);
-            if (rJar.isFile()) {
-                return rJar;
-            }
-            return null;
         }
 
         @NonNull
