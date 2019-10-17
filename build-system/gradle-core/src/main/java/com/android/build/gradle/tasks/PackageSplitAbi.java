@@ -53,6 +53,8 @@ import org.gradle.api.tasks.Input;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.OutputDirectory;
+import org.gradle.api.tasks.PathSensitive;
+import org.gradle.api.tasks.PathSensitivity;
 import org.gradle.api.tasks.TaskProvider;
 import org.gradle.tooling.BuildException;
 
@@ -76,6 +78,7 @@ public abstract class PackageSplitAbi extends NonIncrementalTask {
     private String createdBy;
 
     @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
     public abstract DirectoryProperty getProcessedAbiResources();
 
     @OutputDirectory
@@ -97,6 +100,7 @@ public abstract class PackageSplitAbi extends NonIncrementalTask {
     }
 
     @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
     public FileCollection getJniFolders() {
         return jniFolders;
     }

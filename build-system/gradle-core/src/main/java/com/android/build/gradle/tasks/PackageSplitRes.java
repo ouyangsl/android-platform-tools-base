@@ -43,6 +43,8 @@ import org.gradle.api.file.DirectoryProperty;
 import org.gradle.api.tasks.InputFiles;
 import org.gradle.api.tasks.Nested;
 import org.gradle.api.tasks.OutputDirectory;
+import org.gradle.api.tasks.PathSensitive;
+import org.gradle.api.tasks.PathSensitivity;
 import org.gradle.api.tasks.TaskProvider;
 
 /** Package each split resources into a specific signed apk file. */
@@ -52,6 +54,7 @@ public abstract class PackageSplitRes extends NonIncrementalTask {
     private File incrementalDir;
 
     @InputFiles
+    @PathSensitive(PathSensitivity.RELATIVE)
     public abstract DirectoryProperty getProcessedResources();
 
     @OutputDirectory
