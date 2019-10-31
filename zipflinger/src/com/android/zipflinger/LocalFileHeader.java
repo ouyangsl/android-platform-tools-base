@@ -29,16 +29,10 @@ class LocalFileHeader {
 
     // Minimum number of bytes needed to create a virtual zip entry (an entry not present in
     // the Central Directory with name length = 0 and an extra field containing padding data).
-    public static final long VIRTUAL_HEADER_SIZE =
-            LOCAL_FILE_HEADER_SIZE
-                    + CentralDirectoryRecord.EXTRA_SIZE_FIELD_SIZE
-                    + CentralDirectoryRecord.EXTRA_ID_FIELD_SIZE;
+    public static final long VIRTUAL_HEADER_SIZE = LOCAL_FILE_HEADER_SIZE;
 
     public static final short COMPRESSION_NONE = 0;
     public static final short COMPRESSION_DEFLATE = 8;
-
-    // This is the extra marker value as what apkzlib uses.
-    private static final short ALIGN_SIGNATURE = (short) 0xd935;
 
     static final long VIRTUAL_ENTRY_MAX_SIZE = LOCAL_FILE_HEADER_SIZE + Ints.USHRT_MAX;
     static final long OFFSET_TO_NAME = 26;
@@ -72,6 +66,11 @@ class LocalFileHeader {
 
 
     public static void fillVirtualEntry(@NonNull ByteBuffer virtualEntry) {
+        int sizeToFill = virtualEntry.capacity();
+        if (sizeToFill < VIRTUAL_HEADER_SIZE) {
+            String message = String.format("Not enough space for virtual entry (%d)", sizeToFill);
+            throw new IllegalStateException(message);
+        }
         virtualEntry.order(ByteOrder.LITTLE_ENDIAN);
         virtualEntry.putInt(SIGNATURE);
         virtualEntry.putShort(DEFAULT_VERSION_NEEDED); // Version needed
@@ -83,21 +82,13 @@ class LocalFileHeader {
         virtualEntry.putInt(0); // compressed size
         virtualEntry.putInt(0); // uncompressed size
         virtualEntry.putShort((short) 0); // file name length
-        // -2 for the short we are about to write
-        virtualEntry.putShort(Ints.intToUshort(virtualEntry.remaining() - 2));
-
-        // Write the extra field header
-        virtualEntry.putShort(ALIGN_SIGNATURE);
-
-        // -2 for the short we are about to write
-        short extraFieldSize = Ints.intToUshort(virtualEntry.remaining() - 2);
-        virtualEntry.putShort(extraFieldSize);
-
+        // -2 for the extra length ushort we have to write
+        virtualEntry.putShort(Ints.intToUshort(virtualEntry.remaining() - 2)); // extra length
         virtualEntry.rewind();
     }
 
     public void write(@NonNull ZipWriter writer) throws IOException {
-        ByteBuffer extraField = buildExtraField();
+        ByteBuffer extraField = ByteBuffer.allocate(extraPadding);
         int bytesNeeded = LOCAL_FILE_HEADER_SIZE + nameBytes.length + extraField.capacity();
 
         ByteBuffer buffer = ByteBuffer.allocate(bytesNeeded).order(ByteOrder.LITTLE_ENDIAN);
@@ -117,26 +108,6 @@ class LocalFileHeader {
 
         buffer.rewind();
         writer.write(buffer);
-    }
-
-    private ByteBuffer buildExtraField() {
-        int bytesNeeded = extraPadding;
-        if (bytesNeeded == 0) {
-            return ByteBuffer.wrap(new byte[0]);
-        }
-
-        ByteBuffer buffer = ByteBuffer.allocate(bytesNeeded).order(ByteOrder.LITTLE_ENDIAN);
-        buffer.putShort(ALIGN_SIGNATURE);
-
-        int paddingSize =
-                bytesNeeded
-                        - CentralDirectoryRecord.EXTRA_ID_FIELD_SIZE
-                        - CentralDirectoryRecord.EXTRA_SIZE_FIELD_SIZE;
-        buffer.putShort(Ints.intToUshort(paddingSize));
-        buffer.put(new byte[paddingSize]);
-        buffer.rewind();
-
-        return buffer;
     }
 
     public static long sizeFor(@NonNull Source source) {

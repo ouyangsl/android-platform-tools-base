@@ -21,6 +21,7 @@ import com.android.testutils.TestUtils;
 import com.android.utils.FileUtils;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -138,7 +139,10 @@ public class UnifiedDiffTest {
             assertEquals(
                     expected.toPath().relativize(e).toString(),
                     value.toPath().relativize(r).toString());
-            assertEquals(new String(Files.readAllBytes(e)), new String(Files.readAllBytes(r)));
+            assertEquals(
+                    "File content of " + expected.toPath().relativize(e).toString(),
+                    comparisonString(e),
+                    comparisonString(r));
         }
         if (it.length > ex.length) {
             fail("Unexpected file " + it[ex.length] + " was found.");
@@ -146,5 +150,10 @@ public class UnifiedDiffTest {
         if (it.length < ex.length) {
             fail("Expected file " + ex[it.length] + " was not found.");
         }
+    }
+
+    private static String comparisonString(Path file) throws IOException {
+        return UnifiedDiff.withVisibleCarriageReturn(
+                new String(Files.readAllBytes(file), StandardCharsets.UTF_8));
     }
 }
