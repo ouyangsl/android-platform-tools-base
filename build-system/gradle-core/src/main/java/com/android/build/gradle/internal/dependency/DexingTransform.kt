@@ -169,7 +169,7 @@ data class DexingArtifactConfiguration(
                     parameters.libConfiguration.set(libConfiguration)
                 }
             }
-            spec.from.attribute(ARTIFACT_FORMAT, AndroidArtifacts.ArtifactType.PROCESSED_JAR.type)
+            spec.from.attribute(ARTIFACT_FORMAT, AndroidArtifacts.ArtifactType.CLASSES.type)
             spec.to.attribute(ARTIFACT_FORMAT, AndroidArtifacts.ArtifactType.DEX.type)
 
             getAttributes().forEach { (attribute, value) ->
