@@ -24,7 +24,6 @@ import org.gradle.api.Project
  *
  * @Deprecated Use the plugin classes directly
  */
-@Deprecated("Do not use")
 open class BasePlugin: Plugin<Project> {
     private lateinit var project: Project
 
@@ -40,9 +39,8 @@ open class BasePlugin: Plugin<Project> {
      * @deprecated Directely call project.extensions.getByName("android") instead.
      */
     @Deprecated("Use project.extensions.getByName(\"android\")")
-    fun getExtension(): BaseExtension {
-        return project.extensions.getByName("android") as BaseExtension
-    }
+    val extension : BaseExtension
+        get() = project.extensions.getByName("android") as BaseExtension
 }
 
 internal val VERSION_CHECK_PLUGIN_ID = mapOf("plugin" to "com.android.internal.version-check")
