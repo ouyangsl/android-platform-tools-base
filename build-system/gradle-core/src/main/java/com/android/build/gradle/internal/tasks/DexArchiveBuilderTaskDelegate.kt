@@ -222,7 +222,7 @@ class DexArchiveBuilderTaskDelegate(
                     val processInputType =
                         { classes: Set<File>, outputDir: File, useAndroidBuildCache: Boolean ->
                             processClassFromInput(
-                                classes,
+                                classes.filter { it.exists() }.toSet(),
                                 outputDir,
                                 additionalPaths,
                                 bootclasspathServiceKey!!,
