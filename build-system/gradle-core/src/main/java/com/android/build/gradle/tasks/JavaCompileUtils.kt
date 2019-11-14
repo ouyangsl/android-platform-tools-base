@@ -201,27 +201,72 @@ fun detectAnnotationProcessors(
         if (artifactFile.isDirectory) {
             if (File(artifactFile, ANNOTATION_PROCESSORS_INDICATOR_FILE).exists()) {
                 processors[artifact] =
-                        File(artifactFile, INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE)
-                            .exists()
+                    File(artifactFile, INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE).exists()
             }
         } else if (artifactFile.isFile) {
-            try {
-                JarFile(artifactFile).use { jarFile ->
-                    if (jarFile.getJarEntry(ANNOTATION_PROCESSORS_INDICATOR_FILE) != null) {
-                        processors[artifact] = jarFile.getJarEntry(
-                            INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE
-                        ) != null
-                    }
+            when (CachedAnnotationProcessorDetector.getJarApStatus(artifactFile)) {
+                CachedAnnotationProcessorDetector.ApStatus.INCREMENTAL -> {
+                    processors[artifact] = true
                 }
-            } catch (e: IOException) {
-                // Can happen when we encounter a folder instead of a jar; for instance, in
-                // sub-modules. We're just displaying a warning, so there's no need to stop the
-                // build here. See http://issuetracker.google.com/64283041.
+                CachedAnnotationProcessorDetector.ApStatus.NONE -> {}
+                CachedAnnotationProcessorDetector.ApStatus.NON_INCREMENTAL -> {
+                    processors[artifact] = false
+                }
             }
         }
     }
 
     return processors
+}
+
+object CachedAnnotationProcessorDetector {
+    private val cachedJars = mutableMapOf<File, ApStatus>()
+
+    fun getJarApStatus(file: File): ApStatus {
+        synchronized(cachedJars) {
+            val cachedApStatus = cachedJars[file]
+            if (cachedApStatus == null) {
+                try {
+                    JarFile(file).use { jar ->
+                        if (jar.getJarEntry(ANNOTATION_PROCESSORS_INDICATOR_FILE) != null) {
+                            val incrementalEntry =
+                                jar.getJarEntry(INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE)
+                            cachedJars[file] =
+                                if (incrementalEntry != null) {
+                                    ApStatus.INCREMENTAL
+                                } else {
+                                    ApStatus.NON_INCREMENTAL
+                                }
+                        } else {
+                            cachedJars[file] = ApStatus.NONE
+                        }
+                    }
+                } catch (e: IOException) {
+                    // An IOException might indicate the file is a directory or the file can't be
+                    // opened for some reason, but we'd rather report NONE than fail the build here.
+                    cachedJars[file] = ApStatus.NONE
+                }
+                // If cachedJars[file] is null, it indicates a bug in the above code, but we return
+                // NONE in this case because we don't want to fail the build.
+                return cachedJars[file] ?: ApStatus.NONE
+            } else {
+                return cachedApStatus
+            }
+        }
+    }
+
+    enum class ApStatus {
+        INCREMENTAL,
+        NONE,
+        NON_INCREMENTAL
+    }
+
+    @JvmStatic
+    fun clearCache() {
+        synchronized(cachedJars) {
+            cachedJars.clear()
+        }
+    }
 }
 
 /**
