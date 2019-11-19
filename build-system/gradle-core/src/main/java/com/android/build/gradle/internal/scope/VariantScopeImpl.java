@@ -31,6 +31,7 @@ import static com.android.build.gradle.internal.publishing.AndroidArtifacts.Arti
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ConsumedConfigType.COMPILE_CLASSPATH;
 import static com.android.build.gradle.internal.publishing.AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH;
 import static com.android.build.gradle.internal.scope.ArtifactPublishingUtil.publishArtifactToConfiguration;
+import static com.android.build.gradle.internal.scope.ArtifactPublishingUtil.publishArtifactToDefaultVariant;
 import static com.android.build.gradle.internal.scope.CodeShrinker.PROGUARD;
 import static com.android.build.gradle.internal.scope.CodeShrinker.R8;
 import static com.android.build.gradle.internal.scope.InternalArtifactType.COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR;
@@ -246,7 +247,15 @@ public class VariantScopeImpl implements VariantScope {
                 Configuration config = variantDependency.getElements(configType);
                 Preconditions.checkNotNull(
                         config, String.format(PUBLISH_ERROR_MSG, configType, getType()));
-                publishArtifactToConfiguration(config, file, artifact, artifactType);
+                if (configType.isPublicationConfig()) {
+                    String classifier = null;
+                    if (configType.isClassifierRequired()) {
+                        classifier = getFullVariantName();
+                    }
+                    publishArtifactToDefaultVariant(config, file, artifactType, classifier);
+                } else {
+                    publishArtifactToConfiguration(config, file, artifact, artifactType);
+                }
             }
         }
     }
@@ -268,8 +277,16 @@ public class VariantScopeImpl implements VariantScope {
                 Configuration config = variantDependency.getElements(configType);
                 Preconditions.checkNotNull(
                         config, String.format(PUBLISH_ERROR_MSG, configType, getType()));
-                publishArtifactToConfiguration(
-                        config, artifact, lastProducerTaskName, artifactType);
+                if (configType.isPublicationConfig()) {
+                    String classifier = null;
+                    if (configType.isClassifierRequired()) {
+                        classifier = getFullVariantName();
+                    }
+                    publishArtifactToDefaultVariant(config, artifact, artifactType, classifier);
+                } else {
+                    publishArtifactToConfiguration(
+                            config, artifact, lastProducerTaskName, artifactType);
+                }
             }
         }
     }

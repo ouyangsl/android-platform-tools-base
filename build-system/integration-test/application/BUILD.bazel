@@ -56,6 +56,7 @@ TEST_DATA = [
     "//tools/base/build-system:gradle-distrib",
     "//tools/base/build-system/aapt2:aapt2_for_tests",
     "//tools/base/build-system/integration-test:test-projects",
+    "//tools/external/gradle:gradle-distrib-6.0",
 ]
 
 AUTOMATIC_TEST_DATA = TEST_DATA + [
