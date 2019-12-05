@@ -73,6 +73,7 @@ import com.android.build.gradle.options.ProjectOptions;
 import com.android.build.gradle.options.StringOption;
 import com.android.build.gradle.options.SyncOptions;
 import com.android.build.gradle.options.SyncOptions.ErrorFormatMode;
+import com.android.build.gradle.tasks.CachedAnnotationProcessorDetector;
 import com.android.build.gradle.tasks.LintBaseTask;
 import com.android.build.gradle.tasks.factory.AbstractCompilesUtil;
 import com.android.builder.core.BuilderConstants;
@@ -357,6 +358,7 @@ public abstract class BasePlugin implements Plugin<Project>, ToolingRegistryProv
                         sdkComponents.unload();
                         SdkLocator.resetCache();
                         ConstraintHandler.clearCache();
+                        CachedAnnotationProcessorDetector.clearCache();
                         threadRecorder.record(
                                 ExecutionType.BASE_PLUGIN_BUILD_FINISHED,
                                 project.getPath(),

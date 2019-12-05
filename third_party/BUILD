@@ -25,7 +25,7 @@ maven_java_library(
 # ATTENTION: This file is generated from tools/buildSrc/base/dependencies.properties, see top of this file.
 maven_java_library(
     name = "com.android.tools.build.jetifier_jetifier-core",
-    export_artifact = "//prebuilts/tools/common/m2/repository/com/android/tools/build/jetifier/jetifier-core/1.0.0-beta06:jar",
+    export_artifact = "//prebuilts/tools/common/m2/repository/com/android/tools/build/jetifier/jetifier-core/1.0.0-beta08:jar",
     visibility = ["//visibility:public"],
     exports = [
         ":com.google.code.gson_gson",
@@ -36,7 +36,7 @@ maven_java_library(
 # ATTENTION: This file is generated from tools/buildSrc/base/dependencies.properties, see top of this file.
 maven_java_library(
     name = "com.android.tools.build.jetifier_jetifier-processor",
-    export_artifact = "//prebuilts/tools/common/m2/repository/com/android/tools/build/jetifier/jetifier-processor/1.0.0-beta06:jar",
+    export_artifact = "//prebuilts/tools/common/m2/repository/com/android/tools/build/jetifier/jetifier-processor/1.0.0-beta08:jar",
     visibility = ["//visibility:public"],
     exports = [
         ":com.android.tools.build.jetifier_jetifier-core",
@@ -1174,7 +1174,7 @@ maven_java_library(
 # ATTENTION: This file is generated from tools/buildSrc/base/dependencies.properties, see top of this file.
 maven_java_library(
     name = "org.gradle_gradle-tooling-api",
-    export_artifact = "//prebuilts/tools/common/m2/repository/org/gradle/gradle-tooling-api/5.6.1:jar",
+    export_artifact = "//prebuilts/tools/common/m2/repository/org/gradle/gradle-tooling-api/5.6.4:jar",
     visibility = ["//visibility:public"],
     exports = [],
     runtime_deps = [":org.slf4j_slf4j-api"],

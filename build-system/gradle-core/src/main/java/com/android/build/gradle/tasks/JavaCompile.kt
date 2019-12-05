@@ -38,6 +38,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.compile.JavaCompile
+import org.gradle.api.tasks.util.PatternSet
 import java.util.concurrent.Callable
 
 /**
@@ -171,7 +172,9 @@ class JavaCompileCreationAction(
             // Wrap sources in Callable to evaluate them just before execution, b/117161463.
             Callable { listOf(variantScope.variantData.javaSources) }
         }
-        task.source = task.project.files(sourcesToCompile).asFileTree
+        // Include only java sources, otherwise we hit b/144249620.
+        val javaSourcesFilter = PatternSet().include("**/*.java")
+        task.source = task.project.files(sourcesToCompile).asFileTree.matching(javaSourcesFilter)
 
         // Some annotation processors generate files in the class output directory too, so we need
         // to copy those classes over from the process-annotations task if that task is used.

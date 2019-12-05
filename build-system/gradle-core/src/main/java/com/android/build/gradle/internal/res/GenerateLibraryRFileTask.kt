@@ -29,6 +29,7 @@ import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.scope.VariantScope
 import com.android.build.gradle.internal.tasks.TaskInputHelper
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
+import com.android.build.gradle.internal.utils.fromDisallowChanges
 import com.android.build.gradle.internal.variant.MultiOutputPolicy
 import com.android.build.gradle.options.BooleanOption
 import com.android.build.gradle.tasks.ProcessAndroidResources
@@ -38,7 +39,6 @@ import com.android.ide.common.symbols.SymbolIo
 import com.android.ide.common.symbols.SymbolTable
 import com.google.common.base.Strings
 import org.gradle.api.file.ConfigurableFileCollection
-import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.provider.Property
@@ -77,9 +77,13 @@ abstract class GenerateLibraryRFileTask @Inject constructor(objects: ObjectFacto
         return textSymbolOutputFileProperty.get().asFile
     }
 
-    @get:OutputFile abstract val textSymbolOutputFileProperty: RegularFileProperty
+    @get:OutputFile
+    @get:Optional
+    abstract val textSymbolOutputFileProperty: RegularFileProperty
 
-    @get:OutputFile abstract val symbolsWithPackageNameOutputFile: RegularFileProperty
+    @get:OutputFile
+    @get:Optional
+    abstract val symbolsWithPackageNameOutputFile: RegularFileProperty
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.NONE) abstract val dependencies: ConfigurableFileCollection
@@ -87,10 +91,8 @@ abstract class GenerateLibraryRFileTask @Inject constructor(objects: ObjectFacto
     @get:Input lateinit var packageForR: Provider<String> private set
 
     @get:InputFiles
-    @get:PathSensitive(PathSensitivity.NAME_ONLY) lateinit var platformAttrRTxt: FileCollection
-        private set
-
-    @get:Input lateinit var applicationId: Provider<String> private set
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val platformAttrRTxt: ConfigurableFileCollection
 
     @get:InputFile
     @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -126,10 +128,10 @@ abstract class GenerateLibraryRFileTask @Inject constructor(objects: ObjectFacto
                     packageForR.get(),
                     null,
                     rClassOutputJar.get().asFile,
-                    textSymbolOutputFileProperty.get().asFile,
+                    textSymbolOutputFileProperty.orNull?.asFile,
                     namespacedRClass.get(),
                     compileClasspathLibraryRClasses.get(),
-                    symbolsWithPackageNameOutputFile.get().asFile,
+                    symbolsWithPackageNameOutputFile.orNull?.asFile,
                     useConstantIds.get()
                 )
             )
@@ -178,10 +180,10 @@ abstract class GenerateLibraryRFileTask @Inject constructor(objects: ObjectFacto
         val packageForR: String,
         val sourceOutputDirectory: File?,
         val rClassOutputJar: File?,
-        val textSymbolOutputFile: File,
+        val textSymbolOutputFile: File?,
         val namespacedRClass: Boolean,
         val compileClasspathLibraryRClasses: Boolean,
-        val symbolsWithPackageNameOutputFile: File,
+        val symbolsWithPackageNameOutputFile: File?,
         val useConstantIds: Boolean
     ) : Serializable
 
@@ -211,10 +213,13 @@ abstract class GenerateLibraryRFileTask @Inject constructor(objects: ObjectFacto
                 idProvider = idProvider
             )
 
-            SymbolIo.writeSymbolListWithPackageName(
-                params.textSymbolOutputFile.toPath(),
-                params.manifest.toPath(),
-                params.symbolsWithPackageNameOutputFile.toPath())
+            params.symbolsWithPackageNameOutputFile?.let {
+                SymbolIo.writeSymbolListWithPackageName(
+                    params.textSymbolOutputFile!!.toPath(),
+                    params.manifest.toPath(),
+                    it.toPath()
+                )
+            }
         }
 
         private fun getAndroidAttrSymbols() =
@@ -270,11 +275,7 @@ abstract class GenerateLibraryRFileTask @Inject constructor(objects: ObjectFacto
 
             val projectOptions = variantScope.globalScope.projectOptions
 
-            task.platformAttrRTxt = variantScope.globalScope.platformAttrs
-
-            task.applicationId = TaskInputHelper.memoizeToProvider(task.project) {
-                variantScope.variantData.variantConfiguration.applicationId
-            }
+            task.platformAttrRTxt.fromDisallowChanges(variantScope.globalScope.platformAttrs)
 
             val namespacedRClass = projectOptions[BooleanOption.NAMESPACED_R_CLASS]
             val compileClasspathLibraryRClasses = projectOptions[BooleanOption.COMPILE_CLASSPATH_LIBRARY_R_CLASSES]
@@ -330,6 +331,63 @@ abstract class GenerateLibraryRFileTask @Inject constructor(objects: ObjectFacto
             variantScope.artifacts.setTaskInputToFinalProduct(
                 InternalArtifactType.LOCAL_ONLY_SYMBOL_LIST,
                 task.localResourcesFile)
+        }
+    }
+
+    internal class TestRuntimeStubRClassCreationAction(variantScope: VariantScope) :
+        VariantTaskCreationAction<GenerateLibraryRFileTask>(variantScope) {
+
+        override val name: String = variantScope.getTaskName("generate", "StubRFile")
+        override val type: Class<GenerateLibraryRFileTask> = GenerateLibraryRFileTask::class.java
+
+        override fun handleProvider(taskProvider: TaskProvider<out GenerateLibraryRFileTask>) {
+            super.handleProvider(taskProvider)
+            variantScope.artifacts.producesFile(
+                InternalArtifactType.COMPILE_AND_RUNTIME_NOT_NAMESPACED_R_CLASS_JAR,
+                BuildArtifactsHolder.OperationType.INITIAL,
+                taskProvider,
+                GenerateLibraryRFileTask::rClassOutputJar,
+                fileName = "R.jar"
+            )
+        }
+
+        override fun configure(task: GenerateLibraryRFileTask) {
+            super.configure(task)
+            val testedScope = variantScope.testedVariantData!!.scope
+            val projectOptions = variantScope.globalScope.projectOptions
+
+            task.platformAttrRTxt.fromDisallowChanges(variantScope.globalScope.platformAttrs)
+
+            // We need the runtime dependencies for generating a set of consistent runtime R classes
+            // for android test, and in the case of transitive R classes, we also need them
+            // to include them in the local R class.
+            task.dependencies.fromDisallowChanges(
+                    variantScope.getArtifactFileCollection(
+                        RUNTIME_CLASSPATH,
+                        ALL,
+                        AndroidArtifacts.ArtifactType.SYMBOL_LIST_WITH_PACKAGE_NAME
+                    )
+                )
+
+            task.namespacedRClass.set(projectOptions[BooleanOption.NAMESPACED_R_CLASS])
+            task.namespacedRClass.disallowChanges()
+            task.compileClasspathLibraryRClasses.set(false)
+            task.compileClasspathLibraryRClasses.disallowChanges()
+            task.packageForR = TaskInputHelper.memoizeToProvider(task.project) {
+                Strings.nullToEmpty(variantScope.variantConfiguration.originalApplicationId)
+            }
+            testedScope.artifacts.setTaskInputToFinalProduct(
+                InternalArtifactType.MERGED_MANIFESTS, task.manifestFiles
+            )
+            task.outputScope = variantScope.outputScope
+            task.useConstantIds.set(false)
+            task.useConstantIds.disallowChanges()
+            task.multiOutputPolicy = variantScope.variantData.multiOutputPolicy
+
+            testedScope.artifacts.setTaskInputToFinalProduct(
+                InternalArtifactType.LOCAL_ONLY_SYMBOL_LIST,
+                task.localResourcesFile
+            )
         }
     }
 }
