@@ -340,7 +340,7 @@ public class RenderScriptProcessor {
         //            command.add("-g");
         //        }
 
-        if (mTargetApi >= 21) {
+        if (mTargetApi >= 21 && mNdkMode) {
             // Add the arguments that are specific to each run.
             // Then, for each arch specific folder, run the compiler once.
             for (String arch : architectures) {
@@ -353,9 +353,7 @@ public class RenderScriptProcessor {
                 // but the raw folder directly.
                 variableBuilderArgs.add(getArchSpecificRawFolder(arch).getAbsolutePath());
 
-                if (mNdkMode) {
-                    variableBuilderArgs.add("-m" + arch);
-                }
+                variableBuilderArgs.add("-m" + arch);
 
                 ArrayList<String> builderArgs = new ArrayList<>(variableBuilderArgs);
                 builderArgs.addAll(fixedBuilderArgs);
