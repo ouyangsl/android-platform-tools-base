@@ -15,7 +15,6 @@
  */
 package com.android.ide.common.vectordrawable;
 
-import com.android.annotations.NonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,10 +27,10 @@ public class PathParser {
     private static final float[] EMPTY_FLOAT_ARRAY = new float[0];
 
     private static class ExtractFloatResult {
-        /** The end position of the parameter. */
+        // We need to return the position of the next separator and whether the
+        // next float starts with a '-' or a '.'.
         private int mEndPosition;
-        /** Whether there is an explicit separator after the end position or not. */
-        private boolean mExplicitSeparator;
+        private boolean mEndWithNegOrDot;
     }
 
     // Do not instantiate.
@@ -42,18 +41,16 @@ public class PathParser {
      *
      * @param s the string to search
      * @param start the position to start searching
-     * @param flagMode indicates Boolean flag syntax; a Boolean flag is either "0" or "1" and
-     *     doesn't have to be followed by a separator
-     * @param result the result of the extraction
+     * @param result the result of the extraction, including the position of the
+     * the starting position of next number, whether it is ending with a '-'.
      */
-    private static void extract(
-            @NonNull String s, int start, boolean flagMode, @NonNull ExtractFloatResult result) {
+    private static void extract(String s, int start, ExtractFloatResult result) {
+        // Now looking for ' ', ',', '.' or '-' from the start.
+        int currentIndex = start;
         boolean foundSeparator = false;
-        result.mExplicitSeparator = false;
+        result.mEndWithNegOrDot = false;
         boolean secondDot = false;
         boolean isExponential = false;
-        // Looking for ' ', ',', '.' or '-' from the start.
-        int currentIndex = start;
         for (; currentIndex < s.length(); currentIndex++) {
             boolean isPrevExponential = isExponential;
             isExponential = false;
@@ -62,20 +59,21 @@ public class PathParser {
                 case ' ':
                 case ',':
                     foundSeparator = true;
-                    result.mExplicitSeparator = true;
                     break;
                 case '-':
-                    // The negative sign following a 'e' or 'E' is not an implicit separator.
+                    // The negative sign following a 'e' or 'E' is not a separator.
                     if (currentIndex != start && !isPrevExponential) {
                         foundSeparator = true;
+                        result.mEndWithNegOrDot = true;
                     }
                     break;
                 case '.':
-                    if (secondDot) {
-                        // Second dot is an implicit separator.
-                        foundSeparator = true;
-                    } else {
+                    if (!secondDot) {
                         secondDot = true;
+                    } else {
+                        // This is the second dot, and it is considered as a separator.
+                        foundSeparator = true;
+                        result.mEndWithNegOrDot = true;
                     }
                     break;
                 case 'e':
@@ -83,7 +81,7 @@ public class PathParser {
                     isExponential = true;
                     break;
             }
-            if (foundSeparator || flagMode && currentIndex > start) {
+            if (foundSeparator) {
                 break;
             }
         }
@@ -98,14 +96,11 @@ public class PathParser {
      * @param s the string containing a command and list of floats
      * @return array of floats
      */
-    @NonNull
-    private static float[] getFloats(@NonNull String s) {
-        char command = s.charAt(0);
-        if (command == 'z' || command == 'Z') {
+    private static float[] getFloats(String s) {
+        if (s.charAt(0) == 'z' || s.charAt(0) == 'Z') {
             return EMPTY_FLOAT_ARRAY;
         }
         try {
-            boolean arcCommand = command == 'a' || command == 'A';
             float[] results = new float[s.length()];
             int count = 0;
             int startPosition = 1;
@@ -118,18 +113,18 @@ public class PathParser {
             // current number, and endPosition is the character after the current
             // number.
             while (startPosition < totalLength) {
-                boolean flagMode = arcCommand && (count % 7 == 3 || count % 7 == 4);
-                extract(s, startPosition, flagMode, result);
+                extract(s, startPosition, result);
                 endPosition = result.mEndPosition;
 
                 if (startPosition < endPosition) {
                     results[count++] = Float.parseFloat(s.substring(startPosition, endPosition));
                 }
 
-                if (result.mExplicitSeparator) {
-                    startPosition = endPosition + 1;
-                } else {
+                if (result.mEndWithNegOrDot) {
+                    // Keep the '-' or '.' sign with next number.
                     startPosition = endPosition;
+                } else {
+                    startPosition = endPosition + 1;
                 }
             }
             return Arrays.copyOfRange(results, 0, count);
