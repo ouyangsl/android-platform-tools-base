@@ -34,6 +34,7 @@ import com.android.builder.internal.compiler.DirectoryWalker
 import com.android.builder.internal.compiler.RenderScriptProcessor
 import com.android.ide.common.process.LoggedProcessOutputHandler
 import com.android.ide.common.process.ProcessOutputHandler
+import com.android.repository.Revision
 import com.android.sdklib.BuildToolInfo
 import com.android.utils.FileUtils
 import com.google.common.collect.Lists
@@ -90,6 +91,11 @@ abstract class RenderscriptCompile : NdkTask() {
     @get:Input
     val buildToolsVersion: String
         get() = buildToolInfoProvider.get().revision.toString()
+
+    @get:Input
+    var disableLLD: Boolean = false
+        private set
+
     private lateinit var buildToolInfoProvider: Provider<BuildToolInfo>
 
     @get:OutputDirectory
@@ -159,6 +165,7 @@ abstract class RenderscriptCompile : NdkTask() {
             objDestDir,
             libDestDir,
             getTargetApi()!!,
+            buildToolInfoProvider.get().revision,
             optimLevel,
             isNdkMode,
             isSupportMode,
@@ -185,6 +192,7 @@ abstract class RenderscriptCompile : NdkTask() {
      * @param resOutputDir the output dir in which to generate the bitcode file
      * @param targetApi the target api
      * @param debugBuild whether the build is debug
+     * @param buildToolsRevision the build tools version used
      * @param optimLevel the optimization level
      * @param ndkMode whether the renderscript code should be compiled to generate C/C++ bindings
      * @param supportMode support mode flag to generate .so files.
@@ -193,7 +201,7 @@ abstract class RenderscriptCompile : NdkTask() {
      * @throws IOException failed
      * @throws InterruptedException failed
      */
-    fun compileAllRenderscriptFiles(
+    private fun compileAllRenderscriptFiles(
         sourceFolders: Collection<File>,
         importFolders: Collection<File>,
         sourceOutputDir: File,
@@ -201,6 +209,7 @@ abstract class RenderscriptCompile : NdkTask() {
         objOutputDir: File,
         libOutputDir: File,
         targetApi: Int,
+        buildToolsRevision: Revision,
         optimLevel: Int,
         ndkMode: Boolean,
         supportMode: Boolean,
@@ -228,11 +237,13 @@ abstract class RenderscriptCompile : NdkTask() {
             libOutputDir,
             buildToolInfo,
             targetApi,
+            buildToolsRevision,
             optimLevel,
             ndkMode,
             supportMode,
             useAndroidX,
             abiFilters,
+            disableLLD,
             LoggerWrapper(logger)
         )
         processor.build(GradleProcessExecutor(project), processOutputHandler)
@@ -306,6 +317,8 @@ abstract class RenderscriptCompile : NdkTask() {
 
             task.buildToolInfoProvider =
                 scope.globalScope.sdkComponents.buildToolInfoProvider
+
+            task.disableLLD = scope.globalScope.projectOptions.get(BooleanOption.DISABLE_LLD_LINKER)
 
             if (config.type.isTestComponent) {
                 task.dependsOn(scope.taskContainer.processManifestTask!!)
