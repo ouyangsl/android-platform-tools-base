@@ -85,9 +85,6 @@ abstract class RenderscriptCompile : NdkTask() {
     var optimLevel: Int = 0
 
     @get:Input
-    var isDebugBuild: Boolean = false
-
-    @get:Input
     var isNdkMode: Boolean = false
 
     @get:Input
@@ -162,7 +159,6 @@ abstract class RenderscriptCompile : NdkTask() {
             objDestDir,
             libDestDir,
             getTargetApi()!!,
-            isDebugBuild,
             optimLevel,
             isNdkMode,
             isSupportMode,
@@ -205,7 +201,6 @@ abstract class RenderscriptCompile : NdkTask() {
         objOutputDir: File,
         libOutputDir: File,
         targetApi: Int,
-        debugBuild: Boolean,
         optimLevel: Int,
         ndkMode: Boolean,
         supportMode: Boolean,
@@ -233,7 +228,6 @@ abstract class RenderscriptCompile : NdkTask() {
             libOutputDir,
             buildToolInfo,
             targetApi,
-            debugBuild,
             optimLevel,
             ndkMode,
             supportMode,
@@ -296,7 +290,6 @@ abstract class RenderscriptCompile : NdkTask() {
             task.useAndroidX =
                 scope.globalScope.projectOptions.get(BooleanOption.USE_ANDROID_X)
             task.isNdkMode = ndkMode
-            task.isDebugBuild = config.buildType.isRenderscriptDebuggable
             task.optimLevel = config.buildType.renderscriptOptimLevel
 
             task.sourceDirs = scope.globalScope
