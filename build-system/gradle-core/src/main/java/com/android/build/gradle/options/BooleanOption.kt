@@ -54,6 +54,7 @@ enum class BooleanOption(
     DISALLOW_DEPENDENCY_RESOLUTION_AT_CONFIGURATION("android.dependencyResolutionAtConfigurationTime.disallow"),
     DEBUG_OBSOLETE_API("android.debug.obsoleteApi", false, Option.Status.STABLE),
     ENABLE_STUDIO_VERSION_CHECK("android.injected.studio.version.check", true, Option.Status.STABLE),
+    DISABLE_LLD_LINKER("android.disableLldLinker", false),
 
     // ---------------
     // Lifecycle flags: Experimental stage, not yet enabled by default

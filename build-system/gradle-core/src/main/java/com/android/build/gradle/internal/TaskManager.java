@@ -76,6 +76,7 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension;
 import com.android.build.gradle.internal.dsl.CoreProductFlavor;
 import com.android.build.gradle.internal.dsl.DataBindingOptions;
 import com.android.build.gradle.internal.dsl.PackagingOptions;
+import com.android.build.gradle.internal.errors.SyncIssueHandler;
 import com.android.build.gradle.internal.packaging.GradleKeystoreHelper;
 import com.android.build.gradle.internal.pipeline.OriginalStream;
 import com.android.build.gradle.internal.pipeline.TransformManager;
@@ -199,6 +200,7 @@ import com.android.builder.core.DesugarProcessArgs;
 import com.android.builder.core.VariantType;
 import com.android.builder.dexing.DexerTool;
 import com.android.builder.dexing.DexingType;
+import com.android.builder.errors.EvalIssueReporter;
 import com.android.builder.errors.EvalIssueReporter.Type;
 import com.android.builder.profile.Recorder;
 import com.android.builder.testing.ConnectedDeviceProvider;
@@ -226,7 +228,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import kotlin.Triple;
 import org.gradle.api.Action;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.Project;
@@ -744,8 +749,92 @@ public abstract class TaskManager {
                 new ProcessTestManifest.CreationAction(scope, project.files(mergedManifest)));
     }
 
+    // Checks if version first >= second
+    private int compareOsXVersions(String first, String second) {
+        Pattern osXVersionPattern =
+                Pattern.compile("([0-9]+)\\.([0-9]+)\\.([0-9]+)");
+
+        Matcher firstMatch = osXVersionPattern.matcher(first);
+        Matcher secondMatch = osXVersionPattern.matcher(second);
+
+        // One of the patterns doesn't match
+        if (!firstMatch.matches() || !secondMatch.matches()) {
+            return -1;
+        }
+
+        Triple<Integer, Integer, Integer> firstTriple;
+        Triple<Integer, Integer, Integer> secondTriple;
+        try {
+            firstTriple = new Triple<Integer, Integer, Integer>(
+                    Integer.parseInt(firstMatch.group(1)),
+                    Integer.parseInt(firstMatch.group(2)),
+                    Integer.parseInt(firstMatch.group(3))
+            );
+            secondTriple = new Triple<Integer, Integer, Integer>(
+                    Integer.parseInt(secondMatch.group(1)),
+                    Integer.parseInt(secondMatch.group(2)),
+                    Integer.parseInt(secondMatch.group(3))
+            );
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Unexpected error in platform version verification");
+        }
+
+        int majorDelta = firstTriple.getFirst() - secondTriple.getFirst();
+        int minorDelta = firstTriple.getSecond() - secondTriple.getSecond();
+        int microDelta = firstTriple.getThird() - secondTriple.getThird();
+
+        // If version not equal return difference > 0 else check next
+        if (majorDelta != 0) {
+            return (majorDelta > 0) ? 1 : 0;
+        } else if (minorDelta != 0) {
+            return (minorDelta > 0) ? 1 : 0;
+        } else {
+            return (microDelta >= 0) ? 1 : 0;
+        }
+    }
+
+    private void enforceLLDOnCatalina() {
+        // Disable LLD flag was set
+        boolean disableLLD = globalScope.getProjectOptions().get(BooleanOption.DISABLE_LLD_LINKER);
+
+        // Check if OSX version is Catalina or higher and disable LLD flag was set
+        if (SdkConstants.currentPlatform() == SdkConstants.PLATFORM_DARWIN && disableLLD) {
+            SyncIssueHandler errorHandler = globalScope.getErrorHandler();
+
+            String catalinaVersion = "10.15.0";
+
+            String errMsg = "android.disableLldLinker is not compatible with post-Catalina versions of OSX.";
+
+            // Parse os version
+            int isCatalinaOrGreater =
+                    compareOsXVersions(SdkConstants.currentPlatformVersion(), catalinaVersion);
+
+            switch (isCatalinaOrGreater) {
+                case -1: { // Unknown OS version
+                    // Only warn the user when OS version is unknown
+                    errorHandler.reportWarning(EvalIssueReporter.Type.GENERIC, errMsg);
+                    break;
+                }
+                case 0: { // Not Catalina+
+                    // Looks good, do nothing
+                    break;
+                }
+                case 1: { // Is Catalina+
+                    // This flag should never be used on Catalina
+                    errorHandler.reportError(EvalIssueReporter.Type.GENERIC, errMsg);
+                    break;
+                }
+                default: { // This should never happen
+                    throw new RuntimeException("Unknown return value for platform comparison");
+                }
+            }
+        }
+    }
+
     public void createRenderscriptTask(@NonNull VariantScope scope) {
         final MutableTaskContainer taskContainer = scope.getTaskContainer();
+
+        enforceLLDOnCatalina();
 
         TaskProvider<RenderscriptCompile> rsTask =
                 taskFactory.register(new RenderscriptCompile.CreationAction(scope));
