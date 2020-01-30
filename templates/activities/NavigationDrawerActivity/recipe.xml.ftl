@@ -2,12 +2,6 @@
 <#import "root://activities/common/kotlin_macros.ftl" as kt>
 <#import "root://activities/common/navigation/navigation_common_macros.ftl" as navigation>
 <recipe>
-    <#--
-    This needs to be before addAllKotlinDependencies because the merge instruction seems
-    to have non-commited documents that cause some UI tests to fail.
-    -->
-    <@navigation.addSafeArgsPluginToClasspath />
-
     <@kt.addAllKotlinDependencies />
     <dependency mavenUrl="com.android.support:support-v4:${buildApi}.+"/>
 
@@ -43,11 +37,14 @@
         <#include "../common/recipe_simple_menu.xml.ftl" />
     </#if>
 
-    <@navigation.instantiateFragmentAndViewModel fragmentPrefix="home" withSafeArgs=true />
+    <@navigation.instantiateFragmentAndViewModel fragmentPrefix="home" />
     <@navigation.instantiateFragmentAndViewModel fragmentPrefix="gallery" />
     <@navigation.instantiateFragmentAndViewModel fragmentPrefix="slideshow" />
     <@navigation.navigationDependencies />
-    <@navigation.addSafeArgsPlugin />
+    <#if generateKotlin>
+        <merge from="root://activities/common/navigation/navigation-kotlin-build.gradle.ftl"
+                 to="${escapeXmlAttribute(projectOut)}/build.gradle" />
+    </#if>
 
     <instantiate from="root/res-buildApi22/navigation/mobile_navigation.xml.ftl"
                  to="${escapeXmlAttribute(resOut)}/navigation/mobile_navigation.xml" />
