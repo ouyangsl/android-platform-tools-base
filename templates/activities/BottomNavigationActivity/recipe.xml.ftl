@@ -6,8 +6,6 @@
     This needs to be before addAllKotlinDependencies because the merge instruction seems
     to have non-commited documents that cause some UI tests to fail.
     -->
-    <@navigation.addSafeArgsPluginToClasspath />
-    <@navigation.addSafeArgsPlugin />
     <@kt.addAllKotlinDependencies />
     <dependency mavenUrl="com.android.support:design:${buildApi}.+" />
     <dependency mavenUrl="com.android.support.constraint:constraint-layout:+" />
@@ -20,10 +18,14 @@
 
     <#assign activityMainLayout="navigation_activity_main" />
 
-    <@navigation.instantiateFragmentAndViewModel fragmentPrefix="home" withSafeArgs=true />
+    <@navigation.instantiateFragmentAndViewModel fragmentPrefix="home" />
     <@navigation.instantiateFragmentAndViewModel fragmentPrefix="dashboard" />
     <@navigation.instantiateFragmentAndViewModel fragmentPrefix="notifications" />
     <@navigation.navigationDependencies />
+    <#if generateKotlin>
+        <merge from="root://activities/common/navigation/navigation-kotlin-build.gradle.ftl"
+                 to="${escapeXmlAttribute(projectOut)}/build.gradle" />
+    </#if>
 
     <instantiate from="root/res/navigation/mobile_navigation.xml.ftl"
                  to="${escapeXmlAttribute(resOut)}/navigation/mobile_navigation.xml" />
