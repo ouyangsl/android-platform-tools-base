@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":base:gradle-core" external.linked.project.path="$MODULE_DIR$/../../../../build-system/gradle-core" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.8" allPlatforms="JVM [1.8]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files -Xjvm-default=enable" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../../../../out/build/base/gradle-core/build/classes/kotlin/main" />
+          <option name="classpath" value="$USER_HOME$/.gradle/caches/5.6.4/generated-gradle-jars/gradle-api-5.6.4.jar:/home/sergey/.gradle/wrapper/dists/gradle-5.6.4-bin/1f83pf08ukz8my14h63z97rli/gradle-5.6.4/lib/groovy-all-1.3-2.5.4.jar:/home/sergey/.gradle/wrapper/dists/gradle-5.6.4-bin/1f83pf08ukz8my14h63z97rli/gradle-5.6.4/lib/kotlin-stdlib-jdk8-1.3.41.jar:/home/sergey/.gradle/wrapper/dists/gradle-5.6.4-bin/1f83pf08ukz8my14h63z97rli/gradle-5.6.4/lib/kotlin-stdlib-1.3.41.jar:/home/sergey/.gradle/wrapper/dists/gradle-5.6.4-bin/1f83pf08ukz8my14h63z97rli/gradle-5.6.4/lib/kotlin-stdlib-common-1.3.41.jar:/home/sergey/.gradle/wrapper/dists/gradle-5.6.4-bin/1f83pf08ukz8my14h63z97rli/gradle-5.6.4/lib/kotlin-stdlib-jdk7-1.3.41.jar:/home/sergey/.gradle/wrapper/dists/gradle-5.6.4-bin/1f83pf08ukz8my14h63z97rli/gradle-5.6.4/lib/kotlin-reflect-1.3.41.jar:/home/sergey/.gradle/wrapper/dists/gradle-5.6.4-bin/1f83pf08ukz8my14h63z97rli/gradle-5.6.4/lib/gradle-installation-beacon-5.6.4.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/builder/build/libs/builder-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/analytics-library/crash/build/libs/crash-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/lint-gradle-api/build/libs/lint-gradle-api-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/gradle-api/build/libs/gradle-api-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/dataBinding/compilerCommon/build/libs/databinding-compiler-common-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/manifest-merger/build/libs/manifest-merger-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/sdk-common/build/libs/sdk-common-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/analytics-library/tracker/build/libs/tracker-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/sdklib/build/libs/sdklib-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/repository/build/libs/repository-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/analytics-library/shared/build/libs/shared-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.3.61/kotlin-stdlib-jdk8-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/android/tools/build/transform-api/2.0.0-deprecated-use-gradle-api/transform-api-2.0.0-deprecated-use-gradle-api.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/android/tools/build/jetifier/jetifier-processor/1.0.0-beta08/jetifier-processor-1.0.0-beta08.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/ow2/asm/asm-commons/7.0/asm-commons-7.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/ow2/asm/asm-util/7.0/asm-util-7.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/ow2/asm/asm-analysis/7.0/asm-analysis-7.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/ow2/asm/asm-tree/7.0/asm-tree-7.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/ow2/asm/asm/7.0/asm-7.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/net/sf/jopt-simple/jopt-simple/4.9/jopt-simple-4.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/net/sf/proguard/proguard-gradle/6.0.3/proguard-gradle-6.0.3.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/android/tools/build/bundletool/0.10.3/bundletool-0.10.3.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/android/tools/build/jetifier/jetifier-core/1.0.0-beta08/jetifier-core-1.0.0-beta08.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/protobuf/protobuf-java-util/3.4.0/protobuf-java-util-3.4.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/analytics-library/protos/build/libs/protos-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/android/tools/build/aapt2-proto/0.4.0/aapt2-proto-0.4.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/protobuf/protobuf-java/3.4.0/protobuf-java-3.4.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jacoco/org.jacoco.report/0.7.9/org.jacoco.report-0.7.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jacoco/org.jacoco.core/0.7.9/org.jacoco.core-0.7.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/builder-model/build/libs/builder-model-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/builder-test-api/build/libs/builder-test-api-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/ddmlib/build/libs/ddmlib-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/signflinger/build/libs/signflinger-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/zipflinger/build/libs/zipflinger-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/layoutlib-api/build/libs/layoutlib-api-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/dvlib/build/libs/dvlib-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/common/build/libs/common-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/apkzlib/build/libs/apkzlib-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/apksig/build/libs/apksig-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/squareup/javawriter/2.5.0/javawriter-2.5.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/bouncycastle/bcpkix-jdk15on/1.56/bcpkix-jdk15on-1.56.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/bouncycastle/bcprov-jdk15on/1.56/bcprov-jdk15on-1.56.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/it/unimi/dsi/fastutil/7.2.0/fastutil-7.2.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/googlecode/json-simple/json-simple/1.1/json-simple-1.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/annotations/build/libs/annotations-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/jimfs/jimfs/1.1/jimfs-1.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/guava/27.1-jre/guava-27.1-jre.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/apache/httpcomponents/httpmime/4.5.6/httpmime-4.5.6.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/apache/httpcomponents/httpclient/4.5.6/httpclient-4.5.6.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/apache/httpcomponents/httpcore/4.4.10/httpcore-4.4.10.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-reflect/1.3.61/kotlin-reflect-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/dataBinding/baseLibrary/build/libs/databinding-common-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/dataBinding/baseLibrarySupport/build/libs/baseLibrary-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/antlr/antlr4/4.5.3/antlr4-4.5.3.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/googlecode/juniversalchardet/juniversalchardet/1.0.3/juniversalchardet-1.0.3.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/squareup/javapoet/1.10.0/javapoet-1.10.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.3.61/kotlin-stdlib-jdk7-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.3.61/kotlin-stdlib-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/net/sf/proguard/proguard-base/6.0.3/proguard-base-6.0.3.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jdom/jdom2/2.0.6/jdom2-2.0.6.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/ow2/asm/asm-debug-all/5.2/asm-debug-all-5.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/apache/commons/commons-compress/1.12/commons-compress-1.12.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/trove4j/trove4j/20160824/trove4j-20160824.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/commons-codec/commons-codec/1.10/commons-codec-1.10.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.61/kotlin-stdlib-common-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/sun/activation/javax.activation/1.2.0/javax.activation-1.2.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/glassfish/jaxb/jaxb-runtime/2.3.1/jaxb-runtime-2.3.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/glassfish/jaxb/txw2/2.3.1/txw2-2.3.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/sun/istack/istack-commons-runtime/3.0.7/istack-commons-runtime-3.0.7.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jvnet/staxex/stax-ex/1.8/stax-ex-1.8.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/sun/xml/fastinfoset/FastInfoset/1.2.15/FastInfoset-1.2.15.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="gradle" />
+          <option name="jvmTarget" value="1.8" />
+          <option name="languageVersion" value="1.3" />
+          <option name="apiVersion" value="1.3" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array>
+              <option value="$MODULE_DIR$/../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar" />
+              <option value="$MODULE_DIR$/../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-script-runtime/1.3.61/kotlin-script-runtime-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-common/1.3.61/kotlin-scripting-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-jvm/1.3.61/kotlin-scripting-jvm-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.61/kotlin-stdlib-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.3.61/kotlin-stdlib-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.2.1/kotlinx-coroutines-core-1.2.1.jar" />
+            </array>
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../build-system/gradle-core">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build-system/gradle-core/src/fromGradle/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build-system/gradle-core/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build-system/gradle-core/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build-system/gradle-core/src/fromGradle/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build-system/gradle-core/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build-system/gradle-core/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../build-system/gradle-core/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="builder" />
+    <orderEntry type="module" module-name="crash" />
+    <orderEntry type="module" module-name="lint-gradle-api" />
+    <orderEntry type="module" module-name="gradle-api" />
+    <orderEntry type="module" module-name="compilerCommon" />
+    <orderEntry type="module" module-name="manifest-merger" />
+    <orderEntry type="module" module-name="sdk-common" />
+    <orderEntry type="module" module-name="tracker" />
+    <orderEntry type="module" module-name="sdklib" />
+    <orderEntry type="module" module-name="repository" />
+    <orderEntry type="module" module-name="shared" />
+    <orderEntry type="module" module-name="protos" />
+    <orderEntry type="module" module-name="builder-model" />
+    <orderEntry type="module" module-name="builder-test-api" />
+    <orderEntry type="module" module-name="ddmlib" />
+    <orderEntry type="module" module-name="signflinger" />
+    <orderEntry type="module" module-name="zipflinger" />
+    <orderEntry type="module" module-name="layoutlib-api" />
+    <orderEntry type="module" module-name="dvlib" />
+    <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="apkzlib" />
+    <orderEntry type="module" module-name="apksig" />
+    <orderEntry type="module" module-name="annotations" />
+    <orderEntry type="module" module-name="baseLibrary" />
+    <orderEntry type="module" module-name="baseLibrarySupport" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.tools.build:transform-api:2.0.0-deprecated-use-gradle-api" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta08" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-commons:7.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-util:7.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-analysis:7.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm-tree:7.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.ow2.asm:asm:7.0" level="project" />
+    <orderEntry type="library" name="Gradle: net.sf.jopt-simple:jopt-simple:4.9" level="project" />
+    <orderEntry type="library" name="Gradle: net.sf.proguard:proguard-gradle:6.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.tools.build:bundletool:0.10.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.tools.build.jetifier:jetifier-core:1.0.0-beta08" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-java-util:3.4.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.tools.build:aapt2-proto:0.4.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-java:3.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jacoco:org.jacoco.report:0.7.9" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jacoco:org.jacoco.core:0.7.9" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup:javawriter:2.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.bouncycastle:bcpkix-jdk15on:1.56" level="project" />
+    <orderEntry type="library" name="Gradle: org.bouncycastle:bcprov-jdk15on:1.56" level="project" />
+    <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" name="Gradle: it.unimi.dsi:fastutil:7.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.googlecode.json-simple:json-simple:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.jimfs:jimfs:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:27.1-jre" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpmime:4.5.6" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.antlr:antlr4:4.5.3" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup:javapoet:1.10.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: net.sf.proguard:proguard-base:6.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.jdom:jdom2:2.0.6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.ow2.asm:asm-debug-all:5.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-compress:1.12" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.trove4j:trove4j:20160824" level="project" />
+    <orderEntry type="library" name="Gradle: net.sf.kxml:kxml2:2.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
+    <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:2.5.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: com.google.errorprone:error_prone_annotations:2.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.activation:javax.activation:1.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:txw2:2.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.istack:istack-commons-runtime:3.0.7" level="project" />
+    <orderEntry type="library" name="Gradle: org.jvnet.staxex:stax-ex:1.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.xml.fastinfoset:FastInfoset:1.2.15" level="project" />
+    <orderEntry type="library" name="Gradle: javax.activation:javax.activation-api:1.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: gradle-api-5.6.4" level="project" />
+    <orderEntry type="library" name="Gradle: groovy-all-1.3-2.5.4" level="project" />
+    <orderEntry type="library" name="Gradle: kotlin-stdlib-jdk8-1.3.41" level="project" />
+    <orderEntry type="library" name="Gradle: kotlin-stdlib-1.3.41" level="project" />
+    <orderEntry type="library" name="Gradle: kotlin-stdlib-common-1.3.41" level="project" />
+    <orderEntry type="library" name="Gradle: kotlin-stdlib-jdk7-1.3.41" level="project" />
+    <orderEntry type="library" name="Gradle: kotlin-reflect-1.3.41" level="project" />
+    <orderEntry type="library" name="Gradle: gradle-installation-beacon-5.6.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.auto.value:auto-value-annotations:1.6.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.errorprone:error_prone_annotations:2.3.1" level="project" />
+    <orderEntry type="module" module-name="testutils" scope="TEST" />
+    <orderEntry type="module" module-name="project-test-lib" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.truth.extensions:truth-java8-extension:0.44" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.truth:truth:0.44" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:2.19.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.smali:dexlib2:2.2.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.smali:util:2.2.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: nl.jqno.equalsverifier:equalsverifier:2.1.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jsoup:jsoup:1.6.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-compat-qual:2.5.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.googlecode.java-diff-utils:diffutils:1.3.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.auto.value:auto-value-annotations:1.6.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test-common:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.8.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.8.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.easymock:easymock:3.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: cglib:cglib-nodep:3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.beust:jcommander:1.64" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.gradle:gradle-tooling-api:5.6.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: gradle-test-kit-5.6.4" level="project" />
+    <orderEntry type="module-library" scope="TEST">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../../../../../out/build/base/gradle-core/build/pluginUnderTestMetadata" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>

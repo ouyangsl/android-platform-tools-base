@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":base:pixelprobe" external.linked.project.path="$MODULE_DIR$/../../../pixelprobe" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../pixelprobe">
+      <sourceFolder url="file://$MODULE_DIR$/../../../pixelprobe/src/main/generated" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../pixelprobe/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../pixelprobe/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../pixelprobe/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../pixelprobe/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../pixelprobe/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="chunkio" />
+    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
+  </component>
+</module>

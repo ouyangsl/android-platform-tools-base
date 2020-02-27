@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":base:build-system:aapt2-proto" external.linked.project.path="$MODULE_DIR$/../../../../build-system/aapt2-proto" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../build-system/aapt2-proto">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../build-system/aapt2-proto/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-java:3.4.0" level="project" />
+  </component>
+</module>

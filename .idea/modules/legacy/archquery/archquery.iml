@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":base:archquery" external.linked.project.path="$MODULE_DIR$/../../../../legacy/archquery" external.root.project.path="$MODULE_DIR$/../../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../legacy/archquery">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../legacy/archquery/src/main/java" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../legacy/archquery/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
