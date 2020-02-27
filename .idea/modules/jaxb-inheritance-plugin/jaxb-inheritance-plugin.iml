@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":base:jaxb-inheritance-plugin" external.linked.project.path="$MODULE_DIR$/../../../jaxb-inheritance-plugin" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../jaxb-inheritance-plugin">
+      <sourceFolder url="file://$MODULE_DIR$/../../../jaxb-inheritance-plugin/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../jaxb-inheritance-plugin/src/main/resources" type="java-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../jaxb-inheritance-plugin/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="annotations" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:17.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.activation:javax.activation:1.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:jaxb-xjc:2.2.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:jaxb-core:2.2.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.xsom:xsom:20140925" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:codemodel:2.2.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.xml.bind.external:rngom:2.2.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.xml.dtd-parser:dtd-parser:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.istack:istack-commons-tools:2.21" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.2.12-b140109.1041" level="project" />
+    <orderEntry type="library" name="Gradle: org.glassfish.jaxb:txw2:2.2.11" level="project" />
+    <orderEntry type="library" name="Gradle: com.sun.istack:istack-commons-runtime:2.21" level="project" />
+    <orderEntry type="library" name="Gradle: relaxngDatatype:relaxngDatatype:20020414" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.ant:ant:1.7.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.ant:ant-launcher:1.7.0" level="project" />
+  </component>
+</module>

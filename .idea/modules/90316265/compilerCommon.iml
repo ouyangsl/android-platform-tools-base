@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":dataBinding:compilerCommon" external.linked.project.path="$MODULE_DIR$/../../../../data-binding/compilerCommon" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../../../out/build/dataBinding/compilerCommon/build/classes/kotlin/main" />
+          <option name="classpath" value="$MODULE_DIR$/../../../../../out/build/dataBinding/baseLibrary/build/libs/databinding-common-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/dataBinding/baseLibrarySupport/build/libs/baseLibrary-5.6.9.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/antlr/antlr4/4.5.3/antlr4-4.5.3.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/googlecode/juniversalchardet/juniversalchardet/1.0.3/juniversalchardet-1.0.3.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/guava/27.1-jre/guava-27.1-jre.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/squareup/javapoet/1.10.0/javapoet-1.10.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.3.61/kotlin-stdlib-jdk8-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/android/tools/build/jetifier/jetifier-core/1.0.0-beta08/jetifier-core-1.0.0-beta08.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/annotations/build/libs/annotations-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.3.61/kotlin-stdlib-jdk7-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.3.61/kotlin-stdlib-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.61/kotlin-stdlib-common-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="databinding-compiler-common" />
+          <option name="languageVersion" value="1.3" />
+          <option name="apiVersion" value="1.3" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array>
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-script-runtime/1.3.61/kotlin-script-runtime-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-common/1.3.61/kotlin-scripting-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-jvm/1.3.61/kotlin-scripting-jvm-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.61/kotlin-stdlib-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.3.61/kotlin-stdlib-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.2.1/kotlinx-coroutines-core-1.2.1.jar" />
+            </array>
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon/src/main/grammar-gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon/src/main/kotlin" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon/src/main/xml-gen" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon/src/test/kotlin" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../data-binding/compilerCommon/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="baseLibrary" />
+    <orderEntry type="module" module-name="baseLibrarySupport" />
+    <orderEntry type="module" module-name="annotations" />
+    <orderEntry type="library" name="Gradle: org.antlr:antlr4:4.5.3" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:27.1-jre" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup:javapoet:1.10.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.tools.build.jetifier:jetifier-core:1.0.0-beta08" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.5" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:2.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.testing.compile:compile-testing:0.16" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.truth:truth:0.44" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.auto:auto-common:0.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.auto.value:auto-value:1.5.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-compat-qual:2.5.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.googlecode.java-diff-utils:diffutils:1.3.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.auto.value:auto-value-annotations:1.6.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: tools" level="project" />
+  </component>
+</module>

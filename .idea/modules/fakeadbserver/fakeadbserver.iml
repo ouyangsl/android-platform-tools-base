@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":base:fakeadbserver" external.linked.project.path="$MODULE_DIR$/../../../fakeadbserver" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../../../out/build/base/fakeadbserver/build/classes/kotlin/main" />
+          <option name="classpath" value="$MODULE_DIR$/../../../../../out/build/base/common/build/libs/common-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/net/sf/kxml/kxml2/2.3.0/kxml2-2.3.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.3.61/kotlin-stdlib-jdk8-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-reflect/1.3.61/kotlin-reflect-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/out/build/base/annotations/build/libs/annotations-26.6.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/guava/27.1-jre/guava-27.1-jre.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.3.61/kotlin-stdlib-jdk7-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.3.61/kotlin-stdlib-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/checkerframework/checker-qual/2.5.2/checker-qual-2.5.2.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/errorprone/error_prone_annotations/2.2.0/error_prone_annotations-2.2.0.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.17/animal-sniffer-annotations-1.17.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.61/kotlin-stdlib-common-1.3.61.jar:/media/sergey/7701b0b4-0c29-47be-8db8-ea62376a81b4/home/sergey/WORKING_DIRECTORY/studio-master-dev/prebuilts/tools/common/m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="fakeadbserver" />
+          <option name="languageVersion" value="1.3" />
+          <option name="apiVersion" value="1.3" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array>
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-script-runtime/1.3.61/kotlin-script-runtime-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-common/1.3.61/kotlin-scripting-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-jvm/1.3.61/kotlin-scripting-jvm-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.61/kotlin-stdlib-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.3.61/kotlin-stdlib-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.2.1/kotlinx-coroutines-core-1.2.1.jar" />
+            </array>
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../fakeadbserver">
+      <sourceFolder url="file://$MODULE_DIR$/../../../fakeadbserver/src/main/java" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../fakeadbserver/src/test/java" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../fakeadbserver/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="annotations" />
+    <orderEntry type="library" name="Gradle: net.sf.kxml:kxml2:2.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:27.1-jre" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.checkerframework:checker-qual:2.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.61" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="module" module-name="testutils" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.easymock:easymock:3.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.truth.extensions:truth-java8-extension:0.44" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.truth:truth:0.44" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.jimfs:jimfs:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.smali:dexlib2:2.2.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.smali:util:2.2.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:2.19.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.ow2.asm:asm:7.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: cglib:cglib-nodep:3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test-common:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.8.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.8.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-compat-qual:2.5.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.googlecode.java-diff-utils:diffutils:1.3.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.auto.value:auto-value-annotations:1.6.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.beust:jcommander:1.64" level="project" />
+  </component>
+</module>

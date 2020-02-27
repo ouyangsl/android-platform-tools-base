@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":base:build-system:integration-test:native" external.linked.project.path="$MODULE_DIR$/../../../../../build-system/integration-test/native" external.root.project.path="$MODULE_DIR$/../../../../.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.6" allPlatforms="JVM [1.6]" useProjectSettings="false">
+        <compilerSettings>
+          <option name="additionalArguments" value="-Xallow-no-source-files" />
+        </compilerSettings>
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../../../../../../out/build/base/build-system/integration-test/native/build/classes/kotlin/main" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="native" />
+          <option name="languageVersion" value="1.3" />
+          <option name="apiVersion" value="1.3" />
+          <option name="pluginOptions">
+            <array />
+          </option>
+          <option name="pluginClasspaths">
+            <array>
+              <option value="$MODULE_DIR$/../../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar" />
+              <option value="$MODULE_DIR$/../../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-script-runtime/1.3.61/kotlin-script-runtime-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-common/1.3.61/kotlin-scripting-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-scripting-jvm/1.3.61/kotlin-scripting-jvm-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.3.61/kotlin-stdlib-common-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.3.61/kotlin-stdlib-1.3.61.jar" />
+              <option value="$MODULE_DIR$/../../../../../../../prebuilts/tools/common/m2/repository/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.2.1/kotlinx-coroutines-core-1.2.1.jar" />
+            </array>
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../../build-system/integration-test/native">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../../build-system/integration-test/native/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../../build-system/integration-test/native/.gradle" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="framework" scope="TEST" />
+    <orderEntry type="module" module-name="gradle-core" scope="TEST" />
+    <orderEntry type="module" module-name="builder" scope="TEST" />
+    <orderEntry type="module" module-name="tracker" scope="TEST" />
+    <orderEntry type="module" module-name="manifest-merger" scope="TEST" />
+    <orderEntry type="module" module-name="sdk-common" scope="TEST" />
+    <orderEntry type="module" module-name="shared" scope="TEST" />
+    <orderEntry type="module" module-name="protos" scope="TEST" />
+    <orderEntry type="module" module-name="signflinger" scope="TEST" />
+    <orderEntry type="module" module-name="apkzlib" scope="TEST" />
+    <orderEntry type="module" module-name="apksig" scope="TEST" />
+    <orderEntry type="module" module-name="lint-gradle-api" scope="TEST" />
+    <orderEntry type="module" module-name="builder-model" scope="TEST" />
+    <orderEntry type="module" module-name="device-provider" scope="TEST" />
+    <orderEntry type="module" module-name="testutils" scope="TEST" />
+    <orderEntry type="module" module-name="gradle-api" scope="TEST" />
+    <orderEntry type="module" module-name="compilerCommon" scope="TEST" />
+    <orderEntry type="module" module-name="sdklib" scope="TEST" />
+    <orderEntry type="module" module-name="repository" scope="TEST" />
+    <orderEntry type="module" module-name="builder-test-api" scope="TEST" />
+    <orderEntry type="module" module-name="ddmlib" scope="TEST" />
+    <orderEntry type="module" module-name="zipflinger" scope="TEST" />
+    <orderEntry type="module" module-name="layoutlib-api" scope="TEST" />
+    <orderEntry type="module" module-name="dvlib" scope="TEST" />
+    <orderEntry type="module" module-name="common" scope="TEST" />
+    <orderEntry type="module" module-name="crash" scope="TEST" />
+    <orderEntry type="module" module-name="annotations" scope="TEST" />
+    <orderEntry type="module" module-name="baseLibrary" scope="TEST" />
+    <orderEntry type="module" module-name="baseLibrarySupport" scope="TEST" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: commons-io:commons-io:2.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: commons-lang:commons-lang:2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.apis:google-api-services-storage:v1-rev82-1.22.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.api-client:google-api-client:1.22.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.codehaus.groovy:groovy-all:2.4.15" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.truth.extensions:truth-java8-extension:0.44" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.truth:truth:0.44" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.protobuf:protobuf-java-util:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.tools.build:aapt2-proto:0.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.protobuf:protobuf-java:3.4.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.mockito:mockito-core:2.19.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jacoco:org.jacoco.agent:0.7.5.201505241946" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup:javawriter:2.5.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.bouncycastle:bcpkix-jdk15on:1.56" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.bouncycastle:bcprov-jdk15on:1.56" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta08" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.ow2.asm:asm-commons:7.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.ow2.asm:asm-util:7.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.ow2.asm:asm-analysis:7.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.ow2.asm:asm-tree:7.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.ow2.asm:asm:7.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: it.unimi.dsi:fastutil:7.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.sf.jopt-simple:jopt-simple:4.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.googlecode.json-simple:json-simple:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.trove4j:trove4j:20160824" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.easymock:easymock:3.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.jimfs:jimfs:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.smali:dexlib2:2.2.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.tools.build.jetifier:jetifier-core:1.0.0-beta08" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.oauth-client:google-oauth-client:1.22.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.http-client:google-http-client-jackson2:1.22.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.smali:util:2.2.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:guava:27.1-jre" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.gson:gson:2.8.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-compat-qual:2.5.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.googlecode.java-diff-utils:diffutils:1.3.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.auto.value:auto-value-annotations:1.6.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy:1.8.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.bytebuddy:byte-buddy-agent:1.8.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.tools.build:transform-api:2.0.0-deprecated-use-gradle-api" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.sf.proguard:proguard-gradle:6.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.android.tools.build:bundletool:0.10.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.apache.commons:commons-compress:1.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.apache.httpcomponents:httpmime:4.5.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.http-client:google-http-client:1.22.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.apache.httpcomponents:httpclient:4.5.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.apache.httpcomponents:httpcore:4.4.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.sf.kxml:kxml2:2.3.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-test-common:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: cglib:cglib-nodep:3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.61" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.antlr:antlr4:4.5.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.googlecode.juniversalchardet:juniversalchardet:1.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.squareup:javapoet:1.10.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: net.sf.proguard:proguard-base:6.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jdom:jdom2:2.0.6" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sun.activation:javax.activation:1.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:failureaccess:1.0.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.checkerframework:checker-qual:2.5.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.j2objc:j2objc-annotations:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.beust:jcommander:1.64" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: javax.xml.bind:jaxb-api:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.glassfish.jaxb:txw2:2.3.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sun.istack:istack-commons-runtime:3.0.7" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: org.jvnet.staxex:stax-ex:1.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.sun.xml.fastinfoset:FastInfoset:1.2.15" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: javax.activation:javax.activation-api:1.2.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: gradle-api-5.6.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: groovy-all-1.3-2.5.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: kotlin-stdlib-jdk8-1.3.41" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: kotlin-stdlib-1.3.41" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: kotlin-stdlib-common-1.3.41" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: kotlin-stdlib-jdk7-1.3.41" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: kotlin-reflect-1.3.41" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: gradle-installation-beacon-5.6.4" level="project" />
+  </component>
+</module>
