@@ -426,7 +426,7 @@ public class SimpleTestRunnable implements Runnable {
                 deviceName, additionalTestOutputDir);
 
         // List all files in additionalTestOutputDir with one file per line.
-        executeShellCommand("ls -1 " + additionalTestOutputDir, reportPathReceiver);
+        executeShellCommand("ls " + additionalTestOutputDir, reportPathReceiver);
         reportPathReceiver.flush();
     }
 
