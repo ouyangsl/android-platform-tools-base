@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="policyType">
+    <xs:attribute name="action">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DISABLE"/>
+          <xs:enumeration value="WARN"/>
+          <xs:enumeration value="WARN_THEN_DISABLE"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:element name="IntegrityConfig">
+    <xs:complexType>
+      <xs:all>
+
+        <xs:element name="EmulatorCheck" minOccurs="0">
+          <xs:complexType>
+            <xs:attribute name="enabled" type="xs:boolean"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="LicenseCheck" minOccurs="0">
+          <xs:complexType>
+            <xs:all>
+              <xs:element name="Policy" type="policyType" minOccurs="0"/>
+            </xs:all>
+            <xs:attribute name="enabled" type="xs:boolean"/>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="InstallerCheck" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Policy" type="policyType" minOccurs="0"
+                  maxOccurs="1"/>
+              <xs:element name="AdditionalInstallSource" type="xs:string"
+                  minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="enabled" type="xs:boolean"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+
+      <xs:attribute name="enabled" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
