@@ -1104,8 +1104,27 @@ public final class DeviceImpl implements IDevice {
             @NonNull List<String> installOptions)
             throws InstallException {
         // Use the default installer timeout.
-        installRemotePackages(
-                remoteApks, reinstall, installOptions, INSTALL_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+//        installRemotePackages(
+//                remoteApks, reinstall, installOptions, INSTALL_TIMEOUT_MINUTES, TimeUnit.MINUTES);
+        String[] splits =
+                remoteApks.stream()
+                        .map(
+                                baseName ->
+                                        java.lang.String.format(
+                                                "/data/local/tmp/cts/content/%s", baseName))
+                        .toArray(String[]::new);
+        try {
+            executeShellCommand(
+                    "pm install-incremental -t -g " + String.join(" ", splits),
+                    new NullOutputReceiver());
+            //        executeShellCommand(cmd, receiver, maxTimeout, maxTimeToOutputResponse,
+            // maxTimeUnits);
+        } catch (TimeoutException
+                | AdbCommandRejectedException
+                | ShellCommandUnresponsiveException
+                | IOException e) {
+            throw new InstallException(e);
+        }
     }
 
     @Override
@@ -1217,7 +1236,7 @@ public final class DeviceImpl implements IDevice {
             }
             String cmd =
                     String.format(
-                            "pm install %1$s \"%2$s\"", optionString.toString(), remoteFilePath);
+                            "pm install-incremental %1$s \"%2$s\"", optionString.toString(), remoteFilePath);
             executeShellCommand(cmd, receiver, maxTimeout, maxTimeToOutputResponse, maxTimeUnits);
             String error = receiver.getErrorMessage();
             if (error != null) {
