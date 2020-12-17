@@ -16,6 +16,23 @@
       "message": "Added you, Tor, as you were the blame on the code section. (I saw it was a migration, however, so there may be someone else more suitable ¯\\_(ツ)_/¯)",
       "revId": "471de440a5d7c2e99bcccc68addc1395a7a2ecdc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8182ec1b_c857d611",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2020-12-17T17:17:34Z",
+      "side": 1,
+      "message": "Yeah, Jerome wrote all or nearly all of the manifest merger code so I\u0027ve added him as a reviewer.",
+      "revId": "471de440a5d7c2e99bcccc68addc1395a7a2ecdc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
