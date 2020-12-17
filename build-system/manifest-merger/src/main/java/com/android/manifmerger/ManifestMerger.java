@@ -1163,7 +1163,8 @@ public class ManifestMerger {
                         !destImplied.get() ? "" :   //$NON-NLS-1$
                             "\nNote: main manifest lacks a <uses-sdk android:targetSdkVersion> declaration, which defaults to value minSdkVersion or 1."
                         );
-                result = false;
+                // result = false; Previously, this would cause the 'warning' to be treated as an error for the program return code
+                // for conflicting target SDK to be treated as a warning as described in docs / logs, this should not fail the return code
             }
         }
 
