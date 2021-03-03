@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "023b3a46_f6d0d9f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1055888
+      },
+      "writtenOn": "2021-03-03T05:19:23Z",
+      "side": 1,
+      "message": "This was cherrypicked and merged into our internal repo here:\nhttps://android.googlesource.com/platform/tools/base/+/7512698879f50fca697ab8148e83f4d1927161f3\n\nNow this change can be abandoned.",
+      "revId": "f976a1deecaaaeb788e34c349f69b53fb7ecd5bc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
