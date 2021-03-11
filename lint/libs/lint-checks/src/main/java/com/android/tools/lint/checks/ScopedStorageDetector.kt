@@ -36,7 +36,7 @@ import org.w3c.dom.Element
 
 /**
  * Helps apps transition to using scoped storage, which is described at
- * https://developer.android.com/preview/privacy/storage#scoped-storage.
+ * https://developer.android.com/about/versions/11/privacy/storage.
  *
  * Warns about WRITE_EXTERNAL_STORAGE, which no longer provides write access to files.
  * Warns about MANAGE_EXTERNAL_STORAGE, which is disallowed for most apps.
