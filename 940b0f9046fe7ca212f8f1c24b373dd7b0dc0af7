@@ -22,6 +22,30 @@
       },
       "revId": "940b0f9046fe7ca212f8f1c24b373dd7b0dc0af7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60260728_3d9f049a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1004689
+      },
+      "writtenOn": "2021-03-16T16:02:14Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t know -- you\u0027d have to open the sdk.git project which used to be linked from the tools repo manifest but no longer is.",
+      "parentUuid": "ca00936e_d2aabd2f",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "940b0f9046fe7ca212f8f1c24b373dd7b0dc0af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
