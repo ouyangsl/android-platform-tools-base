@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca00936e_d2aabd2f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2021-03-16T00:26:23Z",
+      "side": 1,
+      "message": "How does one go about finding that sdk.git repository where commit ca3c2001a26a913df84d1ff8e742ca5f2278bc2d exists and these files were copied from? I\u0027d like to dig a bit further into the history of ManifestOrderDetectorTest.java",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "940b0f9046fe7ca212f8f1c24b373dd7b0dc0af7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
