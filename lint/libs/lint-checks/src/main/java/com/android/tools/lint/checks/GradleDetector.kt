@@ -2936,32 +2936,58 @@ open class GradleDetector : Detector(), GradleScanner {
             "com.smile.gifshow.annotation:router_processor"
         )
 
+        // From https://developer.android.com/kotlin/ktx/extensions-list.
+        private val androidModulesWithKtx: Set<String> = setOf(
+            "androidx.activity:activity",
+            "androidx.collection:collection",
+            "androidx.core:core",
+            "androidx.dynamicanimation:dynamicanimation",
+            "androidx.fragment:fragment",
+            "androidx.lifecycle:lifecycle-livedata-core",
+            "androidx.lifecycle:lifecycle-livedata",
+            "androidx.lifecycle:lifecycle-reactivestreams",
+            "androidx.lifecycle:lifecycle-runtime",
+            "androidx.lifecycle:lifecycle-viewmodel",
+            "androidx.navigation:navigation-runtime",
+            "androidx.navigation:navigation-fragment",
+            "androidx.navigation:navigation-ui",
+            "androidx.paging:paging-common",
+            "androidx.paging:paging-runtime",
+            "androidx.paging:paging-rxjava2",
+            "androidx.palette:palette",
+            "androidx.preference:preference",
+            "androidx.slice:slice-builders",
+            "androidx.sqlite:sqlite"
+        )
+
+        private val otherModulesWithKtx: Set<String> = setOf(
+            "com.google.android.play:core",
+            // From https://developers.google.com/maps/documentation/android-sdk/ktx
+            "com.google.maps.android:maps",
+            "com.google.maps.android:maps-v3",
+            "com.google.maps.android:maps-utils",
+            "com.google.maps.android:maps-utils-v3",
+            // From https://developers.google.com/maps/documentation/places/android-sdk/ktx
+            "com.google.places.android:places",
+            "com.google.places.android:places-v3",
+            // From https://firebase.google.com/docs/android/setup#available-libraries
+            "com.google.firebase:firebase-analytics",
+            "com.google.firebase:firebase-auth",
+            "com.google.firebase:firebase-config",
+            "com.google.firebase:firebase-crashlytics",
+            "com.google.firebase:firebase-database",
+            "com.google.firebase:firebase-dynamic-links",
+            "com.google.firebase:firebase-firestore",
+            "com.google.firebase:firebase-functions",
+            "com.google.firebase:firebase-inappmessaging",
+            "com.google.firebase:firebase-inappmessaging-display",
+            "com.google.firebase:firebase-messaging",
+            "com.google.firebase:firebase-perf",
+            "com.google.firebase:firebase-storage"
+        )
+
         private fun libraryHasKtxExtension(mavenName: String): Boolean {
-            // From https://developer.android.com/kotlin/ktx/extensions-list.
-            return when (mavenName) {
-                "androidx.activity:activity",
-                "androidx.collection:collection",
-                "androidx.core:core",
-                "androidx.dynamicanimation:dynamicanimation",
-                "androidx.fragment:fragment",
-                "androidx.lifecycle:lifecycle-livedata-core",
-                "androidx.lifecycle:lifecycle-livedata",
-                "androidx.lifecycle:lifecycle-reactivestreams",
-                "androidx.lifecycle:lifecycle-runtime",
-                "androidx.lifecycle:lifecycle-viewmodel",
-                "androidx.navigation:navigation-runtime",
-                "androidx.navigation:navigation-fragment",
-                "androidx.navigation:navigation-ui",
-                "androidx.paging:paging-common",
-                "androidx.paging:paging-runtime",
-                "androidx.paging:paging-rxjava2",
-                "androidx.palette:palette",
-                "androidx.preference:preference",
-                "androidx.slice:slice-builders",
-                "androidx.sqlite:sqlite",
-                "com.google.android.play:core" -> true
-                else -> false
-            }
+            return mavenName in androidModulesWithKtx || mavenName in otherModulesWithKtx
         }
     }
 }
