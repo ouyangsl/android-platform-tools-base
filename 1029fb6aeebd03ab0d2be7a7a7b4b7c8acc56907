@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82416573_911df54b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1730739
+      },
+      "writtenOn": "2021-04-14T19:14:14Z",
+      "side": 1,
+      "message": "Hi  Tor,\nDo you mind taking a look at this external contribution?\nI did post it on the adt-dev Google Group, but it seems like the message is still pending approval.\n\n\nI\u0027m hoping we could get Android Studio\u0027s lint to also show a warning for non-androidx KTX libraries, since they\u0027re also listed in the Android Docs (https://developer.android.com/kotlin/ktx#other). I\u0027m taking about the Firebase, Maps and Places android libraries.",
+      "revId": "1029fb6aeebd03ab0d2be7a7a7b4b7c8acc56907",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
