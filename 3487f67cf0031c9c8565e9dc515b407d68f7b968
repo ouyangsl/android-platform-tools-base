@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ba6015_6544497d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1099237
+      },
+      "writtenOn": "2021-05-06T22:25:25Z",
+      "side": 1,
+      "message": "There are other places where potentially sensitive values are logged, not just the internal `BuildType` class, it happens across 4 files in total.\nSee all the occurrences here: https://cs.android.com/search?q\u003d%22value%20is%20being%20replaced:%22\u0026sq\u003d\n",
+      "revId": "3487f67cf0031c9c8565e9dc515b407d68f7b968",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
