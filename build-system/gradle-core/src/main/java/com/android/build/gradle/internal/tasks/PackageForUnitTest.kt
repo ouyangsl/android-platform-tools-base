@@ -16,25 +16,23 @@
 
 package com.android.build.gradle.internal.tasks
 
-import com.android.build.gradle.internal.scope.InternalArtifactType.PROCESSED_RES
+import com.android.annotations.NonNull
 import com.android.build.api.component.impl.ComponentPropertiesImpl
 import com.android.build.api.variant.FilterConfiguration
 import com.android.build.api.variant.impl.BuiltArtifactsLoaderImpl
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.scope.InternalArtifactType.MERGED_ASSETS
+import com.android.build.gradle.internal.scope.InternalArtifactType.PROCESSED_RES
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
+import com.android.builder.packaging.PackagingUtils
+import com.android.tools.build.apkzlib.zfile.ApkCreatorFactory
+import com.android.tools.build.apkzlib.zfile.ApkZFileCreatorFactory
+import com.android.tools.build.apkzlib.zfile.NativeLibrariesPackagingMode
+import com.android.tools.build.apkzlib.zip.ZFileOptions
 import com.android.utils.FileUtils
 import com.android.utils.PathUtils
 import com.google.common.base.Joiner
-import java.io.File
-import java.io.IOException
-import java.net.URI
-import java.nio.file.FileSystems
-import java.nio.file.FileVisitResult
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.SimpleFileVisitor
-import java.nio.file.attribute.BasicFileAttributes
+import com.google.common.base.Predicate
 import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
@@ -45,7 +43,14 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
-import java.lang.StringBuilder
+import java.io.File
+import java.io.IOException
+import java.nio.file.FileVisitResult
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.SimpleFileVisitor
+import java.nio.file.attribute.BasicFileAttributes
 
 @CacheableTask
 abstract class PackageForUnitTest : NonIncrementalTask() {
@@ -61,6 +66,9 @@ abstract class PackageForUnitTest : NonIncrementalTask() {
     @get:OutputFile
     abstract val apkForUnitTest: RegularFileProperty
 
+    @NonNull
+    lateinit var noCompressPredict: Predicate<String>
+
     @Throws(IOException::class)
     override fun doTaskAction() {
         // this can certainly be optimized by making it incremental...
@@ -68,11 +76,20 @@ abstract class PackageForUnitTest : NonIncrementalTask() {
         val apkForUnitTest = apkForUnitTest.get().asFile
         FileUtils.copyFile(apkFrom(resApk), apkForUnitTest)
 
-        val uri = URI.create("jar:" + apkForUnitTest.toURI())
-        FileSystems.newFileSystem(uri, emptyMap<String, Any>()).use { apkFs ->
-            val apkAssetsPath = apkFs.getPath("/assets")
-            val mergedAsset= mergedAssets.get()
-            val mergedAssetsPath = mergedAsset.asFile.toPath()
+        val apkAssetsPath = Paths.get("assets")
+        val mergedAsset= mergedAssets.get()
+        val mergedAssetsPath = mergedAsset.asFile.toPath()
+
+        val cf = ApkZFileCreatorFactory(ZFileOptions())
+        // We only use CreationData to compress asset files, so we can use compressed
+        // native libraries packaging mode to avoid checking.
+        val creationData = ApkCreatorFactory.CreationData.builder()
+            .setApkPath(apkForUnitTest)
+            .setNativeLibrariesPackagingMode(NativeLibrariesPackagingMode.COMPRESSED)
+            .setNoCompressPredicate(noCompressPredict)
+            .build()
+
+        cf.make(creationData).use { creator ->
             Files.walkFileTree(mergedAssetsPath, object : SimpleFileVisitor<Path>() {
                 @Throws(IOException::class)
                 override fun visitFile(
@@ -83,8 +100,7 @@ abstract class PackageForUnitTest : NonIncrementalTask() {
                         mergedAssetsPath.relativize(path)
                     )
                     val destPath = apkAssetsPath.resolve(relativePath)
-                    Files.createDirectories(destPath.parent)
-                    Files.copy(path, destPath)
+                    creator.writeFile(path.toFile(), destPath.toString())
                     return FileVisitResult.CONTINUE
                 }
             })
@@ -147,9 +163,32 @@ abstract class PackageForUnitTest : NonIncrementalTask() {
             task: PackageForUnitTest
         ) {
             super.configure(task)
+            val noCompressList = creationConfig.globalScope.extension.aaptOptions.noCompress
+            when {
+                noCompressList.isEmpty() -> {
+                    // If user doesn't set noCompress, we should compress everything.
+                    task.noCompressPredict = Predicate { false }
+                }
+                noCompressList.any { it.isEmpty() } -> {
+                    // If user set empty patter with noCompress, we should not compress anything.
+                    task.noCompressPredict = Predicate { true }
+                }
+                else -> {
+                    // Otherwise, we should check regex pattern for file name.
+                    val noCompressRegex = getNoCompressRegex(noCompressList)
+                    task.noCompressPredict = Predicate { fileName ->
+                        fileName != null && noCompressRegex.matches(fileName)
+                    }
+                }
+            }
+
             val artifacts = creationConfig.artifacts
             artifacts.setTaskInputToFinalProduct(PROCESSED_RES, task.resApk)
             artifacts.setTaskInputToFinalProduct(MERGED_ASSETS, task.mergedAssets)
+        }
+
+        private fun getNoCompressRegex(noCompressList: Collection<String>) : Regex {
+            return "((${Joiner.on("$)|(").join(PackagingUtils.getNoCompressForAapt(noCompressList))}$))".toRegex()
         }
     }
 }
