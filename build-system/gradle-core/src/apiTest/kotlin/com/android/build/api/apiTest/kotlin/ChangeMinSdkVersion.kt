@@ -61,7 +61,7 @@ class ChangeMinSdkVersion: VariantApiBaseTest(TestType.Script) {
             index =
                     // language=markdown
                 """
-# artifacts.get in Kotlin
+# Change MinSdkVersion
 
 This sample show how to change the minSdkVersion for a particular variant. Because the min sdk
 version will impact the build flow, in particular how dexing is performed, it must be provided at
