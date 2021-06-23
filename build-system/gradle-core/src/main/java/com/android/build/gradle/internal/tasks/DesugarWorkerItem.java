@@ -106,7 +106,7 @@ public final class DesugarWorkerItem {
 
                 mainMethod.invoke(null, (Object) args.toArray(new String[0]));
             } catch (Exception e) {
-                LOGGER.error("Error while running desugar ", e);
+                throw new IllegalStateException("Error while running desugar", e);
             }
         }
     }
