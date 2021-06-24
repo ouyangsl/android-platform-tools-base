@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a950f98_dedee199",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1884301
+      },
+      "writtenOn": "2021-06-24T03:56:54Z",
+      "side": 1,
+      "message": "Hi! We found a confused logic in DesugarTask, could you please help us review this? Thanks a lot~",
+      "revId": "9359c57e50e198750f9f2e5ba8727b2fcedfde7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
