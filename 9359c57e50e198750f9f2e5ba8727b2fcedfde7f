@@ -33,6 +33,24 @@
       "message": "Thank you for uploading this change, however Desugar support has been removed in AGP 7.0, so this is not applicable any more.",
       "revId": "9359c57e50e198750f9f2e5ba8727b2fcedfde7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a10eda8b_c8b8136f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1884301
+      },
+      "writtenOn": "2021-07-01T06:16:01Z",
+      "side": 1,
+      "message": "Thanks for your reply! \n\nFeel so sorry I don\u0027t really know the release timeline of AGP, does it means AGP 4.x will not have any extra upgrade any more? If true, I\u0027ll try to submit another change and close this one. \nActually we tried to enable D8 Desugar in our project but find some bad cases (such as some default interfaces not been handled), so we just fallback to DesugarTask. I\u0027m trying to re-product it and solve it.",
+      "parentUuid": "929d726c_1aaf917e",
+      "revId": "9359c57e50e198750f9f2e5ba8727b2fcedfde7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
