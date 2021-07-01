@@ -51,6 +51,24 @@
       "parentUuid": "929d726c_1aaf917e",
       "revId": "9359c57e50e198750f9f2e5ba8727b2fcedfde7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18c3518f_ef4f7778",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106303
+      },
+      "writtenOn": "2021-07-01T07:29:53Z",
+      "side": 1,
+      "message": "We are considering releasing 4.2.2, but it contains only a very small set of changes.\n\nPlease do file D8 desugaring issue, we\u0027d be happy to take a look.",
+      "parentUuid": "a10eda8b_c8b8136f",
+      "revId": "9359c57e50e198750f9f2e5ba8727b2fcedfde7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
