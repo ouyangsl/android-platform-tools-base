@@ -24,6 +24,7 @@ fun main(args: Array<String>) {
     val parser = ArgParser("profgen")
     parser.subcommands(
         BinCommand(),
+        PrintCommand(),
         ValidateCommand(),
     )
     parser.parse(args)
