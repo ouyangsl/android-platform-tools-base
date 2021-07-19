@@ -45,7 +45,6 @@ class BinCommand : Subcommand("bin", "Generate Binary Profile") {
         val obfFile = obfPath?.let { File(it) }
         require(obfFile?.exists() != false) { "File not found: $obfPath" }
 
-
         val outFile = File(outPath)
         require(outFile.parentFile.exists()) { "Directory does not exist: ${outFile.parent}" }
 
@@ -71,7 +70,6 @@ class ValidateCommand : Subcommand("validate", "Validate Profile") {
 class PrintCommand : Subcommand("print", "Print methods matching profile") {
     val hrpPath by argument(ArgType.String, "profile", "File path to Human Readable profile")
     val apkPath by option(ArgType.String, "apk", "a", "File path to apk").required()
-    val outPath by option(ArgType.String, "output", "o", "File path to generated binary profile").required()
     val obfPath by option(ArgType.String, "map", "m", "File path to name obfuscation map")
     override fun execute() {
         val hrpFile = File(hrpPath)
@@ -82,10 +80,6 @@ class PrintCommand : Subcommand("print", "Print methods matching profile") {
 
         val obfFile = obfPath?.let { File(it) }
         require(obfFile?.exists() != false) { "File not found: $obfPath" }
-
-
-        val outFile = File(outPath)
-        require(outFile.parentFile.exists()) { "Directory does not exist: ${outFile.parent}" }
 
         val hrp = readHumanReadableProfileOrExit(hrpFile)
         val apk = Apk(apkFile)
