@@ -18,7 +18,11 @@ package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
 
-/** DSL object to specify whether to include SDK dependency information in APKs and Bundles. */
+/**
+ * DSL object to specify whether to include SDK dependency information in APKs and Bundles.
+ *
+ * More info...
+ */
 interface DependenciesInfo {
 
   /** If false, information about SDK dependencies of an APK will not be added to its signature
