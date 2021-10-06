@@ -18,8 +18,17 @@ package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
 
+<<<<<<< HEAD   (f8bfc4 Merge cherrypicks of [15392998, 15392999, 15393000, 15392965)
 /** DSL object to specify whether to include SDK dependency information in APKs and Bundles. */
 @Incubating
+=======
+/** DSL object to specify whether to include SDK dependency information in APKs and Bundles.
+ * Including dependency information in your APK or Bundle allows Google Play to ensure that
+ * any third-party software your app uses complies with
+ * <a href="https://support.google.com/googleplay/android-developer/topic/9858052">Google Play's Developer Program Policies</a>.
+ * For more information, see the Play Console support page
+ * <a href="https://support.google.com/googleplay/android-developer/answer/10358880">Using third-party SDKs in your app</a>. */
+>>>>>>> CHANGE (f9e876 Add link to explanation about how dependency info file is us)
 interface DependenciesInfo {
 
   /** If false, information about SDK dependencies of an APK will not be added to its signature
