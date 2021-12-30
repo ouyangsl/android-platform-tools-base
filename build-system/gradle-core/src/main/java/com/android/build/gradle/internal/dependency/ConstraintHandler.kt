@@ -38,6 +38,7 @@ import org.gradle.api.services.BuildServiceParameters
  */
 class ConstraintHandler(
     private val srcConfiguration: Configuration,
+    private val dstConfiguration: Configuration,
     private val dependencyHandler: DependencyHandler,
     private val isTest: Boolean,
     private val cachedStringBuildService: Provider<CachedStringBuildService>
@@ -76,10 +77,17 @@ class ConstraintHandler(
                     // instead of the external library as well.
                     // We should avoid doing this for composite builds, so we check if the selected
                     // project is from the current build.
-                    dependencyHandler.add(
-                        configName,
-                        dependencyHandler.project(mapOf("path" to id.projectPath))
-                    )
+
+                    // dependencyHandler.add(
+                    //     configName,
+                    //     dependencyHandler.project(mapOf("path" to id.projectPath))
+                    // )
+
+                    dstConfiguration.resolutionStrategy.dependencySubstitution.let { sb ->
+                        sb.substitute(dependency.requested)
+                                .because(cachedStrings.cacheString("$srcConfigName uses project ${id.projectPath}"))
+                                .with(sb.project(id.projectPath))
+                    }
                 }
             }
         }
