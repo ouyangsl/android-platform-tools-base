@@ -263,6 +263,7 @@ public class VariantDependenciesBuilder {
                     .beforeResolve(
                             new ConstraintHandler(
                                     runtimeClasspath,
+                                    compileClasspath,
                                     project.getDependencies(),
                                     false,
                                     cachedStringBuildServiceProvider));
@@ -276,6 +277,7 @@ public class VariantDependenciesBuilder {
                         .beforeResolve(
                                 new ConstraintHandler(
                                         testedRuntimeClasspath,
+                                        runtimeClasspath,
                                         project.getDependencies(),
                                         true,
                                         cachedStringBuildServiceProvider));
