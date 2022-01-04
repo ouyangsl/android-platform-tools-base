@@ -124,7 +124,7 @@ class AssetNameConverter(private val type: Type, private val name: String) {
       var className = name
       // TODO(qumeric): it should not depend on the order
       STRIP_CLASS_SUFFIXES.forEach {
-        className = className.stripSuffix(it, recursively = true)
+        className = className.stripSuffix(it, recursively = false)
       }
       if (layoutPrefixOverride != null) {
         val prefixAsSuffix = underscoreToCamelCase(layoutPrefixOverride!!)
