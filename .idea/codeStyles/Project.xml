@@ -48,9 +48,9 @@
       </option>
     </GroovyCodeStyleSettings>
     <JavaCodeStyleSettings>
-      <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
-      <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
-      <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
+      <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="1" />
+      <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="1" />
+      <option name="PACKAGES_TO_USE_IMPORT_faLSE_DEMAND">
         <value />
       </option>
       <option name="IMPORT_LAYOUT_TABLE">
