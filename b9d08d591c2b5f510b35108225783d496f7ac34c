@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8600145d_17b7ee45",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106303
+      },
+      "writtenOn": "2022-01-05T14:36:34Z",
+      "side": 1,
+      "message": "Thanks for uploading this change! Sadly we cannot submit it here, but I can work on moving this patch to our current studio-main branch and resolving some merge conflicts.\n\nTo do that, can you please change the \"author\" info for this commit to your gmail account? I can see you have accepted CLA with your gmail email, but not with your @kuaishou.com one (which is currently listed as author).",
+      "revId": "b9d08d591c2b5f510b35108225783d496f7ac34c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
