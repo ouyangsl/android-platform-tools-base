@@ -34,6 +34,24 @@
       "parentUuid": "8600145d_17b7ee45",
       "revId": "b9d08d591c2b5f510b35108225783d496f7ac34c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f15e452_7a0eebaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1106303
+      },
+      "writtenOn": "2022-01-06T19:25:57Z",
+      "side": 1,
+      "message": "This is now merged as https://cs.android.com/android-studio/platform/tools/base/+/874c7180e449474bac74ca4393b4e4146f12f0c2. Thanks!",
+      "parentUuid": "d1a30cd8_7aef95de",
+      "revId": "b9d08d591c2b5f510b35108225783d496f7ac34c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
