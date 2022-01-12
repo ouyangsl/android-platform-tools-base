@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49f8f99d_6ac5438f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083168
+      },
+      "writtenOn": "2022-01-12T21:36:55Z",
+      "side": 1,
+      "message": "As is, this CL cannot be merged.\n\n1/ The problem it addresses is not clearly stated. I invite you to fill a bug (https://b.corp.google.com/issues?q\u003dcomponentid:192708) and add the reproduction steps. \n\n2/ Hard-coding the timeunit and disregarding the one passed to the function breaks the API contract.\n\nPlease fix these two issues and add me (sanglardf) back to take another look at this CL.",
+      "revId": "c0385e1b501029738e6036192b6dd9f1bc08ddfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
