@@ -51,6 +51,23 @@
       "message": "I\u0027ll let Fabien review this change, but I think the fix is correct isn\u0027t it? \n\nThe problem is rounding. So when we get how much time is left, and we do it in the provided units. If the units are minutes, it will round down to the next minute. So you say timeout 2 minutes, the first call takes 2 seconds, and the remaining won\u0027t be 1:58 minutes, it will be 1 minute.",
       "revId": "c0385e1b501029738e6036192b6dd9f1bc08ddfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16674a05_d0e6819f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1083168
+      },
+      "writtenOn": "2022-01-13T19:44:50Z",
+      "side": 1,
+      "message": "1/ Use this link to fill a bug and enter the description of the problem there (https://issuetracker.google.com/issues?q\u003dcomponentid:192708). CC sanglardf@google.com on the bug.\n\n2/ Change the commit message to:\n-------------\nFix Ddmlib timeout error due to rounding\n\nProblem: DDMLib uses user provided timeunit which can result in sooner than expected zero value due to rounding when using Minutes or Seconds.\n\nSolution: Pass down timeout using nanosecond timeunit.\n-------------",
+      "revId": "c0385e1b501029738e6036192b6dd9f1bc08ddfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
