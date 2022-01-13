@@ -68,6 +68,24 @@
       "message": "1/ Use this link to fill a bug and enter the description of the problem there (https://issuetracker.google.com/issues?q\u003dcomponentid:192708). CC sanglardf@google.com on the bug.\n\n2/ Change the commit message to:\n-------------\nFix Ddmlib timeout error due to rounding\n\nProblem: DDMLib uses user provided timeunit which can result in sooner than expected zero value due to rounding when using Minutes or Seconds.\n\nSolution: Pass down timeout using nanosecond timeunit.\n-------------",
       "revId": "c0385e1b501029738e6036192b6dd9f1bc08ddfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aff0807_9fb1f18c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1077723
+      },
+      "writtenOn": "2022-01-13T20:09:42Z",
+      "side": 1,
+      "message": "If this is indeed the problem, then this fix is only fixing a single use case. To fix the root issue, we should fix the `getRemainingUnits()` method to round up instead, no?",
+      "parentUuid": "a8228496_dc7becae",
+      "revId": "c0385e1b501029738e6036192b6dd9f1bc08ddfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
