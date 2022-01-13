@@ -16,6 +16,24 @@
       "message": "As is, this CL cannot be merged.\n\n1/ The problem it addresses is not clearly stated. I invite you to fill a bug (https://b.corp.google.com/issues?q\u003dcomponentid:192708) and add the reproduction steps. \n\n2/ Hard-coding the timeunit and disregarding the one passed to the function breaks the API contract.\n\nPlease fix these two issues and add me (sanglardf) back to take another look at this CL.",
       "revId": "c0385e1b501029738e6036192b6dd9f1bc08ddfd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6b69a46_756b7822",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1933058
+      },
+      "writtenOn": "2022-01-13T14:10:58Z",
+      "side": 1,
+      "message": "Well , I\u0027m not employee of Google , so I cannot follow your link (https://b.corp.google.com/issues?q\u003dcomponentid:192708) , but let me express this issue more clearly.\n\n1. Phenomenon\nIf I try to start AndroidDebugBridge with `create bridge with timeout ` function  like :\n```\nAndroidDebugBridge.createBridge(\"adb\", false, 1, TimeUnit.MINUTES);\n```\nThe bridge will not actually start , and I\u0027ll get the following error log :\n```\nE/ddms: \u0027adb start-server\u0027 failed -- run manually if necessary`\n```\n\n2. Reproduce\nThis problem can be reproduced easily with the following start up code:\n```\nAndroidDebugBridge.createBridge(\"adb\", false, 1, TimeUnit.MINUTES);\nor\nAndroidDebugBridge.createBridge(\"adb\", false, 2, TimeUnit.MINUTES);\nor\nAndroidDebugBridge.createBridge(\"adb\", false, 1, TimeUnit.HOURS);\nor\nAndroidDebugBridge.createBridge(\"adb\", false, 2, TimeUnit.HOURS);\n...\n```\nMore  precisely, whatever the unit is ,if the number is less than 3 , then adb will not be started correctly.\n\n3. Root Cause\nLet\u0027s focus on line 548 and line 1501 of AndroidDebugBridge.java :\n\n```\nif (!localThis.start(rem.getRemainingUnits(), unit)) { //line 548\n  // Note: Don\u0027t return here, as we want to notify listeners\n  localThis \u003d null;\n}\n```\n\n```\nif (process.waitFor(rem.getRemainingUnits(), unit)) {//line 1501\n  return process.exitValue();\n} else {\n  Log.w(ADB, \"Process did not terminate within specified timeout, killing it\");\n  process.destroyForcibly();\n  return -1;\n}\n```\n\n`rem.getRemainingUnits` will calculate the remaining time instantly in user given unit , which means if the time set by user is \u00272 minutes\u0027 , and the remaining time is \u00271 minute 59 seconds \u0027 ,then the result of `rem.getRemainingUnits` will be \u00271\u0027 . Which means whaterver shorter the time passed by is , the minimum  decrement of time is always \u00271 minute\u0027 in this case.\n\nGenerally speaking , whatever time the user is set ,the number of that restriction will always be decreased by 2 in the final `process.waitFor` check , because of the two code blocks above.\n\n\n4. Solution\nAs discussed above , the root cause is to use user given unit in internal function call . If the user passes a large unit , then the precision loss will also be large. If we use nano unit to pass , then everything will be ok. And I think it is not sort of hard-coding , because the minium unit is nano , it won\u0027t cause any precision loss.",
+      "parentUuid": "49f8f99d_6ac5438f",
+      "revId": "c0385e1b501029738e6036192b6dd9f1bc08ddfd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
