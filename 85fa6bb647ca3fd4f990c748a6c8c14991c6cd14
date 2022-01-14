@@ -52,6 +52,23 @@
       "parentUuid": "36c4ace6_69dc01aa",
       "revId": "85fa6bb647ca3fd4f990c748a6c8c14991c6cd14",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74f5c09b_d1ab6f61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047453
+      },
+      "writtenOn": "2022-01-14T19:38:02Z",
+      "side": 1,
+      "message": "Thank you so much for taking the time to upload a fix! we are incorporating it in our internal branch and it will be available in the next builds. This change can be abandoned now.\n\nThanks!",
+      "revId": "85fa6bb647ca3fd4f990c748a6c8c14991c6cd14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
