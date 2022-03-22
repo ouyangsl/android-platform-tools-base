@@ -151,6 +151,7 @@ public class AndroidAutoDetector extends Detector implements XmlScanner, SourceC
     private static final String VAL_NAME_NOTIFICATION = "notification";
     private static final String VAL_NAME_SMS = "sms";
     private static final String VAL_NAME_TEMPLATE = "template";
+    private static final String VAL_NAME_VIDEO = "video";
     private static final String TAG_AUTOMOTIVE_APP = "automotiveApp";
     private static final String ATTR_RESOURCE = "resource";
     private static final String TAG_USES = "uses";
@@ -262,8 +263,9 @@ public class AndroidAutoDetector extends Detector implements XmlScanner, SourceC
                 String attrValue = child.getAttribute(ATTR_NAME);
                 if (VAL_NAME_MEDIA.equals(attrValue)) {
                     mIsAutomotiveMediaApp |= isMetadataResource;
-                } else if (VAL_NAME_TEMPLATE.equals(attrValue)
-                        || VAL_NAME_NOTIFICATION.equals(attrValue)) {
+                 } else if (VAL_NAME_TEMPLATE.equals(attrValue)
+                           || VAL_NAME_NOTIFICATION.equals(attrValue)
+                           || VAL_NAME_VIDEO.equals(attrValue)) {
                     continue;
                 } else if (context.isEnabled(INVALID_USES_TAG_ISSUE)) {
                     // Error invalid value for attribute.
