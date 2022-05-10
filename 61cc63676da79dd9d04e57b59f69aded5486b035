@@ -16,6 +16,29 @@
       "message": "If you think of anymore SPLASH_SCREEN_KEYWORDS let me know",
       "revId": "61cc63676da79dd9d04e57b59f69aded5486b035",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fdd7bc6_58f55dd0",
+        "filename": "lint/libs/lint-checks/src/main/java/com/android/tools/lint/checks/SplashScreenDetector.kt",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1143408
+      },
+      "writtenOn": "2022-05-10T08:14:11Z",
+      "side": 1,
+      "message": "actually we could just look for \"Splash\", \"Launch\" and \"Routing\" because line 41 checks whether the class name _contains_ any of the words. LGTM otherwise",
+      "range": {
+        "startLine": 62,
+        "startChar": 51,
+        "endLine": 62,
+        "endChar": 137
+      },
+      "revId": "61cc63676da79dd9d04e57b59f69aded5486b035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
