@@ -215,7 +215,12 @@ java_import(
     ],
 )
 
-# Version-specific rule public for now to allow easier migration.
+# Version-specific rule public to allow easier migration.
+platform_filegroup(
+    name = "platforms/android-33",
+    visibility = ["//visibility:public"],
+)
+
 platform_filegroup(
     name = "platforms/android-32",
     visibility = ["//visibility:public"],
