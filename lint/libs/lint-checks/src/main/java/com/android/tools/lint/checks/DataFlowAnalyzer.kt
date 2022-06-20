@@ -197,7 +197,13 @@ abstract class DataFlowAnalyzer(
                         instances.add(parent)
                     }
                 }
-                val type = (element as? UExpression)?.getExpressionType() as? PsiClassType
+
+                val type = when (element) {
+                    is UExpression -> element.getExpressionType()
+                    is UField -> element.type
+                    else -> null
+                } as? PsiClassType
+
                 type?.resolve()?.let { types.add(it) }
             }
         }
