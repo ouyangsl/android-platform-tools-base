@@ -16,6 +16,24 @@
       "message": "This has to be done in the internal studio-main branch (this is just a read-only mirror branch) -- go/repo-init/studio-main\n(I\u0027m happy to cherry-pick this directly for you if you want)",
       "revId": "13e624ca7df517651c9ce54fa5bc14210e56866b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f41e4e43_79a09224",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2022-07-18T21:37:32Z",
+      "side": 1,
+      "message": "Yes, please do! I mistakenly tried to change it using cs.android.",
+      "parentUuid": "affa7f03_399c47a3",
+      "revId": "13e624ca7df517651c9ce54fa5bc14210e56866b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
