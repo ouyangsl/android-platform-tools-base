@@ -422,7 +422,7 @@ internal class SingleInitialProviderRequestImpl<TASK: Task, FILE_TYPE: FileSyste
         return this
     }
 
-    fun withName(nameProperty: Property<String>): SingleInitialProviderRequestImpl<TASK, FILE_TYPE> {
+    fun withName(nameProperty: Provider<String>): SingleInitialProviderRequestImpl<TASK, FILE_TYPE> {
         fileName.set(nameProperty)
         return this
     }
