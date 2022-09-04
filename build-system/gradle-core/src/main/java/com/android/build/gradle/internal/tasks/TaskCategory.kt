@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.android.ide.common.attribution
+package com.android.build.gradle.internal.tasks
 
 /**
-* Enum class for Category-Based Task Analyzer for Build Analyzer.
-* Each field corresponds to a specific atomic function/execution of a task.
-* Each task has at least 1 field.
+ * Enum class for Category-Based Task Analyzer for Build Analyzer.
+ * Each field corresponds to a specific atomic function/execution of a task.
  **/
-enum class TaskCategoryLabel {
+enum class TaskCategory {
     // Tasks that perform compilation-related actions
     COMPILATION,
     // Tasks that perform test invocation or execution
@@ -80,6 +79,7 @@ enum class TaskCategoryLabel {
     LINKING,
     MERGING,
     FUSING,
+    COMPILED_CLASSES,
     // org.gradle tasks - No tasks in AGP should have this annotation label
     GRADLE,
     // Various tasks that do not fall into any other category
