@@ -35,20 +35,20 @@ import com.android.build.gradle.internal.ide.CustomSourceDirectoryImpl
 import com.android.builder.model.v2.CustomSourceDirectory
 import com.android.builder.model.SourceProvider
 import com.android.utils.appendCapitalized
+import com.google.common.base.CaseFormat
 import groovy.lang.Closure
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.NamedDomainObjectFactory
 import org.gradle.api.Project
 import org.gradle.api.tasks.SourceSet
-import org.gradle.util.ConfigureUtil
-import org.gradle.util.GUtil
 import java.io.File
 import javax.inject.Inject
 
 open class DefaultAndroidSourceSet @Inject constructor(
     private val name: String,
-    project: Project,
+    // Avoid using, this is needed only to allow applying Closure(s).
+    private val project: Project,
     private val publishPackage: Boolean
 ) : AndroidSourceSet, SourceProvider {
 
@@ -65,7 +65,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     final override val jniLibs: AndroidSourceDirectorySet
     final override val shaders: AndroidSourceDirectorySet
     final override val mlModels: AndroidSourceDirectorySet
-    private val displayName : String = GUtil.toWords(this.name)
+    private val displayName : String = convertNameToDisplayName()
 
     init {
         java = DefaultAndroidSourceDirectorySet(
@@ -185,7 +185,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun manifest(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, manifest)
+        project.configure(manifest, configureClosure)
         return this
     }
 
@@ -194,7 +194,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun res(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, res)
+        project.configure(res, configureClosure)
         return this
     }
 
@@ -203,7 +203,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun assets(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, assets)
+        project.configure(assets, configureClosure)
         return this
     }
 
@@ -212,7 +212,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun aidl(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, aidl)
+        project.configure(aidl, configureClosure)
         return this
     }
 
@@ -221,7 +221,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun renderscript(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, renderscript)
+        project.configure(renderscript, configureClosure)
         return this
     }
 
@@ -230,7 +230,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun jni(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, jni)
+        project.configure(jni, configureClosure)
         return this
     }
 
@@ -239,7 +239,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun jniLibs(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, jniLibs)
+        project.configure(jniLibs, configureClosure)
         return this
     }
 
@@ -248,7 +248,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun shaders(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, shaders)
+        project.configure(shaders, configureClosure)
         return this
     }
 
@@ -257,7 +257,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun mlModels(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, mlModels)
+        project.configure(mlModels, configureClosure)
         return this
     }
 
@@ -266,7 +266,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun java(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, java)
+        project.configure(java, configureClosure)
         return this
     }
 
@@ -279,7 +279,7 @@ open class DefaultAndroidSourceSet @Inject constructor(
     }
 
     override fun resources(configureClosure: Closure<*>): AndroidSourceSet {
-        ConfigureUtil.configure(configureClosure, resources)
+        project.configure(resources, configureClosure)
         return this
     }
 
@@ -407,5 +407,10 @@ open class DefaultAndroidSourceSet @Inject constructor(
                     it.srcDir("src/$sourceSetName/$name")
             }
         }
+    }
+
+    /** Converts name to display name e.g. "fooDebug" (camel case) to "foo debug". */
+    private fun convertNameToDisplayName(): String {
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, name).replace("-", " ")
     }
 }

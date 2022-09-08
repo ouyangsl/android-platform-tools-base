@@ -24,6 +24,7 @@ import com.android.build.api.artifact.MultipleArtifact
 import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.dsl.DataBinding
+import com.android.build.api.dsl.Device
 import com.android.build.api.dsl.DeviceGroup
 import com.android.build.api.instrumentation.FramesComputationMode
 import com.android.build.api.transform.QualifiedContent
@@ -38,7 +39,9 @@ import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.ApplicationCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.ConsumableCreationConfig
+import com.android.build.gradle.internal.component.DynamicFeatureCreationConfig
 import com.android.build.gradle.internal.component.InstrumentedTestCreationConfig
+import com.android.build.gradle.internal.component.LibraryCreationConfig
 import com.android.build.gradle.internal.component.NestedComponentCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestCreationConfig
@@ -82,7 +85,6 @@ import com.android.build.gradle.internal.scope.InternalArtifactType.FEATURE_RESO
 import com.android.build.gradle.internal.scope.InternalArtifactType.JACOCO_INSTRUMENTED_CLASSES
 import com.android.build.gradle.internal.scope.InternalArtifactType.JACOCO_INSTRUMENTED_JARS
 import com.android.build.gradle.internal.scope.InternalArtifactType.JAVAC
-import com.android.build.gradle.internal.scope.InternalArtifactType.JAVA_RES
 import com.android.build.gradle.internal.scope.InternalArtifactType.MERGED_JAVA_RES
 import com.android.build.gradle.internal.scope.InternalArtifactType.MERGED_RES
 import com.android.build.gradle.internal.scope.InternalArtifactType.PACKAGED_RES
@@ -1773,7 +1775,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
                 ManagedDeviceCleanTask.CreationAction(
                     "cleanManagedDevices",
                     globalConfig,
-                    managedDevices))
+                    managedDevices.filterIsInstance<ManagedVirtualDevice>()))
         val allDevices = taskFactory.register(
             ALL_DEVICES_CHECK
         ) { allDevicesCheckTask: Task ->
@@ -1783,12 +1785,15 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         }
 
         for (device in managedDevices) {
-            val setupTask = taskFactory.register(
-                ManagedDeviceSetupTask.CreationAction(
-                    setupTaskName(device),
-                    device,
-                    globalConfig))
-            setupTask.configure {
+            val setupTask = when (device) {
+                is ManagedVirtualDevice -> taskFactory.register(
+                    ManagedDeviceSetupTask.CreationAction(
+                        setupTaskName(device),
+                        device,
+                        globalConfig))
+                else -> null
+            }
+            setupTask?.configure {
                 it.mustRunAfter(cleanTask)
             }
 
@@ -1827,7 +1832,6 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
     protected fun createTestDevicesForVariant(
         creationConfig: InstrumentedTestCreationConfig,
         testData: AbstractTestDataImpl,
-        testedVariant: VariantCreationConfig?,
         variantName: String,
         testTaskSuffix: String = ""
     ) {
@@ -1835,7 +1839,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         if (!shouldEnableUtp(
                 globalConfig.services.projectOptions,
                 globalConfig.testOptions,
-                testedVariant?.componentType
+                (creationConfig as? NestedComponentCreationConfig)?.mainVariant?.componentType
             ) ||
                 managedDevices.isEmpty()) {
             return
@@ -1882,18 +1886,21 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
 
         val deviceToProvider = mutableMapOf<String, TaskProvider<out Task>>()
         for (managedDevice in managedDevices) {
-            val managedDeviceTestTask = taskFactory.register(
-                ManagedDeviceInstrumentationTestTask.CreationAction(
-                    creationConfig,
-                    managedDevice,
-                    testData,
-                    File(resultsDir, managedDevice.name),
-                    File(reportDir, managedDevice.name),
-                    File(additionalTestOutputDir, managedDevice.name),
-                    File(coverageOutputDir, managedDevice.name),
-                    testTaskSuffix
+            val managedDeviceTestTask = when (managedDevice) {
+                is ManagedVirtualDevice -> taskFactory.register(
+                    ManagedDeviceInstrumentationTestTask.CreationAction(
+                        creationConfig,
+                        managedDevice,
+                        testData,
+                        File(resultsDir, managedDevice.name),
+                        File(reportDir, managedDevice.name),
+                        File(additionalTestOutputDir, managedDevice.name),
+                        File(coverageOutputDir, managedDevice.name),
+                        testTaskSuffix
+                    )
                 )
-            )
+                else -> error("Unsupported managed device type: ${managedDevice.javaClass}")
+            }
             managedDeviceTestTask.dependsOn(setupTaskName(managedDevice))
             allDevicesVariantTask.dependsOn(managedDeviceTestTask)
             taskFactory.configure(
@@ -1932,8 +1939,8 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
 
         // Register a test coverage report generation task to every managedDeviceCheck
         // task.
-        if ((testedVariant?.isAndroidTestCoverageEnabled == true) &&
-                creationConfig is TestComponentCreationConfig) {
+        if (creationConfig is TestComponentCreationConfig &&
+            creationConfig.isAndroidTestCoverageEnabled) {
             val jacocoAntConfiguration = JacocoConfigurations.getJacocoAntTaskConfiguration(
                 project, JacocoTask.getJacocoVersion(creationConfig)
             )
@@ -1942,7 +1949,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
                     creationConfig, jacocoAntConfiguration
                 )
             )
-            testedVariant.taskContainer.coverageReportTask?.dependsOn(reportTask)
+            creationConfig.mainVariant.taskContainer.coverageReportTask?.dependsOn(reportTask)
             // Run the report task after all tests are finished on all devices.
             deviceToProvider.values.forEach { managedDeviceTestTask ->
                 reportTask.dependsOn(managedDeviceTestTask)
@@ -2010,7 +2017,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         taskFactory.configure(
                 CONNECTED_ANDROID_TEST
         ) { connectedAndroidTest: Task -> connectedAndroidTest.dependsOn(connectedTask) }
-        if (testedVariant.isAndroidTestCoverageEnabled) {
+        if (androidTestProperties.isAndroidTestCoverageEnabled) {
             val jacocoAntConfiguration = JacocoConfigurations.getJacocoAntTaskConfiguration(
                     project, JacocoTask.getJacocoVersion(androidTestProperties))
             val reportTask = taskFactory.register(
@@ -2062,7 +2069,6 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         createTestDevicesForVariant(
             androidTestProperties,
             testData,
-            testedVariant,
             androidTestProperties.mainVariant.name
         )
     }
@@ -2166,7 +2172,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         if (creationConfig.componentType.isDynamicFeature) {
             taskFactory.register(FeatureDexMergeTask.CreationAction(creationConfig))
         }
-        createDexTasks(creationConfig, creationConfig.dexingType, false)
+        createDexTasks(creationConfig, creationConfig.dexingType)
     }
 
     /**
@@ -2175,8 +2181,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
      */
     private fun createDexTasks(
             creationConfig: ApkCreationConfig,
-            dexingType: DexingType,
-            registeredLegacyTransforms: Boolean) {
+            dexingType: DexingType) {
         val java8LangSupport = creationConfig.getJava8LangSupportType()
         val supportsDesugaringViaArtifactTransform =
                 (java8LangSupport == Java8LangSupport.UNUSED
@@ -2195,13 +2200,11 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         val enableDexingArtifactTransform = (creationConfig
                 .services
                 .projectOptions[BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM]
-                && !registeredLegacyTransforms
                 && supportsDesugaringViaArtifactTransform)
                 && !classesAlteredTroughVariantAPI
         val classpathUtils = ClassesClasspathUtils(
             creationConfig,
             enableDexingArtifactTransform,
-            registeredLegacyTransforms,
             classesAlteredTroughVariantAPI
         )
         taskFactory.register(
@@ -2350,8 +2353,8 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         }
     }
 
-    protected fun handleJacocoDependencies(creationConfig: ComponentCreationConfig) {
-        if (creationConfig.packageJacocoRuntime) {
+    private fun handleJacocoDependencies(creationConfig: ComponentCreationConfig) {
+        if (creationConfig is ApkCreationConfig && creationConfig.packageJacocoRuntime) {
             val jacocoAgentRuntimeDependency = JacocoConfigurations.getAgentRuntimeDependency(
                     JacocoTask.getJacocoVersion(creationConfig))
             project.dependencies
@@ -2367,25 +2370,6 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
                         r.force(jacocoAgentRuntimeDependency)
                     }
             taskFactory.register(JacocoPropertiesTask.CreationAction(creationConfig))
-        }
-    }
-
-    private fun createJacocoTaskWithLegacyTransformSupport(creationConfig: ComponentCreationConfig) {
-        // Assume the following is true
-        // * test coverage is enabled
-        // * BooleanOption ENABLE_JACOCO_TRANSFORM_INSTRUMENTATION=true
-        // * a legacy transform is registered
-
-        val classesFromLegacyTransforms =
-            creationConfig.transformManager.getPipelineOutputAsFileCollection(
-                { _, _ -> true},
-                { types, _ -> types.contains(
-                    com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES) }
-            )
-
-        if (creationConfig is ApplicationCreationConfig) {
-        taskFactory.register(
-            JacocoTask.CreationActionLegacyTransform(creationConfig, classesFromLegacyTransforms))
         }
     }
 
@@ -2405,8 +2389,9 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         }
 
         val instrumentedClasses: FileCollection =
-            if (creationConfig.isAndroidTestCoverageEnabled &&
-                    creationConfig !is ApplicationCreationConfig) {
+            if (creationConfig is ConsumableCreationConfig &&
+                creationConfig.isAndroidTestCoverageEnabled &&
+                creationConfig !is ApplicationCreationConfig) {
                 // For libraries that can be published,avoid publishing classes
                 // with runtime dependencies on Jacoco.
                 creationConfig.artifacts
@@ -2986,8 +2971,8 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
                 .taskContainer
                 .assetGenTask =
                 taskFactory.register(creationConfig.computeTaskName("generate", "Assets"))
-        if (!creationConfig.componentType.isForTesting
-                && creationConfig.isAndroidTestCoverageEnabled) {
+        // Create anchor task for creating instrumentation test coverage reports
+        if (creationConfig is VariantCreationConfig && creationConfig.isAndroidTestCoverageEnabled) {
             creationConfig
                     .taskContainer
                     .coverageReportTask = taskFactory.register(
@@ -2995,7 +2980,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             ) { task: Task ->
                 task.group = JavaBasePlugin.VERIFICATION_GROUP
                 task.description = String.format(
-                        "Creates test coverage reports for the %s variant.",
+                        "Creates instrumentation test coverage reports for the %s variant.",
                         creationConfig.name)
             }
         }
@@ -3302,21 +3287,12 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         }
     }
 
-    private fun getManagedDevices(): List<ManagedVirtualDevice> {
-        val managedDevices = mutableListOf<ManagedVirtualDevice>()
-        // First add devices from within the managed device block in testOptions.
-        extension
+    private fun getManagedDevices(): List<Device> {
+        return extension
             .testOptions
             .managedDevices
             .devices
-            .forEach { device ->
-                if (device is ManagedVirtualDevice) {
-                    managedDevices.add(device)
-                } else {
-                    error("Unsupported managed device type: ${device.javaClass}")
-                }
-            }
-        return managedDevices
+            .toList()
     }
 
     private fun getDeviceGroups(): Collection<DeviceGroup> =

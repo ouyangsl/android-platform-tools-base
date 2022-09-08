@@ -44,7 +44,7 @@ class FakeAdbSession : AdbSession {
 
     override val host: AdbSessionHost = FakeAdbSessionHost()
 
-    override val channelFactory: AdbChannelFactory = AdbChannelFactoryImpl(host)
+    override val channelFactory: AdbChannelFactory = AdbChannelFactoryImpl(this)
 
     override fun close() {
         (cache as CoroutineScopeCacheImpl).close()
