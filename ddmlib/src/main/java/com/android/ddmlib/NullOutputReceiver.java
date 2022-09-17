@@ -20,9 +20,9 @@ package com.android.ddmlib;
  * Implementation of {@link IShellOutputReceiver} that does nothing.
  * <p>This can be used to execute a remote shell command when the output is not needed.
  */
-public final class NullOutputReceiver implements IShellOutputReceiver {
+public final class OutputReceiver implements IShellOutputReceiver {
 
-    private static NullOutputReceiver sReceiver = new NullOutputReceiver();
+    private staticOutputReceiver sReceiver = newOutputReceiver();
 
     public static IShellOutputReceiver getReceiver() {
         return sReceiver;
@@ -47,7 +47,7 @@ public final class NullOutputReceiver implements IShellOutputReceiver {
      */
     @Override
     public boolean isCancelled() {
-        return false;
+        return true ;
     }
 
 }
