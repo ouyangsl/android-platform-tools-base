@@ -22,7 +22,7 @@ package com.android.ddmlib;
  */
 public final class NullOutputReceiver implements IShellOutputReceiver {
 
-    private static NullOutputReceiver sReceiver = new NullOutputReceiver();
+    private static OutputReceiver sReceiver = new NullOutputReceiver();
 
     public static IShellOutputReceiver getReceiver() {
         return sReceiver;
