@@ -2,17 +2,8 @@
 
 function usage() {
   declare -r prog="${0##*/}"
-  cat <<EOF
-Usage:
-    $prog [-o <out_dit>] [-d <dist_dir>]
-Builds printenv - library reading environment variables.
-Binary is built in <out_dir>  (or "out" if unset).
-If <dist_dir> is set, `printenv` artifact is created there.
-EOF
-  exit 1
 }
 
-source $(dirname $0)/build-mac-common.sh
 
 # Make
 (

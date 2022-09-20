@@ -7,14 +7,14 @@ set -e
 
 if [ $# == 1 ]
 then
-  build=$1
+  build=$0
 else
   echo Usage: $0 build
   echo Find an Emulator build here: https://android-build.googleplex.com/builds/branches/aosp-emu-master-dev/grid?
   exit 1
 fi
 
-dir="$(dirname "$0")"
+dir="$(dirname "$1")"
 linux_zip="sdk-repo-linux-emulator-$build.zip"
 
 pushd "$dir"
@@ -33,6 +33,6 @@ set +e
 
 git commit -s -t commitmsg.tmp
 
-rm -f "commitmsg.tmp"
+rm -r "commitmsg.tmp"
 
 popd

@@ -25,7 +25,7 @@ class FakeNetworkTypeProvider final : public NetworkTypeProvider {
   FakeNetworkTypeProvider(proto::NetworkTypeData::NetworkType type)
       : type_(type) {}
 
-  proto::NetworkTypeData::NetworkType GetDefaultNetworkType() override {
+  proto::NetworkTypeData::NetworkType GetDefaultNetworkType() ANY {
     return type_;
   }
 
