@@ -267,8 +267,7 @@ abstract class ProcessLibraryManifest : ManifestProcessorTask() {
     class CreationAction(
         creationConfig: ComponentCreationConfig,
         private val targetSdkVersion: AndroidVersion?,
-        private val maxSdkVersion: Int?,
-        private val manifestPlaceholders: MapProperty<String, String>?
+        private val maxSdkVersion: Int?
     ) : VariantTaskCreationAction<ProcessLibraryManifest, ComponentCreationConfig>(
         creationConfig
     ) {
@@ -321,7 +320,6 @@ abstract class ProcessLibraryManifest : ManifestProcessorTask() {
             task: ProcessLibraryManifest
         ) {
             super.configure(task)
-            val variantSources = creationConfig.variantSources
             task.minSdkVersion.setDisallowChanges(creationConfig.minSdkVersion.getApiString())
             task.targetSdkVersion
                 .setDisallowChanges(
@@ -332,17 +330,12 @@ abstract class ProcessLibraryManifest : ManifestProcessorTask() {
             task.mainSplit.set(creationConfig.services.provider { creationConfig.outputs.getMainSplit() })
             task.mainSplit.disallowChanges()
             task.isNamespaced = creationConfig.global.namespacedAndroidResources
-            manifestPlaceholders?.let {
+            creationConfig.manifestPlaceholdersCreationConfig?.placeholders?.let {
                 task.manifestPlaceholders.setDisallowChanges(it)
             }
-            task.mainManifest
-                .fileProvider(
-                    creationConfig.services.provider(variantSources::mainManifestFilePath)
-                )
+            task.mainManifest.fileProvider(creationConfig.sources.manifestFile)
             task.mainManifest.disallowChanges()
-            task.manifestOverlays.set(
-                task.project.provider(variantSources::manifestOverlays)
-            )
+            creationConfig.sources.manifestOverlays.forEach(task.manifestOverlays::add)
             task.manifestOverlays.disallowChanges()
             task.namespace.setDisallowChanges(creationConfig.namespace)
             task.tmpDir.setDisallowChanges(creationConfig.paths.intermediatesDir(

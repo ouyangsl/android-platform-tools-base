@@ -38,6 +38,8 @@ PrivacySandboxSdkInternalArtifactType<T : FileSystemLocation>(
     object ASAR: PrivacySandboxSdkInternalArtifactType<RegularFile>(ArtifactKind.FILE, category = Category.OUTPUTS), Replaceable
 
     object LINKED_MERGE_RES_FOR_ASB: PrivacySandboxSdkInternalArtifactType<RegularFile>(ArtifactKind.FILE), Replaceable
+    object RUNTIME_SYMBOL_LIST: PrivacySandboxSdkInternalArtifactType<RegularFile>(ArtifactKind.FILE)
+    object RUNTIME_R_CLASS: PrivacySandboxSdkInternalArtifactType<RegularFile>(ArtifactKind.FILE)
     object MODULE_BUNDLE: PrivacySandboxSdkInternalArtifactType<RegularFile>(ArtifactKind.FILE), Replaceable
     object APP_METADATA: PrivacySandboxSdkInternalArtifactType<RegularFile>(FILE), Replaceable
 
@@ -53,6 +55,8 @@ PrivacySandboxSdkInternalArtifactType<T : FileSystemLocation>(
     object DEX_ARCHIVE_INPUT_JAR_HASHES: PrivacySandboxSdkInternalArtifactType<RegularFile>(ArtifactKind.FILE), Replaceable
 
     object DESUGAR_GRAPH: PrivacySandboxSdkInternalArtifactType<Directory>(ArtifactKind.DIRECTORY), Replaceable
+    object GLOBAL_SYNTHETICS_ARCHIVE: PrivacySandboxSdkInternalArtifactType<Directory>(ArtifactKind.DIRECTORY), Replaceable
 
     object DEX: PrivacySandboxSdkInternalArtifactType<Directory>(ArtifactKind.DIRECTORY), Replaceable
+    object R_PACKAGE_DEX: PrivacySandboxSdkInternalArtifactType<Directory>(ArtifactKind.DIRECTORY), Replaceable
 }

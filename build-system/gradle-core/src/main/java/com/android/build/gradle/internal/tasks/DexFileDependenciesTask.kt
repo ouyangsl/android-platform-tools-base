@@ -17,12 +17,14 @@
 package com.android.build.gradle.internal.tasks
 
 import com.android.build.api.variant.impl.getFeatureLevel
-import com.android.build.gradle.internal.component.ConsumableCreationConfig
+import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.errors.MessageReceiverImpl
 import com.android.build.gradle.internal.profile.ProfileAwareWorkAction
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
+import com.android.build.gradle.internal.tasks.factory.features.DexingTaskCreationAction
+import com.android.build.gradle.internal.tasks.factory.features.DexingTaskCreationActionImpl
 import com.android.build.gradle.internal.utils.getDesugarLibConfig
 import com.android.build.gradle.internal.utils.setDisallowChanges
 import com.android.build.gradle.options.SyncOptions
@@ -30,7 +32,7 @@ import com.android.builder.dexing.ClassFileInputs
 import com.android.builder.dexing.DexArchiveBuilder
 import com.android.builder.dexing.DexParameters
 import com.android.builder.dexing.r8.ClassFileProviderFactory
-import com.android.build.gradle.internal.tasks.TaskCategory
+import com.android.build.gradle.options.BooleanOption
 import com.android.sdklib.AndroidVersion
 import com.google.common.io.Closer
 import org.gradle.api.file.ConfigurableFileCollection
@@ -57,6 +59,10 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
     @get:Optional
     @get:OutputFile
     abstract val outputKeepRules: DirectoryProperty
+
+    @get:Optional
+    @get:OutputDirectory
+    abstract val outputGlobalSynthetics: DirectoryProperty
 
     @get:Classpath
     abstract val classes: ConfigurableFileCollection
@@ -97,6 +103,7 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
                 it.errorFormatMode.set(errorFormatMode)
                 it.libConfiguration.set(libConfiguration)
                 it.outputKeepRules.set(outputKeepRules.dir("${index}_${input.name}"))
+                it.outputGlobalSynthetics.set(outputGlobalSynthetics.dir("${index}_${input.name}"))
             }
         }
     }
@@ -111,6 +118,7 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
         abstract val errorFormatMode: Property<SyncOptions.ErrorFormatMode>
         abstract val libConfiguration: Property<String>
         abstract val outputKeepRules: DirectoryProperty
+        abstract val outputGlobalSynthetics: DirectoryProperty
     }
 
     abstract class DexFileDependenciesWorkerAction : ProfileAwareWorkAction<WorkerActionParams>() {
@@ -145,7 +153,8 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
                     classFileInput.entries { _, _ -> true }.use { classesInput ->
                         d8DexBuilder.convert(
                             classesInput,
-                            parameters.outputFile.asFile.get().toPath()
+                            parameters.outputFile.asFile.get().toPath(),
+                            parameters.outputGlobalSynthetics.asFile.orNull?.toPath()
                         )
                     }
                 }
@@ -153,8 +162,10 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
         }
     }
 
-    class CreationAction(creationConfig: ConsumableCreationConfig) :
-        VariantTaskCreationAction<DexFileDependenciesTask, ConsumableCreationConfig>(
+    class CreationAction(creationConfig: ApkCreationConfig) :
+        VariantTaskCreationAction<DexFileDependenciesTask, ApkCreationConfig>(
+            creationConfig
+        ), DexingTaskCreationAction by DexingTaskCreationActionImpl(
             creationConfig
         ) {
         override val name: String = computeTaskName("desugar", "FileDependencies")
@@ -169,10 +180,15 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
                 DexFileDependenciesTask::outputDirectory
             ).on(InternalArtifactType.EXTERNAL_FILE_LIB_DEX_ARCHIVES)
 
-            if (creationConfig.needsShrinkDesugarLibrary) {
+            if (dexingCreationConfig.needsShrinkDesugarLibrary) {
                 creationConfig.artifacts
                     .setInitialProvider(taskProvider, DexFileDependenciesTask::outputKeepRules)
                     .on(InternalArtifactType.DESUGAR_LIB_EXTERNAL_FILE_LIB_KEEP_RULES)
+            }
+            if (creationConfig.services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS]) {
+                creationConfig.artifacts
+                    .setInitialProvider(taskProvider, DexFileDependenciesTask::outputGlobalSynthetics)
+                    .on(InternalArtifactType.GLOBAL_SYNTHETICS_FILE_LIB)
             }
         }
 
@@ -189,7 +205,7 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
                     AndroidArtifacts.ArtifactType.PROCESSED_JAR
                 )
             ).disallowChanges()
-            val minSdkVersionForDexing = creationConfig.minSdkVersionForDexing.getFeatureLevel()
+            val minSdkVersionForDexing = dexingCreationConfig.minSdkVersionForDexing.getFeatureLevel()
             task.minSdkVersion.setDisallowChanges(minSdkVersionForDexing)
 
             // If min sdk version for dexing is >= N(24) then we can avoid adding extra classes to
@@ -208,7 +224,7 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
             task.errorFormatMode =
                 SyncOptions.getErrorFormatMode(creationConfig.services.projectOptions)
 
-            if (creationConfig.isCoreLibraryDesugaringEnabled) {
+            if (dexingCreationConfig.isCoreLibraryDesugaringEnabled) {
                 task.libConfiguration.set(getDesugarLibConfig(creationConfig.services))
                 task.bootClasspath.from(creationConfig.global.bootClasspath)
             }

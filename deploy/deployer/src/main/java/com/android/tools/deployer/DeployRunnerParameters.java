@@ -18,6 +18,7 @@ package com.android.tools.deployer;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.tools.deployer.model.component.ComponentType;
+import com.android.utils.StdLogger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -37,9 +38,11 @@ public class DeployRunnerParameters {
     private boolean optimisticInstall = false;
     private boolean skipPostInstallTasks = false;
     private boolean useRootPushInstall = false;
+    private boolean jdwpClientSupport = true;
     private String installersPath = null;
     private String adbExecutablePath = null;
     private String targetUserId = null;
+    private StdLogger.Level logLevel = StdLogger.Level.ERROR;
     private String applicationId;
     private final List<String> targetDevices = new ArrayList<>();
     private final List<String> apkPaths = new ArrayList<>();
@@ -66,6 +69,14 @@ public class DeployRunnerParameters {
             skipPostInstallTasks = true;
         } else if (arg.startsWith("--use-root-push-install")) {
             useRootPushInstall = true;
+        } else if (arg.startsWith("--no-jdwp-client-support")) {
+            jdwpClientSupport = false;
+        } else if (arg.startsWith("--log-level=")) {
+            try {
+                logLevel = StdLogger.Level.valueOf(arg.substring("--log-level=".length()));
+            } catch (IllegalArgumentException e) {
+                // Ignore; leave log level at ERROR.
+            }
         } else {
             throw new RuntimeException("Unknown flag: '" + arg + "'");
         }
@@ -153,6 +164,14 @@ public class DeployRunnerParameters {
 
     public boolean getUseRootPushInstall() {
         return useRootPushInstall;
+    }
+
+    public boolean getJdwpClientSupport() {
+        return jdwpClientSupport;
+    }
+
+    public StdLogger.Level getLogLevel() {
+        return logLevel;
     }
 
     public String getTargetUserId() {

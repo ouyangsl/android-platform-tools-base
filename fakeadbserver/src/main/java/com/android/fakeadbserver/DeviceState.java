@@ -258,8 +258,11 @@ public class DeviceState {
 
     public void stopClient(int pid) {
         synchronized (mClients) {
-            mClients.remove(pid);
-            mClientStateChangeHub.clientListChanged();
+            ClientState client = mClients.remove(pid);
+            if (client != null) {
+                mClientStateChangeHub.clientListChanged();
+                client.stopJdwpSession();
+            }
         }
     }
 
@@ -490,7 +493,8 @@ public class DeviceState {
 
     public enum HostConnectionType {
         USB,
-        LOCAL
+        LOCAL,
+        NETWORK
     }
 
     /**

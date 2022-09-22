@@ -45,11 +45,11 @@ import com.android.builder.dexing.R8OutputType
 import com.android.builder.dexing.ToolConfig
 import com.android.builder.dexing.getR8Version
 import com.android.builder.dexing.runR8
-import com.android.build.gradle.internal.tasks.TaskCategory
 import com.android.utils.FileUtils
 import com.android.zipflinger.ZipArchive
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.FileCollection
 import org.gradle.api.file.FileSystemLocation
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.file.RegularFileProperty
@@ -72,6 +72,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
+import org.jetbrains.kotlin.gradle.utils.`is`
 import java.io.File
 import java.nio.file.Path
 import javax.inject.Inject
@@ -138,8 +139,7 @@ abstract class R8Task @Inject constructor(
     abstract val useFullR8: Property<Boolean>
 
     @get:Input
-    lateinit var dexingType: DexingType
-        private set
+    abstract val legacyMultiDexEnabled: Property<Boolean>
 
     @get:Internal
     abstract val executionOptions: Property<ToolExecutionOptions>
@@ -261,21 +261,24 @@ abstract class R8Task @Inject constructor(
                         R8Task::featureJavaResourceOutputDir
                     ).on(InternalArtifactType.FEATURE_SHRUNK_JAVA_RES)
 
-                    if (creationConfig.needsShrinkDesugarLibrary) {
+                    if (creationConfig.dexingCreationConfig.needsShrinkDesugarLibrary) {
+                        creationConfig.artifacts
+                            .setInitialProvider(taskProvider, R8Task::projectOutputKeepRules)
+                            .on(InternalArtifactType.DESUGAR_LIB_PROJECT_KEEP_RULES)
+                    }
+                }
+                creationConfig is ApkCreationConfig -> {
+                    creationConfig.artifacts.use(taskProvider)
+                        .wiredWith(R8Task::outputDex)
+                        .toAppendTo(InternalMultipleArtifactType.DEX)
+                    if (creationConfig.dexingCreationConfig.needsShrinkDesugarLibrary) {
                         creationConfig.artifacts
                             .setInitialProvider(taskProvider, R8Task::projectOutputKeepRules)
                             .on(InternalArtifactType.DESUGAR_LIB_PROJECT_KEEP_RULES)
                     }
                 }
                 else -> {
-                    creationConfig.artifacts.use(taskProvider)
-                        .wiredWith(R8Task::outputDex)
-                        .toAppendTo(InternalMultipleArtifactType.DEX)
-                    if (creationConfig.needsShrinkDesugarLibrary) {
-                        creationConfig.artifacts
-                            .setInitialProvider(taskProvider, R8Task::projectOutputKeepRules)
-                            .on(InternalArtifactType.DESUGAR_LIB_PROJECT_KEEP_RULES)
-                    }
+                    throw RuntimeException("Unrecognized type")
                 }
             }
 
@@ -286,14 +289,14 @@ abstract class R8Task @Inject constructor(
 
             if (creationConfig is ApkCreationConfig) {
                 when {
-                    creationConfig.needsMainDexListForBundle -> {
+                    creationConfig.dexingCreationConfig.needsMainDexListForBundle -> {
                         creationConfig.artifacts.setInitialProvider(
                             taskProvider,
                             R8Task::mainDexListOutput
                         ).withName("mainDexList.txt")
                             .on(InternalArtifactType.MAIN_DEX_LIST_FOR_BUNDLE)
                     }
-                    creationConfig.dexingType.needsMainDexList -> {
+                    creationConfig.dexingCreationConfig.dexingType.needsMainDexList -> {
                         creationConfig.artifacts.setInitialProvider(
                             taskProvider,
                             R8Task::mainDexListOutput
@@ -318,31 +321,38 @@ abstract class R8Task @Inject constructor(
                 )
             )
 
-            task.enableDesugaring.set(
-                creationConfig.getJava8LangSupportType() == Java8LangSupport.R8
-                        && !componentType.isAar)
+            task.enableDesugaring.setDisallowChanges(
+                creationConfig is ApkCreationConfig &&
+                        creationConfig.dexingCreationConfig.java8LangSupportType == Java8LangSupport.R8
+            )
 
             setBootClasspathForCodeShrinker(task)
-            task.minSdkVersion.set(creationConfig.minSdkVersionForDexing.apiLevel)
+            if (creationConfig is ApkCreationConfig) {
+                task.minSdkVersion.set(
+                    creationConfig.dexingCreationConfig.minSdkVersionForDexing.apiLevel
+                )
+            } else {
+                task.minSdkVersion.set(creationConfig.minSdkVersion.apiLevel)
+            }
+            task.minSdkVersion.disallowChanges()
+
             task.debuggable
                 .setDisallowChanges(creationConfig.debuggable)
             task.disableTreeShaking.set(disableTreeShaking)
             task.disableMinification.set(disableMinification)
             task.errorFormatMode.set(SyncOptions.getErrorFormatMode(creationConfig.services.projectOptions))
-            task.dexingType = creationConfig.dexingType
+            task.legacyMultiDexEnabled.setDisallowChanges(
+                creationConfig is ApkCreationConfig &&
+                        creationConfig.dexingCreationConfig.dexingType == DexingType.LEGACY_MULTIDEX
+            )
             task.useFullR8.setDisallowChanges(creationConfig.services.projectOptions[BooleanOption.FULL_R8])
 
             task.executionOptions.setDisallowChanges(
                 creationConfig.global.settingsOptions.executionProfile?.r8Options)
 
-            if (!creationConfig.services.projectOptions[BooleanOption.R8_FAIL_ON_MISSING_CLASSES]) {
-                // Keep until AGP 8.0. It used to be necessary because of http://b/72683872.
-                proguardConfigurations.add("-ignorewarnings")
-            }
-
             task.proguardConfigurations = proguardConfigurations
 
-            if (componentType.isApk) {
+            if (creationConfig is ApkCreationConfig) {
                 // options applicable only when building APKs, do not apply with AARs
                 task.duplicateClassesCheck.from(artifacts.get(DUPLICATE_CLASSES_CHECK))
 
@@ -350,18 +360,17 @@ abstract class R8Task @Inject constructor(
                         artifacts.getAll(MultipleArtifact.MULTIDEX_KEEP_PROGUARD)
                 )
 
-                if (creationConfig.dexingType.needsMainDexList
-                    && !creationConfig.global.namespacedAndroidResources
-                ) {
+                if (creationConfig.dexingCreationConfig.dexingType.needsMainDexList &&
+                    !creationConfig.global.namespacedAndroidResources) {
                     task.mainDexRulesFiles.from(
                         artifacts.get(
                             InternalArtifactType.LEGACY_MULTIDEX_AAPT_DERIVED_PROGUARD_RULES
                         )
                     )
                 }
-                if (creationConfig is ApkCreationConfig) {
-                    task.multiDexKeepFile.setDisallowChanges(creationConfig.multiDexKeepFile)
-                }
+                task.multiDexKeepFile.setDisallowChanges(
+                    creationConfig.dexingCreationConfig.multiDexKeepFile
+                )
 
                 if ((creationConfig as? ApplicationCreationConfig)?.consumesFeatureJars == true) {
                     creationConfig.artifacts.setTaskInputToFinalProduct(
@@ -383,7 +392,7 @@ abstract class R8Task @Inject constructor(
                         )
                     )
                 }
-                if (creationConfig.isCoreLibraryDesugaringEnabled) {
+                if (creationConfig.dexingCreationConfig.isCoreLibraryDesugaringEnabled) {
                     task.coreLibDesugarConfig.set(getDesugarLibConfig(creationConfig.services))
                 }
             }
@@ -468,6 +477,12 @@ abstract class R8Task @Inject constructor(
                 |Current version is: ${getR8Version()}.
                 |""".trimMargin()
             )
+
+        val finalListOfConfigurationFiles = projectLayout.files(
+                configurationFiles,
+                generatedProguardFile.asFileTree,
+        )
+
         val workerAction = { it: R8Runnable.Params ->
             it.bootClasspath.from(bootClasspath.toList())
             it.minSdkVersion.set(minSdkVersion.get())
@@ -495,7 +510,7 @@ abstract class R8Task @Inject constructor(
                         ignoredLibraryKeepRules.get(),
                         ignoreAllLibraryKeepRules.get(),
                         libraryKeepRules,
-                        configurationFiles,
+                        finalListOfConfigurationFiles,
                         LoggerWrapper.getLogger(R8Task::class.java)),
                     extractedDefaultProguardFile))
             it.inputProguardMapping.set(
@@ -506,7 +521,7 @@ abstract class R8Task @Inject constructor(
                 })
             it.proguardConfigurations.set(proguardConfigurations)
             it.aar.set(componentType.orNull?.isAar == true)
-            it.dexingType.set(dexingType)
+            it.legacyMultiDexEnabled.set(legacyMultiDexEnabled)
             it.useFullR8.set(useFullR8.get())
             it.referencedInputs.from((referencedClasses + referencedResources).toList())
             it.classes.from(
@@ -553,7 +568,7 @@ abstract class R8Task @Inject constructor(
             mainDexListFiles: List<File>,
             mainDexRulesFiles: List<File>,
             mainDexListOutput: File?,
-            dexingType: DexingType,
+            legacyMultiDexEnabled: Boolean,
             useFullR8: Boolean,
             referencedInputs: List<File>,
             classes: List<File>,
@@ -615,7 +630,7 @@ abstract class R8Task @Inject constructor(
                 proguardOutputFiles
             )
 
-            val mainDexListConfig = if (dexingType == DexingType.LEGACY_MULTIDEX) {
+            val mainDexListConfig = if (legacyMultiDexEnabled) {
                 MainDexListConfig(
                     mainDexRulesFiles.map { it.toPath() },
                     mainDexListFiles.map { it.toPath() },
@@ -683,7 +698,7 @@ abstract class R8Task @Inject constructor(
             abstract val mainDexListFiles: ConfigurableFileCollection
             abstract val mainDexRulesFiles: ConfigurableFileCollection
             abstract val mainDexListOutput: RegularFileProperty
-            abstract val dexingType: Property<DexingType>
+            abstract val legacyMultiDexEnabled: Property<Boolean>
             abstract val useFullR8: Property<Boolean>
             abstract val referencedInputs: ConfigurableFileCollection
             abstract val classes: ConfigurableFileCollection
@@ -719,7 +734,7 @@ abstract class R8Task @Inject constructor(
                 parameters.mainDexListFiles.files.toList(),
                 parameters.mainDexRulesFiles.files.toList(),
                 parameters.mainDexListOutput.orNull?.asFile,
-                parameters.dexingType.get(),
+                parameters.legacyMultiDexEnabled.get(),
                 parameters.useFullR8.get(),
                 parameters.referencedInputs.files.toList(),
                 parameters.classes.files.toList(),

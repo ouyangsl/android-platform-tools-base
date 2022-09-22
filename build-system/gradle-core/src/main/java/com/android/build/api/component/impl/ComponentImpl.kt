@@ -96,7 +96,7 @@ abstract class ComponentImpl<DslInfoT: ComponentDslInfo>(
     final override val buildFeatures: BuildFeatureValues,
     protected val dslInfo: DslInfoT,
     final override val variantDependencies: VariantDependencies,
-    override val variantSources: VariantSources,
+    private val variantSources: VariantSources,
     override val paths: VariantPathHelper,
     override val artifacts: ArtifactsImpl,
     private val variantData: BaseVariantData? = null,
@@ -138,12 +138,12 @@ abstract class ComponentImpl<DslInfoT: ComponentDslInfo>(
             buildFeatures.dataBinding,
             internalServices)
 
-    override val sources: SourcesImpl by lazy {
+    override val sources by lazy {
         SourcesImpl(
             DefaultSourcesProviderImpl(this, variantSources),
-            internalServices.projectInfo.projectDirectory,
             internalServices,
-            variantSources.variantSourceProvider,
+            multiFlavorSourceProvider = variantSources.multiFlavorSourceProvider,
+            variantSourceProvider = variantSources.variantSourceProvider,
         ).also { sourcesImpl ->
             // add all source sets extra directories added by the user
             variantSources.customSourceList.forEach{ (_, srcEntries) ->
@@ -208,7 +208,7 @@ abstract class ComponentImpl<DslInfoT: ComponentDslInfo>(
 
     override fun addVariantOutput(
         variantOutputConfiguration: VariantOutputConfiguration,
-        outputFileName: String?
+        outputFileName: Provider<String>?
     ) {
         variantOutputs.add(
             VariantOutputImpl(
@@ -221,10 +221,9 @@ abstract class ComponentImpl<DslInfoT: ComponentDslInfo>(
                 internalServices.newPropertyBackingDeprecatedApi(
                     String::class.java,
                     outputFileName
-                        ?: paths.getOutputFileName(
-                            internalServices.projectInfo.getProjectBaseName(),
-                            variantOutputConfiguration.baseName(this)
-                        ),
+                        ?: internalServices.projectInfo.getProjectBaseName().map {
+                            paths.getOutputFileName(it, variantOutputConfiguration.baseName(this))
+                        }
                 )
             )
         )
@@ -322,7 +321,7 @@ abstract class ComponentImpl<DslInfoT: ComponentDslInfo>(
                     outputSpec.publishedConfigTypes.any { it.isPublicationConfig }
 
                 if (isPublicationConfigs) {
-                    val components = (dslInfo as PublishableComponentDslInfo).publishInfo!!.components
+                    val components = (dslInfo as PublishableComponentDslInfo).publishInfo.components
                     for(component in components) {
                         publishIntermediateArtifact(
                                 artifactProvider,
@@ -360,13 +359,14 @@ abstract class ComponentImpl<DslInfoT: ComponentDslInfo>(
         }
     }
 
-    override val modelV1LegacySupport = ModelV1LegacySupportImpl(dslInfo)
+    override val modelV1LegacySupport = ModelV1LegacySupportImpl(dslInfo, variantSources)
 
     override val oldVariantApiLegacySupport: OldVariantApiLegacySupport? by lazy {
         OldVariantApiLegacySupportImpl(
             this,
             dslInfo,
-            variantData!!
+            variantData!!,
+            variantSources
         )
     }
 

@@ -212,10 +212,12 @@ private fun generateResourceTypeClass(
                     } else {
                         clinit.dup()
                         clinit.push(i)
-                        clinit.push(value)
                         if (rPackage != null) {
+                            clinit.push(value - 0x7f000000)
                             clinit.loadLocal(1)
                             clinit.visitInsn(Opcodes.IADD)
+                        } else {
+                            clinit.push(value)
                         }
                         clinit.arrayStore(INT_TYPE)
                     }
@@ -223,7 +225,7 @@ private fun generateResourceTypeClass(
 
                 clinit.visitFieldInsn(PUTSTATIC, internalName, s.canonicalName, "[I")
             } else {
-                clinit.push(s.intValue)
+                clinit.push(s.intValue - 0x7f000000)
                 clinit.loadLocal(1)
                 clinit.visitInsn(Opcodes.IADD)
                 clinit.visitFieldInsn(PUTSTATIC, internalName, s.canonicalName, "I")
@@ -263,24 +265,30 @@ private fun internalName(table: SymbolTable, type: ResourceType?): String {
  *
  * See b/243502800
  */
-fun writeRPackages(packageNameToId: Map<String, Int>, outJar: Path,) {
+fun writeRPackages(packageNameToId: Map<String, Int>, outJar: Path) {
     JarFlinger(outJar).use { jarCreator ->
         // NO_COMPRESSION because RPackage.jar isn't packaged into final APK or AAR
         jarCreator.setCompressionLevel(NO_COMPRESSION)
         packageNameToId.forEach { (packageName, packageId) ->
-            val cw = ClassWriter(COMPUTE_MAXS)
-            val internalName = packageName.replace(".", "/")+ "/" + "RPackage"
-            cw.visit(
-                    Opcodes.V1_8,
-                    ACC_PUBLIC + ACC_FINAL + ACC_SUPER,
-                    internalName, null,
-                    "java/lang/Object", null)
-            cw.visitField(ACC_PUBLIC + ACC_STATIC + ACC_FINAL, "packageId", "I", null, packageId)
-            cw.visitEnd()
+            val (internalName, bytes) = generateRPackageClass(packageName, packageId)
             jarCreator.addEntry(
                     internalName + SdkConstants.DOT_CLASS,
-                    cw.toByteArray().inputStream()
+                    bytes.inputStream()
             )
         }
     }
 }
+
+fun generateRPackageClass(packageName: String, packageId: Int): Pair<String, ByteArray> {
+    val cw = ClassWriter(COMPUTE_MAXS)
+    val internalName = packageName.replace(".", "/") + "/" + "RPackage"
+    cw.visit(
+            Opcodes.V1_8,
+            ACC_PUBLIC + ACC_FINAL + ACC_SUPER,
+            internalName, null,
+            "java/lang/Object", null)
+    cw.visitField(ACC_PUBLIC + ACC_STATIC + ACC_FINAL, "packageId", "I", null, packageId)
+    cw.visitEnd()
+    return Pair(internalName, cw.toByteArray())
+}
+

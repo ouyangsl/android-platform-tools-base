@@ -470,6 +470,27 @@ public class TestUtils {
     }
 
     @NonNull
+    public static Path getJava8Jdk() {
+        OsType osType = OsType.getHostOs();
+        String hostDir;
+        switch (osType) {
+            case LINUX:
+                hostDir = "linux";
+                break;
+            case DARWIN:
+                hostDir = "mac/Contents/Home";
+                break;
+            case WINDOWS:
+                hostDir = "win64";
+                break;
+            default:
+                throw new IllegalStateException(
+                        "Java8 JDK not found for platform: " + OsType.getOsName());
+        }
+        return resolveWorkspacePath("prebuilts/studio/jdk/" + hostDir);
+    }
+
+    @NonNull
     public static Path getJava11Jdk() {
         OsType osType = OsType.getHostOs();
         String hostDir;
@@ -521,7 +542,7 @@ public class TestUtils {
         if (testType == TestType.AGP) {
             return "android-" + ANDROID_PLATFORM_FOR_AGP_UNIT_TESTS;
         }
-        return "android-32";
+        return "android-33";
     }
 
     /**

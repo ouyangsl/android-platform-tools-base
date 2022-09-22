@@ -377,16 +377,16 @@ package com.android.build.api.dsl {
     method public String? getTargetSdkPreview();
     method public Integer? getVersionCode();
     method public String? getVersionName();
-    method @Deprecated @org.gradle.api.Incubating public void maxSdkVersion(int maxSdkVersion);
+    method @Deprecated public void maxSdkVersion(int maxSdkVersion);
     method public void setApplicationId(String? applicationId);
     method public void setMaxSdk(Integer? maxSdk);
     method public void setTargetSdk(Integer? targetSdk);
     method public void setTargetSdkPreview(String? targetSdkPreview);
-    method @Deprecated @org.gradle.api.Incubating public void setTargetSdkVersion(String? targetSdkVersion);
+    method @Deprecated public void setTargetSdkVersion(String? targetSdkVersion);
     method public void setVersionCode(Integer? versionCode);
     method public void setVersionName(String? versionName);
-    method @Deprecated @org.gradle.api.Incubating public void targetSdkVersion(int targetSdkVersion);
-    method @Deprecated @org.gradle.api.Incubating public void targetSdkVersion(String? targetSdkVersion);
+    method @Deprecated public void targetSdkVersion(int targetSdkVersion);
+    method @Deprecated public void targetSdkVersion(String? targetSdkVersion);
     property public abstract String? applicationId;
     property public abstract Integer? maxSdk;
     property public abstract Integer? targetSdk;
@@ -405,21 +405,21 @@ package com.android.build.api.dsl {
   }
 
   public interface ApplicationBuildType extends com.android.build.api.dsl.BuildType com.android.build.api.dsl.ApplicationVariantDimension {
-    method @org.gradle.api.Incubating public Boolean? isCrunchPngs();
-    method @org.gradle.api.Incubating public boolean isDebuggable();
+    method public Boolean? isCrunchPngs();
+    method public boolean isDebuggable();
     method public boolean isDefault();
-    method @org.gradle.api.Incubating public boolean isEmbedMicroApp();
-    method @org.gradle.api.Incubating public boolean isProfileable();
-    method @org.gradle.api.Incubating public void setCrunchPngs(Boolean? isCrunchPngs);
-    method @org.gradle.api.Incubating public void setDebuggable(boolean isDebuggable);
+    method public boolean isEmbedMicroApp();
+    method public boolean isProfileable();
+    method public void setCrunchPngs(Boolean? isCrunchPngs);
+    method public void setDebuggable(boolean isDebuggable);
     method public void setDefault(boolean isDefault);
-    method @org.gradle.api.Incubating public void setEmbedMicroApp(boolean isEmbedMicroApp);
-    method @org.gradle.api.Incubating public void setProfileable(boolean isProfileable);
-    property @org.gradle.api.Incubating public abstract Boolean? isCrunchPngs;
-    property @org.gradle.api.Incubating public abstract boolean isDebuggable;
+    method public void setEmbedMicroApp(boolean isEmbedMicroApp);
+    method public void setProfileable(boolean isProfileable);
+    property public abstract Boolean? isCrunchPngs;
+    property public abstract boolean isDebuggable;
     property public abstract boolean isDefault;
-    property @org.gradle.api.Incubating public abstract boolean isEmbedMicroApp;
-    property @org.gradle.api.Incubating public abstract boolean isProfileable;
+    property public abstract boolean isEmbedMicroApp;
+    property public abstract boolean isProfileable;
   }
 
   public interface ApplicationDefaultConfig extends com.android.build.api.dsl.ApplicationBaseFlavor com.android.build.api.dsl.DefaultConfig {
@@ -456,16 +456,16 @@ package com.android.build.api.dsl {
 
   public interface ApplicationVariantDimension extends com.android.build.api.dsl.VariantDimension {
     method public String? getApplicationIdSuffix();
-    method @org.gradle.api.Incubating public Boolean? getMultiDexEnabled();
-    method @org.gradle.api.Incubating public com.android.build.api.dsl.ApkSigningConfig? getSigningConfig();
+    method public Boolean? getMultiDexEnabled();
+    method public com.android.build.api.dsl.ApkSigningConfig? getSigningConfig();
     method public String? getVersionNameSuffix();
     method public void setApplicationIdSuffix(String? applicationIdSuffix);
-    method @org.gradle.api.Incubating public void setMultiDexEnabled(Boolean? multiDexEnabled);
-    method @org.gradle.api.Incubating public void setSigningConfig(com.android.build.api.dsl.ApkSigningConfig? signingConfig);
+    method public void setMultiDexEnabled(Boolean? multiDexEnabled);
+    method public void setSigningConfig(com.android.build.api.dsl.ApkSigningConfig? signingConfig);
     method public void setVersionNameSuffix(String? versionNameSuffix);
     property public abstract String? applicationIdSuffix;
-    property @org.gradle.api.Incubating public abstract Boolean? multiDexEnabled;
-    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.ApkSigningConfig? signingConfig;
+    property public abstract Boolean? multiDexEnabled;
+    property public abstract com.android.build.api.dsl.ApkSigningConfig? signingConfig;
     property public abstract String? versionNameSuffix;
   }
 
@@ -505,60 +505,60 @@ package com.android.build.api.dsl {
   public interface BaseFlavor extends com.android.build.api.dsl.VariantDimension com.android.build.api.dsl.HasInitWith<com.android.build.api.dsl.BaseFlavor> {
     method public Integer? getMinSdk();
     method public String? getMinSdkPreview();
-    method @org.gradle.api.Incubating public String getName();
-    method @org.gradle.api.Incubating public Boolean? getRenderscriptNdkModeEnabled();
-    method @org.gradle.api.Incubating public Boolean? getRenderscriptSupportModeBlasEnabled();
-    method @org.gradle.api.Incubating public Boolean? getRenderscriptSupportModeEnabled();
-    method @org.gradle.api.Incubating public Integer? getRenderscriptTargetApi();
+    method public String getName();
+    method public Boolean? getRenderscriptNdkModeEnabled();
+    method public Boolean? getRenderscriptSupportModeBlasEnabled();
+    method public Boolean? getRenderscriptSupportModeEnabled();
+    method public Integer? getRenderscriptTargetApi();
     method public java.util.Set<java.lang.String> getResourceConfigurations();
     method public String? getTestApplicationId();
     method public Boolean? getTestFunctionalTest();
     method public Boolean? getTestHandleProfiling();
     method public String? getTestInstrumentationRunner();
     method public java.util.Map<java.lang.String,java.lang.String> getTestInstrumentationRunnerArguments();
-    method @org.gradle.api.Incubating public com.android.build.api.dsl.VectorDrawables getVectorDrawables();
+    method public com.android.build.api.dsl.VectorDrawables getVectorDrawables();
     method public Boolean? getWearAppUnbundled();
     method @org.gradle.api.Incubating public void initWith(com.android.build.api.dsl.BaseFlavor that);
-    method @Deprecated @org.gradle.api.Incubating public void minSdkVersion(int minSdkVersion);
-    method @Deprecated @org.gradle.api.Incubating public void minSdkVersion(String? minSdkVersion);
-    method @org.gradle.api.Incubating public void missingDimensionStrategy(String dimension, String requestedValue);
-    method @org.gradle.api.Incubating public void missingDimensionStrategy(String dimension, java.lang.String... requestedValues);
-    method @org.gradle.api.Incubating public void missingDimensionStrategy(String dimension, java.util.List<java.lang.String> requestedValues);
-    method @Deprecated @org.gradle.api.Incubating public void resConfig(String config);
-    method @Deprecated @org.gradle.api.Incubating public void resConfigs(java.util.Collection<java.lang.String> config);
-    method @Deprecated @org.gradle.api.Incubating public void resConfigs(java.lang.String... config);
+    method @Deprecated public void minSdkVersion(int minSdkVersion);
+    method @Deprecated public void minSdkVersion(String? minSdkVersion);
+    method public void missingDimensionStrategy(String dimension, String requestedValue);
+    method public void missingDimensionStrategy(String dimension, java.lang.String... requestedValues);
+    method public void missingDimensionStrategy(String dimension, java.util.List<java.lang.String> requestedValues);
+    method @Deprecated public void resConfig(String config);
+    method @Deprecated public void resConfigs(java.util.Collection<java.lang.String> config);
+    method @Deprecated public void resConfigs(java.lang.String... config);
     method public void setMinSdk(Integer? minSdk);
     method public void setMinSdkPreview(String? minSdkPreview);
-    method @Deprecated @org.gradle.api.Incubating public void setMinSdkVersion(int minSdkVersion);
-    method @Deprecated @org.gradle.api.Incubating public void setMinSdkVersion(String? minSdkVersion);
-    method @org.gradle.api.Incubating public void setRenderscriptNdkModeEnabled(Boolean? renderscriptNdkModeEnabled);
-    method @org.gradle.api.Incubating public void setRenderscriptSupportModeBlasEnabled(Boolean? renderscriptSupportModeBlasEnabled);
-    method @org.gradle.api.Incubating public void setRenderscriptSupportModeEnabled(Boolean? renderscriptSupportModeEnabled);
-    method @org.gradle.api.Incubating public void setRenderscriptTargetApi(Integer? renderscriptTargetApi);
+    method @Deprecated public void setMinSdkVersion(int minSdkVersion);
+    method @Deprecated public void setMinSdkVersion(String? minSdkVersion);
+    method public void setRenderscriptNdkModeEnabled(Boolean? renderscriptNdkModeEnabled);
+    method public void setRenderscriptSupportModeBlasEnabled(Boolean? renderscriptSupportModeBlasEnabled);
+    method public void setRenderscriptSupportModeEnabled(Boolean? renderscriptSupportModeEnabled);
+    method public void setRenderscriptTargetApi(Integer? renderscriptTargetApi);
     method public void setTestApplicationId(String? testApplicationId);
     method public void setTestFunctionalTest(Boolean? testFunctionalTest);
-    method @Deprecated @org.gradle.api.Incubating public Object? setTestFunctionalTest(boolean testFunctionalTest);
+    method @Deprecated public Object? setTestFunctionalTest(boolean testFunctionalTest);
     method public void setTestHandleProfiling(Boolean? testHandleProfiling);
-    method @Deprecated @org.gradle.api.Incubating public Object? setTestHandleProfiling(boolean testHandleProfiling);
+    method @Deprecated public Object? setTestHandleProfiling(boolean testHandleProfiling);
     method public void setTestInstrumentationRunner(String? testInstrumentationRunner);
-    method @Deprecated @org.gradle.api.Incubating public Object? setTestInstrumentationRunnerArguments(java.util.Map<java.lang.String,java.lang.String> testInstrumentationRunnerArguments);
+    method @Deprecated public Object? setTestInstrumentationRunnerArguments(java.util.Map<java.lang.String,java.lang.String> testInstrumentationRunnerArguments);
     method public void setWearAppUnbundled(Boolean? wearAppUnbundled);
-    method @Deprecated @org.gradle.api.Incubating public void testInstrumentationRunnerArgument(String key, String value);
-    method @Deprecated @org.gradle.api.Incubating public void testInstrumentationRunnerArguments(java.util.Map<java.lang.String,java.lang.String> args);
-    method @org.gradle.api.Incubating public void vectorDrawables(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.VectorDrawables,kotlin.Unit> action);
+    method @Deprecated public void testInstrumentationRunnerArgument(String key, String value);
+    method @Deprecated public void testInstrumentationRunnerArguments(java.util.Map<java.lang.String,java.lang.String> args);
+    method public void vectorDrawables(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.VectorDrawables,kotlin.Unit> action);
     property public abstract Integer? minSdk;
     property public abstract String? minSdkPreview;
-    property @org.gradle.api.Incubating public abstract Boolean? renderscriptNdkModeEnabled;
-    property @org.gradle.api.Incubating public abstract Boolean? renderscriptSupportModeBlasEnabled;
-    property @org.gradle.api.Incubating public abstract Boolean? renderscriptSupportModeEnabled;
-    property @org.gradle.api.Incubating public abstract Integer? renderscriptTargetApi;
+    property public abstract Boolean? renderscriptNdkModeEnabled;
+    property public abstract Boolean? renderscriptSupportModeBlasEnabled;
+    property public abstract Boolean? renderscriptSupportModeEnabled;
+    property public abstract Integer? renderscriptTargetApi;
     property public abstract java.util.Set<java.lang.String> resourceConfigurations;
     property public abstract String? testApplicationId;
     property public abstract Boolean? testFunctionalTest;
     property public abstract Boolean? testHandleProfiling;
     property public abstract String? testInstrumentationRunner;
     property public abstract java.util.Map<java.lang.String,java.lang.String> testInstrumentationRunnerArguments;
-    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.VectorDrawables vectorDrawables;
+    property public abstract com.android.build.api.dsl.VectorDrawables vectorDrawables;
     property public abstract Boolean? wearAppUnbundled;
   }
 
@@ -901,7 +901,7 @@ package com.android.build.api.dsl {
     property public abstract boolean includeInBundle;
   }
 
-  @org.gradle.api.Incubating public interface Device extends org.gradle.api.Named {
+  @org.gradle.api.Incubating public interface Device extends org.gradle.api.Named java.io.Serializable {
   }
 
   @org.gradle.api.Incubating public interface DeviceGroup extends org.gradle.api.Named {
@@ -1493,13 +1493,16 @@ package com.android.build.api.dsl {
 
   @org.gradle.api.Incubating public interface PrivacySandboxSdkBundle {
     method @org.gradle.api.Incubating public String? getApplicationId();
+    method @org.gradle.api.Incubating public String? getCompatSdkProviderClassName();
     method @Deprecated @org.gradle.api.Incubating public String? getPackageName();
     method @org.gradle.api.Incubating public String? getSdkProviderClassName();
     method @org.gradle.api.Incubating public void setApplicationId(String? applicationId);
+    method @org.gradle.api.Incubating public void setCompatSdkProviderClassName(String? compatSdkProviderClassName);
     method @Deprecated @org.gradle.api.Incubating public void setPackageName(String? packageName);
     method @org.gradle.api.Incubating public void setSdkProviderClassName(String? sdkProviderClassName);
     method @org.gradle.api.Incubating public void setVersion(int major, int minor, int patch);
     property @org.gradle.api.Incubating public abstract String? applicationId;
+    property @org.gradle.api.Incubating public abstract String? compatSdkProviderClassName;
     property @Deprecated @org.gradle.api.Incubating public abstract String? packageName;
     property @org.gradle.api.Incubating public abstract String? sdkProviderClassName;
   }
@@ -1628,31 +1631,31 @@ package com.android.build.api.dsl {
   }
 
   public interface TestBaseFlavor extends com.android.build.api.dsl.BaseFlavor com.android.build.api.dsl.TestVariantDimension {
-    method @org.gradle.api.Incubating public Integer? getMaxSdk();
-    method @org.gradle.api.Incubating public Integer? getTargetSdk();
-    method @org.gradle.api.Incubating public String? getTargetSdkPreview();
-    method @Deprecated @org.gradle.api.Incubating public void maxSdkVersion(int maxSdkVersion);
-    method @org.gradle.api.Incubating public void setMaxSdk(Integer? maxSdk);
-    method @org.gradle.api.Incubating public void setTargetSdk(Integer? targetSdk);
-    method @org.gradle.api.Incubating public void setTargetSdkPreview(String? targetSdkPreview);
-    method @Deprecated @org.gradle.api.Incubating public void setTargetSdkVersion(String? targetSdkVersion);
-    method @Deprecated @org.gradle.api.Incubating public void targetSdkVersion(int targetSdkVersion);
-    method @Deprecated @org.gradle.api.Incubating public void targetSdkVersion(String? targetSdkVersion);
-    property @org.gradle.api.Incubating public abstract Integer? maxSdk;
-    property @org.gradle.api.Incubating public abstract Integer? targetSdk;
-    property @org.gradle.api.Incubating public abstract String? targetSdkPreview;
+    method public Integer? getMaxSdk();
+    method public Integer? getTargetSdk();
+    method public String? getTargetSdkPreview();
+    method @Deprecated public void maxSdkVersion(int maxSdkVersion);
+    method public void setMaxSdk(Integer? maxSdk);
+    method public void setTargetSdk(Integer? targetSdk);
+    method public void setTargetSdkPreview(String? targetSdkPreview);
+    method @Deprecated public void setTargetSdkVersion(String? targetSdkVersion);
+    method @Deprecated public void targetSdkVersion(int targetSdkVersion);
+    method @Deprecated public void targetSdkVersion(String? targetSdkVersion);
+    property public abstract Integer? maxSdk;
+    property public abstract Integer? targetSdk;
+    property public abstract String? targetSdkPreview;
   }
 
   public interface TestBuildFeatures extends com.android.build.api.dsl.BuildFeatures {
   }
 
   public interface TestBuildType extends com.android.build.api.dsl.BuildType com.android.build.api.dsl.TestVariantDimension {
-    method @org.gradle.api.Incubating public Boolean? isCrunchPngs();
-    method @org.gradle.api.Incubating public boolean isDebuggable();
-    method @org.gradle.api.Incubating public void setCrunchPngs(Boolean? isCrunchPngs);
-    method @org.gradle.api.Incubating public void setDebuggable(boolean isDebuggable);
-    property @org.gradle.api.Incubating public abstract Boolean? isCrunchPngs;
-    property @org.gradle.api.Incubating public abstract boolean isDebuggable;
+    method public Boolean? isCrunchPngs();
+    method public boolean isDebuggable();
+    method public void setCrunchPngs(Boolean? isCrunchPngs);
+    method public void setDebuggable(boolean isDebuggable);
+    property public abstract Boolean? isCrunchPngs;
+    property public abstract boolean isDebuggable;
   }
 
   public interface TestCoverage {
@@ -1665,9 +1668,9 @@ package com.android.build.api.dsl {
   }
 
   public interface TestExtension extends com.android.build.api.dsl.CommonExtension<com.android.build.api.dsl.TestBuildFeatures,com.android.build.api.dsl.TestBuildType,com.android.build.api.dsl.TestDefaultConfig,com.android.build.api.dsl.TestProductFlavor> {
-    method @org.gradle.api.Incubating public String? getTargetProjectPath();
-    method @org.gradle.api.Incubating public void setTargetProjectPath(String? targetProjectPath);
-    property @org.gradle.api.Incubating public abstract String? targetProjectPath;
+    method public String? getTargetProjectPath();
+    method public void setTargetProjectPath(String? targetProjectPath);
+    property public abstract String? targetProjectPath;
   }
 
   @org.gradle.api.Incubating public interface TestFixtures {
@@ -1714,23 +1717,23 @@ package com.android.build.api.dsl {
   }
 
   public interface TestVariantDimension extends com.android.build.api.dsl.VariantDimension {
-    method @org.gradle.api.Incubating public Boolean? getMultiDexEnabled();
-    method @org.gradle.api.Incubating public com.android.build.api.dsl.ApkSigningConfig? getSigningConfig();
-    method @org.gradle.api.Incubating public void setMultiDexEnabled(Boolean? multiDexEnabled);
-    method @org.gradle.api.Incubating public void setSigningConfig(com.android.build.api.dsl.ApkSigningConfig? signingConfig);
-    property @org.gradle.api.Incubating public abstract Boolean? multiDexEnabled;
-    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.ApkSigningConfig? signingConfig;
+    method public Boolean? getMultiDexEnabled();
+    method public com.android.build.api.dsl.ApkSigningConfig? getSigningConfig();
+    method public void setMultiDexEnabled(Boolean? multiDexEnabled);
+    method public void setSigningConfig(com.android.build.api.dsl.ApkSigningConfig? signingConfig);
+    property public abstract Boolean? multiDexEnabled;
+    property public abstract com.android.build.api.dsl.ApkSigningConfig? signingConfig;
   }
 
-  @org.gradle.api.Incubating public interface TestedExtension {
+  public interface TestedExtension {
     method public String getTestBuildType();
-    method public com.android.build.api.dsl.TestFixtures getTestFixtures();
+    method @org.gradle.api.Incubating public com.android.build.api.dsl.TestFixtures getTestFixtures();
     method public String? getTestNamespace();
     method public void setTestBuildType(String testBuildType);
     method public void setTestNamespace(String? testNamespace);
-    method public void testFixtures(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.TestFixtures,kotlin.Unit> action);
+    method @org.gradle.api.Incubating public void testFixtures(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.TestFixtures,kotlin.Unit> action);
     property public abstract String testBuildType;
-    property public abstract com.android.build.api.dsl.TestFixtures testFixtures;
+    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.TestFixtures testFixtures;
     property public abstract String? testNamespace;
   }
 
@@ -1745,42 +1748,42 @@ package com.android.build.api.dsl {
   }
 
   public interface VariantDimension {
-    method @org.gradle.api.Incubating public void addManifestPlaceholders(java.util.Map<java.lang.String,?> manifestPlaceholders);
-    method @org.gradle.api.Incubating public void buildConfigField(String type, String name, String value);
+    method public void addManifestPlaceholders(java.util.Map<java.lang.String,?> manifestPlaceholders);
+    method public void buildConfigField(String type, String name, String value);
     method @org.gradle.api.Incubating public void externalNativeBuild(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.ExternalNativeBuildOptions,kotlin.Unit> action);
     method @org.gradle.api.Incubating public com.android.build.api.dsl.ExternalNativeBuildOptions getExternalNativeBuild();
     method public com.android.build.api.dsl.JavaCompileOptions getJavaCompileOptions();
-    method @org.gradle.api.Incubating public java.util.Map<java.lang.String,java.lang.Object> getManifestPlaceholders();
-    method @Deprecated @org.gradle.api.Incubating public java.io.File? getMultiDexKeepFile();
-    method @org.gradle.api.Incubating public java.io.File? getMultiDexKeepProguard();
+    method public java.util.Map<java.lang.String,java.lang.Object> getManifestPlaceholders();
+    method @Deprecated public java.io.File? getMultiDexKeepFile();
+    method public java.io.File? getMultiDexKeepProguard();
     method @org.gradle.api.Incubating public com.android.build.api.dsl.Ndk getNdk();
     method @org.gradle.api.Incubating public com.android.build.api.dsl.Optimization getOptimization();
-    method @org.gradle.api.Incubating public java.util.List<java.io.File> getProguardFiles();
+    method public java.util.List<java.io.File> getProguardFiles();
     method @org.gradle.api.Incubating public com.android.build.api.dsl.Shaders getShaders();
-    method @org.gradle.api.Incubating public java.util.List<java.io.File> getTestProguardFiles();
+    method public java.util.List<java.io.File> getTestProguardFiles();
     method public void javaCompileOptions(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.JavaCompileOptions,kotlin.Unit> action);
     method @org.gradle.api.Incubating public void ndk(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.Ndk,kotlin.Unit> action);
     method @org.gradle.api.Incubating public void optimization(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.Optimization,kotlin.Unit> action);
-    method @org.gradle.api.Incubating public Object proguardFile(Object proguardFile);
-    method @org.gradle.api.Incubating public Object proguardFiles(java.lang.Object... files);
-    method @org.gradle.api.Incubating public void resValue(String type, String name, String value);
-    method @Deprecated @org.gradle.api.Incubating public Void? setManifestPlaceholders(java.util.Map<java.lang.String,?> manifestPlaceholders);
-    method @Deprecated @org.gradle.api.Incubating public void setMultiDexKeepFile(java.io.File? multiDexKeepFile);
-    method @org.gradle.api.Incubating public void setMultiDexKeepProguard(java.io.File? multiDexKeepProguard);
-    method @org.gradle.api.Incubating public Object setProguardFiles(Iterable<?> proguardFileIterable);
+    method public Object proguardFile(Object proguardFile);
+    method public Object proguardFiles(java.lang.Object... files);
+    method public void resValue(String type, String name, String value);
+    method @Deprecated public Void? setManifestPlaceholders(java.util.Map<java.lang.String,?> manifestPlaceholders);
+    method @Deprecated public void setMultiDexKeepFile(java.io.File? multiDexKeepFile);
+    method public void setMultiDexKeepProguard(java.io.File? multiDexKeepProguard);
+    method public Object setProguardFiles(Iterable<?> proguardFileIterable);
     method @org.gradle.api.Incubating public void shaders(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.Shaders,kotlin.Unit> action);
-    method @org.gradle.api.Incubating public Object testProguardFile(Object proguardFile);
-    method @org.gradle.api.Incubating public Object testProguardFiles(java.lang.Object... proguardFiles);
+    method public Object testProguardFile(Object proguardFile);
+    method public Object testProguardFiles(java.lang.Object... proguardFiles);
     property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.ExternalNativeBuildOptions externalNativeBuild;
     property public abstract com.android.build.api.dsl.JavaCompileOptions javaCompileOptions;
-    property @org.gradle.api.Incubating public abstract java.util.Map<java.lang.String,java.lang.Object> manifestPlaceholders;
-    property @Deprecated @org.gradle.api.Incubating public abstract java.io.File? multiDexKeepFile;
-    property @org.gradle.api.Incubating public abstract java.io.File? multiDexKeepProguard;
+    property public abstract java.util.Map<java.lang.String,java.lang.Object> manifestPlaceholders;
+    property @Deprecated public abstract java.io.File? multiDexKeepFile;
+    property public abstract java.io.File? multiDexKeepProguard;
     property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.Ndk ndk;
     property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.Optimization optimization;
-    property @org.gradle.api.Incubating public abstract java.util.List<java.io.File> proguardFiles;
+    property public abstract java.util.List<java.io.File> proguardFiles;
     property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.Shaders shaders;
-    property @org.gradle.api.Incubating public abstract java.util.List<java.io.File> testProguardFiles;
+    property public abstract java.util.List<java.io.File> testProguardFiles;
   }
 
   public interface VectorDrawables {

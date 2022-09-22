@@ -270,9 +270,16 @@ class ModelBuilder<
             val buildTypeName = buildType.buildType.name
 
             if (variantDimensionInfo.buildTypes.contains(buildTypeName)) {
+                // Mixin works only when there are no flavours.
+                // When a flavour is there source provider will be initialized
+                // with variant sources.
+                val mixinVariantSources: VariantCreationConfig? =
+                    if (variantInputs.productFlavors.values.isEmpty()) {
+                        variants.find { it.name == buildTypeName }
+                    } else null
                 buildTypes.add(
                     SourceSetContainerImpl(
-                        sourceProvider = buildType.sourceSet.convert(buildFeatures),
+                        sourceProvider = buildType.sourceSet.convert(buildFeatures, mixinVariantSources),
                         androidTestSourceProvider = buildType.getTestSourceSet(ComponentTypeImpl.ANDROID_TEST)
                             ?.takeIf { androidTests.buildTypes.contains(buildTypeName) }
                             ?.convert(buildFeatures),
@@ -572,11 +579,9 @@ class ModelBuilder<
         component: ComponentCreationConfig,
         features: BuildFeatureValues
     ): BasicArtifact {
-        val sourceProviders = component.variantSources
-
         return BasicArtifactImpl(
-            variantSourceProvider = sourceProviders.variantSourceProvider?.convert(features, component.sources),
-            multiFlavorSourceProvider = sourceProviders.multiFlavorSourceProvider?.convert(
+            variantSourceProvider = component.sources.variantSourceProvider?.convert(features, component.sources),
+            multiFlavorSourceProvider = component.sources.multiFlavorSourceProvider?.convert(
                 features
             ),
         )
@@ -603,7 +608,7 @@ class ModelBuilder<
             isInstantAppCompatible = inspectManifestForInstantTag(variant, instantAppResultMap),
             desugaredMethods = getDesugaredMethods(
                 variant.services,
-                variant.isCoreLibraryDesugaringEnabled,
+                variant.isCoreLibraryDesugaringEnabledLintCheck,
                 variant.minSdkVersion,
                 variant.global.compileSdkHashString,
                 variant.global.bootClasspath
@@ -692,8 +697,10 @@ class ModelBuilder<
             listOf()
         }
 
-        val coreLibDesugaring = (component as? ConsumableCreationConfig)?.isCoreLibraryDesugaringEnabled
+        val coreLibDesugaring = (component as? ConsumableCreationConfig)?.isCoreLibraryDesugaringEnabledLintCheck
                 ?: false
+        val outputsAreSigned = component.oldVariantApiLegacySupport?.variantData?.outputsAreSigned ?: false
+        val isSigned = (signingConfig?.hasConfig() ?: false) || outputsAreSigned
 
         return AndroidArtifactImpl(
             minSdkVersion = minSdkVersion,
@@ -701,7 +708,7 @@ class ModelBuilder<
             maxSdkVersion = maxSdkVersion,
 
             signingConfigName = signingConfig?.name,
-            isSigned = signingConfig?.hasConfig() ?: false,
+            isSigned = isSigned,
 
             applicationId = getApplicationId(component),
 
@@ -875,12 +882,13 @@ class ModelBuilder<
             return false
         }
 
-        val variantSources = component.variantSources
-
         // get the manifest in descending order of priority. First one to return
         val manifests = mutableListOf<File>()
-        manifests.addAll(variantSources.manifestOverlays)
-        variantSources.mainManifestIfExists?.let { manifests.add(it) }
+        manifests.addAll(component.sources.manifestOverlays.map { it.get() })
+        val mainManifest = component.sources.manifestFile.get()
+        if (mainManifest.isFile) {
+            manifests.add(mainManifest)
+        }
 
         if (manifests.isEmpty()) {
             return false

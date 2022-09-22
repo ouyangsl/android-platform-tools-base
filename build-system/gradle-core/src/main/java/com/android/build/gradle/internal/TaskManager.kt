@@ -27,6 +27,7 @@ import com.android.build.api.dsl.DataBinding
 import com.android.build.api.dsl.Device
 import com.android.build.api.dsl.DeviceGroup
 import com.android.build.api.instrumentation.FramesComputationMode
+import com.android.build.api.instrumentation.ManagedDeviceTestRunnerFactory
 import com.android.build.api.transform.QualifiedContent
 import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.api.variant.VariantBuilder
@@ -39,9 +40,7 @@ import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.ApplicationCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.ConsumableCreationConfig
-import com.android.build.gradle.internal.component.DynamicFeatureCreationConfig
 import com.android.build.gradle.internal.component.InstrumentedTestCreationConfig
-import com.android.build.gradle.internal.component.LibraryCreationConfig
 import com.android.build.gradle.internal.component.NestedComponentCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestCreationConfig
@@ -121,7 +120,9 @@ import com.android.build.gradle.internal.tasks.DexMergingAction
 import com.android.build.gradle.internal.tasks.DexMergingTask
 import com.android.build.gradle.internal.tasks.ExtractProguardFiles
 import com.android.build.gradle.internal.tasks.FeatureDexMergeTask
+import com.android.build.gradle.internal.tasks.FeatureGlobalSyntheticsMergeTask
 import com.android.build.gradle.internal.tasks.GenerateLibraryProguardRulesTask
+import com.android.build.gradle.internal.tasks.GlobalSyntheticsMergeTask
 import com.android.build.gradle.internal.tasks.InstallVariantTask
 import com.android.build.gradle.internal.tasks.JacocoTask
 import com.android.build.gradle.internal.tasks.L8DexDesugarLibTask
@@ -390,13 +391,13 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
      * This creates tasks common to all variant types.
      */
     private fun createTasksForVariant(
-            variant: ComponentInfo<VariantBuilderT, VariantT>,
+        variant: ComponentInfo<VariantBuilderT, VariantT>,
     ) {
         val variantProperties = variant.variant
         val componentType = variantProperties.componentType
         val variantDependencies = variantProperties.variantDependencies
-        if (variantProperties.dexingType.isLegacyMultiDexMode()
-                && variantProperties.componentType.isApk) {
+        if (variantProperties is ApkCreationConfig &&
+            variantProperties.dexingCreationConfig.dexingType.isLegacyMultiDexMode()) {
             val multiDexDependency =
                     if (variantProperties
                             .services
@@ -530,8 +531,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             ProcessLibraryManifest.CreationAction(
                 testFixturesComponent,
                 targetSdkVersion = null,
-                maxSdkVersion = null,
-                manifestPlaceholders = null
+                maxSdkVersion = null
             )
         )
 
@@ -688,7 +688,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
 
         }
         if (testVariant.componentType.isApk) { // ANDROID_TEST
-            if ((testVariant as ApkCreationConfig).dexingType.isLegacyMultiDexMode()) {
+            if ((testVariant as ApkCreationConfig).dexingCreationConfig.dexingType.isLegacyMultiDexMode()) {
                 val multiDexInstrumentationDep = if (testVariant
                                 .services
                                 .projectOptions[BooleanOption.USE_ANDROID_X])
@@ -906,7 +906,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         // The main dex list calculation for the bundle also needs the feature classes for reference
         // only
         if ((creationConfig as? ApplicationCreationConfig)?.consumesFeatureJars == true ||
-            (creationConfig as? ConsumableCreationConfig)?.needsMainDexListForBundle == true) {
+            (creationConfig as? ApkCreationConfig)?.dexingCreationConfig?.needsMainDexListForBundle == true) {
             transformManager.addStream(
                     OriginalStream.builder("metadata-classes")
                             .addContentTypes(TransformManager.CONTENT_CLASS)
@@ -986,14 +986,16 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             )
 
             if (!renderscriptCreationConfig.renderscript.ndkModeEnabled.get()) {
-                creationConfig.sources.java.addSource(
-                    TaskProviderBasedDirectoryEntryImpl(
-                        name = "generated_renderscript",
-                        directoryProvider = creationConfig.artifacts.get(
-                            InternalArtifactType.RENDERSCRIPT_SOURCE_OUTPUT_DIR
-                        ),
+                creationConfig.sources.java {
+                    it.addSource(
+                        TaskProviderBasedDirectoryEntryImpl(
+                            name = "generated_renderscript",
+                            directoryProvider = creationConfig.artifacts.get(
+                                InternalArtifactType.RENDERSCRIPT_SOURCE_OUTPUT_DIR
+                            ),
+                        )
                     )
-                )
+                }
             }
             taskContainer.resourceGenTask.dependsOn(rsTask)
             // since rs may generate Java code, always set the dependency.
@@ -1173,7 +1175,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             creationConfig: ComponentCreationConfig,
             packageOutputType: Single<Directory>?,
             mergeType: MergeType,
-            baseName: String) {
+            baseName: Provider<String>) {
         if (!creationConfig.buildFeatures.androidResources &&
             creationConfig !is AndroidTestCreationConfig) {
             return
@@ -1187,15 +1189,19 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         val useAaptToGenerateLegacyMultidexMainDexProguardRules =
                 (creationConfig is ApkCreationConfig
                         && creationConfig
+                        .dexingCreationConfig
                         .dexingType
                         .needsMainDexList)
         if (globalConfig.namespacedAndroidResources) {
             // TODO: make sure we generate the proguard rules in the namespaced case.
-            NamespacedResourcesTaskManager(taskFactory, creationConfig)
-                    .createNamespacedResourceTasks(
-                            packageOutputType,
-                            baseName,
-                            useAaptToGenerateLegacyMultidexMainDexProguardRules)
+            NamespacedResourcesTaskManager(
+                taskFactory,
+                creationConfig
+            ).createNamespacedResourceTasks(
+                packageOutputType,
+                baseName,
+                useAaptToGenerateLegacyMultidexMainDexProguardRules
+            )
             val rFiles: FileCollection = project.files(
                     creationConfig.artifacts.get(RUNTIME_R_CLASS_CLASSES))
             @Suppress("DEPRECATION") // Legacy support
@@ -1224,7 +1230,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             creationConfig: ComponentCreationConfig,
             packageOutputType: Single<Directory>?,
             mergeType: MergeType,
-            baseName: String,
+            baseName: Provider<String>,
             useAaptToGenerateLegacyMultidexMainDexProguardRules: Boolean) {
         val artifacts = creationConfig.artifacts
         val projectOptions = creationConfig.services.projectOptions
@@ -1791,9 +1797,11 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
                         setupTaskName(device),
                         device,
                         globalConfig))
-                else -> null
+                else -> {
+                    taskFactory.register(setupTaskName(device))
+                }
             }
-            setupTask?.configure {
+            setupTask.configure {
                 it.mustRunAfter(cleanTask)
             }
 
@@ -1886,21 +1894,24 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
 
         val deviceToProvider = mutableMapOf<String, TaskProvider<out Task>>()
         for (managedDevice in managedDevices) {
-            val managedDeviceTestTask = when (managedDevice) {
-                is ManagedVirtualDevice -> taskFactory.register(
-                    ManagedDeviceInstrumentationTestTask.CreationAction(
-                        creationConfig,
-                        managedDevice,
-                        testData,
-                        File(resultsDir, managedDevice.name),
-                        File(reportDir, managedDevice.name),
-                        File(additionalTestOutputDir, managedDevice.name),
-                        File(coverageOutputDir, managedDevice.name),
-                        testTaskSuffix
-                    )
-                )
-                else -> error("Unsupported managed device type: ${managedDevice.javaClass}")
+            if (managedDevice !is ManagedVirtualDevice
+                && (managedDevice !is ManagedDeviceTestRunnerFactory
+                        || !globalConfig.services.projectOptions[
+                                BooleanOption.GRADLE_MANAGED_DEVICE_CUSTOM_DEVICE])) {
+                error("Unsupported managed device type: ${managedDevice.javaClass}")
             }
+            val managedDeviceTestTask = taskFactory.register(
+                ManagedDeviceInstrumentationTestTask.CreationAction(
+                    creationConfig,
+                    managedDevice,
+                    testData,
+                    File(resultsDir, managedDevice.name),
+                    File(reportDir, managedDevice.name),
+                    File(additionalTestOutputDir, managedDevice.name),
+                    File(coverageOutputDir, managedDevice.name),
+                    testTaskSuffix,
+                )
+            )
             managedDeviceTestTask.dependsOn(setupTaskName(managedDevice))
             allDevicesVariantTask.dependsOn(managedDeviceTestTask)
             taskFactory.configure(
@@ -2161,18 +2172,18 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         // the flow and don't set-up dexing.
         maybeCreateJavaCodeShrinkerTask(creationConfig)
         if (creationConfig.minifiedEnabled) {
-            maybeCreateDesugarLibTask(creationConfig, false)
+            maybeCreateDesugarLibTask(creationConfig, false, false)
             return
         }
 
         // Code Dexing (MonoDex, Legacy Multidex or Native Multidex)
-        if (creationConfig.needsMainDexListForBundle) {
+        if (creationConfig.dexingCreationConfig.needsMainDexListForBundle) {
             taskFactory.register(D8BundleMainDexListTask.CreationAction(creationConfig))
         }
         if (creationConfig.componentType.isDynamicFeature) {
             taskFactory.register(FeatureDexMergeTask.CreationAction(creationConfig))
         }
-        createDexTasks(creationConfig, creationConfig.dexingType)
+        createDexTasks(creationConfig, creationConfig.dexingCreationConfig.dexingType)
     }
 
     /**
@@ -2182,7 +2193,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
     private fun createDexTasks(
             creationConfig: ApkCreationConfig,
             dexingType: DexingType) {
-        val java8LangSupport = creationConfig.getJava8LangSupportType()
+        val java8LangSupport = creationConfig.dexingCreationConfig.java8LangSupportType
         val supportsDesugaringViaArtifactTransform =
                 (java8LangSupport == Java8LangSupport.UNUSED
                         || (java8LangSupport == Java8LangSupport.D8
@@ -2214,8 +2225,52 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
                 )
         )
 
-        maybeCreateDesugarLibTask(creationConfig, enableDexingArtifactTransform)
-        createDexMergingTasks(creationConfig, dexingType, enableDexingArtifactTransform, classesAlteredTroughVariantAPI)
+        // When desugaring, The file dependencies are dexed in a task with the whole
+        // remote classpath present, as they lack dependency information to desugar
+        // them correctly in an artifact transform.
+        // This should only be passed to Legacy Multidex MERGE_ALL or MERGE_EXTERNAL_LIBS of
+        // other dexing modes, otherwise it will cause the output of DexFileDependenciesTask
+        // to be included multiple times and will cause the build to fail because of same types
+        // being defined multiple times in the final dex.
+        val separateFileDependenciesDexingTask =
+            (creationConfig.dexingCreationConfig.java8LangSupportType == Java8LangSupport.D8
+                    && enableDexingArtifactTransform)
+
+        maybeCreateDesugarLibTask(
+            creationConfig,
+            enableDexingArtifactTransform,
+            separateFileDependenciesDexingTask
+        )
+
+        createDexMergingTasks(
+            creationConfig,
+            dexingType,
+            enableDexingArtifactTransform,
+            classesAlteredTroughVariantAPI,
+            separateFileDependenciesDexingTask
+        )
+
+        if (creationConfig.services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS]) {
+            if (dexingType == DexingType.NATIVE_MULTIDEX) {
+                taskFactory.register(
+                    GlobalSyntheticsMergeTask.CreationAction(
+                        creationConfig,
+                        enableDexingArtifactTransform,
+                        separateFileDependenciesDexingTask
+                    )
+                )
+            }
+
+            if (creationConfig.componentType.isDynamicFeature) {
+                taskFactory.register(
+                    FeatureGlobalSyntheticsMergeTask.CreationAction(
+                        creationConfig,
+                        enableDexingArtifactTransform,
+                        separateFileDependenciesDexingTask
+                    )
+                )
+            }
+        }
     }
 
     /**
@@ -2244,8 +2299,8 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             dexingType: DexingType,
             dexingUsingArtifactTransforms: Boolean,
             classesAlteredThroughVariantAPI: Boolean,
+            separateFileDependenciesDexingTask: Boolean
     ) {
-
         // if classes were altered at the ALL scoped level, we just need to merge the single jar
         // file resulting.
         if (classesAlteredThroughVariantAPI) {
@@ -2257,16 +2312,6 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             return
         }
 
-        // When desugaring, The file dependencies are dexed in a task with the whole
-        // remote classpath present, as they lack dependency information to desugar
-        // them correctly in an artifact transform.
-        // This should only be passed to Legacy Multidex MERGE_ALL or MERGE_EXTERNAL_LIBS of
-        // other dexing modes, otherwise it will cause the output of DexFileDependenciesTask
-        // to be included multiple times and will cause the build to fail because of same types
-        // being defined multiple times in the final dex.
-        val separateFileDependenciesDexingTask =
-                (creationConfig.getJava8LangSupportType() == Java8LangSupport.D8
-                        && dexingUsingArtifactTransforms)
         if (separateFileDependenciesDexingTask) {
             val desugarFileDeps = DexFileDependenciesTask.CreationAction(creationConfig)
             taskFactory.register(desugarFileDeps)
@@ -2441,14 +2486,16 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
                 }
             }
             taskFactory.register(DataBindingTriggerTask.CreationAction(creationConfig))
-            creationConfig.sources.java.addSource(
-                TaskProviderBasedDirectoryEntryImpl(
-                    name = "databinding_generated",
-                    directoryProvider = creationConfig.artifacts.get(
-                        InternalArtifactType.DATA_BINDING_TRIGGER
-                    ),
+            creationConfig.sources.java {
+                it.addSource(
+                    TaskProviderBasedDirectoryEntryImpl(
+                        name = "databinding_generated",
+                        directoryProvider = creationConfig.artifacts.get(
+                            InternalArtifactType.DATA_BINDING_TRIGGER
+                        ),
+                    )
                 )
-            )
+            }
             setDataBindingAnnotationProcessorParams(creationConfig)
         }
     }
@@ -3262,11 +3309,10 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
 
     private fun maybeCreateDesugarLibTask(
             apkCreationConfig: ApkCreationConfig,
-            enableDexingArtifactTransform: Boolean) {
-        val separateFileDependenciesDexingTask =
-                (apkCreationConfig.getJava8LangSupportType() == Java8LangSupport.D8
-                        && enableDexingArtifactTransform)
-        if (apkCreationConfig.shouldPackageDesugarLibDex) {
+            enableDexingArtifactTransform: Boolean,
+            separateFileDependenciesDexingTask: Boolean
+    ) {
+        if (apkCreationConfig.dexingCreationConfig.shouldPackageDesugarLibDex) {
             taskFactory.register(
                     L8DexDesugarLibTask.CreationAction(
                             apkCreationConfig,
@@ -3275,7 +3321,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
         }
 
         if(apkCreationConfig.componentType.isDynamicFeature
-            && apkCreationConfig.needsShrinkDesugarLibrary
+            && apkCreationConfig.dexingCreationConfig.needsShrinkDesugarLibrary
         ) {
             taskFactory.register(
                 DesugarLibKeepRulesMergeTask.CreationAction(

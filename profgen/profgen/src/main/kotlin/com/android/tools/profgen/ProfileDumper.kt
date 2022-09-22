@@ -21,11 +21,12 @@ import java.io.File
 fun dumpProfile(
     os: Appendable,
     profile: ArtProfile,
-    apk: Apk, obf: ObfuscationMap,
+    apk: Apk,
+    obf: ObfuscationMap,
     strict: Boolean = true,
 ) {
     for ((dexFile, dexFileData) in profile.profileData) {
-        val file = apk.dexes.find { it.name == dexFile.name }
+        val file = apk.dexes.find { it.name == extractName(dexFile.name) }
           ?: if (strict) {
               throw IllegalStateException("Cannot find Dex File ${dexFile.name}")
           } else {
@@ -51,6 +52,27 @@ fun dumpProfile(
     }
 }
 
-fun dumpProfile(file: File, profile: ArtProfile, apk: Apk, obf: ObfuscationMap) {
-    dumpProfile(file.outputStream().bufferedWriter(), profile, apk, obf)
+fun dumpProfile(
+        file: File,
+        profile: ArtProfile,
+        apk: Apk,
+        obf: ObfuscationMap,
+        strict: Boolean = true
+) {
+    dumpProfile(file.outputStream().bufferedWriter(), profile, apk, obf, strict = strict)
+}
+
+/**
+ * Extracts the dex name from the incoming profile key.
+ *
+ * `base.apk!classes.dex` is a typical profile key.
+ *
+ * On Android O or lower, the delimiter used is a `:`.
+ */
+private fun extractName(profileKey: String): String {
+    var index = profileKey.indexOf("!")
+    if (index < 0) {
+        index = profileKey.indexOf(":")
+    }
+    return profileKey.substring(index + 1)
 }

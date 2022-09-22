@@ -29,6 +29,7 @@ import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.legacy.OldVariantApiLegacySupport
 import com.android.build.gradle.internal.core.MergedFlavor
+import com.android.build.gradle.internal.core.VariantSources
 import com.android.build.gradle.internal.core.dsl.ApkProducingComponentDslInfo
 import com.android.build.gradle.internal.core.dsl.ComponentDslInfo
 import com.android.build.gradle.internal.core.dsl.MultiVariantComponentDslInfo
@@ -38,7 +39,6 @@ import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.publishing.PublishingSpecs.Companion.getVariantPublishingSpec
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.services.BaseServices
-import com.android.build.gradle.internal.services.VariantServices
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.options.BooleanOption
 import com.android.builder.errors.IssueReporter
@@ -53,7 +53,8 @@ import java.io.Serializable
 class OldVariantApiLegacySupportImpl(
     private val component: ComponentCreationConfig,
     private val dslInfo: ComponentDslInfo,
-    override val variantData: BaseVariantData
+    override val variantData: BaseVariantData,
+    override val variantSources: VariantSources
 ): OldVariantApiLegacySupport {
 
     override val buildTypeObj: BuildType
@@ -200,34 +201,39 @@ class OldVariantApiLegacySupportImpl(
         if (allRawAndroidResources != null) {
             return allRawAndroidResources!!
         }
-        allRawAndroidResources = component.services.fileCollection()
+        allRawAndroidResources = component.services.fileCollection().also { fileCollection ->
+            fileCollection.from(
+                component.variantDependencies
+                    .getArtifactCollection(
+                        AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
+                        AndroidArtifacts.ArtifactScope.ALL,
+                        AndroidArtifacts.ArtifactType.ANDROID_RES
+                    )
+                    .artifactFiles
+            )
 
-        allRawAndroidResources!!.from(
-            component.variantDependencies
-                .getArtifactCollection(
-                    AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
-                    AndroidArtifacts.ArtifactScope.ALL,
-                    AndroidArtifacts.ArtifactType.ANDROID_RES
+            fileCollection.from(
+                component.services.fileCollection(
+                    variantData.extraGeneratedResFolders
+                ).builtBy(listOfNotNull(variantData.extraGeneratedResFolders.builtBy))
+            )
+
+            component.taskContainer.generateApkDataTask?.let {
+                fileCollection.from(component.artifacts.get(InternalArtifactType.MICRO_APK_RES))
+            }
+
+            component.sources.res { resSources ->
+                fileCollection.from(
+                    resSources.getVariantSources().map { allRes ->
+                        allRes.map { directoryEntries ->
+                            directoryEntries.directoryEntries
+                                .map { it.asFiles(component.services::directoryProperty) }
+                        }
+                    }
                 )
-                .artifactFiles
-        )
-
-        allRawAndroidResources!!.from(
-            component.services.fileCollection(
-                variantData.extraGeneratedResFolders
-            ).builtBy(listOfNotNull(variantData.extraGeneratedResFolders.builtBy))
-        )
-
-        component.taskContainer.generateApkDataTask?.let {
-            allRawAndroidResources!!.from(component.artifacts.get(InternalArtifactType.MICRO_APK_RES))
+            }
         }
 
-        allRawAndroidResources!!.from(component.sources.res.getVariantSources().map { allRes ->
-            allRes.map { directoryEntries ->
-                directoryEntries.directoryEntries
-                    .map { it.asFiles(component.services::directoryProperty) }
-            }
-        })
         return allRawAndroidResources!!
     }
 

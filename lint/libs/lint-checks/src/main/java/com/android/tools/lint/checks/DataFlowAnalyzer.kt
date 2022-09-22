@@ -231,6 +231,11 @@ abstract class DataFlowAnalyzer(
                     if (parent is UQualifiedReferenceExpression && parent.selector == element) {
                         instances.add(parent)
                     }
+                } else if (element is UVariable) {
+                    val reference = element.javaPsi as? PsiVariable
+                    if (reference != null && !references.contains(reference)) {
+                        references.add(reference)
+                    }
                 }
                 val type = (element as? UExpression)?.getExpressionType() as? PsiClassType
                 type?.resolve()?.let { types.add(it) }
@@ -246,29 +251,7 @@ abstract class DataFlowAnalyzer(
                 matched = true
             } else {
                 val resolved = receiver.tryResolve()
-                if (resolved == null && receiver is USimpleNameReferenceExpression) {
-                    // Work around UAST bug where resolving in a lambda doesn't work; KT-46628.
-                    if (receiver.identifier == "it") {
-                        var curr: UElement = receiver
-                        while (true) {
-                            val lambda = curr.getParentOfType(ULambdaExpression::class.java, true) ?: break
-                            val valueParameters = lambda.valueParameters
-                            if (valueParameters.any { parameter ->
-                                val javaPsi = parameter.javaPsi
-                                val sourcePsi = parameter.sourcePsi
-                                javaPsi != null && references.contains(javaPsi) ||
-                                    sourcePsi != null && references.contains(sourcePsi)
-                            }
-                            ) {
-                                // We found the variable
-                                matched = true
-                                break
-                            }
-
-                            curr = lambda
-                        }
-                    }
-                } else if (resolved != null) {
+                if (resolved != null) {
                     if (references.contains(resolved)) {
                         matched = true
                     }
@@ -757,6 +740,13 @@ abstract class DataFlowAnalyzer(
                 sb.append("\n")
             }
         }
+        if (references.isNotEmpty()) {
+            sb.append("References:\n")
+            for (reference in references) {
+                sb.append(reference.id())
+                sb.append("\n")
+            }
+        }
 
         return sb.toString()
     }
@@ -770,7 +760,18 @@ abstract class DataFlowAnalyzer(
             this.sourcePsi?.text?.replace(Regex("\\s+"), " ")
         val max = 100
         return if (s.length > max) {
-            s.substring(0, max / 2) + "..." + s.substring(max / 2 + 3)
+            s.substring(0, max / 2) + "..." + s.substring(s.length - (max / 2 + 3))
+        } else {
+            s
+        }
+    }
+
+    fun PsiElement.id(): String {
+        val s = Integer.toHexString(System.identityHashCode(this)) + ":" +
+            this.text?.replace(Regex("\\s+"), " ")
+        val max = 100
+        return if (s.length > max) {
+            s.substring(0, max / 2) + "..." + s.substring(s.length - (max / 2 + 3))
         } else {
             s
         }

@@ -21,6 +21,7 @@ import com.android.build.api.artifact.impl.ArtifactsImpl
 import com.android.build.api.dsl.Lint
 import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.component.ComponentCreationConfig
+import com.android.build.gradle.internal.component.ConsumableCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.InternalArtifactType
@@ -44,7 +45,7 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.logging.configuration.ShowStacktrace
 import org.gradle.api.plugins.JavaBasePlugin
-import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
@@ -307,7 +308,8 @@ abstract class AndroidLintAnalysisTask : NonIncrementalTask() {
             task.desugaredMethodsFiles.from(
                 getDesugaredMethods(
                     creationConfig.services,
-                    creationConfig.global.compileOptions.isCoreLibraryDesugaringEnabled,
+                    (creationConfig as? ConsumableCreationConfig)
+                        ?.isCoreLibraryDesugaringEnabledLintCheck ?: false,
                     creationConfig.minSdkVersion,
                     creationConfig.global.compileSdkHashString,
                     creationConfig.global.bootClasspath
@@ -362,7 +364,7 @@ abstract class AndroidLintAnalysisTask : NonIncrementalTask() {
 
     fun configureForStandalone(
         taskCreationServices: TaskCreationServices,
-        javaPluginConvention: JavaPluginConvention,
+        javaPluginExtension: JavaPluginExtension,
         customLintChecksConfig: FileCollection,
         lintOptions: Lint,
         fatalOnly: Boolean = false
@@ -380,14 +382,14 @@ abstract class AndroidLintAnalysisTask : NonIncrementalTask() {
         this.projectInputs
             .initializeForStandalone(
                 project,
-                javaPluginConvention,
+                javaPluginExtension,
                 lintOptions,
                 LintMode.ANALYSIS
             )
         this.variantInputs
             .initializeForStandalone(
                 project,
-                javaPluginConvention,
+                javaPluginExtension,
                 taskCreationServices.projectOptions,
                 fatalOnly,
                 checkDependencies = false,

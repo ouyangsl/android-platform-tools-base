@@ -104,6 +104,7 @@ gradle_connected_test(
         "@maven//:androidx.test.ext.junit_1.1.3",
         "@maven//:androidx.appcompat.appcompat_1.4.1",
         "@maven//:androidx.annotation.annotation_1.2.0-rc01",
+        "@maven//:androidx.core.core-ktx_1.8.0",
         "@maven//:junit.junit_4.13.2",
         "@maven//:androidx.test.espresso.espresso-core_3.4.0",
     ],
@@ -113,17 +114,7 @@ gradle_connected_test(
         "//tools/base/build-system/integration-test:utp_plugins",
         "//tools/base/build-system/integration-test:kotlin_gradle_plugin_latest_prebuilts",
     ],
-    deps = TEST_DEPS,
-)
-
-gradle_connected_test(
-    name = "AdditionalTestOutputConnectedTest",
-    srcs = "src/test/java/com/android/build/gradle/integration/connected/library/",
-    avd = ":avd",
-    data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/additionalTestOutput"],
-    flaky = True,  # b/148626301 flaky emulator connectivity
-    maven_repo_zips = MAVEN_REPO_ZIPS,
-    maven_repos = TEST_MAVEN_REPOS,
+    tags = ["very_flaky"],  # b/247003418
     deps = TEST_DEPS,
 )
 
@@ -164,17 +155,6 @@ gradle_connected_test(
     srcs = "src/test/java/com/android/build/gradle/integration/connected/library/",
     avd = ":avd",
     data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/api"],
-    flaky = True,  # b/148626301 flaky emulator connectivity
-    maven_repo_zips = MAVEN_REPO_ZIPS,
-    maven_repos = TEST_MAVEN_REPOS,
-    deps = TEST_DEPS,
-)
-
-gradle_connected_test(
-    name = "ApplibtestConnectedTest",
-    srcs = "src/test/java/com/android/build/gradle/integration/connected/library/",
-    avd = ":avd",
-    data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/applibtest"],
     flaky = True,  # b/148626301 flaky emulator connectivity
     maven_repo_zips = MAVEN_REPO_ZIPS,
     maven_repos = TEST_MAVEN_REPOS,
@@ -622,28 +602,6 @@ gradle_connected_test(
 )
 
 gradle_connected_test(
-    name = "Overlay1ConnectedTest",
-    srcs = "src/test/java/com/android/build/gradle/integration/connected/application/",
-    avd = ":avd",
-    data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/overlay1"],
-    flaky = True,  # b/148626301 flaky emulator connectivity
-    maven_repo_zips = MAVEN_REPO_ZIPS,
-    maven_repos = TEST_MAVEN_REPOS,
-    deps = TEST_DEPS,
-)
-
-gradle_connected_test(
-    name = "Overlay2ConnectedTest",
-    srcs = "src/test/java/com/android/build/gradle/integration/connected/application/",
-    avd = ":avd",
-    data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/overlay2"],
-    flaky = True,  # b/148626301 flaky emulator connectivity
-    maven_repo_zips = MAVEN_REPO_ZIPS,
-    maven_repos = TEST_MAVEN_REPOS,
-    deps = TEST_DEPS,
-)
-
-gradle_connected_test(
     name = "Overlay3ConnectedTest",
     srcs = "src/test/java/com/android/build/gradle/integration/connected/application/",
     avd = ":avd",
@@ -659,21 +617,6 @@ gradle_connected_test(
     srcs = "src/test/java/com/android/build/gradle/integration/connected/application/",
     avd = ":avd",
     data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/pkgOverride"],
-    flaky = True,  # b/148626301 flaky emulator connectivity
-    maven_repo_zips = MAVEN_REPO_ZIPS,
-    maven_repos = TEST_MAVEN_REPOS,
-    deps = TEST_DEPS,
-)
-
-gradle_connected_test(
-    name = "RenderscriptNdkConnectedTest",
-    srcs = "src/test/java/com/android/build/gradle/integration/connected/nativebuild/",
-    avd = ":avd",
-    data = TEST_DATA + [
-        "//prebuilts/studio/sdk:cmake",
-        "//prebuilts/studio/sdk:ndk",
-        "//tools/base/build-system/integration-test:test-projects/renderscriptNdk",
-    ],
     flaky = True,  # b/148626301 flaky emulator connectivity
     maven_repo_zips = MAVEN_REPO_ZIPS,
     maven_repos = TEST_MAVEN_REPOS,
@@ -833,7 +776,7 @@ maven_repository(
     name = "prebuilts",
     # keep sorted
     artifacts = [
-        "@maven//:androidx.activity.activity-compose_1.3.1",
+        "@maven//:androidx.activity.activity-compose_1.5.1",
         "@maven//:androidx.appcompat.appcompat_1.1.0",
         "@maven//:androidx.appcompat.appcompat_1.2.0",
         "@maven//:androidx.appcompat.appcompat_1.3.0-beta01",

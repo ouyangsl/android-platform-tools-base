@@ -71,7 +71,7 @@ enum class BooleanOption(
     BUILD_FEATURE_AIDL("android.defaults.buildfeatures.aidl", true, ApiStage.Stable),
     BUILD_FEATURE_BUILDCONFIG("android.defaults.buildfeatures.buildconfig", true, ApiStage.Stable),
     BUILD_FEATURE_DATABINDING("android.defaults.buildfeatures.databinding", false, ApiStage.Stable),
-    BUILD_FEATURE_RENDERSCRIPT("android.defaults.buildfeatures.renderscript", true, ApiStage.Stable),
+    BUILD_FEATURE_RENDERSCRIPT("android.defaults.buildfeatures.renderscript", false, ApiStage.Stable),
     BUILD_FEATURE_RESVALUES("android.defaults.buildfeatures.resvalues", true, ApiStage.Stable),
     BUILD_FEATURE_SHADERS("android.defaults.buildfeatures.shaders", true, ApiStage.Stable),
     BUILD_FEATURE_VIEWBINDING("android.defaults.buildfeatures.viewbinding", false, ApiStage.Stable),
@@ -127,7 +127,6 @@ enum class BooleanOption(
     CONSUME_DEPENDENCIES_AS_SHARED_LIBRARIES("android.consumeDependenciesAsSharedLibraries", false, FeatureStage.Experimental),
     DISABLE_EARLY_MANIFEST_PARSING("android.disableEarlyManifestParsing", false, FeatureStage.Experimental),
     ENABLE_RESOURCE_NAMESPACING_DEFAULT("android.enableResourceNamespacingDefault", false, FeatureStage.Experimental),
-    R8_FAIL_ON_MISSING_CLASSES("android.r8.failOnMissingClasses", false, FeatureStage.Experimental),
     CONDITIONAL_KEEP_RULES("android.useConditionalKeepRules", false, FeatureStage.Experimental),
     KEEP_SERVICES_BETWEEN_BUILDS("android.keepWorkerActionServicesBetweenBuilds", false, FeatureStage.Experimental),
     ENABLE_PARTIAL_R_INCREMENTAL_BUILDS("android.enablePartialRIncrementalBuilds", false, FeatureStage.Experimental),
@@ -135,6 +134,8 @@ enum class BooleanOption(
     ENABLE_LOCAL_TESTING("android.bundletool.enableLocalTesting", false, FeatureStage.Experimental),
     DISABLE_MINSDKLIBRARY_CHECK("android.unsafe.disable.minSdkLibraryCheck", false, FeatureStage.Experimental),
     ENABLE_INSTRUMENTATION_TEST_DESUGARING("android.experimental.library.desugarAndroidTest", false, FeatureStage.Experimental),
+    ENABLE_GLOBAL_SYNTHETICS("android.enableGlobalSyntheticsGeneration", false, FeatureStage.Experimental),
+
     /**
      * When enabled, incompatible APKs installed on a testing device will be uninstalled automatically
      * during an instrumentation test run (e.g. When INSTALL_FAILED_UPDATE_INCOMPATIBLE error happens
@@ -157,6 +158,12 @@ enum class BooleanOption(
      * its instability.
      */
     GRADLE_MANAGED_DEVICE_ALLOW_OLD_API_LEVEL_DEVICES("android.experimental.testOptions.managedDevices.allowOldApiLevelDevices", false, FeatureStage.Experimental),
+
+    /**
+     * When enabled, Gradle Managed Device allows a custom managed device type that can be provided
+     * by a plugin by implementing ManagedDeviceTestRunner APIs.
+     */
+    GRADLE_MANAGED_DEVICE_CUSTOM_DEVICE("android.experimental.testOptions.managedDevices.customDevice", false, FeatureStage.Experimental),
 
     /** When set R classes are treated as compilation classpath in libraries, rather than runtime classpath, with values set to 0. */
     ENABLE_ADDITIONAL_ANDROID_TEST_OUTPUT("android.enableAdditionalTestOutput", true, FeatureStage.Experimental),
@@ -208,11 +215,6 @@ enum class BooleanOption(
     /* ------------------------
      * SOFTLY-ENFORCED FEATURES
      */
-
-    USE_NEW_JAR_CREATOR("android.useNewJarCreator", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
-    USE_NEW_APK_CREATOR("android.useNewApkCreator", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
     USE_RELATIVE_PATH_IN_TEST_CONFIG("android.testConfig.useRelativePath", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
     ENABLE_INCREMENTAL_DATA_BINDING("android.databinding.incremental", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
@@ -239,12 +241,6 @@ enum class BooleanOption(
     ),
 
     COMPILE_CLASSPATH_LIBRARY_R_CLASSES("android.useCompileClasspathLibraryRClasses", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
-    WARN_ABOUT_DEPENDENCY_RESOLUTION_AT_CONFIGURATION(
-        "android.dependencyResolutionAtConfigurationTime.warn",
-        true,
-        FeatureStage.SoftlyEnforced(VERSION_8_0)
-    ),
 
     ENABLE_DEXING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
     ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform.desugaring", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
@@ -493,6 +489,31 @@ enum class BooleanOption(
             FeatureStage.Enforced(Version.VERSION_8_0)
     ),
 
+    @Suppress("unused")
+    R8_FAIL_ON_MISSING_CLASSES(
+        "android.r8.failOnMissingClasses",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
+    USE_NEW_JAR_CREATOR(
+        "android.useNewJarCreator",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
+    USE_NEW_APK_CREATOR(
+        "android.useNewApkCreator",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
+    WARN_ABOUT_DEPENDENCY_RESOLUTION_AT_CONFIGURATION(
+        "android.dependencyResolutionAtConfigurationTime.warn",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+    
     /* ----------------
      * REMOVED FEATURES
      */

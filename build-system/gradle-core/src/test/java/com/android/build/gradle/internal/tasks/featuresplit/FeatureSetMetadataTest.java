@@ -62,11 +62,11 @@ public class FeatureSetMetadataTest {
 
     @Test
     public void testPersistence() throws IOException {
-        FeatureSetMetadata featureSetMetadata =
-                new FeatureSetMetadata(FeatureSetMetadata.MAX_NUMBER_OF_SPLITS_BEFORE_O);
-        featureSetMetadata.addFeatureSplit(minSdkVersion, ":one", "one", "example.one");
-        featureSetMetadata.addFeatureSplit(minSdkVersion, ":two", "two", "example.two");
-        featureSetMetadata.addFeatureSplit(minSdkVersion, ":three", "three", "example.three");
+        FeatureSetMetadata.Builder featureSetMetadata =
+                new FeatureSetMetadata.Builder(minSdkVersion, FeatureSetMetadata.MAX_NUMBER_OF_SPLITS_BEFORE_O);
+        featureSetMetadata.addFeatureSplit(":one", "one", "example.one");
+        featureSetMetadata.addFeatureSplit(":two", "two", "example.two");
+        featureSetMetadata.addFeatureSplit(":three", "three", "example.three");
         featureSetMetadata.save(
                 new File(temporaryFolder.getRoot(), FeatureSetMetadata.OUTPUT_FILE_NAME));
         File[] files = temporaryFolder.getRoot().listFiles();
@@ -111,5 +111,14 @@ public class FeatureSetMetadataTest {
         assertThat(loaded.getFeatureNameToNamespaceMap())
                 .containsExactly(
                         "one", "example.one", "two", "example.two", "three", "example.three");
+
+        FeatureSetMetadata.Builder builder = loaded.toBuilder();
+        int four = builder.addFeatureSplit(":four", "four", "example.four");
+        assertThat(four)
+                .named("allocated res offset for four")
+                .isEqualTo(
+                        minSdkVersion < 26
+                                ? FeatureSetMetadata.BASE_ID - 4
+                                : FeatureSetMetadata.BASE_ID + 4);
     }
 }

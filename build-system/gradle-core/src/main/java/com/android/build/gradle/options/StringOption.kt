@@ -132,6 +132,9 @@ enum class StringOption(
     // "angle_indirect"
     GRADLE_MANAGED_DEVICE_EMULATOR_GPU_MODE("android.testoptions.manageddevices.emulator.gpu", ApiStage.Experimental),
 
+    ANDROID_PRIVACY_SANDBOX_SDK_API_GENERATOR("android.privacySandboxSdk.apiGenerator", ApiStage.Experimental),
+
+    ANDROID_PRIVACY_SANDBOX_SDK_API_GENERATOR_GENERATED_RUNTIME_DEPENDENCIES("android.privacySandboxSdk.apiGenerator.generatedRuntimeDependencies", ApiStage.Experimental),
     /* ---------------
      * DEPRECATED APIs
      */

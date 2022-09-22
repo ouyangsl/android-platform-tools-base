@@ -69,6 +69,7 @@ import com.android.build.gradle.options.ProjectOptions;
 import com.android.build.gradle.options.StringOption;
 import com.android.builder.core.DefaultManifestParser;
 import com.android.builder.core.ManifestAttributeSupplier;
+import com.android.builder.dexing.DexingType;
 import com.android.builder.errors.EvalIssueException;
 import com.android.builder.errors.IssueReporter;
 import com.android.builder.files.IncrementalChanges;
@@ -78,7 +79,6 @@ import com.android.builder.files.RelativeFile;
 import com.android.builder.files.SerializableChange;
 import com.android.builder.files.SerializableInputChanges;
 import com.android.builder.files.ZipCentralDirectory;
-import com.android.builder.internal.packaging.ApkCreatorType;
 import com.android.builder.internal.packaging.IncrementalPackager;
 import com.android.builder.packaging.DexPackagingMode;
 import com.android.builder.packaging.PackagingUtils;
@@ -259,16 +259,12 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
     @Input
     public abstract Property<Boolean> getDexUseLegacyPackaging();
 
-    protected String projectBaseName;
-
     @Nullable protected String buildTargetAbi;
 
     @Nullable protected String buildTargetDensity;
 
     @Input
-    public String getProjectBaseName() {
-        return projectBaseName;
-    }
+    public abstract Property<String> getProjectBaseName();
 
     /**
      * Name of directory, inside the intermediate directory, where zip caches are kept.
@@ -411,14 +407,6 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
         return new File(outputDirectory, variantOutput.getOutputFileName().get());
     }
 
-    protected ApkCreatorType apkCreatorType;
-
-    @NonNull
-    @Input
-    public ApkCreatorType getApkCreatorType() {
-        return apkCreatorType;
-    }
-
     @Override
     public void doTaskAction(@NonNull InputChanges changes) {
         if (!changes.isIncremental()) {
@@ -456,7 +444,6 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
                     .getAndroidResourcesChanged()
                     .set(changedResourceFiles.contains(new File(builtArtifact.getOutputFile())));
             parameter.getProjectPath().set(getProjectPath().get());
-            parameter.getApkCreatorType().set(apkCreatorType);
             parameter.getOutputFile().set(outputFile);
             parameter.getIncrementalFolder().set(getIncrementalFolder());
             if (getFeatureDexFolder().isEmpty()) {
@@ -712,9 +699,6 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
         @NonNull
         public abstract Property<IncrementalPackagerBuilder.BuildType> getPackagerMode();
 
-        @NonNull
-        public abstract Property<ApkCreatorType> getApkCreatorType();
-
         @Optional
         public abstract RegularFileProperty getDependencyDataFile();
 
@@ -886,7 +870,6 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
                         .withDeterministicEntryOrder(params.getIsDeterministicEntryOrder().get())
                         .withAcceptedAbis(getAcceptedAbis(params))
                         .withJniDebuggableBuild(params.getIsJniDebuggableBuild().get())
-                        .withApkCreatorType(params.getApkCreatorType().get())
                         .withChangedDexFiles(changedDex)
                         .withChangedJavaResources(changedJavaResources)
                         .withChangedAssets(changedAssets)
@@ -1280,8 +1263,10 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
             packageAndroidArtifact.getDebugBuild().set(creationConfig.getDebuggable());
             packageAndroidArtifact.getDebugBuild().disallowChanges();
 
-            packageAndroidArtifact.projectBaseName =
-                    creationConfig.getServices().getProjectInfo().getProjectBaseName();
+            packageAndroidArtifact
+                    .getProjectBaseName()
+                    .set(creationConfig.getServices().getProjectInfo().getProjectBaseName());
+            packageAndroidArtifact.getProjectBaseName().disallowChanges();
             packageAndroidArtifact.manifestType = manifestType;
             packageAndroidArtifact.buildTargetAbi =
                     creationConfig.getGlobal().getSplits().getAbi().isEnable()
@@ -1317,8 +1302,6 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
                     creationConfig.getGlobal().getSplits().getDensity().isEnable()
                             ? projectOptions.get(StringOption.IDE_BUILD_TARGET_DENSITY)
                             : null;
-
-            packageAndroidArtifact.apkCreatorType = creationConfig.getGlobal().getApkCreatorType();
 
             packageAndroidArtifact.getCreatedBy().set(creationConfig.getGlobal().getCreatedBy());
 
@@ -1400,13 +1383,17 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
                     && ((ApplicationCreationConfig) creationConfig).getConsumesFeatureJars()) {
                 return creationConfig
                         .getServices()
-                        .fileCollection(artifacts.get(InternalArtifactType.BASE_DEX.INSTANCE))
-                        .plus(getDesugarLibDexIfExists(creationConfig));
+                        .fileCollection(
+                                artifacts.get(InternalArtifactType.BASE_DEX.INSTANCE),
+                                getDesugarLibDexIfExists(creationConfig),
+                                getGlobalSyntheticsDex(creationConfig));
             } else {
                 return creationConfig
                         .getServices()
-                        .fileCollection(artifacts.getAll(InternalMultipleArtifactType.DEX.INSTANCE))
-                        .plus(getDesugarLibDexIfExists(creationConfig));
+                        .fileCollection(
+                                artifacts.getAll(InternalMultipleArtifactType.DEX.INSTANCE),
+                                getDesugarLibDexIfExists(creationConfig),
+                                getGlobalSyntheticsDex(creationConfig));
             }
         }
 
@@ -1477,7 +1464,7 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
         @NonNull
         private static FileCollection getDesugarLibDexIfExists(
                 @NonNull ApkCreationConfig creationConfig) {
-            if (!creationConfig.getShouldPackageDesugarLibDex()) {
+            if (!creationConfig.getDexingCreationConfig().getShouldPackageDesugarLibDex()) {
                 return creationConfig.getServices().fileCollection();
             }
             return creationConfig
@@ -1486,6 +1473,31 @@ public abstract class PackageAndroidArtifact extends NewIncrementalTask {
                             creationConfig
                                     .getArtifacts()
                                     .get(InternalArtifactType.DESUGAR_LIB_DEX.INSTANCE));
+        }
+
+        @NonNull
+        private static FileCollection getGlobalSyntheticsDex(
+                @NonNull ApkCreationConfig creationConfig) {
+            // No need to collect global synthetics in three cases:
+            //   1. Global synthetics generation is disabled
+            //   2. R8 is used and global synthetics are not generated
+            //   3. In mono dex and legacy multidex where global synthetics are already merged into
+            //      dex files in dex merging tasks
+            if (!creationConfig
+                            .getServices()
+                            .getProjectOptions()
+                            .get(BooleanOption.ENABLE_GLOBAL_SYNTHETICS)
+                    || creationConfig.getDexingCreationConfig().getDexingType()
+                            != DexingType.NATIVE_MULTIDEX
+                    || creationConfig.getMinifiedEnabled()) {
+                return creationConfig.getServices().fileCollection();
+            }
+            return creationConfig
+                    .getServices()
+                    .fileCollection(
+                            creationConfig
+                                    .getArtifacts()
+                                    .get(InternalArtifactType.GLOBAL_SYNTHETICS_DEX.INSTANCE));
         }
 
         // We always write new APK entries in a deterministic order except for debug builds invoked

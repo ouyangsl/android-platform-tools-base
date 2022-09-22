@@ -22,11 +22,11 @@ import com.android.build.api.extension.impl.VariantApiOperationsRegistrar
 import com.android.build.api.variant.AndroidVersion
 import com.android.build.api.variant.Component
 import com.android.build.api.variant.ComponentIdentity
+import com.android.build.api.variant.InternalSources
 import com.android.build.api.variant.JavaCompilation
 import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
 import com.android.build.api.variant.VariantOutputConfiguration
-import com.android.build.api.variant.impl.SourcesImpl
 import com.android.build.api.variant.impl.VariantOutputList
 import com.android.build.gradle.internal.component.features.AndroidResourcesCreationConfig
 import com.android.build.gradle.internal.component.features.AssetsCreationConfig
@@ -37,7 +37,6 @@ import com.android.build.gradle.internal.component.features.ResValuesCreationCon
 import com.android.build.gradle.internal.component.legacy.ModelV1LegacySupport
 import com.android.build.gradle.internal.component.legacy.OldVariantApiLegacySupport
 import com.android.build.gradle.internal.core.ProductFlavor
-import com.android.build.gradle.internal.core.VariantSources
 import com.android.build.gradle.internal.dependency.VariantDependencies
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
@@ -109,19 +108,11 @@ interface ComponentCreationConfig : ComponentIdentity {
     val buildFeatures: BuildFeatureValues
     val variantDependencies: VariantDependencies
     val artifacts: ArtifactsImpl
-    val sources: SourcesImpl
+    val sources: InternalSources
     val taskContainer: MutableTaskContainer
     val transformManager: TransformManager
     val paths: VariantPathHelper
     val services: TaskCreationServices
-
-    /**
-     * DO NOT USE, this is still present to support ModelBuilder v1 code that should be deleted
-     * soon. Instead, use [sources] API.
-     */
-
-    val variantSources: VariantSources
-
 
     /**
      * Access to the global task creation configuration
@@ -149,7 +140,7 @@ interface ComponentCreationConfig : ComponentIdentity {
 
     fun addVariantOutput(
         variantOutputConfiguration: VariantOutputConfiguration,
-        outputFileName: String? = null
+        outputFileName: Provider<String>? = null
     )
 
     fun computeLocalFileDependencies(filePredicate: Predicate<File>): FileCollection

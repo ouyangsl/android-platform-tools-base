@@ -16,6 +16,14 @@
 
 package com.android.build.gradle.integration.application;
 
+import static com.android.build.gradle.integration.common.truth.TruthHelper.assertThat;
+import static com.android.builder.core.BuilderConstants.RELEASE;
+import static com.android.tools.build.apkzlib.sign.SignatureAlgorithm.DSA;
+import static com.android.tools.build.apkzlib.sign.SignatureAlgorithm.ECDSA;
+import static com.android.tools.build.apkzlib.sign.SignatureAlgorithm.RSA;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.android.annotations.NonNull;
 import com.android.apksig.ApkVerifier;
 import com.android.build.gradle.integration.common.fixture.GradleBuildResult;
@@ -25,8 +33,6 @@ import com.android.build.gradle.integration.common.fixture.ModelContainerV2;
 import com.android.build.gradle.integration.common.fixture.app.HelloWorldApp;
 import com.android.build.gradle.integration.common.runner.FilterableParameterized;
 import com.android.build.gradle.integration.common.utils.AndroidProjectUtilsV2;
-import com.android.build.gradle.integration.common.utils.GradleTestProjectUtils;
-import com.android.build.gradle.integration.common.utils.IgnoredTests;
 import com.android.build.gradle.integration.common.utils.SigningConfigHelper;
 import com.android.build.gradle.integration.common.utils.SigningHelper;
 import com.android.build.gradle.integration.common.utils.TestFileUtils;
@@ -34,7 +40,6 @@ import com.android.build.gradle.options.BooleanOption;
 import com.android.build.gradle.options.OptionalBooleanOption;
 import com.android.build.gradle.options.StringOption;
 import com.android.builder.core.BuilderConstants;
-import com.android.builder.internal.packaging.ApkCreatorType;
 import com.android.builder.model.SyncIssue;
 import com.android.builder.model.v2.dsl.SigningConfig;
 import com.android.builder.model.v2.ide.AndroidArtifact;
@@ -45,30 +50,17 @@ import com.android.testutils.TestUtils;
 import com.android.testutils.apk.Apk;
 import com.android.tools.build.apkzlib.sign.DigestAlgorithm;
 import com.google.common.io.Resources;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static com.android.build.gradle.integration.common.truth.TruthHelper.assertThat;
-import static com.android.builder.core.BuilderConstants.RELEASE;
-import static com.android.builder.internal.packaging.ApkCreatorType.APK_FLINGER;
-import static com.android.builder.internal.packaging.ApkCreatorType.APK_Z_FILE_CREATOR;
-import static com.android.tools.build.apkzlib.sign.SignatureAlgorithm.DSA;
-import static com.android.tools.build.apkzlib.sign.SignatureAlgorithm.ECDSA;
-import static com.android.tools.build.apkzlib.sign.SignatureAlgorithm.RSA;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /** Integration test for all signing-related features. */
 @RunWith(FilterableParameterized.class)
@@ -88,30 +80,18 @@ public class SigningTest {
     @Parameterized.Parameter(2)
     public int minSdkVersion;
 
-    @Parameterized.Parameter(3)
-    public ApkCreatorType apkCreatorType;
-
     @Rule
     public GradleTestProject project =
             GradleTestProject.builder().fromTestApp(HelloWorldApp.noBuildFile()).create();
 
     private File keystore;
 
-    @Parameterized.Parameters(name = "{0}, {3}")
+    @Parameterized.Parameters(name = "{0}, {2}")
     public static Collection<Object[]> data() {
         return Arrays.asList(
-                new Object[] {"rsa_keystore.jks", "CERT.RSA", RSA.minSdkVersion, APK_FLINGER},
-                new Object[] {
-                    "rsa_keystore.jks", "CERT.RSA", RSA.minSdkVersion, APK_Z_FILE_CREATOR
-                },
-                new Object[] {"dsa_keystore.jks", "CERT.DSA", DSA.minSdkVersion, APK_FLINGER},
-                new Object[] {
-                    "dsa_keystore.jks", "CERT.DSA", DSA.minSdkVersion, APK_Z_FILE_CREATOR
-                },
-                new Object[] {"ec_keystore.jks", "CERT.EC", ECDSA.minSdkVersion, APK_FLINGER},
-                new Object[] {
-                    "ec_keystore.jks", "CERT.EC", ECDSA.minSdkVersion, APK_Z_FILE_CREATOR
-                });
+                new Object[] {"rsa_keystore.jks", "CERT.RSA", RSA.minSdkVersion},
+                new Object[] {"dsa_keystore.jks", "CERT.DSA", DSA.minSdkVersion},
+                new Object[] {"ec_keystore.jks", "CERT.EC", ECDSA.minSdkVersion});
     }
 
     private static void createKeystoreFile(@NonNull String resourceName, @NonNull File keystore)
@@ -127,8 +107,6 @@ public class SigningTest {
         keystore = project.file("the.keystore");
 
         createKeystoreFile(keystoreName, keystore);
-
-        GradleTestProjectUtils.setApkCreatorType(project, apkCreatorType);
 
         TestFileUtils.appendToFile(
                 project.getBuildFile(),
@@ -229,16 +207,16 @@ public class SigningTest {
         assertThat(result.getTasks()).contains(":writeReleaseSigningConfigVersions");
     }
 
-    @Ignore(IgnoredTests.BUG_243127865)
     @Test
     public void checkCustomSigning() throws Exception {
         Collection<Variant> variants =
-                Objects.requireNonNull(project.modelV2()
-                                .ignoreSyncIssues(SyncIssue.SEVERITY_WARNING)
-                                .fetchModels(null, null)
-                                .getContainer()
-                                .getProject(null, ":")
-                                .getAndroidProject())
+                Objects.requireNonNull(
+                                project.modelV2()
+                                        .ignoreSyncIssues(SyncIssue.SEVERITY_WARNING)
+                                        .fetchModels(null, null)
+                                        .getContainer()
+                                        .getProject(null, ModelContainerV2.ROOT_BUILD_ID)
+                                        .getAndroidProject())
                         .getVariants();
 
         for (Variant variant : variants) {
@@ -258,11 +236,12 @@ public class SigningTest {
     @Test
     public void signingConfigsModel() throws Exception {
         ModelBuilderV2 modelBuilder = project.modelV2();
-        ModelContainerV2.ModelInfo moduleInfo = modelBuilder
-                .ignoreSyncIssues(SyncIssue.SEVERITY_WARNING)
-                .fetchModels()
-                .getContainer()
-                .getProject(null, ":");
+        ModelContainerV2.ModelInfo moduleInfo =
+                modelBuilder
+                        .ignoreSyncIssues(SyncIssue.SEVERITY_WARNING)
+                        .fetchModels()
+                        .getContainer()
+                        .getProject(null, ModelContainerV2.ROOT_BUILD_ID);
         AndroidDsl androidDsl = moduleInfo.getAndroidDsl();
         AndroidProject androidProject = moduleInfo.getAndroidProject();
 
@@ -506,8 +485,6 @@ public class SigningTest {
 
     @Test
     public void signingWithV3() throws Exception {
-        // v3 signing is not supported by apkzlib
-        Assume.assumeTrue(apkCreatorType == APK_FLINGER);
         TestFileUtils.searchAndReplace(
                 project.getBuildFile(),
                 "customDebug {",
@@ -532,8 +509,6 @@ public class SigningTest {
 
     @Test
     public void signingWithV4AndV2() throws Exception {
-        // v4 signing is not supported by apkzlib
-        Assume.assumeTrue(apkCreatorType == APK_FLINGER);
         TestFileUtils.searchAndReplace(
                 project.getBuildFile(),
                 "customDebug {",
@@ -560,8 +535,6 @@ public class SigningTest {
 
     @Test
     public void signingWithV4AndV3() throws Exception {
-        // v4 and v3 signing are not supported by apkzlib
-        Assume.assumeTrue(apkCreatorType == APK_FLINGER);
         TestFileUtils.searchAndReplace(
                 project.getBuildFile(),
                 "customDebug {",
@@ -599,8 +572,6 @@ public class SigningTest {
      */
     @Test
     public void signingWithDslVersionsWithInjectedSigningConfig() throws Exception {
-        // v4 and v3 signing are not supported by apkzlib
-        Assume.assumeTrue(apkCreatorType == APK_FLINGER);
         // set enableV1Signing and enableV2Signing to false below because we're testing that
         // they're not being overridden by the "injected" null values which would cause v1 and v2
         // signing to be enabled by default.
@@ -632,8 +603,6 @@ public class SigningTest {
 
     @Test
     public void enableSigningWithVariantApi() throws Exception {
-        // v4 and v3 signing are not supported by apkzlib
-        Assume.assumeTrue(apkCreatorType == APK_FLINGER);
         TestFileUtils.appendToFile(
                 project.getBuildFile(),
                 "\n"
@@ -667,8 +636,6 @@ public class SigningTest {
 
     @Test
     public void injectedValuesOverrideVariantApi() throws Exception {
-        // v4 and v3 signing are not supported by apkzlib
-        Assume.assumeTrue(apkCreatorType == APK_FLINGER);
         TestFileUtils.appendToFile(
                 project.getBuildFile(),
                 "\n"

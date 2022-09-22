@@ -2798,7 +2798,7 @@ public final class SdkConstants {
      * The version of NDK to use as default. If no specific version of NDK is specified in
      * build.gradle then this is the version that will be used.
      */
-    public static final String NDK_DEFAULT_VERSION = "23.1.7779620";
+    public static final String NDK_DEFAULT_VERSION = "25.1.8937393";
 
     /** use api or implementation */
     @Deprecated public static final String GRADLE_COMPILE_CONFIGURATION = "compile";
@@ -2909,14 +2909,17 @@ public final class SdkConstants {
                         + "by third-party plugins) should be removed.");
     }
 
+    public static final String META_INF = "meta-inf";
+    public static final String PROGUARD_RULES_FOLDER_NAME = "proguard";
     /** Folder where proguard rules are located in jar, aar and project generated resources */
-    public static final String PROGUARD_RULES_FOLDER = "meta-inf/proguard";
+    public static final String PROGUARD_RULES_FOLDER = META_INF + "/" + PROGUARD_RULES_FOLDER_NAME;
 
     /** Folder where configuration files for R8 and other tools are located in jar files */
     public static final String COM_ANDROID_TOOLS_FOLDER = "com.android.tools";
 
     /** Folder where configuration files for R8 and other tools are located in jar files */
-    public static final String TOOLS_CONFIGURATION_FOLDER = "meta-inf/" + COM_ANDROID_TOOLS_FOLDER;
+    public static final String TOOLS_CONFIGURATION_FOLDER =
+            META_INF + "/" + COM_ANDROID_TOOLS_FOLDER;
 
     public static final String FD_PREFAB_PACKAGE = "prefab";
 }

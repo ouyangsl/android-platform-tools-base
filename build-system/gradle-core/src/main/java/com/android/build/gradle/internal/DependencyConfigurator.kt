@@ -34,14 +34,18 @@ import com.android.build.gradle.internal.dependency.AlternateCompatibilityRule
 import com.android.build.gradle.internal.dependency.AlternateDisambiguationRule
 import com.android.build.gradle.internal.dependency.AndroidXDependencyCheck
 import com.android.build.gradle.internal.dependency.AndroidXDependencySubstitution.replaceOldSupportLibraries
+import com.android.build.gradle.internal.dependency.ExtractPrivacySandboxSdkApiFromAsarTransform
 import com.android.build.gradle.internal.dependency.AsmClassesTransform.Companion.registerAsmTransformForComponent
 import com.android.build.gradle.internal.dependency.ClassesDirToClassesTransform
 import com.android.build.gradle.internal.dependency.CollectClassesTransform
 import com.android.build.gradle.internal.dependency.CollectResourceSymbolsTransform
 import com.android.build.gradle.internal.dependency.EnumerateClassesTransform
 import com.android.build.gradle.internal.dependency.ExtractAarTransform
+import com.android.build.gradle.internal.dependency.ExtractCompileSdkShimTransform
 import com.android.build.gradle.internal.dependency.ExtractJniTransform
 import com.android.build.gradle.internal.dependency.ExtractProGuardRulesTransform
+import com.android.build.gradle.internal.dependency.ExtractRuntimeSdkShimTransform
+import com.android.build.gradle.internal.dependency.ExtractSdkShimTransform
 import com.android.build.gradle.internal.dependency.FilterShrinkerRulesTransform
 import com.android.build.gradle.internal.dependency.GenericTransformParameters
 import com.android.build.gradle.internal.dependency.IdentityTransform
@@ -69,6 +73,7 @@ import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.services.AndroidLocationsBuildService
 import com.android.build.gradle.internal.services.ProjectServices
 import com.android.build.gradle.internal.services.getBuildService
+import com.android.build.gradle.internal.tasks.AsarMetadataExtractionTransform
 import com.android.build.gradle.internal.tasks.AsarToApksTransform
 import com.android.build.gradle.internal.tasks.AsarToManifestSnippetTransform
 import com.android.build.gradle.internal.tasks.factory.BootClasspathConfig
@@ -79,6 +84,7 @@ import com.android.build.gradle.internal.variant.VariantInputModel
 import com.android.build.gradle.options.BooleanOption
 import com.android.build.gradle.options.StringOption
 import com.android.build.gradle.options.SyncOptions
+import com.android.repository.Revision
 import com.google.common.collect.Maps
 import org.gradle.api.ActionConfiguration
 import org.gradle.api.Project
@@ -437,8 +443,12 @@ class DependencyConfigurator(
             AndroidArtifacts.ArtifactType.JAR_CLASS_LIST
         )
 
+        return this
+    }
 
-        if (projectOptions.get(BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT)) {
+    fun configurePrivacySandboxSdkConsumerTransforms(
+            compileSdkHashString: String, buildToolsRevision: Revision, bootstrapCreationConfig : BootClasspathConfig) {
+        if (projectServices.projectOptions.get(BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT)) {
             registerTransform(
                     AsarToApksTransform::class.java,
                     AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_ARCHIVE,
@@ -452,17 +462,114 @@ class DependencyConfigurator(
                         ).map { it.getDefaultDebugKeystoreSigningConfig() }
                 )
                 params.signingConfigValidationResultDir.set(
-                        ArtifactsImpl(project, "global").get(InternalArtifactType.VALIDATE_SIGNING_CONFIG)
+                        ArtifactsImpl(project,
+                                "global").get(InternalArtifactType.VALIDATE_SIGNING_CONFIG)
                 )
             }
             registerTransform(
-                AsarToManifestSnippetTransform::class.java,
-                AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_ARCHIVE,
-                AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_EXTRACTED_MANIFEST_SNIPPET
+                    AsarToManifestSnippetTransform::class.java,
+                    AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_ARCHIVE,
+                    AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_EXTRACTED_MANIFEST_SNIPPET
             )
-        }
+            registerTransform(
+                AsarMetadataExtractionTransform::class.java,
+                AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_ARCHIVE,
+                AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_METADATA_PROTO
+            )
+            registerTransform(
+                    ExtractPrivacySandboxSdkApiFromAsarTransform::class.java,
+                    AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_ARCHIVE,
+                    AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_INTERFACE_DESCRIPTOR
+            )
 
-        return this
+            val apiGeneratorCoordinates = projectServices.projectOptions
+                    .get(StringOption.ANDROID_PRIVACY_SANDBOX_SDK_API_GENERATOR)
+            if (apiGeneratorCoordinates != null) {
+
+                val extractSdkShimTransformParamConfig = {
+                    reg: TransformSpec<ExtractSdkShimTransform.Parameters> ->
+                    val runtimeDependenciesForShimSdk =
+                            projectServices.projectOptions
+                                    .get(StringOption.ANDROID_PRIVACY_SANDBOX_SDK_API_GENERATOR_GENERATED_RUNTIME_DEPENDENCIES)
+                                    ?.split(",") ?: emptyList()
+
+                    val apiGeneratorAndRuntimeDependencies =
+                            project.configurations.detachedConfiguration(
+                                    project.dependencies.create(apiGeneratorCoordinates))
+                    // Runtime dependencies of the sources created by the api generator
+                    val apiGeneratorOutputSourceDependencies =
+                            project.configurations.detachedConfiguration(
+                                    *runtimeDependenciesForShimSdk.map {
+                                        project.dependencies.create(it)
+                                    }.toTypedArray())
+
+                    val params = reg.parameters
+                    params.apiGeneratorAndRuntimeDependenciesJars.setFrom(
+                            apiGeneratorAndRuntimeDependencies)
+                    params.buildTools.initialize(
+                            projectServices.buildServiceRegistry,
+                            compileSdkHashString,
+                            buildToolsRevision)
+
+                    // For kotlin compilation
+                    params.bootstrapClasspath.from(bootstrapCreationConfig.fullBootClasspath)
+
+                    val kotlinCompiler = project.configurations.detachedConfiguration(
+                            project.dependencies.create("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.10")
+                    )
+                    params.kotlinCompiler.from(kotlinCompiler)
+                    params.runtimeDependencies.from(apiGeneratorOutputSourceDependencies)
+                }
+
+                project.dependencies.registerTransform(
+                        ExtractCompileSdkShimTransform::class.java,
+                ) { reg ->
+                    val compileUsage: Usage =
+                            project.objects.named(Usage::class.java, Usage.JAVA_API)
+
+                    reg.from.attribute(
+                            ArtifactAttributes.ARTIFACT_FORMAT,
+                            AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_INTERFACE_DESCRIPTOR.type
+                    )
+                    reg.from.attribute(
+                            Usage.USAGE_ATTRIBUTE,
+                            compileUsage
+                    )
+                    reg.to.attribute(
+                            ArtifactAttributes.ARTIFACT_FORMAT,
+                            AndroidArtifacts.ArtifactType.CLASSES_JAR.type
+                    )
+                    reg.to.attribute(
+                            Usage.USAGE_ATTRIBUTE,
+                            compileUsage
+                    )
+                    extractSdkShimTransformParamConfig(reg)
+                }
+                project.dependencies.registerTransform(
+                        ExtractRuntimeSdkShimTransform::class.java,
+                ) { reg ->
+                    val runtimeUsage: Usage = project.objects.named(Usage::class.java, Usage.JAVA_RUNTIME)
+
+                    reg.from.attribute(
+                            ArtifactAttributes.ARTIFACT_FORMAT,
+                            AndroidArtifacts.ArtifactType.ANDROID_PRIVACY_SANDBOX_SDK_INTERFACE_DESCRIPTOR.type
+                    )
+                    reg.from.attribute(
+                            Usage.USAGE_ATTRIBUTE,
+                            runtimeUsage
+                    )
+                    reg.to.attribute(
+                            ArtifactAttributes.ARTIFACT_FORMAT,
+                            AndroidArtifacts.ArtifactType.CLASSES_JAR.type
+                    )
+                    reg.to.attribute(
+                            Usage.USAGE_ATTRIBUTE,
+                            runtimeUsage
+                    )
+                    extractSdkShimTransformParamConfig(reg)
+                }
+            }
+        }
     }
 
     fun configureCalculateStackFramesTransforms(

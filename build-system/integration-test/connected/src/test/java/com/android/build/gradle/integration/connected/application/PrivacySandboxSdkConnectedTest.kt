@@ -17,14 +17,19 @@
 package com.android.build.gradle.integration.connected.application
 
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.Companion.builder
-import com.android.build.gradle.integration.common.fixture.installPackage
+import com.android.build.gradle.integration.common.fixture.executeShellCommand
 import com.android.build.gradle.integration.common.fixture.uninstallPackage
 import com.android.build.gradle.integration.connected.utils.getEmulator
+import com.android.ddmlib.MultiLineReceiver
+import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.ClassRule
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+
+private const val APP_PACKAGE_NAME = "com.example.rubidumconsumer"
+private const val SDK_PACKAGE_NAME = "com.myrbsdk_10000"
+private const val TEST_PACKAGE_NAME = "com.example.rubidumconsumer.test"
 
 /**
  * Connected tests using UTP test executor.
@@ -41,24 +46,57 @@ class PrivacySandboxSdkConnectedTest {
         project.addAdbTimeout();
 
         println("Uninstalling packages")
-        uninstallPackage("com.example.rubidumconsumer", ignoreErrors = true)
-        uninstallPackage("com.example.rubidumconsumer.test", ignoreErrors = true)
-        uninstallPackage("com.myrbsdk_10000", ignoreErrors = true)
+        uninstallIfExists(APP_PACKAGE_NAME)
+        uninstallIfExists(TEST_PACKAGE_NAME)
+        uninstallIfExists(SDK_PACKAGE_NAME, isLibrary = true)
     }
 
     @Test
-    fun `connectedAndroidTest task`() {
-        project.execute("connectedAndroidTest")
+    fun `connectedAndroidTest task for application`() {
+        project.execute(":app:connectedAndroidTest")
     }
 
     @Test
-    @Ignore // This doesn't work because deployment is not handled yet.
-    fun `install and uninstall works for both SDK and APK`() {
-        project.execute("installDebug")
-        // Verify both APKs are installed here.
-        project.execute("uninstallAll")
-        // Verify both APKs are deleted
+    fun `connectedAndroidTest task for application with dynamic feature`() {
+        project.execute(":app-with-dynamic-feature:connectedAndroidTest")
     }
+
+    @Test
+    fun `install and uninstall works for both SDK and APK for application`() {
+        project.execute(":app:installDebug")
+        assertThat(packageExists(APP_PACKAGE_NAME)).isTrue()
+        assertThat(packageExists(SDK_PACKAGE_NAME, isLibrary = true)).isTrue()
+
+        // project.execute(":app:uninstallAll")
+        // TODO: uninstall not supported yet, verify both APKs are deleted here
+    }
+
+    @Test
+    fun `install and uninstall works for both SDK and APK for application with dynamic feature`() {
+        project.execute(":app-with-dynamic-feature:installDebug")
+        assertThat(packageExists(APP_PACKAGE_NAME)).isTrue()
+        assertThat(packageExists(SDK_PACKAGE_NAME, isLibrary = true)).isTrue()
+
+        // project.execute(":app-with-dynamic-feature:uninstallAll")
+        // TODO: uninstall not supported yet, verify both APKs are deleted here
+    }
+
+    private fun packageExists(packageName: String, isLibrary: Boolean = false) : Boolean {
+        val type =  if (isLibrary) "libraries" else "packages"
+        return executeShellCommand("pm", "list" ,type)
+            .lines()
+            .map { it.substringAfter(":") }
+            // Libraries listed here don't have the version number after the _
+            // So that part is stripped out
+            .any { it == packageName.substringBefore("_") }
+    }
+
+    private fun uninstallIfExists(packageName: String, isLibrary: Boolean = false) {
+        if (packageExists(packageName, isLibrary = isLibrary)) {
+            uninstallPackage(packageName)
+        }
+    }
+
 
     companion object {
         @JvmField @ClassRule val emulator = getEmulator()

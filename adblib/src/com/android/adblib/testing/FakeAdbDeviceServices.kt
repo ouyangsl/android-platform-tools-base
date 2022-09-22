@@ -68,6 +68,10 @@ class FakeAdbDeviceServices(override val session: AdbSession) : AdbDeviceService
      * [DevicePropertiesImpl]; invocations of "getprop" with arguments are not simulated.
      */
     fun configureDeviceProperties(device: DeviceSelector, properties: Map<String, String>) {
+        // "echo foo" is used by DeviceProperties implementation to detect if the device
+        // sends "\r\n" or simply "\r" for newlines in "shell" command.
+        configureShellCommand(device, "echo foo", "foo\n")
+
         val propsOutput = properties.map { (key, value) -> "[$key]: [$value]" }.joinToString("\n")
         configureShellCommand(device, "getprop", propsOutput)
     }
@@ -132,7 +136,8 @@ class FakeAdbDeviceServices(override val session: AdbSession) : AdbDeviceService
         stdinChannel: AdbInputChannel?,
         commandTimeout: Duration,
         bufferSize: Int,
-        shutdownOutput : Boolean
+        shutdownOutput : Boolean,
+        stripCrLf: Boolean,
     ): Flow<T> {
         shellRequests.add(ShellRequest(device.toString(), command, commandTimeout, bufferSize))
         val output = shellCommands[device.transportPrefix]?.get(command)

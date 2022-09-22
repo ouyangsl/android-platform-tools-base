@@ -21,6 +21,7 @@ import com.android.build.api.component.impl.UnitTestImpl
 import com.android.build.api.component.impl.features.BuildConfigCreationConfigImpl
 import com.android.build.api.component.impl.features.ManifestPlaceholdersCreationConfigImpl
 import com.android.build.api.component.impl.features.RenderscriptCreationConfigImpl
+import com.android.build.api.component.impl.features.ShadersCreationConfigImpl
 import com.android.build.api.component.impl.warnAboutAccessingVariantApiValueForDisabledFeature
 import com.android.build.api.variant.AndroidVersion
 import com.android.build.api.variant.BuildConfigField
@@ -32,6 +33,7 @@ import com.android.build.api.variant.ResValue
 import com.android.build.api.variant.Variant
 import com.android.build.gradle.internal.PostprocessingFeatures
 import com.android.build.gradle.internal.ProguardFileType
+import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestFixturesCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
@@ -39,6 +41,7 @@ import com.android.build.gradle.internal.component.features.BuildConfigCreationC
 import com.android.build.gradle.internal.component.features.FeatureNames
 import com.android.build.gradle.internal.component.features.ManifestPlaceholdersCreationConfig
 import com.android.build.gradle.internal.component.features.RenderscriptCreationConfig
+import com.android.build.gradle.internal.component.features.ShadersCreationConfig
 import com.android.build.gradle.internal.core.MergedNdkConfig
 import com.android.build.gradle.internal.core.NativeBuiltType
 import com.android.build.gradle.internal.core.VariantSources
@@ -209,6 +212,12 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
         )
     }
 
+    override val shadersCreationConfig: ShadersCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
+        ShadersCreationConfigImpl(
+            dslInfo.shadersDslInfo!!
+        )
+    }
+
     override val testComponents = mutableMapOf<ComponentType, TestComponentCreationConfig>()
     override var testFixturesComponent: TestFixturesCreationConfig? = null
 
@@ -233,17 +242,6 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
     }
 
     override fun makeResValueKey(type: String, name: String): ResValue.Key = ResValueKeyImpl(type, name)
-
-    private var _isMultiDexEnabled: Boolean? = dslInfo.isMultiDexEnabled
-    override val isMultiDexEnabled: Boolean
-        get() {
-            return _isMultiDexEnabled ?: (minSdkVersion.getFeatureLevel() >= 21)
-        }
-
-    override val needsMainDexListForBundle: Boolean
-        get() = dslInfo.componentType.isBaseModule
-                && global.hasDynamicFeatures
-                && dexingType.needsMainDexList
 
     override var unitTest: UnitTestImpl? = null
 
@@ -292,11 +290,6 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
 
     override val ignoreAllLibraryKeepRules: Boolean = dslInfo.ignoreAllLibraryKeepRules
 
-    override val defaultGlslcArgs: List<String>
-        get() = dslInfo.defaultGlslcArgs
-    override val scopedGlslcArgs: Map<String, List<String>>
-        get() = dslInfo.scopedGlslcArgs
-
     override val ndkConfig: MergedNdkConfig
         get() = dslInfo.ndkConfig
     override val isJniDebuggable: Boolean
@@ -320,4 +313,20 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
 
     override val isAndroidTestCoverageEnabled: Boolean
         get() = (this as? HasAndroidTest)?.androidTest?.isAndroidTestCoverageEnabled == true
+
+    override val needsMergedJavaResStream: Boolean
+        get() {
+            // We need to create a stream from the merged java resources if we're in a library module,
+            // or if we're in an app/feature module which uses the transform pipeline.
+            return (dslInfo.componentType.isAar || minifiedEnabled)
+        }
+
+    override val isCoreLibraryDesugaringEnabledLintCheck: Boolean
+        get() = if (this is ApkCreationConfig) {
+            dexingCreationConfig.isCoreLibraryDesugaringEnabled
+        } else {
+            // We don't dex library variants, but we still need to check if core library desugaring
+            // for lint checks.
+            global.compileOptions.isCoreLibraryDesugaringEnabled
+        }
 }

@@ -40,8 +40,6 @@ class OptionVersionTest {
          *  - Tracking bug for AGP 8.0: b/243560711
          */
         private val KNOWN_VIOLATING_DEPRECATED_OPTIONS: List<Option<*>> = listOf(
-            BooleanOption.USE_NEW_JAR_CREATOR,
-            BooleanOption.USE_NEW_APK_CREATOR,
             BooleanOption.USE_RELATIVE_PATH_IN_TEST_CONFIG,
             BooleanOption.ENABLE_INCREMENTAL_DATA_BINDING,
             BooleanOption.ENABLE_RESOURCE_OPTIMIZATIONS,
@@ -52,7 +50,6 @@ class OptionVersionTest {
             BooleanOption.ENABLE_NEW_RESOURCE_SHRINKER,
             BooleanOption.ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE,
             BooleanOption.COMPILE_CLASSPATH_LIBRARY_R_CLASSES,
-            BooleanOption.WARN_ABOUT_DEPENDENCY_RESOLUTION_AT_CONFIGURATION,
             BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM,
             BooleanOption.ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM,
             BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM_FOR_EXTERNAL_LIBS,

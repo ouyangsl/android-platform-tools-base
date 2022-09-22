@@ -41,11 +41,26 @@ filegroup(
 )
 
 filegroup(
+    name = "build-tools/30.0.3",
+    srcs = sdk_glob(
+        include = ["build-tools/30.0.3/**"],
+    ),
+    visibility = [
+        "//tools/adt/idea/build-attribution:__pkg__",
+        "//tools/adt/idea/old-agp-tests:__pkg__",
+        "//tools/adt/idea/project-system-gradle-upgrade:__pkg__",
+    ],
+)
+
+filegroup(
     name = "build-tools/30.0.2",
     srcs = glob(
         include = ["*/build-tools/30.0.2/**"],
     ),
-    visibility = ["//tools/adt/idea/old-agp-tests:__pkg__"],
+    visibility = [
+        "//tools/adt/idea/old-agp-tests:__pkg__",
+        "//tools/adt/idea/project-system-gradle-upgrade:__pkg__",
+    ],
 )
 
 filegroup(
@@ -56,6 +71,7 @@ filegroup(
     visibility = [
         "//prebuilts/studio/buildbenchmarks:__pkg__",
         "//tools/adt/idea/old-agp-tests:__pkg__",
+        "//tools/adt/idea/project-system-gradle-upgrade:__pkg__",
         "//tools/adt/idea/sync-perf-tests:__pkg__",
         "//tools/base/build-system/previous-versions:__pkg__",
     ],
@@ -77,14 +93,6 @@ filegroup(
     name = "build-tools/minimum",
     srcs = [":build-tools/25.0.0"],
     visibility = ["//visibility:public"],
-)
-
-filegroup(
-    name = "build-tools/30.0.3",
-    srcs = sdk_glob(
-        include = ["build-tools/30.0.3/**"],
-    ),
-    visibility = ["//tools/adt/idea/old-agp-tests:__pkg__"],
 )
 
 filegroup(
@@ -178,26 +186,26 @@ filegroup(
 
 filegroup(
     name = "platforms/latest_build_only",
-    srcs = [":platforms/android-32_build_only"],
+    srcs = [":platforms/android-33_build_only"],
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "platforms/latest",
-    srcs = [":platforms/android-32"],
+    srcs = [":platforms/android-33"],
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "platforms/latest-preview",
-    srcs = [":platforms/android-32"],  # Currently there isn't a preview available
+    srcs = [":platforms/android-33"],  # Currently there isn't a preview available
     visibility = ["//visibility:public"],
 )
 
 filegroup(
     name = "platforms/latest/framework.aidl",
     srcs = sdk_glob(
-        include = ["platforms/android-32/framework.aidl"],
+        include = ["platforms/android-33/framework.aidl"],
     ),
     visibility = ["//visibility:public"],
 )
@@ -206,7 +214,7 @@ filegroup(
 # Note: these stubbed classes will not be available at runtime.
 java_import(
     name = "platforms/latest_jar",
-    jars = sdk_path(["platforms/android-32/android.jar"]),
+    jars = sdk_path(["platforms/android-33/android.jar"]),
     neverlink = 1,
     visibility = [
         "//tools/adt/idea/emulator/screen-sharing-agent:__pkg__",
@@ -225,7 +233,7 @@ java_import(
 java_import(
     name = "platforms/latest_runtime_jar",
     testonly = 1,
-    jars = sdk_path(["platforms/android-32/android.jar"]),
+    jars = sdk_path(["platforms/android-33/android.jar"]),
     visibility = [
         "//tools/base/app-inspection/inspectors:__subpackages__",
         "//tools/base/dynamic-layout-inspector/agent:__subpackages__",
@@ -365,24 +373,25 @@ filegroup(
 filegroup(
     name = "ndk",
     srcs = sdk_glob(
-        include = ["ndk/23.1.7779620/**"],
+        include = ["ndk/25.1.8937393/**"],
         exclude = [
             # Bazel can't handle paths with spaces in them.
-            "ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.9/site-packages/setuptools/command/launcher manifest.xml",
-            "ndk/23.1.7779620/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.9/site-packages/setuptools/script (dev).tmpl",
-            "ndk/23.1.7779620/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.9/site-packages/setuptools/command/launcher manifest.xml",
-            "ndk/23.1.7779620/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.9/site-packages/setuptools/script (dev).tmpl",
+            "ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.9/site-packages/setuptools/command/launcher manifest.xml",
+            "ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.9/site-packages/setuptools/script (dev).tmpl",
+            "ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.9/site-packages/setuptools/command/launcher manifest.xml",
+            "ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.9/site-packages/setuptools/script (dev).tmpl",
         ],
     ),
     visibility = ["//visibility:public"],
 )
 
+# NDK r20b is used for AGP tests that require RenderScript support.
 filegroup(
-    name = "ndk-21",
+    name = "ndk-20",
     srcs = sdk_glob(
-        include = ["ndk/21.4.7075529/**"],
+        include = ["ndk/20.1.5948944/**"],
     ),
-    visibility = ["//tools/adt/idea/sync-perf-tests:__pkg__"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(
