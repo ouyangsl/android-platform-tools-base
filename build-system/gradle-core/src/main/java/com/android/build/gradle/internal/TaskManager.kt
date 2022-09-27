@@ -1179,7 +1179,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             creationConfig: ComponentCreationConfig,
             packageOutputType: Single<Directory>?,
             mergeType: MergeType,
-            baseName: String) {
+            baseName: Provider<String>) {
         if (!creationConfig.buildFeatures.androidResources &&
             creationConfig !is AndroidTestCreationConfig) {
             return
@@ -1232,7 +1232,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             creationConfig: ComponentCreationConfig,
             packageOutputType: Single<Directory>?,
             mergeType: MergeType,
-            baseName: String,
+            baseName: Provider<String>,
             useAaptToGenerateLegacyMultidexMainDexProguardRules: Boolean) {
         val artifacts = creationConfig.artifacts
         val projectOptions = creationConfig.services.projectOptions

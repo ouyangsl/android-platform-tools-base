@@ -89,7 +89,7 @@ import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFile
 import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.plugins.JavaPluginConvention
+import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
@@ -359,7 +359,7 @@ abstract class ProjectInputs {
 
     internal fun initializeForStandalone(
         project: Project,
-        javaConvention: JavaPluginConvention,
+        javaExtension: JavaPluginExtension,
         dslLintOptions: Lint,
         lintMode: LintMode
     ) {
@@ -368,13 +368,13 @@ abstract class ProjectInputs {
         lintOptions.initialize(dslLintOptions, lintMode)
         resourcePrefix.setDisallowChanges("")
         dynamicFeatures.setDisallowChanges(setOf())
-        val mainSourceSet = javaConvention.sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
+        val mainSourceSet = javaExtension.sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
         val javaCompileTask = project.tasks.named(
             mainSourceSet.compileJavaTaskName,
             JavaCompile::class.java
         )
         bootClasspath.fromDisallowChanges(javaCompileTask.map { it.options.bootstrapClasspath ?: project.files() })
-        javaSourceLevel.setDisallowChanges(javaConvention.sourceCompatibility)
+        javaSourceLevel.setDisallowChanges(javaExtension.sourceCompatibility)
         compileTarget.setDisallowChanges("")
         neverShrinking.setDisallowChanges(true)
     }
@@ -986,14 +986,14 @@ abstract class VariantInputs {
 
     internal fun initializeForStandalone(
         project: Project,
-        javaConvention: JavaPluginConvention,
+        javaExtension: JavaPluginExtension,
         projectOptions: ProjectOptions,
         fatalOnly: Boolean,
         checkDependencies: Boolean,
         lintMode: LintMode
     ) {
-        val mainSourceSet = javaConvention.sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
-        val testSourceSet = javaConvention.sourceSets.getByName(SourceSet.TEST_SOURCE_SET_NAME)
+        val mainSourceSet = javaExtension.sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
+        val testSourceSet = javaExtension.sourceSets.getByName(SourceSet.TEST_SOURCE_SET_NAME)
 
         name.setDisallowChanges(mainSourceSet.name)
         this.checkDependencies.setDisallowChanges(checkDependencies)
