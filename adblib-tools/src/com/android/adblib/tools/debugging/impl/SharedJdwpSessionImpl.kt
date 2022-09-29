@@ -64,7 +64,7 @@ import java.util.concurrent.TimeUnit
  * Implementation of [SharedJdwpSession]
  */
 internal class SharedJdwpSessionImpl(
-    val session: AdbSession,
+    override val session: AdbSession,
     override val pid: Int,
     private val jdwpSession: JdwpSession
 ) : SharedJdwpSession {
@@ -106,8 +106,8 @@ internal class SharedJdwpSessionImpl(
     private val sessionEndResultStateFlow = MutableStateFlow<Throwable?>(null)
 
     /**
-     * The [MutableSharedFlow] used to wake up the [sendReplayPackets] when a new [JdwpPacketReceiver] has been
-     * registered.
+     * The [MutableSharedFlow] used to wake up the [sendReplayPackets] when a
+     * new [JdwpPacketReceiver] has been registered.
      */
     private val receiverAddedSharedFlow = MutableSharedFlow<ActiveReceiver>()
 

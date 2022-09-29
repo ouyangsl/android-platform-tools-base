@@ -15,6 +15,7 @@
  */
 package com.android.adblib.ddmlibcompatibility.debugging
 
+import com.android.adblib.ddmlibcompatibility.testutils.AndroidDebugBridgeListenerRule
 import com.android.adblib.ddmlibcompatibility.testutils.FakeIDevice
 import com.android.adblib.ddmlibcompatibility.testutils.TestDeviceClientManagerListener
 import com.android.adblib.ddmlibcompatibility.testutils.TestDeviceClientManagerListener.EventKind.PROCESS_LIST_UPDATED
@@ -25,15 +26,27 @@ import com.android.adblib.ddmlibcompatibility.testutils.disconnectTestDevice
 import com.android.adblib.testingutils.CloseablesRule
 import com.android.adblib.testingutils.CoroutineTestUtils.runBlockingWithTimeout
 import com.android.adblib.testingutils.CoroutineTestUtils.yieldUntil
+import com.android.ddmlib.AndroidDebugBridge
+import com.android.ddmlib.AndroidDebugBridge.IDeviceChangeListener
+import com.android.ddmlib.Client
 import com.android.ddmlib.DebugViewDumpHandler
+import com.android.ddmlib.IDevice
+import com.android.ddmlib.clientmanager.DeviceClientManager
+import com.android.ddmlib.clientmanager.DeviceClientManagerListener
 import com.android.ddmlib.testing.FakeAdbRule
 import junit.framework.Assert
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withTimeout
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
 import java.nio.ByteBuffer
 import java.util.concurrent.TimeUnit
+import kotlin.math.max
 
 class AdbLibDeviceClientManagerTest {
 
@@ -47,7 +60,11 @@ class AdbLibDeviceClientManagerTest {
 
     @JvmField
     @Rule
-    var exceptionRule: ExpectedException = ExpectedException.none()
+    val exceptionRule: ExpectedException = ExpectedException.none()
+
+    @JvmField
+    @Rule
+    val androidDebugBridgeRule = AndroidDebugBridgeListenerRule()
 
     @Test
     fun testTrackingWaitsUntilDeviceIsTracked() = runBlockingWithTimeout {
@@ -155,7 +172,6 @@ class AdbLibDeviceClientManagerTest {
         Assert.assertNotNull(client.clientData)
         Assert.assertEquals(10, client.clientData.pid)
         Assert.assertTrue(client.isDdmAware)
-        assertThrows { client.kill() }
         Assert.assertTrue(client.isValid)
         Assert.assertTrue(client.debuggerListenPort > 0)
         Assert.assertFalse(client.isDebuggerAttached)
@@ -166,22 +182,77 @@ class AdbLibDeviceClientManagerTest {
         assertThrows { client.stopSamplingProfiler() }
         assertThrows { client.requestAllocationDetails() }
         assertThrows { client.enableAllocationTracker(false) }
-        assertThrows { client.notifyVmMirrorExited() }
-        assertThrows { client.listViewRoots(null) }
-        assertThrows {
-            client.captureView("v", "v1", object : DebugViewDumpHandler(10) {
-                override fun handleViewDebugResult(data: ByteBuffer?) {
+        Assert.assertEquals(Unit, client.notifyVmMirrorExited())
+        assertThrows { client.dumpDisplayList("v", "v1") }
+    }
+
+    @Test
+    fun testClientListUpdatesAreSerialized() = runBlockingWithTimeout {
+        // Prepare
+        val session = fakeAdb.createAdbSession(closeables)
+        val clientManager = AdbLibClientManager(session)
+        val listener = AndroidDebugBridgeListener()
+        val (device, deviceState) = fakeAdb.connectTestDevice()
+        val deviceClientManager =
+            clientManager.createDeviceClientManager(
+                fakeAdb.bridge,
+                device,
+                listener
+            )
+
+        // Act
+        val ddmlibListener = object : IDeviceChangeListener {
+            val lock = Any()
+
+            @Volatile
+            var totalCalls = 0
+
+            @Volatile
+            var concurrentCalls = 0
+
+            @Volatile
+            var maxConcurrentCalls = 0
+
+            override fun deviceConnected(device: IDevice) {
+            }
+
+            override fun deviceDisconnected(device: IDevice) {
+            }
+
+            override fun deviceChanged(device: IDevice, changeMask: Int) {
+                synchronized(lock) {
+                    totalCalls++
+                    concurrentCalls++
+                    maxConcurrentCalls = max(concurrentCalls, maxConcurrentCalls)
                 }
-            })
+                Thread.sleep(1)
+                synchronized(lock) {
+                    concurrentCalls--
+                }
+            }
+        }
+        androidDebugBridgeRule.addDeviceChangeListener(ddmlibListener)
+
+        while (ddmlibListener.totalCalls < 100) {
+            deviceState.startClient(10, 0, "foo.bar", false)
+            deviceState.startClient(12, 0, "foo.bar.baz", false)
+            delay(5)
+            deviceState.startClient(14, 0, "foo.bar.baz.blah", false)
+            // Wait for both processes to show up and for both the JDWP proxy
+            // and process properties to be initialized.
+            yieldUntil { deviceClientManager.clients.size == 3 }
+            deviceState.stopClient(14)
+            delay(1)
+            deviceState.stopClient(12)
+            deviceState.stopClient(10)
         }
 
-        assertThrows {
-            client.dumpViewHierarchy("v", false, false, false, object : DebugViewDumpHandler(10) {
-                override fun handleViewDebugResult(data: ByteBuffer?) {
-                }
-            })
-        }
-        assertThrows { client.dumpDisplayList("v", "v1") }
+        // Assert
+        Assert.assertEquals(
+            "There were more than one concurrent call to the listener, meaning calls were not serialized as expected",
+            1,
+            ddmlibListener.maxConcurrentCalls
+        )
     }
 
     @Test
@@ -317,9 +388,303 @@ class AdbLibDeviceClientManagerTest {
         Assert.assertEquals("FakeVM", event.client!!.clientData.vmIdentifier)
     }
 
+    @Test
+    fun testClientKillWorks() = runBlockingWithTimeout {
+        // Prepare
+        val session = fakeAdb.createAdbSession(closeables)
+        val clientManager = AdbLibClientManager(session)
+        val listener = TestDeviceClientManagerListener()
+        val (device, deviceState) = fakeAdb.connectTestDevice()
+        val deviceClientManager =
+            clientManager.createDeviceClientManager(
+                fakeAdb.bridge,
+                device,
+                listener
+            )
+
+        // Act
+        deviceState.startClient(10, 0, "foo.bar", false)
+        yieldUntil {
+            // Wait for both processes to show up and for both the JDWP proxy
+            // and process properties to be initialized.
+            deviceClientManager.clients.size == 1 &&
+                    deviceClientManager.clients.all {
+                        it.debuggerListenPort > 0 && it.clientData.vmIdentifier != null
+                    }
+        }
+        val client = deviceClientManager.clients.first { it.clientData.pid == 10 }
+        client.kill()
+
+        // Assert: Wait until process has disappeared from the list of Clients
+        yieldUntil { deviceClientManager.clients.isEmpty() }
+    }
+
+    @Test
+    fun testListViewRootsWorks() = runBlockingWithTimeout {
+        // Prepare
+        val session = fakeAdb.createAdbSession(closeables)
+        val clientManager = AdbLibClientManager(session)
+        val listener = TestDeviceClientManagerListener()
+        val (device, deviceState) = fakeAdb.connectTestDevice()
+        val deviceClientManager =
+            clientManager.createDeviceClientManager(
+                fakeAdb.bridge,
+                device,
+                listener
+            )
+
+        // Act
+        val clientState = deviceState.startClient(10, 0, "foo.bar", false)
+        listOf("view1", "view2").forEach { clientState.viewsState.addViewRoot(it) }
+        yieldUntil {
+            // Wait for both processes to show up and for both the JDWP proxy
+            // and process properties to be initialized.
+            deviceClientManager.clients.size == 1 &&
+                    deviceClientManager.clients.all {
+                        it.debuggerListenPort > 0 && it.clientData.vmIdentifier != null
+                    }
+        }
+        val client = deviceClientManager.clients.first { it.clientData.pid == 10 }
+        val handler = ListViewRootsHandler()
+        val viewRoots = handler.getWindows(client)
+
+        // Assert
+        Assert.assertEquals(2, viewRoots.size)
+        Assert.assertEquals("view1", viewRoots[0])
+        Assert.assertEquals("view2", viewRoots[1])
+    }
+
+    @Test
+    fun testCaptureViewWorks() = runBlockingWithTimeout {
+        // Prepare
+        val session = fakeAdb.createAdbSession(closeables)
+        val clientManager = AdbLibClientManager(session)
+        val listener = TestDeviceClientManagerListener()
+        val (device, deviceState) = fakeAdb.connectTestDevice()
+        val deviceClientManager =
+            clientManager.createDeviceClientManager(
+                fakeAdb.bridge,
+                device,
+                listener
+            )
+
+        // Act
+        val clientState = deviceState.startClient(10, 0, "foo.bar", false)
+
+        val data1  = createFakeViewData("view1", 100)
+        val data2  = createFakeViewData("view2", 255)
+        clientState.viewsState.addViewCapture("rootView", "view1", data1)
+        clientState.viewsState.addViewCapture("rootView", "view2", data2)
+        yieldUntil {
+            // Wait for both processes to show up and for both the JDWP proxy
+            // and process properties to be initialized.
+            deviceClientManager.clients.size == 1 &&
+                    deviceClientManager.clients.all {
+                        it.debuggerListenPort > 0 && it.clientData.vmIdentifier != null
+                    }
+        }
+        val client = deviceClientManager.clients.first { it.clientData.pid == 10 }
+
+        val buffer1 = ByteBufferDebugViewHandler().run {
+            client.captureView("rootView", "view1", this)
+        }
+
+        val buffer2 = ByteBufferDebugViewHandler().run {
+            client.captureView("rootView", "view2", this)
+        }
+
+        // Assert
+        assertEqualsByteBuffer(data1, buffer1)
+        assertEqualsByteBuffer(data2, buffer2)
+    }
+
+    @Test
+    fun testCaptureViewTimesOutOnInvalidArgs() = runBlockingWithTimeout {
+        // Prepare
+        val session = fakeAdb.createAdbSession(closeables)
+        val clientManager = AdbLibClientManager(session)
+        val listener = TestDeviceClientManagerListener()
+        val (device, deviceState) = fakeAdb.connectTestDevice()
+        val deviceClientManager =
+            clientManager.createDeviceClientManager(
+                fakeAdb.bridge,
+                device,
+                listener
+            )
+        val clientState = deviceState.startClient(10, 0, "foo.bar", false)
+        yieldUntil {
+            // Wait for both processes to show up and for both the JDWP proxy
+            // and process properties to be initialized.
+            deviceClientManager.clients.size == 1 &&
+                    deviceClientManager.clients.all {
+                        it.debuggerListenPort > 0 && it.clientData.vmIdentifier != null
+                    }
+        }
+        val client = deviceClientManager.clients.first { it.clientData.pid == 10 }
+
+        // Act: The ddmlib "ViewHandler" APIs do not allow propagating errors to the caller,
+        // but we can observe the side effect of the call never terminating.
+        exceptionRule.expect(TimeoutCancellationException::class.java)
+        withTimeout(1_000) {
+            ByteBufferDebugViewHandler().run {
+                client.captureView("rootView", "view1", this)
+            }
+        }
+
+        // Assert
+        Assert.fail("Should not reach")
+    }
+
+    @Test
+    fun testDumpViewHierarchyWorks() = runBlockingWithTimeout {
+        // Prepare
+        val session = fakeAdb.createAdbSession(closeables)
+        val clientManager = AdbLibClientManager(session)
+        val listener = TestDeviceClientManagerListener()
+        val (device, deviceState) = fakeAdb.connectTestDevice()
+        val deviceClientManager =
+            clientManager.createDeviceClientManager(
+                fakeAdb.bridge,
+                device,
+                listener
+            )
+
+        // Act
+        val clientState = deviceState.startClient(10, 0, "foo.bar", false)
+
+        val data1  = createFakeViewData("view1", 100)
+        val data2  = createFakeViewData("view2", 255)
+        clientState.viewsState.addViewHierarchy("view1",
+                                                skipChildren = false,
+                                                includeProperties = true,
+                                                useV2 = true,
+                                                data = data1
+        )
+        clientState.viewsState.addViewHierarchy("view2",
+                                                skipChildren = false,
+                                                includeProperties = false,
+                                                useV2 = true,
+                                                data = data2
+        )
+        yieldUntil {
+            // Wait for both processes to show up and for both the JDWP proxy
+            // and process properties to be initialized.
+            deviceClientManager.clients.size == 1 &&
+                    deviceClientManager.clients.all {
+                        it.debuggerListenPort > 0 && it.clientData.vmIdentifier != null
+                    }
+        }
+        val client = deviceClientManager.clients.first { it.clientData.pid == 10 }
+
+        val buffer1 = ByteBufferDebugViewHandler().run {
+            client.dumpViewHierarchy("view1",
+                                     false,
+                                     true,
+                                     true,
+                                     this)
+        }
+
+        val buffer2 = ByteBufferDebugViewHandler().run {
+            client.dumpViewHierarchy("view2",
+                                     false,
+                                     false,
+                                     true,
+                                     this)
+        }
+
+        // Assert
+        assertEqualsByteBuffer(data1, buffer1)
+        assertEqualsByteBuffer(data2, buffer2)
+    }
+
     private fun assertThrows(block: () -> Unit) {
         runCatching(block).onSuccess {
             Assert.fail("Block should throw an exception")
+        }
+    }
+
+    private class ListViewRootsHandler : DebugViewDumpHandler() {
+
+        private val viewRootsState = MutableStateFlow<List<String>?>(null)
+
+        override fun handleViewDebugResult(data: ByteBuffer) {
+            val viewRoots = mutableListOf<String>()
+            val nWindows = data.int
+            repeat(nWindows) {
+                val len = data.int
+                viewRoots.add(getString(data, len))
+            }
+            viewRootsState.value = viewRoots
+        }
+
+        suspend fun getWindows(client: Client): List<String> {
+            client.listViewRoots(this)
+            return viewRootsState.filterNotNull().first()
+        }
+    }
+
+    private class ByteBufferDebugViewHandler : DebugViewDumpHandler() {
+        private val resultState = MutableStateFlow<ByteBuffer?>(null)
+
+        override fun handleViewDebugResult(data: ByteBuffer) {
+            resultState.value = data
+        }
+
+        suspend fun run(block: DebugViewDumpHandler.() -> Unit): ByteBuffer {
+            this.block()
+            return resultState.filterNotNull().first()
+        }
+    }
+
+
+    private fun createFakeViewData(view: String, size: Int): ByteBuffer {
+        val result = ByteBuffer.allocate(4 + 2 * view.length + size)
+        result.putInt(view.length)
+        view.forEach { result.putChar(it) }
+        repeat(size) {
+            result.put(5)
+        }
+        result.flip()
+        return result
+    }
+
+    private fun assertEqualsByteBuffer(expected: ByteBuffer, value: ByteBuffer) {
+        Assert.assertEquals(expected.remaining(), value.remaining())
+        for(index in 0 until expected.remaining()) {
+            Assert.assertEquals("Bytes at offset $index should be equal", expected.get(index), value.get(index))
+        }
+    }
+
+    class AndroidDebugBridgeListener : DeviceClientManagerListener {
+        override fun processListUpdated(
+            bridge: AndroidDebugBridge,
+            deviceClientManager: DeviceClientManager
+        ) {
+            if (bridge === AndroidDebugBridge.getBridge()) {
+                AndroidDebugBridge.deviceChanged(
+                    deviceClientManager.device, IDevice.CHANGE_CLIENT_LIST
+                )
+            }
+        }
+
+        override fun processNameUpdated(
+            bridge: AndroidDebugBridge,
+            deviceClientManager: DeviceClientManager,
+            client: Client
+        ) {
+            if (bridge === AndroidDebugBridge.getBridge()) {
+                AndroidDebugBridge.clientChanged(client, Client.CHANGE_NAME)
+            }
+        }
+
+        override fun processDebuggerStatusUpdated(
+            bridge: AndroidDebugBridge,
+            deviceClientManager: DeviceClientManager,
+            client: Client
+        ) {
+            if (bridge === AndroidDebugBridge.getBridge()) {
+                AndroidDebugBridge.clientChanged(client, Client.CHANGE_DEBUGGER_STATUS)
+            }
         }
     }
 }

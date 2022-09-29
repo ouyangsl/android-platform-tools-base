@@ -15,6 +15,8 @@
  */
 package com.android.adblib.tools.debugging.packets
 
+import java.nio.ByteBuffer
+
 /**
  * A mutable version of [JdwpPacketView], to be used for creating JDWP packets
  * or re-using the same instance for multiple views over time for performance reason.
@@ -106,9 +108,9 @@ class MutableJdwpPacket : JdwpPacketView {
     override var payload = AdbBufferedInputChannel.empty()
 
     override fun toString(): String {
-        return "JdwpPacket(length=%d, id=%d, flags=0x%02X, %s)".format(
-            length,
+        return "JdwpPacket(id=%d, length=%d, flags=0x%02X, %s)".format(
             id,
+            length,
             flags,
             if (isReply) {
                 "isReply=true, errorCode=%s[%d]".format(
@@ -124,5 +126,31 @@ class MutableJdwpPacket : JdwpPacketView {
                 )
             }
         )
+    }
+
+    fun setCommand(cmdSet: Int, cmd: Int) {
+        this.isCommand = true
+        this.cmdSet = cmdSet
+        this.cmd = cmd
+    }
+
+    companion object {
+
+        /**
+         * Creates a [MutableJdwpPacket] command packet that wraps the ByteBuffer
+         */
+        fun createCommandPacket(
+            packetId: Int,
+            cmdSet: Int,
+            cmd: Int,
+            payload: ByteBuffer
+        ): MutableJdwpPacket {
+            return MutableJdwpPacket().apply {
+                this.id = packetId
+                this.length = JdwpPacketConstants.PACKET_HEADER_LENGTH + payload.remaining()
+                this.setCommand(cmdSet, cmd)
+                this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
+            }
+        }
     }
 }

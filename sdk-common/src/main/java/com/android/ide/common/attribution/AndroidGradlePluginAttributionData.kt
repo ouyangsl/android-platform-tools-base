@@ -27,14 +27,6 @@ import java.io.FileReader
 import java.io.Serializable
 
 data class AndroidGradlePluginAttributionData(
-
-    /**
-     * A map that maps a task name to its class name
-     * ex: mergeDevelopmentDebugResources -> com.android.build.gradle.tasks.MergeResources
-     */
-    @Deprecated("Use taskNameToTaskInfoMap")
-    val taskNameToClassNameMap: Map<String, String> = emptyMap(),
-
     /**
      * Contains registered tasks that are not cacheable.
      */
@@ -76,7 +68,6 @@ data class AndroidGradlePluginAttributionData(
 
     /**
      * A map of task names to its class name, and primary and secondary task categories.
-     * Only sends task categories if flag BUILD_ANALYZER_TASK_LABELS is enabled.
      */
     val taskNameToTaskInfoMap: Map<String, TaskInfo> = emptyMap(),
 
@@ -148,13 +139,6 @@ data class AndroidGradlePluginAttributionData(
             }
             endArray()
             return list
-        }
-
-        private fun JsonWriter.writeTaskToClassEntry(entry: Map.Entry<String, String>) {
-            beginObject()
-            name("taskName").value(entry.key)
-            name("className").value(entry.value)
-            endObject()
         }
 
         private fun JsonReader.readTaskToClassEntry(): Pair<String, String> {
@@ -344,10 +328,6 @@ data class AndroidGradlePluginAttributionData(
         override fun write(writer: JsonWriter, data: AndroidGradlePluginAttributionData) {
             writer.beginObject()
 
-            writer.writeList("taskNameToClassNameMap", data.taskNameToClassNameMap.entries) {
-                writer.writeTaskToClassEntry(it)
-            }
-
             writer.writeList("tasksSharingOutput", data.tasksSharingOutput.entries) {
                 writer.writeTasksSharingOutputEntry(it)
             }
@@ -378,7 +358,7 @@ data class AndroidGradlePluginAttributionData(
         }
 
         override fun read(reader: JsonReader): AndroidGradlePluginAttributionData {
-            val taskNameToClassNameMap = HashMap<String, String>()
+            val taskNameToClassNameMapFromOldAgpVersions = HashMap<String, String>()
             val tasksSharingOutput = HashMap<String, List<String>>()
             val garbageCollectionData = HashMap<String, Long>()
             val buildSrcPlugins = HashSet<String>()
@@ -392,7 +372,7 @@ data class AndroidGradlePluginAttributionData(
 
             while (reader.hasNext()) {
                 when (reader.nextName()) {
-                    "taskNameToClassNameMap" -> taskNameToClassNameMap.putAll(
+                    "taskNameToClassNameMap" -> taskNameToClassNameMapFromOldAgpVersions.putAll(
                             reader.readList { reader.readTaskToClassEntry() }
                     )
 
@@ -428,8 +408,17 @@ data class AndroidGradlePluginAttributionData(
 
             reader.endObject()
 
+            if (taskNameToTaskInfoMap.isEmpty()) {
+                val unsupportedTaskCategoryInfo = TaskCategoryInfo(TaskCategory.UNKNOWN)
+                taskNameToClassNameMapFromOldAgpVersions.forEach { (taskName, className) ->
+                    taskNameToTaskInfoMap[taskName] = TaskInfo(
+                        className,
+                        unsupportedTaskCategoryInfo
+                    )
+                }
+            }
+
             return AndroidGradlePluginAttributionData(
-                taskNameToClassNameMap = taskNameToClassNameMap,
                 tasksSharingOutput = tasksSharingOutput,
                 garbageCollectionData = garbageCollectionData,
                 buildSrcPlugins = buildSrcPlugins,

@@ -19,15 +19,12 @@ package com.android.build.gradle.internal.core.dsl
 import com.android.build.api.variant.ComponentIdentity
 import com.android.build.api.variant.impl.MutableAndroidVersion
 import com.android.build.gradle.api.JavaCompileOptions
-import com.android.build.gradle.internal.ProguardFileType
-import com.android.build.gradle.internal.core.PostProcessingOptions
 import com.android.build.gradle.internal.core.dsl.features.AndroidResourcesDslInfo
 import com.android.builder.core.AbstractProductFlavor
 import com.android.builder.core.ComponentType
 import com.google.common.collect.ImmutableMap
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
-import java.io.File
 
 /**
  * Contains the final dsl info computed from the DSL object model (extension, default config,
@@ -53,12 +50,7 @@ interface ComponentDslInfo {
      * any relative class names that are declared in the AndroidManifest.xml.
      *
      * For test components, this is set to the `testNamespace` DSL value, if present, or else to the
-     * DSL's `namespace` + ".test", if present, or else to the `package` attribute in the test
-     * AndroidManifest.xml, if present, or else to the `package` attribute in the main
-     * AndroidManifest.xml with ".test" appended.
-     *
-     * For non-test components, this value comes from the namespace DSL element, if present, or from
-     * the `package` attribute in the source AndroidManifest.xml if not specified in the DSL.
+     * DSL's `namespace` + ".test".
      */
     val namespace: Provider<String>
 
@@ -76,8 +68,4 @@ interface ComponentDslInfo {
     val javaCompileOptionsSetInDSL: JavaCompileOptions
 
     val androidResourcesDsl: AndroidResourcesDslInfo?
-
-    val postProcessingOptions: PostProcessingOptions
-
-    fun gatherProguardFiles(type: ProguardFileType): Collection<File>
 }

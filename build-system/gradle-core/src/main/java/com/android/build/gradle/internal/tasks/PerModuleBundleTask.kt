@@ -348,7 +348,7 @@ abstract class PerModuleBundleTask @Inject constructor(objects: ObjectFactory) :
             }
             if (creationConfig.services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS]
                 && creationConfig.dexingCreationConfig.dexingType == DexingType.NATIVE_MULTIDEX
-                && !creationConfig.minifiedEnabled) {
+                && !creationConfig.optimizationCreationConfig.minifiedEnabled) {
                 task.dexFiles.from(
                     artifacts.get(InternalArtifactType.GLOBAL_SYNTHETICS_DEX)
                 )
@@ -363,7 +363,7 @@ abstract class PerModuleBundleTask @Inject constructor(objects: ObjectFactory) :
                 )
             )
             task.javaResFiles.from(
-                if (creationConfig.minifiedEnabled) {
+                if (creationConfig.optimizationCreationConfig.minifiedEnabled) {
                     creationConfig.services.fileCollection(
                         artifacts.get(InternalArtifactType.SHRUNK_JAVA_RES)
                     )
@@ -397,7 +397,9 @@ abstract class PerModuleBundleTask @Inject constructor(objects: ObjectFactory) :
                     )
                 )
             } else {
-                task.abiFilters.set(creationConfig.supportedAbis)
+                task.abiFilters.set(
+                    creationConfig.nativeBuildCreationConfig?.supportedAbis ?: emptyList()
+                )
             }
             task.abiFilters.disallowChanges()
             task.baseModuleMetadata.disallowChanges()

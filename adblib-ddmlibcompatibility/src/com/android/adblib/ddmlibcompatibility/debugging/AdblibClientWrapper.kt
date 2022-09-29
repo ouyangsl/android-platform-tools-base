@@ -15,14 +15,29 @@
  */
 package com.android.adblib.ddmlibcompatibility.debugging
 
+import com.android.adblib.thisLogger
 import com.android.adblib.tools.debugging.JdwpProcess
+import com.android.adblib.tools.debugging.SharedJdwpSession
+import com.android.adblib.tools.debugging.handleDdmsCaptureView
+import com.android.adblib.tools.debugging.handleDdmsDumpViewHierarchy
+import com.android.adblib.tools.debugging.handleDdmsListViewRoots
 import com.android.adblib.tools.debugging.properties
+import com.android.adblib.tools.debugging.sendDdmsExit
+import com.android.adblib.tools.debugging.toByteBuffer
+import com.android.adblib.withErrorTimeout
+import com.android.adblib.withPrefix
 import com.android.ddmlib.Client
 import com.android.ddmlib.ClientData
 import com.android.ddmlib.DebugViewDumpHandler
 import com.android.ddmlib.IDevice
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.runBlocking
+import java.time.Duration
+import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 
 /**
  * Implementation of the ddmlib [Client] interface based on a [JdwpProcess] instance.
@@ -33,7 +48,10 @@ internal class AdblibClientWrapper(
     val jdwpProcess: JdwpProcess
 ) : Client {
 
-    val clientDataWrapper = ClientData(this, jdwpProcess.pid)
+    private val logger =
+        thisLogger(deviceClientManager.session).withPrefix("pid: ${jdwpProcess.pid}: ")
+
+    private val clientDataWrapper = ClientData(this, jdwpProcess.pid)
 
     override fun getDevice(): IDevice {
         return iDevice
@@ -53,7 +71,12 @@ internal class AdblibClientWrapper(
     }
 
     override fun kill() {
-        TODO("Not yet implemented")
+        // Sends a DDMS EXIT packet to the VM
+        runBlockingLegacy {
+            jdwpProcess.withJdwpSession {
+                sendDdmsExit(1)
+            }
+        }
     }
 
     /**
@@ -85,47 +108,79 @@ internal class AdblibClientWrapper(
     }
 
     override fun executeGarbageCollector() {
-        TODO("Not yet implemented")
+        legacyNotImplemented("executeGarbageCollector")
     }
 
     override fun startMethodTracer() {
-        TODO("Not yet implemented")
+        legacyNotImplemented("startMethodTracer")
     }
 
     override fun stopMethodTracer() {
-        TODO("Not yet implemented")
+        legacyNotImplemented("stopMethodTracer")
     }
 
     override fun startSamplingProfiler(samplingInterval: Int, timeUnit: TimeUnit?) {
-        TODO("Not yet implemented")
+        legacyNotImplemented("startSamplingProfiler")
     }
 
     override fun stopSamplingProfiler() {
-        TODO("Not yet implemented")
+        legacyNotImplemented("stopSamplingProfiler")
     }
 
     override fun requestAllocationDetails() {
-        TODO("Not yet implemented")
+        legacyNotImplemented("requestAllocationDetails")
     }
 
     override fun enableAllocationTracker(enabled: Boolean) {
-        TODO("Not yet implemented")
+        legacyNotImplemented("enableAllocationTracker")
     }
 
+    /**
+     * The [notifyVmMirrorExited] method was originally added due to an implementation defect
+     * of ddmlib: there was a race condition during process disconnect where ddmlib would
+     * non-deterministically lose track of some client processes when the debugger ends
+     * its debugging session.
+     * See [bug 37104675](https://issuetracker.google.com/issues/37104675) for more information.
+     *
+     * Adblib keeps track of client processes in a different way, so this method
+     * can be a "no-op".
+     */
     override fun notifyVmMirrorExited() {
-        TODO("Not yet implemented")
+        logger.verbose { "'notifyVmMirrorExited' invoked, doing nothing" }
     }
 
-    override fun listViewRoots(replyHandler: DebugViewDumpHandler?) {
-        TODO("Not yet implemented")
+    override fun listViewRoots(replyHandler: DebugViewDumpHandler) {
+        launchLegacyWithJdwpSession("listViewRoots") {
+            val buffer = handleDdmsListViewRoots { chunkReply ->
+                // Note: At this point, the ddms chunk payload points directly
+                // to the socket of the underlying JDWP session.
+                // We clone it into an in-memory ByteBuffer (which is wasteful)
+                // only because the ddmlib API requires it.
+                chunkReply.payload.toByteBuffer(chunkReply.length)
+            }
+
+            // Invoke the handler with the packet result payload
+            replyHandler.handleChunkData(buffer)
+        }
     }
 
     override fun captureView(
         viewRoot: String,
         view: String,
-        handler: DebugViewDumpHandler
+        replyHandler: DebugViewDumpHandler
     ) {
-        TODO("Not yet implemented")
+        launchLegacyWithJdwpSession("captureView($viewRoot, $view)") {
+            val buffer = handleDdmsCaptureView(viewRoot, view) { chunkReply ->
+                // Note: At this point, the ddms chunk payload points directly
+                // to the socket of the underlying JDWP session.
+                // We clone it into an in-memory ByteBuffer (which is wasteful)
+                // only because the ddmlib API requires it.
+                chunkReply.payload.toByteBuffer(chunkReply.length)
+            }
+
+            // Invoke the handler with the packet result payload
+            replyHandler.handleChunkData(buffer)
+        }
     }
 
     override fun dumpViewHierarchy(
@@ -135,10 +190,80 @@ internal class AdblibClientWrapper(
         useV2: Boolean,
         handler: DebugViewDumpHandler
     ) {
-        TODO("Not yet implemented")
+        launchLegacyWithJdwpSession("dumpViewHierarchy($viewRoot, $skipChildren, $includeProperties, $useV2)") {
+            val buffer = handleDdmsDumpViewHierarchy(
+                viewRoot = viewRoot,
+                skipChildren = skipChildren,
+                includeProperties = includeProperties,
+                useV2 = useV2
+            ) { chunkReply ->
+                // Note: At this point, the ddms chunk payload points directly
+                // to the socket of the underlying JDWP session.
+                // We clone it into an in-memory ByteBuffer (which is wasteful)
+                // only because the ddmlib API requires it.
+                chunkReply.payload.toByteBuffer(chunkReply.length)
+            }
+
+            // Invoke the handler with the packet result payload
+            handler.handleChunkData(buffer)
+        }
     }
 
     override fun dumpDisplayList(viewRoot: String, view: String) {
-        TODO("Not yet implemented")
+        legacyNotImplemented("dumpDisplayList")
+    }
+
+    /**
+     * Similar to [runBlocking] but with a custom [timeout]
+     *
+     * @throws TimeoutException if [block] take more than [timeout] to execute
+     */
+    private fun <R> runBlockingLegacy(
+        timeout: Duration = RUN_BLOCKING_LEGACY_DEFAULT_TIMEOUT,
+        block: suspend CoroutineScope.() -> R
+    ): R {
+        return runBlocking {
+            deviceClientManager.session.withErrorTimeout(timeout) {
+                block()
+            }
+        }
+    }
+
+    private fun launchLegacyWithJdwpSession(
+        operation: String,
+        block: suspend SharedJdwpSession.() -> Unit
+    ) {
+        // Note: We use `async` here to make sure exceptions are not propagated to
+        // the parent context.
+        val deferred = jdwpProcess.scope.async {
+            jdwpProcess.withJdwpSession {
+                block()
+            }
+        }
+
+        // We log errors here because legacy ddmlib APIs wrapped by this method don't
+        // have a way to report errors to their callers.
+        deferred.invokeOnCompletion { cause: Throwable? ->
+            cause?.also {
+                if (cause !is CancellationException) {
+                    logger.warn(
+                        cause,
+                        "A legacy ddmlib operation ('$operation') failed with an error ${cause.message}"
+                    )
+                }
+            }
+        }
+    }
+
+    private fun legacyNotImplemented(operation: String) {
+        val message =
+            "Operation '$operation' is not implemented because it is deprecated. It should never be called."
+        logger.info { message }
+        throw NotImplementedError(message)
+    }
+
+    companion object {
+
+        private val RUN_BLOCKING_LEGACY_DEFAULT_TIMEOUT: Duration = Duration.ofMillis(5_000)
     }
 }

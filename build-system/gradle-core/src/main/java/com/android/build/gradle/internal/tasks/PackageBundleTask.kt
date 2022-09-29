@@ -35,7 +35,6 @@ import com.android.build.gradle.options.BooleanOption
 import com.android.builder.internal.packaging.IncrementalPackager.APP_METADATA_FILE_NAME
 import com.android.builder.packaging.PackagingUtils
 import com.android.bundle.Config
-import com.android.build.gradle.internal.tasks.TaskCategory
 import com.android.tools.build.bundletool.commands.BuildBundleCommand
 import com.android.utils.FileUtils
 import com.google.common.base.Preconditions
@@ -571,7 +570,9 @@ abstract class PackageBundleTask : NonIncrementalTask() {
                 MergeNativeDebugMetadataTask.getNativeDebugMetadataFiles(creationConfig)
             )
 
-            task.abiFilters.setDisallowChanges(creationConfig.supportedAbis)
+            task.abiFilters.setDisallowChanges(
+                creationConfig.nativeBuildCreationConfig?.supportedAbis ?: emptyList()
+            )
 
             task.aaptOptionsNoCompress.setDisallowChanges(
                 creationConfig.androidResourcesCreationConfig?.androidResources?.noCompress,
@@ -617,8 +618,7 @@ abstract class PackageBundleTask : NonIncrementalTask() {
                 task.appMetadata
             )
 
-            if (creationConfig.services.projectOptions[BooleanOption.ENABLE_ART_PROFILES]
-                && !creationConfig.debuggable) {
+            if (!creationConfig.debuggable) {
                 creationConfig.artifacts.setTaskInputToFinalProduct(
                     InternalArtifactType.BINARY_ART_PROFILE,
                     task.binaryArtProfile

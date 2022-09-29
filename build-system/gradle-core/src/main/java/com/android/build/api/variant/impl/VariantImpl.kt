@@ -20,19 +20,20 @@ import com.android.build.api.component.impl.ComponentImpl
 import com.android.build.api.component.impl.UnitTestImpl
 import com.android.build.api.component.impl.features.BuildConfigCreationConfigImpl
 import com.android.build.api.component.impl.features.ManifestPlaceholdersCreationConfigImpl
+import com.android.build.api.component.impl.features.NativeBuildCreationConfigImpl
+import com.android.build.api.component.impl.features.OptimizationCreationConfigImpl
 import com.android.build.api.component.impl.features.RenderscriptCreationConfigImpl
 import com.android.build.api.component.impl.features.ShadersCreationConfigImpl
 import com.android.build.api.component.impl.warnAboutAccessingVariantApiValueForDisabledFeature
 import com.android.build.api.variant.AndroidVersion
 import com.android.build.api.variant.BuildConfigField
+import com.android.build.api.variant.CanMinifyAndroidResourcesBuilder
+import com.android.build.api.variant.CanMinifyCodeBuilder
 import com.android.build.api.variant.Component
 import com.android.build.api.variant.ExternalNativeBuild
-import com.android.build.api.variant.ExternalNdkBuildImpl
 import com.android.build.api.variant.Packaging
 import com.android.build.api.variant.ResValue
 import com.android.build.api.variant.Variant
-import com.android.build.gradle.internal.PostprocessingFeatures
-import com.android.build.gradle.internal.ProguardFileType
 import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestFixturesCreationConfig
@@ -40,13 +41,12 @@ import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.component.features.BuildConfigCreationConfig
 import com.android.build.gradle.internal.component.features.FeatureNames
 import com.android.build.gradle.internal.component.features.ManifestPlaceholdersCreationConfig
+import com.android.build.gradle.internal.component.features.NativeBuildCreationConfig
+import com.android.build.gradle.internal.component.features.OptimizationCreationConfig
 import com.android.build.gradle.internal.component.features.RenderscriptCreationConfig
 import com.android.build.gradle.internal.component.features.ShadersCreationConfig
-import com.android.build.gradle.internal.core.MergedNdkConfig
-import com.android.build.gradle.internal.core.NativeBuiltType
 import com.android.build.gradle.internal.core.VariantSources
 import com.android.build.gradle.internal.core.dsl.VariantDslInfo
-import com.android.build.gradle.internal.cxx.configure.externalNativeNinjaOptions
 import com.android.build.gradle.internal.dependency.VariantDependencies
 import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.scope.BuildFeatureValues
@@ -54,7 +54,6 @@ import com.android.build.gradle.internal.scope.MutableTaskContainer
 import com.android.build.gradle.internal.services.TaskCreationServices
 import com.android.build.gradle.internal.services.VariantServices
 import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfig
-import com.android.build.gradle.internal.utils.immutableListBuilder
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.internal.variant.VariantPathHelper
 import com.android.builder.core.ComponentType
@@ -64,8 +63,6 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
-import org.gradle.api.provider.Provider
-import java.io.File
 import java.io.Serializable
 
 abstract class VariantImpl<DslInfoT: VariantDslInfo>(
@@ -132,7 +129,7 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
                 value = internalServices.mapPropertyOf(
                     String::class.java,
                     BuildConfigField::class.java,
-                    dslInfo.getBuildConfigFields()
+                    dslInfo.buildConfigDslInfo!!.getBuildConfigFields()
                 )
             )
     }
@@ -142,40 +139,14 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
     }
 
 
-    override val externalNativeBuild: ExternalNativeBuild? by lazy {
-        dslInfo.nativeBuildSystem?.let { nativeBuildType ->
-            when(nativeBuildType) {
-                NativeBuiltType.CMAKE ->
-                    dslInfo.externalNativeBuildOptions.externalNativeCmakeOptions?.let {
-                        ExternalCmakeImpl(
-                                it,
-                                variantServices
-                        )
-                    }
-                NativeBuiltType.NDK_BUILD ->
-                    dslInfo.externalNativeBuildOptions.externalNativeNdkBuildOptions?.let {
-                        ExternalNdkBuildImpl(
-                                it,
-                                variantServices
-                        )
-                    }
-                NativeBuiltType.NINJA -> {
-                    ExternalNinjaImpl(
-                        externalNativeNinjaOptions,
-                        variantServices
-                    )
-                }
-            }
-        }
-    }
+    override val externalNativeBuild: ExternalNativeBuild?
+        get() = nativeBuildCreationConfig.externalNativeBuild
 
     override fun <T> getExtension(type: Class<T>): T? =
         type.cast(externalExtensions?.get(type))
 
-    override val proguardFiles: ListProperty<RegularFile> =
-        variantServices.listPropertyOf(RegularFile::class.java) {
-            dslInfo.getProguardFiles(it)
-        }
+    override val proguardFiles: ListProperty<RegularFile>
+        get() = optimizationCreationConfig.proguardFiles
 
     // ---------------------------------------------------------------------------------------------
     // INTERNAL API
@@ -185,7 +156,7 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
         if (buildFeatures.buildConfig) {
             BuildConfigCreationConfigImpl(
                 this,
-                dslInfo,
+                dslInfo.buildConfigDslInfo!!,
                 internalServices
             )
         } else {
@@ -196,7 +167,7 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
     override val renderscriptCreationConfig: RenderscriptCreationConfig? by lazy(LazyThreadSafetyMode.NONE) {
         if (buildFeatures.renderScript) {
             RenderscriptCreationConfigImpl(
-                dslInfo,
+                dslInfo.renderscriptDslInfo!!,
                 internalServices,
                 renderscriptTargetApi = variantBuilder.renderscriptTargetApi
             )
@@ -207,7 +178,7 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
 
     override val manifestPlaceholdersCreationConfig: ManifestPlaceholdersCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
         ManifestPlaceholdersCreationConfigImpl(
-            dslInfo,
+            dslInfo.manifestPlaceholdersDslInfo!!,
             internalServices
         )
     }
@@ -215,6 +186,24 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
     override val shadersCreationConfig: ShadersCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
         ShadersCreationConfigImpl(
             dslInfo.shadersDslInfo!!
+        )
+    }
+
+    override val optimizationCreationConfig: OptimizationCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
+        OptimizationCreationConfigImpl(
+            this,
+            dslInfo.optimizationDslInfo,
+            variantBuilder as? CanMinifyCodeBuilder,
+            variantBuilder as? CanMinifyAndroidResourcesBuilder,
+            internalServices
+        )
+    }
+
+    override val nativeBuildCreationConfig: NativeBuildCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
+        NativeBuildCreationConfigImpl(
+            this,
+            dslInfo.nativeBuildDslInfo!!,
+            internalServices
         )
     }
 
@@ -264,9 +253,6 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
                 dslInfo.experimentalProperties
             )
 
-    override val externalNativeExperimentalProperties: Map<String, Any>
-        get() = dslInfo.externalNativeExperimentalProperties
-
     override val nestedComponents: List<ComponentImpl<*>>
         get() = listOfNotNull(
             unitTest,
@@ -282,32 +268,6 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
             (this as? HasTestFixtures)?.testFixtures
         )
 
-    override val ignoredLibraryKeepRules: Provider<Set<String>> =
-            internalServices.setPropertyOf(
-                String::class.java,
-                dslInfo.ignoredLibraryKeepRules
-            )
-
-    override val ignoreAllLibraryKeepRules: Boolean = dslInfo.ignoreAllLibraryKeepRules
-
-    override val ndkConfig: MergedNdkConfig
-        get() = dslInfo.ndkConfig
-    override val isJniDebuggable: Boolean
-        get() = dslInfo.isJniDebuggable
-    override val supportedAbis: Set<String>
-        get() = dslInfo.supportedAbis
-
-    override val postProcessingFeatures: PostprocessingFeatures?
-        get() = dslInfo.postProcessingOptions.getPostprocessingFeatures()
-    override val consumerProguardFiles: List<File> by lazy(LazyThreadSafetyMode.NONE) {
-        immutableListBuilder<File> {
-            addAll(dslInfo.gatherProguardFiles(ProguardFileType.CONSUMER))
-            // We include proguardFiles if we're in a dynamic-feature module.
-            if (dslInfo.componentType.isDynamicFeature) {
-                addAll(dslInfo.gatherProguardFiles(ProguardFileType.EXPLICIT))
-            }
-        }
-    }
     override val manifestPlaceholders: MapProperty<String, String>
         get() = manifestPlaceholdersCreationConfig.placeholders
 
@@ -318,7 +278,7 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
         get() {
             // We need to create a stream from the merged java resources if we're in a library module,
             // or if we're in an app/feature module which uses the transform pipeline.
-            return (dslInfo.componentType.isAar || minifiedEnabled)
+            return (dslInfo.componentType.isAar || optimizationCreationConfig.minifiedEnabled)
         }
 
     override val isCoreLibraryDesugaringEnabledLintCheck: Boolean

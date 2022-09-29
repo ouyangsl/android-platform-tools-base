@@ -81,13 +81,10 @@ abstract class BuildAttributionService : BuildService<BuildAttributionService.Pa
 
             initialized = true
             val taskCategoryConverter = HelpfulEnumConverter(TaskCategory::class.java)
-            val sendTaskCategoryInfo = projectOptions.get(BooleanOption.BUILD_ANALYZER_TASK_LABELS)
             project.gradle.taskGraph.whenReady { taskGraph ->
                 val outputFileToTasksMap = mutableMapOf<String, MutableList<String>>()
-                val taskNameToClassNameMap = mutableMapOf<String, String>()
                 val taskNameToTaskInfoMap = mutableMapOf<String, TaskInfo>()
                 taskGraph.allTasks.forEach { task ->
-                    taskNameToClassNameMap[task.name] = getTaskClassName(task.javaClass.name)
 
                     task.outputs.files.forEach { outputFile ->
                         outputFileToTasksMap.computeIfAbsent(outputFile.absolutePath) {
@@ -95,8 +92,7 @@ abstract class BuildAttributionService : BuildService<BuildAttributionService.Pa
                         }.add(task.path)
                     }
 
-                    val taskCategoryInfo = if (sendTaskCategoryInfo
-                            && task::class.java.isAnnotationPresent(BuildAnalyzer::class.java)) {
+                    val taskCategoryInfo = if (task::class.java.isAnnotationPresent(BuildAnalyzer::class.java)) {
                         val annotation = task::class.java.getAnnotation(BuildAnalyzer::class.java)
                         val primaryTaskCategory =
                                 taskCategoryConverter.convert(annotation.primaryTaskCategory.toString())!!
@@ -118,7 +114,6 @@ abstract class BuildAttributionService : BuildService<BuildAttributionService.Pa
                         .map { "${it.group}:${it.module}:${it.version}" }
 
                 parameters.attributionFileLocation.set(attributionFileLocation)
-                parameters.taskNameToClassNameMap.set(taskNameToClassNameMap)
                 parameters.tasksSharingOutputs.set(
                         outputFileToTasksMap.filter { it.value.size > 1 }
                 )
@@ -139,9 +134,7 @@ abstract class BuildAttributionService : BuildService<BuildAttributionService.Pa
                 )
                 parameters.taskNameToTaskInfoMap.set(taskNameToTaskInfoMap)
 
-                if (sendTaskCategoryInfo) {
-                    parameters.buildAnalyzerTaskCategoryIssues.set(getBuildAnalyzerIssues(projectOptions))
-                }
+                parameters.buildAnalyzerTaskCategoryIssues.set(getBuildAnalyzerIssues(projectOptions))
             }
         }
 
@@ -207,7 +200,6 @@ abstract class BuildAttributionService : BuildService<BuildAttributionService.Pa
         saveAttributionData(
             File(parameters.attributionFileLocation.get()),
             AndroidGradlePluginAttributionData(
-                taskNameToClassNameMap = parameters.taskNameToClassNameMap.get(),
                 tasksSharingOutput = parameters.tasksSharingOutputs.get(),
                 garbageCollectionData = gcData,
                 buildSrcPlugins = getBuildSrcPlugins(this.javaClass.classLoader),
@@ -231,8 +223,6 @@ abstract class BuildAttributionService : BuildService<BuildAttributionService.Pa
         val attributionFileLocation: Property<String>
 
         val tasksSharingOutputs: MapProperty<String, List<String>>
-
-        val taskNameToClassNameMap: MapProperty<String, String>
 
         val javaInfo: Property<JavaInfo>
 

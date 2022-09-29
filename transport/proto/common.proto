@@ -28,6 +28,7 @@ import "memory_data.proto";
 import "network_data.proto";
 import "user_counter_data.proto";
 import "layout_inspector.proto";
+import "trace.proto";
 
 
 message Event {
@@ -45,6 +46,11 @@ message Event {
     // Session is a profiler only concept.
     // group_id: session id
     SESSION = 101;
+    // Trace status is shared across all profiler tracing status events.
+    // group_id (cpu): trace id (populated only if the trace record exists)
+    // group_id (mem): capture id (start timestamp)
+    // TODO: Unify id to use trace id
+    TRACE_STATUS = 102;
 
     // Network Profiler Prefix = 200
     // group_id: |NETWORK_TX| or |NETWORK_RX|
@@ -67,8 +73,6 @@ message Event {
     CPU_CORE_CONFIG = 303;
     // group_id:: trace id
     CPU_TRACE = 304;
-    // group_id:: trace id (populated only if the trace record exists)
-    CPU_TRACE_STATUS = 305;
 
     // Memory Profiler Prefix = 400
     // no specified group id.
@@ -95,8 +99,6 @@ message Event {
     MEMORY_ALLOC_STATS = 411;
     // group_id: capture id (start timestamp)
     MEMORY_NATIVE_SAMPLE_CAPTURE = 412;
-    // group_id: capture id (start timestamp)
-    MEMORY_NATIVE_SAMPLE_STATUS =  413;
 
     // Energy Profiler Prefix = 500
     // no specified group id.
@@ -176,6 +178,7 @@ message Event {
 
     // Profiler Prefix = 100
     SessionData session = 101;
+    TraceStatusData trace_status = 102;
 
     // Network Profiler Prefix = 200
     // Populated when |kind| is |NETWORK_SPEED|
@@ -194,7 +197,6 @@ message Event {
     CpuThreadData cpu_thread = 302;
     CpuCoreConfigData cpu_core_config = 303;
     CpuTraceData cpu_trace = 304;
-    CpuTraceStatusData cpu_trace_status = 305;
 
     // Memory Profiler Prefix = 400
     MemoryUsageData memory_usage = 401;
@@ -208,8 +210,7 @@ message Event {
     MemoryAllocEventsData memory_alloc_events = 409;
     MemoryJniRefData memory_jni_ref_events = 410;
     MemoryAllocStatsData memory_alloc_Stats = 411;
-    MemoryNativeTrackingData memory_native_tracking_status = 412;
-    MemoryNativeSampleData memory_native_sample = 413;
+    MemoryNativeSampleData memory_native_sample = 412;
 
     // Energy Profiler Prefix = 500
     // Energy consumption calculated from CPU, network and location activities.

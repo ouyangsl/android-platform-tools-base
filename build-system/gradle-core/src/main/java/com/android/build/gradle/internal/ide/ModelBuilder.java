@@ -461,12 +461,9 @@ public class ModelBuilder<Extension extends BaseExtension>
             // them. For AndroidTest we take the first non-null variant as well.
             namespace = variant.getNamespace().get();
             if (variant instanceof HasAndroidTest) {
-                // TODO(b/176931684) Use AndroidTest.namespace instead after we stop
-                //  supporting using applicationId to namespace the test component R class.
-
                 AndroidTestCreationConfig test = ((HasAndroidTest) variant).getAndroidTest();
                 if (test != null) {
-                    androidTestNamespace = test.getNamespaceForR().get();
+                    androidTestNamespace = test.getNamespace().get();
                 }
             }
         }
@@ -823,7 +820,8 @@ public class ModelBuilder<Extension extends BaseExtension>
         boolean isDynamicFeature = component.getComponentType().isDynamicFeature();
 
         if (!isBaseModule) {
-            List<File> consumerProguardFiles = component.getConsumerProguardFiles();
+            List<File> consumerProguardFiles =
+                    component.getOptimizationCreationConfig().getConsumerProguardFiles();
 
             ExportConsumerProguardFilesTask.checkProguardFiles(
                     project.getLayout().getBuildDirectory(),
@@ -1063,12 +1061,19 @@ public class ModelBuilder<Extension extends BaseExtension>
 
         MutableTaskContainer taskContainer = component.getTaskContainer();
         ArtifactsImpl artifacts = component.getArtifacts();
-        final CodeShrinker codeShrinker;
-        if (component instanceof ConsumableCreationConfig
-                && ((ConsumableCreationConfig) component).getMinifiedEnabled()) {
-            codeShrinker = CodeShrinker.R8;
-        } else {
-            codeShrinker = null;
+        CodeShrinker codeShrinker = null;
+        Set<String> supportedAbis = Collections.emptySet();
+        if (component instanceof ConsumableCreationConfig) {
+            ConsumableCreationConfig creationConfig = ((ConsumableCreationConfig) component);
+            if (creationConfig.getOptimizationCreationConfig().getMinifiedEnabled()) {
+                codeShrinker = CodeShrinker.R8;
+            }
+            if (creationConfig.getNativeBuildCreationConfig() != null) {
+                supportedAbis =
+                        ((ConsumableCreationConfig) component)
+                                .getNativeBuildCreationConfig()
+                                .getSupportedAbis();
+            }
         }
 
         return new AndroidArtifactImpl(
@@ -1097,7 +1102,7 @@ public class ModelBuilder<Extension extends BaseExtension>
                 additionalRuntimeApks,
                 sourceProviders.variantSourceProvider,
                 sourceProviders.multiFlavorSourceProvider,
-                component.getSupportedAbis(),
+                supportedAbis,
                 instantRun,
                 testOptions,
                 taskContainer.getConnectedTestTask() == null

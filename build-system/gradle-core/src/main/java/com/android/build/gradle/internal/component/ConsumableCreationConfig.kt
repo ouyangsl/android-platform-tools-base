@@ -17,12 +17,10 @@
 package com.android.build.gradle.internal.component
 
 import com.android.build.api.variant.Packaging
-import com.android.build.gradle.internal.PostprocessingFeatures
+import com.android.build.gradle.internal.component.features.NativeBuildCreationConfig
+import com.android.build.gradle.internal.component.features.OptimizationCreationConfig
 import com.android.build.gradle.internal.component.features.RenderscriptCreationConfig
 import com.android.build.gradle.internal.component.features.ShadersCreationConfig
-import org.gradle.api.file.RegularFile
-import org.gradle.api.provider.ListProperty
-import org.gradle.api.provider.Provider
 
 /**
  * CreationConfig for variants that produces an artifact that is directly install-able to devices
@@ -31,26 +29,10 @@ import org.gradle.api.provider.Provider
 interface ConsumableCreationConfig: ComponentCreationConfig {
     val packaging: Packaging
 
-    val proguardFiles: ListProperty<RegularFile>
-
-    /**
-     * Returns the component ids of those library dependencies whose keep rules are ignored when
-     * building the project.
-     */
-    val ignoredLibraryKeepRules: Provider<Set<String>>
-
-    /**
-     * Returns whether to ignore all keep rules from external library dependencies.
-     */
-    val ignoreAllLibraryKeepRules: Boolean
-
-    val minifiedEnabled: Boolean
-    val resourcesShrink: Boolean
+    val optimizationCreationConfig: OptimizationCreationConfig
 
     /** Returns whether we need to create a stream from the merged java resources */
     val needsMergedJavaResStream: Boolean
-
-    val postProcessingFeatures: PostprocessingFeatures?
 
     val isAndroidTestCoverageEnabled: Boolean
 
@@ -62,4 +44,5 @@ interface ConsumableCreationConfig: ComponentCreationConfig {
     // optional features
     val renderscriptCreationConfig: RenderscriptCreationConfig?
     val shadersCreationConfig: ShadersCreationConfig?
+    val nativeBuildCreationConfig: NativeBuildCreationConfig?
 }

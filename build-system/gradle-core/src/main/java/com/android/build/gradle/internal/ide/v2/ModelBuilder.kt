@@ -352,9 +352,7 @@ class ModelBuilder<
             namespace = it.namespace.get()
             if (androidTestNamespace == null && it is HasAndroidTest) {
                 it.androidTest?.let { androidTest ->
-                    // TODO(b/176931684) Use AndroidTest.namespace instead after we stop
-                    //  supporting using applicationId to namespace the test component R class.
-                    androidTestNamespace = androidTest.namespaceForR.get()
+                    androidTestNamespace = androidTest.namespace.get()
                 }
             }
             if (testFixturesNamespace == null && it is HasTestFixtures) {
@@ -580,7 +578,9 @@ class ModelBuilder<
         features: BuildFeatureValues
     ): BasicArtifact {
         return BasicArtifactImpl(
-            variantSourceProvider = component.sources.variantSourceProvider?.convert(features, component.sources),
+            variantSourceProvider = component.sources.variantSourceProvider?.convert(
+                component.sources
+            ),
             multiFlavorSourceProvider = component.sources.multiFlavorSourceProvider?.convert(
                 features
             ),
@@ -712,11 +712,12 @@ class ModelBuilder<
 
             applicationId = getApplicationId(component),
 
-            abiFilters = component.supportedAbis,
+            abiFilters = (component as? ConsumableCreationConfig)?.nativeBuildCreationConfig?.supportedAbis ?: emptySet(),
             testInfo = testInfo,
             bundleInfo = getBundleInfo(component),
             codeShrinker = CodeShrinker.R8.takeIf {
-                component is ConsumableCreationConfig && component.minifiedEnabled
+                component is ConsumableCreationConfig &&
+                        component.optimizationCreationConfig.minifiedEnabled
             },
 
             assembleTaskName = taskContainer.assembleTask.name,

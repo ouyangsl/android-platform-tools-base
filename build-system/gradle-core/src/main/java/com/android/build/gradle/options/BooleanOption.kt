@@ -211,12 +211,10 @@ enum class BooleanOption(
 
     PRIVACY_SANDBOX_SDK_SUPPORT("android.experimental.privacysandboxsdk.enable", false, FeatureStage.Experimental),
 
-    BUILD_ANALYZER_TASK_LABELS("android.experimental.buildanalyzer.tasklabels.enable", false, FeatureStage.Experimental),
+    PRINT_LINT_STACK_TRACE("android.lint.printStackTrace", false, FeatureStage.Experimental),
     /* ------------------------
      * SOFTLY-ENFORCED FEATURES
      */
-    USE_RELATIVE_PATH_IN_TEST_CONFIG("android.testConfig.useRelativePath", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
     ENABLE_INCREMENTAL_DATA_BINDING("android.databinding.incremental", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
 
@@ -225,8 +223,6 @@ enum class BooleanOption(
     ENABLE_R_TXT_RESOURCE_SHRINKING("android.enableRTxtResourceShrinking", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
     INCLUDE_REPOSITORIES_IN_DEPENDENCY_REPORT("android.bundletool.includeRepositoriesInDependencyReport", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
-    ENABLE_ART_PROFILES("android.enableArtProfiles", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
     ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM("android.experimental.androidTest.useUnifiedTestPlatform", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
@@ -513,7 +509,19 @@ enum class BooleanOption(
         true,
         FeatureStage.Enforced(Version.VERSION_8_0)
     ),
-    
+
+    ENABLE_ART_PROFILES(
+        "android.enableArtProfiles",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
+    USE_RELATIVE_PATH_IN_TEST_CONFIG(
+        "android.testConfig.useRelativePath",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
     /* ----------------
      * REMOVED FEATURES
      */

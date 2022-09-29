@@ -40,12 +40,10 @@ class OptionVersionTest {
          *  - Tracking bug for AGP 8.0: b/243560711
          */
         private val KNOWN_VIOLATING_DEPRECATED_OPTIONS: List<Option<*>> = listOf(
-            BooleanOption.USE_RELATIVE_PATH_IN_TEST_CONFIG,
             BooleanOption.ENABLE_INCREMENTAL_DATA_BINDING,
             BooleanOption.ENABLE_RESOURCE_OPTIMIZATIONS,
             BooleanOption.ENABLE_R_TXT_RESOURCE_SHRINKING,
             BooleanOption.INCLUDE_REPOSITORIES_IN_DEPENDENCY_REPORT,
-            BooleanOption.ENABLE_ART_PROFILES,
             BooleanOption.ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM,
             BooleanOption.ENABLE_NEW_RESOURCE_SHRINKER,
             BooleanOption.ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE,

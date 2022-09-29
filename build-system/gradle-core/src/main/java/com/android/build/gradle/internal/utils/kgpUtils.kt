@@ -45,9 +45,6 @@ const val KOTLIN_KAPT_PLUGIN_ID = "org.jetbrains.kotlin.kapt"
 const val KSP_PLUGIN_ID = "com.google.devtools.ksp"
 private val KOTLIN_MPP_PLUGIN_IDS = listOf("kotlin-multiplatform", "org.jetbrains.kotlin.multiplatform")
 
-private val irBackendByDefault = KotlinVersion(1, 5)
-private val irBackendIntroduced = KotlinVersion(1, 3, 70)
-
 /**
  * Returns `true` if any of the Kotlin plugins is applied (there are many Kotlin plugins). If we
  * want to check a specific Kotlin plugin, use another method (e.g.,
@@ -145,23 +142,14 @@ fun recordIrBackendForAnalytics(allPropertiesList: List<ComponentCreationConfig>
                 try {
                     // Enabling compose forces IR, so handle that case.
                     if (composeIsEnabled) {
-                        setIrUsedInAnalytics(creationConfig, project)
+                        setIrUsedInAnalytics(creationConfig, project, useIr = true)
                         return@configureKotlinCompileForProject
                     }
 
                     val kotlinVersion = getProjectKotlinPluginKotlinVersion(project)
-                    val irBackendEnabled = when {
-                        kotlinVersion == null -> return@configureKotlinCompileForProject
-                        kotlinVersion >= irBackendByDefault -> {
-                            !getKotlinOptionsValueIfSet(task, extension, "getUseOldBackend", false)
-                        }
-                        kotlinVersion >= irBackendIntroduced -> {
-                            getKotlinOptionsValueIfSet(task, extension, "getUseIR", false)
-                        }
-                        else -> null
-                    }
-                    irBackendEnabled?.let {
-                        setIrUsedInAnalytics(creationConfig, project)
+                    if (kotlinVersion != null) {
+                        val irBackendEnabled = !getKotlinOptionsValueIfSet(task, extension, "getUseOldBackend", false)
+                        setIrUsedInAnalytics(creationConfig, project, irBackendEnabled)
                     }
                 } catch (ignored: Throwable) {
                 }
@@ -171,6 +159,7 @@ fun recordIrBackendForAnalytics(allPropertiesList: List<ComponentCreationConfig>
     }
 }
 
+@Suppress("SameParameterValue")
 private fun getKotlinOptionsValueIfSet(task: Task, extension: BaseExtension, methodName: String, defaultValue: Boolean): Boolean {
     // We need reflection because AGP and KGP can be in different class loaders.
     val getKotlinOptions = task.javaClass.getMethod("getKotlinOptions")
@@ -187,16 +176,11 @@ private fun getKotlinOptionsValueIfSet(task: Task, extension: BaseExtension, met
     return defaultValue
 }
 
-/** User reflection as API has been removed in newer KGP versions. */
-private fun enableUseIr(task: Task) {
-    // We need reflection because AGP and KGP can be in different class loaders.
-    val getKotlinOptions = task.javaClass.getMethod("getKotlinOptions")
-    val kotlinOptions = getKotlinOptions.invoke(task)
-    val method = kotlinOptions.javaClass.getMethod("setUseIR", Boolean::class.java)
-    method.invoke(kotlinOptions, true)
-}
-
-private fun setIrUsedInAnalytics(creationConfig: ComponentCreationConfig, project: Project) {
+private fun setIrUsedInAnalytics(
+    creationConfig: ComponentCreationConfig,
+    project: Project,
+    useIr: Boolean
+) {
     val buildService: AnalyticsConfiguratorService =
             getBuildService(
                     creationConfig.services.buildServiceRegistry,
@@ -204,24 +188,16 @@ private fun setIrUsedInAnalytics(creationConfig: ComponentCreationConfig, projec
                     .get()
 
     buildService.getVariantBuilder(project.path, creationConfig.name)
-            ?.setKotlinOptions(GradleBuildVariant.KotlinOptions.newBuilder().setUseIr(true))
+            ?.setKotlinOptions(GradleBuildVariant.KotlinOptions.newBuilder().setUseIr(useIr))
 }
 
 /** Add compose compiler extension args to Kotlin compile task. */
 fun addComposeArgsToKotlinCompile(
-        task: Task,
-        creationConfig: ComponentCreationConfig,
-        compilerExtension: FileCollection,
-        useLiveLiterals: Boolean) {
-    task as KotlinCompile
-    // Add as input
-    task.inputs.files(compilerExtension)
-            .withPropertyName("composeCompilerExtension")
-            .withNormalizer(ClasspathNormalizer::class.java)
-
-    // Add useLiveLiterals as an input
-    task.inputs.property("useLiveLiterals", useLiveLiterals)
-
+    task: KotlinCompile,
+    creationConfig: ComponentCreationConfig,
+    compilerExtension: FileCollection,
+    useLiveLiterals: Boolean
+) {
     val debuggable = if (creationConfig is ApkCreationConfig || creationConfig is LibraryCreationConfig) {
         creationConfig.debuggable
     } else {
@@ -229,32 +205,48 @@ fun addComposeArgsToKotlinCompile(
     }
 
     val kotlinVersion = getProjectKotlinPluginKotlinVersion(task.project)
-    task.doFirst {
-        it as KotlinCompile
-        kotlinVersion?.let { version ->
-            when {
-                version >= irBackendByDefault -> return@let // IR is enabled by default
-                version >= irBackendIntroduced -> enableUseIr(it)
-            }
-        }
-        val extraFreeCompilerArgs = mutableListOf(
-                "-Xplugin=${compilerExtension.files.first().absolutePath}",
-                "-P", "plugin:androidx.compose.plugins.idea:enabled=true",
-                "-Xallow-unstable-dependencies"
-        )
-        if (debuggable) {
-            extraFreeCompilerArgs += listOf(
-                    "-P",
-                    "plugin:androidx.compose.compiler.plugins.kotlin:sourceInformation=true")
 
-            if (useLiveLiterals) {
-                extraFreeCompilerArgs += listOf(
-                        "-P",
-                        "plugin:androidx.compose.compiler.plugins.kotlin:liveLiterals=true")
-            }
+    task.addPluginClasspath(kotlinVersion, compilerExtension)
+
+    task.addPluginOption("androidx.compose.plugins.idea", "enabled", "true")
+    if (debuggable) {
+        task.addPluginOption("androidx.compose.compiler.plugins.kotlin", "sourceInformation", "true")
+        if (useLiveLiterals) {
+            task.addPluginOption("androidx.compose.compiler.plugins.kotlin", "liveLiterals", "true")
         }
-        it.kotlinOptions.freeCompilerArgs += extraFreeCompilerArgs
     }
+
+    task.kotlinOptions.freeCompilerArgs += "-Xallow-unstable-dependencies"
+}
+
+private fun KotlinCompile.addPluginClasspath(
+    kotlinVersion: KotlinVersion?, compilerExtension: FileCollection
+) {
+    // If kotlinVersion == null, it's likely a newer Kotlin version
+    if (kotlinVersion == null || kotlinVersion.isAtLeast(1, 7)) {
+        pluginClasspath.from(compilerExtension)
+    } else {
+        inputs.files(compilerExtension)
+            .withPropertyName("composeCompilerExtension")
+            .withNormalizer(ClasspathNormalizer::class.java)
+        doFirst {
+            (it as KotlinCompile).kotlinOptions.freeCompilerArgs +=
+                "-Xplugin=${compilerExtension.files.single().path}"
+        }
+    }
+}
+
+private fun KotlinCompile.addPluginOption(pluginId: String, key: String, value: String) {
+    // Once https://youtrack.jetbrains.com/issue/KT-54160 is fixed, we will be able to use the new
+    // API to add plugin options as follows:
+    //     // If kotlinVersion == null, it's likely a newer Kotlin version
+    //     if (kotlinVersion == null || kotlinVersion.isAtLeast(X, Y)) {
+    //         pluginOptions.add(CompilerPluginConfig().apply {
+    //             addPluginArgument(pluginId, SubpluginOption(key, value))
+    //         })
+    //     } else { ... }
+    // For now, continue to use the old way to add plugin options.
+    kotlinOptions.freeCompilerArgs += listOf("-P", "plugin:$pluginId:$key=$value")
 }
 
 /**

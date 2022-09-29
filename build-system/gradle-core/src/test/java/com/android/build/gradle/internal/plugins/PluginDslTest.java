@@ -91,6 +91,7 @@ public class PluginDslTest {
         android = project.getExtensions().getByType(BaseAppModuleExtension.class);
         android.setCompileSdkVersion(TestConstants.COMPILE_SDK_VERSION);
         android.setBuildToolsVersion(TestConstants.BUILD_TOOL_VERSION);
+        android.setNamespace("com.example.namespace");
 
         plugin = project.getPlugins().getPlugin(AppPlugin.class);
         checker = VariantCheckers.createAppChecker(android);
@@ -850,7 +851,8 @@ public class PluginDslTest {
         for (Map.Entry<String, List<String>> entry : expected.entrySet()) {
             String variantName = entry.getKey();
             Set<File> proguardFiles =
-                    componentMap.get(variantName).getProguardFiles().get().stream()
+                    componentMap.get(variantName).getOptimizationCreationConfig().getProguardFiles()
+                            .get().stream()
                             .map(RegularFile::getAsFile)
                             .map(File::getAbsoluteFile)
                             .collect(Collectors.toSet());

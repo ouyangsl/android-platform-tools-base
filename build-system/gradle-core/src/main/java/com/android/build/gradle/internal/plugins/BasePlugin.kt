@@ -75,6 +75,7 @@ import com.android.build.gradle.internal.services.AndroidLocationsBuildService
 import com.android.build.gradle.internal.services.ClassesHierarchyBuildService
 import com.android.build.gradle.internal.services.DslServices
 import com.android.build.gradle.internal.services.DslServicesImpl
+import com.android.build.gradle.internal.services.FakeDependencyJarBuildService
 import com.android.build.gradle.internal.services.LintClassLoaderBuildService
 import com.android.build.gradle.internal.services.StringCachingBuildService
 import com.android.build.gradle.internal.services.SymbolTableBuildService
@@ -394,6 +395,8 @@ abstract class BasePlugin<
         LintClassLoaderBuildService.RegistrationAction(project).execute()
         JacocoInstrumentationService.RegistrationAction(project).execute()
 
+        FakeDependencyJarBuildService.RegistrationAction(project).execute()
+
         projectOptions
             .allOptions
             .forEach(projectServices.deprecationReporter::reportOptionIssuesIfAny)
@@ -694,10 +697,17 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
             .configureGeneralTransforms(globalConfig.namespacedAndroidResources)
             .configureVariantTransforms(variants, variantManager.nestedComponents, globalConfig)
             .configureAttributeMatchingStrategies(variantInputModel)
-            .configureJacocoTransforms()
             .configureCalculateStackFramesTransforms(globalConfig)
             .configurePrivacySandboxSdkConsumerTransforms(
                     globalConfig.compileSdkHashString, globalConfig.buildToolsRevision, globalConfig)
+                .apply {
+                    // Registering Jacoco transforms causes the jacoco configuration to be created.
+                    // Ensure there are is at least one variant with enableAndroidTestCoverage 
+                    // enabled before registering the transforms.
+                    if (variants.any { it.variant.isAndroidTestCoverageEnabled }) {
+                        configureJacocoTransforms()
+                    }
+                }
 
         // Run the old Variant API, after the variants and tasks have been created.
         @Suppress("DEPRECATION")
