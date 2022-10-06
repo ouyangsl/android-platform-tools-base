@@ -105,7 +105,9 @@ abstract class BaseDexingTransform<T : BaseDexingTransform.Parameters> : Transfo
     override fun transform(outputs: TransformOutputs) {
         //TODO(b/162813654) record transform execution span
         val input = primaryInput.get().asFile
-        val outputDir = outputs.dir(Files.getNameWithoutExtension(input.name))
+        // As a workaround for https://github.com/gradle/gradle/issues/17213 and https://issuetracker.google.com/issues/246326007
+        // ensures the output filenames are all unique (but stable)
+        val outputDir = outputs.dir("${Files.getNameWithoutExtension(input.name)}-${Hashing.sha256().hashString(input.absolutePath, StandardCharsets.UTF_8)}")
         doTransform(input, outputDir)
     }
 
