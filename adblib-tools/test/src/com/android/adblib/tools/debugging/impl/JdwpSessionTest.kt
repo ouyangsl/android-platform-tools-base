@@ -51,7 +51,7 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
         // Act
-        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10))
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, 100))
         val threadCount = 100
         val packetCount = 1000
         val ids =(1..threadCount)
@@ -71,6 +71,23 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
+    fun nextPacketIdThrowsIfNotSupported() = runBlockingWithTimeout {
+        val fakeAdb = registerCloseable(FakeAdbServerProvider().buildDefault().start())
+        val fakeDevice = addFakeDevice(fakeAdb, 30)
+        val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
+        val session = createSession(fakeAdb)
+        fakeDevice.startClient(10, 0, "a.b.c", false)
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, null))
+
+        // Act
+        exceptionRule.expect(UnsupportedOperationException::class.java)
+        jdwpSession.nextPacketId()
+
+        // Assert
+        fail("Should not reach")
+    }
+
+    @Test
     fun sendAndReceivePacketWorks() = runBlockingWithTimeout {
         val fakeAdb = registerCloseable(FakeAdbServerProvider().buildDefault().start())
         val fakeDevice = addFakeDevice(fakeAdb, 30)
@@ -79,7 +96,7 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
         // Act
-        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10))
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, 100))
 
         val sendPacket = createHeloDdmsPacket(jdwpSession)
         jdwpSession.sendPacket(sendPacket)
@@ -101,7 +118,7 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
         // Act
-        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10))
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, 100))
 
         val sendPacket = createHeloDdmsPacket(jdwpSession)
         jdwpSession.sendPacket(sendPacket)
@@ -129,7 +146,7 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
         // Act
-        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10))
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, 100))
 
         val sendPacket = createHeloDdmsPacket(jdwpSession)
         jdwpSession.sendPacket(sendPacket)
@@ -150,7 +167,7 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
         // Act
-        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10))
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, 100))
 
         val sendPacket = createHeloDdmsPacket(jdwpSession)
         jdwpSession.sendPacket(sendPacket)
@@ -170,7 +187,7 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
         val session = createSession(fakeAdb)
         fakeDevice.startClient(10, 0, "a.b.c", false)
-        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10))
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, 100))
         val packet = createHeloDdmsPacket(jdwpSession)
         jdwpSession.sendPacket(packet)
 
@@ -190,7 +207,7 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
         val session = createSession(fakeAdb)
         fakeDevice.startClient(10, 0, "a.b.c", false)
-        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10))
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(session, deviceSelector, 10, 100))
         val packet = createHeloDdmsPacket(jdwpSession)
         jdwpSession.sendPacket(packet)
 

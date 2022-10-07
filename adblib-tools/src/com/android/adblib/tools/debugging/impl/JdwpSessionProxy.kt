@@ -105,7 +105,9 @@ internal class JdwpSessionProxy(
     private suspend fun proxyJdwpSession(debuggerSocket: AdbChannel) {
         logger.debug { "pid=$pid: Start proxying socket between external debugger and process on device" }
         jdwpSessionRef.retained().use { deviceSessionRef ->
-            JdwpSession.wrapSocketChannel(session, debuggerSocket, pid).use { debuggerSession ->
+            // The JDWP Session proxy does not need to send custom JDWP packets,
+            // so we pass a `null` value for `nextPacketIdBase`.
+            JdwpSession.wrapSocketChannel(session, debuggerSocket, pid, null).use { debuggerSession ->
                 coroutineScope {
                     // Note about termination of this coroutine scope:
                     // * [automatic] The common case is to wait for job1 and job2 to complete

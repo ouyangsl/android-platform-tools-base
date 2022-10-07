@@ -68,7 +68,7 @@ enum class BooleanOption(
     ENABLE_STABLE_IDS(PROPERTY_BUILD_WITH_STABLE_IDS, false, ApiStage.Stable),
 
     // Features' default values
-    BUILD_FEATURE_AIDL("android.defaults.buildfeatures.aidl", true, ApiStage.Stable),
+    BUILD_FEATURE_AIDL("android.defaults.buildfeatures.aidl", false, ApiStage.Stable),
     BUILD_FEATURE_BUILDCONFIG("android.defaults.buildfeatures.buildconfig", true, ApiStage.Stable),
     BUILD_FEATURE_DATABINDING("android.defaults.buildfeatures.databinding", false, ApiStage.Stable),
     BUILD_FEATURE_RENDERSCRIPT("android.defaults.buildfeatures.renderscript", false, ApiStage.Stable),
@@ -217,12 +217,7 @@ enum class BooleanOption(
      */
     ENABLE_INCREMENTAL_DATA_BINDING("android.databinding.incremental", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
-
-    ENABLE_RESOURCE_OPTIMIZATIONS("android.enableResourceOptimizations", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
     ENABLE_R_TXT_RESOURCE_SHRINKING("android.enableRTxtResourceShrinking", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
-    INCLUDE_REPOSITORIES_IN_DEPENDENCY_REPORT("android.bundletool.includeRepositoriesInDependencyReport", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
     ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM("android.experimental.androidTest.useUnifiedTestPlatform", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
@@ -520,6 +515,18 @@ enum class BooleanOption(
         "android.testConfig.useRelativePath",
         true,
         FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
+    ENABLE_RESOURCE_OPTIMIZATIONS(
+        "android.enableResourceOptimizations",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
+    INCLUDE_REPOSITORIES_IN_DEPENDENCY_REPORT(
+    "android.bundletool.includeRepositoriesInDependencyReport",
+    true,
+    FeatureStage.Enforced(Version.VERSION_8_0)
     ),
 
     /* ----------------

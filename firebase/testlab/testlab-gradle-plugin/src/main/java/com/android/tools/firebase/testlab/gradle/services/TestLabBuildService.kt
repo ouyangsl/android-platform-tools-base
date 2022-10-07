@@ -20,6 +20,7 @@ import com.android.build.api.instrumentation.StaticTestData
 import com.android.builder.testing.api.DeviceConfigProvider
 import com.android.tools.firebase.testlab.gradle.ManagedDeviceTestRunner.Companion.FtlTestRunResult
 import com.android.tools.firebase.testlab.gradle.UtpTestSuiteResultMerger
+import com.android.tools.utp.plugins.host.device.info.proto.AndroidTestDeviceInfoProto
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.googleapis.util.Utils
@@ -48,7 +49,6 @@ import com.google.api.services.testing.model.TestSpecification
 import com.google.api.services.toolresults.ToolResults
 import com.google.api.services.toolresults.model.StackTrace
 import com.google.firebase.testlab.gradle.ManagedDevice
-import com.google.protobuf.util.Timestamps
 import com.google.testing.platform.proto.api.core.ErrorProto.Error
 import com.google.testing.platform.proto.api.core.IssueProto.Issue
 import com.google.testing.platform.proto.api.core.LabelProto.Label
@@ -62,9 +62,14 @@ import com.google.testing.platform.proto.api.core.TestSuiteResultProto.TestSuite
 import com.google.testing.platform.proto.api.core.TestSuiteResultProto.TestSuiteResult
 import java.io.File
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.nio.charset.StandardCharsets
 import java.util.Locale
 import java.util.UUID
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.logging.Logging
 import org.gradle.api.provider.Property
@@ -72,6 +77,8 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
 import org.gradle.api.services.BuildServiceRegistry
+import org.w3c.dom.Element
+import org.w3c.dom.Node
 
 /**
  * A Gradle Build service that provides APIs to talk to the Firebase Test Lab backend server.
@@ -147,6 +154,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         device: ManagedDevice,
         testData: StaticTestData,
         resultsOutDir: File,
+        projectPath: String,
+        variantName: String,
     ): ArrayList<FtlTestRunResult> {
         resultsOutDir.apply {
             if (!exists()) {
@@ -266,6 +275,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             Thread.sleep (CHECK_TEST_STATE_WAIT_MS)
         }
 
+        val deviceInfoFile = createDeviceInfoFile(resultsOutDir, device)
+
         val ftlTestRunResults: ArrayList<FtlTestRunResult> = ArrayList()
         resultTestMatrix.testExecutions.forEach { testExecution ->
             if (testExecution.toolResultsStep != null) {
@@ -277,17 +288,10 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                         testExecution.toolResultsStep.stepId
                     ).execute()
                 executionStep.testExecutionStep.testSuiteOverviews?.forEach { suiteOverview ->
-                    val matchResult = cloudStorageUrlRegex.find(suiteOverview.xmlSource.fileUri)
-                    if (matchResult != null) {
-                        val (bucketName, objectName) = matchResult.destructured
-                        File(resultsOutDir, "TEST-${objectName.replace("/", "_")}").apply {
-                            parentFile.mkdirs()
-                            createNewFile()
-                        }.outputStream().use {
-                            storageClient.objects()
-                                .get(bucketName, objectName)
-                                .executeMediaAndDownloadTo(it)
-                        }
+                    downloadFromCloudStorage(storageClient, suiteOverview.xmlSource.fileUri) {
+                        File(resultsOutDir, "TEST-${it.replace("/", "_")}")
+                    }?.also {
+                        updateTestResultXmlFile(it, device, projectPath, variantName)
                     }
                 }
             }
@@ -295,6 +299,9 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 toolResultsClient,
                 resultTestMatrix,
                 testExecution,
+                deviceInfoFile,
+                storageClient,
+                resultsOutDir,
             )
 
             val testSuitePassed = testSuiteResult.testStatus.isPassedOrSkipped()
@@ -338,7 +345,10 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
     private fun getTestSuiteResult(
         toolResultsClient: ToolResults,
         testMatrix: TestMatrix,
-        testExecution: TestExecution
+        testExecution: TestExecution,
+        deviceInfoFile: File,
+        storageClient: Storage,
+        resultsOutDir: File,
     ): TestSuiteResult {
         val testSuiteResult = TestSuiteResult.newBuilder()
 
@@ -516,17 +526,42 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
 
                             if (case.toolOutputs != null) {
                                 for (toolOutput in (case.toolOutputs as List<ToolOutputReference>)) {
-                                    addOutputArtifact(Artifact.newBuilder().apply {
-                                        Label.newBuilder().apply {
-                                            label = "firebase.toolOutput"
-                                            namespace = "android"
-                                        }.build()
-                                        sourcePath = Path.newBuilder().apply {
-                                            path = toolOutput.output!!.fileUri
-                                        }.build()
-                                        type = ArtifactType.TEST_DATA
-                                    }.build())
+                                    if (toolOutput.output!!.fileUri!!.endsWith("logcat")) {
+                                        val logcatFile = downloadFromCloudStorage(
+                                            storageClient, toolOutput.output!!.fileUri!!) {
+                                            File(resultsOutDir, it)
+                                        }
+                                        if (logcatFile != null) {
+                                            addOutputArtifactBuilder().apply {
+                                                labelBuilder.apply {
+                                                    label = "logcat"
+                                                    namespace = "android"
+                                                }
+                                                sourcePathBuilder.apply {
+                                                    path = logcatFile.path
+                                                }.build()
+                                                type = ArtifactType.TEST_DATA
+                                            }
+                                        }
+                                    } else {
+                                        addOutputArtifactBuilder().apply {
+                                            labelBuilder.apply {
+                                                label = "firebase.toolOutput"
+                                                namespace = "android"
+                                            }
+                                            sourcePathBuilder.apply {
+                                                path = toolOutput.output!!.fileUri
+                                            }.build()
+                                            type = ArtifactType.TEST_DATA
+                                        }
+                                    }
                                 }
+                            }
+
+                            addOutputArtifactBuilder().apply {
+                                labelBuilder.label = "device-info"
+                                labelBuilder.namespace = "android"
+                                sourcePathBuilder.path = deviceInfoFile.path
                             }
                         }.build())
                     }
@@ -600,6 +635,23 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         }
     }
 
+    private fun createDeviceInfoFile(
+        resultsOutDir: File,
+        device: ManagedDevice,
+    ): File {
+        val deviceInfoFile = File(resultsOutDir, "device-info.pb")
+        val androidTestDeviceInfo = AndroidTestDeviceInfoProto.AndroidTestDeviceInfo.newBuilder()
+            .setName(device.name)
+            .setApiLevel(device.apiLevel.toString())
+            .setGradleDslDeviceName(device.name)
+            .setModel(device.device)
+            .build()
+        FileOutputStream(deviceInfoFile).use {
+            androidTestDeviceInfo.writeTo(it)
+        }
+        return deviceInfoFile
+    }
+
     /**
      * Uploads the given file to cloud storage.
      *
@@ -623,6 +675,24 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 name = "${runId}_${file.name}"
             }.execute()
         }
+
+    /**
+     * Downloads the given file from cloud storage.
+     */
+    private fun downloadFromCloudStorage(
+        storageClient: Storage, fileUri: String,
+        destination: (objectName: String) -> File): File? {
+        val matchResult = cloudStorageUrlRegex.find(fileUri) ?: return null
+        val (bucketName, objectName) = matchResult.destructured
+        return destination(objectName).apply {
+            parentFile.mkdirs()
+            outputStream().use {
+                storageClient.objects()
+                    .get(bucketName, objectName)
+                    .executeMediaAndDownloadTo(it)
+            }
+        }
+    }
 
     private fun createConfigProvider(
         deviceId: String, locale: Locale, apiLevel: Int
@@ -656,6 +726,55 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
 
             override fun getApiLevel() = apiLevel
         }
+    }
+
+    private fun updateTestResultXmlFile(
+        xmlFile: File,
+        device: ManagedDevice,
+        projectPath: String,
+        variantName: String,
+    ) {
+        val builder = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+        val document = builder.parse(xmlFile)
+        val testSuiteElements = document.getElementsByTagName("testsuite").let { nodeList ->
+            List(nodeList.length) { index ->
+                nodeList.item(index)
+            }
+        }
+        testSuiteElements.forEach { testSuite ->
+            val propertyNode = testSuite.childNodes.let { nodeList ->
+                List(nodeList.length) { index ->
+                    nodeList.item(index)
+                }
+            }.firstOrNull { node ->
+                node.nodeType == Node.ELEMENT_NODE && node.nodeName.lowercase() == "properties"
+            }
+
+            val propertyElement = if (propertyNode == null) {
+                document.createElement("properties").also {
+                    testSuite.appendChild(it)
+                }
+            } else {
+                propertyNode as Element
+            }
+
+            propertyElement.appendChild(document.createElement("property").apply {
+                setAttribute("name", "device")
+                setAttribute("value", device.name)
+            })
+            propertyElement.appendChild(document.createElement("property").apply {
+                setAttribute("name", "flavor")
+                setAttribute("value", variantName)
+            })
+            propertyElement.appendChild(document.createElement("property").apply {
+                setAttribute("name", "project")
+                setAttribute("value", projectPath)
+            })
+        }
+
+        val transformerFactory = TransformerFactory.newInstance()
+        val transformer = transformerFactory.newTransformer()
+        transformer.transform(DOMSource(document), StreamResult(xmlFile))
     }
 
     /**
