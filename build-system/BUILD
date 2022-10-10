@@ -236,6 +236,7 @@ filegroup(
         "manifest-merger/src/main/**/*.kt",
         "manifest-merger/src/main/resources/**",
     ]) + [
+        "docs/build.gradle",
         "manifest-merger/build.gradle",
         "manifest-merger/NOTICE",
     ],
@@ -439,7 +440,7 @@ gradle_build(
         "//tools/base:agp_artifacts",
     ],
     tags = ["no_windows"],  # TODO(b/202837927) Investigate getting Dackka to run on windows
-    tasks = [":base:gradle-api:dackkaZip"],
+    tasks = [":base:build-system:docs:dackkaZip"],
     visibility = ["//visibility:public"],
 )
 
