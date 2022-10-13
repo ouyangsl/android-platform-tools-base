@@ -23,6 +23,8 @@ import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.dsl.Lint
 import com.android.build.api.variant.InternalSources
 import com.android.build.api.variant.ResValue
+import com.android.build.api.variant.impl.FlatSourceDirectoriesImpl
+import com.android.build.api.variant.impl.LayeredSourceDirectoriesImpl
 import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.ConsumableCreationConfig
@@ -58,6 +60,7 @@ import com.android.builder.errors.EvalIssueException
 import com.android.builder.errors.IssueReporter
 import com.android.builder.model.ApiVersion
 import com.android.ide.common.repository.GradleVersion
+import com.android.ide.common.repository.GradleVersion.AgpVersion
 import com.android.sdklib.AndroidVersion
 import com.android.tools.lint.model.DefaultLintModelAndroidArtifact
 import com.android.tools.lint.model.DefaultLintModelBuildFeatures
@@ -86,6 +89,7 @@ import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFile
@@ -948,7 +952,11 @@ abstract class VariantInputs {
         mainSourceProvider.setDisallowChanges(
             creationConfig.services
                 .newInstance(SourceProviderInput::class.java)
-                .initialize(creationConfig.sources, lintMode)
+                .initialize(
+                    creationConfig.sources,
+                    lintMode,
+                    directoryPropertyCreator = { creationConfig.services.directoryProperty() }
+                )
         )
 
         sourceProviders.add(mainSourceProvider)
@@ -971,21 +979,35 @@ abstract class VariantInputs {
             unitTestSourceProvider.set(
                 creationConfig.services
                     .newInstance(SourceProviderInput::class.java)
-                    .initialize(unitTestCreationConfig.sources, lintMode, unitTestOnly = true)
+                    .initialize(
+                        unitTestCreationConfig.sources,
+                        lintMode,
+                        directoryPropertyCreator = { creationConfig.services.directoryProperty() },
+                        unitTestOnly = true
+                    )
             )
         }
         variantWithTests.androidTest?.let { androidTestCreationConfig ->
             androidTestSourceProvider.set(
                 creationConfig.services
                     .newInstance(SourceProviderInput::class.java)
-                    .initialize(androidTestCreationConfig.sources, lintMode, instrumentationTestOnly = true)
+                    .initialize(
+                        androidTestCreationConfig.sources,
+                        lintMode,
+                        directoryPropertyCreator = { creationConfig.services.directoryProperty() },
+                        instrumentationTestOnly = true
+                    )
             )
         }
         variantWithTests.testFixtures?.let { testFixturesCreationConfig ->
             testFixturesSourceProvider.set(
                 creationConfig.services
                     .newInstance(SourceProviderInput::class.java)
-                    .initialize(testFixturesCreationConfig.sources, lintMode)
+                    .initialize(
+                        testFixturesCreationConfig.sources,
+                        lintMode,
+                        directoryPropertyCreator = { creationConfig.services.directoryProperty() }
+                    )
             )
         }
         unitTestSourceProvider.disallowChanges()
@@ -1223,6 +1245,7 @@ abstract class SourceProviderInput {
     internal fun initialize(
         sources: InternalSources,
         lintMode: LintMode,
+        directoryPropertyCreator: () -> DirectoryProperty,
         unitTestOnly: Boolean = false,
         instrumentationTestOnly: Boolean = false
     ): SourceProviderInput {
@@ -1232,14 +1255,34 @@ abstract class SourceProviderInput {
         }
         this.manifestFiles.disallowChanges()
 
-        sources.java?.all?.let { this.javaDirectories.from(it) }
-        sources.kotlin?.all?.let { this.javaDirectories.from(it) }
+        fun FlatSourceDirectoriesImpl.getFilteredSourceProviders(): Provider<List<Directory>> {
+            return getVariantSources().map { dirs ->
+                dirs.filter { dir -> !dir.isGenerated }.map { dir ->
+                    dir.asFiles(directoryPropertyCreator).get()
+                }
+            }
+        }
+
+        fun LayeredSourceDirectoriesImpl.getFilteredSourceProviders(): Provider<List<List<Directory>>> {
+            return getVariantSources().map { dirEntries ->
+                dirEntries.map { dirs ->
+                    dirs.directoryEntries.filter { dir ->
+                        !dir.isGenerated
+                    }.map {
+                        it.asFiles(directoryPropertyCreator).get()
+                    }
+                }
+            }
+        }
+
+        sources.java?.getFilteredSourceProviders()?.let { this.javaDirectories.from(it) }
+        sources.kotlin?.getFilteredSourceProviders()?.let { this.javaDirectories.from(it) }
         this.javaDirectories.disallowChanges()
 
-        sources.res?.all?.let { this.resDirectories.from(it) }
+        sources.res?.getFilteredSourceProviders()?.let { this.resDirectories.from(it) }
         this.resDirectories.disallowChanges()
 
-        sources.assets?.all?.let { this.assetsDirectories.from(it) }
+        sources.assets?.getFilteredSourceProviders()?.let { this.assetsDirectories.from(it) }
         this.assetsDirectories.disallowChanges()
 
         if (lintMode == LintMode.ANALYSIS) {
@@ -1470,8 +1513,7 @@ abstract class AndroidArtifactInput : ArtifactInput() {
                         creationConfig.services,
                         coreLibDesugaring,
                         creationConfig.minSdkVersion,
-                        creationConfig.global.compileSdkHashString,
-                        creationConfig.global.bootClasspath
+                        creationConfig.global
                 )
         ).disallowChanges()
 
@@ -1884,7 +1926,7 @@ internal fun getLintMavenArtifactVersion(
         return defaultVersion
     }
     // Only verify versions that parse. If it is not valid, it will fail later anyway.
-    val parsed = GradleVersion.tryParseAndroidGradlePluginVersion(versionOverride)
+    val parsed = AgpVersion.tryParse(versionOverride)
     if (parsed == null) {
         reporter?.reportError(
             IssueReporter.Type.GENERIC,
@@ -1896,11 +1938,11 @@ internal fun getLintMavenArtifactVersion(
         return defaultVersion
     }
 
-    val default = GradleVersion.parseAndroidGradlePluginVersion(defaultVersion)
+    val default = AgpVersion.parse(defaultVersion)
 
     // Heuristic when given an AGP version, find the corresponding lint version (that's 23 higher)
     val normalizedOverride: String = (parsed.major + 23).toString() + versionOverride.removePrefix(parsed.major.toString())
-    val normalizedParsed = GradleVersion.tryParseAndroidGradlePluginVersion(normalizedOverride) ?: error("Unexpected parse error")
+    val normalizedParsed = AgpVersion.tryParse(normalizedOverride) ?: error("Unexpected parse error")
 
     // Only fail if the major version is outdated.
     // e.g. if the default lint version is 31.1.0 (as will be for AGP 8.1.0), fail is specifying

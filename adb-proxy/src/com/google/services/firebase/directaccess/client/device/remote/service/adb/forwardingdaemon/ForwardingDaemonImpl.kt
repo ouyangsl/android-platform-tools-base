@@ -75,6 +75,7 @@ internal class ForwardingDaemonImpl(
             deviceStateLatch.waitForOnline()
             logger.info("Device is online at port: $devicePort!")
             adbdSocket = serverSocket.accept()
+            adbdSocket.tcpNoDelay = true
             reverseService =
               ReverseService(
                 "localhost:$devicePort",
@@ -127,6 +128,7 @@ internal class ForwardingDaemonImpl(
 
   override fun close() {
     if (started.get()) {
+      streams.values.forEach { it.sendClose() }
       runBlocking(scope.coroutineContext) { onStateChanged(DeviceState.OFFLINE) }
       adbCommandHandler.cancel()
     }
@@ -198,7 +200,7 @@ internal class ForwardingDaemonImpl(
 
     suspend fun onState(newState: DeviceState) {
       if (newState in onlineStates) {
-        lock.withLock { waiters.forEach { it.unlock() } }
+        lock.withLock { waiters.forEach { if (it.isLocked) it.unlock() } }
       }
     }
   }

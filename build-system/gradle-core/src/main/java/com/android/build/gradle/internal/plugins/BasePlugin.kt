@@ -211,6 +211,7 @@ abstract class BasePlugin<
                 createCustomLintPublishConfig(project),
                 createCustomLintChecksConfig(project),
                 createAndroidJarConfig(project),
+                createFakeDependencyConfig(project),
                 createSettingsOptions()
             )
         }
@@ -463,6 +464,15 @@ abstract class BasePlugin<
             androidJarConfig.isCanBeConsumed = false
             return androidJarConfig
         }
+        private fun createFakeDependencyConfig(project: Project): Configuration {
+            val fakeJarService = getBuildService(
+                project.gradle.sharedServices,
+                FakeDependencyJarBuildService::class.java,
+            ).get()
+
+            val fakeDependency = project.dependencies.create(project.files(fakeJarService.lazyCachedFakeJar))
+            return project.configurations.detachedConfiguration(fakeDependency)
+        }
     }
 
     override fun configureExtension(project: Project) {
@@ -702,7 +712,7 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
                     globalConfig.compileSdkHashString, globalConfig.buildToolsRevision, globalConfig)
                 .apply {
                     // Registering Jacoco transforms causes the jacoco configuration to be created.
-                    // Ensure there are is at least one variant with enableAndroidTestCoverage 
+                    // Ensure there are is at least one variant with enableAndroidTestCoverage
                     // enabled before registering the transforms.
                     if (variants.any { it.variant.isAndroidTestCoverageEnabled }) {
                         configureJacocoTransforms()

@@ -28,6 +28,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import kotlin.jvm.functions.Function9;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -113,8 +115,17 @@ public class GradleVersion implements Comparable<GradleVersion> {
      */
     @Nullable
     public static GradleVersion tryParse(@NonNull String value) {
+        return tryParse(value, GradleVersion::new);
+    }
+
+    @Nullable
+    protected static GradleVersion tryParse(
+            @NonNull String value,
+            Function9<String, VersionSegment, VersionSegment, VersionSegment, List<VersionSegment>,
+                      Integer, String, Boolean, VersionQualifiers, GradleVersion> constructor
+    ) {
         try {
-            return parse(value);
+            return parse(value, constructor);
         } catch (RuntimeException ignored) {
         }
         return null;
@@ -128,8 +139,18 @@ public class GradleVersion implements Comparable<GradleVersion> {
      * @throws IllegalArgumentException if the given value does not conform with any of the
      *                                  supported version formats.
      */
+
     @NonNull
     public static GradleVersion parse(@NonNull String value) {
+        return parse(value, GradleVersion::new);
+    }
+
+    @NonNull
+    protected static GradleVersion parse(
+            @NonNull String value,
+            Function9<String, VersionSegment, VersionSegment, VersionSegment, List<VersionSegment>,
+                      Integer, String, Boolean, VersionQualifiers, GradleVersion> constructor
+    ) {
         String version = value;
         VersionQualifiers qualifiers = null;
         char dash = '-';
@@ -214,7 +235,7 @@ public class GradleVersion implements Comparable<GradleVersion> {
                                 ? qualifiers.previewType
                                 : null; // PreviewType is never null
 
-                return new GradleVersion(value, majorSegment, minorSegment, microSegment,
+                return constructor.invoke(value, majorSegment, minorSegment, microSegment,
                         additionalSegments, preview, previewType, snapshot, qualifiers);
             }
         } catch (NumberFormatException e) {
@@ -467,7 +488,7 @@ public class GradleVersion implements Comparable<GradleVersion> {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (o == null || !(o instanceof GradleVersion)) {
             return false;
         }
         GradleVersion that = (GradleVersion) o;
@@ -587,11 +608,11 @@ public class GradleVersion implements Comparable<GradleVersion> {
      * @see #tryParse(String)
      */
     @Nullable
-    public static GradleVersion tryParseAndroidGradlePluginVersion(@NonNull String value) {
+    protected static GradleVersion tryParseAndroidGradlePluginVersion(@NonNull String value) {
         if (value.matches("\\d+\\.\\d+\\.\\d+(-(((alpha|beta|rc)\\d+)|(dev\\d*)))?")) {
             // Any string that matches the above pattern is a valid Android Gradle plugin version
             // and should be parsable by tryParse()
-            return Verify.verifyNotNull(tryParse(value));
+            return Verify.verifyNotNull(tryParse(value, AgpVersion::new));
         } else {
             return null;
         }
@@ -612,24 +633,67 @@ public class GradleVersion implements Comparable<GradleVersion> {
      * @see #tryParseAndroidGradlePluginVersion(String)
      */
     @Nullable
-    public static GradleVersion tryParseStableAndroidGradlePluginVersion(@NonNull String value) {
+    protected static GradleVersion tryParseStableAndroidGradlePluginVersion(@NonNull String value) {
         if (value.matches("\\d+\\.\\d+\\.\\d+")) {
             // Any string that matches the above pattern is a valid Android Gradle plugin version
             // and should be parsable by tryParse()
-            return Verify.verifyNotNull(tryParse(value));
+            return Verify.verifyNotNull(tryParse(value, AgpVersion::new));
         } else {
             return null;
         }
     }
 
     @NonNull
-    public static GradleVersion parseAndroidGradlePluginVersion(@NonNull String value) {
+    protected static GradleVersion parseAndroidGradlePluginVersion(@NonNull String value) {
         GradleVersion version = tryParseAndroidGradlePluginVersion(value);
         if (version == null) {
             throw new IllegalArgumentException(
                     value + " is not a valid Android Gradle plugin version");
         } else {
             return version;
+        }
+    }
+
+    /**
+     * This class is temporarily compatible with {@link GradleVersion} in essentially all respects,
+     * including equality.  Users should not rely on this: it is pretty clearly a semantic error
+     * to compare, whether for equality or a later/earlier relation, a version of AGP with a
+     * version of something that is not an AGP; once all uses of specifically-AGP versions have
+     * been moved to this class, the two classes will be decoupled.
+     */
+    public static class AgpVersion extends GradleVersion {
+        public AgpVersion(int major, int minor) {
+            super(major, minor);
+        }
+        public AgpVersion(int major, int minor, int micro) {
+            super(major, minor, micro);
+        }
+        private AgpVersion(@NonNull String rawValue,
+                @NonNull VersionSegment majorSegment,
+                @Nullable VersionSegment minorSegment,
+                @Nullable VersionSegment microSegment,
+                @NonNull List<VersionSegment> additionalSegments,
+                int preview,
+                @Nullable String previewType,
+                boolean snapshot,
+                VersionQualifiers qualifiers) {
+            super(rawValue, majorSegment, minorSegment, microSegment, additionalSegments,
+                  preview, previewType, snapshot, qualifiers);
+        }
+
+        @NonNull
+        public static AgpVersion parse(@NonNull String value) {
+            return (AgpVersion) GradleVersion.parseAndroidGradlePluginVersion(value);
+        }
+
+        @Nullable
+        public static AgpVersion tryParse(@NonNull String value) {
+            return (AgpVersion) GradleVersion.tryParseAndroidGradlePluginVersion(value);
+        }
+
+        @Nullable
+        public static AgpVersion tryParseStable(@NonNull String value) {
+            return (AgpVersion) GradleVersion.tryParseStableAndroidGradlePluginVersion(value);
         }
     }
 }

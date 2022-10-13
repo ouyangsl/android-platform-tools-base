@@ -25,11 +25,15 @@ import com.android.adblib.testing.FakeAdbSession
 import com.android.adblib.testingutils.CoroutineTestUtils.runBlockingWithTimeout
 import com.google.common.truth.Truth.assertThat
 import java.time.Duration
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.takeWhile
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import org.junit.Test
 
@@ -166,7 +170,7 @@ class DeviceProvisionerTest {
           emptyList()
         )
 
-      val originalHandle =
+      val offlineHandle =
         channel.receiveUntilPassing { handles ->
           assertThat(handles).hasSize(1)
 
@@ -181,11 +185,27 @@ class DeviceProvisionerTest {
       // Now show the device as online
       setDevices(SerialNumbers.physicalUsb)
 
+      // Verify that we never see the offline handle as online
+      val states = async {
+        offlineHandle
+          .stateFlow
+          .flatMapLatest {
+            when (val device = it.connectedDevice) {
+              null -> flowOf(null)
+              else -> device.deviceInfoFlow.map { info -> info.deviceState }
+            }
+          }
+          .takeWhile { it != null }
+          .toList()
+      }
+
+      assertThat(states.await()).doesNotContain(DeviceState.ONLINE)
+
       channel.receiveUntilPassing { handles ->
         assertThat(handles).hasSize(1)
 
         val handle = handles[0]
-        assertThat(handle).isNotSameAs(originalHandle)
+        assertThat(handle).isNotSameAs(offlineHandle)
         assertThat(handle.state).isInstanceOf(Connected::class.java)
         assertThat(handle.state.properties).isInstanceOf(PhysicalDeviceProperties::class.java)
       }
@@ -253,27 +273,6 @@ class DeviceProvisionerTest {
 
       val handle = emulator.await()
       assertThat(handle?.state?.connectedDevice?.serialNumber).isEqualTo(SerialNumbers.emulator)
-    }
-  }
-}
-
-/**
- * Receives messages on this channel until one is received that does not cause an [AssertionError]
- * in the supplied block. This should be used within a withTimeout() block. If timeout occurs,
- * throws a new AssertionError with the last received error as a cause, if one was received.
- */
-suspend fun <T, R> Channel<T>.receiveUntilPassing(block: (T) -> R): R {
-  var lastError: AssertionError? = null
-  while (true) {
-    try {
-      return block(receive())
-    } catch (e: AssertionError) {
-      lastError = e
-    } catch (e: CancellationException) {
-      when (lastError) {
-        null -> throw e
-        else -> throw AssertionError("Expected message not received within timeout", lastError)
-      }
     }
   }
 }
