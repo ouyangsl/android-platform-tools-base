@@ -35,7 +35,7 @@ public class SdkVersionInfo {
      *
      * <p>Make sure to keep this in sync with the value in TestUtils.
      */
-    public static final int HIGHEST_KNOWN_STABLE_API = 32;
+    public static final int HIGHEST_KNOWN_STABLE_API = 33;
 
     /**
      * The highest supported version of the Android platform (as an API level) that this version of
@@ -182,12 +182,7 @@ public class SdkVersionInfo {
             case 31: return "12.0";
             case 32: return "12L";
             case 33:
-                // In preview form, just use the codename; this matches how the SDK
-                // describes itself, e.g. S (stable) is
-                //    Pkg.Desc=Android SDK Platform 12
-                // and T (preview) is
-                //    Pkg.Desc=Android SDK Platform Tiramisu
-                return getCodeName(api);
+                return "13.0";
             // If you add more versions here, also update #getBuildCodes and
             // #HIGHEST_KNOWN_API
 
