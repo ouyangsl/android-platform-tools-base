@@ -27,6 +27,7 @@ import com.android.build.gradle.options.Version.VERSION_4_2
 import com.android.build.gradle.options.Version.VERSION_7_0
 import com.android.build.gradle.options.Version.VERSION_7_2
 import com.android.build.gradle.options.Version.VERSION_7_3
+import com.android.build.gradle.options.Version.VERSION_8_1
 import com.android.build.gradle.options.Version.VERSION_BEFORE_4_0
 import com.android.builder.model.AndroidProject
 import com.android.builder.model.AndroidProject.PROPERTY_BUILD_MODEL_ONLY
@@ -207,7 +208,7 @@ enum class BooleanOption(
             FeatureStage.Experimental
     ),
 
-    PRIVACY_SANDBOX_SDK_SUPPORT("android.experimental.privacysandboxsdk.enable", false, FeatureStage.Experimental),
+
     PRIVACY_SANDBOX_SDK_REQUIRE_SERVICES(
             "android.experimental.privacysandboxsdk.requireServices", true, FeatureStage.Experimental),
 
@@ -735,6 +736,15 @@ enum class BooleanOption(
 
     @Suppress("unused")
     ENABLE_TEST_SHARDING("android.androidTest.shardBetweenDevices", false, FeatureStage.Removed(Version.VERSION_8_2, "Cross device sharding is no longer supported.")),
+
+    PRIVACY_SANDBOX_SDK_SUPPORT(
+        "android.experimental.privacysandboxsdk.enable",
+        false,
+        FeatureStage.Removed(
+            Version.VERSION_8_1,
+            "Privacy Sandbox SDKs are not supported in Android Gradle plugin 8.2.x.\n\n" +
+                    "To build or consume privacy sandbox SDKs, please use Android Gradle plugin 8.3.0-alpha01 or later.")),
+
     ; // end of enums
 
     override val status = stage.status

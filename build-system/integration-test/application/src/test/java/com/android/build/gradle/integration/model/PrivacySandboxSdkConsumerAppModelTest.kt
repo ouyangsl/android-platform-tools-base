@@ -21,9 +21,11 @@ import com.android.build.gradle.integration.common.fixture.testprojects.PluginTy
 import com.android.build.gradle.integration.common.fixture.testprojects.prebuilts.createGradleProjectWithPrivacySandboxLibrary
 import com.android.build.gradle.integration.common.fixture.testprojects.prebuilts.setUpHelloWorld
 import com.android.builder.model.v2.ide.SyncIssue
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
+@Ignore("Privacy sandbox SDK support is planned in AGP 8.3.0")
 class PrivacySandboxSdkConsumerAppModelTest : ModelComparator() {
     @get:Rule
     val project = createGradleProjectWithPrivacySandboxLibrary {
