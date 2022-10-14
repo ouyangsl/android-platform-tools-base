@@ -26,6 +26,7 @@ import com.android.build.gradle.options.BooleanOption
 import com.android.build.gradle.options.StringOption
 import com.android.testutils.apk.Apk
 import com.google.common.truth.Truth
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -98,6 +99,7 @@ class MinimalPrivacySandboxSdkTest {
             .create()
 
     @Test
+    @Ignore("Privacy sandbox SDK support is planned in AGP 8.1.0")
     fun privacySandboxWithMinimalConfigAndDependency() {
         project.execute(":minimal-app:buildPrivacySandboxSdkApksForDebug")
         val minimalApp = project.getSubproject("minimal-app")
@@ -152,12 +154,22 @@ class MinimalPrivacySandboxSdkTest {
                 .run(":minimal-app:buildPrivacySandboxSdkApksForDebug")
         assertThat(result.stderr).contains(
                 """
-                    Privacy Sandbox SDK support is experimental, and must be explicitly enabled.
-                    To enable support, add
-                        android.experimental.privacysandboxsdk.enable=true
-                    to your project's gradle.properties file.
+                    Privacy Sandbox SDKs are not supported in Android Gradle plugin 8.0.x.
+                    To build privacy sandbox SDKs, please use Android Gradle plugin 8.1.0-alpha01 or later.
                 """.trimIndent()
         )
+    }
 
+    @Test
+    fun checkOptInRejected() {
+        val result = project.executor()
+                .expectFailure()
+                .run(":minimal-app:buildPrivacySandboxSdkApksForDebug")
+        assertThat(result.stderr).contains(
+                """
+                    Privacy Sandbox SDKs are not supported in Android Gradle plugin 8.0.x.
+                    To build or consume privacy sandbox SDKs, please use Android Gradle plugin 8.1.0-alpha01 or later.
+                """.trimIndent()
+        )
     }
 }
