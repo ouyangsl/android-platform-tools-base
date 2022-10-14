@@ -21,6 +21,7 @@ import com.android.build.gradle.integration.common.fixture.DEFAULT_COMPILE_SDK_V
 import com.android.build.gradle.integration.common.fixture.testprojects.prebuilts.createGradleProjectWithPrivacySandboxLibrary
 import com.android.build.gradle.internal.fusedlibrary.FusedLibraryInternalArtifactType.MERGED_MANIFEST
 import com.google.common.truth.Truth.assertThat
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
@@ -32,6 +33,7 @@ import org.junit.Test
  * TODO(b/235469089): Currently tests a manual case, once support is implemented
  *     this should be updated to assert about the contents of the generated APKs
  */
+@Ignore("Privacy sandbox SDK support is planned in AGP 8.2.0")
 class ToolsAnnotatedManifestEntriesTest {
 
     @get:Rule

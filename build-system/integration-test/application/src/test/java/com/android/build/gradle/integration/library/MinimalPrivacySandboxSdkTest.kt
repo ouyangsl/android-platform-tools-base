@@ -121,8 +121,8 @@ class MinimalPrivacySandboxSdkTest {
 
     // Test disabled due to https://github.com/google/ksp/issues/1050
     // that is impacting the current KSP version in prebuilts.
-    @Ignore
     @Test
+    @Ignore("Privacy sandbox SDK support is planned in AGP 8.2.0")
     fun privacySandboxWithMinimalConfigAndDependency() {
         project.execute(":minimal-app:buildPrivacySandboxSdkApksForDebug")
         val minimalApp = project.getSubproject("minimal-app")
@@ -234,12 +234,22 @@ class MinimalPrivacySandboxSdkTest {
                 .run(":minimal-app:buildPrivacySandboxSdkApksForDebug")
         assertThat(result.stderr).contains(
                 """
-                    Privacy Sandbox SDK support is experimental, and must be explicitly enabled.
-                    To enable support, add
-                        android.experimental.privacysandboxsdk.enable=true
-                    to your project's gradle.properties file.
+                    Privacy Sandbox SDKs are not supported in Android Gradle plugin 8.0.x.
+                    To build privacy sandbox SDKs, please use Android Gradle plugin 8.1.0-alpha01 or later.
                 """.trimIndent()
         )
+    }
 
+    @Test
+    fun checkOptInRejected() {
+        val result = project.executor()
+                .expectFailure()
+                .run(":minimal-app:buildPrivacySandboxSdkApksForDebug")
+        assertThat(result.stderr).contains(
+                """
+                    Privacy Sandbox SDKs are not supported in Android Gradle plugin 8.1.x.
+                    To build or consume privacy sandbox SDKs, please use Android Gradle plugin 8.2.0-alpha01 or later.
+                """.trimIndent()
+        )
     }
 }
