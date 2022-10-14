@@ -33,12 +33,14 @@ import com.android.testutils.truth.PathSubject.assertThat
 import com.android.testutils.truth.ZipFileSubject
 import com.google.common.collect.ImmutableList
 import com.google.common.truth.Truth.assertThat
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.util.Objects
 import kotlin.io.path.readText
 
 /** Smoke integration tests for the privacy sandbox SDK production and consumption */
+@Ignore("Privacy sandbox SDK support is planned in AGP 8.0.0")
 class PrivacySandboxSdkTest {
 
     private val mavenRepo = MavenRepoGenerator(
