@@ -41,14 +41,14 @@ import java.io.File
 
 val googleMapsActivityTemplate
   get() = template {
-    name = "Google Maps Activity"
+    name = "Google Maps View Activity"
     description = "Creates a new activity with a Google Map"
     minApi = MIN_API
     constraints = listOf(TemplateConstraint.AndroidX)
 
     category = Category.Google
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewModule)
 
     lateinit var layoutName: StringParameter
     val activityClass = stringParameter {

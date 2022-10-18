@@ -38,12 +38,12 @@ import java.io.File
 
 val loginActivityTemplate
   get() = template {
-    name = "Login Activity"
+    name = "Login View Activity"
     description = "Creates a new login activity, allowing users to enter an email address and password to log in or to register with your application"
     minApi = MIN_API
     category = Category.Activity
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewModule)
 
     lateinit var layoutName: StringParameter
     val activityClass = stringParameter {

@@ -42,13 +42,13 @@ import java.io.File
 
 val tabbedActivityTemplate
   get() = template {
-    name = "Tabbed Activity"
+    name = "Tabbed View Activity"
     minApi = MIN_API
     description = "Creates a new blank activity with tabs"
 
     category = Category.Activity
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewModule)
 
     lateinit var layoutName: StringParameter
     val activityClass = stringParameter {

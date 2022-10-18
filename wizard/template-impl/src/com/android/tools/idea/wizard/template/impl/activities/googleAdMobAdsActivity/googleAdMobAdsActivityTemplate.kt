@@ -47,14 +47,14 @@ import java.util.Locale
 
 val googleAdMobAdsActivityTemplate
   get() = template {
-    name = "Google AdMob Ads Activity"
+    name = "Google AdMob Ads View Activity"
     constraints = listOf(TemplateConstraint.AndroidX)
     minApi = MIN_API
     description = "Creates an activity with AdMob Ad fragment"
 
     category = Category.Google
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewModule)
 
     lateinit var layoutName: StringParameter
     val activityClass = stringParameter {

@@ -38,14 +38,14 @@ import java.io.File
 
 val settingsActivityTemplate
   get() = template {
-    name = "Settings Activity"
+    name = "Settings View Activity"
     description = "Creates a new activity that allows a user to configure application settings"
     minApi = MIN_API
     constraints = listOf(TemplateConstraint.AndroidX)
 
     category = Category.Activity
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewModule)
 
     val activityClass = stringParameter {
       name = "Activity Name"

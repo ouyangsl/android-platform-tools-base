@@ -40,12 +40,12 @@ import java.io.File
 
 val fullscreenActivityTemplate
   get() = template {
-    name = "Fullscreen Activity"
+    name = "Fullscreen View Activity"
     description = "Creates a new activity that toggles the visibility of the system UI (status and navigation bars) and action bar upon user interaction"
     minApi = MIN_API
     category = Category.Activity
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewModule)
 
     lateinit var layoutName: StringParameter
     val activityClass = stringParameter {

@@ -38,7 +38,7 @@ import java.io.File
 
 val composeActivityMaterial3Template
   get() = template {
-    name = "Empty Compose Activity (Material3)"
+    name = "Empty Activity"
     description = "Create a new empty activity with Jetpack Compose"
     minApi = 21
     constraints = listOf(
@@ -74,7 +74,7 @@ val composeActivityMaterial3Template
 
     val defaultPreview = stringParameter {
       name = "Default Preview function name"
-      default = "DefaultPreview"
+      default = "${greeting.value}Preview"
       help = "Used for deduplication"
       visible = { false }
       constraints = listOf(UNIQUE, KOTLIN_FUNCTION)

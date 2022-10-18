@@ -41,13 +41,13 @@ import java.io.File
 
 val scrollActivityTemplate
   get() = template {
-    name = "Scrolling Activity"
+    name = "Scrolling View Activity"
     minApi = MIN_API
     description = "Creates a new vertical scrolling activity"
 
     category = Category.Activity
     formFactor = FormFactor.Mobile
-    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+    screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewModule)
 
     lateinit var layoutName: StringParameter
     val activityClass = stringParameter {
