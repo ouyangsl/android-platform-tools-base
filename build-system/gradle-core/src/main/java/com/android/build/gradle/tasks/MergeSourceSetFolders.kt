@@ -326,7 +326,6 @@ abstract class MergeSourceSetFolders : NewIncrementalTask() {
 
             // add the generated files to the main set.
             val mainAssetSet = assetSets[0]
-            assert(mainAssetSet.configName == BuilderConstants.MAIN)
             mainAssetSet.addSources(generatedAssetFolders)
 
             assetSetList.addAll(assetSets)
