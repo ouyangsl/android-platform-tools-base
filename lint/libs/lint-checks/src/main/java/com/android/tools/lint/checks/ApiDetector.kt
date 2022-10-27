@@ -55,8 +55,7 @@ import com.android.SdkConstants.TOOLS_URI
 import com.android.SdkConstants.VIEW_INCLUDE
 import com.android.SdkConstants.VIEW_TAG
 import com.android.ide.common.rendering.api.ResourceNamespace
-import com.android.ide.common.repository.GradleVersion
-import com.android.ide.common.repository.GradleVersion.AgpVersion
+import com.android.ide.common.repository.AgpVersion
 import com.android.ide.common.resources.configuration.FolderConfiguration
 import com.android.ide.common.resources.resourceNameToFieldName
 import com.android.resources.ResourceFolderType
@@ -2060,7 +2059,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                     val message =
                         "Try-with-resources requires API level $api (current min is %1\$d)"
                     report(
-                        UNSUPPORTED, node, location, message, apiLevelFix(api),
+                        UNSUPPORTED, first, location, message, apiLevelFix(api),
                         requires = api, min = minSdk, desugaring = Desugaring.TRY_WITH_RESOURCES
                     )
                 }
@@ -2070,9 +2069,10 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                 // Special case reflective operation exception which can be implicitly used
                 // with multi-catches: see issue 153406
                 var minSdk = getMinSdk(context)
+                val typeReferences = catchClause.typeReferences
                 if (minSdk < 19 && isMultiCatchReflectiveOperationException(catchClause)) {
                     // No -- see 131349148: Dalvik: java.lang.VerifyError
-                    val (suppressed, localMinSdk) = getSuppressed(context, 19, node, minSdk)
+                    val (suppressed, localMinSdk) = getSuppressed(context, 19, typeReferences[0], minSdk)
                     if (suppressed) {
                         return
                     }
@@ -2083,10 +2083,11 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                             "because they get compiled to the common but new super type `ReflectiveOperationException`. " +
                             "As a workaround either create individual catch statements, or catch `Exception`."
 
+                    val location = getCatchParametersLocation(context, catchClause)
                     report(
                         UNSUPPORTED,
-                        node,
-                        getCatchParametersLocation(context, catchClause),
+                        location.source as? UElement ?: node,
+                        location,
                         message,
                         apiLevelFix(19),
                         min = minSdk,
@@ -2140,7 +2141,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
 
                 // Don't use getSuppressed to pick up a higher minSdkVersion from SDK_INT checks here;
                 // on art we're dealing with class loading verification before it runs those evaluations.
-                if (isSuppressed(context, api, statement, minSdk)) {
+                if (isSuppressed(context, api, typeReference, minSdk)) {
                     // Normally having a surrounding version check is enough, but on Dalvik
                     // just loading the class, whether or not the try statement is ever
                     // executed will result in a crash, so the only way to prevent the
@@ -2159,13 +2160,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                             "surrounding class with `RequiresApi(19)` to ensure that the " +
                             "class is never loaded except when on API 19 or higher."
                         val fix = fix().data(KEY_REQUIRES_API, api, KEY_REQUIRE_CLASS, true)
-                        val clause = typeReference.uastParent as? UCatchClause
-                        if (clause != null && context.driver.isSuppressed(
-                                context,
-                                UNSUPPORTED,
-                                clause
-                            )
-                        ) {
+                        if (context.driver.isSuppressed(context, UNSUPPORTED, typeReference as UElement)) {
                             return
                         }
 
@@ -3167,7 +3162,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
 
             return if (start == null) {
                 Location.create(file)
-            } else Location.create(file, start, end)
+            } else Location.create(file, start, end).withSource(types[0])
         }
 
         fun isMultiCatchReflectiveOperationException(catchClause: UCatchClause): Boolean {

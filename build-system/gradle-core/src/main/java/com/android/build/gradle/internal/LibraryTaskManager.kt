@@ -16,17 +16,18 @@
 package com.android.build.gradle.internal
 
 import com.android.SdkConstants
+import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.artifact.SingleArtifact
-import com.android.build.api.transform.QualifiedContent
+import com.android.build.api.artifact.impl.InternalScopedArtifact
+import com.android.build.api.artifact.impl.InternalScopedArtifacts
 import com.android.build.api.variant.LibraryVariantBuilder
+import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.LibraryCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestFixturesCreationConfig
 import com.android.build.gradle.internal.dependency.ConfigurationVariantMapping
-import com.android.build.gradle.internal.pipeline.OriginalStream
-import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.PublishedConfigType
 import com.android.build.gradle.internal.publishing.ComponentPublishingInfo
 import com.android.build.gradle.internal.publishing.PublishedConfigSpec
@@ -40,6 +41,7 @@ import com.android.build.gradle.internal.tasks.BundleLibraryClassesJar
 import com.android.build.gradle.internal.tasks.BundleLibraryJavaRes
 import com.android.build.gradle.internal.tasks.CheckManifest
 import com.android.build.gradle.internal.tasks.ExportConsumerProguardFilesTask
+import com.android.build.gradle.internal.tasks.JacocoTask
 import com.android.build.gradle.internal.tasks.LibraryAarJarsTask
 import com.android.build.gradle.internal.tasks.LibraryJniLibsTask.ProjectAndLocalJarsCreationAction
 import com.android.build.gradle.internal.tasks.LibraryJniLibsTask.ProjectOnlyCreationAction
@@ -172,9 +174,7 @@ class LibraryTaskManager(
         createMlkitTask(libraryVariant)
 
         // Add a compile task
-        val javacTask = createJavacTask(libraryVariant)
-        addJavacClassesStream(libraryVariant)
-        setJavaCompilerTask(javacTask, libraryVariant)
+        setJavaCompilerTask(createJavacTask(libraryVariant), libraryVariant)
         taskFactory.register(MergeGeneratedProguardFilesCreationAction(libraryVariant))
         createMergeJniLibFoldersTasks(libraryVariant)
         taskFactory.register(StripDebugSymbolsTask.CreationAction(libraryVariant))
@@ -195,11 +195,10 @@ class LibraryTaskManager(
         }
         val instrumented = libraryVariant.isAndroidTestCoverageEnabled
 
-        // ----- Code Coverage first -----
+        maybeCreateTransformClassesWithAsmTask(libraryVariant)
         if (instrumented) {
             createJacocoTask(libraryVariant)
         }
-        maybeCreateTransformClassesWithAsmTask(libraryVariant)
 
         // Create jar with library classes used for publishing to runtime elements.
         taskFactory.register(
@@ -289,6 +288,23 @@ class LibraryTaskManager(
         }
     }
 
+    override fun createJacocoTask(creationConfig: ComponentCreationConfig) {
+        val jacocoTask = taskFactory.register(JacocoTask.CreationAction(creationConfig))
+        // in case of library, we never want to publish the jacoco instrumented classes, so
+        // we basically fork the CLASSES into a specific internal type that is consumed
+        // by the jacoco report task.
+        creationConfig.artifacts.forScope(ScopedArtifacts.Scope.PROJECT)
+            .use(jacocoTask)
+            .toFork(
+                type = ScopedArtifact.CLASSES,
+                inputJars = { a ->  a.jarsWithIdentity.inputJars },
+                inputDirectories = JacocoTask::classesDir,
+                intoJarDirectory = JacocoTask::outputForJars,
+                intoDirDirectory = JacocoTask::outputForDirs,
+                intoType = InternalScopedArtifact.JACOCO_TRANSFORMED_CLASSES
+            )
+    }
+
     private fun createComponent(
         variant: LibraryCreationConfig,
         componentName: String,
@@ -336,13 +352,11 @@ class LibraryTaskManager(
         // add the same jars twice in the same stream as the EXTERNAL_LIB in the task manager
         // so that filtering of duplicates in proguard can work.
         creationConfig
-            .transformManager
-            .addStream(
-                OriginalStream.builder("local-deps-classes")
-                    .addContentTypes(TransformManager.CONTENT_CLASS)
-                    .addScope(InternalScope.LOCAL_DEPS)
-                    .setFileCollection(creationConfig.computeLocalPackagedJars())
-                    .build()
+            .artifacts
+            .forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
+            .setInitialContent(
+                ScopedArtifact.CLASSES,
+                creationConfig.computeLocalPackagedJars()
             )
     }
 
@@ -419,11 +433,18 @@ class LibraryTaskManager(
 
     override fun getJavaResMergingScopes(
         creationConfig: ComponentCreationConfig
-    ): Set<QualifiedContent.ScopeType> {
-        return if (creationConfig.componentType.isTestComponent) {
-            TransformManager.SCOPE_FULL_PROJECT_WITH_LOCAL_JARS
-        } else TransformManager.SCOPE_FULL_LIBRARY_WITH_LOCAL_JARS
-    }
+    ): Set<InternalScopedArtifacts.InternalScope> =
+        if (creationConfig.componentType.isTestComponent) {
+            setOf(
+                InternalScopedArtifacts.InternalScope.SUB_PROJECT,
+                InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS,
+                InternalScopedArtifacts.InternalScope.LOCAL_DEPS,
+            )
+        } else {
+            setOf(
+                InternalScopedArtifacts.InternalScope.LOCAL_DEPS,
+            )
+        }
 
     override fun createPrepareLintJarForPublishTask() {
         super.createPrepareLintJarForPublishTask()

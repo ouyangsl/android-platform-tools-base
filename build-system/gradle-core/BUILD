@@ -51,6 +51,7 @@ kotlin_library(
         ":proto",
         "//tools/analytics-library/crash:tools.analytics-crash",
         "//tools/analytics-library/shared:tools.analytics-shared",
+        "//tools/base/build-analyzer/common",
         "//tools/base/build-system:gradle-api_neverlink",
         "//tools/base/build-system/aapt2-proto",
         "//tools/base/build-system/aaptcompiler",
@@ -154,7 +155,6 @@ kotlin_test(
         "-Dtest.suite.jar=tests.jar",
         # TODO: Make it easier to configure AndroidLocation per project.
         "-DANDROID_PREFS_ROOT=/tmp/android_prefs_root",
-        "-XX:CompileCommand=exclude,com/android/build/gradle/internal/cxx/ninja/StreamUnescapedNinjaKt,streamUnescapedNinja",  # work around b/249750798
     ],
     resources = glob(["src/test/resources/**"]),
     tags = [

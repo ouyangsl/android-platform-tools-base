@@ -108,6 +108,7 @@ open class BuiltinIssueRegistry : IssueRegistry() {
                 ChromeOsDetector.PERMISSION_IMPLIES_UNSUPPORTED_HARDWARE,
                 ChromeOsDetector.SETTING_ORIENTATION_ON_ACTIVITY,
                 ChromeOsDetector.UNSUPPORTED_CHROME_OS_HARDWARE,
+                ChromeOsSourceDetector.CHROMEOS_ON_CONFIGURATION_CHANGED,
                 ChromeOsSourceDetector.UNSUPPORTED_CAMERA_FEATURE,
                 ChromeOsSourceDetector.UNSUPPORTED_LOCKED_ORIENTATION,
                 CipherGetInstanceDetector.DEPRECATED_PROVIDER,
@@ -119,6 +120,7 @@ open class BuiltinIssueRegistry : IssueRegistry() {
                 ClickableViewAccessibilityDetector.ISSUE,
                 CommentDetector.EASTER_EGG,
                 CommentDetector.STOP_SHIP,
+                CommunicationDeviceDetector.ISSUE,
                 ConstraintLayoutDetector.ISSUE,
                 CordovaVersionDetector.ISSUE,
                 CustomViewDetector.ISSUE,
@@ -275,7 +277,6 @@ open class BuiltinIssueRegistry : IssueRegistry() {
                 ManifestDetector.SET_VERSION,
                 ManifestDetector.TARGET_NEWER,
                 ManifestDetector.UNIQUE_PERMISSION,
-                ManifestDetector.USES_SDK,
                 ManifestDetector.WEARABLE_BIND_LISTENER,
                 ManifestDetector.WRONG_PARENT,
                 ManifestPermissionAttributeDetector.ISSUE,
@@ -541,7 +542,13 @@ open class BuiltinIssueRegistry : IssueRegistry() {
         "UnpackedNativeCode",
 
         // Deleted; no longer needed thanks to d8
-        "Assert"
+        "Assert",
+
+        // No longer relevant with manifest merging, and has been
+        // a no-op forever for Gradle where these attributes are
+        // specified in build files rather than the manifest and
+        // injected at build time.
+        "UsesMinSdkAttributes"
     )
 
     override fun getIssueCapacity(scope: EnumSet<Scope>): Int {

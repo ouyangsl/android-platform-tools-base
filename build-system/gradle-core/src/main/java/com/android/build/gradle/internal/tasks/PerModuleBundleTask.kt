@@ -27,7 +27,6 @@ import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.DynamicFeatureCreationConfig
 import com.android.build.gradle.internal.dependency.AndroidAttributes
 import com.android.build.gradle.internal.fusedlibrary.FusedLibraryInternalArtifactType
-import com.android.build.gradle.internal.pipeline.StreamFilter
 import com.android.build.gradle.internal.privaysandboxsdk.PrivacySandboxSdkInternalArtifactType
 import com.android.build.gradle.internal.privaysandboxsdk.PrivacySandboxSdkVariantScope
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
@@ -41,6 +40,7 @@ import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.build.gradle.internal.utils.fromDisallowChanges
 import com.android.build.gradle.internal.utils.setDisallowChanges
 import com.android.build.gradle.options.BooleanOption
+import com.android.buildanalyzer.common.TaskCategory
 import com.android.builder.dexing.DexingType
 import com.android.builder.files.NativeLibraryAbiPredicate
 import com.android.builder.packaging.JarCreator
@@ -364,16 +364,9 @@ abstract class PerModuleBundleTask @Inject constructor(objects: ObjectFactory) :
             )
             task.javaResFiles.from(
                 if (creationConfig.optimizationCreationConfig.minifiedEnabled) {
-                    creationConfig.services.fileCollection(
-                        artifacts.get(InternalArtifactType.SHRUNK_JAVA_RES)
-                    )
-                } else if (creationConfig.needsMergedJavaResStream) {
-                    creationConfig.transformManager
-                        .getPipelineOutputAsFileCollection(StreamFilter.RESOURCES)
+                    artifacts.get(InternalArtifactType.SHRUNK_JAVA_RES)
                 } else {
-                    creationConfig.services.fileCollection(
-                        artifacts.get(InternalArtifactType.MERGED_JAVA_RES)
-                    )
+                    artifacts.get(InternalArtifactType.MERGED_JAVA_RES)
                 }
             )
             task.nativeLibsFiles.from(getNativeLibsFiles(creationConfig))

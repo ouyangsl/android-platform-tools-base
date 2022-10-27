@@ -8,6 +8,7 @@ TEST_DEPS = [
     "//tools/apkzlib",
     "//tools/base/annotations",
     "//tools/base/apkparser/analyzer:tools.analyzer",
+    "//tools/base/build-analyzer/common",
     "//tools/base/build-system:gradle-api",
     "//tools/base/build-system/builder",
     "//tools/base/build-system/builder-model",
@@ -300,7 +301,7 @@ gradle_integration_test(
         ],
     ),
     data = TEST_DATA + [
-        "//prebuilts/studio/jdk",
+        "//prebuilts/studio/jdk:jdk_1_8",
         "//prebuilts/studio/jdk/jdk11",
     ],
     maven_repo_zips = [

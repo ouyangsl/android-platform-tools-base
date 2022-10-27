@@ -36,13 +36,13 @@ import com.android.build.gradle.internal.publishing.AndroidArtifacts;
 import com.android.build.gradle.internal.scope.BootClasspathBuilder;
 import com.android.build.gradle.internal.scope.InternalArtifactType;
 import com.android.build.gradle.internal.tasks.BuildAnalyzer;
-import com.android.build.gradle.internal.tasks.TaskCategory;
 import com.android.build.gradle.internal.tasks.VariantAwareTask;
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction;
 import com.android.build.gradle.options.BooleanOption;
 import com.android.build.gradle.options.ProjectOptions;
 import com.android.build.gradle.tasks.AndroidAnalyticsTestListener;
 import com.android.build.gradle.tasks.GenerateTestConfig;
+import com.android.buildanalyzer.common.TaskCategory;
 import com.android.builder.core.ComponentType;
 import com.google.common.collect.ImmutableList;
 import java.io.File;
@@ -266,17 +266,11 @@ public abstract class AndroidUnitTest extends Test implements VariantAwareTask {
             }
 
             // 2. the test creationConfig classes and java_res
-            if (creationConfig.getInstrumentationCreationConfig() != null) {
-                collection.from(
-                        creationConfig
-                                .getInstrumentationCreationConfig()
-                                .getProjectClassesPostInstrumentation());
-            } else {
-                collection.from(
-                        artifacts
-                                .forScope(ScopedArtifacts.Scope.PROJECT)
-                                .getFinalArtifacts$gradle_core(ScopedArtifact.CLASSES.INSTANCE));
-            }
+            collection.from(
+                    artifacts
+                            .forScope(ScopedArtifacts.Scope.PROJECT)
+                            .getFinalArtifacts$gradle_core(ScopedArtifact.CLASSES.INSTANCE));
+
             // TODO is this the right thing? this doesn't include the res merging via transform
             // AFAIK
             collection.from(artifacts.get(InternalArtifactType.JAVA_RES.INSTANCE));

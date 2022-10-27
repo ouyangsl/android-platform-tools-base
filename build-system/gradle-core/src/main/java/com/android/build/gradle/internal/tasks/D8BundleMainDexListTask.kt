@@ -17,6 +17,9 @@
 package com.android.build.gradle.internal.tasks
 
 import com.android.build.api.artifact.MultipleArtifact
+import com.android.build.api.artifact.ScopedArtifact
+import com.android.build.api.artifact.impl.InternalScopedArtifacts
+import com.android.build.api.transform.QualifiedContent
 import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.errors.MessageReceiverImpl
 import com.android.build.gradle.internal.profile.ProfileAwareWorkAction
@@ -27,9 +30,9 @@ import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.build.gradle.internal.utils.setDisallowChanges
 import com.android.build.gradle.options.SyncOptions
 import com.android.builder.multidex.D8MainDexList
-import com.android.build.gradle.internal.tasks.TaskCategory
 import com.android.build.gradle.internal.tasks.factory.features.DexingTaskCreationAction
 import com.android.build.gradle.internal.tasks.factory.features.DexingTaskCreationActionImpl
+import com.android.buildanalyzer.common.TaskCategory
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.FileCollection
 import org.gradle.api.file.RegularFile
@@ -159,17 +162,20 @@ abstract class D8BundleMainDexListTask : NonIncrementalTask() {
         init {
             @Suppress("DEPRECATION") // Legacy support
             val libraryScopes = setOf(
-                com.android.build.api.transform.QualifiedContent.Scope.PROVIDED_ONLY,
                 com.android.build.api.transform.QualifiedContent.Scope.TESTED_CODE
             )
 
             @Suppress("DEPRECATION") // Legacy support
-            libraryClasses = creationConfig.transformManager
-                .getPipelineOutputAsFileCollection { contentTypes, scopes ->
-                    contentTypes.contains(
-                        com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES
-                    ) && libraryScopes.intersect(scopes).isNotEmpty()
-                }
+            libraryClasses = creationConfig.services.fileCollection().also {
+                it.from(creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.TESTED_CODE)
+                    .getFinalArtifacts(ScopedArtifact.CLASSES)
+                )
+
+
+                it.from(creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.PROVIDED)
+                    .getFinalArtifacts(ScopedArtifact.CLASSES)
+                )
+            }
         }
 
         override val name: String = creationConfig.computeTaskName("bundleMultiDexList")

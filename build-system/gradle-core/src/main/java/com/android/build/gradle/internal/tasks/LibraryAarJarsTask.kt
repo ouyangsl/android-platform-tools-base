@@ -17,13 +17,16 @@
 package com.android.build.gradle.internal.tasks
 
 import com.android.SdkConstants
+import com.android.build.api.artifact.ScopedArtifact
+import com.android.build.api.artifact.impl.InternalScopedArtifacts
+import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.databinding.DataBindingExcludeDelegate
 import com.android.build.gradle.internal.databinding.configureFrom
-import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.build.gradle.internal.utils.setDisallowChanges
+import com.android.buildanalyzer.common.TaskCategory
 import com.android.builder.packaging.JarCreator
 import com.android.builder.packaging.JarFlinger
 import com.android.tools.lint.typedefs.TypedefRemover
@@ -324,49 +327,36 @@ abstract class LibraryAarJarsTask : NonIncrementalTask() {
                     creationConfig.artifacts
                         .get(InternalArtifactType.SHRUNK_CLASSES)
                 } else {
-                    @Suppress("DEPRECATION") // Legacy support
-                    creationConfig.transformManager
-                        .getPipelineOutputAsFileCollection(
-                            { contentTypes, scopes ->
-                                contentTypes.contains(com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES)
-                                        && scopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROJECT)
-                            },
-                            { contentTypes, scopes ->
-                                (contentTypes.contains(com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES)
-                                        && !contentTypes.contains(
-                                    com.android.build.api.transform.QualifiedContent.DefaultContentType.RESOURCES))
-                                        && scopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROJECT)
-                            })
+                    creationConfig.artifacts.forScope(ScopedArtifacts.Scope.PROJECT)
+                        .getFinalArtifacts(ScopedArtifact.CLASSES)
                 }
             )
             task.mainScopeClassFiles.disallowChanges()
 
             task.mainScopeResourceFiles.from(
                 if (minifyEnabled) {
-                    creationConfig.artifacts
-                        .get(InternalArtifactType.SHRUNK_JAVA_RES)
+                    creationConfig.artifacts.get(InternalArtifactType.SHRUNK_JAVA_RES)
                 } else {
-                    @Suppress("DEPRECATION") // Legacy support
-                    creationConfig.transformManager
-                        .getPipelineOutputAsFileCollection { contentTypes, scopes ->
-                            contentTypes.contains(com.android.build.api.transform.QualifiedContent.DefaultContentType.RESOURCES)
-                                    && scopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROJECT)
-                        }
+                    // this is really brittle. we should really have a pipeline of JAVA_RES that
+                    // will get populated and transformed into merged and shrunk potentially and
+                    // avoid this sort of branching.
+                    if (creationConfig.componentType.isTestFixturesComponent) {
+                        creationConfig.artifacts.get(InternalArtifactType.JAVA_RES)
+                    } else {
+                        creationConfig.artifacts.get(InternalArtifactType.MERGED_JAVA_RES)
+                    }
                 }
             )
             task.mainScopeResourceFiles.disallowChanges()
 
-            @Suppress("DEPRECATION") // Legacy support
-            task.localScopeInputFiles.from(
-                creationConfig.transformManager
-                    .getPipelineOutputAsFileCollection { contentTypes, scopes ->
-                        (contentTypes.contains(com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES)
-                                || contentTypes.contains(com.android.build.api.transform.QualifiedContent.DefaultContentType.RESOURCES))
-                                && scopes.intersect(
-                            TransformManager.SCOPE_FULL_LIBRARY_WITH_LOCAL_JARS).isNotEmpty()
-                                && !scopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROJECT)
-                    }
-            )
+            // if minification is enabled, local deps will be processed by the R8 Task and do not
+            // need to be individually repackaged in the resulting AAR.
+            if (!minifyEnabled) {
+                task.localScopeInputFiles.from(
+                    creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
+                        .getFinalArtifacts(ScopedArtifact.CLASSES)
+                )
+            }
             task.localScopeInputFiles.disallowChanges()
         }
     }

@@ -18,6 +18,8 @@ package com.android.build.gradle.internal.tasks
 
 import com.android.SdkConstants
 import com.android.build.api.artifact.MultipleArtifact
+import com.android.build.api.artifact.ScopedArtifact
+import com.android.build.api.artifact.impl.InternalScopedArtifacts
 import com.android.build.api.transform.QualifiedContent
 import com.android.build.api.transform.TransformException
 import com.android.build.api.variant.impl.getFeatureLevel
@@ -55,9 +57,9 @@ import com.android.builder.dexing.getSortedFilesInDir
 import com.android.builder.dexing.getSortedRelativePathsInJar
 import com.android.builder.dexing.isJarFile
 import com.android.builder.files.SerializableFileChanges
-import com.android.build.gradle.internal.tasks.TaskCategory
 import com.android.build.gradle.internal.tasks.factory.features.DexingTaskCreationAction
 import com.android.build.gradle.internal.tasks.factory.features.DexingTaskCreationActionImpl
+import com.android.buildanalyzer.common.TaskCategory
 import com.android.utils.FileUtils
 import com.google.common.annotations.VisibleForTesting
 import com.google.common.base.Throwables
@@ -88,7 +90,6 @@ import org.gradle.api.tasks.TaskProvider
 import org.gradle.work.Incremental
 import org.gradle.work.InputChanges
 import org.gradle.workers.WorkerExecutor
-import org.jetbrains.kotlin.gradle.utils.`is`
 import java.io.File
 import java.nio.file.Path
 import java.util.concurrent.ForkJoinPool
@@ -311,15 +312,16 @@ abstract class DexMergingTask : NewIncrementalTask() {
                     .setDisallowChanges(getPlatformRules())
 
                 val libraryScopes = setOf(
-                    QualifiedContent.Scope.PROVIDED_ONLY,
                     QualifiedContent.Scope.TESTED_CODE
                 )
-                val libraryClasses = creationConfig.transformManager
-                    .getPipelineOutputAsFileCollection { contentTypes, scopes ->
-                        contentTypes.contains(
-                            QualifiedContent.DefaultContentType.CLASSES
-                        ) && libraryScopes.intersect(scopes).isNotEmpty()
-                    }
+                val libraryClasses = creationConfig.services.fileCollection().also {
+                    it.from(creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.TESTED_CODE)
+                        .getFinalArtifacts(ScopedArtifact.CLASSES))
+                    it.from(creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.PROVIDED)
+                        .getFinalArtifacts(ScopedArtifact.CLASSES))
+                }
+
+
 
                 val bootClasspath = creationConfig.global.bootClasspath
                 task.sharedParams.mainDexListConfig.libraryClasses
@@ -400,9 +402,7 @@ abstract class DexMergingTask : NewIncrementalTask() {
                                     LibraryElements.CLASSES
                                 )
                             check(attributes.libraryElementsAttribute == null)
-                            val updatedAttributes = AndroidAttributes(
-                                attributes.stringAttributes, classesLibraryElements
-                            )
+                            val updatedAttributes = attributes.copy(classesLibraryElements)
                             creationConfig.variantDependencies.getArtifactFileCollection(
                                 AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
                                 AndroidArtifacts.ArtifactScope.PROJECT,

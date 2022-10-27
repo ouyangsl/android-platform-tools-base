@@ -18,6 +18,7 @@ package com.android.build.gradle.internal.tasks
 
 import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.artifact.SingleArtifact
+import com.android.build.api.artifact.impl.InternalScopedArtifacts
 import com.android.build.api.variant.ScopedArtifacts.Scope
 import com.android.build.gradle.ProguardFiles
 import com.android.build.gradle.internal.InternalScope
@@ -26,7 +27,6 @@ import com.android.build.gradle.internal.component.ApplicationCreationConfig
 import com.android.build.gradle.internal.component.ConsumableCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
-import com.android.build.gradle.internal.pipeline.StreamFilter
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope.ALL
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope.PROJECT
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.APK_MAPPING
@@ -41,6 +41,7 @@ import com.android.builder.core.ComponentType
 import com.android.build.gradle.internal.tasks.factory.features.OptimizationTaskCreationAction
 import com.android.build.gradle.internal.tasks.factory.features.OptimizationTaskCreationActionImpl
 import com.android.build.gradle.internal.utils.fromDisallowChanges
+import com.android.buildanalyzer.common.TaskCategory
 import com.google.common.base.Preconditions
 import com.google.common.collect.Sets
 import org.gradle.api.artifacts.ArtifactCollection
@@ -216,8 +217,7 @@ abstract class ProguardConfigurableTask(
 
         private val resources: FileCollection
 
-        @Suppress("DEPRECATION") // Legacy support
-        protected val inputScopes: MutableSet<com.android.build.api.transform.QualifiedContent.ScopeType> =
+        private val inputScopes: MutableSet<com.android.build.api.transform.QualifiedContent.ScopeType> =
             when {
                 componentType.isAar -> mutableSetOf(
                     com.android.build.api.transform.QualifiedContent.Scope.PROJECT,
@@ -237,7 +237,6 @@ abstract class ProguardConfigurableTask(
             }
 
         init {
-            @Suppress("DEPRECATION") // Legacy support
             val referencedScopes: Set<com.android.build.api.transform.QualifiedContent.Scope> = run {
                 val set = Sets.newHashSetWithExpectedSize<com.android.build.api.transform.QualifiedContent.Scope>(5)
                 if (componentType.isAar) {
@@ -264,30 +263,102 @@ abstract class ProguardConfigurableTask(
                 """.trimMargin()
             )
 
-            val transformManager = creationConfig.transformManager
-            @Suppress("DEPRECATION") // Legacy support
-            classes = transformManager
-                .getPipelineOutputAsFileCollection(createStreamFilter(com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES, inputScopes))
-
-            @Suppress("DEPRECATION") // Legacy support
-            resources = transformManager
-                .getPipelineOutputAsFileCollection(createStreamFilter(com.android.build.api.transform.QualifiedContent.DefaultContentType.RESOURCES, inputScopes))
-
-            // Consume non referenced inputs
-            @Suppress("DEPRECATION") // Legacy support
-            transformManager.consumeStreams(inputScopes, setOf(com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES, com.android.build.api.transform.QualifiedContent.DefaultContentType.RESOURCES))
-
-            @Suppress("DEPRECATION") // Legacy support
-            referencedClasses = transformManager
-                .getPipelineOutputAsFileCollection(
-                    createStreamFilter(com.android.build.api.transform.QualifiedContent.DefaultContentType.CLASSES, referencedScopes.toMutableSet())
+            classes = creationConfig.services.fileCollection().also {
+                it.from(
+                    creationConfig.artifacts.forScope(Scope.PROJECT)
+                        .getFinalArtifacts(ScopedArtifact.CLASSES)
                 )
+                if (inputScopes.contains(InternalScope.LOCAL_DEPS)) {
+                    it.from(
+                        creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
+                            .getFinalArtifacts(ScopedArtifact.CLASSES)
+                    )
+                }
+                if (inputScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.EXTERNAL_LIBRARIES)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS
+                    ).getFinalArtifacts(ScopedArtifact.CLASSES))
+                }
+                if (inputScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                    ).getFinalArtifacts(ScopedArtifact.CLASSES))
+                }
+                if (inputScopes.contains(InternalScope.FEATURES)) {
+                    it.from(
+                        creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.FEATURES)
+                            .getFinalArtifacts(ScopedArtifact.CLASSES)
+                    )
+                }
+            }
+            resources = creationConfig.services.fileCollection().also {
+                if (inputScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROJECT)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        Scope.PROJECT
+                    ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
+                }
+                if (inputScopes.contains(InternalScope.LOCAL_DEPS)) {
+                    it.from(
+                        creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
+                            .getFinalArtifacts(ScopedArtifact.JAVA_RES)
+                    )
+                }
+                if (inputScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.EXTERNAL_LIBRARIES)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS
+                    ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
+                }
+                if (inputScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                    ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
+                }
+            }
 
-            @Suppress("DEPRECATION") // Legacy support
-            referencedResources = transformManager
-                .getPipelineOutputAsFileCollection(
-                    createStreamFilter(com.android.build.api.transform.QualifiedContent.DefaultContentType.RESOURCES, referencedScopes.toMutableSet())
-                )
+            referencedClasses = creationConfig.services.fileCollection().also {
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                    ).getFinalArtifacts(ScopedArtifact.CLASSES))
+                }
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.TESTED_CODE)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.TESTED_CODE
+                    ).getFinalArtifacts(ScopedArtifact.CLASSES))
+                }
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROVIDED_ONLY)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.PROVIDED
+                    ).getFinalArtifacts(ScopedArtifact.CLASSES))
+                }
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.EXTERNAL_LIBRARIES)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS
+                    ).getFinalArtifacts(ScopedArtifact.CLASSES))
+                }
+            }
+            referencedResources = creationConfig.services.fileCollection().also {
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                    ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
+                }
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.TESTED_CODE)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.TESTED_CODE
+                    ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
+                }
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROVIDED_ONLY)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.PROVIDED
+                    ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
+                }
+                if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.EXTERNAL_LIBRARIES)) {
+                    it.from(creationConfig.artifacts.forScope(
+                        InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS
+                    ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
+                }
+            }
         }
 
         override fun handleProvider(
@@ -487,20 +558,6 @@ abstract class ProguardConfigurableTask(
         protected abstract fun dontWarn(dontWarn: String)
 
         protected abstract fun setActions(actions: PostprocessingFeatures)
-
-        /**
-         *  Convenience function. Returns a StreamFilter that checks for the given contentType and a
-         *  nonempty intersection with the given set of Scopes .
-         */
-        @Suppress("DEPRECATION") // Legacy support
-        private fun createStreamFilter(
-            desiredType: com.android.build.api.transform.QualifiedContent.ContentType,
-            desiredScopes: MutableSet<in com.android.build.api.transform.QualifiedContent.ScopeType>
-        ): StreamFilter {
-            return StreamFilter { contentTypes, scopes ->
-                desiredType in contentTypes && desiredScopes.intersect(scopes).isNotEmpty()
-            }
-        }
     }
 
 }

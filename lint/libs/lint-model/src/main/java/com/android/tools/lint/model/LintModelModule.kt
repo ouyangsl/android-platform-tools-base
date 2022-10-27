@@ -16,7 +16,7 @@
 
 package com.android.tools.lint.model
 
-import com.android.ide.common.repository.GradleVersion.AgpVersion
+import com.android.ide.common.repository.AgpVersion
 import java.io.File
 
 /**

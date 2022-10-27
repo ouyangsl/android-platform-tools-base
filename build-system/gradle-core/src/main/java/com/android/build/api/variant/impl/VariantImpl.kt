@@ -48,7 +48,6 @@ import com.android.build.gradle.internal.component.features.ShadersCreationConfi
 import com.android.build.gradle.internal.core.VariantSources
 import com.android.build.gradle.internal.core.dsl.VariantDslInfo
 import com.android.build.gradle.internal.dependency.VariantDependencies
-import com.android.build.gradle.internal.pipeline.TransformManager
 import com.android.build.gradle.internal.scope.BuildFeatureValues
 import com.android.build.gradle.internal.scope.MutableTaskContainer
 import com.android.build.gradle.internal.services.TaskCreationServices
@@ -75,7 +74,6 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
     artifacts: ArtifactsImpl,
     variantData: BaseVariantData,
     taskContainer: MutableTaskContainer,
-    transformManager: TransformManager,
     variantServices: VariantServices,
     taskCreationServices: TaskCreationServices,
     global: GlobalTaskCreationConfig
@@ -89,7 +87,6 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
     artifacts,
     variantData,
     taskContainer,
-    transformManager,
     variantServices,
     taskCreationServices,
     global
@@ -273,13 +270,6 @@ abstract class VariantImpl<DslInfoT: VariantDslInfo>(
 
     override val isAndroidTestCoverageEnabled: Boolean
         get() = (this as? HasAndroidTest)?.androidTest?.isAndroidTestCoverageEnabled == true
-
-    override val needsMergedJavaResStream: Boolean
-        get() {
-            // We need to create a stream from the merged java resources if we're in a library module,
-            // or if we're in an app/feature module which uses the transform pipeline.
-            return (dslInfo.componentType.isAar || optimizationCreationConfig.minifiedEnabled)
-        }
 
     override val isCoreLibraryDesugaringEnabledLintCheck: Boolean
         get() = if (this is ApkCreationConfig) {

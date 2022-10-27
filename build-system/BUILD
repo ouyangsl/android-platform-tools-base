@@ -261,6 +261,7 @@ filegroup(
         "manifest-merger/src/main/**/*.kt",
         "manifest-merger/src/main/resources/**",
     ]) + [
+        "docs/build.gradle",
         "manifest-merger/build.gradle",
         "manifest-merger/NOTICE",
     ],
@@ -272,6 +273,7 @@ ANDROID_GRADLE_PLUGIN_SOURCE_FILES = [
     ":agp_gradle_build_files",
     "//prebuilts/tools/common/aapt/protos:agp_gradle_build_files",
     "//tools:agp_gradle_build_files",
+    "//tools/base/build-analyzer/common:agp_gradle_build_files",
     "//tools/base/build-system/aapt2:agp_gradle_build_files",
     "//tools/base/build-system/aapt2-proto:agp_gradle_build_files",
     "//tools/base/build-system/aaptcompiler:agp_gradle_build_files",
@@ -465,7 +467,7 @@ gradle_build(
         "//tools/base:agp_artifacts",
     ],
     tags = ["no_windows"],  # TODO(b/202837927) Investigate getting Dackka to run on windows
-    tasks = [":base:gradle-api:dackkaZip"],
+    tasks = [":base:build-system:docs:dackkaZip"],
     visibility = ["//visibility:public"],
 )
 

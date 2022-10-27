@@ -18,7 +18,7 @@ package com.android.build.api.extension.impl
 
 import com.android.Version
 import com.android.build.api.AndroidPluginVersion
-import com.android.ide.common.repository.GradleVersion.AgpVersion
+import com.android.ide.common.repository.AgpVersion
 import com.google.common.annotations.VisibleForTesting
 
 @VisibleForTesting
@@ -30,9 +30,9 @@ internal fun parseAndroidGradlePluginVersion(version: String): AndroidPluginVers
     }
     return when(parsed.previewType) {
         null -> stable
-        "alpha" -> stable.alpha(parsed.preview)
-        "beta" -> stable.beta(parsed.preview)
-        "rc" -> stable.rc(parsed.preview)
+        "alpha" -> stable.alpha(parsed.preview!!)
+        "beta" -> stable.beta(parsed.preview!!)
+        "rc" -> stable.rc(parsed.preview!!)
         else -> throw throw IllegalStateException("Internal error: Unexpected Android Gradle Plugin version: $version: ${parsed.previewType} is expected to be 'alpha', 'beta' or 'rc'.")
     }
 }
