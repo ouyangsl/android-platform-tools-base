@@ -68,3 +68,9 @@ internal suspend fun AdbOutputChannel.write(buffer: ByteBuffer, timeout: Timeout
 internal suspend fun AdbOutputChannel.writeExactly(buffer: ByteBuffer, timeout: TimeoutTracker) {
     writeExactly(buffer, timeout.remainingNanos, TimeUnit.NANOSECONDS)
 }
+
+/**
+ * A [AdbOutputChannel] that requires calling [AutoShutdown.shutdown] to prevent data loss,
+ * typically to allow flushing any pending writes to the underlying resource.
+ */
+interface AdbBufferedOutputChannel : AdbOutputChannel, AutoShutdown

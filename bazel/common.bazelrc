@@ -93,6 +93,12 @@ build --test_env=SHELL
 
 # Bazel will find the matching java toolchain registered in WORKSPACE.
 build --java_language_version=8
+build:java11 --java_language_version=11
+# TODO migration_java_language_version is used to selectivly migrate rules
+#      switch from migration_java_language_version to java_language_version once java 17 is fully supported
+build:java17 --//tools/base/bazel:migration_java_language_version=17
+# build:java17 --java_language_version=17
+
 build --java_runtime_version=jdk17
 build --tool_java_runtime_version=jdk11
 
@@ -155,6 +161,7 @@ build:sponge --workspace_status_command="python3 tools/base/bazel/workspace.py"
 # to be create a successful AnTS result.
 build:ants --bes_keywords=android-test-storage
 build:ants --bes_keywords=use_module_info
+build:ants --bes_keywords=stubby_cas
 build:ants --build_metadata="test_definition_name=android_studio/bazel"
 build:ants --build_metadata=generate_test_uri=fusion
 build:ants --build_metadata=run_type=critical

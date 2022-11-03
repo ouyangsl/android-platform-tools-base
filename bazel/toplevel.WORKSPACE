@@ -13,7 +13,8 @@ register_toolchains(
     "//prebuilts/studio/jdk/jdk11:runtime_toolchain_definition",
     "//prebuilts/studio/jdk/jdk11:jdk11_toolchain_java8_definition",
     "//prebuilts/studio/jdk/jdk11:jdk11_toolchain_java11_definition",
-    "//prebuilts/studio/jdk/jdk17:runtime_toolchain_definition",
+    "//prebuilts/studio/jdk/jdk17:java_runtime_toolchain",
+    "//prebuilts/studio/jdk/jdk17:java17_compile_toolchain_definition",
 )
 
 new_local_repository(
@@ -122,6 +123,14 @@ http_archive(
     sha256 = "5d866d9925ad7b142c89bbffc9ce9941961e08747d6f64e28b5158cc44ad95cd",
     strip_prefix = "x86_64",
     url = "https://dl.google.com/android/repository/sys-img/android/x86_64-29_r06.zip",
+)
+
+http_archive(
+    name = "system_image_android-30_default_x86_64",
+    build_file = "//tools/base/bazel/avd:system_images.BUILD",
+    sha256 = "a97f08f286df90dd510abcfbf7a785f950b42775930f7cf00b1453c59a4ec6e5",
+    strip_prefix = "x86_64",
+    url = "https://dl.google.com/android/repository/sys-img/android/x86_64-30_r10.zip",
 )
 
 http_archive(

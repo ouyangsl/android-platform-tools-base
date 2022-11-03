@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The Android Open Source Project
+ * Copyright (C) 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package com.android.build.api.dsl
+package com.android.build.gradle.tasks.testdata
 
-import org.gradle.api.Incubating
+//import androidx.privacysandbox.tools.PrivacySandboxService
 
-/** Packaging options for Dex (Android Dalvik Executable) files */
-@Incubating
-interface DexPackagingOptions {
-    /**
-     * Whether to use the legacy convention of compressing all dex files in the APK. If null, dex
-     * files will be uncompressed when minSdk >= 28.
-     *
-     * This property does not affect dex file compression in APKs produced from app bundles.
-     */
-    var useLegacyPackaging: Boolean?
+//@PrivacySandboxService
+interface MySdk {
+    fun myFunc(a: Int)
 }

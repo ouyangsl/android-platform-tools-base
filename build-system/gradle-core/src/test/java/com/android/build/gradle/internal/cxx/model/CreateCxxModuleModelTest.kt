@@ -18,7 +18,7 @@ package com.android.build.gradle.internal.cxx.model
 
 import com.android.build.gradle.internal.cxx.RandomInstanceGenerator
 import com.android.build.gradle.internal.cxx.gradle.generator.tryCreateConfigurationParameters
-import com.android.build.gradle.internal.cxx.logging.PassThroughDeduplicatingLoggingEnvironment
+import com.android.build.gradle.internal.cxx.logging.PassThroughRecordingLoggingEnvironment
 import com.android.utils.FileUtils.join
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -45,8 +45,6 @@ class CreateCxxModuleModelTest {
             doReturn(File("./CMakeLists.txt")).`when`(it.cmake).path
             assertThat(createCxxModuleModel(
                 it.sdkComponents,
-                it.androidLocationProvider,
-                it.versionExecutor,
                 it.configurationParameters)).isNotNull()
         }
     }
@@ -57,8 +55,6 @@ class CreateCxxModuleModelTest {
             doReturn(File("./Android.mk")).`when`(it.ndkBuild).path
             assertThat(createCxxModuleModel(
                 it.sdkComponents,
-                it.androidLocationProvider,
-                it.versionExecutor,
                 it.configurationParameters
             )).isNotNull()
         }
@@ -68,7 +64,7 @@ class CreateCxxModuleModelTest {
     fun `both cmake and ndk-build`() {
         BasicCmakeMock().let {
             doReturn(join(it.projectRootDir, "Android.mk")).`when`(it.ndkBuild).path
-            PassThroughDeduplicatingLoggingEnvironment().use { logEnvironment ->
+            PassThroughRecordingLoggingEnvironment().use { logEnvironment ->
                 assertThat(
                     tryCreateConfigurationParameters(
                             it.projectOptions,
@@ -84,7 +80,7 @@ class CreateCxxModuleModelTest {
     @Test
     fun `remap of buildStagingDirectory`() {
         BasicCmakeMock().let {
-            PassThroughDeduplicatingLoggingEnvironment().use { logEnvironment ->
+            PassThroughRecordingLoggingEnvironment().use { logEnvironment ->
                 doReturn(File(it.projectInfo.getBuildDir(), "my-build-staging-directory"))
                     .`when`(it.cmake).buildStagingDirectory
                 val componentModel =
@@ -94,8 +90,6 @@ class CreateCxxModuleModelTest {
                     )!!
                 val module = createCxxModuleModel(
                     it.sdkComponents,
-                    it.androidLocationProvider,
-                    it.versionExecutor,
                     it.configurationParameters
                 )
                 val finalStagingDir = module.cxxFolder
@@ -107,7 +101,7 @@ class CreateCxxModuleModelTest {
 
     @Test
     fun `remap of buildStagingDirectory into build folder`() {
-        PassThroughDeduplicatingLoggingEnvironment().use { logEnvironment ->
+        PassThroughRecordingLoggingEnvironment().use { logEnvironment ->
             BasicCmakeMock().let {
                 doReturn(File(it.projectInfo.getBuildDir(), "my-build-staging-directory"))
                     .`when`(it.cmake).buildStagingDirectory
@@ -116,8 +110,6 @@ class CreateCxxModuleModelTest {
                         it.variantImpl)!!
                 val module = createCxxModuleModel(
                     it.sdkComponents,
-                    it.androidLocationProvider,
-                    it.versionExecutor,
                     configurationParameters
                 )
                 val finalStagingDir = module.cxxFolder

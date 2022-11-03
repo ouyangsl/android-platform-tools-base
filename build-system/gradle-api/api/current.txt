@@ -567,30 +567,30 @@ package com.android.build.api.dsl {
   }
 
   public interface BuildFeatures extends org.gradle.api.plugins.ExtensionAware {
-    method @org.gradle.api.Incubating public Boolean? getAidl();
-    method @org.gradle.api.Incubating public Boolean? getBuildConfig();
-    method @org.gradle.api.Incubating public Boolean? getCompose();
-    method @org.gradle.api.Incubating public Boolean? getPrefab();
-    method @org.gradle.api.Incubating public Boolean? getRenderScript();
-    method @org.gradle.api.Incubating public Boolean? getResValues();
-    method @org.gradle.api.Incubating public Boolean? getShaders();
-    method @org.gradle.api.Incubating public Boolean? getViewBinding();
-    method @org.gradle.api.Incubating public void setAidl(Boolean? aidl);
-    method @org.gradle.api.Incubating public void setBuildConfig(Boolean? buildConfig);
-    method @org.gradle.api.Incubating public void setCompose(Boolean? compose);
-    method @org.gradle.api.Incubating public void setPrefab(Boolean? prefab);
-    method @org.gradle.api.Incubating public void setRenderScript(Boolean? renderScript);
-    method @org.gradle.api.Incubating public void setResValues(Boolean? resValues);
-    method @org.gradle.api.Incubating public void setShaders(Boolean? shaders);
-    method @org.gradle.api.Incubating public void setViewBinding(Boolean? viewBinding);
-    property @org.gradle.api.Incubating public abstract Boolean? aidl;
-    property @org.gradle.api.Incubating public abstract Boolean? buildConfig;
-    property @org.gradle.api.Incubating public abstract Boolean? compose;
-    property @org.gradle.api.Incubating public abstract Boolean? prefab;
-    property @org.gradle.api.Incubating public abstract Boolean? renderScript;
-    property @org.gradle.api.Incubating public abstract Boolean? resValues;
-    property @org.gradle.api.Incubating public abstract Boolean? shaders;
-    property @org.gradle.api.Incubating public abstract Boolean? viewBinding;
+    method public Boolean? getAidl();
+    method public Boolean? getBuildConfig();
+    method public Boolean? getCompose();
+    method public Boolean? getPrefab();
+    method public Boolean? getRenderScript();
+    method public Boolean? getResValues();
+    method public Boolean? getShaders();
+    method public Boolean? getViewBinding();
+    method public void setAidl(Boolean? aidl);
+    method public void setBuildConfig(Boolean? buildConfig);
+    method public void setCompose(Boolean? compose);
+    method public void setPrefab(Boolean? prefab);
+    method public void setRenderScript(Boolean? renderScript);
+    method public void setResValues(Boolean? resValues);
+    method public void setShaders(Boolean? shaders);
+    method public void setViewBinding(Boolean? viewBinding);
+    property public abstract Boolean? aidl;
+    property public abstract Boolean? buildConfig;
+    property public abstract Boolean? compose;
+    property public abstract Boolean? prefab;
+    property public abstract Boolean? renderScript;
+    property public abstract Boolean? resValues;
+    property public abstract Boolean? shaders;
+    property public abstract Boolean? viewBinding;
   }
 
   public interface BuildType extends org.gradle.api.Named org.gradle.api.plugins.ExtensionAware com.android.build.api.dsl.HasInitWith<com.android.build.api.dsl.BuildType> com.android.build.api.dsl.VariantDimension {
@@ -913,7 +913,7 @@ package com.android.build.api.dsl {
     property public abstract org.gradle.api.DomainObjectSet<com.android.build.api.dsl.Device> targetDevices;
   }
 
-  @org.gradle.api.Incubating public interface DexPackagingOptions {
+  public interface DexPackaging {
     method public Boolean? getUseLegacyPackaging();
     method public void setUseLegacyPackaging(Boolean? useLegacyPackaging);
     property public abstract Boolean? useLegacyPackaging;
@@ -930,12 +930,12 @@ package com.android.build.api.dsl {
   }
 
   public interface DynamicFeatureBuildFeatures extends com.android.build.api.dsl.BuildFeatures {
-    method @org.gradle.api.Incubating public Boolean? getDataBinding();
-    method @org.gradle.api.Incubating public Boolean? getMlModelBinding();
-    method @org.gradle.api.Incubating public void setDataBinding(Boolean? dataBinding);
-    method @org.gradle.api.Incubating public void setMlModelBinding(Boolean? mlModelBinding);
-    property @org.gradle.api.Incubating public abstract Boolean? dataBinding;
-    property @org.gradle.api.Incubating public abstract Boolean? mlModelBinding;
+    method public Boolean? getDataBinding();
+    method public Boolean? getMlModelBinding();
+    method public void setDataBinding(Boolean? dataBinding);
+    method public void setMlModelBinding(Boolean? mlModelBinding);
+    property public abstract Boolean? dataBinding;
+    property public abstract Boolean? mlModelBinding;
   }
 
   public interface DynamicFeatureBuildType extends com.android.build.api.dsl.BuildType com.android.build.api.dsl.DynamicFeatureVariantDimension {
@@ -1429,10 +1429,10 @@ package com.android.build.api.dsl {
   }
 
   @org.gradle.api.Incubating public interface PackagingOptions {
-    method public void dex(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.DexPackagingOptions,kotlin.Unit> action);
+    method public void dex(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.DexPackaging,kotlin.Unit> action);
     method @Deprecated public void doNotStrip(String pattern);
     method @Deprecated public void exclude(String pattern);
-    method public com.android.build.api.dsl.DexPackagingOptions getDex();
+    method public com.android.build.api.dsl.DexPackaging getDex();
     method @Deprecated public java.util.Set<java.lang.String> getDoNotStrip();
     method @Deprecated public java.util.Set<java.lang.String> getExcludes();
     method public com.android.build.api.dsl.JniLibsPackagingOptions getJniLibs();
@@ -1443,7 +1443,7 @@ package com.android.build.api.dsl {
     method @Deprecated public void merge(String pattern);
     method @Deprecated public void pickFirst(String pattern);
     method public void resources(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.ResourcesPackagingOptions,kotlin.Unit> action);
-    property public abstract com.android.build.api.dsl.DexPackagingOptions dex;
+    property public abstract com.android.build.api.dsl.DexPackaging dex;
     property @Deprecated public abstract java.util.Set<java.lang.String> doNotStrip;
     property @Deprecated public abstract java.util.Set<java.lang.String> excludes;
     property public abstract com.android.build.api.dsl.JniLibsPackagingOptions jniLibs;
@@ -1568,7 +1568,7 @@ package com.android.build.api.dsl {
     property public abstract java.util.Set<java.lang.String> pickFirsts;
   }
 
-  @org.gradle.api.Incubating public interface SdkComponents {
+  public interface SdkComponents {
     method public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getAdb();
     method public org.gradle.api.provider.Provider<java.util.List<org.gradle.api.file.RegularFile>> getBootClasspath();
     method public org.gradle.api.provider.Provider<org.gradle.api.file.Directory> getNdkDirectory();

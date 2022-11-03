@@ -19,7 +19,7 @@ package com.android.build.gradle.internal.cxx.configure
 import com.android.SdkConstants.FD_CMAKE
 import com.android.build.gradle.external.cmake.CmakeUtils
 import com.android.build.gradle.external.cmake.CmakeUtils.keepWhileNumbersAndDots
-import com.android.build.gradle.internal.cxx.logging.PassThroughDeduplicatingLoggingEnvironment
+import com.android.build.gradle.internal.cxx.logging.PassThroughRecordingLoggingEnvironment
 import com.android.build.gradle.internal.cxx.logging.ThreadLoggingEnvironment
 import com.android.build.gradle.internal.cxx.logging.errorln
 import com.android.build.gradle.internal.cxx.logging.warnln
@@ -466,15 +466,15 @@ fun Revision.isCmakeForkVersion() = major == 3 && minor == 6 && micro == 0
 class CmakeLocator {
     fun findCmakePath(
         cmakeVersionFromDsl: String?,
-        cmakeFile: File?,
+        localPropertiesCMakeDir: File?,
         androidLocationsProvider: AndroidLocationsProvider,
         sdkFolder: File?,
         versionExecutor: (File) -> String,
         downloader: Consumer<String>): File? {
-        PassThroughDeduplicatingLoggingEnvironment().use {
+        PassThroughRecordingLoggingEnvironment().use {
             return findCmakePathLogic(
                     cmakeVersionFromDsl,
-                    cmakeFile,
+                    localPropertiesCMakeDir,
                     downloader,
                     { getEnvironmentPaths() },
                     { getSdkCmakeFolders(sdkFolder) },
