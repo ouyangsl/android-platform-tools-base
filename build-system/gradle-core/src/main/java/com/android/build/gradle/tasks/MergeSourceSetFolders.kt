@@ -34,7 +34,6 @@ import com.android.build.gradle.internal.tasks.factory.features.AssetsTaskCreati
 import com.android.build.gradle.internal.utils.fromDisallowChanges
 import com.android.build.gradle.internal.utils.setDisallowChanges
 import com.android.build.gradle.options.SyncOptions
-import com.android.builder.core.BuilderConstants
 import com.android.build.gradle.internal.tasks.TaskCategory
 import com.android.ide.common.resources.ANDROID_AAPT_IGNORE
 import com.android.ide.common.resources.AssetMerger
@@ -67,6 +66,7 @@ import org.gradle.work.Incremental
 import org.gradle.work.InputChanges
 import java.io.File
 import java.io.IOException
+import org.gradle.api.provider.Provider
 
 @CacheableTask
 @BuildAnalyzer(primaryTaskCategory = TaskCategory.MISC, secondaryTaskCategories = [TaskCategory.SOURCE_PROCESSING, TaskCategory.MERGING])
@@ -80,7 +80,7 @@ abstract class MergeSourceSetFolders : NewIncrementalTask() {
 
     // supplier of the assets set, for execution only.
     @get:Internal("for testing")
-    internal abstract val assetSets: ListProperty<AssetSet>
+    internal abstract val assetSets: ListProperty<Provider<AssetSet>>
 
     // for the dependencies
     @get:Internal("for testing")
@@ -279,9 +279,17 @@ abstract class MergeSourceSetFolders : NewIncrementalTask() {
      */
     @VisibleForTesting
     internal fun computeAssetSetList(): List<AssetSet> {
-        val assetSetList: List<AssetSet>
+        var assetSetList: MutableList<AssetSet>
 
-        val assetSets = assetSets.get()
+        val assetSetsMap = mutableMapOf<String, AssetSet>()
+        assetSets.get().forEach { assetSet ->
+            val combinedAssetSet = assetSetsMap.getOrPut(
+                assetSet.get().configName
+            ) { AssetSet(assetSet.get().configName, aaptEnv.orNull) }
+            combinedAssetSet.addSources(assetSet.get().sourceFiles)
+        }
+
+        val assetSets =  mutableListOf<AssetSet>().also { it.addAll(assetSetsMap.values) }
         val ignoreAssetsPatternsList = ignoreAssetsPatterns.orNull
         if (!shadersOutputDir.isPresent
             && !mlModelsOutputDir.isPresent

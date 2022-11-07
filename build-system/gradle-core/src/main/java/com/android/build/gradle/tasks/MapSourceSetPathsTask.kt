@@ -69,7 +69,7 @@ abstract class MapSourceSetPathsTask : NonIncrementalTask() {
     abstract val librarySourceSets: ConfigurableFileCollection
 
     @get:Input
-    abstract val allGeneratedRes: ListProperty<Collection<String>>
+    abstract val allGeneratedRes: ListProperty<Provider<List<String>>>
 
     @get:Input
     @get:Optional
@@ -85,7 +85,9 @@ abstract class MapSourceSetPathsTask : NonIncrementalTask() {
             renderscriptResOutputDir.orNull,
             mergeResourcesOutputDir.orNull,
         )
-        val generatedSourceSets = allGeneratedRes.get().flatten()
+        val generatedSourceSets = allGeneratedRes.get().map {
+            it.get()
+        }.flatten()
 
         writeIdentifiedSourceSetsFile(
             resourceSourceSets = listConfigurationSourceSets(uncreatedSourceSets, generatedSourceSets),
@@ -188,9 +190,13 @@ abstract class MapSourceSetPathsTask : NonIncrementalTask() {
                 allRes.map { directoryEntries ->
                     directoryEntries.directoryEntries
                         .filter { it.isGenerated }
-                        .map { it.asFiles(task.project.objects::directoryProperty) }
-                        .map { it.get().asFile.absolutePath }
-                }
+                        .map { directoryEntry -> directoryEntry.asFiles(
+                          task.project.provider { task.project.layout.projectDirectory })
+                            .map { directories ->
+                                directories.map { directory -> directory.asFile.absolutePath }
+                            }
+                        }
+                }.flatten()
             })
             task.localResources.setDisallowChanges(
                 creationConfig.sources.res.getLocalSourcesAsFileCollection()

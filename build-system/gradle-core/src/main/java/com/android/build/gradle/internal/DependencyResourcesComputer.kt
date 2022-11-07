@@ -16,7 +16,6 @@
 package com.android.build.gradle.internal
 
 import com.android.SdkConstants.FD_RES_VALUES
-import com.android.build.api.variant.impl.DirectoryEntry
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.utils.fromDisallowChanges
@@ -242,7 +241,9 @@ abstract class DependencyResourcesComputer {
                 .forEach {
                     extraGeneratedResFolders.from(
                         it.asFiles(
-                            creationConfig.services::directoryProperty
+                          creationConfig.services.provider {
+                              creationConfig.services.projectInfo.projectDirectory
+                          }
                         )
                     )
                 }

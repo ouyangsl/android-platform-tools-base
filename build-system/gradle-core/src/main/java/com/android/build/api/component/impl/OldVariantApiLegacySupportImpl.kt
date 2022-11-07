@@ -21,6 +21,7 @@ import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.ProductFlavor
 import com.android.build.api.variant.AnnotationProcessor
 import com.android.build.api.variant.BuildConfigField
+import com.android.build.api.variant.impl.TaskProviderBasedDirectoryEntryImpl
 import com.android.build.gradle.api.AnnotationProcessorOptions
 import com.android.build.gradle.api.JavaCompileOptions
 import com.android.build.gradle.internal.DependencyConfigurator
@@ -37,7 +38,6 @@ import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.publishing.PublishingSpecs.Companion.getVariantPublishingSpec
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.services.BaseServices
-import com.android.build.gradle.internal.services.VariantServices
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.options.BooleanOption
 import com.android.builder.errors.IssueReporter
@@ -224,7 +224,16 @@ class OldVariantApiLegacySupportImpl(
         allRawAndroidResources!!.from(component.sources.res.getVariantSources().map { allRes ->
             allRes.map { directoryEntries ->
                 directoryEntries.directoryEntries
-                    .map { it.asFiles(component.services::directoryProperty) }
+                    .map {
+                                    if (it is TaskProviderBasedDirectoryEntryImpl) {
+                                        it.directoryProvider
+                                    } else {
+                                        it.asFiles(
+                                          component.services.provider {
+                                              component.services.projectInfo.projectDirectory
+                                          })
+                                    }
+                                }
             }
         })
         return allRawAndroidResources!!
