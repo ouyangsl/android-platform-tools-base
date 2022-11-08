@@ -90,15 +90,25 @@ ForegroundProcessTracker::IsTrackingForegroundProcessSupported() {
 }
 
 void ForegroundProcessTracker::StartTracking() {
+  // if we receive the start tracking command while we are already polling, it
+  // probably means a new Project was opened in Studio, which is now waiting to
+  // receive a foreground process. We should send the last seen foreground
+  // process.
+  if (shouldDoPolling_.load() && !latestForegroundProcess_.isEmpty) {
+    sendForegroundProcessEvent(latestForegroundProcess_);
+  }
+
+  // checking both variables makes sure that only one thread is running at any
+  // time.
   if (shouldDoPolling_.load() || isThreadRunning_.load()) {
     return;
   }
 
   shouldDoPolling_.store(true);
-  isThreadRunning_.store(true);
 
   // Start a new thread were we can do the polling
   workerThread_ = std::thread([this]() {
+    isThreadRunning_.store(true);
     while (shouldDoPolling_.load()) {
       doPolling();
       std::this_thread::sleep_for(std::chrono::milliseconds(kPollingDelayMs));
@@ -107,9 +117,16 @@ void ForegroundProcessTracker::StartTracking() {
 }
 
 void ForegroundProcessTracker::StopTracking() {
-  shouldDoPolling_.store(false);
-  workerThread_.join();
-  isThreadRunning_.store(false);
+  // if shouldDoPolling is false it means the polling loop is terminated, but
+  // not necessarily that the thread was terminated.
+  if (!shouldDoPolling_.exchange(false) && !isThreadRunning_.load()) {
+    return;
+  }
+
+  if (workerThread_.joinable()) {
+    workerThread_.join();
+    isThreadRunning_.store(false);
+  }
   latestForegroundProcess_ = {};
 }
 

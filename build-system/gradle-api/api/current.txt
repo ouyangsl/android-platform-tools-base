@@ -908,7 +908,7 @@ package com.android.build.api.dsl {
   @org.gradle.api.Incubating public interface Device extends org.gradle.api.Named java.io.Serializable {
   }
 
-  @org.gradle.api.Incubating public interface DeviceGroup extends org.gradle.api.Named {
+  public interface DeviceGroup extends org.gradle.api.Named {
     method public org.gradle.api.DomainObjectSet<com.android.build.api.dsl.Device> getTargetDevices();
     property public abstract org.gradle.api.DomainObjectSet<com.android.build.api.dsl.Device> targetDevices;
   }
@@ -1072,7 +1072,7 @@ package com.android.build.api.dsl {
     property public abstract com.android.build.api.dsl.AnnotationProcessorOptions annotationProcessorOptions;
   }
 
-  @org.gradle.api.Incubating public interface JniLibsPackagingOptions {
+  public interface JniLibsPackaging {
     method public java.util.Set<java.lang.String> getExcludes();
     method public java.util.Set<java.lang.String> getKeepDebugSymbols();
     method public java.util.Set<java.lang.String> getPickFirsts();
@@ -1127,11 +1127,11 @@ package com.android.build.api.dsl {
 
   public interface LibraryExtension extends com.android.build.api.dsl.CommonExtension<com.android.build.api.dsl.LibraryBuildFeatures,com.android.build.api.dsl.LibraryBuildType,com.android.build.api.dsl.LibraryDefaultConfig,com.android.build.api.dsl.LibraryProductFlavor> com.android.build.api.dsl.TestedExtension {
     method @org.gradle.api.Incubating public java.util.Collection<java.lang.String>? getAidlPackagedList();
-    method @org.gradle.api.Incubating public org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.PrefabPackagingOptions> getPrefab();
+    method @org.gradle.api.Incubating public org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.Prefab> getPrefab();
     method public com.android.build.api.dsl.LibraryPublishing getPublishing();
     method public void publishing(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.LibraryPublishing,kotlin.Unit> action);
     property @org.gradle.api.Incubating public abstract java.util.Collection<java.lang.String>? aidlPackagedList;
-    property @org.gradle.api.Incubating public abstract org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.PrefabPackagingOptions> prefab;
+    property @org.gradle.api.Incubating public abstract org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.Prefab> prefab;
     property public abstract com.android.build.api.dsl.LibraryPublishing publishing;
   }
 
@@ -1150,20 +1150,19 @@ package com.android.build.api.dsl {
   }
 
   public interface LibraryVariantDimension extends com.android.build.api.dsl.VariantDimension {
-    method @org.gradle.api.Incubating public void aarMetadata(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.AarMetadata,kotlin.Unit> action);
-    method @org.gradle.api.Incubating public void aarMetadata(org.gradle.api.Action<com.android.build.api.dsl.AarMetadata> action);
+    method public void aarMetadata(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.AarMetadata,kotlin.Unit> action);
     method @org.gradle.api.Incubating public Object consumerProguardFile(Object proguardFile);
     method @org.gradle.api.Incubating public Object consumerProguardFiles(java.lang.Object... proguardFiles);
-    method @org.gradle.api.Incubating public com.android.build.api.dsl.AarMetadata getAarMetadata();
+    method public com.android.build.api.dsl.AarMetadata getAarMetadata();
     method @org.gradle.api.Incubating public java.util.List<java.io.File> getConsumerProguardFiles();
     method @org.gradle.api.Incubating public Boolean? getMultiDexEnabled();
-    method @org.gradle.api.Incubating public com.android.build.api.dsl.ApkSigningConfig? getSigningConfig();
+    method public com.android.build.api.dsl.ApkSigningConfig? getSigningConfig();
     method @org.gradle.api.Incubating public void setMultiDexEnabled(Boolean? multiDexEnabled);
-    method @org.gradle.api.Incubating public void setSigningConfig(com.android.build.api.dsl.ApkSigningConfig? signingConfig);
-    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.AarMetadata aarMetadata;
+    method public void setSigningConfig(com.android.build.api.dsl.ApkSigningConfig? signingConfig);
+    property public abstract com.android.build.api.dsl.AarMetadata aarMetadata;
     property @org.gradle.api.Incubating public abstract java.util.List<java.io.File> consumerProguardFiles;
     property @org.gradle.api.Incubating public abstract Boolean? multiDexEnabled;
-    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.ApkSigningConfig? signingConfig;
+    property public abstract com.android.build.api.dsl.ApkSigningConfig? signingConfig;
   }
 
   public interface Lint {
@@ -1363,7 +1362,7 @@ package com.android.build.api.dsl {
     property @Deprecated @org.gradle.api.Incubating public abstract boolean xmlReport;
   }
 
-  @org.gradle.api.Incubating public interface ManagedDevices {
+  public interface ManagedDevices {
     method public org.gradle.api.ExtensiblePolymorphicDomainObjectContainer<com.android.build.api.dsl.Device> getDevices();
     method public org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.DeviceGroup> getGroups();
     property public abstract org.gradle.api.ExtensiblePolymorphicDomainObjectContainer<com.android.build.api.dsl.Device> devices;
@@ -1435,18 +1434,18 @@ package com.android.build.api.dsl {
     method public com.android.build.api.dsl.DexPackaging getDex();
     method @Deprecated public java.util.Set<java.lang.String> getDoNotStrip();
     method @Deprecated public java.util.Set<java.lang.String> getExcludes();
-    method public com.android.build.api.dsl.JniLibsPackagingOptions getJniLibs();
+    method public com.android.build.api.dsl.JniLibsPackaging getJniLibs();
     method @Deprecated public java.util.Set<java.lang.String> getMerges();
     method @Deprecated public java.util.Set<java.lang.String> getPickFirsts();
     method public com.android.build.api.dsl.ResourcesPackagingOptions getResources();
-    method public void jniLibs(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.JniLibsPackagingOptions,kotlin.Unit> action);
+    method public void jniLibs(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.JniLibsPackaging,kotlin.Unit> action);
     method @Deprecated public void merge(String pattern);
     method @Deprecated public void pickFirst(String pattern);
     method public void resources(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.ResourcesPackagingOptions,kotlin.Unit> action);
     property public abstract com.android.build.api.dsl.DexPackaging dex;
     property @Deprecated public abstract java.util.Set<java.lang.String> doNotStrip;
     property @Deprecated public abstract java.util.Set<java.lang.String> excludes;
-    property public abstract com.android.build.api.dsl.JniLibsPackagingOptions jniLibs;
+    property public abstract com.android.build.api.dsl.JniLibsPackaging jniLibs;
     property @Deprecated public abstract java.util.Set<java.lang.String> merges;
     property @Deprecated public abstract java.util.Set<java.lang.String> pickFirsts;
     property public abstract com.android.build.api.dsl.ResourcesPackagingOptions resources;
@@ -1480,7 +1479,7 @@ package com.android.build.api.dsl {
     property public abstract boolean isRemoveUnusedResources;
   }
 
-  @org.gradle.api.Incubating public interface PrefabPackagingOptions {
+  public interface Prefab {
     method public boolean getHeaderOnly();
     method public String? getHeaders();
     method public String? getLibraryName();
