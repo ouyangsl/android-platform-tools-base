@@ -118,11 +118,14 @@ class NamespacedResourcesTaskManager(
         // create a unique Task that uses workers for parallelization.
         creationConfig.sources.res.getVariantSources().get().forEach { dimensionSources ->
 
-            val providerList: List<Provider<Directory>> = dimensionSources.directoryEntries
+            val artifacts = creationConfig.services.fileCollection().also { fileCollection ->
+                    fileCollection.from( dimensionSources.directoryEntries
                 .filter { !it.isGenerated }
-                .map { it.asFiles(creationConfig.services::directoryProperty) }
-
-            val artifacts = creationConfig.services.fileCollection().from(providerList)
+                .map { it.asFiles(creationConfig.services.provider {
+ creationConfig.services.projectInfo.projectDirectory
+            }) }
+                    )
+                }
 
             val sourceSetName = dimensionSources.name
 
