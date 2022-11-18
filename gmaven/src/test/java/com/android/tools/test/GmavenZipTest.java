@@ -116,6 +116,8 @@ public class GmavenZipTest {
                     "com/android/tools/utp/android-test-plugin-host-device-info:sources",
                     "com/android/tools/utp/android-test-plugin-host-retention",
                     "com/android/tools/utp/android-test-plugin-host-retention:sources",
+                    "com/android/tools/utp/android-test-plugin-host-apk-installer",
+                    "com/android/tools/utp/android-test-plugin-host-apk-installer:sources",
                     "com/android/zipflinger",
                     "com/android/zipflinger:sources");
 
@@ -526,7 +528,7 @@ public class GmavenZipTest {
     }
 
     private static Path getRepo() throws IOException {
-        return FileSystems.newFileSystem(TestUtils.resolveWorkspacePath(GMAVEN_ZIP), null)
+        return FileSystems.newFileSystem(TestUtils.resolveWorkspacePath(GMAVEN_ZIP), (ClassLoader)null)
                 .getPath("/");
     }
 

@@ -83,6 +83,7 @@ import com.android.tools.lint.model.LintModelNamespacingMode
 import com.android.tools.lint.model.LintModelSeverity
 import com.android.tools.lint.model.LintModelSourceProvider
 import com.android.tools.lint.model.LintModelVariant
+import com.android.utils.FileUtils
 import com.android.utils.PathUtils
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
@@ -342,6 +343,14 @@ abstract class ProjectInputs {
     @get:Input
     abstract val neverShrinking: Property<Boolean>
 
+    /**
+     * [lintConfigFiles] contains all possible lint.xml files in the module's directory or any
+     * parent directories up to the root project directory.
+     */
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NONE)
+    abstract val lintConfigFiles: ConfigurableFileCollection
+
     internal fun initialize(variant: VariantWithTests, lintMode: LintMode) {
         val creationConfig = variant.main
         val globalConfig = creationConfig.global
@@ -395,6 +404,7 @@ abstract class ProjectInputs {
         }
         projectDirectoryPathInput.disallowChanges()
         buildDirectoryPathInput.disallowChanges()
+        initializeLintConfigFiles(projectInfo)
     }
 
     internal fun convertToLintModelModule(): LintModelModule {
@@ -419,6 +429,21 @@ abstract class ProjectInputs {
             variants = listOf(),
             neverShrinking = neverShrinking.get()
         )
+    }
+
+    /**
+     * Initialize [lintConfigFiles] with all possible lint.xml files in the module's directory or
+     * any parent directories up to the root project directory.
+     */
+    private fun initializeLintConfigFiles(projectInfo: ProjectInfo) {
+        var currentDir = projectInfo.projectDirectory.asFile
+        var currentLintXml = File(currentDir, LINT_XML_CONFIG_FILE_NAME)
+        while (FileUtils.isFileInDirectory(currentLintXml, projectInfo.rootDir)) {
+            lintConfigFiles.from(currentLintXml)
+            currentDir = currentDir.parentFile ?: break
+            currentLintXml = File(currentDir, LINT_XML_CONFIG_FILE_NAME)
+        }
+        lintConfigFiles.disallowChanges()
     }
 }
 
@@ -954,7 +979,8 @@ abstract class VariantInputs {
                 .initialize(
                     creationConfig.sources,
                     lintMode,
-                    directoryPropertyCreator = { creationConfig.services.directoryProperty() }
+                    listPropertyCreator = { creationConfig.services.listProperty(Directory::class.java) },
+                    projectDir = creationConfig.services.provider { creationConfig.services.projectInfo.projectDirectory }
                 )
         )
 
@@ -981,7 +1007,8 @@ abstract class VariantInputs {
                     .initialize(
                         unitTestCreationConfig.sources,
                         lintMode,
-                        directoryPropertyCreator = { creationConfig.services.directoryProperty() },
+                        listPropertyCreator = { creationConfig.services.listProperty(Directory::class.java) },
+                        projectDir = creationConfig.services.provider { creationConfig.services.projectInfo.projectDirectory },
                         unitTestOnly = true
                     )
             )
@@ -993,7 +1020,8 @@ abstract class VariantInputs {
                     .initialize(
                         androidTestCreationConfig.sources,
                         lintMode,
-                        directoryPropertyCreator = { creationConfig.services.directoryProperty() },
+                        listPropertyCreator = { creationConfig.services.listProperty(Directory::class.java) },
+                        projectDir = creationConfig.services.provider { creationConfig.services.projectInfo.projectDirectory },
                         instrumentationTestOnly = true
                     )
             )
@@ -1005,7 +1033,8 @@ abstract class VariantInputs {
                     .initialize(
                         testFixturesCreationConfig.sources,
                         lintMode,
-                        directoryPropertyCreator = { creationConfig.services.directoryProperty() }
+                        listPropertyCreator = { creationConfig.services.listProperty(Directory::class.java) },
+                        projectDir = creationConfig.services.provider { creationConfig.services.projectInfo.projectDirectory }
                     )
             )
         }
@@ -1244,7 +1273,8 @@ abstract class SourceProviderInput {
     internal fun initialize(
         sources: InternalSources,
         lintMode: LintMode,
-        directoryPropertyCreator: () -> DirectoryProperty,
+        listPropertyCreator: () -> ListProperty<Directory>,
+        projectDir: Provider<Directory>,
         unitTestOnly: Boolean = false,
         instrumentationTestOnly: Boolean = false
     ): SourceProviderInput {
@@ -1257,8 +1287,8 @@ abstract class SourceProviderInput {
         fun FlatSourceDirectoriesImpl.getFilteredSourceProviders(): Provider<List<Directory>> {
             return getVariantSources().map { dirs ->
                 dirs.filter { dir -> !dir.isGenerated }.map { dir ->
-                    dir.asFiles(directoryPropertyCreator).get()
-                }
+                    dir.asFiles(projectDir).get()
+                }.flatten()
             }
         }
 
@@ -1268,8 +1298,8 @@ abstract class SourceProviderInput {
                     dirs.directoryEntries.filter { dir ->
                         !dir.isGenerated
                     }.map {
-                        it.asFiles(directoryPropertyCreator).get()
-                    }
+                        it.asFiles(projectDir).get()
+                    }.flatten()
                 }
             }
         }
@@ -1975,3 +2005,5 @@ enum class LintMode {
     REPORTING,
     UPDATE_BASELINE,
 }
+
+const val LINT_XML_CONFIG_FILE_NAME = "lint.xml"

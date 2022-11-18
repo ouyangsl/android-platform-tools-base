@@ -91,19 +91,6 @@ class ArtifactsImpl(
         }
 
         publicScopedArtifacts[ScopedArtifacts.Scope.PROJECT]?.let {
-            // provide the initial content of the CLASSES Scoped artifact using the deprecated
-            // public artifact type in case some third-party is appending/transforming using those
-            // types.
-            it.setInitialContent(
-                ScopedArtifact.CLASSES,
-                project.files().also { configurableFileCollection ->
-                    @Suppress("DEPRECATION")
-                    configurableFileCollection.from(
-                        getAll(MultipleArtifact.ALL_CLASSES_DIRS),
-                        getAll(MultipleArtifact.ALL_CLASSES_JARS),
-                    )
-                }
-            )
             it.setInitialContent(
                 ScopedArtifact.JAVA_RES,
                 project.files().also { configurableFileCollection ->
@@ -140,6 +127,18 @@ class ArtifactsImpl(
         type: Multiple<FILE_TYPE>
     ): Provider<List<FILE_TYPE>>
             = getArtifactContainer(type).get()
+
+    fun <FileTypeT: FileSystemLocation> add(
+            type: Multiple<FileTypeT>,
+            artifact: FileTypeT) {
+        storageProvider.getStorage(type.kind).add(objects, type, artifact)
+    }
+
+    override fun <FileTypeT : FileSystemLocation> add(
+            type: MultipleArtifact<FileTypeT>,
+            artifact: FileTypeT) {
+        storageProvider.getStorage(type.kind).add(objects, type, artifact)
+    }
 
     override fun <TaskT : Task> use(taskProvider: TaskProvider<TaskT>): TaskBasedOperationImpl<TaskT> {
         return TaskBasedOperationImpl(objects, this, taskProvider).also {

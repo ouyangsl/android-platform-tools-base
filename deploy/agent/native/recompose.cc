@@ -133,6 +133,16 @@ bool Recompose::getCurrentErrors(jobject reloader,
                                  std::vector<std::string>* exceptions,
                                  std::string& error) const {
   JniClass support(jni_, Recompose::kComposeSupportClass);
+
+  // If this method is called after the app is restarted - which can happen
+  // because studio repeatedly attaches the agent after every LiveEdit - the
+  // agent may not have set up the instrumentation jar yet, which can cause this
+  // class to be missing.
+  if (!support.isValid()) {
+    jni_->ExceptionClear();
+    return true;
+  }
+
   JniObject reloader_jnio(jni_, reloader);
 
   jobjectArray jresult = (jobjectArray)support.CallStaticObjectMethod(
@@ -187,6 +197,32 @@ bool Recompose::getCurrentErrors(jobject reloader,
     jni_->ReleaseStringUTFChars(jex, cresult);
   }
 
+  return true;
+}
+
+bool Recompose::VersionCheck(jobject reloader, std::string* error) const {
+  JniClass support(jni_, Recompose::kComposeSupportClass);
+  JniObject reloader_jnio(jni_, reloader);
+
+  jstring jresult = (jstring)support.CallStaticObjectMethod(
+      "versionCheck", "(Ljava/lang/Object;I)Ljava/lang/String;", reloader,
+      MIN_COMPOSE_RUNTIME_VERSION);
+
+  if (jni_->ExceptionCheck()) {
+    jni_->ExceptionDescribe();
+    jni_->ExceptionClear();
+    *error = "Exception During versionCheck";
+    return false;
+  }
+
+  const char* cresult = jni_->GetStringUTFChars(jresult, JNI_FALSE);
+  std::string result(cresult);
+  jni_->ReleaseStringUTFChars(jresult, cresult);
+
+  if (!result.empty()) {
+    *error = result;
+    return false;
+  }
   return true;
 }
 
