@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee14cb13_904798a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1952695
+      },
+      "writtenOn": "2022-11-29T18:02:03Z",
+      "side": 1,
+      "message": "Isn\u0027t there more to it than just updating the dependencies?\n\nHere\u0027s the diff from M2 to the M3 version of the Kotlin Basic Activity:\nhttps://screenshot.googleplex.com/BfsWar7LY424fKw",
+      "revId": "fb6be134d212bb98ee51cd5bf1d3d00dc76667e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
