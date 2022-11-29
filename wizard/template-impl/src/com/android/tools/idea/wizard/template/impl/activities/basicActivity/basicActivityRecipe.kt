@@ -31,7 +31,7 @@ import com.android.tools.idea.wizard.template.impl.activities.basicActivity.src.
 import com.android.tools.idea.wizard.template.impl.activities.basicActivity.src.secondFragmentJava
 import com.android.tools.idea.wizard.template.impl.activities.basicActivity.src.secondFragmentKt
 import com.android.tools.idea.wizard.template.impl.activities.common.addAllKotlinDependencies
-import com.android.tools.idea.wizard.template.impl.activities.common.addMaterialDependency
+import com.android.tools.idea.wizard.template.impl.activities.common.addMaterial3Dependency
 import com.android.tools.idea.wizard.template.impl.activities.common.addViewBindingSupport
 import com.android.tools.idea.wizard.template.impl.activities.common.generateAppBar
 import com.android.tools.idea.wizard.template.impl.activities.common.generateManifest
@@ -54,7 +54,7 @@ fun RecipeExecutor.generateBasicActivity(
   val appCompatVersion = moduleData.apis.appCompatVersion
   val useAndroidX = moduleData.projectTemplateData.androidXSupport
   addAllKotlinDependencies(moduleData)
-  addMaterialDependency(useAndroidX)
+  addMaterial3Dependency()
   generateManifest(
     moduleData, activityClass, packageName, isLauncher, true, generateActivityTitle = true)
   generateAppBar(
