@@ -16,6 +16,24 @@
       "message": "Isn\u0027t there more to it than just updating the dependencies?\n\nHere\u0027s the diff from M2 to the M3 version of the Kotlin Basic Activity:\nhttps://screenshot.googleplex.com/BfsWar7LY424fKw",
       "revId": "fb6be134d212bb98ee51cd5bf1d3d00dc76667e2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15eea4b0_c5ffd644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1931172
+      },
+      "writtenOn": "2022-11-29T21:34:11Z",
+      "side": 1,
+      "message": "Ah right, was compiling/verifying from CLI so looks like the template was still M2. The changes made it the project M3-compatible but didn\u0027t change the look and feel.",
+      "parentUuid": "ee14cb13_904798a0",
+      "revId": "fb6be134d212bb98ee51cd5bf1d3d00dc76667e2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
