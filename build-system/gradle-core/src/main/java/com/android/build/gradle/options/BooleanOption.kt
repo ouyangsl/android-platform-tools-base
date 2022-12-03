@@ -25,6 +25,7 @@ import com.android.build.gradle.options.Version.VERSION_4_2
 import com.android.build.gradle.options.Version.VERSION_7_0
 import com.android.build.gradle.internal.errors.DeprecationReporter.DeprecationTarget.VERSION_8_0
 import com.android.build.gradle.internal.errors.DeprecationReporter.DeprecationTarget.VERSION_8_1
+import com.android.build.gradle.internal.errors.DeprecationReporter.DeprecationTarget.VERSION_9_0
 import com.android.build.gradle.options.Version.VERSION_7_2
 import com.android.build.gradle.options.Version.VERSION_7_3
 import com.android.build.gradle.options.Version.VERSION_BEFORE_4_0
@@ -69,10 +70,7 @@ enum class BooleanOption(
     ENABLE_STABLE_IDS(PROPERTY_BUILD_WITH_STABLE_IDS, false, ApiStage.Stable),
 
     // Features' default values
-    BUILD_FEATURE_AIDL("android.defaults.buildfeatures.aidl", false, ApiStage.Stable),
-    BUILD_FEATURE_BUILDCONFIG("android.defaults.buildfeatures.buildconfig", false, ApiStage.Stable),
     BUILD_FEATURE_DATABINDING("android.defaults.buildfeatures.databinding", false, ApiStage.Stable),
-    BUILD_FEATURE_RENDERSCRIPT("android.defaults.buildfeatures.renderscript", false, ApiStage.Stable),
     BUILD_FEATURE_RESVALUES("android.defaults.buildfeatures.resvalues", true, ApiStage.Stable),
     BUILD_FEATURE_SHADERS("android.defaults.buildfeatures.shaders", true, ApiStage.Stable),
     BUILD_FEATURE_VIEWBINDING("android.defaults.buildfeatures.viewbinding", false, ApiStage.Stable),
@@ -90,7 +88,7 @@ enum class BooleanOption(
     // Disabled by default due to low usage.
     GENERATE_MANIFEST_CLASS("android.generateManifestClass", false, ApiStage.Stable),
 
-    USE_NON_FINAL_RES_IDS("android.nonFinalResIds", false, ApiStage.Stable),
+    USE_NON_FINAL_RES_IDS("android.nonFinalResIds", true, ApiStage.Stable),
     NON_TRANSITIVE_R_CLASS("android.nonTransitiveRClass", true, ApiStage.Stable),
 
     /* ------------------
@@ -221,8 +219,6 @@ enum class BooleanOption(
 
     ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM("android.experimental.androidTest.useUnifiedTestPlatform", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
-    ENABLE_NEW_RESOURCE_SHRINKER("android.enableNewResourceShrinker", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-
     ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE(
         "android.bundle.enableUncompressedNativeLibs",
         true,
@@ -242,6 +238,23 @@ enum class BooleanOption(
      * DEPRECATED FEATURES
      */
 
+    BUILD_FEATURE_AIDL(
+        "android.defaults.buildfeatures.aidl",
+        false,
+        ApiStage.Deprecated(VERSION_9_0)
+    ),
+
+    BUILD_FEATURE_BUILDCONFIG(
+        "android.defaults.buildfeatures.buildconfig",
+        false,
+        ApiStage.Deprecated(VERSION_9_0)
+    ),
+
+    BUILD_FEATURE_RENDERSCRIPT(
+        "android.defaults.buildfeatures.renderscript",
+        false,
+        ApiStage.Deprecated(VERSION_9_0)
+    ),
 
     /* -----------------
      * ENFORCED FEATURES
@@ -529,6 +542,10 @@ enum class BooleanOption(
     true,
     FeatureStage.Enforced(Version.VERSION_8_0)
     ),
+
+    ENABLE_NEW_RESOURCE_SHRINKER("android.enableNewResourceShrinker",
+            true,
+            FeatureStage.Enforced(Version.VERSION_8_0)),
 
     /* ----------------
      * REMOVED FEATURES

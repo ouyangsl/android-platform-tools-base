@@ -19,6 +19,7 @@ package com.android.tools.lint.client.api
 import com.android.SdkConstants
 import com.android.SdkConstants.DOT_CLASS
 import com.android.SdkConstants.VALUE_FALSE
+import com.android.SdkConstants.VALUE_TRUE
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 import com.android.tools.lint.detector.api.Project
@@ -29,7 +30,6 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.ref.SoftReference
 import java.net.URLClassLoader
-import java.util.HashMap
 import java.util.Locale
 import java.util.jar.Attributes
 import java.util.jar.JarFile
@@ -219,7 +219,8 @@ private constructor(
          * Verifies that the given issue jar [jarFile] is compatible.
          */
         private fun verify(client: LintClient, jarFile: File): LintJarVerifier {
-            val verifier = LintJarVerifier(jarFile)
+            val skip = System.getenv("ANDROID_LINT_SKIP_BYTECODE_VERIFIER") == VALUE_TRUE
+            val verifier = LintJarVerifier(client, jarFile, skip)
             verifier.getVerificationThrowable()?.let {
                 if (logJarProblems()) {
                     client.log(it, "Error verifying bytecode in $jarFile")
@@ -299,31 +300,7 @@ private constructor(
                         val verifier = verify(client, jarFile)
                         if (!verifier.isCompatible()) {
                             if (reportErrors(driver)) {
-                                val message =
-                                    """
-Library lint checks out of date;
-these checks **will be skipped**!
-
-Lint found an issue registry (`$className`)
-which was compiled against an older version of lint
-than this one. This is usually fine, but not in this
-case; some basic verification shows that the lint
-check jar references (for example) the following API
-which is no longer valid in this version of lint:
-${verifier.describeFirstIncompatibleReference()}
-(Referenced from ${verifier.getReferenceClassFile()})
-
-Therefore, this lint check library is **not** included
-in analysis. This affects the following lint checks:
-${issues.map(Issue::id).joinToString(if (issues.size > 5) "\n" else ",") { "`$it`" }}
-
-Recompile the checks against the latest version, or if
-this is a check bundled with a third-party library, see
-if there is a more recent version available.
-
-Version of Lint API this lint check is using is $api.
-The Lint API version currently running is $CURRENT_API (${describeApi(CURRENT_API)}).
-""".trim()
+                                val message = generateVerifierMessage(api, className, issues, verifier)
                                 LintClient.report(
                                     client = client, issue = OBSOLETE_LINT_CHECK,
                                     message = message, file = jarFile, project = currentProject, driver = driver
@@ -349,33 +326,11 @@ The Lint API version currently running is $CURRENT_API (${describeApi(CURRENT_AP
                                 }
                                 recordRejectedIssues(issues)
                                 return null
-                            } else if (api >= CURRENT_API) {
+                            } else {
                                 val verifier = verify(client, jarFile)
                                 if (!verifier.isCompatible()) {
                                     if (reportErrors(driver)) {
-                                        val message =
-                                            """
-Requires newer lint; these checks **will be skipped**!
-
-Lint found an issue registry (`$className`)
-which was compiled against a newer version of lint
-than this one. This is usually fine, but not in this
-case; some basic verification shows that the lint
-check jar references (for example) the following API
-which is not valid in the version of lint which is running:
-${verifier.describeFirstIncompatibleReference()}
-(Referenced from ${verifier.getReferenceClassFile()})
-
-Therefore, this lint check library is **not** included
-in analysis. This affects the following lint checks:
-${issues.map(Issue::id).joinToString(if (issues.size > 5) "\n" else ",") { "`$it`" }}
-
-To use this lint check, upgrade to a more recent version
-of lint.
-
-Version of Lint API this lint check is using is $api.
-The Lint API version currently running is $CURRENT_API (${describeApi(CURRENT_API)}).
-""".trim()
+                                        val message = generateVerifierMessage(api, className, issues, verifier)
                                         LintClient.report(
                                             client = client, issue = OBSOLETE_LINT_CHECK,
                                             message = message, file = jarFile, project = currentProject, driver = driver
@@ -593,6 +548,117 @@ The Lint API version currently running is $CURRENT_API (${describeApi(CURRENT_AP
             }
 
             return registryClassToJarFile
+        }
+
+        private fun generateVerifierMessage(api: Int, className: String, issues: List<Issue>, verifier: LintJarVerifier): String {
+            val sb = StringBuilder()
+            when {
+                api > CURRENT_API -> sb.append("Requires newer lint; ")
+                api < CURRENT_API -> sb.append("Library lint checks out of date;\n") // inconsistent newline, but preserve existing baselines
+                else -> sb.append("Library lint checks reference invalid APIs; ")
+            }
+            sb.append("these checks **will be skipped**!\n\n")
+
+            sb.append("Lint found an issue registry (`$className`)\n")
+            when {
+                api > CURRENT_API -> sb.append(
+                    """
+                    which was compiled against a newer version of lint
+                    than this one. This is usually fine, but not in this
+                    case; some basic verification shows that the lint
+                    check jar references (for example) the following API
+                    which is not valid in the version of lint which is running:
+                    """.trimIndent()
+                )
+                api < CURRENT_API -> sb.append(
+                    """
+                    which was compiled against an older version of lint
+                    than this one. This is usually fine, but not in this
+                    case; some basic verification shows that the lint
+                    check jar references (for example) the following API
+                    which is no longer valid in this version of lint:
+                    """.trimIndent()
+                )
+                else -> sb.append(
+                    """
+                    which contains some references to invalid API:
+                    """.trimIndent()
+                )
+            }
+
+            val reference = verifier.describeFirstIncompatibleReference()
+            val referenceClassFile = verifier.getReferenceClassFile()
+            sb.append(
+                """
+
+                $reference
+                (Referenced from $referenceClassFile)
+
+                Therefore, this lint check library is **not** included
+                in analysis. This affects the following lint checks:
+
+                """.trimIndent()
+            )
+
+            sb.append(issues.map(Issue::id).joinToString(if (issues.size > 5) "\n" else ",") { "`$it`" })
+            sb.append("\n\n")
+
+            when {
+                reference == "org.jetbrains.uast.kotlin.KotlinUClass: org.jetbrains.kotlin.psi.KtClassOrObject getKtClass()" &&
+                    className == "androidx.fragment.lint.FragmentIssueRegistry" &&
+                    LintClient.isGradle -> {
+                    sb.append(
+                        """
+                        **This is a known bug which is already fixed in
+                        `androidx.fragment:fragment:1.5.1` and later**; update
+                        to that version. If you are not directly depending
+                        on this library but picking it up via a transitive
+                        dependency, explicitly add
+                        `implementation 'androidx.fragment:fragment:1.5.1'`
+                        (or later) to your build.gradle dependency block.
+                        """.trimIndent()
+                    )
+                }
+                api > CURRENT_API -> {
+                    sb.append(
+                        """
+                        To use this lint check, upgrade to a more recent version
+                        of lint.
+                        """.trimIndent()
+                    )
+                }
+                api < CURRENT_API -> {
+                    sb.append(
+                        """
+                        Recompile the checks against the latest version, or if
+                        this is a check bundled with a third-party library, see
+                        if there is a more recent version available.
+                        """.trimIndent()
+                    )
+                }
+                else -> {
+                    // api == CURRENT_API
+                    sb.append(
+                        """
+                        To use this lint check, upgrade to a more recent version
+                        of the library.
+                        """.trimIndent()
+                    )
+                }
+            }
+
+            if (api != CURRENT_API) {
+                sb.append(
+                    """
+
+
+                    Version of Lint API this lint check is using is $api.
+                    The Lint API version currently running is $CURRENT_API (${describeApi(CURRENT_API)}).
+                    """.trimIndent()
+                )
+            }
+
+            return sb.toString()
         }
 
         /**

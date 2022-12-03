@@ -16,47 +16,23 @@
 package com.android.tools.deployer;
 
 import com.android.tools.deploy.proto.Deploy;
-import com.android.tools.fakeandroid.FakeAndroidDriver;
 import com.android.tools.idea.protobuf.ByteString;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 @RunWith(Parameterized.class)
-public class LiveEditInstrumentationTest extends AgentTestBase {
+public class LiveEditInstrumentationTest extends LiveEditTestBase {
     @Parameterized.Parameters
     public static Collection<String> artFlags() {
         return ALL_ART_FLAGS;
     }
 
-    private LiveEditClient installer;
-
     public LiveEditInstrumentationTest(String artFlag) {
         super(artFlag);
-    }
-
-    @Before
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        installer = new LiveEditClient(android, dexLocation);
-        installer.startServer();
-    }
-
-    @After
-    @Override
-    public void tearDown() {
-        super.tearDown();
-        installer.stopServer();
     }
 
     @Test
@@ -67,7 +43,11 @@ public class LiveEditInstrumentationTest extends AgentTestBase {
         Deploy.LiveEditClass clazz =
                 Deploy.LiveEditClass.newBuilder()
                         .setClassName("app/StubTarget")
-                        .setClassData(ByteString.copyFrom(buildClass(app.StubTarget.class)))
+                        .setClassData(
+                                ByteString.copyFrom(
+                                        getClassBytes(
+                                                "app/StubTarget.class",
+                                                CompileClassLocation.JAVA_ORIGINAL_LOCATION)))
                         .build();
         Deploy.LiveEditRequest request =
                 Deploy.LiveEditRequest.newBuilder()
@@ -78,80 +58,5 @@ public class LiveEditInstrumentationTest extends AgentTestBase {
         installer.update(request);
         Deploy.AgentLiveEditResponse response = installer.getLiveEditResponse();
         Assert.assertEquals(Deploy.AgentLiveEditResponse.Status.OK, response.getStatus());
-    }
-
-    // TODO: Move this out of this class or rename this class's name to be something that
-    //       is more general.
-    @Ignore
-    public void testFunctionRecompose() throws Exception {
-        android.loadDex(DEX_LOCATION);
-        android.launchActivity(ACTIVITY_CLASS);
-
-        Deploy.LiveEditClass clazz =
-                Deploy.LiveEditClass.newBuilder()
-                        .setClassName("pkg/LiveEditRecomposeTarget")
-                        .build();
-        Deploy.LiveEditRequest request =
-                Deploy.LiveEditRequest.newBuilder()
-                        .addTargetClasses(clazz)
-                        .setComposable(true)
-                        .setPackageName(PACKAGE)
-                        .build();
-
-        installer.update(request);
-        Deploy.AgentLiveEditResponse response = installer.getLiveEditResponse();
-        Assert.assertEquals(
-                "Got Status: " + response.getStatus(),
-                Deploy.LiveEditResponse.Status.OK,
-                response.getStatus());
-
-        Assert.assertTrue(
-                android.waitForInput("invalidateGroupsWithKey(1122)", RETURN_VALUE_TIMEOUT));
-    }
-
-    protected static class LiveEditClient extends InstallServerTestClient {
-        protected LiveEditClient(FakeAndroidDriver android, TemporaryFolder messageDir) {
-            super(android, messageDir);
-        }
-
-        private void update(Deploy.LiveEditRequest request) {
-            Deploy.SendAgentMessageRequest agentRequest =
-                    Deploy.SendAgentMessageRequest.newBuilder()
-                            .setAgentCount(1)
-                            .setAgentRequest(
-                                    Deploy.AgentRequest.newBuilder().setLeRequest(request).build())
-                            .build();
-            Deploy.InstallServerRequest serverRequest =
-                    Deploy.InstallServerRequest.newBuilder().setSendRequest(agentRequest).build();
-            callInstaller(serverRequest.toByteArray());
-        }
-
-        void callInstaller(byte[] message) {
-            try {
-                sendMessage(message);
-                attachAgent();
-            } catch (IOException e) {
-                System.err.println(e);
-            }
-        }
-
-        protected Deploy.AgentLiveEditResponse getLiveEditResponse() throws IOException {
-            return getAgentResponse().getLeResponse();
-        }
-    }
-
-    static byte[] buildClass(Class<?> clazz) throws IOException {
-        String pathToSearch = "/" + clazz.getName().replaceAll("\\.", "/") + ".class";
-        InputStream in = clazz.getResourceAsStream(pathToSearch);
-        if (in == null) {
-            throw new IllegalStateException(
-                    "Unable to load '" + clazz + "' from classLoader " + clazz.getClassLoader());
-        }
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        byte[] buffer = new byte[0xFFFF];
-        for (int len = in.read(buffer); len != -1; len = in.read(buffer)) {
-            os.write(buffer, 0, len);
-        }
-        return os.toByteArray();
     }
 }

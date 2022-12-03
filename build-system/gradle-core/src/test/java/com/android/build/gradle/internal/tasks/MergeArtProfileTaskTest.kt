@@ -18,11 +18,12 @@ package com.android.build.gradle.internal.tasks
 
 import com.android.build.gradle.internal.fixtures.FakeGradleWorkExecutor
 import com.android.build.gradle.internal.fixtures.FakeNoOpAnalyticsService
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileCollection
-import org.gradle.api.file.FileCollection
+import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.ListProperty
 import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.workers.WorkerExecutor
 import org.junit.Before
@@ -42,10 +43,12 @@ internal class MergeArtProfileTaskTest {
     private lateinit var project: Project
     private lateinit var inputFiles: ConfigurableFileCollection
     private lateinit var artProfileSourceFile: RegularFileProperty
+    private lateinit var baselineProfileSourceDirs: ListProperty<Directory>
 
     abstract class MergeArtProfileTaskForTest @Inject constructor(
-            testWorkerExecutor: WorkerExecutor,
+        testWorkerExecutor: WorkerExecutor,
     ) : MergeArtProfileTask() {
+
         override val workerExecutor = testWorkerExecutor
     }
 
@@ -55,12 +58,14 @@ internal class MergeArtProfileTaskTest {
         inputFiles = project.files()
         artProfileSourceFile =
             project.objects.fileProperty().also { it.set(File("/does/not/exist")) }
+        baselineProfileSourceDirs = project.objects.listProperty(Directory::class.java).empty()
         task = project.tasks.register(
-                "appMetadataTask",
-                MergeArtProfileTaskForTest::class.java,
-                FakeGradleWorkExecutor(project.objects, temporaryFolder.newFolder()),
+            "appMetadataTask",
+            MergeArtProfileTaskForTest::class.java,
+            FakeGradleWorkExecutor(project.objects, temporaryFolder.newFolder()),
         ).get()
         task.inputFiles.from(inputFiles)
+        task.profileSourceDirectories.set(baselineProfileSourceDirs)
         task.profileSource.set(artProfileSourceFile)
         task.analyticsService.set(FakeNoOpAnalyticsService())
         outputFile = temporaryFolder.newFile()
@@ -68,24 +73,24 @@ internal class MergeArtProfileTaskTest {
     }
 
     @Test
-    fun testEmpty() {
+    fun `test with no files`() {
         task.inputFiles.from(project.files())
         task.taskAction()
-        Truth.assertThat(outputFile.exists()).isFalse()
+        assertThat(outputFile.exists()).isFalse()
     }
 
     @Test
-    fun testSingleFile() {
+    fun `test single file`() {
         val singleFile = temporaryFolder.newFile().also {
             it.writeText("file 1 - line 1")
         }
         inputFiles.from(singleFile)
         task.taskAction()
-        Truth.assertThat(task.outputFile.get().asFile.readText()).isEqualTo(singleFile.readText())
+        assertThat(task.outputFile.get().asFile.readText()).isEqualTo(singleFile.readText())
     }
 
     @Test
-    fun testSingleFileWithApplicationSource() {
+    fun `test single file with art profile source`() {
         val singleFile = temporaryFolder.newFile().also {
             it.writeText("file 1 - line 1")
         }
@@ -96,17 +101,17 @@ internal class MergeArtProfileTaskTest {
             }
         )
         task.taskAction()
-        Truth.assertThat(task.outputFile.get().asFile.readText()).isEqualTo(
+        assertThat(task.outputFile.get().asFile.readText()).isEqualTo(
             "${singleFile.readText()}\n${artProfileSourceFile.asFile.get().readText()}\n"
         )
     }
 
     @Test
-    fun testMultipleFiles() {
+    fun `test multiple files`() {
         inputFiles.from(
-                mutableListOf<File>().apply {
-                    repeat(5) { this.add(createTestFile(it)) }
-                }
+            mutableListOf<File>().apply {
+                repeat(5) { this.add(createTestFile(it)) }
+            }
         )
 
         task.taskAction()
@@ -114,7 +119,37 @@ internal class MergeArtProfileTaskTest {
         val expectedResult = StringBuilder().apply {
             repeat(5) { this.append("file $it - line 1\n") }
         }.toString()
-        Truth.assertThat(task.outputFile.get().asFile.readText()).isEqualTo(expectedResult)
+        assertThat(task.outputFile.get().asFile.readText()).isEqualTo(expectedResult)
+    }
+
+    @Test
+    fun `test with multiple baseline profiles`() {
+        val singleFile = temporaryFolder.newFile().also {
+            it.writeText("file 1 - line 1")
+        }
+        inputFiles.from(singleFile)
+
+        repeat(5) {
+            val dir = project.objects.directoryProperty().fileValue(
+                createTestFile(it)
+            )
+            baselineProfileSourceDirs.add(dir)
+        }
+
+        artProfileSourceFile.set(
+            temporaryFolder.newFile().also {
+                it.writeText("art-profile-source-file 1 - line 1")
+            }
+        )
+        task.taskAction()
+
+        val expectedResult = StringBuilder().apply {
+            this.append("${singleFile.readText()}\n")
+            repeat(5) { this.append("file $it - line 1\n") }
+            this.append("${artProfileSourceFile.asFile.get().readText()}\n")
+        }.toString()
+
+        assertThat(task.outputFile.get().asFile.readText()).isEqualTo(expectedResult)
     }
 
     private fun createTestFile(fileIndex: Int) = temporaryFolder.newFile().also {

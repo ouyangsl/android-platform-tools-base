@@ -88,7 +88,7 @@ public class VectorDrawableGeneratorTest extends TestCase {
         String errorLog = null;
         if (type == FileType.SVG) {
             OutputStream outStream = new ByteArrayOutputStream();
-            errorLog = Svg2Vector.parseSvgToXml(incomingFile.toFile(), outStream);
+            errorLog = Svg2Vector.parseSvgToXml(incomingFile, outStream);
             if (expectedError != null) {
                 assertNotNull(errorLog);
                 assertFalse(errorLog.isEmpty());
@@ -306,6 +306,10 @@ public class VectorDrawableGeneratorTest extends TestCase {
 
     public void testSvgColorFormats() throws Exception {
         checkSvgConversion("test_color_formats");
+    }
+
+    public void testSvgPaintOrder() throws Exception {
+        checkSvgConversion("test_paint_order");
     }
 
     public void testSvgTransformArcComplex1() throws Exception {
@@ -816,6 +820,10 @@ public class VectorDrawableGeneratorTest extends TestCase {
 
     public void testSvgGradientLinearXYNumbers() throws Exception {
         checkSvgConversion("test_gradient_linear_x_y_numbers");
+    }
+
+    public void testSvgGradientLinearHref() throws Exception {
+        checkSvgConversion("test_gradient_linear_href");
     }
 
     public void testSvgGradientTransform() throws Exception {

@@ -223,7 +223,7 @@ abstract class R8Task @Inject constructor(
     abstract val artProfileRewriting: Property<Boolean>
 
     @get:Optional
-    @get:PathSensitive(PathSensitivity.RELATIVE)
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
     @get:InputFiles
     abstract val inputArtProfile: RegularFileProperty
 
@@ -584,7 +584,7 @@ abstract class R8Task @Inject constructor(
         if (executionOptions.get().runInSeparateProcess) {
             workerExecutor.processIsolation { spec ->
                 spec.forkOptions { forkOptions ->
-                    forkOptions.jvmArgs?.addAll(executionOptions.get().jvmArgs)
+                    forkOptions.jvmArgs(executionOptions.get().jvmArgs)
                 }
             }.submit(R8Runnable::class.java, workerAction)
         } else {

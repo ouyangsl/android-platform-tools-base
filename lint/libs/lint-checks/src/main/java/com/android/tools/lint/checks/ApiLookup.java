@@ -305,7 +305,7 @@ public class ApiLookup extends ApiDatabase {
             }
 
             try {
-                writeDatabase(binaryData, info, API_LOOKUP_BINARY_FORMAT_VERSION);
+                writeDatabase(client, binaryData, info, API_LOOKUP_BINARY_FORMAT_VERSION, xmlFile);
                 return true;
             } catch (IOException e) {
                 client.log(e, "Can't write API cache file");
@@ -344,7 +344,6 @@ public class ApiLookup extends ApiDatabase {
                 // API level only
                 apiConstraints.add(ApiConstraint.get(first, ANDROID_SDK_ID));
             } else {
-                // Api level vector
                 List<ApiConstraint.SdkApiConstraint> apis = new ArrayList<>();
                 apis.add(ApiConstraint.get(second, first));
 

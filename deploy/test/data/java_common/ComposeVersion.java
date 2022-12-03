@@ -20,5 +20,7 @@ package androidx.compose.runtime;
  * public release.
  */
 public class ComposeVersion {
-    public static final int version = 9999;
+    // This should be final in the runtime but we are allowing it to be updated so
+    // we can write version check unit tests.
+    public static int version = 9999;
 }

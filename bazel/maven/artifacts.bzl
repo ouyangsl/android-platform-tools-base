@@ -175,8 +175,13 @@ DATA = [
     "androidx.appcompat:appcompat:1.3.0",
     "androidx.appcompat:appcompat:1.3.0-beta01",
     "androidx.appcompat:appcompat:1.4.1",
-    "androidx.privacysandbox.tools:tools:1.0.0-SNAPSHOT",
-    "androidx.privacysandbox.tools:tools-apipackager:1.0.0-SNAPSHOT",
+    "androidx.privacysandbox.sdkruntime:sdkruntime-client:1.0.0-SNAPSHOT",  # built locally from androidx-platform-dev
+    "androidx.privacysandbox.sdkruntime:sdkruntime-core:1.0.0-SNAPSHOT",  # built locally from androidx-platform-dev
+    "androidx.privacysandbox.tools:tools:1.0.0-SNAPSHOT",  # from: https://androidx.dev/snapshots/builds/9329153/artifacts
+    "androidx.privacysandbox.tools:tools-apicompiler:1.0.0-SNAPSHOT",  # from: https://androidx.dev/snapshots/builds/9329153/artifacts
+    "androidx.privacysandbox.tools:tools-apigenerator:1.0.0-SNAPSHOT",  # from: https://androidx.dev/snapshots/builds/9329153/artifacts
+    "androidx.privacysandbox.tools:tools-apipackager:1.0.0-SNAPSHOT",  # from: https://androidx.dev/snapshots/builds/9329153/artifacts
+    "androidx.privacysandbox.tools:tools-core:1.0.0-SNAPSHOT",  # from: https://androidx.dev/snapshots/builds/9329153/artifacts
     "androidx.benchmark:benchmark-gradle-plugin:1.1.0-beta04",
     "androidx.compose.animation:animation:1.2.0-alpha05",
     "androidx.compose.animation:animation:1.3.0",
@@ -364,10 +369,23 @@ DATA = [
     "com.google.dagger:hilt-android:2.40.1",
     "com.google.dagger:hilt-android-gradle-plugin:2.40.1",
     "com.google.dagger:hilt-compiler:2.40.1",
+    "com.google.devtools.ksp:symbol-processing-api:1.7.10-1.0.6",
+    "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.7.10-1.0.6",
+    "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.7.10-1.0.6",
     "com.google.firebase:firebase-common:12.0.1",
     "com.google.guava:guava:20.0",
     "com.google.guava:guava:28.2-jre",
+    "com.google.guava:guava:30.1-android",
+    "com.google.guava:guava:31.1-jre",
     "com.google.prefab:cli:pom:2.0.0",
+    "com.google.protobuf:protobuf-bom:3.21.8",
+    "com.google.protobuf:protobuf-java:3.21.8",
+    "com.google.protobuf:protobuf-java-util:3.21.8",
+    "com.google.protobuf:protobuf-parent:3.21.8",
+    "com.google.protobuf:protoc:exe:linux-x86_64:3.21.8",
+    "com.google.protobuf:protoc:exe:windows-x86_64:3.21.8",
+    "com.google.protobuf:protoc:exe:osx-x86_64:3.21.8",
+    "com.google.protobuf:protoc:exe:osx-aarch_64:3.21.8",
     "com.google.testing.platform:android-driver-instrumentation:0.0.8-alpha08",
     "com.google.testing.platform:android-test-plugin:0.0.8-alpha08",
     "com.google.testing.platform:core:0.0.8-alpha08",
@@ -379,6 +397,7 @@ DATA = [
     "com.jakewharton:butterknife-gradle-plugin:9.0.0-rc2",
     "com.linkedin.testbutler:test-butler-app:1.3.1",
     "com.squareup.dagger:dagger-compiler:1.2.2",
+    "com.squareup:kotlinpoet:1.12.0",
     "commons-codec:commons-codec:1.9",
     "commons-lang:commons-lang:2.4",
     "io.fabric.tools:gradle:1.28.0",
@@ -409,6 +428,7 @@ DATA = [
     "org.jetbrains.dokka:javadoc-plugin:1.4.32",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.0",  # Remove it later (b/243935746)
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.10",
+    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:1.7.20-Beta",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.20-Beta",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.20",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.21",

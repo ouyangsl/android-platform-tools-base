@@ -44,6 +44,7 @@ import com.android.sdklib.IAndroidTarget
 import com.android.tools.lint.client.api.LintDriver.DriverMode.ANALYSIS_ONLY
 import com.android.tools.lint.client.api.LintDriver.DriverMode.MERGE
 import com.android.tools.lint.client.api.LintListener.EventType
+import com.android.tools.lint.client.api.UastParser.UastSourceList
 import com.android.tools.lint.detector.api.BinaryResourceScanner
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.ClassContext
@@ -592,10 +593,8 @@ class LintDriver(
             return emptyList()
         }
 
-        if (mode != DriverMode.MERGE) { // The costly parsing environment is not required (or supported!) when merging
-            initializeTimeMs += measureTimeMillis {
-                realClient.performInitializeProjects(projects)
-            }
+        initializeTimeMs += measureTimeMillis {
+            realClient.performInitializeProjects(this, projects)
         }
 
         for (project in projects) {
@@ -1323,15 +1322,16 @@ class LintDriver(
             ) {
                 // This is a temporary workaround for b/159733104.
                 realClient.performDisposeProjects(projectRoots)
-                realClient.performInitializeProjects(projectRoots)
+                realClient.performInitializeProjects(this, projectRoots)
             }
             assert(phase == 1 || checkDependencies)
             val files = project.subset
-            uastSourceList = if (files != null) {
-                findUastSources(project, main, files)
-            } else {
-                findUastSources(project, main)
-            }
+            uastSourceList = project.getUastSourceList(this, main)
+                ?: if (files != null) {
+                    findUastSources(project, main, files)
+                } else {
+                    findUastSources(project, main)
+                }
             prepareUast(uastSourceList)
             cachedUastSourceList = CachedUastSourceList(project, uastSourceList)
         }
@@ -1429,7 +1429,7 @@ class LintDriver(
             scopeDetectors[Scope.JAVA_FILE],
             scopeDetectors[Scope.ALL_JAVA_FILES]
         )
-        if (uastScanners != null && uastScanners.isNotEmpty()) {
+        if (!uastScanners.isNullOrEmpty()) {
             visitUast(project, main, uastSourceList, uastScanners)
         }
 
@@ -2050,20 +2050,6 @@ class LintDriver(
         parserErrors = !parser.prepare(allContexts)
     }
 
-    /**
-     * The lists of production and test files for Kotlin and Java to
-     * parse and process.
-     */
-    private class UastSourceList(
-        val parser: UastParser,
-        val allContexts: List<JavaContext>,
-        val srcContexts: List<JavaContext>,
-        val testContexts: List<JavaContext>,
-        val testFixturesContexts: List<JavaContext>,
-        val generatedContexts: List<JavaContext>,
-        val gradleKtsContexts: List<JavaContext>
-    )
-
     private fun visitUast(
         project: Project,
         main: Project?,
@@ -2163,7 +2149,7 @@ class LintDriver(
         val unitTestFolders = project.unitTestSourceFolders
         val instrumentationTestFolders = project.instrumentationTestSourceFolders
         val otherTestFolders = project.testSourceFolders.minus((unitTestFolders + instrumentationTestFolders).toSet())
-        val testFixturesFolders = project.testSourceFolders
+        val testFixturesFolders = project.testFixturesSourceFolders
 
         val generatedFolders = project.generatedSourceFolders
         for (file in files) {
@@ -2892,7 +2878,7 @@ class LintDriver(
             vararg args: Any
         ) = delegate.log(exception, format, *args)
 
-        override fun initializeProjects(knownProjects: Collection<Project>): Unit = unsupported()
+        override fun initializeProjects(driver: LintDriver?, knownProjects: Collection<Project>): Unit = unsupported()
 
         override fun disposeProjects(knownProjects: Collection<Project>): Unit = unsupported()
 

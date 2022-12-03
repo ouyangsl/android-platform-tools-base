@@ -16,7 +16,6 @@
 
 package com.android.tools.lint.checks
 
-import com.android.SdkConstants
 import com.android.tools.lint.client.api.ResourceReference
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.Category
@@ -28,12 +27,17 @@ import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.SourceCodeScanner
 import com.android.tools.lint.detector.api.isJava
+import com.android.tools.lint.detector.api.isKotlin
+import com.intellij.psi.PsiVariable
 import org.jetbrains.uast.UAnnotation
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UExpression
 import org.jetbrains.uast.UExpressionList
+import org.jetbrains.uast.UField
+import org.jetbrains.uast.USimpleNameReferenceExpression
 import org.jetbrains.uast.USwitchClauseExpression
 import org.jetbrains.uast.USwitchExpression
+import org.jetbrains.uast.UastFacade
 
 /**
  * Warns against using non-constant resource IDs in Java switch
@@ -43,13 +47,14 @@ import org.jetbrains.uast.USwitchExpression
 class NonConstantResourceIdDetector : Detector(), SourceCodeScanner {
 
     override fun getApplicableUastTypes(): List<Class<out UElement>> {
-        return listOf<Class<out UElement?>>(
+        return listOf(
             UAnnotation::class.java,
-            USwitchExpression::class.java
+            USwitchExpression::class.java,
+            UField::class.java
         )
     }
 
-    override fun createUastHandler(context: JavaContext): UElementHandler? {
+    override fun createUastHandler(context: JavaContext): UElementHandler {
         return ResourceIdVisitor(context)
     }
 
@@ -67,43 +72,54 @@ class NonConstantResourceIdDetector : Detector(), SourceCodeScanner {
         private fun checkSwitchCasesForRClassReferences(body: UExpressionList) {
             for (expression in body.expressions) {
                 if (expression is USwitchClauseExpression) {
-                    val switchCase = expression.caseValues.firstOrNull() ?: continue
-                    if (checkExpressionReceiverIsRClass(switchCase)) {
-                        val location = context.getLocation(switchCase)
-                        context.report(
-                            NON_CONSTANT_RESOURCE_ID,
-                            switchCase,
-                            location,
-                            /* Bug 170852493 */
-                            "Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, " +
-                                "avoid using them in switch case statements"
-                        )
-                    }
+                    checkExpression(expression.caseValues.firstOrNull(), "in switch case statements")
                 }
             }
         }
 
         override fun visitAnnotation(node: UAnnotation) {
             for (attribute in node.attributeValues) {
-                val attributeExpression = attribute.expression
-                if (checkExpressionReceiverIsRClass(attributeExpression)) {
-                    val location = context.getLocation(attributeExpression)
-                    context.report(
-                        NON_CONSTANT_RESOURCE_ID,
-                        attributeExpression,
-                        location,
-                        /* Bug 170852493 */
-                        "Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, " +
-                            "avoid using them as annotation attributes"
-                    )
-                }
+                checkExpression(attribute.expression, "as annotation attributes")
             }
         }
 
-        private fun checkExpressionReceiverIsRClass(expression: UExpression): Boolean {
-            val evaluatedExpression = ResourceReference.get(expression)
-            return evaluatedExpression != null &&
-                evaluatedExpression.`package` != SdkConstants.ANDROID_PKG
+        override fun visitField(node: UField) {
+            val initializer = node.uastInitializer
+            if (initializer != null && isKotlin(node) && context.evaluator.isConst(node)) {
+                checkExpression(initializer, "in const fields")
+            }
+        }
+
+        private fun checkExpression(node: UExpression?, where: String) {
+            node ?: return
+            if (expressionReceiverIsRClass(node)) {
+                reportNonConstantUsage(node, where)
+            }
+        }
+
+        private fun reportNonConstantUsage(element: UElement, where: String) {
+            val location = context.getLocation(element)
+            context.report(
+                NON_CONSTANT_RESOURCE_ID,
+                element,
+                location,
+                "Resource IDs will be non-final by default in Android Gradle Plugin version 8.0, " +
+                    "avoid using them $where"
+            )
+        }
+
+        private fun expressionReceiverIsRClass(expression: UExpression, depth: Int = 0): Boolean {
+            if (expression is USimpleNameReferenceExpression) {
+                val resolved = expression.resolve()
+                if (resolved is PsiVariable && depth < 3) {
+                    UastFacade.getInitializerBody(resolved)?.let { initializer ->
+                        return expressionReceiverIsRClass(initializer, depth + 1)
+                    }
+                }
+            }
+
+            val reference = ResourceReference.get(expression)
+            return reference != null && !reference.isFramework
         }
     }
 
