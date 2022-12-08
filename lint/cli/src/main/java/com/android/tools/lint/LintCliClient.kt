@@ -1416,7 +1416,14 @@ open class LintCliClient : LintClient {
         return false
     }
 
-    public override fun initializeProjects(knownProjects: Collection<Project>) {
+    public override fun initializeProjects(driver: LintDriver?, knownProjects: Collection<Project>) {
+        if (driver?.mode == LintDriver.DriverMode.MERGE) {
+            // The costly parsing environment is not required (or supported!) when merging
+            val config = UastEnvironment.Configuration.create(enableKotlinScripting = false)
+            val env = UastEnvironment.create(config)
+            uastEnvironment = env
+            return
+        }
         // Initialize the associated idea project to use
         val includeTests = !flags.isIgnoreTestSources
         // knownProject only lists root projects, not dependencies
@@ -1500,7 +1507,7 @@ open class LintCliClient : LintClient {
         for (project in allProjects) {
             project.ideaProject = env.ideaProject
         }
-        super.initializeProjects(knownProjects)
+        super.initializeProjects(driver, knownProjects)
     }
 
     protected open fun addBootClassPath(

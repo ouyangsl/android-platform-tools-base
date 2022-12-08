@@ -127,7 +127,6 @@ class DefaultSourcesProviderImpl(
                 TaskProviderBasedDirectoryEntryImpl(
                     "generated_build_config",
                     artifacts.get(InternalArtifactType.GENERATED_BUILD_CONFIG_JAVA),
-                    services.fileCollection(),
                 )
             )
         }
@@ -136,7 +135,6 @@ class DefaultSourcesProviderImpl(
                 TaskProviderBasedDirectoryEntryImpl(
                     "generated_aidl",
                     artifacts.get(InternalArtifactType.AIDL_SOURCE_OUTPUT_DIR),
-                    services.fileCollection(),
                 )
             )
         }
@@ -146,7 +144,6 @@ class DefaultSourcesProviderImpl(
                     TaskProviderBasedDirectoryEntryImpl(
                         "databinding_generated",
                         artifacts.get(InternalArtifactType.DATA_BINDING_BASE_CLASS_SOURCE_OUT),
-                        services.fileCollection(),
                         )
                 )
             }
@@ -156,8 +153,7 @@ class DefaultSourcesProviderImpl(
                 TaskProviderBasedDirectoryEntryImpl(
                     name = "mlModel_generated",
                     directoryProvider = artifacts.get(InternalArtifactType.ML_SOURCE_OUT),
-                    services.fileCollection(),
-                    )
+                )
             )
         }
         return sourceSets
@@ -176,8 +172,7 @@ class DefaultSourcesProviderImpl(
                 TaskProviderBasedDirectoryEntryImpl(
                     name = "renderscript_generated_res",
                     directoryProvider = artifacts.get(InternalArtifactType.RENDERSCRIPT_GENERATED_RES),
-                    services.fileCollection(),
-                    )
+                )
             )
         }
 
@@ -186,8 +181,7 @@ class DefaultSourcesProviderImpl(
                 TaskProviderBasedDirectoryEntryImpl(
                     name = "generated_res",
                     directoryProvider = artifacts.get(InternalArtifactType.GENERATED_RES),
-                    services.fileCollection(),
-                    )
+                )
             )
         }
 
