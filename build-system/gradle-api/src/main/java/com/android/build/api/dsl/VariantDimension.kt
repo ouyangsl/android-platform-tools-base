@@ -47,12 +47,9 @@ interface VariantDimension {
     var multiDexKeepFile: File?
 
     /** Encapsulates per-variant configurations for the NDK, such as ABI filters.  */
-
-    @get:Incubating
     val ndk: Ndk
 
     /** Encapsulates per-variant configurations for the NDK, such as ABI filters.  */
-    @Incubating
     fun ndk(action: Ndk.() -> Unit)
 
     /**
@@ -166,11 +163,9 @@ interface VariantDimension {
     fun javaCompileOptions(action: JavaCompileOptions.() -> Unit)
 
     /** Options for configuring the shader compiler.  */
-    @get:Incubating
     val shaders: Shaders
 
     /** Configure the shader compiler options. */
-    @Incubating
     fun shaders(action: Shaders.() -> Unit)
 
     /**
@@ -180,7 +175,7 @@ interface VariantDimension {
      * [Add C and C++ Code to Your Project](http://developer.android.com/studio/projects/add-native-code.html#).
      */
     @get:Incubating
-    val externalNativeBuild: ExternalNativeBuildOptions
+    val externalNativeBuild: ExternalNativeBuildFlags
 
     /**
      * Encapsulates per-variant CMake and ndk-build configurations for your external native build.
@@ -189,7 +184,7 @@ interface VariantDimension {
      * [Add C and C++ Code to Your Project](http://developer.android.com/studio/projects/add-native-code.html#).
      */
     @Incubating
-    fun externalNativeBuild(action: ExternalNativeBuildOptions.() -> Unit)
+    fun externalNativeBuild(action: ExternalNativeBuildFlags.() -> Unit)
 
     /**
      * Adds a new field to the generated BuildConfig class.

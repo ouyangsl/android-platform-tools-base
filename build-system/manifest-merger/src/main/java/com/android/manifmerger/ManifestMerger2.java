@@ -108,6 +108,7 @@ public class ManifestMerger2 {
     @NonNull private final String mFeatureName;
     @Nullable private final String mNamespace;
     @NonNull private final FileStreamProvider mFileStreamProvider;
+    @NonNull private final ProcessCancellationChecker mProcessCancellationChecker;
     @NonNull private final ImmutableList<File> mNavigationFiles;
     @NonNull private final ImmutableList<File> mNavigationJsons;
     @NonNull private final DocumentModel<ManifestModel.NodeTypes> mModel;
@@ -128,6 +129,7 @@ public class ManifestMerger2 {
             @NonNull String featureName,
             @Nullable String namespace,
             @NonNull FileStreamProvider fileStreamProvider,
+            @NonNull ProcessCancellationChecker processCancellationChecker,
             @NonNull ImmutableList<File> navigationFiles,
             @NonNull ImmutableList<File> navigationJsons,
             @NonNull ImmutableList<String> dependencyFeatureNames,
@@ -145,6 +147,7 @@ public class ManifestMerger2 {
         this.mFeatureName = featureName;
         this.mNamespace = namespace;
         this.mFileStreamProvider = fileStreamProvider;
+        this.mProcessCancellationChecker = processCancellationChecker;
         this.mNavigationFiles = navigationFiles;
         this.mNavigationJsons = navigationJsons;
         this.mDependencyFeatureNames = dependencyFeatureNames;
@@ -177,6 +180,8 @@ public class ManifestMerger2 {
                         selectors,
                         mergingReportBuilder,
                         mNamespace);
+
+        mProcessCancellationChecker.check();
 
         // perform all top-level verifications.
         if (!loadedMainManifestInfo
@@ -228,6 +233,8 @@ public class ManifestMerger2 {
             }
         }
 
+        mProcessCancellationChecker.check();
+
         // load all the libraries xml files early to have a list of all possible node:selector
         // values.
         List<LoadedManifestInfo> loadedLibraryDocuments =
@@ -254,6 +261,7 @@ public class ManifestMerger2 {
         // merge in lower priority documents.
         @Nullable XmlDocument xmlDocumentOptional = null;
         for (File inputFile : mFlavorsAndBuildTypeFiles) {
+            mProcessCancellationChecker.check();
             mLogger.verbose("Merging flavors and build manifest %s \n", inputFile.getPath());
             LoadedManifestInfo overlayDocument =
                     load(
@@ -329,6 +337,8 @@ public class ManifestMerger2 {
             }
         }
 
+        mProcessCancellationChecker.check();
+
         mLogger.verbose("Merging main manifest %s\n", mManifestFile.getPath());
         Optional<XmlDocument> newMergedDocument =
                 merge(xmlDocumentOptional, loadedMainManifestInfo, mergingReportBuilder);
@@ -360,6 +370,8 @@ public class ManifestMerger2 {
                 return mergingReportBuilder.build();
             }
             xmlDocumentOptional = newMergedDocument.get();
+
+            mProcessCancellationChecker.check();
         }
 
         // done with proper merging phase, now we need to expand <nav-graph> elements, trim unwanted
@@ -403,6 +415,8 @@ public class ManifestMerger2 {
             }
         }
 
+        mProcessCancellationChecker.check();
+
         // perform system property injection again.
         performSystemPropertiesInjection(mergingReportBuilder, xmlDocumentOptional);
 
@@ -442,6 +456,8 @@ public class ManifestMerger2 {
             PostValidator.enforceToolsNamespaceDeclaration(finalMergedDocument);
         }
 
+        mProcessCancellationChecker.check();
+
         // reset the node operations to their original ones if they get changed
         finalMergedDocument.originalNodeOperation.forEach(
                 (k, v) -> {
@@ -472,6 +488,8 @@ public class ManifestMerger2 {
             extractFqcns(namespace, finalMergedDocument.getRootNode());
         }
 
+        mProcessCancellationChecker.check();
+
         // handle optional features which don't need access to XmlDocument layer.
         processOptionalFeatures(finalMergedDocument.getXml(), mergingReportBuilder);
 
@@ -486,6 +504,8 @@ public class ManifestMerger2 {
 
         mergingReportBuilder.setMergedDocument(
                 MergingReport.MergedManifestKind.MERGED, prettyPrint(finalMergedDocument.getXml()));
+
+        mProcessCancellationChecker.check();
 
         // call blame after other optional features handled.
         if (!mOptionalFeatures.contains(Invoker.Feature.SKIP_BLAME)) {
@@ -1116,6 +1136,8 @@ public class ManifestMerger2 {
 
         builder.getActionRecorder().recordAddedNodeAction(xmlDocument.getRootNode(), false);
 
+        mProcessCancellationChecker.check();
+
         return new LoadedManifestInfo(manifestInfo, xmlDocument);
     }
 
@@ -1266,6 +1288,8 @@ public class ManifestMerger2 {
             LoadedManifestInfo info = new LoadedManifestInfo(manifestInfo, libraryDocument);
 
             loadedLibraryDocuments.add(info);
+
+            mProcessCancellationChecker.check();
         }
 
         return loadedLibraryDocuments.build();
@@ -1464,6 +1488,15 @@ public class ManifestMerger2 {
         }
     }
 
+    public interface ProcessCancellationChecker {
+        /**
+         * @throws com.intellij.openapi.progress.ProcessCanceledException if the progress indicator
+         * associated with the current thread has been canceled.
+         * @see com.intellij.openapi.progress.ProgressManager#checkCanceled()
+         */
+        void check();
+    }
+
     private void checkExportedDeclaration(
             XmlDocument finalMergedDocument, MergingReport.Builder mergingReportBuilder) {
         String targetSdkVersion = finalMergedDocument.getTargetSdkVersion(mergingReportBuilder);
@@ -1581,6 +1614,9 @@ public class ManifestMerger2 {
 
         @Nullable
         private FileStreamProvider mFileStreamProvider;
+
+        @Nullable
+        private ProcessCancellationChecker mProcessCancellationChecker;
 
         @NonNull private String mFeatureName;
 
@@ -1913,6 +1949,13 @@ public class ManifestMerger2 {
             return this;
         }
 
+        @NonNull
+        public Invoker withProcessCancellationChecker(@NonNull ProcessCancellationChecker checker) {
+            assert mProcessCancellationChecker == null;
+            mProcessCancellationChecker = checker;
+            return this;
+        }
+
         /** Regular expression defining legal feature split name. */
         private static final Pattern FEATURE_NAME_PATTERN =
                 Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9_]*");
@@ -2043,6 +2086,8 @@ public class ManifestMerger2 {
 
             FileStreamProvider fileStreamProvider = mFileStreamProvider != null
                     ? mFileStreamProvider : new FileStreamProvider();
+            ProcessCancellationChecker processCancellationChecker =
+                    mProcessCancellationChecker != null ? mProcessCancellationChecker : () -> {};
             addAllowedNonUniqueNamespace("androidx.test"); // TODO(b/151171905)
             ManifestMerger2 manifestMerger =
                     new ManifestMerger2(
@@ -2059,6 +2104,7 @@ public class ManifestMerger2 {
                             mFeatureName,
                             mNamespace,
                             fileStreamProvider,
+                            processCancellationChecker,
                             mNavigationFilesBuilder.build(),
                             mNavigationJsonsBuilder.build(),
                             mDependencyFetureNamesBuilder.build(),

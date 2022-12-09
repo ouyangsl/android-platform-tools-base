@@ -59,8 +59,7 @@ public class LiveEditRecomposeTest extends LiveEditTestBase {
                         .setGroupId(1111)
                         .build();
 
-        installer.update(request);
-        Deploy.AgentLiveEditResponse response = installer.getLiveEditResponse();
+        Deploy.AgentLiveEditResponse response = sendUpdateRequest(request);
         Assert.assertEquals(Deploy.AgentLiveEditResponse.Status.OK, response.getStatus());
 
         // First time we Live Edit LiveEditRecomposeKt. The class get primed and we trigger
@@ -85,10 +84,7 @@ public class LiveEditRecomposeTest extends LiveEditTestBase {
                         .setGroupId(1111)
                         .build();
 
-        installer = new LiveEditClient(android, dexLocation);
-        installer.startServer();
-        installer.update(request);
-        response = installer.getLiveEditResponse();
+        response = sendUpdateRequest(request);
         Assert.assertEquals(Deploy.AgentLiveEditResponse.Status.OK, response.getStatus());
 
         // We don't need to call anything. LiveEditRecompose should be triggered automatically

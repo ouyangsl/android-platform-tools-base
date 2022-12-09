@@ -21,16 +21,16 @@ abstract class Packet {
 
     private static final int PACKET_REPLY_FLAG = 0x80;
 
-    private final long time;
+    private final long time_ns;
     private final long length;
     private final int id;
 
     @NonNull private final Message message;
 
-    Packet(int id, long length, long time, @NonNull Message message) {
+    Packet(int id, long length, long time_ns, @NonNull Message message) {
         this.id = id;
         this.length = length;
-        this.time = time;
+        this.time_ns = time_ns;
         this.message = message;
     }
 
@@ -44,8 +44,8 @@ abstract class Packet {
         return length;
     }
 
-    long time() {
-        return time;
+    long time_ns() {
+        return time_ns;
     }
 
     static boolean isReply(byte flags) {
