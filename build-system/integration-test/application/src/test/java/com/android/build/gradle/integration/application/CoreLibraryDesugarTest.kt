@@ -555,7 +555,10 @@ class CoreLibraryDesugarTest {
         val apkFile = app.getBundle(GradleTestProject.ApkType.RELEASE).file.toFile()
         val zip = ZipFile(apkFile)
         val entry = zip.entries().asSequence()
-            .first { it.name == "BUNDLE-METADATA/com.android.tools.build.profiles/baseline.prof" }
+            .first {
+                it.name == "BUNDLE-METADATA/com.android.tools.build.profiles/baseline.prof" ||
+                        it.name == "BUNDLE-METADATA/assets.dexopt/baseline.prof"
+            }
         zip.getInputStream(entry)
         val profile = ArtProfile(zip.getInputStream(entry))
         Truth.assertThat(profile!!.profileData.keys.map { it.name })
