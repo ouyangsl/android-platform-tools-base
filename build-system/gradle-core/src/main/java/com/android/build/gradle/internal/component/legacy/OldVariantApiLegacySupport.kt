@@ -18,6 +18,7 @@ package com.android.build.gradle.internal.component.legacy
 
 import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.ProductFlavor
+import com.android.build.api.variant.impl.VariantOutputList
 import com.android.build.gradle.api.JavaCompileOptions
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.core.MergedFlavor
@@ -36,6 +37,7 @@ interface OldVariantApiLegacySupport {
     val variantData: BaseVariantData
     val dslSigningConfig: com.android.build.gradle.internal.dsl.SigningConfig?
     val variantSources: VariantSources
+    val outputs: VariantOutputList
 
     fun getJavaClasspathArtifacts(
         configType: AndroidArtifacts.ConsumedConfigType,
@@ -49,4 +51,20 @@ interface OldVariantApiLegacySupport {
     fun getAllRawAndroidResources(component: ComponentCreationConfig): FileCollection
 
     fun handleMissingDimensionStrategy(dimension: String, alternatedValues: List<String>)
+
+    /**
+     * Notification that the old variant API ran successfully.
+     */
+    fun oldVariantApiCompleted()
+
+    /**
+     * Registers an action to run once the old variant API has completed.
+     * The action will run in an undetermined thread.
+     *
+     * Note that if the variant API has already completed, the action will run
+     * immediately in the calling thread.
+     *
+     * @param action lambda to run once old variant API completed.
+     */
+    fun registerPostOldVariantApiAction(action: () -> Unit)
 }

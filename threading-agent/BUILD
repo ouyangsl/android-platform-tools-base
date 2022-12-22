@@ -1,5 +1,6 @@
 load("//tools/base/bazel:bazel.bzl", "iml_module")
 load("//tools/base/bazel:coverage.bzl", "coverage_java_test")
+load("//tools/base/bazel:kotlin.bzl", "kotlin_library")
 load("//tools/base/bazel:utils.bzl", "java_jarjar")
 
 java_binary(
@@ -9,6 +10,7 @@ java_binary(
     ]),
     deploy_manifest_lines = [
         "Premain-Class: com.android.tools.instrumentation.threading.agent.Agent",
+        "Agent-Class: com.android.tools.instrumentation.threading.agent.Agent",
         "Boot-Class-Path: threading_agent.jar",
     ],
     main_class = "com.android.tools.instrumentation.threading.agent.Agent",
@@ -20,6 +22,14 @@ java_binary(
     ],
 )
 
+kotlin_library(
+    name = "sample_kotlin_classes",
+    srcs = glob(["testSrc/**/SampleClassesKotlin.kt"]),
+    deps = [
+        "//tools/base/annotations",
+    ],
+)
+
 coverage_java_test(
     name = "agent_tests",
     srcs = glob(["testSrc/**/*.java"]),
@@ -27,6 +37,7 @@ coverage_java_test(
     test_class = "com.android.testutils.JarTestSuite",
     deps = [
         ":agent_binary",
+        ":sample_kotlin_classes",
         "//tools/base/annotations",
         "//tools/base/testutils:tools.testutils",
         "//tools/base/threading-agent-callback:agent_callback",

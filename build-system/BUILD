@@ -30,9 +30,10 @@ maven_library(
         "manifest-merger/src/main/java/**/*.kt",
         "manifest-merger/src/main/java/**/*.java",
     ]),
-    coordinates = "com.android.tools.build:manifest-merger:" + BASE_VERSION,
+    coordinates = "com.android.tools.build:manifest-merger",
     notice = "manifest-merger/NOTICE",
     resource_strip_prefix = "tools/base/build-system/manifest-merger",
+    version = BASE_VERSION,
     visibility = ["//visibility:public"],
     deps = [
         "//tools/base/common:tools.common",
@@ -83,9 +84,10 @@ maven_library(
     bundled_deps = [
         "//tools/apksig:apksig-all",
     ],
-    coordinates = "com.android.tools.build:apksig:" + BUILD_VERSION,
+    coordinates = "com.android.tools.build:apksig",
     description = "Library for signing APKs and for checking that APK signatures verify on Android",
     notice = "//tools/apksig:LICENSE",
+    version = BUILD_VERSION,
     visibility = ["//visibility:public"],
 )
 
@@ -101,7 +103,7 @@ filegroup(
 filegroup(
     name = "gradle-distrib-7.5",
     srcs = ["//tools/external/gradle:gradle-distrib-7.5"],
-    visibility = ["//tools/adt/idea/old-agp-tests:__pkg__"],
+    visibility = ["//visibility:public"],
 )
 
 filegroup(
@@ -201,13 +203,13 @@ java_import(
 # Latest Kotlin Gradle plugin dependencies
 # DO NOT MIX different versions in this list
 KGP_LATEST = [
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.7.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.7.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.7.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.7.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.7.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.7.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.7.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.8.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.8.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.8.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.8.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.8.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.0-Beta",
 ]
 
 # Kotlin Gradle plugin dependencies for projects using Compose (these are typically used when the

@@ -34,11 +34,11 @@ import com.android.tools.lint.detector.api.ExtensionSdk.Companion.ANDROID_SDK_ID
 import com.android.tools.lint.detector.api.VersionChecks.SdkIntAnnotation.Companion.findSdkIntAnnotation
 import com.android.utils.SdkUtils
 import com.google.common.annotations.VisibleForTesting
-import com.intellij.codeInsight.AnnotationUtil
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiAnnotation
 import com.intellij.psi.PsiCompiledElement
 import com.intellij.psi.PsiField
+import com.intellij.psi.PsiLocalVariable
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
 import com.intellij.psi.PsiModifierListOwner
@@ -511,9 +511,7 @@ class VersionChecks(
         private fun findChecksSdkAnnotation(
             owner: PsiModifierListOwner,
         ): SdkIntAnnotation? {
-            val annotation = AnnotationUtil.findAnnotation(
-                owner, true, CHECKS_SDK_INT_AT_LEAST_ANNOTATION
-            ) ?: return null
+            val annotation = owner.getAnnotation(CHECKS_SDK_INT_AT_LEAST_ANNOTATION) ?: return null
             return SdkIntAnnotation(annotation)
         }
 
@@ -1172,6 +1170,18 @@ class VersionChecks(
                 if (validFromAnnotation != null) {
                     return validFromAnnotation
                 }
+            } else if (resolved is PsiLocalVariable) {
+                // Technically we should only use the initializer if the variable is final,
+                // but it's possible/likely people don't bother with this for local
+                // variables, and it's unlikely that an unconditional SDK_INT constraint
+                // would be changed.
+                val initializer = UastFacade.getInitializerBody(resolved)?.skipParenthesizedExprDown()
+                if (initializer != null) {
+                    val constraint = getVersionCheckConstraint(element = initializer)
+                    if (constraint != null) {
+                        return constraint
+                    }
+                }
             } else if (resolved is PsiMethod &&
                 element is UQualifiedReferenceExpression &&
                 element.selector is UCallExpression
@@ -1647,9 +1657,7 @@ class VersionChecks(
              * given method or field.
              */
             fun get(owner: PsiModifierListOwner): SdkIntAnnotation? {
-                val annotation = AnnotationUtil.findAnnotation(
-                    owner, true, CHECKS_SDK_INT_AT_LEAST_ANNOTATION
-                ) ?: return null
+                val annotation = owner.getAnnotation(CHECKS_SDK_INT_AT_LEAST_ANNOTATION) ?: return null
                 return SdkIntAnnotation(annotation)
             }
 

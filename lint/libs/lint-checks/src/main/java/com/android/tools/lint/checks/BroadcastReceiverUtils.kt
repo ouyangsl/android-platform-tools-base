@@ -19,7 +19,6 @@ import com.android.tools.lint.detector.api.ConstantEvaluator
 import com.android.tools.lint.detector.api.UastLintUtils.Companion.findLastAssignment
 import com.android.tools.lint.detector.api.getMethodName
 import com.android.tools.lint.detector.api.isReturningContext
-import com.google.common.annotations.VisibleForTesting
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiVariable
 import org.jetbrains.uast.UCallExpression
@@ -121,7 +120,7 @@ object BroadcastReceiverUtils {
                 // We've reached the registerReceiver*() call in question.
                 call == functionCall -> finished = true
                 // The filter 'intentFilterEscapesScope' to a method which could modify it.
-                getMethodName(call)!! !in APPLICABLE_METHOD_NAMES ->
+                getMethodName(call)!! !in BROADCAST_RECEIVER_METHOD_NAMES ->
                     intentFilterEscapesScope = true
             }
         }
@@ -137,7 +136,7 @@ object BroadcastReceiverUtils {
         }
     }
 
-    val APPLICABLE_METHOD_NAMES = listOf(
+    val BROADCAST_RECEIVER_METHOD_NAMES = listOf(
         "registerReceiver",
         "registerReceiverAsUser",
         "registerReceiverForAllUsers"

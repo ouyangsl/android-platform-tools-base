@@ -18,16 +18,10 @@ package com.android.build.api.component.impl
 
 import com.android.build.api.artifact.impl.ArtifactsImpl
 import com.android.build.api.component.UnitTest
-import com.android.build.api.component.analytics.AnalyticsEnabledUnitTest
 import com.android.build.api.component.impl.features.AndroidResourcesCreationConfigImpl
 import com.android.build.api.component.impl.features.ManifestPlaceholdersCreationConfigImpl
-import com.android.build.api.dsl.CommonExtension
-import com.android.build.api.extension.impl.VariantApiOperationsRegistrar
 import com.android.build.api.variant.AndroidVersion
-import com.android.build.api.variant.Component
 import com.android.build.api.variant.ComponentIdentity
-import com.android.build.api.variant.Variant
-import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.internal.component.UnitTestCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.component.features.AndroidResourcesCreationConfig
@@ -39,13 +33,11 @@ import com.android.build.gradle.internal.core.dsl.impl.DEFAULT_TEST_RUNNER
 import com.android.build.gradle.internal.dependency.VariantDependencies
 import com.android.build.gradle.internal.scope.BuildFeatureValues
 import com.android.build.gradle.internal.scope.MutableTaskContainer
-import com.android.build.gradle.internal.services.ProjectServices
 import com.android.build.gradle.internal.services.TaskCreationServices
 import com.android.build.gradle.internal.services.VariantServices
 import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfig
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.internal.variant.VariantPathHelper
-import com.google.wireless.android.sdk.stats.GradleBuildVariant
 import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Provider
 import javax.inject.Inject
@@ -91,14 +83,15 @@ open class UnitTestImpl @Inject constructor(
     override val minSdkVersion: AndroidVersion
         get() = mainVariant.minSdkVersion
 
-    override val targetSdkVersion: AndroidVersion
-        get() = mainVariant.targetSdkVersion
-
     override val applicationId: Provider<String> =
         internalServices.providerOf(String::class.java, dslInfo.applicationId)
 
-    override val targetSdkVersionOverride: AndroidVersion?
-        get() = mainVariant.targetSdkVersionOverride
+    /**
+     * In unit tests, we don't produce an apk. However, we still need to set the target sdk version
+     * in the test manifest as robolectric depends on it.
+     */
+    override val targetSdkVersion: AndroidVersion
+        get() = getMainTargetSdkVersion()
 
     /**
      * Return the default runner as with unit tests, there is no dexing. However aapt2 requires
@@ -143,21 +136,6 @@ open class UnitTestImpl @Inject constructor(
             internalServices
         )
     }
-
-    override fun <T : Component> createUserVisibleVariantObject(
-            projectServices: ProjectServices,
-            operationsRegistrar: VariantApiOperationsRegistrar<out CommonExtension<*, *, *, *>, out VariantBuilder, out Variant>,
-            stats: GradleBuildVariant.Builder?
-    ): T =
-        if (stats == null) {
-             this as T
-        } else {
-            projectServices.objectFactory.newInstance(
-                AnalyticsEnabledUnitTest::class.java,
-                this,
-                stats
-            ) as T
-        }
 
     /**
      * There is no build config fields for unit tests.

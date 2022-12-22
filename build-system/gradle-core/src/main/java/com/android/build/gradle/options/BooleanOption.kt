@@ -70,6 +70,7 @@ enum class BooleanOption(
     ENABLE_STABLE_IDS(PROPERTY_BUILD_WITH_STABLE_IDS, false, ApiStage.Stable),
 
     // Features' default values
+    BUILD_FEATURE_BUILDCONFIG("android.defaults.buildfeatures.buildconfig", false, ApiStage.Stable),
     BUILD_FEATURE_DATABINDING("android.defaults.buildfeatures.databinding", false, ApiStage.Stable),
     BUILD_FEATURE_RESVALUES("android.defaults.buildfeatures.resvalues", true, ApiStage.Stable),
     BUILD_FEATURE_SHADERS("android.defaults.buildfeatures.shaders", true, ApiStage.Stable),
@@ -216,14 +217,6 @@ enum class BooleanOption(
 
     ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM("android.experimental.androidTest.useUnifiedTestPlatform", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
-    ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE(
-        "android.bundle.enableUncompressedNativeLibs",
-        true,
-        FeatureStage.SoftlyEnforced(
-            DeprecationReporter.DeprecationTarget.ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE
-        )
-    ),
-
     COMPILE_CLASSPATH_LIBRARY_R_CLASSES("android.useCompileClasspathLibraryRClasses", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
 
     ENABLE_DEXING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
@@ -237,12 +230,6 @@ enum class BooleanOption(
 
     BUILD_FEATURE_AIDL(
         "android.defaults.buildfeatures.aidl",
-        false,
-        ApiStage.Deprecated(VERSION_9_0)
-    ),
-
-    BUILD_FEATURE_BUILDCONFIG(
-        "android.defaults.buildfeatures.buildconfig",
         false,
         ApiStage.Deprecated(VERSION_9_0)
     ),
@@ -555,6 +542,12 @@ enum class BooleanOption(
             "android.enableRTxtResourceShrinking",
             true,
             FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
+
+    ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE(
+        "android.bundle.enableUncompressedNativeLibs",
+        true,
+        FeatureStage.Enforced(Version.VERSION_8_0)
     ),
 
     /* ----------------

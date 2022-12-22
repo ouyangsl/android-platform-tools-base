@@ -153,6 +153,7 @@ import java.net.URL
 import java.net.URLConnection
 import java.util.ArrayDeque
 import java.util.Arrays
+import java.util.Collections.emptyIterator
 import java.util.Deque
 import java.util.EnumMap
 import java.util.EnumSet
@@ -458,21 +459,25 @@ class LintDriver(
      */
     fun analyzeOnly() {
         mode = DriverMode.ANALYSIS_ONLY
+        // Partial analysis only looks at a single project, not multiple projects
+        // with source dependencies
+        assert(projectRoots.size == 1)
+        val project = projectRoots.first()
 
-        doAnalyze(
-            analysis = {
-                // Partial analysis only looks at a single project, not multiple projects
-                // with source dependencies
-                assert(projectRoots.size == 1)
-                val project = projectRoots.first()
-                try {
-                    checkProjectRoot(project)
-                } finally {
-                    client.storeState(project)
-                }
-            },
-            partial = true
-        )
+        try {
+            doAnalyze(
+                analysis = {
+                    try {
+                        checkProjectRoot(project)
+                    } catch (throwable: Throwable) {
+                        handleDetectorError(null, this, throwable)
+                    }
+                },
+                partial = true
+            )
+        } finally {
+            client.storeState(project)
+        }
     }
 
     /**
@@ -1651,7 +1656,7 @@ class LintDriver(
         }
 
         val classFolders = project.javaClassFolders
-        val classEntries: List<ClassEntry> = if (classFolders.isEmpty()) {
+        val classEntries: Iterator<ClassEntry> = if (classFolders.isEmpty()) {
             // This should be a lint error only if there are source files
             val hasSourceFiles: Boolean = project.javaSourceFolders.any { folder -> folder.walk().any { it.isFile } }
             if (hasSourceFiles) {
@@ -1666,17 +1671,17 @@ class LintDriver(
                     project = project, mainProject = main, driver = this
                 )
             }
-            emptyList()
+            emptyIterator()
         } else {
-            ClassEntry.fromClassPath(client, classFolders)
+            ClassEntry.fromLazyClassPath(client, classFolders)
         }
 
         // Actually run the detectors. Libraries should be called before the main classes.
 
         val libraryDetectors = scopeDetectors[Scope.JAVA_LIBRARIES]
-        if (libraryDetectors != null && libraryDetectors.isNotEmpty()) {
+        if (!libraryDetectors.isNullOrEmpty()) {
             val libraries = project.getJavaLibraries(false)
-            val libraryEntries = ClassEntry.fromClassPath(client, libraries)
+            val libraryEntries = ClassEntry.fromLazyClassPath(client, libraries)
             runClassDetectors(libraryDetectors, libraryEntries, project, main, fromLibrary = true)
         }
 
@@ -1684,7 +1689,7 @@ class LintDriver(
             scopeDetectors[Scope.CLASS_FILE],
             scopeDetectors[Scope.ALL_CLASS_FILES]
         )
-        if (classDetectors != null && classDetectors.isNotEmpty()) {
+        if (!classDetectors.isNullOrEmpty()) {
             runClassDetectors(classDetectors, classEntries, project, main, fromLibrary = false)
         }
     }
@@ -1706,10 +1711,10 @@ class LintDriver(
         }
 
         val classDetectors = scopeDetectors[Scope.CLASS_FILE]
-        if (classDetectors != null && classDetectors.isNotEmpty()) {
+        if (!classDetectors.isNullOrEmpty()) {
             val entries = ClassEntry.fromClassFiles(client, classFiles, classFolders)
             if (entries.isNotEmpty()) {
-                runClassDetectors(classDetectors, entries, project, main, fromLibrary = false)
+                runClassDetectors(classDetectors, entries.iterator(), project, main, fromLibrary = false)
             }
         }
     }
@@ -1723,12 +1728,12 @@ class LintDriver(
 
     private fun runClassDetectors(
         classDetectors: List<Detector>,
-        entries: List<ClassEntry>,
+        entries: Iterator<ClassEntry>,
         project: Project,
         main: Project?,
         fromLibrary: Boolean
     ) {
-        if (classDetectors.isEmpty() || entries.isEmpty()) {
+        if (classDetectors.isEmpty() || !entries.hasNext()) {
             return
         }
 
@@ -1736,9 +1741,10 @@ class LintDriver(
 
         var sourceContents: CharSequence? = null
         var sourceName = ""
-        outerClasses = ArrayDeque<ClassNode>()
+        outerClasses = ArrayDeque()
         var prev: ClassEntry? = null
-        for (entry in entries) {
+        while (entries.hasNext()) {
+            val entry = entries.next()
             if (prev != null && prev.compareTo(entry) == 0) {
                 // Duplicate entries for some reason: ignore
                 continue

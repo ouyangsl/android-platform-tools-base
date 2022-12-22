@@ -16,7 +16,6 @@
 package com.android.adblib.tools.debugging.impl
 
 import com.android.adblib.AdbDeviceServices
-import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
 import com.android.adblib.ProcessIdList
 import com.android.adblib.emptyProcessIdList
@@ -28,6 +27,7 @@ import com.android.adblib.tools.debugging.JdwpProcessTracker
 import com.android.adblib.tools.debugging.ProcessMap
 import com.android.adblib.tools.debugging.rethrowCancellation
 import com.android.adblib.utils.createChildScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,23 +39,30 @@ import java.io.EOFException
 import java.time.Duration
 
 internal class JdwpProcessTrackerImpl(
-  private val session: AdbSession,
   override val device: ConnectedDevice
 ): JdwpProcessTracker {
+
+    private val session
+        get() = device.session
 
     private val logger = thisLogger(session)
 
     private val processesMutableFlow = MutableStateFlow<List<JdwpProcess>>(emptyList())
 
-    override val scope = device.scope.createChildScope(isSupervisor = true)
-
-    override val processesFlow = processesMutableFlow.asStateFlow()
-
-    init {
+    private val trackProcessesJob: Job by lazy {
         scope.launch {
             trackProcesses()
         }
     }
+
+    override val scope = device.scope.createChildScope(isSupervisor = true)
+
+    override val processesFlow = processesMutableFlow.asStateFlow()
+        get() {
+            // Note: We rely on "lazy" to ensure the tracking coroutine is launched only once
+            trackProcessesJob
+            return field
+        }
 
     private suspend fun trackProcesses() {
         val processMap = ProcessMap<JdwpProcessImpl>()

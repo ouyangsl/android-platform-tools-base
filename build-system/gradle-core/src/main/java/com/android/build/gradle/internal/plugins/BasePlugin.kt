@@ -37,6 +37,7 @@ import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.SdkLocator.sdkTestDirectory
 import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.internal.VariantManager
+import com.android.build.gradle.internal.VariantTaskManager
 import com.android.build.gradle.internal.api.DefaultAndroidSourceSet
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestFixturesCreationConfig
@@ -328,7 +329,7 @@ abstract class BasePlugin<
         globalTaskCreationConfig: GlobalTaskCreationConfig,
         localConfig: TaskManagerConfig,
         extension: BaseExtension,
-    ): TaskManager<VariantBuilderT, CreationConfigT>
+    ): VariantTaskManager<VariantBuilderT, CreationConfigT>
 
     protected abstract fun getProjectType(): Int
 
@@ -724,6 +725,7 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
         val apiObjectFactory = ApiObjectFactory(extension, variantFactory, dslServices)
         for (variant in variants) {
             apiObjectFactory.create(variant.variant)
+            variant.variant.oldVariantApiLegacySupport?.oldVariantApiCompleted()
         }
 
         // lock the Properties of the variant API after the old API because

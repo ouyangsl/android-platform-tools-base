@@ -25,6 +25,7 @@ import org.objectweb.asm.Opcodes.ASM9
 import org.objectweb.asm.tree.ClassNode
 import java.io.File
 import java.io.IOException
+import java.util.Collections.emptyIterator
 import java.util.zip.ZipFile
 import kotlin.math.min
 
@@ -235,6 +236,48 @@ class ClassEntry(
                     }
                 }
             }
+        }
+
+        fun fromLazyClassPath(
+            client: LintClient,
+            classPath: List<File>
+        ): Iterator<ClassEntry> {
+            if (classPath.isEmpty()) {
+                return emptyIterator()
+            }
+
+            val lazySequence = sequence {
+                for (classPathEntry in classPath) {
+                    val path = classPathEntry.path
+                    if (path.endsWith(DOT_JAR) && classPathEntry.isFile) {
+                        // For .jar files we construct all [ClassEntry] objects
+                        // instead of lazily constructing each from .class files
+                        // to avoid having to keep around a [ZipFile] and incrementally
+                        // read from its stream; we want to make sure that the file
+                        // gets closed, and with the iterator contract there isn't
+                        // a good way to ensure that it's done.
+                        val zipClassEntries = fromClassPath(client, listOf(classPathEntry))
+                        yieldAll(zipClassEntries)
+                    } else if (classPathEntry.isDirectory) {
+                        val classFiles = ArrayList<File>(64)
+                        addClassFiles(classPathEntry, classFiles)
+                        classFiles.sort()
+                        for (classFile in classFiles) {
+                            try {
+                                val bytes = client.readBytes(classFile)
+                                val classEntry = ClassEntry(classFile, null, classPathEntry, bytes)
+                                yield(classEntry)
+                            } catch (e: IOException) {
+                                client.log(e, null)
+                            }
+                        }
+                    } else if (!path.endsWith(DOT_SRCJAR)) {
+                        client.log(null, "Ignoring class path entry %1\$s", classPathEntry)
+                    }
+                }
+            }
+
+            return lazySequence.asIterable().iterator()
         }
 
         /**
