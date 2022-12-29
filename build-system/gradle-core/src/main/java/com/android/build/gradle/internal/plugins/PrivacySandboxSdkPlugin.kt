@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.internal.plugins
 
+import com.android.Version
 import com.android.build.api.artifact.Artifact
 import com.android.build.api.artifact.impl.ArtifactsImpl
 import com.android.build.api.attributes.BuildTypeAttr
@@ -137,10 +138,8 @@ class PrivacySandboxSdkPlugin @Inject constructor(
         super.basePluginApply(project)
         if (!projectServices.projectOptions[BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT]) {
             throw GradleException(
-                    "Privacy Sandbox SDK support is experimental, and must be explicitly enabled.\n" +
-                            "To enable support, add\n" +
-                            "    ${BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT.propertyName}=true\n" +
-                            "to your project's gradle.properties file."
+                    "Privacy Sandbox SDKs are not supported in Android Gradle plugin 8.0.x.\n" +
+                    "To build privacy sandbox SDKs, please use Android Gradle plugin 8.1.0-alpha01 or later."
             )
         }
 
