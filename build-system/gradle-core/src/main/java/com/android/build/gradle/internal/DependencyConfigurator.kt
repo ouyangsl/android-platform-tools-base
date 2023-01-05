@@ -512,6 +512,8 @@ class DependencyConfigurator(
                         project.dependencies.create("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.10")
                 )
                 params.kotlinCompiler.from(kotlinCompiler)
+                params.requireServices.set(
+                        projectServices.projectOptions[BooleanOption.PRIVACY_SANDBOX_SDK_REQUIRE_SERVICES])
                 params.runtimeDependencies.from(project.configurations.detachedConfiguration(
                         project.dependencies.create("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1")
                 ))
@@ -785,7 +787,7 @@ class DependencyConfigurator(
             val services = allComponents.first().services
             if (projectOptions[BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM]) {
                 for (artifactConfiguration in getDexingArtifactConfigurations(
-                    allComponents
+                        allComponents
                 )) {
                     artifactConfiguration.registerTransform(
                         project.name,

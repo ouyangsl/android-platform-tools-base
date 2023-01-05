@@ -209,6 +209,8 @@ enum class BooleanOption(
     ),
 
     PRIVACY_SANDBOX_SDK_SUPPORT("android.experimental.privacysandboxsdk.enable", false, FeatureStage.Experimental),
+    PRIVACY_SANDBOX_SDK_REQUIRE_SERVICES(
+            "android.experimental.privacysandboxsdk.requireServices", true, FeatureStage.Experimental),
 
     PRINT_LINT_STACK_TRACE("android.lint.printStackTrace", false, FeatureStage.Experimental),
     /* ------------------------
@@ -222,7 +224,6 @@ enum class BooleanOption(
     ENABLE_DEXING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
     ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM("android.enableDexingArtifactTransform.desugaring", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
     ENABLE_DEXING_ARTIFACT_TRANSFORM_FOR_EXTERNAL_LIBS("android.enableDexingArtifactTransformForExternalLibs", true, FeatureStage.SoftlyEnforced(VERSION_8_0)),
-    ENABLE_GLOBAL_SYNTHETICS("android.enableGlobalSyntheticsGeneration", true, FeatureStage.SoftlyEnforced(VERSION_8_1)),
 
     /* -------------------
      * DEPRECATED FEATURES
@@ -547,7 +548,13 @@ enum class BooleanOption(
     ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE(
         "android.bundle.enableUncompressedNativeLibs",
         true,
-        FeatureStage.Enforced(Version.VERSION_8_0)
+        FeatureStage.Enforced(Version.VERSION_8_1)
+    ),
+
+    ENABLE_GLOBAL_SYNTHETICS(
+            "android.enableGlobalSyntheticsGeneration",
+            true,
+            FeatureStage.Enforced(Version.VERSION_8_1)
     ),
 
     /* ----------------

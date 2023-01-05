@@ -121,6 +121,10 @@ abstract class ProguardConfigurableTask(
     lateinit var libraryKeepRules: ArtifactCollection
         private set
 
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val libraryKeepRulesFileCollection: ConfigurableFileCollection
+
     @get:Input
     abstract val ignoredLibraryKeepRules: SetProperty<String>
 
@@ -281,7 +285,7 @@ abstract class ProguardConfigurableTask(
                 }
                 if (inputScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
                     it.from(creationConfig.artifacts.forScope(
-                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECTS
                     ).getFinalArtifacts(ScopedArtifact.CLASSES))
                 }
                 if (inputScopes.contains(InternalScope.FEATURES)) {
@@ -310,7 +314,7 @@ abstract class ProguardConfigurableTask(
                 }
                 if (inputScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
                     it.from(creationConfig.artifacts.forScope(
-                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECTS
                     ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
                 }
             }
@@ -318,7 +322,7 @@ abstract class ProguardConfigurableTask(
             referencedClasses = creationConfig.services.fileCollection().also {
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
                     it.from(creationConfig.artifacts.forScope(
-                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECTS
                     ).getFinalArtifacts(ScopedArtifact.CLASSES))
                 }
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.TESTED_CODE)) {
@@ -328,7 +332,7 @@ abstract class ProguardConfigurableTask(
                 }
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROVIDED_ONLY)) {
                     it.from(creationConfig.artifacts.forScope(
-                        InternalScopedArtifacts.InternalScope.PROVIDED
+                        InternalScopedArtifacts.InternalScope.COMPILE_ONLY
                     ).getFinalArtifacts(ScopedArtifact.CLASSES))
                 }
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.EXTERNAL_LIBRARIES)) {
@@ -340,7 +344,7 @@ abstract class ProguardConfigurableTask(
             referencedResources = creationConfig.services.fileCollection().also {
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.SUB_PROJECTS)) {
                     it.from(creationConfig.artifacts.forScope(
-                        InternalScopedArtifacts.InternalScope.SUB_PROJECT
+                        InternalScopedArtifacts.InternalScope.SUB_PROJECTS
                     ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
                 }
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.TESTED_CODE)) {
@@ -350,7 +354,7 @@ abstract class ProguardConfigurableTask(
                 }
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.PROVIDED_ONLY)) {
                     it.from(creationConfig.artifacts.forScope(
-                        InternalScopedArtifacts.InternalScope.PROVIDED
+                        InternalScopedArtifacts.InternalScope.COMPILE_ONLY
                     ).getFinalArtifacts(ScopedArtifact.JAVA_RES))
                 }
                 if (referencedScopes.contains(com.android.build.api.transform.QualifiedContent.Scope.EXTERNAL_LIBRARIES)) {
@@ -444,6 +448,7 @@ abstract class ProguardConfigurableTask(
                             ALL,
                             FILTERED_PROGUARD_RULES
                     )
+            task.libraryKeepRulesFileCollection.from(task.libraryKeepRules.artifactFiles)
             task.ignoredLibraryKeepRules.set(optimizationCreationConfig.ignoredLibraryKeepRules)
             task.ignoreAllLibraryKeepRules.set(optimizationCreationConfig.ignoreAllLibraryKeepRules)
 
@@ -455,7 +460,7 @@ abstract class ProguardConfigurableTask(
                     // All -dontwarn rules for test dependencies should go in here:
                     val configurationFiles = task.project.files(
                         optimizationCreationConfig.proguardFiles,
-                        task.libraryKeepRules.artifactFiles
+                        task.libraryKeepRulesFileCollection
                     )
                     task.configurationFiles.from(configurationFiles)
                 }
@@ -466,7 +471,7 @@ abstract class ProguardConfigurableTask(
                     // All -dontwarn rules for test dependen]cies should go in here:
                     val configurationFiles = task.project.files(
                         optimizationCreationConfig.proguardFiles,
-                        task.libraryKeepRules.artifactFiles
+                        task.libraryKeepRulesFileCollection
                     )
                     task.configurationFiles.from(configurationFiles)
                 }
@@ -515,7 +520,7 @@ abstract class ProguardConfigurableTask(
             val configurationFiles = task.project.files(
                 optimizationCreationConfig.proguardFiles,
                 aaptProguardFile,
-                task.libraryKeepRules.artifactFiles
+                task.libraryKeepRulesFileCollection
             )
 
             if (task.includeFeaturesInScopes.get()) {

@@ -98,7 +98,7 @@ message Event {
     // no specified group id.
     MEMORY_ALLOC_STATS = 411;
     // group_id: capture id (start timestamp)
-    MEMORY_NATIVE_SAMPLE_CAPTURE = 412;
+    MEMORY_TRACE = 412;
 
     // Energy Profiler Prefix = 500
     // no specified group id.
@@ -178,7 +178,10 @@ message Event {
 
     // Profiler Prefix = 100
     SessionData session = 101;
+    // Poulated when |kind| is |TRACE_STATUS|
     TraceStatusData trace_status = 102;
+    // Populated when |kind| is a non-status, trace-related event.
+    TraceData trace_data = 103;
 
     // Network Profiler Prefix = 200
     // Populated when |kind| is |NETWORK_SPEED|
@@ -196,7 +199,6 @@ message Event {
     CpuUsageData cpu_usage = 301;
     CpuThreadData cpu_thread = 302;
     CpuCoreConfigData cpu_core_config = 303;
-    CpuTraceData cpu_trace = 304;
 
     // Memory Profiler Prefix = 400
     MemoryUsageData memory_usage = 401;
@@ -210,7 +212,6 @@ message Event {
     MemoryAllocEventsData memory_alloc_events = 409;
     MemoryJniRefData memory_jni_ref_events = 410;
     MemoryAllocStatsData memory_alloc_Stats = 411;
-    MemoryNativeSampleData memory_native_sample = 412;
 
     // Energy Profiler Prefix = 500
     // Energy consumption calculated from CPU, network and location activities.

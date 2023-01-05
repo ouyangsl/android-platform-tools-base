@@ -17,6 +17,7 @@
 #define PERFD_MEMORY_COMMANDS_STOP_NATIVE_SAMPLE_H
 
 #include "daemon/daemon.h"
+#include "perfd/common/trace_manager.h"
 #include "perfd/memory/native_heap_manager.h"
 #include "proto/commands.pb.h"
 
@@ -24,23 +25,22 @@ namespace profiler {
 
 class StopNativeSample : public CommandT<StopNativeSample> {
  public:
-  StopNativeSample(const proto::Command& command,
-                   NativeHeapManager* heap_sampler)
-      : CommandT(command), heap_sampler_(heap_sampler) {}
+  StopNativeSample(const proto::Command& command, TraceManager* trace_manager)
+      : CommandT(command), trace_manager_(trace_manager) {}
 
   static Command* Create(const proto::Command& command,
-                         NativeHeapManager* heap_sampler) {
-    return new StopNativeSample(command, heap_sampler);
+                         TraceManager* trace_manager) {
+    return new StopNativeSample(command, trace_manager);
   }
 
   // Stops an ongoing heapprofd recording.  This generates two events.
   // 1) |TRACE_STATUS| indicating that the capture has stopped
-  // recording. 2) |MEMORY_NATIVE_SAMPLE_CAPTURE| with the capture id start time
+  // recording. 2) |MEMORY_TRACE| with the capture id start time
   // and end time for the ui.
   virtual grpc::Status ExecuteOn(Daemon* daemon) override;
 
  private:
-  NativeHeapManager* heap_sampler_;
+  TraceManager* trace_manager_;
 };
 
 }  // namespace profiler

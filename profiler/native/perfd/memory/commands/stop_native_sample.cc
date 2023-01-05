@@ -15,6 +15,7 @@
  */
 #include "stop_native_sample.h"
 
+#include "perfd/common/utils/trace_command_utils.h"
 #include "proto/memory_data.pb.h"
 #include "proto/trace.pb.h"
 
@@ -25,47 +26,93 @@ using profiler::proto::TraceStopStatus;
 using std::string;
 
 namespace profiler {
+// "cache/complete" is where the generic bytes rpc fetches contents
+constexpr char kCacheLocation[] = "cache/complete/";
 
 Status StopNativeSample::ExecuteOn(Daemon* daemon) {
-  auto& config = command().stop_native_sample();
+  auto& stop_command = command().stop_native_sample();
+  const std::string& app_name = stop_command.configuration().app_name();
   // Used as the group id for this recording's events.
   // The raw bytes will be available in the file cache via this id.
-  int64_t end_timestamp = daemon->clock()->GetCurrentTime();
-  string error_message;
-  bool sampling_stopped =
-      heap_sampler_->StopSample(config.start_time(), &error_message);
-
-  Event status_event;
-  status_event.set_pid(command().pid());
-  status_event.set_kind(Event::TRACE_STATUS);
-  status_event.set_command_id(command().command_id());
-  status_event.set_is_ended(true);
-  status_event.set_group_id(config.start_time());
-  status_event.set_timestamp(end_timestamp);
-  auto* status =
-      status_event.mutable_trace_status()->mutable_trace_stop_status();
-  if (sampling_stopped) {
-    status->set_status(TraceStopStatus::SUCCESS);
+  int64_t stop_timestamp;
+  bool stopped_from_api = stop_command.has_api_stop_metadata();
+  if (stopped_from_api) {
+    stop_timestamp = stop_command.api_stop_metadata().stop_timestamp();
   } else {
-    status->set_status(TraceStopStatus::OTHER_FAILURE);
-    status->set_error_message(error_message);
+    stop_timestamp = daemon->clock()->GetCurrentTime();
   }
+
+  const auto* ongoing = trace_manager_->GetOngoingCapture(app_name);
+  Event status_event =
+      PopulateTraceStatusEvent(command(), Event::MEMORY_TRACE, ongoing);
+  auto* stop_status =
+      status_event.mutable_trace_status()->mutable_trace_stop_status();
+
+  if (ongoing == nullptr) {
+    daemon->buffer()->Add(status_event);
+    return Status::OK;
+  }
+
+  int64_t trace_id = ongoing->trace_id;
+  TraceStopStatus status;
+  auto* capture = trace_manager_->StopCapture(
+      stop_timestamp, app_name, stop_command.need_trace_response(), &status);
+  stop_status->CopyFrom(status);
+
   daemon->buffer()->Add(status_event);
 
-  if (sampling_stopped) {
-    // Send trace file info.
-    Event end_event;
-    end_event.set_pid(command().pid());
-    end_event.set_kind(Event::MEMORY_NATIVE_SAMPLE_CAPTURE);
-    end_event.set_command_id(command().command_id());
-    end_event.set_group_id(config.start_time());
-    end_event.set_timestamp(end_timestamp);
-    end_event.set_is_ended(true);
-    auto* dump_info = end_event.mutable_memory_native_sample();
-    dump_info->set_start_time(config.start_time());
-    dump_info->set_end_time(end_timestamp);
-    daemon->buffer()->Add(end_event);
+  // Send CPU_TRACE event after the stopping has returned, successfully or not.
+  if (capture != nullptr) {
+    if (status.status() == TraceStopStatus::SUCCESS) {
+      std::string from_file_name;
+      if (stopped_from_api) {
+        // The trace file has been sent via SendBytes API before the command
+        // arrives.
+        from_file_name = CurrentProcess::dir();
+        from_file_name.append(kCacheLocation)
+            .append(stop_command.api_stop_metadata().trace_name());
+      } else {
+        // TODO b/133321803 save this move by having Daemon generate a path in
+        // the byte cache that traces can output contents to directly.
+        from_file_name = capture->configuration.temp_path();
+      }
+      std::ostringstream oss;
+      oss << CurrentProcess::dir() << kCacheLocation
+          << capture->start_timestamp;
+      std::string to_file_name = oss.str();
+      DiskFileSystem fs;
+      bool move_success = fs.MoveFile(from_file_name, to_file_name);
+      if (!move_success) {
+        capture->stop_status.set_status(TraceStopStatus::CANNOT_READ_FILE);
+        capture->stop_status.set_error_message(
+            "Failed to read trace from device");
+      }
+    }
+    Event trace_event =
+        PopulateTraceEvent(*capture, command(), Event::MEMORY_TRACE, true);
+    daemon->buffer()->Add(trace_event);
+  } else {
+    // When execution reaches here, a TRACE_STATUS event has been sent
+    // to signal the stopping has initiated. In case the ongoing recording
+    // cannot be found when StopProfiling() is called, we still a CPU_TRACE
+    // event to mark the end of the stopping.
+    status.set_error_message("No ongoing capture exists");
+    status.set_status(TraceStopStatus::NO_ONGOING_PROFILING);
+
+    Event trace_event;
+    trace_event.set_pid(command().pid());
+    trace_event.set_kind(Event::MEMORY_TRACE);
+    trace_event.set_group_id(capture->start_timestamp);
+    trace_event.set_is_ended(true);
+    trace_event.set_command_id(command().command_id());
+    trace_event.mutable_trace_data()
+        ->mutable_trace_ended()
+        ->mutable_trace_info()
+        ->mutable_stop_status()
+        ->CopyFrom(status);
+    daemon->buffer()->Add(trace_event);
   }
+
   return Status::OK;
 }
 

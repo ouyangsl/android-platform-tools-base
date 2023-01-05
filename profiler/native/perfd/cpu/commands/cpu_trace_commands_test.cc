@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "start_cpu_trace.h"
-#include "stop_cpu_trace.h"
+#include "start_trace.h"
+#include "stop_trace.h"
 
 #include <gtest/gtest.h>
 #include "daemon/event_writer.h"
@@ -130,11 +130,10 @@ class CpuTraceCommandsTest : public testing::Test {
 
 TEST_F(CpuTraceCommandsTest, CommandsGeneratesEvents) {
   proto::Command command;
-  command.set_type(proto::Command::START_CPU_TRACE);
-  auto* start = command.mutable_start_cpu_trace();
+  command.set_type(proto::Command::START_TRACE);
+  auto* start = command.mutable_start_trace();
   start->mutable_configuration()->CopyFrom(trace_config_);
-  StartCpuTrace::Create(command, trace_manager_.get(),
-                        SessionsManager::Instance())
+  StartTrace::Create(command, trace_manager_.get(), SessionsManager::Instance())
       ->ExecuteOn(daemon_.get());
 
   std::mutex mutex;
@@ -157,17 +156,17 @@ TEST_F(CpuTraceCommandsTest, CommandsGeneratesEvents) {
   EXPECT_TRUE(events_[1].trace_status().has_trace_start_status());
   EXPECT_EQ(events_[2].kind(), proto::Event::CPU_TRACE);
   EXPECT_FALSE(events_[2].is_ended());
-  EXPECT_TRUE(events_[2].has_cpu_trace());
-  EXPECT_TRUE(events_[2].cpu_trace().has_trace_started());
+  EXPECT_TRUE(events_[2].has_trace_data());
+  EXPECT_TRUE(events_[2].trace_data().has_trace_started());
   EXPECT_TRUE(MessageDifferencer::Equals(
       trace_config_,
-      events_[2].cpu_trace().trace_started().trace_info().configuration()));
+      events_[2].trace_data().trace_started().trace_info().configuration()));
 
   // Execute the end command
-  command.set_type(proto::Command::STOP_CPU_TRACE);
-  auto* stop = command.mutable_stop_cpu_trace();
+  command.set_type(proto::Command::STOP_TRACE);
+  auto* stop = command.mutable_stop_trace();
   stop->mutable_configuration()->CopyFrom(trace_config_);
-  StopCpuTrace::Create(command, trace_manager_.get())->ExecuteOn(daemon_.get());
+  StopTrace::Create(command, trace_manager_.get())->ExecuteOn(daemon_.get());
 
   {
     std::unique_lock<std::mutex> lock(mutex);
@@ -182,22 +181,21 @@ TEST_F(CpuTraceCommandsTest, CommandsGeneratesEvents) {
   EXPECT_TRUE(events_[3].trace_status().has_trace_stop_status());
   EXPECT_EQ(events_[4].kind(), proto::Event::CPU_TRACE);
   EXPECT_TRUE(events_[4].is_ended());
-  EXPECT_TRUE(events_[4].has_cpu_trace());
-  EXPECT_TRUE(events_[4].cpu_trace().has_trace_ended());
+  EXPECT_TRUE(events_[4].has_trace_data());
+  EXPECT_TRUE(events_[4].trace_data().has_trace_ended());
   EXPECT_TRUE(MessageDifferencer::Equals(
       trace_config_,
-      events_[4].cpu_trace().trace_ended().trace_info().configuration()));
+      events_[4].trace_data().trace_ended().trace_info().configuration()));
 }
 
 TEST_F(CpuTraceCommandsTest, FailToStartCapture) {
   proto::Command command;
-  command.set_type(proto::Command::START_CPU_TRACE);
-  auto* start = command.mutable_start_cpu_trace();
+  command.set_type(proto::Command::START_TRACE);
+  auto* start = command.mutable_start_trace();
   start->mutable_configuration()->CopyFrom(trace_config_);
   // Start trace will fail due to perfetto already running.
   perfetto_->SetPerfettoState(true);
-  StartCpuTrace::Create(command, trace_manager_.get(),
-                        SessionsManager::Instance())
+  StartTrace::Create(command, trace_manager_.get(), SessionsManager::Instance())
       ->ExecuteOn(daemon_.get());
 
   std::mutex mutex;

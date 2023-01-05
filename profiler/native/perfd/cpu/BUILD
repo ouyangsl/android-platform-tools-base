@@ -3,9 +3,8 @@ load("//tools/base/bazel:android.bzl", "ANDROID_COPTS")
 cc_library(
     name = "profiler_cpu",
     srcs = [
-        "commands/start_cpu_trace.cc",
-        "commands/stop_cpu_trace.cc",
-        "commands/trace_command_utils.cc",
+        "commands/start_trace.cc",
+        "commands/stop_trace.cc",
         "cpu_cache.cc",
         "cpu_collector.cc",
         "cpu_config.cc",
@@ -16,9 +15,8 @@ cc_library(
         "thread_parser.cc",
     ],
     hdrs = [
-        "commands/start_cpu_trace.h",
-        "commands/stop_cpu_trace.h",
-        "commands/trace_command_utils.h",
+        "commands/start_trace.h",
+        "commands/stop_trace.h",
         "cpu_cache.h",
         "cpu_collector.h",
         "cpu_config.h",
@@ -68,7 +66,7 @@ cc_test(
         "//tools/base/profiler/native/testdata:perfd/cpu",
     ],
     linkopts = [
-        "-ldl",  # Needed for dladdr referenced in TermincationService
+        "-ldl",  # Needed for dladdr referenced in TerminationService
     ],
     linkstatic = 1,
     tags = ["no_windows"],

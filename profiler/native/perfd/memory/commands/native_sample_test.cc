@@ -20,6 +20,7 @@
 #include <gtest/gtest.h>
 
 #include "daemon/event_writer.h"
+#include "perfd/common/atrace/fake_atrace.h"
 #include "perfd/common/perfetto/fake_perfetto.h"
 #include "perfd/common/perfetto/perfetto_manager.h"
 #include "perfd/memory/native_heap_manager.h"
@@ -27,6 +28,7 @@
 #include "utils/device_info_helper.h"
 #include "utils/fake_clock.h"
 #include "utils/fs/memory_file_system.h"
+#include "utils/termination_service.h"
 
 #include <condition_variable>
 #include <mutex>
@@ -47,9 +49,10 @@ class MockNativeHeapManager final : public NativeHeapManager {
                                  PerfettoManager& perfetto_manager)
       : NativeHeapManager(file_cache, perfetto_manager) {}
 
-  MOCK_CONST_METHOD3(StartSample, bool(int64_t ongoing_capture_id,
-                                       const proto::StartNativeSample& config,
-                                       std::string* error_message));
+  MOCK_CONST_METHOD3(StartSample,
+                     bool(int64_t ongoing_capture_id,
+                          const proto::StartNativeSample& start_command,
+                          std::string* error_message));
   MOCK_CONST_METHOD2(StopSample,
                      bool(int64_t capture_id, std::string* error_message));
 };
@@ -123,17 +126,30 @@ TEST_F(NativeSampleTest, CommandsGeneratesEvents) {
                        "/");
   std::mutex mutex;
   proto::Command command;
-  std::shared_ptr<FakePerfetto> perfetto(new FakePerfetto());
-  PerfettoManager perfetto_manager(perfetto);
-  MockNativeHeapManager heap_manager(&file_cache, perfetto_manager);
-  EXPECT_CALL(heap_manager, StartSample(_, _, _)).WillRepeatedly(Return(true));
-  EXPECT_CALL(heap_manager, StopSample(_, _)).WillRepeatedly(Return(true));
+  auto* termination_service = TerminationService::Instance();
+  profiler::proto::DaemonConfig::CpuConfig cpu_config;
+
+  TraceManager trace_manager{
+      &clock_,
+      cpu_config,
+      termination_service,
+      ActivityManager::Instance(),
+      std::unique_ptr<SimpleperfManager>(
+          new SimpleperfManager(std::unique_ptr<Simpleperf>(new Simpleperf()))),
+      std::unique_ptr<AtraceManager>(new AtraceManager(
+          std::unique_ptr<FileSystem>(new MemoryFileSystem()), &clock_, 50,
+          std::unique_ptr<Atrace>(new FakeAtrace(&clock_)))),
+      std::unique_ptr<PerfettoManager>(
+          new PerfettoManager(std::unique_ptr<Perfetto>(new FakePerfetto())))};
 
   // Execute the start command
   clock_.SetCurrentTime(10);
   command.set_type(proto::Command::START_NATIVE_HEAP_SAMPLE);
+  command.mutable_start_native_sample()
+      ->mutable_configuration()
+      ->mutable_perfetto_options();
   auto* manager = SessionsManager::Instance();
-  StartNativeSample::Create(command, &heap_manager, manager)
+  StartNativeSample::Create(command, &trace_manager, manager)
       ->ExecuteOn(daemon_.get());
   {
     std::unique_lock<std::mutex> lock(mutex);
@@ -142,25 +158,33 @@ TEST_F(NativeSampleTest, CommandsGeneratesEvents) {
     EXPECT_TRUE(cv_.wait_for(lock, std::chrono::milliseconds(1000),
                             [this] { return events_.size() == 3; }));
   }
-  // event 0 is the Session we can skip it.
-  EXPECT_EQ(events_[1].kind(), proto::Event::MEMORY_NATIVE_SAMPLE_CAPTURE);
-  EXPECT_TRUE(events_[1].has_memory_native_sample());
-  EXPECT_EQ(events_[1].memory_native_sample().start_time(), 10);
-  EXPECT_EQ(events_[1].memory_native_sample().end_time(), LLONG_MAX);
 
-  EXPECT_EQ(events_[2].kind(), proto::Event::TRACE_STATUS);
-  EXPECT_TRUE(events_[2].has_trace_status());
-  EXPECT_TRUE(events_[2].trace_status().has_trace_start_status());
-  EXPECT_EQ(events_[2].trace_status().trace_start_status().status(),
+  // event 0 is the Session we can skip it.
+  EXPECT_EQ(events_[1].kind(), proto::Event::TRACE_STATUS);
+  EXPECT_TRUE(events_[1].has_trace_status());
+  EXPECT_TRUE(events_[1].trace_status().has_trace_start_status());
+  EXPECT_EQ(events_[1].trace_status().trace_start_status().status(),
             TraceStartStatus::SUCCESS);
-  EXPECT_EQ(events_[2].trace_status().trace_start_status().start_time_ns(), 10);
-  EXPECT_EQ(events_[2].trace_status().trace_start_status().error_message(), "");
+  EXPECT_EQ(events_[1].trace_status().trace_start_status().start_time_ns(), 10);
+  EXPECT_EQ(events_[1].trace_status().trace_start_status().error_message(), "");
+
+  EXPECT_EQ(events_[2].kind(), proto::Event::MEMORY_TRACE);
+  EXPECT_TRUE(events_[2].has_trace_data());
+  EXPECT_TRUE(events_[2].trace_data().has_trace_started());
+  EXPECT_EQ(
+      events_[2].trace_data().trace_started().trace_info().from_timestamp(),
+      10);
+  EXPECT_EQ(events_[2].trace_data().trace_started().trace_info().to_timestamp(),
+            LLONG_MAX);
 
   // Execute the stop command
   clock_.SetCurrentTime(20);
   command.set_type(proto::Command::STOP_NATIVE_HEAP_SAMPLE);
-  command.mutable_stop_native_sample()->set_start_time(10);
-  StopNativeSample::Create(command, &heap_manager)->ExecuteOn(daemon_.get());
+  command.mutable_stop_native_sample()
+      ->mutable_configuration()
+      ->mutable_perfetto_options();
+
+  StopNativeSample::Create(command, &trace_manager)->ExecuteOn(daemon_.get());
   {
     std::unique_lock<std::mutex> lock(mutex);
     // Expect that we receive events before the timeout.
@@ -177,10 +201,13 @@ TEST_F(NativeSampleTest, CommandsGeneratesEvents) {
   EXPECT_EQ(events_[3].trace_status().trace_stop_status().error_message(), "");
   EXPECT_TRUE(events_[3].is_ended());
 
-  EXPECT_EQ(events_[4].kind(), proto::Event::MEMORY_NATIVE_SAMPLE_CAPTURE);
-  EXPECT_TRUE(events_[4].has_memory_native_sample());
-  EXPECT_EQ(events_[4].memory_native_sample().start_time(), 10);
-  EXPECT_EQ(events_[4].memory_native_sample().end_time(), 20);
+  EXPECT_EQ(events_[4].kind(), proto::Event::MEMORY_TRACE);
+  EXPECT_TRUE(events_[4].has_trace_data());
+  EXPECT_TRUE(events_[4].trace_data().has_trace_ended());
+  EXPECT_EQ(events_[4].trace_data().trace_ended().trace_info().from_timestamp(),
+            10);
+  EXPECT_EQ(events_[4].trace_data().trace_ended().trace_info().to_timestamp(),
+            20);
   EXPECT_TRUE(events_[4].is_ended());
 }
 

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "stop_cpu_trace.h"
+#include "stop_trace.h"
 
 #include <sstream>
 #include "perfd/common/capture_info.h"
-#include "perfd/cpu/commands/trace_command_utils.h"
+#include "perfd/common/utils/trace_command_utils.h"
 #include "proto/cpu.pb.h"
 #include "utils/fs/disk_file_system.h"
 #include "utils/process_manager.h"
@@ -34,32 +34,11 @@ namespace {
 // "cache/complete" is where the generic bytes rpc fetches contents
 constexpr char kCacheLocation[] = "cache/complete/";
 
-Event PopulateTraceStatusEvent(const profiler::proto::Command& command_data,
-                               const CaptureInfo* capture) {
-  Event status_event;
-  status_event.set_pid(command_data.pid());
-  status_event.set_kind(Event::TRACE_STATUS);
-  status_event.set_command_id(command_data.command_id());
-
-  auto* stop_status =
-      status_event.mutable_trace_status()->mutable_trace_stop_status();
-  if (capture == nullptr) {
-    stop_status->set_error_message("No ongoing capture exists");
-    stop_status->set_status(TraceStopStatus::NO_ONGOING_PROFILING);
-  } else {
-    status_event.set_group_id(capture->trace_id);
-    // This event is to acknowledgethe stop command. It doesn't have the full
-    // result. Since UNSPECIFIED is the default value, it is actually an no-op.
-    stop_status->set_status(TraceStopStatus::UNSPECIFIED);
-  }
-  return status_event;
-}
-
 // Helper function to stop the tracing. This function works in the async
-// environment because it doesn't require a |profiler::StopCpuTrace| object.
+// environment because it doesn't require a |profiler::StopTrace| object.
 void Stop(Daemon* daemon, const profiler::proto::Command command_data,
           TraceManager* trace_manager) {
-  auto& stop_command = command_data.stop_cpu_trace();
+  auto& stop_command = command_data.stop_trace();
   const std::string& app_name = stop_command.configuration().app_name();
 
   int64_t stop_timestamp;
@@ -72,7 +51,8 @@ void Stop(Daemon* daemon, const profiler::proto::Command command_data,
 
   // Send TRACE_STATUS event right away.
   const auto* ongoing = trace_manager->GetOngoingCapture(app_name);
-  Event status_event = PopulateTraceStatusEvent(command_data, ongoing);
+  Event status_event =
+      PopulateTraceStatusEvent(command_data, Event::CPU_TRACE, ongoing);
   daemon->buffer()->Add(status_event);
   if (ongoing == nullptr) return;
 
@@ -106,7 +86,8 @@ void Stop(Daemon* daemon, const profiler::proto::Command command_data,
             "Failed to read trace from device");
       }
     }
-    Event trace_event = PopulateCpuTraceEvent(*capture, command_data, true);
+    Event trace_event =
+        PopulateTraceEvent(*capture, command_data, Event::CPU_TRACE, true);
     daemon->buffer()->Add(trace_event);
   } else {
     // When execution reaches here, a TRACE_STATUS event has been sent
@@ -122,7 +103,7 @@ void Stop(Daemon* daemon, const profiler::proto::Command command_data,
     trace_event.set_group_id(trace_id);
     trace_event.set_is_ended(true);
     trace_event.set_command_id(command_data.command_id());
-    trace_event.mutable_cpu_trace()
+    trace_event.mutable_trace_data()
         ->mutable_trace_ended()
         ->mutable_trace_info()
         ->mutable_stop_status()
@@ -133,7 +114,7 @@ void Stop(Daemon* daemon, const profiler::proto::Command command_data,
 
 }  // namespace
 
-Status StopCpuTrace::ExecuteOn(Daemon* daemon) {
+Status StopTrace::ExecuteOn(Daemon* daemon) {
   // In order to make this command to return immediately, start a new
   // detached thread to stop CPU recording which which may take several seconds.
   // For example, we may need to wait for several seconds before the trace files
@@ -144,7 +125,7 @@ Status StopCpuTrace::ExecuteOn(Daemon* daemon) {
   profiler::proto::Command command_data = command();
   TraceManager* trace_manager = trace_manager_;
   std::thread worker([daemon, command_data, trace_manager]() {
-    SetThreadName("Studio:StopCpuTrace");
+    SetThreadName("Studio:StopTrace");
     Stop(daemon, command_data, trace_manager);
   });
   worker.detach();

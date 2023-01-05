@@ -17,13 +17,16 @@
 package com.android.tools.lint.detector.api
 
 import com.android.tools.lint.checks.infrastructure.TestFile
+import com.android.tools.lint.checks.infrastructure.TestFiles.bytecode
 import com.android.tools.lint.checks.infrastructure.TestFiles.java
 import com.android.tools.lint.checks.infrastructure.TestFiles.kotlin
 import com.android.tools.lint.checks.infrastructure.dos2unix
 import com.android.tools.lint.helpers.DefaultJavaEvaluator
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.util.Disposer
 import com.intellij.pom.java.LanguageLevel
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiRecursiveElementVisitor
 import com.intellij.psi.PsiTypeParameter
 import junit.framework.TestCase
@@ -32,9 +35,11 @@ import org.jetbrains.kotlin.asJava.unwrapped
 import org.jetbrains.kotlin.config.LanguageVersionSettings
 import org.jetbrains.kotlin.lexer.KtModifierKeywordToken
 import org.jetbrains.kotlin.lexer.KtTokens
+import org.jetbrains.kotlin.psi.KtCallExpression
 import org.jetbrains.kotlin.psi.KtConstructor
 import org.jetbrains.kotlin.psi.KtModifierListOwner
 import org.jetbrains.kotlin.psi.KtPropertyAccessor
+import org.jetbrains.kotlin.psi.KtSuperTypeCallEntry
 import org.jetbrains.kotlin.psi.KtTypeParameter
 import org.jetbrains.uast.UBinaryExpression
 import org.jetbrains.uast.UCallExpression
@@ -45,6 +50,7 @@ import org.jetbrains.uast.ULocalVariable
 import org.jetbrains.uast.UMethod
 import org.jetbrains.uast.UReferenceExpression
 import org.jetbrains.uast.UastCallKind
+import org.jetbrains.uast.kotlin.BaseKotlinUastResolveProviderService
 import org.jetbrains.uast.toUElement
 import org.jetbrains.uast.util.isAssignment
 import org.jetbrains.uast.visitor.AbstractUastVisitor
@@ -85,6 +91,173 @@ class UastTest : TestCase() {
         })
 
         Disposer.dispose(pair.second)
+    }
+
+    fun test263980844() {
+        val testFiles = arrayOf(
+            bytecode(
+                "libs/lib1.jar",
+                kotlin(
+                    "src/test/pkg/KotlinFoo.kt",
+                    """
+                    package test.pkg
+                    open class KotlinFoo {
+                        fun kotlinBar() {}
+                    }
+                    class SubKotlinFoo : KotlinFoo()
+                    """
+                ),
+                0xa46d4086,
+                """
+                META-INF/main.kotlin_module:
+                H4sIAAAAAAAA/2NgYGBmYGBgBGIOBijg4uJiEGILSS0u8S5RYtBiAAB9et6n
+                JAAAAA==
+                """,
+                """
+                test/pkg/KotlinFoo.class:
+                H4sIAAAAAAAA/2VQXU8aQRQ9dxYWXLAuaC1Q28Q3bdMuGp+sMakmJCjaRBte
+                eBpgQ4eP3YYZjI/8Fv+BT036YIiP/ijjncUQo5Psufecu+fOnfvw+P8OwB4+
+                E4om1Cb4O+gFp7EZqqgWxxkQwe/LKxkMZdQLfrX7Ycdk4BDcAxUpc0hwtrab
+                eaThekghQ0iZP0oT1hpv2/0gLA0SciTHhEJjToKz0MiuNJLrYnTl8EBkIWsB
+                BBqwfq0sq3LW3SF8m019T5SEJ/zZ1BNZm4jsemk23RVVOkrf37gsnLi+UxHV
+                lDXtkm2VX8zyfWB41uO4GxJWGioKzyejdjj+LdtDVoqNuCOHTTlWlj+L3mU8
+                GXfCmrKkfDGJjBqFTaUVV39GUWykUXGksQnBq7BH8JW8GcYys8C+hWP6yz9k
+                b5NyhdFNRAcfGfPzH7AEj2MBuYX5a7IK/l4bUy+M9GwU2EiwhE8c9+3Duely
+                C04d7+pYqcNHgVMU61jFWguk8R7rLaQ1PI0PGq5GjpMnUjk4fyACAAA=
+                """,
+                """
+                test/pkg/SubKotlinFoo.class:
+                H4sIAAAAAAAA/21Ry07CQBQ9t4WCtcpDUFDZqwsLxJ3GRE1IGqsLMWxYFWh0
+                UugYOjUu+Rb/wJWJC0Nc+lHG20qIiS7m5DxuZk7ufH69vQM4QoNQVX6k7Ifg
+                zu7Gg0upxiLsSJkDEcrL6JevE4wTEQp1StD39nsWsjBMZJAjZNS9iAhb7r93
+                HhNKbpAq+8pX3shTHnva5FHnMpRAPgEQKGD/SSSqyWzUIjTmM9PUalp65rPa
+                fNbWmnSe/Xg2tKKWDLUJFfdvZX7CWorDQHHNCznyCQVXhP51PBn401tvMGan
+                7MqhN+55U5HohWl2ZTwd+h2RiPpNHCox8XsiEpyehaFUnhIyjNCCxltY9E+W
+                wlhjZacayB68Iv/CREOd0UhNA9uM1s8AVmCm+U6KW9hNP4mwypnVh+5gzcG6
+                gwKKTFFyUMZGHxShgirnEcwImxGMb1x6FCzhAQAA
+                """
+            ),
+            kotlin(
+                """
+                import test.pkg.SubKotlinFoo
+
+                fun test(instance: SubKotlinFoo) {
+                    instance.kotlinBar()
+                }
+                """
+            )
+        )
+
+        check(
+            *testFiles
+        ) { file ->
+            file.accept(object : AbstractUastVisitor() {
+                override fun visitCallExpression(node: UCallExpression): Boolean {
+                    if (node.sourcePsi is KtSuperTypeCallEntry)
+                        return super.visitCallExpression(node)
+
+                    val bar = node.resolve()
+                    assertNotNull(bar)
+                    assertEquals("kotlinBar", bar!!.name)
+                    // TODO(kotlin-uast-cleanup): FIR UAST will point to KotlinFoo correctly
+                    assertEquals("SubKotlinFoo", bar.containingClass?.name)
+
+                    val service = ApplicationManager.getApplication().getService(BaseKotlinUastResolveProviderService::class.java)
+                    (node.sourcePsi as? KtCallExpression)?.let {
+                        val otherResolved = service?.resolveToDeclaration(it) as? PsiMethod
+                        assertNotNull(otherResolved)
+                        assertEquals("kotlinBar", otherResolved!!.name)
+                        assertEquals("KotlinFoo", otherResolved.containingClass?.name)
+                    }
+
+                    return super.visitCallExpression(node)
+                }
+            })
+        }
+    }
+
+    fun test257514416() {
+        val testFiles = arrayOf(
+            bytecode(
+                "libs/lib1.jar",
+                kotlin(
+                    "src/test/Dependency.kt",
+                    """
+                    package test
+
+                    object Dependency {
+                        fun foo() {}
+                        fun String.bar(): Int = this.length
+                    }
+                    """
+                ),
+                0xbd459443,
+                """
+                META-INF/main.kotlin_module:
+                H4sIAAAAAAAA/2NgYGBmYGBgBGIOBijg4uJiEGILSS0u8S5RYtBiAAB9et6n
+                JAAAAA==
+                """,
+                """
+                test/Dependency.class:
+                H4sIAAAAAAAA/21S227TQBA96yS266ZtWugdyqWB3qBOS7lIqYpKAeEqBESr
+                SqhPjrOkmzg2sjcRvPWJD+GZlwqJIpBQBW98FGLWiXoDWZ6Z3T1zZubs/v7z
+                7QeAFTxgGJA8lvZj/pYHVR547w0whlzdbbu27wY1+0Wlzj1pIMWgr4pAyDWG
+                1OzcThYZ6BbSMBjSck/EDIOlc1xFgr4JQ7IVN2IYni2d8G7JSAS14pzDMF0K
+                o5pd57ISuSKIbTcIQulKEVJcDmW55ftFVV1VWTMxwDDVCKUvArvebtoikDwK
+                XN92AkUZCy82MEjVvD3uNbr5L93IbXICMsyc7qIzXfE/fdGAF3DRwhCGz+jR
+                OTcwSh35PKjJvUQPJ4txTFgYwyRDT161mk+GHvqXm8Fc9fxESwuaEtB0ylvb
+                6+WNJ1lcg9VDm9eVnN0pn3PpVl3pUqLWbKfo5pgypjJgYA3afyfUqkBRdYnh
+                2dH+hKWNaZaWO9q3NFMFmqXCnEl/v/nrgzZ2tL+sFdgjw9R+ftTpfFPPpSa0
+                QnrTymXI6/NawVB8y0xV6Tu51sWGZJh81QqkaHInaItYVHy+fnJr9CI2wiqn
+                x1USAS+3mhUebbuEUXKEnuvvuJFQ6+5m/jzX8XWdIbW2wlbk8adC5Yx3c3b+
+                qY4l0i+dSDOu5CS/RCudfD/5NJ1mktUyrWwlIPnM/CHMAwo03OmCFXSFbLYD
+                QA9RAYPoPU5eSIrQfz4xcyqRHSdm0UcolfiQvEa+d2Eo9xUjC19w6dMZCp0+
+                RTHSgXUpVHQZU3R+l2KDdScyceW4pdEkgYDfob0+xNXPmD5INjTcS2wB98lv
+                EDxPbd7YRcrBTQczDmYxRyHmHZrr1i5YjNtY3IUZw4phx9Bj9CZBNrH2X1tj
+                1gpGBAAA
+                """
+            ),
+            kotlin(
+                """
+                import test.Dependency.foo
+                import test.Dependency.bar
+
+                fun test() {
+                    foo()
+                    "42".bar()
+                }
+                """
+            )
+        )
+
+        val names = setOf("foo", "bar")
+
+        check(
+            *testFiles
+        ) { file ->
+            file.accept(object : AbstractUastVisitor() {
+                override fun visitCallExpression(node: UCallExpression): Boolean {
+                    val resolved = node.resolve()
+                    assertNull(resolved)
+                    // TODO(kotlin-uast-cleanup): FIR UAST will successfully resolve it
+                    /*
+                    assertNotNull(resolved)
+                    assertTrue(resolved!!.name in names)
+                    assertEquals("Dependency", resolved.containingClass?.name)
+                     */
+
+                    val service = ApplicationManager.getApplication().getService(BaseKotlinUastResolveProviderService::class.java)
+                    (node.sourcePsi as? KtCallExpression)?.let {
+                        val otherResolved = service?.resolveToDeclaration(it) as? PsiMethod
+                        assertNotNull(otherResolved)
+                        assertTrue(otherResolved!!.name in names)
+                        assertEquals("Dependency", otherResolved.containingClass?.name)
+                    }
+
+                    return super.visitCallExpression(node)
+                }
+            })
+        }
     }
 
     fun test126439418() {

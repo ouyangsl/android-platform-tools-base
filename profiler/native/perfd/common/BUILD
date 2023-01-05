@@ -3,12 +3,17 @@ load("//tools/base/bazel:android.bzl", "ANDROID_COPTS", "select_android")
 cc_library(
     name = "trace_utils",
     srcs = [
+        "utils/trace_command_utils.cc",
         "utils/tracing_utils.cc",
     ],
     hdrs = [
+        "capture_info.h",
+        "utils/trace_command_utils.h",
         "utils/tracing_utils.h",
     ],
-    copts = ANDROID_COPTS,
+    copts = ANDROID_COPTS + [
+        "-Itools/base/profiler/native",
+    ],
     tags = ["no_windows"],
     visibility = ["//visibility:public"],
     deps = [
@@ -49,6 +54,7 @@ cc_library(
     hdrs = [
         "atrace/atrace.h",
         "atrace/atrace_manager.h",
+        "atrace/fake_atrace.h",
     ],
     copts = ANDROID_COPTS + [
         "-Itools/base/profiler/native",
@@ -168,7 +174,7 @@ cc_test(
         "-Itools/base/profiler/native",
     ],
     linkopts = [
-        "-ldl",  # Needed for dladdr referenced in TermincationService
+        "-ldl",  # Needed for dladdr referenced in TerminationService
     ],
     linkstatic = 1,
     tags = ["no_windows"],

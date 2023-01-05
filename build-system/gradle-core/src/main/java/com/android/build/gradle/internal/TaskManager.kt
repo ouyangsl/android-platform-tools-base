@@ -77,7 +77,6 @@ import com.android.build.gradle.internal.tasks.CheckDuplicateClassesTask
 import com.android.build.gradle.internal.tasks.CheckProguardFiles
 import com.android.build.gradle.internal.tasks.ClassesClasspathUtils
 import com.android.build.gradle.internal.tasks.D8BundleMainDexListTask
-import com.android.build.gradle.internal.tasks.DesugarLibKeepRulesMergeTask
 import com.android.build.gradle.internal.tasks.DeviceSerialTestTask
 import com.android.build.gradle.internal.tasks.DexArchiveBuilderTask
 import com.android.build.gradle.internal.tasks.DexFileDependenciesTask
@@ -212,7 +211,7 @@ abstract class TaskManager(
         if (!component.buildFeatures.androidResources) {
             return
         }
-        component.artifacts.forScope(InternalScopedArtifacts.InternalScope.PROVIDED)
+        component.artifacts.forScope(InternalScopedArtifacts.InternalScope.COMPILE_ONLY)
             .setInitialContent(
                 ScopedArtifact.CLASSES,
                 component.artifacts,
@@ -305,7 +304,7 @@ abstract class TaskManager(
         }
 
         // for the sub modules, new intermediary classes artifact has its own stream
-        creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECT)
+        creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECTS)
             .setInitialContent(
                 ScopedArtifact.CLASSES,
                 getFinalRuntimeClassesJarsFromComponent(
@@ -315,8 +314,8 @@ abstract class TaskManager(
             )
 
         // same for the java resources, if SUB_PROJECTS isn't in the set of java res merging scopes.
-        if (!javaResMergingScopes.contains(InternalScopedArtifacts.InternalScope.SUB_PROJECT)) {
-            creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECT)
+        if (!javaResMergingScopes.contains(InternalScopedArtifacts.InternalScope.SUB_PROJECTS)) {
+            creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECTS)
                 .setInitialContent(
                     ScopedArtifact.JAVA_RES,
                     creationConfig
@@ -346,7 +345,7 @@ abstract class TaskManager(
         }
 
         // provided only scopes.
-        creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.PROVIDED)
+        creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.COMPILE_ONLY)
             .setInitialContent(
                 ScopedArtifact.CLASSES,
                 creationConfig.providedOnlyClasspath
@@ -1064,7 +1063,7 @@ abstract class TaskManager(
                         .getFinalArtifacts(ScopedArtifact.CLASSES)
                 )
                 from(
-                    creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECT)
+                    creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECTS)
                         .getFinalArtifacts(ScopedArtifact.CLASSES)
                 )
                 from(
@@ -1082,7 +1081,7 @@ abstract class TaskManager(
             .initialScopedContent
             .run {
                 from(
-                    creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECT)
+                    creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.SUB_PROJECTS)
                         .getFinalArtifacts(ScopedArtifact.JAVA_RES)
                 )
                 from(
@@ -1118,7 +1117,7 @@ abstract class TaskManager(
         // the flow and don't set-up dexing.
         maybeCreateJavaCodeShrinkerTask(creationConfig)
         if (creationConfig.optimizationCreationConfig.minifiedEnabled) {
-            maybeCreateDesugarLibTask(creationConfig, false, false)
+            maybeCreateDesugarLibTask(creationConfig)
             return
         }
 
@@ -1182,11 +1181,7 @@ abstract class TaskManager(
             (creationConfig.dexingCreationConfig.java8LangSupportType == Java8LangSupport.D8
                     && enableDexingArtifactTransform)
 
-        maybeCreateDesugarLibTask(
-            creationConfig,
-            enableDexingArtifactTransform,
-            separateFileDependenciesDexingTask
-        )
+        maybeCreateDesugarLibTask(creationConfig)
 
         createDexMergingTasks(
             creationConfig,
@@ -1797,28 +1792,10 @@ abstract class TaskManager(
         }
     }
 
-    private fun maybeCreateDesugarLibTask(
-            apkCreationConfig: ApkCreationConfig,
-            enableDexingArtifactTransform: Boolean,
-            separateFileDependenciesDexingTask: Boolean
-    ) {
+    private fun maybeCreateDesugarLibTask(apkCreationConfig: ApkCreationConfig) {
         if (apkCreationConfig.dexingCreationConfig.shouldPackageDesugarLibDex) {
             taskFactory.register(
-                    L8DexDesugarLibTask.CreationAction(
-                            apkCreationConfig,
-                            enableDexingArtifactTransform,
-                            separateFileDependenciesDexingTask))
-        }
-
-        if(apkCreationConfig.componentType.isDynamicFeature
-            && apkCreationConfig.dexingCreationConfig.needsShrinkDesugarLibrary
-        ) {
-            taskFactory.register(
-                DesugarLibKeepRulesMergeTask.CreationAction(
-                    apkCreationConfig,
-                    enableDexingArtifactTransform,
-                    separateFileDependenciesDexingTask
-                )
+                L8DexDesugarLibTask.CreationAction(apkCreationConfig)
             )
         }
     }

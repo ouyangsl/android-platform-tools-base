@@ -13,31 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef PERFD_COMMANDS_STOP_CPU_TRACE_H
-#define PERFD_COMMANDS_STOP_CPU_TRACE_H
+#ifndef PERFD_CPU_COMMANDS_TRACE_COMMAND_UTILS_H_
+#define PERFD_CPU_COMMANDS_TRACE_COMMAND_UTILS_H_
 
-#include "daemon/daemon.h"
-#include "perfd/common/trace_manager.h"
+#include "perfd/common/capture_info.h"
 #include "proto/commands.pb.h"
+#include "proto/common.pb.h"
 
 namespace profiler {
 
-class StopCpuTrace : public CommandT<StopCpuTrace> {
- public:
-  StopCpuTrace(const proto::Command& command, TraceManager* trace_manager)
-      : CommandT(command), trace_manager_(trace_manager) {}
+profiler::proto::Event PopulateTraceEvent(
+    const CaptureInfo& capture, const profiler::proto::Command& command_data,
+    proto::Event_Kind event_kind, bool is_end);
 
-  static Command* Create(const proto::Command& command,
-                         TraceManager* trace_manager) {
-    return new StopCpuTrace(command, trace_manager);
-  }
-
-  virtual grpc::Status ExecuteOn(Daemon* daemon) override;
-
- private:
-  TraceManager* trace_manager_;
-};
+profiler::proto::Event PopulateTraceStatusEvent(
+    const profiler::proto::Command& command_data,
+    const proto::Event_Kind event_kind, const CaptureInfo* capture);
 
 }  // namespace profiler
 
-#endif  // PERFD_COMMANDS_STOP_CPU_TRACE_H
+#endif  // PERFD_CPU_COMMANDS_TRACE_COMMAND_UTILS_H_
