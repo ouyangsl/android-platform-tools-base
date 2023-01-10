@@ -109,6 +109,7 @@ import com.android.tools.lint.detector.api.VersionChecks.Companion.isWithinVersi
 import com.android.tools.lint.detector.api.XmlContext
 import com.android.tools.lint.detector.api.XmlScannerConstants
 import com.android.tools.lint.detector.api.asCall
+import com.android.tools.lint.detector.api.findSelector
 import com.android.tools.lint.detector.api.getChildren
 import com.android.tools.lint.detector.api.getInternalMethodName
 import com.android.tools.lint.detector.api.isInlined
@@ -119,11 +120,13 @@ import com.android.tools.lint.detector.api.resolveOperatorWorkaround
 import com.android.utils.XmlUtils
 import com.android.utils.usLocaleCapitalize
 import com.intellij.psi.CommonClassNames
+import com.intellij.psi.CommonClassNames.JAVA_LANG_AUTO_CLOSEABLE
 import com.intellij.psi.PsiAnonymousClass
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiCompiledElement
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiEllipsisType
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMember
 import com.intellij.psi.PsiMethod
@@ -132,6 +135,7 @@ import com.intellij.psi.PsiReferenceExpression
 import com.intellij.psi.PsiSuperExpression
 import com.intellij.psi.PsiType
 import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.TypeConversionUtil
 import org.jetbrains.uast.UAnnotated
 import org.jetbrains.uast.UAnnotation
 import org.jetbrains.uast.UArrayAccessExpression
@@ -144,6 +148,8 @@ import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UClassLiteralExpression
 import org.jetbrains.uast.UDeclaration
 import org.jetbrains.uast.UElement
+import org.jetbrains.uast.UExpression
+import org.jetbrains.uast.UExpressionList
 import org.jetbrains.uast.UFile
 import org.jetbrains.uast.UForEachExpression
 import org.jetbrains.uast.UIfExpression
@@ -166,6 +172,7 @@ import org.jetbrains.uast.UUnaryExpression
 import org.jetbrains.uast.UastBinaryOperator
 import org.jetbrains.uast.UastCallKind
 import org.jetbrains.uast.UastFacade
+import org.jetbrains.uast.UastSpecialExpressionKind
 import org.jetbrains.uast.expressions.UInjectionHost
 import org.jetbrains.uast.getContainingUClass
 import org.jetbrains.uast.getContainingUMethod
@@ -1289,8 +1296,23 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                 curr = curr.uastParent ?: break
             }
 
-            val castType = if (implicit) "Implicit cast" else "Cast"
-            val location = context.getLocation(node)
+            var locationNode = node
+            var implicitCast = implicit
+
+            if (interfaceType == JAVA_LANG_AUTO_CLOSEABLE || interfaceType == "java.io.Closeable") {
+                val selector = node.uastParent?.findSelector()
+                if (selector is UCallExpression && selector.methodIdentifier?.name == "use") {
+                    // For the "use" method, instead of showing the cast error on the left
+                    // hand side expression (which use will implicitly cast), move the warning
+                    // to the "use" call instead.
+                    implicitCast = true
+                    locationNode = selector.methodIdentifier ?: selector
+                }
+            }
+
+            val castType = if (implicitCast) "Implicit cast" else "Cast"
+            val location = context.getLocation(locationNode)
+
             val message: String
             val to = interfaceType.substringAfterLast('.')
             val from = classType.substringAfterLast('.')
@@ -1301,7 +1323,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
             }
 
             report(
-                UNSUPPORTED, node, location, message, apiLevelFix(api, minSdk), classType,
+                UNSUPPORTED, locationNode, location, message, apiLevelFix(api, minSdk), classType,
                 requires = api, min = minSdk
             )
         }
@@ -1575,29 +1597,21 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
             val parameterList = method.parameterList
             if (parameterList.parametersCount > 0) {
                 val parameters = parameterList.parameters
-                val arguments = call.valueArguments
                 for (i in parameters.indices) {
                     val parameterType = parameters[i].type
                     if (parameterType is PsiClassType) {
-                        if (i >= arguments.size) {
-                            // We can end up with more arguments than parameters when
-                            // there is a varargs call.
-                            break
+                        val argument = call.getArgumentForParameter(i) ?: continue
+                        checkArgumentCast(argument, parameterType)
+                    } else if (parameterType is PsiEllipsisType) {
+                        val argument = call.getArgumentForParameter(i) ?: continue
+                        val elementType = parameterType.componentType as? PsiClassType ?: continue
+                        if (argument is UExpressionList && argument.kind == UastSpecialExpressionKind.VARARGS) {
+                            for (expression in argument.expressions) {
+                                checkArgumentCast(expression, elementType)
+                            }
+                        } else {
+                            checkArgumentCast(argument, elementType)
                         }
-                        val argument = arguments[i]
-                        val argumentType = argument.getExpressionType()
-                        if (argumentType == null ||
-                            parameterType == argumentType ||
-                            argumentType !is PsiClassType ||
-                            parameterType.rawType() == argumentType.rawType()
-                        ) {
-                            continue
-                        }
-                        checkCast(
-                            argument,
-                            argumentType,
-                            parameterType
-                        )
                     }
                 }
             }
@@ -1629,6 +1643,22 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                 ?: return
 
             visitCall(method, call, reference, containingClass, owner, name, desc)
+        }
+
+        private fun checkArgumentCast(argument: UExpression, parameterType: PsiClassType) {
+            val argumentType = argument.getExpressionType()
+            if (argumentType == null ||
+                parameterType == argumentType ||
+                argumentType !is PsiClassType ||
+                parameterType.rawType() == argumentType.rawType()
+            ) {
+                return
+            }
+            checkCast(
+                argument,
+                argumentType,
+                parameterType
+            )
         }
 
         private fun visitCall(
@@ -1841,12 +1871,19 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                                 if (provider != null) {
                                     val methodOwner = evaluator.getQualifiedName(provider)
                                     if (methodOwner != null) {
-                                        val methodApi = apiDatabase.getMethodVersions(
-                                            methodOwner, name, desc
-                                        )
+                                        val methodApi = apiDatabase.getMethodVersions(methodOwner, name, desc)
                                         if (methodApi == ApiConstraint.UNKNOWN || minSdk.isAtLeast(methodApi)) {
-                                            // Yes, we found another call that doesn't have an API requirement
-                                            return
+                                            val interfaceRequirement = if (provider.isInterface) {
+                                                apiDatabase.getValidCastVersions(owner, methodOwner)
+                                            } else {
+                                                ApiConstraint.UNKNOWN
+                                            }
+                                            if (interfaceRequirement == ApiConstraint.UNKNOWN || minSdk.isAtLeast(interfaceRequirement)) {
+                                                return
+                                            }
+                                            // TODO: It would be nice to incorporate this constraint in the message
+                                            // somehow (e.g. "method is available via AutoCloseable interface, but that
+                                            // requires SDK INT >= 31").
                                         }
                                     }
                                 }
@@ -1938,18 +1975,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
             reference: UElement
         ) {
             // Not a method in the API database, but it could be an extension method
-            // decorating one of the SDK methods (e.g. "fun AutoCloseable.use(...)"),
-            // so check for that. For now, we've just hardcoded this to the Kotlin
-            // stdlib "use" method, but ideally we'll handle additional
-            if (name == "use" && (owner == KOTLIN_CLOSEABLE_EXT || owner == KOTLIN_AUTO_CLOSEABLE_EXT)) {
-                val receiverType = call.receiverType as? PsiClassType ?: return
-                val receiverTypeFqn = context.evaluator.getQualifiedName(receiverType)
-                checkCast(
-                    call.methodIdentifier ?: call, receiverTypeFqn,
-                    if (owner == KOTLIN_CLOSEABLE_EXT) "java.io.Closeable" else "java.lang.AutoCloseable", implicit = true
-                )
-            }
-
+            // decorating one of the SDK methods.
             if (owner == "kotlin.collections.jdk8.CollectionsJDK8Kt") {
                 val mapClass = evaluator.findClass("java.util.Map") ?: return
                 if (name == "getOrDefault") {
@@ -2042,9 +2068,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
 
         override fun visitLocalVariable(node: ULocalVariable) {
             val initializer = node.uastInitializer ?: return
-
             val initializerType = initializer.getExpressionType() as? PsiClassType ?: return
-
             val interfaceType = node.type
 
             if (interfaceType !is PsiClassType) {
@@ -2134,6 +2158,33 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
                         requires = api, min = minSdk, desugaring = Desugaring.TRY_WITH_RESOURCES
                     )
                 }
+            }
+
+            // Check close-availability on the API which may have been introduced at a later API level
+            for (resource in resourceList) {
+                val classType = TypeConversionUtil.erasure(resource.type) as? PsiClassType ?: continue
+                val psiClass = classType.resolve() ?: continue
+                val closeMethod = psiClass.findMethodsByName("close", true).firstOrNull { !it.hasParameters() } ?: continue
+                val containingClass = closeMethod.containingClass?.qualifiedName ?: continue
+                val api = apiDatabase?.getMethodVersions(containingClass, "close", "()") ?: continue
+                if (api == ApiConstraint.UNKNOWN) {
+                    continue
+                }
+                var minSdk = getMinSdk(context) ?: continue
+                if (minSdk.isAtLeast(api)) {
+                    continue
+                }
+                val (suppressed, localMinSdk) = getSuppressed(context, api, node, minSdk)
+                if (suppressed) {
+                    continue
+                }
+                minSdk = max(minSdk, localMinSdk)
+                val location = context.getLocation(resource as UElement)
+                val message = "Implicit `${classType.name}.close()` call from try-with-resources requires API level ${api.minString()} (current min is %1\$s)"
+                report(
+                    UNSUPPORTED, resource, location, message, apiLevelFix(api, minSdk), classType.canonicalText,
+                    requires = api, min = minSdk
+                )
             }
 
             for (catchClause in node.catchClauses) {
