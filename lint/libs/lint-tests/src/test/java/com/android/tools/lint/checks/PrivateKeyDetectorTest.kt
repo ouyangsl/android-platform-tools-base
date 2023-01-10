@@ -58,7 +58,7 @@ class PrivateKeyDetectorTest : AbstractCheckTest() {
         ).run().expect(
             """
             res/private_key.pem: Error: The res/private_key.pem file seems to be a private key file. Please make sure not to embed this in your APK file. [PackagedPrivateKey]
-            1 errors, 0 warnings
+            1 errors, 0 warnings. ADD MORE INFO 
             """
         )
     }
