@@ -101,34 +101,6 @@ message MemoryAllocSamplingData {
   int32 sampling_num_interval = 1;
 }
 
-message StartNativeSample {
-  // Agent is responsible for providing these additional info for API-
-  // initiated tracing.
-  message ApiStartTracingMetaData {
-    int64 start_timestamp = 1;
-  }
-  TraceConfiguration configuration = 1;
-  // Set only if configuration's initiation_type is |INITIATED_BY_API|.
-  ApiStartTracingMetaData api_start_metadata = 2;
-}
-
-message StopNativeSample {
-  // Agent is responsible for providing these additional info for API-
-  // initiated tracing.
-  message ApiStopTracingMetaData {
-    int64 stop_timestamp = 1;
-    // A name of trace's content that's unique during the lifetime of the
-    // process. The daemon is responsible for storing the content in the generic
-    // cache that can be referenced via the trace's id.
-    string trace_name = 2;
-  }
-  TraceConfiguration configuration = 1;
-  // Set only if configuration's initiation_type is |INITIATED_BY_API|.
-  ApiStopTracingMetaData api_stop_metadata = 2;
-  // Whether the command needs to wait and parse the trace content.
-  bool need_trace_response = 3;
-}
-
 // Proto for describing an allocation tracking record.
 // For the new pipeline, this message will appear in a pair of
 // |MEMORY_ALLOC_TRACKING| events. For the first event, the AllocationsInfo
@@ -403,25 +375,4 @@ message AllocationEvent {
     Allocation alloc_data = 4;
     Deallocation free_data = 5;
   }
-}
-
-// Returns the capture information for |START_NATIVE_HEAP_SAMPLE|.
-// This even gets generated on the |STOP_NATIVE_HEAP_SAMPLE|. The
-// |start_time| is the trace_id that can be used with getBytes to
-// load the trace.
-message MemoryNativeSampleData {
-  // Device time in ms the trace was started.
-  // Also the trace id used to retrieve the recording.
-  int64 start_time = 1;
-  // Device time in ms the trace was stopped.
-  int64 end_time = 2;
-}
-
-message MemoryTraceInfo {
-  int64 trace_id = 1;
-  int64 from_timestamp = 2;  // inclusive
-  int64 to_timestamp = 3;    // inclusive
-  TraceConfiguration configuration = 4;
-  TraceStartStatus start_status = 5;
-  TraceStopStatus stop_status = 6;
 }

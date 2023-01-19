@@ -30,6 +30,7 @@ import com.android.sdklib.internal.avd.AvdManager
 import com.google.common.truth.Truth.assertThat
 import java.nio.file.Path
 import java.time.Duration
+import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Test
 
@@ -86,7 +87,8 @@ class LocalEmulatorProvisionerPluginTest {
       }
 
     override suspend fun startAvd(avdInfo: AvdInfo) {
-      val device = FakeEmulatorConsole(avdInfo.name, avdInfo.dataFolderPath.toString())
+      val device =
+        FakeEmulatorConsole(avdInfo.name, avdInfo.dataFolderPath.toString()) { doStopAvd(avdInfo) }
       session.deviceServices.configureDeviceProperties(
         DeviceSelector.fromSerialNumber("emulator-${device.port}"),
         mapOf(
@@ -104,6 +106,10 @@ class LocalEmulatorProvisionerPluginTest {
     }
 
     override suspend fun stopAvd(avdInfo: AvdInfo) {
+      doStopAvd(avdInfo)
+    }
+
+    private fun doStopAvd(avdInfo: AvdInfo) {
       runningDevices.removeIf { it.avdPath == avdInfo.dataFolderPath.toString() }
       updateDevices()
     }
@@ -132,7 +138,7 @@ class LocalEmulatorProvisionerPluginTest {
 
     yieldUntil { provisioner.devices.value.size == 2 }
     val devices = provisioner.devices.value
-    assertThat(devices.map { it.state.properties.title() })
+    assertThat(devices.map { it.state.properties.title })
       .containsExactly("Fake Device 1", "Fake Device 2")
     checkProperties(devices[0].state.properties as LocalEmulatorProperties)
   }
@@ -147,9 +153,23 @@ class LocalEmulatorProvisionerPluginTest {
     avdManager.deleteAvd(avds[0])
 
     yieldUntil { provisioner.devices.value.size == n - 1 }
-    val displayNames = provisioner.devices.value.map { it.state.properties.title() }
+    val displayNames = provisioner.devices.value.map { it.state.properties.title }
     assertThat(displayNames).doesNotContain(avds[0].displayName)
     assertThat(displayNames).contains(avds[1].displayName)
+  }
+
+  @Test
+  fun removedOfflineDeviceScopeIsCancelled(): Unit = runBlockingWithTimeout {
+    avdManager.createAvd()
+    yieldUntil { provisioner.devices.value.size == 1 }
+
+    val handle = provisioner.devices.value[0]
+    val job = handle.scope.launch { handle.stateFlow.collect {} }
+
+    avdManager.deleteAvd(avdManager.avds[0])
+
+    yieldUntil { provisioner.devices.value.isEmpty() }
+    job.join()
   }
 
   @Test
@@ -161,23 +181,20 @@ class LocalEmulatorProvisionerPluginTest {
     val handle = provisioner.devices.value[0]
     handle.activationAction?.activate()
 
-    yieldUntil { handle.state.connectedDevice != null }
+    assertThat(handle.state.connectedDevice).isNotNull()
 
-    assertThat(provisioner.devices.value.map { it.state.properties.title() })
+    assertThat(provisioner.devices.value.map { it.state.properties.title })
       .containsExactly("Fake Device 1")
     val properties = provisioner.devices.value[0].state.properties as LocalEmulatorProperties
     checkProperties(properties)
     assertThat(properties.androidRelease).isEqualTo("11")
 
     handle.deactivationAction?.deactivate()
-    // Simulate the remove since EmulatorConsole.kill doesn't do it
-    avdManager.runningDevices.clear()
-    updateDevices()
 
-    yieldUntil { handle.state.connectedDevice == null }
+    assertThat(handle.state.connectedDevice).isNull()
 
     assertThat(handle.state).isInstanceOf(Disconnected::class.java)
-    assertThat(provisioner.devices.value.map { it.state.properties.title() })
+    assertThat(provisioner.devices.value.map { it.state.properties.title })
       .containsExactly("Fake Device 1")
   }
 

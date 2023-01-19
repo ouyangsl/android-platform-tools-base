@@ -331,14 +331,10 @@ com.android.build.gradle.LintLifecycleExtensionImpl implements com.android.build
 com.android.build.gradle.LintLifecycleExtensionImpl.<init>: com.android.build.gradle.LintLifecycleExtensionImpl (com.android.build.api.extension.impl.DslLifecycleComponentsOperationsRegistrar<com.android.build.api.dsl.Lint>)
 com.android.build.gradle.LintLifecycleExtensionImpl.finalizeDsl: void (kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.Lint, kotlin.Unit>)
 com.android.build.gradle.LintLifecycleExtensionImpl.finalizeDsl: void (org.gradle.api.Action<com.android.build.api.dsl.Lint>)
-com.android.build.gradle.LintPlugin implements org.gradle.api.Plugin
+com.android.build.gradle.LintPlugin extends com.android.build.gradle.BasePlugin
 com.android.build.gradle.LintPlugin.<init>: com.android.build.gradle.LintPlugin ()
-com.android.build.gradle.LintPlugin.access$getLintOptions$p: com.android.build.api.dsl.Lint (com.android.build.gradle.LintPlugin)
-com.android.build.gradle.LintPlugin.access$getProjectServices$p: com.android.build.gradle.internal.services.ProjectServices (com.android.build.gradle.LintPlugin)
-com.android.build.gradle.LintPlugin.access$registerTasks: void (com.android.build.gradle.LintPlugin, org.gradle.api.Project, com.android.build.api.extension.impl.DslLifecycleComponentsOperationsRegistrar)
 com.android.build.gradle.LintPlugin.apply: void (java.lang.Object)
 com.android.build.gradle.LintPlugin.apply: void (org.gradle.api.Project)
-com.android.build.gradle.LintPlugin.getListenerRegistry: org.gradle.build.event.BuildEventsListenerRegistry ()
 com.android.build.gradle.ProguardFiles
 com.android.build.gradle.ProguardFiles$ProguardFile extends java.lang.Enum
 com.android.build.gradle.ProguardFiles$ProguardFile.fileName: Field - class java.lang.String
@@ -1032,7 +1028,6 @@ com.android.build.gradle.internal.dsl.BuildType$Companion.<init>: com.android.bu
 com.android.build.gradle.internal.dsl.BuildType$PostProcessingConfiguration extends java.lang.Enum
 com.android.build.gradle.internal.dsl.BuildType$PostProcessingConfiguration.valueOf: com.android.build.gradle.internal.dsl.BuildType$PostProcessingConfiguration (java.lang.String)
 com.android.build.gradle.internal.dsl.BuildType$PostProcessingConfiguration.values: com.android.build.gradle.internal.dsl.BuildType$PostProcessingConfiguration[] ()
-com.android.build.gradle.internal.dsl.BuildType$WhenMappings
 com.android.build.gradle.internal.dsl.BuildType.<init>: com.android.build.gradle.internal.dsl.BuildType (java.lang.String, com.android.build.gradle.internal.services.DslServices, com.android.builder.core.ComponentType)
 com.android.build.gradle.internal.dsl.BuildType._initWith: void (com.android.builder.model.BaseConfig)
 com.android.build.gradle.internal.dsl.BuildType._internal_getSigingConfig: com.android.build.api.dsl.ApkSigningConfig ()
@@ -1239,10 +1234,13 @@ com.android.build.gradle.internal.dsl.DataBindingOptions.setEnabledForTests: voi
 com.android.build.gradle.internal.dsl.DefaultConfig extends com.android.build.gradle.internal.dsl.BaseFlavor implements com.android.build.api.dsl.ApplicationDefaultConfig, com.android.build.api.dsl.DynamicFeatureDefaultConfig, com.android.build.api.dsl.LibraryDefaultConfig, com.android.build.api.dsl.TestDefaultConfig
 com.android.build.gradle.internal.dsl.DefaultConfig.<init>: com.android.build.gradle.internal.dsl.DefaultConfig (java.lang.String, com.android.build.gradle.internal.services.DslServices)
 com.android.build.gradle.internal.dsl.DensitySplitOptions extends com.android.build.gradle.internal.dsl.SplitOptions implements com.android.build.api.dsl.DensitySplit
-com.android.build.gradle.internal.dsl.DensitySplitOptions.<init>: com.android.build.gradle.internal.dsl.DensitySplitOptions ()
+com.android.build.gradle.internal.dsl.DensitySplitOptions.<init>: com.android.build.gradle.internal.dsl.DensitySplitOptions (com.android.build.gradle.internal.services.DslServices)
 com.android.build.gradle.internal.dsl.DensitySplitOptions.compatibleScreens: void (java.lang.String[])
+com.android.build.gradle.internal.dsl.DensitySplitOptions.getDslServices: com.android.build.gradle.internal.services.DslServices ()
+com.android.build.gradle.internal.dsl.DensitySplitOptions.isEnable: boolean ()
 com.android.build.gradle.internal.dsl.DensitySplitOptions.setAuto: void (boolean)
 com.android.build.gradle.internal.dsl.DensitySplitOptions.setCompatibleScreens: void (java.util.List<java.lang.String>)
+com.android.build.gradle.internal.dsl.DensitySplitOptions.setEnable: void (boolean)
 com.android.build.gradle.internal.dsl.DeviceGroup implements com.android.build.api.dsl.DeviceGroup
 com.android.build.gradle.internal.dsl.DeviceGroup.<init>: com.android.build.gradle.internal.dsl.DeviceGroup (com.android.build.gradle.internal.services.DslServices, java.lang.String)
 com.android.build.gradle.internal.dsl.DeviceGroup.getName: java.lang.String ()

@@ -23,6 +23,7 @@ import com.android.adblib.thisLogger
 import com.android.adblib.tools.EmulatorConsole
 import com.android.adblib.tools.localConsoleAddress
 import com.android.adblib.tools.openEmulatorConsole
+import com.android.adblib.utils.createChildScope
 import com.android.annotations.concurrency.GuardedBy
 import com.android.prefs.AndroidLocationsSingleton
 import com.android.sdklib.SdkVersionInfo
@@ -34,10 +35,13 @@ import com.android.sdklib.repository.targets.SystemImage.AUTOMOTIVE_PLAY_STORE_T
 import com.android.sdklib.repository.targets.SystemImage.AUTOMOTIVE_TAG
 import com.android.sdklib.repository.targets.SystemImage.GOOGLE_TV_TAG
 import com.android.sdklib.repository.targets.SystemImage.WEAR_TAG
+import java.io.IOException
 import java.nio.file.Path
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicReference
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -47,6 +51,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.job
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 
 /**
  * Provides access to emulators running on the local machine from the standard AVD directory.
@@ -111,7 +116,11 @@ class LocalEmulatorProvisionerPlugin(
           when (val handle = deviceHandles[path]) {
             null ->
               deviceHandles[path] =
-                LocalEmulatorDeviceHandle(Disconnected(toDeviceProperties(avdInfo)), avdInfo)
+                LocalEmulatorDeviceHandle(
+                  scope.createChildScope(isSupervisor = true),
+                  Disconnected(toDeviceProperties(avdInfo)),
+                  avdInfo
+                )
             else ->
               // Update the avdInfo if we're not currently running. If we are running, the old
               // values are probably still in effect, but we will update on the next scan after
@@ -144,6 +153,7 @@ class LocalEmulatorProvisionerPlugin(
 
     if (path == null) {
       // If we can't connect to the emulator console, this isn't operationally a local emulator
+      logger.debug { "Unable to read path for device ${device.serialNumber} from emulator console" }
       emulatorConsoles.remove(device)?.close()
       return null
     }
@@ -158,6 +168,7 @@ class LocalEmulatorProvisionerPlugin(
     if (handle == null) {
       // Apparently this emulator is not on disk, or it is not in the directory that we scan for
       // AVDs. (Perhaps GMD or Crow failed to pick it up.)
+      logger.debug { "Unexpected device at $path" }
       emulatorConsoles.remove(device)?.close()
       return null
     }
@@ -165,8 +176,11 @@ class LocalEmulatorProvisionerPlugin(
     // We need to make sure that emulators change to Disconnected state once they are terminated.
     device.invokeOnDisconnection {
       handle.stateFlow.value = Disconnected(handle.state.properties)
+      logger.debug { "Device ${device.serialNumber} closed; disconnecting from console" }
       emulatorConsoles.remove(device)?.close()
     }
+
+    logger.debug { "Linked ${device.serialNumber} to AVD at $path" }
 
     return handle
   }
@@ -233,6 +247,7 @@ class LocalEmulatorProvisionerPlugin(
    * an AVD off the disk; only devices that have already been read from disk will be claimed.
    */
   private inner class LocalEmulatorDeviceHandle(
+    override val scope: CoroutineScope,
     initialState: DeviceState,
     initialAvdInfo: AvdInfo
   ) : DeviceHandle {
@@ -247,7 +262,7 @@ class LocalEmulatorProvisionerPlugin(
 
     /** The emulator console is present when the device is connected. */
     val emulatorConsole: EmulatorConsole?
-      get() = emulatorConsoles[state.connectedDevice]
+      get() = state.connectedDevice?.let { emulatorConsoles[it] }
 
     override val activationAction =
       object : ActivationAction {
@@ -259,21 +274,21 @@ class LocalEmulatorProvisionerPlugin(
             .stateIn(scope, SharingStarted.WhileSubscribed(), false)
 
         override suspend fun activate(params: ActivationParams) {
-          // Note: the original DeviceManager does this in UI thread, but this may call
-          // @Slow methods so switch
-          stateFlow.advanceStateWithTimeout(
-            scope = scope,
-            timeout = CONNECTION_TIMEOUT,
-            updateState = {
-              (it as? Disconnected)?.let {
-                Disconnected(it.properties, isTransitioning = true, status = "Starting up")
-              }
-            },
-            advanceAction = { avdManager.startAvd(avdInfo) },
-            onAbort = {
-              logger.warn("Emulator failed to connect within $CONNECTION_TIMEOUT_MINUTES minutes")
+          try {
+            withContext(scope.coroutineContext) {
+              stateFlow.advanceStateWithTimeout(
+                timeout = CONNECTION_TIMEOUT,
+                updateState = {
+                  (it as? Disconnected)?.let {
+                    Disconnected(it.properties, isTransitioning = true, status = "Starting up")
+                  }
+                },
+                advanceAction = { avdManager.startAvd(avdInfo) }
+              )
             }
-          )
+          } catch (e: TimeoutCancellationException) {
+            logger.warn("Emulator failed to connect within $CONNECTION_TIMEOUT_MINUTES minutes")
+          }
         }
       }
 
@@ -302,32 +317,50 @@ class LocalEmulatorProvisionerPlugin(
             .stateIn(scope, SharingStarted.WhileSubscribed(), false)
 
         override suspend fun deactivate() {
-          stateFlow.advanceStateWithTimeout(
-            scope = scope,
-            timeout = DISCONNECTION_TIMEOUT,
-            updateState = {
-              // TODO: In theory, we could cancel from the Connecting state, but that would require
-              //  a lot of work in AvdManagerConnection to make everything shutdown cleanly.
-              (it as? Connected)?.let {
-                Connected(
-                  it.properties,
-                  isTransitioning = true,
-                  status = "Shutting down",
-                  connectedDevice = it.connectedDevice
-                )
-              }
-            },
-            // We can either use the emulator console or AvdManager (which uses a shell
-            // command to kill the process)
-            advanceAction = { emulatorConsole?.kill() ?: avdManager.stopAvd(avdInfo) },
-            onAbort = {
-              logger.warn(
-                "Emulator failed to disconnect within $DISCONNECTION_TIMEOUT_MINUTES minutes"
+          try {
+            withContext(scope.coroutineContext) {
+              stateFlow.advanceStateWithTimeout(
+                timeout = DISCONNECTION_TIMEOUT,
+                updateState = {
+                  // TODO: In theory, we could cancel from the Connecting state, but that would
+                  // require a lot of work in AvdManagerConnection to make everything shutdown
+                  // cleanly.
+                  (it as? Connected)?.let {
+                    Connected(
+                      it.properties,
+                      isTransitioning = true,
+                      status = "Shutting down",
+                      connectedDevice = it.connectedDevice
+                    )
+                  }
+                },
+                advanceAction = ::stop
               )
             }
-          )
+          } catch (e: TimeoutCancellationException) {
+            logger.warn(
+              "Emulator failed to disconnect within $DISCONNECTION_TIMEOUT_MINUTES minutes"
+            )
+          }
         }
       }
+
+    /**
+     * Attempts to stop the AVD. We can either use the emulator console or AvdManager (which uses a
+     * shell command to kill the process)
+     */
+    private suspend fun stop() {
+      emulatorConsole?.let {
+        try {
+          it.kill()
+          return
+        } catch (e: IOException) {
+          // Connection to emulator console is closed, possibly due to a harmless race condition.
+          logger.debug(e) { "Failed to shutdown via emulator console; falling back to AvdManager" }
+        }
+      }
+      avdManager.stopAvd(avdInfo)
+    }
   }
 }
 
@@ -336,18 +369,19 @@ class LocalEmulatorProperties(
   val avdName: String,
   val displayName: String
 ) : DeviceProperties by base {
-  class Builder : DeviceProperties.Builder() {
-    var avdName: String? = null
-    var displayName: String? = null
-  }
 
-  override fun title() = displayName
+  override val title = displayName
 
   companion object {
     fun build(block: Builder.() -> Unit) =
       Builder().apply(block).run {
         LocalEmulatorProperties(buildBase(), checkNotNull(avdName), checkNotNull(displayName))
       }
+  }
+
+  class Builder : DeviceProperties.Builder() {
+    var avdName: String? = null
+    var displayName: String? = null
   }
 }
 

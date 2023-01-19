@@ -13,27 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#include "stop_native_sample.h"
+#include "stop_trace.h"
 
+#include <sstream>
+#include "perfd/common/capture_info.h"
 #include "perfd/common/utils/trace_command_utils.h"
-#include "proto/memory_data.pb.h"
-#include "proto/trace.pb.h"
+#include "proto/cpu.pb.h"
+#include "utils/fs/disk_file_system.h"
+#include "utils/process_manager.h"
+#include "utils/thread_name.h"
 
 using grpc::Status;
+using profiler::proto::Command;
 using profiler::proto::Event;
-using profiler::proto::MemoryHeapDumpData;
 using profiler::proto::TraceStopStatus;
-using std::string;
 
 namespace profiler {
-// "cache/complete" is where the generic bytes rpc fetches contents
+
+namespace {
+// "cache/complete" is where the generic bytes rpc fetches content
 constexpr char kCacheLocation[] = "cache/complete/";
 
-Status StopNativeSample::ExecuteOn(Daemon* daemon) {
-  auto& stop_command = command().stop_native_sample();
+// Helper function to stop the tracing. This function works in the async
+// environment because it doesn't require a |profiler::StopTrace| object.
+void Stop(Daemon* daemon, const profiler::proto::Command command_data,
+          TraceManager* trace_manager) {
+  auto& stop_command = command_data.stop_trace();
+  auto profiler_type = stop_command.profiler_type();
   const std::string& app_name = stop_command.configuration().app_name();
-  // Used as the group id for this recording's events.
-  // The raw bytes will be available in the file cache via this id.
+
   int64_t stop_timestamp;
   bool stopped_from_api = stop_command.has_api_stop_metadata();
   if (stopped_from_api) {
@@ -42,26 +50,29 @@ Status StopNativeSample::ExecuteOn(Daemon* daemon) {
     stop_timestamp = daemon->clock()->GetCurrentTime();
   }
 
-  const auto* ongoing = trace_manager_->GetOngoingCapture(app_name);
+  const auto* ongoing = trace_manager->GetOngoingCapture(app_name);
   Event status_event =
-      PopulateTraceStatusEvent(command(), Event::MEMORY_TRACE, ongoing);
-  auto* stop_status =
-      status_event.mutable_trace_status()->mutable_trace_stop_status();
+      PopulateTraceStatusEvent(command_data, profiler_type, ongoing);
 
-  if (ongoing == nullptr) {
+  if (ongoing == nullptr || profiler_type == ProfilerType::UNSPECIFIED) {
+    // PopulateTraceStatusEvent will create a failure-based status event and
+    // send it right back if either the ongoing capture is null or profiler_type
+    // is UNSPECIFIED. After this early exit, we need to also exit early from
+    // this method after sending the TRACE_STATUS event to prevent calling
+    // StopCapture with erroneous preconditions.
     daemon->buffer()->Add(status_event);
-    return Status::OK;
+    return;
   }
 
-  int64_t trace_id = ongoing->trace_id;
+  CaptureInfo* capture = nullptr;
   TraceStopStatus status;
-  auto* capture = trace_manager_->StopCapture(
+  capture = trace_manager->StopCapture(
       stop_timestamp, app_name, stop_command.need_trace_response(), &status);
+  auto* stop_status =
+      status_event.mutable_trace_status()->mutable_trace_stop_status();
   stop_status->CopyFrom(status);
 
   daemon->buffer()->Add(status_event);
-
-  // Send CPU_TRACE event after the stopping has returned, successfully or not.
   if (capture != nullptr) {
     if (status.status() == TraceStopStatus::SUCCESS) {
       std::string from_file_name;
@@ -77,8 +88,16 @@ Status StopNativeSample::ExecuteOn(Daemon* daemon) {
         from_file_name = capture->configuration.temp_path();
       }
       std::ostringstream oss;
-      oss << CurrentProcess::dir() << kCacheLocation
-          << capture->start_timestamp;
+
+      int64_t file_id;
+      if (profiler_type == ProfilerType::CPU) {
+        file_id = capture->trace_id;
+      } else {
+        // profiler_type == ProfilerType::MEMORY
+        file_id = capture->start_timestamp;
+      }
+      oss << CurrentProcess::dir() << kCacheLocation << file_id;
+
       std::string to_file_name = oss.str();
       DiskFileSystem fs;
       bool move_success = fs.MoveFile(from_file_name, to_file_name);
@@ -89,7 +108,7 @@ Status StopNativeSample::ExecuteOn(Daemon* daemon) {
       }
     }
     Event trace_event =
-        PopulateTraceEvent(*capture, command(), Event::MEMORY_TRACE, true);
+        PopulateTraceEvent(*capture, command_data, profiler_type, true);
     daemon->buffer()->Add(trace_event);
   } else {
     // When execution reaches here, a TRACE_STATUS event has been sent
@@ -99,12 +118,13 @@ Status StopNativeSample::ExecuteOn(Daemon* daemon) {
     status.set_error_message("No ongoing capture exists");
     status.set_status(TraceStopStatus::NO_ONGOING_PROFILING);
 
-    Event trace_event;
-    trace_event.set_pid(command().pid());
-    trace_event.set_kind(Event::MEMORY_TRACE);
-    trace_event.set_group_id(capture->start_timestamp);
-    trace_event.set_is_ended(true);
-    trace_event.set_command_id(command().command_id());
+    Event trace_event =
+        PopulateTraceEvent(*ongoing, command_data, profiler_type, true);
+    // The PopulateTraceEvent method will utilize the passed in capture object's
+    // status to set the stop_status. Whether or not a stop_status exists in the
+    // ongoing capture, we should override it by setting it to the status
+    // retrieved from the StopCapture call done above. This gives us the most
+    // accurate stoppage status.
     trace_event.mutable_trace_data()
         ->mutable_trace_ended()
         ->mutable_trace_info()
@@ -112,7 +132,25 @@ Status StopNativeSample::ExecuteOn(Daemon* daemon) {
         ->CopyFrom(status);
     daemon->buffer()->Add(trace_event);
   }
+}
 
+}  // namespace
+
+Status StopTrace::ExecuteOn(Daemon* daemon) {
+  // In order to make this command to return immediately, start a new
+  // detached thread to stop CPU recording which which may take several seconds.
+  // For example, we may need to wait for several seconds before the trace files
+  // from ART to be complete.
+  //
+  // We need to capture the values of the fields of |this| object because when
+  // the thread is executing, |this| object may be recycled.
+  profiler::proto::Command command_data = command();
+  TraceManager* trace_manager = trace_manager_;
+  std::thread worker([daemon, command_data, trace_manager]() {
+    SetThreadName("Studio:StopTrace");
+    Stop(daemon, command_data, trace_manager);
+  });
+  worker.detach();
   return Status::OK;
 }
 

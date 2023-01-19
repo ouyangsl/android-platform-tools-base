@@ -18,7 +18,6 @@ package com.android.jdwptracer;
 import com.android.annotations.NonNull;
 import java.util.HashMap;
 import java.util.Map;
-import org.jetbrains.annotations.NotNull;
 
 class CmdSetDdm extends CmdSet {
 
@@ -32,8 +31,7 @@ class CmdSetDdm extends CmdSet {
     static {
         ddmHandlers.put(typeFromName("APNM"), defaultDDMHandler);
         ddmHandlers.put(typeFromName("EXIT"), defaultDDMHandler);
-        ddmHandlers.put(
-                typeFromName("HELO"),
+        ddmHandlers.put(typeFromName(HELO_CHUNK),
                 new DDMChunkHandler(CmdSetDdm::parseHELOCmd, CmdSetDdm::parseHELOReply));
         ddmHandlers.put(typeFromName("FEAT"), defaultDDMHandler);
         ddmHandlers.put(typeFromName("TEST"), defaultDDMHandler);
@@ -59,10 +57,8 @@ class CmdSetDdm extends CmdSet {
         ddmHandlers.put(typeFromName("REAQ"), defaultDDMHandler);
         ddmHandlers.put(typeFromName("REAL"), defaultDDMHandler);
 
-        ddmHandlers.put(
-                typeFromName("ARTT"),
-                new DDMChunkHandler(
-                        CmdSetDdm::parseArtMetricsCmd, CmdSetDdm::parseArtMetricsReply));
+        ddmHandlers.put( typeFromName(ART_TIMING_CHUNK),
+                new DDMChunkHandler( CmdSetDdm::parseArtMetricsCmd, CmdSetDdm::parseArtMetricsReply));
     }
 
     // Source debugmon.html
@@ -103,7 +99,7 @@ class CmdSetDdm extends CmdSet {
         return msg;
     }
 
-    @NotNull
+    @NonNull
     private static void parseArtMetricsCmd(
             @NonNull MessageReader reader, @NonNull Session session, @NonNull Message msg) {
         // These are the timing from art processing on-device.
@@ -124,7 +120,7 @@ class CmdSetDdm extends CmdSet {
         session.addTimings(timings);
     }
 
-    @NotNull
+    @NonNull
     private static void parseArtMetricsReply(
             @NonNull MessageReader reader, @NonNull Session session, @NonNull Message msg) {}
 

@@ -37,13 +37,13 @@ message Command {
     BEGIN_SESSION = 101;
     END_SESSION = 102;
     DISCOVER_PROFILEABLE = 103;
+    START_TRACE = 104;
+    STOP_TRACE = 105;
 
     // Network Profiler Prefix = 200
 
     // Cpu Profiler Prefix = 300
-    START_TRACE = 301;
-    STOP_TRACE = 302;
-    GET_CPU_CORE_CONFIG = 303;
+    GET_CPU_CORE_CONFIG = 301;
 
     // Memory Profiler Prefix = 400
     GC = 401; // No payload
@@ -51,8 +51,6 @@ message Command {
     MEMORY_ALLOC_SAMPLING = 403;
     START_ALLOC_TRACKING = 404;
     STOP_ALLOC_TRACKING = 405;
-    START_NATIVE_HEAP_SAMPLE = 406;
-    STOP_NATIVE_HEAP_SAMPLE = 407;
 
     // Energy Profiler Prefix = 500
     // Event Profiler Prefix = 600
@@ -103,8 +101,6 @@ message Command {
     MemoryAllocSamplingData memory_alloc_sampling = 403;
     StartAllocTracking start_alloc_tracking = 404;
     StopAllocTracking stop_alloc_tracking = 405;
-    StartNativeSample start_native_sample = 406;
-    StopNativeSample stop_native_sample = 407;
 
     // Energy Profiler Prefix = 500
     // Event Profiler Prefix = 600

@@ -119,6 +119,7 @@ ARTIFACTS = [
     "org.eclipse.aether:aether-connector-basic:1.0.2.v20150114",
     "org.eclipse.aether:aether-transport-file:1.0.2.v20150114",
     "org.eclipse.aether:aether-transport-http:1.0.2.v20150114",
+    "com.github.rising3:semver:0.3.1",
     "org.glassfish.jaxb:jaxb-runtime:2.3.2",
     "org.glassfish.jaxb:jaxb-xjc:2.3.2",
     "org.gradle:gradle-tooling-api:8.0-rc-1",
@@ -150,6 +151,7 @@ ARTIFACTS = [
     "org.tensorflow:tensorflow-lite-metadata:0.1.0-rc2",
     "org.xerial:sqlite-jdbc:3.21.0.1",
     "xerces:xercesImpl:2.12.0",
+    "org.tomlj:tomlj:1.1.0",
 ]
 
 DATA = [
@@ -218,7 +220,7 @@ DATA = [
     "androidx.databinding:viewbinding:7.2.0",
     "androidx.fragment:fragment:1.3.0",
     "androidx.fragment:fragment:1.3.0-rc01",
-    "androidx.games:games-activity:1.0.0",
+    "androidx.games:games-activity:1.2.2",
     "androidx.leanback:leanback:1.0.0",
     "androidx.legacy:legacy-support-v13:1.0.0",
     "androidx.legacy:legacy-support-v4:1.0.0",
@@ -358,6 +360,7 @@ DATA = [
     "com.google.android.material:material:1.4.0",
     "com.google.android.material:material:1.5.0-alpha04",
     "com.google.android.material:material:1.5.0",
+    "com.google.android.material:material:1.7.0",
     "com.google.android.support:wearable:2.9.0",
     "com.google.android.wearable:wearable:2.9.0",
     "com.google.auto.service:auto-service:1.0-rc2",

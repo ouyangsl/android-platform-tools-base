@@ -71,6 +71,7 @@ import org.jetbrains.uast.UVariable
 import org.jetbrains.uast.UastFacade
 import org.jetbrains.uast.UastPrefixOperator
 import org.jetbrains.uast.getContainingUMethod
+import org.jetbrains.uast.getParentOfType
 import org.jetbrains.uast.internal.acceptList
 import org.jetbrains.uast.skipParenthesizedExprDown
 import org.jetbrains.uast.toUElement
@@ -555,6 +556,19 @@ fun isScopingFunction(node: UCallExpression): Boolean {
     return called.containingClass?.qualifiedName == "kotlin.StandardKt__StandardKt"
 }
 
+/**
+ * Returns true if the given call represents a Kotlin scope
+ * function where the return value is the lambda result; see
+ * https://kotlinlang.org/docs/scope-functions.html#function-selection
+ */
+fun isReturningLambdaResult(node: UCallExpression): Boolean {
+    val name = getMethodName(node)
+    if (name == "let" || name == "run" || name == "with") {
+        return isScopingFunction(node)
+    }
+    return false
+}
+
 fun PsiParameter.isReceiver(): Boolean {
     // It's tempting to just check
     //    this is KtUltraLightReceiverParameter
@@ -606,6 +620,29 @@ fun UElement.nextStatement(): UExpression? {
     }
 
     return null
+}
+
+/**
+ * Returns the current statement. If you for example have
+ * `foo.bar.baz();` and you invoke this on `bar`, it will
+ * return the top level UQualifiedReferenceExpression.
+ */
+fun UElement.statement(): UExpression? {
+    var prev = this.getParentOfType<UExpression>(false) ?: return null
+    var curr = prev.uastParent
+    while (curr != null) {
+        if (curr is UBlockExpression || curr !is UExpression) {
+            return if (prev is UParenthesizedExpression) {
+                prev.expression
+            } else {
+                prev
+            }
+        }
+        prev = curr
+        curr = curr.uastParent
+    }
+
+    return prev
 }
 
 /**
