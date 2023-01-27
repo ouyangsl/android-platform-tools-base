@@ -18,11 +18,18 @@ package com.android.tools.lint.detector.api
 
 import com.android.tools.lint.client.api.GradleVisitor
 import com.android.tools.lint.client.api.LintDriver
+import com.android.tools.lint.client.api.LintTomlValue
+import com.intellij.psi.CommonClassNames
+import org.jetbrains.uast.UExpression
+import org.jetbrains.uast.ULiteralExpression
+import org.jetbrains.uast.UParenthesizedExpression
+import org.jetbrains.uast.UPolyadicExpression
+import org.jetbrains.uast.UastBinaryOperator
 import java.io.File
 import java.util.regex.Pattern
 
 /** Context for analyzing a particular file. */
-class GradleContext(
+open class GradleContext constructor(
     /** Visitor to use to analyze the file. */
     val gradleVisitor: GradleVisitor,
 
@@ -59,6 +66,22 @@ class GradleContext(
     fun getPropertyPairCookie(cookie: Any): Any = cookie
 
     /**
+     * Looks up the associated TOML value known to Gradle. This is
+     * typically used with gradle/libs.versions.toml from the root
+     * directory to specify collections of libraries.
+     *
+     * The [key] is the (potentially dotted) path of keys into tables.
+     * This will return a pair of value and [Location] for that
+     * key-value pair, or null if not found. If [source] is false,
+     * the value returned will be the actual value of the key (which
+     * for example will resolve references, and will return for
+     * example a Boolean if the value is true); if not (which is the
+     * default), it will return the source text of the TOML value.
+     */
+    open fun getTomlValue(key: String, source: Boolean = true): LintTomlValue? = null
+    open fun getTomlValue(key: List<String>, source: Boolean = true): LintTomlValue? = null
+
+    /**
      * Reports an issue applicable to a given source location. The
      * source location is used as the scope to check for suppress lint
      * annotations.
@@ -66,8 +89,8 @@ class GradleContext(
      * @param issue the issue to report
      * @param cookie the node scope the error applies to. The lint
      *     infrastructure will check whether there are suppress
-     *     annotations on this node (or its enclosing nodes) and if
-     *     so suppress the warning without involving the client.
+     *     annotations on this node (or its enclosing nodes) and if so
+     *     suppress the warning without involving the client.
      * @param location the location of the issue, or null if not known
      * @param message the message for this warning
      * @param fix optional data to pass to the IDE for use by a
@@ -85,17 +108,74 @@ class GradleContext(
     }
 
     companion object {
-        fun getStringLiteralValue(value: String): String? {
-            return if (value.length > 2 && (
-                value.startsWith("'") && value.endsWith("'") || value.startsWith(
-                        "\""
-                    ) && value.endsWith(
-                        "\""
-                    )
-                )
-            ) {
-                value.substring(1, value.length - 1)
-            } else null
+        fun getStringLiteralValue(value: String, valueCookie: Any): String? {
+            if (value.length > 2) {
+                if (value.startsWith('\'') && value.endsWith('\'')) { // Groovy strings
+                    return value.removeSurrounding("'")
+                }
+                if (value.startsWith('"')) {
+                    if (valueCookie is UExpression) { // KTS
+                        return getKotlinStringLiteralValue(valueCookie)
+                    }
+                    if (value.endsWith('"')) {
+                        return value.removeSurrounding("\"")
+                    }
+                }
+                if (valueCookie is UPolyadicExpression && valueCookie.operator == UastBinaryOperator.PLUS &&
+                    valueCookie.getExpressionType()?.canonicalText == CommonClassNames.JAVA_LANG_STRING) {
+                    return getKotlinStringLiteralValue(valueCookie)
+                }
+            }
+
+            return null
+        }
+
+        /**
+         * Given a Kotlin AST node which represents a string, returns the
+         * string value as best it can, and tries to format it as substitution
+         * strings (e.g. `"group:artifact:" + version` is returned as
+         * `"group:artifact:${version}"`. It will also change raw strings into
+         * templated strings.
+         */
+        private fun getKotlinStringLiteralValue(expression: UExpression): String {
+            val sourcePsi = expression.sourcePsi
+                ?: return expression.asSourceString().removeSurrounding("\"")
+            val text = sourcePsi.text
+            if (expression is ULiteralExpression) {
+                val value = expression.value
+                if (value is String) {
+                    return value
+                }
+            } else if (expression is UPolyadicExpression && expression.operator == UastBinaryOperator.PLUS) {
+                val sb = StringBuilder()
+                for (part in expression.operands) {
+                    appendIntoKotlinString(sb, part)
+                }
+                return sb.toString()
+            }
+
+            return text
+        }
+
+        private fun appendIntoKotlinString(sb: StringBuilder, expression: UExpression) {
+            if (expression is ULiteralExpression && expression.value is String) {
+                sb.append(expression.value as String)
+            } else if (expression is UPolyadicExpression && expression.operator == UastBinaryOperator.PLUS) {
+                for (part in expression.operands) {
+                    appendIntoKotlinString(sb, part)
+                }
+            } else if (expression is UParenthesizedExpression) {
+                appendIntoKotlinString(sb, expression.expression)
+            } else {
+                val constant = ConstantEvaluator.evaluateString(null, expression, false)
+                if (constant != null) {
+                    sb.append(constant)
+                } else {
+                    sb.append("\${")
+                    sb.append(getKotlinStringLiteralValue(expression))
+                    sb.append("}")
+                }
+            }
         }
 
         fun getIntLiteralValue(value: String, defaultValue: Int): Int {

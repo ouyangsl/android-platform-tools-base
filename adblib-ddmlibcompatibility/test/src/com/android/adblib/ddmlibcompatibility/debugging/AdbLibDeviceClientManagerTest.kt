@@ -157,7 +157,10 @@ class AdbLibDeviceClientManagerTest {
             // and process properties to be initialized.
             deviceClientManager.clients.size == 2 &&
                     deviceClientManager.clients.all {
-                        it.debuggerListenPort > 0 && it.clientData.vmIdentifier != null }
+                        it.debuggerListenPort > 0 &&
+                                it.clientData.vmIdentifier != null &&
+                                it.clientData.hasFeature("method-trace-profiling-streaming")
+                    }
         }
 
         // Assert
@@ -171,17 +174,21 @@ class AdbLibDeviceClientManagerTest {
         Assert.assertSame(device, client.device)
         Assert.assertNotNull(client.clientData)
         Assert.assertEquals(10, client.clientData.pid)
+        Assert.assertTrue(client.clientData.hasFeature("view-hierarchy"))
         Assert.assertTrue(client.isDdmAware)
         Assert.assertTrue(client.isValid)
         Assert.assertTrue(client.debuggerListenPort > 0)
         Assert.assertFalse(client.isDebuggerAttached)
-        assertThrows { client.executeGarbageCollector() }
-        assertThrows { client.startMethodTracer() }
-        assertThrows { client.stopMethodTracer() }
-        assertThrows { client.startSamplingProfiler(10, TimeUnit.SECONDS) }
-        assertThrows { client.stopSamplingProfiler() }
-        assertThrows { client.requestAllocationDetails() }
-        assertThrows { client.enableAllocationTracker(false) }
+        //TODO(b/266699981): Add unit test
+        //assertThrows { client.executeGarbageCollector() }
+        //TODO(b/266699981): Add unit test
+        //assertThrows { client.startMethodTracer() }
+        //assertThrows { client.stopMethodTracer() }
+        //assertThrows { client.startSamplingProfiler(10, TimeUnit.SECONDS) }
+        //assertThrows { client.stopSamplingProfiler() }
+        //TODO(b/266699981): Add unit test
+        //assertThrows { client.requestAllocationDetails() }
+        //assertThrows { client.enableAllocationTracker(false) }
         Assert.assertEquals(Unit, client.notifyVmMirrorExited())
         assertThrows { client.dumpDisplayList("v", "v1") }
     }
@@ -684,6 +691,26 @@ class AdbLibDeviceClientManagerTest {
         ) {
             if (bridge === AndroidDebugBridge.getBridge()) {
                 AndroidDebugBridge.clientChanged(client, Client.CHANGE_DEBUGGER_STATUS)
+            }
+        }
+
+        override fun processHeapAllocationsUpdated(
+            bridge: AndroidDebugBridge,
+            deviceClientManager: DeviceClientManager,
+            client: Client
+        ) {
+            if (bridge === AndroidDebugBridge.getBridge()) {
+                AndroidDebugBridge.clientChanged(client, Client.CHANGE_HEAP_ALLOCATIONS)
+            }
+        }
+
+        override fun processMethodProfilingStatusUpdated(
+            bridge: AndroidDebugBridge,
+            deviceClientManager: DeviceClientManager,
+            client: Client
+        ) {
+            if (bridge === AndroidDebugBridge.getBridge()) {
+                AndroidDebugBridge.clientChanged(client, Client.CHANGE_METHOD_PROFILING_STATUS)
             }
         }
     }

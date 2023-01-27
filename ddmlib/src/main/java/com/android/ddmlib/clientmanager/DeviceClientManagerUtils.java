@@ -74,6 +74,28 @@ public class DeviceClientManagerUtils {
                             AndroidDebugBridge.clientChanged(client, Client.CHANGE_DEBUGGER_STATUS);
                         }
                     }
+
+                    @Override
+                    @WorkerThread
+                    public void processHeapAllocationsUpdated(
+                            @NotNull AndroidDebugBridge bridge,
+                            @NotNull DeviceClientManager deviceClientManager,
+                            @NotNull Client client) {
+                        if (bridge == AndroidDebugBridge.getBridge()) {
+                            AndroidDebugBridge.clientChanged(client, Client.CHANGE_HEAP_ALLOCATIONS);
+                        }
+                    }
+
+                    @Override
+                    @WorkerThread
+                    public void processMethodProfilingStatusUpdated(
+                            @NotNull AndroidDebugBridge bridge,
+                            @NotNull DeviceClientManager deviceClientManager,
+                            @NotNull Client client) {
+                        if (bridge == AndroidDebugBridge.getBridge()) {
+                            AndroidDebugBridge.clientChanged(client, Client.CHANGE_METHOD_PROFILING_STATUS);
+                        }
+                    }
                 };
 
         return bridge.getClientManager().createDeviceClientManager(bridge, device, listener);

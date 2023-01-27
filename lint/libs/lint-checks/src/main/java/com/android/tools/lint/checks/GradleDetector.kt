@@ -42,6 +42,11 @@ import com.android.tools.lint.checks.GooglePlaySdkIndex.Companion.GOOGLE_PLAY_SD
 import com.android.tools.lint.checks.ManifestDetector.Companion.TARGET_NEWER
 import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.client.api.LintClient
+import com.android.tools.lint.client.api.LintTomlDocument
+import com.android.tools.lint.client.api.LintTomlMapValue
+import com.android.tools.lint.client.api.LintTomlValue
+import com.android.tools.lint.client.api.TomlContext
+import com.android.tools.lint.client.api.TomlScanner
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.Context
 import com.android.tools.lint.detector.api.Detector
@@ -89,7 +94,7 @@ import java.util.function.Predicate
 import kotlin.text.Charsets.UTF_8
 
 /** Checks Gradle files for potential errors. */
-open class GradleDetector : Detector(), GradleScanner {
+open class GradleDetector : Detector(), GradleScanner, TomlScanner {
 
     private var minSdkVersion: Int = 0
     private var compileSdkVersion: Int = 0
@@ -195,6 +200,8 @@ open class GradleDetector : Detector(), GradleScanner {
         value: String,
         cookie: Any
     ) {
+        // (This will never be the case in KTS; if you try to insert "010" as an integer in Kotlin, you
+        // get a compiler error, "Unsupported [literal prefixes and suffixes]".)
         if (value.length >= 2 &&
             value[0] == '0' &&
             (value.length > 2 || value[1] >= '8' && isNonNegativeInteger(value)) &&
@@ -229,7 +236,7 @@ open class GradleDetector : Detector(), GradleScanner {
     ) {
         if (parent == "defaultConfig") {
             if (property == "targetSdkVersion" || property == "targetSdk") {
-                val version = getSdkVersion(value)
+                val version = getSdkVersion(value, valueCookie)
                 if (version > 0 && version < context.client.highestKnownApiLevel) {
                     var warned = false
                     if (version < MINIMUM_TARGET_SDK_VERSION) {
@@ -312,15 +319,15 @@ open class GradleDetector : Detector(), GradleScanner {
                     targetSdkVersion = version
                     checkTargetCompatibility(context)
                 } else {
-                    checkIntegerAsString(context, value, statementCookie)
+                    checkIntegerAsString(context, value, statementCookie, valueCookie)
                 }
             } else if (property == "minSdkVersion" || property == "minSdk") {
-                val version = getSdkVersion(value)
+                val version = getSdkVersion(value, valueCookie)
                 if (version > 0) {
                     minSdkVersion = version
                     checkMinSdkVersion(context, version, statementCookie)
                 } else {
-                    checkIntegerAsString(context, value, statementCookie)
+                    checkIntegerAsString(context, value, statementCookie, valueCookie)
                 }
             }
 
@@ -363,7 +370,7 @@ open class GradleDetector : Detector(), GradleScanner {
             var version = -1
             if (isStringLiteral(value)) {
                 // Try to resolve values like "android-O"
-                val hash = getStringLiteralValue(value)
+                val hash = getStringLiteralValue(value, valueCookie)
                 if (hash != null && !isNumberString(hash)) {
                     if (property == "compileSdk") {
                         val message = "`compileSdk` does not support strings; did you mean `compileSdkPreview` ?"
@@ -384,10 +391,10 @@ open class GradleDetector : Detector(), GradleScanner {
                 compileSdkVersionCookie = statementCookie
                 checkTargetCompatibility(context)
             } else {
-                checkIntegerAsString(context, value, statementCookie)
+                checkIntegerAsString(context, value, statementCookie, valueCookie)
             }
         } else if (property == "buildToolsVersion" && parent == "android") {
-            val versionString = getStringLiteralValue(value)
+            val versionString = getStringLiteralValue(value, valueCookie)
             if (versionString != null) {
                 val version = GradleVersion.tryParse(versionString)
                 if (version != null) {
@@ -418,7 +425,7 @@ open class GradleDetector : Detector(), GradleScanner {
         } else if (parent == "plugins") {
             // KTS declaration for plugins
             if (property == "id") {
-                val plugin = getStringLiteralValue(value)
+                val plugin = getStringLiteralValue(value, valueCookie)
                 val isOldAppPlugin = OLD_APP_PLUGIN_ID == plugin
                 if (isOldAppPlugin || OLD_LIB_PLUGIN_ID == plugin) {
                     val replaceWith = if (isOldAppPlugin) APP_PLUGIN_ID else LIB_PLUGIN_ID
@@ -459,7 +466,7 @@ open class GradleDetector : Detector(), GradleScanner {
                     report(context, valueCookie, PATH, message)
                 }
             } else {
-                var dependency = getStringLiteralValue(value)
+                var dependency = getStringLiteralValue(value, valueCookie)
                 if (dependency == null) {
                     dependency = getNamedDependency(value)
                 }
@@ -491,6 +498,8 @@ open class GradleDetector : Detector(), GradleScanner {
 
                         gc = resolveCoordinate(context, property, gc)
                         isResolved = true
+                    } else if (gc != null && !value.contains(gc.revision)) {
+                        isResolved = true
                     }
                     if (gc != null) {
                         if (gc.acceptsGreaterRevisions()) {
@@ -500,6 +509,14 @@ open class GradleDetector : Detector(), GradleScanner {
                                 ")"
                             val fix = fix().data(KEY_COORDINATE, gc.toString())
                             report(context, valueCookie, PLUS, message, fix)
+                        }
+
+                        val tomlLibraries = context.getTomlValue(VC_LIBRARIES)
+                        if (tomlLibraries != null && !dependency.contains("+")) {
+                            val result = createMoveToTomlFix(context, tomlLibraries, gc, valueCookie)
+                            val message = result?.first ?: "Use version catalog instead"
+                            val fix = result?.second
+                            report(context, valueCookie, SWITCH_TO_TOML, message, fix)
                         }
 
                         // Check dependencies without the PSI read lock, because we
@@ -535,7 +552,7 @@ open class GradleDetector : Detector(), GradleScanner {
                 .replace().text("packageNameSuffix").with("applicationIdSuffix").autoFix().build()
             report(context, propertyCookie, DEPRECATED, message, fix)
         } else if (property == "applicationIdSuffix") {
-            val suffix = getStringLiteralValue(value)
+            val suffix = getStringLiteralValue(value, valueCookie)
             if (suffix != null && !suffix.startsWith(".")) {
                 val message = "Application ID suffix should probably start with a \".\""
                 report(context, statementCookie, PATH, message)
@@ -576,13 +593,14 @@ open class GradleDetector : Detector(), GradleScanner {
     }
 
     /**
-     * For ChromeOS performance, we want to check if a developer has turned on
-     * abiSplits or abiFilters as they target specific ABIs. If the developer
-     * has included both `x86` and `x86_64` no warning will show. However, if
-     * either of those are missing the warning will pop up.
+     * For ChromeOS performance, we want to check if a developer has
+     * turned on abiSplits or abiFilters as they target specific ABIs.
+     * If the developer has included both `x86` and `x86_64` no warning
+     * will show. However, if either of those are missing the warning
+     * will pop up.
      *
-     * If the user has not included `abiSplits` or `abiFilters` this logic
-     * will not be called.
+     * If the user has not included `abiSplits` or `abiFilters` this
+     * logic will not be called.
      */
     private fun checkForChromeOSAbiSplits(
         context: GradleContext,
@@ -766,14 +784,14 @@ open class GradleDetector : Detector(), GradleScanner {
         }
     }
 
-    private fun checkIntegerAsString(context: GradleContext, value: String, cookie: Any) {
+    private fun checkIntegerAsString(context: GradleContext, value: String, cookie: Any, valueCookie: Any) {
         // When done developing with a preview platform you might be tempted to switch from
         //     compileSdkVersion 'android-G'
         // to
         //     compileSdkVersion '19'
         // but that won't work; it needs to be
         //     compileSdkVersion 19
-        val string = getStringLiteralValue(value)
+        val string = getStringLiteralValue(value, valueCookie)
         if (isNumberString(string)) {
             val message =
                 "Use an integer rather than a string here (replace $value with just $string)"
@@ -848,7 +866,7 @@ open class GradleDetector : Detector(), GradleScanner {
     // Important: This is called without the PSI read lock, since it may make network requests.
     // Any interaction with PSI or issue reporting should be wrapped in a read action.
     private fun checkDependency(
-        context: GradleContext,
+        context: Context,
         dependency: GradleCoordinate,
         isResolved: Boolean,
         cookie: Any,
@@ -1108,7 +1126,7 @@ open class GradleDetector : Detector(), GradleScanner {
      * given library, or null if there are no constraints.
      */
     private fun getUpgradeVersionFilter(
-        context: GradleContext,
+        context: Context,
         groupId: String,
         artifactId: String,
         revision: String
@@ -1179,7 +1197,7 @@ open class GradleDetector : Detector(), GradleScanner {
     }
 
     private fun ensureTargetCompatibleWithO(
-        context: GradleContext,
+        context: Context,
         version: Version,
         cookie: Any,
         major: Int,
@@ -1195,7 +1213,7 @@ open class GradleDetector : Detector(), GradleScanner {
     // Important: This is called without the PSI read lock, since it may make network requests.
     // Any interaction with PSI or issue reporting should be wrapped in a read action.
     private fun checkGradlePluginDependency(
-        context: GradleContext,
+        context: Context,
         dependency: GradleCoordinate,
         cookie: Any
     ): Boolean {
@@ -1219,7 +1237,7 @@ open class GradleDetector : Detector(), GradleScanner {
     }
 
     private fun checkSupportLibraries(
-        context: GradleContext,
+        context: Context,
         dependency: GradleCoordinate,
         version: Version,
         newerVersion: Version?,
@@ -1315,7 +1333,7 @@ open class GradleDetector : Detector(), GradleScanner {
     }
 
     private fun checkPlayServices(
-        context: GradleContext,
+        context: Context,
         dependency: GradleCoordinate,
         version: Version,
         revision: String,
@@ -1676,12 +1694,36 @@ open class GradleDetector : Detector(), GradleScanner {
         val project = context.project
         // Check for disallowed dependencies
         checkBlockedDependencies(context, project)
+        if (!LintClient.isGradle) {
+            // In the IDE, in tests, etc, we can run the detectors repeatedly,
+            // and we don't want the reserved names to accumulate. In Gradle however
+            // we do want to make sure that we assign unique names, even across
+            // modules.
+            reservedQuickfixNames = null
+        }
     }
 
     private fun checkLibraryConsistency(context: Context) {
         checkConsistentPlayServices(context, null)
         checkConsistentSupportLibraries(context, null)
         checkConsistentWearableLibraries(context, null, null)
+    }
+
+    override fun visitTomlDocument(context: TomlContext, document: LintTomlDocument) {
+        // Look for version catalogs
+        val libraries = document.getValue(VC_LIBRARIES) as? LintTomlMapValue
+        if (libraries != null) {
+            val versions = document.getValue(VC_VERSIONS) as? LintTomlMapValue
+            for ((_, library) in libraries.getMappedValues()) {
+                val (coordinate, versionNode) = getLibraryFromTomlEntry(versions, library) ?: continue
+                val gc = GradleCoordinate.parseCoordinateString(coordinate) ?: return
+                // Check dependencies without the PSI read lock, because we
+                // may need to make network requests to retrieve version info.
+                context.driver.runLaterOutsideReadAction {
+                    checkDependency(context, gc, false, versionNode, versionNode)
+                }
+            }
+        }
     }
 
     override fun afterCheckFile(context: Context) {
@@ -1722,7 +1764,7 @@ open class GradleDetector : Detector(), GradleScanner {
 
     private fun maybeReportAgpVersionIssue(context: Context) {
         // b/144442233: surface check for outdated AGP only if google() is in buildscript repositories
-        if (mDeclaredGoogleMavenRepository) {
+        if (mDeclaredGoogleMavenRepository || context is TomlContext) {
             agpVersionCheckInfo?.let {
                 val versionString = it.newerVersion.toString()
                 val message = getNewerVersionAvailableMessage(
@@ -1760,6 +1802,7 @@ open class GradleDetector : Detector(), GradleScanner {
     ) {
         if (!mAppliedKotlinAndroidPlugin) return
         if (artifactId.endsWith("-ktx")) return
+        if (cookie is LintTomlValue) return
 
         val mavenName = "$groupId:$artifactId"
         if (!libraryHasKtxExtension(mavenName)) {
@@ -1833,7 +1876,8 @@ open class GradleDetector : Detector(), GradleScanner {
         var reportCreated = false
         context.client.runReadAction(
             Runnable {
-                if (context.isEnabled(issue) && context is GradleContext) {
+                val enabled = context.isEnabled(issue)
+                if (enabled && context is GradleContext) {
                     // Suppressed?
                     // Temporarily unconditionally checking for suppress comments in Gradle files
                     // since Studio insists on an AndroidLint id prefix
@@ -1844,6 +1888,21 @@ open class GradleDetector : Detector(), GradleScanner {
                     }
 
                     val location = context.getLocation(cookie)
+                    val incident = Incident(issue, location, message, fix)
+                    overrideSeverity?.let { incident.overrideSeverity(it) }
+                    if (partial) {
+                        context.report(incident, map())
+                    } else {
+                        context.report(incident)
+                    }
+                    reportCreated = true
+                } else if (enabled && context is TomlContext) {
+                    val location = context.getLocation(cookie)
+                    val start = location.start?.offset ?: 0
+                    val checkComments = context.containsCommentSuppress()
+                    if (checkComments && context.isSuppressedWithComment(start, issue)) {
+                        return@Runnable
+                    }
                     val incident = Incident(issue, location, message, fix)
                     overrideSeverity?.let { incident.overrideSeverity(it) }
                     if (partial) {
@@ -1939,10 +1998,10 @@ open class GradleDetector : Detector(), GradleScanner {
         }
     }
 
-    private fun getSdkVersion(value: String): Int {
+    private fun getSdkVersion(value: String, valueCookie: Any): Int {
         var version = 0
         if (isStringLiteral(value)) {
-            val codeName = getStringLiteralValue(value)
+            val codeName = getStringLiteralValue(value, valueCookie)
             if (codeName != null) {
                 if (isNumberString(codeName)) {
                     // Don't access numbered strings; should be literal numbers (lint will warn)
@@ -2178,7 +2237,7 @@ open class GradleDetector : Detector(), GradleScanner {
     private var googlePlaySdkIndex: GooglePlaySdkIndex? = null
 
     private fun getGoogleMavenRepoVersion(
-        context: GradleContext,
+        context: Context,
         dependency: GradleCoordinate,
         filter: Predicate<Version>?
     ): Version? {
@@ -2222,6 +2281,12 @@ open class GradleDetector : Detector(), GradleScanner {
         const val KEY_COORDINATE = "coordinate"
 
         private val IMPLEMENTATION = Implementation(GradleDetector::class.java, Scope.GRADLE_SCOPE)
+        private val IMPLEMENTATION_WITH_TOML = Implementation(
+            GradleDetector::class.java,
+            Scope.GRADLE_AND_TOML_SCOPE,
+            Scope.GRADLE_SCOPE,
+            Scope.TOML_SCOPE
+        )
 
         /** Obsolete dependencies. */
         @JvmField
@@ -2237,7 +2302,27 @@ open class GradleDetector : Detector(), GradleScanner {
             category = Category.CORRECTNESS,
             priority = 4,
             severity = Severity.WARNING,
-            implementation = IMPLEMENTATION
+            implementation = IMPLEMENTATION_WITH_TOML
+        )
+
+        /**
+         * Using a gradle group:artifact:id directly instead of placing
+         * it in the version catalog TOML file
+         */
+        @JvmField
+        val SWITCH_TO_TOML = Issue.create(
+            id = "UseTomlInstead",
+            briefDescription = "Use TOML Version Catalog Instead",
+            explanation = """
+                If your project is using a `libs.versions.toml` file, you should place \
+                all Gradle dependencies in the TOML file. This lint check looks for \
+                version declarations outside of the TOML file and suggests moving them \
+                (and in the IDE, provides a quickfix to performing the operation automatically).
+                """,
+            category = Category.PRODUCTIVITY,
+            priority = 4,
+            severity = Severity.WARNING,
+            implementation = IMPLEMENTATION_WITH_TOML
         )
 
         /**
@@ -2258,7 +2343,7 @@ open class GradleDetector : Detector(), GradleScanner {
             priority = 4,
             severity = Severity.WARNING,
             androidSpecific = true,
-            implementation = IMPLEMENTATION
+            implementation = IMPLEMENTATION_WITH_TOML
         )
 
         /** Deprecated Gradle constructs. */
@@ -2457,7 +2542,7 @@ open class GradleDetector : Detector(), GradleScanner {
             category = Category.CORRECTNESS,
             priority = 4,
             severity = Severity.WARNING,
-            implementation = IMPLEMENTATION,
+            implementation = IMPLEMENTATION_WITH_TOML,
             enabledByDefault = false
         )
 
@@ -2602,6 +2687,16 @@ open class GradleDetector : Detector(), GradleScanner {
          */
         val MINIMUM_TARGET_SDK_VERSION_YEAR = 2022
 
+        /**
+         * Reserved variable names used by [pickLibraryVariableName]
+         * and [pickVersionVariableName] suggesting library and version
+         * variable names; we need to make sure we keep track of
+         * previous suggestions made such that we don't have multiple
+         * quickfixes making the same suggestion and creating a clash if
+         * all fixes are applied.
+         */
+        var reservedQuickfixNames: MutableMap<String, MutableSet<String>>? = null
+
         /** targetSdkVersion about to expire */
         @JvmField
         val EXPIRING_TARGET_SDK_VERSION = Issue.create(
@@ -2677,7 +2772,7 @@ open class GradleDetector : Detector(), GradleScanner {
             priority = 5,
             severity = Severity.WARNING,
             androidSpecific = true,
-            implementation = IMPLEMENTATION,
+            implementation = IMPLEMENTATION_WITH_TOML,
             moreInfo = GOOGLE_PLAY_SDK_INDEX_URL
         )
 
@@ -2750,7 +2845,7 @@ open class GradleDetector : Detector(), GradleScanner {
             priority = 4,
             severity = Severity.WARNING,
             androidSpecific = true,
-            implementation = IMPLEMENTATION,
+            implementation = IMPLEMENTATION_WITH_TOML,
             moreInfo = GOOGLE_PLAY_SDK_INDEX_URL
         )
 
@@ -2836,7 +2931,7 @@ open class GradleDetector : Detector(), GradleScanner {
             category = Category.COMPLIANCE,
             priority = 8,
             severity = Severity.ERROR,
-            implementation = IMPLEMENTATION,
+            implementation = IMPLEMENTATION_WITH_TOML,
             moreInfo = GOOGLE_PLAY_SDK_INDEX_URL,
             androidSpecific = true
         )

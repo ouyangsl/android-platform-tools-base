@@ -76,6 +76,22 @@ class TestDeviceClientManagerListener : DeviceClientManagerListener {
         sendEvent(EventKind.PROCESS_DEBUGGER_STATUS_UPDATED, bridge, deviceClientManager)
     }
 
+    override fun processHeapAllocationsUpdated(
+        bridge: AndroidDebugBridge,
+        deviceClientManager: DeviceClientManager,
+        client: Client
+    ) {
+        sendEvent(EventKind.HEAP_ALLOCATIONS_UPDATED, bridge, deviceClientManager)
+    }
+
+    override fun processMethodProfilingStatusUpdated(
+        bridge: AndroidDebugBridge,
+        deviceClientManager: DeviceClientManager,
+        client: Client
+    ) {
+        sendEvent(EventKind.METHOD_PROFILING_STATUS_UPDATED, bridge, deviceClientManager)
+    }
+
     private fun sendEvent(
         kind: EventKind,
         bridge: AndroidDebugBridge,
@@ -97,6 +113,8 @@ class TestDeviceClientManagerListener : DeviceClientManagerListener {
     enum class EventKind {
         PROCESS_LIST_UPDATED,
         PROCESS_NAME_UPDATED,
-        PROCESS_DEBUGGER_STATUS_UPDATED
+        PROCESS_DEBUGGER_STATUS_UPDATED,
+        HEAP_ALLOCATIONS_UPDATED,
+        METHOD_PROFILING_STATUS_UPDATED
     }
 }

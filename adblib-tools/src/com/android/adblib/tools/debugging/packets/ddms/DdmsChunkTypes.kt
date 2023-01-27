@@ -18,20 +18,67 @@ package com.android.adblib.tools.debugging.packets.ddms
 class DdmsChunkTypes {
     @Suppress("SpellCheckingInspection")
     companion object {
+        val FAIL: Int = chunkTypeFromString("FAIL")
+
         val HELO: Int = chunkTypeFromString("HELO")
 
         val FEAT: Int = chunkTypeFromString("FEAT")
+
+        /**
+         * "REAE: REcent Allocation Enable"
+         */
+        val REAE: Int = chunkTypeFromString("REAE")
 
         /**
          * "REAQ: REcent Allocation Query"
          */
         val REAQ: Int = chunkTypeFromString("REAQ")
 
+        /**
+         * "REAL: REcent Allocation List"
+         */
+        val REAL: Int = chunkTypeFromString("REAL")
+
         val APNM: Int = chunkTypeFromString("APNM")
 
         val WAIT: Int = chunkTypeFromString("WAIT")
 
         val EXIT: Int = chunkTypeFromString("EXIT")
+
+        /**
+         * Requests a `Method Profiling Streaming Start`
+         */
+        val MPSS: Int = chunkTypeFromString("MPSS")
+
+        /**
+         * Requests a `Method Profiling Streaming End`
+         */
+        val MPSE: Int = chunkTypeFromString("MPSE")
+
+        /**
+         * Requests a `Method PRofiling Start`
+         */
+        val MPRS: Int = chunkTypeFromString("MPRS")
+
+        /**
+         * Requests a `Method PRofiling End`
+         */
+        val MPRE: Int = chunkTypeFromString("MPRE")
+
+        /**
+         * Requests a `Method PRofiling Query`
+         */
+        val MPRQ: Int = chunkTypeFromString("MPRQ")
+
+        /**
+         * Requests a `Sampling Profiling Streaming Start`
+         */
+        val SPSS: Int = chunkTypeFromString("SPSS")
+
+        /**
+         * Requests a `Sampling Profiling Streaming End`
+         */
+        val SPSE: Int = chunkTypeFromString("SPSE")
 
         /**
          * List `ViewRootImpl`'s of this process
@@ -55,6 +102,11 @@ class DdmsChunkTypes {
          * below.
          */
         val VUOP: Int = chunkTypeFromString("VUOP")
+
+        /**
+         * Requests a Gabage Collection of a process (`HeaP Gabage Collect`)
+         */
+        val HPGC: Int = chunkTypeFromString("HPGC")
 
         enum class VUOPOpCode(val value: Int) {
 

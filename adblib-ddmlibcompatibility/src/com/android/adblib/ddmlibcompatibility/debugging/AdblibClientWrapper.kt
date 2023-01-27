@@ -15,24 +15,38 @@
  */
 package com.android.adblib.ddmlibcompatibility.debugging
 
+import com.android.adblib.ddmlibcompatibility.debugging.AdbLibDeviceClientManager.ClientUpdateKind.*
 import com.android.adblib.thisLogger
+import com.android.adblib.tools.debugging.DdmsCommandException
+import com.android.adblib.tools.debugging.JdwpCommandProgress
 import com.android.adblib.tools.debugging.JdwpProcess
+import com.android.adblib.tools.debugging.ProfilerStatus
 import com.android.adblib.tools.debugging.SharedJdwpSession
+import com.android.adblib.tools.debugging.allocationTracker
+import com.android.adblib.tools.debugging.executeGarbageCollector
 import com.android.adblib.tools.debugging.handleDdmsCaptureView
 import com.android.adblib.tools.debugging.handleDdmsDumpViewHierarchy
 import com.android.adblib.tools.debugging.handleDdmsListViewRoots
+import com.android.adblib.tools.debugging.packets.JdwpPacketView
+import com.android.adblib.tools.debugging.profiler
 import com.android.adblib.tools.debugging.properties
 import com.android.adblib.tools.debugging.sendDdmsExit
+import com.android.adblib.tools.debugging.toByteArray
 import com.android.adblib.tools.debugging.toByteBuffer
 import com.android.adblib.withErrorTimeout
 import com.android.adblib.withPrefix
+import com.android.ddmlib.AndroidDebugBridge.IClientChangeListener
 import com.android.ddmlib.Client
 import com.android.ddmlib.ClientData
+import com.android.ddmlib.ClientData.MethodProfilingStatus
+import com.android.ddmlib.DdmPreferences
 import com.android.ddmlib.DebugViewDumpHandler
 import com.android.ddmlib.IDevice
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.job
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import java.util.concurrent.CancellationException
@@ -52,6 +66,23 @@ internal class AdblibClientWrapper(
         thisLogger(deviceClientManager.session).withPrefix("pid: ${jdwpProcess.pid}: ")
 
     private val clientDataWrapper = ClientData(this, jdwpProcess.pid)
+
+    private var featuresAdded = false
+
+    fun addFeatures(features: List<String>) {
+        // Add features only once to avoid duplicates (and we can assume they don't
+        // change during the lifetime of a process).
+        if (!featuresAdded) {
+            synchronized(this) {
+                if (!featuresAdded) {
+                    features.forEach {
+                        clientData.addFeature(it)
+                    }
+                    featuresAdded = true
+                }
+            }
+        }
+    }
 
     override fun getDevice(): IDevice {
         return iDevice
@@ -100,7 +131,7 @@ internal class AdblibClientWrapper(
     }
 
     /**
-     * Returns `true' if there is an "external" debugger (i.e. IntelliJ or Android Studio)
+     * Returns `true` if there is an "external" debugger (i.e. IntelliJ or Android Studio)
      * currently attached to the process via a JDWP session.
      */
     override fun isDebuggerAttached(): Boolean {
@@ -108,31 +139,182 @@ internal class AdblibClientWrapper(
     }
 
     override fun executeGarbageCollector() {
-        legacyNotImplemented("executeGarbageCollector")
+        // Note: To maintain strict ddmlib behavior, we block this method until the
+        // DDMS command is sent to the AndroidVM, but we don't wait for the reply.
+        runHalfBlockingLegacy("executeGarbageCollector") { progress ->
+            jdwpProcess.executeGarbageCollector(progress)
+        }
     }
 
     override fun startMethodTracer() {
-        legacyNotImplemented("startMethodTracer")
+        val canStream: Boolean = clientData.hasFeature(ClientData.FEATURE_PROFILING_STREAMING)
+        if (!canStream) {
+            throw DdmsCommandException("Profiling to a device file is not supported, use a device with API >= 10")
+        }
+        val bufferSize = getProfileBufferSize()
+
+        runHalfBlockingLegacy("startMethodTracer") { progress ->
+            jdwpProcess.profiler.startInstrumentationProfiling(bufferSize, progress)
+
+            // Sends a (async) status query. This ensures that the status is properly updated
+            // if for some reason starting the tracing failed.
+            queryProfilerStatus()
+        }
     }
 
     override fun stopMethodTracer() {
-        legacyNotImplemented("stopMethodTracer")
+        val canStream: Boolean = clientData.hasFeature(ClientData.FEATURE_PROFILING_STREAMING)
+        if (!canStream) {
+            throw DdmsCommandException("Profiling to a device file is not supported, use a device with API >= 10")
+        }
+
+        // Sends a DDMS MPSE packet to the VM
+        runHalfBlockingLegacy("stopMethodTracer") { progress ->
+            val profilingData =
+                jdwpProcess.profiler.stopInstrumentationProfiling(progress) { data, dataLength ->
+                    // Note: At this point, the ddms chunk payload points directly
+                    // to the socket of the underlying JDWP session.
+                    // We clone it into an in-memory ByteBuffer (which is wasteful)
+                    // only because the ddmlib API requires it.
+                    data.toByteArray(dataLength)
+                }
+            // Notify handler
+            val handler = ClientData.getMethodProfilingHandler()
+            handler?.onSuccess(profilingData, this)
+            notifyProfilingOff()
+        }
     }
 
-    override fun startSamplingProfiler(samplingInterval: Int, timeUnit: TimeUnit?) {
-        legacyNotImplemented("startSamplingProfiler")
+    private suspend fun queryProfilerStatus() {
+        when (jdwpProcess.profiler.queryStatus()) {
+            ProfilerStatus.Off -> {
+                clientData.methodProfilingStatus = MethodProfilingStatus.OFF
+                logger.debug { "Method profiling is not running" }
+            }
+
+            ProfilerStatus.InstrumentationProfilerRunning -> {
+                clientData.methodProfilingStatus = MethodProfilingStatus.TRACER_ON
+                logger.debug { "Method tracing is active" }
+            }
+
+            ProfilerStatus.SamplingProfilerRunning -> {
+                clientData.methodProfilingStatus = MethodProfilingStatus.SAMPLER_ON
+                logger.debug { "Sampler based profiling is active" }
+            }
+        }
+
+        @Suppress("DeferredResultUnused")
+        deviceClientManager.postClientUpdateEvent(this, ProfilingStatus)
+    }
+
+    private suspend fun notifyProfilingOff() {
+        // Update status and notify listeners
+        clientData.methodProfilingStatus = MethodProfilingStatus.OFF
+        @Suppress("DeferredResultUnused")
+        deviceClientManager.postClientUpdateEvent(this, ProfilingStatus)
+    }
+
+    override fun startSamplingProfiler(samplingInterval: Int, timeUnit: TimeUnit) {
+        val bufferSize = getProfileBufferSize()
+        runHalfBlockingLegacy("startSamplingProfiler") { progress ->
+            jdwpProcess.profiler.startSampleProfiling(
+                samplingInterval.toLong(),
+                timeUnit,
+                bufferSize,
+                progress
+            )
+
+            // Send a status query. This ensures that the status is properly updated if for some
+            // reason starting the tracing failed.
+            queryProfilerStatus()
+        }
     }
 
     override fun stopSamplingProfiler() {
-        legacyNotImplemented("stopSamplingProfiler")
+        runHalfBlockingLegacy("stopSamplingProfiler") { progress ->
+            val profilingData =
+                jdwpProcess.profiler.stopSampleProfiling(progress) { data, dataLength ->
+                    // Note: At this point, the ddms chunk payload points directly
+                    // to the socket of the underlying JDWP session.
+                    // We clone it into an in-memory ByteBuffer (which is wasteful)
+                    // only because the ddmlib API requires it.
+                    data.toByteArray(dataLength)
+                }
+
+            // Notify handler
+            val handler = ClientData.getMethodProfilingHandler()
+            handler?.onSuccess(profilingData, this)
+
+            notifyProfilingOff()
+        }
     }
 
+    /**
+     * Requests allocation details (asynchronously) and invokes the
+     * [IClientChangeListener.clientChanged] callback, with [Client.CHANGE_HEAP_ALLOCATIONS] as
+     * flags. The allocation data (an array of bytes) is available in
+     * [ClientData.getAllocationsData] during the callback invocation.
+     *
+     * Note that allocation tracking should be enabled (see [enableAllocationTracker])
+     * for this method to collect meaningful data.
+     */
     override fun requestAllocationDetails() {
-        legacyNotImplemented("requestAllocationDetails")
+        // Note: Implementation is subtle here: We have to be asynchronous, but we also
+        // don't want to return before we have sent the DDMS "REAL" query, because the caller
+        // of this `Client` interface may call `enableAllocationTracker(false)` just after
+        // calling this method.
+        //
+        // Consumers typically do this:
+        //    client.enableAllocationTracker(true)
+        //    (wait some time, maybe very short)
+        //    client.requestAllocationDetails()
+        //    client.enableAllocationTracker(false)
+        //    (ddmlib callback from requestAllocationDetails is invoked some time later)
+        runHalfBlockingLegacy("requestAllocationDetails") { progress ->
+            val allocationData =
+                jdwpProcess.allocationTracker.fetchAllocationDetails(progress) { data, length ->
+                    // Note: At this point, the ddms chunk payload points directly
+                    // to the socket of the underlying JDWP session.
+                    // We clone it into an in-memory ByteBuffer (which is wasteful)
+                    // only because the ddmlib API requires it.
+                    data.toByteArray(length)
+                }
+
+            // Work with legacy global handler.
+            @Suppress("DEPRECATION")
+            val handler = ClientData.getAllocationTrackingHandler()
+            if (handler != null) {
+                logger.debug { "requestAllocationDetails: Allocation data is ${allocationData.size} bytes" }
+                handler.onSuccess(allocationData, this@AdblibClientWrapper)
+            }
+
+            //
+            // Set allocation data, call listeners, then clear allocation data
+            //
+            clientData.allocationsData = allocationData
+
+            // Notify listeners *and* wait until even has been dispatched to listeners
+            deviceClientManager.postClientUpdateEvent(this, HeapAllocations).await()
+
+            // Clean up after everything has been notified (synchronously).
+            clientData.allocationsData = null
+        }
     }
 
     override fun enableAllocationTracker(enabled: Boolean) {
-        legacyNotImplemented("enableAllocationTracker")
+        // Note: This implementation is tricky: we must block until the DDMS packet
+        // is sent to the JDWP session to ensure a call to `requestAllocationDetails` does
+        // not come too early.
+        //
+        // Consumers typically do this:
+        //    client.enableAllocationTracker(true)
+        //    (wait some time, maybe very short)
+        //    client.requestAllocationDetails()
+        //    client.enableAllocationTracker(false)
+        //    (ddmlib callback from requestAllocationDetails is invoked some time later)
+        runHalfBlockingLegacy("enableAllocationTracker") { progress ->
+            jdwpProcess.allocationTracker.enable(enabled, progress)
+        }
     }
 
     /**
@@ -229,18 +411,38 @@ internal class AdblibClientWrapper(
         }
     }
 
-    private fun launchLegacyWithJdwpSession(
+    /**
+     * A mix of [launchLegacy] and [runBlockingLegacy]: The [block] invoked by [launchLegacy]
+     * completes a [CompletableDeferred] to unblock a wait inside [runBlockingLegacy].
+     */
+    private fun runHalfBlockingLegacy(
         operation: String,
-        block: suspend SharedJdwpSession.() -> Unit
+        timeout: Duration = RUN_BLOCKING_LEGACY_DEFAULT_TIMEOUT,
+        block: suspend (JdwpCommandProgress) -> Unit
+    ) {
+        val deferred = CompletableDeferred<Unit>(jdwpProcess.scope.coroutineContext.job)
+        val progress = object : JdwpCommandProgress {
+            override suspend fun afterSend(packet: JdwpPacketView) {
+                deferred.complete(Unit)
+            }
+        }
+        launchLegacy(operation) {
+            block(progress)
+        }
+        return runBlockingLegacy(timeout = timeout) {
+            deferred.await()
+        }
+    }
+
+    private fun launchLegacy(
+        operation: String,
+        block: suspend CoroutineScope.() -> Unit
     ) {
         // Note: We use `async` here to make sure exceptions are not propagated to
         // the parent context.
         val deferred = jdwpProcess.scope.async {
-            jdwpProcess.withJdwpSession {
-                block()
-            }
+            block()
         }
-
         // We log errors here because legacy ddmlib APIs wrapped by this method don't
         // have a way to report errors to their callers.
         deferred.invokeOnCompletion { cause: Throwable? ->
@@ -255,11 +457,26 @@ internal class AdblibClientWrapper(
         }
     }
 
+    private fun launchLegacyWithJdwpSession(
+        operation: String,
+        block: suspend SharedJdwpSession.() -> Unit
+    ) {
+        launchLegacy(operation) {
+            jdwpProcess.withJdwpSession {
+                block()
+            }
+        }
+    }
+
     private fun legacyNotImplemented(operation: String) {
         val message =
             "Operation '$operation' is not implemented because it is deprecated. It should never be called."
         logger.info { message }
         throw NotImplementedError(message)
+    }
+
+    private fun getProfileBufferSize(): Int {
+        return DdmPreferences.getProfilerBufferSizeMb() * 1024 * 1024
     }
 
     companion object {

@@ -16,11 +16,11 @@
 package com.android.adblib.tools.debugging
 
 import com.android.adblib.ConnectedDevice
-import com.android.adblib.DeviceSelector
-import com.android.adblib.tools.debugging.impl.JdwpSessionProxy
+import com.android.adblib.CoroutineScopeCache
+import com.android.adblib.tools.debugging.impl.JdwpProcessAllocationTrackerImpl
+import com.android.adblib.tools.debugging.impl.JdwpProcessProfilerImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
-import java.net.InetSocketAddress
 
 /**
  * A JDWP process tracked by [JdwpProcessTracker]. Each instance has a [pid] and a [StateFlow]
@@ -47,6 +47,13 @@ interface JdwpProcess {
      * This [scope] can be used for example when collecting the [propertiesFlow].
      */
     val scope: CoroutineScope
+        get() = cache.scope
+
+    /**
+     * Returns a [CoroutineScopeCache] associated to this [JdwpProcess]. The cache
+     * is cleared when the process exits.
+     */
+    val cache: CoroutineScopeCache
 
     /**
      * A [StateFlow] that describes the current process information.
@@ -80,3 +87,39 @@ interface JdwpProcess {
  */
 val JdwpProcess.properties: JdwpProcessProperties
     get() = this.propertiesFlow.value
+
+/**
+ * Sends a DDMS command to the AndroidVM to run the garbage collector in this [JdwpProcess]
+ * and waits for the confirmation from the AndroidVM the GC was successfully performed.
+ *
+ * TODO(b/266699981): Add unit test
+ */
+suspend fun JdwpProcess.executeGarbageCollector(progress: JdwpCommandProgress? = null) {
+    withJdwpSession {
+        handleDdmsHPGC(progress)
+    }
+}
+
+private val jdwpProcessAllocationTrackerKey =
+    CoroutineScopeCache.Key<JdwpProcessAllocationTracker>("JdwpProcessAllocationTracker")
+
+/**
+ * Returns the [JdwpProcessAllocationTracker] for this [JdwpProcess]. This API is deprecated
+ * and should only be used for "legacy" devices (API <= 25 "Android N")
+ */
+val JdwpProcess.allocationTracker: JdwpProcessAllocationTracker
+    get() = this.cache.getOrPut(jdwpProcessAllocationTrackerKey) {
+        JdwpProcessAllocationTrackerImpl(this)
+    }
+
+private val jdwpProcessProfilerKey =
+    CoroutineScopeCache.Key<JdwpProcessProfiler>("JdwpProcessProfiler")
+
+/**
+ * Returns the [JdwpProcessProfiler] for this [JdwpProcess]. This API is deprecated
+ * and should only be used for "legacy" devices (API <= 25 "Android N")
+ */
+val JdwpProcess.profiler: JdwpProcessProfiler
+    get() = this.cache.getOrPut(jdwpProcessProfilerKey) {
+        JdwpProcessProfilerImpl(this)
+    }

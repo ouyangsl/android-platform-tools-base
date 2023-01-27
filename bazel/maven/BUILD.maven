@@ -1972,6 +1972,48 @@ maven_import(
 )
 
 maven_artifact(
+    name = "com.google.testing.platform.android-driver-instrumentation_0.0.8-alpha07",
+    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07/android-driver-instrumentation-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_import(
+    name = "com.google.testing.platform.android-driver-instrumentation",
+    classifiers = [],
+    jars = [
+        "repository/com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07/android-driver-instrumentation-0.0.8-alpha07.jar"
+    ],
+    original_deps = [],
+    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07/android-driver-instrumentation-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.google.testing.platform.android-test-plugin_0.0.8-alpha07",
+    pom = "repository/com/google/testing/platform/android-test-plugin/0.0.8-alpha07/android-test-plugin-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-test-plugin/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_import(
+    name = "com.google.testing.platform.android-test-plugin",
+    classifiers = [],
+    jars = [
+        "repository/com/google/testing/platform/android-test-plugin/0.0.8-alpha07/android-test-plugin-0.0.8-alpha07.jar"
+    ],
+    original_deps = [],
+    pom = "repository/com/google/testing/platform/android-test-plugin/0.0.8-alpha07/android-test-plugin-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-test-plugin/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.google.testing.platform.core-proto_0.0.8-alpha08",
     pom = "repository/com/google/testing/platform/core-proto/0.0.8-alpha08/core-proto-0.0.8-alpha08.pom",
     repo_root_path = "repository",
@@ -1990,6 +2032,27 @@ maven_import(
     repo_root_path = "repository",
     repo_path = "com/google/testing/platform/core-proto/0.0.8-alpha08",
     srcjar = "repository/com/google/testing/platform/core-proto/0.0.8-alpha08/core-proto-0.0.8-alpha08-sources.jar",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.google.testing.platform.core_0.0.8-alpha07",
+    pom = "repository/com/google/testing/platform/core/0.0.8-alpha07/core-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/core/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_import(
+    name = "com.google.testing.platform.core",
+    classifiers = [],
+    jars = [
+        "repository/com/google/testing/platform/core/0.0.8-alpha07/core-0.0.8-alpha07.jar"
+    ],
+    original_deps = [],
+    pom = "repository/com/google/testing/platform/core/0.0.8-alpha07/core-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/core/0.0.8-alpha07",
     visibility = ["//visibility:public"],
 )
 
@@ -7499,10 +7562,10 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.gradle.gradle-tooling-api_8.0-rc-1",
-    pom = "repository/org/gradle/gradle-tooling-api/8.0-rc-1/gradle-tooling-api-8.0-rc-1.pom",
+    name = "org.gradle.gradle-tooling-api_8.0-rc-2",
+    pom = "repository/org/gradle/gradle-tooling-api/8.0-rc-2/gradle-tooling-api-8.0-rc-2.pom",
     repo_root_path = "repository",
-    repo_path = "org/gradle/gradle-tooling-api/8.0-rc-1",
+    repo_path = "org/gradle/gradle-tooling-api/8.0-rc-2",
     deps = [
         "org.slf4j.slf4j-api_1.7.30",
     ],
@@ -7513,7 +7576,7 @@ maven_import(
     name = "org.gradle.gradle-tooling-api",
     classifiers = [],
     jars = [
-        "repository/org/gradle/gradle-tooling-api/8.0-rc-1/gradle-tooling-api-8.0-rc-1.jar"
+        "repository/org/gradle/gradle-tooling-api/8.0-rc-2/gradle-tooling-api-8.0-rc-2.jar"
     ],
     exports = [
         "org.slf4j.slf4j-api",
@@ -7521,9 +7584,9 @@ maven_import(
     original_deps = [
         "org.slf4j.slf4j-api_1.7.30",
     ],
-    pom = "repository/org/gradle/gradle-tooling-api/8.0-rc-1/gradle-tooling-api-8.0-rc-1.pom",
+    pom = "repository/org/gradle/gradle-tooling-api/8.0-rc-2/gradle-tooling-api-8.0-rc-2.pom",
     repo_root_path = "repository",
-    repo_path = "org/gradle/gradle-tooling-api/8.0-rc-1",
+    repo_path = "org/gradle/gradle-tooling-api/8.0-rc-2",
     visibility = ["//visibility:public"],
 )
 
@@ -16525,13 +16588,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "androidx.privacysandbox.tools.tools-apicompiler_1.0.0-SNAPSHOT",
-    pom = "repository/androidx/privacysandbox/tools/tools-apicompiler/1.0.0-SNAPSHOT/tools-apicompiler-1.0.0-SNAPSHOT.pom",
+    name = "androidx.privacysandbox.tools.tools-apicompiler_1.0.0-alpha02",
+    pom = "repository/androidx/privacysandbox/tools/tools-apicompiler/1.0.0-alpha02/tools-apicompiler-1.0.0-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "androidx/privacysandbox/tools/tools-apicompiler/1.0.0-SNAPSHOT",
+    repo_path = "androidx/privacysandbox/tools/tools-apicompiler/1.0.0-alpha02",
     deps = [
-        "androidx.privacysandbox.tools.tools_1.0.0-SNAPSHOT",
-        "androidx.privacysandbox.tools.tools-core_1.0.0-SNAPSHOT",
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha02",
+        "androidx.privacysandbox.tools.tools-core_1.0.0-alpha02",
         "com.google.devtools.ksp.symbol-processing-api_1.7.21-1.0.8",
         "com.squareup.kotlinpoet_1.12.0",
         "org.jetbrains.kotlin.kotlin-stdlib_1.7.21",
@@ -16540,13 +16603,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "androidx.privacysandbox.tools.tools-apigenerator_1.0.0-SNAPSHOT",
-    pom = "repository/androidx/privacysandbox/tools/tools-apigenerator/1.0.0-SNAPSHOT/tools-apigenerator-1.0.0-SNAPSHOT.pom",
+    name = "androidx.privacysandbox.tools.tools-apigenerator_1.0.0-alpha02",
+    pom = "repository/androidx/privacysandbox/tools/tools-apigenerator/1.0.0-alpha02/tools-apigenerator-1.0.0-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "androidx/privacysandbox/tools/tools-apigenerator/1.0.0-SNAPSHOT",
+    repo_path = "androidx/privacysandbox/tools/tools-apigenerator/1.0.0-alpha02",
     deps = [
-        "androidx.privacysandbox.tools.tools_1.0.0-SNAPSHOT",
-        "androidx.privacysandbox.tools.tools-core_1.0.0-SNAPSHOT",
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha02",
+        "androidx.privacysandbox.tools.tools-core_1.0.0-alpha02",
         "com.squareup.kotlinpoet_1.12.0",
         "org.jetbrains.kotlin.kotlin-stdlib_1.7.21",
         "org.jetbrains.kotlinx.kotlinx-metadata-jvm_0.5.0",
@@ -16557,13 +16620,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "androidx.privacysandbox.tools.tools-apipackager_1.0.0-SNAPSHOT",
-    pom = "repository/androidx/privacysandbox/tools/tools-apipackager/1.0.0-SNAPSHOT/tools-apipackager-1.0.0-SNAPSHOT.pom",
+    name = "androidx.privacysandbox.tools.tools-apipackager_1.0.0-alpha02",
+    pom = "repository/androidx/privacysandbox/tools/tools-apipackager/1.0.0-alpha02/tools-apipackager-1.0.0-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "androidx/privacysandbox/tools/tools-apipackager/1.0.0-SNAPSHOT",
+    repo_path = "androidx/privacysandbox/tools/tools-apipackager/1.0.0-alpha02",
     deps = [
-        "androidx.privacysandbox.tools.tools_1.0.0-SNAPSHOT",
-        "androidx.privacysandbox.tools.tools-core_1.0.0-SNAPSHOT",
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha02",
+        "androidx.privacysandbox.tools.tools-core_1.0.0-alpha02",
         "org.jetbrains.kotlin.kotlin-stdlib_1.7.21",
         "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.7.21",
         "org.ow2.asm.asm_9.3",
@@ -16573,12 +16636,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "androidx.privacysandbox.tools.tools-core_1.0.0-SNAPSHOT",
-    pom = "repository/androidx/privacysandbox/tools/tools-core/1.0.0-SNAPSHOT/tools-core-1.0.0-SNAPSHOT.pom",
+    name = "androidx.privacysandbox.tools.tools-core_1.0.0-alpha02",
+    pom = "repository/androidx/privacysandbox/tools/tools-core/1.0.0-alpha02/tools-core-1.0.0-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "androidx/privacysandbox/tools/tools-core/1.0.0-SNAPSHOT",
+    repo_path = "androidx/privacysandbox/tools/tools-core/1.0.0-alpha02",
     deps = [
-        "androidx.privacysandbox.tools.tools_1.0.0-SNAPSHOT",
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha02",
         "com.google.protobuf.protobuf-javalite_3.21.8",
         "com.squareup.kotlinpoet_1.12.0",
         "org.jetbrains.kotlin.kotlin-stdlib_1.7.21",
@@ -16587,10 +16650,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "androidx.privacysandbox.tools.tools_1.0.0-SNAPSHOT",
-    pom = "repository/androidx/privacysandbox/tools/tools/1.0.0-SNAPSHOT/tools-1.0.0-SNAPSHOT.pom",
+    name = "androidx.privacysandbox.tools.tools_1.0.0-alpha02",
+    pom = "repository/androidx/privacysandbox/tools/tools/1.0.0-alpha02/tools-1.0.0-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "androidx/privacysandbox/tools/tools/1.0.0-SNAPSHOT",
+    repo_path = "androidx/privacysandbox/tools/tools/1.0.0-alpha02",
     deps = [
         "androidx.annotation.annotation_1.3.0",
         "org.jetbrains.kotlin.kotlin-stdlib_1.7.21",
@@ -24093,6 +24156,24 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.android.tools.emulator.proto_30.2.0",
+    pom = "repository/com/android/tools/emulator/proto/30.2.0/proto-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/emulator/proto/30.2.0",
+    deps = [
+        "com.google.code.gson.gson_2.8.6",
+        "com.google.guava.guava_30.1-jre",
+        "io.grpc.grpc-core_1.21.1",
+        "io.grpc.grpc-netty_1.21.1",
+        "io.grpc.grpc-protobuf_1.21.1",
+        "io.grpc.grpc-stub_1.21.1",
+        "javax.annotation.javax.annotation-api_1.3.2",
+        "com.google.protobuf.protobuf-java_3.10.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.android.tools.external.com-intellij.intellij-core_26.0.0",
     pom = "repository/com/android/tools/external/com-intellij/intellij-core/26.0.0/intellij-core-26.0.0.pom",
     repo_root_path = "repository",
@@ -26273,6 +26354,23 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.android.tools.utp.android-device-provider-ddmlib_30.2.0",
+    pom = "repository/com/android/tools/utp/android-device-provider-ddmlib/30.2.0/android-device-provider-ddmlib-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-device-provider-ddmlib/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "com.android.tools.ddms.ddmlib_30.2.0",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.android.tools.utp.android-device-provider-ddmlib-proto_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.5.2",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.android.tools.utp.android-device-provider-gradle-proto_30.0.0",
     pom = "repository/com/android/tools/utp/android-device-provider-gradle-proto/30.0.0/android-device-provider-gradle-proto-30.0.0.pom",
     repo_root_path = "repository",
@@ -26339,6 +26437,21 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.android.tools.utp.android-device-provider-gradle_30.2.0",
+    pom = "repository/com/android/tools/utp/android-device-provider-gradle/30.2.0/android-device-provider-gradle-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-device-provider-gradle/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.android.tools.utp.android-device-provider-gradle-proto_30.2.0",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.android.tools.utp.android-test-plugin-host-additional-test-output-proto_30.1.0",
     pom = "repository/com/android/tools/utp/android-test-plugin-host-additional-test-output-proto/30.1.0/android-test-plugin-host-additional-test-output-proto-30.1.0.pom",
     repo_root_path = "repository",
@@ -26383,6 +26496,21 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.android.tools.utp.android-test-plugin-host-additional-test-output_30.2.0",
+    pom = "repository/com/android/tools/utp/android-test-plugin-host-additional-test-output/30.2.0/android-test-plugin-host-additional-test-output-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-test-plugin-host-additional-test-output/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "com.android.tools.utp.android-test-plugin-host-additional-test-output-proto_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.android.tools.utp.android-test-plugin-host-coverage-proto_30.1.0",
     pom = "repository/com/android/tools/utp/android-test-plugin-host-coverage-proto/30.1.0/android-test-plugin-host-coverage-proto-30.1.0.pom",
     repo_root_path = "repository",
@@ -26422,6 +26550,61 @@ maven_artifact(
     repo_path = "com/android/tools/utp/android-test-plugin-host-coverage-proto/30.4.0-alpha09",
     deps = [
         "com.google.protobuf.protobuf-java_3.17.2",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.android.tools.utp.android-test-plugin-host-coverage_30.2.0",
+    pom = "repository/com/android/tools/utp/android-test-plugin-host-coverage/30.2.0/android-test-plugin-host-coverage-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-test-plugin-host-coverage/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "com.android.tools.utp.android-test-plugin-host-coverage-proto_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.android.tools.utp.android-test-plugin-host-device-info-proto_30.2.0",
+    pom = "repository/com/android/tools/utp/android-test-plugin-host-device-info-proto/30.2.0/android-test-plugin-host-device-info-proto-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-test-plugin-host-device-info-proto/30.2.0",
+    deps = [
+        "com.google.protobuf.protobuf-java_3.10.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.android.tools.utp.android-test-plugin-host-device-info_30.2.0",
+    pom = "repository/com/android/tools/utp/android-test-plugin-host-device-info/30.2.0/android-test-plugin-host-device-info-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-test-plugin-host-device-info/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.android.tools.utp.android-test-plugin-host-device-info-proto_30.2.0",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.android.tools.utp.android-test-plugin-host-logcat_30.2.0",
+    pom = "repository/com/android/tools/utp/android-test-plugin-host-logcat/30.2.0/android-test-plugin-host-logcat-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-test-plugin-host-logcat/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
     ],
     visibility = ["//visibility:public"],
 )
@@ -26494,6 +26677,30 @@ maven_artifact(
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.7.10",
         "com.google.protobuf.protobuf-java_3.17.2",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.android.tools.utp.android-test-plugin-host-retention_30.2.0",
+    pom = "repository/com/android/tools/utp/android-test-plugin-host-retention/30.2.0/android-test-plugin-host-retention-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-test-plugin-host-retention/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.5.2",
+        "commons-io.commons-io_2.4",
+        "com.google.code.gson.gson_2.8.6",
+        "io.grpc.grpc-core_1.21.1",
+        "io.grpc.grpc-netty_1.21.1",
+        "io.grpc.grpc-protobuf_1.21.1",
+        "io.grpc.grpc-stub_1.21.1",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.google.guava.guava_30.1-jre",
+        "com.android.tools.utp.android-test-plugin-host-retention-proto_30.2.0",
+        "com.android.tools.emulator.proto_30.2.0",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
     ],
     visibility = ["//visibility:public"],
 )
@@ -26598,6 +26805,28 @@ maven_artifact(
         "com.google.guava.guava_30.1-jre",
         "javax.annotation.javax.annotation-api_1.3.2",
         "com.google.protobuf.protobuf-java_3.17.2",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.android.tools.utp.android-test-plugin-result-listener-gradle_30.2.0",
+    pom = "repository/com/android/tools/utp/android-test-plugin-result-listener-gradle/30.2.0/android-test-plugin-result-listener-gradle-30.2.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/android/tools/utp/android-test-plugin-result-listener-gradle/30.2.0",
+    deps = [
+        "com.android.tools.common_30.2.0",
+        "com.android.tools.utp.android-test-plugin-result-listener-gradle-proto_30.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.5.31",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.5.2",
+        "com.google.code.gson.gson_2.8.6",
+        "io.grpc.grpc-core_1.21.1",
+        "io.grpc.grpc-protobuf_1.21.1",
+        "io.grpc.grpc-stub_1.21.1",
+        "io.grpc.grpc-netty_1.21.1",
+        "com.google.protobuf.protobuf-java_3.10.0",
+        "com.google.guava.guava_30.1-jre",
+        "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
     ],
     visibility = ["//visibility:public"],
 )
@@ -31016,6 +31245,14 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.google.testing.platform.android-device-provider-local_0.0.8-alpha07",
+    pom = "repository/com/google/testing/platform/android-device-provider-local/0.0.8-alpha07/android-device-provider-local-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-device-provider-local/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.google.testing.platform.android-driver-instrumentation_0.0.8-alpha08",
     pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha08/android-driver-instrumentation-0.0.8-alpha08.pom",
     repo_root_path = "repository",
@@ -31060,6 +31297,14 @@ maven_artifact(
     pom = "repository/com/google/testing/platform/core/0.0.8-alpha08/core-0.0.8-alpha08.pom",
     repo_root_path = "repository",
     repo_path = "com/google/testing/platform/core/0.0.8-alpha08",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.google.testing.platform.launcher_0.0.8-alpha07",
+    pom = "repository/com/google/testing/platform/launcher/0.0.8-alpha07/launcher-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/launcher/0.0.8-alpha07",
     visibility = ["//visibility:public"],
 )
 
@@ -36356,23 +36601,23 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-reflect_1.8.0",
+    pom = "repository/org/jetbrains/kotlin/kotlin-reflect/1.8.0/kotlin-reflect-1.8.0.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-reflect/1.8.0",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.jetbrains.kotlin.kotlin-reflect_1.8.0-Beta",
     pom = "repository/org/jetbrains/kotlin/kotlin-reflect/1.8.0-Beta/kotlin-reflect-1.8.0-Beta.pom",
     repo_root_path = "repository",
     repo_path = "org/jetbrains/kotlin/kotlin-reflect/1.8.0-Beta",
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-Beta",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-reflect_1.8.0-RC2",
-    pom = "repository/org/jetbrains/kotlin/kotlin-reflect/1.8.0-RC2/kotlin-reflect-1.8.0-RC2.pom",
-    repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-reflect/1.8.0-RC2",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-RC2",
     ],
     visibility = ["//visibility:public"],
 )
@@ -37166,18 +37411,18 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0-Beta",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0-Beta/kotlin-stdlib-common-1.8.0-Beta.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0/kotlin-stdlib-common-1.8.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0-Beta",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0-RC2",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0-RC2/kotlin-stdlib-common-1.8.0-RC2.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0-Beta",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0-Beta/kotlin-stdlib-common-1.8.0-Beta.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0-RC2",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-common/1.8.0-Beta",
     visibility = ["//visibility:public"],
 )
 
@@ -37391,23 +37636,23 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0/kotlin-stdlib-jdk7-1.8.0.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0-Beta",
     pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0-Beta/kotlin-stdlib-jdk7-1.8.0-Beta.pom",
     repo_root_path = "repository",
     repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0-Beta",
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-Beta",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0-RC2",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0-RC2/kotlin-stdlib-jdk7-1.8.0-RC2.pom",
-    repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.8.0-RC2",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-RC2",
     ],
     visibility = ["//visibility:public"],
 )
@@ -37641,6 +37886,18 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.0",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.0/kotlin-stdlib-jdk8-1.8.0.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.0",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.0-Beta",
     pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.0-Beta/kotlin-stdlib-jdk8-1.8.0-Beta.pom",
     repo_root_path = "repository",
@@ -37648,18 +37905,6 @@ maven_artifact(
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-Beta",
         "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0-Beta",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.0-RC2",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.0-RC2/kotlin-stdlib-jdk8-1.8.0-RC2.pom",
-    repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.8.0-RC2",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-RC2",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0-RC2",
     ],
     visibility = ["//visibility:public"],
 )
@@ -38136,24 +38381,24 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-Beta",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.0-Beta/kotlin-stdlib-1.8.0-Beta.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib_1.8.0",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.0/kotlin-stdlib-1.8.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib/1.8.0-Beta",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib/1.8.0",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0-Beta",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0",
         "org.jetbrains.annotations_13.0",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-RC2",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.0-RC2/kotlin-stdlib-1.8.0-RC2.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib_1.8.0-Beta",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib/1.8.0-Beta/kotlin-stdlib-1.8.0-Beta.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib/1.8.0-RC2",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib/1.8.0-Beta",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0-RC2",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.0-Beta",
         "org.jetbrains.annotations_13.0",
     ],
     visibility = ["//visibility:public"],

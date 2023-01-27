@@ -19,7 +19,9 @@ import com.android.SdkConstants.ANDROID_MANIFEST_XML
 import com.android.SdkConstants.DOT_JAVA
 import com.android.SdkConstants.DOT_KT
 import com.android.SdkConstants.DOT_XML
+import com.android.SdkConstants.FD_GRADLE
 import com.android.SdkConstants.FN_BUILD_GRADLE
+import com.android.SdkConstants.FN_VERSION_CATALOG
 import com.android.resources.ResourceType
 import com.android.resources.ResourceUrl
 import com.android.tools.lint.checks.infrastructure.TestFile.BinaryTestFile
@@ -116,6 +118,16 @@ object TestFiles {
     @JvmStatic
     fun gradle(@Language("Groovy") source: String): GradleTestFile {
         return GradleTestFile(FN_BUILD_GRADLE, source)
+    }
+
+    @JvmStatic
+    fun gradleToml(@Language("TOML") toml: String): TestFile {
+        return source("../$FD_GRADLE/$FN_VERSION_CATALOG", toml)
+    }
+
+    @JvmStatic
+    fun toml(into: String, @Language("TOML") toml: String): TestFile {
+        return source(into, toml)
     }
 
     @JvmStatic

@@ -17,6 +17,7 @@ package com.android.adblib.tools.debugging.impl
 
 import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
+import com.android.adblib.CoroutineScopeCache
 import com.android.adblib.scope
 import com.android.adblib.selector
 import com.android.adblib.thisLogger
@@ -41,12 +42,14 @@ import java.io.EOFException
 import java.time.Duration
 
 /**
- * Maximum amount of time to keep a JDWP connection open while waiting for "handshake"/"process info" packets.
+ * Maximum amount of time a JDWP connection is open while waiting for the JDWP "handshake"
+ * and various DDMS packets related to the process state.
  *
- * This cannot be too long since a process will only eventually only show up when all intro packets have been
- * received and analyzed.
+ * Note: The current value (15 seconds) matches the time Android Studio waits for a process
+ * to show up as "waiting for debugger" after deploying and starting an application on a
+ * device.
  */
-private val PROCESS_PROPERTIES_READ_TIMEOUT = Duration.ofSeconds(2)
+private val PROCESS_PROPERTIES_READ_TIMEOUT = Duration.ofSeconds(15)
 
 /**
  * Amount of time to wait before retrying a JDWP session to retrieve process properties
@@ -66,7 +69,7 @@ internal class JdwpProcessImpl(
 
     private val stateFlow = AtomicStateFlow(MutableStateFlow(JdwpProcessProperties(pid)))
 
-    override val scope = device.scope.createChildScope(isSupervisor = true)
+    override val cache = CoroutineScopeCache.create(device.scope)
 
     override val propertiesFlow = stateFlow.asStateFlow()
 

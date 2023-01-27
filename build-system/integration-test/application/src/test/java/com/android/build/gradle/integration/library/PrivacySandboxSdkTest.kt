@@ -23,9 +23,9 @@ import com.android.build.gradle.integration.common.truth.ApkSubject
 import com.android.build.gradle.integration.common.truth.ApkSubject.assertThat
 import com.android.build.gradle.integration.common.utils.SdkHelper
 import com.android.build.gradle.integration.common.utils.TestFileUtils
-import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.options.BooleanOption
 import com.android.build.gradle.options.StringOption
+import com.android.ide.common.signing.KeystoreHelper
 import com.android.sdklib.BuildToolInfo
 import com.android.testutils.MavenRepoGenerator
 import com.android.testutils.TestInputsGenerator
@@ -58,7 +58,7 @@ class PrivacySandboxSdkTest {
 
     @get:Rule
     val project = createGradleProjectBuilder {
-
+        val androidxPrivacySandboxSdkVersion = "1.0.0-alpha02"
         val aidlPath = SdkHelper.getBuildTool(BuildToolInfo.PathId.AIDL).absolutePath
                 .replace("""\""", """\\""")
         subProject(":android-lib1") {
@@ -74,11 +74,11 @@ class PrivacySandboxSdkTest {
             }
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3")
-                implementation("androidx.privacysandbox.tools:tools:1.0.0-SNAPSHOT")
+                implementation("androidx.privacysandbox.tools:tools:$androidxPrivacySandboxSdkVersion")
                 implementation("androidx.privacysandbox.sdkruntime:sdkruntime-core:1.0.0-SNAPSHOT")
                 implementation("androidx.privacysandbox.sdkruntime:sdkruntime-client:1.0.0-SNAPSHOT")
-
-                ksp("androidx.privacysandbox.tools:tools-apicompiler:1.0.0-SNAPSHOT")
+                implementation("androidx.privacysandbox.tools:tools-apipackager:$androidxPrivacySandboxSdkVersion")
+                ksp("androidx.privacysandbox.tools:tools-apicompiler:$androidxPrivacySandboxSdkVersion")
             }
             appendToBuildFile {
                 "def aidlCompilerPath = '$aidlPath'\n" +
@@ -199,10 +199,6 @@ class PrivacySandboxSdkTest {
             .withAdditionalMavenRepo(mavenRepo)
             .addGradleProperties("${BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT.propertyName}=true")
             .addGradleProperties("${BooleanOption.USE_ANDROID_X.propertyName}=true")
-            .addGradleProperties(
-                    "${StringOption.ANDROID_PRIVACY_SANDBOX_SDK_API_PACKAGER.propertyName}=" +
-                            "androidx.privacysandbox.tools:tools:1.0.0-SNAPSHOT," +
-                            "androidx.privacysandbox.tools:tools-apipackager:1.0.0-SNAPSHOT")
             .create()
 
     private fun executor() = project.executor()
@@ -247,10 +243,9 @@ class PrivacySandboxSdkTest {
     @Test
     fun testAsb() {
         executor().run(":privacy-sandbox-sdk:assemble")
-
         val asbFile =
-            project.getSubproject(":privacy-sandbox-sdk").getOutputFile("asb", "single", "privacy-sandbox-sdk.asb")
-
+            project.getSubproject(":privacy-sandbox-sdk")
+                    .getOutputFile("asb", "single", "privacy-sandbox-sdk.asb")
         assertThat(asbFile.exists()).isTrue()
 
         Zip(asbFile).use {
@@ -276,6 +271,44 @@ class PrivacySandboxSdkTest {
                 modules.contains("base/root/my_java_resource.txt")
                 modules.contains("SdkModulesConfig.pb")
             }
+        }
+    }
+
+    @Test
+    fun testAsbSigning() {
+        val privacySandboxSdkProject = project.getSubproject(":privacy-sandbox-sdk")
+        val storeType = "jks"
+        val storeFile = project.file("privacysandboxsdk.jks")
+        val storePassword = "rbStore123"
+        val keyPassword = "rbKey123"
+        val keyAlias = "privacysandboxsdkkey"
+        KeystoreHelper.createNewStore(
+                storeType,
+                storeFile,
+                storePassword,
+                keyPassword,
+                keyAlias,
+                "CN=Privacy Sandbox Sdk test",
+                100
+        )
+        privacySandboxSdkProject.buildFile.appendText(
+                """
+                    android.signingConfig {
+                                storeFile = file("${storeFile.absolutePath.replace("\\", "\\\\")}")
+                                keyAlias = "$keyAlias"
+                                keyPassword = "$keyPassword"
+                                storeType = "$storeType"
+                                storePassword = "$storePassword"
+                            }
+                            """
+        )
+        executor().run(":privacy-sandbox-sdk:assemble")
+        val asbFile =
+                privacySandboxSdkProject.getOutputFile("asb", "single", "privacy-sandbox-sdk.asb")
+        Zip(asbFile).use {
+            assertThat(it.getEntry("/META-INF/MANIFEST.MF")).isNotNull()
+            assertThat(it.getEntry("/META-INF/PRIVACYS.RSA")).isNotNull()
+            assertThat(it.getEntry("/META-INF/PRIVACYS.SF")).isNotNull()
         }
     }
 

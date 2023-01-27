@@ -151,6 +151,8 @@ public final class SdkConstants {
     public static final String FN_SETTINGS_GRADLE_KTS = "settings.gradle.kts";
     /** An SDK Project's gradle.properties file */
     public static final String FN_GRADLE_PROPERTIES = "gradle.properties";
+    /** An SDK Project's libs.versions.toml file */
+    public static final String FN_VERSION_CATALOG = "libs.versions.toml";
     /** An SDK Project's gradle daemon executable */
     public static final String FN_GRADLE_UNIX = "gradle";
     /** An SDK Project's gradle.bat daemon executable (gradle for windows) */
@@ -445,7 +447,6 @@ public final class SdkConstants {
     public static final String FD_BUNDLE = "bundle";
     /** Machine learning models folder. */
     public static final String FD_ML_MODELS = "ml";
-
     /** rs Libs output folder for support mode */
     public static final String FD_RS_LIBS = "rsLibs";
     /** rs Libs output folder for support mode */
@@ -2097,6 +2098,8 @@ public final class SdkConstants {
     public static final String DOT_OTF = ".otf";
     public static final String DOT_EXEC = ".exec";
     public static final String DOT_AVIF = ".avif";
+    public static final String DOT_TOML = ".toml";
+    public static final String DOT_VERSIONS_DOT_TOML = ".versions.toml";
 
     /** Extension of the Application package Files, i.e. "apk". */
     public static final String EXT_ANDROID_PACKAGE = "apk";
@@ -2784,7 +2787,7 @@ public final class SdkConstants {
      * Studio product. It need not actually be the latest version of Gradle, but it will most likely
      * be fairly recent.
      */
-    public static final String GRADLE_LATEST_VERSION = "8.0-rc-1";
+    public static final String GRADLE_LATEST_VERSION = "8.0-rc-2";
 
     /**
      * The minimum released version of the Android Gradle Plugin that this version of Studio will

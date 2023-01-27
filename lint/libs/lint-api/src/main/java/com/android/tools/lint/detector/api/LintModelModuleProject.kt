@@ -41,7 +41,7 @@ import java.io.IOException
 
 /**
  * Lint project for a project backed by a [LintModelModule] (which could
- * be an app, a library, dynamic feature, etc.
+ * be an app, a library, dynamic feature, etc.)
  */
 open class LintModelModuleProject(
     client: LintClient,
@@ -81,6 +81,10 @@ open class LintModelModuleProject(
 
     override fun toString(): String {
         return getName()
+    }
+
+    override fun isGradleProject(): Boolean {
+        return model.agpVersion != null || super.isGradleProject()
     }
 
     fun setExternalLibrary(external: Boolean) {
