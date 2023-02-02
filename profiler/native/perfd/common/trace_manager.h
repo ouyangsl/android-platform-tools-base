@@ -40,10 +40,15 @@ namespace profiler {
 
 // A helper class for managing start/stop of various traces and keeping track
 // of their records.
-class TraceManager final {
+// This class should be treated as final. It is not done so programtically in
+// order to allow for MockTraceManager classes to be created.
+class TraceManager {
  public:
   static const int kAtraceBufferSizeInMb = 32;
   static const int kPerfettoBufferSizeInMb = 4;
+
+  TraceManager() = default;
+  virtual ~TraceManager() = default;
 
   TraceManager(Clock* clock,
                const profiler::proto::DaemonConfig::CpuConfig& cpu_config,
@@ -128,7 +133,7 @@ class TraceManager final {
 
   // Returns the |CaptureInfo| of an app if there is an ongoing tracing, null
   // otherwise.
-  CaptureInfo* GetOngoingCapture(const std::string& app_name);
+  virtual CaptureInfo* GetOngoingCapture(const std::string& app_name);
 
   // Returns the captures from process of |pid| that overlap with the given
   // interval [|from|, |to|], both inclusive.
