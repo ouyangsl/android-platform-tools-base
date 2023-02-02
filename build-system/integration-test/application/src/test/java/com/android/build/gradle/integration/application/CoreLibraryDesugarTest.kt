@@ -364,6 +364,15 @@ class CoreLibraryDesugarTest {
         assertTrue { collectKeepRulesUnderDirectory(out).contains(expectedKeepRule2) }
     }
 
+    //regression test for b/266780231
+    @Test
+    fun testDexFileDependenciesTask() {
+        addFileDependencies(app)
+
+        executor().run("app:assembleRelease")
+        executor().run("app:assembleRelease")
+    }
+
     @Test
     fun testKeepRulesConsumption() {
         addFileDependencies(app)
