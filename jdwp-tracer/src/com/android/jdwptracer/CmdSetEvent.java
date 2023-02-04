@@ -15,7 +15,15 @@
  */
 package com.android.jdwptracer;
 
+import static com.android.jdwppacket.EventKind.CLASS_PREPARE;
+
 import com.android.annotations.NonNull;
+import com.android.jdwppacket.EventKind;
+import com.android.jdwppacket.MessageReader;
+import com.android.jdwppacket.SuspendPolicy;
+import com.android.jdwppacket.event.CompositeCmd;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 class CmdSetEvent extends CmdSet {
 
@@ -35,116 +43,31 @@ class CmdSetEvent extends CmdSet {
             @NonNull MessageReader reader, @NonNull Session session) {
         Message message = new Message(reader);
 
-        byte suspendPolicy = reader.getByte();
-        message.addArg("suspendPolicy", Byte.toString(suspendPolicy));
+        CompositeCmd cmd = CompositeCmd.parse(reader);
+        message.addArg("suspendPolicy", SuspendPolicy.fromID(cmd.getSuspendPolicy()).name());
+        message.addArg("numEvents", Integer.toString(cmd.getEvents().size()));
 
-        int numEvents = reader.getInt();
-        message.addArg("numEvents", Integer.toString(numEvents));
+        JsonArray eventsJson = new JsonArray();
+        message.addArg("events", eventsJson);
+        for (CompositeCmd.Event event : cmd.getEvents()) {
+            JsonObject eventJson = new JsonObject();
+            eventsJson.add(eventJson);
 
-        for (int i = 0; i < numEvents; i++) {
-            byte eventKind = reader.getByte();
-            EventKind kind = EventKind.fromID(eventKind);
-            message.addArg("EventKing[" + i + "]", kind.name());
+            EventKind kind = event.getKind();
+            eventJson.addProperty("eventKind", kind.name());
             message.setName(kind.name());
 
-            reader.getInt(); // requestID
-            switch (kind) {
-                case SINGLE_STEP:
-                case BREAKPOINT:
-                case METHOD_ENTRY:
-                case METHOD_EXIT:
-                    {
-                        reader.getThreadID();
-                        reader.getLocation();
-                    }
-                    break;
-                case METHOD_EXIT_WITH_RETURN_VALUE:
-                    {
-                        reader.getThreadID(); // threadID
-                        reader.getLocation();
-                        reader.getValue();
-                    }
-                    break;
-                case MONITOR_CONTENDED_ENTER:
-                case MONITOR_CONTENDED_ENTERED:
-                    {
-                        reader.getThreadID(); // threadID
-                        reader.getTaggedObjectID();
-                        reader.getLocation();
-                    }
-                    break;
-                case MONITOR_WAIT:
-                    {
-                        reader.getThreadID();
-                        reader.getTaggedObjectID();
-                        reader.getLocation();
-                        reader.getLong(); // timeout
-                    }
-                    break;
-                case MONITOR_WAITED:
-                    {
-                        reader.getThreadID();
-                        reader.getTaggedObjectID();
-                        reader.getLocation();
-                        reader.getBoolean(); // timeout
-                    }
-                    break;
-                case EXCEPTION:
-                    {
-                        reader.getThreadID(); // threadID
-                        reader.getLocation(); // location
-                        reader.getTaggedObjectID();
-                        reader.getLocation(); // catch location
-                    }
-                    break;
-                case VM_START:
-                case THREAD_START:
-                case THREAD_DEATH:
-                    {
-                        reader.getThreadID();
-                    }
-                    break;
-                case CLASS_PREPARE:
-                    {
-                        message.addArg("thread", reader.getThreadID());
-                        message.addArg("refTypeTag", reader.getTypeTag());
-                        message.addArg("typeID", reader.getReferenceTypeID());
-                        message.addArg("signature", reader.getString());
-                        message.addArg("status", reader.getInt());
-                    }
-                    break;
-                case CLASS_UNLOAD:
-                    {
-                        reader.getString(); // signature
-                    }
-                    break;
-                case FIELD_ACCESS:
-                    {
-                        reader.getThreadID(); // threadID
-                        reader.getLocation();
-                        reader.getByte(); // refTypeTag
-                        reader.getReferenceTypeID(); // referenceID
-                        reader.getFieldID();
-                        reader.getTaggedObjectID();
-                    }
-                    break;
-                case FIELD_MODIFICATION:
-                    {
-                        reader.getThreadID(); // threadID
-                        reader.getLocation();
-                        reader.getByte(); // refTypeTag
-                        reader.getObjectID(); // referenceID
-                        reader.getFieldID();
-                        reader.getTaggedObjectID();
-                        reader.getValue();
-                    }
-                    break;
-                default:
-                    throw new IllegalStateException("Unprocessed Kind" + kind.name());
+            if (kind == CLASS_PREPARE) {
+                CompositeCmd.ClassPrepareEvent cp = (CompositeCmd.ClassPrepareEvent) event;
+                eventJson.addProperty("thread", cp.getThreadID());
+                eventJson.addProperty("refTypeTag", cp.getTypeTag());
+                eventJson.addProperty("typeID", cp.getReferenceTypeID());
+                eventJson.addProperty("signature", cp.getSignature());
+                eventJson.addProperty("status", cp.getStatus());
             }
         }
 
-        if (numEvents != 1) {
+        if (cmd.getEvents().size() != 1) {
             message.setName("multiple");
         }
 

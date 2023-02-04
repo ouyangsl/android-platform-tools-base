@@ -16,6 +16,7 @@
 package com.android.jdwptracer;
 
 import com.android.annotations.NonNull;
+import com.android.jdwppacket.MessageReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,12 +27,16 @@ class CmdSetDdm extends CmdSet {
     private static final String ART_TIMING_CHUNK = "ARTT";
     static final String HELO_CHUNK = "HELO";
 
+    static final String APNM_CHUNK = "APNM";
+
     private static final DDMChunkHandler defaultDDMHandler = new DDMChunkHandler();
 
     static final String WARNING_ON_EMPTY = "Cannot trace empty DDM packet";
 
     static {
-        ddmHandlers.put(typeFromName("APNM"), defaultDDMHandler);
+        ddmHandlers.put(
+                typeFromName(APNM_CHUNK),
+                new DDMChunkHandler(CmdSetDdm::parseAPNMCmd, CmdSetDdm::parseAPNMReply));
         ddmHandlers.put(typeFromName("EXIT"), defaultDDMHandler);
         ddmHandlers.put(typeFromName(HELO_CHUNK),
                 new DDMChunkHandler(CmdSetDdm::parseHELOCmd, CmdSetDdm::parseHELOReply));
@@ -75,12 +80,18 @@ class CmdSetDdm extends CmdSet {
     Message parseDdmReply(@NonNull MessageReader reader, @NonNull Session session) {
         Message msg = new Message(reader);
 
+        if (reader.remaining() == 0) {
+            // DDM packet can be empty to signal "Command executed successfully".
+            // We ignore these.
+            return msg;
+        }
+
         int type = reader.getInt();
         int length = reader.getInt();
 
         if (reader.remaining() == 0) {
-            // DDM packet can be empty to signal "Command executed successfully".
-            // We just ignore them.
+            // DDM packet can also miss the payload to signal "Command executed successfully".
+            // We ignore these.
             return msg;
         }
 
@@ -185,6 +196,38 @@ class CmdSetDdm extends CmdSet {
         // We overwrite the session name because, if present, this name is better (not subject to
         // process renaming from AndroidManifest.xml). If we don't reach this point, `processName`
         // , read earlier, is used as a fallback.
+        session.setName(packageName);
+    }
+
+    private static void parseAPNMReply(
+            @NonNull MessageReader reader, @NonNull Session session, @NonNull Message msg) {}
+
+    private static void parseAPNMCmd(
+            @NonNull MessageReader reader, @NonNull Session session, @NonNull Message msg) {
+        int processNameLength = reader.getInt();
+        String processName = reader.getCharString(processNameLength);
+        session.setName(processName);
+
+        msg.addArg("processName", processName);
+
+        // UserID was added in 2012
+        // https://cs.android.com/android/_/android/platform/frameworks/base/+/d693dfa75b7a156898890014e7192a792314b757
+        if (!reader.hasRemaining()) {
+            return;
+        }
+        int userId = reader.getInt();
+        msg.addArg("userID", userId);
+
+        // Newer devices (newer than user id support) send the package names associated with the
+        // app.
+        // Package name was added in 2019:
+        // https://cs.android.com/android/_/android/platform/frameworks/base/+/ab720ee1611da9fd4579d1adeb0acd6358b4f424
+        if (!reader.hasRemaining()) {
+            return;
+        }
+        int packageNameLength = reader.getInt();
+        String packageName = reader.getCharString(packageNameLength);
+        msg.addArg("packageName", packageName);
         session.setName(packageName);
     }
 

@@ -15,6 +15,7 @@
  */
 package com.android.jdwptracer;
 
+import com.android.jdwppacket.MessageReader;
 import java.nio.ByteBuffer;
 import org.junit.Test;
 
@@ -32,7 +33,21 @@ public class DDMSetTest {
         fakeDDMPacket.rewind();
         messageReader.setBuffer(fakeDDMPacket);
 
-        ddm.parseDdmReply(messageReader, new Session());
+        ddm.parseDdmReply(messageReader, new Session(new Log()));
+        // We don't assert anything. Reaching the end of the test without BufferUnderflowException
+        // is enough to validate we detect an empty DDM packet.
+    }
+
+    @Test
+    public void DDMWithoutChunkHeader() {
+        CmdSetDdm ddm = new CmdSetDdm();
+
+        MessageReader messageReader = new MessageReader();
+
+        ByteBuffer fakeDDMPacket = ByteBuffer.allocate(0);
+        messageReader.setBuffer(fakeDDMPacket);
+
+        ddm.parseDdmReply(messageReader, new Session(new Log()));
         // We don't assert anything. Reaching the end of the test without BufferUnderflowException
         // is enough to validate we detect an empty DDM packet.
     }
