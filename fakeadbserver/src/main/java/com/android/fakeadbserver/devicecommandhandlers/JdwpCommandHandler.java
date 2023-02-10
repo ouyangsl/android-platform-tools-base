@@ -33,6 +33,7 @@ import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpCommandI
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpPacket;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpPacketHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpVmExitHandler;
+import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpVmVersionHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.VULWHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.VUOPHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.VURTHandler;
@@ -65,6 +66,8 @@ public class JdwpCommandHandler extends DeviceCommandHandler {
         addDdmPacketHandler(VURTHandler.CHUNK_TYPE, new VURTHandler());
 
         addJdwpPacketHandler(JdwpVmExitHandler.Companion.getCommandId(), new JdwpVmExitHandler());
+        addJdwpPacketHandler(
+                JdwpVmVersionHandler.Companion.getCommandId(), new JdwpVmVersionHandler());
     }
 
     public void addDdmPacketHandler(int chunkType, @NonNull DDMPacketHandler packetHandler) {
@@ -121,6 +124,18 @@ public class JdwpCommandHandler extends DeviceCommandHandler {
             }
         }
 
+        try {
+            jdwpLoop(device, client, iStream, oStream);
+        } finally {
+            client.stopJdwpSession();
+        }
+    }
+
+    private void jdwpLoop(
+            @NonNull DeviceState device,
+            @NonNull ClientState client,
+            @NonNull InputStream iStream,
+            @NonNull OutputStream oStream) {
         try {
             writeOkay(oStream);
         } catch (IOException ignored) {

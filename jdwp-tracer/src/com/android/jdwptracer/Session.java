@@ -16,6 +16,7 @@
 package com.android.jdwptracer;
 
 import com.android.annotations.NonNull;
+import com.android.jdwppacket.IDSizes;
 import com.android.jdwppacket.MessageReader;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -28,13 +29,13 @@ import java.util.Map;
 // case of cmd/reply pairs, and convert them to "Event" which is the rendition's elementary unit.
 class Session {
 
-    private final MessageReader messageReader = new MessageReader();
+    private IDSizes idSizes = new IDSizes();
 
     private final HashMap<Integer, Transmission> idToTransmission = new HashMap<>();
 
     private final List<Event> events = new ArrayList<>();
 
-    private Map<Long, DdmJDWPTiming> timings = new HashMap<>();
+    private Map<Integer, DdmJDWPTiming> timings = new HashMap<>();
 
     private String name = "unknown";
 
@@ -64,7 +65,7 @@ class Session {
         int cmdID = packet.get() & 0xFF; // Convert from unsigned byte to signed int.
 
         // From here, we parse the packet with the message reader.
-        messageReader.setBuffer(packet);
+        MessageReader messageReader = new MessageReader(idSizes, packet);
 
         CmdSet cmdSet = CmdSets.get(cmdSetID);
         Message message = cmdSet.getCmd(cmdID).getCmdParser().parse(messageReader, this);
@@ -89,7 +90,7 @@ class Session {
         int cmdID = t.cmd().cmdID();
 
         // From here, we parse the packet with the message reader.
-        messageReader.setBuffer(packet);
+        MessageReader messageReader = new MessageReader(idSizes, packet);
 
         // Make a Reply
         CmdSet cmdSet = CmdSets.get(cmdSetID);
@@ -109,11 +110,11 @@ class Session {
     }
 
     @NonNull
-    Map<Long, DdmJDWPTiming> timings() {
+    Map<Integer, DdmJDWPTiming> timings() {
         return timings;
     }
 
-    void addTimings(@NonNull Map<Long, DdmJDWPTiming> timings) {
+    void addTimings(@NonNull Map<Integer, DdmJDWPTiming> timings) {
         this.timings.putAll(timings);
     }
 
@@ -146,7 +147,7 @@ class Session {
             return details;
         }
         byte flag = buffer.get();
-        details += "flags=" + flag;
+        details += ", flags=0x" + Integer.toHexString(flag);
 
         if (Packet.isReply(flag)) {
             details += detailsReply(buffer);
@@ -165,13 +166,13 @@ class Session {
             details += ", no cmdset";
             return details;
         }
-        details += ",cmdset=" + buffer.get();
+        details += ", cmdset=" + buffer.get();
 
         if (buffer.remaining() < Byte.BYTES) {
             details += ", no cmd";
             return details;
         }
-        details += ",cmd=" + buffer.get();
+        details += ", cmd=" + buffer.get();
 
         return details;
     }
@@ -182,8 +183,12 @@ class Session {
             details += ", no errorCode";
             return details;
         }
-        details += ",errorCode=" + buffer.getShort();
+        details += ", errorCode=" + buffer.getShort();
 
         return details;
+    }
+
+    void setIDSizes(@NonNull IDSizes idSizes) {
+        this.idSizes = idSizes;
     }
 }

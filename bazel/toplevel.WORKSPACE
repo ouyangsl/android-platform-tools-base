@@ -55,14 +55,14 @@ local_repository(
 # See: https://github.com/bazelbuild/bazel/issues/7844
 register_toolchains("@windows_toolchains//:python_toolchain")
 
-http_archive(
+local_repository(
+    name = "bazel_skylib",
+    path = "prebuilts/tools/common/external-src-archives/bazel-skylib/bazel-skylib-1.0.2",
+)
+
+local_repository(
     name = "bazel_toolchains",
-    sha256 = "83352b6e68fa797184071f35e3b67c7c8815efadcea81bb9cdb6bbbf2e07d389",
-    strip_prefix = "bazel-toolchains-1.1.3",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-toolchains/archive/1.1.3.tar.gz",
-        "https://github.com/bazelbuild/bazel-toolchains/archive/1.1.3.tar.gz",
-    ],
+    path = "prebuilts/tools/common/external-src-archives/bazel-toolchains/bazel-toolchains-5.1.2",
 )
 
 load(

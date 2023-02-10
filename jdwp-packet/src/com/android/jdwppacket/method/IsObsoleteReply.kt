@@ -15,18 +15,16 @@
  */
 package com.android.jdwppacket
 
-import java.nio.ByteBuffer
+data class IsObsoleteReply(val obsolete: Boolean) : Reply() {
 
-abstract class Writable {
+  override fun writePayload(writer: Writer) {
+    writer.putBoolean(obsolete)
+  }
 
-  abstract fun serializedSize(writer: MessageWriter): Int
-  abstract fun writeTo(writer: MessageWriter)
-
-  fun toByteBuffer(writer: MessageWriter): ByteBuffer {
-    writer.start(serializedSize(writer))
-    writeTo(writer)
-    val buffer = writer.finish()
-    buffer.clear()
-    return buffer
+  companion object {
+    @JvmStatic
+    fun parse(reader: MessageReader): IsObsoleteReply {
+      return IsObsoleteReply(reader.getBoolean())
+    }
   }
 }

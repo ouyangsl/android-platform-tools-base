@@ -15,7 +15,14 @@
  */
 package com.android.jdwppacket
 
-class Location(val typeTag: Byte, val classID: Long, val methodID: Long, val index: Long) {
+data class Location(val typeTag: Byte, val classID: Long, val methodID: Long, val index: Long) {
+
+  fun write(writer: Writer) {
+    writer.putTypeTag(typeTag)
+    writer.putClassID(classID)
+    writer.putMethodID(methodID)
+    writer.putLong(index)
+  }
 
   companion object {
 
