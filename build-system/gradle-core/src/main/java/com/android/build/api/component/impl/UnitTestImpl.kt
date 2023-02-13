@@ -35,6 +35,7 @@ import com.android.build.gradle.internal.component.features.BuildConfigCreationC
 import com.android.build.gradle.internal.component.features.ManifestPlaceholdersCreationConfig
 import com.android.build.gradle.internal.core.VariantSources
 import com.android.build.gradle.internal.core.dsl.UnitTestComponentDslInfo
+import com.android.build.gradle.internal.core.dsl.features.ManifestPlaceholdersDslInfo
 import com.android.build.gradle.internal.core.dsl.impl.DEFAULT_TEST_RUNNER
 import com.android.build.gradle.internal.dependency.VariantDependencies
 import com.android.build.gradle.internal.scope.BuildFeatureValues
@@ -138,10 +139,8 @@ open class UnitTestImpl @Inject constructor(
     }
 
     override val manifestPlaceholdersCreationConfig: ManifestPlaceholdersCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
-        ManifestPlaceholdersCreationConfigImpl(
-            dslInfo.mainVariantDslInfo.manifestPlaceholdersDslInfo!!,
-            internalServices
-        )
+        createManifestPlaceholdersCreationConfig(
+                dslInfo.mainVariantDslInfo.manifestPlaceholdersDslInfo?.placeholders)
     }
 
     override fun <T : Component> createUserVisibleVariantObject(
