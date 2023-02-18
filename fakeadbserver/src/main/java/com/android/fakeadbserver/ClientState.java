@@ -24,9 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ClientState {
-
-    private final int mPid;
+public class ClientState extends ProcessState {
 
     private final int mUid;
 
@@ -39,6 +37,8 @@ public class ClientState {
     private boolean mWaiting;
 
     private final ClientViewsState mViewsState = new ClientViewsState();
+
+    private final ProfilerState mProfilerState = new ProfilerState();
 
     /**
      * Set of DDMS features for this process.
@@ -73,6 +73,10 @@ public class ClientState {
 
     @Nullable private Socket jdwpSocket;
 
+    private boolean allocationTrackerEnabled;
+
+    private String allocationTrackerDetails = "";
+
     private final AtomicInteger hgpcRequestsCount = new AtomicInteger();
 
     ClientState(
@@ -81,7 +85,7 @@ public class ClientState {
             @NonNull String processName,
             @NonNull String packageName,
             boolean isWaiting) {
-        mPid = pid;
+        super(pid);
         mUid = uid;
         mProcessName = processName;
         mPackageName = packageName;
@@ -90,8 +94,14 @@ public class ClientState {
         mFeatures.addAll(Arrays.asList(mBuiltinFrameworkFeatures));
     }
 
-    public int getPid() {
-        return mPid;
+    @Override
+    public boolean getDebuggable() {
+        return true;
+    }
+
+    @Override
+    public boolean getProfileable() {
+        return false;
     }
 
     public int getUid() {
@@ -115,6 +125,11 @@ public class ClientState {
     @NonNull
     public ClientViewsState getViewsState() {
         return mViewsState;
+    }
+
+    @NonNull
+    public ProfilerState getProfilerState() {
+        return mProfilerState;
     }
 
     public synchronized boolean startJdwpSession(@NonNull Socket socket) {
@@ -161,5 +176,21 @@ public class ClientState {
 
     public int getHgpcRequestsCount() {
         return hgpcRequestsCount.get();
+    }
+
+    public void setAllocationTrackerEnabled(boolean enabled) {
+        allocationTrackerEnabled = enabled;
+    }
+
+    public boolean isAllocationTrackerEnabled() {
+        return allocationTrackerEnabled;
+    }
+
+    public String getAllocationTrackerDetails() {
+        return allocationTrackerDetails;
+    }
+
+    public void setAllocationTrackerDetails(String details) {
+        this.allocationTrackerDetails = details;
     }
 }

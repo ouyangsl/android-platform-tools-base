@@ -34,6 +34,10 @@ import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpPacket;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpPacketHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpVmExitHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.JdwpVmVersionHandler;
+import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.MprqHandler;
+import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.ReaeHandler;
+import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.RealHandler;
+import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.ReaqHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.VULWHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.VUOPHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers.VURTHandler;
@@ -61,9 +65,13 @@ public class JdwpCommandHandler extends DeviceCommandHandler {
         addDdmPacketHandler(HpgcHandler.CHUNK_TYPE, new HpgcHandler());
         addDdmPacketHandler(ExitHandler.CHUNK_TYPE, new ExitHandler());
         addDdmPacketHandler(FEATHandler.CHUNK_TYPE, new FEATHandler());
+        addDdmPacketHandler(ReaeHandler.CHUNK_TYPE, new ReaeHandler());
+        addDdmPacketHandler(RealHandler.CHUNK_TYPE, new RealHandler());
+        addDdmPacketHandler(ReaqHandler.CHUNK_TYPE, new ReaqHandler());
         addDdmPacketHandler(VULWHandler.CHUNK_TYPE, new VULWHandler());
         addDdmPacketHandler(VUOPHandler.CHUNK_TYPE, new VUOPHandler());
         addDdmPacketHandler(VURTHandler.CHUNK_TYPE, new VURTHandler());
+        addDdmPacketHandler(MprqHandler.CHUNK_TYPE, new MprqHandler());
 
         addJdwpPacketHandler(JdwpVmExitHandler.Companion.getCommandId(), new JdwpVmExitHandler());
         addJdwpPacketHandler(
@@ -165,8 +173,9 @@ public class JdwpCommandHandler extends DeviceCommandHandler {
         }
 
         // default - ignore the packet and keep listening
-        DDMPacketHandler defaultDdmHandler = (unused, unused3, unused2, unused4) -> true;
-        JdwpPacketHandler defaultJdwpHandler = (unused, unused3, unused2, unused4) -> true;
+        DDMPacketHandler defaultDdmHandler = this::handleUnknownDdmsPacket;
+
+        JdwpPacketHandler defaultJdwpHandler = this::handleUnknownJdwpPacket;
 
         boolean running = true;
 
@@ -191,5 +200,27 @@ public class JdwpCommandHandler extends DeviceCommandHandler {
                 return;
             }
         }
+    }
+
+    private boolean handleUnknownJdwpPacket(
+            @NonNull DeviceState state,
+            @NonNull ClientState clientState,
+            @NonNull JdwpPacket packet,
+            @NonNull OutputStream stream) {
+        System.err.printf(
+                "FakeAdbServer: Unsupported JDWP packet: id=%d, cmdSet=%d, cmd=%d%n",
+                packet.getId(), packet.getCmdSet(), packet.getCmd());
+        return true;
+    }
+
+    private boolean handleUnknownDdmsPacket(
+            @NonNull DeviceState device,
+            @NonNull ClientState client,
+            @NonNull DdmPacket packet,
+            @NonNull OutputStream oStream) {
+        System.err.printf(
+                "FakeAdbServer: Unsupported DDMS command: '%s'%n",
+                DdmPacket.chunkTypeToString(packet.getChunkType()));
+        return true;
     }
 }

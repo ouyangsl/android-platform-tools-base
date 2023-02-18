@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 The Android Open Source Project
+ * Copyright (C) 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.android.repository.impl.meta;
 
-package com.android.build.gradle.internal.testing
+import com.android.annotations.NonNull;
 
-import com.android.build.api.instrumentation.manageddevice.DeviceTestRunInput
-import org.gradle.api.file.RegularFileProperty
-
-data class DeviceTestRunParameters<T: DeviceTestRunInput> (
-
-        override val deviceInput: T,
-
-        override val setupResult: RegularFileProperty,
-
-        override val testRunData: TestRunData
-): com.android.build.api.instrumentation.manageddevice.DeviceTestRunParameters<T>
+public interface PackageDisplayNameQualifier {
+    /**
+     * Returns a template of the qualifier to be appended to the package name. The "{0}" placeholder
+     * in the template is intended to be replaced by the package version.
+     */
+    @NonNull
+    default String getQualifierTemplate() {
+        return " v.{0}";
+    }
+}
