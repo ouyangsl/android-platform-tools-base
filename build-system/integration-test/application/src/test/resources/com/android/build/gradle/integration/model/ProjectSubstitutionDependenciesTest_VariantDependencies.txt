@@ -19,7 +19,7 @@
          - :|:app|debug|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>debug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:app:unspecified:
             - requestedCoordinates = (null)
             - dependencies         = []
-         - com.example|lib2|1.0|org.gradle.category>library, org.gradle.libraryelements>jar, org.gradle.status>release, org.gradle.usage>java-api|com.example:lib2:1.0:
+         - :|:lib2|debug|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>debug, org.gradle.usage>java-api|project:lib2:unspecified:
             - requestedCoordinates = (null)
             - dependencies         = []
       - runtimeDependencies    = []
@@ -153,27 +153,5 @@
          - lintJar            = {PROJECT}/lib/build/intermediates/lint_publish_jar/global/lint.jar{!}
          - androidLibraryData = (null)
       < :|:lib|debug|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>debug, org.gradle.usage>java-runtime|project:lib:unspecified
-      > com.example|lib2|1.0|org.gradle.category>library, org.gradle.libraryelements>jar, org.gradle.status>release, org.gradle.usage>java-api|com.example:lib2:1.0:
-         - type               = JAVA_LIBRARY
-         - artifact           = {ADDITIONAL_MAVEN_REPO}/com/example/lib2/1.0/lib2-1.0.jar{F}
-         - projectInfo        = (null)
-         > libraryInfo:
-            - group          = "com.example"
-            - name           = "lib2"
-            - version        = "1.0"
-            - isTestFixtures = false
-            - buildType      = (null)
-            - productFlavors = []
-            - attributes:
-               * "org.gradle.category -> library"
-               * "org.gradle.libraryelements -> jar"
-               * "org.gradle.status -> release"
-               * "org.gradle.usage -> java-api"
-            - capabilities:
-               * "com.example:lib2:1.0"
-         < libraryInfo
-         - lintJar            = (null)
-         - androidLibraryData = (null)
-      < com.example|lib2|1.0|org.gradle.category>library, org.gradle.libraryelements>jar, org.gradle.status>release, org.gradle.usage>java-api|com.example:lib2:1.0
    < libraries
 < VariantDependencies
