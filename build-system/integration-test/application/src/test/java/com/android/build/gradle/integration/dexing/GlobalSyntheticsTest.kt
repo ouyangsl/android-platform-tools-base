@@ -19,6 +19,7 @@ package com.android.build.gradle.integration.dexing
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.app.MinimalSubProject
 import com.android.build.gradle.integration.common.fixture.app.MultiModuleTestProject
+import com.android.build.gradle.integration.common.truth.ScannerSubject
 import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.scope.getOutputDir
@@ -30,6 +31,7 @@ import com.google.common.io.Resources
 import com.google.common.truth.Truth
 import org.junit.Assume
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,8 +51,6 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
         @Parameterized.Parameters(name = "dexType_{0}")
         fun parameters() = listOf(DexType.MONO, DexType.LEGACY, DexType.NATIVE)
 
-        const val exceptionGlobalTriggerClass = "IllformedLocaleExceptionUsage"
-        const val exceptionGlobalDex = "Landroid/icu/util/IllformedLocaleException;"
         const val recordGlobalDex = "Lcom/android/tools/r8/RecordTag;"
     }
 
@@ -59,10 +59,15 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
         "GlobalSyntheticsTest/record.jar"
     )
 
+    private val recordJar2Url = Resources.getResource(
+            GlobalSyntheticsTest::class.java,
+            "GlobalSyntheticsTest/record2.jar"
+    )
+
     private val mavenRepo = MavenRepoGenerator(
         listOf(
             MavenRepoGenerator.Library(
-                "com.example:myjar:1", Resources.toByteArray(recordJarUrl))
+                "com.example:myjar:1", Resources.toByteArray(recordJar2Url))
         )
     )
 
@@ -109,19 +114,11 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
     }
 
     @Test
-    fun testGlobalFromAppAndFileDep() {
-        createExceptionGlobalSourceFile(
-            app.mainSrcDir.resolve("com/example/app/$exceptionGlobalTriggerClass.java"),
-            "com.example.app",
-            exceptionGlobalTriggerClass
-        )
+    fun testGlobalFromFileDep() {
         addFileDependencies(app)
 
         executor().run("assembleDebug")
 
-        val localeGlobalFromApp = InternalArtifactType.GLOBAL_SYNTHETICS_PROJECT
-            .getOutputDir(app.buildDir).resolve("debug/out/com/example/app/$exceptionGlobalTriggerClass.globals")
-        Truth.assertThat(localeGlobalFromApp.exists()).isTrue()
         val recordGlobalFromFileDep = InternalArtifactType.GLOBAL_SYNTHETICS_FILE_LIB
             .getOutputDir(app.buildDir).resolve("debug/0_record.jar")
         Truth.assertThat(recordGlobalFromFileDep.exists()).isTrue()
@@ -132,18 +129,11 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
             Truth.assertThat(globalDex.exists()).isTrue()
         }
 
-        checkPackagedGlobal(exceptionGlobalDex)
         checkPackagedGlobal(recordGlobalDex)
     }
 
     @Test
-    fun testGlobalFromLibAndExternalDep() {
-        createExceptionGlobalSourceFile(
-            lib.mainSrcDir.resolve("com/example/lib/$exceptionGlobalTriggerClass.java"),
-            "com.example.lib",
-            exceptionGlobalTriggerClass
-        )
-
+    fun testGlobalFromExternalDep() {
         app.buildFile.appendText(
             """
 
@@ -161,54 +151,38 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
             Truth.assertThat(globalDex.exists()).isTrue()
         }
 
-        checkPackagedGlobal(exceptionGlobalDex)
         checkPackagedGlobal(recordGlobalDex)
     }
 
     @Test
     fun testDeDupGlobal() {
-        createExceptionGlobalSourceFile(
-            app.mainSrcDir.resolve("com/example/app/$exceptionGlobalTriggerClass.java"),
-            "com.example.app",
-            exceptionGlobalTriggerClass
+        addFileDependencies(app)
+
+        app.buildFile.appendText(
+                """
+
+                dependencies {
+                    implementation 'com.example:myjar:1'
+                }
+            """.trimIndent()
         )
 
-        createExceptionGlobalSourceFile(
-            lib.mainSrcDir.resolve("com/example/lib/$exceptionGlobalTriggerClass.java"),
-            "com.example.lib",
-            exceptionGlobalTriggerClass
-        )
-
-        // test the pipeline when artifact transform is disabled
-        executor()
-            .with(BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM, false)
-            .run("assembleDebug")
-
-        val localeGlobalFromApp = InternalArtifactType.GLOBAL_SYNTHETICS_PROJECT
-            .getOutputDir(app.buildDir).resolve("debug/out/com/example/app/$exceptionGlobalTriggerClass.globals")
-        Truth.assertThat(localeGlobalFromApp.exists()).isTrue()
-
-        val localeGlobalFromLib = InternalArtifactType.GLOBAL_SYNTHETICS_SUBPROJECT
-            .getOutputDir(app.buildDir).resolve("debug/out")
-        Truth.assertThat(localeGlobalFromLib.listFiles()).hasLength(1)
-
-        checkPackagedGlobal(exceptionGlobalDex)
+        executor().run("assembleDebug")
+        checkPackagedGlobal(recordGlobalDex)
     }
-
 
     // basic check for disabling global synthetics generation
     @Test
     fun testDisableGlobalSynthetics() {
-        createExceptionGlobalSourceFile(
-            app.mainSrcDir.resolve("com/example/app/$exceptionGlobalTriggerClass.java"),
-            "com.example.app",
-            exceptionGlobalTriggerClass
-        )
-        executor()
+        addFileDependencies(app)
+
+        val result = executor()
             .with(BooleanOption.ENABLE_GLOBAL_SYNTHETICS, false)
+            .expectFailure()
             .run("assembleDebug")
 
-        checkPackagedGlobal(exceptionGlobalDex, 0)
+        ScannerSubject.assertThat(result.stderr)
+                .contains("Attempt to create a global synthetic for 'Record desugaring' without a global-synthetics consumer.")
     }
 
     // Regression test for b/257488927
@@ -219,25 +193,6 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
         executor()
                 .with(IntegerOption.IDE_TARGET_DEVICE_API, 24)
                 .run("assembleDebug")
-    }
-
-    private fun createExceptionGlobalSourceFile(source: File, pkg: String, name: String) {
-        source.let {
-            it.parentFile.mkdirs()
-            it.createNewFile()
-            it.appendText("package $pkg;")
-            it.appendText("public class $name {")
-            it.appendText(
-                """
-                        public void function() {
-                            try {
-                                throw new android.icu.util.IllformedLocaleException();
-                            } catch (android.icu.util.IllformedLocaleException e) {}
-                        }
-                    }
-                """.trimIndent()
-            )
-        }
     }
 
     private fun addFileDependencies(app: GradleTestProject) {

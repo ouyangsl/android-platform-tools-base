@@ -19,8 +19,9 @@ package com.android.build.gradle.integration.dexing
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.app.MinimalSubProject
 import com.android.build.gradle.integration.common.fixture.app.MultiModuleTestProject
-import com.android.build.gradle.options.BooleanOption
+import com.android.testutils.MavenRepoGenerator
 import com.android.testutils.apk.AndroidArchive
+import com.google.common.io.Resources
 import com.google.common.truth.Truth
 import org.junit.Rule
 import org.junit.Test
@@ -41,25 +42,26 @@ class GlobalSyntheticsFeatureTest {
             android.defaultConfig.minSdkVersion = 21
             dependencies {
                 implementation project('::app')
+                implementation 'com.example:myjar:1'
             }
         """.trimIndent())
-        it.addFile("src/main/java/com/example/feature/IllformedLocaleExceptionUsage.java",
-            """
-                package com.example.feature;
-
-                    public class IllformedLocaleExceptionUsage {
-                        public void function() {
-                            try {
-                                throw new android.icu.util.IllformedLocaleException();
-                            } catch (android.icu.util.IllformedLocaleException e) {}
-                        }
-                    }
-            """.trimIndent()
-        )
     }
+
+    private val recordJarUrl = Resources.getResource(
+            GlobalSyntheticsFeatureTest::class.java,
+            "GlobalSyntheticsTest/record.jar"
+    )
+
+    private val mavenRepo = MavenRepoGenerator(
+            listOf(
+                    MavenRepoGenerator.Library(
+                            "com.example:myjar:1", Resources.toByteArray(recordJarUrl))
+            )
+    )
 
     @get:Rule
     val project = GradleTestProject.builder()
+        .withAdditionalMavenRepo(mavenRepo)
         .fromTestApp(
             MultiModuleTestProject.builder()
                 .subproject("app", app)
@@ -71,7 +73,7 @@ class GlobalSyntheticsFeatureTest {
     fun basicTest() {
         project.executor().run("assembleDebug")
 
-        checkPackagedGlobal("Landroid/icu/util/IllformedLocaleException;")
+        checkPackagedGlobal("Lcom/android/tools/r8/RecordTag;")
     }
 
     private fun checkPackagedGlobal(global: String) {
