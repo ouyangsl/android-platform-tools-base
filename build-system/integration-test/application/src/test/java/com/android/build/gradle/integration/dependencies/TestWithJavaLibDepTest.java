@@ -39,12 +39,7 @@ public class TestWithJavaLibDepTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        Files.asCharSink(project.getSettingsFile(), Charsets.UTF_8).write("include 'app', 'jar'");
-
-        appendToFile(project.getBuildFile(),
-"\nsubprojects {\n" +
-"    apply from: \"$rootDir/../commonLocalRepo.gradle\"\n" +
-"}\n");
+        project.setIncludedProjects("app", "jar");
 
         appendToFile(
                 project.getSubproject("app").getBuildFile(),

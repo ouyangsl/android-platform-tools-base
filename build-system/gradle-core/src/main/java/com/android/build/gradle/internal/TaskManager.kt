@@ -25,7 +25,6 @@ import com.android.build.api.artifact.impl.InternalScopedArtifacts
 import com.android.build.api.dsl.Device
 import com.android.build.api.dsl.DeviceGroup
 import com.android.build.api.instrumentation.FramesComputationMode
-import com.android.build.api.instrumentation.ManagedDeviceTestRunnerFactory
 import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.api.variant.impl.TaskProviderBasedDirectoryEntryImpl
 import com.android.build.gradle.api.AndroidSourceSet
@@ -185,6 +184,7 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.compile.JavaCompile
 import java.io.File
+import java.util.Locale
 
 /**
  * Abstract class containing tasks creation logic that is shared between variants and components.
@@ -881,6 +881,15 @@ abstract class TaskManager(
         variantName: String,
         testTaskSuffix: String = ""
     ) {
+        val flavor: String? = testData.flavorName.orNull
+        //  TODO(b/271294549): Move BuildTarget into testData
+        val buildTarget: String = if (flavor == null) {
+            variantName
+        } else {
+            // build target is the variant with the flavor name stripped from the front.
+            variantName.substring(flavor.length).lowercase(Locale.US)
+        }
+
         val managedDevices = getManagedDevices()
         if (!shouldEnableUtp(
                 globalConfig.services.projectOptions,
@@ -922,12 +931,13 @@ abstract class TaskManager(
             InternalArtifactType.MANAGED_DEVICE_CODE_COVERAGE.getFolderName()
         ).get().asFile
 
-        val flavor: String? = testData.flavorName.orNull
         val flavorDir = if (flavor.isNullOrEmpty()) "" else "${BuilderConstants.FD_FLAVORS}/$flavor"
-        val resultsDir = File(resultsRootDir, "${BuilderConstants.MANAGED_DEVICE}/${flavorDir}")
-        val reportDir = File(reportRootDir, "${BuilderConstants.MANAGED_DEVICE}/${flavorDir}")
-        val additionalTestOutputDir = File(additionalOutputRootDir, flavorDir)
-        val coverageOutputDir = File(coverageOutputRootDir, flavorDir)
+        val resultsDir =
+            File(resultsRootDir, "${BuilderConstants.MANAGED_DEVICE}/$buildTarget/$flavorDir")
+        val reportDir =
+            File(reportRootDir, "${BuilderConstants.MANAGED_DEVICE}/$buildTarget/$flavorDir")
+        val additionalTestOutputDir = File(additionalOutputRootDir, "$buildTarget/$flavorDir")
+        val coverageOutputDir = File(coverageOutputRootDir, "$buildTarget/$flavorDir")
 
         val deviceToProvider = mutableMapOf<String, TaskProvider<out Task>>()
 
@@ -953,6 +963,13 @@ abstract class TaskManager(
                         )
                     )
                 registration != null -> {
+                    if (!globalConfig.services.projectOptions[
+                            BooleanOption.GRADLE_MANAGED_DEVICE_CUSTOM_DEVICE]) {
+                        error("Unsupported managed device type: ${managedDevice.javaClass}. " +
+                              "Managed Device extension API is experimental. Add " +
+                              "android.experimental.testOptions.managedDevices.customDevice=true " +
+                              "in your gradle.properties file to opt-in.")
+                    }
                     val setupResult: Provider<Directory>? = if (registration.hasSetupActions) {
                         taskFactory.named(setupTaskName(managedDevice)).flatMap { task ->
                             (task as ManagedDeviceSetupTask).setupResultDir
@@ -972,24 +989,6 @@ abstract class TaskManager(
                             deviceAdditionalOutputs,
                             deviceCoverage,
                             setupResult,
-                            testTaskSuffix,
-                        )
-                    )
-                }
-                managedDevice is ManagedDeviceTestRunnerFactory -> {
-                    if (!globalConfig.services.projectOptions[
-                            BooleanOption.GRADLE_MANAGED_DEVICE_CUSTOM_DEVICE]) {
-                        error("Unsupported managed device type: ${managedDevice.javaClass}")
-                    }
-                    taskFactory.register(
-                        ManagedDeviceInstrumentationTestTask.CreationAction(
-                            creationConfig,
-                            managedDevice,
-                            testData,
-                            deviceResults,
-                            deviceReports,
-                            deviceAdditionalOutputs,
-                            deviceCoverage,
                             testTaskSuffix,
                         )
                     )

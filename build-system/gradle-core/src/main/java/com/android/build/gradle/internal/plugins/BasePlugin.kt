@@ -201,11 +201,9 @@ abstract class BasePlugin<
         )
     }
 
-    private var _managedDeviceRegistry: ManagedDeviceRegistry? = null
-    val managedDeviceRegistry: ManagedDeviceRegistry
-        get() = _managedDeviceRegistry ?: ManagedDeviceRegistry(newExtension.testOptions).also {
-            _managedDeviceRegistry = it
-        }
+    val managedDeviceRegistry: ManagedDeviceRegistry by lazy(LazyThreadSafetyMode.NONE) {
+        ManagedDeviceRegistry(newExtension.testOptions)
+    }
 
     private val globalConfig by lazy {
         withProject("globalConfig") { project ->
@@ -721,8 +719,7 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
             .configureVariantTransforms(variants, variantManager.nestedComponents, globalConfig)
             .configureAttributeMatchingStrategies(variantInputModel)
             .configureCalculateStackFramesTransforms(globalConfig)
-            .configurePrivacySandboxSdkConsumerTransforms(
-                    globalConfig.compileSdkHashString, globalConfig.buildToolsRevision, globalConfig)
+            .configurePrivacySandboxSdkConsumerTransforms()
                 .apply {
                     // Registering Jacoco transforms causes the jacoco configuration to be created.
                     // Ensure there are is at least one variant with enableAndroidTestCoverage
@@ -731,6 +728,12 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
                         configureJacocoTransforms()
                     }
                 }
+                .configurePrivacySandboxSdkVariantTransforms(
+                        variants,
+                        globalConfig.compileSdkHashString,
+                        globalConfig.buildToolsRevision,
+                        globalConfig
+                )
 
         // Run the old Variant API, after the variants and tasks have been created.
         @Suppress("DEPRECATION")

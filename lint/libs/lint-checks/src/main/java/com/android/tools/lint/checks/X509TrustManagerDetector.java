@@ -70,7 +70,8 @@ public class X509TrustManagerDetector extends Detector implements SourceCodeScan
                             6,
                             Severity.WARNING,
                             IMPLEMENTATION)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/TrustAllX509TrustManager");
 
     public static final Issue IMPLEMENTS_CUSTOM =
             Issue.create(
@@ -81,7 +82,8 @@ public class X509TrustManagerDetector extends Detector implements SourceCodeScan
                             5,
                             Severity.WARNING,
                             IMPLEMENTATION)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/CustomX509TrustManager");
 
     public X509TrustManagerDetector() {}
 
@@ -106,6 +108,9 @@ public class X509TrustManagerDetector extends Detector implements SourceCodeScan
                                 + "non-trivial to implement correctly without calling Android's default "
                                 + "implementation."));
 
+        if (cls.isInterface()) {
+            return;
+        }
         checkMethod(context, cls, "checkServerTrusted");
         checkMethod(context, cls, "checkClientTrusted");
     }
@@ -179,6 +184,9 @@ public class X509TrustManagerDetector extends Detector implements SourceCodeScan
     public void checkClass(@NonNull final ClassContext context, @NonNull ClassNode classNode) {
         if (!context.isFromClassLibrary()) {
             // Non-library code checked at the AST level
+            return;
+        }
+        if ((classNode.access & Opcodes.ACC_INTERFACE) != 0) {
             return;
         }
         if (!classNode.interfaces.contains("javax/net/ssl/X509TrustManager")) {

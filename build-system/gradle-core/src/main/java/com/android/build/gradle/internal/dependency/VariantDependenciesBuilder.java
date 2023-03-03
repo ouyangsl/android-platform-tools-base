@@ -48,7 +48,7 @@ import com.android.build.gradle.internal.core.dsl.MultiVariantComponentDslInfo;
 import com.android.build.gradle.internal.core.dsl.PublishableComponentDslInfo;
 import com.android.build.gradle.internal.core.dsl.VariantDslInfo;
 import com.android.build.gradle.internal.dsl.AbstractPublishing;
-import com.android.build.gradle.internal.dsl.ModulePropertyKeys;
+import com.android.build.gradle.internal.dsl.ModuleBooleanPropertyKeys;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts;
 import com.android.build.gradle.internal.publishing.ComponentPublishingInfo;
 import com.android.build.gradle.internal.publishing.PublishedConfigSpec;
@@ -322,13 +322,7 @@ public class VariantDependenciesBuilder {
                     new StringCachingBuildService.RegistrationAction(project).execute();
             // make compileClasspath match runtimeClasspath
             ConstraintHandler.alignWith(
-                    compileClasspath,
-                    runtimeClasspath,
-                    dependencies,
-                    false,
-                    stringCachingService,
-                    issueReporter,
-                    project.getBuildFile());
+                    compileClasspath, runtimeClasspath, dependencies, false, stringCachingService);
 
             // if this is a test App, then also synchronize the 2 runtime classpaths
             if (componentType.isApk() && testedVariant != null) {
@@ -339,9 +333,14 @@ public class VariantDependenciesBuilder {
                         testedRuntimeClasspath,
                         dependencies,
                         true,
-                        stringCachingService,
-                        issueReporter,
-                        project.getBuildFile());
+                        stringCachingService);
+                if (testedVariant.getComponentType().isApk()) {
+                    ConstraintHandler.checkConfigurationAlignments(
+                            runtimeClasspath,
+                            testedRuntimeClasspath,
+                            issueReporter,
+                            project.getBuildFile());
+                }
             }
         }
 
@@ -689,7 +688,8 @@ public class VariantDependenciesBuilder {
         }
 
         boolean isSelfInstrumenting =
-                ModulePropertyKeys.SELF_INSTRUMENTING.getValueAsBoolean(experimentalProperties);
+                ModuleBooleanPropertyKeys.SELF_INSTRUMENTING.getValueAsBoolean(
+                        experimentalProperties);
         return new VariantDependencies(
                 variantName,
                 dslInfo.getComponentType(),

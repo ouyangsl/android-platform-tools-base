@@ -110,6 +110,7 @@ class GradleTestProject @JvmOverloads internal constructor(
     private val withKotlinGradlePlugin: Boolean,
     private val withExtraPluginClasspath: String?,
     private val withPluginManagementBlock: Boolean,
+    private val withDependencyManagementBlock: Boolean,
     private val withIncludedBuilds: List<String>,
     private var mutableProjectLocation: ProjectLocation? = null,
     private val additionalMavenRepo: MavenRepoGenerator?,
@@ -439,6 +440,7 @@ class GradleTestProject @JvmOverloads internal constructor(
             withKotlinGradlePlugin = rootProject.withKotlinGradlePlugin,
             withExtraPluginClasspath = rootProject.withExtraPluginClasspath,
             withPluginManagementBlock = rootProject.withPluginManagementBlock,
+            withDependencyManagementBlock = rootProject.withDependencyManagementBlock,
             withIncludedBuilds = ImmutableList.of(),
             mutableProjectLocation = rootProject.location.createSubProjectLocation(subProject),
             additionalMavenRepo = rootProject.additionalMavenRepo,
@@ -537,7 +539,6 @@ class GradleTestProject @JvmOverloads internal constructor(
                 buildscript { apply from: "${File(projectParentDir, "commonBuildScript.gradle").toURI()}" }
                 // plugin block should go here
                 apply from: "${File(projectParentDir, "commonHeader.gradle").toURI()}"
-                apply from: "${File(projectParentDir, "commonLocalRepo.gradle").toURI()}"
 
                 // Treat javac warnings as errors
                 tasks.withType(JavaCompile) {
@@ -642,9 +643,6 @@ ext {
     kotlinVersion = '%4${"$"}s'
     composeVersion = '%5${"$"}s'
     composeCompilerVersion = '%6${"$"}s'
-}
-allprojects {
-    ${generateProjectRepoScript()}
 }
 """,
             DEFAULT_BUILD_TOOL_VERSION,
@@ -1465,6 +1463,9 @@ allprojects { proj ->
         return localProp.file as File
     }
 
+    /**
+     * Creates settings.gradle unless settings.gradle.kts exists in the same directory.
+     */
     private fun createSettingsFile(
         settingsFile: File,
         rootProjectName: String?
@@ -1490,6 +1491,18 @@ allprojects { proj ->
         """.trimIndent() + settingsContent
         }
 
+        if (withDependencyManagementBlock) {
+            settingsContent +=
+                """
+
+dependencyResolutionManagement {
+    RepositoriesMode.PREFER_SETTINGS
+    ${generateProjectRepoScript()}
+}
+
+                    """.trimIndent()
+        }
+
         if (gradleBuildCacheDirectory != null) {
             val absoluteFile: File = if (gradleBuildCacheDirectory.isAbsolute)
                 gradleBuildCacheDirectory
@@ -1512,7 +1525,9 @@ buildCache {
                     """.trimIndent()
         }
 
-        if (settingsContent.isNotEmpty()) {
+        val settingsKtsExist = settingsFile.parentFile.resolve("settings.gradle.kts").exists()
+
+        if (!settingsKtsExist && settingsContent.isNotEmpty()) {
             settingsFile.writeText(settingsContent)
         }
     }
@@ -1560,5 +1575,16 @@ buildCache {
                 }
                 """.trimIndent()
         )
+    }
+
+    fun setIncludedProjects(vararg projects: String) {
+        val includedProjects = projects.joinToString(separator = ",") { "'$it'" }
+        settingsFile.writeText("""
+            include $includedProjects
+
+            dependencyResolutionManagement {
+                apply from: '../commonLocalRepo.gradle', to: it
+            }
+        """.trimIndent())
     }
 }

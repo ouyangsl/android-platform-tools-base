@@ -18,7 +18,6 @@ package com.android.tools.firebase.testlab.gradle.services
 
 import com.android.build.api.instrumentation.StaticTestData
 import com.android.builder.testing.api.DeviceConfigProvider
-import com.android.tools.firebase.testlab.gradle.ManagedDeviceTestRunner.Companion.FtlTestRunResult
 import com.android.tools.firebase.testlab.gradle.UtpTestSuiteResultMerger
 import com.android.tools.utp.plugins.host.device.info.proto.AndroidTestDeviceInfoProto
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
@@ -39,6 +38,7 @@ import com.google.api.services.testing.model.AndroidDevice
 import com.google.api.services.testing.model.AndroidDeviceCatalog
 import com.google.api.services.testing.model.AndroidDeviceList
 import com.google.api.services.testing.model.AndroidInstrumentationTest
+import com.google.api.services.testing.model.AndroidModel
 import com.google.api.services.testing.model.ClientInfo
 import com.google.api.services.testing.model.EnvironmentMatrix
 import com.google.api.services.testing.model.GoogleCloudStorage
@@ -48,7 +48,8 @@ import com.google.api.services.testing.model.TestMatrix
 import com.google.api.services.testing.model.TestSpecification
 import com.google.api.services.toolresults.ToolResults
 import com.google.api.services.toolresults.model.StackTrace
-import com.google.firebase.testlab.gradle.ManagedDevice
+import com.google.firebase.testlab.gradle.Orientation
+import com.google.firebase.testlab.gradle.TestLabGradlePluginExtension
 import com.google.testing.platform.proto.api.core.ErrorProto.Error
 import com.google.testing.platform.proto.api.core.IssueProto.Issue
 import com.google.testing.platform.proto.api.core.LabelProto.Label
@@ -60,6 +61,16 @@ import com.google.testing.platform.proto.api.core.TestResultProto.TestResult
 import com.google.testing.platform.proto.api.core.TestStatusProto.TestStatus
 import com.google.testing.platform.proto.api.core.TestSuiteResultProto.TestSuiteMetaData
 import com.google.testing.platform.proto.api.core.TestSuiteResultProto.TestSuiteResult
+import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.logging.Logging
+import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
+import org.gradle.api.provider.ProviderFactory
+import org.gradle.api.services.BuildService
+import org.gradle.api.services.BuildServiceParameters
+import org.gradle.api.services.BuildServiceRegistry
+import org.w3c.dom.Element
+import org.w3c.dom.Node
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -70,15 +81,6 @@ import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
-import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.logging.Logging
-import org.gradle.api.provider.Property
-import org.gradle.api.provider.Provider
-import org.gradle.api.services.BuildService
-import org.gradle.api.services.BuildServiceParameters
-import org.gradle.api.services.BuildServiceRegistry
-import org.w3c.dom.Element
-import org.w3c.dom.Node
 
 /**
  * A Gradle Build service that provides APIs to talk to the Firebase Test Lab backend server.
@@ -92,6 +94,11 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         val cloudStorageUrlRegex = Regex("""gs://(.*?)/(.*)""")
 
         const val CHECK_TEST_STATE_WAIT_MS = 10 * 1000L;
+
+        val oauthScope = listOf(
+                // Scope for Cloud Tool Results API and Cloud Testing API.
+                "https://www.googleapis.com/auth/cloud-platform",
+        )
 
         class TestCases : GenericJson() {
             @Key var testCases: List<TestCase>? = null
@@ -139,12 +146,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
     }
 
     private val credential = parameters.credentialFile.get().asFile.inputStream().use {
-        GoogleCredential.fromStream(it).createScoped(
-            listOf(
-                // Scope for Cloud Tool Results API and Cloud Testing API.
-                "https://www.googleapis.com/auth/cloud-platform",
-            )
-        )
+        GoogleCredential.fromStream(it).createScoped(oauthScope)
     }
 
     private val httpRequestInitializer: HttpRequestInitializer = HttpRequestInitializer { request ->
@@ -156,7 +158,12 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         get() = JacksonFactory.getDefaultInstance()
 
     fun runTestsOnDevice(
-        device: ManagedDevice,
+        deviceName: String,
+        deviceId: String,
+        deviceApiLevel: Int,
+        deviceLocale: Locale,
+        deviceOrientation: Orientation,
+        ftlDeviceModel: AndroidModel,
         testData: StaticTestData,
         resultsOutDir: File,
         projectPath: String,
@@ -194,13 +201,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             testData.testApk, requestId, storageClient, defaultBucketName
         )
 
-        val deviceId = device.device
-        val deviceApiLevel = device.apiLevel
-        val deviceLocale = Locale.forLanguageTag(device.locale)
-        val deviceOrientation = device.orientation
-
         val configProvider = createConfigProvider(
-            deviceId, deviceLocale, deviceApiLevel
+            ftlDeviceModel, deviceLocale, deviceApiLevel
         )
         val appApkStorageObject = uploadToCloudStorage(
             testData.testedApkFinder(configProvider).first(),
@@ -280,7 +282,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             Thread.sleep (CHECK_TEST_STATE_WAIT_MS)
         }
 
-        val deviceInfoFile = createDeviceInfoFile(resultsOutDir, device)
+        val deviceInfoFile =
+            createDeviceInfoFile(resultsOutDir, deviceName, deviceId, deviceApiLevel)
 
         val ftlTestRunResults: ArrayList<FtlTestRunResult> = ArrayList()
         resultTestMatrix.testExecutions.forEach { testExecution ->
@@ -296,7 +299,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                     downloadFromCloudStorage(storageClient, suiteOverview.xmlSource.fileUri) {
                         File(resultsOutDir, "TEST-${it.replace("/", "_")}")
                     }?.also {
-                        updateTestResultXmlFile(it, device, projectPath, variantName)
+                        updateTestResultXmlFile(it, deviceName, projectPath, variantName)
                     }
                 }
             }
@@ -642,14 +645,16 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
 
     private fun createDeviceInfoFile(
         resultsOutDir: File,
-        device: ManagedDevice,
+        deviceName: String,
+        deviceId: String,
+        deviceApiLevel: Int
     ): File {
         val deviceInfoFile = File(resultsOutDir, "device-info.pb")
         val androidTestDeviceInfo = AndroidTestDeviceInfoProto.AndroidTestDeviceInfo.newBuilder()
-            .setName(device.name)
-            .setApiLevel(device.apiLevel.toString())
-            .setGradleDslDeviceName(device.name)
-            .setModel(device.device)
+            .setName(deviceName)
+            .setApiLevel(deviceApiLevel.toString())
+            .setGradleDslDeviceName(deviceName)
+            .setModel(deviceId)
             .build()
         FileOutputStream(deviceInfoFile).use {
             androidTestDeviceInfo.writeTo(it)
@@ -700,24 +705,16 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
     }
 
     private fun createConfigProvider(
-        deviceId: String, locale: Locale, apiLevel: Int
+        ftlDeviceModel: AndroidModel,
+        locale: Locale,
+        apiLevel: Int
     ): DeviceConfigProvider {
-        val deviceModel = catalog().models.firstOrNull {
-            it.id == deviceId
-        } ?: error("Could not find device: $deviceId")
-
-        if (!deviceModel.supportedVersionIds.contains(apiLevel.toString())) {
-            error("""
-                apiLevel: $apiLevel is not supported by device: $deviceId. Available Api levels are:
-                ${deviceModel.supportedVersionIds}
-            """.trimIndent())
-        }
         return object : DeviceConfigProvider {
             override fun getConfigFor(abi: String?): String {
                 return requireNotNull(abi)
             }
 
-            override fun getDensity(): Int = deviceModel.screenDensity
+            override fun getDensity(): Int = ftlDeviceModel.screenDensity
 
             override fun getLanguage(): String {
                 return locale.language
@@ -727,7 +724,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 return locale.country
             }
 
-            override fun getAbis() = deviceModel.supportedAbis
+            override fun getAbis() = ftlDeviceModel.supportedAbis
 
             override fun getApiLevel() = apiLevel
         }
@@ -735,7 +732,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
 
     private fun updateTestResultXmlFile(
         xmlFile: File,
-        device: ManagedDevice,
+        deviceName: String,
         projectPath: String,
         variantName: String,
     ) {
@@ -765,7 +762,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
 
             propertyElement.appendChild(document.createElement("property").apply {
                 setAttribute("name", "device")
-                setAttribute("value", device.name)
+                setAttribute("value", deviceName)
             })
             propertyElement.appendChild(document.createElement("property").apply {
                 setAttribute("name", "flavor")
@@ -786,7 +783,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
      * An action to register TestLabBuildService to a project.
      */
     class RegistrationAction(
-        private val findCredentialFileFunc: () -> File = ::getGcloudCredentialsFile,
+        private val testLabExtension: TestLabGradlePluginExtension,
+        private val providerFactory: ProviderFactory,
     ) {
         companion object {
             /**
@@ -806,6 +804,16 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 return type.name + "_" + perClassLoaderConstant
             }
 
+            fun getBuildService(registry: BuildServiceRegistry): Provider<TestLabBuildService> {
+                val serviceName = getBuildServiceName(TestLabBuildService::class.java)
+                return registry.registerIfAbsent(
+                    serviceName,
+                    TestLabBuildService::class.java,
+                ) {
+                    throw IllegalStateException("Service $serviceName is not registered.")
+                }
+            }
+
             /**
              *  Used to get unique build service name. Each class loader will initialize its own
              *  version.
@@ -815,7 +823,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             private const val WELL_KNOWN_CREDENTIALS_FILE = "application_default_credentials.json"
             private const val CLOUDSDK_CONFIG_DIRECTORY = "gcloud"
 
-            private fun getGcloudCredentialsFile(): File {
+            private fun getGcloudApplicationDefaultCredentialsFile(): File {
                 val os = System.getProperty("os.name", "").lowercase(Locale.US)
                 val envPath = System.getenv("CLOUDSDK_CONFIG") ?: ""
                 val cloudConfigPath = if (envPath.isNotBlank()) {
@@ -831,6 +839,9 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             }
 
             private fun getQuotaProjectName(credentialFile: File): String {
+                if (!credentialFile.exists() || !credentialFile.isFile) {
+                    throwCredentialNotFoundError()
+                }
                 val quotaProjectName = credentialFile.inputStream().use {
                     val parser = JsonObjectParser(Utils.getDefaultJsonFactory())
                     val fileContents = parser.parseAndClose<GenericJson>(
@@ -878,13 +889,28 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         }
 
         private fun configure(params: Parameters) {
-            val credentialFile = findCredentialFileFunc()
-            if (!credentialFile.isFile) {
-                throwCredentialNotFoundError()
-            }
-            val quotaProjectName = getQuotaProjectName(credentialFile)
-            params.credentialFile.set(credentialFile)
-            params.quotaProjectName.set(quotaProjectName)
+            params.credentialFile.fileProvider(providerFactory.provider {
+                if (testLabExtension.serviceAccountCredentials.isPresent) {
+                    testLabExtension.serviceAccountCredentials.get().asFile
+                } else {
+                    getGcloudApplicationDefaultCredentialsFile()
+                }
+            })
+            params.quotaProjectName.set(params.credentialFile.map {
+                getQuotaProjectName(it.asFile)
+            })
         }
     }
 }
+
+/**
+ * Encapsulates result of a FTL test run.
+ *
+ * @property testPassed true when all test cases in the test suite is passed.
+ * @property resultsProto test suite result protobuf message. This can be null if
+ *     the test runner exits unexpectedly.
+ */
+data class FtlTestRunResult(
+    val testPassed: Boolean,
+    val resultsProto: TestSuiteResult?,
+)

@@ -18,46 +18,26 @@ package com.android.adblib.tools.debugging.impl
 import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
 import com.android.adblib.CoroutineScopeCache
+import com.android.adblib.property
 import com.android.adblib.scope
 import com.android.adblib.thisLogger
+import com.android.adblib.tools.AdbLibToolsProperties.JDWP_SESSION_FIRST_PACKET_ID
 import com.android.adblib.tools.debugging.AtomicStateFlow
 import com.android.adblib.tools.debugging.JdwpProcess
 import com.android.adblib.tools.debugging.JdwpProcessProperties
-import com.android.adblib.tools.debugging.JdwpProcessPropertiesCollector
 import com.android.adblib.tools.debugging.JdwpSession
 import com.android.adblib.tools.debugging.SharedJdwpSession
-import com.android.adblib.tools.debugging.rethrowCancellation
 import com.android.adblib.tools.debugging.utils.ReferenceCountedResource
 import com.android.adblib.tools.debugging.utils.withResource
 import com.android.adblib.utils.closeOnException
-import kotlinx.coroutines.TimeoutCancellationException
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withTimeout
-import java.io.EOFException
-import java.time.Duration
-
-/**
- * Maximum amount of time a JDWP connection is open while waiting for the JDWP "handshake"
- * and various DDMS packets related to the process state.
- *
- * Note: The current value (15 seconds) matches the time Android Studio waits for a process
- * to show up as "waiting for debugger" after deploying and starting an application on a
- * device.
- */
-private val PROCESS_PROPERTIES_READ_TIMEOUT = Duration.ofSeconds(15)
-
-/**
- * Amount of time to wait before retrying a JDWP session to retrieve process properties
- */
-private val PROCESS_PROPERTIES_RETRY_DURATION = Duration.ofSeconds(2)
 
 /**
  * Implementation of [JdwpProcess]
  */
 internal class JdwpProcessImpl(
-  session: AdbSession,
+  private val session: AdbSession,
   override val device: ConnectedDevice,
   override val pid: Int
 ) : JdwpProcess, AutoCloseable {
@@ -90,19 +70,13 @@ internal class JdwpProcessImpl(
      * lasts until the debugging session ends.
      */
     private val jdwpSessionRef = ReferenceCountedResource(session, session.host.ioDispatcher) {
-        /**
-         * This value is from DDMLIB, using it should help avoid potential backward compatibility
-         * issues if someone depends on this somehow.
-         */
-        val JDWP_SESSION_FIRST_PACKET_ID = 0x40000000
-
-        JdwpSession.openJdwpSession(device, pid, JDWP_SESSION_FIRST_PACKET_ID)
+        JdwpSession.openJdwpSession(device, pid, session.property(JDWP_SESSION_FIRST_PACKET_ID))
             .closeOnException { jdwpSession ->
                 SharedJdwpSession.create(jdwpSession, pid)
             }
     }
 
-    private val collector = JdwpProcessPropertiesCollector(session, pid, jdwpSessionRef)
+    private val propertyCollector = JdwpProcessPropertiesCollector(device, pid, jdwpSessionRef)
 
     private val jdwpSessionProxy = JdwpSessionProxy(device, pid, jdwpSessionRef)
 
@@ -111,7 +85,7 @@ internal class JdwpProcessImpl(
             jdwpSessionProxy.execute(stateFlow)
         }
         scope.launch {
-            executePropertyCollector()
+            propertyCollector.execute(stateFlow)
         }
     }
 
@@ -121,61 +95,10 @@ internal class JdwpProcessImpl(
         }
     }
 
-    private suspend fun executePropertyCollector() {
-        while (true) {
-            // Opens a JDWP session to the process, and collect as many properties as we
-            // can for a short period of time, then close the session and try again
-            // later if needed.
-            try {
-                withTimeout(PROCESS_PROPERTIES_READ_TIMEOUT.toMillis()) {
-                    collector.collect(stateFlow)
-                }
-                // If we have what we want, reset the exception to `null` (this could
-                // be a retry of something that failed earlier)
-                stateFlow.update { it.copy(exception = null) }
-            } catch (e: TimeoutCancellationException) {
-                // On API 28+, we get a timeout if there is an active JDWP connection to the
-                // process **or** if the collector did not collect all the data it wanted
-                // (which is common in case there is no WAIT DDMS packet).
-                // We set the exception only if the collector did not receive the DDMS HELO
-                // packet, so that we don't retry indefinitely.
-                if (stateFlow.value.heloResponseReceived()) {
-                    // If we have what we want, reset the exception to `null` (this could
-                    // be a retry of something that failed earlier)
-                    stateFlow.update { it.copy(exception = null) }
-                } else {
-                    stateFlow.update { it.copy(exception = e) }
-                }
-            } catch (e: EOFException) {
-                // On API 27 and earlier, we may immediately get an "EOFException" if there
-                // already was an active JDWP connection to the process
-                stateFlow.update { it.copy(exception = e) }
-            } catch (t: Throwable) {
-                t.rethrowCancellation()
-                stateFlow.update { it.copy(exception = t) }
-            }
-
-            // Delay and retry if we did not collect all properties we want
-            val properties = stateFlow.value
-            if (properties.exception == null) {
-                logger.debug { "Successfully retrieved JDWP process properties: $properties" }
-                break
-            }
-
-            logger.info(properties.exception) { "Error retrieving (at least some of) JDWP process properties ($properties), retrying later" }
-            delay(PROCESS_PROPERTIES_RETRY_DURATION.toMillis())
-        }
-    }
-
     override fun close() {
         val msg = "Closing coroutine scope of JDWP process $pid"
         logger.debug { msg }
         jdwpSessionRef.close()
         cache.close()
-    }
-
-    private fun JdwpProcessProperties.heloResponseReceived(): Boolean {
-        return this.processName != null &&
-                this.vmIdentifier != null
     }
 }

@@ -93,7 +93,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             5,
                             Severity.WARNING,
                             IMPLEMENTATION_MANIFEST)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/ExportedService");
 
     /** Exported content providers */
     public static final Issue EXPORTED_PROVIDER =
@@ -109,7 +110,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             5,
                             Severity.WARNING,
                             IMPLEMENTATION_MANIFEST)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/ExportedContentProvider");
 
     /** Exported receivers */
     public static final Issue EXPORTED_RECEIVER =
@@ -124,7 +126,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             5,
                             Severity.WARNING,
                             IMPLEMENTATION_MANIFEST)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/ExportedReceiver");
 
     /** Content provides which grant all URIs access */
     public static final Issue OPEN_PROVIDER =
@@ -138,7 +141,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             7,
                             Severity.WARNING,
                             IMPLEMENTATION_MANIFEST)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/GrantAllUris");
 
     /** Using java.io.File.setReadable(true, false) to set file world-readable */
     public static final Issue SET_READABLE =
@@ -153,7 +157,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             6,
                             Severity.WARNING,
                             IMPLEMENTATION_JAVA)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/SetWorldReadable");
 
     /** Using java.io.File.setWritable(true, false) to set file world-writable */
     public static final Issue SET_WRITABLE =
@@ -168,7 +173,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             6,
                             Severity.WARNING,
                             IMPLEMENTATION_JAVA)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/SetWorldWritable");
 
     /** Using the world-writable flag */
     public static final Issue WORLD_WRITEABLE =
@@ -184,7 +190,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             4,
                             Severity.WARNING,
                             IMPLEMENTATION_JAVA)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/WorldWriteableFiles");
 
     /** Using the world-readable flag */
     public static final Issue WORLD_READABLE =
@@ -199,7 +206,8 @@ public class SecurityDetector extends Detector implements XmlScanner, SourceCode
                             4,
                             Severity.WARNING,
                             IMPLEMENTATION_JAVA)
-                    .setAndroidSpecific(true);
+                    .setAndroidSpecific(true)
+                    .addMoreInfo("https://goo.gle/WorldReadableFiles");
 
     private static final String FILE_CLASS = "java.io.File";
 

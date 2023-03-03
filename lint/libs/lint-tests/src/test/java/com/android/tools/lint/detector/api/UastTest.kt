@@ -55,12 +55,15 @@ import org.jetbrains.uast.UExpression
 import org.jetbrains.uast.UFile
 import org.jetbrains.uast.ULocalVariable
 import org.jetbrains.uast.UMethod
+import org.jetbrains.uast.UPostfixExpression
+import org.jetbrains.uast.UPrefixExpression
 import org.jetbrains.uast.UReferenceExpression
 import org.jetbrains.uast.UastCallKind
 import org.jetbrains.uast.kotlin.BaseKotlinUastResolveProviderService
 import org.jetbrains.uast.toUElement
 import org.jetbrains.uast.toUElementOfType
 import org.jetbrains.uast.util.isAssignment
+import org.jetbrains.uast.util.isConstructorCall
 import org.jetbrains.uast.visitor.AbstractUastVisitor
 
 // Misc tests to verify type handling in the Kotlin UAST initialization.
@@ -334,6 +337,120 @@ class UastTest : TestCase() {
             }
 
             return super.visitAnnotation(node)
+          }
+        }
+      )
+    }
+  }
+
+  fun testExpressionTypeOfCallToInternalOperator() {
+    // Regression test from b/270595352.
+    val testFiles =
+      arrayOf(
+        bytecode(
+          "libs/lib1.jar",
+          kotlin(
+            """
+                      package test
+
+                      object Dependency {
+                          internal operator fun unaryPlus() = Any()
+                          operator fun unaryMinus() = Any()
+                      }
+
+                      class OtherDependency {
+                          internal operator fun inc() = this
+                          operator fun dec() = this
+                      }
+                  """
+          ),
+          0x6fcad72,
+          """
+                META-INF/main.kotlin_module:
+                H4sIAAAAAAAA/2NgYGBmYGBgBGJOBijg4uJiEGILSS0u8S5RYtBiAABz6lUC
+                JAAAAA==
+                """,
+          """
+                test/Dependency.class:
+                H4sIAAAAAAAA/41RTU8TURQ973U6nQ6lTBGlgN+gFhcONO5EE0SNJaUaIU0M
+                q9f2BV87nTGdN43suuKH+AskLkwkMQR3/ijjfUMDBBc6i/t5znn33vn1+/sP
+                AI9RYZjSMtb+C/lRhh0ZtvdzYAxeVwyFH4hwz3/T6sq2ziHDYK+pUOlnDJnK
+                crOALGwXFnIMlv6gYoZS/ZLWE4ZiEorB/tsgiZf6QoUMM5Xl+mV1wi3Wo8Ge
+                35W6NSBY7IswjLTQKqK4EelGEgSEclO1LRUm9Jyz1g7SgVxwM4VTa2zvrDc2
+                XhZQgpun4rSZqRdpgvlbUouO0IJUeH+YofWZMXljwMB6VP+kTLZCUWeVYeN4
+                VHB5mbvcOx653LGcnwe8fDyq8hX2POfwk8829/hm3svMU+X1yQHfLHrWaTxK
+                u07WSFWZeSB/dgiGyfMTPepphoV3SahVX9bCoYpVK5Dr59vTdTeijqQfVVeh
+                bCT9lhzsCMIwTNejtgiaYqBMPi6621EyaMtXyiRzY+HmX7JYpftY6epz5lzk
+                71Jmk58kb1E3m2aLlPnmQOSzD7/BOaSAY2kMNtB7ZAunAORJCiQ4QRWekqvk
+                Tc85gvWe+F8u8bMX+M6Yf3GUEor/rWX/Q8vB1NlSs8Q038QROGl5X3HlMC1w
+                3E/tHTwg/5TgMzTk1V1karhWw2wNZcxRiPkaFnB9FyzGDdzchR3DjXErNkEx
+                xu0YE38ApJb8UmoDAAA=
+                """,
+          """
+                test/OtherDependency.class:
+                H4sIAAAAAAAA/41RyW4TQRB93eN17DjjEIKTsCY5JBFinIgbm1iEmGhwJEC+
+                +NQet5K2xz1opm3BzSc+hC+AExIHZOXIRyGqzUhBLII+vKp69eqpq/vrt89f
+                ANzGNsOqkZnxj82pTJ/I11IPpI7elsEYvKGYCj8W+sQ/7g9lZMpwGEp3lVbm
+                PoOzu9eto4iSiwLKDAVzqjKGtfBPhncYKkpHO2OhNENrd+9vqu0wSU/8oTT9
+                lKSZL7ROjDAqobyTmM4kjknlDGTE0AxHiYmV9p9LIwbCCOrw8dSh1ZiFqgUw
+                sBHxb5St2pQNDhgezGd1l7e4y735zOWVQms+O+Rt9qh49r7EPX5U9ZwN3p7P
+                np2940cNr5AXM277laK1OWTW3KG1GJbOl7g1MvQYj5OBZFgOlZadybgv01ei
+                HxOzEiaRiLsiVbbOyc0XE23UWAZ6qjJF1MPzrRncl8kkjeRTZaXrubT7mxAH
+                4PQT9jh0L/oYwitU+fYJKBb3P6HykRKOq4SlBVnFNcL6DwFVLsUmasTwxfDN
+                fJjvf/hl0v1pkueT1/Pu0sKl8R8utX+4cNxY4GVsUbxH7DLd0+vBCdAMsBLg
+                AlYpxcUAa7jUA8vQwnoPpQxuho3MJo0Mmxlq3wFRZP9W9wIAAA==
+                """
+        ),
+        kotlin(
+          """
+                 import test.Dependency
+                 import test.OtherDependency
+
+                 fun test() {
+                     +Dependency
+                     Dependency.unaryPlus()
+                     -Dependency
+                     Dependency.unaryMinus()
+
+                     var x = OtherDependency()
+                     x++
+                     x.inc()
+                     x--
+                     x.dec()
+                 }
+              """
+        )
+      )
+
+    check(*testFiles) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitCallExpression(node: UCallExpression): Boolean {
+            if (node.isConstructorCall()) return super.visitCallExpression(node)
+
+            if (node.methodName?.startsWith("unary") == true) {
+              assertEquals("java.lang.Object", node.getExpressionType()?.canonicalText)
+            } else {
+              assertEquals("test.OtherDependency", node.getExpressionType()?.canonicalText)
+            }
+
+            return super.visitCallExpression(node)
+          }
+
+          override fun visitPrefixExpression(node: UPrefixExpression): Boolean {
+            // TODO(kotlin-uast-cleanup): FIR UAST will have a correct `getExpressionType`
+            val t = node.getExpressionType() ?: node.resolveOperator()?.returnType
+            assertEquals("java.lang.Object", t?.canonicalText)
+
+            return super.visitPrefixExpression(node)
+          }
+
+          override fun visitPostfixExpression(node: UPostfixExpression): Boolean {
+            // TODO(kotlin-uast-cleanup): FIR UAST will have a correct `getExpressionType`
+            val t = node.getExpressionType() ?: node.resolveOperator()?.returnType
+            assertEquals("test.OtherDependency", t?.canonicalText)
+
+            return super.visitPostfixExpression(node)
           }
         }
       )
