@@ -94,6 +94,8 @@ import com.android.build.gradle.internal.tasks.LintCompile
 import com.android.build.gradle.internal.tasks.ListingFileRedirectTask
 import com.android.build.gradle.internal.tasks.ManagedDeviceInstrumentationTestResultAggregationTask
 import com.android.build.gradle.internal.tasks.ManagedDeviceInstrumentationTestTask
+import com.android.build.gradle.internal.tasks.ManagedDeviceSetupTask
+import com.android.build.gradle.internal.tasks.ManagedDeviceTestTask
 import com.android.build.gradle.internal.tasks.MergeAaptProguardFilesCreationAction
 import com.android.build.gradle.internal.tasks.MergeClassesTask
 import com.android.build.gradle.internal.tasks.MergeGeneratedProguardFilesCreationAction
@@ -107,6 +109,7 @@ import com.android.build.gradle.internal.tasks.RecalculateStackFramesTask
 import com.android.build.gradle.internal.tasks.SourceSetsTask
 import com.android.build.gradle.internal.tasks.UninstallTask
 import com.android.build.gradle.internal.tasks.ValidateSigningTask
+import com.android.build.gradle.internal.tasks.VerifyLibraryClassesTask
 import com.android.build.gradle.internal.tasks.databinding.DataBindingCompilerArguments.Companion.createArguments
 import com.android.build.gradle.internal.tasks.databinding.DataBindingGenBaseClassesTask
 import com.android.build.gradle.internal.tasks.databinding.DataBindingMergeDependencyArtifactsTask
@@ -205,6 +208,15 @@ abstract class TaskManager(
                     )
                 )
             }
+    }
+
+    protected fun createVerifyLibraryClassesTask(component: VariantCreationConfig) {
+        taskFactory.register(VerifyLibraryClassesTask.CreationAction(component))
+        component.taskContainer.assembleTask.configure { task: Task ->
+            task.dependsOn(
+                    component.artifacts.get(InternalArtifactType.VERIFIED_LIBRARY_CLASSES)
+            )
+        }
     }
 
     protected fun registerLibraryRClassTransformStream(component: ComponentCreationConfig) {
@@ -918,25 +930,72 @@ abstract class TaskManager(
         val coverageOutputDir = File(coverageOutputRootDir, flavorDir)
 
         val deviceToProvider = mutableMapOf<String, TaskProvider<out Task>>()
+
         for (managedDevice in managedDevices) {
-            if (managedDevice !is ManagedVirtualDevice
-                && (managedDevice !is ManagedDeviceTestRunnerFactory
-                        || !globalConfig.services.projectOptions[
-                                BooleanOption.GRADLE_MANAGED_DEVICE_CUSTOM_DEVICE])) {
-                error("Unsupported managed device type: ${managedDevice.javaClass}")
+            val registration = globalConfig.managedDeviceRegistry.get(managedDevice.javaClass)
+
+            val deviceResults = File(resultsDir, managedDevice.name)
+            val deviceReports = File(reportDir, managedDevice.name)
+            val deviceAdditionalOutputs = File(additionalTestOutputDir, managedDevice.name)
+            val deviceCoverage = File(coverageOutputDir, managedDevice.name)
+
+            val managedDeviceTestTask = when {
+                managedDevice is ManagedVirtualDevice -> taskFactory.register(
+                        ManagedDeviceInstrumentationTestTask.CreationAction(
+                            creationConfig,
+                            managedDevice,
+                            testData,
+                            deviceResults,
+                            deviceReports,
+                            deviceAdditionalOutputs,
+                            deviceCoverage,
+                            testTaskSuffix,
+                        )
+                    )
+                registration != null -> {
+                    val setupResult: Provider<Directory>? = if (registration.hasSetupActions) {
+                        taskFactory.named(setupTaskName(managedDevice)).flatMap { task ->
+                            (task as ManagedDeviceSetupTask).setupResultDir
+                        }
+                    } else {
+                        null
+                    }
+                    taskFactory.register(
+                        ManagedDeviceTestTask.CreationAction(
+                            creationConfig,
+                            managedDevice,
+                            registration.testRunConfigAction,
+                            registration.testRunTaskAction,
+                            testData,
+                            deviceResults,
+                            deviceReports,
+                            deviceAdditionalOutputs,
+                            deviceCoverage,
+                            setupResult,
+                            testTaskSuffix,
+                        )
+                    )
+                }
+                managedDevice is ManagedDeviceTestRunnerFactory -> {
+                    if (!globalConfig.services.projectOptions[
+                            BooleanOption.GRADLE_MANAGED_DEVICE_CUSTOM_DEVICE]) {
+                        error("Unsupported managed device type: ${managedDevice.javaClass}")
+                    }
+                    taskFactory.register(
+                        ManagedDeviceInstrumentationTestTask.CreationAction(
+                            creationConfig,
+                            managedDevice,
+                            testData,
+                            deviceResults,
+                            deviceReports,
+                            deviceAdditionalOutputs,
+                            deviceCoverage,
+                            testTaskSuffix,
+                        )
+                    )
+                }
+                else -> error("Unsupported managed device type: ${managedDevice.javaClass}")
             }
-            val managedDeviceTestTask = taskFactory.register(
-                ManagedDeviceInstrumentationTestTask.CreationAction(
-                    creationConfig,
-                    managedDevice,
-                    testData,
-                    File(resultsDir, managedDevice.name),
-                    File(reportDir, managedDevice.name),
-                    File(additionalTestOutputDir, managedDevice.name),
-                    File(coverageOutputDir, managedDevice.name),
-                    testTaskSuffix,
-                )
-            )
             managedDeviceTestTask.dependsOn(setupTaskName(managedDevice))
             allDevicesVariantTask.dependsOn(managedDeviceTestTask)
             taskFactory.configure(

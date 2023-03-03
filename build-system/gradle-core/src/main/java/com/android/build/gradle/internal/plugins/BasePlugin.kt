@@ -69,6 +69,7 @@ import com.android.build.gradle.internal.ide.v2.GlobalSyncService
 import com.android.build.gradle.internal.ide.v2.NativeModelBuilder
 import com.android.build.gradle.internal.lint.LintFixBuildService
 import com.android.build.gradle.internal.profile.AnalyticsUtil
+import com.android.build.gradle.internal.projectIsolationRequested
 import com.android.build.gradle.internal.scope.DelayedActionsExecutor
 import com.android.build.gradle.internal.services.Aapt2DaemonBuildService
 import com.android.build.gradle.internal.services.Aapt2ThreadPoolBuildService
@@ -88,6 +89,7 @@ import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfig
 import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfigImpl
 import com.android.build.gradle.internal.tasks.factory.TaskManagerConfig
 import com.android.build.gradle.internal.tasks.factory.TaskManagerConfigImpl
+import com.android.build.gradle.internal.testing.ManagedDeviceRegistry
 import com.android.build.gradle.internal.utils.enforceMinimumVersionsOfPlugins
 import com.android.build.gradle.internal.utils.getKotlinPluginVersion
 import com.android.build.gradle.internal.utils.syncAgpAndKgpSources
@@ -199,6 +201,12 @@ abstract class BasePlugin<
         )
     }
 
+    private var _managedDeviceRegistry: ManagedDeviceRegistry? = null
+    val managedDeviceRegistry: ManagedDeviceRegistry
+        get() = _managedDeviceRegistry ?: ManagedDeviceRegistry(newExtension.testOptions).also {
+            _managedDeviceRegistry = it
+        }
+
     private val globalConfig by lazy {
         withProject("globalConfig") { project ->
             @Suppress("DEPRECATION")
@@ -213,7 +221,8 @@ abstract class BasePlugin<
                 createCustomLintChecksConfig(project),
                 createAndroidJarConfig(project),
                 createFakeDependencyConfig(project),
-                createSettingsOptions()
+                createSettingsOptions(),
+                managedDeviceRegistry
             )
         }
     }
@@ -404,8 +413,11 @@ abstract class BasePlugin<
             .forEach(projectServices.deprecationReporter::reportOptionIssuesIfAny)
         IncompatibleProjectOptionsReporter.check(projectOptions, issueReporter)
 
-        // Enforce minimum versions of certain plugins
-        enforceMinimumVersionsOfPlugins(project, issueReporter)
+        // TODO(b/189990965) Re-enable checking minimum versions of certain plugins once
+        // https://github.com/gradle/gradle/issues/23838 is fixed
+        if (!projectIsolationRequested(project.providers)) {
+            enforceMinimumVersionsOfPlugins(project, issueReporter)
+        }
 
         // Apply the Java plugin
         project.plugins.apply(JavaBasePlugin::class.java)
