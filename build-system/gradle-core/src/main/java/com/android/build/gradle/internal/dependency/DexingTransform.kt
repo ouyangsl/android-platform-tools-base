@@ -383,7 +383,7 @@ fun getDexingArtifactConfiguration(creationConfig: ApkCreationConfig): DexingArt
                 null
             },
         useJacocoTransformInstrumentation = creationConfig.useJacocoTransformInstrumentation,
-        enableGlobalSynthetics = creationConfig.services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS]
+        enableGlobalSynthetics = creationConfig.global.enableGlobalSynthetics
     )
 }
 

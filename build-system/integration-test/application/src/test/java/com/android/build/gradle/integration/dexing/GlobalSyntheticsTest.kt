@@ -92,6 +92,12 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
         TestFileUtils.appendToFile(
             app.buildFile,
             """
+                android {
+                    compileOptions {
+                        sourceCompatibility JavaVersion.VERSION_14
+                        targetCompatibility JavaVersion.VERSION_14
+                    }
+                }
 
                 dependencies {
                     implementation project(":lib")
@@ -176,12 +182,29 @@ class GlobalSyntheticsTest(private val dexType: DexType) {
     fun testDisableGlobalSynthetics() {
         addFileDependencies(app)
 
-        val result = executor()
-            .with(BooleanOption.ENABLE_GLOBAL_SYNTHETICS, false)
-            .expectFailure()
-            .run("assembleDebug")
+        val disableWithFlag = executor()
+                .with(BooleanOption.ENABLE_GLOBAL_SYNTHETICS, false)
+                .expectFailure()
+                .run("assembleDebug")
 
-        ScannerSubject.assertThat(result.stderr)
+        ScannerSubject.assertThat(disableWithFlag.stderr)
+                .contains("Attempt to create a global synthetic for 'Record desugaring' without a global-synthetics consumer.")
+
+        TestFileUtils.appendToFile(
+                app.buildFile,
+                """
+                    android {
+                        compileOptions {
+                            sourceCompatibility JavaVersion.VERSION_13
+                            targetCompatibility JavaVersion.VERSION_13
+                        }
+                    }
+                """.trimIndent()
+        )
+
+        val disableWithDsl = executor().expectFailure().run("assembleDebug")
+
+        ScannerSubject.assertThat(disableWithDsl.stderr)
                 .contains("Attempt to create a global synthetic for 'Record desugaring' without a global-synthetics consumer.")
     }
 

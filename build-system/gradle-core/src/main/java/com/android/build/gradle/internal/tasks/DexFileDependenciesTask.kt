@@ -187,7 +187,7 @@ abstract class DexFileDependenciesTask: NonIncrementalTask() {
                     .setInitialProvider(taskProvider, DexFileDependenciesTask::outputKeepRules)
                     .on(InternalArtifactType.DESUGAR_LIB_EXTERNAL_FILE_LIB_KEEP_RULES)
             }
-            if (creationConfig.services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS]) {
+            if (creationConfig.global.enableGlobalSynthetics) {
                 creationConfig.artifacts
                     .setInitialProvider(taskProvider, DexFileDependenciesTask::outputGlobalSynthetics)
                     .on(InternalArtifactType.GLOBAL_SYNTHETICS_FILE_LIB)
