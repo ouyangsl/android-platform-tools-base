@@ -44,6 +44,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.nio.ByteBuffer
 import java.time.Duration
+import java.time.Instant
 
 class JdwpProcessTest : AdbLibToolsTestBase() {
 
@@ -110,6 +111,11 @@ class JdwpProcessTest : AdbLibToolsTestBase() {
     fun startMonitoringWorks() = runBlockingWithTimeout {
         // Prepare
         val (_, _, process) = createJdwpProcess()
+        setHostPropertyValue(
+            process.device.session.host,
+            AdbLibToolsProperties.PROCESS_PROPERTIES_READ_TIMEOUT,
+            Duration.ofSeconds(2)
+        )
 
         // Act
         process.startMonitoring()
@@ -121,6 +127,64 @@ class JdwpProcessTest : AdbLibToolsTestBase() {
     }
 
     @Test
+    fun startMonitoringUsesDefaultDelayByDefault() = runBlockingWithTimeout {
+        // Prepare
+        val (_, _, process) = createJdwpProcess()
+        val delay = Duration.ofSeconds(2)
+        setHostPropertyValue(
+            process.device.session.host,
+            AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_DEFAULT,
+            delay
+        )
+        setHostPropertyValue(
+            process.device.session.host,
+            AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_SHORT,
+            Duration.ofSeconds(0)
+        )
+
+        // Act
+        val start = Instant.now()
+        process.startMonitoring()
+        yieldUntil { process.properties.processName != null }
+        val waitTime = Duration.between(start, Instant.now())
+
+        // Assert: We waited (close to) "delay" for "completed" to get set
+        assertTrue(timeoutExceeded(waitTime, delay))
+    }
+
+    @Test
+    fun startMonitoringUsesShortDelayAccordingToUseShortDelayPropertyValue() = runBlockingWithTimeout {
+        // Prepare
+        val (_, _, process) = createJdwpProcess()
+        val delay = Duration.ofSeconds(2)
+        setHostPropertyValue(
+            process.device.session.host,
+            AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_DEFAULT,
+            Duration.ofSeconds(0)
+        )
+        setHostPropertyValue(
+            process.device.session.host,
+            AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_SHORT,
+            delay
+        )
+        setHostPropertyValue(
+            process.device.session.host,
+            AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_USE_SHORT,
+            true
+        )
+
+        // Act
+        val start = Instant.now()
+        process.startMonitoring()
+        yieldUntil { process.properties.processName != null }
+        val waitTime = Duration.between(start, Instant.now())
+
+        // Assert: We waited (close to) "delay" for "completed" to get set
+        assertTrue(timeoutExceeded(waitTime, delay))
+    }
+
+    @Suppress("unused")
+    //@Test // Disabled because of b/271466829
     fun startMonitoringEndsEarlyIfWaitForDebugger() = runBlockingWithTimeout {
         // Prepare
         val (_, _, process) = createJdwpProcess(waitForDebugger = true)
@@ -142,6 +206,29 @@ class JdwpProcessTest : AdbLibToolsTestBase() {
         // Assert
         val properties = process.properties
         assertProcessPropertiesComplete(properties)
+    }
+
+    /**
+     * Regression test for [b/271466829](https://issuetracker.google.com/issues/271466829)
+     */
+    @Test
+    fun startMonitoringDoesNotReleaseJdwpSessionIfWaitForDebugger() = runBlockingWithTimeout {
+        // Prepare
+        val (_, _, process) = createJdwpProcess(waitForDebugger = true)
+
+        // Act: When the AndroidVM sends a "WAIT" packet, "completed" is set early,
+        // but the SharedJDWPSession should be retained
+        setHostPropertyValue(
+            process.device.session.host,
+            AdbLibToolsProperties.PROCESS_PROPERTIES_READ_TIMEOUT,
+            Duration.ofSeconds(60) // long timeout
+        )
+        process.startMonitoring()
+        yieldUntil { process.properties.completed }
+        delay(500) // give JDWP session holder time to launch
+
+        // Assert: The JDWP session should still be in-use, since we received a `WAIT` packet
+        assertTrue(process.isJdwpSessionRetained)
     }
 
     @Test
@@ -318,5 +405,13 @@ class JdwpProcessTest : AdbLibToolsTestBase() {
         assertTrue(properties.features.isEmpty())
         assertNull(properties.exception)
         assertFalse(properties.completed)
+    }
+
+    private fun timeoutExceeded(waitTime: Duration, timeout: Duration): Boolean {
+        // To deal with potential "corner case" of timeout expiring slightly ahead of time,
+        // we assume timeout has been exceeded if the wait was 90% of the timeout.
+        // Note: This works only for "short" duration, i.e. [Duration.toNanos] returns a valid value.
+        val timeoutLimit = Duration.ofNanos((timeout.toNanos() * 0.9).toLong())
+        return waitTime >= timeoutLimit
     }
 }

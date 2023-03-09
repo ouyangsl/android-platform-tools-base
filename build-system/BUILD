@@ -102,6 +102,12 @@ filegroup(
 )
 
 filegroup(
+    name = "gradle-distrib-8.0",
+    srcs = ["//tools/external/gradle:gradle-distrib-8.0"],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
     name = "gradle-distrib-7.5",
     srcs = ["//tools/external/gradle:gradle-distrib-7.5"],
     visibility = ["//visibility:public"],
@@ -204,13 +210,13 @@ java_import(
 # Latest Kotlin Gradle plugin dependencies
 # DO NOT MIX different versions in this list
 KGP_LATEST = [
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.8.0-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.8.0-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.8.0-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.8.0-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.8.0-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.0-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.8.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.8.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.8.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.8.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.8.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20-Beta",
 ]
 
 # Kotlin Gradle plugin dependencies for projects using Compose (these are typically used when the

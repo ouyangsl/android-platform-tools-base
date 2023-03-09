@@ -34,6 +34,7 @@ import com.android.build.api.variant.impl.GlobalVariantBuilderConfig
 import com.android.build.api.variant.impl.GlobalVariantBuilderConfigImpl
 import com.android.build.api.variant.impl.HasAndroidTest
 import com.android.build.api.variant.impl.HasTestFixtures
+import com.android.build.api.variant.impl.HasUnitTest
 import com.android.build.api.variant.impl.InternalVariantBuilder
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.api.DefaultAndroidSourceSet
@@ -547,10 +548,7 @@ class VariantManager<
             variantPropertiesApiServices,
             taskCreationServices,
             globalTaskCreationConfig
-        ).also {
-            // register testFixtures component to the main variant
-            mainComponentInfo.variant.testFixturesComponent = it
-        }
+        )
     }
 
     /** Create a TestVariantData for the specified testedVariantData.  */
@@ -734,10 +732,6 @@ class VariantManager<
             unitTest
         }
 
-        // register
-        testedComponentInfo
-                .variant
-                .testComponents[variantDslInfo.componentType] = testComponent
         return testComponent
     }
 
@@ -790,10 +784,10 @@ class VariantManager<
                 addVariant(variantInfo)
                 val variant = variantInfo.variant
                 val variantBuilder = variantInfo.variantBuilder
-                val minSdkVersion = variant.minSdkVersion
+                val minSdkVersion = variant.minSdk
                 val targetSdkVersion = when (variant) {
-                    is ApkCreationConfig -> variant.targetSdkVersion
-                    is LibraryCreationConfig -> variant.targetSdkVersion
+                    is ApkCreationConfig -> variant.targetSdk
+                    is LibraryCreationConfig -> variant.targetSdk
                     else -> minSdkVersion
                 }
                 if (minSdkVersion.apiLevel > targetSdkVersion.apiLevel) {
@@ -852,7 +846,7 @@ class VariantManager<
                     )
                     unitTest?.let {
                         addTestComponent(it)
-                        variant.unitTest = it as UnitTestImpl
+                        (variant as HasUnitTest).unitTest = it as UnitTestImpl
                     }
                 }
 
@@ -898,12 +892,12 @@ class VariantManager<
                 variantAnalytics?.let {
                     it
                         .setIsDebug(buildType.isDebuggable)
-                        .setMinSdkVersion(AnalyticsUtil.toProto(variant.minSdkVersion))
+                        .setMinSdkVersion(AnalyticsUtil.toProto(variant.minSdk))
                         .setMinifyEnabled(variant.optimizationCreationConfig.minifiedEnabled)
                         .setVariantType(variant.componentType.analyticsVariantType)
                         .setDexBuilder(GradleBuildVariant.DexBuilderTool.D8_DEXER)
                         .setDexMerger(GradleBuildVariant.DexMergerTool.D8_MERGER)
-                        .setHasUnitTest(variant.unitTest != null)
+                        .setHasUnitTest((variant as? HasUnitTest)?.unitTest != null)
                         .setHasAndroidTest((variant as? HasAndroidTest)?.androidTest != null)
                         .setHasTestFixtures((variant as? HasTestFixtures)?.testFixtures != null)
 
@@ -920,13 +914,13 @@ class VariantManager<
                             variantAnalytics.java8LangSupport = AnalyticsUtil.toProto(supportType)
                         }
                         variantAnalytics.targetSdkVersion = AnalyticsUtil.toProto(
-                            variant.targetSdkVersion
+                            variant.targetSdk
                         )
                     } else if (variant is LibraryCreationConfig) {
                         // Report the targetSdkVersion in libraries so that we can track the usage
                         // of the deprecated API.
                         variantAnalytics.targetSdkVersion = AnalyticsUtil.toProto(
-                            variant.targetSdkVersion
+                            variant.targetSdk
                         )
                     }
 
@@ -934,7 +928,7 @@ class VariantManager<
                         // If code shrinker is used, it can only be R8
                         variantAnalytics.codeShrinker = GradleBuildVariant.CodeShrinkerTool.R8
                     }
-                    variant.maxSdkVersion?.let { version ->
+                    variant.maxSdk?.let { version ->
                         variantAnalytics.setMaxSdkVersion(
                             ApiVersion.newBuilder().setApiLevel(version.toLong()))
                     }

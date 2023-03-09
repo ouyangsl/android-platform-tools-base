@@ -17,12 +17,9 @@ package com.android.fakeadbserver.shellv2commandhandlers
 
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.FakeAdbServer
-import com.android.fakeadbserver.ShellV2Protocol
-import com.google.common.base.Charsets
+import com.android.fakeadbserver.ShellProtocolType
+import com.android.fakeadbserver.services.ServiceOutput
 import java.io.ByteArrayOutputStream
-import java.lang.Integer.min
-
-const val STDOUT_PACKET_SIZE = 80
 
 /**
  * A [SimpleShellV2Handler] that supports the following behaviors.
@@ -34,48 +31,60 @@ const val STDOUT_PACKET_SIZE = 80
  * If "cat" argument is in the form of "/proc/{pid}/cmdline then it returns a command line
  * which started the process.
  */
-class CatV2CommandHandler : SimpleShellV2Handler("cat") {
+class CatV2CommandHandler(shellProtocolType: ShellProtocolType) : SimpleShellV2Handler(
+    shellProtocolType,
+    "cat"
+) {
 
     override fun execute(
         fakeAdbServer: FakeAdbServer,
-        protocol: ShellV2Protocol,
+        serviceOutput: ServiceOutput,
         device: DeviceState,
-        args: String?
+        shellCommand: String,
+        shellCommandArgs: String?
     ) {
-        protocol.writeOkay()
-
-        if (args.isNullOrEmpty()) {
-            forwardStdinAsStdout(protocol)
+        if (shellCommandArgs.isNullOrEmpty()) {
+            forwardStdinAsStdout(serviceOutput)
             return
         }
 
-        handleCatProcPidCmdline(protocol, device, args)
+        if (tryHandleCatProcPidCmdline(serviceOutput, device, shellCommandArgs)) {
+            return
+        }
+
+        catRegularFiles(serviceOutput, device, shellCommandArgs)
     }
 
-    private fun forwardStdinAsStdout(protocol: ShellV2Protocol) {
-        // Forward `stdin` packets back as `stdout` packets
-        val stdinProcessor = StdinProcessor(protocol)
+    /** Outputs all characters received from `stdin` back to `stdout`, one
+     * line at a time, i.e. characters are written back to `stdout` only when a newline ("\n")
+     * character is received from `stdin`.
+     **/
+    private fun forwardStdinAsStdout(serviceOutput: ServiceOutput) {
+        val stdoutStream = ByteArrayOutputStream()
+        val buffer = ByteArray(1)
         while (true) {
-            val packet = protocol.readPacket()
-            when (packet.kind) {
-                ShellV2Protocol.PacketKind.CLOSE_STDIN -> {
-                    stdinProcessor.flush()
-                    protocol.writeExitCode(0)
-                    break
-                }
-                ShellV2Protocol.PacketKind.STDIN -> {
-                    stdinProcessor.process(packet.bytes)
-                }
-                else -> {
-                    // Ignore?
-                }
+            val numRead = serviceOutput.readStdin(buffer, 0, buffer.size)
+            if (numRead < 0) {
+                serviceOutput.writeStdout(stdoutStream.toByteArray())
+                serviceOutput.writeExitCode(0)
+                break
+            }
+            val ch = buffer[0].toInt()
+            stdoutStream.write(ch)
+            if (ch == '\n'.code) {
+                serviceOutput.writeStdout(stdoutStream.toByteArray())
+                stdoutStream.reset()
             }
         }
     }
 
-    private fun handleCatProcPidCmdline(protocol: ShellV2Protocol, device: DeviceState, args: String) {
+    private fun tryHandleCatProcPidCmdline(
+        serviceOutput: ServiceOutput,
+        device: DeviceState,
+        args: String
+    ): Boolean {
         val procIdRegex = Regex("/proc/(\\d+)/cmdline")
-        val matchResult = procIdRegex.find(args) ?: return
+        val matchResult = procIdRegex.find(args) ?: return false
         val pid = matchResult.groups[1]!!.value.toInt()
         if (device.getClient(pid) != null) {
             throw NotImplementedError("cmdline for ClientState is not implemented in FakeAdb")
@@ -83,33 +92,26 @@ class CatV2CommandHandler : SimpleShellV2Handler("cat") {
 
         val profileableClient = device.getProfileableProcess(pid)
         if (profileableClient == null) {
-            protocol.writeStderr("profileableClient with a pid $pid not found")
-            return
+            serviceOutput.writeStderr("profileableClient with a pid $pid not found")
+            return true
         }
 
-        protocol.writeStdout(profileableClient.commandLine.toByteArray(Charsets.UTF_8))
-        protocol.writeExitCode(0)
+        serviceOutput.writeStdout(profileableClient.commandLine)
+        serviceOutput.writeExitCode(0)
+        return true
     }
 
-    class StdinProcessor(private val protocol: ShellV2Protocol) {
-        val byteStream = ByteArrayOutputStream()
-
-        fun flush() {
-            if (byteStream.size() > 0) {
-                protocol.writeStdout(byteStream.toByteArray())
-                byteStream.reset()
-            }
+    private fun catRegularFiles(serviceOutput: ServiceOutput, device: DeviceState, args: String) {
+        val fileName = args.trim()
+        if (fileName.contains("\\s+")) {
+            throw NotImplementedError("Multiple files or file names with spaces are not implemented")
         }
 
-        fun process(bytes: ByteArray) {
-            // Send `stdout` packets of 200 bytes max. so simulate potentially custom
-            // process on a "real" device
-            var offset = 0
-            while (offset < bytes.size) {
-                val endIndex = min(offset + STDOUT_PACKET_SIZE, bytes.size)
-                protocol.writeStdout(bytes.copyOfRange(offset, endIndex))
-                offset = endIndex
-            }
+        val file = device.getFile(fileName)
+        if (file == null) {
+            serviceOutput.writeStderr("No such file or directory")
+        } else {
+            serviceOutput.writeStdout(file.bytes)
         }
     }
 }

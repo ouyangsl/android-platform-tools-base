@@ -25,8 +25,9 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.DefaultConfig
 import com.android.build.api.dsl.ProductFlavor
 import com.android.build.api.dsl.TestExtension
-import com.android.build.api.variant.HasTestFixtures
 import com.android.build.api.variant.impl.HasAndroidTest
+import com.android.build.api.variant.impl.HasTestFixtures
+import com.android.build.api.variant.impl.HasUnitTest
 import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.internal.component.AndroidTestCreationConfig
 import com.android.build.gradle.internal.component.ApkCreationConfig
@@ -239,7 +240,7 @@ class ModelBuilder<
         val variantDimensionInfo = DimensionInformation.createFrom(variants)
         val androidTests = DimensionInformation.createFrom(variantModel.testComponents.filterIsInstance<AndroidTestCreationConfig>())
         val unitTests = DimensionInformation.createFrom(variantModel.testComponents.filterIsInstance<UnitTestCreationConfig>())
-        val testFixtures = DimensionInformation.createFrom(variants.mapNotNull { it.testFixturesComponent })
+        val testFixtures = DimensionInformation.createFrom(variants.mapNotNull { (it as? HasTestFixtures)?.testFixtures })
 
         // for now grab the first buildFeatureValues as they cannot be different.
         val buildFeatures = variantModel.buildFeatures
@@ -541,13 +542,13 @@ class ModelBuilder<
         return VariantDependenciesImpl(
             name = variantName,
             mainArtifact = createDependencies(variant, buildMapping, libraryService),
-            androidTestArtifact = variant.testComponents[ComponentTypeImpl.ANDROID_TEST]?.let {
+            androidTestArtifact = (variant as? HasAndroidTest)?.androidTest?.let {
                 createDependencies(it, buildMapping, libraryService)
             },
-            unitTestArtifact = variant.testComponents[ComponentTypeImpl.UNIT_TEST]?.let {
+            unitTestArtifact = (variant as? HasUnitTest)?.unitTest?.let {
                 createDependencies(it, buildMapping, libraryService)
             },
-            testFixturesArtifact = variant.testFixturesComponent?.let {
+            testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
                 createDependencies(it, buildMapping, libraryService)
             },
             libraryService.getAllLibraries().associateBy { it.key }
@@ -561,13 +562,13 @@ class ModelBuilder<
         return BasicVariantImpl(
             name = variant.name,
             mainArtifact = createBasicArtifact(variant, features),
-            androidTestArtifact = variant.testComponents[ComponentTypeImpl.ANDROID_TEST]?.let {
+            androidTestArtifact = (variant as? HasAndroidTest)?.androidTest?.let {
                 createBasicArtifact(it, features)
             },
-            unitTestArtifact = variant.testComponents[ComponentTypeImpl.UNIT_TEST]?.let {
+            unitTestArtifact = (variant as? HasUnitTest)?.unitTest?.let {
                 createBasicArtifact(it, features)
             },
-            testFixturesArtifact = variant.testFixturesComponent?.let {
+            testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
                 createBasicArtifact(it, features)
             },
             buildType = variant.buildType,
@@ -597,13 +598,13 @@ class ModelBuilder<
             name = variant.name,
             displayName = variant.baseName,
             mainArtifact = createAndroidArtifact(variant),
-            androidTestArtifact = variant.testComponents[ComponentTypeImpl.ANDROID_TEST]?.let {
+            androidTestArtifact = (variant as? HasAndroidTest)?.androidTest?.let {
                 createAndroidArtifact(it)
             },
-            unitTestArtifact = variant.testComponents[ComponentTypeImpl.UNIT_TEST]?.let {
+            unitTestArtifact = (variant as? HasUnitTest)?.unitTest?.let {
                 createJavaArtifact(it)
             },
-            testFixturesArtifact = variant.testFixturesComponent?.let {
+            testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
                 createAndroidArtifact(it)
             },
             testedTargetVariant = getTestTargetVariant(variant),
@@ -611,7 +612,7 @@ class ModelBuilder<
             desugaredMethods = getDesugaredMethods(
                 variant.services,
                 variant.isCoreLibraryDesugaringEnabledLintCheck,
-                variant.minSdkVersion,
+                variant.minSdk,
                 variant.global
             ).files.toList(),
         )
@@ -679,14 +680,14 @@ class ModelBuilder<
             component.signingConfigImpl else null
 
         val minSdkVersion =
-                ApiVersionImpl(component.minSdkVersion.apiLevel, component.minSdkVersion.codename)
+                ApiVersionImpl(component.minSdk.apiLevel, component.minSdk.codename)
         val targetSdkVersionOverride = when (component) {
-            is ApkCreationConfig -> component.targetSdkVersionOverride
-            is LibraryCreationConfig -> component.targetSdkVersionOverride
+            is ApkCreationConfig -> component.targetSdkOverride
+            is LibraryCreationConfig -> component.targetSdkOverride
             else -> null
         }?.let { ApiVersionImpl(it.apiLevel, it.codename) }
         val maxSdkVersion =
-                if (component is VariantCreationConfig) component.maxSdkVersion else null
+                if (component is VariantCreationConfig) component.maxSdk else null
 
         val modelSyncFiles = if (component is ApplicationCreationConfig || component is LibraryCreationConfig || component is TestVariantCreationConfig || component is DynamicFeatureCreationConfig) {
             listOf(
@@ -741,7 +742,7 @@ class ModelBuilder<
             desugaredMethodsFiles = getDesugaredMethods(
                 component.services,
                 coreLibDesugaring,
-                component.minSdkVersion,
+                component.minSdk,
                 component.global
             ).files.toList()
         )
@@ -819,7 +820,8 @@ class ModelBuilder<
         return FullDependencyGraphBuilder(
             inputs,
             component.variantDependencies,
-            libraryService
+            libraryService,
+            component.services.projectOptions.get(BooleanOption.ADDITIONAL_ARTIFACTS_IN_MODEL)
         ).build()
     }
 

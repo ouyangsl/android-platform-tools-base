@@ -17,15 +17,21 @@ package com.android.processmonitor.monitor.ddmlib
 
 import com.android.adblib.AdbLogger
 import com.android.adblib.AdbSession
+import com.android.adblib.withPrefix
 import com.android.ddmlib.IDevice
+import com.android.processmonitor.monitor.PerDeviceMonitor
 import com.android.processmonitor.monitor.ProcessNameMonitor
 import com.android.processmonitor.monitor.ProcessNames
-import com.android.processmonitor.monitor.ddmlib.DeviceMonitorEvent.Disconnected
+import com.android.processmonitor.monitor.ProcessTrackerFactory
+import com.android.processmonitor.common.DeviceEvent.DeviceDisconnected
+import com.android.processmonitor.common.DeviceEvent.DeviceOnline
+import com.android.processmonitor.common.DeviceTracker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.TestOnly
+import org.jetbrains.annotations.VisibleForTesting
 import java.io.Closeable
 import java.util.concurrent.ConcurrentHashMap
 
@@ -34,8 +40,9 @@ import java.util.concurrent.ConcurrentHashMap
  */
 class ProcessNameMonitorDdmlib @TestOnly internal constructor(
     parentScope: CoroutineScope,
-    private val adbSession: AdbSession,
-    private val flows: ProcessNameMonitorFlows,
+    private val deviceTracker: DeviceTracker<IDevice>,
+    private val processTrackerFactory: ProcessTrackerFactory<IDevice>,
+    private val maxProcessRetention: Int,
     private val logger: AdbLogger,
 ) : ProcessNameMonitor, Closeable {
 
@@ -43,12 +50,13 @@ class ProcessNameMonitorDdmlib @TestOnly internal constructor(
         parentScope: CoroutineScope,
         adbSession: AdbSession,
         adbAdapter: AdbAdapter,
+        config: ProcessNameMonitor.Config,
         logger: AdbLogger,
-    )
-            : this(
+    ) : this(
         parentScope,
-        adbSession,
-        ProcessNameMonitorFlowsImpl(adbAdapter, logger, adbSession.ioDispatcher),
+        DeviceTrackerDdmlib(adbAdapter, logger, adbSession.ioDispatcher),
+        ProcessTrackerFactoryDdmlib(adbSession, adbAdapter, config.agentConfig, logger),
+        config.maxProcessRetention,
         logger,
     )
 
@@ -59,7 +67,8 @@ class ProcessNameMonitorDdmlib @TestOnly internal constructor(
     private var isStarted = false
 
     // Connected devices.
-    private val devices = ConcurrentHashMap<String, ProcessNameClientMonitor>()
+    @VisibleForTesting
+    internal val devices = ConcurrentHashMap<String, PerDeviceMonitor>()
 
     override fun start() {
         if (isStarted) {
@@ -72,10 +81,10 @@ class ProcessNameMonitorDdmlib @TestOnly internal constructor(
             isStarted = true
         }
         scope.launch {
-            flows.trackDevices().collect {
+            deviceTracker.trackDevices().collect {
                 when (it) {
-                    is DeviceMonitorEvent.Online -> addDevice(it.device)
-                    is Disconnected -> removeDevice(it.device)
+                    is DeviceOnline -> addDevice(it.device)
+                    is DeviceDisconnected -> removeDevice(it.serialNumber)
                 }
             }
         }
@@ -89,17 +98,19 @@ class ProcessNameMonitorDdmlib @TestOnly internal constructor(
         scope.cancel()
     }
 
-    private fun addDevice(device: IDevice) {
+    private suspend fun addDevice(device: IDevice) {
         logger.info { "Adding ${device.serialNumber}" }
+        val processTracker = processTrackerFactory.createProcessTracker(device)
+        val logger = logger.withPrefix("PerDeviceMonitor: ${device.serialNumber}: ")
         devices[device.serialNumber] =
-            ProcessNameClientMonitor(scope, device, flows, adbSession, logger).apply {
+            PerDeviceMonitor(scope, logger, maxProcessRetention, processTracker).apply {
                 start()
             }
     }
 
-    private fun removeDevice(device: IDevice) {
-        logger.info { ("Removing ${device.serialNumber}: ${System.identityHashCode(device)}") }
-        val clientMonitor = devices.remove(device.serialNumber)
+    private fun removeDevice(serialNumber: String) {
+        logger.info { ("Removing $serialNumber") }
+        val clientMonitor = devices.remove(serialNumber)
         clientMonitor?.close()
     }
 }

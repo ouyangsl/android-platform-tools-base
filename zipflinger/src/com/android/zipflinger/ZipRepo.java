@@ -60,6 +60,10 @@ public class ZipRepo implements Closeable {
         channel.close();
     }
 
+    public boolean isOpen() {
+        return channel.isOpen();
+    }
+
     @NonNull
     private Entry getEntry(@NonNull String entryName) {
         Entry entry = zipMap.getEntries().get(entryName);
@@ -93,7 +97,7 @@ public class ZipRepo implements Closeable {
         payloadByteBuffer.rewind();
 
         if (entry.isCompressed()) {
-            return Compressor.inflate(payloadByteBuffer.array());
+            return Compressor.inflate(payloadByteBuffer.array(), entry.getUncompressedSize());
         } else {
             return payloadByteBuffer;
         }

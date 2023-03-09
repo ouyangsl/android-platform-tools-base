@@ -15,10 +15,11 @@
  */
 package com.android.fakeadbserver.services
 
+import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.ShellV2Protocol
-import com.google.common.base.Charsets
 import java.io.EOFException
 import java.net.Socket
+import java.nio.charset.StandardCharsets.UTF_8
 
 /**
  * Abstraction over access to stdin/stdout/stderr/exit code of an ADB shell command.
@@ -28,8 +29,17 @@ import java.net.Socket
  */
 interface ServiceOutput {
 
-    fun writeStdout(text: String)
-    fun writeStderr(text: String)
+    fun writeStdout(bytes: ByteArray)
+    fun writeStderr(bytes: ByteArray)
+
+    fun writeStdout(text: String) {
+        writeStdout(text.toByteArray(UTF_8))
+    }
+
+    fun writeStderr(text: String) {
+        writeStderr(text.toByteArray(UTF_8))
+    }
+
     fun writeExitCode(exitCode: Int)
 
     fun readStdin(bytes: ByteArray, offset: Int, length: Int): Int
@@ -39,21 +49,17 @@ interface ServiceOutput {
  * Implementation of [ServiceOutput] that write stdout/stderr directly to
  * [Socket.getOutputStream], and ignores exit code.
  */
-class ExecServiceOutput(socket: Socket) : ServiceOutput {
+class ExecServiceOutput(socket: Socket, val device: DeviceState) : ServiceOutput {
 
     private val input = socket.getInputStream()
     private val output = socket.getOutputStream()
 
-    private fun writeString(string: String) {
-        output.write(string.toByteArray(Charsets.UTF_8))
+    override fun writeStdout(bytes: ByteArray) {
+        output.write(bytes.replaceNewLineForOlderDevices(device))
     }
 
-    override fun writeStdout(text: String) {
-        writeString(text)
-    }
-
-    override fun writeStderr(text: String) {
-        writeString(text)
+    override fun writeStderr(bytes: ByteArray) {
+        output.write(bytes.replaceNewLineForOlderDevices(device))
     }
 
     override fun writeExitCode(exitCode: Int) {
@@ -63,6 +69,25 @@ class ExecServiceOutput(socket: Socket) : ServiceOutput {
     override fun readStdin(bytes: ByteArray, offset: Int, length: Int): Int {
         return input.read(bytes, offset, length)
     }
+}
+
+/** Replaces '\n'->'\r\n' for older devices */
+fun ByteArray.replaceNewLineForOlderDevices(device: DeviceState): ByteArray {
+    val newLineByte = '\n'.code.toByte()
+    if (device.apiLevel > 23 || !contains(newLineByte)) {
+        return this
+    }
+
+    val newLineCount = this.count { it == newLineByte }
+    val result = ByteArray(size + newLineCount)
+    var outputIndex = 0
+    for (byte in this) {
+        if (byte == newLineByte) {
+            result[outputIndex++] = '\r'.code.toByte()
+        }
+        result[outputIndex++] = byte
+    }
+    return result
 }
 
 /**
@@ -76,12 +101,12 @@ class ShellProtocolServiceOutput(socket: Socket) : ServiceOutput {
     private var currentStdinPacket: ShellV2Protocol.Packet? = null
     private var currentStdinPacketOffset = 0
 
-    override fun writeStdout(text: String) {
-        protocol.writeStdout(text)
+    override fun writeStdout(bytes: ByteArray) {
+        protocol.writeStdout(bytes)
     }
 
-    override fun writeStderr(text: String) {
-        protocol.writeStderr(text)
+    override fun writeStderr(bytes: ByteArray) {
+        protocol.writeStderr(bytes)
     }
 
     override fun writeExitCode(exitCode: Int) {

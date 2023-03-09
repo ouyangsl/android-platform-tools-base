@@ -331,14 +331,14 @@ class LintTomlParserTest {
                 oct1=0o01234567, Long = 342391
                 oct2=0o755, Long = 493
                 bin1=0b11010110, Long = 214
-                flt1=+1.0, Float = 1.0
-                flt2=3.1415, Float = 3.1415
-                flt3=-0.01, Float = -0.01
+                flt1=+1.0, Double = 1.0
+                flt2=3.1415, Double = 3.1415
+                flt3=-0.01, Double = -0.01
                 flt4=5e+22, Double = 4.9999999999999996E22
                 flt5=1e06, Double = 1000000.0
                 flt6=-2E-2, Double = -0.02
                 flt7=6.626e-34, Double = 6.626E-34
-                flt8=224_617.445_991_228, Float = 224617.45
+                flt8=224_617.445_991_228, Double = 224617.445991228
                 sf1=inf, Double = Infinity
                 sf2=+inf, Double = Infinity
                 sf3=-inf, Double = -Infinity
@@ -660,26 +660,31 @@ class LintTomlParserTest {
         "type.name = \"Nail\"\n" + "type = { edible = false }  # INVALID",
         "test.toml: 1:7: Warning: Inline tables cannot be used to add keys or sub-tables to an already-defined table"
       ),
-      /* Not yet validated:
-      Case("# INVALID TOML DOC\n" +
-              "fruits = []\n" +
-              "\n" +
-              "[[fruits]] # Not allowed",
-          "test.toml: 3:1: Warning: Attempting to append to a statically defined array is not allowed"
+      Case(
+        "# INVALID TOML DOC\n" + "fruits = []\n" + "\n" + "[[fruits]] # Not allowed",
+        "test.toml: 3:0: Warning: Attempting to append to a statically defined array is not allowed"
       ),
-      Case("# INVALID TOML DOC\n" +
-              "[[fruits]]\n" +
-              "name = \"apple\"\n" +
-              "\n" +
-              "[[fruits.varieties]]\n" +
-              "name = \"red delicious\"\n" +
-              "\n" +
-              "# INVALID: This table conflicts with the previous array of tables\n" +
-              "[fruits.varieties]", "This table conflicts with the previous array of tables",
-          "test.toml: 8:0: Warning: You cannot define a table (`fruits.varieties`) more than once\n" +
-                  "test.toml: 2:0: Warning: Table `fruits` already specified as a value"
+      Case(
+        "# INVALID TOML DOC\n" +
+          "[[fruits]]\n" +
+          "name = \"apple\"\n" +
+          "\n" +
+          "[[fruits.varieties]]\n" +
+          "name = \"red delicious\"\n" +
+          "\n" +
+          "# INVALID: This table conflicts with the previous array of tables\n" +
+          "[fruits.varieties]",
+        "test.toml: 8:0: Warning: You cannot define a table (`fruits.varieties`) more than once\n" +
+          "test.toml: 2:0: Warning: Table `fruits` already specified as a value"
       ),
-       */
+      Case(
+        "# Invalid TOML DOC\n" + "[floats]\n" + "flt3 = 2.718\n" + "]",
+        "test.toml: 3:0: Warning: Close found without a corresponding open: `]`"
+      ),
+      Case(
+        "# Invalid TOML DOC\n" + "[floats]\n" + "flt3 = 2.718\n" + "]]",
+        "test.toml: 3:0: Warning: Close found without a corresponding open: `]]`"
+      ),
     )
   }
 
@@ -1126,6 +1131,72 @@ class LintTomlParserTest {
             "junit5" to mapOf("module" to "junit:junit", "version" to "5.14")
           )
       )
+    doTest(toml, expected)
+  }
+
+  @Test
+  fun testInvalidFuzzed1() {
+    @Language("TEXT")
+    val toml =
+      """
+      [bundles]
+      g]r = [[abc]"gr-c", "gr-j", { na = "gr-n" } ]
+      """
+        .trimIndent()
+    parseToml(File("test.toml"), toml, true)
+  }
+
+  @Test
+  fun testTableElementLocation() {
+    val toml =
+      """
+      [bundles]
+      gr = 1
+      """
+        .trimIndent()
+    val res = parseToml(File("test.toml"), toml, false)
+    val location = res.document.getRoot()["bundles"]!!.getFullLocation()
+    assertEquals(0, location.start!!.offset)
+    assertEquals(16, location.end!!.offset)
+  }
+
+  @Test
+  fun testRootElementLocation() {
+    val toml =
+      """
+      [bundles]
+      gr = 1
+      """
+        .trimIndent()
+    val res = parseToml(File("test.toml"), toml, false)
+    val location = res.document.getRoot().getFullLocation()
+    assertEquals(0, location.start!!.offset)
+    assertEquals(16, location.end!!.offset)
+  }
+
+  @Test
+  fun testNestedArrays() {
+    val toml =
+      """
+        [libraries]
+        data = [ [ "delta", "phi" ], [ 3.14 ] ]
+      """
+        .trimIndent()
+    val expected =
+      mapOf("libraries" to mapOf("data" to listOf(listOf("delta", "phi"), listOf(3.14))))
+    doTest(toml, expected)
+  }
+
+  @Test
+  fun testNestedArraysNoWhitespace() {
+    val toml =
+      """
+        [libraries]
+        data = [["delta","phi"],[3.14]]
+      """
+        .trimIndent()
+    val expected =
+      mapOf("libraries" to mapOf("data" to listOf(listOf("delta", "phi"), listOf(3.14))))
     doTest(toml, expected)
   }
 
