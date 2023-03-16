@@ -17,28 +17,26 @@ package com.android.fakeadbserver.shellcommandhandlers
 
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.FakeAdbServer
-import com.google.common.base.Charsets
-import java.io.IOException
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
-import java.net.Socket
+import com.android.fakeadbserver.ShellProtocolType
+import com.android.fakeadbserver.services.ServiceOutput
 
 /**
- * A [ShellHandler] that write its argument(s) to `stdout`, followed by a newline
+ * A shell command handler that writes its argument(s) to `stdout`, followed by a newline
  */
-class EchoCommandHandler : SimpleShellHandler("echo") {
+class EchoCommandHandler(shellProtocolType: ShellProtocolType) : SimpleShellHandler(
+    shellProtocolType, "echo"
+) {
 
     override fun execute(
         fakeAdbServer: FakeAdbServer,
-        responseSocket: Socket,
+        statusWriter: StatusWriter,
+        serviceOutput: ServiceOutput,
         device: DeviceState,
-        args: String?
+        shellCommand: String,
+        shellCommandArgs: String?
     ) {
-        val output = responseSocket.getOutputStream()
-        writeOkay(output)
-        val writer = OutputStreamWriter(output, Charsets.UTF_8)
-        args?.also { writer.write(args) }
-        writer.write(shellNewLine(device))
-        writer.flush()
+        statusWriter.writeOk()
+        shellCommandArgs?.also { serviceOutput.writeStdout(shellCommandArgs) }
+        serviceOutput.writeStdout("\n")
     }
 }

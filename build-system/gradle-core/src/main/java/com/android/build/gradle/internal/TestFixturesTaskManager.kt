@@ -30,8 +30,8 @@ import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.tasks.AarMetadataTask
 import com.android.build.gradle.internal.tasks.BundleLibraryClassesDir
 import com.android.build.gradle.internal.tasks.BundleLibraryClassesJar
-import com.android.build.gradle.internal.tasks.BundleLibraryJavaRes
 import com.android.build.gradle.internal.tasks.LibraryAarJarsTask
+import com.android.build.gradle.internal.tasks.MergeJavaResourceTask
 import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfig
 import com.android.build.gradle.internal.tasks.factory.TaskManagerConfig
 import com.android.build.gradle.internal.tasks.factory.TaskProviderCallback
@@ -68,6 +68,13 @@ class TestFixturesTaskManager(
 
         // java resources tasks
         createProcessJavaResTask(testFixturesComponent)
+
+        // java resources merging task
+        taskFactory.register(
+            MergeJavaResourceTask.CreationAction(
+                javaResMergingScopes, testFixturesComponent.mainVariant.packaging, testFixturesComponent
+            )
+        )
 
         // android resources tasks
         if (testFixturesComponent.buildFeatures.androidResources) {
@@ -189,8 +196,6 @@ class TestFixturesTaskManager(
 
         // Also create a directory containing the same classes for incremental dexing
         taskFactory.register(BundleLibraryClassesDir.CreationAction(testFixturesComponent))
-
-        taskFactory.register(BundleLibraryJavaRes.CreationAction(testFixturesComponent))
 
         // Add a task to create the AAR metadata file
         taskFactory.register(AarMetadataTask.CreationAction(testFixturesComponent))

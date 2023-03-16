@@ -15,35 +15,33 @@
  */
 package com.android.fakeadbserver.shellcommandhandlers
 
-import com.android.fakeadbserver.CommandHandler
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.FakeAdbServer
-import com.android.fakeadbserver.services.ExecServiceOutput
+import com.android.fakeadbserver.ShellProtocolType
 import com.android.fakeadbserver.services.ServiceManager
-import java.net.Socket
+import com.android.fakeadbserver.services.ServiceOutput
 
-class ActivityManagerCommandHandler : SimpleShellHandler("am") {
+class ActivityManagerCommandHandler(shellProtocolType: ShellProtocolType) : SimpleShellHandler(
+    shellProtocolType,"am") {
 
     override fun execute(
         fakeAdbServer: FakeAdbServer,
-        responseSocket: Socket,
+        statusWriter: StatusWriter,
+        serviceOutput: ServiceOutput,
         device: DeviceState,
-        args: String?
+        shellCommand: String,
+        shellCommandArgs: String?
     ) {
-        val output = responseSocket.getOutputStream()
-
-        if (args == null) {
-            CommandHandler.writeFail(output)
+        if (shellCommandArgs == null) {
+            statusWriter.writeFail()
             return
         }
 
-        CommandHandler.writeOkay(output)
-
-        val serviceOutput = ExecServiceOutput(responseSocket, device)
+        statusWriter.writeOk()
 
         // Create a service request
         val params = mutableListOf(ServiceManager.ACTIVITY_MANAGER_SERVICE_NAME)
-        params.addAll(args.split(" "))
+        params.addAll(shellCommandArgs.split(" "))
         device.serviceManager.processCommand(params, serviceOutput)
     }
 }

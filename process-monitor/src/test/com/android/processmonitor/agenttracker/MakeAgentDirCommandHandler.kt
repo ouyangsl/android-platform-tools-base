@@ -18,16 +18,15 @@ package com.android.processmonitor.agenttracker
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.FakeAdbServer
 import com.android.fakeadbserver.ShellProtocolType
-import com.android.fakeadbserver.ShellV2Protocol
 import com.android.fakeadbserver.services.ServiceOutput
-import com.android.fakeadbserver.shellv2commandhandlers.ShellV2Handler
+import com.android.fakeadbserver.shellcommandhandlers.ShellHandler
+import com.android.fakeadbserver.shellcommandhandlers.StatusWriter
 import com.android.processmonitor.agenttracker.AgentProcessTracker.Companion.AGENT_DIR
-import java.net.Socket
 
-private const val CMD = "mkdir -p $AGENT_DIR; chmod 700 $AGENT_DIR; chown shell:shell $AGENT_DIR"
+private const val CMD = "mkdir -p $AGENT_DIR; chmod 755 $AGENT_DIR; chown shell:shell $AGENT_DIR"
 
 /** Simulates the execution of the command that creates the directory for the tracking agent */
-internal class MakeAgentDirCommandHandler : ShellV2Handler(ShellProtocolType.SHELL_V2) {
+internal class MakeAgentDirCommandHandler : ShellHandler(ShellProtocolType.SHELL_V2) {
 
     val invocations = mutableListOf<String>()
 
@@ -40,11 +39,13 @@ internal class MakeAgentDirCommandHandler : ShellV2Handler(ShellProtocolType.SHE
 
     override fun execute(
         fakeAdbServer: FakeAdbServer,
+        statusWriter: StatusWriter,
         serviceOutput: ServiceOutput,
         device: DeviceState,
         shellCommand: String,
         shellCommandArgs: String?
     ) {
+        statusWriter.writeOk()
         invocations.add(device.deviceId)
         serviceOutput.writeStdout("")
         serviceOutput.writeExitCode(0)

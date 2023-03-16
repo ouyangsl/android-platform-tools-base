@@ -51,6 +51,7 @@ import com.android.fakeadbserver.hostcommandhandlers.PairCommandHandler;
 import com.android.fakeadbserver.hostcommandhandlers.TrackDevicesCommandHandler;
 import com.android.fakeadbserver.hostcommandhandlers.VersionCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.ActivityManagerCommandHandler;
+import com.android.fakeadbserver.shellcommandhandlers.CatCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.CmdCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.DumpsysCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.EchoCommandHandler;
@@ -59,12 +60,10 @@ import com.android.fakeadbserver.shellcommandhandlers.LogcatCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.PackageManagerCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.RmCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.SetPropCommandHandler;
+import com.android.fakeadbserver.shellcommandhandlers.ShellProtocolEchoCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.StatCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.WindowManagerCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.WriteNoStopCommandHandler;
-import com.android.fakeadbserver.shellv2commandhandlers.CatV2CommandHandler;
-import com.android.fakeadbserver.shellv2commandhandlers.GetPropV2CommandHandler;
-import com.android.fakeadbserver.shellv2commandhandlers.ShellProtocolEchoV2CommandHandler;
 import com.android.fakeadbserver.statechangehubs.DeviceStateChangeHub;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -130,7 +129,7 @@ public final class FakeAdbServer implements AutoCloseable {
 
     // All "external" server controls are synchronized through a central executor, much like the EDT
     // thread in Swing.
-    private ExecutorService mMainServerThreadExecutor = Executors.newSingleThreadExecutor();
+    private final ExecutorService mMainServerThreadExecutor = Executors.newSingleThreadExecutor();
 
     private volatile boolean mServerKeepAccepting = false;
 
@@ -580,26 +579,26 @@ public final class FakeAdbServer implements AutoCloseable {
             addDeviceHandler(new GetPropExecCommandHandler());
             addDeviceHandler(new PackageExecCommandHandler());
             addDeviceHandler(new PingExecCommandHandler());
-            addDeviceHandler(new RmCommandHandler());
+            addDeviceHandler(new RmCommandHandler(ShellProtocolType.SHELL));
 
-            addDeviceHandler(new LogcatCommandHandler());
-            addDeviceHandler(new GetPropCommandHandler());
-            addDeviceHandler(new GetPropV2CommandHandler(ShellProtocolType.SHELL_V2));
-            addDeviceHandler(new SetPropCommandHandler());
-            addDeviceHandler(new WriteNoStopCommandHandler());
-            addDeviceHandler(new PackageManagerCommandHandler());
-            addDeviceHandler(new WindowManagerCommandHandler());
-            addDeviceHandler(new CmdCommandHandler());
-            addDeviceHandler(new DumpsysCommandHandler());
-            addDeviceHandler(new CatV2CommandHandler(ShellProtocolType.SHELL));
-            addDeviceHandler(new CatV2CommandHandler(ShellProtocolType.SHELL_V2));
-            addDeviceHandler(new EchoCommandHandler());
-            addDeviceHandler(new ShellProtocolEchoV2CommandHandler());
+            addDeviceHandler(new LogcatCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new GetPropCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new GetPropCommandHandler(ShellProtocolType.SHELL_V2));
+            addDeviceHandler(new SetPropCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new WriteNoStopCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new PackageManagerCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new WindowManagerCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new CmdCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new DumpsysCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new CatCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new CatCommandHandler(ShellProtocolType.SHELL_V2));
+            addDeviceHandler(new EchoCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new ShellProtocolEchoCommandHandler());
             addDeviceHandler(new AbbCommandHandler());
             addDeviceHandler(new AbbExecCommandHandler());
-            addDeviceHandler(new ActivityManagerCommandHandler());
+            addDeviceHandler(new ActivityManagerCommandHandler(ShellProtocolType.SHELL));
             addDeviceHandler(new JdwpCommandHandler());
-            addDeviceHandler(new StatCommandHandler());
+            addDeviceHandler(new StatCommandHandler(ShellProtocolType.SHELL));
 
             return this;
         }

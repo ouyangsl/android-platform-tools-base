@@ -418,6 +418,7 @@ com/android/tools/build/gradle
   com/android/build/gradle/internal/api/artifact/
   com/android/build/gradle/internal/attributes/
   com/android/build/gradle/internal/attribution/
+  com/android/build/gradle/internal/caching/
   com/android/build/gradle/internal/component/
   com/android/build/gradle/internal/component/features/
   com/android/build/gradle/internal/component/legacy/
@@ -2545,7 +2546,6 @@ com/android/tools/fakeadbserver/fakeadbserver
   com/android/fakeadbserver/hostcommandhandlers/
   com/android/fakeadbserver/services/
   com/android/fakeadbserver/shellcommandhandlers/
-  com/android/fakeadbserver/shellv2commandhandlers/
   com/android/fakeadbserver/statechangehubs/
   com/android/server/
   com/android/server/adb/
@@ -3552,6 +3552,34 @@ com/android/tools/utp/android-test-plugin-host-device-info-proto
   com/android/tools/utp/plugins/host/device/
   com/android/tools/utp/plugins/host/device/info/
   com/android/tools/utp/plugins/host/device/info/proto/
+
+com/android/tools/utp/android-test-plugin-host-emulator-control
+  META-INF/
+  META-INF/MANIFEST.MF
+  META-INF/android-test-plugin-host-emulator-control.kotlin_module
+  META-INF/services/
+  META-INF/services/com.google.testing.platform.api.plugin.HostPlugin
+  com/
+  com/android/
+  com/android/tools/
+  com/android/tools/utp/
+  com/android/tools/utp/plugins/
+  com/android/tools/utp/plugins/host/
+  com/android/tools/utp/plugins/host/emulatorcontrol/
+
+com/android/tools/utp/android-test-plugin-host-emulator-control-proto
+  META-INF/
+  META-INF/MANIFEST.MF
+  NOTICE
+  com/
+  com/android/
+  com/android/tools/
+  com/android/tools/utp/
+  com/android/tools/utp/plugins/
+  com/android/tools/utp/plugins/host/
+  com/android/tools/utp/plugins/host/emulatorcontrol/
+  com/android/tools/utp/plugins/host/emulatorcontrol/proto/
+  emulator_control_plugin.proto
 
 com/android/tools/utp/android-test-plugin-host-logcat
   META-INF/

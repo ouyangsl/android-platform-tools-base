@@ -91,7 +91,7 @@ fun validateLocale(locale: String): String? {
     return localeQualifier?.run { generateLocaleString(localeQualifier) }
 }
 
-fun generateLocaleConfig(output: File, locales: Collection<String>) {
+fun writeLocaleConfig(output: File, locales: Collection<String>) {
     val localeSet = locales.toMutableSet()
     val outLines = mutableListOf<String>()
     outLines.add("<locale-config xmlns:android=\"http://schemas.android.com/apk/res/android\">")
@@ -112,9 +112,9 @@ fun readResourcesPropertiesFile(inputFiles: Collection<File>): String? {
         if (properties.containsKey("unqualifiedResLocale")) {
             val unqualifiedResLocale: String? = properties.getProperty("unqualifiedResLocale")
             if (defaultLocale != null && defaultLocale != unqualifiedResLocale) {
-                // TODO (b/269504885): Add link to the error message below
                 throw RuntimeException("Multiple resources.properties files found with " +
-                        "different unqualifiedResLocale values.")
+                        "different unqualifiedResLocale values. " +
+                        "See https://developer.android.com/r/studio-ui/build/automatic-per-app-languages")
             } else {
                 defaultLocale = unqualifiedResLocale
             }

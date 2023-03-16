@@ -17,27 +17,33 @@ package com.android.fakeadbserver.shellcommandhandlers
 
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.FakeAdbServer
-import com.android.fakeadbserver.services.ExecServiceOutput
-import java.net.Socket
+import com.android.fakeadbserver.ShellProtocolType
+import com.android.fakeadbserver.services.ServiceOutput
 
-class PackageManagerCommandHandler : SimpleShellHandler("pm") {
-  override fun execute(fakeAdbServer: FakeAdbServer, respSocket: Socket, device: DeviceState, args: String?) {
-      writeOkay(respSocket.getOutputStream())
+class PackageManagerCommandHandler(shellProtocolType: ShellProtocolType) : SimpleShellHandler(
+    shellProtocolType, "pm"
+) {
 
-      val serviceOutput = ExecServiceOutput(respSocket, device)
+    override fun execute(
+        fakeAdbServer: FakeAdbServer,
+        statusWriter: StatusWriter,
+        serviceOutput: ServiceOutput,
+        device: DeviceState,
+        shellCommand: String,
+        shellCommandArgs: String?
+    ) {
+        statusWriter.writeOk()
 
-      // Save command to logs so tests can consult them.
-      args?.let {
-          device.addPmLog(it)
-      }
+        // Save command to logs so tests can consult them.
+        shellCommandArgs?.let {
+            device.addPmLog(it)
+        }
 
-      // Create a service request
-      val params = mutableListOf("package")
-      args?.let{
-          params.addAll(it.split(" "))
-      }
-      device.serviceManager.processCommand(params, serviceOutput)
-  }
-
-
+        // Create a service request
+        val params = mutableListOf("package")
+        shellCommandArgs?.let {
+            params.addAll(it.split(" "))
+        }
+        device.serviceManager.processCommand(params, serviceOutput)
+    }
 }

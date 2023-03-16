@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.internal.tasks;
 
+import static com.android.build.gradle.internal.testing.utp.EmulatorControlConfigKt.createEmulatorControlConfig;
 import static com.android.build.gradle.internal.testing.utp.RetentionConfigKt.createRetentionConfig;
 import static com.android.build.gradle.internal.testing.utp.UtpTestUtilsKt.shouldEnableUtp;
 import static com.android.builder.core.BuilderConstants.CONNECTED;
@@ -41,6 +42,7 @@ import com.android.build.gradle.internal.SdkComponentsKt;
 import com.android.build.gradle.internal.component.AndroidTestCreationConfig;
 import com.android.build.gradle.internal.component.InstrumentedTestCreationConfig;
 import com.android.build.gradle.internal.component.VariantCreationConfig;
+import com.android.build.gradle.internal.dsl.EmulatorControl;
 import com.android.build.gradle.internal.dsl.EmulatorSnapshots;
 import com.android.build.gradle.internal.process.GradleProcessExecutor;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts;
@@ -59,6 +61,7 @@ import com.android.build.gradle.internal.testing.SimpleTestRunnable;
 import com.android.build.gradle.internal.testing.SimpleTestRunner;
 import com.android.build.gradle.internal.testing.TestData;
 import com.android.build.gradle.internal.testing.TestRunner;
+import com.android.build.gradle.internal.testing.utp.EmulatorControlConfig;
 import com.android.build.gradle.internal.testing.utp.RetentionConfig;
 import com.android.build.gradle.internal.testing.utp.UtpDependencies;
 import com.android.build.gradle.internal.testing.utp.UtpDependencyUtilsKt;
@@ -152,6 +155,9 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
         public abstract Property<Execution> getExecutionEnum();
 
         @Input
+        public abstract Property<EmulatorControlConfig> getEmulatorControlConfig();
+
+        @Input
         public abstract Property<RetentionConfig> getRetentionConfig();
 
         @Internal
@@ -221,6 +227,7 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                                 .sdkLoader(
                                         getBuildTools().getCompileSdkVersion(),
                                         getBuildTools().getBuildToolsRevision()),
+                        getEmulatorControlConfig().get(),
                         getRetentionConfig().get(),
                         useOrchestrator,
                         getUninstallIncompatibleApks().get(),
@@ -289,7 +296,6 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
     }
 
     private boolean ignoreFailures;
-    private boolean testFailed;
 
     // For analytics only
     private ArtifactCollection dependencies;
@@ -407,7 +413,6 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                 getAnalyticsService().get());
 
         if (!success) {
-            testFailed = true;
             String reportUrl = new ConsoleRenderer().asClickableFileUrl(
                     new File(reportOutDir, "index.html"));
             String message = "There were failing tests. See the report at: " + reportUrl;
@@ -419,8 +424,6 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                 throw new GradleException(message);
             }
         }
-
-        testFailed = false;
     }
 
     public static void checkForNonApks(
@@ -568,12 +571,6 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
     @Override
     public void setIgnoreFailures(boolean ignoreFailures) {
         this.ignoreFailures = ignoreFailures;
-    }
-
-    @Override
-    @Internal // This is the result after running this task
-    public boolean getTestFailed() {
-        return testFailed;
     }
 
     @InputFiles
@@ -831,6 +828,12 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                     .getUninstallIncompatibleApks()
                     .set(projectOptions.get(BooleanOption.UNINSTALL_INCOMPATIBLE_APKS));
 
+            task.getTestRunnerFactory()
+                    .getEmulatorControlConfig()
+                    .set(
+                            createEmulatorControlConfig(
+                                    projectOptions,
+                                    (EmulatorControl) testOptions.getEmulatorControl()));
             task.getTestRunnerFactory()
                     .getRetentionConfig()
                     .set(

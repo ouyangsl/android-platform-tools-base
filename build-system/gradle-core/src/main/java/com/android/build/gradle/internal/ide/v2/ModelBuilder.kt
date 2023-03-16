@@ -18,6 +18,7 @@ package com.android.build.gradle.internal.ide.v2
 
 import com.android.SdkConstants
 import com.android.Version
+import com.android.build.api.dsl.AndroidResources
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildFeatures
 import com.android.build.api.dsl.BuildType
@@ -112,11 +113,13 @@ class ModelBuilder<
         BuildTypeT : BuildType,
         DefaultConfigT : DefaultConfig,
         ProductFlavorT : ProductFlavor,
+        AndroidResourcesT : AndroidResources,
         ExtensionT : CommonExtension<
                 BuildFeaturesT,
                 BuildTypeT,
                 DefaultConfigT,
-                ProductFlavorT>>(
+                ProductFlavorT,
+                AndroidResourcesT>>(
     private val project: Project,
     private val variantModel: VariantModel,
     private val extension: ExtensionT,
@@ -467,7 +470,7 @@ class ModelBuilder<
                 } else null
 
         val extensionImpl =
-            extension as? CommonExtensionImpl<*, *, *, *>
+            extension as? CommonExtensionImpl<*, *, *, *, *>
                 ?: throw RuntimeException("Wrong extension provided to v2 ModelBuilder")
         val compileSdkVersion = extensionImpl.compileSdkVersion ?: "unknown"
 
@@ -539,17 +542,21 @@ class ModelBuilder<
             globalLibraryBuildService.localJarCache
         )
 
+        val dontBuildRuntimeClasspath = parameter.dontBuildRuntimeClasspath
         return VariantDependenciesImpl(
             name = variantName,
-            mainArtifact = createDependencies(variant, buildMapping, libraryService),
+                mainArtifact = createDependencies(variant,
+                        buildMapping,
+                        libraryService,
+                        dontBuildRuntimeClasspath),
             androidTestArtifact = (variant as? HasAndroidTest)?.androidTest?.let {
-                createDependencies(it, buildMapping, libraryService)
+                createDependencies(it, buildMapping, libraryService, dontBuildRuntimeClasspath)
             },
             unitTestArtifact = (variant as? HasUnitTest)?.unitTest?.let {
-                createDependencies(it, buildMapping, libraryService)
+                createDependencies(it, buildMapping, libraryService, dontBuildRuntimeClasspath)
             },
             testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
-                createDependencies(it, buildMapping, libraryService)
+                createDependencies(it, buildMapping, libraryService, dontBuildRuntimeClasspath)
             },
             libraryService.getAllLibraries().associateBy { it.key }
         )
@@ -807,6 +814,7 @@ class ModelBuilder<
         component: ComponentCreationConfig,
         buildMapping: BuildMapping,
         libraryService: LibraryService,
+        dontBuildRuntimeClasspath: Boolean
     ): ArtifactDependencies {
 
         val inputs = ArtifactCollectionsInputsImpl(
@@ -821,7 +829,8 @@ class ModelBuilder<
             inputs,
             component.variantDependencies,
             libraryService,
-            component.services.projectOptions.get(BooleanOption.ADDITIONAL_ARTIFACTS_IN_MODEL)
+            component.services.projectOptions.get(BooleanOption.ADDITIONAL_ARTIFACTS_IN_MODEL),
+            dontBuildRuntimeClasspath
         ).build()
     }
 

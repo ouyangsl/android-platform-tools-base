@@ -17,30 +17,41 @@ package com.android.fakeadbserver.shellcommandhandlers
 
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.FakeAdbServer
-import java.net.Socket
+import com.android.fakeadbserver.ShellProtocolType
+import com.android.fakeadbserver.services.ServiceOutput
 
-class StatCommandHandler : SimpleShellHandler("stat") {
+class StatCommandHandler(shellProtocolType: ShellProtocolType) : SimpleShellHandler(
+    shellProtocolType,
+    "stat"
+) {
 
     val PROC_ID_REG = Regex("/proc/(\\d+)")
+
     override fun execute(
         fakeAdbServer: FakeAdbServer,
-        responseSocket: Socket,
+        statusWriter: StatusWriter,
+        serviceOutput: ServiceOutput,
         device: DeviceState,
-        args: String?
+        shellCommand: String,
+        shellCommandArgs: String?
     ) {
-        val output = responseSocket.getOutputStream()
-
-        if (args == null) {
-            writeFail(output)
+        val appId = getAppId(device, shellCommandArgs)
+        if (appId == null) {
+            statusWriter.writeFail()
             return
         }
 
-        writeOkay(output)
+        statusWriter.writeOk()
+        serviceOutput.writeStdout("package:$appId ")
+    }
 
-        val matchResult = PROC_ID_REG.find(args) ?: return
+    private fun getAppId(device: DeviceState, args: String?): String? {
+        if (args == null) {
+            return null
+        }
+
+        val matchResult = PROC_ID_REG.find(args) ?: return null
         val pid = matchResult.groups[1]!!.value.toInt()
-        val appId = device.getClient(pid)?.processName ?: writeFail(output)
-
-        writeString(output, "package:$appId ")
+        return device.getClient(pid)?.processName
     }
 }
