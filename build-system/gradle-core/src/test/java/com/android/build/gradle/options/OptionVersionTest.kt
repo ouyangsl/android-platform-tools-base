@@ -40,16 +40,7 @@ class OptionVersionTest {
          * releases of each version.
          *  - Tracking bug for AGP 8.0: b/243560711
          */
-        private val KNOWN_VIOLATING_DEPRECATED_OPTIONS: List<Option<*>> = listOf(
-            BooleanOption.ENABLE_INCREMENTAL_DATA_BINDING,
-            BooleanOption.ENABLE_R_TXT_RESOURCE_SHRINKING,
-            BooleanOption.ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM,
-            BooleanOption.ENABLE_UNCOMPRESSED_NATIVE_LIBS_IN_BUNDLE,
-            BooleanOption.COMPILE_CLASSPATH_LIBRARY_R_CLASSES,
-            BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM,
-            BooleanOption.ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM,
-            BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM_FOR_EXTERNAL_LIBS,
-        )
+        private val KNOWN_VIOLATING_DEPRECATED_OPTIONS: List<Option<*>> = listOf()
 
         private fun getStableAgpVersionIgnoringDotReleases(versionString: String): AgpVersion {
             // Normalize the version string first (e.g., "7.0" => "7.0.0")
