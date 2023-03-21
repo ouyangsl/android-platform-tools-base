@@ -2175,7 +2175,7 @@ abstract class TaskManager<VariantBuilderT : VariantBuilder, VariantT : VariantC
             separateFileDependenciesDexingTask
         )
 
-        if (creationConfig.services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS]) {
+        if (creationConfig.global.enableGlobalSynthetics) {
             if (dexingType == DexingType.NATIVE_MULTIDEX) {
                 taskFactory.register(
                     GlobalSyntheticsMergeTask.CreationAction(

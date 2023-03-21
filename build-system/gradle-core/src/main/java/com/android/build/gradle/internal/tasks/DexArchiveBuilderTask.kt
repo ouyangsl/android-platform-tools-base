@@ -321,7 +321,7 @@ abstract class DexArchiveBuilderTask : NewIncrementalTask() {
                 ) { it.mixedScopeOutputs.keepRules }
                     .withName("out").on(InternalArtifactType.DESUGAR_LIB_MIXED_SCOPE_KEEP_RULES)
             }
-            if (creationConfig.services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS]) {
+            if (creationConfig.global.enableGlobalSynthetics) {
                 creationConfig.artifacts.setInitialProvider(
                     taskProvider
                 ) { it.projectOutputs.globalSynthetics }
@@ -422,8 +422,7 @@ abstract class DexArchiveBuilderTask : NewIncrementalTask() {
                     this.enableDesugaring.set(task.dexParams.withDesugaring)
                     this.libConfiguration.set(task.dexParams.coreLibDesugarConfig)
                     this.errorFormat.set(task.dexParams.errorFormatMode)
-                    this.enableGlobalSynthetics.set(
-                        services.projectOptions[BooleanOption.ENABLE_GLOBAL_SYNTHETICS])
+                    this.enableGlobalSynthetics.set(creationConfig.global.enableGlobalSynthetics)
                 }
 
                 // Until Gradle provides a better way to run artifact transforms for arbitrary

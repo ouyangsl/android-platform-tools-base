@@ -33,6 +33,12 @@ class GlobalSyntheticsFeatureTest {
 
             android.defaultConfig.minSdkVersion = 21
             android.dynamicFeatures = [":feature"]
+            android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_14
+                    targetCompatibility JavaVersion.VERSION_14
+                }
+            }
         """.trimIndent())
     }
 
@@ -40,6 +46,12 @@ class GlobalSyntheticsFeatureTest {
         it.appendToBuild("""
 
             android.defaultConfig.minSdkVersion = 21
+            android {
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_14
+                    targetCompatibility JavaVersion.VERSION_14
+                }
+            }
             dependencies {
                 implementation project('::app')
                 implementation 'com.example:myjar:1'
