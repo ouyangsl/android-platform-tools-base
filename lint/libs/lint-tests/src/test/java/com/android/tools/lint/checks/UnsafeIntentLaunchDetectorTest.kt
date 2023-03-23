@@ -1195,6 +1195,11 @@ class UnsafeIntentLaunchDetectorTest : AbstractCheckTest() {
                         getIntent().getParcelableExtra(Intent.EXTRA_INTENT).run { // OK
                             startActivity(sanitize2(this))
                         }
+                        intent.getParcelableExtra(Intent.EXTRA_INTENT, Intent::class.java)?.takeIf { _ ->
+                            System.currentTimeMillis() > 0
+                        }?.also {
+                            startActivity(it) // ERROR 5
+                        }
                     }
 
                     // fake sanitize
@@ -1252,7 +1257,13 @@ class UnsafeIntentLaunchDetectorTest : AbstractCheckTest() {
                 src/test/pkg/TestActivity.kt:39: The unsafe intent is launched here.
                         startActivity(sanitize(this))
                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            0 errors, 4 warnings
+            src/test/pkg/TestActivity.kt:45: Warning: This intent could be coming from an untrusted source. It is later launched by an unprotected component test.pkg.TestActivity. You could either make the component test.pkg.TestActivity protected; or sanitize this intent using androidx.core.content.IntentSanitizer. [UnsafeIntentLaunch]
+                    intent.getParcelableExtra(Intent.EXTRA_INTENT, Intent::class.java)?.takeIf { _ ->
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                src/test/pkg/TestActivity.kt:48: The unsafe intent is launched here.
+                        startActivity(it) // ERROR 5
+                        ~~~~~~~~~~~~~~~~~
+            0 errors, 5 warnings
             """
       )
   }
@@ -1329,6 +1340,93 @@ class UnsafeIntentLaunchDetectorTest : AbstractCheckTest() {
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             0 errors, 4 warnings
             """
+      )
+  }
+
+  fun testAndroidXApi() {
+    lint()
+      .files(
+        java(
+            """
+                package test.pkg;
+
+                import android.content.Intent;
+                import android.os.Bundle;
+                import androidx.activity.ComponentActivity;
+                import androidx.core.app.ActivityCompat;
+                import androidx.core.content.ContextCompat;
+                import androidx.core.content.IntentCompat;
+                import androidx.core.os.BundleCompat;
+
+                public class TestActivity extends ComponentActivity {
+                    @Override
+                    protected void onCreate(Bundle savedInstanceState) {
+                        Intent intent = IntentCompat.getParcelableExtra(getIntent(), Intent.EXTRA_INTENT, Intent.class); // ERROR 1
+                        startActivity(intent);
+
+                        Intent intent = BundleCompat.getParcelable(getIntent().getExtras(), Intent.EXTRA_INTENT, Intent.class); // ERROR 2
+                        ContextCompat.startActivity(this, intent, null);
+
+                        ContextCompat.startForegroundService(this, getIntent().getParcelableExtra(Intent.EXTRA_INTENT)); // ERROR 3
+
+                        ActivityCompat.startActivityForResult(this, getIntent().getParcelableExtra(Intent.EXTRA_INTENT), 0, null); // ERROR 4
+
+                        ActivityCompat.startIntentSenderForResult(
+                            this, null, 0, getIntent().getParcelableExtra(Intent.EXTRA_INTENT), 0, 0, 0, null); // ERROR 5
+                    }
+                }
+            """
+          )
+          .indented(),
+        manifest(
+            """
+                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+                        package="test.pkg">
+                    <application>
+                        <activity android:name=".TestActivity" android:exported="true" />
+                    </application>
+                </manifest>
+                """
+          )
+          .indented(),
+        *stubs
+      )
+      .issues(UnsafeIntentLaunchDetector.ISSUE)
+      .run()
+      .expect(
+        """
+        src/test/pkg/TestActivity.java:14: Warning: This intent could be coming from an untrusted source. It is later launched by an unprotected component test.pkg.TestActivity. You could either make the component test.pkg.TestActivity protected; or sanitize this intent using androidx.core.content.IntentSanitizer. [UnsafeIntentLaunch]
+                Intent intent = IntentCompat.getParcelableExtra(getIntent(), Intent.EXTRA_INTENT, Intent.class); // ERROR 1
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            src/test/pkg/TestActivity.java:15: The unsafe intent is launched here.
+                startActivity(intent);
+                ~~~~~~~~~~~~~~~~~~~~~
+        src/test/pkg/TestActivity.java:17: Warning: This intent could be coming from an untrusted source. It is later launched by an unprotected component test.pkg.TestActivity. You could either make the component test.pkg.TestActivity protected; or sanitize this intent using androidx.core.content.IntentSanitizer. [UnsafeIntentLaunch]
+                Intent intent = BundleCompat.getParcelable(getIntent().getExtras(), Intent.EXTRA_INTENT, Intent.class); // ERROR 2
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            src/test/pkg/TestActivity.java:18: The unsafe intent is launched here.
+                ContextCompat.startActivity(this, intent, null);
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        src/test/pkg/TestActivity.java:20: Warning: This intent could be coming from an untrusted source. It is later launched by an unprotected component test.pkg.TestActivity. You could either make the component test.pkg.TestActivity protected; or sanitize this intent using androidx.core.content.IntentSanitizer. [UnsafeIntentLaunch]
+                ContextCompat.startForegroundService(this, getIntent().getParcelableExtra(Intent.EXTRA_INTENT)); // ERROR 3
+                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            src/test/pkg/TestActivity.java:20: The unsafe intent is launched here.
+                ContextCompat.startForegroundService(this, getIntent().getParcelableExtra(Intent.EXTRA_INTENT)); // ERROR 3
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        src/test/pkg/TestActivity.java:22: Warning: This intent could be coming from an untrusted source. It is later launched by an unprotected component test.pkg.TestActivity. You could either make the component test.pkg.TestActivity protected; or sanitize this intent using androidx.core.content.IntentSanitizer. [UnsafeIntentLaunch]
+                ActivityCompat.startActivityForResult(this, getIntent().getParcelableExtra(Intent.EXTRA_INTENT), 0, null); // ERROR 4
+                                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            src/test/pkg/TestActivity.java:22: The unsafe intent is launched here.
+                ActivityCompat.startActivityForResult(this, getIntent().getParcelableExtra(Intent.EXTRA_INTENT), 0, null); // ERROR 4
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        src/test/pkg/TestActivity.java:25: Warning: This intent could be coming from an untrusted source. It is later launched by an unprotected component test.pkg.TestActivity. You could either make the component test.pkg.TestActivity protected; or sanitize this intent using androidx.core.content.IntentSanitizer. [UnsafeIntentLaunch]
+                    this, null, 0, getIntent().getParcelableExtra(Intent.EXTRA_INTENT), 0, 0, 0, null); // ERROR 5
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            src/test/pkg/TestActivity.java:24: The unsafe intent is launched here.
+                ActivityCompat.startIntentSenderForResult(
+                ^
+        0 errors, 5 warnings
+        """
       )
   }
 
@@ -1529,6 +1627,94 @@ class UnsafeIntentLaunchDetectorTest : AbstractCheckTest() {
         """
     )
 
+  private val xCompActivityStub: TestFile =
+    java(
+      """
+        package androidx.activity;
+        import android.content.Context;
+        import android.content.Intent;
+
+        public class ComponentActivity extends androidx.core.app.ComponentActivity {
+        }
+        """
+    )
+
+  private val xCoreCompActivityStub: TestFile =
+    java(
+      """
+        package androidx.core.app;
+        import android.app.Activity;
+
+        public class ComponentActivity extends Activity {
+        }
+        """
+    )
+
+  private val xContextCompatStub: TestFile =
+    java(
+      """
+        package androidx.core.content;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
+
+        public class ContextCompat {
+            public static void startActivity(@NonNull Context context, @NonNull Intent intent,
+                  @Nullable Bundle options) { }
+            public static void startForegroundService(@NonNull Context context, @NonNull Intent intent) { }
+        }
+        """
+    )
+
+  private val xIntentCompatStub: TestFile =
+    java(
+      """
+        package androidx.core.content;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
+
+        public final class IntentCompat {
+            public static <T> T getParcelableExtra(@NonNull Intent in, @Nullable String name,
+                    @NonNull Class<T> clazz) { return null; }
+        }
+        """
+    )
+
+  private val xBundleCompatStub: TestFile =
+    java(
+      """
+        package androidx.core.os;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
+
+        public final class BundleCompat {
+            public static <T> T getParcelable(@NonNull Bundle in, @Nullable String key,
+                    @NonNull Class<T> clazz) { return null; }
+        }
+        """
+    )
+
+  private val xActivityCompatStub: TestFile =
+    java(
+      """
+        package androidx.core.app;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
+
+        public final class ActivityCompat extends ContextCompat {
+            public static void startActivityForResult(@NonNull Activity activity, @NonNull Intent intent,
+                    int requestCode, @Nullable Bundle options) { }
+            public static void startIntentSenderForResult(@NonNull Activity activity,
+                        @NonNull IntentSender intent, int requestCode, @Nullable Intent fillInIntent,
+                        int flagsMask, int flagsValues, int extraFlags, @Nullable Bundle options)
+                        throws IntentSender.SendIntentException { }
+        }
+        """
+    )
+
   private val stubs =
     arrayOf(
       intentStub,
@@ -1543,6 +1729,12 @@ class UnsafeIntentLaunchDetectorTest : AbstractCheckTest() {
       serviceConnectionStub,
       serviceStub,
       iBinderStub,
-      pendingIntentStub
+      pendingIntentStub,
+      xCompActivityStub,
+      xCoreCompActivityStub,
+      xContextCompatStub,
+      xIntentCompatStub,
+      xBundleCompatStub,
+      xActivityCompatStub,
     )
 }

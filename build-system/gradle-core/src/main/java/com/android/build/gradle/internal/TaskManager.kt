@@ -1818,7 +1818,7 @@ abstract class TaskManager(
         }
     }
 
-    private class PreBuildCreationAction(creationConfig: ComponentCreationConfig) :
+    class PreBuildCreationAction(creationConfig: ComponentCreationConfig) :
             AbstractPreBuildCreationAction<AndroidVariantTask, ComponentCreationConfig>(creationConfig) {
 
         override val type: Class<AndroidVariantTask>
@@ -1865,7 +1865,7 @@ abstract class TaskManager(
         return globalConfig
             .testOptions
             .managedDevices
-            .devices
+            .allDevices
             .toList()
     }
 

@@ -53,7 +53,7 @@ class AnnotationProcessorConnectedTest {
 
     @Before
     fun setUp() {
-        val testSupportLibVersion = "\${project.testSupportLibVersion}"
+        val testSupportLibVersion = "\${libs.versions.testSupportLibVersion.get()}"
         val buildScript = ("""
                 apply from: "../../commonHeader.gradle"
                 buildscript { apply from: "../../commonBuildScript.gradle" }
@@ -71,7 +71,7 @@ class AnnotationProcessorConnectedTest {
                                 argument "value", "Hello"
                             }
                         }
-                        minSdkVersion rootProject.supportLibMinSdk
+                        minSdkVersion libs.versions.supportLibMinSdk.get()
                         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
                     }
                 }

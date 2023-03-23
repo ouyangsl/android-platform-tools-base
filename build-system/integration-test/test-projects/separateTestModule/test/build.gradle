@@ -6,7 +6,7 @@ android {
     buildToolsVersion = rootProject.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion rootProject.supportLibMinSdk
+        minSdkVersion libs.versions.supportLibMinSdk.get()
         testApplicationId 'com.example.android.testing.blueprint.test'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -16,9 +16,9 @@ android {
 
 dependencies {
     implementation 'junit:junit:4.12'
-    implementation "com.android.support:support-annotations:${project.supportLibVersion}"
-    implementation "com.android.support.test:runner:${project.testSupportLibVersion}"
-    implementation "com.android.support.test:rules:${project.testSupportLibVersion}"
+    implementation "com.android.support:support-annotations:${libs.versions.supportLibVersion.get()}"
+    implementation "com.android.support.test:runner:${libs.versions.testSupportLibVersion.get()}"
+    implementation "com.android.support.test:rules:${libs.versions.testSupportLibVersion.get()}"
 }
 
 tasks.register('checkDependencies') {

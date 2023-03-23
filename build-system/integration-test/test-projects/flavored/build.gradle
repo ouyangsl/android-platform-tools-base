@@ -11,7 +11,7 @@ android {
     testBuildType = "staging"
 
     defaultConfig {
-        minSdkVersion rootProject.supportLibMinSdk
+        minSdkVersion libs.versions.supportLibMinSdk.get()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -59,6 +59,6 @@ android {
 
 dependencies {
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation "com.android.support.test:runner:${project.testSupportLibVersion}"
-    androidTestImplementation "com.android.support.test:rules:${project.testSupportLibVersion}"
+    androidTestImplementation "com.android.support.test:runner:${libs.versions.testSupportLibVersion.get()}"
+    androidTestImplementation "com.android.support.test:rules:${libs.versions.testSupportLibVersion.get()}"
 }

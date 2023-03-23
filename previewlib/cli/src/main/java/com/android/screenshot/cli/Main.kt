@@ -13,25 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.processmonitor.common
+package com.android.screenshot.cli
 
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.consumeAsFlow
-import java.io.Closeable
+class Main {
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
 
-/** A fake [ProcessTracker] for tests */
-internal class FakeProcessTracker : ProcessTracker, Closeable {
-
-    private val channel = Channel<ProcessEvent>(10)
-
-    suspend fun send(vararg events: ProcessEvent) {
-        events.forEach { channel.send(it) }
-    }
-
-    override suspend fun trackProcesses(): Flow<ProcessEvent> = channel.consumeAsFlow()
-
-    override fun close() {
-        channel.close()
+        }
     }
 }
