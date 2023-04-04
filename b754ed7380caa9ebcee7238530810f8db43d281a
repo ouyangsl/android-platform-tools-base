@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b70dca9b_7808f788",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1602351
+      },
+      "writtenOn": "2023-04-04T13:26:36Z",
+      "side": 1,
+      "message": "Is the camera support configuration available using the wizard when creating the emulator in the Android Studio?\nafaik not every device supports camera on TV (cc\u0027ed Guillaume to comment) and it might be good to let developers test on both scenarios.",
+      "revId": "b754ed7380caa9ebcee7238530810f8db43d281a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
