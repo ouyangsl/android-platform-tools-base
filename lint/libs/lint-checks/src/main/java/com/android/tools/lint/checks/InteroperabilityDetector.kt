@@ -44,8 +44,6 @@ import com.intellij.psi.PsiPrimitiveType
 import com.intellij.psi.PsiType
 import com.intellij.psi.PsiTypeParameter
 import kotlin.reflect.full.declaredMemberProperties
-import org.jetbrains.kotlin.analysis.api.KtStarProjectionTypeArgument
-import org.jetbrains.kotlin.analysis.api.KtTypeArgument
 import org.jetbrains.kotlin.analysis.api.analyze
 import org.jetbrains.kotlin.analysis.api.types.KtDynamicType
 import org.jetbrains.kotlin.analysis.api.types.KtFlexibleType
@@ -327,34 +325,8 @@ class InteroperabilityDetector : Detector(), SourceCodeScanner {
 
     // Analysis API
     private fun KtType.isFlexibleRecursive(): Boolean {
-      if (this is KtFlexibleType) return true
-      val arguments = (this as? KtNonErrorClassType)?.ownTypeArguments ?: return false
-      return arguments.any {
-        // TODO: we won't need this typecast once studio-sdk moves to kotlinc 1.8.20-Beta or stable.
-        it is KtTypeArgument &&
-          it !is KtStarProjectionTypeArgument &&
-          it.type?.isFlexibleRecursive() == true
-      }
+      error("K2 not supported in Android Studio Flamingo")
     }
-
-    // TODO: we won't need this extra reflection workaround once studio-sdk moves to kotlinc
-    // 1.8.20-Beta or stable.
-    private val KtNonErrorClassType.ownTypeArguments: List<*>?
-      get() {
-        val klass = KtNonErrorClassType::class
-        val properties = klass.declaredMemberProperties
-        properties
-          .find { it.name == "ownTypeArguments" }
-          ?.let {
-            return it.get(this) as? List<*>
-          }
-        properties
-          .find { it.name == "typeArguments" }
-          ?.let {
-            return it.get(this) as? List<*>
-          }
-        return emptyList<KtTypeArgument>()
-      }
 
     override fun visitField(node: UField) {}
 
