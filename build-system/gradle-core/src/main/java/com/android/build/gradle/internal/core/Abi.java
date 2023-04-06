@@ -74,8 +74,14 @@ public enum Abi {
             "mips64el-linux-android",
             "mips64el-linux-android",
             true,
-            false);
-
+            false),
+    RISCV64(
+            SdkConstants.ABI_RISCV64,
+            SdkConstants.CPU_ARCH_RISCV64,
+            "riscv64-linux-android",
+            "riscv64-linux-android",
+            true,
+            true);
 
     @NonNull
     private final String name;

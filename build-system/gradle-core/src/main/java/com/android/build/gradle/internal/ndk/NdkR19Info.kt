@@ -60,6 +60,7 @@ open class NdkR19Info(val root: File) : DefaultNdkInfo(root) {
             Abi.ARMEABI_V7A -> "arm-linux-androideabi"
             Abi.X86 -> "i686-linux-android"
             Abi.X86_64 -> "x86_64-linux-android"
+            Abi.RISCV64 -> "riscv64-linux-android"
             else -> throw RuntimeException("Unsupported ABI for NDK r19+: $abi")
         }
 
