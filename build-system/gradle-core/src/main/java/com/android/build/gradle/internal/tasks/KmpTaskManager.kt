@@ -16,35 +16,67 @@
 
 package com.android.build.gradle.internal.tasks
 
+import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.artifact.SingleArtifact
+import com.android.build.api.artifact.impl.InternalScopedArtifact
 import com.android.build.api.artifact.impl.InternalScopedArtifacts
+import com.android.build.api.component.impl.KmpAndroidTestImpl
+import com.android.build.api.component.impl.KmpUnitTestImpl
+import com.android.build.api.variant.ScopedArtifacts
+import com.android.build.gradle.internal.AndroidTestTaskManager
 import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.KmpCreationConfig
+import com.android.build.gradle.internal.coverage.JacocoConfigurations
+import com.android.build.gradle.internal.coverage.JacocoReportTask
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.res.GenerateEmptyResourceFilesTask
+import com.android.build.gradle.internal.res.GenerateLibraryRFileTask
 import com.android.build.gradle.internal.services.R8ParallelBuildService
+import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfig
 import com.android.build.gradle.internal.tasks.factory.TaskConfigAction
 import com.android.build.gradle.internal.tasks.factory.TaskProviderCallback
-import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.android.build.gradle.internal.tasks.factory.registerTask
 import com.android.build.gradle.options.IntegerOption
 import com.android.build.gradle.tasks.BundleAar
 import com.android.build.gradle.tasks.ProcessLibraryManifest
+import com.android.build.gradle.tasks.ProcessTestManifest
 import com.android.build.gradle.tasks.ZipMergingTask
+import com.android.build.gradle.tasks.factory.AndroidUnitTest
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.testing.jacoco.plugins.JacocoPlugin
 
-class KmpTaskManager {
+class KmpTaskManager(
+    project: Project,
+    global: GlobalTaskCreationConfig
+): TaskManager(
+    project,
+    global
+) {
+
+    override val javaResMergingScopes = setOf(
+        InternalScopedArtifacts.InternalScope.LOCAL_DEPS,
+    )
+
+    var hasCreatedTasks = false
 
     fun createTasks(
         project: Project,
         variant: KmpCreationConfig,
+        unitTest: KmpUnitTestImpl?,
+        androidTest: KmpAndroidTestImpl?,
     ) {
         createMainVariantTasks(project, variant)
+        unitTest?.let { createUnitTestTasks(project, unitTest) }
+        androidTest?.let {
+            createAndroidTestTasks(project, androidTest)
+        }
 
         variant.publishBuildArtifacts()
+
+        hasCreatedTasks = true
     }
 
     private fun createMainVariantTasks(
@@ -85,31 +117,58 @@ class KmpTaskManager {
         project.tasks.registerTask(ProcessJavaResTask.CreationAction(variant))
         project.tasks.registerTask(
             MergeJavaResourceTask.CreationAction(
-                setOf(InternalScopedArtifacts.InternalScope.LOCAL_DEPS),
+                javaResMergingScopes,
                 variant.packaging,
                 variant
             )
         )
 
         if (variant.optimizationCreationConfig.minifiedEnabled) {
-
+            project.tasks.registerTask(
+                GenerateLibraryProguardRulesTask.CreationAction(variant)
+            )
             R8ParallelBuildService.RegistrationAction(
                 project,
                 variant.services.projectOptions.get(IntegerOption.R8_MAX_WORKERS)
             ).execute()
-            val r8Task = project.tasks.registerTask(
+            project.tasks.registerTask(
                 R8Task.CreationAction(
                     variant,
                     isTestApplication = false,
                     addCompileRClass = false
                 )
             )
+        }
 
-            val checkFilesTask =
-                project.tasks.registerTask(
-                    CheckProguardFiles.CreationAction(variant)
+        project.tasks.registerTask(MergeGeneratedProguardFilesCreationAction(variant))
+        project.tasks.registerTask(MergeConsumerProguardFilesTask.CreationAction(variant))
+        project.tasks.registerTask(ExportConsumerProguardFilesTask.CreationAction(variant))
+
+        // No jacoco transformation for kmp variants, however, we need to publish the classes
+        // pre transformation as the artifact is used in the jacoco report task.
+        variant.artifacts.forScope(ScopedArtifacts.Scope.PROJECT)
+            .publishCurrent(
+                ScopedArtifact.CLASSES,
+                InternalScopedArtifact.PRE_JACOCO_TRANSFORMED_CLASSES,
+            )
+
+        if (variant.isAndroidTestCoverageEnabled) {
+            val jacocoTask = project.tasks.registerTask(
+                JacocoTask.CreationAction(variant)
+            )
+            // in case of library, we never want to publish the jacoco instrumented classes, so
+            // we basically fork the CLASSES into a specific internal type that is consumed
+            // by the jacoco report task.
+            variant.artifacts.forScope(ScopedArtifacts.Scope.PROJECT)
+                .use(jacocoTask)
+                .toFork(
+                    type = ScopedArtifact.CLASSES,
+                    inputJars = { a ->  a.jarsWithIdentity.inputJars },
+                    inputDirectories = JacocoTask::classesDir,
+                    intoJarDirectory = JacocoTask::outputForJars,
+                    intoDirDirectory = JacocoTask::outputForDirs,
+                    intoType = InternalScopedArtifact.JACOCO_TRANSFORMED_CLASSES
                 )
-            r8Task.dependsOn(checkFilesTask)
         }
 
         // Add a task to create the AAR metadata file
@@ -148,9 +207,56 @@ class KmpTaskManager {
         project.tasks.getByName("assemble").dependsOn(variant.taskContainer.assembleTask)
     }
 
+    private fun createUnitTestTasks(
+        project: Project,
+        component: KmpUnitTestImpl
+    ) {
+        createAnchorTasks(project, component)
+
+        project.tasks.registerTask(ProcessTestManifest.CreationAction(component))
+        project.tasks.registerTask(
+            GenerateLibraryRFileTask.TestRuntimeStubRClassCreationAction(
+                component
+            )
+        )
+        project.tasks.registerTask(ProcessJavaResTask.CreationAction(component))
+
+        if (component.isUnitTestCoverageEnabled) {
+            project.pluginManager.apply(JacocoPlugin::class.java)
+        }
+        project.tasks.registerTask(AndroidUnitTest.CreationAction(component))
+        if (component.isUnitTestCoverageEnabled) {
+            val ant = JacocoConfigurations.getJacocoAntTaskConfiguration(
+                project, JacocoTask.getJacocoVersion(component)
+            )
+            project.plugins.withType(JacocoPlugin::class.java) {
+                // Jacoco plugin is applied and test coverage enabled, generate coverage report.
+                project.tasks.registerTask(
+                    JacocoReportTask.CreateActionUnitTest(component, ant)
+                )
+            }
+        }
+    }
+
+    private fun createAndroidTestTasks(
+        project: Project,
+        component: KmpAndroidTestImpl
+    ) {
+        createAnchorTasks(project, component, false)
+
+        AndroidTestTaskManager(
+            project = project,
+            globalConfig = component.global,
+        ).also {
+            it.createTopLevelTasks()
+            it.createTasks(component)
+        }
+    }
+
     private fun createAnchorTasks(
         project: Project,
-        component: ComponentCreationConfig
+        component: ComponentCreationConfig,
+        createPreBuildTask: Boolean = true
     ) {
         project.tasks.registerTask(
             component.computeTaskName("assemble"),
@@ -170,6 +276,9 @@ class KmpTaskManager {
             }
         )
 
-        project.tasks.registerTask(TaskManager.PreBuildCreationAction(component))
+        if (createPreBuildTask) {
+            project.tasks.registerTask(PreBuildCreationAction(component))
+            createDependencyStreams(component)
+        }
     }
 }

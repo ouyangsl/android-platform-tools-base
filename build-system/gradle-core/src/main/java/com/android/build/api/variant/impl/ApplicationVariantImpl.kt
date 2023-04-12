@@ -90,8 +90,8 @@ open class ApplicationVariantImpl @Inject constructor(
 
     override val dependenciesInfo: DependenciesInfo by lazy {
         DependenciesInfoImpl(
-                dependenciesInfoBuilder.includedInApk,
-                dependenciesInfoBuilder.includedInBundle
+                dependenciesInfoBuilder.includeInApk,
+                dependenciesInfoBuilder.includeInBundle
         )
     }
 
@@ -108,7 +108,7 @@ open class ApplicationVariantImpl @Inject constructor(
             dslInfo.signingConfig,
             internalServices,
             minSdk.apiLevel,
-            internalServices.projectOptions.get(IntegerOption.IDE_TARGET_DEVICE_API)
+            global.targetDeployApiFromIDE
         )
     }
 

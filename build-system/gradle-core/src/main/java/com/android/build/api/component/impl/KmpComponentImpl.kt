@@ -17,6 +17,7 @@
 package com.android.build.api.component.impl
 
 import com.android.SdkConstants
+import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.artifact.impl.ArtifactsImpl
 import com.android.build.api.component.impl.features.InstrumentationCreationConfigImpl
 import com.android.build.api.variant.AndroidVersion
@@ -24,8 +25,11 @@ import com.android.build.api.variant.ComponentIdentity
 import com.android.build.api.variant.Instrumentation
 import com.android.build.api.variant.InternalSources
 import com.android.build.api.variant.JavaCompilation
+import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.api.variant.SourceDirectories
+import com.android.build.api.variant.impl.FileBasedDirectoryEntryImpl
 import com.android.build.api.variant.impl.FlatSourceDirectoriesImpl
+import com.android.build.api.variant.impl.KotlinMultiplatformAndroidCompilation
 import com.android.build.api.variant.impl.LayeredSourceDirectoriesImpl
 import com.android.build.api.variant.impl.SourceType
 import com.android.build.api.variant.impl.SourcesImpl
@@ -42,7 +46,10 @@ import com.android.build.gradle.internal.core.ProductFlavor
 import com.android.build.gradle.internal.core.dsl.KmpComponentDslInfo
 import com.android.build.gradle.internal.dependency.VariantDependencies
 import com.android.build.gradle.internal.dependency.getProvidedClasspath
+import com.android.build.gradle.internal.dsl.AbstractPublishing
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
+import com.android.build.gradle.internal.publishing.ComponentPublishingInfo
+import com.android.build.gradle.internal.publishing.VariantPublishingInfo
 import com.android.build.gradle.internal.scope.BuildFeatureValues
 import com.android.build.gradle.internal.scope.MutableTaskContainer
 import com.android.build.gradle.internal.services.TaskCreationServices
@@ -69,6 +76,7 @@ abstract class KmpComponentImpl<DslInfoT: KmpComponentDslInfo>(
     override val taskContainer: MutableTaskContainer,
     override val services: TaskCreationServices,
     override val global: GlobalTaskCreationConfig,
+    override val androidKotlinCompilation: KotlinMultiplatformAndroidCompilation,
     manifestFile: File
 ): KmpComponentCreationConfig, ComponentIdentity by dslInfo.componentIdentity {
 
@@ -162,7 +170,17 @@ abstract class KmpComponentImpl<DslInfoT: KmpComponentDslInfo>(
         }
 
     override fun publishBuildArtifacts() {
-        // TODO(b/243387425): implement
+        com.android.build.gradle.internal.scope.publishBuildArtifacts(
+            creationConfig = this,
+            publishInfo = VariantPublishingInfo(
+                components = listOf(
+                    ComponentPublishingInfo(
+                        componentName = name,
+                        type = AbstractPublishing.Type.AAR
+                    )
+                )
+            )
+        )
     }
 
     // Unsupported features
@@ -266,5 +284,48 @@ abstract class KmpComponentImpl<DslInfoT: KmpComponentDslInfo>(
         override val sourceProviderNames: List<String> = emptyList()
         override val multiFlavorSourceProvider: DefaultAndroidSourceSet? = null
         override val variantSourceProvider: DefaultAndroidSourceSet? = null
+    }
+
+    open fun syncAndroidAndKmpClasspathAndSources() {
+        artifacts
+            .forScope(ScopedArtifacts.Scope.PROJECT)
+            .getScopedArtifactsContainer(ScopedArtifact.CLASSES)
+            .initialScopedContent
+            .from(androidKotlinCompilation.output.classesDirs)
+
+        androidKotlinCompilation.compileDependencyFiles = services.fileCollection(
+            global.bootClasspath,
+            getJavaClasspath(
+                AndroidArtifacts.ConsumedConfigType.COMPILE_CLASSPATH,
+                AndroidArtifacts.ArtifactType.CLASSES_JAR
+            )
+        )
+
+        // Include all kotlin sourceSets (the ones added directly to the compilation and the ones
+        // that added transitively through a dependsOn dependency).
+        androidKotlinCompilation.allKotlinSourceSets.forEach { sourceSet ->
+            sources.kotlin { kotlin ->
+                sourceSet.kotlin.srcDirs.forEach { srcDir ->
+                    kotlin.addSource(
+                        FileBasedDirectoryEntryImpl(
+                            name = "Kotlin",
+                            directory = srcDir
+                        )
+                    )
+                }
+            }
+
+            sources.resources { resources ->
+                sourceSet.resources.srcDirs.forEach { srcDir ->
+                    resources.addSource(
+                        FileBasedDirectoryEntryImpl(
+                            name = "Java resources",
+                            directory = srcDir,
+                            filter = PatternSet().exclude("**/*.java", "**/*.kt"),
+                        )
+                    )
+                }
+            }
+        }
     }
 }

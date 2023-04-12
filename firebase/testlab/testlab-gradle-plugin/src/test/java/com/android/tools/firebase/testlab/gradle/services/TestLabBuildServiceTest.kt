@@ -19,14 +19,18 @@ package com.android.tools.firebase.testlab.gradle.services
 import com.android.testutils.MockitoKt.any
 import com.android.testutils.MockitoKt.eq
 import com.android.testutils.MockitoKt.mock
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
+import com.google.api.client.http.HttpTransport
+import com.google.api.client.testing.http.MockHttpTransport
+import com.google.api.client.testing.http.MockLowLevelHttpResponse
+import com.google.common.truth.Truth.assertThat
 import com.google.firebase.testlab.gradle.TestLabGradlePluginExtension
-import java.io.File
 import org.gradle.api.Action
+import org.gradle.api.Project
 import org.gradle.api.Transformer
 import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Provider
 import org.gradle.api.provider.ProviderFactory
-import org.gradle.api.services.BuildServiceRegistry
 import org.gradle.api.services.BuildServiceSpec
 import org.junit.Rule
 import org.junit.Test
@@ -40,6 +44,9 @@ import org.mockito.Mockito.`when`
 import org.mockito.Mockito.withSettings
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
+import java.io.File
+import java.util.logging.Level
+import java.util.logging.Logger
 
 /**
  * Unit tests for [TestLabBuildService].
@@ -52,11 +59,8 @@ class TestLabBuildServiceTest {
     @get:Rule
     val temporaryFolderRule = TemporaryFolder()
 
-    @Mock
+    @Mock(answer = Answers.RETURNS_DEEP_STUBS)
     lateinit var mockExtension: TestLabGradlePluginExtension
-
-    @Mock(answer = Answers.RETURNS_MOCKS)
-    lateinit var mockBuildServiceRegistry: BuildServiceRegistry
 
     @Mock
     lateinit var mockProviderFactory: ProviderFactory
@@ -81,11 +85,13 @@ class TestLabBuildServiceTest {
         val credentialFileRegularFile = mock<RegularFile>()
         `when`(credentialFileRegularFile.asFile).thenReturn(credentialFile)
 
+        val mockProject = mock<Project>(withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS))
+        `when`(mockProject.path).thenReturn("mockProjectPath")
         TestLabBuildService.RegistrationAction(mockExtension, mockProviderFactory)
-            .registerIfAbsent(mockBuildServiceRegistry)
+            .registerIfAbsent(mockProject)
 
         lateinit var configAction: Action<in BuildServiceSpec<TestLabBuildService.Parameters>>
-        verify(mockBuildServiceRegistry).registerIfAbsent(
+        verify(mockProject.gradle.sharedServices).registerIfAbsent(
             startsWith("com.android.tools.firebase.testlab.gradle.services.TestLabBuildService_"),
             eq(TestLabBuildService::class.java),
             argThat {
@@ -112,5 +118,49 @@ class TestLabBuildServiceTest {
         verify(mockParams.quotaProjectName).set(argThat<Provider<String>> {
             it.get() == "test_quota_project_id"
         })
+    }
+
+    @Test
+    fun logLevelShouldBeWarning() {
+        val credentialFile = temporaryFolderRule.newFile("testCredentialFile")
+        object: TestLabBuildService() {
+            override fun getParameters(): Parameters {
+                val params = mock<Parameters>(
+                        withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS))
+                `when`(params.credentialFile.get().asFile).thenReturn(credentialFile)
+                return params
+            }
+        }
+        assertThat(Logger.getLogger("com.google.api.client").level).isEqualTo(Level.WARNING)
+    }
+
+    @Test
+    fun catalog() {
+        val service = object: TestLabBuildService() {
+            override val credential: GoogleCredential
+                get() = mock()
+            override val httpTransport: HttpTransport
+                get() = MockHttpTransport.Builder().apply {
+                    setLowLevelHttpResponse(MockLowLevelHttpResponse().apply {
+                        setContent("""
+                            {
+                              "androidDeviceCatalog": {
+                                "models": [
+                                  {
+                                    "id": "test_device_id"
+                                  }
+                                ]
+                              }
+                            }
+                        """.trimIndent())
+                    })
+                }.build()
+            override fun getParameters() = mock<Parameters>(
+                    withSettings().defaultAnswer(Answers.RETURNS_DEEP_STUBS))
+        }
+
+        val catalog = service.catalog()
+        assertThat(catalog.models).hasSize(1)
+        assertThat(catalog.models[0].id).isEqualTo("test_device_id")
     }
 }

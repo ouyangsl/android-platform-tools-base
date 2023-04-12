@@ -27,8 +27,8 @@ import com.android.build.api.dsl.Installation
 import com.android.build.api.dsl.Lint
 import com.android.build.api.dsl.Prefab
 import com.android.build.api.dsl.Splits
-import com.android.build.api.dsl.TestCoverage
 import com.android.build.api.dsl.TestOptions
+import com.android.build.gradle.internal.KotlinMultiplatformCompileOptionsImpl
 import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.attribution.BuildAnalyzerIssueReporter
 import com.android.build.gradle.internal.core.SettingsOptions
@@ -45,14 +45,13 @@ import com.android.build.gradle.internal.services.getBuildService
 import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfigImpl.Companion.toExecutionEnum
 import com.android.build.gradle.internal.testing.ManagedDeviceRegistry
 import com.android.build.gradle.options.BooleanOption
+import com.android.build.gradle.options.IntegerOption
 import com.android.build.gradle.options.StringOption
 import com.android.builder.core.LibraryRequest
 import com.android.builder.testing.api.DeviceProvider
 import com.android.builder.testing.api.TestServer
 import com.android.repository.Revision
-import com.google.common.base.Charsets
 import org.gradle.api.Action
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.attributes.AttributeContainer
@@ -68,7 +67,8 @@ class KmpGlobalTaskCreationConfigImpl(
     compileSdkVersionProvider: () -> String,
     buildToolsVersionProvider: () -> Revision,
     private val androidJar: Configuration,
-    override val services: BaseServices
+    override val services: BaseServices,
+    override val settingsOptions: SettingsOptions
 ): GlobalTaskCreationConfig, BootClasspathConfig by bootClasspathConfig {
 
     init {
@@ -118,30 +118,9 @@ class KmpGlobalTaskCreationConfigImpl(
             BuildAnalyzerIssueReporter(services.projectOptions, services.buildServiceRegistry)
         }
 
-    // TODO(b/267309622): Get this from kotlin plugin
-    override val compileOptions: CompileOptions
-        get() = object: CompileOptions {
-            override var sourceCompatibility = JavaVersion.VERSION_11
-
-            override fun sourceCompatibility(sourceCompatibility: Any) {
-                throw IllegalAccessException("Not supported for kmp")
-            }
-
-            override var targetCompatibility: JavaVersion
-                get() = JavaVersion.VERSION_1_8
-                set(value) {}
-
-            override fun targetCompatibility(targetCompatibility: Any) {
-                throw IllegalAccessException("Not supported for kmp")
-            }
-
-            override var encoding: String
-                get() = Charsets.UTF_8.name()
-                set(value) {}
-            override var isCoreLibraryDesugaringEnabled: Boolean
-                get() = false
-                set(value) {}
-        }
+    override val compileOptions: CompileOptions = KotlinMultiplatformCompileOptionsImpl(
+        extension
+    )
 
     override val manifestArtifactType: InternalArtifactType<Directory>
         get() = if (services.projectOptions[BooleanOption.IDE_DEPLOY_AS_INSTANT_APP])
@@ -189,6 +168,11 @@ class KmpGlobalTaskCreationConfigImpl(
         return project.configurations.detachedConfiguration(fakeDependency)
     }
 
+    override val targetDeployApiFromIDE: Int? =
+        services.projectOptions.get(IntegerOption.IDE_TARGET_DEVICE_API)
+
+    override val testCoverage = extension.testCoverage
+
     // Unsupported properties
     // TODO: Refactor the parent interface so that we don't have to override these values to avoid
     //  accidental calls.
@@ -217,8 +201,6 @@ class KmpGlobalTaskCreationConfigImpl(
 
     override val splits: Splits
         get() = throw IllegalAccessException("Not supported for kmp")
-    override val testCoverage: TestCoverage
-        get() = throw IllegalAccessException("Not supported for kmp")
     override val legacyLanguageSplitOptions: LanguageSplitOptions
         get() = throw IllegalAccessException("Not supported for kmp")
     override val localCustomLintChecks: FileCollection
@@ -226,8 +208,6 @@ class KmpGlobalTaskCreationConfigImpl(
     override val versionedNdkHandler: SdkComponentsBuildService.VersionedNdkHandler
         get() = throw IllegalAccessException("Not supported for kmp")
     override val lintPublish: Configuration
-        get() = throw IllegalAccessException("Not supported for kmp")
-    override val settingsOptions: SettingsOptions
         get() = throw IllegalAccessException("Not supported for kmp")
     override val externalNativeBuild: ExternalNativeBuild
         get() = throw IllegalAccessException("Not supported for kmp")

@@ -18,11 +18,16 @@ package com.android.build.api.variant.impl
 
 import com.android.SdkConstants.DOT_AAR
 import com.android.build.api.artifact.impl.ArtifactsImpl
+import com.android.build.api.component.impl.KmpAndroidTestImpl
 import com.android.build.api.component.impl.KmpComponentImpl
+import com.android.build.api.component.impl.KmpUnitTestImpl
 import com.android.build.api.component.impl.features.OptimizationCreationConfigImpl
 import com.android.build.api.variant.AarMetadata
+import com.android.build.api.variant.CanMinifyAndroidResourcesBuilder
+import com.android.build.api.variant.CanMinifyCodeBuilder
 import com.android.build.api.variant.Component
 import com.android.build.api.variant.Packaging
+import com.android.build.gradle.internal.KotlinMultiplatformCompileOptionsImpl
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.KmpCreationConfig
 import com.android.build.gradle.internal.component.features.NativeBuildCreationConfig
@@ -53,7 +58,8 @@ open class KmpVariantImpl @Inject constructor(
     taskContainer: MutableTaskContainer,
     services: TaskCreationServices,
     global: GlobalTaskCreationConfig,
-    manifestFile: File
+    androidKotlinCompilation: KotlinMultiplatformAndroidCompilation,
+    manifestFile: File,
 ): KmpComponentImpl<KmpVariantDslInfo>(
     dslInfo,
     internalServices,
@@ -64,7 +70,8 @@ open class KmpVariantImpl @Inject constructor(
     taskContainer,
     services,
     global,
-    manifestFile
+    androidKotlinCompilation,
+    manifestFile,
 ), KotlinMultiplatformAndroidVariant, KmpCreationConfig {
 
     override val aarOutputFileName: Property<String> =
@@ -90,15 +97,24 @@ open class KmpVariantImpl @Inject constructor(
         OptimizationCreationConfigImpl(
             this,
             dslInfo.optimizationDslInfo,
-            null,
-            null,
+            object : CanMinifyCodeBuilder {
+                override var isMinifyEnabled =
+                    dslInfo.optimizationDslInfo.postProcessingOptions.codeShrinkerEnabled()
+            },
+            object : CanMinifyAndroidResourcesBuilder {
+                override var shrinkResources =
+                    dslInfo.optimizationDslInfo.postProcessingOptions.codeShrinkerEnabled()
+            },
             internalServices
         )
     }
 
-    override var unitTest = null
+    override var unitTest: KmpUnitTestImpl? = null
 
-    override var androidTest = null
+    override var androidTest: KmpAndroidTestImpl? = null
+
+    override val isAndroidTestCoverageEnabled: Boolean
+        get() = androidTest?.isAndroidTestCoverageEnabled ?: false
 
     override val nestedComponents: List<ComponentCreationConfig>
         get() = listOfNotNull(unitTest, androidTest)
@@ -117,6 +133,16 @@ open class KmpVariantImpl @Inject constructor(
         PackagingImpl(dslInfo.packaging, internalServices)
     }
 
+    override val isCoreLibraryDesugaringEnabledLintCheck: Boolean
+        get() = global.compileOptions.isCoreLibraryDesugaringEnabled
+
+    override fun syncAndroidAndKmpClasspathAndSources() {
+        super.syncAndroidAndKmpClasspathAndSources()
+
+        (global.compileOptions as KotlinMultiplatformCompileOptionsImpl)
+            .initFromCompilation(androidKotlinCompilation)
+    }
+
     override fun <T : Component> createUserVisibleVariantObject(
         stats: GradleBuildVariant.Builder?
     ): T {
@@ -128,11 +154,4 @@ open class KmpVariantImpl @Inject constructor(
     override val renderscriptCreationConfig: RenderscriptCreationConfig? = null
     override val shadersCreationConfig: ShadersCreationConfig? = null
     override val nativeBuildCreationConfig: NativeBuildCreationConfig? = null
-
-    // TODO(b/243387425): Figure out coverage
-    override val isAndroidTestCoverageEnabled: Boolean
-        get() = false
-
-    override val isCoreLibraryDesugaringEnabledLintCheck: Boolean
-        get() = false
 }

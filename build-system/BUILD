@@ -271,8 +271,8 @@ filegroup(
         "manifest-merger/src/main/resources/**",
     ]) + [
         "docs/build.gradle",
-        "manifest-merger/build.gradle",
         "manifest-merger/NOTICE",
+        "manifest-merger/build.gradle",
     ],
     visibility = ["//tools/base/build-system:__pkg__"],
 )
@@ -314,6 +314,24 @@ gradle_build(
         "//tools/base:agp_artifacts",
     ],
     tasks = [":zipPlugin"],
+    visibility = ["//visibility:public"],
+)
+
+gradle_build(
+    name = "kmp_prototype",
+    build_file = "//tools:agp_gradle_build_root_build_file",
+    data = [
+        "//prebuilts/studio/jdk:jdk11",
+        "//tools/base/build-system/kmp-android-prototype:agp_gradle_build_files",
+    ] + ANDROID_GRADLE_PLUGIN_SOURCE_FILES,
+    gradle_properties = GRADLE_PROPERTIES,
+    output_file = "kmp_prototype.zip",
+    output_file_source = "dist/kmp_prototype.zip",
+    repos = [
+        "//tools/base:agp_dependencies",
+        "//tools/base:agp_artifacts",
+    ],
+    tasks = [":base:build-system:kmp-android-prototype:zipKmpJar"],
     visibility = ["//visibility:public"],
 )
 
@@ -420,13 +438,13 @@ maven_repository(
     visibility = ["//visibility:public"],
 )
 
-#  org.jetbrains.kotlin:kotlin-test-junit:1.5.3
+#  org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC
 maven_repository(
     name = "android_gradle_plugin_gradle_api_test_repository",
     # keep sorted
     artifacts = [
         "//tools/base/testutils:tools.testutils",
-        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.7.10",
+        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.8.20-RC2",
     ],
 )
 
@@ -530,6 +548,35 @@ gradle_test(
     ],
     tasks = [":base:gradle-api:metalavaTest"],
     test_output_dir = "build/base/gradle-api/build/test-results/metalavaTest",
+    visibility = ["//visibility:public"],
+)
+
+gradle_test(
+    name = "android_gradle_plugin_gradle_settings_api_metalava_test",
+    build_file = "//tools:agp_gradle_build_root_build_file",
+    # keep sorted
+    data = [
+        ":agp_gradle_build_files",
+        "//prebuilts/studio/jdk:jdk11",
+        "//tools:agp_gradle_build_files",
+        "//tools/base/build-system/builder-model:agp_gradle_build_files",
+        "//tools/base/build-system/builder-test-api:agp_gradle_build_files",
+        "//tools/base/build-system/gradle-settings-api:agp_gradle_build_files",
+        "//tools/base/build-system/gradle-settings-api:agp_gradle_metalava_test_files",
+        "//tools/base/common:agp_gradle_build_files",
+        "//tools/buildSrc:agp_gradle_build_files",
+        "//tools/buildSrc/base:agp_gradle_build_files",
+    ],
+    gradle_properties = GRADLE_PROPERTIES,
+    # keep sorted
+    repos = [
+        ":android_gradle_plugin_gradle_api_test_repository",
+        ":metalava_tool",
+        "//tools/base:agp_artifacts",
+        "//tools/base:agp_dependencies",
+    ],
+    tasks = [":base:build-system:gradle-settings-api:metalavaTest"],
+    test_output_dir = "build/base/build-system/gradle-settings-api/build/test-results/metalavaTest",
     visibility = ["//visibility:public"],
 )
 

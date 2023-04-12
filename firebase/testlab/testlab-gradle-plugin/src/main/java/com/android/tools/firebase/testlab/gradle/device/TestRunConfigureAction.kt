@@ -17,15 +17,18 @@
 package com.android.tools.firebase.testlab.gradle.device
 
 import com.android.build.api.instrumentation.manageddevice.DeviceTestRunConfigureAction
+import com.android.tools.firebase.testlab.gradle.ManagedDeviceImpl
 import com.android.tools.firebase.testlab.gradle.services.TestLabBuildService
 import com.google.firebase.testlab.gradle.ManagedDevice
-import javax.inject.Inject
+import org.gradle.api.Project
 import org.gradle.api.model.ObjectFactory
-import org.gradle.api.services.BuildServiceRegistry
+import org.gradle.api.provider.ProviderFactory
+import javax.inject.Inject
 
 open class TestRunConfigureAction @Inject constructor(
     private val objectFactory: ObjectFactory,
-    private val buildServiceRegistry: BuildServiceRegistry,
+    private val providerFactory: ProviderFactory,
+    private val project: Project,
 ): DeviceTestRunConfigureAction<ManagedDevice, DeviceTestRunInput> {
 
     override fun configureTaskInput(deviceDSL: ManagedDevice): DeviceTestRunInput =
@@ -36,14 +39,22 @@ open class TestRunConfigureAction @Inject constructor(
             apiLevel.set(deviceDSL.apiLevel)
             apiLevel.disallowChanges()
 
-            orientation.set(deviceDSL.orientation)
+            orientation.set(ManagedDeviceImpl.Orientation.valueOf(deviceDSL.orientation))
             orientation.disallowChanges()
 
             locale.set(deviceDSL.locale)
             locale.disallowChanges()
 
             buildService.set(
-                TestLabBuildService.RegistrationAction.getBuildService(buildServiceRegistry))
+                TestLabBuildService.RegistrationAction.getBuildService(project))
             buildService.disallowChanges()
+
+            numUniformShards.set(
+                providerFactory.provider { buildService.get().numUniformShards })
+            numUniformShards.disallowChanges()
+
+            extraDeviceFiles.set(providerFactory.provider {
+                buildService.get().parameters.extraDeviceFiles.get() })
+            extraDeviceFiles.disallowChanges()
         }
 }

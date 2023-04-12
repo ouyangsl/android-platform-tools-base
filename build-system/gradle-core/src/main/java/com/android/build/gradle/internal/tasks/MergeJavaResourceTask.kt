@@ -408,8 +408,7 @@ private fun getExternalLibJavaRes(
                 AndroidArtifacts.ArtifactType.JAVA_RES
             )
         )
-    }
-    if (mergeScopes.contains(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)) {
+    } else if (mergeScopes.contains(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)) {
         externalLibJavaRes.from(creationConfig.computeLocalPackagedJars())
     }
     return externalLibJavaRes
@@ -418,5 +417,5 @@ private fun getExternalLibJavaRes(
 /** Returns true if anything's been added to the annotation processor configuration. */
 fun projectHasAnnotationProcessors(creationConfig: ComponentCreationConfig): Boolean {
     val config = creationConfig.variantDependencies.annotationProcessorConfiguration
-    return config.incoming.dependencies.isNotEmpty()
+    return config != null && config.incoming.dependencies.isNotEmpty()
 }

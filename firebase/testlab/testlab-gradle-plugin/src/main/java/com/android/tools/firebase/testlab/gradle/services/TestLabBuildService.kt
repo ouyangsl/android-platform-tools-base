@@ -18,6 +18,8 @@ package com.android.tools.firebase.testlab.gradle.services
 
 import com.android.build.api.instrumentation.StaticTestData
 import com.android.builder.testing.api.DeviceConfigProvider
+import com.android.tools.firebase.testlab.gradle.FixtureImpl
+import com.android.tools.firebase.testlab.gradle.ManagedDeviceImpl
 import com.android.tools.firebase.testlab.gradle.UtpTestSuiteResultMerger
 import com.android.tools.utp.plugins.host.device.info.proto.AndroidTestDeviceInfoProto
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
@@ -26,6 +28,7 @@ import com.google.api.client.googleapis.util.Utils
 import com.google.api.client.http.GenericUrl
 import com.google.api.client.http.HttpRequestFactory
 import com.google.api.client.http.HttpRequestInitializer
+import com.google.api.client.http.HttpTransport
 import com.google.api.client.http.InputStreamContent
 import com.google.api.client.json.GenericJson
 import com.google.api.client.json.JsonObjectParser
@@ -40,15 +43,19 @@ import com.google.api.services.testing.model.AndroidDeviceList
 import com.google.api.services.testing.model.AndroidInstrumentationTest
 import com.google.api.services.testing.model.AndroidModel
 import com.google.api.services.testing.model.ClientInfo
+import com.google.api.services.testing.model.DeviceFile
 import com.google.api.services.testing.model.EnvironmentMatrix
 import com.google.api.services.testing.model.GoogleCloudStorage
+import com.google.api.services.testing.model.RegularFile
 import com.google.api.services.testing.model.ResultStorage
 import com.google.api.services.testing.model.TestExecution
 import com.google.api.services.testing.model.TestMatrix
+import com.google.api.services.testing.model.TestSetup
 import com.google.api.services.testing.model.TestSpecification
+import com.google.api.services.testing.model.ToolResultsHistory
 import com.google.api.services.toolresults.ToolResults
+import com.google.api.services.toolresults.model.History
 import com.google.api.services.toolresults.model.StackTrace
-import com.google.firebase.testlab.gradle.Orientation
 import com.google.firebase.testlab.gradle.TestLabGradlePluginExtension
 import com.google.testing.platform.proto.api.core.ErrorProto.Error
 import com.google.testing.platform.proto.api.core.IssueProto.Issue
@@ -61,14 +68,16 @@ import com.google.testing.platform.proto.api.core.TestResultProto.TestResult
 import com.google.testing.platform.proto.api.core.TestStatusProto.TestStatus
 import com.google.testing.platform.proto.api.core.TestSuiteResultProto.TestSuiteMetaData
 import com.google.testing.platform.proto.api.core.TestSuiteResultProto.TestSuiteResult
+import org.gradle.api.Project
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.logging.Logging
+import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
-import org.gradle.api.services.BuildServiceRegistry
 import org.w3c.dom.Element
 import org.w3c.dom.Node
 import java.io.File
@@ -77,6 +86,8 @@ import java.io.FileOutputStream
 import java.nio.charset.StandardCharsets
 import java.util.Locale
 import java.util.UUID
+import java.util.logging.Level
+import java.util.logging.Logger
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
@@ -87,11 +98,19 @@ import javax.xml.transform.stream.StreamResult
  */
 abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters> {
 
+    init {
+        Logger.getLogger("com.google.api.client").level = Level.WARNING
+    }
+
     companion object {
         const val TEST_RESULT_PB_FILE_NAME = "test-result.pb"
         const val clientApplicationName: String = "Firebase TestLab Gradle Plugin"
         const val xGoogUserProjectHeaderKey: String = "X-Goog-User-Project"
         val cloudStorageUrlRegex = Regex("""gs://(.*?)/(.*)""")
+
+        const val INSTRUMENTATION_TEST_SHARD_FIELD = "shardingOption"
+        const val TEST_MATRIX_FLAKY_TEST_ATTEMPTS_FIELD = "flakyTestAttempts"
+        const val TEST_MATRIX_FAIL_FAST_FIELD = "failFast"
 
         const val CHECK_TEST_STATE_WAIT_MS = 10 * 1000L;
 
@@ -133,6 +152,14 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         class FileReference: GenericJson() {
             @Key var fileUri: String? = null
         }
+
+        class UniformSharding: GenericJson() {
+            @Key var numShards: Int? = null
+        }
+
+        class ShardingOption: GenericJson() {
+            @Key var uniformSharding: UniformSharding? = null
+        }
     }
 
     private val logger = Logging.getLogger(this.javaClass)
@@ -143,10 +170,24 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
     interface Parameters : BuildServiceParameters {
         val quotaProjectName: Property<String>
         val credentialFile: RegularFileProperty
+        val cloudStorageBucket: Property<String>
+        val timeoutMinutes: Property<Int>
+        val maxTestReruns: Property<Int>
+        val failFast: Property<Boolean>
+        val numUniformShards: Property<Int>
+        val grantedPermissions: Property<String>
+        val extraDeviceFiles: MapProperty<String, String>
+        val networkProfile: Property<String>
+        val resultsHistoryName: Property<String>
+        val directoriesToPull: ListProperty<String>
+        val recordVideo: Property<Boolean>
+        val performanceMetrics: Property<Boolean>
     }
 
-    private val credential = parameters.credentialFile.get().asFile.inputStream().use {
-        GoogleCredential.fromStream(it).createScoped(oauthScope)
+    internal open val credential: GoogleCredential by lazy {
+        parameters.credentialFile.get().asFile.inputStream().use {
+            GoogleCredential.fromStream(it).createScoped(oauthScope)
+        }
     }
 
     private val httpRequestInitializer: HttpRequestInitializer = HttpRequestInitializer { request ->
@@ -157,12 +198,17 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
     private val jacksonFactory: JacksonFactory
         get() = JacksonFactory.getDefaultInstance()
 
+    internal open val httpTransport: HttpTransport
+        get() = GoogleNetHttpTransport.newTrustedTransport()
+    val numUniformShards: Int
+        get() = parameters.numUniformShards.getOrNull() ?: 0
+
     fun runTestsOnDevice(
         deviceName: String,
         deviceId: String,
         deviceApiLevel: Int,
         deviceLocale: Locale,
-        deviceOrientation: Orientation,
+        deviceOrientation: ManagedDeviceImpl.Orientation,
         ftlDeviceModel: AndroidModel,
         testData: StaticTestData,
         resultsOutDir: File,
@@ -176,21 +222,23 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         }
 
         val projectName = parameters.quotaProjectName.get()
-        val requestId = UUID.randomUUID().toString()
+        val runRequestId = UUID.randomUUID().toString()
 
         val toolResultsClient = ToolResults.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
+            httpTransport,
             jacksonFactory,
             httpRequestInitializer
         ).apply {
             applicationName = clientApplicationName
         }.build()
 
-        val defaultBucketName = toolResultsClient.projects().initializeSettings(projectName)
-            .execute().defaultBucket
+        val initSettingsResult =
+                toolResultsClient.projects().initializeSettings(projectName).execute()
+        val bucketName = parameters.cloudStorageBucket.orNull?.ifBlank { null }
+                ?: initSettingsResult.defaultBucket
 
         val storageClient = Storage.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
+            httpTransport,
             jacksonFactory,
             httpRequestInitializer
         ).apply {
@@ -198,7 +246,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         }.build()
 
         val testApkStorageObject = uploadToCloudStorage(
-            testData.testApk, requestId, storageClient, defaultBucketName
+            testData.testApk, runRequestId, storageClient, bucketName
         )
 
         val configProvider = createConfigProvider(
@@ -206,13 +254,13 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         )
         val appApkStorageObject = uploadToCloudStorage(
             testData.testedApkFinder(configProvider).first(),
-            requestId,
+            runRequestId,
             storageClient,
-            defaultBucketName
+            bucketName
         )
 
         val testingClient = Testing.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
+            httpTransport,
             jacksonFactory,
             httpRequestInitializer
         ).apply {
@@ -221,22 +269,61 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
 
         val testMatricesClient = testingClient.projects().testMatrices()
 
+        val testHistoryName = parameters.resultsHistoryName.getOrElse("").ifBlank {
+            testData.testedApplicationId ?: testData.applicationId
+        }
+        val historyId = getOrCreateHistory(toolResultsClient, projectName, testHistoryName)
+
         val testMatrix = TestMatrix().apply {
             projectId = projectName
             clientInfo = ClientInfo().apply {
                 name = clientApplicationName
             }
             testSpecification = TestSpecification().apply {
+                testSetup = TestSetup().apply {
+                    set("dontAutograntPermissions", parameters.grantedPermissions.orNull ==
+                            FixtureImpl.GrantedPermissions.NONE.name)
+                    if(parameters.networkProfile.getOrElse("").isNotBlank()) {
+                        networkProfile = parameters.networkProfile.get()
+                    }
+                    filesToPush = mutableListOf()
+                    parameters.extraDeviceFiles.get().forEach { (onDevicePath, filePath) ->
+                        val gcsFilePath = if (filePath.startsWith("gs://")) {
+                            filePath
+                        } else {
+                            val file = File(filePath)
+                            check(file.exists()) { "$filePath doesn't exist." }
+                            check(file.isFile) { "$filePath must be file." }
+                            val storageObject = uploadToCloudStorage(
+                                    file, runRequestId, storageClient, bucketName)
+                            "gs://$bucketName/${storageObject.name}"
+                        }
+                        filesToPush.add(DeviceFile().apply {
+                            regularFile = RegularFile().apply {
+                                content = com.google.api.services.testing.model.FileReference().apply {
+                                    gcsPath = gcsFilePath
+                                }
+                                devicePath = onDevicePath
+                            }
+                        })
+                    }
+
+                    directoriesToPull = parameters.directoriesToPull.get()
+                }
                 androidInstrumentationTest = AndroidInstrumentationTest().apply {
                     testApk = com.google.api.services.testing.model.FileReference().apply {
-                        gcsPath = "gs://$defaultBucketName/${testApkStorageObject.name}"
+                        gcsPath = "gs://$bucketName/${testApkStorageObject.name}"
                     }
                     appApk = com.google.api.services.testing.model.FileReference().apply {
-                        gcsPath = "gs://$defaultBucketName/${appApkStorageObject.name}"
+                        gcsPath = "gs://$bucketName/${appApkStorageObject.name}"
                     }
                     appPackageId = testData.testedApplicationId
                     testPackageId = testData.applicationId
                     testRunnerClass = testData.instrumentationRunner
+
+                    createShardingOption()?.also { sharding ->
+                        this.set(INSTRUMENTATION_TEST_SHARD_FIELD, sharding)
+                    }
                 }
                 environmentMatrix = EnvironmentMatrix().apply {
                     androidDeviceList = AndroidDeviceList().apply {
@@ -252,23 +339,42 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 }
                 resultStorage = ResultStorage().apply {
                     googleCloudStorage = GoogleCloudStorage().apply {
-                        gcsPath = "gs://$defaultBucketName/$requestId/results"
+                        gcsPath = "gs://$bucketName/$runRequestId/results"
+                    }
+                    toolResultsHistory = ToolResultsHistory().apply {
+                        projectId = projectName
+                        this.historyId = historyId
                     }
                 }
+                testTimeout = "${parameters.timeoutMinutes.get() * 60}s"
+                disablePerformanceMetrics = !parameters.performanceMetrics.get()
+                disableVideoRecording = !parameters.recordVideo.get()
             }
+            set(TEST_MATRIX_FLAKY_TEST_ATTEMPTS_FIELD, parameters.maxTestReruns.get())
+            set(TEST_MATRIX_FAIL_FAST_FIELD, parameters.failFast.get())
         }
         val updatedTestMatrix = testMatricesClient.create(projectName, testMatrix).apply {
-            this.requestId = requestId
+            this.requestId = runRequestId
         }.execute()
 
         lateinit var resultTestMatrix: TestMatrix
         var previousTestMatrixState = ""
+        var printResultsUrl = true
         while (true) {
             val latestTestMatrix = testMatricesClient.get(
                 projectName, updatedTestMatrix.testMatrixId).execute()
             if (previousTestMatrixState != latestTestMatrix.state) {
                 previousTestMatrixState = latestTestMatrix.state
                 logger.lifecycle("Firebase TestLab Test execution state: $previousTestMatrixState")
+            }
+            if (printResultsUrl) {
+                val resultsUrl = latestTestMatrix.resultStorage?.get("resultsUrl") as String?
+                if (!resultsUrl.isNullOrBlank()) {
+                    logger.lifecycle(
+                            "Test request for device $deviceName has been submitted to " +
+                                    "Firebase TestLab: $resultsUrl")
+                    printResultsUrl = false
+                }
             }
             val testFinished = when (latestTestMatrix.state) {
                 "VALIDATING", "PENDING", "RUNNING" -> false
@@ -296,7 +402,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                         testExecution.toolResultsStep.stepId
                     ).execute()
                 executionStep.testExecutionStep.testSuiteOverviews?.forEach { suiteOverview ->
-                    downloadFromCloudStorage(storageClient, suiteOverview.xmlSource.fileUri) {
+                    downloadFromCloudStorage(storageClient, suiteOverview.xmlSource.fileUri, runRequestId) {
                         File(resultsOutDir, "TEST-${it.replace("/", "_")}")
                     }?.also {
                         updateTestResultXmlFile(it, deviceName, projectPath, variantName)
@@ -310,6 +416,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 deviceInfoFile,
                 storageClient,
                 resultsOutDir,
+                runRequestId,
             )
 
             val testSuitePassed = testSuiteResult.testStatus.isPassedOrSkipped()
@@ -334,9 +441,27 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         return ftlTestRunResults
     }
 
+    fun getOrCreateHistory(
+            toolResultsClient: ToolResults,
+            projectId: String, historyName: String): String {
+        val historyList = toolResultsClient.projects().histories().list(projectId).apply {
+            filterByName = historyName
+        }.execute()
+        historyList?.histories?.firstOrNull()?.historyId?.let { return it }
+
+        return toolResultsClient.projects().histories().create(
+                projectId,
+                History().apply {
+                    name = historyName
+                    displayName = historyName
+                }).apply {
+            requestId = UUID.randomUUID().toString()
+        }.execute().historyId
+    }
+
     fun catalog(): AndroidDeviceCatalog {
         val testingClient = Testing.Builder(
-            GoogleNetHttpTransport.newTrustedTransport(),
+            httpTransport,
             jacksonFactory,
             httpRequestInitializer,
         ).apply {
@@ -350,6 +475,17 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         return catalog.androidDeviceCatalog
     }
 
+    private fun createShardingOption(): ShardingOption? {
+        if (numUniformShards == 0) {
+            return null
+        }
+        return ShardingOption().apply {
+            uniformSharding = UniformSharding().apply {
+                numShards = numUniformShards
+            }
+        }
+    }
+
     private fun getTestSuiteResult(
         toolResultsClient: ToolResults,
         testMatrix: TestMatrix,
@@ -357,6 +493,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         deviceInfoFile: File,
         storageClient: Storage,
         resultsOutDir: File,
+        runRequestId: String,
     ): TestSuiteResult {
         val testSuiteResult = TestSuiteResult.newBuilder()
 
@@ -377,7 +514,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 testSuiteMetaData = TestSuiteMetaData.newBuilder().apply {
                     testSuiteName = step.name
                     var scheduledTestCount = 0
-                    for (testSuiteOverview in step.testExecutionStep.testSuiteOverviews) {
+                    step.testExecutionStep.testSuiteOverviews?.forEach { testSuiteOverview ->
                         scheduledTestCount += testSuiteOverview.totalCount
                     }
                     scheduledTestCaseCount = scheduledTestCount
@@ -389,21 +526,25 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                     "skipped" -> TestStatus.SKIPPED
                     else -> TestStatus.TEST_STATUS_UNSPECIFIED
                 }
-                addOutputArtifact(
-                    Artifact.newBuilder().apply {
-                        label = Label.newBuilder().apply {
-                            label = "firebase.xmlSource"
-                            namespace = "android"
-                        }.build()
-                        sourcePath = Path.newBuilder().apply {
-                            path = step.testExecutionStep.testSuiteOverviews[0].xmlSource.fileUri
-                        }.build()
-                        type = ArtifactType.TEST_DATA
-                    }.build()
-                )
+                val testResultXmlFilePath =
+                    step.testExecutionStep.testSuiteOverviews?.get(0)?.xmlSource?.fileUri.orEmpty()
+                if (testResultXmlFilePath.isNotBlank()) {
+                    addOutputArtifact(
+                            Artifact.newBuilder().apply {
+                                label = Label.newBuilder().apply {
+                                    label = "firebase.xmlSource"
+                                    namespace = "android"
+                                }.build()
+                                sourcePath = Path.newBuilder().apply {
+                                    path = testResultXmlFilePath
+                                }.build()
+                                type = ArtifactType.TEST_DATA
+                            }.build()
+                    )
+                }
             }
 
-            for (log in step.testExecutionStep.toolExecution.toolLogs) {
+            step.testExecutionStep.toolExecution?.toolLogs?.forEach { log ->
                 testSuiteResult.apply {
                     addOutputArtifact(Artifact.newBuilder().apply {
                         label = Label.newBuilder().apply {
@@ -418,7 +559,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                     }.build())
                 }
             }
-            for (toolOutput in step.testExecutionStep.toolExecution.toolOutputs) {
+
+            step.testExecutionStep.toolExecution?.toolOutputs?.forEach { toolOutput ->
                 val outputArtifact = Artifact.newBuilder().apply {
                     label = Label.newBuilder().apply {
                         label = "firebase.toolOutput"
@@ -462,7 +604,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 }
             }
 
-            for (testIssue in step.testExecutionStep.testIssues) {
+            step.testExecutionStep?.testIssues?.forEach { testIssue ->
                 testSuiteResult.apply {
                     addIssue(Issue.newBuilder().apply {
                         message = testIssue.errorMessage
@@ -483,10 +625,35 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 }
             }
 
-            // Need latest version of google-api-client to use
+            step.testExecutionStep?.toolExecution?.toolOutputs?.forEach { toolOutput ->
+                if (toolOutput?.output?.fileUri != null) {
+                    val fileUri = requireNotNull(toolOutput.output.fileUri)
+                    val download = parameters.directoriesToPull.get().any { directoriesToPull ->
+                        fileUri.contains(directoriesToPull)
+                    }
+                    if (download) {
+                        val downloadedFile = downloadFromCloudStorage(
+                                storageClient, fileUri, runRequestId) {
+                            File(resultsOutDir, it)
+                        } ?: return@forEach
+                        testSuiteResult.addOutputArtifactBuilder().apply {
+                            labelBuilder.apply {
+                                label = "firebase.toolOutput"
+                                namespace = "android"
+                            }
+                            sourcePathBuilder.apply {
+                                path = downloadedFile.path
+                            }.build()
+                            type = ArtifactType.TEST_DATA
+                        }
+                    }
+                }
+            }
+
+            // Need the latest version of google-api-client to use
             // toolResultsClient.projects().histories().executions().steps().testCases().list().
             // Manually calling this API until this is available.
-            val httpRequestFactory: HttpRequestFactory = GoogleNetHttpTransport.newTrustedTransport().createRequestFactory(httpRequestInitializer)
+            val httpRequestFactory: HttpRequestFactory = httpTransport.createRequestFactory(httpRequestInitializer)
             val url = "https://toolresults.googleapis.com/toolresults/v1beta3/projects/$projectId/histories/$historyId/executions/$executionId/steps/$stepId/testCases"
             val request = httpRequestFactory.buildGetRequest(GenericUrl(url))
             val parser = JsonObjectParser(Utils.getDefaultJsonFactory())
@@ -497,7 +664,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                     it, StandardCharsets.UTF_8,
                     TestCases::class.java
                 )
-                for (case in testCaseContents["testCases"] as List<TestCase>) {
+                (testCaseContents["testCases"] as? List<TestCase>)?.forEach { case ->
                     testSuiteResult.apply {
                         addTestResult(TestResult.newBuilder().apply {
                             testCase = TestCaseProto.TestCase.newBuilder().apply {
@@ -536,7 +703,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                                 for (toolOutput in (case.toolOutputs as List<ToolOutputReference>)) {
                                     if (toolOutput.output!!.fileUri!!.endsWith("logcat")) {
                                         val logcatFile = downloadFromCloudStorage(
-                                            storageClient, toolOutput.output!!.fileUri!!) {
+                                            storageClient, toolOutput.output!!.fileUri!!,
+                                            runRequestId) {
                                             File(resultsOutDir, it)
                                         }
                                         if (logcatFile != null) {
@@ -550,17 +718,6 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                                                 }.build()
                                                 type = ArtifactType.TEST_DATA
                                             }
-                                        }
-                                    } else {
-                                        addOutputArtifactBuilder().apply {
-                                            labelBuilder.apply {
-                                                label = "firebase.toolOutput"
-                                                namespace = "android"
-                                            }
-                                            sourcePathBuilder.apply {
-                                                path = toolOutput.output!!.fileUri
-                                            }.build()
-                                            type = ArtifactType.TEST_DATA
                                         }
                                     }
                                 }
@@ -691,10 +848,10 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
      */
     private fun downloadFromCloudStorage(
         storageClient: Storage, fileUri: String,
-        destination: (objectName: String) -> File): File? {
+        runId: String, destination: (objectName: String) -> File): File? {
         val matchResult = cloudStorageUrlRegex.find(fileUri) ?: return null
         val (bucketName, objectName) = matchResult.destructured
-        return destination(objectName).apply {
+        return destination(objectName.removePrefix("$runId/")).apply {
             parentFile.mkdirs()
             outputStream().use {
                 storageClient.objects()
@@ -800,13 +957,13 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
              * Copied from
              * com.android.build.gradle.internal.services.BuildServicesKt.getBuildServiceName.
              */
-            private fun getBuildServiceName(type: Class<*>): String {
-                return type.name + "_" + perClassLoaderConstant
+            private fun getBuildServiceName(type: Class<*>, project: Project): String {
+                return type.name + "_" + perClassLoaderConstant + "_" + project.path
             }
 
-            fun getBuildService(registry: BuildServiceRegistry): Provider<TestLabBuildService> {
-                val serviceName = getBuildServiceName(TestLabBuildService::class.java)
-                return registry.registerIfAbsent(
+            fun getBuildService(project: Project): Provider<TestLabBuildService> {
+                val serviceName = getBuildServiceName(TestLabBuildService::class.java, project)
+                return project.gradle.sharedServices.registerIfAbsent(
                     serviceName,
                     TestLabBuildService::class.java,
                 ) {
@@ -879,9 +1036,9 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         /**
          * Register [TestLabBuildService] to a registry if absent.
          */
-        fun registerIfAbsent(registry: BuildServiceRegistry): Provider<TestLabBuildService> {
-            return registry.registerIfAbsent(
-                getBuildServiceName(TestLabBuildService::class.java),
+        fun registerIfAbsent(project: Project): Provider<TestLabBuildService> {
+            return project.gradle.sharedServices.registerIfAbsent(
+                getBuildServiceName(TestLabBuildService::class.java, project),
                 TestLabBuildService::class.java,
             ) { buildServiceSpec ->
                 configure(buildServiceSpec.parameters)
@@ -898,6 +1055,39 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             })
             params.quotaProjectName.set(params.credentialFile.map {
                 getQuotaProjectName(it.asFile)
+            })
+            params.cloudStorageBucket.set(providerFactory.provider {
+                testLabExtension.testOptions.results.cloudStorageBucket
+            })
+
+            params.timeoutMinutes.set(providerFactory.provider {
+                testLabExtension.testOptions.execution.timeoutMinutes
+            })
+            params.maxTestReruns.set(providerFactory.provider {
+                testLabExtension.testOptions.execution.maxTestReruns
+            })
+            params.failFast.set(providerFactory.provider {
+                testLabExtension.testOptions.execution.failFast
+            })
+            params.numUniformShards.set( providerFactory.provider {
+                testLabExtension.testOptions.execution.numUniformShards
+            })
+            params.grantedPermissions.set(providerFactory.provider {
+                testLabExtension.testOptions.fixture.grantedPermissions
+            })
+            params.extraDeviceFiles.set(testLabExtension.testOptions.fixture.extraDeviceFiles)
+            params.networkProfile.set(providerFactory.provider {
+                testLabExtension.testOptions.fixture.networkProfile
+            })
+            params.resultsHistoryName.set(providerFactory.provider {
+                testLabExtension.testOptions.results.resultsHistoryName
+            })
+            params.directoriesToPull.set(testLabExtension.testOptions.results.directoriesToPull)
+            params.recordVideo.set(providerFactory.provider {
+                testLabExtension.testOptions.results.recordVideo
+            })
+            params.performanceMetrics.set(providerFactory.provider {
+                testLabExtension.testOptions.results.performanceMetrics
             })
         }
     }

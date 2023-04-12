@@ -20,6 +20,7 @@ import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.artifact.impl.InternalScopedArtifacts
 import com.android.build.gradle.internal.component.AndroidTestCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
+import com.android.build.gradle.internal.component.KmpComponentCreationConfig
 import com.android.build.gradle.internal.coverage.JacocoConfigurations
 import com.android.build.gradle.internal.coverage.JacocoReportTask
 import com.android.build.gradle.internal.dependency.VariantDependencies
@@ -183,8 +184,10 @@ class AndroidTestTaskManager(
         // Add data binding tasks if enabled
         createDataBindingTasksIfNecessary(androidTestProperties)
 
-        // Add a task to compile the test application
-        setJavaCompilerTask(createJavacTask(androidTestProperties), androidTestProperties)
+        if (androidTestProperties !is KmpComponentCreationConfig) {
+            // Add a task to compile the test application
+            setJavaCompilerTask(createJavacTask(androidTestProperties), androidTestProperties)
+        }
         createPostCompilationTasks(androidTestProperties)
 
         // Add tasks to produce the signing config files
@@ -412,8 +415,7 @@ class AndroidTestTaskManager(
 
     override val javaResMergingScopes = setOf(
         InternalScopedArtifacts.InternalScope.SUB_PROJECTS,
-        InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS,
-        InternalScopedArtifacts.InternalScope.LOCAL_DEPS,
+        InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS
     )
 
     override fun createVariantPreBuildTask(creationConfig: ComponentCreationConfig) {

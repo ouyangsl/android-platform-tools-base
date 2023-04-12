@@ -34,6 +34,7 @@ import com.android.build.gradle.internal.component.ApplicationCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.ConsumableCreationConfig
 import com.android.build.gradle.internal.component.InstrumentedTestCreationConfig
+import com.android.build.gradle.internal.component.KmpComponentCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
@@ -299,6 +300,14 @@ abstract class TaskManager(
                     creationConfig,
                     ArtifactScope.EXTERNAL
                 )
+            )
+
+        creationConfig
+            .artifacts
+            .forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
+            .setInitialContent(
+                ScopedArtifact.CLASSES,
+                creationConfig.computeLocalPackagedJars()
             )
 
         // Add stream of external java resources if EXTERNAL_LIBRARIES isn't in the set of java res
@@ -1087,7 +1096,9 @@ abstract class TaskManager(
      * like proguard and jacoco
      */
     protected fun createPostCompilationTasks(creationConfig: ApkCreationConfig) {
-        Preconditions.checkNotNull(creationConfig.taskContainer.javacTask)
+        if (creationConfig !is KmpComponentCreationConfig) {
+            Preconditions.checkNotNull(creationConfig.taskContainer.javacTask)
+        }
         taskFactory.register(MergeGeneratedProguardFilesCreationAction(creationConfig))
 
         // Merge Java Resources.
@@ -1531,7 +1542,9 @@ abstract class TaskManager(
                 null,
                 object : TaskConfigAction<PackageApplication> {
                     override fun configure(task: PackageApplication) {
-                        task.dependsOn(taskContainer.javacTask)
+                        if (creationConfig !is KmpComponentCreationConfig) {
+                            task.dependsOn(taskContainer.javacTask)
+                        }
                         if (taskContainer.packageSplitResourcesTask != null) {
                             task.dependsOn(taskContainer.packageSplitResourcesTask)
                         }

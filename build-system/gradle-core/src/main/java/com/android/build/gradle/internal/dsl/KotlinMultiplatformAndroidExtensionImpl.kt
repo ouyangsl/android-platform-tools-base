@@ -20,11 +20,13 @@ import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.variant.AndroidVersion
 import com.android.build.api.variant.impl.KotlinMultiplatformAndroidVariant
 import com.android.build.api.variant.impl.MutableAndroidVersion
+import com.android.build.gradle.internal.coverage.JacocoOptions
 import com.android.build.gradle.internal.dsl.decorator.annotation.WithLazyInitialization
 import com.android.build.gradle.internal.packaging.getDefaultDebugKeystoreLocation
 import com.android.build.gradle.internal.services.AndroidLocationsBuildService
 import com.android.build.gradle.internal.services.DslServices
 import com.android.build.gradle.internal.services.getBuildService
+import com.android.builder.core.BuilderConstants
 import com.android.builder.core.LibraryRequest
 import com.android.builder.core.ToolsRevisionUtils
 import com.android.builder.signing.DefaultSigningConfig
@@ -64,7 +66,7 @@ abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLazyInitiali
     )
 
     var signingConfig = dslServices.newDecoratedInstance(
-        SigningConfig::class.java, "kotlinAndroidInstrumentation", dslServices
+        SigningConfig::class.java, BuilderConstants.DEBUG, dslServices
     )
 
     override fun testSigningConfig(action: ApkSigningConfig.() -> Unit) {
@@ -125,6 +127,8 @@ abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLazyInitiali
             target.codename = value
             target.api = null
         }
+
+    override val testCoverage = dslServices.newInstance(JacocoOptions::class.java)
 
     private val variantOperations = mutableListOf<Action<KotlinMultiplatformAndroidVariant>>()
     private var actionsExecuted = false

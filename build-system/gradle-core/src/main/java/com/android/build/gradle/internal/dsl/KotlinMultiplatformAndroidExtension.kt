@@ -21,6 +21,7 @@ import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.Installation
 import com.android.build.api.dsl.Optimization
 import com.android.build.api.dsl.Packaging
+import com.android.build.api.dsl.TestCoverage
 import com.android.build.api.dsl.TestOptions
 import com.android.build.api.variant.impl.KotlinMultiplatformAndroidVariant
 import java.io.File
@@ -77,6 +78,10 @@ interface KotlinMultiplatformAndroidExtension {
 
     var testFunctionalTest: Boolean?
 
+    var isTestMultiDexEnabled: Boolean?
+    var testMultiDexKeepProguard: File?
+    var isCoreLibraryDesugaringEnabled: Boolean
+
     val installation: Installation
 
     // should this be here?
@@ -87,6 +92,11 @@ interface KotlinMultiplatformAndroidExtension {
 
     var enableUnitTest: Boolean
     var enableAndroidTest: Boolean
+
+    var enableUnitTestCoverage: Boolean
+    var enableInstrumentedTestCoverage: Boolean
+
+    val testCoverage: TestCoverage
 
     fun onVariant(
         callback: KotlinMultiplatformAndroidVariant.() -> Unit

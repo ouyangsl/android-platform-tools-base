@@ -23,21 +23,24 @@ import com.android.tools.profgen.Diagnostics
 import com.android.tools.profgen.HumanReadableProfile
 import com.android.tools.profgen.ObfuscationMap
 import com.android.tools.profgen.dumpProfile
+import com.android.tools.profgen.extractProfileAsDm
 import kotlinx.cli.ArgType
 import kotlinx.cli.ExperimentalCli
 import kotlinx.cli.Subcommand
 import kotlinx.cli.default
 import kotlinx.cli.required
 import java.io.File
+import kotlin.io.path.Path
 import kotlin.system.exitProcess
 
+@Suppress("unused") // Values are referenced by name as shell args
 @ExperimentalCli
-enum class ArtProfileFormat {
-    V0_1_5_S, // targets S+
-    V0_1_0_P, // targets P -> R
-    V0_0_9_OMR1, // targets Android O MR1
-    V0_0_5_O, // targets O
-    V0_0_1_N // targets N
+enum class ArtProfileFormat(internal val serializer: ArtProfileSerializer) {
+    V0_1_5_S(ArtProfileSerializer.V0_1_5_S), // targets S+
+    V0_1_0_P(ArtProfileSerializer.V0_1_0_P), // targets P -> R
+    V0_0_9_OMR1(ArtProfileSerializer.V0_0_9_OMR1), // targets Android O MR1
+    V0_0_5_O(ArtProfileSerializer.V0_0_5_O), // targets O
+    V0_0_1_N(ArtProfileSerializer.V0_0_1_N) // targets N
 }
 
 @ExperimentalCli
@@ -50,37 +53,30 @@ class BinCommand : Subcommand("bin", "Generate Binary Profile") {
     val artProfileFormat by option(ArgType.Choice<ArtProfileFormat>(), "profile-format", "pf", "The ART profile format version").default(ArtProfileFormat.V0_1_0_P)
 
     override fun execute() {
-        val hrpFile = File(hrpPath)
+        val hrpFile = Path(hrpPath).toFile()
         require(hrpFile.exists()) { "File not found: $hrpPath" }
 
-        val apkFile = File(apkPath)
+        val apkFile = Path(apkPath).toFile()
         require(apkFile.exists()) { "File not found: $apkPath" }
 
-        val obfFile = obfPath?.let { File(it) }
+        val obfFile = obfPath?.let { Path(it).toFile() }
         require(obfFile?.exists() != false) { "File not found: $obfPath" }
 
-        val metaFile = metaPath?.let { File(it) }
+        val metaFile = metaPath?.let { Path(it).toFile() }
         if (metaFile != null) {
             require(metaFile.parentFile.exists()) {
                 "Directory does not exist: ${metaFile.parent}"
             }
         }
 
-        val outFile = File(outPath)
+        val outFile = Path(outPath).toFile()
         require(outFile.parentFile.exists()) { "Directory does not exist: ${outFile.parent}" }
 
         val hrp = readHumanReadableProfileOrExit(hrpFile)
         val apk = Apk(apkFile)
         val obf = if (obfFile != null) ObfuscationMap(obfFile) else ObfuscationMap.Empty
         val profile = ArtProfile(hrp, obf, apk)
-        val version = when(artProfileFormat) {
-            ArtProfileFormat.V0_1_0_P -> ArtProfileSerializer.V0_1_0_P
-            ArtProfileFormat.V0_1_5_S -> ArtProfileSerializer.V0_1_5_S
-            ArtProfileFormat.V0_0_9_OMR1 -> ArtProfileSerializer.V0_0_9_OMR1
-            ArtProfileFormat.V0_0_5_O -> ArtProfileSerializer.V0_0_5_O
-            ArtProfileFormat.V0_0_1_N -> ArtProfileSerializer.V0_0_1_N
-        }
-        profile.save(outFile.outputStream(), version)
+        profile.save(outFile.outputStream(), artProfileFormat.serializer)
         if (metaFile != null) {
             profile.save(metaFile.outputStream(), ArtProfileSerializer.METADATA_0_0_2)
         }
@@ -88,10 +84,32 @@ class BinCommand : Subcommand("bin", "Generate Binary Profile") {
 }
 
 @ExperimentalCli
+class ExtractProfileCommand : Subcommand("extractProfile", "Extract Binary Profile as versioned dex metadata") {
+    private val apkPath by option(ArgType.String, "apk", "a", "File path to apk").required()
+    private val outPath by option(ArgType.String, "output-dex-metadata", "odm", "File path to generated dex metadata output").required()
+    private val artProfileFormat by option(ArgType.Choice<ArtProfileFormat>(), "profile-format", "pf", "The ART profile format version").default(ArtProfileFormat.V0_1_0_P)
+
+    override fun execute() {
+        val apkFile = Path(apkPath).toFile()
+        require(apkFile.exists()) { "File not found: $apkPath" }
+
+        val outFile = Path(outPath).toFile()
+        require(outFile.parentFile.exists()) { "Directory does not exist: ${outFile.parent}" }
+
+        extractProfileAsDm(
+            apkFile = apkFile,
+            profileSerializer = artProfileFormat.serializer,
+            metadataSerializer = ArtProfileSerializer.METADATA_0_0_2,
+            outputStream = outFile.outputStream()
+        )
+    }
+}
+
+@ExperimentalCli
 class ValidateCommand : Subcommand("validate", "Validate Profile") {
     val hrpPath by argument(ArgType.String, "profile", "File path to Human Readable profile")
     override fun execute() {
-        val hrpFile = File(hrpPath)
+        val hrpFile = Path(hrpPath).toFile()
         require(hrpFile.exists()) { "File not found: $hrpPath" }
         HumanReadableProfile(hrpFile, StdErrorDiagnostics)
     }
@@ -104,16 +122,16 @@ class PrintCommand : Subcommand("print", "Print methods matching profile") {
     val outPath by option(ArgType.String, "output", "o", "File path to generated binary profile").required()
     val obfPath by option(ArgType.String, "map", "m", "File path to name obfuscation map")
     override fun execute() {
-        val hrpFile = File(hrpPath)
+        val hrpFile = Path(hrpPath).toFile()
         require(hrpFile.exists()) { "File not found: $hrpPath" }
 
-        val apkFile = File(apkPath)
+        val apkFile = Path(apkPath).toFile()
         require(apkFile.exists()) { "File not found: $apkPath" }
 
-        val obfFile = obfPath?.let { File(it) }
+        val obfFile = obfPath?.let { Path(it).toFile() }
         require(obfFile?.exists() != false) { "File not found: $obfPath" }
 
-        val outFile = File(outPath)
+        val outFile = Path(outPath).toFile()
         require(outFile.parentFile.exists()) { "Directory does not exist: ${outFile.parent}" }
 
         val hrp = readHumanReadableProfileOrExit(hrpFile)
@@ -131,16 +149,16 @@ class ProfileDumpCommand: Subcommand("dumpProfile", "Dump a binary profile to a 
     val strictMode by option(ArgType.Boolean, "strict", "s", "Strict mode").default(value = true)
     val outPath by option(ArgType.String, "output", "o", "File path for the HRF").required()
     override fun execute() {
-        val binFile = File(binPath)
+        val binFile = Path(binPath).toFile()
         require(binFile.exists()) { "File not found: $binPath" }
 
-        val apkFile = File(apkPath)
+        val apkFile = Path(apkPath).toFile()
         require(apkFile.exists()) { "File not found: $apkPath" }
 
-        val obfFile = obfPath?.let { File(it) }
+        val obfFile = obfPath?.let { Path(it).toFile() }
         require(obfFile?.exists() != false) { "File not found: $obfPath" }
 
-        val outFile = File(outPath)
+        val outFile = Path(outPath).toFile()
         require(outFile.parentFile.exists()) { "Directory does not exist: ${outFile.parent}" }
 
         val profile = ArtProfile(binFile)!!

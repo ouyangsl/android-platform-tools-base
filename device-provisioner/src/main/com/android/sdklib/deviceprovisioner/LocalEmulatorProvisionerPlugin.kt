@@ -65,6 +65,7 @@ import kotlinx.coroutines.withContext
  * rescanned after an edit is made via a device action.
  */
 class LocalEmulatorProvisionerPlugin(
+  private val scope: CoroutineScope,
   private val adbSession: AdbSession,
   private val avdManager: AvdManager,
   rescanPeriod: Duration = Duration.ofSeconds(10)
@@ -82,8 +83,6 @@ class LocalEmulatorProvisionerPlugin(
     suspend fun startAvd(avdInfo: AvdInfo)
     suspend fun stopAvd(avdInfo: AvdInfo)
   }
-
-  private val scope = adbSession.scope
 
   // We can identify local emulators reliably, so this can be relatively high priority.
   override val priority = 100
@@ -212,6 +211,7 @@ class LocalEmulatorProvisionerPlugin(
           avdName = handle.avdInfo.name
           displayName = handle.avdInfo.displayName
           disambiguator = port.toString()
+          wearPairingId = path.toString()
         }
       handle.stateFlow.value = Connected(properties, device)
       handle
@@ -227,6 +227,7 @@ class LocalEmulatorProvisionerPlugin(
       avdName = avdInfo.name
       displayName = avdInfo.displayName
       deviceType = avdInfo.tag.toDeviceType()
+      wearPairingId = avdInfo.id
     }
 
   private fun IdDisplay.toDeviceType(): DeviceType =
