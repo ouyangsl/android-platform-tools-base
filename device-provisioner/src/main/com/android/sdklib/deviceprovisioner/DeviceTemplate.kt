@@ -19,9 +19,11 @@ package com.android.sdklib.deviceprovisioner
  * A DeviceTemplate contains the information necessary to activate / lease a device from a
  * provisioner. In contrast to a DeviceHandle, it does not refer to a specific device: each
  * activation produces a different device.
+ *
+ * A [DeviceTemplate] instance should be immutable.
  */
 interface DeviceTemplate {
-  val displayName: String
+  val properties: DeviceProperties
 
   /**
    * An action that instantiates the template as a specific device. This may involve obtaining a

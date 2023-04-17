@@ -58,8 +58,8 @@ public class LintVitalTest {
                         + "    dependenciesInfo.includeInApk = false"
                         + "}\n"
                         + "dependencies {\n"
-                        + "    androidTestImplementation \"com.android.support.test:runner:${project.testSupportLibVersion}\"\n"
-                        + "    androidTestImplementation \"com.android.support.test:rules:${project.testSupportLibVersion}\"\n"
+                        + "    androidTestImplementation \"com.android.support.test:runner:${libs.versions.testSupportLibVersion.get()}\"\n"
+                        + "    androidTestImplementation \"com.android.support.test:rules:${libs.versions.testSupportLibVersion.get()}\"\n"
                         + "}\n"
                         // Make sure lint task is created on plugin apply, not afterEvaluate.
                         + "task(\"myCheck\").dependsOn(lint)\n"

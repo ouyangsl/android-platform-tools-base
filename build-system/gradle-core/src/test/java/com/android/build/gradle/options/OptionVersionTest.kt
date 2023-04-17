@@ -39,12 +39,12 @@ class OptionVersionTest {
          * IMPORTANT: Add a tracking bug to ensure all pending issues are fixed before beta
          * releases of each version.
          *  - Tracking bug for AGP 8.0: b/243560711
+         *  - Tracking bug for AGP 8.2: b/277803353
          */
         private val KNOWN_VIOLATING_DEPRECATED_OPTIONS: List<Option<*>> = listOf(
-            BooleanOption.ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM,
-            BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM,
-            BooleanOption.ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM,
-            BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM_FOR_EXTERNAL_LIBS,
+           BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM,
+           BooleanOption.ENABLE_DEXING_DESUGARING_ARTIFACT_TRANSFORM,
+           BooleanOption.ENABLE_DEXING_ARTIFACT_TRANSFORM_FOR_EXTERNAL_LIBS
         )
 
         private fun getStableAgpVersionIgnoringDotReleases(versionString: String): AgpVersion {

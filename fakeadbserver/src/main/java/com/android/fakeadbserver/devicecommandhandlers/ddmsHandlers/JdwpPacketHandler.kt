@@ -17,9 +17,8 @@ package com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers
 
 import com.android.fakeadbserver.ClientState
 import com.android.fakeadbserver.DeviceState
-import java.io.OutputStream
 
-interface JdwpPacketHandler {
+fun interface JdwpPacketHandler {
 
     /**
      * Interface for fake debugger to handle incoming JDWP packets
@@ -27,7 +26,7 @@ interface JdwpPacketHandler {
      * @param device The device associated with the client
      * @param client The client associated with the connection
      * @param packet The packet that is being handled
-     * @param oStream The stream to write the response to
+     * @param jdwpHandlerOutput The stream to write the response to
      * @return If true the fake debugger should continue accepting packets, if false it should
      * terminate the session
      */
@@ -35,7 +34,7 @@ interface JdwpPacketHandler {
         device: DeviceState,
         client: ClientState,
         packet: JdwpPacket,
-        oStream: OutputStream
+        jdwpHandlerOutput: JdwpHandlerOutput
     ): Boolean
 }
 

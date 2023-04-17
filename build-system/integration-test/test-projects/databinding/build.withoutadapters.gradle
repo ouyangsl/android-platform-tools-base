@@ -19,9 +19,9 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "android.databinding.testapp"
-    compileSdkVersion rootProject.latestCompileSdk
-    buildToolsVersion rootProject.buildToolsVersion
-    defaultConfig.minSdkVersion rootProject.supportLibMinSdk
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
+    buildToolsVersion libs.versions.buildToolsVersion.get()
+    defaultConfig.minSdkVersion libs.versions.supportLibMinSdk.get()
     buildFeatures {
         dataBinding = true
     }
@@ -35,8 +35,8 @@ dependencies {
     if (useAndroidX == null) {
         throw new IllegalArgumentException("must provide androidX property")
     } else if (useAndroidX == "true") {
-        implementation "androidx.databinding:databinding-runtime:${rootProject.buildVersion}"
+        implementation "androidx.databinding:databinding-runtime:${libs.versions.buildVersion.get()}"
     } else {
-        implementation "com.android.databinding:library:${rootProject.buildVersion}"
+        implementation "com.android.databinding:library:${libs.versions.buildVersion.get()}"
     }
 }

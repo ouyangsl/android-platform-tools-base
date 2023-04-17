@@ -43,12 +43,12 @@ public class PseudoApiChangesTest {
                     "DefaultApiVersion",
                     "LibraryRequest",
                     "ManifestAttributeSupplier",
-                    "ModuleBooleanPropertyKeys",
-                    "ModuleStringPropertyKeys",
+                    "ModulePropertyKey",
                     "StandardOutErrMessageReceiver",
                     "ToolsRevisionUtils",
                     "ComponentType",
-                    "ComponentTypeImpl");
+                    "ComponentTypeImpl",
+                    "DefaultAidl");
 
     @Test
     public void stableImplementationClassesTest() throws IOException {

@@ -15,10 +15,15 @@
  */
 package com.android.ide.common.repository;
 
+import static com.android.ide.common.repository.KnownVersionStabilityKt.getStability;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
+import com.android.ide.common.gradle.Component;
 import com.android.ide.common.gradle.Version;
+import com.android.ide.common.gradle.VersionRange;
 import com.google.common.base.Joiner;
+import com.google.common.collect.Range;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -577,11 +582,19 @@ public final class GradleCoordinate {
     }
 
     /** Returns the dependency version range of this coordinate */
-    @Nullable
-    public GradleVersionRange getVersionRange() {
-        KnownVersionStability stability =
-                KnownVersionStabilityKt.stabilityOf(mGroupId, mArtifactId, getRevision());
-        return GradleVersionRange.tryParse(getRevision(), stability);
+    @NonNull
+    public VersionRange getVersionRange() {
+        String revision = getRevision();
+        if (acceptsGreaterRevisions()) {
+            return VersionRange.Companion.parse(revision);
+        } else {
+            Version version = Version.Companion.parse(getRevision());
+            Component component = new Component(mGroupId, mArtifactId, version);
+            KnownVersionStability stability = getStability(component);
+            // this is [version,expiration), where stability.expiration(...) has computed the
+            // appropriate prefixInfimum for the maven-style upper bound.
+            return new VersionRange(Range.closedOpen(version, stability.expiration(version)));
+        }
     }
 
     public boolean isPreview() {

@@ -18,7 +18,9 @@ package com.android.ide.common.repository
 import com.android.SdkConstants.ANNOTATIONS_LIB_ARTIFACT_ID
 import com.android.SdkConstants.MATERIAL2_PKG
 import com.android.SdkConstants.SUPPORT_LIB_GROUP_ID
+import com.android.ide.common.gradle.Component
 import com.android.ide.common.gradle.Version
+import com.android.ide.common.gradle.VersionRange
 
 private const val FIREBASE_GROUP_ID = "com.google.firebase"
 private const val GOOGLE_MOBILE_SERVICES_GROUP_ID = "com.google.android.gms"
@@ -68,7 +70,7 @@ enum class KnownVersionStability {
    *
    * For a given minimum [version] return the maximum or expiration [version] of a
    * dependency with a given stability. This is used to generate the exclusive upper
-   * bound in a [GradleVersionRange].
+   * bound in a [VersionRange], and should always be a prefixInfimum [Version].
    */
   fun expiration(version: Version): Version =
         when (this) {
@@ -79,20 +81,25 @@ enum class KnownVersionStability {
         }
 }
 
+val Component.stability get() = when {
+    group == KOTLIN_GROUP_ID -> kotlinStabilityOf(name)
+    group == GOOGLE_MOBILE_SERVICES_GROUP_ID -> gmsAndFirebaseStability(version)
+    group == FIREBASE_GROUP_ID -> gmsAndFirebaseStability(version)
+    group == MATERIAL2_PKG -> KnownVersionStability.SEMANTIC
+    group == SUPPORT_LIB_GROUP_ID -> supportLibStability(name)
+    MavenRepositories.isAndroidX(group) -> KnownVersionStability.SEMANTIC
+    else -> KnownVersionStability.INCOMPATIBLE
+}
+
+@Deprecated(
+    "replace with Component.stability",
+    ReplaceWith("Component(groupId, artifactId, Version.parse(revision)).stability")
+)
 fun stabilityOf(
     groupId: String,
     artifactId: String,
     revision: String = "1.0.0"
-): KnownVersionStability =
-    when {
-        groupId == KOTLIN_GROUP_ID -> kotlinStabilityOf(artifactId)
-        groupId == GOOGLE_MOBILE_SERVICES_GROUP_ID -> gmsAndFirebaseStability(revision)
-        groupId == FIREBASE_GROUP_ID -> gmsAndFirebaseStability(revision)
-        groupId == MATERIAL2_PKG -> KnownVersionStability.SEMANTIC
-        groupId == SUPPORT_LIB_GROUP_ID -> supportLibStability(artifactId)
-        MavenRepositories.isAndroidX(groupId) -> KnownVersionStability.SEMANTIC
-        else -> KnownVersionStability.INCOMPATIBLE
-    }
+): KnownVersionStability = Component(groupId, artifactId, Version.parse(revision)).stability
 
 private fun kotlinStabilityOf(artifactId: String): KnownVersionStability =
     when (artifactId) {
@@ -107,13 +114,15 @@ private fun kotlinStabilityOf(artifactId: String): KnownVersionStability =
         else -> KnownVersionStability.INCOMPATIBLE
     }
 
-private fun gmsAndFirebaseStability(revision: String): KnownVersionStability {
-    val version = GradleVersion.tryParse(revision)
-    return if (version != null && version.major >= GMS_AND_FIREBASE_SEMANTIC_START)
-        KnownVersionStability.SEMANTIC
-    else
-        KnownVersionStability.INCOMPATIBLE
+private fun gmsAndFirebaseStability(version: Version): KnownVersionStability {
+    val major = version.major
+    return when {
+        major == null -> KnownVersionStability.INCOMPATIBLE
+        major >= GMS_AND_FIREBASE_SEMANTIC_START -> KnownVersionStability.SEMANTIC
+        else -> KnownVersionStability.INCOMPATIBLE
+    }
 }
+
 
 /**
  * Stability of legacy support libraries.

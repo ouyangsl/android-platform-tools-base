@@ -6,8 +6,8 @@ project.ext.fakeServer = new com.android.tests.basic.buildscript.FakeServer()
 android {
     namespace "com.android.tests.testprojecttest.app"
     testNamespace "com.android.tests.testprojecttest.test"
-    compileSdkVersion rootProject.latestCompileSdk
-    buildToolsVersion = rootProject.buildToolsVersion
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
 
     deviceProvider project.fakeProvider
     testServer project.fakeServer
@@ -19,7 +19,7 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion rootProject.supportLibMinSdk
+        minSdkVersion libs.versions.supportLibMinSdk.get()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 }
@@ -48,6 +48,6 @@ project.afterEvaluate {
 
 dependencies {
     api project(':lib')
-    androidTestImplementation "com.android.support.test:runner:${project.testSupportLibVersion}"
-    androidTestImplementation "com.android.support.test:rules:${project.testSupportLibVersion}"
+    androidTestImplementation "com.android.support.test:runner:${libs.versions.testSupportLibVersion.get()}"
+    androidTestImplementation "com.android.support.test:rules:${libs.versions.testSupportLibVersion.get()}"
 }

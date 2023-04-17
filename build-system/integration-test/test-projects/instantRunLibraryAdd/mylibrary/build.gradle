@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 android {
     namespace "noapkrebuilt.tests.android.com.mylibrary"
     compileSdkVersion 24
-    buildToolsVersion rootProject.buildToolsVersion
+    buildToolsVersion libs.versions.buildToolsVersion.get()
 
     defaultConfig {
         minSdkVersion 19
@@ -25,5 +25,5 @@ android {
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    api "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+    api "com.android.support:appcompat-v7:${libs.versions.supportLibVersion.get()}"
 }

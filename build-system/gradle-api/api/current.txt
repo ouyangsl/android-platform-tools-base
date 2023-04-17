@@ -1395,10 +1395,14 @@ package com.android.build.api.dsl {
   }
 
   public interface ManagedDevices {
+    method public org.gradle.api.ExtensiblePolymorphicDomainObjectContainer<com.android.build.api.dsl.Device> getAllDevices();
     method public org.gradle.api.ExtensiblePolymorphicDomainObjectContainer<com.android.build.api.dsl.Device> getDevices();
     method public org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.DeviceGroup> getGroups();
+    method @org.gradle.api.Incubating public org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.ManagedVirtualDevice> getLocalDevices();
+    property public abstract org.gradle.api.ExtensiblePolymorphicDomainObjectContainer<com.android.build.api.dsl.Device> allDevices;
     property public abstract org.gradle.api.ExtensiblePolymorphicDomainObjectContainer<com.android.build.api.dsl.Device> devices;
     property public abstract org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.DeviceGroup> groups;
+    property @org.gradle.api.Incubating public abstract org.gradle.api.NamedDomainObjectContainer<com.android.build.api.dsl.ManagedVirtualDevice> localDevices;
   }
 
   @org.gradle.api.Incubating public interface ManagedVirtualDevice extends com.android.build.api.dsl.Device {
@@ -1625,10 +1629,12 @@ package com.android.build.api.dsl {
 
   public interface SdkComponents {
     method public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getAdb();
+    method @org.gradle.api.Incubating public org.gradle.api.provider.Provider<com.android.build.api.variant.Aidl> getAidl();
     method public org.gradle.api.provider.Provider<java.util.List<org.gradle.api.file.RegularFile>> getBootClasspath();
     method public org.gradle.api.provider.Provider<org.gradle.api.file.Directory> getNdkDirectory();
     method public org.gradle.api.provider.Provider<org.gradle.api.file.Directory> getSdkDirectory();
     property public abstract org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> adb;
+    property @org.gradle.api.Incubating public abstract org.gradle.api.provider.Provider<com.android.build.api.variant.Aidl> aidl;
     property public abstract org.gradle.api.provider.Provider<java.util.List<org.gradle.api.file.RegularFile>> bootClasspath;
     property public abstract org.gradle.api.provider.Provider<org.gradle.api.file.Directory> ndkDirectory;
     property public abstract org.gradle.api.provider.Provider<org.gradle.api.file.Directory> sdkDirectory;
@@ -2065,19 +2071,28 @@ package com.android.build.api.variant {
     property @org.gradle.api.Incubating public abstract org.gradle.api.provider.Property<java.lang.Integer> minCompileSdkExtension;
   }
 
+  @org.gradle.api.Incubating public interface Aidl {
+    method @org.gradle.api.tasks.Internal public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getExecutable();
+    method @org.gradle.api.tasks.InputFile @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.NAME_ONLY) public org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> getFramework();
+    method @org.gradle.api.tasks.Input public org.gradle.api.provider.Provider<java.lang.String> getVersion();
+    property @org.gradle.api.tasks.Internal public abstract org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> executable;
+    property @org.gradle.api.tasks.InputFile @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.NAME_ONLY) public abstract org.gradle.api.provider.Provider<org.gradle.api.file.RegularFile> framework;
+    property @org.gradle.api.tasks.Input public abstract org.gradle.api.provider.Provider<java.lang.String> version;
+  }
+
   public interface AndroidComponentsExtension<DslExtensionT extends com.android.build.api.dsl.CommonExtension<?, ?, ?, ?, ?>, VariantBuilderT extends com.android.build.api.variant.VariantBuilder, VariantT extends com.android.build.api.variant.Variant> extends com.android.build.api.variant.DslLifecycle<DslExtensionT> {
     method public void beforeVariants(optional com.android.build.api.variant.VariantSelector selector, kotlin.jvm.functions.Function1<? super VariantBuilderT,kotlin.Unit> callback);
     method public void beforeVariants(optional com.android.build.api.variant.VariantSelector selector, org.gradle.api.Action<VariantBuilderT> callback);
     method @Deprecated public void finalizeDSl(org.gradle.api.Action<DslExtensionT> callback);
     method public com.android.build.api.AndroidPluginVersion getPluginVersion();
-    method @org.gradle.api.Incubating public com.android.build.api.dsl.SdkComponents getSdkComponents();
+    method public com.android.build.api.dsl.SdkComponents getSdkComponents();
     method public void onVariants(optional com.android.build.api.variant.VariantSelector selector, kotlin.jvm.functions.Function1<? super VariantT,kotlin.Unit> callback);
     method public void onVariants(optional com.android.build.api.variant.VariantSelector selector, org.gradle.api.Action<VariantT> callback);
     method @org.gradle.api.Incubating public void registerExtension(com.android.build.api.variant.DslExtension dslExtension, kotlin.jvm.functions.Function1<? super com.android.build.api.variant.VariantExtensionConfig<VariantT>,? extends com.android.build.api.variant.VariantExtension> configurator);
     method @org.gradle.api.Incubating public void registerSourceType(String name);
     method public com.android.build.api.variant.VariantSelector selector();
     property public abstract com.android.build.api.AndroidPluginVersion pluginVersion;
-    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.SdkComponents sdkComponents;
+    property public abstract com.android.build.api.dsl.SdkComponents sdkComponents;
   }
 
   public interface AndroidResources {
@@ -2126,7 +2141,7 @@ package com.android.build.api.variant {
   public interface ApplicationAndroidComponentsExtension extends com.android.build.api.variant.AndroidComponentsExtension<com.android.build.api.dsl.ApplicationExtension,com.android.build.api.variant.ApplicationVariantBuilder,com.android.build.api.variant.ApplicationVariant> {
   }
 
-  public interface ApplicationVariant extends com.android.build.api.variant.GeneratesApk com.android.build.api.variant.CanMinifyAndroidResources com.android.build.api.variant.CanMinifyCode com.android.build.api.variant.HasAndroidTest com.android.build.api.variant.HasTestFixtures com.android.build.api.variant.Variant {
+  public interface ApplicationVariant extends com.android.build.api.variant.GeneratesApk com.android.build.api.variant.CanMinifyAndroidResources com.android.build.api.variant.CanMinifyCode com.android.build.api.variant.HasAndroidTest com.android.build.api.variant.HasTestFixtures com.android.build.api.variant.HasUnitTest com.android.build.api.variant.Variant {
     method public org.gradle.api.provider.Property<java.lang.String> getApplicationId();
     method @org.gradle.api.Incubating public com.android.build.api.variant.BundleConfig getBundleConfig();
     method public com.android.build.api.variant.DependenciesInfo getDependenciesInfo();
@@ -2139,7 +2154,7 @@ package com.android.build.api.variant {
     property public abstract com.android.build.api.variant.SigningConfig signingConfig;
   }
 
-  public interface ApplicationVariantBuilder extends com.android.build.api.variant.VariantBuilder com.android.build.api.variant.CanMinifyAndroidResourcesBuilder com.android.build.api.variant.CanMinifyCodeBuilder com.android.build.api.variant.GeneratesApkBuilder com.android.build.api.variant.HasAndroidTestBuilder com.android.build.api.variant.HasTestFixturesBuilder {
+  public interface ApplicationVariantBuilder extends com.android.build.api.variant.VariantBuilder com.android.build.api.variant.CanMinifyAndroidResourcesBuilder com.android.build.api.variant.CanMinifyCodeBuilder com.android.build.api.variant.GeneratesApkBuilder com.android.build.api.variant.HasAndroidTestBuilder com.android.build.api.variant.HasTestFixturesBuilder com.android.build.api.variant.HasUnitTestBuilder {
     method public boolean getDebuggable();
     method public com.android.build.api.variant.DependenciesInfoBuilder getDependenciesInfo();
     property public abstract boolean debuggable;
@@ -2226,26 +2241,26 @@ package com.android.build.api.variant {
   }
 
   public interface Component extends com.android.build.api.variant.ComponentIdentity {
-    method @org.gradle.api.Incubating public org.gradle.api.artifacts.Configuration getAnnotationProcessorConfiguration();
+    method public org.gradle.api.artifacts.Configuration getAnnotationProcessorConfiguration();
     method public com.android.build.api.artifact.Artifacts getArtifacts();
     method @org.gradle.api.Incubating public org.gradle.api.file.FileCollection getCompileClasspath();
-    method @org.gradle.api.Incubating public org.gradle.api.artifacts.Configuration getCompileConfiguration();
+    method public org.gradle.api.artifacts.Configuration getCompileConfiguration();
     method public com.android.build.api.variant.Instrumentation getInstrumentation();
     method @org.gradle.api.Incubating public com.android.build.api.variant.JavaCompilation getJavaCompilation();
     method public org.gradle.api.provider.Provider<java.lang.String> getNamespace();
-    method @org.gradle.api.Incubating public org.gradle.api.artifacts.Configuration getRuntimeConfiguration();
-    method @org.gradle.api.Incubating public com.android.build.api.variant.Sources getSources();
+    method public org.gradle.api.artifacts.Configuration getRuntimeConfiguration();
+    method public com.android.build.api.variant.Sources getSources();
     method @Deprecated public void setAsmFramesComputationMode(com.android.build.api.instrumentation.FramesComputationMode mode);
     method @Deprecated public <ParamT extends com.android.build.api.instrumentation.InstrumentationParameters> void transformClassesWith(Class<? extends com.android.build.api.instrumentation.AsmClassVisitorFactory<ParamT>> classVisitorFactoryImplClass, com.android.build.api.instrumentation.InstrumentationScope scope, kotlin.jvm.functions.Function1<? super ParamT,kotlin.Unit> instrumentationParamsConfig);
-    property @org.gradle.api.Incubating public abstract org.gradle.api.artifacts.Configuration annotationProcessorConfiguration;
+    property public abstract org.gradle.api.artifacts.Configuration annotationProcessorConfiguration;
     property public abstract com.android.build.api.artifact.Artifacts artifacts;
     property @org.gradle.api.Incubating public abstract org.gradle.api.file.FileCollection compileClasspath;
-    property @org.gradle.api.Incubating public abstract org.gradle.api.artifacts.Configuration compileConfiguration;
+    property public abstract org.gradle.api.artifacts.Configuration compileConfiguration;
     property public abstract com.android.build.api.variant.Instrumentation instrumentation;
     property @org.gradle.api.Incubating public abstract com.android.build.api.variant.JavaCompilation javaCompilation;
     property public abstract org.gradle.api.provider.Provider<java.lang.String> namespace;
-    property @org.gradle.api.Incubating public abstract org.gradle.api.artifacts.Configuration runtimeConfiguration;
-    property @org.gradle.api.Incubating public abstract com.android.build.api.variant.Sources sources;
+    property public abstract org.gradle.api.artifacts.Configuration runtimeConfiguration;
+    property public abstract com.android.build.api.variant.Sources sources;
   }
 
   public interface ComponentBuilder extends com.android.build.api.variant.ComponentIdentity {
@@ -2276,12 +2291,18 @@ package com.android.build.api.variant {
   }
 
   public interface DependenciesInfoBuilder {
-    method public boolean getIncludedInApk();
-    method public boolean getIncludedInBundle();
-    method public void setIncludedInApk(boolean includedInApk);
-    method public void setIncludedInBundle(boolean includedInBundle);
-    property public abstract boolean includedInApk;
-    property public abstract boolean includedInBundle;
+    method public boolean getIncludeInApk();
+    method public boolean getIncludeInBundle();
+    method @Deprecated public boolean getIncludedInApk();
+    method @Deprecated public boolean getIncludedInBundle();
+    method public void setIncludeInApk(boolean includeInApk);
+    method public void setIncludeInBundle(boolean includeInBundle);
+    method @Deprecated public void setIncludedInApk(boolean includedInApk);
+    method @Deprecated public void setIncludedInBundle(boolean includedInBundle);
+    property public abstract boolean includeInApk;
+    property public abstract boolean includeInBundle;
+    property @Deprecated public abstract boolean includedInApk;
+    property @Deprecated public abstract boolean includedInBundle;
   }
 
   public interface DexPackagingOptions {
@@ -2316,10 +2337,10 @@ package com.android.build.api.variant {
   public interface DynamicFeatureAndroidComponentsExtension extends com.android.build.api.variant.AndroidComponentsExtension<com.android.build.api.dsl.DynamicFeatureExtension,com.android.build.api.variant.DynamicFeatureVariantBuilder,com.android.build.api.variant.DynamicFeatureVariant> {
   }
 
-  public interface DynamicFeatureVariant extends com.android.build.api.variant.Variant com.android.build.api.variant.GeneratesApk com.android.build.api.variant.HasAndroidTest com.android.build.api.variant.HasTestFixtures {
+  public interface DynamicFeatureVariant extends com.android.build.api.variant.Variant com.android.build.api.variant.GeneratesApk com.android.build.api.variant.HasAndroidTest com.android.build.api.variant.HasTestFixtures com.android.build.api.variant.HasUnitTest {
   }
 
-  public interface DynamicFeatureVariantBuilder extends com.android.build.api.variant.VariantBuilder com.android.build.api.variant.GeneratesApkBuilder com.android.build.api.variant.HasAndroidTestBuilder com.android.build.api.variant.HasTestFixturesBuilder {
+  public interface DynamicFeatureVariantBuilder extends com.android.build.api.variant.VariantBuilder com.android.build.api.variant.GeneratesApkBuilder com.android.build.api.variant.HasAndroidTestBuilder com.android.build.api.variant.HasTestFixturesBuilder com.android.build.api.variant.HasUnitTestBuilder {
   }
 
   public interface ExternalNativeBuild {
@@ -2424,6 +2445,17 @@ package com.android.build.api.variant {
     property public abstract boolean enableTestFixtures;
   }
 
+  public interface HasUnitTest {
+    method public com.android.build.api.variant.UnitTest? getUnitTest();
+    property public abstract com.android.build.api.variant.UnitTest? unitTest;
+  }
+
+  public interface HasUnitTestBuilder {
+    method public boolean getEnableUnitTest();
+    method public void setEnableUnitTest(boolean enableUnitTest);
+    property public abstract boolean enableUnitTest;
+  }
+
   public interface Instrumentation {
     method public org.gradle.api.provider.SetProperty<java.lang.String> getExcludes();
     method public void setAsmFramesComputationMode(com.android.build.api.instrumentation.FramesComputationMode mode);
@@ -2455,12 +2487,12 @@ package com.android.build.api.variant {
   public interface LibraryAndroidComponentsExtension extends com.android.build.api.variant.AndroidComponentsExtension<com.android.build.api.dsl.LibraryExtension,com.android.build.api.variant.LibraryVariantBuilder,com.android.build.api.variant.LibraryVariant> {
   }
 
-  public interface LibraryVariant extends com.android.build.api.variant.Variant com.android.build.api.variant.CanMinifyCode com.android.build.api.variant.GeneratesAar com.android.build.api.variant.HasAndroidTest com.android.build.api.variant.HasTestFixtures {
+  public interface LibraryVariant extends com.android.build.api.variant.Variant com.android.build.api.variant.CanMinifyCode com.android.build.api.variant.GeneratesAar com.android.build.api.variant.HasAndroidTest com.android.build.api.variant.HasTestFixtures com.android.build.api.variant.HasUnitTest {
     method public com.android.build.api.variant.Renderscript? getRenderscript();
     property public abstract com.android.build.api.variant.Renderscript? renderscript;
   }
 
-  public interface LibraryVariantBuilder extends com.android.build.api.variant.VariantBuilder com.android.build.api.variant.CanMinifyCodeBuilder com.android.build.api.variant.HasAndroidTestBuilder com.android.build.api.variant.HasTestFixturesBuilder {
+  public interface LibraryVariantBuilder extends com.android.build.api.variant.VariantBuilder com.android.build.api.variant.CanMinifyCodeBuilder com.android.build.api.variant.HasAndroidTestBuilder com.android.build.api.variant.HasTestFixturesBuilder com.android.build.api.variant.HasUnitTestBuilder {
   }
 
   @org.gradle.api.Incubating public interface LintLifecycleExtension extends com.android.build.api.variant.DslLifecycle<com.android.build.api.dsl.Lint> {
@@ -2536,31 +2568,31 @@ package com.android.build.api.variant {
     property public abstract org.gradle.api.provider.Property<java.lang.Boolean> enableV4Signing;
   }
 
-  @org.gradle.api.Incubating public interface SourceDirectories extends org.gradle.api.Named {
+  public interface SourceDirectories extends org.gradle.api.Named {
     method public <TASK extends org.gradle.api.Task> void addGeneratedSourceDirectory(org.gradle.api.tasks.TaskProvider<TASK> taskProvider, kotlin.jvm.functions.Function1<? super TASK,? extends org.gradle.api.file.DirectoryProperty> wiredWith);
     method public void addStaticSourceDirectory(String srcDir);
   }
 
-  @org.gradle.api.Incubating public static interface SourceDirectories.Flat extends com.android.build.api.variant.SourceDirectories {
+  public static interface SourceDirectories.Flat extends com.android.build.api.variant.SourceDirectories {
     method public org.gradle.api.provider.Provider<? extends java.util.Collection<org.gradle.api.file.Directory>> getAll();
     property public abstract org.gradle.api.provider.Provider<? extends java.util.Collection<org.gradle.api.file.Directory>> all;
   }
 
-  @org.gradle.api.Incubating public static interface SourceDirectories.Layered extends com.android.build.api.variant.SourceDirectories {
+  public static interface SourceDirectories.Layered extends com.android.build.api.variant.SourceDirectories {
     method public org.gradle.api.provider.Provider<java.util.List<java.util.Collection<org.gradle.api.file.Directory>>> getAll();
     property public abstract org.gradle.api.provider.Provider<java.util.List<java.util.Collection<org.gradle.api.file.Directory>>> all;
   }
 
-  @org.gradle.api.Incubating public interface Sources {
+  public interface Sources {
     method public com.android.build.api.variant.SourceDirectories.Flat? getAidl();
     method public com.android.build.api.variant.SourceDirectories.Layered? getAssets();
     method public com.android.build.api.variant.SourceDirectories.Flat? getBaselineProfiles();
-    method public com.android.build.api.variant.SourceDirectories.Flat getByName(String name);
+    method @org.gradle.api.Incubating public com.android.build.api.variant.SourceDirectories.Flat getByName(String name);
     method public com.android.build.api.variant.SourceDirectories.Flat? getJava();
     method public com.android.build.api.variant.SourceDirectories.Layered? getJniLibs();
-    method public com.android.build.api.variant.SourceDirectories.Flat? getKotlin();
+    method @org.gradle.api.Incubating public com.android.build.api.variant.SourceDirectories.Flat? getKotlin();
     method public com.android.build.api.variant.SourceDirectories.Layered? getMlModels();
-    method @Deprecated public com.android.build.api.variant.SourceDirectories.Flat? getRenderscript();
+    method public com.android.build.api.variant.SourceDirectories.Flat? getRenderscript();
     method public com.android.build.api.variant.SourceDirectories.Layered? getRes();
     method public com.android.build.api.variant.SourceDirectories.Flat? getResources();
     method public com.android.build.api.variant.SourceDirectories.Layered? getShaders();
@@ -2569,9 +2601,9 @@ package com.android.build.api.variant {
     property public abstract com.android.build.api.variant.SourceDirectories.Flat? baselineProfiles;
     property public abstract com.android.build.api.variant.SourceDirectories.Flat? java;
     property public abstract com.android.build.api.variant.SourceDirectories.Layered? jniLibs;
-    property public abstract com.android.build.api.variant.SourceDirectories.Flat? kotlin;
+    property @org.gradle.api.Incubating public abstract com.android.build.api.variant.SourceDirectories.Flat? kotlin;
     property public abstract com.android.build.api.variant.SourceDirectories.Layered? mlModels;
-    property @Deprecated public abstract com.android.build.api.variant.SourceDirectories.Flat? renderscript;
+    property public abstract com.android.build.api.variant.SourceDirectories.Flat? renderscript;
     property public abstract com.android.build.api.variant.SourceDirectories.Layered? res;
     property public abstract com.android.build.api.variant.SourceDirectories.Flat? resources;
     property public abstract com.android.build.api.variant.SourceDirectories.Layered? shaders;
@@ -2616,7 +2648,7 @@ package com.android.build.api.variant {
     method public com.android.build.api.variant.Packaging getPackaging();
     method public org.gradle.api.provider.ListProperty<org.gradle.api.file.RegularFile> getProguardFiles();
     method @Deprecated public com.android.build.api.variant.AndroidVersion getTargetSdkVersion();
-    method public com.android.build.api.component.UnitTest? getUnitTest();
+    method @Deprecated public com.android.build.api.component.UnitTest? getUnitTest();
     property public abstract org.gradle.api.provider.MapProperty<java.lang.String,com.android.build.api.variant.BuildConfigField<? extends java.io.Serializable>> buildConfigFields;
     property @org.gradle.api.Incubating public abstract java.util.List<com.android.build.api.variant.Component> components;
     property @org.gradle.api.Incubating public abstract org.gradle.api.provider.MapProperty<java.lang.String,java.lang.Object> experimentalProperties;
@@ -2630,11 +2662,11 @@ package com.android.build.api.variant {
     property public abstract com.android.build.api.variant.Packaging packaging;
     property public abstract org.gradle.api.provider.ListProperty<org.gradle.api.file.RegularFile> proguardFiles;
     property @Deprecated public abstract com.android.build.api.variant.AndroidVersion targetSdkVersion;
-    property public abstract com.android.build.api.component.UnitTest? unitTest;
+    property @Deprecated public abstract com.android.build.api.component.UnitTest? unitTest;
   }
 
   public interface VariantBuilder extends com.android.build.api.variant.ComponentBuilder {
-    method public boolean getEnableUnitTest();
+    method @Deprecated public boolean getEnableUnitTest();
     method public Integer? getMaxSdk();
     method public Integer? getMinSdk();
     method public String? getMinSdkPreview();
@@ -2643,7 +2675,7 @@ package com.android.build.api.variant {
     method @Deprecated public String? getTargetSdkPreview();
     method @Deprecated public boolean getUnitTestEnabled();
     method public <T> void registerExtension(Class<? extends T> type, T instance);
-    method public void setEnableUnitTest(boolean enableUnitTest);
+    method @Deprecated public void setEnableUnitTest(boolean enableUnitTest);
     method public void setMaxSdk(Integer? maxSdk);
     method public void setMinSdk(Integer? minSdk);
     method public void setMinSdkPreview(String? minSdkPreview);
@@ -2651,7 +2683,7 @@ package com.android.build.api.variant {
     method @Deprecated public void setTargetSdk(Integer? targetSdk);
     method @Deprecated public void setTargetSdkPreview(String? targetSdkPreview);
     method @Deprecated public void setUnitTestEnabled(boolean unitTestEnabled);
-    property public abstract boolean enableUnitTest;
+    property @Deprecated public abstract boolean enableUnitTest;
     property public abstract Integer? maxSdk;
     property public abstract Integer? minSdk;
     property public abstract String? minSdkPreview;
@@ -2722,6 +2754,7 @@ package com.android.build.api.variant {
     method public com.android.build.api.variant.VariantSelector all();
     method public com.android.build.api.variant.VariantSelector withBuildType(String buildType);
     method public com.android.build.api.variant.VariantSelector withFlavor(kotlin.Pair<java.lang.String,java.lang.String> flavorToDimension);
+    method public com.android.build.api.variant.VariantSelector withFlavor(String dimension, String flavorName);
     method public com.android.build.api.variant.VariantSelector withName(java.util.regex.Pattern pattern);
     method public com.android.build.api.variant.VariantSelector withName(String name);
   }

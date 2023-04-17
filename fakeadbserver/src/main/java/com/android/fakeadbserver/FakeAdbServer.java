@@ -27,11 +27,6 @@ import com.android.fakeadbserver.devicecommandhandlers.JdwpCommandHandler;
 import com.android.fakeadbserver.devicecommandhandlers.ReverseForwardCommandHandler;
 import com.android.fakeadbserver.devicecommandhandlers.TrackAppCommandHandler;
 import com.android.fakeadbserver.devicecommandhandlers.TrackJdwpCommandHandler;
-import com.android.fakeadbserver.execcommandhandlers.CatExecCommandHandler;
-import com.android.fakeadbserver.execcommandhandlers.CmdExecCommandHandler;
-import com.android.fakeadbserver.execcommandhandlers.GetPropExecCommandHandler;
-import com.android.fakeadbserver.execcommandhandlers.PackageExecCommandHandler;
-import com.android.fakeadbserver.execcommandhandlers.PingExecCommandHandler;
 import com.android.fakeadbserver.hostcommandhandlers.FeaturesCommandHandler;
 import com.android.fakeadbserver.hostcommandhandlers.ForwardCommandHandler;
 import com.android.fakeadbserver.hostcommandhandlers.GetDevPathCommandHandler;
@@ -58,6 +53,7 @@ import com.android.fakeadbserver.shellcommandhandlers.EchoCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.GetPropCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.LogcatCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.PackageManagerCommandHandler;
+import com.android.fakeadbserver.shellcommandhandlers.PingCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.RmCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.SetPropCommandHandler;
 import com.android.fakeadbserver.shellcommandhandlers.ShellProtocolEchoCommandHandler;
@@ -573,23 +569,20 @@ public final class FakeAdbServer implements AutoCloseable {
             addDeviceHandler(new FakeSyncCommandHandler());
             addDeviceHandler(new ReverseForwardCommandHandler());
 
-            // Exec commands
-            addDeviceHandler(new CatExecCommandHandler());
-            addDeviceHandler(new CmdExecCommandHandler());
-            addDeviceHandler(new GetPropExecCommandHandler());
-            addDeviceHandler(new PackageExecCommandHandler());
-            addDeviceHandler(new PingExecCommandHandler());
+            addDeviceHandler(new PingCommandHandler(ShellProtocolType.EXEC));
             addDeviceHandler(new RmCommandHandler(ShellProtocolType.SHELL));
-
             addDeviceHandler(new LogcatCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new GetPropCommandHandler(ShellProtocolType.EXEC));
             addDeviceHandler(new GetPropCommandHandler(ShellProtocolType.SHELL));
             addDeviceHandler(new GetPropCommandHandler(ShellProtocolType.SHELL_V2));
             addDeviceHandler(new SetPropCommandHandler(ShellProtocolType.SHELL));
             addDeviceHandler(new WriteNoStopCommandHandler(ShellProtocolType.SHELL));
             addDeviceHandler(new PackageManagerCommandHandler(ShellProtocolType.SHELL));
             addDeviceHandler(new WindowManagerCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new CmdCommandHandler(ShellProtocolType.EXEC));
             addDeviceHandler(new CmdCommandHandler(ShellProtocolType.SHELL));
             addDeviceHandler(new DumpsysCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new CatCommandHandler(ShellProtocolType.EXEC));
             addDeviceHandler(new CatCommandHandler(ShellProtocolType.SHELL));
             addDeviceHandler(new CatCommandHandler(ShellProtocolType.SHELL_V2));
             addDeviceHandler(new EchoCommandHandler(ShellProtocolType.SHELL));
@@ -597,6 +590,7 @@ public final class FakeAdbServer implements AutoCloseable {
             addDeviceHandler(new AbbCommandHandler());
             addDeviceHandler(new AbbExecCommandHandler());
             addDeviceHandler(new ActivityManagerCommandHandler(ShellProtocolType.SHELL));
+            addDeviceHandler(new ActivityManagerCommandHandler(ShellProtocolType.SHELL_V2));
             addDeviceHandler(new JdwpCommandHandler());
             addDeviceHandler(new StatCommandHandler(ShellProtocolType.SHELL));
 

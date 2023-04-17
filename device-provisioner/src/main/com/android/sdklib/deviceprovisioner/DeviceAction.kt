@@ -73,7 +73,11 @@ interface EditAction : DeviceAction {
 }
 
 interface EditTemplateAction : DeviceAction {
-  suspend fun edit()
+  /**
+   * Invokes a UI to make edits to the template. If the edits are accepted, returns the new template
+   * that was created.
+   */
+  suspend fun edit(): DeviceTemplate?
 }
 
 /** Deletes the given device from any persistent storage. */
@@ -84,14 +88,13 @@ interface DeleteAction : DeviceAction {
 interface ReservationAction : DeviceAction {
   /**
    * Attempts to reserve the device for the given duration. If there is already an active
-   * reservation, this will attempt to set its remaining duration. The reservation may be cancelled
-   * by setting its duration to zero.
+   * reservation, this will attempt to extend the reservation for the given duration.
    *
    * If the operation is successful, the new state should be reflected in the device's
    * [Reservation]. If we fail to update an active reservation, but the reservation remains active,
-   * its [ReservationState] should remain ACTIVE, and a [ReservationException] should be thrown.
+   * its [ReservationState] should remain ACTIVE, and a [DeviceActionException] should be thrown.
    *
-   * If we fail to reserve a device, a [ReservationException] should be thrown, with a
+   * If we fail to reserve a device, a [DeviceActionException] should be thrown, with a
    * user-appropriate message. Also, the device's [ReservationState] should be set to FAILED.
    *
    * @return the new end time of the reservation

@@ -20,8 +20,8 @@ iml_module(
         "//prebuilts/tools/common/archive-patcher:explainer",
         "//prebuilts/tools/common/archive-patcher:generator",
         "//prebuilts/tools/common/archive-patcher:shared",
-        "//tools/adt/idea/.idea/libraries:dexlib2",
-        "//tools/adt/idea/.idea/libraries:baksmali",
+        "//tools/adt/idea/.idea/libraries:google-dexlib2",
+        "//tools/adt/idea/.idea/libraries:google-baksmali",
         "//tools/base/testutils:studio.android.sdktools.testutils[module, test]",
         "//tools/adt/idea/.idea/libraries:truth[test]",
         "//tools/adt/idea/.idea/libraries:jimfs[test]",
@@ -43,9 +43,9 @@ coverage_java_library(
         "//tools/base/common:tools.common",
         "//tools/base/sdk-common:tools.sdk-common",
         "//tools/base/sdklib:tools.sdklib",
+        "@maven//:com.android.tools.smali.smali-baksmali",
+        "@maven//:com.android.tools.smali.smali-dexlib2",
         "@maven//:com.google.guava.guava",
-        "@maven//:org.smali.baksmali",
-        "@maven//:org.smali.dexlib2",
     ],
 )
 
@@ -69,9 +69,9 @@ maven_library(
         "//tools/base/common:tools.common",
         "//tools/base/sdk-common:tools.sdk-common",
         "//tools/base/sdklib:tools.sdklib",
+        "@maven//:com.android.tools.smali.smali-baksmali",
+        "@maven//:com.android.tools.smali.smali-dexlib2",
         "@maven//:com.google.guava.guava",
-        "@maven//:org.smali.baksmali",
-        "@maven//:org.smali.dexlib2",
     ],
 )
 
@@ -86,9 +86,9 @@ coverage_java_test(
         "//tools/base/annotations",
         "//tools/base/common:tools.common",
         "//tools/base/testutils:tools.testutils",
+        "@maven//:com.android.tools.smali.smali-dexlib2",
         "@maven//:com.google.jimfs.jimfs",
         "@maven//:com.google.truth.truth",
         "@maven//:junit.junit",
-        "@maven//:org.smali.dexlib2",
     ],
 )

@@ -6,8 +6,8 @@ dependencies {
     api project(':lib')
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation "com.android.support.test:runner:${project.testSupportLibVersion}"
-    androidTestImplementation "com.android.support.test:rules:${project.testSupportLibVersion}"
+    androidTestImplementation "com.android.support.test:runner:${libs.versions.testSupportLibVersion.get()}"
+    androidTestImplementation "com.android.support.test:rules:${libs.versions.testSupportLibVersion.get()}"
 }
 
 // map for the version code for ABIs.
@@ -17,24 +17,24 @@ ext.versionCodes = ["armeabi-v7a":1, "mips":2, "x86":3, "all":0]
 
 android {
     namespace "com.example.hellojni.app"
-    compileSdkVersion rootProject.latestCompileSdk
-    buildToolsVersion = rootProject.buildToolsVersion
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
 
     defaultConfig {
         // This actual the app version code. Giving ourselves 100,000 values [0, 99999]
         versionCode 123
-        minSdkVersion rootProject.ndk19SupportLibMinSdk
+        minSdkVersion libs.versions.ndk19SupportLibMinSdk.get()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     flavorDimensions 'version'
     productFlavors {
         gingerbread {
-            minSdkVersion rootProject.ndk19SupportLibMinSdk
+            minSdkVersion libs.versions.ndk19SupportLibMinSdk.get()
             versionCode = 1
         }
         icecreamSandwich {
-            minSdkVersion rootProject.ndk19SupportLibMinSdk
+            minSdkVersion libs.versions.ndk19SupportLibMinSdk.get()
             versionCode = 2
         }
     }

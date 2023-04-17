@@ -145,8 +145,8 @@ val composeWearActivityWithTileAndComplicationTemplate
             help = "The name of the tile service class to create"
             constraints = listOf(CLASS, UNIQUE, NONEMPTY)
         }
-        val complciationServiceClass = stringParameter {
-            name = "Tile Service Name"
+        val complicationServiceClass = stringParameter {
+            name = "Complication Service Name"
             default = "MainComplicationService"
             help = "The name of the complication service class to create"
             constraints = listOf(CLASS, UNIQUE, NONEMPTY)
@@ -195,7 +195,7 @@ val composeWearActivityWithTileAndComplicationTemplate
         widgets(
             TextFieldWidget(activityClass),
             TextFieldWidget(tileServiceClass),
-            TextFieldWidget(complciationServiceClass),
+            TextFieldWidget(complicationServiceClass),
             PackageNameWidget(packageName),
             CheckBoxWidget(isLauncher),
             // Invisible widgets to pass data
@@ -212,7 +212,7 @@ val composeWearActivityWithTileAndComplicationTemplate
                 activityClass.value,
                 tileServiceClass.value,
                 tilePreview.value,
-                complciationServiceClass.value,
+                complicationServiceClass.value,
                 packageName.value,
                 isLauncher.value,
                 greeting.value,

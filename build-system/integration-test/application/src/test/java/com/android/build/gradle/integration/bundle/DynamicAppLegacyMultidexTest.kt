@@ -67,14 +67,14 @@ class DynamicAppLegacyMultidexTest {
             |
             |android {
             |  namespace 'foo.feature'
-            |  compileSdkVersion rootProject.latestCompileSdk
+            |  compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
             |  defaultConfig {
             |    minSdkVersion 18
             |  }
             |  flavorDimensions 'foo'
             |  productFlavors {
             |    ics {
-            |      minSdkVersion rootProject.supportLibMinSdk
+            |      minSdkVersion libs.versions.supportLibMinSdk.get()
             |    }
             |    lollipop {
             |      minSdkVersion 21

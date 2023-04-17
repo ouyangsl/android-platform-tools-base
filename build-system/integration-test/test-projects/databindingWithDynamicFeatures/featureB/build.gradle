@@ -18,8 +18,8 @@ apply plugin: 'com.android.dynamic-feature'
 
 android {
     namespace "com.example.featureB"
-    compileSdkVersion rootProject.latestCompileSdk
-    buildToolsVersion = rootProject.buildToolsVersion
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
     defaultConfig {
         minSdkVersion 23
         versionCode 1
@@ -36,6 +36,6 @@ dependencies {
     // TODO: remove once we are fully on AndroidX
     implementation 'android.arch.lifecycle:runtime:1.1.0'
     // runtime classpath is not exported by the base
-    implementation 'com.android.support:appcompat-v7:' + rootProject.supportLibVersion
-    implementation 'com.android.support.constraint:constraint-layout:' + rootProject.constraintLayoutVersion
+    implementation 'com.android.support:appcompat-v7:' + libs.versions.supportLibVersion.get()
+    implementation 'com.android.support.constraint:constraint-layout:' + libs.versions.constraintLayoutVersion.get()
 }

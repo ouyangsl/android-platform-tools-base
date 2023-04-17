@@ -22,13 +22,13 @@ import com.android.ide.common.repository.GoogleMavenRepository.Companion.MAVEN_G
 import com.android.ide.common.repository.GradleCoordinate
 import com.android.sdklib.AndroidVersion
 import com.android.sdklib.IAndroidTarget
-import com.android.sdklib.SdkVersionInfo.HIGHEST_KNOWN_STABLE_API
 import com.android.sdklib.SdkVersionInfo.LOWEST_ACTIVE_API
 import com.android.testutils.MockitoKt.whenever
 import com.android.testutils.TestUtils
 import com.android.tools.lint.checks.GradleDetector.Companion.ACCIDENTAL_OCTAL
 import com.android.tools.lint.checks.GradleDetector.Companion.AGP_DEPENDENCY
 import com.android.tools.lint.checks.GradleDetector.Companion.ANNOTATION_PROCESSOR_ON_COMPILE_PATH
+import com.android.tools.lint.checks.GradleDetector.Companion.BOM_WITHOUT_PLATFORM
 import com.android.tools.lint.checks.GradleDetector.Companion.BUNDLED_GMS
 import com.android.tools.lint.checks.GradleDetector.Companion.CHROMEOS_ABI_SUPPORT
 import com.android.tools.lint.checks.GradleDetector.Companion.COMPATIBILITY
@@ -65,8 +65,10 @@ import com.android.tools.lint.checks.GradleDetector.Companion.getNamedDependency
 import com.android.tools.lint.checks.infrastructure.TestFiles.gradleToml
 import com.android.tools.lint.checks.infrastructure.TestIssueRegistry
 import com.android.tools.lint.checks.infrastructure.TestLintTask
+import com.android.tools.lint.checks.infrastructure.TestMode
 import com.android.tools.lint.checks.infrastructure.platformPath
 import com.android.tools.lint.client.api.LintClient
+import com.android.tools.lint.client.api.LintClient.Companion.clientName
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Implementation
 import com.android.tools.lint.detector.api.Project
@@ -79,6 +81,7 @@ import java.util.Calendar
 import java.util.function.Predicate
 import java.util.zip.GZIPOutputStream
 import junit.framework.TestCase
+import org.junit.rules.TemporaryFolder
 import org.mockito.Mockito.mock
 
 /**
@@ -4665,6 +4668,80 @@ class GradleDetectorTest : AbstractCheckTest() {
       )
   }
 
+  fun testTargetEdited() {
+    val temporaryFolder = TemporaryFolder()
+    temporaryFolder.create()
+    try {
+      val rootDirectory = temporaryFolder.root.canonicalFile
+
+      fun createLintTask(targetSdkVersion: Int, name: String = "build.gradle"): TestLintTask {
+        return lint()
+          .rootDirectory(rootDirectory)
+          .files(
+            gradle(
+                name,
+                """
+                apply plugin: 'com.android.application'
+
+                android {
+                    defaultConfig {
+                        targetSdkVersion $targetSdkVersion
+                    }
+                }
+                """
+              )
+              .indented()
+          )
+          .issues(GradleDetector.EDITED_TARGET_SDK_VERSION)
+          .incremental(name)
+          .clientFactory {
+            com.android.tools.lint.checks.infrastructure
+              .TestLintClient(LintClient.CLIENT_STUDIO)
+              .apply { addCleanupDir(rootDirectory) }
+          }
+          .testModes(TestMode.DEFAULT)
+      }
+
+      // Initial edit: no problem
+      createLintTask(31).run().expectClean()
+
+      // Lower version: no problem
+      createLintTask(30).run().expectClean()
+
+      // Higher person: problem
+      createLintTask(32)
+        .run()
+        .expect(
+          """
+          build.gradle:5: Error: It looks like you just edited the targetSdkVersion from 31 to 32 in the editor. Be sure to consult the documentation on the behaviors that change as result of this. The Android SDK Upgrade Assistant can help with safely migrating. [EditedTargetSdkVersion]
+                  targetSdkVersion 32
+                  ~~~~~~~~~~~~~~~~~~~
+          1 errors, 0 warnings
+          """
+        )
+
+      // Ok if you change it back
+      createLintTask(31).run().expectClean()
+
+      // OK on a different file
+      createLintTask(32, "settings.gradle").run().expectClean()
+
+      // ...until we edit it there too
+      createLintTask(33, "settings.gradle")
+        .run()
+        .expect(
+          """
+          settings.gradle:5: Error: It looks like you just edited the targetSdkVersion from 32 to 33 in the editor. Be sure to consult the documentation on the behaviors that change as result of this. The Android SDK Upgrade Assistant can help with safely migrating. [EditedTargetSdkVersion]
+                  targetSdkVersion 33
+                  ~~~~~~~~~~~~~~~~~~~
+          1 errors, 0 warnings
+          """
+        )
+    } finally {
+      temporaryFolder.delete()
+    }
+  }
+
   fun testExpiring1() {
     // Not meeting last year's requirement either
     try {
@@ -4701,18 +4778,6 @@ class GradleDetectorTest : AbstractCheckTest() {
                             targetSdk 17
                             ~~~~~~~~~~~~
                     2 errors, 0 warnings
-                    """
-        )
-        .expectFixDiffs(
-          """
-                    Fix for build.gradle line 5: Update targetSdkVersion to $HIGHEST_KNOWN_STABLE_API:
-                    @@ -5 +5
-                    -         targetSdkVersion 17
-                    +         targetSdkVersion $HIGHEST_KNOWN_STABLE_API
-                    Fix for build.gradle line 6: Update targetSdk to $HIGHEST_KNOWN_STABLE_API:
-                    @@ -6 +6
-                    -         targetSdk 17
-                    +         targetSdk $HIGHEST_KNOWN_STABLE_API
                     """
         )
     } finally {
@@ -4755,14 +4820,6 @@ class GradleDetectorTest : AbstractCheckTest() {
                     1 errors, 0 warnings
                     """
         )
-        .expectFixDiffs(
-          """
-                    Fix for build.gradle line 6: Update targetSdkVersion to $HIGHEST_KNOWN_STABLE_API:
-                    @@ -6 +6
-                    -         targetSdkVersion 30
-                    +         targetSdkVersion $HIGHEST_KNOWN_STABLE_API
-                    """
-        )
     } finally {
       GradleDetector.calendar = null
     }
@@ -4800,14 +4857,6 @@ class GradleDetectorTest : AbstractCheckTest() {
                     1 errors, 0 warnings
                     """
         )
-        .expectFixDiffs(
-          """
-                    Fix for build.gradle line 5: Update targetSdkVersion to $HIGHEST_KNOWN_STABLE_API:
-                    @@ -5 +5
-                    -         targetSdkVersion 17
-                    +         targetSdkVersion $HIGHEST_KNOWN_STABLE_API
-                    """
-        )
     } finally {
       GradleDetector.calendar = null
     }
@@ -4843,14 +4892,6 @@ class GradleDetectorTest : AbstractCheckTest() {
                             targetSdkVersion 'O'
                             ~~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
-                    """
-        )
-        .expectFixDiffs(
-          """
-                    Fix for build.gradle line 5: Update targetSdkVersion to $HIGHEST_KNOWN_STABLE_API:
-                    @@ -5 +5
-                    -         targetSdkVersion 'O'
-                    +         targetSdkVersion $HIGHEST_KNOWN_STABLE_API
                     """
         )
     } finally {
@@ -5970,6 +6011,109 @@ class GradleDetectorTest : AbstractCheckTest() {
       )
   }
 
+  fun testBomWithoutPlatform() {
+    lint()
+      .files(
+        gradleToml(
+            """
+            [versions]
+            composeBom = "2023.01.00"
+            [libraries]
+            compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+            """
+          )
+          .indented(),
+        gradle(
+            """
+            plugins {
+                id 'com.android.application'
+                id 'kotlin-android'
+            }
+            dependencies {
+                implementation(libs.compose.bom)
+                testImplementation(libs.compose.bom)
+                testImplementation "androidx.compose:compose-bom:2023.01.00"
+                api("androidx.compose:compose-bom:2023.01.00")
+            }
+            """
+          )
+          .indented()
+      )
+      .issues(BOM_WITHOUT_PLATFORM)
+      .run()
+      .expect(
+        """
+        build.gradle:6: Warning: BOM should be added with a call to platform() [BomWithoutPlatform]
+            implementation(libs.compose.bom)
+                           ~~~~~~~~~~~~~~~~
+        build.gradle:7: Warning: BOM should be added with a call to platform() [BomWithoutPlatform]
+            testImplementation(libs.compose.bom)
+                               ~~~~~~~~~~~~~~~~
+        build.gradle:8: Warning: BOM should be added with a call to platform() [BomWithoutPlatform]
+            testImplementation "androidx.compose:compose-bom:2023.01.00"
+                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        build.gradle:9: Warning: BOM should be added with a call to platform() [BomWithoutPlatform]
+            api("androidx.compose:compose-bom:2023.01.00")
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        0 errors, 4 warnings
+        """
+      )
+      .expectFixDiffs(
+        """
+        Fix for build.gradle line 6: Add platform() to BOM declaration:
+        @@ -6 +6
+        -     implementation(libs.compose.bom)
+        +     implementation(platform(libs.compose.bom))
+        Fix for build.gradle line 7: Add platform() to BOM declaration:
+        @@ -7 +7
+        -     testImplementation(libs.compose.bom)
+        +     testImplementation(platform(libs.compose.bom))
+        Fix for build.gradle line 8: Add platform() to BOM declaration:
+        @@ -8 +8
+        -     testImplementation "androidx.compose:compose-bom:2023.01.00"
+        +     testImplementation platform("androidx.compose:compose-bom:2023.01.00")
+        Fix for build.gradle line 9: Add platform() to BOM declaration:
+        @@ -9 +9
+        -     api("androidx.compose:compose-bom:2023.01.00")
+        +     api(platform("androidx.compose:compose-bom:2023.01.00"))
+        """
+      )
+  }
+
+  fun testBomWithoutPlatformClean() {
+    lint()
+      .files(
+        gradleToml(
+            """
+            [versions]
+            composeBom = "2023.01.00"
+            [libraries]
+            compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+            """
+          )
+          .indented(),
+        gradle(
+            """
+            plugins {
+                id 'com.android.application'
+                id 'kotlin-android'
+            }
+            dependencies {
+                def composeBom = platform(libs.compose.bom)
+                implementation(composeBom)
+                implementation(platform(libs.compose.bom))
+                api(platform("androidx.compose:compose-bom:2023.01.00"))
+                testImplementation(platform("androidx.compose:compose-bom:2023.01.00"))
+            }
+            """
+          )
+          .indented()
+      )
+      .issues(BOM_WITHOUT_PLATFORM)
+      .run()
+      .expectClean()
+  }
+
   fun testJavaLanguageLevelClean() {
     val sourceCompatibility =
       listOf(
@@ -6835,6 +6979,15 @@ class GradleDetectorTest : AbstractCheckTest() {
                 </androidx.slidingpanelayout>
                 """
           .trimIndent()
+      )
+      task.networkData(
+        "https://maven.google.com/androidx/compose/group-index.xml",
+        """
+        <?xml version="1.0" encoding="UTF-8"?>
+        <androidx.compose>
+          <compose-bom versions="2022.10.00,2022.11.00,2022.12.00,2023.01.00"/>
+        </androidx.compose>
+        """
       )
       task.networkData(
         "https://maven.google.com/androidx/compose/foundation/group-index.xml",

@@ -19,15 +19,16 @@ package com.android.build.gradle.internal.dsl
 import com.android.build.api.dsl.AarMetadata
 import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.Installation
-import com.android.build.api.dsl.Optimization
 import com.android.build.api.dsl.Packaging
+import com.android.build.api.dsl.TestCoverage
 import com.android.build.api.dsl.TestOptions
+import com.android.build.api.variant.impl.KotlinMultiplatformAndroidVariant
 import java.io.File
 
 /**
  * Temporary interface to develop the kotlin multiplatform android plugin.
  *
- * TODO(b/243387425): Move to gradle-api
+ * TODO(b/267309622): Move to gradle-api
  */
 interface KotlinMultiplatformAndroidExtension {
     var minSdk: Int?
@@ -53,15 +54,8 @@ interface KotlinMultiplatformAndroidExtension {
 
     val packagingOptions: Packaging
 
-    // optimization stuff
-
-    var isMinifyEnabled: Boolean
-
-    val proguardFiles: MutableList<File>
-    val consumerProguardFiles: MutableList<File>
-    val testProguardFiles: MutableList<File>
-
-    val optimization: Optimization
+    val optimization: KmpOptimization
+    fun optimization(action: KmpOptimization.() -> Unit)
 
     // test stuff. todo, combine to a test block
 
@@ -76,6 +70,10 @@ interface KotlinMultiplatformAndroidExtension {
 
     var testFunctionalTest: Boolean?
 
+    var isTestMultiDexEnabled: Boolean?
+    var testMultiDexKeepProguard: File?
+    var isCoreLibraryDesugaringEnabled: Boolean
+
     val installation: Installation
 
     // should this be here?
@@ -86,4 +84,13 @@ interface KotlinMultiplatformAndroidExtension {
 
     var enableUnitTest: Boolean
     var enableAndroidTest: Boolean
+
+    var enableUnitTestCoverage: Boolean
+    var enableInstrumentedTestCoverage: Boolean
+
+    val testCoverage: TestCoverage
+
+    fun onVariant(
+        callback: KotlinMultiplatformAndroidVariant.() -> Unit
+    )
 }

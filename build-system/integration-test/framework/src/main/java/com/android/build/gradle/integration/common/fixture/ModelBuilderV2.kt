@@ -456,12 +456,22 @@ class FileNormalizerImpl(
         // normalize them.
         var s = string.replace('\\', '/')
         for ((root, varName, modifier) in rootDataList) {
-            val newS = s.replace(root.absolutePath.replace('\\', '/'), "{$varName}")
-            if (newS != s) {
-                // Only run the modifier is the current entry has some effects on the string being processed.
-                modifier?.let { s = it(s) }
+            val normalizedRootPath = root.absolutePath.replace('\\', '/')
+
+            if (s.contains(normalizedRootPath)) {
+                if (s.length == normalizedRootPath.length) {
+                    return "{$varName}"
+                }
+
+                val stringAfter = s.substringAfter(normalizedRootPath).removePrefix("/")
+                val stringBefore = s.substringBefore(normalizedRootPath)
+
+                val modifiedStringAfter = modifier?.let {
+                    modifier(stringAfter)
+                } ?: stringAfter
+
+                s = "$stringBefore{$varName}/$modifiedStringAfter"
             }
-            s = newS
         }
         return s
     }

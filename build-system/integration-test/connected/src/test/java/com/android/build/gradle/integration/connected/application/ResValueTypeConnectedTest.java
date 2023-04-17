@@ -96,13 +96,13 @@ public class ResValueTypeConnectedTest {
                         + "        resValue \"string\",            \"resString\",           \"00\"  // resString becomes \"0\" if it is incorrectly treated  as int.\n"
                         + "        resValue \"style\",             \"resStyle\",            \"foo\"\n"
                         + "\n"
-                        + "        minSdkVersion rootProject.supportLibMinSdk\n"
+                        + "        minSdkVersion libs.versions.supportLibMinSdk.get()\n"
                         + "        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'\n"
                         + "    }\n"
                         + "}\n"
                         + "\n"
                         + "dependencies {\n"
-                        + "    androidTestImplementation \"com.android.support.test:runner:${project.testSupportLibVersion}\"\n"
+                        + "    androidTestImplementation \"com.android.support.test:runner:${libs.versions.testSupportLibVersion.get()}\"\n"
                         + "}\n"
                         + "\n");
         // fail fast if no response

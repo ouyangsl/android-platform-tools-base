@@ -76,11 +76,6 @@ abstract class MergeJavaResourceTask
     @get:Classpath
     @get:Incremental
     @get:Optional
-    abstract val projectJavaResAsJars: ConfigurableFileCollection
-
-    @get:Classpath
-    @get:Incremental
-    @get:Optional
     abstract val subProjectJavaRes: ConfigurableFileCollection
 
     @get:Classpath
@@ -127,7 +122,6 @@ abstract class MergeJavaResourceTask
             doIncrementalTaskAction(
                     listOf(
                             inputChanges.getChangesInSerializableForm(projectJavaRes),
-                            inputChanges.getChangesInSerializableForm(projectJavaResAsJars),
                             inputChanges.getChangesInSerializableForm(subProjectJavaRes),
                             inputChanges.getChangesInSerializableForm(externalLibJavaRes),
                             inputChanges.getChangesInSerializableForm(featureJavaRes)
@@ -325,7 +319,6 @@ abstract class MergeJavaResourceTask
 
             // No sources in fused library projects, so none of the below need set.
             task.projectJavaRes.disallowChanges()
-            task.projectJavaResAsJars.disallowChanges()
             task.featureJavaRes.disallowChanges()
         }
 
@@ -377,7 +370,6 @@ abstract class MergeJavaResourceTask
 
             // No sources in fused library projects, so none of the below need set.
             task.projectJavaRes.disallowChanges()
-            task.projectJavaResAsJars.disallowChanges()
             task.featureJavaRes.disallowChanges()
         }
 
@@ -416,8 +408,7 @@ private fun getExternalLibJavaRes(
                 AndroidArtifacts.ArtifactType.JAVA_RES
             )
         )
-    }
-    if (mergeScopes.contains(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)) {
+    } else if (mergeScopes.contains(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)) {
         externalLibJavaRes.from(creationConfig.computeLocalPackagedJars())
     }
     return externalLibJavaRes
@@ -426,5 +417,5 @@ private fun getExternalLibJavaRes(
 /** Returns true if anything's been added to the annotation processor configuration. */
 fun projectHasAnnotationProcessors(creationConfig: ComponentCreationConfig): Boolean {
     val config = creationConfig.variantDependencies.annotationProcessorConfiguration
-    return config.incoming.dependencies.isNotEmpty()
+    return config != null && config.incoming.dependencies.isNotEmpty()
 }

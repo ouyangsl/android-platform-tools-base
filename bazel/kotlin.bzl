@@ -55,8 +55,8 @@ def kotlin_compile(ctx, name, srcs, deps, friend_jars, out, out_ijar, java_runti
     args.add("-Xsam-conversions=class")  # Needed for Gradle configuration caching (see b/202512551).
 
     tools = []
+    tools.append(ctx.file._jvm_abi_gen)
     if out_ijar:
-        tools.append(ctx.file._jvm_abi_gen)
         args.add(ctx.file._jvm_abi_gen, format = "-Xplugin=%s")
         args.add("-P", out_ijar, format = "plugin:org.jetbrains.kotlin.jvm.abi:outputDir=%s")
 
@@ -64,8 +64,8 @@ def kotlin_compile(ctx, name, srcs, deps, friend_jars, out, out_ijar, java_runti
     args.add("-Xallow-unstable-dependencies")
 
     # Use the Compiler Compose plugin
+    tools.append(ctx.file._compose_plugin)
     if ctx.attr.kotlin_use_compose:
-        tools.append(ctx.file._compose_plugin)
         args.add(ctx.file._compose_plugin, format = "-Xplugin=%s")
         args.add("-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true")
 
@@ -264,12 +264,11 @@ def _kotlin_library_impl(ctx):
             fail("Unexpected file type passed to kotlin_library target: " + src.path)
 
     name = ctx.label.name
-    use_ijar = not ctx.attr.testonly
 
     java_jar = ctx.actions.declare_file(name + ".java.jar") if java_srcs or source_jars else None
     kotlin_jar = ctx.actions.declare_file(name + ".kotlin.jar") if kotlin_srcs else None
-    kotlin_ijar = ctx.actions.declare_file(name + ".kotlin-ijar.jar") if kotlin_srcs and use_ijar else None
-    full_ijar = ctx.actions.declare_file(name + ".merged-ijar-kotlin-lib.jar") if use_ijar else None
+    kotlin_ijar = ctx.actions.declare_file(name + ".kotlin-ijar.jar") if kotlin_srcs else None
+    full_ijar = ctx.actions.declare_file(name + ".merged-ijar-kotlin-lib.jar")
 
     deps = [dep[JavaInfo] for dep in ctx.attr.deps + ctx.attr.exports]
     java_info_deps = [dep[JavaInfo] for dep in ctx.attr.deps]
@@ -300,8 +299,7 @@ def _kotlin_library_impl(ctx):
             transitive_classpath = True,  # Matches Java rules (sans strict-deps enforcement)
         )]
         jars += [kotlin_jar]
-        if use_ijar:
-            ijars += [kotlin_ijar]
+        ijars += [kotlin_ijar]
 
     # Resources.
     # We only add Resources to the output jar, but exclude them from the compile_jar.
@@ -324,12 +322,10 @@ def _kotlin_library_impl(ctx):
             javac_opts = java_common.default_javac_opts(java_toolchain = java_toolchain) + ctx.attr.javacopts,
             java_toolchain = java_toolchain,
             plugins = [plugin[JavaPluginInfo] for plugin in ctx.attr.plugins],
-            # TODO(b/216385876) After updating to Bazel 5.0, use enable_compile_jar_action = use_ijar,
         )
 
         jars += [java_jar]
-        if use_ijar:
-            ijars += java_provider.compile_jars.to_list()
+        ijars += java_provider.compile_jars.to_list()
 
     run_singlejar(
         ctx = ctx,
@@ -338,16 +334,15 @@ def _kotlin_library_impl(ctx):
         # allow_duplicates = True,  # TODO: Ideally we could be more strict here.
     )
 
-    if use_ijar:
-        run_singlejar(
-            ctx = ctx,
-            jars = ijars,
-            out = full_ijar,
-            # Even if there are no duplicates in the jars, there might be duplicates in the ijars.
-            # For example, protoc adds a stripped version of its runtime dependency under
-            # META-INF/TRANSITIVE, which results in duplicates for multiple proto dependencies.
-            allow_duplicates = True,
-        )
+    run_singlejar(
+        ctx = ctx,
+        jars = ijars,
+        out = full_ijar,
+        # Even if there are no duplicates in the jars, there might be duplicates in the ijars.
+        # For example, protoc adds a stripped version of its runtime dependency under
+        # META-INF/TRANSITIVE, which results in duplicates for multiple proto dependencies.
+        allow_duplicates = True,
+    )
 
     _sources(ctx, java_srcs + kotlin_srcs, source_jars, ctx.outputs.source_jar, java_toolchain)
 
@@ -412,6 +407,11 @@ _kotlin_library = rule(
         ),
         "_jvm_abi_gen": attr.label(
             default = Label("//prebuilts/tools/common/m2:jvm-abi-gen-plugin"),
+            cfg = "host",
+            allow_single_file = [".jar"],
+        ),
+        "_compose_plugin": attr.label(
+            default = Label("//prebuilts/tools/common/m2:compose-compiler-hosted"),
             cfg = "host",
             allow_single_file = [".jar"],
         ),

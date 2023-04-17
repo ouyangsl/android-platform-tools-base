@@ -26,6 +26,7 @@ import com.android.SdkConstants.PLATFORM_WINDOWS
 import com.android.SdkConstants.SUPPORT_LIB_GROUP_ID
 import com.android.SdkConstants.TAG_USES_FEATURE
 import com.android.SdkConstants.currentPlatform
+import com.android.ide.common.gradle.Component
 import com.android.ide.common.gradle.Version
 import com.android.ide.common.repository.GoogleMavenRepository
 import com.android.ide.common.repository.GoogleMavenRepository.Companion.MAVEN_GOOGLE_CACHE_DIR_KEY
@@ -280,8 +281,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
                     "November $MINIMUM_TARGET_SDK_VERSION_YEAR."
 
               val highest = context.client.highestKnownApiLevel
-              val label = "Update $property to $highest"
-              val fix = fix().name(label).replace().text(value).with(highest.toString()).build()
 
               // Don't report if already suppressed with EXPIRING
               val alreadySuppressed =
@@ -290,7 +289,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
                   context.isSuppressedWithComment(statementCookie, issue)
 
               if (!alreadySuppressed) {
-                report(context, statementCookie, issue, message, fix, true)
+                report(context, statementCookie, issue, message, null, true)
               }
               warned = true
             }
@@ -311,6 +310,19 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         }
         if (version > 0) {
           targetSdkVersion = version
+          if (LintClient.isStudio) {
+            //noinspection FileComparisons
+            if (lastTargetSdkVersion == -1 || lastTargetSdkVersionFile != context.file) {
+              lastTargetSdkVersion = version
+              lastTargetSdkVersionFile = context.file
+            } else if (targetSdkVersion > lastTargetSdkVersion) {
+              val message =
+                "It looks like you just edited the `targetSdkVersion` from $lastTargetSdkVersion to $targetSdkVersion in the editor. " +
+                  "Be sure to consult the documentation on the behaviors that change as result of this. " +
+                  "The Android SDK Upgrade Assistant can help with safely migrating."
+              report(context, statementCookie, EDITED_TARGET_SDK_VERSION, message)
+            }
+          }
           checkTargetCompatibility(context)
         } else {
           checkIntegerAsString(context, value, statementCookie, valueCookie)
@@ -577,6 +589,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
           if (property == "kapt") {
             checkKaptUsage(dependency, libTomlValue, context, statementCookie)
           }
+          checkForBomUsageWithoutPlatform(property, dependency, value, context, valueCookie)
         }
       }
     } else if (property == "packageNameSuffix") {
@@ -1314,10 +1327,12 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         .toPath()
         .resolve(dependency.groupId + File.separator + dependency.artifactId)
     return if (CancellableFileIo.exists(versionDir)) {
+      val component =
+        Component(dependency.groupId, dependency.artifactId, Version.parse(dependency.revision))
       MavenRepositories.getHighestVersion(
         versionDir,
         filter,
-        MavenRepositories.isPreview(dependency)
+        MavenRepositories.isPreview(component)
       )
     } else null
   }
@@ -2057,6 +2072,30 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     report(context, cookie, KTX_EXTENSION_AVAILABLE, msg, fix)
   }
 
+  private fun checkForBomUsageWithoutPlatform(
+    property: String,
+    dependency: String,
+    value: String,
+    context: GradleContext,
+    valueCookie: Any
+  ) {
+    if (
+      dependency.substringBeforeLast(':') in commonBoms &&
+        (CompileConfiguration.IMPLEMENTATION.matches(property) ||
+          CompileConfiguration.API.matches(property))
+    ) {
+      val message = "BOM should be added with a call to platform()"
+      val fix =
+        fix()
+          .name("Add platform() to BOM declaration", true)
+          .replace()
+          .text(value)
+          .with("platform($value)")
+          .build()
+      report(context, valueCookie, BOM_WITHOUT_PLATFORM, message, fix)
+    }
+  }
+
   /**
    * Report any blocked dependencies that weren't found in the build.gradle source file during
    * processing (we don't have accurate position info at this point)
@@ -2469,6 +2508,15 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
   }
 
   companion object {
+    private var lastTargetSdkVersion: Int = -1
+    private var lastTargetSdkVersionFile: File? = null
+
+    /** If you invoke the target SDK versin migration assistant, stop flagging edits. */
+    fun stopFlaggingTargetSdkEdits() {
+      lastTargetSdkVersion = Integer.MAX_VALUE
+      lastTargetSdkVersionFile = null
+    }
+
     /** Calendar to use to look up the current time (used by tests to set specific time. */
     var calendar: Calendar? = null
 
@@ -2992,6 +3040,43 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
           "https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
         )
 
+    /** targetSdkVersion was manually edited */
+    @JvmField
+    val EDITED_TARGET_SDK_VERSION =
+      Issue.create(
+        id = "EditedTargetSdkVersion",
+        briefDescription = "Manually Edited TargetSdkVersion",
+        explanation =
+          """
+        Updating the `targetSdkVersion` of an app is seemingly easy: just increment the \
+        `targetSdkVersion` number in the manifest file!
+
+        But that's not actually safe. The `targetSdkVersion` controls a wide range of \
+        behaviors that change from release to release, and to update, you should carefully \
+        consult the documentation to see what has changed, how your app may need to adjust, \
+        and then of course, carefully test everything.
+
+        In new versions of Android Studio, there is a special migration assistant, available \
+        from the tools menu (and as a quickfix from this lint warning) which analyzes your \
+        specific app and filters the set of applicable migration steps to those needed for \
+        your app.
+
+        This lint check does something very simple: it just detects whether it looks like \
+        you've manually edited the targetSdkVersion field in a build.gradle file. Obviously, \
+        as part of doing the above careful steps, you may end up editing the value, which \
+        would trigger the check -- and it's safe to ignore it; this lint check *only* runs \
+        in the IDE, not from the command line; it's sole purpose to bring *awareness* to the \
+        (many) developers who haven't been aware of this issue and have just bumped the \
+        targetSdkVersion, recompiled, and uploaded their updated app to the Google Play Store, \
+        sometimes leading to crashes or other problems on newer devices.
+        """,
+        category = Category.CORRECTNESS,
+        priority = 2,
+        severity = Severity.ERROR,
+        androidSpecific = true,
+        implementation = IMPLEMENTATION
+      )
+
     /** Using a deprecated library. */
     @JvmField
     val DEPRECATED_LIBRARY =
@@ -3149,6 +3234,24 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         androidSpecific = true,
         implementation = IMPLEMENTATION,
         moreInfo = "https://developer.android.com/studio/build/migrate-to-ksp"
+      )
+
+    @JvmField
+    val BOM_WITHOUT_PLATFORM =
+      Issue.create(
+        id = "BomWithoutPlatform",
+        briefDescription = "Using a BOM without platform call",
+        explanation =
+          """
+          When including a BOM, the dependency's coordinates must be wrapped \
+          in a call to `platform()` for Gradle to interpret it correctly.
+          """,
+        category = Category.CORRECTNESS,
+        priority = 4,
+        severity = Severity.WARNING,
+        androidSpecific = true,
+        implementation = IMPLEMENTATION_WITH_TOML,
+        moreInfo = "https://developer.android.com/r/tools/gradle-bom-docs"
       )
 
     @JvmField
@@ -3781,6 +3884,36 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         "com.airbnb:deeplinkdispatch-processor" to "com.airbnb:deeplinkdispatch-processor",
         "com.airbnb.android:epoxy-processor" to "com.airbnb.android:epoxy-processor",
         "com.airbnb.android:paris-processor" to "com.airbnb.android:paris-processor",
+      )
+
+    private val commonBoms: Set<String> =
+      setOf(
+        // Google
+        "androidx.compose:compose-bom",
+        "com.google.firebase:firebase-bom",
+        // JetBrains
+        "org.jetbrains.kotlin:kotlin-bom",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-bom",
+        "io.ktor:ktor-bom",
+        // Network and serialization
+        "com.squareup.okio:okio-bom",
+        "com.squareup.okhttp3:okhttp-bom",
+        "com.squareup.wire:wire-bom",
+        "com.fasterxml.jackson:jackson-bom",
+        "io.grpc:grpc-bom",
+        "org.http4k:http4k-bom",
+        "org.http4k:http4k-connect-bom",
+        // Testing
+        "org.junit:junit-bom",
+        "io.kotest:kotest-bom",
+        "io.cucumber:cucumber-bom",
+        // Others
+        "io.arrow-kt:arrow-stack",
+        "io.sentry:sentry-bom",
+        "dev.chrisbanes.compose:compose-bom",
+        "org.ow2.asm:asm-bom",
+        "software.amazon.awssdk:bom",
+        "com.walletconnect:android-bom",
       )
 
     private fun libraryHasKtxExtension(mavenName: String): Boolean {

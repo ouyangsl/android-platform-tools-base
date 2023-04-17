@@ -34,6 +34,7 @@ import com.android.build.gradle.internal.scope.InternalArtifactType.PACKAGED_MAN
 import com.android.build.gradle.internal.tasks.BuildAnalyzer
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.build.gradle.internal.tasks.manifest.ManifestProviderImpl
+import com.android.build.gradle.internal.utils.parseTargetHash
 import com.android.build.gradle.internal.utils.setDisallowChanges
 import com.android.build.gradle.tasks.ProcessApplicationManifest.Companion.getArtifactName
 import com.android.buildanalyzer.common.TaskCategory
@@ -109,6 +110,7 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
             namespace.get(),
             minSdkVersion.get(),
             targetSdkVersion.orNull,
+            compileSdk.orNull,
             testedApplicationId.get(),
             instrumentationRunner.get(),
             handleProfiling.orNull,
@@ -118,7 +120,7 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
             computeProviders(),
             placeholdersValues.get(),
             navJsons,
-            jniLibsUseLegacyPackaging.orNull,
+            extractNativeLibs.orNull,
             debuggable.get(),
             manifestOutputFile,
             tmpDir.get().asFile
@@ -143,6 +145,7 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
      * @param namespace the namespace of the test application
      * @param minSdkVersion the minSdkVersion of the test application
      * @param targetSdkVersion the targetSdkVersion of the test application
+     * @param compileSdk the compile SDK API level of the test application
      * @param testedApplicationId the application id of the tested application
      * @param instrumentationRunner the name of the instrumentation runner
      * @param handleProfiling whether or not the Instrumentation object will turn profiling on and
@@ -154,10 +157,9 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
      * @param manifestProviders the manifest providers
      * @param manifestPlaceholders used placeholders in the manifest
      * @param navigationJsons the list of navigation JSON files
-     * @param jniLibsUseLegacyPackaging whether or not native libraries will be compressed in the
-     * APK. If false, native libraries will be uncompressed, so `android:extractNativeLibs="false"`
-     * will be injected in the manifest's application tag, unless that attribute is already
-     * explicitly set. If true, nothing if injected.
+     * @param extractNativeLibs the value to assign to the injected android:extractNativeLibs
+     * attribute. The attribute will not be injected if null. Even if not null, the attribute will
+     * not be modified if it's already present in the test's source manifest.
      * @param debuggable whether the variant is debuggable
      * @param outManifest the output location for the merged manifest
      * @param tmpDir temporary dir used for processing
@@ -167,6 +169,7 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
         namespace: String,
         minSdkVersion: String,
         targetSdkVersion: String?,
+        compileSdk: Int?,
         testedApplicationId: String,
         instrumentationRunner: String,
         handleProfiling: Boolean?,
@@ -176,7 +179,7 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
         manifestProviders: List<ManifestProvider?>,
         manifestPlaceholders: Map<String?, Any?>,
         navigationJsons: Collection<File>,
-        jniLibsUseLegacyPackaging: Boolean?,
+        extractNativeLibs: Boolean?,
         debuggable: Boolean,
         outManifest: File,
         tmpDir: File
@@ -254,8 +257,7 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
                     .setNamespace(namespace)
                     .withFeatures(
                         ManifestMerger2.Invoker.Feature.DISABLE_MINSDKLIBRARY_CHECK,
-                        ManifestMerger2.Invoker.Feature.CHECK_IF_PACKAGE_IN_MAIN_MANIFEST,
-                        ManifestMerger2.Invoker.Feature.VALIDATE_APPLICATION_ELEMENT_ATTRIBUTES
+                        ManifestMerger2.Invoker.Feature.CHECK_IF_PACKAGE_IN_MAIN_MANIFEST
                     )
 
                 instrumentationRunner?.let {
@@ -299,8 +301,14 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
                 .setPlaceHolderValues(manifestPlaceholders)
                 .addNavigationJsons(navigationJsons)
                 .setNamespace(namespace)
-            if (jniLibsUseLegacyPackaging == false) {
-                finalInvoker.withFeatures(ManifestMerger2.Invoker.Feature.DO_NOT_EXTRACT_NATIVE_LIBS)
+            extractNativeLibs?.let {
+                // android:extractNativeLibs unrecognized if using compile SDK < 23.
+                if (compileSdk == null || compileSdk >= 23) {
+                    finalInvoker.setOverride(
+                        ManifestSystemProperty.Application.EXTRACT_NATIVE_LIBS,
+                        it.toString()
+                    )
+                }
             }
             if (debuggable) {
                 finalInvoker.withFeatures(ManifestMerger2.Invoker.Feature.DEBUGGABLE)
@@ -405,7 +413,7 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
 
     @get:Optional
     @get:Input
-    abstract val jniLibsUseLegacyPackaging: Property<Boolean>
+    abstract val extractNativeLibs: Property<Boolean>
 
     @get:Input
     abstract val debuggable: Property<Boolean>
@@ -413,6 +421,10 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
     @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:InputFiles
     abstract val manifestOverlays: ListProperty<File>
+
+    @get:Input
+    @get:Optional
+    abstract val compileSdk: Property<Int>
 
     /**
      * Compute the final list of providers based on the manifest file collection.
@@ -521,20 +533,24 @@ abstract class ProcessTestManifest : ManifestProcessorTask() {
             }
             when (creationConfig) {
                 is AndroidTestCreationConfig -> {
-                    task.jniLibsUseLegacyPackaging.setDisallowChanges(
+                    task.extractNativeLibs.setDisallowChanges(
                         creationConfig.packaging.jniLibs.useLegacyPackaging
                     )
                 }
                 is TestVariantCreationConfig -> {
-                    task.jniLibsUseLegacyPackaging.setDisallowChanges(
+                    task.extractNativeLibs.setDisallowChanges(
                         creationConfig.packaging.jniLibs.useLegacyPackaging
                     )
                 }
                 else -> {
-                    task.jniLibsUseLegacyPackaging.disallowChanges()
+                    task.extractNativeLibs.disallowChanges()
                 }
             }
             task.debuggable.setDisallowChanges(creationConfig.debuggable)
+            task.compileSdk
+                .setDisallowChanges(
+                    parseTargetHash(creationConfig.global.compileSdkHashString).apiLevel
+                )
         }
     }
 

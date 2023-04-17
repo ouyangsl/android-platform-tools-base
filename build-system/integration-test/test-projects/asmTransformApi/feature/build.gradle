@@ -22,10 +22,10 @@ plugins {
 
 android {
     namespace "com.example.feature"
-    compileSdkVersion rootProject.latestCompileSdk
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
 
     defaultConfig {
-        minSdkVersion rootProject.supportLibMinSdk
+        minSdkVersion libs.versions.supportLibMinSdk.get()
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8

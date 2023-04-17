@@ -71,7 +71,7 @@ public class KotlinHelloWorldApp extends HelloWorldApp {
                                 + "    apply from: '../commonHeader.gradle'\n" // for $kotlinVersion
                                 + "    dependencies {\n"
                                 + "        // Provides the 'android-kotlin' build plugin for the app:\n"
-                                + "        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:$rootProject.kotlinVersion\"\n"
+                                + "        classpath \"org.jetbrains.kotlin:kotlin-gradle-plugin:${libs.versions.kotlinVersion.get()}\"\n"
                                 + "    }\n"
                                 + "}\n"
                                 + "apply plugin: '"
@@ -82,10 +82,10 @@ public class KotlinHelloWorldApp extends HelloWorldApp {
                                 + "    namespace \""
                                 + NAMESPACE
                                 + "\"\n"
-                                + "    compileSdkVersion rootProject.latestCompileSdk\n"
-                                + "    buildToolsVersion = rootProject.buildToolsVersion\n"
+                                + "    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()\n"
+                                + "    buildToolsVersion = libs.versions.buildToolsVersion.get()\n"
                                 + "    defaultConfig {\n"
-                                + "        minSdkVersion rootProject.supportLibMinSdk\n"
+                                + "        minSdkVersion libs.versions.supportLibMinSdk.get()\n"
                                 + "        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'\n"
                                 + "    }\n"
                                 + "    sourceSets {\n"
@@ -96,9 +96,9 @@ public class KotlinHelloWorldApp extends HelloWorldApp {
                                 + "    }\n"
                                 + "}\n"
                                 + "dependencies {\n"
-                                + "    api \"org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion\"\n"
-                                + "    androidTestImplementation \"com.android.support.test:runner:${project.testSupportLibVersion}\"\n"
-                                + "    androidTestImplementation \"com.android.support.test:rules:${project.testSupportLibVersion}\"\n"
+                                + "    api \"org.jetbrains.kotlin:kotlin-stdlib:${libs.versions.kotlinVersion.get()}\"\n"
+                                + "    androidTestImplementation \"com.android.support.test:runner:${libs.versions.testSupportLibVersion.get()}\"\n"
+                                + "    androidTestImplementation \"com.android.support.test:rules:${libs.versions.testSupportLibVersion.get()}\"\n"
                                 + "}\n");
 
         addFile(buildFile);

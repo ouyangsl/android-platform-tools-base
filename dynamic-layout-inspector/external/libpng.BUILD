@@ -12,33 +12,24 @@ config_setting(
 
 cc_library(
     name = "libpng",
-    srcs = [
-        "intel/filter_sse2_intrinsics.c",
-        "intel/intel_init.c",
-        "png.c",
-        "pngerror.c",
-        "pngget.c",
-        "pngmem.c",
-        "pngpread.c",
-        "pngread.c",
-        "pngrio.c",
-        "pngrtran.c",
-        "pngrutil.c",
-        "pngset.c",
-        "pngtrans.c",
-        "pngwio.c",
-        "pngwrite.c",
-        "pngwtran.c",
-        "pngwutil.c",
-    ] + glob(["*.h"], exclude = ["png.h"]),
+    srcs = glob(
+        [
+            "*.c",
+            "*.h",
+        ],
+        exclude = ["png.h"],
+    ) + select({
+        "@platforms//cpu:arm64": glob(["arm/*.c"]),
+        "@platforms//cpu:x86_64": glob(["intel/*.c"]),
+    }),
     hdrs = ["png.h"],
     copts = select({
-        "windows": [],
-        "darwin": [
+        "windows": [
             "-std=gnu89",
             "-Wall",
-            "-Werror",
+            "-Wno-error",
             "-Wno-unused-parameter",
+            "-Wno-unused-but-set-variable",
         ],
         "//conditions:default": [
             "-std=gnu89",

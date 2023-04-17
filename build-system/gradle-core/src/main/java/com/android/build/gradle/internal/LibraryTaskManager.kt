@@ -28,7 +28,7 @@ import com.android.build.gradle.internal.component.LibraryCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestFixturesCreationConfig
 import com.android.build.gradle.internal.dependency.ConfigurationVariantMapping
-import com.android.build.gradle.internal.dsl.ModuleBooleanPropertyKeys
+import com.android.build.gradle.internal.dsl.ModulePropertyKey
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.PublishedConfigType
 import com.android.build.gradle.internal.publishing.ComponentPublishingInfo
 import com.android.build.gradle.internal.publishing.PublishedConfigSpec
@@ -194,6 +194,15 @@ class LibraryTaskManager(
         ) {
             taskFactory.register(ExtractAnnotations.CreationAction(libraryVariant))
         }
+
+        // No jacoco transformation for library variants, however, we need to publish the classes
+        // pre transformation as the artifact is used in the jacoco report task.
+        libraryVariant.artifacts.forScope(ScopedArtifacts.Scope.PROJECT)
+            .publishCurrent(
+                ScopedArtifact.CLASSES,
+                InternalScopedArtifact.PRE_JACOCO_TRANSFORMED_CLASSES,
+            )
+
         val instrumented = libraryVariant.isAndroidTestCoverageEnabled
 
         maybeCreateTransformClassesWithAsmTask(libraryVariant)
@@ -262,9 +271,9 @@ class LibraryTaskManager(
         val experimentalProperties = libraryVariant.experimentalProperties
         experimentalProperties.finalizeValue()
         if (!libraryVariant.debuggable &&
-                (ModuleBooleanPropertyKeys.VERIFY_AAR_CLASSES.getValueAsOptionalBoolean(
-                        experimentalProperties.get()) ?:
-                globalConfig.services.projectOptions[BooleanOption.VERIFY_AAR_CLASSES])) {
+                (ModulePropertyKey.OptionalBoolean.VERIFY_AAR_CLASSES
+                        .getValue(experimentalProperties.get())
+                        ?: globalConfig.services.projectOptions[BooleanOption.VERIFY_AAR_CLASSES])) {
             createVerifyLibraryClassesTask(libraryVariant)
         }
 
@@ -356,20 +365,6 @@ class LibraryTaskManager(
                 javaDocPub, ConfigurationVariantMapping("runtime", true)
             )
         }
-    }
-
-    override fun createDependencyStreams(creationConfig: ComponentCreationConfig) {
-        super.createDependencyStreams(creationConfig)
-
-        // add the same jars twice in the same stream as the EXTERNAL_LIB in the task manager
-        // so that filtering of duplicates in proguard can work.
-        creationConfig
-            .artifacts
-            .forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
-            .setInitialContent(
-                ScopedArtifact.CLASSES,
-                creationConfig.computeLocalPackagedJars()
-            )
     }
 
     private class MergeResourceCallback(private val variant: LibraryCreationConfig) :

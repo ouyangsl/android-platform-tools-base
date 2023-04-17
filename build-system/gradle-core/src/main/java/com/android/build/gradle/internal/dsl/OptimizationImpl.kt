@@ -21,7 +21,9 @@ import com.android.build.api.dsl.Optimization
 import com.android.build.gradle.internal.services.DslServices
 import javax.inject.Inject
 
-abstract class OptimizationImpl@Inject constructor(dslService: DslServices) : Optimization {
+abstract class OptimizationImpl@Inject constructor(
+    dslService: DslServices
+) : Optimization {
 
     abstract val keepRules: KeepRules
 
@@ -36,5 +38,6 @@ abstract class OptimizationImpl@Inject constructor(dslService: DslServices) : Op
         (keepRules as KeepRulesImpl).dependencies.clear()
         (keepRules as KeepRulesImpl).dependencies.addAll(
                 (that.keepRules as KeepRulesImpl).dependencies)
+
     }
 }

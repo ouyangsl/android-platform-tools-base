@@ -17,7 +17,7 @@ package com.android.adblib.tools.debugging.packets.ddms.chunks
 
 import com.android.adblib.testingutils.CoroutineTestUtils.runBlockingWithTimeout
 import com.android.adblib.tools.debugging.packets.AdbBufferedInputChannel
-import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkTypes
+import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkType
 import com.android.adblib.tools.debugging.packets.ddms.MutableDdmsChunk
 import com.android.adblib.utils.ResizableBuffer
 import org.junit.Assert
@@ -40,12 +40,13 @@ class DdmsHeloChunkTest {
                 abi = "x86",
                 jvmFlags = "flags",
                 isNativeDebuggable = false,
-                packageName = "bar"
+                packageName = "bar",
+                stage = AppStage.DEBG
             )
             buffer.forChannelWrite()
         }
         val chunk = MutableDdmsChunk().apply {
-            type = DdmsChunkTypes.HELO
+            type = DdmsChunkType.HELO
             length = payload.remaining()
             this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
         }
@@ -63,6 +64,7 @@ class DdmsHeloChunkTest {
         Assert.assertEquals("flags", heloChunk.jvmFlags)
         Assert.assertEquals(false, heloChunk.isNativeDebuggable)
         Assert.assertEquals("bar", heloChunk.packageName)
+        Assert.assertEquals(AppStage.DEBG, heloChunk.stage)
     }
 
     @Test
@@ -80,7 +82,7 @@ class DdmsHeloChunkTest {
             buffer.forChannelWrite()
         }
         val chunk = MutableDdmsChunk().apply {
-            type = DdmsChunkTypes.HELO
+            type = DdmsChunkType.HELO
             length = payload.remaining()
             this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
         }
@@ -98,6 +100,7 @@ class DdmsHeloChunkTest {
         Assert.assertEquals(null, heloChunk.jvmFlags)
         Assert.assertEquals(false, heloChunk.isNativeDebuggable)
         Assert.assertEquals(null, heloChunk.packageName)
+        Assert.assertEquals(null, heloChunk.stage)
     }
 
     @Test
@@ -116,7 +119,7 @@ class DdmsHeloChunkTest {
             buffer.forChannelWrite()
         }
         val chunk = MutableDdmsChunk().apply {
-            type = DdmsChunkTypes.HELO
+            type = DdmsChunkType.HELO
             length = payload.remaining()
             this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
         }
@@ -134,6 +137,7 @@ class DdmsHeloChunkTest {
         Assert.assertEquals(null, heloChunk.jvmFlags)
         Assert.assertEquals(false, heloChunk.isNativeDebuggable)
         Assert.assertEquals(null, heloChunk.packageName)
+        Assert.assertEquals(null, heloChunk.stage)
     }
 
     @Test
@@ -153,7 +157,7 @@ class DdmsHeloChunkTest {
             buffer.forChannelWrite()
         }
         val chunk = MutableDdmsChunk().apply {
-            type = DdmsChunkTypes.HELO
+            type = DdmsChunkType.HELO
             length = payload.remaining()
             this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
         }
@@ -171,6 +175,7 @@ class DdmsHeloChunkTest {
         Assert.assertEquals(null, heloChunk.jvmFlags)
         Assert.assertEquals(false, heloChunk.isNativeDebuggable)
         Assert.assertEquals(null, heloChunk.packageName)
+        Assert.assertEquals(null, heloChunk.stage)
     }
 
     @Test
@@ -191,7 +196,7 @@ class DdmsHeloChunkTest {
             buffer.forChannelWrite()
         }
         val chunk = MutableDdmsChunk().apply {
-            type = DdmsChunkTypes.HELO
+            type = DdmsChunkType.HELO
             length = payload.remaining()
             this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
         }
@@ -209,6 +214,7 @@ class DdmsHeloChunkTest {
         Assert.assertEquals("blah", heloChunk.jvmFlags)
         Assert.assertEquals(false, heloChunk.isNativeDebuggable)
         Assert.assertEquals(null, heloChunk.packageName)
+        Assert.assertEquals(null, heloChunk.stage)
     }
 
     @Test
@@ -230,7 +236,7 @@ class DdmsHeloChunkTest {
             buffer.forChannelWrite()
         }
         val chunk = MutableDdmsChunk().apply {
-            type = DdmsChunkTypes.HELO
+            type = DdmsChunkType.HELO
             length = payload.remaining()
             this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
         }
@@ -248,5 +254,47 @@ class DdmsHeloChunkTest {
         Assert.assertEquals("blah", heloChunk.jvmFlags)
         Assert.assertEquals(true, heloChunk.isNativeDebuggable)
         Assert.assertEquals(null, heloChunk.packageName)
+        Assert.assertEquals(null, heloChunk.stage)
+    }
+
+    @Test
+    fun testParsingWithMissingStageWorks() = runBlockingWithTimeout {
+        // Prepare
+        val payload = run {
+            val buffer = ResizableBuffer()
+            DdmsHeloChunk.writePayload(
+                buffer,
+                protocolVersion = 1,
+                pid = 101,
+                vmIdentifier = "myVm",
+                processName = "foo",
+                userId = 10,
+                abi = "x64",
+                jvmFlags = "blah",
+                isNativeDebuggable = true,
+                packageName = "bar"
+            )
+            buffer.forChannelWrite()
+        }
+        val chunk = MutableDdmsChunk().apply {
+            type = DdmsChunkType.HELO
+            length = payload.remaining()
+            this.payload = AdbBufferedInputChannel.forByteBuffer(payload)
+        }
+
+        // Act
+        val heloChunk = DdmsHeloChunk.parse(chunk)
+
+        // Assert
+        Assert.assertEquals(1, heloChunk.protocolVersion)
+        Assert.assertEquals(101, heloChunk.pid)
+        Assert.assertEquals("myVm", heloChunk.vmIdentifier)
+        Assert.assertEquals("foo", heloChunk.processName)
+        Assert.assertEquals(10, heloChunk.userId)
+        Assert.assertEquals("x64", heloChunk.abi)
+        Assert.assertEquals("blah", heloChunk.jvmFlags)
+        Assert.assertEquals(true, heloChunk.isNativeDebuggable)
+        Assert.assertEquals("bar", heloChunk.packageName)
+        Assert.assertEquals(null, heloChunk.stage)
     }
 }

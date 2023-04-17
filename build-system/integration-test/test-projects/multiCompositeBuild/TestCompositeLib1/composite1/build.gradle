@@ -32,8 +32,8 @@ version = '1.0'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "com.android.support:appcompat-v7:$rootProject.supportLibVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$rootProject.kotlinVersion"
+    implementation "com.android.support:appcompat-v7:${libs.versions.supportLibVersion.get()}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${libs.versions.kotlinVersion.get()}"
 
     api 'com.test.composite:composite2:1.0'
     api 'com.test.composite:composite3:1.0'

@@ -2,8 +2,8 @@ apply plugin: 'com.android.library'
 
 android {
     namespace "com.android.test.lint.libmodel.mylibrary"
-    compileSdkVersion rootProject.latestCompileSdk
-    buildToolsVersion = rootProject.buildToolsVersion
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
 
     defaultConfig {
         minSdkVersion 15
@@ -20,7 +20,7 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    api "com.android.support:appcompat-v7:${rootProject.supportLibVersion}"
+    api "com.android.support:appcompat-v7:${libs.versions.supportLibVersion.get()}"
     implementation project(':transitiveLibrary')
     testImplementation 'junit:junit:4.12'
 }

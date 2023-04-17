@@ -5,17 +5,17 @@ buildscript { apply from: "../commonBuildScript.gradle" }
 apply plugin: 'com.android.library'
 
 dependencies {
-    api "com.android.support:support-annotations:${project.supportLibVersion}"
-    api "com.android.support:support-v4:${project.supportLibVersion}"
+    api "com.android.support:support-annotations:${libs.versions.supportLibVersion.get()}"
+    api "com.android.support:support-v4:${libs.versions.supportLibVersion.get()}"
 }
 
 android {
     namespace "com.android.tests.extractannotations"
-    compileSdkVersion rootProject.latestCompileSdk
-    buildToolsVersion = rootProject.buildToolsVersion
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
+    buildToolsVersion = libs.versions.buildToolsVersion.get()
 
     defaultConfig {
-      minSdkVersion rootProject.supportLibMinSdk
+      minSdkVersion libs.versions.supportLibMinSdk.get()
     }
 }
 

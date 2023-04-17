@@ -5,8 +5,8 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "com.android.tests.shrink"
-    compileSdkVersion rootProject.latestCompileSdk
-    buildToolsVersion rootProject.buildToolsVersion
+    compileSdkVersion libs.versions.latestCompileSdk.get().toInteger()
+    buildToolsVersion libs.versions.buildToolsVersion.get()
 
     defaultConfig {
         versionCode 12
@@ -38,6 +38,6 @@ android {
 
 dependencies {
     api project(':lib')
-    api "com.android.support:support-annotations:${project.supportLibVersion}"
-    api "com.android.support:support-v4:${project.supportLibVersion}"
+    api "com.android.support:support-annotations:${libs.versions.supportLibVersion.get()}"
+    api "com.android.support:support-v4:${libs.versions.supportLibVersion.get()}"
 }
