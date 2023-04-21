@@ -30,7 +30,12 @@ internal class ArtEngineDebuggerTest(testClass: String) : DebuggerTestBase(testC
   }
 
   @Test
-  fun test() {
-    runTest()
+  fun localVariablesTest() {
+    runLocalVariablesTest()
+  }
+
+  @Test
+  fun inlineFramesTest() {
+    runInlineFramesTest()
   }
 }

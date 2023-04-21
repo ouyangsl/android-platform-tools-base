@@ -1120,6 +1120,7 @@ public final class SdkConstants {
     public static final String TAG_STAGING_PUBLIC_GROUP = "staging-public-group";
     public static final String TAG_STAGING_PUBLIC_GROUP_FINAL = "staging-public-group-final";
 
+    public static final String TAG_JAVA_SYMBOL = "java-symbol";
 
     // Tags: Adaptive icon
     public static final String TAG_ADAPTIVE_ICON = "adaptive-icon";
@@ -2832,7 +2833,7 @@ public final class SdkConstants {
     public static final String GRADLE_ANDROID_TEST_API_CONFIGURATION = "androidTestApi";
 
     public static final String GRADLE_ANDROID_TEST_UTIL_CONFIGURATION = "androidTestUtil";
-    public static final String CURRENT_BUILD_TOOLS_VERSION = "33.0.1";
+    public static final String CURRENT_BUILD_TOOLS_VERSION = "34.0.0-rc3";
     public static final String SUPPORT_LIB_GROUP_ID = "com.android.support";
     public static final String SUPPORT_LIB_ARTIFACT = "com.android.support:support-v4";
     public static final String DESIGN_LIB_ARTIFACT = "com.android.support:design";
@@ -2940,4 +2941,7 @@ public final class SdkConstants {
             META_INF + "/" + COM_ANDROID_TOOLS_FOLDER;
 
     public static final String FD_PREFAB_PACKAGE = "prefab";
+
+    /** Name used to identify a folder containing the exploded contents of an .aar file. */
+    public static final String EXPLODED_AAR = "exploded-aar";
 }

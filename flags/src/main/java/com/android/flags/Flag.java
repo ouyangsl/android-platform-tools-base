@@ -26,7 +26,7 @@ import java.util.Locale;
  */
 public final class Flag<T> {
     private static final ValueConverter<Boolean> BOOL_CONVERTER =
-            new ValueConverter<Boolean>() {
+            new ValueConverter<>() {
                 @NonNull
                 @Override
                 public String serialize(@NonNull Boolean value) {
@@ -40,7 +40,7 @@ public final class Flag<T> {
                 }
             };
     private static final ValueConverter<Integer> INT_CONVERTER =
-            new ValueConverter<Integer>() {
+            new ValueConverter<>() {
                 @NonNull
                 @Override
                 public String serialize(@NonNull Integer value) {
@@ -53,8 +53,22 @@ public final class Flag<T> {
                     return Integer.valueOf(strValue);
                 }
             };
+    private static final ValueConverter<Long> LONG_CONVERTER =
+            new ValueConverter<>() {
+                @NonNull
+                @Override
+                public String serialize(@NonNull Long value) {
+                    return Long.toString(value);
+                }
+
+                @NonNull
+                @Override
+                public Long deserialize(@NonNull String strValue) {
+                    return Long.valueOf(strValue);
+                }
+            };
     private static final ValueConverter<String> PASSTHRU_CONVERTER =
-            new ValueConverter<String>() {
+            new ValueConverter<>() {
                 @NonNull
                 @Override
                 public String serialize(@NonNull String value) {
@@ -188,6 +202,16 @@ public final class Flag<T> {
             @NonNull String description,
             int defaultValue) {
         return new Flag<>(group, name, displayName, description, defaultValue, INT_CONVERTER);
+    }
+
+    @NonNull
+    public static Flag<Long> create(
+            @NonNull FlagGroup group,
+            @NonNull String name,
+            @NonNull String displayName,
+            @NonNull String description,
+            long defaultValue) {
+        return new Flag<>(group, name, displayName, description, defaultValue, LONG_CONVERTER);
     }
 
     @NonNull

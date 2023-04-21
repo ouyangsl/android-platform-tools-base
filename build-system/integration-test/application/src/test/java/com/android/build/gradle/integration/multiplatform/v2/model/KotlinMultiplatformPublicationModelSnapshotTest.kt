@@ -20,6 +20,7 @@ import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder
 import com.android.build.gradle.integration.common.fixture.model.BaseModelComparator
 import com.android.build.gradle.integration.multiplatform.v2.publishLibs
+import com.android.utils.FileUtils
 import org.junit.Rule
 import org.junit.Test
 
@@ -36,7 +37,16 @@ class KotlinMultiplatformPublicationModelSnapshotTest: BaseModelComparator {
     fun testModelDiffWhenLibsArePublished() {
         val comparator = KmpModelComparator(
             project = project,
-            testClass = this
+            testClass = this,
+            modelSnapshotTask = "resolveIdeDependencies",
+            taskOutputLocator = { projectPath ->
+                FileUtils.join(
+                    project.getSubproject(projectPath).buildDir,
+                    "ide",
+                    "dependencies",
+                    "json"
+                )
+            }
         )
 
         comparator.compareModelDeltaAfterChange(

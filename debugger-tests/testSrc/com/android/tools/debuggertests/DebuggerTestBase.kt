@@ -15,7 +15,7 @@
  */
 package com.android.tools.debuggertests
 
-import com.google.common.truth.Truth
+import com.google.common.truth.Truth.assertThat
 import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -28,10 +28,23 @@ internal abstract class DebuggerTestBase(
 
   private fun describeTest() = "at $testClass(${testClass.substringAfterLast(".")}.kt:20)"
 
-  fun runTest() {
-    val actual = runBlocking { withTimeout(5.seconds) { engine.runTest(testClass) } }
-    val expected = Resources.readGolden(testClass, engine.vmName)
+  fun runLocalVariablesTest() {
+    val listener = LocalVariablesFrameListener()
 
-    Truth.assertThat(actual).named(describeTest()).isEqualTo(expected)
+    runBlocking { withTimeout(5.seconds) { engine.runTest(testClass, listener) } }
+
+    val expected = Resources.readGolden(testClass, engine.vmName)
+    val actual = listener.getText()
+    assertThat(actual).named(describeTest()).isEqualTo(expected)
+  }
+
+  fun runInlineFramesTest() {
+    val listener = InlineStackFrameFrameListener()
+
+    runBlocking { withTimeout(5.seconds) { engine.runTest(testClass, listener) } }
+
+    val expected = Resources.readGolden(testClass, "inline-stack-frames")
+    val actual = listener.getText()
+    assertThat(actual).named(describeTest()).isEqualTo(expected)
   }
 }
