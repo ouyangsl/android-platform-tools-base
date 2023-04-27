@@ -296,7 +296,8 @@ class UnsafeImplicitIntentDetector : Detector(), SourceCodeScanner, XmlScanner {
         severity = Severity.ERROR,
         androidSpecific = true,
         enabledByDefault = false,
-        implementation = IMPLEMENTATION
+        implementation = IMPLEMENTATION,
+        moreInfo = "https://goo.gle/ImplicitIntentHijack"
       )
   }
 }
