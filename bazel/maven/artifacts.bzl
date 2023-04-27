@@ -200,6 +200,7 @@ DATA = [
     "androidx.appcompat:appcompat:1.3.0-beta01",
     "androidx.appcompat:appcompat:1.4.1",
     "androidx.appcompat:appcompat:1.6.1",
+    "androidx.privacysandbox.plugins:plugins-privacysandbox-library:1.0.0-alpha01",
     "androidx.privacysandbox.sdkruntime:sdkruntime-client:1.0.0-SNAPSHOT",  # built locally from androidx-platform-dev
     "androidx.privacysandbox.sdkruntime:sdkruntime-core:1.0.0-SNAPSHOT",  # built locally from androidx-platform-dev
     "androidx.privacysandbox.tools:tools:1.0.0-alpha02",
@@ -325,6 +326,7 @@ DATA = [
     "androidx.test.espresso:espresso-core:3.2.0",
     "androidx.test.espresso:espresso-core:3.4.0",
     "androidx.test.espresso:espresso-core:3.5.1",
+    "androidx.test.espresso:espresso-contrib:3.5.1",
     "androidx.test.ext:junit:1.1.2",  # TODO: To be removed once dependent tests pass b/273872043
     "androidx.test.ext:junit:1.1.5",
     "androidx.test.ext:junit:1.1.3-alpha02",
@@ -351,6 +353,7 @@ DATA = [
     "com.android.support:animated-vector-drawable:26.1.0",
     "com.android.support:appcompat-v7:25.4.0",
     "com.android.support:appcompat-v7:26.1.0",
+    "com.android.support:support-compat:28.0.0",
     "com.android.support:cardview-v7:26.1.0",
     "com.android.support.constraint:constraint-layout:1.0.2",
     "com.android.support.constraint:constraint-layout:1.1.0",
@@ -367,6 +370,7 @@ DATA = [
     "com.android.support:support-vector-drawable:26.1.0",
     "com.android.support.test.espresso:espresso-core:3.0.1",
     "com.android.support.test.espresso:espresso-core:3.0.2",
+    "com.android.support.test.espresso:espresso-contrib:3.0.2",
     "com.android.support.test:orchestrator:1.0.0",
     "com.android.support.test:rules:1.0.2",
     "com.android.support.test.uiautomator:uiautomator-v18:2.1.1",
@@ -419,7 +423,7 @@ DATA = [
     "com.android.tools.lint:lint-gradle:30.3.0-rc01",
     "com.android.tools.lint:lint-gradle:30.4.0-alpha09",
     "com.android.tools.lint:lint-gradle:31.0.0-beta04",
-    "com.android.tools.metalava:metalava:1.0.0-alpha04",
+    "com.android.tools.metalava:metalava:1.0.0-alpha06",
     "com.android.tools.utp:android-test-plugin-host-additional-test-output:30.2.0",
     "com.android.tools.utp:android-device-provider-ddmlib:30.2.0",
     "com.android.tools.utp:android-device-provider-gradle:30.2.0",

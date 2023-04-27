@@ -32,7 +32,6 @@ import com.android.ide.common.repository.GoogleMavenRepository
 import com.android.ide.common.repository.GoogleMavenRepository.Companion.MAVEN_GOOGLE_CACHE_DIR_KEY
 import com.android.ide.common.repository.GradleCoordinate
 import com.android.ide.common.repository.GradleCoordinate.COMPARE_PLUS_HIGHER
-import com.android.ide.common.repository.GradleVersion
 import com.android.ide.common.repository.MavenRepositories
 import com.android.io.CancellableFileIo
 import com.android.sdklib.AndroidTargetHash
@@ -412,31 +411,29 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     } else if (property == "buildToolsVersion" && parent == "android") {
       val versionString = getStringLiteralValue(value, valueCookie)
       if (versionString != null) {
-        val version = GradleVersion.tryParse(versionString)
-        if (version != null) {
-          var recommended = getLatestBuildTools(context.client, version.major)
+        val version = Version.parse(versionString)
+        var recommended = version.major?.let { getLatestBuildTools(context.client, it) }
 
-          // 23.0.0 shipped with a serious bugs which affects program correctness
-          // (such as https://code.google.com/p/android/issues/detail?id=183180)
-          // Make developers aware of this and suggest upgrading
-          if (
-            version.major == 23 &&
-              version.minor == 0 &&
-              version.micro == 0 &&
-              context.isEnabled(COMPATIBILITY)
-          ) {
-            // This specific version is actually a preview version which should
-            // not be used (https://code.google.com/p/android/issues/detail?id=75292)
-            if (recommended == null || recommended.major < 23) {
-              // First planned release to fix this
-              recommended = GradleVersion(23, 0, 3)
-            }
-            val message =
-              "Build Tools `23.0.0` should not be used; " +
-                "it has some known serious bugs. Use version `$recommended` " +
-                "instead."
-            reportFatalCompatibilityIssue(context, statementCookie, message)
+        // 23.0.0 shipped with a serious bugs which affects program correctness
+        // (such as https://code.google.com/p/android/issues/detail?id=183180)
+        // Make developers aware of this and suggest upgrading
+        if (
+          version.major == 23 &&
+            version.minor == 0 &&
+            version.micro == 0 &&
+            context.isEnabled(COMPATIBILITY)
+        ) {
+          // This specific version is actually a preview version which should
+          // not be used (https://code.google.com/p/android/issues/detail?id=75292)
+          if (recommended?.major?.let { it < 23 } != false) {
+            // First planned release to fix this
+            recommended = Version.parse("23.0.3")
           }
+          val message =
+            "Build Tools `23.0.0` should not be used; " +
+              "it has some known serious bugs. Use version `$recommended` " +
+              "instead."
+          reportFatalCompatibilityIssue(context, statementCookie, message)
         }
       }
     } else if (parent == "plugins") {
@@ -1077,8 +1074,17 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
       }
       "io.fabric.tools" -> {
         if ("gradle" == artifactId) {
-          val parsed = GradleVersion.tryParse(revision)
-          if (parsed != null && parsed < "1.21.6") {
+          // TODO(b/242691473): semantically I think this should be close to
+          //    richVersion = RichVersion.parse(revision)
+          //    if (richVersion.run { strictly ?: require }
+          //                   ?.intersection(VersionRange.parse("[1.21.6,]")
+          //                   ?.isEmpty() == true
+          //       ) {
+          //      ...
+          //  and the GradleCoordinate version will fail on dependency expressions using
+          //  RichVersion features.
+          val upper = dependency.upperBoundVersion
+          if (upper < Version.parse("1.21.6")) {
             val fix = getUpdateDependencyFix(revision, "1.22.1")
             report(
               context,
@@ -1779,8 +1785,8 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
       if (groupId == GMS_GROUP_ID || groupId == FIREBASE_GROUP_ID) {
         // c2 is the smallest of all the versions; if it is at least 14,
         // they all are
-        val version = GradleVersion.tryParse(c2.version)
-        if (version != null && (version.major >= 14 || version.major == 0)) {
+        val version = Version.parse(c2.version)
+        if (version.major?.let { it >= 14 } != false) {
           return
         }
       }
@@ -3692,7 +3698,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     }
 
     private var majorBuildTools: Int = 0
-    private var latestBuildTools: GradleVersion? = null
+    private var latestBuildTools: Version? = null
 
     /**
      * Returns the latest build tools installed for the given major version. We just cache this
@@ -3703,22 +3709,22 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
      * @param major the major version of build tools to look up (e.g. typically 18, 19, ...)
      * @return the corresponding highest known revision
      */
-    private fun getLatestBuildTools(client: LintClient, major: Int): GradleVersion? {
+    private fun getLatestBuildTools(client: LintClient, major: Int): Version? {
       if (major != majorBuildTools) {
         majorBuildTools = major
 
-        val revisions = ArrayList<GradleVersion>()
+        val revisions = ArrayList<Version>()
         when (major) {
-          27 -> revisions.add(GradleVersion(27, 0, 3))
-          26 -> revisions.add(GradleVersion(26, 0, 3))
-          25 -> revisions.add(GradleVersion(25, 0, 3))
-          24 -> revisions.add(GradleVersion(24, 0, 3))
-          23 -> revisions.add(GradleVersion(23, 0, 3))
-          22 -> revisions.add(GradleVersion(22, 0, 1))
-          21 -> revisions.add(GradleVersion(21, 1, 2))
-          20 -> revisions.add(GradleVersion(20, 0))
-          19 -> revisions.add(GradleVersion(19, 1))
-          18 -> revisions.add(GradleVersion(18, 1, 1))
+          27 -> revisions.add(Version.parse("27.0.3"))
+          26 -> revisions.add(Version.parse("26.0.3"))
+          25 -> revisions.add(Version.parse("25.0.3"))
+          24 -> revisions.add(Version.parse("24.0.3"))
+          23 -> revisions.add(Version.parse("23.0.3"))
+          22 -> revisions.add(Version.parse("22.0.1"))
+          21 -> revisions.add(Version.parse("21.1.2"))
+          20 -> revisions.add(Version.parse("20.0"))
+          19 -> revisions.add(Version.parse("19.1"))
+          18 -> revisions.add(Version.parse("18.1.1"))
         }
 
         // The above versions can go stale.
@@ -3733,8 +3739,8 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
               if (!dir.isDirectory || !Character.isDigit(name[0])) {
                 continue
               }
-              val v = GradleVersion.tryParse(name)
-              if (v != null && v.major == major) {
+              val v = Version.parse(name)
+              if (v.major == major) {
                 revisions.add(v)
               }
             }

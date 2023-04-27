@@ -222,7 +222,8 @@ coverage_report(
         "tools/adt/idea/dagger/src/com/android/tools/idea/dagger",
     ],
     tests = [
-        "//tools/adt/idea/dagger:intellij.android.dagger.tests_tests",
+        # TODO(b/277967945) too flaky for coverage
+        #"//tools/adt/idea/dagger:intellij.android.dagger.tests_tests",
     ],
 )
 
@@ -311,7 +312,8 @@ coverage_report(
         "tools/adt/idea/gradle-dsl/src/com/android/tools/idea/gradle/dsl",
     ],
     tests = [
-        "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
+        # TODO(b/278991173)
+        # "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
     ],
 )
 
@@ -1002,7 +1004,8 @@ coverage_report(
         "//tools/adt/idea/build-common:intellij.android.buildCommon_tests",
         "//tools/adt/idea/compose-designer:intellij.android.compose-designer.tests_tests",
         "//tools/adt/idea/connection-assistant:connection-assistant-test_tests",
-        "//tools/adt/idea/dagger:intellij.android.dagger.tests_tests",
+        # TODO(b/277967945) too flaky for coverage
+        #"//tools/adt/idea/dagger:intellij.android.dagger.tests_tests",
         "//tools/adt/idea/compose-ide-plugin:intellij.android.compose-ide-plugin.tests_tests",
         "//tools/adt/idea/databinding:intellij.android.databinding.tests_tests",
         "//tools/adt/idea/debuggers:intellij.android.debuggers.tests_tests",
@@ -1014,9 +1017,11 @@ coverage_report(
         "//tools/adt/idea/device-explorer-monitor:intellij.android.device-explorer-monitor.tests_tests",
         "//tools/adt/idea/device-file-explorer-toolwindow:intellij.android.device-file-explorer-toolwindow.tests_tests",
         "//tools/adt/idea/device-manager:intellij.android.device-manager.tests_tests",
+        "//tools/adt/idea/device-manager-v2:intellij.android.device-manager-v2_tests",
         "//tools/adt/idea/gmd-code-completion:intellij.android.gmd-code-completion_tests",
         "//tools/adt/idea/streaming:intellij.android.streaming.tests_tests",
-        "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
+        # TODO(b/278991173)
+        # "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
         "//tools/adt/idea/kotlin-integration:kotlin-integration-tests_tests",
         "//tools/adt/idea/layout-inspector:intellij.android.layout-inspector.tests_tests",
         "//tools/adt/idea/layout-ui:intellij.android.layout-ui_tests",

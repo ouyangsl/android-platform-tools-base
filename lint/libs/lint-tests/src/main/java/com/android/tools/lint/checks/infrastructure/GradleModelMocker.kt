@@ -16,9 +16,9 @@
 package com.android.tools.lint.checks.infrastructure
 
 import com.android.SdkConstants
+import com.android.ide.common.gradle.Version
 import com.android.ide.common.repository.AgpVersion
 import com.android.ide.common.repository.GradleCoordinate
-import com.android.ide.common.repository.GradleVersion
 import com.android.sdklib.AndroidTargetHash
 import com.android.sdklib.AndroidVersion
 import com.android.sdklib.SdkVersionInfo
@@ -548,9 +548,8 @@ constructor(
         .mapValues { (_, libs) ->
           libs.maxByOrNull {
             when (it) {
-              is LintModelExternalLibrary -> GradleVersion.tryParse(it.resolvedCoordinates.version)
-                  ?: GradleVersion(0, 0)
-              else -> GradleVersion(0, 0)
+              is LintModelExternalLibrary -> Version.parse(it.resolvedCoordinates.version)
+              else -> Version.prefixInfimum("dev") // least possible version
             }
           }
         }
@@ -1683,7 +1682,8 @@ constructor(
         symbolFile = dir.resolve(File(librarySymbolFiles.getOrDefault(coordinateString, "R.txt"))),
         proguardRules = dir.resolve(File("proguard.pro")),
         externalAnnotations = dir.resolve(File(SdkConstants.FN_ANNOTATIONS_ZIP)),
-        provided = isProvided
+        provided = isProvided,
+        partialResultsDir = null
       )
     )
   }
@@ -1731,7 +1731,8 @@ constructor(
         identifier = coordinateString.substringBefore("@"),
         lintJar = null,
         jarFiles = listOf(jar),
-        resolvedCoordinates = getMavenName(coordinateString)
+        resolvedCoordinates = getMavenName(coordinateString),
+        partialResultsDir = null
       )
     )
   }
@@ -2457,7 +2458,8 @@ private data class TestLintModelAndroidLibrary(
   override val publicResources: File,
   override val symbolFile: File,
   override val externalAnnotations: File,
-  override val proguardRules: File
+  override val proguardRules: File,
+  override val partialResultsDir: File?
 ) : LintModelAndroidLibrary
 
 private data class TestLintModelJavaLibrary(
@@ -2465,7 +2467,8 @@ private data class TestLintModelJavaLibrary(
   override val identifier: String,
   override val lintJar: File?,
   override val jarFiles: List<File>,
-  override val resolvedCoordinates: LintModelMavenName
+  override val resolvedCoordinates: LintModelMavenName,
+  override val partialResultsDir: File?
 ) : LintModelJavaLibrary
 
 private data class TestLintModelModuleLibrary(

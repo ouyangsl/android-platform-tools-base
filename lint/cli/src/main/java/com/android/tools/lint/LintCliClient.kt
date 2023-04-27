@@ -24,7 +24,6 @@ import com.android.SdkConstants.PLATFORM_WINDOWS
 import com.android.SdkConstants.VALUE_TRUE
 import com.android.SdkConstants.currentPlatform
 import com.android.Version
-import com.android.ide.common.repository.GradleVersion
 import com.android.ide.common.resources.ResourceRepository
 import com.android.manifmerger.ManifestMerger2
 import com.android.manifmerger.ManifestMerger2.FileStreamProvider
@@ -677,17 +676,13 @@ open class LintCliClient : LintClient {
     driver.mergeConditionalIncidents(projectContext, provisional)
   }
 
-  /**
-   * Returns the path to the file containing any data of the given [xmlType]. Defaults to the build
-   * folder, possibly with a variant name included.
-   */
+  /** Returns the path to the file containing any data of the given [xmlType]. */
   open fun getSerializationFile(project: Project, xmlType: XmlFileType): File {
     val variant = project.buildVariant
     val dir =
       variant?.partialResultsDir
         ?: variant?.module?.buildFolder ?: project.partialResultsDir ?: File(project.dir, "build")
-    val variantName = variant?.name ?: "all"
-    return File(dir, xmlType.getDefaultFileName(variantName))
+    return File(dir, xmlType.getDefaultFileName())
   }
 
   private fun getBaselineCreationMessage(baselineFile: File): String {
@@ -806,9 +801,9 @@ open class LintCliClient : LintClient {
             checkVersion != null &&
             creationVersion != checkVersion
         ) {
-          val created = GradleVersion.tryParse(creationVersion)
-          val current = GradleVersion.tryParse(checkVersion)
-          if (created != null && current != null && created > current) {
+          val created = com.android.ide.common.gradle.Version.parse(creationVersion)
+          val current = com.android.ide.common.gradle.Version.parse(checkVersion)
+          if (created > current) {
             println(
               """
                             Note: The baseline was created with a newer version of $checkClient ($creationVersion) than the current version ($checkVersion)

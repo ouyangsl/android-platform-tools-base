@@ -134,6 +134,7 @@ enum class BooleanOption(
     DISABLE_MINSDKLIBRARY_CHECK("android.unsafe.disable.minSdkLibraryCheck", false, FeatureStage.Experimental),
     ENABLE_INSTRUMENTATION_TEST_DESUGARING("android.experimental.library.desugarAndroidTest", false, FeatureStage.Experimental),
     ENABLE_EMULATOR_CONTROL("android.experimental.androidTest.enableEmulatorControl", false, FeatureStage.Experimental),
+    ENABLE_SCREENSHOT_TEST("android.experimental.enableScreenshotTest", false, FeatureStage.Experimental),
     /**
      * When enabled, incompatible APKs installed on a testing device will be uninstalled automatically
      * during an instrumentation test run (e.g. When INSTALL_FAILED_UPDATE_INCOMPATIBLE error happens
@@ -226,6 +227,17 @@ enum class BooleanOption(
     ),
 
     FUSED_LIBRARY_SUPPORT("android.experimental.fusedLibrarySupport", false, FeatureStage.Experimental),
+    SUPPORT_PAST_STUDIO_VERSIONS("android.experimental.support.past.studio.versions", false, FeatureStage.Experimental),
+
+    /**
+     * Whether to do lint analysis per component (instead of analysing the main variant and the test
+     * components in the same lint invocation).
+     */
+    LINT_ANALYSIS_PER_COMPONENT(
+        "android.experimental.lint.analysisPerComponent",
+        false,
+        FeatureStage.Experimental
+    ),
 
     /* ------------------------
      * SOFTLY-ENFORCED FEATURES
