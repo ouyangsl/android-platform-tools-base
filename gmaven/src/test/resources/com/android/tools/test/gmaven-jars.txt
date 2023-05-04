@@ -534,6 +534,9 @@ com/android/tools/build/gradle
   com/android/tools/build/
   com/android/tools/build/libraries/
   com/android/tools/build/libraries/metadata/
+  com/android/tools/idea/
+  com/android/tools/idea/insights/
+  com/android/tools/idea/insights/proto/
   com/android/tools/mlkit/
   com/android/tools/profgen/
   cxx_attribution.proto
@@ -542,6 +545,7 @@ com/android/tools/build/gradle
   cxx_io.proto
   cxx_logging.proto
   cxx_process.proto
+  version_control_metadata.proto
 
 com/android/tools/build/gradle-api
   META-INF/
@@ -712,15 +716,30 @@ com/android/tools/dvlib
 com/android/tools/emulator/proto
   META-INF/
   META-INF/MANIFEST.MF
+  adb_service.proto
+  android/
+  android/emulation/
+  android/emulation/control/
+  android/emulation/control/v2/
   com/
   com/android/
+  com/android/emulation/
+  com/android/emulation/remote/
+  com/android/emulation/stats/
   com/android/emulator/
+  com/android/emulator/bluetooth/
   com/android/emulator/control/
   com/android/emulator/snapshot/
   com/google/
   com/google/waterfall/
+  control_socket.proto
+  emulated_bluetooth.proto
+  emulated_bluetooth_device.proto
   emulator_controller.proto
-  rtc_service.proto
+  emulator_stats.proto
+  grpc_endpoint_description.proto
+  ice_config.proto
+  rtc_service_v2.proto
   snapshot.proto
   snapshot_service.proto
   ui_controller_service.proto

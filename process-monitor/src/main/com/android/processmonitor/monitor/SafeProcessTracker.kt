@@ -28,7 +28,7 @@ internal class SafeProcessTracker(
     private val logger: AdbLogger
 ) : ProcessTracker {
 
-    override suspend fun trackProcesses(): Flow<ProcessEvent> {
+    override fun trackProcesses(): Flow<ProcessEvent> {
         return delegate.trackProcesses().catch {
             logger.warn(it, errorMessage)
         }

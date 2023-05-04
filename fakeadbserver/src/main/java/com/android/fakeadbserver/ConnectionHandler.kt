@@ -16,7 +16,9 @@
 package com.android.fakeadbserver
 
 import com.android.fakeadbserver.DeviceState.HostConnectionType
-import java.io.IOException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.nio.channels.SocketChannel
@@ -52,6 +54,7 @@ internal class ConnectionHandler(private val mServer: FakeAdbServer, socket: Soc
      */
     override fun run() {
         var request = ServiceRequest("No request processed")
+        val socketScope = CoroutineScope(SupervisorJob())
         try {
             mSmartSocket.use {
                 while (mKeepRunning) {
@@ -59,7 +62,7 @@ internal class ConnectionHandler(private val mServer: FakeAdbServer, socket: Soc
                     if (request.peekToken().startsWith("host")) {
                         handleHostService(request)
                     } else {
-                        handleDeviceService(request)
+                        handleDeviceService(request, socketScope)
                     }
                 }
             }
@@ -67,11 +70,11 @@ internal class ConnectionHandler(private val mServer: FakeAdbServer, socket: Soc
             val pw = PrintWriter(StringWriter())
             pw.print("Unable to process '${request.original()}'\n")
             e.printStackTrace(pw)
-            mSmartSocket.sendFailWithReason("Exception occurred when processing request. $pw")
+        } finally {
+            socketScope.cancel("Socket has been closed")
         }
     }
 
-    @Throws(IOException::class)
     private fun handleHostService(request: ServiceRequest) {
         when (request.nextToken()) {
             "host" -> {
@@ -148,7 +151,7 @@ internal class ConnectionHandler(private val mServer: FakeAdbServer, socket: Soc
     }
 
     // IN SERVICE.TXT these are called "LOCAL".
-    private fun handleDeviceService(request: ServiceRequest) {
+    private fun handleDeviceService(request: ServiceRequest, socketScope: CoroutineScope) {
         // Regardless of the outcome, this will be the last request this connection handles.
         mKeepRunning = false
         if (mTargetDevice == null) {
@@ -159,7 +162,7 @@ internal class ConnectionHandler(private val mServer: FakeAdbServer, socket: Soc
         val command = request.remaining()
         for (handler in mServer.handlers) {
             val accepted = handler.accept(
-                mServer, mSmartSocket.socket, mTargetDevice!!, serviceName, command
+                mServer, socketScope, mSmartSocket.socket, mTargetDevice!!, serviceName, command
             )
             if (accepted) {
                 return
@@ -168,7 +171,6 @@ internal class ConnectionHandler(private val mServer: FakeAdbServer, socket: Soc
         mSmartSocket.sendFailWithReason("Unknown request $serviceName-$command")
     }
 
-    @Throws(IOException::class)
     private fun dispatchToHostHandlers(request: ServiceRequest) {
         // Intercepting the host:transport* service request because it has the special side-effect
         // of changing the target device.

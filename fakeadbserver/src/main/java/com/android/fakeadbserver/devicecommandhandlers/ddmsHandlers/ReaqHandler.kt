@@ -17,6 +17,7 @@ package com.android.fakeadbserver.devicecommandhandlers.ddmsHandlers
 
 import com.android.fakeadbserver.ClientState
 import com.android.fakeadbserver.DeviceState
+import kotlinx.coroutines.CoroutineScope
 
 class ReaqHandler : DdmPacketHandler {
 
@@ -24,7 +25,8 @@ class ReaqHandler : DdmPacketHandler {
         device: DeviceState,
         client: ClientState,
         packet: DdmPacket,
-        jdwpHandlerOutput: JdwpHandlerOutput
+        jdwpHandlerOutput: JdwpHandlerOutput,
+        socketScope: CoroutineScope
     ): Boolean {
         val responsePacket =
             DdmPacket.createResponse(
@@ -39,7 +41,6 @@ class ReaqHandler : DdmPacketHandler {
 
     companion object {
 
-        @JvmField
         val CHUNK_TYPE = DdmPacket.encodeChunkType("REAQ")
     }
 }

@@ -12,6 +12,7 @@ def main():
       # tests
       'tools/base/bazel/test',
       'tools/base/build-system/integration-test/databinding/src/test',
+      'tools/base/debugger-tests/resources',
       'tools/base/pixelprobe/src/test',
       'tools/base/profiler/tests',
       # generated
@@ -25,6 +26,7 @@ def main():
       'tools/studio',
       'tools/swing-testing',
       'tools/vendor/adt_infra_internal',
+      'tools/vendor/google/asfp',
       'tools/vendor/google/real-world-integration-test',
       'tools/vendor/google/url-assistant',
       'tools/vendor/intellij',

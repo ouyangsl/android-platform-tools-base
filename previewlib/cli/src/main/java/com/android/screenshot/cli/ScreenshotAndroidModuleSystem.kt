@@ -17,6 +17,7 @@ package com.android.screenshot.cli
 
 import com.android.SdkConstants
 import com.android.ide.common.repository.GradleCoordinate
+import com.android.ide.common.resources.AndroidManifestPackageNameUtils
 import com.android.ide.common.util.PathString
 import com.android.manifmerger.ManifestSystemProperty
 import com.android.projectmodel.ExternalAndroidLibrary
@@ -28,8 +29,10 @@ import com.android.tools.idea.projectsystem.ClassFileFinder
 import com.android.tools.idea.projectsystem.DependencyScopeType
 import com.android.tools.idea.projectsystem.DependencyType
 import com.android.tools.idea.projectsystem.ManifestOverrides
+import com.android.tools.idea.projectsystem.MergedManifestContributors
 import com.android.tools.idea.projectsystem.NamedModuleTemplate
 import com.android.tools.idea.projectsystem.ScopeType
+import com.android.tools.idea.util.toVirtualFile
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.vfs.StandardFileSystems
 import com.intellij.openapi.vfs.VfsUtil
@@ -158,9 +161,17 @@ class ScreenshotAndroidModuleSystem(
                 override val location: PathString?
                     get() = PathString(it)
                 override val manifestFile: PathString?
-                    get() = findPath(it, "AndroidManifest.xml")
+                    get() = PathString(it + "/AndroidManifest.xml")
                 override val packageName: String?
-                    get() = null
+                    get() {
+                        if (manifestFile?.rawPath == composeProject.lintProject.manifestFiles.first().path) {
+                            return composeProject.lintProject.`package`
+                        }
+                        if (manifestFile != null) {
+                            return AndroidManifestPackageNameUtils.getPackageNameFromManifestFile(manifestFile!!)
+                        }
+                        return null
+                    }
                 override val resFolder: ResourceFolder?
                     get() = RecursiveResourceFolder(findPath(it, "res")!!)
                 override val assetsFolder: PathString?
@@ -223,6 +234,20 @@ class ScreenshotAndroidModuleSystem(
 
     override fun getOrCreateSampleDataDirectory(): PathString? {
         return null
+    }
+
+    override fun getMergedManifestContributors(): MergedManifestContributors {
+        var main: VirtualFile? = null
+        var libraryManifest = mutableListOf<VirtualFile>()
+        for(file in composeProject.lintProject.manifestFiles) {
+            if (main == null) {
+                main = file.toVirtualFile()
+            }
+            else {
+                libraryManifest.add(file.toVirtualFile()!!)
+            }
+        }
+        return MergedManifestContributors(main, listOf(), libraryManifest, listOf(),listOf())
     }
 
 }

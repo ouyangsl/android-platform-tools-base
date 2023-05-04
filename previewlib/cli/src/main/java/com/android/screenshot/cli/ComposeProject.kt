@@ -130,7 +130,7 @@ class ComposeProject(val lintProject: com.android.tools.lint.detector.api.Projec
         // Needed by MergedManifest
         componentManager.registerService(
             StartupManager::class.java,
-            StartupManagerImpl(ideaProject)
+            StartupManagerImpl(ideaProject, ideaProject.getCoroutineScope())
         )
 
         // Needed by StudioConfigurationModelModule
@@ -149,14 +149,7 @@ class ComposeProject(val lintProject: com.android.tools.lint.detector.api.Projec
             ModuleDependencyIndex::class.java,
             ModuleDependencyIndexImpl(ideaProject)
         )
-        val fileTypeRegistry = FileTypeRegistry.getInstance() as CoreFileTypeRegistry
-        componentManager.registerService(
-            ProjectRootManager::class.java,
-            ProjectRootManagerBridge(ideaProject)
-        ) // dependency on ModuleDependencyIndex, Clears CoreFileTypeRegistry
 
-        // Needed for file traversal
-        FileTypeRegistry.setInstanceSupplier { fileTypeRegistry } // Reset
         PluginManagerCore.isUnitTestMode = true // Required by ResourceFolderRegistry
         PluginManagerCore.scheduleDescriptorLoading(GlobalScope)
         val plugin = runBlocking { PluginManagerCore.getInitPluginFuture().await() }

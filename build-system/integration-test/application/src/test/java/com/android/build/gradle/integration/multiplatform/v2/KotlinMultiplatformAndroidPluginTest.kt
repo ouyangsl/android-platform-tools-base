@@ -64,13 +64,13 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
-                android {
+                kotlin.androidExperimental.options {
                     enableUnitTestCoverage = true
                 }
             """.trimIndent()
         )
 
-        project.executor().run(":kmpFirstLib:createKotlinAndroidTestCoverageReport")
+        project.executor().run(":kmpFirstLib:createAndroidUnitTestCoverageReport")
 
         assertWithMessage(
             "Running kmp unit tests should run common tests as well"
@@ -79,7 +79,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
                 project.getSubproject("kmpFirstLib").buildDir,
                 "reports",
                 "tests",
-                "testKotlinAndroidTest",
+                "testAndroidUnitTest",
                 "classes"
             ).listFiles()!!.map { it.name }
         ).containsExactly(
@@ -200,7 +200,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
-                android {
+                kotlin.androidExperimental.options {
                     packagingOptions.resources.excludes.addAll(listOf(
                         "**/*.java",
                         "junit/**",
@@ -274,5 +274,26 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
                 )
             )
         }
+    }
+
+    @Test
+    fun creatingArbitraryCompilationShouldFail() {
+        TestFileUtils.appendToFile(
+            project.getSubproject("kmpFirstLib").ktsBuildFile,
+            """
+                kotlin {
+                    androidExperimental {
+                        compilations.create("release")
+                    }
+                }
+            """.trimIndent()
+        )
+
+        val result =
+            project.executor().expectFailure().run(":kmpFirstLib:assembleAndroidMain")
+
+        assertThat(result.failureMessage).contains(
+            "Kotlin multiplatform android plugin doesn't support creating arbitrary compilations."
+        )
     }
 }

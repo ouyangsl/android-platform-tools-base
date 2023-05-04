@@ -17,15 +17,9 @@ package com.android.screenshot.cli
 
 import com.android.tools.idea.model.MergedManifestManager
 import com.android.tools.idea.model.MergedManifestModificationTracker
-import com.android.tools.idea.res.AndroidFacetResourceIdManagerModelModule
-import com.android.tools.res.ids.ResourceIdManager
-import com.android.tools.idea.res.ResourceIdManagerBase
 import com.android.tools.rendering.api.IdeaModuleProvider
 import com.intellij.facet.FacetManager
 import com.intellij.openapi.module.Module
-import com.intellij.openapi.roots.ModuleRootManager
-import com.intellij.workspaceModel.ide.impl.legacyBridge.facet.FacetManagerBridge
-import com.intellij.workspaceModel.ide.impl.legacyBridge.module.roots.ModuleRootComponentBridge
 import com.intellij.workspaceModel.ide.legacyBridge.ModuleBridge
 import com.intellij.workspaceModel.storage.EntitySource
 import com.intellij.workspaceModel.storage.MutableEntityStorage
@@ -61,8 +55,6 @@ class ComposeModule(
         Mockito.`when`(module.name).thenReturn("")
         Mockito.`when`(module.project)
             .thenReturn(composeProject.lintProject.ideaProject) // Needed by StudioModuleClassLoaderManager
-        val moduleManager = Mockito.spy(ModuleRootComponentBridge(module))
-        Mockito.`when`(moduleManager.module).thenReturn(module)
 
         // Needed by StudioModuleClassLoader
         val id = ModuleId("android")
@@ -70,15 +62,8 @@ class ComposeModule(
         val storage = createEntityStorage(id)
         Mockito.`when`(module.entityStorage)
             .thenReturn(VersionedEntityStorageOnStorage(storage.toSnapshot()))
-        Mockito.`when`(module.getComponent(ModuleRootManager::class.java)).thenReturn(moduleManager)
         Mockito.`when`(module.getService(ModuleClassLoaderOverlays::class.java))
             .thenReturn(ModuleClassLoaderOverlays(module))
-
-        // Needed by ModuleClassLoader
-        val facetManager = Mockito.spy(FacetManagerBridge(module)) // depend on storage
-        Mockito.`when`(facetManager.getFacetByType(AndroidFacet.ID)).thenReturn(facet)
-        Mockito.`when`(module.getComponent(FacetManager::class.java))
-            .thenReturn(facetManager) //depends on entitystorage
 
         // Needed by StudioAndroidModuleInfo::getMinSdkVersion
         val manifestTracker = MergedManifestModificationTracker(module)
@@ -89,18 +74,14 @@ class ComposeModule(
         Mockito.`when`(module.getService(MergedManifestManager::class.java))
             .thenReturn(MergedManifestManager(module))
 
-        // Needed by LibraryResourceClassLoader
-        val resourceIdManager = object : ResourceIdManagerBase(
-            AndroidFacetResourceIdManagerModelModule(
-                AndroidFacet.getInstance(module)
-                    ?: error("${ResourceIdManager::class.qualifiedName} used on a non-Android module.")
-            )
-        ) {} //depends on facetmanager
-        Mockito.`when`(module.getService(ResourceIdManager::class.java))
-            .thenReturn(resourceIdManager)
         val resourceFolderManager = ResourceFolderManager(module)
         Mockito.`when`(module.getService(ResourceFolderManager::class.java))
             .thenReturn(resourceFolderManager)
+
+        // Needed by the Manifest merger
+        val facetManager = Mockito.mock(FacetManager::class.java)
+        Mockito.`when`(facetManager.getFacetByType(AndroidFacet.ID)).thenReturn(facet)
+        Mockito.`when`(module.getComponent(FacetManager::class.java)).thenReturn(facetManager)
         return module
     }
 
@@ -132,7 +113,5 @@ class ComposeModule(
         }
 
     }
-
     override fun getIdeaModule(): Module = module
-
 }

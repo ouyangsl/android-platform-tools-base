@@ -18,7 +18,7 @@ package com.android.fakeadbserver.devicecommandhandlers
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.FakeAdbServer
 import com.android.fakeadbserver.PortForwarder
-import java.io.IOException
+import kotlinx.coroutines.CoroutineScope
 import java.net.Socket
 import java.nio.charset.StandardCharsets
 
@@ -29,6 +29,7 @@ internal class ReverseForwardCommandHandler : DeviceCommandHandler("reverse") {
 
     override fun invoke(
         server: FakeAdbServer,
+        socketScope: CoroutineScope,
         socket: Socket,
         device: DeviceState,
         args: String
@@ -116,21 +117,18 @@ internal class ReverseForwardCommandHandler : DeviceCommandHandler("reverse") {
             }
         }
         val bindOk = device.addReversePortForwarder(forwarder, forwardArgs.norebind)
-        try {
-            if (bindOk) {
-                // We send 2 OKAY answers: 1st OKAY is connect, 2nd OKAY is status.
-                // See
-                // https://cs.android.com/android/platform/superproject/+/3a52886262ae22477a7d8ffb12adba64daf6aafa:packages/modules/adb/adb.cpp;l=1058
-                writeOkay(stream)
-                if (devicePortToSendBack != null) {
-                    writeOkayResponse(stream, devicePortToSendBack.toString())
-                } else {
-                    writeOkay(stream)
-                }
+        if (bindOk) {
+            // We send 2 OKAY answers: 1st OKAY is connect, 2nd OKAY is status.
+            // See
+            // https://cs.android.com/android/platform/superproject/+/3a52886262ae22477a7d8ffb12adba64daf6aafa:packages/modules/adb/adb.cpp;l=1058
+            writeOkay(stream)
+            if (devicePortToSendBack != null) {
+                writeOkayResponse(stream, devicePortToSendBack.toString())
             } else {
-                writeFailResponse(stream, "Could not bind to the specified forwarding ports.")
+                writeOkay(stream)
             }
-        } catch (ignored: IOException) {
+        } else {
+            writeFailResponse(stream, "Could not bind to the specified forwarding ports.")
         }
     }
 

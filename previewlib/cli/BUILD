@@ -54,12 +54,23 @@ iml_module(
         "//tools/adt/idea/layoutlib-loader:intellij.android.layoutlib-loader[module]",
         "//tools/base/apkparser/analyzer:studio.android.sdktools.analyzer[module]",
         "//tools/adt/idea/rendering:intellij.android.rendering[module]",
+        "//tools/base/resource-repository:studio.android.sdktools.resource-repository[module]",
+        "//tools/analytics-library/crash:analytics-crash[module]",
     ],
 )
 
 java_binary(
     name = "screenshot.runner",
     main_class = "com.android.screenshot.cli.Main",
+    resources = [
+        "//prebuilts/studio/layoutlib:build.prop",
+        "//prebuilts/studio/layoutlib/data",
+        "//prebuilts/studio/layoutlib/data:native_libs",
+        "//prebuilts/studio/layoutlib/data/fonts",
+        "//prebuilts/studio/layoutlib/data/icu",
+        "//prebuilts/studio/layoutlib/data/keyboards",
+        "//prebuilts/studio/layoutlib/data/linux",
+    ],
     runtime_deps = [
         ":studio.android.sdktools.screenshot.cli",
     ],
