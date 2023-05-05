@@ -19,23 +19,21 @@ import com.android.tools.idea.configurations.ConfigurationManager
 import com.android.tools.idea.configurations.ConfigurationModelModule
 import com.android.tools.idea.configurations.ConfigurationStateManager
 import com.android.tools.idea.configurations.StudioConfigurationStateManager
-import com.android.tools.idea.configurations.StudioThemeInfoProvider
 import com.android.tools.idea.configurations.ThemeInfoProvider
 import com.android.tools.module.AndroidModuleInfo
-import com.android.tools.idea.model.StudioAndroidModuleInfo
-import com.android.tools.rendering.api.EnvironmentContext
 import com.android.tools.module.ModuleDependencies
-import com.android.tools.idea.rendering.StudioEnvironmentContext
 import com.android.tools.idea.res.ScreenshotResourceRepositoryManager
 import com.android.tools.res.ResourceRepositoryManager
-import com.android.tools.idea.res.StudioResourceRepositoryManager
 import com.android.tools.layoutlib.LayoutlibContext
 import com.android.tools.sdk.AndroidPlatform
 import com.android.tools.sdk.AndroidSdkData
 import com.intellij.openapi.project.Project
 import org.jetbrains.android.sdk.StudioEmbeddedRenderTarget
 
-class ScreenshotConfigurationModel(private val composeProject: ComposeProject,private val composeModule: ComposeModule,private val sdkPath: String): ConfigurationModelModule {
+class ScreenshotConfigurationModel(private val composeProject: ComposeProject,
+    private val composeModule: ComposeModule,
+    private val sdkPath: String,
+    private val sysDependencies: Dependencies): ConfigurationModelModule {
     override val androidPlatform: AndroidPlatform?
         get() = AndroidPlatform(AndroidSdkData.getSdkData(sdkPath)!!, StudioEmbeddedRenderTarget.getCompatibilityTarget(composeProject.lintProject.buildTarget!!))
     override val resourceRepositoryManager: ResourceRepositoryManager?
@@ -43,9 +41,9 @@ class ScreenshotConfigurationModel(private val composeProject: ComposeProject,pr
     override val configurationStateManager: ConfigurationStateManager
         get() = StudioConfigurationStateManager.get(composeProject.lintProject.ideaProject!!)
     override val themeInfoProvider: ThemeInfoProvider
-        get() = ScreenshotThemeInfoProvider(composeModule, composeProject)
+        get() = ScreenshotThemeInfoProvider(androidModuleInfo, composeModule)
     override val layoutlibContext: LayoutlibContext
-        get() = ScreenshotEnvironmentContext(composeProject).layoutlibContext
+        get() = ScreenshotEnvironmentContext(composeProject, sysDependencies).layoutlibContext
     override val androidModuleInfo: AndroidModuleInfo?
         get() = ScreenshotAndroidModuleInfo(composeProject)
     override val project: Project
@@ -59,6 +57,6 @@ class ScreenshotConfigurationModel(private val composeProject: ComposeProject,pr
 
     }
 }
-fun createConfigManager(composeProject: ComposeProject,composeModule: ComposeModule,sdkPath: String): ConfigurationManager {
-    return object : ConfigurationManager(composeModule.module, ScreenshotConfigurationModel(composeProject, composeModule, sdkPath)) {}
+fun createConfigManager(composeProject: ComposeProject,composeModule: ComposeModule,sdkPath: String, deps: Dependencies): ConfigurationManager {
+    return object : ConfigurationManager(composeModule.module, ScreenshotConfigurationModel(composeProject, composeModule, sdkPath, deps)) {}
 }

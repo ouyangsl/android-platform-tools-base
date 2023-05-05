@@ -64,7 +64,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
-                kotlin.androidExperimental.options {
+                kotlin.androidExperimental {
                     enableUnitTestCoverage = true
                 }
             """.trimIndent()
@@ -200,7 +200,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
-                kotlin.androidExperimental.options {
+                kotlin.androidExperimental {
                     packagingOptions.resources.excludes.addAll(listOf(
                         "**/*.java",
                         "junit/**",
@@ -295,5 +295,30 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
         assertThat(result.failureMessage).contains(
             "Kotlin multiplatform android plugin doesn't support creating arbitrary compilations."
         )
+    }
+
+    @Test
+    fun `accessing predefined compilations should succeed`() {
+        TestFileUtils.appendToFile(
+            project.getSubproject("kmpFirstLib").ktsBuildFile,
+            """
+                kotlin {
+                    androidExperimental {
+                        afterEvaluate {
+                            compilations {
+                                val main by getting {
+                                }
+                                val unitTest by getting {
+                                }
+                                val instrumentedTest by getting {
+                                }
+                            }
+                        }
+                    }
+                }
+            """.trimIndent()
+        )
+
+        project.executor().run(":kmpFirstLib:assembleAndroidMain")
     }
 }

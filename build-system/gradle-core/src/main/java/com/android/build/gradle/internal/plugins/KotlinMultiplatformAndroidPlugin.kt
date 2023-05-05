@@ -482,7 +482,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
             it.defaultSourceSet.dependsOn(
                 kotlinExtension.sourceSets.getByName(COMMON_MAIN_SOURCE_SET_NAME)
             )
-        }
+        } as KotlinMultiplatformAndroidCompilationImpl
 
         return KmpVariantImpl(
             dslInfo = dslInfo,
@@ -531,7 +531,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
             it.defaultSourceSet.dependsOn(
                 kotlinExtension.sourceSets.getByName(COMMON_TEST_SOURCE_SET_NAME)
             )
-        }
+        } as KotlinMultiplatformAndroidCompilationImpl
 
         return KmpUnitTestImpl(
             dslInfo = dslInfo,
@@ -564,7 +564,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
 
         val kotlinCompilation = androidTarget.compilations.maybeCreate(
             KmpPredefinedAndroidCompilation.INSTRUMENTED_TEST.compilationName
-        )
+        ) as KotlinMultiplatformAndroidCompilationImpl
 
         val manifestLocation = getAndroidManifestDefaultLocation(kotlinCompilation)
 
@@ -613,15 +613,16 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
 
     private fun configureDisambiguationRules(project: Project) {
         project.dependencies.attributesSchema { schema ->
-            if (androidExtension.buildTypeMatching.isNotEmpty()) {
+            val buildTypesToMatch = androidExtension.dependencyVariantSelection.buildTypes.get()
+            if (buildTypesToMatch.isNotEmpty()){
                 schema.attribute(BuildTypeAttr.ATTRIBUTE)
                     .disambiguationRules
                     .add(SingleVariantBuildTypeRule::class.java) { config ->
-                        config.setParams(androidExtension.buildTypeMatching)
+                        config.setParams(buildTypesToMatch)
                     }
             }
 
-            androidExtension.productFlavorsMatching.forEach { (dimension, fallbacks) ->
+            androidExtension.dependencyVariantSelection.productFlavors.get().forEach { (dimension, fallbacks) ->
                 schema.attribute(ProductFlavorAttr.of(dimension))
                     .disambiguationRules
                     .add(SingleVariantProductFlavorRule::class.java) { config ->

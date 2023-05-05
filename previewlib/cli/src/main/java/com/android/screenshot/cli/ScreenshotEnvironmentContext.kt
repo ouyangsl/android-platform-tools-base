@@ -42,11 +42,12 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiFile
 import com.intellij.psi.xml.XmlFile
 import org.apache.http.HttpEntity
+import org.apache.http.entity.mime.MultipartEntityBuilder
 import org.jetbrains.android.dom.navigation.getStartDestLayoutId
-import org.jetbrains.android.uipreview.StudioModuleClassLoaderManager
 import java.util.concurrent.CompletableFuture
 
-class ScreenshotEnvironmentContext(private val project: ComposeProject) : EnvironmentContext {
+class ScreenshotEnvironmentContext(private val project: ComposeProject, private val dependencies: Dependencies) : EnvironmentContext {
+    private val classLoaderManager = ScreenshotModuleClassLoaderManager(dependencies)
     private val stubCrashReporter = object : CrashReporter {
         override fun submit(crashReport: CrashReport): CompletableFuture<String> =
             CompletableFuture.completedFuture("")
@@ -61,6 +62,10 @@ class ScreenshotEnvironmentContext(private val project: ComposeProject) : Enviro
 
         override fun submit(entity: HttpEntity): CompletableFuture<String> =
             CompletableFuture.completedFuture("")
+    }
+
+    private class StubCrashReport : CrashReport("", "", emptyMap(), "") {
+        override fun serializeTo(builder: MultipartEntityBuilder) { }
     }
 
     override val layoutlibContext: LayoutlibContext
@@ -127,8 +132,12 @@ class ScreenshotEnvironmentContext(private val project: ComposeProject) : Enviro
     override fun getOriginalFile(psiFile: PsiFile): PsiFile = psiFile
 
     override fun getModuleClassLoaderManager(): ModuleClassLoaderManager {
-        return StudioModuleClassLoaderManager.get()
+        return classLoaderManager
     }
 
     override fun getCrashReporter(): CrashReporter = stubCrashReporter
+
+    override fun createCrashReport(t: Throwable): CrashReport = StubCrashReport()
+
+    override fun isInTest(): Boolean = false
 }

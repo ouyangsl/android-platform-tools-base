@@ -31,6 +31,7 @@ import com.android.tools.idea.rendering.ShowFixFactory
 import com.android.tools.idea.rendering.StudioHtmlLinkManager
 import com.android.tools.idea.rendering.StudioRenderConfiguration
 import com.android.tools.idea.rendering.StudioRenderService
+import com.android.tools.lint.model.LintModelModule
 import com.intellij.mock.MockComponentManager
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.module.ModuleManager
@@ -103,28 +104,6 @@ class ScreenshotProvider(
     fun getDeps(): MutableList<String> {
         val deps = mutableListOf<String>()
         deps.addAll(dependencies.systemDependencies)
-        Files.walkFileTree(File(projectRoot).toPath(), object : SimpleFileVisitor<Path>() {
-            override fun visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult {
-                if (file.name == "AndroidManifest.xml") {
-                    if (file.parent.pathString.contains("build")) {
-                        var path = file.parent
-                        while (path.name != "build") {
-                            path = path.parent
-                        }
-                        deps.add(path.pathString)
-                    } else {
-                        deps.add(file.parent.pathString)
-                    }
-                }
-                if (file.name == "classes.jar") {
-                    deps.add(file.parent.pathString)
-                }
-                if (file.name == "R.jar") {
-                    deps.add(file.pathString)
-                }
-                return FileVisitResult.CONTINUE
-            }
-        })
         return deps
     }
 
@@ -132,7 +111,8 @@ class ScreenshotProvider(
         previewNodes: List<ComposePreviewElement>,
         goldenLocation: String,
         outputLocation: String,
-        recordGoldens: Boolean
+        recordGoldens: Boolean,
+        rootLintModule: LintModelModule
     ): List<Verify.AnalysisResult> {
         val results = mutableListOf<Verify.AnalysisResult>()
         val instances =
@@ -141,21 +121,22 @@ class ScreenshotProvider(
                 .toMutableList()
         instances.addAll(previewNodes.filterIsInstance<ComposePreviewElementInstance>())
         instances.distinct()
+        val model = ScreenshotRenderModelModule(composeApplication, composeProject, composeModule, sdkPath, rootLintModule, dependencies)
         for (previewElement in instances) {
-            val renderResult = renderPreviewElement(previewElement)
-            val fileName = previewElement.instanceId + ".png"
+            val renderResult = renderPreviewElement(previewElement, model)
+            val fileName = previewElement.displaySettings.name
             if (recordGoldens) {
-                renderResult!!.renderedImage.copy?.let { saveImage(it, goldenLocation + fileName) }
+                renderResult!!.renderedImage.copy?.let { saveImage(it, goldenLocation + fileName + ".png") }
             } else {
                 val result = compareImages(
                     renderResult!!,
                     goldenLocation,
                     outputLocation,
-                    fileName
+                    fileName + ".png"
                 )
                 if ( result is Verify.AnalysisResult.Failed) {
-                    saveImage(result.imageDiff.highlights, outputLocation + previewElement.instanceId + "_diff.png")
-                    renderResult.renderedImage.copy?.let { saveImage(it, outputLocation + previewElement.instanceId + "_actual.png") }
+                    saveImage(result.imageDiff.highlights, outputLocation + fileName + "_diff.png")
+                    renderResult.renderedImage.copy?.let { saveImage(it, outputLocation + fileName + "_actual.png") }
                 }
                 results.add(result)
             }
@@ -163,10 +144,10 @@ class ScreenshotProvider(
         return results
     }
 
-    private fun renderPreviewElement(previewElement: ComposePreviewElementInstance): RenderResult? {
+    private fun renderPreviewElement(previewElement: ComposePreviewElementInstance, model: ScreenshotRenderModelModule): RenderResult? {
         val config =
             Configuration.create(
-                createConfigManager(composeProject, composeModule, sdkPath),
+                createConfigManager(composeProject, composeModule, sdkPath, dependencies),
                 null,
                 FolderConfiguration.createDefault()
             )
@@ -181,8 +162,7 @@ class ScreenshotProvider(
 
         val service = StudioRenderService.getInstance(project.ideaProject!!)
         val task =
-            service.taskBuilder(ScreenshotRenderModelModule(composeApplication, composeProject, composeModule, sdkPath),
-                                StudioRenderConfiguration(config),
+            service.taskBuilder(model, StudioRenderConfiguration(config),
                                 service.createLogger(composeProject.lintProject.ideaProject,
                                                      true, ShowFixFactory, ::StudioHtmlLinkManager)
             )

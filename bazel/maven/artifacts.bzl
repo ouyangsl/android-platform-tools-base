@@ -1,6 +1,5 @@
 ARTIFACTS = [
     "androidx.annotation:annotation:1.1.0",
-    "androidx.inspection:inspection:aar:1.0.0",
     "com.android.tools.build:aapt2-proto:7.3.0-alpha07-8248216",
     "com.android.tools.build:bundletool:1.14.1",
     "com.android.tools.build.jetifier:jetifier-core:1.0.0-beta10",
@@ -683,7 +682,8 @@ REMOTE_REPOS = {
     "Maven Central": "https://repo1.maven.org/maven2/",
     "JCenter": "https://jcenter.bintray.com/",
     "Google": "https://maven.google.com/",
-    "IntelliJ deps": "https://repo.gradle.org/gradle/libs-releases/",
+    "Gradle Libs": "https://repo.gradle.org/gradle/libs-releases/",
     "GradlePlugins": "https://plugins.gradle.org/m2",
     "Kotlin dev": "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/",
+    "IntelliJ Third-Party deps": "https://cache-redirector.jetbrains.com/intellij-dependencies",
 }
