@@ -1457,7 +1457,8 @@ class ManifestDetector : Detector(), XmlScanner {
   // matches the specific criteria i.e >= MIN_WEARABLE_GMS_VERSION
   private fun hasWearableGmsDependency(variant: LintModelVariant): Boolean {
     val library =
-      variant.artifact.findCompileDependency(PLAY_SERVICES_WEARABLE) as? LintModelExternalLibrary
+      variant.mainArtifact.findCompileDependency(PLAY_SERVICES_WEARABLE)
+        as? LintModelExternalLibrary
         ?: return false
     val mc = library.resolvedCoordinates
     val version = Version.parse(mc.version)

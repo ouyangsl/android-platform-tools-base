@@ -31,6 +31,7 @@ import com.android.build.api.variant.impl.fullName
 import com.android.build.gradle.api.AnnotationProcessorOptions
 import com.android.build.gradle.api.JavaCompileOptions
 import com.android.build.gradle.internal.DependencyConfigurator
+import com.android.build.gradle.internal.VariantManager
 import com.android.build.gradle.internal.component.ApplicationCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.DynamicFeatureCreationConfig
@@ -334,7 +335,10 @@ class OldVariantApiLegacySupportImpl(
         dimension: String,
         alternatedValues: List<String>
     ) {
-        val requestedValue = component.name
+
+        // First, setup the requested value, which isn't the actual requested value, but
+        // the variant name, modified
+        val requestedValue = VariantManager.getModifiedName(component.name)
         val attributeKey = ProductFlavorAttr.of(dimension)
         val attributeValue: ProductFlavorAttr = component.services.named(
             ProductFlavorAttr::class.java, requestedValue

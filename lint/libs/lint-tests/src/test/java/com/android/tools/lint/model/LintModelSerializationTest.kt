@@ -338,11 +338,10 @@ class LintModelSerializationTest {
                         name="localApplicationId"
                         value="com.example.manifest_merger_example.flavor" />
                   </manifestPlaceholders>
-                  <artifact
+                  <mainArtifact
                       classOutputs="build/intermediates/javac/freeBetaDebug/classes:build/tmp/kotlin-classes/freeBetaDebug"
-                      type="MAIN"
                       applicationId="com.android.tools.test">
-                  </artifact>
+                  </mainArtifact>
                   <androidTestArtifact
                       classOutputs="instrumentation-classes"
                       applicationId="com.android.tools.test">
@@ -356,7 +355,7 @@ class LintModelSerializationTest {
                   </testArtifact>
                 </variant>
               """,
-        "dependencies-freeBetaDebug-artifact" to
+        "dependencies-freeBetaDebug-mainArtifact" to
           """
                     <dependencies>
                       <compile
@@ -473,7 +472,7 @@ class LintModelSerializationTest {
                 <dependencies>
                 </dependencies>
                 """,
-        "library_table-freeBetaDebug-artifact" to
+        "library_table-freeBetaDebug-mainArtifact" to
           """
                 <libraries>
                   <library
@@ -760,11 +759,10 @@ class LintModelSerializationTest {
                             name="localApplicationId"
                             value="com.example.manifest_merger_example" />
                       </manifestPlaceholders>
-                      <artifact
+                      <mainArtifact
                           classOutputs="build/intermediates/javac/paidNormalRelease/classes:build/tmp/kotlin-classes/paidNormalRelease"
-                          type="MAIN"
                           applicationId="com.android.tools.test">
-                      </artifact>
+                      </mainArtifact>
                       <androidTestArtifact
                           classOutputs="instrumentation-classes"
                           applicationId="com.android.tools.test">
@@ -778,7 +776,7 @@ class LintModelSerializationTest {
                       </testArtifact>
                     </variant>
                 """,
-        "dependencies-paidNormalRelease-artifact" to
+        "dependencies-paidNormalRelease-mainArtifact" to
           """
                     <dependencies>
                       <compile
@@ -895,7 +893,7 @@ class LintModelSerializationTest {
                 <dependencies>
                 </dependencies>
                 """,
-        "library_table-paidNormalRelease-artifact" to
+        "library_table-paidNormalRelease-mainArtifact" to
           """
                 <libraries>
                   <library
@@ -1191,11 +1189,10 @@ class LintModelSerializationTest {
                         resDirectories="src/main/res"
                         assetsDirectories="src/main/assets"/>
                   </sourceProviders>
-                  <artifact
+                  <mainArtifact
                       classOutputs="${buildDirectory.absolutePath}/intermediates/javac/freeBetaDebug/classes:${buildDirectory.absolutePath}/intermediates/kotlin-classes/freeBetaDebug"
-                      type="MAIN"
                       applicationId="com.android.tools.test">
-                  </artifact>
+                  </mainArtifact>
                 </variant>"""
       )
 
@@ -1255,10 +1252,8 @@ class LintModelSerializationTest {
                     mergedManifest="${mergedManifest.absolutePath}"
                     manifestMergeReport="${mergeReport.absolutePath}">
                   <buildFeatures />
-                  <artifact
-                    type="MAIN"
-                    applicationId="com.android.tools.test">
-                  </artifact>
+                  <mainArtifact applicationId="com.android.tools.test">
+                  </mainArtifact>
                 </variant>"""
     modelsDir.resolve("debug.xml").writeText(debugXml)
 
@@ -1335,11 +1330,10 @@ class LintModelSerializationTest {
                         resDirectories="src/main/res"
                         assetsDirectories="src/main/assets"/>
                   </sourceProviders>
-                  <artifact
+                  <mainArtifact
                       classOutputs="${buildDirectory.absolutePath}/intermediates/javac/freeBetaDebug/classes:${buildDirectory.absolutePath}/intermediates/kotlin-classes/freeBetaDebug"
-                      type="MAIN"
                       applicationId="com.android.tools.test">
-                  </artifact>
+                  </mainArtifact>
                 </variant>
                 """
           .trimIndent()
@@ -1390,10 +1384,8 @@ class LintModelSerializationTest {
                     debuggable="true"
                     partialResultsDir="${partialResultsDir.absolutePath}">
                   <buildFeatures />
-                  <artifact
-                    type="MAIN"
-                    applicationId="com.android.tools.test">
-                  </artifact>
+                  <mainArtifact applicationId="com.android.tools.test">
+                  </mainArtifact>
                 </variant>"""
       )
 
@@ -1472,10 +1464,8 @@ class LintModelSerializationTest {
                     mergedManifest="${mergedManifest.absolutePath}"
                     manifestMergeReport="${mergeReport.absolutePath}">
                   <buildFeatures />
-                  <artifact
-                    type="MAIN"
-                    applicationId="com.android.tools.test">
-                  </artifact>
+                  <mainArtifact applicationId="com.android.tools.test">
+                  </mainArtifact>
                 </variant>"""
     modelsDir.resolve("debug.xml").writeText(debugXml)
 
@@ -1539,10 +1529,8 @@ class LintModelSerializationTest {
                     mergedManifest="${mergedManifest.absolutePath}"
                     manifestMergeReport="${mergeReport.absolutePath}">
                   <buildFeatures />
-                  <artifact
-                    type="MAIN"
-                    applicationId="com.android.tools.test">
-                  </artifact>
+                  <mainArtifact applicationId="com.android.tools.test">
+                  </mainArtifact>
                 </variant>"""
     modelsDir.resolve("debug.xml").writeText(debugXml)
 
@@ -1624,7 +1612,7 @@ class LintModelSerializationTest {
     for (fileType in TargetFile.values()) {
       for (variant in module.variants) {
         for (artifactName in
-          listOf("artifact", "testArtifact", "androidTestArtifact", "testFixturesArtifact")) {
+          listOf("mainArtifact", "testArtifact", "androidTestArtifact", "testFixturesArtifact")) {
           val mapKey = getMapKey(fileType, variant.name, artifactName)
           val writtenXml: String = xml[mapKey] ?: continue
           assertValidXml(writtenXml)

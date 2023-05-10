@@ -49,11 +49,8 @@ class PublishingSpecsTest {
     fun `assert that library and test fixtures artifacts match`() {
         // the set of artifacts that are intentionally left out of test fixtures
         val testFixturesExcludedArtifacts = setOf(
-            AndroidArtifacts.ArtifactType.AIDL,
-            AndroidArtifacts.ArtifactType.ANDROID_TEST_LINT_MODEL,
-            AndroidArtifacts.ArtifactType.ANDROID_TEST_LINT_PARTIAL_RESULTS,
             AndroidArtifacts.ArtifactType.ART_PROFILE,
-            AndroidArtifacts.ArtifactType.JAVA_DOC_JAR,
+            AndroidArtifacts.ArtifactType.AIDL,
             AndroidArtifacts.ArtifactType.JNI,
             AndroidArtifacts.ArtifactType.LINT,
             AndroidArtifacts.ArtifactType.LINT_MODEL,
@@ -64,13 +61,10 @@ class PublishingSpecsTest {
             AndroidArtifacts.ArtifactType.PREFAB_PACKAGE_CONFIGURATION,
             AndroidArtifacts.ArtifactType.PREFAB_PACKAGE,
             AndroidArtifacts.ArtifactType.RENDERSCRIPT,
-            AndroidArtifacts.ArtifactType.SOURCES_JAR,
-            AndroidArtifacts.ArtifactType.SUPPORTED_LOCALE_LIST,
-            AndroidArtifacts.ArtifactType.TEST_FIXTURES_LINT_MODEL,
-            AndroidArtifacts.ArtifactType.TEST_FIXTURES_LINT_PARTIAL_RESULTS,
             AndroidArtifacts.ArtifactType.UNFILTERED_PROGUARD_RULES,
-            AndroidArtifacts.ArtifactType.UNIT_TEST_LINT_MODEL,
-            AndroidArtifacts.ArtifactType.UNIT_TEST_LINT_PARTIAL_RESULTS,
+            AndroidArtifacts.ArtifactType.SOURCES_JAR,
+            AndroidArtifacts.ArtifactType.JAVA_DOC_JAR,
+            AndroidArtifacts.ArtifactType.SUPPORTED_LOCALE_LIST,
         )
 
         val libraryOutputs = getVariantPublishingSpec(ComponentTypeImpl.LIBRARY).outputs

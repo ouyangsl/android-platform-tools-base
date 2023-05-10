@@ -18,10 +18,11 @@ package com.android.build.gradle.internal.tests
 
 import com.android.build.api.attributes.ProductFlavorAttr
 import com.android.build.gradle.AppExtension
+import com.android.build.gradle.internal.plugins.AppPlugin
+import com.android.build.gradle.internal.VariantManager
 import com.android.build.gradle.internal.fixture.TestConstants
 import com.android.build.gradle.internal.fixture.TestProjects
 import com.android.build.gradle.internal.fixture.createAndConfig
-import com.android.build.gradle.internal.plugins.AppPlugin
 import com.android.build.gradle.internal.plugins.runAfterEvaluate
 import com.google.common.truth.Truth
 import org.gradle.api.Project
@@ -98,16 +99,17 @@ class FlavorSelectionTest {
 
     @Test
     fun testFlavorAttribute() {
-        checkAttribute("flavor", "flavor")
-        checkAttribute("flavor-only", "flavor")
+        // the requested name is always the modified name of the flavor that made the request.
+        checkAttribute("flavor", VariantManager.getModifiedName("flavor"))
+        checkAttribute("flavor-only", VariantManager.getModifiedName("flavor"))
 
         // TODO: we should check the strategies but there's no API for it right now.
     }
 
     @Test
     fun testVariantAttribute() {
-        checkAttribute("variant", "flavorDebug")
-        checkAttribute("variant-only", "flavorDebug")
+        checkAttribute("variant", VariantManager.getModifiedName("flavorDebug"))
+        checkAttribute("variant-only", VariantManager.getModifiedName("flavorDebug"))
     }
 
     private fun checkAttribute(dimension: String, value: String) {

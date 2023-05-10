@@ -29,8 +29,6 @@ import com.android.tools.lint.model.DefaultLintModelDependencyGraph
 import com.android.tools.lint.model.DefaultLintModelLibraryResolver
 import com.android.tools.lint.model.LintModelAndroidArtifact
 import com.android.tools.lint.model.LintModelAndroidLibrary
-import com.android.tools.lint.model.LintModelArtifact
-import com.android.tools.lint.model.LintModelArtifactType
 import com.android.tools.lint.model.LintModelBuildFeatures
 import com.android.tools.lint.model.LintModelDependencies
 import com.android.tools.lint.model.LintModelDependency
@@ -374,32 +372,30 @@ constructor(
         ) + productFlavorsInConfigOrder.mapNotNull { it.testFixturesSourceProvider }
       val generated = File(projectDir, "generated")
       val mergedFlavorsAndBuildType = merge(defaultConfig, productFlavors, buildType)
-      val artifact =
-        TestLintModelAndroidArtifact(
-          applicationId = mergedFlavorsAndBuildType.applicationId.orEmpty(),
-          dependencies = dependencies,
-          generatedSourceFolders = listOfNotNull(File(generated, "java").takeIf { it.exists() }),
-          generatedResourceFolders = listOfNotNull(File(generated, "res").takeIf { it.exists() }),
-          classOutputs =
-            listOf(
-              File(projectDir, "build/intermediates/javac/$variantName/classes"),
-              File(projectDir, "build/tmp/kotlin-classes/$variantName")
-            ),
-          desugaredMethodsFiles = emptySet(),
-          type = LintModelArtifactType.MAIN,
-        )
       variants.add(
         TestLintModelVariant(
           _module = { moduleModel },
           name = variantName,
           useSupportLibraryVectorDrawables = mergedFlavorsAndBuildType.useSupportLibrary ?: false,
-          artifact = artifact,
-          mainArtifact = artifact,
+          mainArtifact =
+            TestLintModelAndroidArtifact(
+              applicationId = mergedFlavorsAndBuildType.applicationId.orEmpty(),
+              dependencies = dependencies,
+              generatedSourceFolders =
+                listOfNotNull(File(generated, "java").takeIf { it.exists() }),
+              generatedResourceFolders =
+                listOfNotNull(File(generated, "res").takeIf { it.exists() }),
+              classOutputs =
+                listOf(
+                  File(projectDir, "build/intermediates/javac/$variantName/classes"),
+                  File(projectDir, "build/tmp/kotlin-classes/$variantName")
+                ),
+              desugaredMethodsFiles = emptySet(),
+            ),
           testArtifact =
             TestLintModelJavaArtifact(
               dependencies = testDependencies,
               classOutputs = listOf(File(projectDir, "test-classes")),
-              type = LintModelArtifactType.UNIT_TEST,
             ),
           androidTestArtifact =
             TestLintModelAndroidArtifact(
@@ -409,7 +405,6 @@ constructor(
               generatedResourceFolders = emptyList(),
               classOutputs = listOf(File(projectDir, "instrumentation-classes")),
               desugaredMethodsFiles = emptySet(),
-              type = LintModelArtifactType.INSTRUMENTATION_TEST,
             ),
           testFixturesArtifact =
             TestLintModelAndroidArtifact(
@@ -423,7 +418,6 @@ constructor(
                   File(projectDir, "build/tmp/kotlin-classes/${variantName}TestFixtures")
                 ),
               desugaredMethodsFiles = emptySet(),
-              type = LintModelArtifactType.TEST_FIXTURES,
             ),
           mergedManifest =
             null, // Injected elsewhere by the legacy Android Gradle Plugin lint runner
@@ -2317,7 +2311,6 @@ private data class TestLintModelVariant(
   val _module: () -> LintModelModule,
   override val name: String,
   override val useSupportLibraryVectorDrawables: Boolean,
-  override val artifact: LintModelArtifact,
   override val mainArtifact: LintModelAndroidArtifact,
   override val testArtifact: LintModelJavaArtifact?,
   override val testFixturesArtifact: LintModelAndroidArtifact?,
@@ -2353,7 +2346,6 @@ private data class TestLintModelAndroidArtifact(
   override val dependencies: LintModelDependencies =
     TestLintModelDependencies(libraryResolver = emptyLibraryResolverProvider),
   override val classOutputs: List<File>,
-  override val type: LintModelArtifactType,
   override val applicationId: String,
   override val generatedResourceFolders: Collection<File>,
   override val generatedSourceFolders: Collection<File>,
@@ -2363,8 +2355,7 @@ private data class TestLintModelAndroidArtifact(
 private data class TestLintModelJavaArtifact(
   override val dependencies: LintModelDependencies =
     TestLintModelDependencies(libraryResolver = emptyLibraryResolverProvider),
-  override val classOutputs: List<File>,
-  override val type: LintModelArtifactType,
+  override val classOutputs: List<File>
 ) : LintModelJavaArtifact
 
 private data class TestLintModelDependencies(

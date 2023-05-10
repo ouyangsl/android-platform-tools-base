@@ -20,12 +20,13 @@ import com.android.build.api.dsl.ApplicationProductFlavor
 import com.android.build.api.dsl.DynamicFeatureProductFlavor
 import com.android.build.api.dsl.LibraryProductFlavor
 import com.android.build.api.dsl.TestProductFlavor
+import com.android.build.gradle.internal.VariantManager
 import com.android.build.gradle.internal.services.DslServices
 import com.android.builder.model.BaseConfig
 import com.google.common.collect.ImmutableList
 import org.gradle.api.plugins.ExtensionAware
-import org.gradle.api.provider.Property
 import javax.inject.Inject
+import org.gradle.api.provider.Property
 
 abstract class ProductFlavor @Inject constructor(name: String, dslServices: DslServices) :
     BaseFlavor(name, dslServices),
@@ -97,12 +98,15 @@ abstract class ProductFlavor @Inject constructor(name: String, dslServices: DslS
         get() = _dimension ?: internalDimensionDefault
         set(value) { _dimension = value }
 
-    override fun computeRequestedAndFallBacks(requestedValues: List<String>): DimensionRequest {
-        // in order to have different fallbacks per variant for missing dimensions, we are
-        // going to actually have the flavor request itself (in the other dimension).
-        // So we will always fail to find the actual request and try for
+    override fun computeRequestedAndFallBacks(requestedValues: List<String>): DimensionRequest { // in order to have different fallbacks per variant for missing dimensions, we are
+        // going to actually have the flavor request itself (in the other dimension), with
+        // a modified name (in order to not have collision in case 2 dimensions have the same
+        // flavor names). So we will always fail to find the actual request and try for
         // the fallbacks.
-        return DimensionRequest(name, ImmutableList.copyOf(requestedValues))
+        return DimensionRequest(
+            VariantManager.getModifiedName(name),
+            ImmutableList.copyOf(requestedValues)
+        )
     }
 
     override fun _initWith(that: BaseConfig) { // we need to avoid doing this because of Property objects that cannot

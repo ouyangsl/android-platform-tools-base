@@ -197,7 +197,7 @@ public class FontDetector extends ResourceXmlDetector {
             return;
         }
         LintModelLibrary library =
-                variant.getArtifact().findCompileDependency(APPCOMPAT_LIB_ARTIFACT);
+                variant.getMainArtifact().findCompileDependency(APPCOMPAT_LIB_ARTIFACT);
         if (!(library instanceof LintModelExternalLibrary)) {
             return;
         }
