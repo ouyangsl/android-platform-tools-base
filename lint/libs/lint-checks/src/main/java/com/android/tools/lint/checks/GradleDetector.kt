@@ -71,6 +71,7 @@ import com.android.tools.lint.detector.api.guessGradleLocation
 import com.android.tools.lint.detector.api.isNumberString
 import com.android.tools.lint.detector.api.readUrlData
 import com.android.tools.lint.detector.api.readUrlDataAsString
+import com.android.tools.lint.model.LintModelArtifactType
 import com.android.tools.lint.model.LintModelDependency
 import com.android.tools.lint.model.LintModelExternalLibrary
 import com.android.tools.lint.model.LintModelLibrary
@@ -535,7 +536,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
                   "to unpredictable and unrepeatable builds (" +
                   dependency +
                   ")"
-              val fix = fix().data(KEY_COORDINATE, gc.toString())
+              val fix = fix().data(KEY_COORDINATE, gc.toString(), KEY_REVISION, gc.revision)
               report(context, valueCookie, PLUS, message, fix)
             }
 
@@ -2049,9 +2050,12 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
       return
     }
 
+    val artifact = context.project.buildVariant?.artifact ?: return
     // Make sure the Kotlin stdlib is used by the main artifact (not just by tests).
-    val variant = context.project.buildVariant ?: return
-    variant.mainArtifact.findCompileDependency("org.jetbrains.kotlin:kotlin-stdlib") ?: return
+    if (artifact.type != LintModelArtifactType.MAIN) {
+      return
+    }
+    artifact.findCompileDependency("org.jetbrains.kotlin:kotlin-stdlib") ?: return
 
     // Make sure the KTX extension exists for this version of the library.
     val repository = getGoogleMavenRepository(context.client)
@@ -2529,6 +2533,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     var calendar: Calendar? = null
 
     const val KEY_COORDINATE = "coordinate"
+    const val KEY_REVISION = "revision"
 
     private const val VC_LIBRARY_PREFIX = "libs."
     private const val VC_PLUGIN_PREFIX = "libs.plugins."

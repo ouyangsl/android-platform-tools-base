@@ -1,7 +1,7 @@
 ARTIFACTS = [
     "androidx.annotation:annotation:1.1.0",
     "com.android.tools.build:aapt2-proto:7.3.0-alpha07-8248216",
-    "com.android.tools.build:bundletool:1.14.1",
+    "com.android.tools.build:bundletool:1.15.0",
     "com.android.tools.build.jetifier:jetifier-core:1.0.0-beta10",
     "com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta10",
     "com.android.tools.build:transform-api:2.0.0-deprecated-use-gradle-api",
@@ -139,7 +139,6 @@ ARTIFACTS = [
     "org.jacoco:org.jacoco.agent:0.8.8",
     "org.jacoco:org.jacoco.core:0.8.8",
     "org.jacoco:org.jacoco.report:0.8.8",
-    "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.17-g004",
     "org.jetbrains.dokka:dokka-core:1.4.32",
     "org.jetbrains.intellij.deps:asm-all:8.0.1",
     "org.jetbrains.intellij.deps:trove4j:1.0.20181211",

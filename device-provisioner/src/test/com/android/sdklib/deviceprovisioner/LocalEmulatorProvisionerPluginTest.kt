@@ -94,11 +94,12 @@ class LocalEmulatorProvisionerPluginTest {
         return true
       }
 
-    override suspend fun startAvd(avdInfo: AvdInfo) {
+    override suspend fun startAvd(avdInfo: AvdInfo, coldBoot: Boolean) {
       val device =
         FakeEmulatorConsole(avdInfo.name, avdInfo.dataFolderPath.toString()) { doStopAvd(avdInfo) }
+      val selector = DeviceSelector.fromSerialNumber("emulator-${device.port}")
       session.deviceServices.configureDeviceProperties(
-        DeviceSelector.fromSerialNumber("emulator-${device.port}"),
+        selector,
         mapOf(
           "ro.serialno" to "EMULATOR31X3X7X0",
           DevicePropertyNames.RO_BUILD_VERSION_SDK to API_LEVEL.apiString,
@@ -107,6 +108,11 @@ class LocalEmulatorProvisionerPluginTest {
           DevicePropertyNames.RO_PRODUCT_MODEL to MODEL,
           DevicePropertyNames.RO_PRODUCT_CPU_ABI to ABI.toString()
         )
+      )
+      session.deviceServices.configureShellCommand(
+        selector,
+        command = "wm size",
+        stdout = "Physical size: 1024x768\n"
       )
       device.start()
       runningDevices += device
@@ -216,6 +222,18 @@ class LocalEmulatorProvisionerPluginTest {
     assertThat(handle.state).isInstanceOf(Disconnected::class.java)
     assertThat(provisioner.devices.value.map { it.state.properties.title })
       .containsExactly("Fake Device 1")
+  }
+
+  @Test
+  fun coldBootDevice(): Unit = runBlockingWithTimeout {
+    avdManager.createAvd()
+
+    yieldUntil { provisioner.devices.value.size == 1 }
+
+    val handle = provisioner.devices.value[0]
+    handle.coldBootAction?.activate()
+
+    assertThat(handle.state.connectedDevice).isNotNull()
   }
 
   private fun checkProperties(properties: LocalEmulatorProperties) {
