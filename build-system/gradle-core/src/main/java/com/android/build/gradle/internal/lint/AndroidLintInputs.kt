@@ -512,6 +512,10 @@ abstract class LintOptionsInput {
     abstract val baseline: RegularFileProperty
     @get:Input
     abstract val severityOverrides: MapProperty<String, LintModelSeverity>
+    @get:Input
+    abstract val ignoreTestSources: Property<Boolean>
+    @get:Input
+    abstract val ignoreTestFixturesSources: Property<Boolean>
 
     fun initialize(lintOptions: Lint, lintMode: LintMode) {
         disable.setDisallowChanges(lintOptions.disable)
@@ -537,6 +541,8 @@ abstract class LintOptionsInput {
         }
         baseline.disallowChanges()
         severityOverrides.setDisallowChanges((lintOptions as LintImpl).severityOverridesMap)
+        ignoreTestSources.setDisallowChanges(lintOptions.ignoreTestSources)
+        ignoreTestFixturesSources.setDisallowChanges(lintOptions.ignoreTestFixturesSources)
     }
 
     fun toLintModel(): LintModelLintOptions {
@@ -552,8 +558,8 @@ abstract class LintOptionsInput {
             ignoreWarnings=ignoreWarnings.get(),
             warningsAsErrors=warningsAsErrors.get(),
             checkTestSources=checkTestSources.get(),
-            ignoreTestSources=false, // Handled in LintTaskManager
-            ignoreTestFixturesSources=false, // Handled in LintTaskManager
+            ignoreTestSources=ignoreTestSources.get(),
+            ignoreTestFixturesSources=ignoreTestFixturesSources.get(),
             checkGeneratedSources=checkGeneratedSources.get(),
             explainIssues=explainIssues.get(),
             showAll=showAll.get(),
@@ -914,7 +920,8 @@ abstract class VariantInputs {
             lintMode,
             addBaseModuleLintModel,
             fatalOnly,
-            includeMainArtifact = true
+            includeMainArtifact = true,
+            isPerComponentLintAnalysis = false
         )
     }
 
@@ -930,7 +937,8 @@ abstract class VariantInputs {
         lintMode: LintMode,
         addBaseModuleLintModel: Boolean = false,
         fatalOnly: Boolean,
-        includeMainArtifact: Boolean
+        includeMainArtifact: Boolean,
+        isPerComponentLintAnalysis: Boolean
     ) {
         name.setDisallowChanges(variantName)
         this.useModuleDependencyLintModels.setDisallowChanges(useModuleDependencyLintModels)
@@ -943,7 +951,8 @@ abstract class VariantInputs {
                         useModuleDependencyLintModels,
                         addBaseModuleLintModel,
                         warnIfProjectTreatedAsExternalDependency,
-                        fatalOnly
+                        fatalOnly,
+                        isPerComponentLintAnalysis
                     )
             )
         }
@@ -960,7 +969,8 @@ abstract class VariantInputs {
                         warnIfProjectTreatedAsExternalDependency,
                         // analyzing test bytecode is expensive, without much benefit
                         includeClassesOutputDirectories = false,
-                        fatalOnly
+                        fatalOnly,
+                        isPerComponentLintAnalysis
                     )
             }
         )
@@ -975,6 +985,7 @@ abstract class VariantInputs {
                         addBaseModuleLintModel,
                         warnIfProjectTreatedAsExternalDependency,
                         fatalOnly,
+                        isPerComponentLintAnalysis,
                         // analyzing test bytecode is expensive, without much benefit
                         includeClassesOutputDirectories = false,
                         // analyzing test generated sources is expensive, without much benefit
@@ -992,7 +1003,8 @@ abstract class VariantInputs {
                         useModuleDependencyLintModels = false,
                         addBaseModuleLintModel,
                         warnIfProjectTreatedAsExternalDependency,
-                        fatalOnly
+                        fatalOnly,
+                        isPerComponentLintAnalysis
                     )
             }
         )
@@ -1546,6 +1558,7 @@ abstract class AndroidArtifactInput : ArtifactInput() {
         addBaseModuleLintModel: Boolean,
         warnIfProjectTreatedAsExternalDependency: Boolean,
         fatalOnly: Boolean,
+        isPerComponentLintAnalysis: Boolean,
         includeClassesOutputDirectories: Boolean = true,
         includeGeneratedSourceFolders: Boolean = true
     ): AndroidArtifactInput {
@@ -1594,7 +1607,7 @@ abstract class AndroidArtifactInput : ArtifactInput() {
             //  there is a lint analysis task per component.
             isMainArtifact = !creationConfig.componentType.isNestedComponent,
             fatalOnly,
-            creationConfig.services.projectOptions[BooleanOption.LINT_ANALYSIS_PER_COMPONENT]
+            isPerComponentLintAnalysis
         )
         if (!useModuleDependencyLintModels) {
             if (addBaseModuleLintModel) {
@@ -1718,7 +1731,8 @@ abstract class JavaArtifactInput : ArtifactInput() {
         addBaseModuleLintModel: Boolean,
         warnIfProjectTreatedAsExternalDependency: Boolean,
         includeClassesOutputDirectories: Boolean,
-        fatalOnly: Boolean
+        fatalOnly: Boolean,
+        isPerComponentLintAnalysis: Boolean
     ): JavaArtifactInput {
         if (includeClassesOutputDirectories) {
             if (creationConfig is KmpComponentCreationConfig) {
@@ -1756,7 +1770,7 @@ abstract class JavaArtifactInput : ArtifactInput() {
             //  there is a lint analysis task per component.
             isMainArtifact = false,
             fatalOnly,
-            creationConfig.services.projectOptions[BooleanOption.LINT_ANALYSIS_PER_COMPONENT]
+            isPerComponentLintAnalysis
         )
         if (!useModuleDependencyLintModels) {
             if (addBaseModuleLintModel) {

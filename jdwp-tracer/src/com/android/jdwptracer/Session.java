@@ -18,6 +18,7 @@ package com.android.jdwptracer;
 import com.android.annotations.NonNull;
 import com.android.jdwppacket.IDSizes;
 import com.android.jdwppacket.MessageReader;
+import com.android.jdwppacket.PacketHeader;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +32,9 @@ class Session {
 
     private IDSizes idSizes = new IDSizes();
 
-    private final HashMap<Integer, Transmission> idToTransmission = new HashMap<>();
-
     private final List<Event> events = new ArrayList<>();
+
+    private final HashMap<Integer, Transmission> upStreamTransmissions = new HashMap<>();
 
     private Map<Integer, DdmJDWPTiming> timings = new HashMap<>();
 
@@ -45,57 +46,67 @@ class Session {
         this.log = log;
     }
 
-    // private
-    void addPacket(@NonNull ByteBuffer packet) {
+    void addPacket(@NonNull ByteBuffer packet, Direction direction) {
         long now_ns = System.nanoTime();
 
-        int length = packet.getInt();
-        int id = packet.getInt();
-        byte flag = packet.get();
+        MessageReader messageReader = new MessageReader(idSizes, packet);
+        PacketHeader header = new PacketHeader(messageReader);
 
-        if (Packet.isReply(flag)) {
-            processReplyPacket(now_ns, length, id, packet);
+        if (header.isReply()) {
+            processReplyPacket(now_ns, header, messageReader);
         } else {
-            processCmdPacket(now_ns, length, id, packet);
+            processCmdPacket(now_ns, header, messageReader, direction);
         }
     }
 
-    private void processCmdPacket(long time_ns, int length, int id, @NonNull ByteBuffer packet) {
-        int cmdSetID = packet.get() & 0xFF; // Convert from unsigned byte to signed int.
-        int cmdID = packet.get() & 0xFF; // Convert from unsigned byte to signed int.
+    private void processCmdPacket(
+            long time_ns,
+            @NonNull PacketHeader header,
+            @NonNull MessageReader messageReader,
+            Direction direction) {
+        CmdSet cmdSet = CmdSets.get(header.getCmdSet());
+        Message message = cmdSet.getCmd(header.getCmd()).getCmdParser().parse(messageReader, this);
+        Command command = new Command(header, time_ns, message);
 
-        // From here, we parse the packet with the message reader.
-        MessageReader messageReader = new MessageReader(idSizes, packet);
+        Transmission t = new Transmission(command, header.getId(), events.size());
 
-        CmdSet cmdSet = CmdSets.get(cmdSetID);
-        Message message = cmdSet.getCmd(cmdID).getCmdParser().parse(messageReader, this);
-        Command command = new Command(id, cmdSetID, cmdID, length, time_ns, message);
-
-        Transmission t = new Transmission(command, id, events.size());
-        idToTransmission.put(id, t);
+        // We only track upstream commands. Downstream commands are event without a reply
+        if (direction == Direction.UPSTREAM) {
+            upStreamTransmissions.put(header.getId(), t);
+        }
         events.add(t);
     }
 
-    private void processReplyPacket(long time_ns, int length, int id, @NonNull ByteBuffer packet) {
-        short error = packet.getShort();
-
-        if (!idToTransmission.containsKey(id)) {
-            String msg = String.format(Locale.US, "Found reply id=%d packet without a cmd", id);
+    private void processReplyPacket(
+            long time_ns, @NonNull PacketHeader header, @NonNull MessageReader messageReader) {
+        if (!upStreamTransmissions.containsKey(header.getId())) {
+            String msg =
+                    String.format(
+                            Locale.US,
+                            "Found reply id=%s packet without a cmd",
+                            Integer.toHexString(header.getId()));
             log.warn(msg);
             return;
         }
-        Transmission t = idToTransmission.get(id);
+        Transmission t = upStreamTransmissions.get(header.getId());
+        upStreamTransmissions.remove(header.getId());
 
         int cmdSetID = t.cmd().cmdSetID();
         int cmdID = t.cmd().cmdID();
 
-        // From here, we parse the packet with the message reader.
-        MessageReader messageReader = new MessageReader(idSizes, packet);
+        // If the reply errored, we should not try to parse it.
+        if (header.getError() != 0) {
+            Message message = new Message(messageReader);
+            Reply reply = new Reply(header, time_ns, message);
+            t.addReply(reply);
+            t.cmd().message().prefixName("ERROR:");
+            return;
+        }
 
         // Make a Reply
         CmdSet cmdSet = CmdSets.get(cmdSetID);
         Message message = cmdSet.getCmd(cmdID).getReplyParser().parse(messageReader, this);
-        Reply reply = new Reply(id, length, error, time_ns, message);
+        Reply reply = new Reply(header, time_ns, message);
         t.addReply(reply);
     }
 

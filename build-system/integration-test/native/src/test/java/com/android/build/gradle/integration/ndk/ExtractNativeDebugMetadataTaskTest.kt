@@ -24,8 +24,6 @@ import com.android.build.gradle.integration.common.fixture.GradleTestProject.Com
 import com.android.build.gradle.integration.common.fixture.app.MinimalSubProject
 import com.android.build.gradle.integration.common.fixture.app.MultiModuleTestProject
 import com.android.build.gradle.integration.common.runner.FilterableParameterized
-import com.android.build.gradle.integration.common.utils.getBundleLocation
-import com.android.build.gradle.integration.common.utils.getVariantByName
 import com.android.build.gradle.internal.dsl.NdkOptions.DebugSymbolLevel
 import com.android.build.gradle.internal.dsl.NdkOptions.DebugSymbolLevel.FULL
 import com.android.build.gradle.internal.dsl.NdkOptions.DebugSymbolLevel.NONE
@@ -109,8 +107,8 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
             when (debugSymbolLevel) {
                 null -> return
                 NONE -> debugSymbolLevel.name
-                SYMBOL_TABLE -> debugSymbolLevel.name.toLowerCase()
-                FULL -> debugSymbolLevel.name.toUpperCase()
+                SYMBOL_TABLE -> debugSymbolLevel.name.lowercase()
+                FULL -> debugSymbolLevel.name.uppercase()
             }
         project.getSubproject(":app").buildFile.appendText(
             """
@@ -130,10 +128,10 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
             createUnstrippedAbiFile(subProject, ABI_INTEL_ATOM64, "$it.so")
         }
 
-        val bundleTaskName = getBundleTaskName("release")
+        val bundleTaskName = project.getBundleTaskName("release", ":app")
         project.executor().run("app:$bundleTaskName")
 
-        val bundleFile = getApkFolderOutput("release")
+        val bundleFile = project.locateBundleFileViaModel("release", ":app")
         assertThat(bundleFile).exists()
 
         val bundleEntryPrefix = "BUNDLE-METADATA/com.android.tools.build.debugsymbols"
@@ -230,10 +228,10 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
                 """.trimIndent()
         )
 
-        val bundleTaskName = getBundleTaskName("release")
+        val bundleTaskName = project.getBundleTaskName("release", ":app")
         project.executor().run("app:$bundleTaskName")
 
-        val bundleFile = getApkFolderOutput("release")
+        val bundleFile = project.locateBundleFileViaModel("release", ":app")
         assertThat(bundleFile).exists()
 
         val bundleEntryPrefix = "BUNDLE-METADATA/com.android.tools.build.debugsymbols"
@@ -321,10 +319,10 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
             createStrippedAbiFile(subProject, ABI_INTEL_ATOM64, "$it.so")
         }
 
-        val bundleTaskName = getBundleTaskName("release")
+        val bundleTaskName = project.getBundleTaskName("release", ":app")
         project.executor().run("app:$bundleTaskName")
 
-        val bundleFile = getApkFolderOutput("release")
+        val bundleFile = project.locateBundleFileViaModel("release", ":app")
         assertThat(bundleFile).exists()
 
         val bundleEntryPrefix = "BUNDLE-METADATA/com.android.tools.build.debugsymbols"
@@ -382,7 +380,7 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
             createUnstrippedAbiFile(subProject, ABI_ARMEABI_V7A, "collide.so")
         }
 
-        val bundleTaskName = getBundleTaskName("release")
+        val bundleTaskName = project.getBundleTaskName("release", ":app")
         try {
             project.executor().run("app:$bundleTaskName")
         } catch (e: BuildException) {
@@ -397,7 +395,7 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
     @Test
     fun testTaskSkippedWhenNoNativeLibs() {
         // first test that the task is skipped in all modules when there are no native libraries.
-        val bundleTaskName = getBundleTaskName("release")
+        val bundleTaskName = project.getBundleTaskName("release", ":app")
         val result1 = project.executor().run("app:$bundleTaskName")
         // if mode is NONE, the task should not be part of the task graph at all.
         // the default debugSymbolLevel is SYMBOL_TABLE for release builds.
@@ -456,10 +454,10 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
     fun testNativeDebugMetadataInDefaultDebugBuild() {
         // assert that debug build does not have a default debugSymbolLevel
         Assume.assumeTrue(debugSymbolLevel == null)
-        val bundleTaskName = getBundleTaskName("debug")
+        val bundleTaskName = project.getBundleTaskName("debug", ":app")
         createUnstrippedAbiFile(project.getSubproject(":feature"), ABI_ARMEABI_V7A, "feature.so")
         val result = project.executor().run("app:$bundleTaskName")
-        val bundleFile = getApkFolderOutput("debug")
+        val bundleFile = project.locateBundleFileViaModel("debug", ":app")
         assertThat(bundleFile).exists()
         val bundleEntryPrefix = "/BUNDLE-METADATA/com.android.tools.build.debugsymbols"
         Zip(bundleFile).use { zip ->
@@ -475,29 +473,6 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
         assertThat(result.didWorkTasks).doesNotContain(":feature:extractDebugNativeDebugMetadata")
     }
 
-    private fun getBundleTaskName(name: String): String {
-        // query the model to get the task name
-        val syncModelContainer = project.modelV2().fetchModels(null, null).container
-        val appModel = syncModelContainer.getProject(":app").androidProject
-                ?: fail("Failed to get sync model for :app module")
-
-        val debugArtifact = appModel.getVariantByName(name).mainArtifact
-        return debugArtifact.bundleInfo?.bundleTaskName ?: fail("Module App does not have bundle task name")
-    }
-
-    private fun getApkFolderOutput(variantName: String): File {
-        val outputModelsV2 = project.modelV2()
-                .fetchModels(null, null)
-                .container
-                .getProject(":app")
-                .androidProject
-
-        val outputAppModel = outputModelsV2?.getVariantByName(variantName)
-                ?: fail("Failed to get output model for :app module with variant '$variantName'.")
-
-        return outputAppModel.getBundleLocation()
-    }
-
     private fun createUnstrippedAbiFile(
         project: GradleTestProject,
         abiName: String,
@@ -509,7 +484,7 @@ class ExtractNativeDebugMetadataTaskTest(private val debugSymbolLevel: DebugSymb
             "/nativeLibs/unstripped.so"
         ).use { inputStream ->
             File(abiFolder, libName).outputStream().use { outputStream ->
-                inputStream.copyTo(outputStream)
+                inputStream!!.copyTo(outputStream)
             }
         }
     }

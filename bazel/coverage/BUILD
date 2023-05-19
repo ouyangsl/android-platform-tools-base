@@ -116,11 +116,39 @@ coverage_report(
 coverage_report(
     name = "aqi",
     srcpath_include = [
+        "tools/adt/idea/app-quality-insights/api/src",
+        "tools/adt/idea/app-quality-insights/ide/src",
+        "tools/adt/idea/app-quality-insights/ui/src",
+    ],
+    tests = [
+        "//tools/adt/idea/app-quality-insights/api:intellij.android.app-quality-insights.api_tests",
+        "//tools/adt/idea/app-quality-insights/ide:intellij.android.app-quality-insights.ide.tests_tests",
+        "//tools/adt/idea/app-quality-insights/ui:intellij.android.app-quality-insights.ui.tests_tests",
+    ],
+)
+
+coverage_report(
+    name = "crashlytics",
+    srcpath_include = [
         "tools/vendor/google/firebase/src/com/google/services/firebase/insights",
     ],
     tests = [
         "//tools/vendor/google/firebase:firebase_tests__FirebaseAppManagerTest",
         "//tools/vendor/google/firebase:firebase_tests__other",
+    ],
+)
+
+coverage_report(
+    name = "vitals",
+    srcpath_include = [
+        "tools/adt/idea/app-quality-insights/play-vitals/ide/src",
+        "tools/adt/idea/app-quality-insights/play-vitals/model/src",
+        "tools/adt/idea/app-quality-insights/play-vitals/view/src",
+    ],
+    tests = [
+        "//tools/adt/idea/app-quality-insights/play-vitals/ide:intellij.android.app-quality-insights.play-vitals.ide.tests_tests",
+        "//tools/adt/idea/app-quality-insights/play-vitals/model:intellij.android.app-quality-insights.play-vitals.model_tests",
+        "//tools/adt/idea/app-quality-insights/play-vitals/view:intellij.android.app-quality-insights.play-vitals.view.tests_tests",
     ],
 )
 
@@ -312,8 +340,7 @@ coverage_report(
         "tools/adt/idea/gradle-dsl/src/com/android/tools/idea/gradle/dsl",
     ],
     tests = [
-        # TODO(b/278991173)
-        # "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
+        "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
     ],
 )
 
@@ -923,6 +950,7 @@ combine_report_definitions(
         "build-analyzer",
         "cmake-vnext",
         "compose-ide-plugin",
+        "crashlytics",
         "custom-views-preview",
         "dagger-editing",
         "databinding",
@@ -966,6 +994,7 @@ combine_report_definitions(
         "utp",
         "validation",
         "visual-lint",
+        "vitals",
         "wear-pairing-assistant",
     ],
 )
@@ -1000,6 +1029,12 @@ coverage_report(
         "//tools/adt/idea/app-inspection/inspectors/network/ide:app-inspection.inspectors.network.ide.tests_tests",
         "//tools/adt/idea/app-inspection/inspectors/network/model:app-inspection.inspectors.network.model_tests",
         "//tools/adt/idea/app-inspection/inspectors/network/view:app-inspection.inspectors.network.view.tests_tests",
+        "//tools/adt/idea/app-quality-insights/api:intellij.android.app-quality-insights.api_tests",
+        "//tools/adt/idea/app-quality-insights/ide:intellij.android.app-quality-insights.ide.tests_tests",
+        "//tools/adt/idea/app-quality-insights/play-vitals/ide:intellij.android.app-quality-insights.play-vitals.ide.tests_tests",
+        "//tools/adt/idea/app-quality-insights/play-vitals/model:intellij.android.app-quality-insights.play-vitals.model_tests",
+        "//tools/adt/idea/app-quality-insights/play-vitals/view:intellij.android.app-quality-insights.play-vitals.view.tests_tests",
+        "//tools/adt/idea/app-quality-insights/ui:intellij.android.app-quality-insights.ui.tests_tests",
         "//tools/adt/idea/assistant:assistant-test_tests",
         "//tools/adt/idea/build-attribution:intellij.android.build-attribution.tests_tests",
         "//tools/adt/idea/build-common:intellij.android.buildCommon_tests",
@@ -1024,8 +1059,7 @@ coverage_report(
         "//tools/adt/idea/device-manager-v2:intellij.android.device-manager-v2_tests",
         "//tools/adt/idea/gmd-code-completion:intellij.android.gmd-code-completion_tests",
         "//tools/adt/idea/streaming:intellij.android.streaming.tests_tests",
-        # TODO(b/278991173)
-        # "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
+        "//tools/adt/idea/gradle-dsl:intellij.android.gradle.dsl.tests_tests",
         "//tools/adt/idea/kotlin-integration:kotlin-integration-tests_tests",
         "//tools/adt/idea/layout-inspector:intellij.android.layout-inspector.tests_tests",
         "//tools/adt/idea/layout-ui:intellij.android.layout-ui_tests",

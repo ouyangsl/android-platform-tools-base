@@ -18,7 +18,6 @@ package com.android.build.gradle.internal.tasks;
 
 import static com.android.build.gradle.internal.testing.utp.EmulatorControlConfigKt.createEmulatorControlConfig;
 import static com.android.build.gradle.internal.testing.utp.RetentionConfigKt.createRetentionConfig;
-import static com.android.build.gradle.internal.testing.utp.UtpTestUtilsKt.shouldEnableUtp;
 import static com.android.builder.core.BuilderConstants.CONNECTED;
 import static com.android.builder.core.BuilderConstants.DEVICE;
 import static com.android.builder.core.BuilderConstants.FD_ANDROID_RESULTS;
@@ -55,10 +54,7 @@ import com.android.build.gradle.internal.test.report.CompositeTestResults;
 import com.android.build.gradle.internal.test.report.ReportType;
 import com.android.build.gradle.internal.test.report.TestReport;
 import com.android.build.gradle.internal.testing.ConnectedDeviceProvider;
-import com.android.build.gradle.internal.testing.OnDeviceOrchestratorTestRunner;
-import com.android.build.gradle.internal.testing.ShardedTestRunner;
 import com.android.build.gradle.internal.testing.SimpleTestRunnable;
-import com.android.build.gradle.internal.testing.SimpleTestRunner;
 import com.android.build.gradle.internal.testing.TestData;
 import com.android.build.gradle.internal.testing.TestRunner;
 import com.android.build.gradle.internal.testing.utp.EmulatorControlConfig;
@@ -135,18 +131,9 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
             file -> SdkConstants.EXT_ANDROID_PACKAGE.equals(Files.getFileExtension(file.getName()));
 
     public abstract static class TestRunnerFactory {
-        @Input
-        public abstract Property<Boolean> getUnifiedTestPlatform();
 
         @Internal
         public abstract Property<Boolean> getIsUtpLoggingEnabled();
-
-        @Input
-        public abstract Property<Boolean> getShardBetweenDevices();
-
-        @Input
-        @Optional
-        public abstract Property<Integer> getNumShards();
 
         @Input
         public abstract Property<Boolean> getUninstallIncompatibleApks();
@@ -209,64 +196,29 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                 WorkerExecutor workerExecutor,
                 ExecutorServiceAdapter executorServiceAdapter,
                 @Nullable UtpTestResultListener utpTestResultListener) {
-            GradleProcessExecutor gradleProcessExecutor =
-                    new GradleProcessExecutor(getExecOperations()::exec);
 
-            if (getUnifiedTestPlatform().get()) {
-                boolean useOrchestrator =
-                        (getExecutionEnum().get() == ANDROID_TEST_ORCHESTRATOR
-                                || getExecutionEnum().get() == ANDROIDX_TEST_ORCHESTRATOR);
-                return new UtpTestRunner(
-                        getBuildTools().splitSelectExecutable().getOrNull(),
-                        gradleProcessExecutor,
-                        workerExecutor,
-                        executorServiceAdapter,
-                        getUtpDependencies(),
-                        getSdkBuildService()
-                                .get()
-                                .sdkLoader(
-                                        getBuildTools().getCompileSdkVersion(),
-                                        getBuildTools().getBuildToolsRevision()),
-                        getEmulatorControlConfig().get(),
-                        getRetentionConfig().get(),
-                        useOrchestrator,
-                        getUninstallIncompatibleApks().get(),
-                        utpTestResultListener,
-                        utpLoggingLevel(),
-                        getInstallApkTimeout().getOrNull(),
-                        getTargetIsSplitApk().getOrElse(false));
-            } else {
-                switch (getExecutionEnum().get()) {
-                    case ANDROID_TEST_ORCHESTRATOR:
-                    case ANDROIDX_TEST_ORCHESTRATOR:
-                        Preconditions.checkArgument(
-                                !getShardBetweenDevices().get(),
-                                "Sharding is not supported with Android Test Orchestrator.");
-
-                        return new OnDeviceOrchestratorTestRunner(
-                                getBuildTools().splitSelectExecutable().getOrNull(),
-                                gradleProcessExecutor,
-                                getExecutionEnum().get(),
-                                executorServiceAdapter);
-                    case HOST:
-                        if (getShardBetweenDevices().get()) {
-
-                            return new ShardedTestRunner(
-                                    getBuildTools().splitSelectExecutable().getOrNull(),
-                                    gradleProcessExecutor,
-                                    getNumShards().getOrNull(),
-                                    executorServiceAdapter);
-                        } else {
-
-                            return new SimpleTestRunner(
-                                    getBuildTools().splitSelectExecutable().getOrNull(),
-                                    gradleProcessExecutor,
-                                    executorServiceAdapter);
-                        }
-                    default:
-                        throw new AssertionError("Unknown value " + getExecutionEnum().get());
-                }
-            }
+            boolean useOrchestrator =
+                    (getExecutionEnum().get() == ANDROID_TEST_ORCHESTRATOR
+                            || getExecutionEnum().get() == ANDROIDX_TEST_ORCHESTRATOR);
+            return new UtpTestRunner(
+                    getBuildTools().splitSelectExecutable().getOrNull(),
+                    new GradleProcessExecutor(getExecOperations()::exec),
+                    workerExecutor,
+                    executorServiceAdapter,
+                    getUtpDependencies(),
+                    getSdkBuildService()
+                            .get()
+                            .sdkLoader(
+                                    getBuildTools().getCompileSdkVersion(),
+                                    getBuildTools().getBuildToolsRevision()),
+                    getEmulatorControlConfig().get(),
+                    getRetentionConfig().get(),
+                    useOrchestrator,
+                    getUninstallIncompatibleApks().get(),
+                    utpTestResultListener,
+                    utpLoggingLevel(),
+                    getInstallApkTimeout().getOrNull(),
+                    getTargetIsSplitApk().getOrElse(false));
         }
 
         private Level utpLoggingLevel() {
@@ -275,6 +227,7 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
     }
 
     public abstract static class DeviceProviderFactory {
+
         @Nullable private DeviceProvider deviceProvider;
 
         @Input
@@ -589,9 +542,13 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
         private static final String CONNECTED_DEVICE_PROVIDER = "connected";
 
         @NonNull private final String deviceProviderName;
+
         @Nullable private final DeviceProvider deviceProvider;
+
         @NonNull private final Type type;
+
         @NonNull private final AbstractTestDataImpl testData;
+
         @Nullable private final Provider<List<String>> connectedCheckTargetSerials;
 
         public enum Type {
@@ -777,12 +734,6 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                 task.getDeviceProviderFactory().deviceProvider = deviceProvider;
             }
             task.getInstallOptions().set(installationOptions.getInstallOptions());
-            task.getTestRunnerFactory()
-                    .getShardBetweenDevices()
-                    .set(projectOptions.getProvider(BooleanOption.ENABLE_TEST_SHARDING));
-            task.getTestRunnerFactory()
-                    .getNumShards()
-                    .set(projectOptions.getProvider(IntegerOption.ANDROID_TEST_SHARD_COUNT));
 
             task.getTestRunnerFactory()
                     .getSdkBuildService()
@@ -801,24 +752,20 @@ public abstract class DeviceProviderInstrumentTestTask extends NonIncrementalTas
                         .getConnectedCheckDeviceSerials()
                         .set(connectedCheckTargetSerials);
             }
-            boolean useUtp = shouldEnableUtp(projectOptions, testOptions);
-            task.getTestRunnerFactory().getUnifiedTestPlatform().set(useUtp);
-            if (useUtp) {
-                if (!projectOptions.get(BooleanOption.ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM)) {
-                    LoggerWrapper.getLogger(DeviceProviderInstrumentTestTask.class)
-                            .warning(
-                                    "Implicitly enabling Unified Test Platform because related "
-                                            + "features are specified in gradle test options. "
-                                            + "Please add "
-                                            + "-Pandroid.experimental.androidTest."
-                                            + "useUnifiedTestPlatform=true "
-                                            + "to your gradle command to suppress this warning.");
-                }
-                UtpDependencyUtilsKt.maybeCreateUtpConfigurations(project);
-                UtpDependencyUtilsKt.resolveDependencies(
-                        task.getTestRunnerFactory().getUtpDependencies(),
-                        task.getProject().getConfigurations());
+            if (!projectOptions.get(BooleanOption.ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM)) {
+                LoggerWrapper.getLogger(DeviceProviderInstrumentTestTask.class)
+                        .warning(
+                                "Implicitly enabling Unified Test Platform because related "
+                                        + "features are specified in gradle test options. "
+                                        + "Please add "
+                                        + "-Pandroid.experimental.androidTest."
+                                        + "useUnifiedTestPlatform=true "
+                                        + "to your gradle command to suppress this warning.");
             }
+            UtpDependencyUtilsKt.maybeCreateUtpConfigurations(project);
+            UtpDependencyUtilsKt.resolveDependencies(
+                    task.getTestRunnerFactory().getUtpDependencies(),
+                    task.getProject().getConfigurations());
 
             boolean infoLoggingEnabled =
                     Logging.getLogger(DeviceProviderInstrumentTestTask.class).isInfoEnabled();

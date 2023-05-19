@@ -29,11 +29,11 @@ public class JDWPTracerTest {
         ByteBuffer badPacket = ByteBuffer.allocate(0);
 
         try {
-            tracer.addPacket(badPacket);
+            tracer.addUpstreamPacket(badPacket);
         } catch (Exception e) {
             Assert.fail();
         }
 
-        Assert.assertEquals(logs.getWarnings().size(), 1);
+        Assert.assertEquals(1, logs.getWarnings().size());
     }
 }

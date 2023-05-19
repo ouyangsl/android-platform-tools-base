@@ -107,8 +107,8 @@ gradle_connected_test(
         "@maven//:androidx.appcompat.appcompat_1.4.1",
         "@maven//:androidx.annotation.annotation_1.2.0-rc01",
         "@maven//:androidx.core.core-ktx_1.9.0",
-        "@maven//:androidx.privacysandbox.tools.tools-apipackager_1.0.0-alpha02",
-        "@maven//:androidx.privacysandbox.tools.tools_1.0.0-alpha02",
+        "@maven//:androidx.privacysandbox.tools.tools-apipackager_1.0.0-alpha03",
+        "@maven//:androidx.privacysandbox.tools.tools_1.0.0-alpha03",
         "@maven//:androidx.test.rules_1.3.0",
         "@maven//:junit.junit_4.13.2",
         "@maven//:androidx.test.espresso.espresso-core_3.4.0",
@@ -671,17 +671,6 @@ gradle_connected_test(
 )
 
 gradle_connected_test(
-    name = "ShardingConnectedTest",
-    srcs = "src/test/java/com/android/build/gradle/integration/connected/testing/",
-    avd = ":avd",
-    data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/appWithTests"],
-    flaky = True,  # b/148626301 flaky emulator connectivity
-    maven_repo_zips = MAVEN_REPO_ZIPS,
-    maven_repos = TEST_MAVEN_REPOS,
-    deps = TEST_DEPS,
-)
-
-gradle_connected_test(
     name = "SameNamedLibsConnectedTest",
     srcs = "src/test/java/com/android/build/gradle/integration/connected/library/",
     avd = ":avd",
@@ -844,8 +833,8 @@ maven_repository(
         "@maven//:androidx.lifecycle.lifecycle-common-java8_2.6.1",
         "@maven//:androidx.lifecycle.lifecycle-livedata-ktx_2.6.1",
         "@maven//:androidx.lifecycle.lifecycle-viewmodel-ktx_2.6.1",
-        "@maven//:androidx.privacysandbox.tools.tools-apipackager_1.0.0-alpha02",
-        "@maven//:androidx.privacysandbox.tools.tools_1.0.0-alpha02",
+        "@maven//:androidx.privacysandbox.tools.tools-apipackager_1.0.0-alpha03",
+        "@maven//:androidx.privacysandbox.tools.tools_1.0.0-alpha03",
         "@maven//:androidx.test.core_1.4.0-alpha06",
         "@maven//:androidx.test.core_1.5.0",
         "@maven//:androidx.test.espresso.espresso-core_3.2.0",

@@ -27,6 +27,7 @@ import com.android.build.api.variant.HasAndroidTest
 import com.android.build.api.variant.HasTestFixtures
 import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.component.ComponentCreationConfig
+import com.android.build.gradle.internal.component.KmpCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope
@@ -603,6 +604,7 @@ abstract class AndroidLintTask : NonIncrementalTask() {
             val hasDynamicFeatures = creationConfig.global.hasDynamicFeatures
             val isLintAnalysisPerComponent =
                 variant.main.services.projectOptions.get(LINT_ANALYSIS_PER_COMPONENT)
+                        || variant.main is KmpCreationConfig
             if (isLintAnalysisPerComponent) {
                 task.variantInputs.initialize(
                     variant.main,
@@ -615,7 +617,8 @@ abstract class AndroidLintTask : NonIncrementalTask() {
                     warnIfProjectTreatedAsExternalDependency = true,
                     lintMode = lintMode,
                     fatalOnly = fatalOnly,
-                    includeMainArtifact = true
+                    includeMainArtifact = true,
+                    isPerComponentLintAnalysis = true
                 )
             } else {
                 task.variantInputs.initialize(
@@ -722,8 +725,12 @@ abstract class AndroidLintTask : NonIncrementalTask() {
                 lintPartialResultsArtifactType
             )
             if (!fatalOnly && isLintAnalysisPerComponent) {
+                val ignoreTestSources = task.projectInputs.lintOptions.ignoreTestSources.get()
+                val ignoreTestFixturesSources =
+                    task.projectInputs.lintOptions.ignoreTestFixturesSources.get()
                 // Add unit test lint models and partial results
-                if ((creationConfig as? HasUnitTest)?.unitTest != null) {
+                if ((creationConfig as? HasUnitTest)?.unitTest != null
+                    && ignoreTestSources.not()) {
                     task.nestedComponentLintModels.from(
                         creationConfig.artifacts.get(UNIT_TEST_LINT_MODEL)
                     )
@@ -743,7 +750,8 @@ abstract class AndroidLintTask : NonIncrementalTask() {
                 )
 
                 // Add android test lint models and partial results
-                if ((creationConfig as? HasAndroidTest)?.androidTest != null) {
+                if ((creationConfig as? HasAndroidTest)?.androidTest != null
+                    && ignoreTestSources.not()) {
                     task.nestedComponentLintModels.from(
                         creationConfig.artifacts.get(ANDROID_TEST_LINT_MODEL)
                     )
@@ -763,7 +771,8 @@ abstract class AndroidLintTask : NonIncrementalTask() {
                 )
 
                 // Add test fixtures lint models and partial results
-                if ((creationConfig as? HasTestFixtures)?.testFixtures != null) {
+                if ((creationConfig as? HasTestFixtures)?.testFixtures != null
+                    && ignoreTestFixturesSources.not()) {
                     task.nestedComponentLintModels.from(
                         creationConfig.artifacts.get(TEST_FIXTURES_LINT_MODEL)
                     )
