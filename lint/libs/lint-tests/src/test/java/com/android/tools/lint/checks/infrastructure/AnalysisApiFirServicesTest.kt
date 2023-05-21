@@ -73,9 +73,4 @@ class AnalysisApiFirServicesTest : AnalysisApiServicesTestBase() {
   fun testParameterModifiers() {
     checkParameterModifiers()
   }
-
-  @Test
-  fun testCancellation() {
-    checkCancellation()
-  }
 }

@@ -380,7 +380,6 @@ private fun configureFe10ApplicationEnvironment(appEnv: CoreApplicationEnvironme
       InternalPersistentJavaLanguageLevelReaderService.DefaultImpl()
     )
   }
-  reRegisterProgressManager(appEnv.application)
 }
 
 // A Kotlin compiler BindingTrace optimized for Lint.
