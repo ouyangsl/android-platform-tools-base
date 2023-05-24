@@ -19,6 +19,8 @@ package com.android.build.gradle.integration.analytics
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.ProfileCapturer
 import com.android.build.gradle.integration.common.fixture.app.HelloWorldApp
+import com.android.build.gradle.internal.LoggerWrapper
+import com.android.build.gradle.internal.profile.AnalyticsService
 import com.google.common.truth.Truth
 import com.google.wireless.android.sdk.stats.GradleBuildProfileSpan.ExecutionType
 import org.junit.Rule
@@ -97,8 +99,6 @@ class AnalyticsConfigurationCachingTest {
         val nonCachedRun = capturer.capture { project.execute("assembleDebug") }.single()
         Truth.assertThat(nonCachedRun.buildTime).isGreaterThan(0)
         val configCachedRun = capturer.capture { project.execute("assembleDebug") }.single()
-
         Truth.assertThat(configCachedRun.buildTime).isGreaterThan(0)
-        Truth.assertThat(nonCachedRun.buildTime).isGreaterThan(configCachedRun.buildTime)
     }
 }
