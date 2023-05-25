@@ -780,6 +780,7 @@ public final class SdkConstants {
     public static final String CLASS_MANIFEST_PERMISSION =
             "android.Manifest$permission";
     public static final String CLASS_INTENT = "android.content.Intent";
+    public static final String CLASS_INTENT_FILTER = "android.content.IntentFilter";
     public static final String CLASS_CONTEXT = "android.content.Context";
     public static final String CLASS_CONFIGURATION = "android.content.res.Configuration";
     public static final String CLASS_RESOURCES = "android.content.res.Resources";
@@ -1303,6 +1304,7 @@ public final class SdkConstants {
     public static final String ATTR_TARGET_ACTIVITY = "targetActivity";
     public static final String ATTR_MIMETYPE = "mimeType";
     public static final String ATTR_LOCALE_CONFIG = "localeConfig";
+    public static final String ATTR_FOREGROUND_SERVICE_TYPE = "foregroundServiceType";
 
     // Attributes: Resources
     public static final String ATTR_ATTR = "attr";
@@ -2794,7 +2796,7 @@ public final class SdkConstants {
      * Studio product. It need not actually be the latest version of Gradle, but it will most likely
      * be fairly recent.
      */
-    public static final String GRADLE_LATEST_VERSION = "8.0";
+    public static final String GRADLE_LATEST_VERSION = "8.1";
 
     /**
      * The minimum released version of the Android Gradle Plugin that this version of Studio will

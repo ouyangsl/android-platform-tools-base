@@ -1,7 +1,7 @@
 ARTIFACTS = [
     "androidx.annotation:annotation:1.1.0",
     "com.android.tools.build:aapt2-proto:7.3.0-alpha07-8248216",
-    "com.android.tools.build:bundletool:1.15.0",
+    "com.android.tools.build:bundletool:1.15.1",
     "com.android.tools.build.jetifier:jetifier-core:1.0.0-beta10",
     "com.android.tools.build.jetifier:jetifier-processor:1.0.0-beta10",
     "com.android.tools.build:transform-api:2.0.0-deprecated-use-gradle-api",
@@ -141,7 +141,7 @@ ARTIFACTS = [
     "com.github.rising3:semver:0.3.1",
     "org.glassfish.jaxb:jaxb-runtime:2.3.2",
     "org.glassfish.jaxb:jaxb-xjc:2.3.2",
-    "org.gradle:gradle-tooling-api:8.0",
+    "org.gradle:gradle-tooling-api:8.1",
     "org.hamcrest:hamcrest-core:1.3",
     "org.hamcrest:hamcrest-library:1.3",
     "org.jacoco:org.jacoco.agent:0.8.8",

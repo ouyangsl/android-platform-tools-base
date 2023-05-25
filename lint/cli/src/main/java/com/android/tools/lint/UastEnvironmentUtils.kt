@@ -19,10 +19,13 @@ import com.intellij.codeInsight.CustomExceptionHandler
 import com.intellij.codeInsight.ExternalAnnotationsManager
 import com.intellij.codeInsight.InferredAnnotationsManager
 import com.intellij.core.CoreApplicationEnvironment
+import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProject
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.diagnostic.DefaultLogger
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.impl.CoreProgressManager
 import com.intellij.openapi.roots.LanguageLevelProjectExtension
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.registry.Registry
@@ -38,6 +41,7 @@ import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.config.JVMConfigurationKeys
 import org.jetbrains.kotlin.resolve.diagnostics.DiagnosticSuppressor
+import org.jetbrains.uast.UastContext
 import org.jetbrains.uast.UastLanguagePlugin
 import org.jetbrains.uast.evaluation.UEvaluatorExtension
 import org.jetbrains.uast.java.JavaUastLanguagePlugin
@@ -81,6 +85,10 @@ internal fun configureProjectEnvironment(
   if (javaLanguageLevel != null) {
     LanguageLevelProjectExtension.getInstance(project).languageLevel = javaLanguageLevel
   }
+
+  // TODO(b/283351708): Migrate to using UastFacade/UastLanguagePlugin instead,
+  //  even including lint checks shipped in a binary form?!
+  @Suppress("DEPRECATION") project.registerService(UastContext::class.java, UastContext(project))
 }
 
 // In parallel builds the Kotlin compiler will reuse the application environment
@@ -132,6 +140,22 @@ internal fun configureApplicationEnvironment(
 
   appConfigured = true
   Disposer.register(appEnv.parentDisposable, Disposable { appConfigured = false })
+}
+
+internal fun reRegisterProgressManager(application: MockApplication) {
+  // The ProgressManager service is registered early in CoreApplicationEnvironment, we need to
+  // remove it first.
+  application.picoContainer.unregisterComponent(ProgressManager::class.java.name)
+  application.registerService(
+    ProgressManager::class.java,
+    object : CoreProgressManager() {
+      override fun doCheckCanceled() {
+        // Do nothing
+      }
+
+      override fun isInNonCancelableSection() = true
+    }
+  )
 }
 
 // KT-56277: [CompactVirtualFileSetFactory] is package-private, so we introduce our own default-ish

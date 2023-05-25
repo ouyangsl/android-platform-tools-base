@@ -81,7 +81,6 @@ import org.jetbrains.kotlin.resolve.ModuleAnnotationsResolver
 import org.jetbrains.kotlin.resolve.jvm.extensions.AnalysisHandlerExtension
 import org.jetbrains.kotlin.scripting.compiler.plugin.ScriptingCompilerConfigurationComponentRegistrar
 import org.jetbrains.kotlin.util.slicedMap.WritableSlice
-import org.jetbrains.uast.UastContext
 import org.jetbrains.uast.UastLanguagePlugin
 import org.jetbrains.uast.kotlin.BaseKotlinUastResolveProviderService
 import org.jetbrains.uast.kotlin.KotlinUastLanguagePlugin
@@ -116,6 +115,14 @@ private constructor(
   private constructor(override val kotlinCompilerConfig: CompilerConfiguration) :
     UastEnvironment.Configuration {
     override var javaLanguageLevel: LanguageLevel? = null
+
+    // Legacy merging behavior for Fe 1.0
+    override fun addModules(modules: List<UastEnvironment.Module>, bootClassPaths: Iterable<File>) =
+      UastEnvironment.Configuration.mergeRoots(modules, bootClassPaths).let { (sources, classPaths)
+        ->
+        addSourceRoots(sources.toList())
+        addClasspathRoots(classPaths.toList())
+      }
 
     companion object {
       @JvmStatic
@@ -276,8 +283,6 @@ private fun configureFe10ProjectEnvironment(
   config: Fe10UastEnvironment.Configuration
 ) {
   // UAST support.
-  @Suppress("DEPRECATION") // TODO: Migrate to using UastFacade instead.
-  project.registerService(UastContext::class.java, UastContext(project))
   AnalysisHandlerExtension.registerExtension(project, UastAnalysisHandlerExtension())
   project.registerService(
     KotlinUastResolveProviderService::class.java,
@@ -380,6 +385,7 @@ private fun configureFe10ApplicationEnvironment(appEnv: CoreApplicationEnvironme
       InternalPersistentJavaLanguageLevelReaderService.DefaultImpl()
     )
   }
+  reRegisterProgressManager(appEnv.application)
 }
 
 // A Kotlin compiler BindingTrace optimized for Lint.

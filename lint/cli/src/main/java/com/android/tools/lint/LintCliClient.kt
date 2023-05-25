@@ -63,7 +63,6 @@ import com.android.tools.lint.detector.api.LintMap
 import com.android.tools.lint.detector.api.Location
 import com.android.tools.lint.detector.api.PartialResult
 import com.android.tools.lint.detector.api.Project
-import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.TextFormat
 import com.android.tools.lint.detector.api.describeCounts
@@ -79,9 +78,6 @@ import com.android.tools.lint.model.LintModelModuleType
 import com.android.tools.lint.model.PathVariables
 import com.android.utils.CharSequences
 import com.android.utils.StdLogger
-import com.google.common.annotations.VisibleForTesting
-import com.google.common.base.Splitter
-import com.google.common.collect.Sets
 import com.intellij.codeInsight.ExternalAnnotationsManager
 import com.intellij.mock.MockProject
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -99,6 +95,7 @@ import java.io.PrintWriter
 import java.net.URL
 import java.net.URLConnection
 import java.nio.file.Files
+import java.nio.file.Path
 import kotlin.math.max
 import org.jetbrains.jps.model.java.impl.JavaSdkUtil
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys.PERF_MANAGER
@@ -106,6 +103,7 @@ import org.jetbrains.kotlin.cli.common.CommonCompilerPerformanceManager
 import org.jetbrains.kotlin.config.JVMConfigurationKeys
 import org.jetbrains.kotlin.config.LanguageVersionSettings
 import org.jetbrains.kotlin.config.languageVersionSettings
+import org.jetbrains.kotlin.js.inline.util.toIdentitySet
 import org.jetbrains.kotlin.util.PerformanceCounter.Companion.resetAllCounters
 import org.w3c.dom.Document
 
@@ -153,7 +151,6 @@ open class LintCliClient : LintClient {
 
   protected var validatedIds = false
   private var kotlinPerformanceManager: LintCliKotlinPerformanceManager? = null
-  private var jdkHome: File? = null
   var uastEnvironment: UastEnvironment? = null
   val ideaProject: MockProject?
     get() = uastEnvironment?.ideaProject
@@ -486,55 +483,43 @@ open class LintCliClient : LintClient {
    */
   override fun mergeState(root: Project, driver: LintDriver) {
     // Load any partial results from dependencies we've already analyzed
-    val projects = HashSet<Project>()
-    val dependentsMap: MutableMap<Project, MutableList<Project>> = HashMap()
-    projects.add(root)
-    if (driver.checkDependencies) {
-      // modulePathToMainProject is a map of modulePath to "main" Project, we need this map because
-      // partial results from test components should be considered with respect to their own "main"
-      // project, not the "root" project.
-      val modulePathToMainProject: MutableMap<String, Project> = HashMap()
-      for (project in root.allLibraries + listOf(root)) {
-        if (project.buildVariant?.artifact?.type == LintModelArtifactType.MAIN) {
-          project.buildModule?.modulePath?.let { modulePathToMainProject[it] = project }
+    fun Project.modulePath() = buildModule?.modulePath
+    fun Project.artifactType() = buildVariant?.artifact?.type
+    val dependentsMap: Map<Project, Project> =
+      if (driver.checkDependencies) {
+        // modulePathToMainProject is a map of modulePath to "main" Project, we need this map
+        // because partial results from test components should be considered with respect to
+        // their own "main" project, not the "root" project.
+        val modulePathToMainProject =
+          (root.allLibraries.asSequence() + root)
+            .filter { it.artifactType() == LintModelArtifactType.MAIN }
+            .associateBy { it.modulePath() }
+
+        root.allLibraries.asSequence().filterNot(Project::isExternalLibrary).associateWith {
+          dependency ->
+          val dependencyType = dependency.artifactType()
+          val dependencyModulePath = dependency.modulePath()
+          when {
+            dependencyType != null &&
+              dependencyType != LintModelArtifactType.MAIN &&
+              dependencyModulePath != null ->
+              modulePathToMainProject[dependencyModulePath] ?: root
+            else -> root
+          }
         }
+      } else {
+        // Even in non-check-dependencies scenarios we have to add in any dynamic
+        // features and test components since we've transferred them in as dependencies
+        // instead (see LintModelModuleProject.resolveDependencies)
+        root.allLibraries
+          .asSequence()
+          .filter { dependency ->
+            dependency.type == LintModelModuleType.DYNAMIC_FEATURE ||
+              root.modulePath()?.let { it == dependency.modulePath() } == true
+          }
+          .associateWith { root }
       }
-      for (dependency in root.allLibraries) {
-        if (dependency.isExternalLibrary) {
-          continue
-        }
-        val dependents =
-          dependentsMap[dependency] ?: ArrayList<Project>().also { dependentsMap[dependency] = it }
-        val dependencyType = dependency.buildVariant?.artifact?.type
-        val dependencyModulePath = dependency.buildModule?.modulePath
-        if (
-          dependencyType != null &&
-            dependencyType != LintModelArtifactType.MAIN &&
-            dependencyModulePath != null
-        ) {
-          dependents.add(modulePathToMainProject[dependencyModulePath] ?: root)
-        } else {
-          dependents.add(root)
-        }
-        projects.add(dependency)
-      }
-    } else {
-      // Even in non-check-dependencies scenarios we have to add in any dynamic
-      // features and test components since we've transferred them in as dependencies
-      // instead (see LintModelModuleProject.resolveDependencies)
-      for (dependency in root.allLibraries) {
-        if (
-          dependency.type == LintModelModuleType.DYNAMIC_FEATURE ||
-            root.buildModule?.modulePath?.let { it == dependency.buildModule?.modulePath } == true
-        ) {
-          val dependents =
-            dependentsMap[dependency]
-              ?: ArrayList<Project>().also { dependentsMap[dependency] = it }
-          dependents.add(root)
-          projects.add(dependency)
-        }
-      }
-    }
+    val projects = dependentsMap.keys + root
 
     // Results that were reported unconditionally, per project
     val definiteMap = HashMap<Project, List<Incident>>()
@@ -543,64 +528,49 @@ open class LintCliClient : LintClient {
     // Data that was reported without associated incidents, per project
     val dataMap = HashMap<Issue, MutableMap<Project, LintMap>>()
     // Issues configured away from their defaults during the analysis
-    val issueMap: MutableMap<Project, MutableMap<String, Severity>> = HashMap()
+    val issueMap = HashMap<Project, MutableMap<String, Severity>>()
     // Read partial and definite results from each dependency and initialize
     // above data structures
     for (project in projects) {
       driver.computeDetectors(project)
-      val registry = driver.registry
-
-      val conditional = getSerializationFile(project, XmlFileType.CONDITIONAL_INCIDENTS)
-      if (conditional.isFile) {
-        provisionalMap[project] = XmlReader(this, registry, project, conditional).getIncidents()
+      xmlReader(project, XmlFileType.CONDITIONAL_INCIDENTS)?.let {
+        provisionalMap[project] = it.getIncidents()
       }
 
-      val definite = getSerializationFile(project, XmlFileType.INCIDENTS)
-      if (definite.isFile) {
-        definiteMap[project] = XmlReader(this, registry, project, definite).getIncidents()
+      xmlReader(project, XmlFileType.INCIDENTS)?.let {
+        definiteMap[project] = it.getIncidents()
       }
 
-      val partialFile = getSerializationFile(project, XmlFileType.PARTIAL_RESULTS)
-      if (partialFile.isFile) {
-        val partial = XmlReader(this, registry, project, partialFile).getPartialResults()
-
-        for ((issue, list) in partial) {
-          val projectMap =
-            dataMap[issue] ?: HashMap<Project, LintMap>().also { dataMap[issue] = it }
-          projectMap[project] = list
+      xmlReader(project, XmlFileType.PARTIAL_RESULTS)?.let {
+        for ((issue, list) in it.getPartialResults()) {
+          dataMap.getOrPut(issue, ::HashMap)[project] = list
         }
       }
 
-      val issuesFile = getSerializationFile(project, XmlFileType.CONFIGURED_ISSUES)
-      if (issuesFile.isFile) {
-        val issues = XmlReader(this, registry, project, issuesFile).getConfiguredIssues()
-        for ((issue: String, severity) in issues) {
-          val projectMap =
-            issueMap[project] ?: HashMap<String, Severity>().also { issueMap[project] = it }
-          projectMap[issue] = severity
+      xmlReader(project, XmlFileType.CONFIGURED_ISSUES)?.let {
+        for ((issue, severity) in it.getConfiguredIssues()) {
+          issueMap.getOrPut(project, ::HashMap)[issue] = severity
         }
       }
     }
 
     // Merge incidents into the report
-    for ((library, dependents) in dependentsMap.entries) {
+    for ((library, main) in dependentsMap.entries) {
       val libraryConfig = library.getConfiguration(driver)
       val libraryConfigLeaf = configurations.getScopeLeaf(libraryConfig)
       val libraryConfigPrevParent = libraryConfigLeaf.parent
       try {
-        for (main in dependents) {
-          val mainConfig = main.getConfiguration(driver)
-          // The two configurations could be the same object, such
-          // as if the two projects share the same root directory;
-          // we avoid creating a self-loop in this case.
-          if (mainConfig !== libraryConfigLeaf) {
-            libraryConfigLeaf.setParent(mainConfig)
-          }
-          val mainContext = Context(driver, main, main, main.dir)
-          mergeIncidents(library, main, mainContext, definiteMap, provisionalMap)
-          val libraryIssues = issueMap[library] ?: emptyMap()
-          checkConfigured(library, libraryIssues, main, mainContext)
+        val mainConfig = main.getConfiguration(driver)
+        // The two configurations could be the same object, such
+        // as if the two projects share the same root directory;
+        // we avoid creating a self-loop in this case.
+        if (mainConfig !== libraryConfigLeaf) {
+          libraryConfigLeaf.setParent(mainConfig)
         }
+        val mainContext = Context(driver, main, main, main.dir)
+        mergeIncidents(library, main, mainContext, definiteMap, provisionalMap)
+        val libraryIssues = issueMap[library] ?: emptyMap()
+        checkConfigured(library, libraryIssues, main, mainContext)
       } finally {
         configurations.setParent(libraryConfigLeaf, libraryConfigPrevParent)
       }
@@ -616,8 +586,7 @@ open class LintCliClient : LintClient {
         for ((issue, map) in dataMap.entries) {
           val results = PartialResult.withRequestedProject(PartialResult(issue, map), root)
           val detector =
-            detectorMap[issue]
-              ?: issue.implementation.detectorClass.newInstance().also { detectorMap[issue] = it }
+            detectorMap.getOrPut(issue, issue.implementation.detectorClass::newInstance)
           detector.checkPartialResults(rootContext, results)
         }
       }
@@ -877,10 +846,12 @@ open class LintCliClient : LintClient {
     driver.allowSuppress = flags.allowSuppress
     driver.allowBaselineSuppress = flags.allowBaselineSuppress
     driver.skipAnnotations = flags.skipAnnotations
+    driver.baselineOmitLineNumbers = flags.isBaselineOmitLineNumbers
     val baselineFile = flags.baselineFile
     if (baselineFile != null) {
       val baseline = LintBaseline(this, baselineFile)
       driver.baseline = baseline
+      baseline.omitLineNumbers = driver.baselineOmitLineNumbers
       if (flags.isRemoveFixedBaselineIssues) {
         baseline.writeOnClose = true
         baseline.removeFixed = true
@@ -1068,53 +1039,38 @@ open class LintCliClient : LintClient {
   }
 
   override fun getPartialResults(project: Project, issue: Issue): PartialResult {
-    val partialResults =
-      partialResults
-        ?: run {
-          val partialResults =
-            LinkedHashMap<Issue, PartialResult>().also { this.partialResults = it }
-          // Command-line invocations of Lint can opt for a global
-          // analysis (and note that the partial results map can still be
-          // used by Detectors). In this case, we must not load any
-          // partial results from disk.
-          if (!driver.isGlobalAnalysis()) {
-            for (dep in project.allLibraries.filter { !it.isExternalLibrary }) {
-              val file = getSerializationFile(dep, XmlFileType.PARTIAL_RESULTS)
-              if (!file.isFile) {
-                continue
-              }
-              val reader = XmlReader(this, driver.registry, project, file)
-              val results = reader.getPartialResults()
-              for ((loadedIssue: Issue, map) in results) {
-                val target: PartialResult =
-                  partialResults[loadedIssue]
-                    ?: run {
-                      val newMap = LinkedHashMap<Project, LintMap>()
-                      newMap[dep] = LintMap()
-                      PartialResult(loadedIssue, newMap).also { partialResults[loadedIssue] = it }
-                    }
-                val targetMap = target.mapFor(dep)
-                targetMap.putAll(map)
-              }
+    fun partialResult(project: Project, issue: Issue) =
+      partialResults!!.getOrPut(issue) {
+        PartialResult(issue, LinkedHashMap<Project, LintMap>().also { it[project] = LintMap() })
+      }
+
+    if (partialResults == null) {
+      partialResults = LinkedHashMap()
+      // Command-line invocations of Lint can opt for a global
+      // analysis (and note that the partial results map can still be
+      // used by Detectors). In this case, we must not load any
+      // partial results from disk.
+      if (!driver.isGlobalAnalysis()) {
+        for (dep in project.allLibraries.filter { !it.isExternalLibrary }) {
+          xmlReader(dep, XmlFileType.PARTIAL_RESULTS)?.let { reader ->
+            for ((loadedIssue, map) in reader.getPartialResults()) {
+              partialResult(dep, loadedIssue).mapFor(dep).putAll(map)
             }
           }
-          partialResults
         }
-
-    val partialResult =
-      partialResults[issue]
-        ?: run {
-          val map = LinkedHashMap<Project, LintMap>()
-          val default = LintMap()
-          map[project] = default
-          PartialResult(issue, map).also { partialResults[issue] = it }
-        }
+      }
+    }
 
     // PartialResult.map needs to return the LintMap for the "requested project"
     // (i.e. whichever project was passed in to this method).
     // Thus, we return a clone of partialResult with the requestedProject field set.
-    return PartialResult.withRequestedProject(partialResult, project)
+    return PartialResult.withRequestedProject(partialResult(project, issue), project)
   }
+
+  private fun xmlReader(project: Project, type : XmlFileType) : XmlReader? =
+    getSerializationFile(project, type).takeIf(File::isFile)?.let { file ->
+      XmlReader(this, driver.registry, project, file)
+    }
 
   override fun readFile(file: File): CharSequence {
     val contents =
@@ -1417,7 +1373,7 @@ open class LintCliClient : LintClient {
    * the files in [allProjects].
    */
   private fun mayNeedKotlinScripting(allProjects: Set<Project>): Boolean {
-    if (::driver.isInitialized && !driver.scope.contains(Scope.GRADLE_FILE)) {
+    if (allProjects.none { it.isGradleProject }) {
       return false
     }
 
@@ -1440,78 +1396,39 @@ open class LintCliClient : LintClient {
       uastEnvironment = env
       return
     }
-    // Initialize the associated idea project to use
-    val includeTests = !flags.isIgnoreTestSources
+    val jdkHome: File? = getJdkHomeUnlessJre()
     // knownProject only lists root projects, not dependencies
-    val allProjects = Sets.newIdentityHashSet<Project>()
-    for (project in knownProjects) {
-      allProjects.add(project)
-      allProjects.addAll(project.allLibraries)
-    }
-    val sourceRoots: MutableSet<File> = LinkedHashSet(10)
-    val classpathRoots: MutableSet<File> = LinkedHashSet(50)
-    for (project in allProjects) {
-      // Note that there could be duplicates here since we're including multiple library
-      // dependencies that could have the same dependencies (e.g. lib1 and lib2 both
-      // referencing guava.jar)
-      sourceRoots.addAll(project.javaSourceFolders)
-      if (includeTests) {
-        sourceRoots.addAll(project.testSourceFolders)
+    val allProjects =
+      knownProjects.asSequence().flatMap { sequenceOf(it) + it.allLibraries }.toIdentitySet()
+    val allModules =
+      allProjects.map {
+        UastEnvironment.Module(
+          it,
+          jdkHome,
+          !flags.isIgnoreTestSources,
+          !flags.isIgnoreTestFixturesSources,
+          isUnitTest
+        )
       }
-      sourceRoots.addAll(project.generatedSourceFolders)
-      classpathRoots.addAll(project.getJavaLibraries(true))
-      if (includeTests) {
-        classpathRoots.addAll(project.testLibraries)
-      }
-      if (!flags.isIgnoreTestFixturesSources) {
-        sourceRoots.addAll(project.testFixturesSourceFolders)
-        classpathRoots.addAll(project.testFixturesLibraries)
-      }
+    val maxLevel =
+      knownProjects
+        .asSequence()
+        .map(Project::getJavaLanguageLevel)
+        .fold(LanguageLevel.JDK_1_7, LanguageLevel::coerceAtLeast)
 
-      // Don't include all class folders:
-      //  files.addAll(project.getJavaClassFolders());
-      // These are the outputs from the sources and generated sources, which we will
-      // parse directly with PSI/UAST anyway. Including them here leads lint to do
-      // a lot more work (e.g. when resolving symbols it looks at both .java and .class
-      // matches).
-      // However, we *do* need them for libraries; otherwise, type resolution into
-      // compiled libraries will not work; see
-      // https://issuetracker.google.com/72032121
-      // (We also enable this for unit tests where there is no actual compilation;
-      // here, the presence of class files is simulating binary-only access
-      if (project.isLibrary || isUnitTest) {
-        classpathRoots.addAll(project.javaClassFolders)
-      } else if (project.isGradleProject) {
-        // As of 3.4, R.java is in a special jar file
-        for (f in project.javaClassFolders) {
-          if (f.name == SdkConstants.FN_R_CLASS_JAR) {
-            classpathRoots.add(f)
-          }
-        }
+    for (module in allModules.asSequence()) {
+      for (file in module.allRoots) {
+        // IntelliJ expects absolute file paths, otherwise resolution can fail in subtle ways.
+        require(file.isAbsolute) { "Relative Path found: $file. All paths should be absolute." }
       }
     }
-    addBootClassPath(knownProjects, classpathRoots)
-    var maxLevel = LanguageLevel.JDK_1_7
-    for (project in knownProjects) {
-      val level = project.javaLanguageLevel
-      if (maxLevel.isLessThan(level)) {
-        maxLevel = level
-      }
-    }
-
-    for (file in sourceRoots + classpathRoots) {
-      // IntelliJ expects absolute file paths, otherwise resolution can fail in subtle ways.
-      require(file.isAbsolute) { "Relative Path found: $file. All paths should be absolute." }
-    }
-
     val config =
       UastEnvironment.Configuration.create(
         enableKotlinScripting = mayNeedKotlinScripting(allProjects),
         useFirUast = flags.useK2Uast() || useFirUast()
       )
     config.javaLanguageLevel = maxLevel
-    config.addSourceRoots(sourceRoots.toList())
-    config.addClasspathRoots(classpathRoots.toList())
+    config.addModules(allModules, getBootClassPath(knownProjects) ?: setOf())
     config.kotlinCompilerConfig.putIfNotNull(PERF_MANAGER, kotlinPerformanceManager)
     jdkHome?.let {
       config.kotlinCompilerConfig.put(JVMConfigurationKeys.JDK_HOME, it)
@@ -1528,43 +1445,20 @@ open class LintCliClient : LintClient {
     super.initializeProjects(driver, knownProjects)
   }
 
-  protected open fun addBootClassPath(
-    knownProjects: Collection<Project>,
-    files: MutableSet<File>
-  ): Boolean {
+  // TODO: When the JRE/JDK distinction no longer applies, simplify the jdkHome setup.
+  private fun getJdkHomeUnlessJre(): File? = getJdkHome()?.takeIf(::isJdkFolder)
+
+  protected open fun getBootClassPath(knownProjects: Collection<Project>): Set<File>? =
     // TODO: Use bootclasspath from Gradle?
-
-    val buildTarget = pickBuildTarget(knownProjects)
-    if (buildTarget != null) {
-      @Suppress("UNNECESSARY_SAFE_CALL") // because of mocking
-      val file: File? = buildTarget.getPath(IAndroidTarget.ANDROID_JAR)?.toFile()
-      if (file != null) {
-        // because we're partially mocking it in some tests
-        files.add(file)
-        return true
-      }
+    pickBuildTarget(knownProjects)?.getPath(IAndroidTarget.ANDROID_JAR)?.toFile()?.let {
+      // because we're partially mocking it in some tests
+      setOf(it)
     }
-
-    val jdkHome = getJdkHome()
-    if (jdkHome != null) {
-      val isJre = !isJdkFolder(jdkHome)
-      val roots = JavaSdkUtil.getJdkClassesRoots(jdkHome.toPath(), isJre)
-      for (root in roots) {
-        val rootFile = root.toFile()
-        if (rootFile.exists()) {
-          files.add(rootFile)
-        }
+      ?: getJdkHome()?.let { jdkHome ->
+        val isJre = !isJdkFolder(jdkHome)
+        val roots = JavaSdkUtil.getJdkClassesRoots(jdkHome.toPath(), isJre)
+        roots.asSequence().map(Path::toFile).filter(File::exists).toSet()
       }
-
-      // TODO: When the JRE/JDK distinction no longer applies, simplify the jdkHome setup.
-      if (!isJre) {
-        this.jdkHome = jdkHome
-      }
-      return true
-    }
-
-    return false
-  }
 
   /**
    * Return the best build target to use among the given set of projects. This is necessary because
