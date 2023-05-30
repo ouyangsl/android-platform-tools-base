@@ -28,7 +28,7 @@ public class SdkVersionInfo {
      * updated for a new release. This number is used as a baseline and any more recent platforms
      * found can be used to increase the highest known number.
      */
-    public static final int HIGHEST_KNOWN_API = 33;
+    public static final int HIGHEST_KNOWN_API = 35;
 
     /**
      * Like {@link #HIGHEST_KNOWN_API} but does not include preview platforms.
@@ -54,7 +54,7 @@ public class SdkVersionInfo {
      * <p>Generally we shouldn't <i>prevent</i> the user from proceeding; the intent is to make the
      * user <b>aware</b> that the SDK may not work correctly without a newer version of the tools.
      */
-    public static final int HIGHEST_SUPPORTED_API = 33; // b/230535497; this is not yet enforced
+    public static final int HIGHEST_SUPPORTED_API = 35; // b/230535497; this is not yet enforced
 
     /**
      * The lowest active API level in the ecosystem. This number will change over time as the
@@ -181,8 +181,10 @@ public class SdkVersionInfo {
             case 30: return "11.0";
             case 31: return "12.0";
             case 32: return "12L";
-            case 33:
-                return "13.0";
+            case 33: return "13.0";
+            case 34: return "14.0";
+            case 35:
+                return getCodeName(api);
             // If you add more versions here, also update #getBuildCodes and
             // #HIGHEST_KNOWN_API
 
@@ -247,6 +249,10 @@ public class SdkVersionInfo {
                 return "Sv2";
             case 33:
                 return "Tiramisu";
+            case 34:
+                return "UpsideDownCake";
+            case 35:
+                return "VanillaIceCream";
             // If you add more versions here, also update #getBuildCodes and
             // #HIGHEST_KNOWN_API
 
@@ -299,8 +305,9 @@ public class SdkVersionInfo {
             case 30: return "R";
             case 31: return "S";
             case 32: return "S_V2";
-            case 33:
-                return "TIRAMISU";
+            case 33: return "TIRAMISU";
+            case 34: return "UPSIDEDOWNCAKE"
+            case 35: return "VANILLAICECREAM"
                 // If you add more versions here, also update #getCodeName and
                 // #HIGHEST_KNOWN_API
         }

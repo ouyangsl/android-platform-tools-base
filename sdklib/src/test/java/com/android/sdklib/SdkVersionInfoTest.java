@@ -52,6 +52,9 @@ public class SdkVersionInfoTest extends TestCase {
         assertEquals("API 31: Android 12.0 (S)", SdkVersionInfo.getAndroidName(31));
         assertEquals("API 32: Android 12L (Sv2)", SdkVersionInfo.getAndroidName(32));
         assertEquals("API 33: Android 13.0 (Tiramisu)", SdkVersionInfo.getAndroidName(33));
+        assertEquals("API 34: Android 14.0 (UpsideDownCake)", SdkVersionInfo.getAndroidName(33));
+        assertEquals("API 35: Android VanillaIceCream (VanillaIceCream)", SdkVersionInfo.getAndroidName(33));
+
 
         // Future: if we don't have a name, don't include "null" as a name
         assertEquals("API 500", SdkVersionInfo.getAndroidName(500));
@@ -90,6 +93,9 @@ public class SdkVersionInfoTest extends TestCase {
         assertEquals(30, getApiByPreviewName("R", true));
         assertEquals(32, getApiByPreviewName("S_V2", true));
         assertEquals(32, getApiByPreviewName("Sv2", true));
+        assertEquals(33, getApiByPreviewName("Tiramisu", true));
+        assertEquals(34, getApiByPreviewName("UpsideDownCake", true));
+        assertEquals(35, getApiByPreviewName("VanillaIceCream", true));
 
         assertEquals(-1, getApiByPreviewName("UnknownName", false));
         assertEquals(HIGHEST_KNOWN_API + 1, getApiByPreviewName("UnknownName", true));
@@ -105,6 +111,9 @@ public class SdkVersionInfoTest extends TestCase {
         assertEquals(29, getApiByBuildCode("Q", true));
         assertEquals(30, getApiByBuildCode("R", true));
         assertEquals(32, getApiByBuildCode("S_V2", true));
+        assertEquals(33, getApiByBuildCode("TIRAMISU", true));
+        assertEquals(34, getApiByBuildCode("UPSIDEDOWNCAKE", true));
+        assertEquals(35, getApiByBuildCode("VANILLAICECREAM", true));
 
         for (int api = 1; api <= HIGHEST_KNOWN_API; api++) {
             assertEquals(api, getApiByBuildCode(getBuildCode(api), false));
