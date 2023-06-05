@@ -7,7 +7,14 @@
         "sourceSetName": "androidMain",
         "extras": {
           "com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker": {},
-          "org.gradle.api.artifacts.Configuration;resolvableMetadataConfiguration": "configuration \u0027:kmpSecondLib:androidMainResolvableDependenciesMetadata\u0027"
+          "org.gradle.api.artifacts.Configuration;resolvableMetadataConfiguration": "configuration \u0027:kmpSecondLib:androidMainResolvableDependenciesMetadata\u0027",
+          "kotlin.Function0\u003ccom.android.kotlin.multiplatform.models.AndroidSourceSet?\u003e;android-source-set-model": {
+            "sourceProvider": {
+              "manifestFile": {
+                "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpSecondLib/src/androidMain/AndroidManifest.xml"
+              }
+            }
+          }
         }
       },
       "allSourceSets": [
@@ -18,8 +25,93 @@
           "sourceSetName": "commonMain"
         }
       ],
-      "extras": {}
+      "extras": {
+        "kotlin.Function0\u003ccom.android.kotlin.multiplatform.models.AndroidCompilation?\u003e;android-compilation-model": {
+          "type": "MAIN",
+          "mainDslInfo": {
+            "namespace": "com.example.kmpsecondlib",
+            "compileSdkTarget": "android-33",
+            "minSdkVersion": {
+              "apiLevel": 22,
+              "codename": ""
+            },
+            "proguardFiles": [
+              {
+                "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpSecondLib/build/intermediates/default_proguard_files/global/proguard-android.txt-{AGP_Version}"
+              }
+            ],
+            "consumerProguardFiles": []
+          },
+          "defaultSourceSetName": "androidMain",
+          "assembleTaskName": "assembleAndroidMain"
+        }
+      }
     }
   ],
-  "extras": {}
+  "extras": {
+    "kotlin.Function0\u003ccom.android.kotlin.multiplatform.models.AndroidTarget?\u003e;android-target-model": {
+      "agpVersion": "{AGP_Version}",
+      "projectPath": ":kmpSecondLib",
+      "buildDir": {
+        "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpSecondLib/build"
+      },
+      "bootClasspath": [
+        {
+          "absolutePath": "{ANDROID_SDK}/platforms/android-{COMPILE_SDK_VERSION}/android.jar"
+        }
+      ],
+      "testInfo": {
+        "animationsDisabled": false,
+        "execution": "HOST",
+        "additionalRuntimeApks": [],
+        "instrumentedTestTaskName": ""
+      },
+      "flags": {
+        "booleanFlagValues": [
+          {
+            "flag": "APPLICATION_R_CLASS_CONSTANT_IDS",
+            "value": false
+          },
+          {
+            "flag": "TEST_R_CLASS_CONSTANT_IDS",
+            "value": false
+          },
+          {
+            "flag": "TRANSITIVE_R_CLASS",
+            "value": false
+          },
+          {
+            "flag": "JETPACK_COMPOSE",
+            "value": false
+          },
+          {
+            "flag": "ML_MODEL_BINDING",
+            "value": false
+          },
+          {
+            "flag": "UNIFIED_TEST_PLATFORM",
+            "value": true
+          },
+          {
+            "flag": "USE_ANDROID_X",
+            "value": true
+          },
+          {
+            "flag": "ENABLE_VCS_INFO",
+            "value": false
+          }
+        ]
+      },
+      "lintChecksJars": [],
+      "isCoreLibraryDesugaringEnabled": false,
+      "desugarLibConfig": [],
+      "groupId": "Kotlin Multiplatform",
+      "buildToolsVersion": "34.0.0-rc3",
+      "desugaredMethodsFiles": [
+        {
+          "absolutePath": "{GRADLE_CACHE}/{CHECKSUM}/transformed/D8BackportedDesugaredMethods.txt"
+        }
+      ]
+    }
+  }
 }

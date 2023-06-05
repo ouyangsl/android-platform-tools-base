@@ -482,7 +482,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         }
       }
     } else if (parent == "dependencies") {
-      if (value.startsWith("files('") && value.endsWith("')")) {
+      if (value.startsWith("files") && value.matches("^files\\(['\"].*[\"']\\)$".toRegex())) {
         val path = value.substring("files('".length, value.length - 2)
         if (path.contains("\\\\")) {
           val fix = fix().replace().text(path).with(path.replace("\\\\", "/")).build()
@@ -543,6 +543,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
             val tomlLibraries = context.getTomlValue(VC_LIBRARIES)
             if (
               tomlLibraries != null &&
+                !context.file.name.startsWith("settings.gradle") &&
                 !dependency.contains("+") &&
                 (!dependency.contains("$") || isResolved)
             ) {
@@ -1294,10 +1295,11 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
       }
     }
 
+    val version = Version.parse(revision)
+
     if (groupId == "com.android.tools.build" && LintClient.isStudio) {
       val clientRevision = context.client.getClientRevision() ?: return null
       val ideVersion = Version.parse(clientRevision)
-      val version = Version.parse(revision)
       // TODO(b/145606749): this assumes that the IDE version and the AGP version are directly
       // comparable
       return Predicate { v ->
@@ -1308,6 +1310,20 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
           (v.major == version.major && v.minor == version.minor)
       }
     }
+
+    if (version.major != null) {
+      // version.major not being null is something of a pun, but sensible anyway:
+      // if the whole version is non-numeric, the concept of "the current preview
+      // series" doesn't really exist.  It also guards against the fact that the
+      // "revision" that we've parsed into a Version isn't known to be a version,
+      // and in fact has more of the character of a RichVersion.
+      val infimum = version.previewInfimum
+      val supremum = version.previewSupremum
+      if (infimum != null && supremum != null) {
+        return Predicate { v -> if (v.isPreview) (infimum < v && v < supremum) else true }
+      }
+    }
+
     return null
   }
 

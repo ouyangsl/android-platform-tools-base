@@ -22,15 +22,13 @@ data class ProjectSettings (
 
     val name: String,
 
-    val storageBucket: String?,
+    val storageBucket: String,
 
     val testHistoryName: String?,
 
     val grantedPermissions: String?,
 
     val networkProfile: String?,
-
-    val extraDeviceFiles: Map<String, String>,
 
     val directoriesToPull: List<String>,
 

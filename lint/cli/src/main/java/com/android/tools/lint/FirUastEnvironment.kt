@@ -79,9 +79,12 @@ private constructor(
     val modules = mutableListOf<UastEnvironment.Module>()
     val classPaths = mutableSetOf<File>()
 
-    override fun addModules(modules: List<UastEnvironment.Module>, bootClassPaths: Iterable<File>) {
+    override fun addModules(
+      modules: List<UastEnvironment.Module>,
+      bootClassPaths: Iterable<File>?
+    ) {
       this.modules.addAll(modules)
-      this.classPaths.addAll(bootClassPaths)
+      bootClassPaths?.let(this.classPaths::addAll)
     }
 
     companion object {
@@ -138,28 +141,30 @@ private fun createAnalysisSession(
     ) {
       val theProject = project
       val thePlatform = JvmPlatforms.defaultJvmPlatform // TODO(b/283271025)
-      // TODO: Avoid creating AA session per test mode, while app env. is not disposed,
-      //  which led to duplicate app-level service registration.
-      if (application.getServiceIfCreated(VirtualFileSetFactory::class.java) == null) {
-        // Note that this app-level service should be initialized before any other entities attempt
-        // to instantiate [FilesScope]
-        // For FIR UAST, the first attempt will be made while building the module structure below.
-        registerApplicationService(VirtualFileSetFactory::class.java, LintVirtualFileSetFactory)
+      appLock.withLock {
+        // TODO: Avoid creating AA session per test mode, while app env. is not disposed,
+        //  which led to duplicate app-level service registration.
+        if (application.getServiceIfCreated(VirtualFileSetFactory::class.java) == null) {
+          // Note that this app-level service should be initialized before any other entities
+          // attempt to instantiate [FilesScope]
+          // For FIR UAST, the first attempt will be made while building the module structure below.
+          registerApplicationService(VirtualFileSetFactory::class.java, LintVirtualFileSetFactory)
+        }
+        // This app-level service should be registered before building project structure
+        // which attempt to read JvmRoots for java files
+        if (
+          application.getServiceIfCreated(
+            InternalPersistentJavaLanguageLevelReaderService::class.java
+          ) == null
+        ) {
+          registerApplicationService(
+            InternalPersistentJavaLanguageLevelReaderService::class.java,
+            InternalPersistentJavaLanguageLevelReaderService.DefaultImpl()
+          )
+        }
+        // We need to re-register Application-level service before AA session is built.
+        reRegisterProgressManager(application as MockApplication)
       }
-      // This app-level service should be registered before building project structure
-      // which attempt to read JvmRoots for java files
-      if (
-        application.getServiceIfCreated(
-          InternalPersistentJavaLanguageLevelReaderService::class.java
-        ) == null
-      ) {
-        registerApplicationService(
-          InternalPersistentJavaLanguageLevelReaderService::class.java,
-          InternalPersistentJavaLanguageLevelReaderService.DefaultImpl()
-        )
-      }
-      // We need to re-register Application-level service before AA session is built.
-      reRegisterProgressManager(application as MockApplication)
 
       buildKtModuleProvider {
         platform = thePlatform
@@ -212,7 +217,17 @@ private fun createAnalysisSession(
               platform = thePlatform
               project = theProject
               moduleName = m.name
-              addSourceRoots(ktFiles)
+              // NB: This should include both .kt and .java sources if any,
+              //  and thus we don't need to specify the reified type for the return file type.
+              addSourceRoots(
+                getPsiFilesFromPaths(
+                  project,
+                  Helper.getSourceFilePaths(
+                    m.sourceRoots.map(File::getPath),
+                    includeDirectoryRoot = true
+                  )
+                )
+              )
             }
           )
         }

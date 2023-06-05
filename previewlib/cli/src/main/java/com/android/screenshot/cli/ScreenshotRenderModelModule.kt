@@ -26,6 +26,8 @@ import com.android.tools.idea.res.ScreenshotResourceRepositoryManager
 import com.android.tools.lint.model.LintModelModule
 import com.android.tools.module.AndroidModuleInfo
 import com.android.tools.module.ModuleDependencies
+import com.android.tools.rendering.ModuleKey
+import com.android.tools.rendering.ModuleKeyManager
 import com.android.tools.rendering.api.EnvironmentContext
 import com.android.tools.rendering.api.RenderModelManifest
 import com.android.tools.rendering.api.RenderModelModule
@@ -78,8 +80,8 @@ class ScreenshotRenderModelModule(
         }
     override val resourceIdManager: ResourceIdManager
         get() = resourceManager
-    override val moduleKey: Any
-        get() = composeModule.module
+    override val moduleKey: ModuleKey
+        get() = ModuleKeyManager.getKey(composeModule.module)
     override val resourcePackage: String?
         get() = composeModule.module.getModuleSystem().getPackageName()
 

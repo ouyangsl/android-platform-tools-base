@@ -502,8 +502,7 @@ open class LintCliClient : LintClient {
           when {
             dependencyType != null &&
               dependencyType != LintModelArtifactType.MAIN &&
-              dependencyModulePath != null ->
-              modulePathToMainProject[dependencyModulePath] ?: root
+              dependencyModulePath != null -> modulePathToMainProject[dependencyModulePath] ?: root
             else -> root
           }
         }
@@ -537,9 +536,7 @@ open class LintCliClient : LintClient {
         provisionalMap[project] = it.getIncidents()
       }
 
-      xmlReader(project, XmlFileType.INCIDENTS)?.let {
-        definiteMap[project] = it.getIncidents()
-      }
+      xmlReader(project, XmlFileType.INCIDENTS)?.let { definiteMap[project] = it.getIncidents() }
 
       xmlReader(project, XmlFileType.PARTIAL_RESULTS)?.let {
         for ((issue, list) in it.getPartialResults()) {
@@ -1067,7 +1064,7 @@ open class LintCliClient : LintClient {
     return PartialResult.withRequestedProject(partialResult(project, issue), project)
   }
 
-  private fun xmlReader(project: Project, type : XmlFileType) : XmlReader? =
+  private fun xmlReader(project: Project, type: XmlFileType): XmlReader? =
     getSerializationFile(project, type).takeIf(File::isFile)?.let { file ->
       XmlReader(this, driver.registry, project, file)
     }
@@ -1428,7 +1425,7 @@ open class LintCliClient : LintClient {
         useFirUast = flags.useK2Uast() || useFirUast()
       )
     config.javaLanguageLevel = maxLevel
-    config.addModules(allModules, getBootClassPath(knownProjects) ?: setOf())
+    config.addModules(allModules, getBootClassPath(knownProjects))
     config.kotlinCompilerConfig.putIfNotNull(PERF_MANAGER, kotlinPerformanceManager)
     jdkHome?.let {
       config.kotlinCompilerConfig.put(JVMConfigurationKeys.JDK_HOME, it)

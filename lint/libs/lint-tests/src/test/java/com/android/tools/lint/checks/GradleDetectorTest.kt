@@ -68,7 +68,6 @@ import com.android.tools.lint.checks.infrastructure.TestLintTask
 import com.android.tools.lint.checks.infrastructure.TestMode
 import com.android.tools.lint.checks.infrastructure.platformPath
 import com.android.tools.lint.client.api.LintClient
-import com.android.tools.lint.client.api.LintClient.Companion.clientName
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Implementation
 import com.android.tools.lint.detector.api.Project
@@ -1398,10 +1397,38 @@ class GradleDetectorTest : AbstractCheckTest() {
       )
   }
 
+  fun testVersionCatalogNotSuggestedInSettingsGradle() {
+    lint()
+      .files(
+        gradleToml("""
+                [versions]
+                [libraries]
+                """)
+          .indented(),
+        kts(
+            "settings.gradle.kts",
+            """
+                buildscript {
+                    repositories {
+                        google()
+                    }
+                    dependencies {
+                        classpath("com.android.application:com.android.application.gradle.plugin:8.0.1")
+                    }
+                }
+                """
+          )
+          .indented()
+      )
+      .issues(SWITCH_TO_TOML)
+      .run()
+      .expectClean()
+  }
+
   fun testVersionsFromGradleCache() {
     val expected =
       "" +
-        "build.gradle:7: Warning: A newer version of com.android.tools.build:gradle than 3.4.0-alpha3 is available: 3.6.0-alpha01 [AndroidGradlePluginVersion]\n" +
+        "build.gradle:7: Warning: A newer version of com.android.tools.build:gradle than 3.4.0-alpha3 is available: 3.5.0 [AndroidGradlePluginVersion]\n" +
         "        classpath 'com.android.tools.build:gradle:3.4.0-alpha3'\n" +
         "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
         "build.gradle:11: Warning: A newer version of org.apache.httpcomponents:httpcomponents-core than 4.2 is available: 4.4 [GradleDependency]\n" +
@@ -1440,10 +1467,10 @@ class GradleDetectorTest : AbstractCheckTest() {
       .expect(expected)
       .expectFixDiffs(
         "" +
-          "Fix for build.gradle line 7: Change to 3.6.0-alpha01:\n" +
+          "Fix for build.gradle line 7: Change to 3.5.0:\n" +
           "@@ -7 +7\n" +
           "-         classpath 'com.android.tools.build:gradle:3.4.0-alpha3'\n" +
-          "+         classpath 'com.android.tools.build:gradle:3.6.0-alpha01'\n" +
+          "+         classpath 'com.android.tools.build:gradle:3.5.0'\n" +
           "Fix for build.gradle line 11: Change to 4.4:\n" +
           "@@ -11 +11\n" +
           "-     compile 'org.apache.httpcomponents:httpcomponents-core:4.2'\n" +
@@ -1684,15 +1711,15 @@ class GradleDetectorTest : AbstractCheckTest() {
             // Test 2.6.0 NOT going up to 2.7.0 preview
             "    implementation \"androidx.work:work-gcm:2.6.0\" // No suggestion\n" +
             // Test 2.6.0 alpha05 going up to 2.8 preview
-            "    androidTestImplementation \"androidx.work:work-testing:2.6.0-alpha05\" // expect 2.8.0-alpha01\n" +
+            "    androidTestImplementation \"androidx.work:work-testing:2.6.0-alpha05\" // expect 2.7.0\n" +
             // Test 2.7.0 alpha05 going up to 2.7.0 alpha06
             "    implementation \"androidx.work:work-multiprocess:2.7.0-alpha05\" // expect 2.7.0-alpha06\n" +
             // Test normal upgrades in 2.7: 2.7.0 alpha05 going up to 2.7.0 alpha6
             "    implementation \"androidx.work:work-rxjava3:2.7.0-alpha05\" // expect 2.7.0-alpha06\n" +
             // Make sure dynamic versions also work: don't upgrade from < 2.7 to 2.7 previews
             "    implementation \"androidx.work:work-rxjava3:2.5.+\" // expect 2.6.0\n" +
-            // Also update to 2.6, not 2.7, from older stable releases
-            "    implementation \"androidx.work:work-runtime:2.5.0-alpha05\" // expect 2.6.0-alpha06\n" +
+            // Don't update from a preview of a previous series
+            "    implementation \"androidx.work:work-runtime:2.5.0-alpha05\" // No suggestion\n" +
             // Don't update from a stable version
             "    implementation \"androidx.work:work-runtime:2.5.0\" // No suggestion\n" +
             "}\n"
@@ -1720,7 +1747,7 @@ class GradleDetectorTest : AbstractCheckTest() {
                   <work-rxjava2 versions="2.7.0,2.6.0-alpha06"/>
                   <work-rxjava3 versions="2.7.0-alpha06"/>
                   <work-gcm versions="2.7.0-alpha05"/>
-                  <work-testing versions="2.8.0-alpha01"/>
+                  <work-testing versions="2.8.0-alpha01,2.7.0"/>
                   <work-multiprocess versions="2.7.0-alpha06,2.6.0"/>
                 </androidx.work>
                 """
@@ -1735,8 +1762,8 @@ class GradleDetectorTest : AbstractCheckTest() {
                 build.gradle:10: Warning: A newer version of androidx.work:work-rxjava2 than 2.6.0-alpha05 is available: 2.7.0 [GradleDependency]
                     implementation "androidx.work:work-rxjava2:2.6.0-alpha05" // expect 2.7.0
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                build.gradle:12: Warning: A newer version of androidx.work:work-testing than 2.6.0-alpha05 is available: 2.8.0-alpha01 [GradleDependency]
-                    androidTestImplementation "androidx.work:work-testing:2.6.0-alpha05" // expect 2.8.0-alpha01
+                build.gradle:12: Warning: A newer version of androidx.work:work-testing than 2.6.0-alpha05 is available: 2.7.0 [GradleDependency]
+                    androidTestImplementation "androidx.work:work-testing:2.6.0-alpha05" // expect 2.7.0
                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 build.gradle:13: Warning: A newer version of androidx.work:work-multiprocess than 2.7.0-alpha05 is available: 2.7.0-alpha06 [GradleDependency]
                     implementation "androidx.work:work-multiprocess:2.7.0-alpha05" // expect 2.7.0-alpha06
@@ -1744,10 +1771,7 @@ class GradleDetectorTest : AbstractCheckTest() {
                 build.gradle:14: Warning: A newer version of androidx.work:work-rxjava3 than 2.7.0-alpha05 is available: 2.7.0-alpha06 [GradleDependency]
                     implementation "androidx.work:work-rxjava3:2.7.0-alpha05" // expect 2.7.0-alpha06
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                build.gradle:16: Warning: A newer version of androidx.work:work-runtime than 2.5.0-alpha05 is available: 2.6.0-alpha06 [GradleDependency]
-                    implementation "androidx.work:work-runtime:2.5.0-alpha05" // expect 2.6.0-alpha06
-                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                0 errors, 6 warnings
+                0 errors, 5 warnings
                 """
       )
   }
@@ -1768,23 +1792,23 @@ class GradleDetectorTest : AbstractCheckTest() {
             "\n" +
             "dependencies {\n" +
 
-            // work-runtime has 2.7.0-alpha06,3.0.0-SNAPSHOT -- we don't want to offer
+            // work-runtime has 2.6.0-beta05,2.7.0-alpha06,3.0.0-SNAPSHOT -- we don't want to offer
             // updates to 3.0.0-SNAPSHOT even though it's "higher"
             "    implementation \"androidx.test:work-runtime:2.7.0-alpha06\" // no suggestion\n" +
-            // But we *can* update to a higher non-SNAPSHOT version
-            "    implementation \"androidx.test:work-runtime:2.6.0-alpha06\" // update to 2.7.0-alpha06\n" +
+            // But we *can* update to a higher non-SNAPSHOT of the same series
+            "    implementation \"androidx.test:work-runtime:2.6.0-alpha06\" // update to 2.6.0-beta05\n" +
             // For work-runtime-ktx has 2.5.0,2.6.0-alpha05; we don't want to update to SNAPSHOT
             // versions
             "    implementation \"androidx.test:work-runtime-ktx:2.6.0-SNAPSHOT\" // No suggestion\n" +
             // but from old snapshot versions we can jump to a higher version
-            "    implementation \"androidx.test:work-runtime-ktx:2.3.0-SNAPSHOT\" // Update to 2.6.0-alpha05\n" +
+            "    implementation \"androidx.test:work-runtime-ktx:2.3.0-SNAPSHOT\" // Update to 2.5.0\n" +
             // From a snapshot version we can jump to a stable version if it's higher
             "    implementation \"androidx.test:work-gcm:2.6.0-SNAPSHOT\" // No suggestion\n" +
             // Repeat tests for android.work, which has its own special version filtering code
             "    implementation \"androidx.work:work-runtime:2.7.0-alpha06\" // no suggestion\n" +
-            "    implementation \"androidx.work:work-runtime:2.6.0-alpha06\" // update to 2.7.0-alpha06\n" +
+            "    implementation \"androidx.work:work-runtime:2.6.0-alpha06\" // update to 2.6.0-beta05\n" +
             "    implementation \"androidx.work:work-runtime-ktx:2.6.0-SNAPSHOT\" // No suggestion\n" +
-            "    implementation \"androidx.work:work-runtime-ktx:2.3.0-SNAPSHOT\" // Update to 2.6.0-alpha05\n" +
+            "    implementation \"androidx.work:work-runtime-ktx:2.3.0-SNAPSHOT\" // Update to 2.5.0\n" +
             "    implementation \"androidx.work:work-gcm:2.6.0-SNAPSHOT\" // No suggestion\n" +
             "}\n"
         )
@@ -1806,7 +1830,7 @@ class GradleDetectorTest : AbstractCheckTest() {
         """
                 <?xml version='1.0' encoding='UTF-8'?>
                 <androidx.work>
-                  <work-runtime versions="2.7.0-alpha06,3.0.0-SNAPSHOT"/>
+                  <work-runtime versions="2.6.0-beta05,2.7.0-alpha06,3.0.0-SNAPSHOT"/>
                   <work-runtime-ktx versions="2.5.0,2.6.0-alpha05"/>
                   <work-gcm versions="2.6.0-SNAPSHOT"/>
                   <work-rxjava2 versions="3.0.0-SNAPSHOT,3.0.0"/>
@@ -1820,7 +1844,7 @@ class GradleDetectorTest : AbstractCheckTest() {
         """
                 <?xml version='1.0' encoding='UTF-8'?>
                 <androidx.work>
-                  <work-runtime versions="2.7.0-alpha06,3.0.0-SNAPSHOT"/>
+                  <work-runtime versions="2.6.0-beta05,2.7.0-alpha06,3.0.0-SNAPSHOT"/>
                   <work-runtime-ktx versions="2.5.0,2.6.0-alpha05"/>
                   <work-gcm versions="2.6.0-SNAPSHOT"/>
                   <work-rxjava2 versions="3.0.0-SNAPSHOT,3.0.0"/>
@@ -1832,17 +1856,17 @@ class GradleDetectorTest : AbstractCheckTest() {
       .run()
       .expect(
         """
-                build.gradle:9: Warning: A newer version of androidx.test:work-runtime than 2.6.0-alpha06 is available: 2.7.0-alpha06 [GradleDependency]
-                    implementation "androidx.test:work-runtime:2.6.0-alpha06" // update to 2.7.0-alpha06
+                build.gradle:9: Warning: A newer version of androidx.test:work-runtime than 2.6.0-alpha06 is available: 2.6.0-beta05 [GradleDependency]
+                    implementation "androidx.test:work-runtime:2.6.0-alpha06" // update to 2.6.0-beta05
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                build.gradle:11: Warning: A newer version of androidx.test:work-runtime-ktx than 2.3.0-SNAPSHOT is available: 2.6.0-alpha05 [GradleDependency]
-                    implementation "androidx.test:work-runtime-ktx:2.3.0-SNAPSHOT" // Update to 2.6.0-alpha05
+                build.gradle:11: Warning: A newer version of androidx.test:work-runtime-ktx than 2.3.0-SNAPSHOT is available: 2.5.0 [GradleDependency]
+                    implementation "androidx.test:work-runtime-ktx:2.3.0-SNAPSHOT" // Update to 2.5.0
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                build.gradle:14: Warning: A newer version of androidx.work:work-runtime than 2.6.0-alpha06 is available: 2.7.0-alpha06 [GradleDependency]
-                    implementation "androidx.work:work-runtime:2.6.0-alpha06" // update to 2.7.0-alpha06
+                build.gradle:14: Warning: A newer version of androidx.work:work-runtime than 2.6.0-alpha06 is available: 2.6.0-beta05 [GradleDependency]
+                    implementation "androidx.work:work-runtime:2.6.0-alpha06" // update to 2.6.0-beta05
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                build.gradle:16: Warning: A newer version of androidx.work:work-runtime-ktx than 2.3.0-SNAPSHOT is available: 2.6.0-alpha05 [GradleDependency]
-                    implementation "androidx.work:work-runtime-ktx:2.3.0-SNAPSHOT" // Update to 2.6.0-alpha05
+                build.gradle:16: Warning: A newer version of androidx.work:work-runtime-ktx than 2.3.0-SNAPSHOT is available: 2.5.0 [GradleDependency]
+                    implementation "androidx.work:work-runtime-ktx:2.3.0-SNAPSHOT" // Update to 2.5.0
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 0 errors, 4 warnings
                 """
@@ -2823,6 +2847,45 @@ class GradleDetectorTest : AbstractCheckTest() {
       )
   }
 
+  fun testPathsKts() {
+    val expected =
+      "" +
+        "build.gradle.kts:6: Warning: Do not use Windows file separators in .gradle files; use / instead [GradlePath]\n" +
+        "    compile(files(\"my\\\\libs\\\\http.jar\"))\n" +
+        "            ~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+        "build.gradle.kts:7: Warning: Avoid using absolute paths in .gradle files [GradlePath]\n" +
+        "    compile(files(\"/libs/android-support-v4.jar\"))\n" +
+        "            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+        "0 errors, 2 warnings\n"
+
+    lint()
+      .files(
+        kts(
+          "" +
+            "plugins {\n" +
+            "    id(\"com.android.application\")\n" +
+            "}\n" +
+            "\n" +
+            "dependencies {\n" +
+            "    compile(files(\"my\\\\libs\\\\http.jar\"))\n" +
+            "    compile(files(\"/libs/android-support-v4.jar\"))\n" +
+            "}\n"
+        )
+      )
+      .issues(PATH)
+      .ignoreUnknownGradleConstructs()
+      .run()
+      .expect(expected)
+      .expectFixDiffs(
+        """
+            Fix for build.gradle.kts line 6: Replace with my/libs/http.jar:
+            @@ -6 +6
+            -     compile(files("my\\libs\\http.jar"))
+            +     compile(files("my/libs/http.jar"))
+            """
+      )
+  }
+
   fun testIdSuffix() {
     val expected =
       "" +
@@ -3296,7 +3359,7 @@ class GradleDetectorTest : AbstractCheckTest() {
         "build.gradle:8: Warning: A newer version of com.android.tools.build:gradle than 3.2.1 is available: 3.5.0 [AndroidGradlePluginVersion]\n" +
         "        classpath 'com.android.tools.build:gradle:3.2.1'\n" +
         "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-        "build.gradle:9: Warning: A newer version of com.android.tools.build:gradle than 3.3.0-alpha04 is available: 3.6.0-alpha01 [AndroidGradlePluginVersion]\n" +
+        "build.gradle:9: Warning: A newer version of com.android.tools.build:gradle than 3.3.0-alpha04 is available: 3.5.0 [AndroidGradlePluginVersion]\n" +
         "        classpath 'com.android.tools.build:gradle:3.3.0-alpha04'\n" +
         "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
         "1 errors, 2 warnings\n"
@@ -3342,7 +3405,7 @@ class GradleDetectorTest : AbstractCheckTest() {
         "build.gradle.kts:8: Warning: A newer version of com.android.tools.build:gradle than 3.2.1 is available: 3.5.0 [AndroidGradlePluginVersion]\n" +
         "        classpath(\"com.android.tools.build:gradle:3.2.1\")\n" +
         "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-        "build.gradle.kts:9: Warning: A newer version of com.android.tools.build:gradle than 3.3.0-alpha04 is available: 3.6.0-alpha01 [AndroidGradlePluginVersion]\n" +
+        "build.gradle.kts:9: Warning: A newer version of com.android.tools.build:gradle than 3.3.0-alpha04 is available: 3.5.0 [AndroidGradlePluginVersion]\n" +
         "        classpath(\"com.android.tools.build:gradle:3.3.0-alpha04\")\n" +
         "        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
         "1 errors, 2 warnings\n"
@@ -4946,18 +5009,16 @@ class GradleDetectorTest : AbstractCheckTest() {
 
   fun testSdkIndexLibrary() {
     val expectedFixes =
-      if (GooglePlaySdkIndex.DEFAULT_SHOW_LINKS)
-        """
-                Show URL for build.gradle line 7: View details in Google Play SDK Index:
-                http://index.example.url/
-                Show URL for build.gradle line 8: View details in Google Play SDK Index:
-                http://index.example.url/
-                Show URL for build.gradle line 5: View details in Google Play SDK Index:
-                http://index.example.url/
-                Show URL for build.gradle line 13: View details in Google Play SDK Index:
-                http://another.example.url/
-            """
-      else ""
+      """
+        Show URL for build.gradle line 7: View details in Google Play SDK Index:
+        http://index.example.url/
+        Show URL for build.gradle line 8: View details in Google Play SDK Index:
+        http://index.example.url/
+        Show URL for build.gradle line 5: View details in Google Play SDK Index:
+        http://index.example.url/
+        Show URL for build.gradle line 13: View details in Google Play SDK Index:
+        http://another.example.url/
+      """
     lint()
       .files(
         gradle(
@@ -4991,20 +5052,20 @@ class GradleDetectorTest : AbstractCheckTest() {
       .run()
       .expect(
         """
-                    build.gradle:7: Error: log4j:log4j version 1.2.13 has been reported as problematic by its author and will block publishing of your app to Play Console [RiskyLibrary]
-                        compile 'log4j:log4j:1.2.13' // Critical BLOCKING
-                                ~~~~~~~~~~~~~~~~~~~~
-                    build.gradle:8: Error: log4j:log4j version 1.2.12 has been marked as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
-                        compile 'log4j:log4j:1.2.12' // OUTDATED BLOCKING
-                                ~~~~~~~~~~~~~~~~~~~~
-                    build.gradle:5: Warning: log4j:log4j version 1.2.15 has been marked as outdated by its author [OutdatedLibrary]
-                        compile 'log4j:log4j:1.2.15' // Outdated NON_BLOCKING
-                                ~~~~~~~~~~~~~~~~~~~~
-                    build.gradle:13: Warning: com.example.ads.third.party:example version 7.2.0 has been marked as outdated by its author [OutdatedLibrary]
-                        compile 'com.example.ads.third.party:example:7.2.0' // Outdated & Non compliant & Critical
-                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    2 errors, 2 warnings
-                """
+          build.gradle:7: Error: log4j:log4j version 1.2.13 has been reported as problematic by its author and will block publishing of your app to Play Console [RiskyLibrary]
+              compile 'log4j:log4j:1.2.13' // Critical BLOCKING
+                      ~~~~~~~~~~~~~~~~~~~~
+          build.gradle:8: Error: log4j:log4j version 1.2.12 has been marked as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
+              compile 'log4j:log4j:1.2.12' // OUTDATED BLOCKING
+                      ~~~~~~~~~~~~~~~~~~~~
+          build.gradle:5: Warning: log4j:log4j version 1.2.15 has been marked as outdated by its author [OutdatedLibrary]
+              compile 'log4j:log4j:1.2.15' // Outdated NON_BLOCKING
+                      ~~~~~~~~~~~~~~~~~~~~
+          build.gradle:13: Warning: com.example.ads.third.party:example version 7.2.0 has been marked as outdated by its author [OutdatedLibrary]
+              compile 'com.example.ads.third.party:example:7.2.0' // Outdated & Non compliant & Critical
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          2 errors, 2 warnings
+        """
       )
       .expectFixDiffs(expectedFixes)
   }

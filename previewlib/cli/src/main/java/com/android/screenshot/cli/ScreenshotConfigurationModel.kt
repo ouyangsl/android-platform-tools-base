@@ -15,18 +15,23 @@
  */
 package com.android.screenshot.cli
 
+import com.android.sdklib.IAndroidTarget
 import com.android.tools.idea.configurations.ConfigurationManager
 import com.android.tools.idea.configurations.ConfigurationModelModule
 import com.android.tools.idea.configurations.ConfigurationStateManager
 import com.android.tools.idea.configurations.StudioConfigurationStateManager
 import com.android.tools.idea.configurations.ThemeInfoProvider
+import com.android.tools.idea.projectsystem.getModuleSystem
 import com.android.tools.module.AndroidModuleInfo
 import com.android.tools.module.ModuleDependencies
 import com.android.tools.idea.res.ScreenshotResourceRepositoryManager
 import com.android.tools.res.ResourceRepositoryManager
 import com.android.tools.layoutlib.LayoutlibContext
+import com.android.tools.rendering.ModuleKey
+import com.android.tools.rendering.ModuleKeyManager
 import com.android.tools.sdk.AndroidPlatform
 import com.android.tools.sdk.AndroidSdkData
+import com.android.tools.sdk.CompatibilityRenderTarget
 import com.intellij.openapi.project.Project
 import org.jetbrains.android.sdk.StudioEmbeddedRenderTarget
 
@@ -52,6 +57,12 @@ class ScreenshotConfigurationModel(private val composeProject: ComposeProject,
         get() = ""
     override val dependencies: ModuleDependencies
         get() = TODO("Not yet implemented")
+    override val moduleKey: ModuleKey
+        get() = ModuleKeyManager.getKey(composeModule.module)
+    override val resourcePackage: String?
+        get() = composeModule.module.getModuleSystem().getPackageName()
+    override fun getCompatibilityTarget(target: IAndroidTarget): CompatibilityRenderTarget =
+        StudioEmbeddedRenderTarget.getCompatibilityTarget(target)
 
     override fun dispose() {
 

@@ -96,7 +96,6 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         val numUniformShards: Property<Int>
         val targetedShardDurationMinutes: Property<Int>
         val grantedPermissions: Property<String>
-        val extraDeviceFiles: MapProperty<String, String>
         val networkProfile: Property<String>
         val resultsHistoryName: Property<String>
         val directoriesToPull: ListProperty<String>
@@ -122,6 +121,16 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
 
     internal open val httpTransport: HttpTransport
         get() = GoogleNetHttpTransport.newTrustedTransport()
+
+    private val bucketName: String by lazy(LazyThreadSafetyMode.PUBLICATION) {
+        val specifiedBucket = parameters.cloudStorageBucket.orNull.let {
+            if (it.isNullOrBlank()) { null } else { it }
+        }
+        val initSettingsResult = toolResultsManager.initializeSettings(
+            parameters.quotaProjectName.get()
+        )
+        specifiedBucket ?: initSettingsResult.defaultBucket
+    }
 
     val numUniformShards: Int
         get() = parameters.numUniformShards.get()
@@ -174,9 +183,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         TestRunner(
             ProjectSettings(
                 name = parameters.quotaProjectName.get(),
-                storageBucket = parameters.cloudStorageBucket.orNull.let {
-                    if (it.isNullOrBlank()) { null } else { it }
-                },
+                storageBucket = bucketName,
                 testHistoryName = parameters.resultsHistoryName.orNull.let {
                     if (it.isNullOrBlank()) { null } else { it }
                 },
@@ -184,7 +191,6 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
                 networkProfile = parameters.networkProfile.orNull.let {
                     if (it.isNullOrBlank()) { null } else { it }
                 },
-                extraDeviceFiles = parameters.extraDeviceFiles.get(),
                 directoriesToPull = parameters.directoriesToPull.get(),
                 useOrchestrator = parameters.useOrchestrator.get(),
                 ftlTimeoutSeconds = parameters.timeoutMinutes.get() * 60,
@@ -203,6 +209,15 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         )
     }
 
+    fun getStorageObject(fileUri: String) = storageManager.retrieveFile(fileUri)
+
+    fun uploadSharedFile(projectPath: String, file: File, uploadFileName: String = file.name) =
+        storageManager.retrieveOrUploadSharedFile(
+            file,
+            bucketName,
+            projectPath,
+            uploadFileName)
+
     fun runTestsOnDevice(
         deviceName: String,
         deviceId: String,
@@ -214,6 +229,7 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
         resultsOutDir: File,
         projectPath: String,
         variantName: String,
+        extraDeviceFileUrls: Map<String, String>
     ): List<FtlTestRunResult> {
         resultsOutDir.apply {
             if (!exists()) {
@@ -227,7 +243,8 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             apiLevel = deviceApiLevel,
             locale = deviceLocale,
             orientation = deviceOrientation,
-            ftlModel = ftlDeviceModel
+            ftlModel = ftlDeviceModel,
+            extraDeviceFileUrls = extraDeviceFileUrls
         )
 
         return testRunner.runTests(
@@ -405,7 +422,6 @@ abstract class TestLabBuildService : BuildService<TestLabBuildService.Parameters
             params.grantedPermissions.set(providerFactory.provider {
                 testLabExtension.testOptions.fixture.grantedPermissions
             })
-            params.extraDeviceFiles.set(testLabExtension.testOptions.fixture.extraDeviceFiles)
             params.networkProfile.set(providerFactory.provider {
                 testLabExtension.testOptions.fixture.networkProfile
             })

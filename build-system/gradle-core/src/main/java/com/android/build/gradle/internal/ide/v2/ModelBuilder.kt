@@ -69,6 +69,7 @@ import com.android.build.gradle.internal.utils.toImmutableSet
 import com.android.build.gradle.internal.variant.VariantModel
 import com.android.build.gradle.options.BooleanOption
 import com.android.build.gradle.options.ProjectOptionService
+import com.android.build.gradle.options.ProjectOptions
 import com.android.build.gradle.tasks.BuildPrivacySandboxSdkApks
 import com.android.build.gradle.tasks.sync.AbstractVariantModelTask
 import com.android.build.gradle.tasks.sync.AppIdListTask
@@ -77,7 +78,6 @@ import com.android.builder.errors.IssueReporter
 import com.android.builder.model.SyncIssue
 import com.android.builder.model.v2.ModelSyncFile
 import com.android.builder.model.v2.ide.AndroidGradlePluginProjectFlags.BooleanFlag
-import com.android.builder.model.v2.ide.ArtifactDependencies
 import com.android.builder.model.v2.ide.ArtifactDependenciesAdjacencyList
 import com.android.builder.model.v2.ide.BasicArtifact
 import com.android.builder.model.v2.ide.BundleInfo
@@ -412,7 +412,11 @@ class ModelBuilder<
             viewBindingOptions = ViewBindingOptionsImpl(
                 variantModel.variants.any { it.buildFeatures.viewBinding }
             ),
-            flags = getFlags(),
+            flags = getAgpFlags(
+                variants = variantModel.variants,
+                projectOptions = variantModel.projectOptions
+
+            ),
             lintChecksJars = getLocalCustomLintChecksForModel(project, variantModel.syncIssueReporter),
             modelSyncFiles = modelSyncFiles,
             desugarLibConfig = desugarLibConfig,
@@ -703,6 +707,8 @@ class ModelBuilder<
             classesFolders.add(it)
         }
 
+        val generatedClassPaths = addGeneratedClassPaths(component, classesFolders)
+
         val testInfo: TestInfo? = when(component) {
             is TestVariantCreationConfig, is AndroidTestCreationConfig -> {
                 val runtimeApks: Collection<File> = project
@@ -801,7 +807,8 @@ class ModelBuilder<
                 coreLibDesugaring,
                 component.minSdk,
                 component.global
-            ).files.toList()
+            ).files.toList(),
+            generatedClassPaths = generatedClassPaths
         )
     }
 
@@ -845,6 +852,8 @@ class ModelBuilder<
             }
         }
 
+        val generatedClassPaths = addGeneratedClassPaths(component, classesFolders)
+
         return JavaArtifactImpl(
             assembleTaskName = taskContainer.assembleTask.name,
             compileTaskName = taskContainer.compileTask.name,
@@ -857,6 +866,7 @@ class ModelBuilder<
 
             mockablePlatformJar = variantModel.mockableJarArtifact.files.singleOrNull(),
             modelSyncFiles = listOf(),
+            generatedClassPaths = generatedClassPaths
         )
     }
 
@@ -918,43 +928,6 @@ class ModelBuilder<
             component.services.projectOptions.get(BooleanOption.ADDITIONAL_ARTIFACTS_IN_MODEL),
             dontBuildRuntimeClasspath
         )
-    }
-
-    private fun getFlags(): AndroidGradlePluginProjectFlagsImpl {
-        val projectOptions = variantModel.projectOptions
-        val flags =
-            ImmutableMap.builder<BooleanFlag, Boolean>()
-
-        val finalResIds = !projectOptions[BooleanOption.USE_NON_FINAL_RES_IDS]
-
-        flags.put(BooleanFlag.APPLICATION_R_CLASS_CONSTANT_IDS, finalResIds)
-        flags.put(BooleanFlag.TEST_R_CLASS_CONSTANT_IDS, finalResIds)
-        flags.put(
-            BooleanFlag.JETPACK_COMPOSE,
-            variantModel.variants.any { it.buildFeatures.compose }
-        )
-        flags.put(
-            BooleanFlag.ML_MODEL_BINDING,
-            variantModel.variants.any { it.buildFeatures.mlModelBinding }
-        )
-        flags.put(
-            BooleanFlag.TRANSITIVE_R_CLASS,
-            !projectOptions[BooleanOption.NON_TRANSITIVE_R_CLASS]
-        )
-        flags.put(
-            BooleanFlag.UNIFIED_TEST_PLATFORM,
-            projectOptions[BooleanOption.ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM]
-        )
-        flags.put(
-            BooleanFlag.USE_ANDROID_X,
-            projectOptions[BooleanOption.USE_ANDROID_X]
-        )
-        flags.put(
-            BooleanFlag.ENABLE_VCS_INFO,
-            projectOptions[BooleanOption.ENABLE_VCS_INFO]
-        )
-
-        return AndroidGradlePluginProjectFlagsImpl(flags.build())
     }
 
     private fun getBundleInfo(
@@ -1103,5 +1076,61 @@ class ModelBuilder<
             }
         }
         return null
+    }
+
+    private fun addGeneratedClassPaths(
+        component: ComponentCreationConfig,
+        classesFolders: MutableSet<File>
+    ): Map<String, File> {
+        val generatedClassPaths = mutableMapOf<String, File>()
+
+        val buildConfigJar = component.artifacts.get(InternalArtifactType.COMPILE_BUILD_CONFIG_JAR)
+        if (buildConfigJar.isPresent) {
+            classesFolders.add(buildConfigJar.get().asFile)
+            generatedClassPaths["buildConfigGeneratedClasses"] = buildConfigJar.get().asFile
+        }
+
+        return generatedClassPaths
+    }
+
+    companion object {
+        internal fun getAgpFlags(
+            variants: List<VariantCreationConfig>,
+            projectOptions: ProjectOptions
+        ): AndroidGradlePluginProjectFlagsImpl {
+            val flags =
+                ImmutableMap.builder<BooleanFlag, Boolean>()
+
+            val finalResIds = !projectOptions[BooleanOption.USE_NON_FINAL_RES_IDS]
+
+            flags.put(BooleanFlag.APPLICATION_R_CLASS_CONSTANT_IDS, finalResIds)
+            flags.put(BooleanFlag.TEST_R_CLASS_CONSTANT_IDS, finalResIds)
+            flags.put(
+                BooleanFlag.JETPACK_COMPOSE,
+                variants.any { it.buildFeatures.compose }
+            )
+            flags.put(
+                BooleanFlag.ML_MODEL_BINDING,
+                variants.any { it.buildFeatures.mlModelBinding }
+            )
+            flags.put(
+                BooleanFlag.TRANSITIVE_R_CLASS,
+                !projectOptions[BooleanOption.NON_TRANSITIVE_R_CLASS]
+            )
+            flags.put(
+                BooleanFlag.UNIFIED_TEST_PLATFORM,
+                projectOptions[BooleanOption.ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM]
+            )
+            flags.put(
+                BooleanFlag.USE_ANDROID_X,
+                projectOptions[BooleanOption.USE_ANDROID_X]
+            )
+            flags.put(
+                BooleanFlag.ENABLE_VCS_INFO,
+                projectOptions[BooleanOption.ENABLE_VCS_INFO]
+            )
+
+            return AndroidGradlePluginProjectFlagsImpl(flags.build())
+        }
     }
 }
