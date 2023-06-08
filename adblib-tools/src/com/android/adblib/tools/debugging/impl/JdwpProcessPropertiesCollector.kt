@@ -26,6 +26,7 @@ import com.android.adblib.tools.AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECT
 import com.android.adblib.tools.AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_USE_SHORT
 import com.android.adblib.tools.AdbLibToolsProperties.PROCESS_PROPERTIES_READ_TIMEOUT
 import com.android.adblib.tools.AdbLibToolsProperties.PROCESS_PROPERTIES_RETRY_DURATION
+import com.android.adblib.tools.AdbLibToolsProperties.SUPPORT_STAG_PACKETS
 import com.android.adblib.tools.debugging.AtomicStateFlow
 import com.android.adblib.tools.debugging.JdwpProcessProperties
 import com.android.adblib.tools.debugging.SharedJdwpSession
@@ -180,17 +181,7 @@ internal class JdwpProcessPropertiesCollector(
             collectWithSession(jdwpSession, collectState)
 
             if (collectState.hasCollectedEverything) {
-                // If app boot stage information IS NOT available then the WAIT packet was received
-                // and process is waiting for debugger (see `hasCollectedEverything` implementation).
-                // If app boot stage information IS available then use it to determine whether
-                // the process is waiting for debugger.
-                assert(collectState.propertiesFlow.value.stage != null || collectState.waitReceived)
-                var isWaitingForDebugger = true
-                if (collectState.propertiesFlow.value.stage != null) {
-                    isWaitingForDebugger = collectState.propertiesFlow.value.stage == AppStage.DEBG
-                }
-
-                if (isWaitingForDebugger) {
+                if (collectState.propertiesFlow.value.isWaitingForDebugger) {
                     // See b/271466829: We need to keep the JDWP session open until an external
                     // debugger attaches to the Android process, because a JDWP session in a
                     // `WAIT` state needs to remain open until at least one "real" JDWP command
@@ -314,6 +305,9 @@ internal class JdwpProcessPropertiesCollector(
             DdmsHeloChunk.parse(heloChunkView, workBuffer)
         }
         logger.debug { "`HELO` reply: $heloChunk" }
+        if (heloChunk.stage != null && !session.property(SUPPORT_STAG_PACKETS)) {
+            logger.debug { "Not using STAG value since it's disabled by a 'SUPPORT_STAG_PACKETS' property" }
+        }
         collectState.propertiesFlow.update {
             it.copy(
                 processName = filterFakeName(heloChunk.processName),
@@ -323,8 +317,7 @@ internal class JdwpProcessPropertiesCollector(
                 abi = heloChunk.abi,
                 jvmFlags = heloChunk.jvmFlags,
                 isNativeDebuggable = heloChunk.isNativeDebuggable,
-                stage = heloChunk.stage,
-                isWaitingForDebugger = if (heloChunk.stage != null) heloChunk.stage == AppStage.DEBG else it.isWaitingForDebugger
+                stage = if (session.property(SUPPORT_STAG_PACKETS)) heloChunk.stage else null,
             )
         }
     }
@@ -351,7 +344,7 @@ internal class JdwpProcessPropertiesCollector(
             DdmsWaitChunk.parse(chunkCopy, workBuffer)
         }
         logger.debug { "`WAIT` command: $waitChunk" }
-        collectState.propertiesFlow.update { it.copy(isWaitingForDebugger = true) }
+        collectState.propertiesFlow.update { it.copy(waitCommandReceived = true) }
     }
 
     private suspend fun processApnmCommand(
@@ -381,10 +374,13 @@ internal class JdwpProcessPropertiesCollector(
             DdmsStagChunk.parse(chunkCopy, workBuffer)
         }
         logger.debug { "`STAG` command: $stagChunk" }
+        if(!session.property(SUPPORT_STAG_PACKETS)) {
+            logger.debug { "Discarding STAG reply since it's disabled by a 'SUPPORT_STAG_PACKETS' property" }
+            return
+        }
         collectState.propertiesFlow.update {
             it.copy(
                 stage = stagChunk.stage,
-                isWaitingForDebugger = stagChunk.stage == AppStage.DEBG
             )
         }
     }

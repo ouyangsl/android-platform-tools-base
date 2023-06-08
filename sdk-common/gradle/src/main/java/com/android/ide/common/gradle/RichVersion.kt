@@ -15,6 +15,8 @@
  */
 package com.android.ide.common.gradle
 
+import com.google.common.collect.Range
+
 /**
  * Represents a rich version in the sense of Gradle's dependency specifier concept, documented
  * in the [Gradle manual](https://docs.gradle.org/current/userguide/rich_versions.html)
@@ -110,6 +112,17 @@ data class RichVersion(
     val explicitSingletonVersion
         get() = if (isExplicitSingleton) declaration.range.singletonVersion else null
 
+    /**
+     * Return the lower bound [Version] of this [RichVersion]'s [declaration], treating the
+     * prefixInfimum of "dev" as the least possible [Version] for [RichVersion]s with no explicit
+     * lower bound.  The return value might be explicitly excluded by an [exclude] entry.
+     */
+    val lowerBound: Version
+        get() = when {
+            declaration.range.hasLowerBound() -> declaration.range.lowerEndpoint()
+            else -> Version.prefixInfimum("dev")
+        }
+
     companion object {
         /**
          * Parse a string as a [RichVersion].  All strings are valid rich versions; the first
@@ -133,6 +146,13 @@ data class RichVersion(
                 }
             }
         }
+
+        /**
+         * Return a [RichVersion] with a [Kind.REQUIRE] declaration on the singleton (given)
+         * version.
+         */
+        fun require(version: Version): RichVersion =
+            RichVersion(Declaration(Kind.REQUIRE, VersionRange(Range.singleton(version))))
     }
 
     enum class Kind {

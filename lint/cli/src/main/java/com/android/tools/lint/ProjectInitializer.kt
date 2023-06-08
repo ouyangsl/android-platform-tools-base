@@ -894,10 +894,7 @@ private class ProjectInitializer(val client: LintClient, val file: File, var roo
         // findRoot returns null. Let's say the file we passed in was
         // "src/Foo.java". In that case, we can just take its parent
         // file, "src", as the source root.
-        // But what if the source file itself was just passed as "Foo.java" ?
-        // In that case it is relative to the pwd, so we get the *absolute*
-        // path of the file instead, and take its parent path.
-        val root = findRoot(file) ?: file.parentFile ?: file.absoluteFile.parentFile ?: continue
+        val root = findRoot(file) ?: parent
 
         dirToRootCache[parent.path] = root
 
@@ -1008,19 +1005,8 @@ private class ProjectInitializer(val client: LintClient, val file: File, var roo
     return null
   }
 
-  private fun pathMatchesPackage(pkg: String, path: String, packageStart: Int): Boolean {
-    var i = 0
-    var j = packageStart
-    while (i < pkg.length) {
-      if (pkg[i] != path[j] && pkg[i] != '.') {
-        return false
-      }
-      i++
-      j++
-    }
-
-    return true
-  }
+  private fun pathMatchesPackage(pkg: String, path: String, packageStart: Int): Boolean =
+    pkg.indices.all { i -> pkg[i] == path[i + packageStart] || pkg[i] == '.' }
 
   private fun findPackage(file: File): String? {
     return findPackage(file.readText(), file)

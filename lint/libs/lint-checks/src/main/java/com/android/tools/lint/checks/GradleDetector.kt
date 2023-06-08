@@ -1350,14 +1350,23 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
       getArtifactCacheHome()
         .toPath()
         .resolve(dependency.groupId + File.separator + dependency.artifactId)
+    val f =
+      when {
+        dependency.groupId == "commons-io" && dependency.artifactId == "commons-io" -> {
+          // For a (long) while, users could get this spurious recommendation of an "upgrade" to
+          // commons-io to this very old version (with a very high version number).  This
+          // recommendation is no longer given as of mid-2023, except if a user has previously
+          // installed it and the version is lurking in their Gradle cache.
+          val spuriousVersion = Version.parse("20030203.000550")
+          val commonsIoFilter: Predicate<Version> = Predicate { v -> v != spuriousVersion }
+          filter?.and(commonsIoFilter) ?: commonsIoFilter
+        }
+        else -> filter
+      }
     return if (CancellableFileIo.exists(versionDir)) {
       val component =
         Component(dependency.groupId, dependency.artifactId, Version.parse(dependency.revision))
-      MavenRepositories.getHighestVersion(
-        versionDir,
-        filter,
-        MavenRepositories.isPreview(component)
-      )
+      MavenRepositories.getHighestVersion(versionDir, f, MavenRepositories.isPreview(component))
     } else null
   }
 
@@ -3010,18 +3019,9 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
           briefDescription = "TargetSdkVersion Soon Expiring",
           explanation =
             """
-                In the second half of 2018, Google Play will require that new apps and app \
-                updates target API level 26 or higher. This will be required for new apps in \
-                August 2018, and for updates to existing apps in November 2018.
-
                 Configuring your app to target a recent API level ensures that users benefit \
                 from significant security and performance improvements, while still allowing \
                 your app to run on older Android versions (down to the `minSdkVersion`).
-
-                This lint check starts warning you some months **before** these changes go \
-                into effect if your `targetSdkVersion` is 25 or lower. This is intended to \
-                give you a heads up to update your app, since depending on your current \
-                `targetSdkVersion` the work can be nontrivial.
 
                 To update your `targetSdkVersion`, follow the steps from \
                 "Meeting Google Play requirements for target API level", \
@@ -3050,9 +3050,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
             "https://support.google.com/googleplay/android-developer/answer/113469#targetsdk",
           explanation =
             """
-                As of the second half of 2018, Google Play requires that new apps and app \
-                updates target API level 26 or higher.
-
                 Configuring your app to target a recent API level ensures that users benefit \
                 from significant security and performance improvements, while still allowing \
                 your app to run on older Android versions (down to the `minSdkVersion`).

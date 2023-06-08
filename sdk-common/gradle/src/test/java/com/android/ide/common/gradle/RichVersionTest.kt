@@ -150,6 +150,17 @@ class RichVersionTest {
     }
 
     @Test
+    fun testRequire() {
+        val version = RichVersion.require(Version.parse("12.34"))
+        assertThat(version.strictly).isNull()
+        assertThat(version.require).isEqualTo(VersionRange.parse("12.34"))
+        assertThat(version.prefer).isNull()
+        assertThat(version.exclude).isEmpty()
+        assertThat(version.toIdentifier()).isEqualTo("12.34")
+        assertThat(version.toString()).isEqualTo("12.34")
+    }
+
+    @Test
     fun testRequiredContains() {
         RichVersion.parse("1.2.3").let { version ->
             assertThat(version.contains(Version.parse("1"))).isFalse()
@@ -414,6 +425,44 @@ class RichVersionTest {
         if (version2.isExplicitSingleton) {
             assertThat(version2.explicitSingletonVersion).isEqualTo(Version.parse("2"))
         }
+    }
+
+    @Test
+    fun testLowerBound() {
+        val tests = listOf(
+            "1" to Version.parse("1"),
+            "1!!" to Version.parse("1"),
+            "[1,2]" to Version.parse("1"),
+            "[1,2]!!" to Version.parse("1"),
+            "[1,2]!!1.5" to Version.parse("1"),
+            "1.0" to Version.parse("1.0"),
+            "1.0!!" to Version.parse("1.0"),
+            "1.+" to Version.prefixInfimum("1"),
+            "[,2]" to Version.prefixInfimum("dev"),
+        )
+        for ((string, expected) in tests) {
+            val richVersion = RichVersion.parse(string)
+            assertThat(richVersion.lowerBound).isEqualTo(expected)
+        }
+    }
+
+    @Test
+    fun testLowerBoundWithExcludes() {
+        val boundNotExcluded =
+            RichVersion(
+                declaration = Declaration(REQUIRE, VersionRange.parse("1.0")),
+                exclude = listOf(VersionRange.parse("[1.1,1.5]"))
+            )
+        assertThat(boundNotExcluded.lowerBound).isEqualTo(Version.parse("1.0"))
+        // This is correct for the documentation of lowerBound as currently written, though it's
+        // conceivable that there might be an application for making it handle exclude entries.
+        // If so, change this test.
+        val boundExcluded =
+            RichVersion(
+                declaration = Declaration(REQUIRE, VersionRange.parse("1.2")),
+                exclude = listOf(VersionRange.parse("[1.1,1.5]"))
+            )
+        assertThat(boundExcluded.lowerBound).isEqualTo(Version.parse("1.2"))
     }
 
     @Test

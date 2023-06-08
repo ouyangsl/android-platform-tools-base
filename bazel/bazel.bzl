@@ -277,6 +277,9 @@ def _iml_module_impl(ctx):
             test_form_deps += this_dep[ImlModuleInfo].test_forms
             test_java_deps += [this_dep[ImlModuleInfo].test_provider]
 
+    # Runtime dependencies.
+    java_runtime_deps = [dep[JavaInfo] for dep in ctx.attr.runtime_deps]
+
     # Exports.
     exports = []
     test_exports = []
@@ -312,7 +315,7 @@ def _iml_module_impl(ctx):
         res_zips = ctx.files.res_zips,
         output_jar = ctx.outputs.production_jar,
         java_deps = java_deps,
-        java_runtime_deps = [dep[JavaInfo] for dep in ctx.attr.runtime_deps],
+        java_runtime_deps = java_runtime_deps,
         form_deps = form_deps,
         exports = exports,
         friend_jars = [],
@@ -334,7 +337,7 @@ def _iml_module_impl(ctx):
         res_zips = [],
         output_jar = ctx.outputs.test_jar,
         java_deps = [main_provider_no_deps] + test_java_deps,
-        java_runtime_deps = [],  # Runtime deps already inherited from prod module.
+        java_runtime_deps = java_runtime_deps,
         form_deps = test_form_deps,
         exports = exports + test_exports,
         friend_jars = friend_jars,
@@ -911,6 +914,7 @@ def _gen_split_tests(
         shard_count = split_target.get("shard_count")
         tags = list(split_target.get("tags", default = []))
         data = list(split_target.get("data", default = []))
+        additional_jvm_args = list(split_target.get("additional_jvm_args", default = []))
         split_timeout = split_target.get("timeout", default = timeout)
         flaky = split_target.get("flaky")
         if "manual" not in tags:
@@ -922,6 +926,7 @@ def _gen_split_tests(
 
         test_jvm_flags = []
         test_jvm_flags.extend(jvm_flags)
+        test_jvm_flags.extend(additional_jvm_args)
         test_jvm_flags.extend(_gen_split_test_jvm_flags(split_name, split_test_targets))
         test_exec_properties = split_target.get("exec_properties", default = exec_properties)
 

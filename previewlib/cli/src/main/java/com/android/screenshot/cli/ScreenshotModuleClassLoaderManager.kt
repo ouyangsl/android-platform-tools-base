@@ -19,18 +19,16 @@ import com.android.tools.idea.projectsystem.getModuleSystem
 import com.android.tools.idea.rendering.classloading.loaders.ProjectSystemClassLoader
 import com.android.tools.rendering.ModuleRenderContext
 import com.android.tools.rendering.classloading.ClassTransform
-import com.android.tools.rendering.classloading.ModuleClassLoader
 import com.android.tools.rendering.classloading.ModuleClassLoaderManager
 import com.android.tools.rendering.classloading.NopModuleClassLoadedDiagnostics
 import com.intellij.openapi.module.Module
 import com.intellij.psi.PsiFile
 import org.jetbrains.android.uipreview.ClassBinaryCacheManager.Companion.getInstance
 import java.lang.ref.WeakReference
-import java.nio.file.Path
 import java.util.function.Supplier
 
 class ScreenshotModuleClassLoaderManager(private val dependencies: Dependencies) :
-    ModuleClassLoaderManager {
+    ModuleClassLoaderManager<ScreenshotModuleClassLoader> {
 
     // This is a hack, the resource system needs to know where the R classes are located, so that
     // it can load the resource ids properly, using this class loader seemed to be the right
@@ -41,11 +39,10 @@ class ScreenshotModuleClassLoaderManager(private val dependencies: Dependencies)
     override fun getShared(
         parent: ClassLoader?,
         moduleRenderContext: ModuleRenderContext,
-        holder: Any,
         additionalProjectTransformation: ClassTransform,
         additionalNonProjectTransformation: ClassTransform,
         onNewModuleClassLoader: Runnable
-    ): ModuleClassLoader {
+    ): ModuleClassLoaderManager.Reference<ScreenshotModuleClassLoader> {
         val diagnostics = NopModuleClassLoadedDiagnostics
         val screenshotModuleClassLoaderImpl = ScreenshotModuleClassLoaderImpl(
             createDefaultProjectSystemClassLoader(moduleRenderContext.module, moduleRenderContext.fileProvider),
@@ -56,23 +53,21 @@ class ScreenshotModuleClassLoaderManager(private val dependencies: Dependencies)
             diagnostics,
             dependencies)
         lastClassLoader = ScreenshotModuleClassLoader(parent, screenshotModuleClassLoaderImpl, diagnostics)
-        return lastClassLoader!!
+        return ModuleClassLoaderManager.Reference(this, lastClassLoader!!)
     }
 
     override fun getShared(
         parent: ClassLoader?,
         moduleRenderContext: ModuleRenderContext,
-        holder: Any
-    ): ModuleClassLoader =
-        getShared(parent, moduleRenderContext, holder, ClassTransform.identity, ClassTransform.identity) { }
+    ): ModuleClassLoaderManager.Reference<ScreenshotModuleClassLoader> =
+        getShared(parent, moduleRenderContext, ClassTransform.identity, ClassTransform.identity) { }
 
     override fun getPrivate(
         parent: ClassLoader?,
         moduleRenderContext: ModuleRenderContext,
-        holder: Any,
         additionalProjectTransformation: ClassTransform,
         additionalNonProjectTransformation: ClassTransform
-    ): ModuleClassLoader {
+    ): ModuleClassLoaderManager.Reference<ScreenshotModuleClassLoader> {
         val diagnostics = NopModuleClassLoadedDiagnostics
         val screenshotModuleClassLoaderImpl = ScreenshotModuleClassLoaderImpl(
             createDefaultProjectSystemClassLoader(moduleRenderContext.module, moduleRenderContext.fileProvider),
@@ -83,16 +78,17 @@ class ScreenshotModuleClassLoaderManager(private val dependencies: Dependencies)
             diagnostics,
             dependencies)
         lastClassLoader = (ScreenshotModuleClassLoader(parent, screenshotModuleClassLoaderImpl, diagnostics))
-        return lastClassLoader!!
+        return ModuleClassLoaderManager.Reference(this, lastClassLoader!!)
     }
 
     override fun getPrivate(
         parent: ClassLoader?,
         moduleRenderContext: ModuleRenderContext,
-        holder: Any
-    ): ModuleClassLoader = getPrivate(parent, moduleRenderContext, holder, ClassTransform.identity, ClassTransform.identity)
+    ): ModuleClassLoaderManager.Reference<ScreenshotModuleClassLoader> = getPrivate(parent, moduleRenderContext, ClassTransform.identity, ClassTransform.identity)
 
-    override fun release(moduleClassLoader: ModuleClassLoader, holder: Any) {
+    override fun release(moduleClassLoader: ModuleClassLoaderManager.Reference<*>) {
+        // TODO: ModuleClassLoader must be disposed
+        //(moduleClassLoader as? ScreenshotModuleClassLoader)?.disposable?.let { Disposer.dispose(it) }
     }
 
     override fun clearCache(module: Module) {

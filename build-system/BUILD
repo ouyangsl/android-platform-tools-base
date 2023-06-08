@@ -210,13 +210,13 @@ java_import(
 # Latest Kotlin Gradle plugin dependencies
 # DO NOT MIX different versions in this list
 KGP_LATEST = [
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.8.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.8.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.8.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.8.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.8.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.8.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.9.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.9.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.9.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.9.0-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.0-Beta",
 ]
 
 # Kotlin Gradle plugin dependencies for projects using Compose (these are typically used when the
@@ -307,7 +307,7 @@ ANDROID_GRADLE_PLUGIN_SOURCE_FILES = [
 gradle_build(
     name = "android_gradle_plugin",
     build_file = "//tools:agp_gradle_build_root_build_file",
-    data = ["//prebuilts/studio/jdk:jdk17"] + ANDROID_GRADLE_PLUGIN_SOURCE_FILES,
+    data = ["//prebuilts/studio/jdk:jdk11"] + ANDROID_GRADLE_PLUGIN_SOURCE_FILES,
     gradle_properties = GRADLE_PROPERTIES,
     output_file = "android_gradle_plugin.zip",
     output_file_source = "dist/repo.zip",
@@ -420,13 +420,12 @@ maven_repository(
     visibility = ["//visibility:public"],
 )
 
-#  org.jetbrains.kotlin:kotlin-test-junit:1.8.20-RC
 maven_repository(
     name = "android_gradle_plugin_gradle_api_test_repository",
     # keep sorted
     artifacts = [
         "//tools/base/testutils:tools.testutils",
-        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.8.20-RC2",
+        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.9.0-Beta",
     ],
 )
 
@@ -436,7 +435,7 @@ gradle_test(
     # keep sorted
     data = [
         ":agp_gradle_build_files",
-        "//prebuilts/studio/jdk:jdk17",
+        "//prebuilts/studio/jdk:jdk11",
         "//tools:agp_gradle_build_files",
         "//tools/base/build-system/builder-model:agp_gradle_build_files",
         "//tools/base/build-system/builder-test-api:agp_gradle_build_files",
@@ -462,7 +461,7 @@ gradle_build(
     name = "android_gradle_plugin_dackka_docs",
     build_file = "//tools:agp_gradle_build_root_build_file",
     data = [
-        "//prebuilts/studio/jdk:jdk17",
+        "//prebuilts/studio/jdk:jdk11",
         "//prebuilts/tools/common/dackka",
     ] + ANDROID_GRADLE_PLUGIN_SOURCE_FILES,
     gradle_properties = GRADLE_PROPERTIES,
@@ -488,7 +487,7 @@ gradle_build(
     name = "android_gradle_plugin_metalava_api",
     build_file = "//tools:agp_gradle_build_root_build_file",
     data = [
-        "//prebuilts/studio/jdk:jdk17",
+        "//prebuilts/studio/jdk:jdk11",
         "//prebuilts/tools/common/dackka",
     ] + ANDROID_GRADLE_PLUGIN_SOURCE_FILES,
     gradle_properties = GRADLE_PROPERTIES,
@@ -510,7 +509,7 @@ gradle_test(
     # keep sorted
     data = [
         ":agp_gradle_build_files",
-        "//prebuilts/studio/jdk:jdk17",
+        "//prebuilts/studio/jdk:jdk11",
         "//tools:agp_gradle_build_files",
         "//tools/base/build-system/builder-model:agp_gradle_build_files",
         "//tools/base/build-system/builder-test-api:agp_gradle_build_files",

@@ -16,7 +16,9 @@
 package android.content;
 
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.hardware.SensorManager;
+import android.view.Display;
 import android.view.WindowManager;
 import android.view.WindowManagerImpl;
 import androidx.annotation.VisibleForTesting;
@@ -29,6 +31,7 @@ public class Context {
 
     private final String mPackageName;
     private final Resources mResources;
+    private final int mThemeId;
 
     @VisibleForTesting public SensorManager sensorManager = new SensorManager();
 
@@ -38,6 +41,14 @@ public class Context {
     public Context(String packageName, Resources resources) {
         mPackageName = packageName;
         mResources = resources;
+        mThemeId = 0;
+    }
+
+    @VisibleForTesting
+    public Context(String packageName, Resources resources, int themeId) {
+        mPackageName = packageName;
+        mResources = resources;
+        mThemeId = themeId;
     }
 
     public String getPackageName() {
@@ -49,7 +60,7 @@ public class Context {
     }
 
     public int getThemeResId() {
-        return 0;
+        return mThemeId;
     }
 
     public <T> T getSystemService(Class<T> serviceClass) {
@@ -68,5 +79,9 @@ public class Context {
     @VisibleForTesting
     public int generateViewId() {
         return mViewIdGenerator.addAndGet(1);
+    }
+
+    public Display getDisplay() {
+        return new Display(new Point(1440, 3120));
     }
 }
