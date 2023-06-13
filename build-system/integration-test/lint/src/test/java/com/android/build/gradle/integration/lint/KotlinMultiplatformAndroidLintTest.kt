@@ -23,6 +23,8 @@ import com.android.build.gradle.integration.common.truth.ScannerSubject.Companio
 import com.android.build.gradle.integration.common.truth.forEachLine
 import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.build.gradle.options.BooleanOption.LINT_ANALYSIS_PER_COMPONENT
+import com.android.build.gradle.options.BooleanOption.LINT_USE_K2_UAST
+import com.android.build.gradle.options.StringOption.LINT_RESERVED_MEMORY_PER_TASK
 import com.android.testutils.truth.PathSubject
 import com.android.utils.FileUtils
 import com.google.common.truth.Truth
@@ -35,7 +37,10 @@ import java.io.File
 
 @RunWith(Parameterized::class)
 class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: Boolean) {
-    @Suppress("DEPRECATION") // kmp doesn't support configuration caching for now (b/276472789)
+    // TODO(b/276472789) kmp doesn't support configuration caching for now. Once configuration cache
+    //  is enabled for these tests, consider adding a test running lint twice in a row as a smoke
+    //  test for configuration cache issues, but avoid causing timeouts (b/281652623).
+    @Suppress("DEPRECATION")
     @get:Rule
     val project = GradleTestProjectBuilder()
         .fromTestProject("kotlinMultiplatform")
@@ -76,19 +81,8 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
 
     @Test
     fun `test lint reports error when calling desugared apis in androidMain sourceset`() {
-        TestFileUtils.addMethod(
-            FileUtils.join(
-                project.getSubproject("kmpFirstLib").projectDir,
-                "src", "androidMain", "kotlin", "com", "example", "kmpfirstlib", "KmpAndroidFirstLibClass.kt"
-            ),
-            """
-                fun desugaringTestUsingDate() {
-                    val date = LocalDate.now().month.name
-                }
-            """.trimIndent())
+        addNewApiIssuesToKmpFirstLib(addAndroidMainIssues = true)
 
-        // Run twice to catch issues with configuration caching
-        getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lintAndroidMain")
         getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lintAndroidMain")
 
         val reportFile =
@@ -103,19 +97,8 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
 
     @Test
     fun `test lint reports error when calling desugared apis in commonMain sourceset`() {
-        TestFileUtils.addMethod(
-            FileUtils.join(
-                project.getSubproject("kmpFirstLib").projectDir,
-                "src", "commonMain", "kotlin", "com", "example", "kmpfirstlib", "KmpCommonFirstLibClass.kt"
-            ),
-            """
-                fun desugaringTestUsingDate() {
-                    val date = LocalDate.now().month.name
-                }
-            """.trimIndent())
+        addNewApiIssuesToKmpFirstLib(addCommonMainIssues = true)
 
-        // Run twice to catch issues with configuration caching
-        getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lintAndroidMain")
         getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lintAndroidMain")
 
         val reportFile =
@@ -142,20 +125,8 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
                 }
             """.trimIndent())
 
-        TestFileUtils.addMethod(
-            FileUtils.join(
-                project.getSubproject("kmpFirstLib").projectDir,
-                "src", "androidUnitTest", "kotlin", "com", "example", "kmpfirstlib", "KmpAndroidFirstLibClassTest.kt"
-            ),
-            """
-                @Test
-                fun desugaringTestUsingDate() {
-                    val date = LocalDate.now().month.name
-                }
-            """.trimIndent())
+        addNewApiIssuesToKmpFirstLib(addAndroidUnitTestIssues = true)
 
-        // Run twice to catch issues with configuration caching
-        getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lintAndroidMain")
         getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lintAndroidMain")
 
         val reportFile =
@@ -192,16 +163,7 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
             "api(project(\":kmpJvmOnly\"))"
         )
 
-        TestFileUtils.addMethod(
-            FileUtils.join(
-                project.getSubproject("kmpFirstLib").projectDir,
-                "src", "androidMain", "kotlin", "com", "example", "kmpfirstlib", "KmpAndroidFirstLibClass.kt"
-            ),
-            """
-                fun desugaringTestUsingDate() {
-                    val date = LocalDate.now().month.name
-                }
-            """.trimIndent())
+        addNewApiIssuesToKmpFirstLib(addAndroidMainIssues = true)
 
         // Add ByteOrderMark to kmpJvmOnly code
         TestFileUtils.addMethod(
@@ -223,8 +185,6 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
             """.trimIndent()
         )
 
-        // Run twice to catch issues with configuration caching
-        getExecutor().run(":app:clean", ":app:lintDebug")
         getExecutor().run(":app:clean", ":app:lintDebug")
 
         val reportFile =
@@ -270,8 +230,6 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
             """.trimIndent()
         )
 
-        // Run twice to catch issues with configuration caching
-        getExecutor().run(":kmpJvmOnly:clean", ":kmpJvmOnly:lint")
         getExecutor().run(":kmpJvmOnly:clean", ":kmpJvmOnly:lint")
 
         val reportFile =
@@ -297,16 +255,7 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
                 }
             """.trimIndent())
 
-        TestFileUtils.addMethod(
-            FileUtils.join(
-                project.getSubproject("kmpFirstLib").projectDir,
-                "src", "androidMain", "kotlin", "com", "example", "kmpfirstlib", "KmpAndroidFirstLibClass.kt"
-            ),
-            """
-                fun desugaringTestUsingDate() {
-                    val date = LocalDate.now().month.name
-                }
-            """.trimIndent())
+        addNewApiIssuesToKmpFirstLib(addAndroidMainIssues = true)
 
         val jvmClassFile =
             FileUtils.join(
@@ -331,8 +280,6 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
             """.trimIndent()
         )
 
-        // Run twice to catch issues with configuration caching
-        getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lint")
         getExecutor().run(":kmpFirstLib:clean", ":kmpFirstLib:lint")
 
         val jvmReportFile =
@@ -383,16 +330,7 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
                 }
             """.trimIndent())
 
-        TestFileUtils.addMethod(
-            FileUtils.join(
-                project.getSubproject("kmpFirstLib").projectDir,
-                "src", "androidMain", "kotlin", "com", "example", "kmpfirstlib", "KmpAndroidFirstLibClass.kt"
-            ),
-            """
-                fun desugaringTestUsingDate() {
-                    val date = LocalDate.now().month.name
-                }
-            """.trimIndent())
+        addNewApiIssuesToKmpFirstLib(addAndroidMainIssues = true)
 
         val jvmClassFile =
             FileUtils.join(
@@ -417,8 +355,6 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
             """.trimIndent()
         )
 
-        // Run twice to catch issues with configuration caching
-        getExecutor().run(":app:clean", ":app:lintDebug")
         getExecutor().run(":app:clean", ":app:lintDebug")
 
         val reportFile =
@@ -458,8 +394,105 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
         }
     }
 
+    // TODO(b/283870344) - fix 3 LintErrors in reportFile
+    @Test
+    fun `test K2 UAST`() {
+        TestFileUtils.appendToFile(
+            project.getSubproject("app").ktsBuildFile,
+            """
+                android {
+                    defaultConfig {
+                        minSdk = 24
+                    }
+                    lint {
+                        checkDependencies = true
+                        textReport = true
+                        abortOnError = false
+                    }
+                }
+            """.trimIndent())
+
+        addNewApiIssuesToKmpFirstLib(addCommonMainIssues = true)
+
+        getExecutor().with(LINT_USE_K2_UAST, true).run(":app:clean", ":app:lintDebug")
+
+        val reportFile =
+            File(project.getSubproject("app").buildDir, "reports/lint-results-debug.txt")
+
+        PathSubject.assertThat(reportFile).exists()
+        PathSubject.assertThat(reportFile).containsAllOf(
+            "Error: Call requires API level 26 (current min is 24): java.time.LocalDate#getMonth [NewApi]",
+            "Error: Call requires API level 26 (current min is 24): java.time.LocalDate#now [NewApi]"
+        )
+    }
+
+    private fun addNewApiIssuesToKmpFirstLib(
+        addCommonMainIssues: Boolean = false,
+        addAndroidMainIssues: Boolean = false,
+        addAndroidUnitTestIssues: Boolean = false
+    ) {
+        if (addCommonMainIssues) {
+            TestFileUtils.addMethod(
+                FileUtils.join(
+                    project.getSubproject("kmpFirstLib").projectDir,
+                    "src",
+                    "commonMain",
+                    "kotlin",
+                    "com",
+                    "example",
+                    "kmpfirstlib",
+                    "KmpCommonFirstLibClass.kt"
+                ),
+                """
+                fun desugaringTestUsingDate() {
+                    val date = LocalDate.now().month.name
+                }
+            """.trimIndent())
+        }
+        if (addAndroidMainIssues) {
+            TestFileUtils.addMethod(
+                FileUtils.join(
+                    project.getSubproject("kmpFirstLib").projectDir,
+                    "src",
+                    "androidMain",
+                    "kotlin",
+                    "com",
+                    "example",
+                    "kmpfirstlib",
+                    "KmpAndroidFirstLibClass.kt"
+                ),
+                """
+                fun desugaringTestUsingDate() {
+                    val date = LocalDate.now().month.name
+                }
+            """.trimIndent())
+        }
+        if (addAndroidUnitTestIssues) {
+
+            TestFileUtils.addMethod(
+                FileUtils.join(
+                    project.getSubproject("kmpFirstLib").projectDir,
+                    "src",
+                    "androidUnitTest",
+                    "kotlin",
+                    "com",
+                    "example",
+                    "kmpfirstlib",
+                    "KmpAndroidFirstLibClassTest.kt"
+                ),
+                """
+                @Test
+                fun desugaringTestUsingDate() {
+                    val date = LocalDate.now().month.name
+                }
+            """.trimIndent())
+        }
+    }
 
     private fun getExecutor(): GradleTaskExecutor {
-        return project.executor().with(LINT_ANALYSIS_PER_COMPONENT, lintAnalysisPerComponent)
+        // Set LINT_RESERVED_MEMORY_PER_TASK to "256M" to reduce time required to run the tests
+        return project.executor()
+            .with(LINT_ANALYSIS_PER_COMPONENT, lintAnalysisPerComponent)
+            .with(LINT_RESERVED_MEMORY_PER_TASK, "256M")
     }
 }

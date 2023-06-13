@@ -32,6 +32,7 @@ import com.android.sdklib.deviceprovisioner.DeviceState.Connected
 import com.android.sdklib.deviceprovisioner.DeviceState.Disconnected
 import com.android.sdklib.devices.Abi
 import com.android.sdklib.internal.avd.AvdInfo
+import com.android.sdklib.internal.avd.AvdInfo.AvdStatus
 import com.android.sdklib.internal.avd.HardwareProperties
 import com.android.sdklib.repository.IdDisplay
 import com.android.sdklib.repository.targets.SystemImage.ANDROID_TV_TAG
@@ -39,17 +40,18 @@ import com.android.sdklib.repository.targets.SystemImage.AUTOMOTIVE_PLAY_STORE_T
 import com.android.sdklib.repository.targets.SystemImage.AUTOMOTIVE_TAG
 import com.android.sdklib.repository.targets.SystemImage.GOOGLE_TV_TAG
 import com.android.sdklib.repository.targets.SystemImage.WEAR_TAG
+import com.intellij.icons.AllIcons
 import java.io.IOException
 import java.nio.file.Path
 import java.time.Duration
 import java.util.concurrent.ConcurrentHashMap
-import java.util.concurrent.atomic.AtomicReference
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.job
@@ -89,6 +91,7 @@ class LocalEmulatorProvisionerPlugin(
     suspend fun duplicateAvd(avdInfo: AvdInfo)
     suspend fun wipeData(avdInfo: AvdInfo)
     suspend fun deleteAvd(avdInfo: AvdInfo)
+    suspend fun downloadAvdSystemImage(avdInfo: AvdInfo)
   }
 
   // We can identify local emulators reliably, so this can be relatively high priority.
@@ -135,7 +138,7 @@ class LocalEmulatorProvisionerPlugin(
             deviceHandles[path] =
               LocalEmulatorDeviceHandle(
                 scope.createChildScope(isSupervisor = true),
-                Disconnected(LocalEmulatorProperties.build(avdInfo)),
+                disconnectedState(avdInfo),
                 avdInfo
               )
           else ->
@@ -144,7 +147,7 @@ class LocalEmulatorProvisionerPlugin(
             // shutdown.
             if (handle.avdInfo != avdInfo && handle.state is Disconnected) {
               handle.avdInfo = avdInfo
-              handle.stateFlow.value = Disconnected(LocalEmulatorProperties.build(avdInfo))
+              handle.stateFlow.value = disconnectedState(avdInfo)
             }
         }
       }
@@ -152,6 +155,14 @@ class LocalEmulatorProvisionerPlugin(
       _devices.value = deviceHandles.values.toList()
     }
   }
+
+  private fun disconnectedState(avdInfo: AvdInfo) =
+    Disconnected(
+      LocalEmulatorProperties.build(avdInfo),
+      isTransitioning = false,
+      status = "Offline",
+      error = avdInfo.deviceError
+    )
 
   override suspend fun claim(device: ConnectedDevice): DeviceHandle? {
     val result = LOCAL_EMULATOR_REGEX.matchEntire(device.serialNumber) ?: return null
@@ -192,7 +203,7 @@ class LocalEmulatorProvisionerPlugin(
 
     // We need to make sure that emulators change to Disconnected state once they are terminated.
     device.invokeOnDisconnection {
-      handle.stateFlow.value = Disconnected(handle.state.properties)
+      handle.stateFlow.value = disconnectedState(handle.avdInfo)
       logger.debug { "Device ${device.serialNumber} closed; disconnecting from console" }
       emulatorConsoles.remove(device)?.close()
     }
@@ -250,12 +261,14 @@ class LocalEmulatorProvisionerPlugin(
   ) : DeviceHandle {
     override val stateFlow = MutableStateFlow(initialState)
 
-    private val _avdInfo = AtomicReference(initialAvdInfo)
+    private val avdInfoFlow = MutableStateFlow(initialAvdInfo)
 
     /** AvdInfo can be updated when the device is edited on-disk and rescanned. */
     var avdInfo: AvdInfo
-      get() = _avdInfo.get()
-      set(value) = _avdInfo.set(value)
+      get() = avdInfoFlow.value
+      set(value) {
+        avdInfoFlow.value = value
+      }
 
     /** The emulator console is present when the device is connected. */
     val emulatorConsole: EmulatorConsole?
@@ -263,7 +276,7 @@ class LocalEmulatorProvisionerPlugin(
 
     override val activationAction =
       object : ActivationAction {
-        override val presentation = defaultPresentation.fromContext().enabledIfStopped()
+        override val presentation = defaultPresentation.fromContext().enabledIfActivatable()
 
         override suspend fun activate() {
           activate(coldBoot = false)
@@ -272,7 +285,7 @@ class LocalEmulatorProvisionerPlugin(
 
     override val coldBootAction =
       object : ColdBootAction {
-        override val presentation = defaultPresentation.fromContext().enabledIfStopped()
+        override val presentation = defaultPresentation.fromContext().enabledIfActivatable()
 
         override suspend fun activate() {
           activate(coldBoot = true)
@@ -285,9 +298,7 @@ class LocalEmulatorProvisionerPlugin(
           stateFlow.advanceStateWithTimeout(
             timeout = CONNECTION_TIMEOUT,
             updateState = {
-              (it as? Disconnected)?.let {
-                Disconnected(it.properties, isTransitioning = true, status = "Starting up")
-              }
+              (it as? Disconnected)?.copy(isTransitioning = true, status = "Starting up")
             },
             advanceAction = { avdManager.startAvd(avdInfo, coldBoot) }
           )
@@ -325,14 +336,7 @@ class LocalEmulatorProvisionerPlugin(
                   // TODO: In theory, we could cancel from the Connecting state, but that would
                   // require a lot of work in AvdManagerConnection to make everything shutdown
                   // cleanly.
-                  (it as? Connected)?.let {
-                    Connected(
-                      it.properties,
-                      isTransitioning = true,
-                      status = "Shutting down",
-                      connectedDevice = it.connectedDevice
-                    )
-                  }
+                  (it as? Connected)?.copy(isTransitioning = true, status = "Shutting down")
                 },
                 advanceAction = ::stop
               )
@@ -342,6 +346,24 @@ class LocalEmulatorProvisionerPlugin(
               "Emulator failed to disconnect within $DISCONNECTION_TIMEOUT_MINUTES minutes"
             )
           }
+        }
+      }
+
+    override val repairDeviceAction =
+      object : RepairDeviceAction {
+        override val presentation =
+          DeviceAction.Presentation(
+              label = "Download system image",
+              icon = AllIcons.Actions.Download,
+              enabled = false
+            )
+            .enabledIf {
+              (it.error as? AvdDeviceError)?.status in
+                setOf(AvdStatus.ERROR_IMAGE_DIR, AvdStatus.ERROR_IMAGE_MISSING)
+            }
+
+        override suspend fun repair() {
+          avdManager.downloadAvdSystemImage(avdInfo)
         }
       }
 
@@ -404,9 +426,15 @@ class LocalEmulatorProvisionerPlugin(
         .map { this.copy(enabled = condition(it)) }
         .stateIn(scope, SharingStarted.WhileSubscribed(), this)
 
-    private fun DeviceAction.Presentation.enabledIfStopped() = enabledIf {
-      it is Disconnected && !it.isTransitioning
-    }
+    private fun DeviceState.isStopped() = this is Disconnected && !this.isTransitioning
+
+    private fun DeviceAction.Presentation.enabledIfStopped() = enabledIf { it.isStopped() }
+
+    private fun DeviceAction.Presentation.enabledIfActivatable() =
+      combine(stateFlow, avdInfoFlow) { state, avdInfo ->
+          this.copy(enabled = state.isStopped() && avdInfo.status == AvdStatus.OK)
+        }
+        .stateIn(scope, SharingStarted.WhileSubscribed(), this)
   }
 }
 
@@ -472,6 +500,11 @@ private val AvdInfo.resolution
         Resolution(width, height)
       }
     }
+
+private val AvdInfo.deviceError
+  get() = errorMessage?.let { AvdDeviceError(status, it) }
+
+private class AvdDeviceError(val status: AvdStatus, override val message: String) : DeviceError
 
 private fun IdDisplay.toDeviceType(): DeviceType =
   when (this) {
