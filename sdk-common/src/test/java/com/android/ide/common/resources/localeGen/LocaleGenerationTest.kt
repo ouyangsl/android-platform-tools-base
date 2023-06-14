@@ -69,7 +69,7 @@ class LocaleGenerationTest {
         addResFolder(res3, "values-b+zh+Hans+SG", false)
 
         assertThat(generateLocaleList(listOf(res1, res2, res3)))
-            .containsExactly("en-US", "ru-RU", "es-ES", "pt-BR", "zh-Hans-SG")
+            .isEqualTo(listOf("es-ES", "en-US", "ru-RU", "pt-BR", "zh-Hans-SG"))
     }
 
     @Test
@@ -86,7 +86,7 @@ class LocaleGenerationTest {
         val outfile = temporaryFolder.newFile("locale_config.xml")
         writeLocaleConfig(
             output = outfile,
-            locales = listOf("en-US", "ru-RU", "es-ES", "pt-BR", "zh-Hans-SG", "en-GB")
+            locales = setOf("en-US", "ru-RU", "es-ES", "pt-BR", "zh-Hans-SG", "en-GB")
         )
         assertThat(
             listOf(
@@ -97,7 +97,7 @@ class LocaleGenerationTest {
                 """    <locale android:name="pt-BR"/>""",
                 """    <locale android:name="zh-Hans-SG"/>""",
                 """    <locale android:name="en-GB"/>""",
-                """</locale-config>""")).containsExactlyElementsIn(outfile.readLines()).inOrder()
+                """</locale-config>""")).isEqualTo(outfile.readLines())
     }
 
     @Test

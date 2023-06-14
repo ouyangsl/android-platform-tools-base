@@ -313,14 +313,14 @@ class LocaleConfigGenerationTest {
         ).execute("assembleDebug")
 
         assertLocaleList("app", "debug")
-            .containsExactly("de-DE", "es-ES","zh-Hans-SG","en-GB")
+            .isEqualTo(listOf("de-DE", "es-ES", "zh-Hans-SG", "en-GB"))
         assertLocaleList("lib1", "debug")
             .containsExactly("ru-RU")
         assertLocaleList("lib2", "debug")
             .containsExactly("pt-BR")
         // Final xml adds default locale (de-DE)
         assertLocaleConfig("debug")
-            .containsExactly("de-DE", "es-ES","zh-Hans-SG","en-GB", "ru-RU", "pt-BR")
+            .isEqualTo(listOf("de-DE", "es-ES", "zh-Hans-SG", "en-GB", "ru-RU", "pt-BR"))
     }
 
     @Test
@@ -334,13 +334,13 @@ class LocaleConfigGenerationTest {
         ).execute("assembleDebug")
 
         assertLocaleList("app", "debug")
-            .containsExactly("en-US", "es-ES","zh-Hans-SG","en-GB")
+            .isEqualTo(listOf("en-US", "es-ES", "zh-Hans-SG", "en-GB"))
         assertLocaleList("lib1", "debug")
             .containsExactly("es-ES", "ru-RU")
         assertLocaleList("lib2", "debug")
             .containsExactly("pt-BR", "en-US")
         assertLocaleConfig("debug")
-            .containsExactly("en-US", "es-ES", "zh-Hans-SG","en-GB", "ru-RU", "pt-BR")
+            .isEqualTo(listOf("en-US", "es-ES", "zh-Hans-SG", "en-GB", "ru-RU", "pt-BR"))
     }
 
     @Test
@@ -491,8 +491,8 @@ class LocaleConfigGenerationTest {
         ).execute("assembleDebug")
 
         // london flavor res should not be included
-        assertLocaleList("app", "tokyoDebug").containsExactly("en-US", "jp-JP")
-        assertLocaleConfig("tokyo/debug").containsExactly("en-US", "es-ES", "pt-BR", "jp-JP")
+        assertLocaleList("app", "tokyoDebug").isEqualTo(listOf("en-US", "jp-JP"))
+        assertLocaleConfig("tokyo/debug").isEqualTo(listOf("en-US", "jp-JP", "es-ES", "pt-BR"))
     }
 
     @Test
