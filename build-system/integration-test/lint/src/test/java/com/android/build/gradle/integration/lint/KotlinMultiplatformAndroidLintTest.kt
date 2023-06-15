@@ -241,6 +241,61 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
     }
 
     @Test
+    fun `test running lint on kmpJvmOnly with java`() {
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("kmpJvmOnly").ktsBuildFile,
+            "jvm()",
+            """
+                jvm {
+                    withJava()
+                }
+            """.trimIndent()
+
+        )
+        TestFileUtils.appendToFile(
+            project.getSubproject("kmpJvmOnly").ktsBuildFile,
+            """
+                lint {
+                    enable += "ByteOrderMark"
+                    textReport = true
+                    abortOnError = false
+                }
+            """.trimIndent())
+
+        val javaFile =
+            FileUtils.join(
+                project.getSubproject("kmpJvmOnly").projectDir,
+                "src",
+                "jvmMain",
+                "java",
+                "com",
+                "example",
+                "Foo.java"
+            )
+        javaFile.parentFile.mkdirs()
+        TestFileUtils.appendToFile(
+            javaFile,
+            //language=java
+            """
+                package com.example;
+
+                public class Foo {
+                    private String foo = "$byteOrderMark";
+                }
+            """.trimIndent()
+        )
+
+        getExecutor().run(":kmpJvmOnly:clean", ":kmpJvmOnly:lint")
+
+        val reportFile =
+            File(project.getSubproject("kmpJvmOnly").buildDir, "reports/lint-results.txt")
+
+        PathSubject.assertThat(reportFile).exists()
+        PathSubject.assertThat(reportFile)
+            .contains("Found byte-order-mark in the middle of a file [ByteOrderMark]")
+    }
+
+    @Test
     fun `test running lint on project with jvm and android targets`() {
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
@@ -394,7 +449,6 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
         }
     }
 
-    // TODO(b/283870344) - fix 3 LintErrors in reportFile
     @Test
     fun `test K2 UAST`() {
         TestFileUtils.appendToFile(
@@ -424,6 +478,7 @@ class KotlinMultiplatformAndroidLintTest(private val lintAnalysisPerComponent: B
             "Error: Call requires API level 26 (current min is 24): java.time.LocalDate#getMonth [NewApi]",
             "Error: Call requires API level 26 (current min is 24): java.time.LocalDate#now [NewApi]"
         )
+        PathSubject.assertThat(reportFile).doesNotContain("[LintError]")
     }
 
     private fun addNewApiIssuesToKmpFirstLib(

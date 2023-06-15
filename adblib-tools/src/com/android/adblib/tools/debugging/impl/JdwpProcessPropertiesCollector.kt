@@ -30,16 +30,16 @@ import com.android.adblib.tools.AdbLibToolsProperties.SUPPORT_STAG_PACKETS
 import com.android.adblib.tools.debugging.AtomicStateFlow
 import com.android.adblib.tools.debugging.JdwpProcessProperties
 import com.android.adblib.tools.debugging.SharedJdwpSession
-import com.android.adblib.tools.debugging.packets.AdbBufferedInputChannel
 import com.android.adblib.tools.debugging.packets.JdwpPacketConstants.PACKET_HEADER_LENGTH
 import com.android.adblib.tools.debugging.packets.JdwpPacketView
 import com.android.adblib.tools.debugging.packets.MutableJdwpPacket
+import com.android.adblib.tools.debugging.packets.PayloadProvider
 import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkType
 import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkView
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants.DDMS_CMD
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants.DDMS_CMD_SET
-import com.android.adblib.tools.debugging.packets.ddms.MutableDdmsChunk
+import com.android.adblib.tools.debugging.packets.ddms.EphemeralDdmsChunk
 import com.android.adblib.tools.debugging.packets.ddms.chunks.AppStage
 import com.android.adblib.tools.debugging.packets.ddms.chunks.DdmsApnmChunk
 import com.android.adblib.tools.debugging.packets.ddms.chunks.DdmsFeatChunk
@@ -61,6 +61,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
@@ -301,7 +302,7 @@ internal class JdwpProcessPropertiesCollector(
         workBuffer: ResizableBuffer
     ) {
         val heloChunk = processJdwpPacket(packet, "HELO") {
-            val heloChunkView = packet.ddmsChunks().first().clone()
+            val heloChunkView = packet.ddmsChunks().map { it.clone() }.first()
             DdmsHeloChunk.parse(heloChunkView, workBuffer)
         }
         logger.debug { "`HELO` reply: $heloChunk" }
@@ -328,7 +329,7 @@ internal class JdwpProcessPropertiesCollector(
         workBuffer: ResizableBuffer
     ) {
         val featChunk = processJdwpPacket(packet, "FEAT") {
-            val featChunkView = packet.ddmsChunks().first().clone()
+            val featChunkView = packet.ddmsChunks().map { it.clone() }.first()
             DdmsFeatChunk.parse(featChunkView, workBuffer)
         }
         logger.debug { "`FEAT` reply: $featChunk" }
@@ -415,10 +416,11 @@ internal class JdwpProcessPropertiesCollector(
         chunkType: DdmsChunkType,
         chunkData: ByteBuffer
     ): JdwpPacketView {
-        val chunk = MutableDdmsChunk()
-        chunk.type = chunkType
-        chunk.length = chunkData.remaining()
-        chunk.payload = AdbBufferedInputChannel.forByteBuffer(chunkData)
+        val chunk = EphemeralDdmsChunk(
+            type = chunkType,
+            length = chunkData.remaining(),
+            payloadProvider = PayloadProvider.forByteBuffer(chunkData)
+        )
         val workBuffer = ResizableBuffer()
         val outputChannel = ByteBufferAdbOutputChannel(workBuffer)
         chunk.writeToChannel(outputChannel)
@@ -429,7 +431,7 @@ internal class JdwpProcessPropertiesCollector(
         packet.length = PACKET_HEADER_LENGTH + serializedChunk.remaining()
         packet.cmdSet = DDMS_CMD_SET
         packet.cmd = DDMS_CMD
-        packet.payload = AdbBufferedInputChannel.forByteBuffer(serializedChunk)
+        packet.payloadProvider = PayloadProvider.forByteBuffer(serializedChunk)
 
         logger.debug { "Preparing to send $chunk" }
         return packet

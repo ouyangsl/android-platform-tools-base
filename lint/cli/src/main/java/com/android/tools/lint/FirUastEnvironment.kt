@@ -219,7 +219,7 @@ private fun createAnalysisSession(
             getPsiFilesFromPaths<KtFile>(
               theProject,
               Helper.getSourceFilePaths(
-                m.sourceRoots.map(File::getPath),
+                (m.sourceRoots + m.gradleBuildScripts).map(File::getPath),
                 includeDirectoryRoot = true
               )
             )
@@ -236,6 +236,8 @@ private fun createAnalysisSession(
           }
           addModule(
             buildKtSourceModule {
+              // TODO: per-module language version setting? e.g., [Project.kotlinLanguageLevel]
+              languageVersionSettings = config.kotlinLanguageLevel
               addModuleDependencies(m.name)
               contentScope =
                 TopDownAnalyzerFacadeForJVM.newModuleSearchScope(theProject, ordinaryKtFiles)

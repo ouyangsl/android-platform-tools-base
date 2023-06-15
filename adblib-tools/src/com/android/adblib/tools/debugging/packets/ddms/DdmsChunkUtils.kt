@@ -19,14 +19,15 @@ import com.android.adblib.AdbInputChannelSlice
 import com.android.adblib.AdbOutputChannel
 import com.android.adblib.ByteBufferAdbOutputChannel
 import com.android.adblib.forwardTo
-import com.android.adblib.skipRemaining
-import com.android.adblib.tools.debugging.packets.AdbBufferedInputChannel
+import com.android.adblib.readNBytes
 import com.android.adblib.tools.debugging.packets.JdwpPacketView
+import com.android.adblib.tools.debugging.packets.PayloadProvider
 import com.android.adblib.tools.debugging.packets.copy
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants.DDMS_CHUNK_BYTE_ORDER
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants.DDMS_CHUNK_HEADER_LENGTH
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants.DDMS_CMD
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants.DDMS_CMD_SET
+import com.android.adblib.tools.debugging.packets.withPayload
 import com.android.adblib.tools.debugging.toByteBuffer
 import com.android.adblib.utils.ResizableBuffer
 import kotlinx.coroutines.flow.Flow
@@ -54,8 +55,7 @@ internal suspend fun DdmsChunkView.writeToChannel(
     channel.writeExactly(workBuffer.forChannelWrite())
 
     // Write payload
-    val byteCount = payload.forwardTo(channel, workBuffer)
-    payload.rewind()
+    val byteCount = withPayload { payload -> payload.forwardTo(channel, workBuffer) }
     checkChunkLength(byteCount)
 }
 
@@ -70,26 +70,20 @@ internal suspend fun DdmsChunkView.writeToChannel(
 internal suspend fun DdmsChunkView.clone(
     workBuffer: ResizableBuffer = ResizableBuffer()
 ): DdmsChunkView {
-    val ddmsChunk = MutableDdmsChunk()
-
-    // Copy header
-    ddmsChunk.length = length
-    ddmsChunk.type = type
-
     // Copy payload to "workBuffer"
     workBuffer.clear()
     val dataCopy = ByteBufferAdbOutputChannel(workBuffer)
-    val byteCount = payload.forwardTo(dataCopy)
-    payload.rewind()
-    ddmsChunk.checkChunkLength(byteCount)
+    withPayload { payload -> payload.forwardTo(dataCopy) }
 
     // Make a copy into our own ByteBuffer
     val bufferCopy = workBuffer.forChannelWrite().copy()
 
     // Create rewindable channel for payload
-    ddmsChunk.payload = AdbBufferedInputChannel.forByteBuffer(bufferCopy)
-
-    return ddmsChunk
+    return EphemeralDdmsChunk(
+        type = type,
+        length = length,
+        payloadProvider = PayloadProvider.forByteBuffer(bufferCopy)
+    )
 }
 
 /**
@@ -111,32 +105,32 @@ internal fun JdwpPacketView.ddmsChunks(
             throw IllegalArgumentException("JDWP packet is not a DDMS command packet (and is not a reply packet)")
         }
 
-        jdwpPacketView.payload.rewind()
-        workBuffer.clear()
-        workBuffer.order(DDMS_CHUNK_BYTE_ORDER)
-        while (true) {
-            try {
-                jdwpPacketView.payload.readExactly(workBuffer.forChannelRead(DDMS_CHUNK_HEADER_LENGTH))
-            } catch (e: EOFException) {
-                // Regular exit: there are no more chunks to be read
-                break
+        jdwpPacketView.withPayload  { jdwpPayload ->
+            while (true) {
+                workBuffer.clear()
+                workBuffer.order(DDMS_CHUNK_BYTE_ORDER)
+                try {
+                    jdwpPayload.readNBytes(workBuffer, DDMS_CHUNK_HEADER_LENGTH)
+                } catch (e: EOFException) {
+                    // Regular exit: there are no more chunks to be read
+                    break
+                }
+                val payloadBuffer = workBuffer.afterChannelRead()
+
+                // Prepare chunk source
+                val chunkType = DdmsChunkType(payloadBuffer.getInt())
+                val payloadLength = payloadBuffer.getInt()
+                val payload = AdbInputChannelSlice(jdwpPayload, payloadLength)
+                val payloadProvider = PayloadProvider.forInputChannel(payload)
+                EphemeralDdmsChunk(chunkType, payloadLength, payloadProvider).use { chunk ->
+                    // Emit it to collector
+                    emit(chunk)
+
+                    // Ensure we consume all bytes from the chunk payload in case the collector did not
+                    // do anything with it
+                    chunk.shutdown(workBuffer)
+                }
             }
-            val payloadBuffer = workBuffer.afterChannelRead()
-
-            // Prepare chunk source
-            val chunk = MutableDdmsChunk().apply {
-                this.type = DdmsChunkType(payloadBuffer.getInt())
-                this.length = payloadBuffer.getInt()
-                val slice = AdbInputChannelSlice(jdwpPacketView.payload, this.length)
-                this.payload = AdbBufferedInputChannel.forInputChannel(slice)
-            }
-
-            // Emit it to collector
-            emit(chunk)
-
-            // Ensure we consume all bytes from the chunk payload in case the collector did not
-            // do anything with it
-            chunk.payload.skipRemaining(workBuffer)
         }
     }
 }
@@ -160,15 +154,17 @@ internal suspend fun DdmsChunkView.createFailException(): DdmsFailException {
         // 0-3: error code
         // 4-7: error message: UTF-16 character count
         // 8-n: error message: UTF-16 characters
-        val buffer = payload.toByteBuffer(length).order(DDMS_CHUNK_BYTE_ORDER)
-        val errorCode = buffer.getInt()
-        val charCount = buffer.getInt()
-        val data = CharArray(charCount)
-        for (i in 0 until charCount) {
-            data[i] = buffer.getChar()
+        return withPayload { payload ->
+            val buffer = payload.toByteBuffer(length).order(DDMS_CHUNK_BYTE_ORDER)
+            val errorCode = buffer.getInt()
+            val charCount = buffer.getInt()
+            val data = CharArray(charCount)
+            for (i in 0 until charCount) {
+                data[i] = buffer.getChar()
+            }
+            val message = String(data)
+            DdmsFailException(errorCode, message)
         }
-        val message = String(data)
-        return DdmsFailException(errorCode, message)
     } catch (t: Throwable) {
         // In case the FAIL packet format is invalid, return a generic error, since this method is
         // called in the context of handling an error.

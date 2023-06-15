@@ -21,6 +21,9 @@ import com.android.adblib.AdbServerSocket
 import com.android.adblib.AdbSession
 import com.android.adblib.DeviceAddress
 import com.android.adblib.DeviceSelector
+import com.android.adblib.connectedDevicesTracker
+import com.android.adblib.isOnline
+import com.android.adblib.serialNumber
 import com.android.adblib.shellCommand
 import com.android.adblib.withInputChannelCollector
 import java.nio.ByteBuffer
@@ -34,6 +37,7 @@ import kotlin.system.measureTimeMillis
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.cancel
@@ -43,8 +47,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.flow.update
@@ -85,9 +91,15 @@ internal class ForwardingDaemonImpl(
   private val onlineStates = setOf(DeviceState.DEVICE, DeviceState.RECOVERY, DeviceState.RESCUE)
   private lateinit var adbCommandHandler: Job
 
+  @OptIn(ExperimentalCoroutinesApi::class)
   override val roundTripLatencyMsFlow: Flow<Long> =
     flow {
-        deviceState.takeWhile { it !in onlineStates }.collect()
+        // Wait for the connected device to be online so that it can respond to pings below
+        adbSession.connectedDevicesTracker.connectedDevices
+          .mapNotNull { it.firstOrNull { entry -> entry.serialNumber == serialNumber } }
+          .flatMapLatest { device -> flow { device.deviceInfoFlow.collect { emit(device) } } }
+          .takeWhile { !it.isOnline }
+          .collect()
 
         val device = DeviceSelector.fromSerialNumber(serialNumber)
         val stdinInputChannel = adbSession.channelFactory.createPipedChannel()

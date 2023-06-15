@@ -15,6 +15,7 @@
  */
 package com.android.adblib.tools.debugging.impl
 
+import com.android.adblib.AdbInputChannel
 import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
 import com.android.adblib.scope
@@ -25,21 +26,23 @@ import com.android.adblib.tools.debugging.JdwpSession
 import com.android.adblib.tools.debugging.SharedJdwpSession
 import com.android.adblib.tools.debugging.SharedJdwpSessionFilter
 import com.android.adblib.tools.debugging.SharedJdwpSessionMonitor
+import com.android.adblib.tools.debugging.impl.SharedJdwpSessionImpl.ScopedPayloadProvider.ScopedAdbBufferedInputChannel
 import com.android.adblib.tools.debugging.packets.AdbBufferedInputChannel
 import com.android.adblib.tools.debugging.packets.JdwpPacketView
-import com.android.adblib.tools.debugging.packets.MutableJdwpPacket
+import com.android.adblib.tools.debugging.packets.PayloadProvider
 import com.android.adblib.tools.debugging.packets.clone
+import com.android.adblib.tools.debugging.packets.withPayload
 import com.android.adblib.tools.debugging.rethrowCancellation
 import com.android.adblib.tools.debugging.sharedJdwpSessionMonitorFactoryList
+import com.android.adblib.utils.ResizableBuffer
 import com.android.adblib.utils.createChildScope
 import com.android.adblib.utils.withReentrantLock
 import com.android.adblib.withPrefix
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ClosedReceiveChannelException
@@ -79,7 +82,8 @@ internal class SharedJdwpSessionImpl(
     override val device: ConnectedDevice
         get() = jdwpSession.device
 
-    private val logger = thisLogger(session).withPrefix("device='${device.serialNumber}' pid=$pid: ")
+    private val logger =
+        thisLogger(session).withPrefix("device='${device.serialNumber}' pid=$pid: ")
 
     /**
      * The scope used to run coroutines for sending and receiving packets
@@ -220,18 +224,15 @@ internal class SharedJdwpSessionImpl(
 
     private suspend fun sendReceivedPackets() {
         withContext(CoroutineName("Shared JDWP Session: Send received packets job")) {
-            val localPacket = MutableJdwpPacket()
-            var scopedPayload = AdbBufferedInputChannel.empty()
-
+            val workBuffer = ResizableBuffer()
             while (true) {
-                (scopedPayload as? ScopedAdbBufferedInputChannel)?.waitForPendingRead()
 
                 // Wait until "isActive" is `true`
                 hasReceiversStateFlow.waitUntil(true)
                 sendReplayPlacketsToReceivers()
 
                 logger.verbose { "Waiting for next JDWP packet from session" }
-                val packet = try {
+                val sessionPacket = try {
                     jdwpSession.receivePacket()
                 } catch (t: Throwable) {
                     // Cancellation cancels the jdwp session scope, which cancel the scope
@@ -250,21 +251,32 @@ internal class SharedJdwpSessionImpl(
                     break
                 }
 
-                // Copy packet info
-                packet.copyHeaderTo(localPacket)
-                ScopedAdbBufferedInputChannel(scope, packet.payload).also {
-                    localPacket.payload = it
-                    scopedPayload = it
-                }
+                // "Emit" a thread-safe version of "sessionPacket" to all receivers
+                sessionPacket.withPayload { sessionPacketPayload ->
+                    // Note: "sessionPacketPayload" is an input channel directly connected to the
+                    // underlying connection.
+                    // We create a scoped payload channel so that
+                    // 1) the payload is thread-safe for all receivers, and
+                    // 2) cancellation of any receiver does not close the underlying socket
+                    // 3) "shutdown" does not close the underlying PayloadProvider (that is taken
+                    // care of by the JdwpSession class)
+                    val payloadProvider = ScopedPayloadProvider(scope, sessionPacketPayload)
+                    EphemeralJdwpPacket.fromPacket(sessionPacket, payloadProvider).use { packet ->
 
-                // Send to each receiver
-                sendReplayPlacketsToReceivers()
-                jdwpMonitor?.onReceivePacket(localPacket)
-                activeReceivers.forEach { receiver ->
-                    logger.verbose { "Emitting session packet $localPacket to receiver '${receiver.name}'" }
-                    sendPacketResultToReceiver(receiver, Result.success(localPacket))
+                            // Send to each receiver
+                            sendReplayPlacketsToReceivers()
+                            jdwpMonitor?.onReceivePacket(packet)
+                            activeReceivers.forEach { receiver ->
+                                logger.verbose { "Emitting session packet $packet to receiver '${receiver.name}'" }
+                                sendPacketResultToReceiver(receiver, Result.success(packet))
+                            }
+                            jdwpFilter.afterReceivePacket(packet)
+
+                            // Packet should not be used after this, because payload of the jdwp packet
+                            // from the underlying jdwp session is about to become invalid.
+                            packet.shutdown(workBuffer)
+                        }
                 }
-                jdwpFilter.afterReceivePacket(localPacket)
             }
         }
     }
@@ -285,18 +297,6 @@ internal class SharedJdwpSessionImpl(
             activeReceivers.forEach { receiver ->
                 sendPacketResultToReceiver(receiver, Result.failure(t))
             }
-        }
-    }
-
-    private fun JdwpPacketView.copyHeaderTo(destination: MutableJdwpPacket) {
-        destination.id = this.id
-        destination.length = this.length
-        destination.flags = this.flags
-        if (destination.isCommand) {
-            destination.cmdSet = this.cmdSet
-            destination.cmd = this.cmd
-        } else {
-            destination.errorCode = this.errorCode
         }
     }
 
@@ -325,7 +325,6 @@ internal class SharedJdwpSessionImpl(
     ) {
         runCatching {
             logger.verbose { "Sending packet to receiver '${receiver.name}': $packet" }
-            packet.onSuccess { it.payload.rewind() }
             receiver.sendPacketResult(packet)
         }.onFailure { t ->
             if (t !is CancellationException) {
@@ -450,54 +449,133 @@ internal class SharedJdwpSessionImpl(
     }
 
     /**
-     * An [AdbBufferedInputChannel] that reads from another [AdbBufferedInputChannel] in a custom
-     * [CoroutineScope] so that cancellation does not affect the initial [input].
+     * A [PayloadProvider] that wraps a [payload][AdbInputChannel] using a
+     * [ScopedAdbBufferedInputChannel] so that cancellation of pending read operations
+     * never close the initial [payload][AdbInputChannel].
      */
-    private class ScopedAdbBufferedInputChannel(
-        private val scope: CoroutineScope,
-        private val input: AdbBufferedInputChannel
-    ) : AdbBufferedInputChannel {
+    private class ScopedPayloadProvider(
+        /**
+         * The [CoroutineScope] used to asynchronously read from the [payload]. This scope
+         * should be active as long as [payload] is active.
+         */
+        scope: CoroutineScope,
+        /**
+         * The [AdbInputChannel] being wrapped.
+         */
+        payload: AdbInputChannel
+    ) : PayloadProvider {
 
-        private var currentReadJob: Job? = null
-        private val readMutex = Mutex()
+        private var closed = false
 
-        override suspend fun rewind() {
-            currentReadJob?.join()
-            input.rewind()
+        /**
+         * Locks access to [scopedPayload] to guarantee there is at most a single reader
+         */
+        private val mutex = Mutex()
+
+        /**
+         * The [ScopedAdbBufferedInputChannel] wrapping the original [AdbInputChannel], to ensure
+         * cancellation of [AdbInputChannel.read] operations don't close the [AdbInputChannel].
+         */
+        private var scopedPayload = ScopedAdbBufferedInputChannel(scope, payload)
+
+        override suspend fun acquirePayload(): AdbInputChannel {
+            throwIfClosed()
+            mutex.lock()
+            return scopedPayload
         }
 
-        override suspend fun finalRewind() {
-            currentReadJob?.join()
-            input.finalRewind()
+        override suspend fun releasePayload() {
+            scopedPayload.waitForPendingRead()
+            scopedPayload.rewind()
+            mutex.unlock()
         }
 
-        override suspend fun read(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
-            return readMutex.withLock {
-                readAsync(buffer).await()
+        override suspend fun shutdown(workBuffer: ResizableBuffer) {
+            closed = true
+            mutex.withLock {
+                scopedPayload.waitForPendingRead()
             }
         }
 
         override fun close() {
-            input.close()
+            closed = true
+            scopedPayload.close()
         }
 
-        private suspend fun readAsync(buffer: ByteBuffer): Deferred<Int> {
-            val deferred = CompletableDeferred<Int>(scope.coroutineContext.job)
-            currentReadJob?.join()
-            scope.launch {
-                val count = input.read(buffer)
-                deferred.complete(count)
-            }.also { job ->
-                job.invokeOnCompletion { throwable ->
-                    throwable?.also { deferred.completeExceptionally(it) }
-                }
-                currentReadJob = job
+        private fun throwIfClosed() {
+            if (closed) {
+                throw IllegalStateException("Payload is not available anymore because the provider has been closed")
             }
-            return deferred
         }
 
-        suspend fun waitForPendingRead() {
-            currentReadJob?.join()
+        /**
+         * An [AdbBufferedInputChannel] that reads from another [AdbBufferedInputChannel] in a custom
+         * [CoroutineScope] so that cancellation does not affect the initial [bufferedInput].
+         */
+        private class ScopedAdbBufferedInputChannel(
+            private val scope: CoroutineScope,
+            input: AdbInputChannel
+        ) : AdbBufferedInputChannel {
+
+            private var currentReadJob: Job? = null
+
+            /**
+             * Ensure we have a [AdbBufferedInputChannel] so we support
+             * [AdbBufferedInputChannel.rewind]
+             */
+            private val bufferedInput = if (input is AdbBufferedInputChannel) {
+                input
+            } else {
+                AdbBufferedInputChannel.forInputChannel(input)
+            }
+
+            override suspend fun rewind() {
+                throwIfPendingRead()
+                bufferedInput.rewind()
+            }
+
+            override suspend fun finalRewind() {
+                throw IllegalStateException("finalRewind should never be called on ${this::class}")
+            }
+
+            override suspend fun read(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
+                return scopedRead { bufferedInput.read(buffer) }
+            }
+
+            override suspend fun readExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+                return scopedRead { bufferedInput.readExactly(buffer) }
+            }
+
+            suspend fun waitForPendingRead() {
+                currentReadJob?.join()
+            }
+
+            override fun close() {
+                // We cancel any pending job if there is one, so that we support prompt
+                // cancellation if the owner of this instance if cancelled. In non-exceptional
+                // code paths, "currentReadJob" is already completed (because of the
+                // "waitForPendingRead" call) and the "cancel" call below is a no-op.
+                currentReadJob?.cancel("${this::class} has been closed")
+            }
+
+            private suspend inline fun <R> scopedRead(crossinline reader: suspend () -> R): R {
+                throwIfPendingRead()
+
+                // Start new job in parent scope and wait for its completion
+                return scope.async {
+                    reader()
+                }.also { job ->
+                    currentReadJob = job
+                }.await().also {
+                    currentReadJob = null
+                }
+            }
+
+            private fun throwIfPendingRead() {
+                check(!(currentReadJob?.isActive ?: false)) {
+                    "Operation is not supported if there is a pending read operation"
+                }
+            }
         }
     }
 
@@ -511,27 +589,18 @@ internal class SharedJdwpSessionImpl(
     ) {
 
         suspend fun sendPacket(packet: JdwpPacketView) {
-            sendPacketAsync(packet).await()
-        }
-
-        private suspend fun sendPacketAsync(packet: JdwpPacketView): Deferred<Unit> {
-            val deferred = CompletableDeferred<Unit>(scope.coroutineContext.job)
-            scope.launch {
+            scope.async {
                 sharedJdwpSession.jdwpMonitor?.onSendPacket(packet)
                 sharedJdwpSession.jdwpFilter.beforeSendPacket(packet)
                 sharedJdwpSession.jdwpSession.sendPacket(packet)
-                deferred.complete(Unit)
-            }.invokeOnCompletion {
-                it?.also { deferred.completeExceptionally(it) }
-            }
-            return deferred
+            }.await()
         }
     }
 
     private class ActiveReceiver(
         private val jdwpSession: SharedJdwpSessionImpl,
         val name: String
-        ) : AutoCloseable {
+    ) : AutoCloseable {
 
         private val logger = jdwpSession.logger.withPrefix("ActiveReceiver '$name': ")
 

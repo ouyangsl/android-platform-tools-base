@@ -34,6 +34,7 @@ import com.android.build.gradle.internal.CompileOptions
 import com.android.build.gradle.internal.DependencyConfigurator
 import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.TaskManager
+import com.android.build.gradle.internal.VariantManager.Companion.finalizeAllComponents
 import com.android.build.gradle.internal.component.KmpComponentCreationConfig
 import com.android.build.gradle.internal.core.dsl.KmpComponentDslInfo
 import com.android.build.gradle.internal.core.dsl.impl.KmpAndroidTestDslInfoImpl
@@ -217,7 +218,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                     createCompilation(
                         compilationName = jvmConfiguration.compilationName,
                         defaultSourceSetName = jvmConfiguration.defaultSourceSetName,
-                        sourceSetsToDependOn = listOf(COMMON_TEST_SOURCE_SET_NAME)
+                        sourceSetsToDependOn = emptyList(),
                     )
                 }
             },
@@ -226,7 +227,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                     createCompilation(
                         compilationName = deviceConfiguration.compilationName,
                         defaultSourceSetName = deviceConfiguration.defaultSourceSetName,
-                        sourceSetsToDependOn = emptyList()
+                        sourceSetsToDependOn = emptyList(),
                     )
                 }
             }
@@ -269,7 +270,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
             createCompilation(
                 compilationName = KmpPredefinedAndroidCompilation.MAIN.compilationName,
                 defaultSourceSetName = KmpPredefinedAndroidCompilation.MAIN.compilationName.getNamePrefixedWithTarget(),
-                sourceSetsToDependOn = listOf(COMMON_MAIN_SOURCE_SET_NAME)
+                sourceSetsToDependOn = listOf(COMMON_MAIN_SOURCE_SET_NAME),
             )
 
             androidExtension.androidTestOnJvmConfiguration?.let { jvmConfiguration ->
@@ -321,7 +322,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
     private fun createCompilation(
         compilationName: String,
         defaultSourceSetName: String,
-        sourceSetsToDependOn: List<String>
+        sourceSetsToDependOn: List<String>,
     ) {
         kotlinExtension.sourceSets.maybeCreate(
             defaultSourceSetName
@@ -465,6 +466,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
             unitTest,
             androidTest
         )
+
+        finalizeAllComponents(listOfNotNull(mainVariant, unitTest, androidTest))
 
         KotlinModelBuildingConfigurator.setupAndroidTargetModels(
             project,

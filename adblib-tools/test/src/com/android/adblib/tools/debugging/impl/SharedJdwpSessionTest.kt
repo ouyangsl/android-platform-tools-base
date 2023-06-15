@@ -15,6 +15,7 @@
  */
 package com.android.adblib.tools.debugging.impl
 
+import com.android.adblib.AdbInputChannel
 import com.android.adblib.AdbSession
 import com.android.adblib.ByteBufferAdbOutputChannel
 import com.android.adblib.skipRemaining
@@ -33,14 +34,18 @@ import com.android.adblib.tools.debugging.handleDdmsHPGC
 import com.android.adblib.tools.debugging.packets.AdbBufferedInputChannel
 import com.android.adblib.tools.debugging.packets.JdwpPacketView
 import com.android.adblib.tools.debugging.packets.MutableJdwpPacket
+import com.android.adblib.tools.debugging.packets.PayloadProvider
 import com.android.adblib.tools.debugging.packets.clone
 import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkType
 import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkView
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants
-import com.android.adblib.tools.debugging.packets.ddms.MutableDdmsChunk
+import com.android.adblib.tools.debugging.packets.ddms.EphemeralDdmsChunk
+import com.android.adblib.tools.debugging.packets.ddms.chunks.DdmsHeloChunk
+import com.android.adblib.tools.debugging.packets.ddms.clone
 import com.android.adblib.tools.debugging.packets.ddms.ddmsChunks
 import com.android.adblib.tools.debugging.packets.ddms.isDdmsCommand
 import com.android.adblib.tools.debugging.packets.ddms.writeToChannel
+import com.android.adblib.tools.debugging.packets.withPayload
 import com.android.adblib.tools.debugging.sendDdmsExit
 import com.android.adblib.tools.debugging.sendVmExit
 import com.android.adblib.tools.testutils.AdbLibToolsTestBase
@@ -120,7 +125,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         // Assert
         assertEquals(0, reply.errorCode)
         assertEquals(122, reply.length)
-        assertEquals(111, reply.payload.countBytes())
+        assertEquals(111, reply.withPayload { it.countBytes() })
     }
 
     @Test
@@ -281,6 +286,48 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         assertEquals(0, activationCount.get())
     }
 
+    @Test
+    fun receiversCanAccessPacketPayloadConcurrently(): Unit = runBlockingWithTimeout {
+        // Prepare
+        val fakeDevice = addFakeDevice(fakeAdb, 30)
+        fakeDevice.startClient(10, 0, "a.b.c", false)
+        val receiverCount = 10
+        val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
+        val sendPacket = createHeloDdmsPacket(jdwpSession)
+
+        // Act
+        val readyDef = mutableListOf<CompletableDeferred<Unit>>()
+        val def = (0 until receiverCount).map { index ->
+            readyDef.add(CompletableDeferred())
+            async {
+                jdwpSession.newPacketReceiver()
+                    .onActivation { readyDef[index].complete(Unit) }
+                    .flow()
+                    .filter {
+                        it.id == sendPacket.id
+                    }
+                    .map { packet ->
+                        val workBuffer = ResizableBuffer()
+                        val chunk = packet.ddmsChunks(workBuffer).map { it.clone() }.first()
+                        val heloResponse = DdmsHeloChunk.parse(chunk, workBuffer)
+                        heloResponse
+                    }.first()
+            }
+        }
+
+        // wait for all receivers to be active
+        readyDef.awaitAll()
+
+        // Send packet, then wait for receivers to collect it
+        jdwpSession.sendPacket(sendPacket)
+
+        // Wait for all receivers to process the packet
+        def.awaitAll()
+        val heloResponses = def.map { it.await() }
+
+        // Assert
+        assertEquals(10, heloResponses.size)
+    }
 
     @Test
     fun receivePacketsFlowEndsOnClientTerminate() = runBlockingWithTimeout {
@@ -415,7 +462,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
 
         assertEquals(0, reply1.errorCode)
         assertEquals(122, reply1.length)
-        assertEquals(111, reply1.payload.countBytes())
+        assertEquals(111, reply1.withPayload { it.countBytes() })
     }
 
     @Test
@@ -553,10 +600,11 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     private suspend fun createHeloDdmsPacket(jdwpSession: SharedJdwpSession): MutableJdwpPacket {
-        val heloChunk = MutableDdmsChunk()
-        heloChunk.type = DdmsChunkType.HELO
-        heloChunk.length = 0
-        heloChunk.payload = AdbBufferedInputChannel.empty()
+        val heloChunk = EphemeralDdmsChunk(
+            type = DdmsChunkType.HELO,
+            length = 0,
+            payloadProvider = PayloadProvider.emptyPayload()
+        )
 
         val packet = MutableJdwpPacket()
         packet.id = jdwpSession.nextPacketId()
@@ -564,14 +612,12 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         packet.isCommand = true
         packet.cmdSet = DdmsPacketConstants.DDMS_CMD_SET
         packet.cmd = DdmsPacketConstants.DDMS_CMD
-        packet.payload = heloChunk.toBufferedInputChannel()
+        packet.payloadProvider = PayloadProvider.forBufferedInputChannel(heloChunk.toBufferedInputChannel())
         return packet
     }
 
-    private suspend fun AdbBufferedInputChannel.countBytes(): Int {
-        return skipRemaining().also {
-            rewind()
-        }
+    private suspend fun AdbInputChannel.countBytes(): Int {
+        return skipRemaining()
     }
 
     private suspend fun openSharedJdwpSession(
