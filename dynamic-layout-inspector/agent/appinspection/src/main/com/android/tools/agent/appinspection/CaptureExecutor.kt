@@ -48,7 +48,6 @@ class CaptureExecutor(
     private val foldSupport: FoldSupport?,
     private val updateState: (ProgressCheckpoint) -> Unit,
     private val connection: Connection,
-    private val previousDeviceInfo: DeviceInfo,
 ) : Executor {
 
     /**
@@ -171,7 +170,7 @@ class CaptureExecutor(
         }
 
         val stringTable = StringTable()
-        val appContext = rootView.createAppContext()
+        val appContext = rootView.createAppContext(stringTable)
         val configuration = rootView.createConfiguration(stringTable)
 
         val (rootViewNode, rootOffset) = ThreadUtils.runOnMainThread {
@@ -241,10 +240,8 @@ class CaptureExecutor(
         screenshot: ByteString?
     ) = LayoutInspectorViewProtocol.LayoutEvent.newBuilder().apply {
         addAllStrings(stringTable.toStringEntries())
-        if (previousDeviceInfo.update(appContext, configuration)) {
-            this.configuration = configuration
-            this.appContext = appContext
-        }
+        this.configuration = configuration
+        this.appContext = appContext
         this.rootView = rootView
         this.rootOffset = LayoutInspectorViewProtocol.Point.newBuilder().apply {
             x = rootOffset[0]

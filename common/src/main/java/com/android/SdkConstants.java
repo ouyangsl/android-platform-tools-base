@@ -16,6 +16,7 @@
 
 package com.android;
 
+import com.android.sdklib.AndroidVersion;
 import java.io.File;
 
 /**
@@ -67,8 +68,12 @@ public final class SdkConstants {
     /** Property in local.properties file that specifies the path of the Android SDK. */
     public static final String SDK_DIR_PROPERTY = "sdk.dir";
 
-    /** Property in local.properties file that specifies the path of the Gradle JDK. */
-    public static final String GRADLE_JDK_DIR_PROPERTY = "jdk.dir";
+    /**
+     * A maximum version of the Android SDK that this version of AGP and Android Studio IDE can
+     * safely recommend during its development cycle.
+     */
+    public static final AndroidVersion MAX_SUPPORTED_ANDROID_PLATFORM_VERSION =
+            new AndroidVersion(34);
 
     /** Property in local.properties file that specifies the path of the Android NDK. */
     public static final String NDK_DIR_PROPERTY = "ndk.dir";
@@ -2588,6 +2593,22 @@ public final class SdkConstants {
         public static final String VALUE_ITALIC = "italic";
     }
 
+    public static class InputType {
+        public static final String VALUE_NUMBER_PASSWORD = "numberPassword";
+        public static final String VALUE_TEXT_PASSWORD = "textPassword";
+        public static final String VALUE_TEXT_VISIBLE_PASSWORD = "textVisiblePassword";
+        public static final String VALUE_TEXT_WEB_PASSWORD = "textWebPassword";
+
+        public static final String REF_TYPE_NUMBER_VARIATION_PASSWORD =
+                "TYPE_NUMBER_VARIATION_PASSWORD";
+        public static final String REF_TYPE_TEXT_VARIATION_PASSWORD =
+                "TYPE_TEXT_VARIATION_PASSWORD";
+        public static final String REF_TYPE_TEXT_VARIATION_VISIBLE_PASSWORD =
+                "TYPE_TEXT_VARIATION_VISIBLE_PASSWORD";
+        public static final String REF_TYPE_TEXT_VARIATION_WEB_PASSWORD =
+                "TYPE_TEXT_VARIATION_WEB_PASSWORD";
+    }
+
     public static final class ViewAttributes {
         public static final String MIN_HEIGHT = "minHeight";
     }
@@ -2767,6 +2788,9 @@ public final class SdkConstants {
 
     /** The fully qualified class name of a TextView view */
     public static final String FQCN_TEXT_VIEW = "android.widget.TextView";
+
+    /** The fully qualified class name of InputType */
+    public static final String FQCN_INPUT_TYPE = "android.text.InputType";
 
     /** The fully qualified class name of an ImageView view */
     public static final String FQCN_IMAGE_VIEW = "android.widget.ImageView";

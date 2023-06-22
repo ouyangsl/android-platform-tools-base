@@ -16,16 +16,18 @@
 
 package com.android.build.api.variant.impl
 
+import com.android.build.gradle.internal.CompileOptions
 import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidExtensionImpl
 import com.android.build.gradle.internal.plugins.KotlinMultiplatformAndroidPlugin.Companion.androidExtensionOnKotlinExtensionName
 import com.android.utils.appendCapitalized
 import org.gradle.api.NamedDomainObjectFactory
+import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
 import org.jetbrains.kotlin.gradle.ExternalKotlinTargetApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinTargetHierarchy
-import org.jetbrains.kotlin.gradle.plugin.mpp.external.ExternalKotlinCompilationDescriptor
+import org.jetbrains.kotlin.gradle.plugin.mpp.external.ExternalKotlinCompilationDescriptor.*
 import org.jetbrains.kotlin.gradle.plugin.mpp.external.createCompilation
-import org.jetbrains.kotlin.gradle.plugin.mpp.targetHierarchy.SourceSetTreeClassifier
 
 @OptIn(ExternalKotlinTargetApi::class)
 internal class KotlinMultiplatformAndroidCompilationFactory(
@@ -47,33 +49,67 @@ internal class KotlinMultiplatformAndroidCompilationFactory(
             )
         }
 
-        return target.createCompilation {
+        val isTestComponent = androidExtension.androidTestOnJvmConfiguration?.compilationName == name ||
+                androidExtension.androidTestOnDeviceConfiguration?.compilationName == name
+
+        return target.createCompilation<KotlinMultiplatformAndroidCompilationImpl> {
             compilationName = name
             defaultSourceSet = kotlinExtension.sourceSets.getByName(
                 target.targetName.appendCapitalized(name)
             )
             compilationFactory =
-                ExternalKotlinCompilationDescriptor.CompilationFactory(
+                CompilationFactory(
                     ::KotlinMultiplatformAndroidCompilationImpl
                 )
             compileTaskName = "compile".appendCapitalized(
                 target.targetName.appendCapitalized(name)
             )
-            sourceSetTreeClassifier = getSourceSetTreeClassifierFromConfiguration(name)
+
+            if (isTestComponent) {
+                compilationAssociator = CompilationAssociator { auxiliary, main ->
+                    // No-op when associating a test compilation with a main compilation since we
+                    // add a dependency from the configurations of the test components on the main
+                    // project later.
+                    if (main.compilationName != KmpPredefinedAndroidCompilation.MAIN.compilationName) {
+                        auxiliary.compileDependencyConfigurationName.addAllDependenciesFromOtherConfigurations(
+                            target.project,
+                            main.apiConfigurationName,
+                            main.implementationConfigurationName,
+                            main.compileOnlyConfigurationName
+                        )
+
+                        auxiliary.runtimeDependencyConfigurationName?.addAllDependenciesFromOtherConfigurations(
+                            target.project,
+                            main.apiConfigurationName,
+                            main.implementationConfigurationName,
+                            main.runtimeOnlyConfigurationName
+                        )
+                    }
+                }
+            }
+        }.also {
+            it.compilerOptions.options.jvmTarget.set(
+                JvmTarget.fromTarget(CompileOptions.DEFAULT_JAVA_VERSION.toString())
+            )
         }
     }
 
-    private fun getSourceSetTreeClassifierFromConfiguration(name: String): SourceSetTreeClassifier {
-        return when {
-            androidExtension.androidTestOnJvmConfiguration?.compilationName == name ->
-                androidExtension.androidTestOnJvmConfiguration?.sourceSetTree?.let {
-                    SourceSetTreeClassifier.Name(it)
-                } ?: SourceSetTreeClassifier.Value(KotlinTargetHierarchy.SourceSetTree.test)
-            androidExtension.androidTestOnDeviceConfiguration?.compilationName == name ->
-                androidExtension.androidTestOnDeviceConfiguration?.sourceSetTree?.let {
-                    SourceSetTreeClassifier.Name(it)
-                } ?: SourceSetTreeClassifier.None
-            else -> SourceSetTreeClassifier.Default
+    private fun String.addAllDependenciesFromOtherConfigurations(
+        project: Project,
+        vararg configurationNames: String
+    ) {
+        project.configurations.named(this).configure { receiverConfiguration ->
+            receiverConfiguration.dependencies.addAllLater(
+                project.objects.listProperty(Dependency::class.java).apply {
+                    set(
+                        project.provider {
+                            configurationNames
+                                .map { project.configurations.getByName(it) }
+                                .flatMap { it.allDependencies }
+                        }
+                    )
+                }
+            )
         }
     }
 }

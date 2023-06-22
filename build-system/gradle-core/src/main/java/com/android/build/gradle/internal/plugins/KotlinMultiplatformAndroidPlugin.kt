@@ -42,6 +42,7 @@ import com.android.build.gradle.internal.core.dsl.impl.KmpUnitTestDslInfoImpl
 import com.android.build.gradle.internal.core.dsl.impl.KmpVariantDslInfoImpl
 import com.android.build.gradle.internal.dependency.AgpVersionCompatibilityRule
 import com.android.build.gradle.internal.dependency.JacocoInstrumentationService
+import com.android.build.gradle.internal.dependency.ModelArtifactCompatibilityRule.Companion.setUp
 import com.android.build.gradle.internal.dependency.SingleVariantBuildTypeRule
 import com.android.build.gradle.internal.dependency.SingleVariantProductFlavorRule
 import com.android.build.gradle.internal.dependency.VariantDependencies
@@ -50,10 +51,11 @@ import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidExtension
 import com.android.build.gradle.internal.dsl.decorator.androidPluginDslDecorator
 import com.android.build.gradle.internal.ide.dependencies.LibraryDependencyCacheBuildService
 import com.android.build.gradle.internal.ide.dependencies.MavenCoordinatesCacheBuildService
-import com.android.build.gradle.internal.ide.kmp.KotlinIdeImportConfigurator
 import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker
 import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Companion.android
+import com.android.build.gradle.internal.ide.kmp.KotlinIdeImportConfigurator
 import com.android.build.gradle.internal.ide.kmp.KotlinModelBuildingConfigurator
+import com.android.build.gradle.internal.ide.v2.GlobalSyncService
 import com.android.build.gradle.internal.lint.LintFixBuildService
 import com.android.build.gradle.internal.manifest.LazyManifestParser
 import com.android.build.gradle.internal.scope.KotlinMultiplatformBuildFeaturesValuesImpl
@@ -155,6 +157,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
         LibraryDependencyCacheBuildService.RegistrationAction(
             project, mavenCoordinatesCacheBuildService
         ).execute()
+        GlobalSyncService.RegistrationAction(project, mavenCoordinatesCacheBuildService).execute()
+
         LintClassLoaderBuildService.RegistrationAction(project).execute()
         LintFixBuildService.RegistrationAction(project).execute()
 
@@ -198,6 +202,11 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
             global
         )
 
+        // enable the gradle property that enables the kgp IDE import APIs that we rely on.
+        project.extensions.extraProperties.set(
+            "kotlin.mpp.import.enableKgpDependencyResolution", "true"
+        )
+
         project.afterEvaluate {
             if (!project.plugins.hasPlugin(KOTLIN_MPP_PLUGIN_ID)) {
                 throw RuntimeException("Kotlin multiplatform plugin was not found. This plugin needs" +
@@ -218,7 +227,10 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                     createCompilation(
                         compilationName = jvmConfiguration.compilationName,
                         defaultSourceSetName = jvmConfiguration.defaultSourceSetName,
-                        sourceSetsToDependOn = emptyList(),
+                        sourceSetsToDependOn = listOf(COMMON_TEST_SOURCE_SET_NAME),
+                        compilationToAssociateWith = listOf(androidTarget.compilations.getByName(
+                            KmpPredefinedAndroidCompilation.MAIN.compilationName
+                        ))
                     )
                 }
             },
@@ -228,6 +240,9 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                         compilationName = deviceConfiguration.compilationName,
                         defaultSourceSetName = deviceConfiguration.defaultSourceSetName,
                         sourceSetsToDependOn = emptyList(),
+                        compilationToAssociateWith = listOf(androidTarget.compilations.getByName(
+                            KmpPredefinedAndroidCompilation.MAIN.compilationName
+                        ))
                     )
                 }
             }
@@ -252,6 +267,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                 }
                 configureIdeImport {
                     KotlinIdeImportConfigurator.configure(
+                        project,
                         this,
                         sourceSetToCreationConfigMapProvider = { sourceSetToCreationConfigMap },
                         extraSourceSetsToIncludeInResolution = {
@@ -267,17 +283,19 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                 androidTarget
             )
 
-            createCompilation(
+            val mainCompilation = createCompilation(
                 compilationName = KmpPredefinedAndroidCompilation.MAIN.compilationName,
                 defaultSourceSetName = KmpPredefinedAndroidCompilation.MAIN.compilationName.getNamePrefixedWithTarget(),
                 sourceSetsToDependOn = listOf(COMMON_MAIN_SOURCE_SET_NAME),
+                compilationToAssociateWith = emptyList()
             )
 
             androidExtension.androidTestOnJvmConfiguration?.let { jvmConfiguration ->
                 createCompilation(
                     compilationName = jvmConfiguration.compilationName,
                     defaultSourceSetName = jvmConfiguration.defaultSourceSetName,
-                    sourceSetsToDependOn = listOf(COMMON_TEST_SOURCE_SET_NAME)
+                    sourceSetsToDependOn = listOf(COMMON_TEST_SOURCE_SET_NAME),
+                    compilationToAssociateWith = listOf(mainCompilation)
                 )
             }
 
@@ -285,7 +303,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                 createCompilation(
                     compilationName = deviceConfiguration.compilationName,
                     defaultSourceSetName = deviceConfiguration.defaultSourceSetName,
-                    sourceSetsToDependOn = emptyList()
+                    sourceSetsToDependOn = emptyList(),
+                    compilationToAssociateWith = listOf(mainCompilation)
                 )
             }
         }
@@ -323,7 +342,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
         compilationName: String,
         defaultSourceSetName: String,
         sourceSetsToDependOn: List<String>,
-    ) {
+        compilationToAssociateWith: List<KotlinMultiplatformAndroidCompilation>
+    ): KotlinMultiplatformAndroidCompilation {
         kotlinExtension.sourceSets.maybeCreate(
             defaultSourceSetName
         ).apply {
@@ -332,9 +352,13 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                 dependsOn(kotlinExtension.sourceSets.getByName(it))
             }
         }
-        androidTarget.compilations.maybeCreate(
+        return androidTarget.compilations.maybeCreate(
             compilationName
-        )
+        ).also { main ->
+            compilationToAssociateWith.forEach { other ->
+                main.associateWith(other)
+            }
+        }
     }
 
     private fun getCompileSdkVersion(): String =
@@ -699,6 +723,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
             schema.attribute(AgpVersionAttr.ATTRIBUTE)
                 .compatibilityRules
                 .add(AgpVersionCompatibilityRule::class.java)
+
+            setUp(schema)
         }
     }
 

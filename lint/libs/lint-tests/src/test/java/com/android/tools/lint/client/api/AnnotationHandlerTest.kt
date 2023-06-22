@@ -544,6 +544,278 @@ class AnnotationHandlerTest {
   }
 
   @Test
+  fun testTypeReferences() {
+    lint()
+      .files(
+        java(
+            """
+                package test.api;
+                import pkg.java.MyJavaAnnotation;
+
+                @MyJavaAnnotation
+                public class Api { }
+                """
+          )
+          .indented(),
+        java(
+            """
+                package test.usage;
+                import test.api.Api;
+
+                public class JavaUsage {
+                    private void use(Api api) { }
+                    public void test(Object o) {
+                        use((Api) o); // ERROR
+                    }
+                }
+                """
+          )
+          .indented(),
+        kotlin(
+            """
+                package test.usage
+                import test.api.Api
+
+                private fun use(api: Api) {}
+                fun test(o: Object) {
+                    use(o as Api)  // ERROR2
+                }
+                """
+          )
+          .indented(),
+        javaAnnotation
+      )
+      .run()
+      .expect(
+        """
+            src/test/usage/JavaUsage.java:7: Error: CLASS_REFERENCE usage associated with @MyJavaAnnotation on CLASS [_AnnotationIssue]
+                    use((Api) o); // ERROR
+                         ~~~
+            src/test/usage/test.kt:6: Error: CLASS_REFERENCE usage associated with @MyJavaAnnotation on CLASS [_AnnotationIssue]
+                use(o as Api)  // ERROR2
+                         ~~~
+            2 errors, 0 warnings
+        """
+      )
+  }
+
+  @Test
+  fun testFieldAssignment() {
+    lint()
+      .files(
+        kotlin(
+            """
+          package test.pkg
+          import pkg.kotlin.MyKotlinAnnotation
+
+          class MyClass {
+            @MyKotlinAnnotation
+            var property = 1 // ERROR1 - ASSIGNMENT_RHS
+
+            fun f() {
+              var x = property // ERROR2 - ASSIGNMENT_LHS, ERROR3 - FIELD_REFERENCE
+              x = property // ERROR4 - ASSIGNMENT_LHS, ERROR5 - FIELD_REFERENCE
+              property = 2 // ERROR6 - ASSIGNMENT_RHS, ERROR7 - FIELD_REFERENCE
+            }
+          }
+          """
+          )
+          .indented(),
+        java(
+            """
+          package test.pkg;
+          import pkg.java.MyJavaAnnotation;
+
+          class MyClass {
+            @MyJavaAnnotation
+            int field = 1; // ERROR1 - ASSIGNMENT_RHS
+
+            public void f() {
+              int x = field; // ERROR2 - ASSIGNMENT_LHS, ERROR3 - FIELD_REFERENCE
+              x = field; // ERROR4 - ASSIGNMENT_LHS, ERROR5 - FIELD_REFERENCE
+              field = 2; // ERROR6 - ASSIGNMENT_RHS, ERROR7 - FIELD_REFERENCE
+            }
+          }
+          """
+          )
+          .indented(),
+        kotlinAnnotation,
+        javaAnnotation
+      )
+      .run()
+      .expect(
+        """
+        src/test/pkg/MyClass.java:6: Error: ASSIGNMENT_RHS usage associated with @MyJavaAnnotation on VARIABLE [_AnnotationIssue]
+          int field = 1; // ERROR1 - ASSIGNMENT_RHS
+                      ~
+        src/test/pkg/MyClass.java:9: Error: ASSIGNMENT_LHS usage associated with @MyJavaAnnotation on FIELD [_AnnotationIssue]
+            int x = field; // ERROR2 - ASSIGNMENT_LHS, ERROR3 - FIELD_REFERENCE
+            ~~~~~~~~~~~~~~
+        src/test/pkg/MyClass.java:9: Error: FIELD_REFERENCE usage associated with @MyJavaAnnotation on FIELD [_AnnotationIssue]
+            int x = field; // ERROR2 - ASSIGNMENT_LHS, ERROR3 - FIELD_REFERENCE
+                    ~~~~~
+        src/test/pkg/MyClass.java:10: Error: ASSIGNMENT_LHS usage associated with @MyJavaAnnotation on FIELD [_AnnotationIssue]
+            x = field; // ERROR4 - ASSIGNMENT_LHS, ERROR5 - FIELD_REFERENCE
+            ~
+        src/test/pkg/MyClass.java:10: Error: FIELD_REFERENCE usage associated with @MyJavaAnnotation on FIELD [_AnnotationIssue]
+            x = field; // ERROR4 - ASSIGNMENT_LHS, ERROR5 - FIELD_REFERENCE
+                ~~~~~
+        src/test/pkg/MyClass.java:11: Error: ASSIGNMENT_RHS usage associated with @MyJavaAnnotation on FIELD [_AnnotationIssue]
+            field = 2; // ERROR6 - ASSIGNMENT_RHS, ERROR7 - FIELD_REFERENCE
+                    ~
+        src/test/pkg/MyClass.java:11: Error: FIELD_REFERENCE usage associated with @MyJavaAnnotation on FIELD [_AnnotationIssue]
+            field = 2; // ERROR6 - ASSIGNMENT_RHS, ERROR7 - FIELD_REFERENCE
+            ~~~~~
+        src/test/pkg/MyClass.kt:6: Error: ASSIGNMENT_RHS usage associated with @MyKotlinAnnotation on VARIABLE [_AnnotationIssue]
+          var property = 1 // ERROR1 - ASSIGNMENT_RHS
+                         ~
+        src/test/pkg/MyClass.kt:9: Error: ASSIGNMENT_LHS usage associated with @MyKotlinAnnotation on PROPERTY_DEFAULT [_AnnotationIssue]
+            var x = property // ERROR2 - ASSIGNMENT_LHS, ERROR3 - FIELD_REFERENCE
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        src/test/pkg/MyClass.kt:9: Error: FIELD_REFERENCE usage associated with @MyKotlinAnnotation on PROPERTY_DEFAULT [_AnnotationIssue]
+            var x = property // ERROR2 - ASSIGNMENT_LHS, ERROR3 - FIELD_REFERENCE
+                    ~~~~~~~~
+        src/test/pkg/MyClass.kt:10: Error: ASSIGNMENT_LHS usage associated with @MyKotlinAnnotation on PROPERTY_DEFAULT [_AnnotationIssue]
+            x = property // ERROR4 - ASSIGNMENT_LHS, ERROR5 - FIELD_REFERENCE
+            ~
+        src/test/pkg/MyClass.kt:10: Error: FIELD_REFERENCE usage associated with @MyKotlinAnnotation on PROPERTY_DEFAULT [_AnnotationIssue]
+            x = property // ERROR4 - ASSIGNMENT_LHS, ERROR5 - FIELD_REFERENCE
+                ~~~~~~~~
+        src/test/pkg/MyClass.kt:11: Error: ASSIGNMENT_RHS usage associated with @MyKotlinAnnotation on PROPERTY_DEFAULT [_AnnotationIssue]
+            property = 2 // ERROR6 - ASSIGNMENT_RHS, ERROR7 - FIELD_REFERENCE
+                       ~
+        src/test/pkg/MyClass.kt:11: Error: FIELD_REFERENCE usage associated with @MyKotlinAnnotation on PROPERTY_DEFAULT [_AnnotationIssue]
+            property = 2 // ERROR6 - ASSIGNMENT_RHS, ERROR7 - FIELD_REFERENCE
+            ~~~~~~~~
+        14 errors, 0 warnings
+        """
+      )
+  }
+
+  @Test
+  fun testLocalVariables() {
+    lint()
+      .files(
+        kotlin(
+            """
+          package test.pkg
+          import pkg.kotlin.MyKotlinAnnotation
+
+          class MyClass {
+            fun use(o: Any) {}
+
+            fun f() {
+              @MyKotlinAnnotation
+              var x = 1 // ERROR1 - ASSIGNMENT_RHS
+              x = 2 // ERROR2 - ASSIGNMENT_RHS, ERROR3 - VARIABLE_REFERENCE
+              val y = x // ERROR4 - ASSIGNMENT_LHS, ERROR5 - VARIABLE_REFERENCE
+              use(x) // ERROR6 - VARIABLE_REFERENCE
+            }
+          }
+          """
+          )
+          .indented(),
+        java(
+            """
+          package test.pkg;
+          import pkg.java.MyJavaAnnotation;
+
+          class MyClass {
+            void use(Object o) {}
+
+            void f() {
+              @MyJavaAnnotation
+              int x = 1; // ERROR1 - ASSIGNMENT_RHS
+              x = 2; // ERROR2 - ASSIGNMENT_RHS, ERROR3 - VARIABLE_REFERENCE
+              int y = x; // ERROR4 - ASSIGNMENT_LHS, ERROR5 - VARIABLE_REFERENCE
+              use(x); // ERROR6 - VARIABLE_REFERENCE
+            }
+          }
+          """
+          )
+          .indented(),
+        kotlinAnnotation,
+        javaAnnotation
+      )
+      .run()
+      .expect(
+        """
+      src/test/pkg/MyClass.java:9: Error: ASSIGNMENT_RHS usage associated with @MyJavaAnnotation on VARIABLE [_AnnotationIssue]
+          int x = 1; // ERROR1 - ASSIGNMENT_RHS
+                  ~
+      src/test/pkg/MyClass.java:10: Error: VARIABLE_REFERENCE usage associated with @MyJavaAnnotation on VARIABLE [_AnnotationIssue]
+          x = 2; // ERROR2 - ASSIGNMENT_RHS, ERROR3 - VARIABLE_REFERENCE
+          ~
+      src/test/pkg/MyClass.java:11: Error: ASSIGNMENT_LHS usage associated with @MyJavaAnnotation on VARIABLE [_AnnotationIssue]
+          int y = x; // ERROR4 - ASSIGNMENT_LHS, ERROR5 - VARIABLE_REFERENCE
+          ~~~~~~~~~~
+      src/test/pkg/MyClass.java:11: Error: VARIABLE_REFERENCE usage associated with @MyJavaAnnotation on VARIABLE [_AnnotationIssue]
+          int y = x; // ERROR4 - ASSIGNMENT_LHS, ERROR5 - VARIABLE_REFERENCE
+                  ~
+      src/test/pkg/MyClass.java:12: Error: VARIABLE_REFERENCE usage associated with @MyJavaAnnotation on VARIABLE [_AnnotationIssue]
+          use(x); // ERROR6 - VARIABLE_REFERENCE
+              ~
+      src/test/pkg/MyClass.kt:9: Error: ASSIGNMENT_RHS usage associated with @MyKotlinAnnotation on VARIABLE [_AnnotationIssue]
+          var x = 1 // ERROR1 - ASSIGNMENT_RHS
+                  ~
+      src/test/pkg/MyClass.kt:10: Error: VARIABLE_REFERENCE usage associated with @MyKotlinAnnotation on VARIABLE [_AnnotationIssue]
+          x = 2 // ERROR2 - ASSIGNMENT_RHS, ERROR3 - VARIABLE_REFERENCE
+          ~
+      src/test/pkg/MyClass.kt:11: Error: ASSIGNMENT_LHS usage associated with @MyKotlinAnnotation on VARIABLE [_AnnotationIssue]
+          val y = x // ERROR4 - ASSIGNMENT_LHS, ERROR5 - VARIABLE_REFERENCE
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      src/test/pkg/MyClass.kt:11: Error: VARIABLE_REFERENCE usage associated with @MyKotlinAnnotation on VARIABLE [_AnnotationIssue]
+          val y = x // ERROR4 - ASSIGNMENT_LHS, ERROR5 - VARIABLE_REFERENCE
+                  ~
+      src/test/pkg/MyClass.kt:12: Error: VARIABLE_REFERENCE usage associated with @MyKotlinAnnotation on VARIABLE [_AnnotationIssue]
+          use(x) // ERROR6 - VARIABLE_REFERENCE
+              ~
+      10 errors, 0 warnings
+        """
+      )
+  }
+
+  @Test
+  fun testKotlinObjectUsage() {
+    // Regression test for b/282811891
+    lint()
+      .files(
+        kotlin(
+            """
+                package test.obj
+                import pkg.kotlin.MyKotlinAnnotation
+
+                @MyKotlinAnnotation
+                object Obj
+                """
+          )
+          .indented(),
+        kotlin(
+            """
+                package test.usage
+                import test.obj.Obj
+
+                private fun use(o: Any) {}
+                fun test() {
+                    use(Obj)  // ERROR
+                }
+                """
+          )
+          .indented(),
+        kotlinAnnotation
+      )
+      .run()
+      .expect(
+        """
+            src/test/usage/test.kt:6: Error: FIELD_REFERENCE usage associated with @MyKotlinAnnotation on CLASS [_AnnotationIssue]
+                use(Obj)  // ERROR
+                    ~~~
+            1 errors, 0 warnings
+            """
+      )
+  }
+
+  @Test
   fun testObjectLiteral() {
     lint()
       .files(

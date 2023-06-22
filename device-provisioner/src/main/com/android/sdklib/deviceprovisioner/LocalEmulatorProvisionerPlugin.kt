@@ -55,6 +55,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.job
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -202,7 +203,8 @@ class LocalEmulatorProvisionerPlugin(
     }
 
     // We need to make sure that emulators change to Disconnected state once they are terminated.
-    device.invokeOnDisconnection {
+    scope.launch {
+      device.awaitDisconnection()
       handle.stateFlow.value = disconnectedState(handle.avdInfo)
       logger.debug { "Device ${device.serialNumber} closed; disconnecting from console" }
       emulatorConsoles.remove(device)?.close()
@@ -364,6 +366,7 @@ class LocalEmulatorProvisionerPlugin(
 
         override suspend fun repair() {
           avdManager.downloadAvdSystemImage(avdInfo)
+          refreshDevices()
         }
       }
 
@@ -400,6 +403,7 @@ class LocalEmulatorProvisionerPlugin(
 
         override suspend fun duplicate() {
           avdManager.duplicateAvd(avdInfo)
+          refreshDevices()
         }
       }
 
@@ -418,13 +422,14 @@ class LocalEmulatorProvisionerPlugin(
 
         override suspend fun delete() {
           avdManager.deleteAvd(avdInfo)
+          refreshDevices()
         }
       }
 
     private fun DeviceAction.Presentation.enabledIf(condition: (DeviceState) -> Boolean) =
       stateFlow
         .map { this.copy(enabled = condition(it)) }
-        .stateIn(scope, SharingStarted.WhileSubscribed(), this)
+        .stateIn(scope, SharingStarted.Eagerly, this)
 
     private fun DeviceState.isStopped() = this is Disconnected && !this.isTransitioning
 
@@ -434,7 +439,7 @@ class LocalEmulatorProvisionerPlugin(
       combine(stateFlow, avdInfoFlow) { state, avdInfo ->
           this.copy(enabled = state.isStopped() && avdInfo.status == AvdStatus.OK)
         }
-        .stateIn(scope, SharingStarted.WhileSubscribed(), this)
+        .stateIn(scope, SharingStarted.Eagerly, this)
   }
 }
 

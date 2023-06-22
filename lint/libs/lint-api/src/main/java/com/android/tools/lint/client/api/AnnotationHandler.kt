@@ -78,6 +78,7 @@ import org.jetbrains.kotlin.psi.KtAnnotationEntry
 import org.jetbrains.kotlin.psi.KtConstructorDelegationCall
 import org.jetbrains.kotlin.psi.KtDeclaration
 import org.jetbrains.kotlin.psi.KtFile
+import org.jetbrains.kotlin.psi.KtObjectDeclaration
 import org.jetbrains.kotlin.psi.KtParameter
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.psi.KtSuperTypeCallEntry
@@ -103,6 +104,7 @@ import org.jetbrains.uast.UReferenceExpression
 import org.jetbrains.uast.UReturnExpression
 import org.jetbrains.uast.USimpleNameReferenceExpression
 import org.jetbrains.uast.USuperExpression
+import org.jetbrains.uast.UTypeReferenceExpression
 import org.jetbrains.uast.UUnaryExpression
 import org.jetbrains.uast.UVariable
 import org.jetbrains.uast.UastBinaryOperator
@@ -113,6 +115,7 @@ import org.jetbrains.uast.getParentOfType
 import org.jetbrains.uast.isNullLiteral
 import org.jetbrains.uast.skipParenthesizedExprDown
 import org.jetbrains.uast.skipParenthesizedExprUp
+import org.jetbrains.uast.toUElement
 import org.jetbrains.uast.tryResolve
 import org.jetbrains.uast.util.isAssignment
 import org.jetbrains.uast.visitor.AbstractUastVisitor
@@ -222,19 +225,30 @@ internal class AnnotationHandler(
   }
 
   fun visitBinaryExpression(context: JavaContext, node: UBinaryExpression) {
-    // Assigning to an annotated field?
+    // Assigning from/to an annotated field?
     if (node.isAssignment()) {
       // We're only processing fields, not local variables, since those are
       // already visited
-      val resolved = node.leftOperand.tryResolve()
+      val lhsResolved = node.leftOperand.tryResolve()
       if (
-        resolved != null &&
-          resolved is PsiModifierListOwner &&
-          resolved !is PsiLocalVariable &&
+        lhsResolved != null &&
+          lhsResolved is PsiModifierListOwner &&
+          lhsResolved !is PsiLocalVariable &&
           !isOverloadedMethodCall(node.leftOperand)
       ) {
-        val annotations = getMemberAnnotations(context, resolved)
-        checkAnnotations(context, node.rightOperand, ASSIGNMENT_RHS, resolved, annotations)
+        val annotations = getMemberAnnotations(context, lhsResolved)
+        checkAnnotations(context, node.rightOperand, ASSIGNMENT_RHS, lhsResolved, annotations)
+      }
+
+      val rhsResolved = node.rightOperand.tryResolve()
+      if (
+        rhsResolved != null &&
+          rhsResolved is PsiModifierListOwner &&
+          rhsResolved !is PsiLocalVariable &&
+          !isOverloadedMethodCall(node.rightOperand)
+      ) {
+        val annotations = getMemberAnnotations(context, rhsResolved)
+        checkAnnotations(context, node.leftOperand, ASSIGNMENT_LHS, rhsResolved, annotations)
       }
     }
 
@@ -266,6 +280,16 @@ internal class AnnotationHandler(
   fun visitClassLiteralExpression(context: JavaContext, node: UClassLiteralExpression) {
     val containingClass = context.evaluator.getTypeClass(node.type) ?: return
     visitClassReference(context, node, containingClass)
+  }
+
+  fun visitTypeReferenceExpression(context: JavaContext, node: UTypeReferenceExpression) {
+    if (node.getParentOfType<UClassLiteralExpression>() != null) {
+      // To avoid duplicate errors in Java class literal expressions, which contain type reference
+      // expressions in their UAST tree
+      return
+    }
+    val cls = context.evaluator.getTypeClass(node.type) ?: return
+    visitClassReference(context, node, cls)
   }
 
   private fun visitClassReference(context: JavaContext, node: UElement, cls: PsiClass) {
@@ -714,7 +738,11 @@ internal class AnnotationHandler(
     */
 
     val field = node.resolve() as? PsiModifierListOwner
-    if (field is PsiField || field is PsiMethod) {
+    if (
+      field is PsiField ||
+        field is PsiMethod ||
+        field?.toUElement()?.sourcePsi is KtObjectDeclaration
+    ) {
       if (isOverloadedMethodCall(node)) return
       val annotations = getMemberAnnotations(context, field)
       checkAnnotations(context, node, FIELD_REFERENCE, field, annotations)
@@ -850,6 +878,28 @@ internal class AnnotationHandler(
     val methodAnnotations = getRelevantAnnotations(evaluator, variable as UAnnotated, VARIABLE)
     if (methodAnnotations.isNotEmpty()) {
       checkContextAnnotations(context, variable, methodAnnotations, variable)
+    }
+
+    // Check the initializer to see if it is an annotated element
+    // (AnnotationUsageType.ASSIGNMENT_LHS)
+    val initializer = variable.uastInitializer
+    if (initializer is USimpleNameReferenceExpression) {
+      val resolved = initializer.tryResolve()
+      if (
+        resolved != null && resolved is PsiModifierListOwner && !isOverloadedMethodCall(initializer)
+      ) {
+        val initializerAnnotations =
+          if (resolved is PsiLocalVariable)
+            getRelevantAnnotations(
+              context.evaluator,
+              resolved as? UAnnotated ?: resolved.toUElement() as UAnnotated,
+              VARIABLE
+            )
+          else getMemberAnnotations(context, resolved)
+        if (initializerAnnotations.isNotEmpty()) {
+          checkAnnotations(context, variable, ASSIGNMENT_LHS, resolved, initializerAnnotations)
+        }
+      }
     }
   }
 

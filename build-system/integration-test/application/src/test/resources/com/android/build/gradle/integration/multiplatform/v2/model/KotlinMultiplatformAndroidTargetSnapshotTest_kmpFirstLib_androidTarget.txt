@@ -14,8 +14,7 @@
                 "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpFirstLib/src/androidInstrumentedTest/AndroidManifest.xml"
               }
             }
-          },
-          "org.jetbrains.kotlin.gradle.utils.Future\u003ckotlin.Boolean\u003e;isNativeSourceSet": "org.jetbrains.kotlin.gradle.utils.FutureImpl@2ae8fe77"
+          }
         }
       },
       "allSourceSets": [
@@ -27,7 +26,7 @@
         "org.jetbrains.kotlin.gradle.plugin.mpp.targetHierarchy.SourceSetTreeClassifier": {},
         "kotlin.Function0\u003ccom.android.kotlin.multiplatform.models.AndroidCompilation?\u003e;android-compilation-model": {
           "type": "INSTRUMENTED_TEST",
-          "instrumentedTestDslInfo": {
+          "instrumentedTestInfo": {
             "namespace": "com.example.kmpfirstlib.test",
             "testInstrumentationRunner": "androidx.test.runner.AndroidJUnitRunner",
             "testInstrumentationRunnerArguments": {},
@@ -44,10 +43,14 @@
               "enableV3Signing": false,
               "enableV4Signing": false,
               "isSigningReady": true
+            },
+            "assembleTaskOutputListingFile": {
+              "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpFirstLib/build/intermediates/apk_ide_redirect_file/androidInstrumentedTest/redirect.txt"
             }
           },
           "defaultSourceSetName": "androidInstrumentedTest",
-          "assembleTaskName": "assembleAndroidInstrumentedTest"
+          "assembleTaskName": "assembleAndroidInstrumentedTest",
+          "kotlinCompileTaskName": "compileAndroidInstrumentedTest"
         }
       }
     },
@@ -64,8 +67,7 @@
                 "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpFirstLib/src/androidMain/AndroidManifest.xml"
               }
             }
-          },
-          "org.jetbrains.kotlin.gradle.utils.Future\u003ckotlin.Boolean\u003e;isNativeSourceSet": "org.jetbrains.kotlin.gradle.utils.FutureImpl@609f55be"
+          }
         }
       },
       "allSourceSets": [
@@ -80,9 +82,9 @@
         "org.jetbrains.kotlin.gradle.plugin.mpp.targetHierarchy.SourceSetTreeClassifier": {},
         "kotlin.Function0\u003ccom.android.kotlin.multiplatform.models.AndroidCompilation?\u003e;android-compilation-model": {
           "type": "MAIN",
-          "mainDslInfo": {
+          "mainInfo": {
             "namespace": "com.example.kmpfirstlib",
-            "compileSdkTarget": "android-33",
+            "compileSdkTarget": "DEFAULT_COMPILE_SDK_VERSION",
             "minSdkVersion": {
               "apiLevel": 22,
               "codename": ""
@@ -92,10 +94,12 @@
                 "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpFirstLib/build/intermediates/default_proguard_files/global/proguard-android.txt-{AGP_Version}"
               }
             ],
-            "consumerProguardFiles": []
+            "consumerProguardFiles": [],
+            "minificationEnabled": false
           },
           "defaultSourceSetName": "androidMain",
-          "assembleTaskName": "assembleAndroidMain"
+          "assembleTaskName": "assembleAndroidMain",
+          "kotlinCompileTaskName": "compileAndroidMain"
         }
       }
     },
@@ -112,8 +116,7 @@
                 "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}/kmpFirstLib/src/androidUnitTest/AndroidManifest.xml"
               }
             }
-          },
-          "org.jetbrains.kotlin.gradle.utils.Future\u003ckotlin.Boolean\u003e;isNativeSourceSet": "org.jetbrains.kotlin.gradle.utils.FutureImpl@485a445c"
+          }
         }
       },
       "allSourceSets": [
@@ -128,11 +131,15 @@
         "org.jetbrains.kotlin.gradle.plugin.mpp.targetHierarchy.SourceSetTreeClassifier": {},
         "kotlin.Function0\u003ccom.android.kotlin.multiplatform.models.AndroidCompilation?\u003e;android-compilation-model": {
           "type": "UNIT_TEST",
-          "unitTestDslInfo": {
-            "namespace": "com.example.kmpfirstlib.test"
+          "unitTestInfo": {
+            "namespace": "com.example.kmpfirstlib.test",
+            "mockablePlatformJar": {
+              "absolutePath": "{GRADLE_CACHE}/{CHECKSUM}/transformed/android.jar"
+            }
           },
           "defaultSourceSetName": "androidUnitTest",
-          "assembleTaskName": "assembleAndroidUnitTest"
+          "assembleTaskName": "assembleAndroidUnitTest",
+          "kotlinCompileTaskName": "compileAndroidUnitTest"
         }
       }
     }
@@ -195,12 +202,19 @@
       "isCoreLibraryDesugaringEnabled": false,
       "desugarLibConfig": [],
       "groupId": "Kotlin Multiplatform",
-      "buildToolsVersion": "34.0.0-rc3",
+      "buildToolsVersion": "DEFAULT_BUILD_TOOLS_REVISION",
       "desugaredMethodsFiles": [
         {
           "absolutePath": "{GRADLE_CACHE}/{CHECKSUM}/transformed/D8BackportedDesugaredMethods.txt"
         }
-      ]
+      ],
+      "buildName": ":",
+      "rootBuildId": {
+        "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}"
+      },
+      "buildId": {
+        "absolutePath": "{INCLUDED_BUILD(kotlinMultiplatform)}"
+      }
     }
   }
 }
