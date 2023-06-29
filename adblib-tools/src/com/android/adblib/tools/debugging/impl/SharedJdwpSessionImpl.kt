@@ -31,7 +31,7 @@ import com.android.adblib.tools.debugging.packets.AdbBufferedInputChannel
 import com.android.adblib.tools.debugging.packets.JdwpPacketConstants
 import com.android.adblib.tools.debugging.packets.JdwpPacketView
 import com.android.adblib.tools.debugging.packets.PayloadProvider
-import com.android.adblib.tools.debugging.packets.clone
+import com.android.adblib.tools.debugging.packets.toOffline
 import com.android.adblib.tools.debugging.packets.withPayload
 import com.android.adblib.tools.debugging.rethrowCancellation
 import com.android.adblib.tools.debugging.sharedJdwpSessionMonitorFactoryList
@@ -48,12 +48,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -140,7 +140,7 @@ internal class SharedJdwpSessionImpl(
 
     override suspend fun addReplayPacket(packet: JdwpPacketView) {
         logger.verbose { "Adding JDWP replay packet '$packet'" }
-        val clone = packet.clone()
+        val clone = packet.toOffline()
         replayPackets.add(clone)
     }
 
@@ -241,33 +241,48 @@ internal class SharedJdwpSessionImpl(
         private val jdwpSession: SharedJdwpSessionImpl
     ) : JdwpPacketReceiver() {
 
-        override fun flow(): Flow<JdwpPacketView> = flow {
-            coroutineScope {
-                val flowScope = this
-                val flowLogger = jdwpSession.logger.withPrefix("Receiver flow '$name': ")
-                val sharedFlow = jdwpSession.jdwpPacketSharedFlow
-                val activationJobStartPacket = StartPacket()
-                val activationJobStartSignal = CompletableDeferred<Unit>()
+        override suspend fun receive(receiver: suspend (JdwpPacketView) -> Unit) {
+            withContext(jdwpSession.session.ioDispatcher) {
+                coroutineScope {
+                    val receiveScope = this
+                    val receiveLogger = jdwpSession.logger.withPrefix("Receiver '$name': ")
+                    val sharedFlow = jdwpSession.jdwpPacketSharedFlow
+                    val activationJobStartPacket = StartPacket()
+                    val activationJobStartSignal = CompletableDeferred<Unit>()
 
-                // Launch a coroutine that invokes the "activation" when the collector is ready
-                val activationJob = flowScope.launchActivationJob(
-                    flowLogger,
-                    sharedFlow,
-                    activationJobStartPacket,
-                    activationJobStartSignal
-                )
+                    // Launch a coroutine that invokes the "activation" when the collector is ready
+                    val activationJob = receiveScope.launchActivationJob(
+                        receiveLogger,
+                        sharedFlow,
+                        activationJobStartPacket,
+                        activationJobStartSignal
+                    )
 
-                // Collect the shared flow and emit to the local flow
-                collectSharedFlow(
-                    flowLogger,
-                    sharedFlow,
-                    activationJobStartPacket,
-                    activationJobStartSignal
-                )
+                    // Collect the shared flow and emit to the local flow
+                    collectSharedFlow(
+                        receiver,
+                        receiveLogger,
+                        sharedFlow,
+                        activationJobStartPacket,
+                        activationJobStartSignal
+                    )
 
-                // We reached EOF: Send a custom "EOFCancellationException" to terminate the
-                // "activation" coroutine (in case it has not completed yet)
-                activationJob.cancel(EOFCancellationException("Reached EOF"))
+                    // We reached EOF: Send a custom "EOFCancellationException" to terminate the
+                    // "activation" coroutine (in case it has not completed yet)
+                    activationJob.cancel(EOFCancellationException("Reached EOF"))
+                }
+            }
+        }
+
+        override fun flow(): Flow<JdwpPacketView> {
+            return channelFlow {
+                val workBuffer = ResizableBuffer()
+                receive { packet ->
+                    // Make the packet "offline" (i.e. read payload in memory if needed) to
+                    // ensure it is safe to use in downstream flows (e.g. filtering,
+                    // buffering, etc)
+                    send(packet.toOffline(workBuffer))
+                }
             }
         }
 
@@ -281,7 +296,7 @@ internal class SharedJdwpSessionImpl(
          * be propagated to this [CoroutineScope].
          */
         private fun CoroutineScope.launchActivationJob(
-            flowLogger: AdbLogger,
+            receiveLogger: AdbLogger,
             sharedFlow: MutableSerializedSharedFlow<Any>,
             activationJobStartPacket: StartPacket,
             activationJobStartSignal: CompletableDeferred<Unit>
@@ -292,9 +307,10 @@ internal class SharedJdwpSessionImpl(
                 // Note that to avoid a race condition (the collector may take a few millis
                 // to start), we need to retry sending `startPacket` until it is acknowledged.
                 while (true) {
+                    ensureActive()
                     sharedFlow.emit(activationJobStartPacket)
                     if (activationJobStartSignal.isCompleted) {
-                        flowLogger.verbose { "calling 'activation' callback" }
+                        receiveLogger.verbose { "calling 'activation' callback" }
                         this@JdwpPacketReceiverImpl.activation()
                         break
                     }
@@ -329,15 +345,16 @@ internal class SharedJdwpSessionImpl(
          * Collects [sharedFlow], emitting [JdwpPacketView] using [safeEmit] to ensure serialized
          * invocations of all active collectors.
          */
-        private suspend fun FlowCollector<JdwpPacketView>.collectSharedFlow(
-            flowLogger: AdbLogger,
+        private suspend fun collectSharedFlow(
+            receiver: suspend (JdwpPacketView) -> Unit,
+            receiveLogger: AdbLogger,
             sharedFlow: SerializedSharedFlow<Any>,
             startPacket: StartPacket,
             activationJobStartSignal: CompletableDeferred<Unit>
         ) {
             sharedFlow
                 .takeWhile { anyValue ->
-                    flowLogger.verbose { "Processing value from shared flow $anyValue" }
+                    receiveLogger.verbose { "Processing value from shared flow $anyValue" }
                     when(anyValue) {
                         is JdwpPacketView -> {
                             @Suppress("UnnecessaryVariable") // readability
@@ -347,11 +364,11 @@ internal class SharedJdwpSessionImpl(
                                 // "activation", wake up the "activation" coroutine and emit
                                 // replay packets to downstream flow.
                                 packet === startPacket -> {
-                                    flowLogger.verbose { "Deferred starts is completed" }
+                                    receiveLogger.verbose { "Deferred starts is completed" }
                                     activationJobStartSignal.complete(Unit)
-                                    flowLogger.verbose { "Emitting ${jdwpSession.replayPackets.size} replay packet(s)" }
+                                    receiveLogger.verbose { "Emitting ${jdwpSession.replayPackets.size} replay packet(s)" }
                                     jdwpSession.replayPackets.forEach { replyPacket ->
-                                        safeEmit(flowLogger, replyPacket)
+                                        safeEmit(receiver, receiveLogger, replyPacket)
                                     }
                                 }
 
@@ -361,14 +378,14 @@ internal class SharedJdwpSessionImpl(
 
                                 else -> {
                                     // This is a "real" JDWP packet, emit it to the downstream flow
-                                    safeEmit(flowLogger, packet)
+                                    safeEmit(receiver, receiveLogger, packet)
                                 }
                             }
                             true // Keep collecting the shared flow
                         }
 
                         is EOFException -> {
-                            flowLogger.debug { "EOF reached, ending flow" }
+                            receiveLogger.debug { "EOF reached, ending flow" }
                             false // We are done collecting the shared flow
                         }
 
@@ -377,7 +394,7 @@ internal class SharedJdwpSessionImpl(
                         }
 
                         else -> {
-                            flowLogger.error("Unknown value in share flow: $anyValue")
+                            receiveLogger.error("Unknown value in share flow: $anyValue")
                             throw IllegalStateException("Invalid value in flow: $anyValue")
                         }
                     }
@@ -385,15 +402,16 @@ internal class SharedJdwpSessionImpl(
                 .collect()
         }
 
-        private suspend fun FlowCollector<JdwpPacketView>.safeEmit(
-            flowLogger: AdbLogger,
+        private suspend fun safeEmit(
+            receiver: suspend (JdwpPacketView) -> Unit,
+            receiveLogger: AdbLogger,
             packet: JdwpPacketView
         ) {
             if (jdwpSession.jdwpFilter.filterReceivedPacket(filterId, packet)) {
-                flowLogger.verbose { "Emitting packet flow: $packet" }
-                emit(packet)
+                receiveLogger.verbose { "Emitting packet flow: $packet" }
+                receiver(packet)
             } else {
-                flowLogger.verbose { "Skipping packet due to filter: $packet" }
+                receiveLogger.verbose { "Skipping packet due to filter: $packet" }
             }
         }
 
@@ -422,7 +440,12 @@ internal class SharedJdwpSessionImpl(
                 return AdbBufferedInputChannel.empty()
             }
 
-            override suspend fun releasePayload() {
+            override fun releasePayload() {
+                // Nothing to do
+            }
+
+            override suspend fun toOffline(workBuffer: ResizableBuffer): JdwpPacketView {
+                return this
             }
         }
     }
@@ -459,13 +482,13 @@ internal class SharedJdwpSessionImpl(
 
         override suspend fun acquirePayload(): AdbInputChannel {
             throwIfClosed()
+            scopedPayload.waitForPendingRead()
             mutex.lock()
+            scopedPayload.rewind()
             return scopedPayload
         }
 
-        override suspend fun releasePayload() {
-            scopedPayload.waitForPendingRead()
-            scopedPayload.rewind()
+        override fun releasePayload() {
             mutex.unlock()
         }
 
@@ -473,6 +496,12 @@ internal class SharedJdwpSessionImpl(
             closed = true
             mutex.withLock {
                 scopedPayload.waitForPendingRead()
+            }
+        }
+
+        override suspend fun toOffline(workBuffer: ResizableBuffer): PayloadProvider {
+            return withPayload {
+                PayloadProvider.forInputChannel(scopedPayload.toOffline(workBuffer))
             }
         }
 
@@ -494,7 +523,7 @@ internal class SharedJdwpSessionImpl(
         private class ScopedAdbBufferedInputChannel(
             private val scope: CoroutineScope,
             input: AdbInputChannel
-        ) : AdbBufferedInputChannel {
+        ) : AdbBufferedInputChannel, SupportsOffline<AdbBufferedInputChannel> {
 
             private var currentReadJob: Job? = null
 
@@ -527,6 +556,12 @@ internal class SharedJdwpSessionImpl(
 
             suspend fun waitForPendingRead() {
                 currentReadJob?.join()
+            }
+
+            override suspend fun toOffline(workBuffer: ResizableBuffer): AdbBufferedInputChannel {
+                return scopedRead {
+                    bufferedInput.toOffline(workBuffer)
+                }
             }
 
             override fun close() {

@@ -17,9 +17,9 @@ package com.android.tools.lint.checks
 
 import com.android.SdkConstants.GRADLE_PLUGIN_MINIMUM_VERSION
 import com.android.SdkConstants.GRADLE_PLUGIN_RECOMMENDED_VERSION
+import com.android.ide.common.gradle.Dependency
 import com.android.ide.common.gradle.Version
 import com.android.ide.common.repository.GoogleMavenRepository.Companion.MAVEN_GOOGLE_CACHE_DIR_KEY
-import com.android.ide.common.repository.GradleCoordinate
 import com.android.sdklib.AndroidVersion
 import com.android.sdklib.IAndroidTarget
 import com.android.sdklib.SdkVersionInfo.LOWEST_ACTIVE_API
@@ -51,6 +51,7 @@ import com.android.tools.lint.checks.GradleDetector.Companion.KTX_EXTENSION_AVAI
 import com.android.tools.lint.checks.GradleDetector.Companion.LIFECYCLE_ANNOTATION_PROCESSOR_WITH_JAVA8
 import com.android.tools.lint.checks.GradleDetector.Companion.MINIMUM_TARGET_SDK_VERSION
 import com.android.tools.lint.checks.GradleDetector.Companion.MINIMUM_TARGET_SDK_VERSION_YEAR
+import com.android.tools.lint.checks.GradleDetector.Companion.MINIMUM_WEAR_TARGET_SDK_VERSION
 import com.android.tools.lint.checks.GradleDetector.Companion.MIN_SDK_TOO_LOW
 import com.android.tools.lint.checks.GradleDetector.Companion.NOT_INTERPOLATED
 import com.android.tools.lint.checks.GradleDetector.Companion.PATH
@@ -2431,8 +2432,9 @@ class GradleDetectorTest : AbstractCheckTest() {
                 testRunner = { module= "com.android.support.test:runner", version= { prefer = "0.1" } }
                 testRunner2 = { module = "com.android.support.test:runner", version = { strictly ="0.3" } }
                 testRunner3 = { module = "com.android.support.test:runner", version.ref ="testRunnerVersion" }
-                # TODO: Support more complex version constraints ([] syntax)
-                testRunner4 = { module = "com.android.support.test:runner", version = { strictly = "[0.3, 0.4[", prefer="0.35" } }
+                testRunner4 = { module = "com.android.support.test:runner", version = { strictly = "[0.3,0.4)", prefer="0.35" } }
+                # TODO: support rich versions expressed in non-canonical form (e.g. [0.3,0.4[ or [,])
+                # testRunner5 = { module = "com.android.support.test:runner", version = "[0.3,0.4["}
                 """
           )
           .indented()
@@ -4871,7 +4873,7 @@ class GradleDetectorTest : AbstractCheckTest() {
         .run()
         .expect(
           """
-                    build.gradle:6: Error: Google Play will soon require that apps target API level $MINIMUM_TARGET_SDK_VERSION or higher. This will be required for new apps in August $MINIMUM_TARGET_SDK_VERSION_YEAR, and for updates to existing apps in November $MINIMUM_TARGET_SDK_VERSION_YEAR. [ExpiringTargetSdkVersion]
+                    build.gradle:6: Error: Google Play will soon require that apps target API level $MINIMUM_TARGET_SDK_VERSION or higher. This will be required for new apps and updates starting on August 31, $MINIMUM_TARGET_SDK_VERSION_YEAR. [ExpiringTargetSdkVersion]
                             targetSdkVersion $PREVIOUS_MINIMUM_TARGET_SDK_VERSION
                             ~~~~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
@@ -4984,7 +4986,7 @@ class GradleDetectorTest : AbstractCheckTest() {
 
                     android {
                         defaultConfig {
-                            targetSdkVersion 17
+                            targetSdkVersion $MINIMUM_WEAR_TARGET_SDK_VERSION
                         }
                     }
                     """
@@ -4995,6 +4997,58 @@ class GradleDetectorTest : AbstractCheckTest() {
         .sdkHome(mockSupportLibraryInstallation)
         .run()
         .expectClean()
+    } finally {
+      GradleDetector.calendar = null
+    }
+  }
+
+  fun testWearExpired() {
+    try {
+      val calendar = Calendar.getInstance()
+      GradleDetector.calendar = calendar
+      // Make sure test doesn't fail on computers without a correct date set
+      calendar.set(Calendar.YEAR, MINIMUM_TARGET_SDK_VERSION_YEAR)
+      calendar.set(Calendar.MONTH, 2)
+
+      lint()
+        .files(
+          manifest(
+              """
+                        <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="test.pkg">
+                            <uses-feature android:name="android.hardware.type.watch" />
+                            <application
+                                android:icon="@mipmap/ic_launcher"
+                                android:label="@string/app_name">
+                            </application>
+                        </manifest>
+                        """
+            )
+            .indented(),
+          gradle(
+              """
+                    apply plugin: 'com.android.application'
+
+                    android {
+                        defaultConfig {
+                            targetSdkVersion 19
+                        }
+                    }
+                    """
+            )
+            .indented()
+        )
+        .issues(EXPIRED_TARGET_SDK_VERSION, EXPIRING_TARGET_SDK_VERSION)
+        .sdkHome(mockSupportLibraryInstallation)
+        .run()
+        .expect(
+          """
+                    build.gradle:5: Error: Google Play requires that apps target API level $MINIMUM_WEAR_TARGET_SDK_VERSION or higher.
+                     [ExpiredTargetSdkVersion]
+                            targetSdkVersion 19
+                            ~~~~~~~~~~~~~~~~~~~
+                    1 errors, 0 warnings
+                    """
+        )
     } finally {
       GradleDetector.calendar = null
     }
@@ -6819,6 +6873,74 @@ class GradleDetectorTest : AbstractCheckTest() {
       )
   }
 
+  fun testCachedFilter() {
+    // Regression test for b/282127516
+    lint()
+      .files(
+        gradle(
+            """
+          dependencies {
+            implementation 'com.example.cached:library:1.0-alpha01'
+            implementation 'com.example.cached:library:1.0-beta01'
+            implementation 'com.example.cached:library:1.0'
+            implementation 'com.example.cached:library:1.1-alpha01'
+            implementation 'com.example.cached:library:1.1-beta01'
+          }
+        """
+          )
+          .indented()
+      )
+      .issues(DEPENDENCY)
+      .run()
+      .expect(
+        """
+        build.gradle:2: Warning: A newer version of com.example.cached:library than 1.0-alpha01 is available: 1.0 [GradleDependency]
+          implementation 'com.example.cached:library:1.0-alpha01'
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        build.gradle:3: Warning: A newer version of com.example.cached:library than 1.0-beta01 is available: 1.0 [GradleDependency]
+          implementation 'com.example.cached:library:1.0-beta01'
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        build.gradle:5: Warning: A newer version of com.example.cached:library than 1.1-alpha01 is available: 1.1-beta01 [GradleDependency]
+          implementation 'com.example.cached:library:1.1-alpha01'
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        0 errors, 3 warnings
+        """
+      )
+      .expectFixDiffs(
+        """
+        Fix for build.gradle line 2: Change to 1.0:
+        @@ -2 +2
+        -   implementation 'com.example.cached:library:1.0-alpha01'
+        +   implementation 'com.example.cached:library:1.0'
+        Fix for build.gradle line 3: Change to 1.0:
+        @@ -3 +3
+        -   implementation 'com.example.cached:library:1.0-beta01'
+        +   implementation 'com.example.cached:library:1.0'
+        Fix for build.gradle line 5: Change to 1.1-beta01:
+        @@ -5 +5
+        -   implementation 'com.example.cached:library:1.1-alpha01'
+        +   implementation 'com.example.cached:library:1.1-beta01'
+      """
+      )
+  }
+
+  fun testCachedFilterCommonsIo() {
+    // regression test for b/218605730
+    lint()
+      .files(
+        gradle(
+          """
+          dependencies {
+            implementation 'commons-io:commons-io:2.12.0'
+          }
+        """
+        )
+      )
+      .issues(DEPENDENCY)
+      .run()
+      .expectClean()
+  }
+
   // -------------------------------------------------------------------------------------------
   // Test infrastructure below here
   // -------------------------------------------------------------------------------------------
@@ -6908,7 +7030,14 @@ class GradleDetectorTest : AbstractCheckTest() {
             "caches/modules-2/files-2.1/com.android.tools.build/gradle/2.4.0-alpha3/sample",
             "caches/modules-2/files-2.1/com.android.tools.build/gradle/2.4.0-alpha5/sample",
             "caches/modules-2/files-2.1/com.android.tools.build/gradle/2.4.0-alpha6/sample",
+            "caches/modules-2/files-2.1/com.example.cached/library/1.0-alpha02/sample",
+            "caches/modules-2/files-2.1/com.example.cached/library/1.0-beta01/sample",
+            "caches/modules-2/files-2.1/com.example.cached/library/1.0/sample",
+            "caches/modules-2/files-2.1/com.example.cached/library/1.1-alpha02/sample",
+            "caches/modules-2/files-2.1/com.example.cached/library/1.1-beta01/sample",
+            "caches/modules-2/files-2.1/com.example.cached/library/1.1-SNAPSHOT/sample",
             "caches/modules-2/files-2.1/com.google.guava/guava/17.0/sample",
+            "caches/modules-2/files-2.1/commons-io/commons-io/20030203.000550/sample",
             "caches/modules-2/files-2.1/org.apache.httpcomponents/httpcomponents-core/4.1/sample",
             "caches/modules-2/files-2.1/org.apache.httpcomponents/httpcomponents-core/4.2.1/sample",
             "caches/modules-2/files-2.1/org.apache.httpcomponents/httpcomponents-core/4.2.5/sample",
@@ -7215,15 +7344,15 @@ class GradleDetectorTest : AbstractCheckTest() {
           }
 
           override fun getHighestKnownVersion(
-            coordinate: GradleCoordinate,
+            dependency: Dependency,
             filter: Predicate<Version>?
           ): Version? {
             // Hardcoded for unit test to ensure stable data
             return if (
-              "com.android.support.constraint" == coordinate.groupId &&
-                "constraint-layout" == coordinate.artifactId
+              "com.android.support.constraint" == dependency.group &&
+                "constraint-layout" == dependency.name
             ) {
-              if (coordinate.isPreview) {
+              if (dependency.version?.lowerBound?.isPreview != false) {
                 Version.parse("1.0.3-alpha8")
               } else {
                 Version.parse("1.0.2")

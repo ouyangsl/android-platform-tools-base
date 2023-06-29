@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.tools.deploy.liveedit.backported;
+package com.android.adblib
 
-import static java.lang.Short.toUnsignedInt;
+import java.util.concurrent.TimeUnit
 
-public class Short {
-    public static int compareUnsigned(short x, short y) {
-        return toUnsignedInt(x) - toUnsignedInt(y);
-    }
+/** Provides a way to spin up an Adb Server */
+interface AdbServerStartup {
+
+    /**
+     * Starts an Adb Server
+     * @param port should use this port. The test implementation will use any available port.
+     *
+     * @return port on which the server is listening.
+     */
+    suspend fun start(port: Int, timeout: Long, unit: TimeUnit): Int
 }

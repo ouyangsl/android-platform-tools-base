@@ -17,14 +17,16 @@ package com.android.adblib.tools.debugging.packets
 
 import com.android.adblib.AdbInputChannel
 import com.android.adblib.skipRemaining
+import com.android.adblib.tools.debugging.impl.SupportsOffline
 import com.android.adblib.tools.debugging.packets.ddms.withPayload
 import com.android.adblib.utils.ResizableBuffer
+import kotlinx.coroutines.sync.Mutex
 import java.nio.ByteBuffer
 
 /**
  * A provider of [AdbInputChannel] instances that can be read multiple times.
  */
-interface PayloadProvider: AutoCloseable {
+internal interface PayloadProvider: SupportsOffline<PayloadProvider>, AutoCloseable {
 
     /**
      * **Note: Do NOT use directly, use [withPayload] instead**
@@ -40,46 +42,75 @@ interface PayloadProvider: AutoCloseable {
      * **Note: Do NOT use directly, use [withPayload] instead**
      *
      * Releases the [AdbInputChannel] previously returned by [acquirePayload]
+     *
+     * **Note to implementors**: Similar to [Mutex.unlock] (for example), this function is
+     * **not** a `suspend` function "by design", to ensure that a `finally` block that calls
+     * [releasePayload] is executed even when a coroutine cancellation occurs in the
+     * `try` block corresponding to the `finally` block.
      */
-    suspend fun releasePayload()
+    fun releasePayload()
 
     /**
      * Shuts down this [PayloadProvider], releasing resources if necessary.
      */
     suspend fun shutdown(workBuffer: ResizableBuffer)
 
+    /**
+     * Clone this [PayloadProvider] into a [PayloadProvider] that is guaranteed to always have a
+     * `payload` available.
+     */
+    override suspend fun toOffline(workBuffer: ResizableBuffer): PayloadProvider
+
     companion object {
 
+        /**
+         * Creates a [PayloadProvider] wrapping an empty `payload`.
+         */
         fun emptyPayload(): PayloadProvider {
-            return EmptyPayloadProvider
+            return Empty
         }
 
+        /**
+         * Creates a [PayloadProvider] wrapping the contents of the given [ByteBuffer],
+         * from [ByteBuffer.position] to [ByteBuffer.limit].
+         *
+         * **Note**
+         *
+         * The contents of [buffer] should not change after calling this method, to ensure
+         * the [withPayload] method returns a valid `payload`.
+         */
         fun forByteBuffer(buffer: ByteBuffer): PayloadProvider {
-            val channel = AdbBufferedInputChannel.forByteBuffer(buffer)
-            return BufferedInputChannelPayloadProvider(channel)
+            return forInputChannel(AdbBufferedInputChannel.forByteBuffer(buffer))
         }
 
-        fun forBufferedInputChannel(channel: AdbBufferedInputChannel): PayloadProvider {
-            return BufferedInputChannelPayloadProvider(channel)
-        }
-
+        /**
+         * Creates a [PayloadProvider] wrapping the given [AdbInputChannel].
+         */
         fun forInputChannel(channel: AdbInputChannel): PayloadProvider {
-            val bufferedChannel = AdbBufferedInputChannel.forInputChannel(channel)
-            return BufferedInputChannelPayloadProvider(bufferedChannel)
+            val bufferedChannel = if (channel is AdbBufferedInputChannel) {
+                channel
+            } else {
+                AdbBufferedInputChannel.forInputChannel(channel)
+            }
+            return ForInputChannel(bufferedChannel)
         }
 
-        object EmptyPayloadProvider : PayloadProvider {
+        private object Empty : PayloadProvider {
 
             override suspend fun acquirePayload(): AdbInputChannel {
                 return AdbBufferedInputChannel.empty()
             }
 
-            override suspend fun releasePayload() {
+            override fun releasePayload() {
                 // Nothing to do
             }
 
             override suspend fun shutdown(workBuffer: ResizableBuffer) {
                 // Nothing to do
+            }
+
+            override suspend fun toOffline(workBuffer: ResizableBuffer): PayloadProvider {
+                return this
             }
 
             override fun close() {
@@ -91,18 +122,22 @@ interface PayloadProvider: AutoCloseable {
             }
         }
 
-        private class BufferedInputChannelPayloadProvider(
-            private val bufferedPayload: AdbBufferedInputChannel
-        ) : PayloadProvider {
+        private class ForInputChannel(payload: AdbInputChannel) : PayloadProvider {
+            private val bufferedPayload = if (payload is AdbBufferedInputChannel) {
+                payload
+            } else {
+                AdbBufferedInputChannel.forInputChannel(payload)
+            }
             private var closed = false
 
             override suspend fun acquirePayload(): AdbInputChannel {
                 throwIfClosed()
+                bufferedPayload.rewind()
                 return bufferedPayload
             }
 
-            override suspend fun releasePayload() {
-                bufferedPayload.rewind()
+            override fun releasePayload() {
+                // Nothing to do
             }
 
             override suspend fun shutdown(workBuffer: ResizableBuffer) {
@@ -112,6 +147,12 @@ interface PayloadProvider: AutoCloseable {
                 closed = true
                 bufferedPayload.finalRewind()
                 bufferedPayload.skipRemaining(workBuffer)
+            }
+
+            override suspend fun toOffline(workBuffer: ResizableBuffer): PayloadProvider {
+                throwIfClosed()
+
+                return forInputChannel(bufferedPayload.toOffline(workBuffer))
             }
 
             override fun close() {
@@ -136,7 +177,7 @@ interface PayloadProvider: AutoCloseable {
  * Invokes [block] with payload of this [PayloadProvider]. The payload is passed to [block]
  * as an [AdbInputChannel] instance that is valid only during the [block] invocation.
  */
-suspend inline fun <R> PayloadProvider.withPayload(block: (AdbInputChannel) -> R): R {
+internal suspend inline fun <R> PayloadProvider.withPayload(block: (AdbInputChannel) -> R): R {
     val payload = acquirePayload()
     return try {
         block(payload)

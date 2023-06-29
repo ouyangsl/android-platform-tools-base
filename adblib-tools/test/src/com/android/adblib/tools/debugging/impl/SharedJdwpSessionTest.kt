@@ -17,12 +17,14 @@ package com.android.adblib.tools.debugging.impl
 
 import com.android.adblib.AdbInputChannel
 import com.android.adblib.AdbSession
+import com.android.adblib.ByteBufferAdbInputChannel
 import com.android.adblib.ByteBufferAdbOutputChannel
 import com.android.adblib.skipRemaining
 import com.android.adblib.testingutils.CoroutineTestUtils.runBlockingWithTimeout
 import com.android.adblib.testingutils.CoroutineTestUtils.yieldUntil
 import com.android.adblib.tools.debugging.DdmsCommandException
 import com.android.adblib.tools.debugging.DdmsProtocolKind
+import com.android.adblib.tools.debugging.JdwpPacketReceiver
 import com.android.adblib.tools.debugging.JdwpSession
 import com.android.adblib.tools.debugging.SharedJdwpSession
 import com.android.adblib.tools.debugging.SharedJdwpSessionMonitor
@@ -32,10 +34,10 @@ import com.android.adblib.tools.debugging.ddmsProtocolKind
 import com.android.adblib.tools.debugging.handleDdmsCaptureView
 import com.android.adblib.tools.debugging.handleDdmsHPGC
 import com.android.adblib.tools.debugging.packets.AdbBufferedInputChannel
+import com.android.adblib.tools.debugging.packets.JdwpPacketConstants
 import com.android.adblib.tools.debugging.packets.JdwpPacketView
 import com.android.adblib.tools.debugging.packets.MutableJdwpPacket
 import com.android.adblib.tools.debugging.packets.PayloadProvider
-import com.android.adblib.tools.debugging.packets.clone
 import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkType
 import com.android.adblib.tools.debugging.packets.ddms.DdmsChunkView
 import com.android.adblib.tools.debugging.packets.ddms.DdmsPacketConstants
@@ -45,36 +47,37 @@ import com.android.adblib.tools.debugging.packets.ddms.clone
 import com.android.adblib.tools.debugging.packets.ddms.ddmsChunks
 import com.android.adblib.tools.debugging.packets.ddms.isDdmsCommand
 import com.android.adblib.tools.debugging.packets.ddms.writeToChannel
+import com.android.adblib.tools.debugging.packets.payloadLength
 import com.android.adblib.tools.debugging.packets.withPayload
 import com.android.adblib.tools.debugging.sendDdmsExit
 import com.android.adblib.tools.debugging.sendVmExit
+import com.android.adblib.tools.debugging.toByteArray
 import com.android.adblib.tools.testutils.AdbLibToolsTestBase
 import com.android.adblib.tools.testutils.FakeJdwpCommandProgress
+import com.android.adblib.tools.testutils.NanoTimeSpan
+import com.android.adblib.tools.testutils.toMutable
 import com.android.adblib.tools.testutils.waitForOnlineConnectedDevice
 import com.android.adblib.utils.ResizableBuffer
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletableDeferred
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
-import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.flow.toList
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 import java.io.IOException
-import java.time.Duration
+import java.nio.ByteBuffer
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -106,25 +109,24 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun sendPacketWithActiveReceiverWorks() = runBlockingWithTimeout {
+    fun sendPacketWorks() = runBlockingWithTimeout {
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
         val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
-        val ready = MutableStateFlow(false)
+        val ready = CompletableDeferred<Unit>()
 
-        // Act
+        // Act: Send packet when there is an active receiver, then look
+        // at the reply to see if it is the expected reply.
         val packet = async {
-            ready.first { isReady -> isReady }
+            ready.await()
             val sendPacket = createHeloDdmsPacket(jdwpSession)
             jdwpSession.sendPacket(sendPacket)
             sendPacket
         }
 
         val reply = jdwpSession.newPacketReceiver()
-            .onActivation { ready.value = true }.flow()
-            .filter { it.id == packet.await().id }
-            .map { it.clone() /* clone needed to ensure packet is ours to keep */ }
-            .first()
+            .onActivation { ready.complete(Unit) }
+            .receiveFirst { it.id == packet.await().id }
 
         // Assert
         assertEquals(0, reply.errorCode)
@@ -133,7 +135,24 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receiverFlowIsTransparentToExceptions(): Unit = runBlockingWithTimeout {
+    fun sendPacketThrowsExceptionAfterClose() = runBlockingWithTimeout {
+        val fakeDevice = addFakeDevice(fakeAdb, 30)
+        fakeDevice.startClient(10, 0, "a.b.c", false)
+        val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
+        val packet = createHeloDdmsPacket(jdwpSession)
+        jdwpSession.sendPacket(packet)
+
+        // Act
+        jdwpSession.close()
+        exceptionRule.expect(Exception::class.java)
+        jdwpSession.sendPacket(packet)
+
+        // Assert
+        fail("Should not reach")
+    }
+
+    @Test
+    fun packetReceiverReceiveMethodIsTransparentToExceptions(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -147,7 +166,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
             .onActivation {
                 val sendPacket = createHeloDdmsPacket(jdwpSession)
                 jdwpSession.sendPacket(sendPacket)
-            }.collect {
+            }.receive {
                 throw Exception("My Message")
             }
 
@@ -156,7 +175,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receiverFlowCanBeCancelled(): Unit = runBlockingWithTimeout {
+    fun packetReceiverReceiveMethodCanBeCancelled(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -170,7 +189,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
             .onActivation {
                 val sendPacket = createHeloDdmsPacket(jdwpSession)
                 jdwpSession.sendPacket(sendPacket)
-            }.collect {
+            }.receive {
                 cancel("My Message")
             }
 
@@ -180,7 +199,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
 
 
     @Test
-    fun receiversCollectionIsNotSerialized(): Unit = runBlockingWithTimeout {
+    fun packetReceiverReceiveMethodFromConcurrentReceiversAreNotSerialized(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -192,17 +211,20 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         val def = (0 until receiverCount).map { index ->
             readyDef.add(CompletableDeferred())
             async {
-                var timeSpan: FlowTimeSpan? = null
-                jdwpSession.newPacketReceiver()
-                    .onActivation { readyDef[index].complete(Unit) }
-                    .flow()
-                    .map {
-                        val start = System.nanoTime()
-                        delay(500)
-                        val end = System.nanoTime()
-                        timeSpan = FlowTimeSpan(start, end)
-                    }.first()
-                timeSpan!!
+                class EndReceiveException(val timeSpan: NanoTimeSpan) : Exception()
+                try {
+                    jdwpSession.newPacketReceiver()
+                        .onActivation { readyDef[index].complete(Unit) }
+                        .receive {
+                            val start = System.nanoTime()
+                            delay(500)
+                            val end = System.nanoTime()
+                            throw EndReceiveException(NanoTimeSpan(start, end))
+                        }
+                    throw IllegalStateException("Receiver did not end")
+                } catch(e: EndReceiveException) {
+                    e.timeSpan
+                }
             }
         }
 
@@ -217,11 +239,11 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         def.awaitAll()
 
         // Assert
-        assertFlowTimeSpansAreInterleaved(def, receiverCount, 500)
+        NanoTimeSpan.assertNanoTimeSpansAreInterleaved(def.awaitAll(), receiverCount, 500)
     }
 
     @Test
-    fun receiversActivationsDoNotStartUntilReceiverIsStarted(): Unit = runBlockingWithTimeout {
+    fun packetReceiverReceiveMethodIsActiveWhenActivationsIsExecuted(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -249,12 +271,11 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
                         val packet = createHeloDdmsPacket(jdwpSession)
                         heloPacketId = packet.id
                         jdwpSession.sendPacket(packet)
-                    }.flow()
-                    .takeWhile { packet ->
+                    }.receiveFirst{ packet ->
                         // If the collector was to start too late (i.e. after activation),
                         // then the reply would be missed, and the collector would never complete.
-                        packet.isReply && (packet.id != heloPacketId)
-                    }.collect()
+                        packet.isReply && (packet.id == heloPacketId)
+                    }
             }
         }
         packets.awaitAll()
@@ -262,7 +283,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receiverActivationExceptionIsTransparentToCollector(): Unit = runBlockingWithTimeout {
+    fun packetReceiverActivationExceptionIsTransparentToCollector(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -276,7 +297,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
                 delay(5)
                 throw IOException("My Exception")
             }
-            .collect {
+            .receive {
             }
 
         // Assert
@@ -284,7 +305,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receiverActivationCancellationIsTransparentToCollector(): Unit = runBlockingWithTimeout {
+    fun packetReceiverActivationCancellationIsTransparentToCollector(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -297,7 +318,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
             .onActivation {
                 throw CancellationException("My Cancellation")
             }
-            .collect {
+            .receive {
             }
 
         // Assert
@@ -305,7 +326,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receiversActivationsAreNotSerialized(): Unit = runBlockingWithTimeout {
+    fun packetReceiverActivationFromConcurrentReceiversIsNotSerialized(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -321,9 +342,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
                         activationCount.incrementAndGet()
                         // If activations were serialized, this condition would never be satisfied
                         yieldUntil { activationCount.get() == receiverCount }
-                    }.flow()
-                    .map { it.clone() /* clone needed to ensure packet is ours to keep */ }
-                    .first()
+                    }.receiveFirst()
             }
         }
 
@@ -343,7 +362,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receiverActivationIsNotExecutedIfNoCollection(): Unit = runBlockingWithTimeout {
+    fun packetReceiverActivationIsNotExecutedIfNoReceiveMethodCall(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -365,7 +384,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
             .onActivation {
                 val sendPacket = createHeloDdmsPacket(jdwpSession)
                 jdwpSession.sendPacket(sendPacket)
-            }.flow().first()
+            }.receiveFirst()
 
         // Wait for all receivers activations to execute
         def.awaitAll()
@@ -375,7 +394,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receiversCanAccessPacketPayloadConcurrently(): Unit = runBlockingWithTimeout {
+    fun packetReceiverFlowAllowsAccessingPacketPayloadConcurrently(): Unit = runBlockingWithTimeout {
         // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -418,7 +437,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receivePacketsFlowEndsOnClientTerminate() = runBlockingWithTimeout {
+    fun packetReceiverFlowEndsOnClientTerminate() = runBlockingWithTimeout {
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
@@ -430,7 +449,6 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
                 jdwpSession.sendPacket(sendPacket)
             }.flow()
             .map {
-                it.clone()
                 if (it.isApnmCommand()) {
                     fakeDevice.stopClient(10)
                 }
@@ -442,7 +460,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receivePacketsFlowEndsConsistentlyOnClientTerminate() = runBlockingWithTimeout {
+    fun packetReceiverFlowEndsConsistentlyOnClientTerminate() = runBlockingWithTimeout {
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
@@ -455,7 +473,6 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
                 jdwpSession.sendPacket(sendPacket)
             }.flow()
             .map {
-                it.clone()
                 if (it.isApnmCommand()) {
                     fakeDevice.stopClient(10)
                 }
@@ -464,7 +481,6 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         val packets2 = jdwpSession.newPacketReceiver().withName("test2").flow().toList()
         val packets3 = jdwpSession.newPacketReceiver().withName("test3").flow().toList()
 
-        // Assert
         // Assert: We received `HELO` and `APNM`
         assertTrue(packets.count() == 2)
         assertTrue(packets2.isEmpty())
@@ -472,24 +488,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun sendPacketThrowExceptionAfterClose() = runBlockingWithTimeout {
-        val fakeDevice = addFakeDevice(fakeAdb, 30)
-        fakeDevice.startClient(10, 0, "a.b.c", false)
-        val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
-        val packet = createHeloDdmsPacket(jdwpSession)
-        jdwpSession.sendPacket(packet)
-
-        // Act
-        jdwpSession.close()
-        exceptionRule.expect(Exception::class.java)
-        jdwpSession.sendPacket(packet)
-
-        // Assert
-        fail("Should not reach")
-    }
-
-    @Test
-    fun receivePacketThrowExceptionAfterClose() = runBlockingWithTimeout {
+    fun packetReceiverFlowThrowsExceptionAfterClose() = runBlockingWithTimeout {
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
         val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
@@ -513,15 +512,15 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun receivePacketFlowContainsReplayPackets() = runBlockingWithTimeout {
+    fun packetReceiverFlowContainsReplayPackets() = runBlockingWithTimeout {
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
 
         // Act
         val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
         val sendPacket3 = createHeloDdmsPacket(jdwpSession)
-        val sendPacket1 = sendPacket3.clone().also { it.id = jdwpSession.nextPacketId() }
-        val sendPacket2 = sendPacket3.clone().also { it.id = jdwpSession.nextPacketId() }
+        val sendPacket1 = sendPacket3.toMutable().also { it.id = jdwpSession.nextPacketId() }
+        val sendPacket2 = sendPacket3.toMutable().also { it.id = jdwpSession.nextPacketId() }
         jdwpSession.addReplayPacket(sendPacket1)
         jdwpSession.addReplayPacket(sendPacket2)
 
@@ -531,7 +530,6 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
                 jdwpSession.sendPacket(sendPacket3)
             }
             .flow()
-            .map { it.clone() }
             .take(3)
             .toList()
 
@@ -554,22 +552,74 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
-    fun addReplayPacketDoesCloneJdwpPacket() = runBlockingWithTimeout {
+    fun packetReceiverFlowEmitsOfflinePackets() = runBlockingWithTimeout {
+        // Prepare
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
+        val heloCount = 3
+        val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
+
+        // Act: Send 3 `HELO` commands, waits for 3 `HELO` replies and 3 `APNM` commands
+        val packets = jdwpSession.newPacketReceiver()
+            .withName("Test")
+            .onActivation {
+                repeat(heloCount) {
+                    val sendPacket = createHeloDdmsPacket(jdwpSession)
+                    jdwpSession.sendPacket(sendPacket)
+                }
+            }
+            .flow()
+            .take(2 * heloCount)
+            .toList()
+
+
+        // Assert: We access the payloads of all received packets to make sure they are
+        // all still available even after the flow is completed
+        assertEquals(heloCount * 2, packets.size)
+        val payloads = packets.map { packet ->
+            packet.withPayload { payload ->
+                payload.toByteArray(packet.payloadLength)
+            }
+        }
+        (0 until heloCount).forEach { index ->
+            assertEquals("`HELO` reply payload should be 111 bytes", 111, payloads[index * 2].size)
+            assertEquals("`APNM` command payload should be 40 bytes", 40, payloads[index * 2 + 1].size)
+        }
+    }
+
+    @Test
+    fun addReplayPacketStoresOfflineJdwpPacket() = runBlockingWithTimeout {
+        // Prepare
+        val fakeDevice = addFakeDevice(fakeAdb, 30)
+        fakeDevice.startClient(10, 0, "a.b.c", false)
+        val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
+        val payloadBytes = byteArrayOf(1, 2, 3, 4, 5)
+        val payloadBuffer = ByteBuffer.wrap(payloadBytes)
+        val payloadInputChannel = ByteBufferAdbInputChannel(payloadBuffer)
+        val tempPacket = EphemeralJdwpPacket.Command(
+            id = jdwpSession.nextPacketId(),
+            length = JdwpPacketConstants.PACKET_HEADER_LENGTH + payloadBytes.size,
+            cmdSet = 10,
+            cmd = 10,
+            payloadProvider = PayloadProvider.forInputChannel(payloadInputChannel)
+        )
 
         // Act
-        val jdwpSession = openSharedJdwpSession(session, fakeDevice.deviceId, 10)
-        val packetToReplay = createHeloDdmsPacket(jdwpSession)
-        jdwpSession.addReplayPacket(packetToReplay)
+        jdwpSession.addReplayPacket(tempPacket)
 
-        // Change packet ID to see if replay packet was cloned
-        packetToReplay.id++
-
-        val replayPacket = jdwpSession.newPacketReceiver().flow().first()
+        // Change packet ID to see if replay packet payload was properly copied as "offline"
+        payloadBytes[0] = 2
 
         // Assert
-        assertEquals(packetToReplay.id - 1, replayPacket.id)
+        var replayPacketPayload: ByteArray? = null
+        jdwpSession.newPacketReceiver().receiveFirst { replayPacket ->
+            replayPacketPayload = replayPacket.withPayload {
+                it.toByteArray(replayPacket.payloadLength)
+            }
+            true
+        }
+        assertArrayEquals(byteArrayOf(2, 2, 3, 4, 5), payloadBytes)
+        assertArrayEquals(byteArrayOf(1, 2, 3, 4, 5), replayPacketPayload)
     }
 
     @Test
@@ -629,10 +679,10 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
 
         assertEquals(DdmsProtocolKind.EmptyRepliesAllowed, jdwpSession.device.ddmsProtocolKind())
         assertEquals(1, client.getHgpcRequestsCount())
-        assertTrue(jdwpCommandProgress.beforeSendIsCalled)
-        assertTrue(jdwpCommandProgress.afterSendIsCalled)
-        assertFalse(jdwpCommandProgress.onReplyTimeoutIsCalled)
-        assertTrue(jdwpCommandProgress.onReplyIsCalled)
+        assertTrue("jdwpCommandProgress.beforeSendIsCalled", jdwpCommandProgress.beforeSendIsCalled)
+        assertTrue("jdwpCommandProgress.afterSendIsCalled", jdwpCommandProgress.afterSendIsCalled)
+        assertFalse("jdwpCommandProgress.onReplyTimeoutIsCalled", jdwpCommandProgress.onReplyTimeoutIsCalled)
+        assertTrue("jdwpCommandProgress.onReplyIsCalled", jdwpCommandProgress.onReplyIsCalled)
     }
 
     @Test
@@ -667,7 +717,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
             .onActivation {
                 val sendPacket = createHeloDdmsPacket(jdwpSession)
                 jdwpSession.sendPacket(sendPacket)
-            }.collect {
+            }.receive {
                 // We got our reply packet, terminate the process so this collector terminates.
                 jdwpSession.sendVmExit(5)
             }
@@ -700,7 +750,7 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         packet.isCommand = true
         packet.cmdSet = DdmsPacketConstants.DDMS_CMD_SET
         packet.cmd = DdmsPacketConstants.DDMS_CMD
-        packet.payloadProvider = PayloadProvider.forBufferedInputChannel(heloChunk.toBufferedInputChannel())
+        packet.payloadProvider = PayloadProvider.forInputChannel(heloChunk.toBufferedInputChannel())
         return packet
     }
 
@@ -718,50 +768,9 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         return registerCloseable(SharedJdwpSession.create(jdwpSession, pid))
     }
 
-    private suspend fun assertFlowTimeSpansAreSorted(
-        timeSpans: List<Deferred<FlowTimeSpan>>,
-        expectedCount: Int
-    ) {
-        // Assert expected number of time spans
-        assertEquals(expectedCount, timeSpans.size)
-
-        // Assert that the end nano of each entry is <= the start nano of the next entry,
-        // which verifies that all "emit" calls to consumer flows were never made
-        // concurrently
-        val sortedSpans = timeSpans.map { it.await() }.sortedBy { it.startNano }
-        sortedSpans.fold(FlowTimeSpan(Long.MIN_VALUE, Long.MIN_VALUE)) { prev, cur ->
-            assertTrue(
-                "'${prev.endNano} <= ${cur.startNano}' is expected to be true (timespans overlap)",
-                prev.endNano <= cur.startNano
-            )
-            cur
-        }
-    }
-
-    private suspend fun assertFlowTimeSpansAreInterleaved(
-        timeSpans: List<Deferred<FlowTimeSpan>>,
-        expectedEntryCount: Int,
-        entryDurationMillis: Int,
-    ) {
-        // Assert expected number of time spans
-        assertEquals(expectedEntryCount, timeSpans.size)
-
-        // Given each "entry" is expected to run at least "entryDurationMillis" and we want to
-        // assert their execution were not serialized, we can assert the range of time span
-        // collected by each entry is not as large as the expected duration if they were
-        // executed sequentially.
-        val minStartNano = timeSpans.minOf { it.await().startNano }
-        val maxEndNano = timeSpans.maxOf { it.await().endNano }
-        val measuredDuration = Duration.ofNanos(maxEndNano - minStartNano)
-        val maximumExpectedDuration = Duration.ofMillis(expectedEntryCount * entryDurationMillis.toLong())
-
-        assertTrue("$measuredDuration <= $maximumExpectedDuration (Time spans should be interleaved)",
-                   measuredDuration <= maximumExpectedDuration)
-    }
-
     private suspend fun JdwpPacketView.isApnmCommand(): Boolean {
         return isDdmsCommand &&
-                clone().ddmsChunks().firstOrNull { it.type == DdmsChunkType.APNM } != null
+                ddmsChunks().firstOrNull { it.type == DdmsChunkType.APNM } != null
     }
 
     class TestJdwpSessionMonitorFactory : SharedJdwpSessionMonitorFactory {
@@ -779,11 +788,11 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
             var closed: Boolean = false
 
             override suspend fun onSendPacket(packet: JdwpPacketView) {
-                sentPackets.add(packet.clone())
+                sentPackets.add(packet.toOffline())
             }
 
             override suspend fun onReceivePacket(packet: JdwpPacketView) {
-                receivedPackets.add(packet.clone())
+                receivedPackets.add(packet.toOffline())
             }
 
             override fun close() {
@@ -792,5 +801,27 @@ class SharedJdwpSessionTest : AdbLibToolsTestBase() {
         }
     }
 
-    data class FlowTimeSpan(val startNano: Long, val endNano: Long)
+    private suspend fun JdwpPacketReceiver.receiveFirst(): JdwpPacketView {
+        return receiveFirst { true }
+    }
+
+    private suspend fun JdwpPacketReceiver.receiveFirst(
+        predicate: suspend (JdwpPacketView) -> Boolean
+    ): JdwpPacketView {
+        var result: JdwpPacketView? = null
+        try {
+            receive { livePacket ->
+                if (predicate(livePacket)) {
+                    // clone needed to ensure packet is ours to keep
+                    result = livePacket.toOffline()
+                    throw EndReceiveException()
+                }
+            }
+        } catch (e: EndReceiveException) {
+            // Nothing to do
+        }
+        return result ?: throw NoSuchElementException("Receiver did not receive a packet")
+    }
+
+    private class EndReceiveException: Exception()
 }

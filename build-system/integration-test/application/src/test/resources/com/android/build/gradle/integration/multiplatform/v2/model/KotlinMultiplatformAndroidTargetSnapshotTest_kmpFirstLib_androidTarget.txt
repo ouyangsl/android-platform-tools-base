@@ -128,14 +128,19 @@
         }
       ],
       "extras": {
-        "org.jetbrains.kotlin.gradle.plugin.mpp.targetHierarchy.SourceSetTreeClassifier": {},
+        "org.jetbrains.kotlin.gradle.plugin.mpp.targetHierarchy.SourceSetTreeClassifier": {
+          "tree": {
+            "name": "test"
+          }
+        },
         "kotlin.Function0\u003ccom.android.kotlin.multiplatform.models.AndroidCompilation?\u003e;android-compilation-model": {
           "type": "UNIT_TEST",
           "unitTestInfo": {
             "namespace": "com.example.kmpfirstlib.test",
             "mockablePlatformJar": {
               "absolutePath": "{GRADLE_CACHE}/{CHECKSUM}/transformed/android.jar"
-            }
+            },
+            "unitTestTaskName": "testAndroidUnitTest"
           },
           "defaultSourceSetName": "androidUnitTest",
           "assembleTaskName": "assembleAndroidUnitTest",

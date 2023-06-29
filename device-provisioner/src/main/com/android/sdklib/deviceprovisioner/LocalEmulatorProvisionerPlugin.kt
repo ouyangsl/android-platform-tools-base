@@ -73,6 +73,7 @@ class LocalEmulatorProvisionerPlugin(
   private val scope: CoroutineScope,
   private val adbSession: AdbSession,
   private val avdManager: AvdManager,
+  private val deviceIcons: DeviceIcons,
   private val defaultPresentation: DeviceAction.DefaultPresentation,
   rescanPeriod: Duration = Duration.ofSeconds(10),
 ) : DeviceProvisionerPlugin {
@@ -159,7 +160,7 @@ class LocalEmulatorProvisionerPlugin(
 
   private fun disconnectedState(avdInfo: AvdInfo) =
     Disconnected(
-      LocalEmulatorProperties.build(avdInfo),
+      LocalEmulatorProperties.build(avdInfo) { icon = iconForType() },
       isTransitioning = false,
       status = "Offline",
       error = avdInfo.deviceError
@@ -228,16 +229,28 @@ class LocalEmulatorProvisionerPlugin(
       val properties =
         LocalEmulatorProperties.build(handle.avdInfo) {
           readCommonProperties(deviceProperties)
+          // Device type is not always reliably read from properties
+          deviceType = handle.avdInfo.tag.toDeviceType()
           density = deviceProperties[DevicePropertyNames.QEMU_SF_LCD_DENSITY]?.toIntOrNull()
           resolution = Resolution.readFromDevice(device)
           disambiguator = port.toString()
           wearPairingId = path.toString().takeIf { isPairable() }
+          icon = iconForType()
         }
       handle.stateFlow.value = Connected(properties, device)
       handle
     }
 
-  private fun refreshDevices() {
+  private fun LocalEmulatorProperties.Builder.iconForType() =
+    when (deviceType) {
+      DeviceType.HANDHELD -> deviceIcons.handheld
+      DeviceType.WEAR -> deviceIcons.wear
+      DeviceType.TV -> deviceIcons.tv
+      DeviceType.AUTOMOTIVE -> deviceIcons.automotive
+      else -> deviceIcons.handheld
+    }
+
+  fun refreshDevices() {
     avdScanner.runNow()
   }
 
@@ -446,17 +459,21 @@ class LocalEmulatorProvisionerPlugin(
 class LocalEmulatorProperties(
   base: DeviceProperties,
   val avdName: String,
-  val displayName: String
+  val displayName: String,
+  val avdConfigProperties: Map<String, String>,
 ) : DeviceProperties by base {
 
   override val title = displayName
 
   companion object {
-    fun build(avdInfo: AvdInfo) = build(avdInfo) {}
-
     inline fun build(avdInfo: AvdInfo, block: Builder.() -> Unit) =
       buildPartial(avdInfo).apply(block).run {
-        LocalEmulatorProperties(buildBase(), checkNotNull(avdName), checkNotNull(displayName))
+        LocalEmulatorProperties(
+          buildBase(),
+          checkNotNull(avdName),
+          checkNotNull(displayName),
+          avdInfo.properties
+        )
       }
 
     fun buildPartial(avdInfo: AvdInfo) =
