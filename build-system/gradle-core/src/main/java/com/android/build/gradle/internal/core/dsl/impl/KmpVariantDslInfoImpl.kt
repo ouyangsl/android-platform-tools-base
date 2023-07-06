@@ -18,6 +18,7 @@ package com.android.build.gradle.internal.core.dsl.impl
 
 import com.android.build.api.component.impl.ComponentIdentityImpl
 import com.android.build.api.dsl.AarMetadata
+import com.android.build.api.dsl.KotlinMultiplatformAndroidExtension
 import com.android.build.api.dsl.Lint
 import com.android.build.api.dsl.Packaging
 import com.android.build.api.dsl.TestFixtures
@@ -34,9 +35,7 @@ import com.android.build.gradle.internal.core.dsl.features.NativeBuildDslInfo
 import com.android.build.gradle.internal.core.dsl.features.OptimizationDslInfo
 import com.android.build.gradle.internal.core.dsl.features.RenderscriptDslInfo
 import com.android.build.gradle.internal.core.dsl.features.ShadersDslInfo
-import com.android.build.gradle.internal.dsl.BaselineProfileImpl
-import com.android.build.gradle.internal.dsl.KeepRulesImpl
-import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidExtension
+import com.android.build.gradle.internal.dsl.LibraryKeepRulesImpl
 import com.android.build.gradle.internal.dsl.KmpOptimizationImpl
 import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidExtensionImpl
 import com.android.build.gradle.internal.plugins.KotlinMultiplatformAndroidPlugin.Companion.getNamePrefixedWithTarget
@@ -77,13 +76,14 @@ class KmpVariantDslInfoImpl(
     }
 
     override val maxSdkVersion: Int?
-        get() = extension.maxSdkVersion
+        get() = extension.maxSdk
 
     override val packaging: Packaging
-        get() = extension.packagingOptions
+        get() = extension.packaging
 
     override val testInstrumentationRunnerArguments: Map<String, String>
-        get() = extension.testInstrumentationRunnerArguments
+        get() = (extension as KotlinMultiplatformAndroidExtensionImpl).androidTestOnDeviceConfiguration
+            ?.instrumentationRunnerArguments ?: emptyMap()
 
     override val experimentalProperties: Map<String, Any>
         get() = extension.experimentalProperties
@@ -123,18 +123,16 @@ class KmpVariantDslInfoImpl(
     ): OptimizationDslInfo {
 
         private val keepRules =
-            (extension.optimization as KmpOptimizationImpl).keepRules as KeepRulesImpl
-        private val baselineProfile =
-            (extension.optimization as KmpOptimizationImpl).baselineProfile as BaselineProfileImpl
+            (extension.optimization as KmpOptimizationImpl).keepRules as LibraryKeepRulesImpl
 
         override val ignoredLibraryKeepRules: Set<String>
-            get() = keepRules.dependencies
+            get() = keepRules.ignoreFrom
         override val ignoreAllLibraryKeepRules: Boolean
-            get() = keepRules.ignoreAllDependencies
+            get() = keepRules.ignoreFromAllExternalDependencies
         override val ignoreFromInBaselineProfile: Set<String>
-            get() = baselineProfile.ignoreFrom
+            get() = emptySet()
         override val ignoreFromAllExternalDependenciesInBaselineProfile: Boolean
-            get() = baselineProfile.ignoreFromAllExternalDependencies
+            get() = false
 
         override fun getProguardFiles(into: ListProperty<RegularFile>) {
             val result: MutableList<File> = ArrayList(gatherProguardFiles(ProguardFileType.EXPLICIT))
@@ -160,7 +158,7 @@ class KmpVariantDslInfoImpl(
 
                 override fun getPostprocessingFeatures(): PostprocessingFeatures? = null
 
-                override fun codeShrinkerEnabled(): Boolean = extension.optimization.isMinifyEnabled
+                override fun codeShrinkerEnabled(): Boolean = extension.optimization.minify
 
                 // No android resources
                 override fun resourcesShrinkingEnabled(): Boolean = false
@@ -168,9 +166,9 @@ class KmpVariantDslInfoImpl(
 
                 override fun getProguardFiles(type: ProguardFileType): Collection<File> {
                     return when (type) {
-                        ProguardFileType.EXPLICIT -> extension.optimization.proguard.files
-                        ProguardFileType.TEST -> extension.optimization.testProguard.files
-                        ProguardFileType.CONSUMER -> extension.optimization.consumerProguard.files
+                        ProguardFileType.EXPLICIT -> extension.optimization.keepRules.files
+                        ProguardFileType.TEST -> extension.optimization.testKeepRules.files
+                        ProguardFileType.CONSUMER -> extension.optimization.consumerKeepRules.files
                     }
                 }
 

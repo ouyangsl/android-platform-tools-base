@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.internal.dsl
 
+import com.android.build.api.dsl.ConfigurableFiles
 import com.android.build.gradle.internal.services.DslServices
 import javax.inject.Inject
 
@@ -23,8 +24,8 @@ abstract class ConfigurableFilesImpl@Inject constructor(
     val dslServices: DslServices
 ): ConfigurableFiles {
 
-    override fun file(proguardFile: Any) {
-       files.add(dslServices.file(proguardFile))
+    override fun file(file: Any) {
+       files.add(dslServices.file(file))
     }
 
     override fun files(vararg files: Any) {

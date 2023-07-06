@@ -1,5 +1,6 @@
 ARTIFACTS = [
     "androidx.annotation:annotation:1.1.0",
+    "androidx.test.services:test-services:1.4.2",
     "com.android.tools.build:aapt2-proto:7.3.0-alpha07-8248216",
     "com.android.tools.build:bundletool:1.15.1",
     "com.android.tools.build.jetifier:jetifier-core:1.0.0-beta10",
@@ -427,6 +428,7 @@ DATA = [
     "com.android.tools.lint:lint-gradle:30.2.0",
     "com.android.tools.lint:lint-gradle:30.3.0",
     "com.android.tools.lint:lint-gradle:30.4.0-alpha09",
+    "com.android.tools.lint:lint-gradle:30.4.1",
     "com.android.tools.lint:lint-gradle:31.0.0-beta04",
     "com.android.tools.metalava:metalava:1.0.0-alpha06",
     "com.android.tools.utp:android-test-plugin-host-additional-test-output:30.2.0",

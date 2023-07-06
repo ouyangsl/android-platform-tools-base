@@ -16,7 +16,6 @@
 
 package com.android.build.gradle.integration.multiplatform.v2
 
-import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.DESUGAR_DEPENDENCY_VERSION
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder
 import com.android.build.gradle.integration.common.utils.TestFileUtils
@@ -30,15 +29,28 @@ import org.junit.Rule
 import org.junit.Test
 
 class KotlinMultiplatformAndroidDexingTest {
-    @Suppress("DEPRECATION") // kmp doesn't support configuration caching for now (b/276472789)
     @get:Rule
     val project = GradleTestProjectBuilder()
         .fromTestProject("kotlinMultiplatform")
-        .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF)
         .create()
 
     @Before
     fun setUp() {
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("kmpFirstLib").ktsBuildFile,
+            """
+                withAndroidTestOnDevice(compilationName = "instrumentedTest")
+            """.trimIndent(),
+            """
+                withAndroidTestOnDevice(compilationName = "instrumentedTest") {
+                    multidex.enable = true
+                    multidex.mainDexKeepRules.files.add (
+                        File(project.projectDir, "dex-rules.pro")
+                    )
+                }
+            """.trimIndent()
+        )
+
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
@@ -50,7 +62,6 @@ class KotlinMultiplatformAndroidDexingTest {
                             }
                         }
 
-                        isTestMultiDexEnabled = true
                         isCoreLibraryDesugaringEnabled = true
                     }
                 }
@@ -107,7 +118,6 @@ class KotlinMultiplatformAndroidDexingTest {
             "minSdk = 22",
             """
                 minSdk = 20
-                testMultiDexKeepProguard = File(project.projectDir, "dex-rules.pro")
             """.trimIndent()
         )
 

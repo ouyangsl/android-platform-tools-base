@@ -16,14 +16,17 @@
 
 package com.android.build.gradle.internal.dsl
 
-import com.android.build.api.dsl.ApkSigningConfig
+import com.android.build.api.dsl.KotlinMultiplatformAndroidExtension
+import com.android.build.api.dsl.KotlinMultiplatformAndroidTestConfiguration
+import com.android.build.api.dsl.KotlinMultiplatformAndroidTestOnDeviceConfiguration
+import com.android.build.api.dsl.KotlinMultiplatformAndroidTestOnJvmConfiguration
+import com.android.build.api.dsl.Lint
 import com.android.build.api.variant.AndroidVersion
-import com.android.build.api.variant.impl.KotlinMultiplatformAndroidVariant
+import com.android.build.api.variant.KotlinMultiplatformAndroidVariant
 import com.android.build.api.variant.impl.MutableAndroidVersion
 import com.android.build.gradle.internal.coverage.JacocoOptions
 import com.android.build.gradle.internal.dsl.decorator.annotation.WithLazyInitialization
 import com.android.build.gradle.internal.packaging.getDefaultDebugKeystoreLocation
-import com.android.build.gradle.internal.plugins.KotlinMultiplatformAndroidPlugin.Companion.getNamePrefixedWithTarget
 import com.android.build.gradle.internal.services.AndroidLocationsBuildService
 import com.android.build.gradle.internal.services.DslServices
 import com.android.build.gradle.internal.services.getBuildService
@@ -50,9 +53,6 @@ internal abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLaz
         ).copyToSigningConfig(signingConfig)
     }
 
-    override val testOptions: TestOptions =
-        dslServices.newInstance(TestOptions::class.java, dslServices)
-
     abstract val libraryRequests: MutableList<LibraryRequest>
 
     override fun useLibrary(name: String) {
@@ -63,18 +63,9 @@ internal abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLaz
         libraryRequests.add(LibraryRequest(name, required))
     }
 
-    override val installation = dslServices.newDecoratedInstance(
-        AdbOptions::class.java,
-        dslServices
-    )
-
     var signingConfig = dslServices.newDecoratedInstance(
         SigningConfig::class.java, BuilderConstants.DEBUG, dslServices
     )
-
-    override fun testSigningConfig(action: ApkSigningConfig.() -> Unit) {
-        action.invoke(signingConfig)
-    }
 
     internal val minSdkVersion: MutableAndroidVersion
         get() = mutableMinSdk?.sanitize()?.let { MutableAndroidVersion(it.apiLevel, it.codename) }
@@ -158,14 +149,14 @@ internal abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLaz
         }
     }
 
-    internal var androidTestOnJvmConfiguration: KotlinMultiplatformAndroidTestConfigurationImpl? = null
-    internal var androidTestOnDeviceConfiguration: KotlinMultiplatformAndroidTestConfigurationImpl? = null
+    internal var androidTestOnJvmConfiguration: KotlinMultiplatformAndroidTestOnJvmConfigurationImpl? = null
+    internal var androidTestOnDeviceConfiguration: KotlinMultiplatformAndroidTestOnDeviceConfigurationImpl? = null
 
     private fun withAndroidTest(
         compilationName: String,
         previousConfiguration: KotlinMultiplatformAndroidTestConfigurationImpl?,
         type: String
-    ): KotlinMultiplatformAndroidTestConfigurationImpl {
+    ): KotlinMultiplatformAndroidTestConfiguration {
         previousConfiguration?.let {
             throw IllegalAccessException(
                 "Android tests on $type has already been enabled, and a corresponding compilation " +
@@ -177,7 +168,18 @@ internal abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLaz
             )
         }
 
-        return KotlinMultiplatformAndroidTestConfigurationImpl(compilationName)
+        return when(type) {
+            "jvm" -> dslServices.newDecoratedInstance(
+                KotlinMultiplatformAndroidTestOnJvmConfigurationImpl::class.java, compilationName, dslServices
+            )
+            "device" -> dslServices.newDecoratedInstance(
+                KotlinMultiplatformAndroidTestOnDeviceConfigurationImpl::class.java, compilationName, dslServices
+            )
+            else -> throw IllegalArgumentException(
+                "Invalid test compilation type. Supported types are: jvm and device"
+            )
+        }
+
     }
 
     override fun withAndroidTestOnJvm(
@@ -188,7 +190,39 @@ internal abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLaz
             compilationName,
             androidTestOnJvmConfiguration,
             "jvm"
-        )
+        ) as KotlinMultiplatformAndroidTestOnJvmConfigurationImpl
+
+        action(androidTestOnJvmConfiguration!!)
+
+        enablingTestOnJvmCallBack(androidTestOnJvmConfiguration!!)
+    }
+
+    override fun withAndroidTestOnJvm() {
+        androidTestOnJvmConfiguration = withAndroidTest(
+            TEST_ON_JVM_DEFAULT_COMPILATION_NAME,
+            androidTestOnJvmConfiguration,
+            "jvm"
+        ) as KotlinMultiplatformAndroidTestOnJvmConfigurationImpl
+
+        enablingTestOnJvmCallBack(androidTestOnJvmConfiguration!!)
+    }
+
+    override fun withAndroidTestOnJvm(compilationName: String) {
+        androidTestOnJvmConfiguration = withAndroidTest(
+            compilationName,
+            androidTestOnJvmConfiguration,
+            "jvm"
+        ) as KotlinMultiplatformAndroidTestOnJvmConfigurationImpl
+
+        enablingTestOnJvmCallBack(androidTestOnJvmConfiguration!!)
+    }
+
+    override fun withAndroidTestOnJvm(action: KotlinMultiplatformAndroidTestOnJvmConfiguration.() -> Unit) {
+        androidTestOnJvmConfiguration = withAndroidTest(
+            TEST_ON_JVM_DEFAULT_COMPILATION_NAME,
+            androidTestOnJvmConfiguration,
+            "jvm"
+        ) as KotlinMultiplatformAndroidTestOnJvmConfigurationImpl
 
         action(androidTestOnJvmConfiguration!!)
 
@@ -203,18 +237,47 @@ internal abstract class KotlinMultiplatformAndroidExtensionImpl @Inject @WithLaz
             compilationName,
             androidTestOnDeviceConfiguration,
             "device"
-        )
+        ) as KotlinMultiplatformAndroidTestOnDeviceConfigurationImpl
 
         action(androidTestOnDeviceConfiguration!!)
 
         enablingTestOnDeviceCallBack(androidTestOnDeviceConfiguration!!)
     }
 
-    internal class KotlinMultiplatformAndroidTestConfigurationImpl(
-        val compilationName: String
-    ): KotlinMultiplatformAndroidTestOnJvmConfiguration, KotlinMultiplatformAndroidTestOnDeviceConfiguration {
+    override fun withAndroidTestOnDevice() {
+        androidTestOnDeviceConfiguration = withAndroidTest(
+            TEST_ON_DEVICE_DEFAULT_COMPILATION_NAME,
+            androidTestOnDeviceConfiguration,
+            "device"
+        ) as KotlinMultiplatformAndroidTestOnDeviceConfigurationImpl
 
-        override var defaultSourceSetName: String = compilationName.getNamePrefixedWithTarget()
-        override var sourceSetTree: String? = null
+        enablingTestOnDeviceCallBack(androidTestOnDeviceConfiguration!!)
+    }
+
+    override fun withAndroidTestOnDevice(compilationName: String) {
+        androidTestOnDeviceConfiguration = withAndroidTest(
+            compilationName,
+            androidTestOnDeviceConfiguration,
+            "device"
+        ) as KotlinMultiplatformAndroidTestOnDeviceConfigurationImpl
+
+        enablingTestOnDeviceCallBack(androidTestOnDeviceConfiguration!!)
+    }
+
+    override fun withAndroidTestOnDevice(action: KotlinMultiplatformAndroidTestOnDeviceConfiguration.() -> Unit) {
+        androidTestOnDeviceConfiguration = withAndroidTest(
+            TEST_ON_DEVICE_DEFAULT_COMPILATION_NAME,
+            androidTestOnDeviceConfiguration,
+            "device"
+        ) as KotlinMultiplatformAndroidTestOnDeviceConfigurationImpl
+
+        action(androidTestOnDeviceConfiguration!!)
+
+        enablingTestOnDeviceCallBack(androidTestOnDeviceConfiguration!!)
+    }
+
+    companion object {
+        const val TEST_ON_JVM_DEFAULT_COMPILATION_NAME = "testOnJvm"
+        const val TEST_ON_DEVICE_DEFAULT_COMPILATION_NAME = "testOnDevice"
     }
 }

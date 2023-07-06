@@ -45,11 +45,9 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
         fun getOptions() = listOf(false, true)
     }
 
-    @Suppress("DEPRECATION") // kmp doesn't support configuration caching for now (b/276472789)
     @get:Rule
     val project = GradleTestProjectBuilder()
         .fromTestProject("kotlinMultiplatform")
-        .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF)
         .create()
 
     @Before
@@ -69,6 +67,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
             """
                 withAndroidTestOnJvm(compilationName = "unitTest") {
                     sourceSetTree = "unitTest"
+                    enableCoverage = true
                 }
             """.trimIndent()
         )
@@ -76,10 +75,6 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
-                kotlin.androidLibrary {
-                    enableUnitTestCoverage = true
-                }
-
                 kotlin.sourceSets.getByName("androidUnitTest") {
                     dependencies {
                         implementation("junit:junit:4.13.2")
@@ -108,11 +103,14 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
 
     @Test
     fun testRunningUnitTests() {
-        TestFileUtils.appendToFile(
+        TestFileUtils.searchAndReplace(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
-                kotlin.androidLibrary {
-                    enableUnitTestCoverage = true
+                withAndroidTestOnJvm(compilationName = "unitTest")
+            """.trimIndent(),
+            """
+                withAndroidTestOnJvm(compilationName = "unitTest") {
+                    enableCoverage = true
                 }
             """.trimIndent()
         )
@@ -188,6 +186,13 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
 
             // transitive deps are packaged
             assertThatApk(apk).hasClass("Lcom/example/androidlib/AndroidLib;")
+
+            assertThatApk(apk).hasClass("Lcom/example/kmpjvmonly/KmpJvmOnlyLibClass;")
+            assertThatApk(apk).hasClass("Lcom/example/kmpjvmonly/KmpCommonJvmOnlyLibClass;")
+
+            assertThatApk(apk).hasClass("Lcom/example/kmplibraryplugin/KmpLibraryPluginAndroidClass;")
+            assertThatApk(apk).hasClass("Lcom/example/kmplibraryplugin/KmpLibraryPluginCommonClass;")
+
             assertThatApk(apk).hasClass("Lcom/example/app/AndroidApp;")
 
             val manifestContents = ApkSubject.getManifestContent(apk.file).joinToString("\n")
@@ -248,7 +253,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
                 kotlin.androidLibrary {
-                    packagingOptions.resources.excludes.addAll(listOf(
+                    packaging.resources.excludes.addAll(listOf(
                         "**/*.java",
                         "junit/**",
                         "LICENSE-junit.txt"
@@ -289,6 +294,14 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
             // classes from library dependencies are packaged
             assertThatApk(apk).hasClass("Lcom/example/androidlib/AndroidLib;")
             assertThatApk(apk).hasClass("Landroidx/test/core/app/ActivityScenario;")
+
+            // classes from jvm only project are packaged
+            assertThatApk(apk).hasClass("Lcom/example/kmpjvmonly/KmpJvmOnlyLibClass;")
+            assertThatApk(apk).hasClass("Lcom/example/kmpjvmonly/KmpCommonJvmOnlyLibClass;")
+
+            // classes from kmp + library plugin are packaged
+            assertThatApk(apk).hasClass("Lcom/example/kmplibraryplugin/KmpLibraryPluginAndroidClass;")
+            assertThatApk(apk).hasClass("Lcom/example/kmplibraryplugin/KmpLibraryPluginCommonClass;")
 
             // resources from dependencies are packaged
             assertThatApk(apk).contains("resources.arsc")

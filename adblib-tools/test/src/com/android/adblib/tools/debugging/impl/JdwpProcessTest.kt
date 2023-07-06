@@ -23,8 +23,8 @@ import com.android.adblib.testingutils.CoroutineTestUtils.yieldUntil
 import com.android.adblib.testingutils.FakeAdbServerProvider
 import com.android.adblib.tools.AdbLibToolsProperties
 import com.android.adblib.tools.debugging.JdwpProcessProperties
-import com.android.adblib.tools.debugging.packets.JdwpCommands
-import com.android.adblib.tools.debugging.packets.MutableJdwpPacket
+import com.android.adblib.tools.debugging.packets.impl.JdwpCommands
+import com.android.adblib.tools.debugging.packets.impl.MutableJdwpPacket
 import com.android.adblib.tools.debugging.packets.payloadLength
 import com.android.adblib.tools.debugging.packets.withPayload
 import com.android.adblib.tools.debugging.properties
@@ -34,7 +34,6 @@ import com.android.adblib.tools.testutils.waitForOnlineConnectedDevice
 import com.android.fakeadbserver.AppStage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.junit.Assert.assertEquals
@@ -558,8 +557,8 @@ class JdwpProcessTest : AdbLibToolsTestBase() {
             assertFalse(process.properties.isWaitingForDebugger)
             assertFalse(process.properties.completed)
 
-            // Act: Wait until the WAIT command is received
-            yieldUntil { process.properties.waitCommandReceived }
+            // Act: Wait until properties completed
+            yieldUntil { process.properties.completed }
 
             // Assert
             assertTrue(process.properties.isWaitingForDebugger)
@@ -598,8 +597,8 @@ class JdwpProcessTest : AdbLibToolsTestBase() {
             // Prepare
             clientState.setStage(AppStage.A_GO)
 
-            // Act: Wait until the WAIT command is received
-            yieldUntil { process.properties.waitCommandReceived }
+            // Act: Wait until properties completed
+            yieldUntil { process.properties.completed }
 
             // Assert: A_GO was ignored and WAIT was interpreted correctly
             assertTrue(process.properties.isWaitingForDebugger)

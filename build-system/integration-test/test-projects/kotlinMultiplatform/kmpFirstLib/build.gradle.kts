@@ -39,8 +39,6 @@ kotlin {
       productFlavors.put("mode", mutableListOf("modetwo"))
     }
 
-    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     aarMetadata.minAgpVersion = "7.2.0"
   }
 

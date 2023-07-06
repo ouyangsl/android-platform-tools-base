@@ -23,6 +23,7 @@ import com.android.build.api.attributes.ProductFlavorAttr
 import com.android.build.api.component.analytics.AnalyticsEnabledKotlinMultiplatformAndroidVariant
 import com.android.build.api.component.impl.KmpAndroidTestImpl
 import com.android.build.api.component.impl.KmpUnitTestImpl
+import com.android.build.api.dsl.KotlinMultiplatformAndroidExtension
 import com.android.build.api.dsl.SettingsExtension
 import com.android.build.api.variant.impl.KmpPredefinedAndroidCompilation
 import com.android.build.api.variant.impl.KmpVariantImpl
@@ -46,8 +47,8 @@ import com.android.build.gradle.internal.dependency.ModelArtifactCompatibilityRu
 import com.android.build.gradle.internal.dependency.SingleVariantBuildTypeRule
 import com.android.build.gradle.internal.dependency.SingleVariantProductFlavorRule
 import com.android.build.gradle.internal.dependency.VariantDependencies
-import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidExtension
 import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidExtensionImpl
+import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidTestConfigurationImpl
 import com.android.build.gradle.internal.dsl.decorator.androidPluginDslDecorator
 import com.android.build.gradle.internal.ide.dependencies.LibraryDependencyCacheBuildService
 import com.android.build.gradle.internal.ide.dependencies.MavenCoordinatesCacheBuildService
@@ -83,6 +84,7 @@ import com.android.build.gradle.internal.utils.validatePreviewTargetValue
 import com.android.build.gradle.internal.variant.VariantPathHelper
 import com.android.build.gradle.options.BooleanOption
 import com.android.builder.core.ComponentTypeImpl
+import com.android.builder.model.v2.ide.ProjectType
 import com.android.repository.Revision
 import com.android.utils.FileUtils
 import com.android.utils.appendCapitalized
@@ -97,8 +99,6 @@ import org.jetbrains.kotlin.gradle.ExternalKotlinTargetApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet.Companion.COMMON_MAIN_SOURCE_SET_NAME
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet.Companion.COMMON_TEST_SOURCE_SET_NAME
 import org.jetbrains.kotlin.gradle.plugin.mpp.external.ExternalKotlinTargetDescriptor
 import org.jetbrains.kotlin.gradle.plugin.mpp.external.createExternalKotlinTarget
 import javax.inject.Inject
@@ -129,7 +129,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
 
             DslServicesImpl(
                 projectServices,
-                sdkComponentsBuildService
+                sdkComponentsBuildService,
+                ProjectType.LIBRARY
             )
         }
     }
@@ -137,13 +138,11 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
     override fun getAnalyticsPluginType(): GradleBuildProject.PluginType? =
         GradleBuildProject.PluginType.KOTLIN_MULTIPLATFORM_ANDROID_LIBRARY
 
-    override fun configureProject(project: Project) { }
-
-    override fun createTasks(project: Project) { }
-
     override fun apply(project: Project) {
         super.basePluginApply(project)
+    }
 
+    override fun configureProject(project: Project) {
         FakeDependencyJarBuildService.RegistrationAction(project).execute()
         Aapt2ThreadPoolBuildService.RegistrationAction(project, projectServices.projectOptions).execute()
         Aapt2DaemonBuildService.RegistrationAction(project, projectServices.projectOptions).execute()
@@ -164,58 +163,10 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
         LintClassLoaderBuildService.RegistrationAction(project).execute()
         LintFixBuildService.RegistrationAction(project).execute()
 
-        val versionedSdkLoaderService: VersionedSdkLoaderService by lazy {
-            withProject("versionedSdkLoaderService") { project ->
-                VersionedSdkLoaderService(
-                    dslServices,
-                    project,
-                    ::getCompileSdkVersion,
-                    ::getBuildToolsVersion
-                )
-            }
-        }
-
-        val bootClasspathConfig = BootClasspathConfigImpl(
-            project,
-            projectServices,
-            versionedSdkLoaderService,
-            libraryRequests = emptyList(),
-            isJava8Compatible = { true },
-            returnDefaultValuesForMockableJar = { false },
-            forUnitTest = false
-        )
-
-        global = KmpGlobalTaskCreationConfigImpl(
-            project,
-            androidExtension,
-            versionedSdkLoaderService,
-            bootClasspathConfig,
-            ::getCompileSdkVersion,
-            ::getBuildToolsVersion,
-            BasePlugin.createAndroidJarConfig(project),
-            dslServices,
-            createSettingsOptions(dslServices)
-        )
-
-        TaskManager.createTasksBeforeEvaluate(
-            project,
-            ComponentTypeImpl.KMP_ANDROID,
-            emptySet(),
-            global
-        )
-
         // enable the gradle property that enables the kgp IDE import APIs that we rely on.
         project.extensions.extraProperties.set(
             "kotlin.mpp.import.enableKgpDependencyResolution", "true"
         )
-
-        project.afterEvaluate {
-            if (!project.plugins.hasPlugin(KOTLIN_MPP_PLUGIN_ID)) {
-                throw RuntimeException("Kotlin multiplatform plugin was not found. This plugin needs" +
-                        " to be applied as part of the kotlin multiplatform plugin.")
-            }
-            afterEvaluate(it)
-        }
     }
 
     override fun configureExtension(project: Project) {
@@ -224,7 +175,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
         androidExtension = dslServices.newInstance(
             extensionImplClass,
             dslServices,
-            { jvmConfiguration: KotlinMultiplatformAndroidExtensionImpl.KotlinMultiplatformAndroidTestConfigurationImpl ->
+            { jvmConfiguration: KotlinMultiplatformAndroidTestConfigurationImpl ->
                 if (project.pluginManager.hasPlugin(KOTLIN_MPP_PLUGIN_ID)) {
                     createCompilation(
                         compilationName = jvmConfiguration.compilationName,
@@ -235,7 +186,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                     )
                 }
             },
-            { deviceConfiguration: KotlinMultiplatformAndroidExtensionImpl.KotlinMultiplatformAndroidTestConfigurationImpl ->
+            { deviceConfiguration: KotlinMultiplatformAndroidTestConfigurationImpl ->
                 if (project.pluginManager.hasPlugin(KOTLIN_MPP_PLUGIN_ID)) {
                     createCompilation(
                         compilationName = deviceConfiguration.compilationName,
@@ -308,6 +259,54 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                     compilationToAssociateWith = listOf(mainCompilation)
                 )
             }
+        }
+
+        val versionedSdkLoaderService = withProject("versionedSdkLoaderService") {
+            VersionedSdkLoaderService(
+                dslServices,
+                project,
+                ::getCompileSdkVersion,
+                ::getBuildToolsVersion
+            )
+        }
+
+        val bootClasspathConfig = BootClasspathConfigImpl(
+            project,
+            projectServices,
+            versionedSdkLoaderService,
+            libraryRequests = emptyList(),
+            isJava8Compatible = { true },
+            returnDefaultValuesForMockableJar = { false },
+            forUnitTest = false
+        )
+
+        global = KmpGlobalTaskCreationConfigImpl(
+            project,
+            androidExtension,
+            versionedSdkLoaderService,
+            bootClasspathConfig,
+            ::getCompileSdkVersion,
+            ::getBuildToolsVersion,
+            BasePlugin.createAndroidJarConfig(project),
+            dslServices,
+            createSettingsOptions(dslServices)
+        )
+    }
+
+    override fun createTasks(project: Project) {
+        TaskManager.createTasksBeforeEvaluate(
+            project,
+            ComponentTypeImpl.KMP_ANDROID,
+            emptySet(),
+            global
+        )
+
+        project.afterEvaluate {
+            if (!project.plugins.hasPlugin(KOTLIN_MPP_PLUGIN_ID)) {
+                throw RuntimeException("Kotlin multiplatform plugin was not found. This plugin needs" +
+                        " to be applied as part of the kotlin multiplatform plugin.")
+            }
+            afterEvaluate(it)
         }
     }
 
@@ -472,8 +471,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
 
         KotlinModelBuildingConfigurator.setupAndroidCompilations(
             listOfNotNull(mainVariant, unitTest, androidTest),
-            androidExtension.testInstrumentationRunner,
-            androidExtension.testInstrumentationRunnerArguments
+            androidExtension.androidTestOnDeviceConfiguration?.instrumentationRunner,
+            androidExtension.androidTestOnDeviceConfiguration?.instrumentationRunnerArguments ?: emptyMap(),
         )
     }
 

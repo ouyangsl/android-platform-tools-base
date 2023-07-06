@@ -35,17 +35,23 @@ import com.android.build.api.dsl.BundleStoreArchive
 import com.android.build.api.dsl.BundleTexture
 import com.android.build.api.dsl.Cmake
 import com.android.build.api.dsl.CompileOptions
+import com.android.build.api.dsl.ConfigurableFiles
 import com.android.build.api.dsl.DataBinding
 import com.android.build.api.dsl.DensitySplit
 import com.android.build.api.dsl.DependenciesInfo
+import com.android.build.api.dsl.DependencyVariantSelection
 import com.android.build.api.dsl.DexPackaging
 import com.android.build.api.dsl.ExternalNativeBuild
 import com.android.build.api.dsl.FusedLibraryExtension
 import com.android.build.api.dsl.JavaCompileOptions
 import com.android.build.api.dsl.JniLibsPackaging
 import com.android.build.api.dsl.KeepRules
+import com.android.build.api.dsl.ConsumerKeepRules
+import com.android.build.api.dsl.LibraryKeepRules
+import com.android.build.api.dsl.KmpOptimization
 import com.android.build.api.dsl.LibraryPublishing
 import com.android.build.api.dsl.Lint
+import com.android.build.api.dsl.MultiDexConfig
 import com.android.build.api.dsl.NdkBuild
 import com.android.build.api.dsl.Optimization
 import com.android.build.api.dsl.Packaging
@@ -72,20 +78,20 @@ import com.android.build.gradle.internal.dsl.BundleOptionsLanguage
 import com.android.build.gradle.internal.dsl.BundleOptionsStoreArchive
 import com.android.build.gradle.internal.dsl.BundleOptionsTexture
 import com.android.build.gradle.internal.dsl.CmakeOptions
-import com.android.build.gradle.internal.dsl.ConfigurableFiles
 import com.android.build.gradle.internal.dsl.ConfigurableFilesImpl
 import com.android.build.gradle.internal.dsl.DataBindingOptions
 import com.android.build.gradle.internal.dsl.DensitySplitOptions
 import com.android.build.gradle.internal.dsl.DependenciesInfoImpl
-import com.android.build.gradle.internal.dsl.DependencyVariantSelection
 import com.android.build.gradle.internal.dsl.DependencyVariantSelectionImpl
 import com.android.build.gradle.internal.dsl.DexPackagingImpl
 import com.android.build.gradle.internal.dsl.FusedLibraryExtensionImpl
 import com.android.build.gradle.internal.dsl.JniLibsPackagingImpl
-import com.android.build.gradle.internal.dsl.KmpOptimization
+import com.android.build.gradle.internal.dsl.ConsumerKeepRulesImpl
+import com.android.build.gradle.internal.dsl.LibraryKeepRulesImpl
 import com.android.build.gradle.internal.dsl.KmpOptimizationImpl
 import com.android.build.gradle.internal.dsl.LibraryPublishingImpl
 import com.android.build.gradle.internal.dsl.LintImpl
+import com.android.build.gradle.internal.dsl.MultiDexConfigImpl
 import com.android.build.gradle.internal.dsl.NdkBuildOptions
 import com.android.build.gradle.internal.dsl.PrivacySandboxSdkBundleImpl
 import com.android.build.gradle.internal.dsl.PrivacySandboxSdkExtensionImpl
@@ -129,6 +135,7 @@ val AGP_SUPPORTED_PROPERTY_TYPES: List<SupportedPropertyType> = listOf(
     SupportedPropertyType.Block(BundleStoreArchive::class.java, BundleOptionsStoreArchive::class.java),
     SupportedPropertyType.Block(Cmake::class.java, CmakeOptions::class.java),
     SupportedPropertyType.Block(CompileOptions::class.java, com.android.build.gradle.internal.CompileOptions::class.java),
+    SupportedPropertyType.Block(Lint::class.java, LintImpl::class.java),
     SupportedPropertyType.Block(DataBinding::class.java, DataBindingOptions::class.java),
     SupportedPropertyType.Block(DensitySplit::class.java, DensitySplitOptions::class.java),
     SupportedPropertyType.Block(DexPackaging::class.java, DexPackagingImpl::class.java),
@@ -139,7 +146,6 @@ val AGP_SUPPORTED_PROPERTY_TYPES: List<SupportedPropertyType> = listOf(
     SupportedPropertyType.Block(KeepRules::class.java, com.android.build.gradle.internal.dsl.KeepRulesImpl::class.java),
     SupportedPropertyType.Block(BaselineProfile::class.java, com.android.build.gradle.internal.dsl.BaselineProfileImpl::class.java),
     SupportedPropertyType.Block(LibraryPublishing::class.java, LibraryPublishingImpl::class.java),
-    SupportedPropertyType.Block(Lint::class.java, LintImpl::class.java),
     SupportedPropertyType.Block(NdkBuild::class.java, NdkBuildOptions::class.java),
     SupportedPropertyType.Block(Packaging::class.java, com.android.build.gradle.internal.dsl.PackagingOptions::class.java),
     SupportedPropertyType.Block(Optimization::class.java, com.android.build.gradle.internal.dsl.OptimizationImpl::class.java),
@@ -150,7 +156,10 @@ val AGP_SUPPORTED_PROPERTY_TYPES: List<SupportedPropertyType> = listOf(
     SupportedPropertyType.Block(ViewBinding::class.java, ViewBindingOptionsImpl::class.java),
     SupportedPropertyType.Block(ConfigurableFiles::class.java, ConfigurableFilesImpl::class.java),
     SupportedPropertyType.Block(KmpOptimization::class.java, KmpOptimizationImpl::class.java),
+    SupportedPropertyType.Block(ConsumerKeepRules::class.java, ConsumerKeepRulesImpl::class.java),
+    SupportedPropertyType.Block(LibraryKeepRules::class.java, LibraryKeepRulesImpl::class.java),
     SupportedPropertyType.Block(DependencyVariantSelection::class.java, DependencyVariantSelectionImpl::class.java),
+    SupportedPropertyType.Block(MultiDexConfig::class.java, MultiDexConfigImpl::class.java),
 
     // FusedLibrary Extensions.
     SupportedPropertyType.Block(FusedLibraryExtension::class.java, FusedLibraryExtensionImpl::class.java),

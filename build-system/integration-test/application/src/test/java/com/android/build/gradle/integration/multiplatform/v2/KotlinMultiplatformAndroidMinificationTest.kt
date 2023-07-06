@@ -16,7 +16,6 @@
 
 package com.android.build.gradle.integration.multiplatform.v2
 
-import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder
 import com.android.build.gradle.integration.common.utils.TestFileUtils
@@ -30,11 +29,9 @@ import kotlin.io.path.pathString
 
 class KotlinMultiplatformAndroidMinificationTest {
 
-    @Suppress("DEPRECATION") // kmp doesn't support configuration caching for now (b/276472789)
     @get:Rule
     val project = GradleTestProjectBuilder()
         .fromTestProject("kotlinMultiplatform")
-        .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF)
         .create()
 
     @Before
@@ -44,12 +41,12 @@ class KotlinMultiplatformAndroidMinificationTest {
             """
                 kotlin.androidLibrary {
                     optimization {
-                        isMinifyEnabled = true
-                        consumerProguard.files.add(
+                        minify = true
+                        consumerKeepRules.files.add(
                             File(project.projectDir, "consumer-proguard-rules.pro")
                         )
-                        proguard.file("proguard-rules.pro")
-                        enableConsumerProguardRulePublishing = true
+                        keepRules.file("proguard-rules.pro")
+                        consumerKeepRules.publish = true
                     }
                 }
             """.trimIndent()
@@ -158,7 +155,8 @@ class KotlinMultiplatformAndroidMinificationTest {
                 "Lcom/example/kmpfirstlib/KmpAndroidFirstLibClass;",
                 "Lcom/example/kmpfirstlib/KmpCommonFirstLibClass;",
                 "Lcom/example/kmpsecondlib/KmpAndroidSecondLibClass;",
-                "Lcom/example/kmpsecondlib/KmpCommonSecondLibClass;",
+                "Lcom/example/kmplibraryplugin/KmpLibraryPluginAndroidClass;",
+                "Lcom/example/kmplibraryplugin/KmpLibraryPluginCommonClass;",
                 "Lcom/example/kmpjvmonly/KmpCommonJvmOnlyLibClass;",
                 "Lcom/example/kmpjvmonly/KmpJvmOnlyLibClass;",
                 "Lkotlin/jvm/internal/Intrinsics;"
@@ -186,7 +184,8 @@ class KotlinMultiplatformAndroidMinificationTest {
                 "Lcom/example/kmpfirstlib/KmpAndroidFirstLibClass;",
                 "Lcom/example/kmpfirstlib/KmpCommonFirstLibClass;",
                 "Lcom/example/kmpsecondlib/KmpAndroidSecondLibClass;",
-                "Lcom/example/kmpsecondlib/KmpCommonSecondLibClass;"
+                "Lcom/example/kmplibraryplugin/KmpLibraryPluginAndroidClass;",
+                "Lcom/example/kmplibraryplugin/KmpLibraryPluginCommonClass;",
             )
         }
     }
@@ -195,8 +194,8 @@ class KotlinMultiplatformAndroidMinificationTest {
     fun `test disabling consumer proguard rules from kmp lib`() {
         TestFileUtils.searchAndReplace(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
-            "enableConsumerProguardRulePublishing = true",
-            "enableConsumerProguardRulePublishing = false"
+            "consumerKeepRules.publish = true",
+            "consumerKeepRules.publish = false"
         )
         FileUtils.writeToFile(
             project.getSubproject("kmpFirstLib").file("consumer-proguard-rules.pro"),

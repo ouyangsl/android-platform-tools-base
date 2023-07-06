@@ -16,7 +16,6 @@
 
 package com.android.build.gradle.integration.connected.library
 
-import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder
 import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.build.gradle.integration.connected.utils.getEmulator
@@ -35,22 +34,28 @@ class KotlinMultiplatformAndroidConnectedTest {
         val emulator = getEmulator()
     }
 
-    @Suppress("DEPRECATION") // kmp doesn't support configuration caching for now (b/276472789)
     @get:Rule
     val project = GradleTestProjectBuilder()
         .fromTestProject("kotlinMultiplatform")
-        .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF)
         .create()
 
     @Before
     fun setUp() {
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("kmpFirstLib").ktsBuildFile,
+            """
+               withAndroidTestOnDevice(compilationName = "instrumentedTest")
+            """.trimIndent(),
+            """
+                withAndroidTestOnDevice(compilationName = "instrumentedTest") {
+                    instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+                    enableCoverage = true
+                }
+            """.trimIndent()
+        )
         TestFileUtils.appendToFile(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
-                kotlin.androidLibrary {
-                    enableInstrumentedTestCoverage = true
-                }
-
                 kotlin.sourceSets.getByName("androidInstrumentedTest").dependencies {
                     implementation("androidx.core:core-ktx:1.1.0")
                     implementation("androidx.test.espresso:espresso-core:3.2.0")

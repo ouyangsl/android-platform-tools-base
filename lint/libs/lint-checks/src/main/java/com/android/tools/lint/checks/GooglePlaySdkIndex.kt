@@ -35,7 +35,7 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
   companion object {
     const val SDK_INDEX_SNAPSHOT_TEST_BASE_URL_ENV_VAR = "SDK_INDEX_TEST_BASE_URL"
     private const val DEFAULT_SDK_INDEX_SNAPSHOT_BASE_URL = "https://dl.google.com/play-sdk/index/"
-    const val DEFAULT_SHOW_POLICY_ISSUES = false
+    const val DEFAULT_SHOW_POLICY_ISSUES = true
     const val GOOGLE_PLAY_SDK_INDEX_SNAPSHOT_FILE = "snapshot.gz"
     const val GOOGLE_PLAY_SDK_INDEX_SNAPSHOT_RESOURCE = "sdk-index-offline-snapshot.proto.gz"
     val GOOGLE_PLAY_SDK_INDEX_SNAPSHOT_URL =
@@ -44,6 +44,20 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     const val GOOGLE_PLAY_SDK_CACHE_EXPIRY_INTERVAL_DAYS = 7L
     const val GOOGLE_PLAY_SDK_INDEX_URL = "https://play.google.com/sdks"
     const val VIEW_DETAILS_MESSAGE = "View details in Google Play SDK Index"
+    val POLICY_TYPE_TO_TEXT =
+      mapOf(
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_UNKNOWN to "unknown",
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_ADS to "Ads",
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_DEVICE_AND_NETWORK_ABUSE to
+          "Device and Network Abuse",
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_DECEPTIVE_BEHAVIOR to
+          "Deceptive Behavior",
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_USER_DATA to "User Data",
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_PERMISSIONS to "Permissions",
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_MOBILE_UNWANTED_SOFTWARE to
+          "Mobile Unwanted Software",
+        LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_MALWARE to "Malware"
+      )
   }
 
   private lateinit var lastReadResult: ReadDataResult
@@ -153,7 +167,7 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     buildFile: File?
   ): Boolean {
     val isNonCompliant =
-      getLabels(groupId, artifactId, versionString)?.hasNonCompliantIssueInfo() ?: false
+      getLabels(groupId, artifactId, versionString)?.hasPolicyIssuesInfo() ?: false
     if (isNonCompliant) {
       logNonCompliant(groupId, artifactId, versionString, buildFile)
     }
@@ -223,13 +237,7 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
   ): Boolean {
     val labels = getLabels(groupId, artifactId, versionString) ?: return false
     val severity = labels.severity
-    if (severity != null && severity == LibraryVersionLabels.Severity.BLOCKING_SEVERITY) {
-      return true
-    }
-    // Non-compliant issues are always blocking
-    val isLibraryNonCompliant =
-      getLabels(groupId, artifactId, versionString)?.hasNonCompliantIssueInfo() ?: false
-    return showPolicyIssues && isLibraryNonCompliant
+    return severity == LibraryVersionLabels.Severity.BLOCKING_SEVERITY
   }
 
   /**
@@ -348,25 +356,49 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     return if (url != null) LintFix.ShowUrl(VIEW_DETAILS_MESSAGE, null, url) else null
   }
 
+  /** Generate a message for a library that has blocking policy issues */
+  fun generateBlockingPolicyMessage(
+    groupId: String,
+    artifactId: String,
+    versionString: String
+  ): String {
+    val policyTypeLabel = getPolicyLabel(getLabels(groupId, artifactId, versionString))
+    return "$groupId:$artifactId version $versionString has $policyTypeLabel issues that will block publishing of your app to Play Console"
+  }
+
   /** Generate a message for a library that has policy issues */
-  fun generatePolicyMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has policy issues that will block publishing of your app to Play Console"
+  fun generatePolicyMessage(groupId: String, artifactId: String, versionString: String): String {
+    val policyTypeLabel = getPolicyLabel(getLabels(groupId, artifactId, versionString))
+    return "$groupId:$artifactId version $versionString has $policyTypeLabel issues that will block publishing of your app to Play Console in the future"
+  }
 
   /** Generate a message for a library that has blocking critical issues */
   fun generateBlockingCriticalMessage(groupId: String, artifactId: String, versionString: String) =
     "$groupId:$artifactId version $versionString has been reported as problematic by its author and will block publishing of your app to Play Console"
 
+  /** Generate a message for a library that has non-blocking critical issues */
+  fun generateCriticalMessage(groupId: String, artifactId: String, versionString: String) =
+    "$groupId:$artifactId version $versionString has an associated message from its author"
+
   /** Generate a message for a library that has blocking outdated issues */
   fun generateBlockingOutdatedMessage(groupId: String, artifactId: String, versionString: String) =
     "$groupId:$artifactId version $versionString has been marked as outdated by its author and will block publishing of your app to Play Console"
 
-  /** Generate a message for a library that has blocking outdated issues */
+  /** Generate a message for a library that has non-blocking outdated issues */
   fun generateOutdatedMessage(groupId: String, artifactId: String, versionString: String) =
     "$groupId:$artifactId version $versionString has been marked as outdated by its author"
 
-  /** Generate a message for a library that has blocking critical issues */
-  fun generateCriticalMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has an associated message from its author"
+  /** Generate a message for a library that has blocking issues */
+  fun generateBlockingGenericIssueMessage(
+    groupId: String,
+    artifactId: String,
+    versionString: String
+  ) =
+    "$groupId:$artifactId version $versionString has one or more issues that will block publishing of your app to Play Console"
+
+  /** Generate a message for a library that has non-blocking issues */
+  fun generateGenericIssueMessage(groupId: String, artifactId: String, versionString: String) =
+    "$groupId:$artifactId version $versionString has one or more issues that could block publishing of your app to Play Console in the future"
 
   protected open fun logHasCriticalIssues(
     groupId: String,
@@ -416,4 +448,32 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
   )
 
   @VisibleForTesting fun getLastReadSource() = lastReadSourceType
+
+  private fun getPolicyLabel(labels: LibraryVersionLabels?): String {
+    val defaultLabel = "policy"
+    val policyViolations = extractPolicyViolations(labels)
+    if (policyViolations.size != 1) {
+      return defaultLabel
+    }
+    val violation = policyViolations.first()
+    if (!POLICY_TYPE_TO_TEXT.containsKey(violation)) {
+      return defaultLabel
+    }
+    val type = POLICY_TYPE_TO_TEXT[violation] ?: return defaultLabel
+    return "$type policy"
+  }
+
+  private fun extractPolicyViolations(
+    labels: LibraryVersionLabels?
+  ): Set<LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy> {
+    val result = mutableSetOf<LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy>()
+    if (labels == null || !labels.hasPolicyIssuesInfo()) {
+      return result
+    }
+    val types = labels.policyIssuesInfo.violatedSdkPoliciesList
+    if (types != null) {
+      result.addAll(types)
+    }
+    return result
+  }
 }

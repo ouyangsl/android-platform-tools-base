@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.integration.multiplatform.v2
 
+import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.ModelContainerV2
 import com.android.build.gradle.integration.common.utils.TestFileUtils
@@ -38,7 +39,8 @@ internal fun GradleTestProject.publishLibs(
     publishAndroidLib: Boolean = true,
     publishKmpJvmOnly: Boolean = true,
     publishKmpFirstLib: Boolean = true,
-    publishKmpSecondLib: Boolean = true
+    publishKmpSecondLib: Boolean = true,
+    publishKmpLibraryPlugin: Boolean = true
 ) {
     TestFileUtils.appendToFile(
         settingsFile,
@@ -54,18 +56,33 @@ internal fun GradleTestProject.publishLibs(
     )
 
     if (publishKmpSecondLib) {
-        // We can't publish android libraries with JVM target enabled, the issue should be fixed
-        // with kotlin 1.9.0 (https://youtrack.jetbrains.com/issue/KT-51940).
-        TestFileUtils.searchAndReplace(
-            getSubproject("kmpSecondLib").ktsBuildFile,
-            "jvm()",
-            ""
-        )
-
         TestFileUtils.searchAndReplace(
             getSubproject("kmpFirstLib").ktsBuildFile,
             "project(\":kmpSecondLib\")",
             "\"com.example:kmpSecondLib-android:1.0\""
+        )
+    }
+
+    if (publishKmpLibraryPlugin) {
+        TestFileUtils.searchAndReplace(
+            getSubproject("kmpSecondLib").ktsBuildFile,
+            "project(\":kmpLibraryPlugin\")",
+            "\"com.example:kmpLibraryPlugin:1.0\""
+        )
+
+        // TODO(b/290012931): This is a work around gradle matching confusion when trying to select between sources or
+        //  aar lib
+        TestFileUtils.appendToFile(
+            getSubproject("kmpLibraryPlugin").ktsBuildFile,
+            """
+                afterEvaluate {
+                  configurations {
+                    getByName("debugSourcesElements").attributes {
+                      attribute(Usage.USAGE_ATTRIBUTE, project.objects.named(Usage.JAVA_API))
+                    }
+                  }
+                }
+            """.trimIndent()
         )
     }
 
@@ -96,6 +113,7 @@ internal fun GradleTestProject.publishLibs(
     val projectsToPublish = listOfNotNull(
         "androidLib".takeIf { publishAndroidLib },
         "kmpJvmOnly".takeIf { publishKmpJvmOnly },
+        "kmpLibraryPlugin".takeIf { publishKmpLibraryPlugin },
         "kmpSecondLib".takeIf { publishKmpSecondLib },
         "kmpFirstLib".takeIf { publishKmpFirstLib },
     )
@@ -148,7 +166,21 @@ internal fun GradleTestProject.publishLibs(
         )
     }
 
+    if (publishKmpLibraryPlugin) {
+        TestFileUtils.appendToFile(
+            getSubproject("kmpLibraryPlugin").ktsBuildFile,
+            """
+                kotlin {
+                    androidTarget { publishAllLibraryVariants() }
+                }
+            """.trimIndent()
+        )
+    }
+
     projectsToPublish.forEach {
-        executor().run(":$it:publish")
+        @Suppress("DEPRECATION") // publishing with kmp isn't configuration cache compatible (b/276472789)
+        executor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF)
+            .run(":$it:publish")
     }
 }

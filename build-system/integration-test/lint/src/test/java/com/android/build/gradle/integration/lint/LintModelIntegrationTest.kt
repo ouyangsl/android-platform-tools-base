@@ -17,9 +17,11 @@ package com.android.build.gradle.integration.lint
 
 import com.android.build.gradle.integration.common.fixture.DESUGAR_DEPENDENCY_VERSION
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
+import com.android.build.gradle.integration.common.truth.ScannerSubject
 import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.testutils.truth.PathSubject.assertThat
 import com.google.common.truth.Truth.assertThat
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -160,5 +162,86 @@ class LintModelIntegrationTest {
                 .map { applyReplacements(it, createReplacements(project)) }
                 .any { it.contains("shrinking=\"true\"") }
         ).isTrue()
+    }
+
+    @Test
+    fun checkLintModelAbsorbTargetSdk() {
+        TestFileUtils.appendToFile(
+            project.getSubproject("library").buildFile,
+            """
+                android {
+                    defaultConfig {
+                        targetSdk 2
+                    }
+                    lint {
+                        targetSdk 1
+                    }
+                }
+            """.trimIndent()
+        )
+        project.executor().expectFailure().run(":library:clean", ":library:lintDebug")
+        val model = project.file("library/build/intermediates/incremental/lintReportDebug/debug.xml")
+        assertThat(model).contains("targetSdkVersion=\"1\"")
+    }
+
+    @Test
+    fun checkLintModelTargetSdkFailForApplication() {
+        TestFileUtils.appendToFile(
+            project.getSubproject("app").buildFile,
+            """
+                android {
+                    defaultConfig {
+                        targetSdk 16
+                    }
+                    lint {
+                        targetSdk 15
+                    }
+                }
+            """.trimIndent()
+        )
+        val result = project.executor().expectFailure().run(":app:tasks")
+        ScannerSubject.assertThat(result.stderr)
+            .contains("lint.targetSdk (15) for non library is smaller than android.targetSdk (16) for variants debug, release. "
+                    + "Please change the values such that lint.targetSdk is greater than or equal to android.targetSdk.")
+    }
+
+    @Test
+    fun checkLintModelTargetSdkHigherForApplication() {
+        TestFileUtils.appendToFile(
+            project.getSubproject("app").buildFile,
+            """
+                android {
+                    defaultConfig {
+                        targetSdk 16
+                    }
+                    lint {
+                        targetSdk 17
+                    }
+                }
+            """.trimIndent()
+        )
+        project.executor().run(":app:tasks")
+    }
+
+    @Test
+    @Ignore("b/287470576")
+    fun checkLintOutputPrioritizeTargetSdkParameter() {
+        TestFileUtils.appendToFile(
+            project.getSubproject("app").buildFile,
+            """
+                android {
+                    defaultConfig {
+                        targetSdk 2
+                    }
+                    lint {
+                        targetSdk 1
+                    }
+                }
+            """.trimIndent()
+        )
+        project.executor().expectFailure().run(":app:clean", ":app:lintDebug")
+        val lintResults = project.file("app/build/reports/lint-results.txt")
+        assertThat(lintResults).contains("10 errors, 4 warnings")
+        assertThat(lintResults).contains("targetSdk 1")
     }
 }
