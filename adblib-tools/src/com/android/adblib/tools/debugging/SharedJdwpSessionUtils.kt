@@ -41,7 +41,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withTimeout
@@ -139,7 +138,7 @@ suspend fun SharedJdwpSession.sendDdmsExit(status: Int) {
     // Send packet and wait for EOF (i.e. wait for JDWP session to end when process terminates)
     newPacketReceiver()
         .withName("sendDdmsExit")
-        .onActivation { sendPacket(packet) }
+        .withActivation { sendPacket(packet) }
         .receive { }
 }
 
@@ -395,14 +394,13 @@ private suspend fun SharedJdwpSession.handleAlwaysEmptyReplyDdmsCommand(
     val logger = thisLogger(device.session).withPrefix("pid=$pid: ")
     newPacketReceiver()
         .withName("handleEmptyReplyDdmsCommand(${chunkType.text})")
-        .onActivation {
+        .withActivation {
             progress?.beforeSend(requestPacket)
             sendPacket(requestPacket)
             progress?.afterSend(requestPacket)
             signal.complete(Unit)
         }
-        .flow()
-        .first { packet ->
+        .receiveUntil { packet ->
             logger.verbose { "Receiving packet: $packet, waiting for activation to complete" }
             // Note: we wait on "signal" to ensure the "progress?.afterSend" call in the activation
             // block above is always executed, otherwise, there is a race condition between
@@ -472,30 +470,34 @@ suspend fun <R> SharedJdwpSession.handleJdwpCommand(
         throw IllegalArgumentException("JDWP packet is not a command packet")
     }
 
+    val activationDone = CompletableDeferred<Unit>()
     return newPacketReceiver()
         .withName("JDWP Command: $commandPacket")
-        .onActivation {
+        .withActivation {
             logger.debug { "Sending command packet and waiting for reply: $commandPacket" }
             progress?.beforeSend(commandPacket)
             sendPacket(commandPacket)
             progress?.afterSend(commandPacket)
+
+            // Signal "activation" is fully completed
+            activationDone.complete(Unit)
         }
-        .flow()
-        .filter { replyPacket ->
-            logger.verbose { "Filtering packet from session: $replyPacket" }
+        .receiveMapFirst { replyPacket ->
+            logger.verbose { "Received packet from session: $replyPacket" }
             val isReply = replyPacket.isReply && replyPacket.id == commandPacket.id
             if (isReply) {
+                // Ensure "activation" block fully completes
+                activationDone.await()
+
                 logger.debug { "Received reply '$replyPacket' for command packet '$commandPacket'" }
+                progress?.onReply(replyPacket)
+                // Note: The packet "payload" is still connected to the underlying
+                // socket at this point. We don't clone it in memory so that the
+                // caller can decide how to handle potentially large data sets.
+                val handlerResult = replyHandler(replyPacket)
+                this@receiveMapFirst.complete(handlerResult)
             }
-            isReply
         }
-        .map { replyPacket ->
-            progress?.onReply(replyPacket)
-            // Note: The packet "payload" is still connected to the underlying
-            // socket at this point. We don't clone it in memory so that the
-            // caller can decide how to handle potentially large data sets.
-            replyHandler(replyPacket)
-        }.first() // There is only one reply packet
 }
 
 suspend fun AdbInputChannel.toByteBuffer(size: Int): ByteBuffer {

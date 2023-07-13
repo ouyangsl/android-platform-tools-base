@@ -18,14 +18,15 @@ package com.android.build.gradle.internal.ide.kmp.resolvers
 
 import com.android.build.api.attributes.AgpVersionAttr
 import com.android.build.gradle.internal.component.KmpComponentCreationConfig
+import com.android.build.gradle.internal.ide.dependencies.getBuildPath
 import com.android.build.gradle.internal.ide.kmp.LibraryResolver
 import com.android.build.gradle.internal.ide.proto.convert
-import com.android.build.gradle.internal.ide.v2.ModelBuilder
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.kotlin.multiplatform.ide.models.serialization.androidDependencyKey
 import com.android.kotlin.multiplatform.models.DependencyInfo
 import org.gradle.api.Project
 import org.gradle.api.artifacts.component.ProjectComponentIdentifier
+import org.jetbrains.kotlin.gradle.ExternalKotlinTargetApi
 import org.jetbrains.kotlin.gradle.idea.tcs.IdeaKotlinDependency
 import org.jetbrains.kotlin.gradle.idea.tcs.IdeaKotlinProjectArtifactDependency
 import org.jetbrains.kotlin.gradle.idea.tcs.IdeaKotlinProjectCoordinates
@@ -37,6 +38,7 @@ import org.jetbrains.kotlin.gradle.plugin.ide.IdeDependencyResolver
 /**
  * An implementation of [IdeDependencyResolver] that resolves project dependencies.
  */
+@OptIn(ExternalKotlinTargetApi::class)
 internal class ProjectDependencyResolver(
     project: Project,
     libraryResolver: LibraryResolver,
@@ -44,9 +46,8 @@ internal class ProjectDependencyResolver(
 ) : BaseIdeDependencyResolver(
     libraryResolver,
     sourceSetToCreationConfigMap
-) {
+), IdeDependencyResolver {
     private val currentProjectPath = project.path
-    private val currentProjectBuildName = ModelBuilder.getBuildName(project)
 
     override fun resolve(sourceSet: KotlinSourceSet): Set<IdeaKotlinDependency> {
         val component = sourceSetToCreationConfigMap.value[sourceSet] ?: return emptySet()
@@ -56,26 +57,29 @@ internal class ProjectDependencyResolver(
         // The actual artifact type doesn't matter, this will be picked up on the IDE side and
         // mapped to a project dependency. We query for jar artifacts since both android and
         // non-android projects will produce it.
-        return getArtifactsForComponent(
+        val artifacts = getArtifactsForComponent(
             component,
             AndroidArtifacts.ArtifactType.JAR
         ) {
             it is ProjectComponentIdentifier
-        }.mapNotNull { artifact ->
+        }
+
+        val currentBuildPath = getBuildPath(component.variantDependencies).get()
+        return artifacts.mapNotNull { artifact ->
             val componentId = artifact.id.componentIdentifier as ProjectComponentIdentifier
 
             // This is a dependency on the same module, usually from unitTest/instrumentationTest on
             // the main module. This should be handled as a friend dependency which will allow the
             // test components to view the internals of the main. So we just ignore this case here.
             if (currentProjectPath == componentId.projectPath &&
-                currentProjectBuildName == componentId.build.name) {
+                currentBuildPath == componentId.build.buildPath) {
                 return@mapNotNull  null
             }
 
             IdeaKotlinProjectArtifactDependency(
                 type = IdeaKotlinSourceDependency.Type.Regular,
                 coordinates = IdeaKotlinProjectCoordinates(
-                    buildId = componentId.build.name,
+                    buildId = componentId.build.buildPath,
                     projectPath = componentId.projectPath,
                     projectName = componentId.projectName
                 )

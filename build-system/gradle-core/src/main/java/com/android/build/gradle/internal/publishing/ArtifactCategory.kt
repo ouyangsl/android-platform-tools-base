@@ -14,17 +14,21 @@
  * limitations under the License.
  */
 
-package com.android.build.api.variant.impl
+package com.android.build.gradle.internal.publishing
 
-import com.android.build.api.dsl.KotlinMultiplatformAndroidExtension
-import org.gradle.api.NamedDomainObjectContainer
-import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+import org.gradle.api.Named
+import org.gradle.api.attributes.Attribute
+import org.gradle.api.attributes.Category
+import org.gradle.api.attributes.VerificationType
 
 /**
- * Temporary interface to develop the kotlin multiplatform android plugin.
- *
- * TODO(b/267309622): Move to gradle-api
+ * Indicates that an artifact should be published/consumed with [categoryName] as the category
+ * attribute, and using [secondaryAttribute] to distinguish between the different artifacts in the
+ * same category.
  */
-interface KotlinMultiplatformAndroidTarget: KotlinTarget, KotlinMultiplatformAndroidExtension {
-    override val compilations: NamedDomainObjectContainer<KotlinMultiplatformAndroidCompilation>
+enum class ArtifactCategory(
+    val categoryName: String,
+    val secondaryAttribute: Attribute<out Named>
+) {
+    VERIFICATION(Category.VERIFICATION, VerificationType.VERIFICATION_TYPE_ATTRIBUTE),
 }

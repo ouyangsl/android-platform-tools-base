@@ -93,7 +93,7 @@ maven_library(
 )
 
 # The Gradle APIs to build against and run against.
-GRADLE_VERSION = "8.1"
+GRADLE_VERSION = "8.2"
 
 filegroup(
     name = "gradle-distrib",
@@ -398,7 +398,6 @@ maven_repository(
         "@maven//:org.apache.maven.maven-aether-provider",
         "@maven//:org.bouncycastle.bcpkix-jdk15on",
         "@maven//:org.codehaus.groovy.groovy-all",
-        "@maven//:org.easymock.easymock",
         "@maven//:org.eclipse.aether.aether-connector-basic",
         "@maven//:org.eclipse.aether.aether-transport-file",
         "@maven//:org.eclipse.aether.aether-transport-http",

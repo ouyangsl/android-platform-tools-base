@@ -22,7 +22,7 @@ import com.android.adblib.testingutils.CoroutineTestUtils.runBlockingWithTimeout
 import com.android.adblib.testingutils.CoroutineTestUtils.waitNonNull
 import com.android.adblib.tools.AdbLibToolsProperties
 import com.android.adblib.tools.debugging.JdwpSession
-import com.android.adblib.tools.debugging.utils.AdbBufferedInputChannel
+import com.android.adblib.tools.debugging.utils.AdbRewindableInputChannel
 import com.android.adblib.tools.debugging.packets.JdwpPacketView
 import com.android.adblib.tools.debugging.packets.impl.MutableJdwpPacket
 import com.android.adblib.tools.debugging.packets.impl.PayloadProvider
@@ -33,6 +33,7 @@ import com.android.adblib.tools.debugging.packets.ddms.EphemeralDdmsChunk
 import com.android.adblib.tools.debugging.packets.ddms.ddmsChunks
 import com.android.adblib.tools.debugging.packets.ddms.isDdmsCommand
 import com.android.adblib.tools.debugging.packets.ddms.writeToChannel
+import com.android.adblib.tools.debugging.packets.isThreadSafeAndImmutable
 import com.android.adblib.tools.debugging.packets.withPayload
 import com.android.adblib.tools.testutils.AdbLibToolsTestBase
 import com.android.adblib.tools.testutils.waitForOnlineConnectedDevice
@@ -41,6 +42,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.firstOrNull
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 import java.io.EOFException
@@ -173,6 +176,56 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
     }
 
     @Test
+    fun receiveSmallPacketIsThreadSafeAndImmutable() = runBlockingWithTimeout {
+        val fakeDevice = addFakeDevice(fakeAdb, 30)
+        fakeDevice.startClient(10, 0, "a.b.c", false)
+        val connectedDevice = waitForOnlineConnectedDevice(session, fakeDevice.deviceId)
+        // Override the "large" packet threshold to be large, so that all packets
+        // are considered "small"
+        setHostPropertyValue(
+            session.host,
+            AdbLibToolsProperties.SHARED_JDWP_PACKET_IN_MEMORY_MAX_PAYLOAD_LENGTH,
+            8_192
+        )
+
+        // Act
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(connectedDevice, 10, 100))
+
+        val sendPacket = createHeloDdmsPacket(jdwpSession)
+        jdwpSession.sendPacket(sendPacket)
+
+        val reply = waitForReplyPacket(jdwpSession, sendPacket)
+
+        // Assert
+        assertTrue(reply.isThreadSafeAndImmutable)
+    }
+
+    @Test
+    fun receiveLargePacketIsNotThreadSafeAndImmutable() = runBlockingWithTimeout {
+        val fakeDevice = addFakeDevice(fakeAdb, 30)
+        fakeDevice.startClient(10, 0, "a.b.c", false)
+        val connectedDevice = waitForOnlineConnectedDevice(session, fakeDevice.deviceId)
+        // Override the "large" packet threshold to be very small, so that all packets
+        // are considered "large"
+        setHostPropertyValue(
+            session.host,
+            AdbLibToolsProperties.SHARED_JDWP_PACKET_IN_MEMORY_MAX_PAYLOAD_LENGTH,
+            2
+        )
+
+        // Act
+        val jdwpSession = registerCloseable(JdwpSession.openJdwpSession(connectedDevice, 10, 100))
+
+        val sendPacket = createHeloDdmsPacket(jdwpSession)
+        jdwpSession.sendPacket(sendPacket)
+
+        val reply = waitForReplyPacket(jdwpSession, sendPacket)
+
+        // Assert
+        assertFalse(reply.isThreadSafeAndImmutable)
+    }
+
+    @Test
     fun receivePacketThrowsEofOnClientTerminate() = runBlockingWithTimeout {
         val fakeDevice = addFakeDevice(fakeAdb, 30)
         fakeDevice.startClient(10, 0, "a.b.c", false)
@@ -286,12 +339,12 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
                 toOffline().ddmsChunks().firstOrNull { it.type == DdmsChunkType.APNM } != null
     }
 
-    private suspend fun DdmsChunkView.toBufferedInputChannel(): AdbBufferedInputChannel {
+    private suspend fun DdmsChunkView.toRewindableInputChannel(): AdbRewindableInputChannel {
         val workBuffer = ResizableBuffer()
         val outputChannel = ByteBufferAdbOutputChannel(workBuffer)
         this.writeToChannel(outputChannel)
         val serializedChunk = workBuffer.forChannelWrite()
-        return AdbBufferedInputChannel.forByteBuffer(serializedChunk)
+        return AdbRewindableInputChannel.forByteBuffer(serializedChunk)
     }
 
     private suspend fun createHeloDdmsPacket(jdwpSession: JdwpSession): MutableJdwpPacket {
@@ -307,13 +360,13 @@ class JdwpSessionTest : AdbLibToolsTestBase() {
         packet.isCommand = true
         packet.cmdSet = DdmsPacketConstants.DDMS_CMD_SET
         packet.cmd = DdmsPacketConstants.DDMS_CMD
-        packet.payloadProvider = PayloadProvider.forInputChannel(heloChunk.toBufferedInputChannel())
+        packet.payloadProvider = PayloadProvider.forInputChannel(heloChunk.toRewindableInputChannel())
         return packet
     }
 
     private suspend fun AdbInputChannel.countBytes(): Int {
         return skipRemaining().also {
-            (this as? AdbBufferedInputChannel)?.rewind()
+            (this as? AdbRewindableInputChannel)?.rewind()
         }
     }
 }

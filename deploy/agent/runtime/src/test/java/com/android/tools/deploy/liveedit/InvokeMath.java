@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.android.tools.deploy.liveedit;
 
-package com.android.build.api.variant.impl
+public class InvokeMath {
+    static float divf(float f1, float f2) {
+        return f1 / f2;
+    }
 
-import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
-import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompilerOptions
-import org.jetbrains.kotlin.gradle.plugin.HasCompilerOptions
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
+    static double divd(double d1, double d2) {
+        return d1 / d2;
+    }
 
-interface KotlinMultiplatformAndroidCompilation: KotlinCompilation<KotlinCommonOptions> {
+    static float modf(float f1, float f2) {
+        return f1 % f2;
+    }
 
-    override val compilerOptions: HasCompilerOptions<KotlinJvmCompilerOptions>
+    static double modd(double f1, double f2) {
+        return f1 % f2;
+    }
 }

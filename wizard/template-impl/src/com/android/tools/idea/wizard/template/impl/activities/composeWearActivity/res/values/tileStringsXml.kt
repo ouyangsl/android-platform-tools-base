@@ -20,8 +20,6 @@ fun tileStringsXml(): String {
     return """
 <resources>
     <string name="tile_label">Example tile</string>
-    <string name="title_activity_presentation._main">presentation.MainActivity</string>
-    <string name="title_activity_main">MainActivity</string>
 </resources>
 """
 }

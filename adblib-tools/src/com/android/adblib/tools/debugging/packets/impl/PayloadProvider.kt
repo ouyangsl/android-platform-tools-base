@@ -18,9 +18,10 @@ package com.android.adblib.tools.debugging.packets.impl
 import com.android.adblib.AdbInputChannel
 import com.android.adblib.ByteBufferAdbInputChannel
 import com.android.adblib.skipRemaining
-import com.android.adblib.tools.debugging.utils.SupportsOffline
 import com.android.adblib.tools.debugging.packets.ddms.withPayload
-import com.android.adblib.tools.debugging.utils.AdbBufferedInputChannel
+import com.android.adblib.tools.debugging.utils.AdbRewindableInputChannel
+import com.android.adblib.tools.debugging.utils.SupportsOffline
+import com.android.adblib.tools.debugging.utils.ThreadSafetySupport
 import com.android.adblib.tools.debugging.utils.toOffline
 import com.android.adblib.utils.ResizableBuffer
 import kotlinx.coroutines.sync.Mutex
@@ -90,18 +91,16 @@ internal interface PayloadProvider: SupportsOffline<PayloadProvider>, AutoClosea
          * Creates a [PayloadProvider] wrapping the given [AdbInputChannel].
          */
         fun forInputChannel(channel: AdbInputChannel): PayloadProvider {
-            val bufferedChannel = if (channel is AdbBufferedInputChannel) {
-                channel
-            } else {
-                AdbBufferedInputChannel.forInputChannel(channel)
-            }
-            return ForInputChannel(bufferedChannel)
+            return ForInputChannel(channel)
         }
 
-        private object Empty : PayloadProvider {
+        private object Empty : PayloadProvider, ThreadSafetySupport {
+
+            override val isThreadSafeAndImmutable: Boolean
+                get() = true // Can be safely shared across threads
 
             override suspend fun acquirePayload(): AdbInputChannel {
-                return AdbBufferedInputChannel.empty()
+                return AdbRewindableInputChannel.empty()
             }
 
             override fun releasePayload() {
@@ -126,17 +125,17 @@ internal interface PayloadProvider: SupportsOffline<PayloadProvider>, AutoClosea
         }
 
         private class ForInputChannel(payload: AdbInputChannel) : PayloadProvider {
-            private val bufferedPayload = if (payload is AdbBufferedInputChannel) {
+            private val rewindablePayload = if (payload is AdbRewindableInputChannel) {
                 payload
             } else {
-                AdbBufferedInputChannel.forInputChannel(payload)
+                AdbRewindableInputChannel.forInputChannel(payload)
             }
             private var closed = false
 
             override suspend fun acquirePayload(): AdbInputChannel {
                 throwIfClosed()
-                bufferedPayload.rewind()
-                return bufferedPayload
+                rewindablePayload.rewind()
+                return rewindablePayload
             }
 
             override fun releasePayload() {
@@ -148,23 +147,22 @@ internal interface PayloadProvider: SupportsOffline<PayloadProvider>, AutoClosea
                     return
                 }
                 closed = true
-                bufferedPayload.finalRewind()
-                bufferedPayload.skipRemaining(workBuffer)
+                rewindablePayload.skipRemaining(workBuffer)
             }
 
             override suspend fun toOffline(workBuffer: ResizableBuffer): PayloadProvider {
                 throwIfClosed()
 
-                return forInputChannel(bufferedPayload.toOffline(workBuffer))
+                return forInputChannel(rewindablePayload.toOffline(workBuffer))
             }
 
             override fun close() {
                 closed = true
-                bufferedPayload.close()
+                rewindablePayload.close()
             }
 
             override fun toString(): String {
-                return "BufferedInputChannelPayloadProvider(payload=$bufferedPayload, closed=$closed)"
+                return "${this::class.simpleName}(payload=$rewindablePayload, closed=$closed)"
             }
 
             private fun throwIfClosed() {
@@ -178,7 +176,12 @@ internal interface PayloadProvider: SupportsOffline<PayloadProvider>, AutoClosea
          * A thread-safe, cancellation safe, lock-free implementation of [PayloadProvider],
          * wrapping a [ByteBuffer].
          */
-        private class ForByteBuffer(private val payload: ByteBuffer): PayloadProvider {
+        private class ForByteBuffer(
+            private val payload: ByteBuffer
+        ): PayloadProvider, ThreadSafetySupport {
+
+            override val isThreadSafeAndImmutable: Boolean
+                get() = true // Can be safely shared across threads
 
             override suspend fun acquirePayload(): AdbInputChannel {
                 // To ensure lock-free thread-safety, we create a new AdbInputChannel
@@ -203,6 +206,7 @@ internal interface PayloadProvider: SupportsOffline<PayloadProvider>, AutoClosea
             override fun close() {
                 // Nothing to do
             }
+
         }
     }
 }
@@ -219,3 +223,22 @@ internal suspend inline fun <R> PayloadProvider.withPayload(block: (AdbInputChan
         releasePayload()
     }
 }
+
+/**
+ * Returns whether this [PayloadProvider] is thread-safe and immutable, meaning it can be
+ * safely shared across threads and coroutines.
+ *
+ * @see ThreadSafetySupport.isThreadSafeAndImmutable
+ */
+internal val PayloadProvider.isThreadSafeAndImmutable: Boolean
+    get() {
+        return when (this) {
+            is ThreadSafetySupport -> {
+                isThreadSafeAndImmutable
+            }
+
+            else -> {
+                false
+            }
+        }
+    }

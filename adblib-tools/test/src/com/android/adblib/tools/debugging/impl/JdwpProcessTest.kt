@@ -23,6 +23,7 @@ import com.android.adblib.testingutils.CoroutineTestUtils.yieldUntil
 import com.android.adblib.testingutils.FakeAdbServerProvider
 import com.android.adblib.tools.AdbLibToolsProperties
 import com.android.adblib.tools.debugging.JdwpProcessProperties
+import com.android.adblib.tools.debugging.flow
 import com.android.adblib.tools.debugging.packets.impl.JdwpCommands
 import com.android.adblib.tools.debugging.packets.impl.MutableJdwpPacket
 import com.android.adblib.tools.debugging.packets.payloadLength
@@ -81,7 +82,7 @@ class JdwpProcessTest : AdbLibToolsTestBase() {
                 ByteBuffer.allocate(0)
             )
             newPacketReceiver()
-                .onActivation {
+                .withActivation {
                     sendPacket(versionCommand)
                 }.flow()
                 .first { reply -> reply.id == versionCommand.id }

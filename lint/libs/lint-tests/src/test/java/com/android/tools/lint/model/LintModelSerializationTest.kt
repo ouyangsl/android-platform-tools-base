@@ -16,6 +16,9 @@
 
 package com.android.tools.lint.model
 
+import com.android.sdklib.AndroidVersion
+import com.android.sdklib.SdkVersionInfo
+import com.android.sdklib.SdkVersionInfo.HIGHEST_KNOWN_API
 import com.android.testutils.truth.PathSubject
 import com.android.tools.lint.checks.infrastructure.GradleModelMocker
 import com.android.tools.lint.checks.infrastructure.GradleModelMockerTest
@@ -608,27 +611,27 @@ class LintModelSerializationTest {
                       proguardRules="proguard.pro"/>
                   <library
                       name="com.android.support:support-annotations:25.0.1"
-                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support/support-annotations/25.0.19c6ef172e8de35fd8d4d8783e4821e57cdef7445/support-annotations-25.0.1.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support/support-annotations/25.0.1/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/support-annotations-25.0.1.jar"
                       resolved="com.android.support:support-annotations:25.0.1"/>
                   <library
                       name="com.android.support.constraint:constraint-layout-solver:1.0.0-beta3"
-                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support.constraint/constraint-layout-solver/1.0.0-beta39c6ef172e8de35fd8d4d8783e4821e57cdef7445/constraint-layout-solver-1.0.0-beta3.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support.constraint/constraint-layout-solver/1.0.0-beta3/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/constraint-layout-solver-1.0.0-beta3.jar"
                       resolved="com.android.support.constraint:constraint-layout-solver:1.0.0-beta3"/>
                   <library
                       name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-jdk7-1.3.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-jdk7-1.3.0.jar"
                       resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0"/>
                   <library
                       name="org.jetbrains.kotlin:kotlin-stdlib:1.3.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-1.3.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-1.3.0.jar"
                       resolved="org.jetbrains.kotlin:kotlin-stdlib:1.3.0"/>
                   <library
                       name="org.jetbrains.kotlin:kotlin-stdlib-common:1.3.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-common-1.3.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-common-1.3.0.jar"
                       resolved="org.jetbrains.kotlin:kotlin-stdlib-common:1.3.0"/>
                   <library
                       name="org.jetbrains:annotations:13.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains/annotations/13.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/annotations-13.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/annotations-13.0.jar"
                       resolved="org.jetbrains:annotations:13.0"/>
                 </libraries>
                 """,
@@ -1030,27 +1033,27 @@ class LintModelSerializationTest {
                       proguardRules="proguard.pro"/>
                   <library
                       name="com.android.support:support-annotations:25.0.1"
-                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support/support-annotations/25.0.19c6ef172e8de35fd8d4d8783e4821e57cdef7445/support-annotations-25.0.1.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support/support-annotations/25.0.1/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/support-annotations-25.0.1.jar"
                       resolved="com.android.support:support-annotations:25.0.1"/>
                   <library
                       name="com.android.support.constraint:constraint-layout-solver:1.0.0-beta3"
-                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support.constraint/constraint-layout-solver/1.0.0-beta39c6ef172e8de35fd8d4d8783e4821e57cdef7445/constraint-layout-solver-1.0.0-beta3.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/com.android.support.constraint/constraint-layout-solver/1.0.0-beta3/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/constraint-layout-solver-1.0.0-beta3.jar"
                       resolved="com.android.support.constraint:constraint-layout-solver:1.0.0-beta3"/>
                   <library
                       name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-jdk7-1.3.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-jdk7-1.3.0.jar"
                       resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0"/>
                   <library
                       name="org.jetbrains.kotlin:kotlin-stdlib:1.3.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-1.3.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-1.3.0.jar"
                       resolved="org.jetbrains.kotlin:kotlin-stdlib:1.3.0"/>
                   <library
                       name="org.jetbrains.kotlin:kotlin-stdlib-common:1.3.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-common-1.3.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/kotlin-stdlib-common-1.3.0.jar"
                       resolved="org.jetbrains.kotlin:kotlin-stdlib-common:1.3.0"/>
                   <library
                       name="org.jetbrains:annotations:13.0"
-                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains/annotations/13.09c6ef172e8de35fd8d4d8783e4821e57cdef7445/annotations-13.0.jar"
+                      jars="＄ROOT/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/9c6ef172e8de35fd8d4d8783e4821e57cdef7445/annotations-13.0.jar"
                       resolved="org.jetbrains:annotations:13.0"/>
                 </libraries>
                 """,
@@ -1463,11 +1466,16 @@ class LintModelSerializationTest {
                   <variant name="debug"/>
                 </lint-module>"""
       )
+    val currentPreviewFirstLetter = SdkVersionInfo.getBuildCode(HIGHEST_KNOWN_API)!!.first()
+    val futurePreviewPlus1 =
+      AndroidVersion(HIGHEST_KNOWN_API, (currentPreviewFirstLetter + 1) + "CodeName")
+    val futurePreviewPlus2 =
+      AndroidVersion(HIGHEST_KNOWN_API + 1, (currentPreviewFirstLetter + 2) + "CodeName")
     val debugXml =
       """<variant
                     name="debug"
-                    minSdkVersion="TheCodeNameStartsWithT"
-                    targetSdkVersion="UKnowTheTargetStartsWithU"
+                    minSdkVersion="${futurePreviewPlus1.codename}"
+                    targetSdkVersion="${futurePreviewPlus2.codename}"
                     debuggable="true"
                     mergedManifest="${mergedManifest.absolutePath}"
                     manifestMergeReport="${mergeReport.absolutePath}">
@@ -1484,11 +1492,9 @@ class LintModelSerializationTest {
     val debugVariant = module.defaultVariant()!!
 
     val minSdkVersion = debugVariant.minSdkVersion!!
-    assertEquals("API 32, TheCodeNameStartsWithT preview", minSdkVersion.toString())
-    assertEquals(33, minSdkVersion.featureLevel)
+    assertEquals(futurePreviewPlus1, minSdkVersion)
     val targetSdkVersion = debugVariant.targetSdkVersion!!
-    assertEquals("API 33, UKnowTheTargetStartsWithU preview", targetSdkVersion.toString())
-    assertEquals(34, targetSdkVersion.featureLevel)
+    assertEquals(futurePreviewPlus2, targetSdkVersion)
   }
 
   @Test

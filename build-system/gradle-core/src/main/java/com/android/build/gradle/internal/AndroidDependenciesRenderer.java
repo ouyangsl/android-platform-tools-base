@@ -24,13 +24,12 @@ import static org.gradle.internal.logging.text.StyledTextOutput.Style.Info;
 import com.android.annotations.NonNull;
 import com.android.build.gradle.internal.component.ComponentCreationConfig;
 import com.android.build.gradle.internal.ide.dependencies.ArtifactUtils;
-import com.android.build.gradle.internal.ide.dependencies.BuildMappingUtils;
+import com.android.build.gradle.internal.ide.dependencies.BuildIdentifierMethods;
 import com.android.build.gradle.internal.ide.dependencies.MavenCoordinatesCacheBuildService;
 import com.android.build.gradle.internal.ide.dependencies.ResolvedArtifact;
 import com.android.build.gradle.internal.ide.dependencies.ResolvedArtifact.DependencyType;
 import com.android.build.gradle.internal.publishing.AndroidArtifacts;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import java.util.List;
 import java.util.Set;
 import org.gradle.api.artifacts.component.ComponentIdentifier;
@@ -81,15 +80,9 @@ public class AndroidDependenciesRenderer extends TextReportRenderer {
     }
 
     public void render(@NonNull ComponentCreationConfig component) {
-        ImmutableMap<String, String> buildMapping =
-                component.getServices().getProjectInfo().computeBuildMapping();
-
         Set<ResolvedArtifact> compileArtifacts =
                 ArtifactUtils.getAllArtifacts(
-                        component,
-                        AndroidArtifacts.ConsumedConfigType.COMPILE_CLASSPATH,
-                        null,
-                        buildMapping);
+                        component, AndroidArtifacts.ConsumedConfigType.COMPILE_CLASSPATH, null);
 
         getTextOutput()
                 .withStyle(Identifier)
@@ -102,10 +95,7 @@ public class AndroidDependenciesRenderer extends TextReportRenderer {
 
         Set<ResolvedArtifact> runtimeArtifacts =
                 ArtifactUtils.getAllArtifacts(
-                        component,
-                        AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
-                        null,
-                        buildMapping);
+                        component, AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH, null);
 
         getTextOutput().println();
         getTextOutput()
@@ -141,7 +131,8 @@ public class AndroidDependenciesRenderer extends TextReportRenderer {
 
                         if (id instanceof ProjectComponentIdentifier) {
                             String projectId =
-                                    BuildMappingUtils.getIdString((ProjectComponentIdentifier) id);
+                                    BuildIdentifierMethods.getIdString(
+                                            (ProjectComponentIdentifier) id);
                             if (artifact.isWrappedModule()) {
                                 if (artifact.getArtifactFile() == null) {
                                     text = String.format("%s", projectId);

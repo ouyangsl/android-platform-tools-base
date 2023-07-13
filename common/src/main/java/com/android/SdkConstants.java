@@ -2148,6 +2148,8 @@ public final class SdkConstants {
     public static final String EXT_GRADLE = "gradle";
     /** Extension of Kotlin gradle files, i.e. "gradle.kts" */
     public static final String EXT_GRADLE_KTS = "gradle.kts";
+    /** Extension of declarative gradle files, i.e. "gradle.toml" */
+    public static final String EXT_GRADLE_TOML = "gradle.toml";
     /** Extension of jar files, i.e. "jar" */
     public static final String EXT_JAR = "jar";
     /** Extension of ZIP files, i.e. "zip" */
@@ -2835,7 +2837,7 @@ public final class SdkConstants {
      * Studio product. It need not actually be the latest version of Gradle, but it will most likely
      * be fairly recent.
      */
-    public static final String GRADLE_LATEST_VERSION = "8.1";
+    public static final String GRADLE_LATEST_VERSION = "8.2";
 
     /**
      * The minimum released version of the Android Gradle Plugin that this version of Studio will
