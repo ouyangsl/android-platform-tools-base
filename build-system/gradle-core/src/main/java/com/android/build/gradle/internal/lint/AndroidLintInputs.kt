@@ -1136,7 +1136,8 @@ abstract class VariantInputs {
         fatalOnly: Boolean,
         useModuleDependencyLintModels: Boolean,
         lintMode: LintMode,
-        lintModelArtifactType: LintModelArtifactType?
+        lintModelArtifactType: LintModelArtifactType?,
+        jvmTargetName: String?
     ) {
         if (kotlinExtensionWrapper == null) {
             initializeForStandalone(
@@ -1156,7 +1157,8 @@ abstract class VariantInputs {
                 fatalOnly,
                 useModuleDependencyLintModels,
                 lintMode,
-                lintModelArtifactType!!
+                lintModelArtifactType!!,
+                jvmTargetName
             )
         }
     }
@@ -1209,7 +1211,12 @@ abstract class VariantInputs {
                         projectOptions,
                         testSourceSet,
                         lintMode,
-                        useModuleDependencyLintModels,
+                        if (lintModelArtifactType == null) {
+                            // false in this case to avoid circular task dependencies (b/291934867)
+                            false
+                        } else {
+                            useModuleDependencyLintModels
+                        },
                         // analyzing test bytecode is expensive, without much benefit
                         includeClassesOutputDirectories = false,
                         fatalOnly
@@ -1261,10 +1268,10 @@ abstract class VariantInputs {
         fatalOnly: Boolean,
         useModuleDependencyLintModels: Boolean,
         lintMode: LintMode,
-        lintModelArtifactType: LintModelArtifactType
+        lintModelArtifactType: LintModelArtifactType,
+        jvmTargetName: String?
     ) {
-        // TODO(b/196838286) - support (1) custom-named jvm targets and (2) multiple jvm targets
-        val jvmTarget = kotlinExtensionWrapper.kotlinExtension.targets.findByName("jvm")
+        val jvmTarget = kotlinExtensionWrapper.kotlinExtension.targets.findByName(jvmTargetName ?: "jvm")
         val jvmMainCompilation = jvmTarget?.compilations?.findByName("main")
         val jvmTestCompilation = jvmTarget?.compilations?.findByName("test")
 

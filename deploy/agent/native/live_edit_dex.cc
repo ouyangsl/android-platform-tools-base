@@ -26,13 +26,10 @@
 #include "tools/base/deploy/agent/native/live_edit.dex.cc"
 #include "tools/base/deploy/common/io.h"
 #include "tools/base/deploy/common/log.h"
+#include "tools/base/deploy/common/utils.h"
 #include "tools/base/deploy/sites/sites.h"
 
 namespace deploy {
-
-namespace {
-bool is_dex_set_up = false;
-}
 
 // Extracts the dex containing the LiveEdit implementations of Lambda,
 // SuspendLambda, and RestrictedSuspendLambda, and loads it into the application
@@ -42,30 +39,17 @@ bool is_dex_set_up = false;
 // base classes that are present in the app loader.
 bool SetUpLiveEditDex(jvmtiEnv* jvmti, JNIEnv* jni,
                       const std::string& package_name) {
+  static bool is_dex_set_up = false;
   if (is_dex_set_up) {
     return true;
   }
 
   std::string dex_path = Sites::AppStudio(package_name) + "live_edit.dex";
+  std::vector<unsigned char> dex_bytes(live_edit_dex,
+                                       live_edit_dex + live_edit_dex_len);
 
-  if (IO::access(dex_path, F_OK) == 0 && IO::unlink(dex_path) != 0) {
-    return false;
-  }
-  int fd = IO::open(dex_path, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
-  if (fd == -1) {
-    return false;
-  }
-  size_t count = 0;
-  while (count < live_edit_dex_len) {
-    ssize_t len = write(fd, live_edit_dex + count, live_edit_dex_len - count);
-    if (len < 0) {
-      close(fd);
-      return false;
-    }
-    count += len;
-  }
-
-  if (close(fd) == -1) {
+  if (!WriteFile(dex_path, dex_bytes)) {
+    ErrEvent("Unable to SetUpLiveEditDex");
     return false;
   }
 
@@ -76,10 +60,11 @@ bool SetUpLiveEditDex(jvmtiEnv* jvmti, JNIEnv* jni,
       .CallVoidMethod("addDexPath", "(Ljava/lang/String;)V", dex_path_str);
   if (jni->ExceptionCheck()) {
     jni->ExceptionClear();
+    ErrEvent("SetUpLiveEditDex was unable to addDexPath");
     return false;
   }
-  is_dex_set_up = true;
 
+  is_dex_set_up = true;
   return true;
 }
 

@@ -21,9 +21,9 @@ kotlin_library(
     srcs = glob([
         "src/**/*.kt",
     ]),
-    visibility = ["//tools/base/jdwp-tracer:__subpackages__"],
-    deps = [
-        "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",
+    visibility = [
+        "//tools/base/jdwp-scache:__subpackages__",
+        "//tools/base/jdwp-tracer:__subpackages__",
     ],
 )
 

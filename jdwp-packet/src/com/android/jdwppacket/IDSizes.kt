@@ -25,6 +25,8 @@ class IDSizes(
   val frameIDSize: Int = 8
 ) {
 
+  constructor(size: Int) : this(size, size, size, size, size)
+
   constructor(
     idSizes: IDSizesReply
   ) : this(

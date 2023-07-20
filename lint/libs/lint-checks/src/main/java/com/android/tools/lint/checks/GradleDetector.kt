@@ -17,6 +17,8 @@ package com.android.tools.lint.checks
 
 import com.android.SdkConstants
 import com.android.SdkConstants.ANDROIDX_PKG_PREFIX
+import com.android.SdkConstants.ANDROID_URI
+import com.android.SdkConstants.ATTR_TARGET_SDK_VERSION
 import com.android.SdkConstants.FD_BUILD_TOOLS
 import com.android.SdkConstants.GRADLE_PLUGIN_MINIMUM_VERSION
 import com.android.SdkConstants.GRADLE_PLUGIN_RECOMMENDED_VERSION
@@ -37,7 +39,6 @@ import com.android.sdklib.SdkVersionInfo
 import com.android.sdklib.SdkVersionInfo.LOWEST_ACTIVE_API
 import com.android.tools.lint.checks.GooglePlaySdkIndex.Companion.GOOGLE_PLAY_SDK_INDEX_KEY
 import com.android.tools.lint.checks.GooglePlaySdkIndex.Companion.GOOGLE_PLAY_SDK_INDEX_URL
-import com.android.tools.lint.checks.ManifestDetector.Companion.TARGET_NEWER
 import com.android.tools.lint.client.api.LintClient
 import com.android.tools.lint.client.api.LintTomlDocument
 import com.android.tools.lint.client.api.LintTomlMapValue
@@ -62,6 +63,8 @@ import com.android.tools.lint.detector.api.Location
 import com.android.tools.lint.detector.api.Project
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
+import com.android.tools.lint.detector.api.XmlContext
+import com.android.tools.lint.detector.api.XmlScanner
 import com.android.tools.lint.detector.api.getLanguageLevel
 import com.android.tools.lint.detector.api.guessGradleLocation
 import com.android.tools.lint.detector.api.isNumberString
@@ -73,7 +76,9 @@ import com.android.tools.lint.model.LintModelExternalLibrary
 import com.android.tools.lint.model.LintModelLibrary
 import com.android.tools.lint.model.LintModelMavenName
 import com.android.tools.lint.model.LintModelModuleType
+import com.android.utils.XmlUtils
 import com.android.utils.appendCapitalized
+import com.android.utils.iterator
 import com.android.utils.usLocaleCapitalize
 import com.google.common.base.Joiner
 import com.google.common.base.Splitter
@@ -87,8 +92,11 @@ import java.net.URLEncoder
 import java.nio.file.Path
 import java.util.Calendar
 import java.util.Collections
+import java.util.EnumSet
 import java.util.function.Predicate
 import kotlin.text.Charsets.UTF_8
+import org.w3c.dom.Attr
+import org.w3c.dom.Element
 
 private val Dependency.majorVersion: Int
   get() =
@@ -96,7 +104,7 @@ private val Dependency.majorVersion: Int
       ?: if (version == RichVersion.parse("+")) GradleCoordinate.PLUS_REV_VALUE else Int.MIN_VALUE
 
 /** Checks Gradle files for potential errors. */
-open class GradleDetector : Detector(), GradleScanner, TomlScanner {
+open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
 
   private var minSdkVersion: Int = 0
   private var compileSdkVersion: Int = 0
@@ -190,6 +198,73 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
   private var agpVersionCheckInfo: AgpVersionCheckInfo? = null
 
   private val blockedDependencies = HashMap<Project, BlockedDependencies>()
+
+  // ---- Implements XmlScanner ----
+
+  override fun getApplicableAttributes(): Collection<String>? {
+    return listOf(ATTR_TARGET_SDK_VERSION)
+  }
+
+  override fun visitAttribute(context: XmlContext, attribute: Attr) {
+    if (attribute.namespaceURI != ANDROID_URI) {
+      return
+    }
+
+    val element = attribute.ownerElement
+    val target = attribute.value
+    try {
+      val targetSdkVersion = target.toInt()
+      val highest = context.client.highestKnownApiLevel
+      val targetSdkCheckResult =
+        checkTargetSdk(
+          context,
+          ManifestDetector.calendar ?: Calendar.getInstance(),
+          targetSdkVersion
+        )
+      val location = context.getLocation(attribute)
+      if (targetSdkCheckResult is TargetSdkCheckResult.Expired) {
+        context.report(
+          EXPIRED_TARGET_SDK_VERSION,
+          element,
+          location,
+          targetSdkCheckResult.message,
+          targetSdkLintFix(targetSdkCheckResult.requiredVersion)
+        )
+      }
+      if (targetSdkCheckResult is TargetSdkCheckResult.Expiring) {
+        context.report(
+          EXPIRING_TARGET_SDK_VERSION,
+          element,
+          location,
+          targetSdkCheckResult.message,
+          targetSdkLintFix(targetSdkCheckResult.requiredVersion)
+        )
+      }
+      if (
+        context.isEnabled(TARGET_NEWER) &&
+          targetSdkCheckResult is TargetSdkCheckResult.NoIssue &&
+          targetSdkVersion < highest
+      ) {
+        context.report(
+          TARGET_NEWER,
+          element,
+          location,
+          "Not targeting the latest versions of Android; compatibility " +
+            "modes apply. Consider testing and updating this version. " +
+            "Consult the `android.os.Build.VERSION_CODES` javadoc for details.",
+          targetSdkLintFix(highest)
+        )
+      }
+    } catch (ignore: NumberFormatException) {
+      // Ignore: AAPT will enforce this.
+    }
+  }
+
+  private fun targetSdkLintFix(target: Int) =
+    fix()
+      .name("Update targetSdkVersion to $target")
+      .set(ANDROID_URI, ATTR_TARGET_SDK_VERSION, target.toString())
+      .build()
 
   // ---- Implements GradleScanner ----
 
@@ -1211,11 +1286,11 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     // Network check for really up to date libraries? Only done in batch mode.
     var issue = DEPENDENCY
     if (
-      context.scope.size > 1 &&
+      !Scope.checkSingleFile(context.scope) &&
         context.isEnabled(REMOTE_VERSION) &&
         // Common but served from maven.google.com so no point to
         // ping other maven repositories about these
-        !groupId.startsWith("androidx.")
+        !getGoogleMavenRepository(context.client).hasGroupId(groupId)
     ) {
       val latest =
         getLatestVersionFromRemoteRepo(
@@ -1227,6 +1302,21 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
       if (latest != null && version < latest) {
         newerVersion = latest
         issue = REMOTE_VERSION
+      }
+
+      val group = dependency.group
+      if (group != null && dependency.isGradlePlugin()) {
+        val pluginVersion =
+          getLatestVersionFromGradlePluginPortal(
+            context.client,
+            group,
+            filter,
+            dependency.version?.lowerBound?.isPreview ?: true
+          )
+        if (pluginVersion != null && version < pluginVersion) {
+          newerVersion = pluginVersion
+          issue = REMOTE_VERSION
+        }
       }
     }
 
@@ -1920,6 +2010,22 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         }
       }
     }
+
+    val plugins = document.getValue(VC_PLUGINS) as? LintTomlMapValue
+    if (plugins != null) {
+      val versions = document.getValue(VC_VERSIONS) as? LintTomlMapValue
+      for ((_, plugin) in plugins.getMappedValues()) {
+        val (coordinate, versionNode) = getPluginFromTomlEntry(versions, plugin) ?: continue
+        val group = coordinate.substringBefore(':')
+        val gradleCoordinate = "$group:$group.gradle.plugin:${coordinate.substringAfterLast(':')}"
+        val dependency = Dependency.parse(gradleCoordinate)
+        // Check dependencies without the PSI read lock, because we
+        // may need to make network requests to retrieve version info.
+        context.driver.runLaterOutsideReadAction {
+          checkDependency(context, dependency, false, versionNode, versionNode)
+        }
+      }
+    }
   }
 
   override fun afterCheckFile(context: Context) {
@@ -2384,6 +2490,21 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     }
   }
 
+  /**
+   * Returns the "group:artifact" address of a dependency, unless it's a Gradle plugin in which case
+   * it returns the plugin id.
+   */
+  private fun Dependency.id(): String {
+    return if (isGradlePlugin()) {
+      group!!
+    } else {
+      "$group:$name"
+    }
+  }
+
+  private fun Dependency.isGradlePlugin(): Boolean =
+    group != null && name.endsWith(".gradle.plugin") && name == "$group.gradle.plugin"
+
   private fun getNewerVersionAvailableMessage(
     dependency: Dependency,
     version: String,
@@ -2392,7 +2513,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     val message = StringBuilder()
     with(message) {
       append("A newer version of ")
-      append("${dependency.group}:${dependency.name}")
+      append(dependency.id())
       append(" than ")
       append("${dependency.version}")
       append(" is available: ")
@@ -2533,13 +2654,13 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
     private var lastTargetSdkVersion: Int = -1
     private var lastTargetSdkVersionFile: File? = null
 
-    /** If you invoke the target SDK versin migration assistant, stop flagging edits. */
+    /** If you invoke the target SDK version migration assistant, stop flagging edits. */
     fun stopFlaggingTargetSdkEdits() {
       lastTargetSdkVersion = Integer.MAX_VALUE
       lastTargetSdkVersionFile = null
     }
 
-    /** Calendar to use to look up the current time (used by tests to set specific time. */
+    /** Calendar to use to look up the current time (used by tests to set specific time). */
     var calendar: Calendar? = null
 
     const val KEY_COORDINATE = "coordinate"
@@ -2555,6 +2676,13 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         Scope.GRADLE_AND_TOML_SCOPE,
         Scope.GRADLE_SCOPE,
         Scope.TOML_SCOPE
+      )
+    private val IMPLEMENTATION_WITH_MANIFEST =
+      Implementation(
+        GradleDetector::class.java,
+        EnumSet.of(Scope.GRADLE_FILE, Scope.MANIFEST),
+        Scope.GRADLE_SCOPE,
+        Scope.MANIFEST_SCOPE
       )
 
     /** Obsolete dependencies. */
@@ -2997,7 +3125,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
           priority = 8,
           severity = Severity.WARNING,
           androidSpecific = true,
-          implementation = IMPLEMENTATION
+          implementation = IMPLEMENTATION_WITH_MANIFEST
         )
         .addMoreInfo(
           "https://support.google.com/googleplay/android-developer/answer/113469#targetsdk"
@@ -3028,11 +3156,42 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
           priority = 8,
           severity = Severity.FATAL,
           androidSpecific = true,
-          implementation = IMPLEMENTATION
+          implementation = IMPLEMENTATION_WITH_MANIFEST
         )
         .addMoreInfo(
           "https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
         )
+
+    /** Using a targetSdkVersion that isn't recent */
+    @JvmField
+    val TARGET_NEWER =
+      Issue.create(
+          id = "OldTargetApi",
+          briefDescription = "Target SDK attribute is not targeting latest version",
+          explanation =
+            """
+                When your application runs on a version of Android that is more recent than your \
+                `targetSdkVersion` specifies that it has been tested with, various compatibility modes \
+                kick in. This ensures that your application continues to work, but it may look out of \
+                place. For example, if the `targetSdkVersion` is less than 14, your app may get an \
+                option button in the UI.
+
+                To fix this issue, set the `targetSdkVersion` to the highest available value. Then test \
+                your app to make sure everything works correctly. You may want to consult the \
+                compatibility notes to see what changes apply to each version you are adding support \
+                for: https://developer.android.com/reference/android/os/Build.VERSION_CODES.html as well \
+                as follow this guide:
+                https://developer.android.com/distribute/best-practices/develop/target-sdk.html
+                """,
+          category = Category.CORRECTNESS,
+          priority = 6,
+          severity = Severity.WARNING,
+          implementation = IMPLEMENTATION_WITH_MANIFEST
+        )
+        .addMoreInfo(
+          "https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+        )
+        .addMoreInfo("https://developer.android.com/reference/android/os/Build.VERSION_CODES.html")
 
     /** targetSdkVersion was manually edited */
     @JvmField
@@ -3437,6 +3596,47 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner {
         message?.let { location2.message = it }
       }
       return location1
+    }
+
+    fun getLatestVersionFromGradlePluginPortal(
+      client: LintClient,
+      pluginId: String,
+      filter: Predicate<Version>?,
+      allowPreview: Boolean
+    ): Version? {
+      val pluginPath = pluginId.replace(".", "/")
+      val url =
+        "https://plugins.gradle.org/m2/$pluginPath/$pluginId.gradle.plugin/maven-metadata.xml"
+      val updates = readUrlDataAsString(client, url, 20000)
+      if (
+        // for missing dependencies it answers with a json document
+        updates != null && !updates.startsWith("{")
+      ) {
+        val document = XmlUtils.parseDocumentSilently(updates, false)
+        if (document != null) {
+          val versionsList = document.getElementsByTagName("versions")
+          val versions = mutableListOf<Version>()
+
+          for (i in 0 until versionsList.length) {
+            val element = versionsList.item(i) as Element
+            for (child in element) {
+              if (child.tagName == "version") {
+                val s = child.textContent
+                if (s.isNotBlank()) {
+                  val revision = Version.parse(s)
+                  versions.add(revision)
+                }
+              }
+            }
+          }
+
+          return versions
+            .filter { filter == null || filter.test(it) }
+            .filter { allowPreview || !it.isPreview }
+            .maxOrNull()
+        }
+      }
+      return null
     }
 
     /** TODO: Cache these results somewhere! */

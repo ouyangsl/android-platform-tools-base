@@ -26,6 +26,7 @@ import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.gradle.internal.AndroidTestTaskManager
 import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.internal.component.ComponentCreationConfig
+import com.android.build.gradle.internal.component.KmpComponentCreationConfig
 import com.android.build.gradle.internal.component.KmpCreationConfig
 import com.android.build.gradle.internal.coverage.JacocoConfigurations
 import com.android.build.gradle.internal.coverage.JacocoReportTask
@@ -53,6 +54,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.testing.jacoco.plugins.JacocoPlugin
+import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompile
 
 class KmpTaskManager(
     project: Project,
@@ -95,18 +97,6 @@ class KmpTaskManager(
             task.dependsOn(globalConfig.localCustomLintChecks)
         }
 
-        // Create lint tasks here only if the lint standalone plugin is applied (to avoid
-        // Android-specific behavior)
-        if (project.plugins.hasPlugin(LINT_PLUGIN_ID)) {
-            lintTaskManager.createLintTasks(
-                ComponentTypeImpl.KMP_ANDROID,
-                variant.name,
-                listOf(variant),
-                testComponentPropertiesList = emptyList(),
-                isPerComponent = true
-            )
-        }
-
         variant.publishBuildArtifacts()
 
         hasCreatedTasks = true
@@ -117,6 +107,8 @@ class KmpTaskManager(
         variant: KmpCreationConfig
     ) {
         createAnchorTasks(project, variant)
+
+        maybeCreateJavacTask(variant)
 
         project.tasks.registerTask(
             BundleLibraryClassesJar.KotlinMultiplatformCreationAction(
@@ -227,6 +219,18 @@ class KmpTaskManager(
             )
         )
 
+        // Create lint tasks here only if the lint standalone plugin is applied (to avoid
+        // Android-specific behavior)
+        if (project.plugins.hasPlugin(LINT_PLUGIN_ID)) {
+            lintTaskManager.createLintTasks(
+                ComponentTypeImpl.KMP_ANDROID,
+                variant.name,
+                listOf(variant),
+                testComponentPropertiesList = emptyList(),
+                isPerComponent = true
+            )
+        }
+
         project.tasks.registerTask(BundleAar.KotlinMultiplatformLocalLintCreationAction(variant))
 
         project.tasks.registerTask(BundleAar.KotlinMultiplatformCreationAction(variant))
@@ -248,6 +252,8 @@ class KmpTaskManager(
         component: KmpUnitTestImpl
     ) {
         createAnchorTasks(project, component)
+
+        maybeCreateJavacTask(component)
 
         project.tasks.registerTask(ProcessTestManifest.CreationAction(component))
         project.tasks.registerTask(
@@ -284,7 +290,8 @@ class KmpTaskManager(
                 LintModelWriterTask.PerComponentCreationAction(
                     component,
                     useModuleDependencyLintModels = false,
-                    fatalOnly = false
+                    fatalOnly = false,
+                    isMainModelForLocalReportTask = false
                 )
             )
         }
@@ -295,6 +302,8 @@ class KmpTaskManager(
         component: KmpAndroidTestImpl
     ) {
         createAnchorTasks(project, component, false)
+
+        maybeCreateJavacTask(component)
 
         AndroidTestTaskManager(
             project = project,
@@ -331,6 +340,24 @@ class KmpTaskManager(
         if (createPreBuildTask) {
             project.tasks.registerTask(PreBuildCreationAction(component))
             createDependencyStreams(component)
+        }
+    }
+
+    private fun maybeCreateJavacTask(
+        component: KmpComponentCreationConfig
+    ) {
+        if (!component.withJava) {
+            return
+        }
+        val javacTask = createJavacTask(component)
+        component.androidKotlinCompilation.compileTaskProvider.configure { kotlincTask ->
+            component.sources.java {
+                (kotlincTask as AbstractKotlinCompile<*>).source(it.getAsFileTrees())
+            }
+        }
+
+        javacTask.configure { javaCompile ->
+            javaCompile.classpath += component.androidKotlinCompilation.output.classesDirs
         }
     }
 }

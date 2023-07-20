@@ -162,6 +162,8 @@ public final class SdkConstants {
     public static final String FN_SETTINGS_GRADLE = "settings.gradle";
     /** An SDK Project's settings.gradle Kotlin script file */
     public static final String FN_SETTINGS_GRADLE_KTS = "settings.gradle.kts";
+    /** An SDK Project's settings.gradle toml file */
+    public static final String FN_SETTINGS_GRADLE_TOML = "settings.gradle.toml";
     /** An SDK Project's gradle.properties file */
     public static final String FN_GRADLE_PROPERTIES = "gradle.properties";
     /** An SDK Project's libs.versions.toml file */
@@ -2680,6 +2682,12 @@ public final class SdkConstants {
 
     /** The androidx.leanback. package prefix */
     public static final String ANDROIDX_LEANBACK_PKG = "androidx.leanback.";
+
+    /** The androidx.compose.material. package prefix */
+    public static final String ANDROIDX_MATERIAL_PKG = "androidx.compose.material.";
+
+    /** The androidx.wear.compose.material. package prefix */
+    public static final String ANDROIDX_WEAR_MATERIAL_PKG = "androidx.wear.compose.material.";
 
     /** The androidx.coordinatorlayout. package prefix */
     public static final String ANDROIDX_COORDINATOR_LAYOUT_PKG = "androidx.coordinatorlayout.";

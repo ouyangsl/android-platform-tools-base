@@ -32,7 +32,10 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader
 import java.util.stream.Collectors
+import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
+import java.util.zip.ZipInputStream
+import kotlin.io.path.inputStream
 
 /**
  * Integration tests for [ExtractVersionControlInfoTask]
@@ -71,7 +74,7 @@ class ExtractVersionControlInfoTest {
         val apkFile =
             project.getSubproject("app").getApk(GradleTestProject.ApkType.DEBUG).file.toFile()
         validateApkFileContents(apkFile, sha)
-        validateBundleApkFileExists()
+        validateBundleApkFileContents(sha)
     }
 
     @Test
@@ -86,19 +89,20 @@ class ExtractVersionControlInfoTest {
         val apkFile =
             project.getSubproject("app").getApk(GradleTestProject.ApkType.DEBUG).file.toFile()
         validateApkFileContents(apkFile, sha)
-        validateBundleApkFileExists()
+        validateBundleApkFileContents(sha)
     }
 
     @Test
     fun headFileMissing() {
         val result = project.executor()
             .with(BooleanOption.ENABLE_VCS_INFO, true)
+            .expectFailure()
             .run(":app:assembleDebug")
 
-        ScannerSubject.assertThat(result.stdout).contains(
+        ScannerSubject.assertThat(result.stderr).contains(
             "When setting ${BooleanOption.ENABLE_VCS_INFO.propertyName} to true, the project " +
             "must be initialized with Git. The file '.git/HEAD' in the project root is " +
-            "missing, so the version control metadata will not be included in the APK.")
+            "missing, so the version control metadata cannot be included in the APK.")
     }
 
     @Test
@@ -110,22 +114,50 @@ class ExtractVersionControlInfoTest {
 
         val result = project.executor()
             .with(BooleanOption.ENABLE_VCS_INFO, true)
+            .expectFailure()
             .run(":app:assembleDebug")
 
-        ScannerSubject.assertThat(result.stdout).contains(
+        ScannerSubject.assertThat(result.stderr).contains(
             "When setting ${BooleanOption.ENABLE_VCS_INFO.propertyName} to true, the project " +
             "must be initialized with Git. The file '.git/refs/heads/branchName' in the project " +
-            "root is missing, so the version control metadata will not be included in the APK.")
+            "root is missing, so the version control metadata cannot be included in the APK.")
     }
 
-    private fun validateBundleApkFileExists() {
+    private fun validateBundleApkFileContents(sha: String) {
         val bundleApksFile = project.getSubproject("app")
             .getIntermediateFile("apks_from_bundle", "debug", "bundle.apks")
-        ZipFileSubject.assertThat(bundleApksFile) { apks ->
-            apks.nested("splits/base-master.apk") { baseApk ->
-                baseApk.contains("META-INF/version-control-info.textproto")
+
+        val baseMasterApk: ByteArray
+        ZipInputStream(bundleApksFile.inputStream().buffered()).use {
+            while (true) {
+                val entry = it.nextEntry ?: throw AssertionError("Base apk not found")
+                if (entry.name == "splits/base-master.apk") {
+                    baseMasterApk = it.readAllBytes()
+                    break
+                }
             }
         }
+        val vcInfo: ByteArray
+        ZipInputStream(baseMasterApk.inputStream()).use {
+            while (true) {
+                val entry = it.nextEntry ?: throw AssertionError("VC info file not found")
+                if (entry.name.startsWith(IncrementalPackager.VERSION_CONTROL_INFO_ENTRY_PATH)) {
+                    vcInfo = it.readAllBytes()
+                    break
+                }
+            }
+        }
+
+        Truth.assertThat(vcInfo.decodeToString()).isEqualTo(
+            """
+                repositories {
+                  system: GIT
+                  local_root_path: "${'$'}PROJECT_DIR"
+                  revision: "$sha"
+                }
+
+            """.trimIndent()
+        )
     }
 
     private fun validateApkFileContents(compressedFile: File, sha: String) {

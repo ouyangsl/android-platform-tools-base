@@ -51,9 +51,10 @@ class KmpAndroidTestDslInfoImpl(
     private val dataProvider: ManifestDataProvider,
     override val mainVariantDslInfo: KmpVariantDslInfo,
     signingConfigOverride: SigningConfig?,
-    dslServices: DslServices
+    dslServices: DslServices,
+    withJava: Boolean,
 ): KmpComponentDslInfoImpl(
-    extension, services
+    extension, services, withJava
 ), AndroidTestComponentDslInfo, KmpComponentDslInfo {
 
     private val testOnDeviceConfig
@@ -71,9 +72,6 @@ class KmpAndroidTestDslInfoImpl(
                 "$testedVariantNamespace.test"
             }
     }
-
-    val targetSdkVersion
-        get() = (extension as KotlinMultiplatformAndroidExtensionImpl).testTargetSdkVersion
 
     override val isDebuggable: Boolean
         get() = true
