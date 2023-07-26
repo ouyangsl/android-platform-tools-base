@@ -51,6 +51,24 @@
       "parentUuid": "c69a54ed_5635f911",
       "revId": "ae829f0837aacfff8f9ccdd194ff90cd353f9478",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a385ffd_e37e2f20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2023-07-26T18:36:29Z",
+      "side": 1,
+      "message": "this has already been fixed internally, and should be in the Hedgehog Canary 10 (AGP 8.2-alpha10) and newer. (Android Studio isn\u0027t developed in AOSP :-( )",
+      "parentUuid": "e173f869_86b2266b",
+      "revId": "ae829f0837aacfff8f9ccdd194ff90cd353f9478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
