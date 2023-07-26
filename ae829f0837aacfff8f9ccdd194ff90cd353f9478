@@ -33,6 +33,24 @@
       "message": "I download the latest code. There is no code merging in this brand after I submitted the code. So Where is the problem? Can you explain it for me?",
       "revId": "ae829f0837aacfff8f9ccdd194ff90cd353f9478",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e173f869_86b2266b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2001283
+      },
+      "writtenOn": "2023-07-26T11:47:14Z",
+      "side": 1,
+      "message": "I download the latest code. There is no code merging in this brand after I submitted the code. So Where is the problem? Can you explain it for me?",
+      "parentUuid": "c69a54ed_5635f911",
+      "revId": "ae829f0837aacfff8f9ccdd194ff90cd353f9478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
