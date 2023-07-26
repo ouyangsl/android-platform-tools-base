@@ -16,6 +16,23 @@
       "message": "jomof: can we cherrypick out what you\u0027ve already done, or would there be too many merge conflicts? is there an ETA for when those changes will make their way out naturally?",
       "revId": "ae829f0837aacfff8f9ccdd194ff90cd353f9478",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecd77d3d_54846cc0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2001283
+      },
+      "writtenOn": "2023-07-26T11:45:22Z",
+      "side": 1,
+      "message": "I download the latest code. There is no code merging in this brand after I submitted the code. So Where is the problem? Can you explain it for me?",
+      "revId": "ae829f0837aacfff8f9ccdd194ff90cd353f9478",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
