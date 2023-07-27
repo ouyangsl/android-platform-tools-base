@@ -20,7 +20,6 @@ import com.android.adblib.AdbChannelFactory
 import com.android.adblib.AdbServerSocket
 import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
-import com.android.adblib.serialNumber
 import com.android.adblib.thisLogger
 import com.android.adblib.tools.debugging.AtomicStateFlow
 import com.android.adblib.tools.debugging.JdwpPacketReceiver
@@ -34,8 +33,6 @@ import com.android.adblib.tools.debugging.receiveAllPacketsCatching
 import com.android.adblib.tools.debugging.rethrowCancellation
 import com.android.adblib.tools.debugging.sendPacket
 import com.android.adblib.tools.debugging.utils.NoDdmsPacketFilterFactory
-import com.android.adblib.tools.debugging.utils.ReferenceCountedResource
-import com.android.adblib.tools.debugging.utils.withResource
 import com.android.adblib.utils.launchCancellable
 import com.android.adblib.withPrefix
 import kotlinx.coroutines.CompletableDeferred
@@ -53,13 +50,14 @@ import kotlinx.coroutines.coroutineScope
 internal class JdwpSessionProxy(
     private val device: ConnectedDevice,
     private val pid: Int,
-    private val jdwpSessionRef: ReferenceCountedResource<SharedJdwpSession>,
+    private val jdwpSessionProvider: SharedJdwpSessionProvider,
 ) {
 
     private val session: AdbSession
         get() = device.session
 
-    private val logger = thisLogger(session).withPrefix("device='${device.serialNumber}' pid=$pid: ")
+    private val logger = thisLogger(device.session)
+        .withPrefix("${device.session} - $device - pid=$pid - ")
 
     suspend fun execute(processStateFlow: AtomicStateFlow<JdwpProcessProperties>) {
         try {
@@ -110,7 +108,7 @@ internal class JdwpSessionProxy(
 
     private suspend fun proxyJdwpSession(debuggerSocket: AdbChannel) {
         logger.debug { "Start proxying socket between external debugger and process on device" }
-        jdwpSessionRef.withResource { deviceSession ->
+        jdwpSessionProvider.withSharedJdwpSession { deviceSession ->
             // The JDWP Session proxy does not need to send custom JDWP packets,
             // so we pass a `null` value for `nextPacketIdBase`.
             JdwpSession.wrapSocketChannel(device, debuggerSocket, pid, null).use { debuggerSession ->
@@ -153,7 +151,7 @@ internal class JdwpSessionProxy(
 
     private fun createDebuggerPipeline(debuggerSession: JdwpSession): JdwpSessionPipeline {
         // The pipeline source is always the connection to the debugger
-        val debuggerPipeline = DebuggerSessionPipeline(session, debuggerSession)
+        val debuggerPipeline = DebuggerSessionPipeline(session, debuggerSession, pid)
 
         // Call each factory in priority order
         return session.jdwpSessionPipelineFactoryList
@@ -236,5 +234,6 @@ internal class JdwpSessionProxy(
         this.update {
             it.copy(jdwpSessionProxyStatus = updater(it.jdwpSessionProxyStatus))
         }
+        logger.verbose { "Updated stateflow: ${this.value}" }
     }
 }

@@ -15,34 +15,35 @@
  */
 package com.android.adblib.tools.debugging.impl
 
-import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
 import com.android.adblib.CoroutineScopeCache
-import com.android.adblib.property
 import com.android.adblib.scope
 import com.android.adblib.thisLogger
-import com.android.adblib.tools.AdbLibToolsProperties.JDWP_SESSION_FIRST_PACKET_ID
 import com.android.adblib.tools.debugging.AtomicStateFlow
-import com.android.adblib.tools.debugging.JdwpProcess
 import com.android.adblib.tools.debugging.JdwpProcessProperties
-import com.android.adblib.tools.debugging.JdwpSession
 import com.android.adblib.tools.debugging.SharedJdwpSession
-import com.android.adblib.tools.debugging.utils.ReferenceCountedResource
-import com.android.adblib.tools.debugging.utils.withResource
-import com.android.adblib.utils.closeOnException
+import com.android.adblib.tools.debugging.appProcessTracker
+import com.android.adblib.tools.debugging.jdwpProcessTracker
+import com.android.adblib.withPrefix
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 /**
- * Implementation of [JdwpProcess]
+ * Implementation of [AbstractJdwpProcess] performing the actual JDWP connection.
+ *
+ * Note: The [close] method is called by [appProcessTracker] or [jdwpProcessTracker] when
+ * the process is terminated, or when the [ConnectedDevice.scope] completes.
  */
 internal class JdwpProcessImpl(
-    session: AdbSession,
     override val device: ConnectedDevice,
-    override val pid: Int
-) : JdwpProcess, AutoCloseable {
+    override val pid: Int,
+    private val onClosed: (JdwpProcessImpl) -> Unit
+) : AbstractJdwpProcess() {
 
-    private val logger = thisLogger(session)
+    private val logger = thisLogger(device.session)
+        .withPrefix("${device.session} - $device - pid=$pid - ")
 
     private val stateFlow = AtomicStateFlow(MutableStateFlow(JdwpProcessProperties(pid)))
 
@@ -53,7 +54,7 @@ internal class JdwpProcessImpl(
     /**
      * Provides concurrent and on-demand access to the `jdwp` session of the device.
      *
-     * We use a [ReferenceCountedResource] to ensure only one session is created at a time,
+     * We use a [SharedJdwpSessionProvider] to ensure only one session is created at a time,
      * while at the same time allowing multiple consumers to access the jdwp session concurrently.
      *
      * We currently have 2 consumers:
@@ -69,18 +70,14 @@ internal class JdwpProcessImpl(
      * is used for collecting process properties and for a debugging session. The connection
      * lasts until the debugging session ends.
      */
-    private val jdwpSessionRef = ReferenceCountedResource(session, session.host.ioDispatcher) {
-        JdwpSession.openJdwpSession(device, pid, session.property(JDWP_SESSION_FIRST_PACKET_ID))
-            .closeOnException { jdwpSession ->
-                SharedJdwpSession.create(jdwpSession, pid)
-            }
-    }
+    private val sharedJdwpSessionProvider = SharedJdwpSessionProvider.create(device, pid)
 
-    private val propertyCollector = JdwpProcessPropertiesCollector(device, scope, pid, jdwpSessionRef)
+    private val propertyCollector = JdwpProcessPropertiesCollector(device, scope, pid, sharedJdwpSessionProvider)
 
-    private val jdwpSessionProxy = JdwpSessionProxy(device, pid, jdwpSessionRef)
+    private val jdwpSessionProxy = JdwpSessionProxy(device, pid, sharedJdwpSessionProvider)
 
     private val lazyStartMonitoring by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        logger.debug { "Start monitoring" }
         scope.launch {
             jdwpSessionProxy.execute(stateFlow)
         }
@@ -89,26 +86,33 @@ internal class JdwpProcessImpl(
         }
     }
 
-    /**
-     * Whether the [SharedJdwpSession] is currently in use (testing only)
-     */
-    val isJdwpSessionRetained: Boolean
-        get() = jdwpSessionRef.isRetained
+    override val jdwpSessionActivationCount: StateFlow<Int>
+        get() = sharedJdwpSessionProvider.activationCount
 
-    fun startMonitoring() {
+    override fun startMonitoring() {
         lazyStartMonitoring
     }
 
     override suspend fun <T> withJdwpSession(block: suspend SharedJdwpSession.() -> T): T {
-        return jdwpSessionRef.withResource {
+        return sharedJdwpSessionProvider.withSharedJdwpSession {
             it.block()
         }
     }
 
+    override suspend fun awaitReadyToClose() {
+        // Wait until no active JDWP session
+        sharedJdwpSessionProvider.activationCount.first { it == 0 }
+        logger.debug { "Ready to close" }
+    }
+
     override fun close() {
-        val msg = "Closing coroutine scope of JDWP process $pid"
-        logger.debug { msg }
-        jdwpSessionRef.close()
+        logger.debug { "close()" }
+        sharedJdwpSessionProvider.close()
         cache.close()
+        onClosed(this)
+    }
+
+    override fun toString(): String {
+        return "${this::class.simpleName}(session=${device.session}, device=$device, pid=$pid)"
     }
 }

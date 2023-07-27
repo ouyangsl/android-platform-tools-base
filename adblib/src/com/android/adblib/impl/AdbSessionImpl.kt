@@ -16,21 +16,24 @@
 package com.android.adblib.impl
 
 import com.android.adblib.AdbChannelFactory
-import com.android.adblib.AdbServerChannelProvider
 import com.android.adblib.AdbDeviceServices
 import com.android.adblib.AdbHostServices
+import com.android.adblib.AdbServerChannelProvider
 import com.android.adblib.AdbSession
 import com.android.adblib.AdbSessionHost
 import com.android.adblib.ClosedSessionException
 import com.android.adblib.CoroutineScopeCache
 import com.android.adblib.impl.channels.AdbChannelFactoryImpl
 import com.android.adblib.thisLogger
+import com.android.adblib.utils.createChildScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicInteger
 
 internal class AdbSessionImpl(
+    override val parentSession: AdbSession?,
     override val host: AdbSessionHost,
     val channelProvider: AdbServerChannelProvider,
     private val connectionTimeoutMillis: Long
@@ -38,10 +41,16 @@ internal class AdbSessionImpl(
 
     private val logger = thisLogger(host)
 
+    private val id = sessionId.incrementAndGet()
+
     private var closed = false
 
-    override val scope =
-        CoroutineScope(host.parentContext + SupervisorJob() + host.ioDispatcher)
+    /**
+     * If there is a parent session, create a child scope of that session. If not, create
+     * a standalone scope.
+     */
+    override val scope = parentSession?.scope?.createChildScope(isSupervisor = true, host.parentContext)
+        ?: CoroutineScope(host.parentContext + SupervisorJob() + host.ioDispatcher)
 
     override val channelFactory: AdbChannelFactory = AdbChannelFactoryImpl(this)
         get() {
@@ -88,6 +97,13 @@ internal class AdbSessionImpl(
         }
     }
 
+    override fun toString(): String {
+        return when(parentSession) {
+            null -> "${AdbSession::class.simpleName}('ROOT')"
+            else -> "${AdbSession::class.simpleName}(id=$id, parent=$parentSession)"
+        }
+    }
+
     private fun createHostServices(): AdbHostServices {
         return AdbHostServicesImpl(
             this,
@@ -104,5 +120,9 @@ internal class AdbSessionImpl(
             connectionTimeoutMillis,
             TimeUnit.MILLISECONDS
         )
+    }
+
+    companion object {
+        private val sessionId = AtomicInteger(0)
     }
 }

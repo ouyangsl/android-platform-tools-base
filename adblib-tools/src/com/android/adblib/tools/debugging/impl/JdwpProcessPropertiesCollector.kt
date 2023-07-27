@@ -49,10 +49,8 @@ import com.android.adblib.tools.debugging.packets.ddms.ddmsChunks
 import com.android.adblib.tools.debugging.packets.ddms.writeToChannel
 import com.android.adblib.tools.debugging.packets.impl.MutableJdwpPacket
 import com.android.adblib.tools.debugging.packets.impl.PayloadProvider
-import com.android.adblib.tools.debugging.rethrowCancellation
 import com.android.adblib.tools.debugging.receiveWhile
-import com.android.adblib.tools.debugging.utils.ReferenceCountedResource
-import com.android.adblib.tools.debugging.utils.withResource
+import com.android.adblib.tools.debugging.rethrowCancellation
 import com.android.adblib.utils.ResizableBuffer
 import com.android.adblib.withPrefix
 import kotlinx.coroutines.CancellationException
@@ -77,14 +75,14 @@ internal class JdwpProcessPropertiesCollector(
     private val device: ConnectedDevice,
     private val processScope: CoroutineScope,
     private val pid: Int,
-    private val jdwpSessionRef: ReferenceCountedResource<SharedJdwpSession>
+    private val jdwpSessionProvider: SharedJdwpSessionProvider
 ) {
 
     private val session: AdbSession
         get() = device.session
 
-    private val logger =
-        thisLogger(session).withPrefix("device='${device.serialNumber}' pid=$pid: ")
+    private val logger = thisLogger(device.session)
+        .withPrefix("${device.session} - $device - pid=$pid - ")
 
     /**
      * Collects [JdwpProcessProperties] for the process [pid] emits them to [stateFlow],
@@ -180,7 +178,7 @@ internal class JdwpProcessPropertiesCollector(
      * and emits them to [CollectState.propertiesFlow].
      */
     private suspend fun collect(collectState: CollectState) {
-        jdwpSessionRef.withResource { jdwpSession ->
+        jdwpSessionProvider.withSharedJdwpSession { jdwpSession ->
             collectWithSession(jdwpSession, collectState)
 
             if (collectState.hasCollectedEverything) {
@@ -322,6 +320,7 @@ internal class JdwpProcessPropertiesCollector(
                 stage = if (session.property(SUPPORT_STAG_PACKETS)) heloChunk.stage else null,
             )
         }
+        logger.verbose { "Updated stateflow: ${collectState.propertiesFlow.value}" }
     }
 
     private suspend fun processFeatReply(
@@ -335,6 +334,7 @@ internal class JdwpProcessPropertiesCollector(
         }
         logger.debug { "`FEAT` reply: $featChunk" }
         collectState.propertiesFlow.update { it.copy(features = featChunk.features) }
+        logger.verbose { "Updated stateflow: ${collectState.propertiesFlow.value}" }
     }
 
     private suspend fun processWaitCommand(
@@ -347,6 +347,7 @@ internal class JdwpProcessPropertiesCollector(
         }
         logger.debug { "`WAIT` command: $waitChunk" }
         collectState.propertiesFlow.update { it.copy(waitCommandReceived = true) }
+        logger.verbose { "Updated stateflow: ${collectState.propertiesFlow.value}" }
     }
 
     private suspend fun processApnmCommand(
@@ -365,6 +366,7 @@ internal class JdwpProcessPropertiesCollector(
                 packageName = filterFakeName(apnmChunk.packageName)
             )
         }
+        logger.verbose { "Updated stateflow: ${collectState.propertiesFlow.value}" }
     }
 
     private suspend fun processStagCommand(
@@ -385,6 +387,7 @@ internal class JdwpProcessPropertiesCollector(
                 stage = stagChunk.stage,
             )
         }
+        logger.verbose { "Updated stateflow: ${collectState.propertiesFlow.value}" }
     }
 
     private suspend fun createHeloPacket(jdwpSession: SharedJdwpSession): JdwpPacketView {
@@ -450,7 +453,7 @@ internal class JdwpProcessPropertiesCollector(
         logger.debug { "JDWP session holder: launching coroutine" }
         val deferred = CompletableDeferred<Unit>()
         processScope.launch {
-            jdwpSessionRef.withResource {
+            jdwpSessionProvider.withSharedJdwpSession {
                 logger.debug { "JDWP session holder: JDWP session has been acquired" }
 
                 // Ok to exit function now, as session has been acquired

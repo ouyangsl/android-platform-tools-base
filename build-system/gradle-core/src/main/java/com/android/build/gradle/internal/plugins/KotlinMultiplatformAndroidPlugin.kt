@@ -47,6 +47,8 @@ import com.android.build.gradle.internal.dependency.ModelArtifactCompatibilityRu
 import com.android.build.gradle.internal.dependency.SingleVariantBuildTypeRule
 import com.android.build.gradle.internal.dependency.SingleVariantProductFlavorRule
 import com.android.build.gradle.internal.dependency.VariantDependencies
+import com.android.build.gradle.internal.dependency.configureKotlinTestDependencyForInstrumentedTestCompilation
+import com.android.build.gradle.internal.dependency.configureKotlinTestDependencyForUnitTestCompilation
 import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidExtensionImpl
 import com.android.build.gradle.internal.dsl.KotlinMultiplatformAndroidTestConfigurationImpl
 import com.android.build.gradle.internal.dsl.decorator.androidPluginDslDecorator
@@ -55,7 +57,6 @@ import com.android.build.gradle.internal.ide.dependencies.MavenCoordinatesCacheB
 import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker
 import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Companion.android
 import com.android.build.gradle.internal.ide.kmp.KotlinIdeImportConfigurator
-import com.android.build.gradle.internal.ide.kmp.KotlinModelBuildingConfigurator
 import com.android.build.gradle.internal.ide.v2.GlobalSyncService
 import com.android.build.gradle.internal.lint.LintFixBuildService
 import com.android.build.gradle.internal.manifest.LazyManifestParser
@@ -221,6 +222,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
                 configureIdeImport {
                     KotlinIdeImportConfigurator.configure(
                         project,
+                        lazy { androidTarget },
+                        androidExtension,
                         this,
                         sourceSetToCreationConfigMap = lazy {
                             addSourceSetsThatShouldBeResolvedAsAndroid()
@@ -463,19 +466,21 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
 
         finalizeAllComponents(listOfNotNull(mainVariant, unitTest, androidTest))
 
-        KotlinModelBuildingConfigurator.setupAndroidTargetModels(
-            project,
-            mainVariant,
-            androidTarget,
-            projectServices.projectOptions,
-            syncIssueReporter
-        )
+        unitTest?.let {
+            configureKotlinTestDependencyForUnitTestCompilation(
+                project,
+                it,
+                kotlinExtension
+            )
+        }
 
-        KotlinModelBuildingConfigurator.setupAndroidCompilations(
-            listOfNotNull(mainVariant, unitTest, androidTest),
-            androidExtension.androidTestOnDeviceConfiguration?.instrumentationRunner,
-            androidExtension.androidTestOnDeviceConfiguration?.instrumentationRunnerArguments ?: emptyMap(),
-        )
+        androidTest?.let {
+            configureKotlinTestDependencyForInstrumentedTestCompilation(
+                project,
+                it,
+                kotlinExtension
+            )
+        }
     }
 
     private fun addSourceSetsThatShouldBeResolvedAsAndroid() {
@@ -603,7 +608,8 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
             androidExtension,
             variantServices,
             mainVariant.dslInfo,
-            androidTarget.enableJavaSources
+            androidTarget.enableJavaSources,
+            dslServices
         )
 
         val paths = VariantPathHelper(
@@ -621,7 +627,9 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
         return KmpUnitTestImpl(
             dslInfo = dslInfo,
             internalServices = variantServices,
-            buildFeatures = KotlinMultiplatformBuildFeaturesValuesImpl(),
+            buildFeatures = KotlinMultiplatformBuildFeaturesValuesImpl(
+                androidResources = global.unitTestOptions.isIncludeAndroidResources
+            ),
             variantDependencies = createVariantDependencies(project, dslInfo, kotlinCompilation, androidTarget),
             paths = paths,
             artifacts = artifacts,

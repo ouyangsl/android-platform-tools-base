@@ -218,9 +218,14 @@ DATA = [
     "androidx.compose.animation:animation:1.2.0-alpha05",
     "androidx.compose.animation:animation:1.3.0",
     "androidx.compose.animation:animation:1.4.0",
+    "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation:1.2.0-alpha05",
     "androidx.compose.foundation:foundation:1.3.0",
     "androidx.compose.foundation:foundation:1.4.0",
+    "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.foundation:foundation:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.foundation:foundation-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.compiler:compiler:1.2.0",
     "androidx.compose.compiler:compiler:1.3.2",
     "androidx.compose.compiler:compiler:1.4.3",
@@ -229,6 +234,7 @@ DATA = [
     "androidx.compose.material:material:1.3.0",  # Needed by //tools/base/build-system/integration-test/...
     "androidx.compose.material:material:1.4.0",
     "androidx.compose.material:material:1.5.0-alpha04",
+    "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
     "androidx.compose.material3:material3:1.0.0-alpha02",
     "androidx.compose.material3:material3:1.0.0",
     "androidx.compose.material3:material3:1.0.1",
@@ -242,16 +248,30 @@ DATA = [
     "androidx.compose.ui:ui-test-junit4:1.3.0",
     "androidx.compose.ui:ui-test-junit4:1.4.0",
     "androidx.compose.ui:ui-test-junit4:1.5.0-alpha04",
+    "androidx.compose.ui:ui-test-junit4:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-test-junit4-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-test-manifest:1.2.0",
     "androidx.compose.ui:ui-test-manifest:1.2.0",
     "androidx.compose.ui:ui-test-manifest:1.3.0",
     "androidx.compose.ui:ui-test-manifest:1.4.0",
     "androidx.compose.ui:ui-test-manifest:1.5.0-alpha04",
+    "androidx.compose.ui:ui-test-manifest:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-unit-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-test-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui:1.3.0",
     "androidx.compose.ui:ui:1.4.0",
+    "androidx.compose.ui:ui:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-graphics-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling:1.2.0",
     "androidx.compose.ui:ui-tooling:1.3.0",  # Still needed from //tools/base/build-system/integration-tests
     "androidx.compose.ui:ui-tooling:1.4.0",
     "androidx.compose.ui:ui-tooling:1.5.0-alpha04",
+    "androidx.compose.ui:ui-tooling:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-tooling-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-tooling-preview:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-tooling-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-tooling-preview-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-tooling-data-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.constraintlayout:constraintlayout:1.1.3",
     "androidx.constraintlayout:constraintlayout:2.1.3",
     "androidx.constraintlayout:constraintlayout:2.1.4",
@@ -265,8 +285,10 @@ DATA = [
     "androidx.core:core-ktx:1.6.0",
     "androidx.core:core-ktx:1.8.0",
     "androidx.core:core-ktx:1.9.0",
+    "androidx.core:core-ktx:1.10.1",
     "androidx.core:core-splashscreen:1.0.1",
     "androidx.core:core-ktx:1.11.0-alpha04",
+    "androidx.core:core-ktx:1.11.0-beta01",  # Necessary for Compose for TV.
     "androidx.customview:customview-poolingcontainer:1.0.0-beta01",
     "androidx.databinding:viewbinding:7.2.0",
     "androidx.databinding:viewbinding:7.4.1",
@@ -306,19 +328,24 @@ DATA = [
     "androidx.navigation:navigation-fragment:2.0.0",
     "androidx.navigation:navigation-fragment:2.5.2",
     "androidx.navigation:navigation-fragment:2.5.3",
+    "androidx.navigation:navigation-fragment:2.6.0",
     "androidx.navigation:navigation-fragment-ktx:2.3.5",
     "androidx.navigation:navigation-fragment-ktx:2.4.1",
     "androidx.navigation:navigation-fragment-ktx:2.5.2",
     "androidx.navigation:navigation-fragment-ktx:2.5.3",
+    "androidx.navigation:navigation-fragment-ktx:2.6.0",
     "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1",
     "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2",
     "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3",
+    "androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0",
     "androidx.navigation:navigation-ui:2.5.2",
     "androidx.navigation:navigation-ui:2.5.3",
+    "androidx.navigation:navigation-ui:2.6.0",
     "androidx.navigation:navigation-ui-ktx:2.3.5",
     "androidx.navigation:navigation-ui-ktx:2.4.1",
     "androidx.navigation:navigation-ui-ktx:2.5.2",
     "androidx.navigation:navigation-ui-ktx:2.5.3",
+    "androidx.navigation:navigation-ui-ktx:2.6.0",
     "androidx.palette:palette-ktx:1.0.0",
     "androidx.preference:preference:1.0.0",
     "androidx.preference:preference:1.2.0",
@@ -346,6 +373,8 @@ DATA = [
     "androidx.test:rules:1.4.0-alpha06",
     "androidx.test:runner:1.4.0-alpha06",
     "androidx.tracing:tracing-perfetto-common:1.0.0-alpha01",
+    "androidx.tv:tv-foundation:1.0.0-alpha07",
+    "androidx.tv:tv-material:1.0.0-alpha07",
     "androidx.wear:wear:1.2.0",
     "androidx.wear.compose:compose-material:1.1.2",
     "androidx.wear.tiles:tiles:1.2.0-alpha05",
@@ -357,9 +386,11 @@ DATA = [
     "com.android.application:com.android.application.gradle.plugin:7.2.0",
     "com.android.application:com.android.application.gradle.plugin:7.4.1",
     "com.android.application:com.android.application.gradle.plugin:8.0.0-beta04",
+    "com.android.application:com.android.application.gradle.plugin:8.1.0",
     "com.android.library:com.android.library.gradle.plugin:7.2.0",
     "com.android.library:com.android.library.gradle.plugin:7.4.1",
     "com.android.library:com.android.library.gradle.plugin:8.0.0-beta04",
+    "com.android.library:com.android.library.gradle.plugin:8.1.0",
     "com.android.support:animated-vector-drawable:26.1.0",
     "com.android.support:appcompat-v7:25.4.0",
     "com.android.support:appcompat-v7:26.1.0",
@@ -401,6 +432,9 @@ DATA = [
     "com.android.tools.build:aapt2:jar:linux:8.0.0-beta04-9289358",
     "com.android.tools.build:aapt2:jar:osx:8.0.0-beta04-9289358",
     "com.android.tools.build:aapt2:jar:windows:8.0.0-beta04-9289358",
+    "com.android.tools.build:aapt2:jar:linux:8.1.0-10154469",
+    "com.android.tools.build:aapt2:jar:osx:8.1.0-10154469",
+    "com.android.tools.build:aapt2:jar:windows:8.1.0-10154469",
     "com.android.tools.build:gradle:1.5.0",
     "com.android.tools.build:gradle:2.2.0",
     "com.android.tools.build:gradle:2.3.2",
@@ -416,6 +450,7 @@ DATA = [
     "com.android.tools.build:gradle:7.3.0",
     "com.android.tools.build:gradle:7.3.1",
     "com.android.tools.build:gradle:7.4.1",
+    "com.android.tools.build:gradle:8.1.0",
     "com.android.tools.build:transform-api:1.5.0",
     "com.android.tools:desugar_jdk_libs:1.0.5",
     "com.android.tools:desugar_jdk_libs:1.1.5",
@@ -431,6 +466,7 @@ DATA = [
     "com.android.tools.lint:lint-gradle:30.3.0",
     "com.android.tools.lint:lint-gradle:30.4.1",
     "com.android.tools.lint:lint-gradle:31.0.0-beta04",
+    "com.android.tools.lint:lint-gradle:31.1.0",
     "com.android.tools.metalava:metalava:1.0.0-alpha06",
     "com.android.tools.utp:android-test-plugin-host-additional-test-output:30.2.0",
     "com.android.tools.utp:android-device-provider-ddmlib:30.2.0",
@@ -460,6 +496,7 @@ DATA = [
     "com.google.android.material:material:1.5.0",
     "com.google.android.material:material:1.7.0",
     "com.google.android.material:material:1.8.0",
+    "com.google.android.material:material:1.9.0",
     "com.google.android.support:wearable:2.9.0",
     "com.google.android.wearable:wearable:2.9.0",
     "com.google.auto.service:auto-service:1.0-rc2",

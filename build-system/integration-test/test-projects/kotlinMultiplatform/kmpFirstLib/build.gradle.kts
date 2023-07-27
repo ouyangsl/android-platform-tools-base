@@ -8,7 +8,9 @@ plugins {
 kotlin {
   androidLibrary {
     withJava()
-    withAndroidTestOnJvm(compilationName = "unitTest")
+    withAndroidTestOnJvm(compilationName = "unitTest") {
+      isIncludeAndroidResources = true
+    }
     withAndroidTestOnDevice(compilationName = "instrumentedTest")
 
     sourceSets.getByName("androidMain") {
@@ -45,7 +47,7 @@ kotlin {
 
    sourceSets.getByName("commonTest") {
      dependencies {
-       implementation("junit:junit:4.13.2")
+       implementation(kotlin("test"))
      }
    }
 }
