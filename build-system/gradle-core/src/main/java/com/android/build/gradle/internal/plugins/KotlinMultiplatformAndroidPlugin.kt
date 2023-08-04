@@ -288,6 +288,7 @@ abstract class KotlinMultiplatformAndroidPlugin @Inject constructor(
         global = KmpGlobalTaskCreationConfigImpl(
             project,
             androidExtension,
+            settingsExtension,
             versionedSdkLoaderService,
             bootClasspathConfig,
             ::getCompileSdkVersion,
