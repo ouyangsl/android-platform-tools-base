@@ -72,7 +72,7 @@ enum class BuildConfigurationLanguageForNewProject(
 ) {
     KTS("Kotlin DSL (build.gradle.kts) [Recommended]", true, false),
     KTS_VERSION_CATALOG(
-        "Kotlin DSL (build.gradle.kts) + Gradle Version Catalogs [Experimental]",
+        "Kotlin DSL (build.gradle.kts) + Gradle Version Catalogs",
         true,
         true
     ),
