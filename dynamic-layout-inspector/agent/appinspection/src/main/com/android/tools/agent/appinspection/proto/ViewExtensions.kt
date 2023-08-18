@@ -25,6 +25,7 @@ import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.view.Display
 import android.webkit.WebView
 import com.android.tools.agent.appinspection.framework.getChildren
 import com.android.tools.agent.appinspection.framework.getTextValue
@@ -32,6 +33,7 @@ import com.android.tools.agent.appinspection.proto.property.PropertyCache
 import com.android.tools.agent.appinspection.proto.property.SimplePropertyReader
 import com.android.tools.agent.appinspection.proto.resource.convert
 import com.android.tools.agent.appinspection.util.ThreadUtils
+import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.AppContext
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.Bounds
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.GetPropertiesResponse
@@ -96,16 +98,18 @@ private fun View.toNodeImpl(
                     0f, h,
                 )
                 transform.mapPoints(corners)
-                render = Quad.newBuilder().apply {
-                    x0 = corners[0].roundToInt()
-                    y0 = corners[1].roundToInt()
-                    x1 = corners[2].roundToInt()
-                    y1 = corners[3].roundToInt()
-                    x2 = corners[4].roundToInt()
-                    y2 = corners[5].roundToInt()
-                    x3 = corners[6].roundToInt()
-                    y3 = corners[7].roundToInt()
-                }.build()
+                if (corners.none { it.isNaN() }) {
+                    render = Quad.newBuilder().apply {
+                        x0 = corners[0].roundToInt()
+                        y0 = corners[1].roundToInt()
+                        x1 = corners[2].roundToInt()
+                        y1 = corners[3].roundToInt()
+                        x2 = corners[4].roundToInt()
+                        y2 = corners[5].roundToInt()
+                        x3 = corners[6].roundToInt()
+                        y3 = corners[7].roundToInt()
+                    }.build()
+                }
             }
         }.build()
 
@@ -147,6 +151,14 @@ fun View.getNamespace(attributeId: Int): String =
     if (attributeId != 0) resources.getResourcePackageName(attributeId) else ""
 
 fun View.createAppContext(stringTable: StringTable): AppContext {
+    val isRunningInMainDisplay = isRunningInMainDisplay()
+    val appDisplayType = if (isRunningInMainDisplay) {
+        LayoutInspectorViewProtocol.DisplayType.MAIN_DISPLAY
+    }
+    else {
+        LayoutInspectorViewProtocol.DisplayType.SECONDARY_DISPLAY
+    }
+
     return AppContext.newBuilder().apply {
         createResource(stringTable, context.themeResId)?.let { themeResource ->
             theme = themeResource
@@ -155,6 +167,7 @@ fun View.createAppContext(stringTable: StringTable): AppContext {
         mainDisplayWidth = point.x
         mainDisplayHeight = point.y
         mainDisplayOrientation = getDefaultDisplayRotation()
+        displayType = appDisplayType
     }.build()
 }
 
@@ -165,7 +178,7 @@ private val View.windowSize: Point
           val bounds = windowManager.currentWindowMetrics.bounds
           Point(bounds.width(), bounds.height())
       } else {
-          val display = windowManager.defaultDisplay
+          val display = getDefaultDisplay()
           val size = Point()
           display.getRealSize(size)
           size
@@ -176,14 +189,7 @@ fun View.createConfiguration(stringTable: StringTable) =
     context.resources.configuration.convert(stringTable)
 
 fun View.getDefaultDisplayRotation(): Int {
-    val windowManager = context.getSystemService(WindowManager::class.java)
-    val display = if (Build.VERSION.SDK_INT >= 30) {
-        context.display
-    }
-    else {
-        null
-    } ?: windowManager.defaultDisplay
-
+    val display = getDefaultDisplay()
     return when (display.rotation) {
         Surface.ROTATION_0 -> 0
         Surface.ROTATION_90 -> 90
@@ -193,16 +199,15 @@ fun View.getDefaultDisplayRotation(): Int {
     }
 }
 
-fun View.getDefaultDisplaySize(): Point {
-    val windowManager = context.getSystemService(WindowManager::class.java)
-    val display = if (Build.VERSION.SDK_INT >= 30) {
-        context.display
-    }
-    else {
-        null
-    } ?: windowManager.defaultDisplay
+fun View.isRunningInMainDisplay(): Boolean {
+    val display = getDefaultDisplay()
+    return display.getDisplayId() == Display.DEFAULT_DISPLAY
+}
 
+fun View.getDefaultDisplaySize(): Point {
+    val display = getDefaultDisplay()
     if (Build.VERSION.SDK_INT >= 31) {
+        val windowManager = context.getSystemService(WindowManager::class.java)
         val windowMetrics = windowManager.getMaximumWindowMetrics()
         val rect = windowMetrics.getBounds()
         return Point(rect.width(), rect.height())
@@ -242,6 +247,16 @@ fun View.createPropertyGroup(stringTable: StringTable): PropertyGroup {
         // so we have no choice in this case.
         ThreadUtils.runOnMainThread { createPropertyGroupImpl(stringTable) }.get()
     }
+}
+
+private fun View.getDefaultDisplay(): Display {
+    val windowManager = context.getSystemService(WindowManager::class.java)
+    return if (Build.VERSION.SDK_INT >= 30) {
+        context.display
+    }
+    else {
+        null
+    } ?: windowManager.defaultDisplay
 }
 
 private fun View.createPropertyGroupImpl(stringTable: StringTable): PropertyGroup {
