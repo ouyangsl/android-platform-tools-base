@@ -34,7 +34,10 @@ ARTIFACTS = [
     "com.google.crypto.tink:tink:1.3.0-rc2",
     "com.google.crypto.tink:tink:1.7.0",
     "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.7.10-1.0.6",
+    "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.9.0-1.0.11",
     "com.google.devtools.ksp:symbol-processing:1.7.10-1.0.6",
+    "com.google.devtools.ksp:symbol-processing:1.8.10-1.0.9",
+    "com.google.devtools.ksp:symbol-processing:1.9.0-1.0.11",
     "com.fasterxml.jackson.core:jackson-annotations:2.11.1",
     "com.fasterxml.jackson.core:jackson-core:2.11.1",
     "com.fasterxml.jackson.core:jackson-databind:2.11.1",
@@ -150,13 +153,13 @@ ARTIFACTS = [
     "org.jetbrains.dokka:dokka-core:1.4.32",
     "org.jetbrains.intellij.deps:asm-all:8.0.1",
     "org.jetbrains.intellij.deps:trove4j:1.0.20181211",
-    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.9.0-Beta",
-    "org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.9.0-Beta",
-    "org.jetbrains.kotlin:kotlin-compiler:1.9.0-Beta",
-    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0-Beta",
-    "org.jetbrains.kotlin:kotlin-test:1.9.0-Beta",
-    "org.jetbrains.kotlin:kotlin-test-junit:1.9.0-Beta",
-    "org.jetbrains.kotlin:kotlin-reflect:1.9.0-Beta",
+    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.9.0",
+    "org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.9.0",
+    "org.jetbrains.kotlin:kotlin-compiler:1.9.0",
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0",
+    "org.jetbrains.kotlin:kotlin-test:1.9.0",
+    "org.jetbrains.kotlin:kotlin-test-junit:1.9.0",
+    "org.jetbrains.kotlin:kotlin-reflect:1.9.0",
     "org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.3",
     "org.jetbrains:markdown:0.2.1",
@@ -217,27 +220,29 @@ DATA = [
     "androidx.benchmark:benchmark-gradle-plugin:1.1.1",
     "androidx.compose.animation:animation:1.2.0-alpha05",
     "androidx.compose.animation:animation:1.3.0",
-    "androidx.compose.animation:animation:1.4.0",
+    "androidx.compose.animation:animation:1.5.0",
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation:1.2.0-alpha05",
     "androidx.compose.foundation:foundation:1.3.0",
-    "androidx.compose.foundation:foundation:1.4.0",
+    "androidx.compose.foundation:foundation:1.5.0",
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.compiler:compiler:1.2.0",
     "androidx.compose.compiler:compiler:1.3.2",
     "androidx.compose.compiler:compiler:1.4.3",
+    "androidx.compose.compiler:compiler:1.5.1",
     "androidx.compose:compose-bom:pom:2022.10.00",
-    "androidx.compose:compose-bom:pom:2023.03.00",
+    "androidx.compose:compose-bom:pom:2023.08.00",
     "androidx.compose.material:material:1.3.0",  # Needed by //tools/base/build-system/integration-test/...
     "androidx.compose.material:material:1.4.0",
+    "androidx.compose.material:material:1.5.0",
     "androidx.compose.material:material:1.5.0-alpha04",
     "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
     "androidx.compose.material3:material3:1.0.0-alpha02",
     "androidx.compose.material3:material3:1.0.0",
-    "androidx.compose.material3:material3:1.0.1",
+    "androidx.compose.material3:material3:1.1.1",
     "androidx.compose.material:material-icons-extended:1.2.0-alpha05",
     "androidx.compose.material:material-icons-extended:1.3.0",
     "androidx.compose.material:material-icons-extended:1.4.0",
@@ -247,6 +252,7 @@ DATA = [
     "androidx.compose.ui:ui-test-junit4:1.2.0",
     "androidx.compose.ui:ui-test-junit4:1.3.0",
     "androidx.compose.ui:ui-test-junit4:1.4.0",
+    "androidx.compose.ui:ui-test-junit4:1.5.0",
     "androidx.compose.ui:ui-test-junit4:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-junit4:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-junit4-android:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -254,17 +260,20 @@ DATA = [
     "androidx.compose.ui:ui-test-manifest:1.2.0",
     "androidx.compose.ui:ui-test-manifest:1.3.0",
     "androidx.compose.ui:ui-test-manifest:1.4.0",
+    "androidx.compose.ui:ui-test-manifest:1.5.0",
     "androidx.compose.ui:ui-test-manifest:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-manifest:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-unit-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui:1.3.0",
     "androidx.compose.ui:ui:1.4.0",
+    "androidx.compose.ui:ui:1.5.0",
     "androidx.compose.ui:ui:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-graphics-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling:1.2.0",
     "androidx.compose.ui:ui-tooling:1.3.0",  # Still needed from //tools/base/build-system/integration-tests
     "androidx.compose.ui:ui-tooling:1.4.0",
+    "androidx.compose.ui:ui-tooling:1.5.0",
     "androidx.compose.ui:ui-tooling:1.5.0-alpha04",
     "androidx.compose.ui:ui-tooling:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling-android:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -285,6 +294,7 @@ DATA = [
     "androidx.core:core-ktx:1.6.0",
     "androidx.core:core-ktx:1.8.0",
     "androidx.core:core-ktx:1.9.0",
+    "androidx.core:core-ktx:1.10.0",
     "androidx.core:core-ktx:1.10.1",
     "androidx.core:core-splashscreen:1.0.1",
     "androidx.core:core-ktx:1.11.0-alpha04",
@@ -293,7 +303,7 @@ DATA = [
     "androidx.databinding:viewbinding:7.2.0",
     "androidx.databinding:viewbinding:7.4.1",
     "androidx.databinding:viewbinding:8.0.0-beta04",
-    "androidx.emoji2:emoji2-views-helper:1.3.0",
+    "androidx.emoji2:emoji2-views-helper:1.4.0",
     "androidx.emoji2:emoji2-views-helper:1.4.0-beta03",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.emoji2:emoji2-views-helper:1.4.0-beta04",  # Necessary for Compose for TV.
     "androidx.fragment:fragment:1.3.0",
@@ -511,8 +521,11 @@ DATA = [
     "com.google.dagger:hilt-android-gradle-plugin:2.40.1",
     "com.google.dagger:hilt-compiler:2.40.1",
     "com.google.devtools.ksp:symbol-processing-api:1.7.10-1.0.6",
+    "com.google.devtools.ksp:symbol-processing-api:1.9.0-1.0.11",
     "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.7.10-1.0.6",
+    "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.9.0-1.0.11",
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.7.10-1.0.6",
+    "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.9.0-1.0.11",
     "com.google.firebase:firebase-common:12.0.1",
     "com.google.guava:guava:20.0",
     "com.google.guava:guava:28.2-jre",
@@ -590,14 +603,14 @@ DATA = [
     "org.jetbrains.dokka:javadoc-plugin:1.4.32",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.0",  # Remove it later (b/243935746)
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.10",
-    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:1.9.0-Beta",
+    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:1.9.0",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.20",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.21",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.8.10",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.8.21",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.8.0",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.8.10",
-    "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.9.0-Beta",
+    "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.9.0",
     "org.jetbrains.kotlin:jvm-abi-gen:1.8.21",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.6.10",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:1.6.21",
@@ -619,7 +632,8 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.8.21",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.8.0",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.8.10",
-    "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.9.0-Beta",
+    "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.9.0",
+    "org.jetbrains.kotlin:kotlin-annotation-processing-gradle:1.9.0",
     "org.jetbrains.kotlin:kotlin-bom:1.8.0",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.0",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.20",
@@ -639,6 +653,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.21",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10",
+    "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.0",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.10",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.20",
