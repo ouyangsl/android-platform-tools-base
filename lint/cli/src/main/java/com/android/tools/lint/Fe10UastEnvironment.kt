@@ -18,6 +18,8 @@ package com.android.tools.lint
 import com.android.SdkConstants.DOT_KT
 import com.android.SdkConstants.DOT_KTS
 import com.android.SdkConstants.DOT_SRCJAR
+import com.android.tools.lint.UastEnvironment.Companion.getKlibPaths
+import com.android.tools.lint.UastEnvironment.Companion.kotlinLibrary
 import com.intellij.core.CoreApplicationEnvironment
 import com.intellij.mock.MockProject
 import com.intellij.openapi.Disposable
@@ -72,6 +74,7 @@ import org.jetbrains.kotlin.config.LanguageVersionSettingsImpl
 import org.jetbrains.kotlin.diagnostics.Diagnostic
 import org.jetbrains.kotlin.idea.references.KotlinReferenceProviderContributor
 import org.jetbrains.kotlin.idea.references.ReadWriteAccessChecker
+import org.jetbrains.kotlin.library.KotlinLibrary
 import org.jetbrains.kotlin.psi.KotlinReferenceProvidersService
 import org.jetbrains.kotlin.psi.KtFile
 import org.jetbrains.kotlin.references.fe10.base.DummyKtFe10ReferenceResolutionHelper
@@ -112,10 +115,15 @@ private constructor(
   override val kotlinCompilerConfig: CompilerConfiguration
     get() = kotlinCompilerEnv.configuration
 
+  private val klibs = mutableListOf<KotlinLibrary>()
+
   class Configuration
   private constructor(override val kotlinCompilerConfig: CompilerConfiguration) :
     UastEnvironment.Configuration {
     override var javaLanguageLevel: LanguageLevel? = null
+
+    // klibs indexed by paths to avoid duplicates
+    internal val klibs = hashMapOf<String, KotlinLibrary>()
 
     // Legacy merging behavior for Fe 1.0
     override fun addModules(
@@ -132,6 +140,12 @@ private constructor(
         }
       UastEnvironment.Configuration.mergeRoots(modules, bootClassPaths).let { (sources, classPaths)
         ->
+        val allKlibPaths =
+          modules.flatMap { it.klibs.map(File::getAbsolutePath) } +
+            kotlinCompilerConfig.getKlibPaths()
+        for (p in allKlibPaths) {
+          klibs.computeIfAbsent(p, ::kotlinLibrary)
+        }
         addSourceRoots(sources.toList())
         addClasspathRoots(classPaths.toList())
       }
@@ -193,7 +207,8 @@ private constructor(
       ktPsiFiles,
       CliBindingTraceForLint(),
       kotlinCompilerConfig,
-      kotlinCompilerEnv::createPackagePartProvider
+      kotlinCompilerEnv::createPackagePartProvider,
+      klibList = klibs
     )
 
     perfManager?.notifyAnalysisFinished()
@@ -246,7 +261,9 @@ private constructor(
     fun create(config: Configuration): Fe10UastEnvironment {
       val parentDisposable = Disposer.newDisposable("Fe10UastEnvironment.create")
       val kotlinEnv = createKotlinCompilerEnv(parentDisposable, config)
-      return Fe10UastEnvironment(kotlinEnv, parentDisposable)
+      return Fe10UastEnvironment(kotlinEnv, parentDisposable).apply {
+        klibs.addAll(config.klibs.values)
+      }
     }
   }
 }

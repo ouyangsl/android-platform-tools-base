@@ -142,6 +142,7 @@ public class Project {
     protected List<File> javaClassFolders;
     protected List<File> nonProvidedJavaLibraries;
     protected List<File> javaLibraries;
+    protected List<File> klibs;
     protected List<File> testSourceFolders;
     protected List<File> instrumentationTestSourceFolders;
     protected List<File> unitTestSourceFolders;
@@ -603,6 +604,15 @@ public class Project {
             }
             return nonProvidedJavaLibraries;
         }
+    }
+
+    /** Returns the list of klibs that this project depends on. */
+    @NonNull
+    public List<File> getKlibs() {
+        if (klibs == null) {
+            klibs = client.getKlibs(this);
+        }
+        return klibs;
     }
 
     /**
@@ -1601,10 +1611,13 @@ public class Project {
     }
 
     /**
-     * For KMP projects
-     * See <a href="https://github.com/JetBrains/kotlin/blob/master/analysis/project-structure/src/org/jetbrains/kotlin/analysis/project/structure/KtModule.kt#L33-L41">...</a>
+     * For KMP projects See <a
+     * href="https://github.com/JetBrains/kotlin/blob/master/analysis/project-structure/src/org/jetbrains/kotlin/analysis/project/structure/KtModule.kt#L33-L41">...</a>
      */
-    public enum DependencyKind { Regular, DependsOn }
+    public enum DependencyKind {
+        Regular,
+        DependsOn
+    }
 
     private final Map<Project, DependencyKind> dependencyKind = new HashMap<>();
 

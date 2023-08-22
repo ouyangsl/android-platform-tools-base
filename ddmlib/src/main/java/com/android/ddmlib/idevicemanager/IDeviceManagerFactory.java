@@ -26,5 +26,7 @@ import com.android.ddmlib.IDevice;
 public interface IDeviceManagerFactory {
 
     @NonNull
-    IDeviceManager createIDeviceManager(@NonNull AndroidDebugBridge bridge);
+    IDeviceManager createIDeviceManager(
+            @NonNull AndroidDebugBridge bridge,
+            @NonNull IDeviceManagerListener iDeviceManagerListener);
 }

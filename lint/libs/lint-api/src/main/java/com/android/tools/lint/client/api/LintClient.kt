@@ -21,6 +21,7 @@ import com.android.SdkConstants.CLASS_FOLDER
 import com.android.SdkConstants.CURRENT_PLATFORM
 import com.android.SdkConstants.DOT_AAR
 import com.android.SdkConstants.DOT_JAR
+import com.android.SdkConstants.DOT_KLIB
 import com.android.SdkConstants.DOT_SRCJAR
 import com.android.SdkConstants.DOT_XML
 import com.android.SdkConstants.FD_ASSETS
@@ -435,6 +436,9 @@ abstract class LintClient {
   open fun getJavaLibraries(project: Project, includeProvided: Boolean): List<File> =
     getClassPath(project).getLibraries(includeProvided)
 
+  /** Returns ths list of klibs */
+  open fun getKlibs(project: Project): List<File> = getClassPath(project).klibs
+
   /**
    * Returns the list of source folders for test source files
    *
@@ -724,7 +728,8 @@ abstract class LintClient {
     private val nonProvidedLibraries: List<File>,
     val testSourceFolders: List<File>,
     val testLibraries: List<File>,
-    val generatedFolders: List<File>
+    val generatedFolders: List<File>,
+    val klibs: List<File> = listOf()
   ) {
 
     fun getLibraries(includeProvided: Boolean): List<File> =
@@ -748,6 +753,7 @@ abstract class LintClient {
       val classes = ArrayList<File>(1)
       val generated = ArrayList<File>(1)
       val libraries = ArrayList<File>()
+      val klibs = ArrayList<File>()
       // No test folders in Eclipse:
       // https://bugs.eclipse.org/bugs/show_bug.cgi?id=224708
       val tests = emptyList<File>()
@@ -798,6 +804,8 @@ abstract class LintClient {
               libraries.add(jar)
             } else if (endsWith(jar.path, DOT_SRCJAR) && !sources.contains(jar)) {
               sources.add(jar)
+            } else if (endsWith(jar.path, DOT_KLIB) && !klibs.contains(jar)) {
+              klibs.add(jar)
             }
           }
         }
@@ -851,7 +859,8 @@ abstract class LintClient {
         }
       }
 
-      info = ClassPathInfo(sources, classes, libraries, libraries, tests, emptyList(), generated)
+      info =
+        ClassPathInfo(sources, classes, libraries, libraries, tests, emptyList(), generated, klibs)
       projectInfo[project] = info
     }
 

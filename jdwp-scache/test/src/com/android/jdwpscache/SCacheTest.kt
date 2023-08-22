@@ -16,6 +16,7 @@
 package com.android.jdwpscache
 
 import com.android.jdwppacket.CmdSet
+import com.android.jdwppacket.EventKind
 import com.android.jdwppacket.IDSizes
 import com.android.jdwppacket.Location
 import com.android.jdwppacket.MessageReader
@@ -24,12 +25,16 @@ import com.android.jdwppacket.ReferenceType
 import com.android.jdwppacket.SourceFileCmd
 import com.android.jdwppacket.SourceFileReply
 import com.android.jdwppacket.SuperClassCmd
+import com.android.jdwppacket.event.CompositeCmd
 import com.android.jdwppacket.threadreference.FramesCmd
 import com.android.jdwppacket.threadreference.FramesReply
+import com.android.jdwppacket.vm.AllClassesCmd
+import com.android.jdwppacket.vm.AllClassesReply
+import com.android.jdwppacket.vm.AllClassesWithGenericsCmd
+import com.android.jdwppacket.vm.AllClassesWithGenericsReply
 import com.android.jdwppacket.vm.IDSizesCmd
 import com.android.jdwppacket.vm.IDSizesReply
-import com.android.jdwppacket.vm.ResumeCmd
-import java.nio.BufferUnderflowException
+import java.nio.ByteBuffer
 import org.junit.Assert
 import org.junit.Test
 
@@ -49,12 +54,12 @@ class SCacheTest {
     // Send a packet featuring threadID (objectID) and frameID. Write it with 8 byte long field.
     // This should work
     scache.onUpstreamPacket(SuperClassCmd(0).toPacket(id.get(), IDSizes(8)))
-    try {
-      // Try again with id size resulting in buffer underflow (1 byte fields)
-      // This should fail
-      scache.onUpstreamPacket(SuperClassCmd(0).toPacket(id.get(), IDSizes(1)))
-      Assert.fail("Failed to detect buffer underflow because of threadId/frameID")
-    } catch (_: BufferUnderflowException) {}
+    Assert.assertTrue("SCache disabled", scache.enabled)
+
+    // Try again with id size resulting in buffer underflow (1 byte fields)
+    // This should fail
+    scache.onUpstreamPacket(SuperClassCmd(0).toPacket(id.get(), IDSizes(1)))
+    Assert.assertFalse("SCache is enabled", scache.enabled)
   }
 
   // Make sure we trigger on Frames
@@ -71,123 +76,316 @@ class SCacheTest {
     Assert.assertEquals("Not speculating on Frames", rep.edict.toUpstream.size, 8)
   }
 
-  // Make sur we reset on VM Resume
+  class DebuggedClass(val id: Long, val signature: String)
+
+  // Test that we catch CLASS_PREPARE and clear the cache accordingly
   @Test
-  fun testResumeVM() {
+  fun testOnAllClassesWithGenerics() {
     val scache = SCache(true, SCacheTestLogger())
     val id = IDGenerator()
     val idSizes = IDSizes()
 
-    // Fake a Frame cmd and then a reply
-    scache.onUpstreamPacket(FramesCmd(0, 0, 0).toPacket(id.get(), idSizes))
-    val frames = listOf(FramesReply.Frame(0, Location(0, 0, 0, 0)))
-    val frameSpeculators =
-      scache.onDownstreamPacket(FramesReply(frames).toPacket(id.getLast(), idSizes))
+    val stringClass = DebuggedClass(15, "java/lang/String")
+    val vectorClass = DebuggedClass(16, "java/lang/Vector")
 
-    // Find the SourceFile speculation
-    var syntheticID = -1
-    frameSpeculators.edict.toUpstream.forEach {
-      val reader = MessageReader(idSizes, it)
-      val header = PacketHeader(reader)
-      if (header.cmdSet == CmdSet.ReferenceType.id && header.cmd == ReferenceType.SourceFile.id) {
-        syntheticID = header.id
-      }
-    }
-    Assert.assertNotEquals("Not speculating on SourceFile", -1, syntheticID)
+    // Send an allClassesWithGenerics request
+    scache.onUpstreamPacket(AllClassesWithGenericsCmd().toPacket(id.get(), idSizes))
 
-    // Fake a speculation reply
-    scache.onDownstreamPacket(SourceFileReply("foo").toPacket(syntheticID, idSizes))
-
-    // This should be a cache hit
-    val hit = scache.onUpstreamPacket(SourceFileCmd(0).toPacket(id.get(), idSizes))
-    Assert.assertEquals("Not cache hit on SourceFile", 1, hit.edict.toDownstream.size)
-
-    // Resume WHOLE VM now. This should reset the speculator cache
-    scache.onUpstreamPacket(ResumeCmd().toPacket(id.get(), idSizes))
-
-    val miss = scache.onUpstreamPacket(SourceFileCmd(0).toPacket(id.get(), idSizes))
-    Assert.assertEquals("Not cache miss after VM.Resume", 0, miss.edict.toDownstream.size)
-  }
-
-  // Make sur we reset on Thread Resume
-  @Test
-  fun testResumeThread() {
-    val scache = SCache(true, SCacheTestLogger())
-    val id = IDGenerator()
-    val idSizes = IDSizes()
-
-    // Fake a Frame cmd and then a reply
-    scache.onUpstreamPacket(FramesCmd(0, 0, 0).toPacket(id.get(), idSizes))
-    val frames = listOf(FramesReply.Frame(0, Location(0, 0, 0, 0)))
-    val frameSpeculators =
-      scache.onDownstreamPacket(FramesReply(frames).toPacket(id.getLast(), idSizes))
-
-    // Find the SourceFile speculation
-    var syntheticID = -1
-    frameSpeculators.edict.toUpstream.forEach {
-      val reader = MessageReader(idSizes, it)
-      val header = PacketHeader(reader)
-      if (header.cmdSet == CmdSet.ReferenceType.id && header.cmd == ReferenceType.SourceFile.id) {
-        syntheticID = header.id
-      }
-    }
-    Assert.assertNotEquals("Not speculating on SourceFile", -1, syntheticID)
-
-    // Fake a speculation reply
-    scache.onDownstreamPacket(SourceFileReply("foo").toPacket(syntheticID, idSizes))
-
-    // This should be a cache hit
-    val hit = scache.onUpstreamPacket(SourceFileCmd(0).toPacket(id.get(), idSizes))
-    Assert.assertEquals("Not cache hit on SourceFile", 1, hit.edict.toDownstream.size)
-
-    // Resume THREAD now. This should reset the speculator cache
-    scache.onUpstreamPacket(
-      com.android.jdwppacket.threadreference.ResumeCmd(0).toPacket(id.get(), idSizes)
+    // Receive an allClassesWithGenerics reply
+    val class1 = AllClassesWithGenericsReply.Class(0, stringClass.id, stringClass.signature, "", 0)
+    val class2 = AllClassesWithGenericsReply.Class(0, vectorClass.id, vectorClass.signature, "", 0)
+    scache.onDownstreamPacket(
+      AllClassesWithGenericsReply(listOf(class1, class2)).toPacket(id.get(), idSizes)
     )
 
-    val miss = scache.onUpstreamPacket(SourceFileCmd(0).toPacket(id.get(), idSizes))
+    // Fake a Frame cmd
+    scache.onUpstreamPacket(FramesCmd(0, 0, 0).toPacket(id.get(), idSizes))
+    val frame0 = FramesReply.Frame(0, Location(0, stringClass.id, 0, 0))
+    val frame1 = FramesReply.Frame(0, Location(0, vectorClass.id, 0, 0))
+    val frames = listOf(frame0, frame1)
+    val frameSpeculators =
+      scache.onDownstreamPacket(FramesReply(frames).toPacket(id.getLast(), idSizes))
     Assert.assertEquals(
-      "Not cache miss after ThreadReference.Resume",
-      0,
-      miss.edict.toDownstream.size
+      "Not speculating on all frames",
+      frameSpeculators.edict.upstreamList.size,
+      16
     )
+
+    // Find the SourceFile speculation
+    var syntheticIDs = mutableListOf<Int>()
+    frameSpeculators.edict.toUpstream.forEach {
+      val reader = MessageReader(idSizes, it)
+      val header = PacketHeader(reader)
+      if (header.isA(CmdSet.ReferenceType, ReferenceType.SourceFile.id)) {
+        syntheticIDs.add(header.id)
+      }
+    }
+    Assert.assertEquals("Not speculating on SourceFile", 2, syntheticIDs.size)
+
+    // Fake speculation replies
+    scache.onDownstreamPacket(SourceFileReply("foo").toPacket(syntheticIDs[0], idSizes))
+    scache.onDownstreamPacket(SourceFileReply("bar").toPacket(syntheticIDs[1], idSizes))
+
+    // This should be a cache hit
+    val hit1 = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit1.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit1.edict.toUpstream.size)
+
+    // This should also be a cache hit
+    val hit2 = scache.onUpstreamPacket(SourceFileCmd(vectorClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit2.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit2.edict.toUpstream.size)
+
+    // Unload the String class now. This should reset the speculator cache for this entry
+    val cu = CompositeCmd.EventClassUnload(requestID = 0, signature = stringClass.signature)
+    scache.onDownstreamPacket(CompositeCmd(0, listOf(cu)).toPacket(id.get(), idSizes))
+
+    val miss = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("No cache miss after ClassUnload", 1, miss.edict.toDownstream.size)
+    Assert.assertEquals("Not packet forwadr after ClassUnload", 0, miss.edict.toUpstream.size)
   }
 
+  // Test that we catch CLASS_PREPARE and clear the cache accordingly
   @Test
-  fun testResumeCache() {
+  fun testOnAllClasses() {
     val scache = SCache(true, SCacheTestLogger())
     val id = IDGenerator()
     val idSizes = IDSizes()
 
-    // Fake a Frame cmd and then a reply
+    val stringClass = DebuggedClass(15, "java/lang/String")
+    val vectorClass = DebuggedClass(16, "java/lang/Vector")
+
+    // Send an allClasses request
+    scache.onUpstreamPacket(AllClassesCmd().toPacket(id.get(), idSizes))
+
+    // Receive an allClasse reply
+    val class1 = AllClassesReply.Class(0, stringClass.id, stringClass.signature, 0)
+    val class2 = AllClassesReply.Class(0, vectorClass.id, vectorClass.signature, 0)
+    scache.onDownstreamPacket(AllClassesReply(listOf(class1, class2)).toPacket(id.get(), idSizes))
+
+    // Fake a Frame cmd
     scache.onUpstreamPacket(FramesCmd(0, 0, 0).toPacket(id.get(), idSizes))
-    val frames = listOf(FramesReply.Frame(0, Location(0, 0, 0, 0)))
+    val frame0 = FramesReply.Frame(0, Location(0, stringClass.id, 0, 0))
+    val frame1 = FramesReply.Frame(0, Location(0, vectorClass.id, 0, 0))
+    val frames = listOf(frame0, frame1)
     val frameSpeculators =
       scache.onDownstreamPacket(FramesReply(frames).toPacket(id.getLast(), idSizes))
+    Assert.assertEquals(
+      "Not speculating on all frames",
+      frameSpeculators.edict.upstreamList.size,
+      16
+    )
 
     // Find the SourceFile speculation
-    var syntheticID = -1
+    var syntheticIDs = mutableListOf<Int>()
     frameSpeculators.edict.toUpstream.forEach {
       val reader = MessageReader(idSizes, it)
       val header = PacketHeader(reader)
-      if (header.cmdSet == CmdSet.ReferenceType.id && header.cmd == ReferenceType.SourceFile.id) {
-        syntheticID = header.id
+      if (header.isA(CmdSet.ReferenceType, ReferenceType.SourceFile.id)) {
+        syntheticIDs.add(header.id)
       }
     }
-    Assert.assertNotEquals("Not speculating on SourceFile", -1, syntheticID)
+    Assert.assertEquals("Not speculating on SourceFile", 2, syntheticIDs.size)
 
-    // Resume THREAD now. This should reset the speculator cache
-    scache.onUpstreamPacket(
-      com.android.jdwppacket.threadreference.ResumeCmd(0).toPacket(id.get(), idSizes)
+    // Fake speculation replies
+    scache.onDownstreamPacket(SourceFileReply("foo").toPacket(syntheticIDs[0], idSizes))
+    scache.onDownstreamPacket(SourceFileReply("bar").toPacket(syntheticIDs[1], idSizes))
+
+    // This should be a cache hit
+    val hit1 = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit1.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit1.edict.toUpstream.size)
+
+    // This should also be a cache hit
+    val hit2 = scache.onUpstreamPacket(SourceFileCmd(vectorClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit2.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit2.edict.toUpstream.size)
+
+    // Unload the String class now. This should reset the speculator cache for this entry
+    val cu = CompositeCmd.EventClassUnload(requestID = 0, signature = stringClass.signature)
+    scache.onDownstreamPacket(CompositeCmd(0, listOf(cu)).toPacket(id.get(), idSizes))
+
+    val miss = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("No cache miss after ClassUnload", 1, miss.edict.toDownstream.size)
+    Assert.assertEquals("Not packet forwadr after ClassUnload", 0, miss.edict.toUpstream.size)
+  }
+
+  // Test that we catch CLASS_PREPARE and clear the cache accordingly
+  @Test
+  fun testOnClassPrepare() {
+    val scache = SCache(true, SCacheTestLogger())
+    val id = IDGenerator()
+    val idSizes = IDSizes()
+
+    val stringClass = DebuggedClass(15, "java/lang/String")
+    val vectorClass = DebuggedClass(16, "java/lang/Vector")
+
+    // Load the classes via CLASS_PREPARE
+    val cpS =
+      CompositeCmd.EventClassPrepare(
+        EventKind.CLASS_PREPARE,
+        0,
+        0,
+        0,
+        stringClass.id,
+        stringClass.signature,
+        0
+      )
+    scache.onDownstreamPacket(CompositeCmd(0, listOf(cpS)).toPacket(id.get(), idSizes))
+
+    val cpV =
+      CompositeCmd.EventClassPrepare(
+        EventKind.CLASS_PREPARE,
+        0,
+        0,
+        0,
+        vectorClass.id,
+        vectorClass.signature,
+        0
+      )
+    scache.onDownstreamPacket(CompositeCmd(0, listOf(cpV)).toPacket(id.get(), idSizes))
+
+    // Fake a Frame cmd
+    scache.onUpstreamPacket(FramesCmd(0, 0, 0).toPacket(id.get(), idSizes))
+    val frame0 = FramesReply.Frame(0, Location(0, stringClass.id, 0, 0))
+    val frame1 = FramesReply.Frame(0, Location(0, vectorClass.id, 0, 0))
+    val frames = listOf(frame0, frame1)
+    val frameSpeculators =
+      scache.onDownstreamPacket(FramesReply(frames).toPacket(id.getLast(), idSizes))
+    Assert.assertEquals(
+      "Not speculating on all frames",
+      frameSpeculators.edict.upstreamList.size,
+      16
     )
 
-    // Fake a speculation reply
-    val response = scache.onDownstreamPacket(SourceFileReply("foo").toPacket(syntheticID, idSizes))
+    // Find the SourceFile speculation
+    var syntheticIDs = mutableListOf<Int>()
+    frameSpeculators.edict.toUpstream.forEach {
+      val reader = MessageReader(idSizes, it)
+      val header = PacketHeader(reader)
+      if (header.isA(CmdSet.ReferenceType, ReferenceType.SourceFile.id)) {
+        syntheticIDs.add(header.id)
+      }
+    }
+    Assert.assertEquals("Not speculating on SourceFile", 2, syntheticIDs.size)
 
-    // Even though we resumed while a synthetic cmd was in flight, the synthetic reply should still
-    // be
-    // recognized as synthetic and NOT be forward to the debugger (which know nothing about our
-    // shenanigan.
-    Assert.assertEquals("Synthetic packet was leaked!", 0, response.edict.toDownstream.size)
+    // Fake speculation replies
+    scache.onDownstreamPacket(SourceFileReply("foo").toPacket(syntheticIDs[0], idSizes))
+    scache.onDownstreamPacket(SourceFileReply("bar").toPacket(syntheticIDs[1], idSizes))
+
+    // This should be a cache hit
+    val hit1 = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit1.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit1.edict.toUpstream.size)
+
+    // This should also be a cache hit
+    val hit2 = scache.onUpstreamPacket(SourceFileCmd(vectorClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit2.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit2.edict.toUpstream.size)
+
+    // Unload the String class now. This should reset the speculator cache for this entry
+    val cu = CompositeCmd.EventClassUnload(requestID = 0, signature = stringClass.signature)
+    scache.onDownstreamPacket(CompositeCmd(0, listOf(cu)).toPacket(id.get(), idSizes))
+
+    val miss = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("No cache miss after ClassUnload", 0, miss.edict.toDownstream.size)
+    Assert.assertEquals("Not packet forwadr after ClassUnload", 1, miss.edict.toUpstream.size)
+  }
+
+  // Test CLASS_UNLOAD without CLASS_PREPARE
+  @Test
+  fun testUnknownClassUnload() {
+    val scache = SCache(true, SCacheTestLogger())
+    val id = IDGenerator()
+    val idSizes = IDSizes()
+
+    val stringClass = DebuggedClass(15, "java/lang/String")
+    val vectorClass = DebuggedClass(16, "java/lang/Vector")
+
+    // Fake a Frame cmd
+    scache.onUpstreamPacket(FramesCmd(0, 0, 0).toPacket(id.get(), idSizes))
+    val frame0 = FramesReply.Frame(0, Location(0, stringClass.id, 0, 0))
+    val frame1 = FramesReply.Frame(0, Location(0, vectorClass.id, 0, 0))
+    val frames = listOf(frame0, frame1)
+    val frameSpeculators =
+      scache.onDownstreamPacket(FramesReply(frames).toPacket(id.getLast(), idSizes))
+    Assert.assertEquals(
+      "Not speculating on all frames",
+      frameSpeculators.edict.upstreamList.size,
+      16
+    )
+
+    // Find the SourceFile speculation
+    var syntheticIDs = mutableListOf<Int>()
+    frameSpeculators.edict.toUpstream.forEach {
+      val reader = MessageReader(idSizes, it)
+      val header = PacketHeader(reader)
+      if (header.isA(CmdSet.ReferenceType, ReferenceType.SourceFile.id)) {
+        syntheticIDs.add(header.id)
+      }
+    }
+    Assert.assertEquals("Not speculating on SourceFile", 2, syntheticIDs.size)
+
+    // Fake speculation replies
+    scache.onDownstreamPacket(SourceFileReply("foo").toPacket(syntheticIDs[0], idSizes))
+    scache.onDownstreamPacket(SourceFileReply("bar").toPacket(syntheticIDs[1], idSizes))
+
+    // This should be a cache hit
+    val hit1 = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit1.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit1.edict.toUpstream.size)
+
+    // This should also be a cache hit
+    val hit2 = scache.onUpstreamPacket(SourceFileCmd(vectorClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("Not cache hit on SourceFile", 1, hit2.edict.toDownstream.size)
+    Assert.assertEquals("Forwarding on cache hit on SourceFile", 0, hit2.edict.toUpstream.size)
+
+    // Unload the String class now. This should reset the speculator cache for this entry
+    val cu = CompositeCmd.EventClassUnload(requestID = 0, signature = stringClass.signature)
+    scache.onDownstreamPacket(CompositeCmd(0, listOf(cu)).toPacket(id.get(), idSizes))
+
+    val miss = scache.onUpstreamPacket(SourceFileCmd(stringClass.id).toPacket(id.get(), idSizes))
+    Assert.assertEquals("No cache miss after ClassUnload", 1, miss.edict.toDownstream.size)
+    Assert.assertEquals("Not packet forward after ClassUnload", 0, miss.edict.toUpstream.size)
+  }
+
+  // Check that internal errors resulting in Exception are not surfaced and that scache disable
+  // itself upon error.
+  @Test
+  fun testError() {
+    val scache = SCache(true, SCacheTestLogger())
+    val id = IDGenerator()
+    val idSizes = IDSizes()
+
+    val stringClass = DebuggedClass(15, "java/lang/String")
+
+    // Send an allClasses request
+    scache.onUpstreamPacket(AllClassesCmd().toPacket(id.get(), idSizes))
+
+    // Send a buggy cmd with bad size, this should throw a buffer underflow
+    val goodPacket = AllClassesCmd().toPacket(id.get(), idSizes)
+    val badPacket = ByteBuffer.wrap(goodPacket.array(), 0, goodPacket.capacity() - 2)
+    scache.onUpstreamPacket(badPacket)
+
+    // At this point, scache should have disabled itself.
+    Assert.assertFalse("SCache not disabled", scache.enabled)
+
+    // Receive an allClasse reply
+    val class1 = AllClassesReply.Class(0, stringClass.id, stringClass.signature, 0)
+    scache.onDownstreamPacket(AllClassesReply(listOf(class1)).toPacket(id.get(), idSizes))
+
+    // Fake a Frame cmd/reply
+    scache.onUpstreamPacket(FramesCmd(0, 0, 0).toPacket(id.get(), idSizes))
+    val frame0 = FramesReply.Frame(0, Location(0, stringClass.id, 0, 0))
+    val frames = listOf(frame0)
+    val frameSpeculators =
+      scache.onDownstreamPacket(FramesReply(frames).toPacket(id.getLast(), idSizes))
+
+    // Scache should not have speculated
+    Assert.assertEquals(
+      "Not speculating on all frames",
+      1,
+      frameSpeculators.edict.downstreamList.size,
+    )
   }
 }

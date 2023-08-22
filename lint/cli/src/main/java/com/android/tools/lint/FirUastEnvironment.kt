@@ -15,6 +15,7 @@
  */
 package com.android.tools.lint
 
+import com.android.tools.lint.UastEnvironment.Companion.getKlibPaths
 import com.android.tools.lint.UastEnvironment.Module.Variant
 import com.android.tools.lint.detector.api.GraphUtils
 import com.android.tools.lint.detector.api.Project
@@ -195,6 +196,7 @@ private fun createAnalysisSession(
             uastEnvModuleByName[it]!!.directDependencies.map { (depName, _) -> depName }
           }
         val builtKtModuleByName = hashMapOf<String, KtModule>() // incrementally added below
+        val configKlibPaths = config.kotlinCompilerConfig.getKlibPaths().map(Path::of)
 
         uastEnvModuleOrder.forEach { name ->
           val m = uastEnvModuleByName[name]!!
@@ -241,6 +243,20 @@ private fun createAnalysisSession(
                       Paths.get(URLUtil.extractPath(it))
                     }
                   sdkName = "JDK for $moduleName"
+                }
+              )
+            }
+
+            val moduleKlibPaths = m.klibs.map(File::toPath)
+            val allKlibPaths = (moduleKlibPaths + configKlibPaths).distinct()
+            if (allKlibPaths.isNotEmpty()) {
+              addRegularDependency(
+                buildKtLibraryModule {
+                  platform = mPlatform
+                  project = theProject
+                  contentScope = ProjectScope.getLibrariesScope(theProject)
+                  binaryRoots = allKlibPaths
+                  libraryName = "Klibs for $moduleName"
                 }
               )
             }
