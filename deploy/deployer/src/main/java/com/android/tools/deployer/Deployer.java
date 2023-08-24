@@ -21,6 +21,7 @@ import com.android.sdklib.AndroidVersion;
 import com.android.tools.deploy.proto.Deploy;
 import com.android.tools.deployer.model.Apk;
 import com.android.tools.deployer.model.ApkEntry;
+import com.android.tools.deployer.model.ApkParser;
 import com.android.tools.deployer.model.App;
 import com.android.tools.deployer.model.FileDiff;
 import com.android.tools.deployer.tasks.Canceller;
@@ -189,7 +190,7 @@ public class Deployer {
                                 sessionUID, packageName, apks, installOptions, installMode);
             }
 
-            App app = new App(packageName, info.apks, adb.getDevice(), logger);
+            App app = new App(packageName, info.apks, logger);
             if (options.skipPostInstallTasks) {
                 return new Result(info.skippedInstall, false, false, app);
             }
@@ -234,7 +235,7 @@ public class Deployer {
                         installMode,
                         metrics.getDeployMetrics());
         // TODO(b/138467905): Prevent double-parsing inside ApkInstaller and here
-        return new InstallInfo(skippedInstall, new ApkParser().parsePaths(paths));
+        return new InstallInfo(skippedInstall, ApkParser.parsePaths(paths));
     }
 
     private InstallInfo rootPushInstall(
@@ -248,7 +249,7 @@ public class Deployer {
         Canceller canceller = installOptions.getCancelChecker();
 
         Task<List<Apk>> apks =
-                runner.create(Tasks.PARSE_PATHS, new ApkParser()::parsePaths, runner.create(paths));
+                runner.create(Tasks.PARSE_PATHS, ApkParser::parsePaths, runner.create(paths));
         Task<Boolean> installSuccess =
                 runner.create(
                         Tasks.ROOT_PUSH_INSTALL,
@@ -289,7 +290,7 @@ public class Deployer {
         Task<String> packageName = runner.create(pkgName);
         Task<String> deviceSerial = runner.create(adb.getSerial());
         Task<List<Apk>> apks =
-                runner.create(Tasks.PARSE_PATHS, new ApkParser()::parsePaths, runner.create(paths));
+                runner.create(Tasks.PARSE_PATHS, ApkParser::parsePaths, runner.create(paths));
 
         boolean installSuccess = false;
         if (!options.optimisticInstallSupport.isEmpty()) {
@@ -403,8 +404,7 @@ public class Deployer {
                 runner.create(new CachedDexSplitter(dexDb, new D8DexSplitter()));
 
         // Get the list of files from the local apks
-        Task<List<Apk>> newFiles =
-                runner.create(Tasks.PARSE_PATHS, new ApkParser()::parsePaths, paths);
+        Task<List<Apk>> newFiles = runner.create(Tasks.PARSE_PATHS, ApkParser::parsePaths, paths);
 
         // Get the list of files from the installed app
         Task<ApplicationDumper.Dump> dumps =
@@ -459,7 +459,7 @@ public class Deployer {
             throw result.getException();
         }
 
-        App app = new App(packageName.get(), newFiles.get(), adb.getDevice(), logger);
+        App app = new App(packageName.get(), newFiles.get(), logger);
 
         boolean skippedInstall = sessionId.get().equals(ApkPreInstaller.SKIPPED_INSTALLATION);
         return new Result(skippedInstall, false, false, app);
@@ -491,8 +491,7 @@ public class Deployer {
         Task<String> deviceSerial = runner.create(adb.getSerial());
 
         // Get the list of files from the local apks
-        Task<List<Apk>> newFiles =
-                runner.create(Tasks.PARSE_PATHS, new ApkParser()::parsePaths, paths);
+        Task<List<Apk>> newFiles = runner.create(Tasks.PARSE_PATHS, ApkParser::parsePaths, paths);
 
         // Get the App info. Some from the APK, some from DDMLib.
         Task<String> packageName =
@@ -575,7 +574,7 @@ public class Deployer {
         // Wait only for swap to finish
         runner.runAsync(canceller);
 
-        App app = new App(packageName.get(), newFiles.get(), adb.getDevice(), logger);
+        App app = new App(packageName.get(), newFiles.get(), logger);
 
         // TODO: May be notify user we IWI'ed.
         // deployResult.didIwi = true;
