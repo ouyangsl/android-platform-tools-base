@@ -35,14 +35,12 @@ import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.ConsumableCreationConfig
 import com.android.build.gradle.internal.component.InstrumentedTestCreationConfig
 import com.android.build.gradle.internal.component.KmpComponentCreationConfig
-import com.android.build.gradle.internal.component.LibraryCreationConfig
 import com.android.build.gradle.internal.component.TestComponentCreationConfig
 import com.android.build.gradle.internal.component.TestCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.coverage.JacocoConfigurations
 import com.android.build.gradle.internal.coverage.JacocoPropertiesTask
 import com.android.build.gradle.internal.coverage.JacocoReportTask
-import com.android.build.gradle.internal.dependency.AarToRClassTransform
 import com.android.build.gradle.internal.dependency.AndroidAttributes
 import com.android.build.gradle.internal.dependency.VariantDependencies
 import com.android.build.gradle.internal.dsl.ManagedVirtualDevice
@@ -175,12 +173,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.ResolutionStrategy
-import org.gradle.api.artifacts.transform.TransformParameters
-import org.gradle.api.artifacts.transform.TransformSpec
-import org.gradle.api.attributes.Usage
 import org.gradle.api.file.Directory
 import org.gradle.api.file.FileCollection
-import org.gradle.api.internal.artifacts.ArtifactAttributes
 import org.gradle.api.logging.Logger
 import org.gradle.api.logging.Logging
 import org.gradle.api.plugins.BasePlugin
@@ -1144,10 +1138,6 @@ abstract class TaskManager(
                     creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS)
                         .getFinalArtifacts(ScopedArtifact.CLASSES)
                 )
-                from(
-                    creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
-                        .getFinalArtifacts(ScopedArtifact.CLASSES)
-                )
             }
 
         creationConfig.artifacts.forScope(ScopedArtifacts.Scope.ALL)
@@ -1164,10 +1154,6 @@ abstract class TaskManager(
                 )
                 from(
                     creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.EXTERNAL_LIBS)
-                        .getFinalArtifacts(ScopedArtifact.JAVA_RES)
-                )
-                from(
-                    creationConfig.artifacts.forScope(InternalScopedArtifacts.InternalScope.LOCAL_DEPS)
                         .getFinalArtifacts(ScopedArtifact.JAVA_RES)
                 )
             }
