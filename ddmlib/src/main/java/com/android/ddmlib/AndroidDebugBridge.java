@@ -849,7 +849,9 @@ public class AndroidDebugBridge {
             return mDeviceMonitor.hasInitialDeviceList();
         }
 
-        // TODO(b/296277142): implement the correct behavior for non-null `mIDeviceManager`
+        if (mIDeviceManager != null) {
+            return mIDeviceManager.hasInitialDeviceList();
+        }
         return false;
     }
 
@@ -1439,6 +1441,7 @@ public class AndroidDebugBridge {
                     env.put("ADBHOST", adbHostValue);
                 }
             }
+            processBuilder.directory(new File(mAdbOsLocation).getParentFile());
             proc = processBuilder.start();
 
             ArrayList<String> errorOutput = new ArrayList<String>();

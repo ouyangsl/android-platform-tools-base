@@ -16,11 +16,11 @@
 package com.android.screenshot.cli
 
 import com.android.screenshot.cli.util.CODE_ERROR
-import com.android.screenshot.cli.util.CODE_FAILURE
 import com.android.screenshot.cli.util.CODE_NO_PREVIEWS
 import com.android.screenshot.cli.util.CODE_SUCCESS
 import com.android.screenshot.cli.util.CODE_INVALID_ARGUMENT
-import com.android.screenshot.cli.util.Decompressor
+import com.android.screenshot.cli.util.CODE_RENDER_ERROR
+import com.android.screenshot.cli.util.CODE_RUNTIME_ERROR
 import com.android.screenshot.cli.util.PreviewResult
 import com.android.screenshot.cli.util.Response
 import com.android.tools.idea.AndroidPsiUtils
@@ -59,6 +59,7 @@ import com.android.tools.lint.model.LintModelVariant
 import com.android.tools.lint.model.PathVariables
 import com.android.tools.preview.ComposePreviewElement
 import com.android.utils.XmlUtils
+import com.google.common.base.Splitter
 import com.google.common.io.ByteStreams
 import com.intellij.core.CoreApplicationEnvironment
 import com.intellij.openapi.application.runReadAction
@@ -74,7 +75,6 @@ import org.w3c.dom.Document
 import org.xml.sax.SAXException
 import java.io.File
 import java.io.IOException
-import java.nio.file.Path
 import java.util.EnumSet
 import java.util.zip.ZipEntry
 import java.util.zip.ZipException
@@ -95,8 +95,8 @@ class Main {
     private val ARG_FILE_PATH = "--file-path"
     private val ARG_ROOT_LINT_MODEL = "--root-lint-model"
     private val ARG_RECORD_GOLDENS = "--record-golden"
-    private val ARG_EXTRACTION_DIR = "--extraction-dir"
-    private val ARG_JAR_LOCATION = "--jar-location"
+    private val ARG_ADDITIONAL_DEPS = "--additional-deps"
+    private val ARG_LAYOUTLIB_DIR = "--layoutlib-dir"
     private val ARG_IMAGE_DIFF_THRESHOLD = "--image-diff-threshold"
 
     private var sdkHomePath: File? = null
@@ -114,9 +114,6 @@ class Main {
         try {
             val client: LintCliClient = MainLintClient(flags)
             parseArguments(args, client, argumentState)
-            if (argumentState.extractionDir != null && argumentState.jarLocation != null){
-                extractJar(argumentState)
-            }
             initializePathVariables(argumentState, client)
             initializeConfigurations(client, argumentState)
             setupPaths(argumentState)
@@ -124,27 +121,23 @@ class Main {
             val driver: LintDriver = createDriver(projects, client as MainLintClient)
             client.initializeProjects(driver, projects)
 
-            ComposeApplication.setupEnvVars(argumentState.extractionDir)
+            ComposeApplication.setupEnvVars(argumentState.layoutlibDir)
             CoreApplicationEnvironment.registerExtensionPointAndExtensions(PathUtil.getResourcePathForClass(this::class.java).toPath(), "plugin.xml",
                                                                            Extensions.getRootArea())
 
             driver.computeDetectors(projects[0])
             ProjectDriver(driver, projects[0]).prepareUastFileList()
             initializeEnv(projects, client)
-            val dependencies = Dependencies(projects[0], argumentState.rootModule)
+            val dependencies = Dependencies(projects[0], argumentState.rootModule, argumentState.additionalDeps)
             val screenshot = ScreenshotProvider(projects[0], sdkHomePath!!.absolutePath, dependencies)
             val results = screenshot.verifyScreenshot(findPreviewNodes(projects[0], argumentState.filePath),
-                                                      argumentState.goldenLocation,
                                                       argumentState.outputLocation!!,
-                                                      argumentState.recordGoldens,
-                                                      argumentState.rootModule,
-                                                      argumentState.imageDiffThreshold)
-            argumentState.extractionDir?.let { deleteTempFiles(it) }
+                                                      argumentState.rootModule,)
             val response = processResults(results)
             saveResults(response, argumentState.outputLocation!!)
             exitProcess(response.status)
         } catch (e: Exception) {
-            val response = Response(2, e.message!!, null)
+            val response = Response(CODE_ERROR, e.message!!, null)
             argumentState.outputLocation?.let {
                 saveResults(response, it)
                 exitProcess(response.status)
@@ -168,11 +161,11 @@ class Main {
         if (results.isEmpty()) {
             return Response(CODE_NO_PREVIEWS, "Unable to find previews in file", null)
         }
-        if (!results.none { it.responseCode == CODE_ERROR }) {
+        if (!results.none { it.responseCode == CODE_RENDER_ERROR }) {
             return Response(CODE_ERROR, "Error rendering 1 or more previews", results)
         }
-        if (!results.none { it.responseCode == CODE_FAILURE }) {
-            return Response(CODE_FAILURE, "One or more previews failed to match reference", results)
+        if (!results.none { it.responseCode == CODE_RUNTIME_ERROR }) {
+            return Response(CODE_ERROR, "Error saving 1 or more images", results)
         }
         return Response(CODE_SUCCESS, "Test run successfully", results)
     }
@@ -187,31 +180,6 @@ class Main {
             golden.mkdirs()
         }
 
-    }
-
-    private fun deleteTempFiles(extractionDir: String) {
-        val outputDir = Path.of(extractionDir).resolve("system").normalize()
-        try {
-            outputDir.toFile().deleteRecursively()
-        } catch (e: Exception) {
-            // do nothing
-        }
-
-
-    }
-
-    private fun extractJar(argumentState: Main.ArgumentState) {
-        val jarPath = Path.of(argumentState.jarLocation!!)
-        val outputDir = Path.of(argumentState.extractionDir!!)
-        val outputDirLayoutLib = Path.of(argumentState.extractionDir!!).resolve("plugins/design-tools/resources/").normalize()
-        val outputDirAppInfo = Path.of(argumentState.extractionDir!!).resolve("META-INF").normalize()
-        val filterLayouutLib = { file: File?, name: String ->
-            name =="layoutlib" || file?.absolutePath?.contains("layoutlib") ?: false  }
-        val filterAppInfo = { file: File?, name: String ->
-                    name == "ApplicationInfo.xml" && file?.absolutePath?.startsWith(outputDirAppInfo.toString()) ?: false }
-
-        Decompressor.Zip(jarPath).filter(Decompressor.FileFilterAdapter.wrap(outputDirLayoutLib, filterLayouutLib)).removePrefixPath("prebuilts/studio/").overwrite(false).extract(outputDirLayoutLib)
-        Decompressor.Zip(jarPath).filter(Decompressor.FileFilterAdapter.wrap(outputDir, filterAppInfo)).overwrite(true).extract(outputDir)
     }
 
     private fun findPreviewNodes(project: Project, file: String) : List<ComposePreviewElement> {
@@ -453,16 +421,16 @@ class Main {
                     throw InvalidArgumentException("Missing client version")
                 }
                 argumentState.clientVersion = args[++index]
-            } else if (arg == ARG_EXTRACTION_DIR) {
+            } else if (arg == ARG_LAYOUTLIB_DIR) {
                 if (index == args.size - 1) {
-                    throw InvalidArgumentException("Missing extraction directory")
+                    throw InvalidArgumentException("Missing layoutlib dir")
                 }
-                argumentState.extractionDir = args[++index]
-            } else if (arg == ARG_JAR_LOCATION) {
+                argumentState.layoutlibDir = args[++index]
+            } else if (arg == ARG_ADDITIONAL_DEPS) {
                 if (index == args.size - 1) {
-                    throw InvalidArgumentException("Missing jar location")
+                    throw InvalidArgumentException("Missing additional dependencies")
                 }
-                argumentState.jarLocation = args[++index]
+                argumentState.additionalDeps = split(args[++index], File.pathSeparator)
             } else if (arg == ARG_IMAGE_DIFF_THRESHOLD) {
                 if (index == args.size - 1) {
                     throw InvalidArgumentException("Missing threshold value")
@@ -563,6 +531,13 @@ class Main {
         argumentState.validate()
     }
 
+    private fun split(path: String, regex: String): List<String>? {
+        if (path.indexOf(regex) != -1) {
+            return Splitter.on(regex).omitEmptyStrings().trimResults().split(path).toList()
+        }
+        return listOf(path.trim())
+    }
+
     /**
      * Converts a relative or absolute command-line argument into an input file.
      *
@@ -591,8 +566,8 @@ class Main {
                 errorMessage += "Missing Client Version;"
             if (!this::filePath.isInitialized)
                 errorMessage += "Missing File Path;"
-            if (jarLocation != null && extractionDir == null)
-                errorMessage += "Missing Extraction Directory;"
+            if (!this::layoutlibDir.isInitialized)
+                errorMessage += "Missing Layoutlib directory;"
             if (!recordGoldens && outputLocation == null)
                 errorMessage += "Missing output directory to save diff images;"
             if (errorMessage != "") {
@@ -600,15 +575,15 @@ class Main {
             }
         }
 
+        var additionalDeps: List<String>? = null
         var recordGoldens: Boolean = false
         var imageDiffThreshold: Float = 0f
         lateinit var goldenLocation: String
-        var jarLocation: String? = null
-        var extractionDir: String? = null
         lateinit var rootModule: LintModelModule
         lateinit var clientVersion: String
         lateinit var clientName: String
         lateinit var filePath: String
+        lateinit var layoutlibDir: String
         var outputLocation: String? = null
         var modules: MutableList<LintModelModule> = mutableListOf()
     }

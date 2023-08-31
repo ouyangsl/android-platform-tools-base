@@ -2605,7 +2605,16 @@ class LintDriver(
       if (
         context is GradleContext && (scope is UElement || scope is PsiElement || scope is ASTNode)
       ) {
-        return driver.isSuppressedGradle(context, issue, scope)
+        // This may return false if scope is of the wrong type or from the wrong file, so we fall
+        // through in this case.
+        if (driver.isSuppressedGradle(context, issue, scope)) {
+          return true
+        }
+        // UElement and PsiElement could be from Java/Kotlin, and so might be handled below.
+        // ASTNode can only be handled by GradleContext, so we return false early in this case.
+        if (scope is ASTNode) {
+          return false
+        }
       }
 
       // XML DOM
@@ -3784,6 +3793,10 @@ class LintDriver(
           throwable.stackTrace.isNotEmpty() &&
           throwable.stackTrace[0].methodName == "fail" -> {
           // org.junit.Assert.fail() from test suite
+          throw throwable
+        }
+        throwable is OutOfMemoryError && LintClient.isGradle -> {
+          // Fail the build eagerly from AGP in case of OutOfMemoryError (b/297095583)
           throw throwable
         }
       }

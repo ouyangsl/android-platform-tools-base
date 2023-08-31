@@ -16,8 +16,11 @@
 
 package com.android.build.gradle.internal.dsl
 
-import com.android.build.api.dsl.KotlinMultiplatformAndroidTestConfiguration
+import com.android.build.api.dsl.LibraryAndroidResources
+import com.android.build.gradle.internal.services.DslServices
+import javax.inject.Inject
 
-abstract class KotlinMultiplatformAndroidTestConfigurationImpl(
-    val compilationName: String
-) : KotlinMultiplatformAndroidTestConfiguration
+abstract class LibraryAndroidResourcesImpl @Inject constructor(dslServices: DslServices) :
+        LibraryAndroidResources, AaptOptions(dslServices) {
+
+}

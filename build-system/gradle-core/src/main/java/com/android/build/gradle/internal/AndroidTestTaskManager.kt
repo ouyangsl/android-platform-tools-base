@@ -518,25 +518,28 @@ class AndroidTestTaskManager(
                 File(resultsRootDir, "${BuilderConstants.SCREENSHOT}/$buildTarget/$flavorDir")
         val goldenImagesDir = File("${project.projectDir.absolutePath}/src/androidTest/${BuilderConstants.SCREENSHOT}/$buildTarget/$flavorDir")
 
-        val ideExtractionDir =
-                creationConfig.paths.intermediatesDir(
-                        "${BuilderConstants.SCREENSHOT}/$buildTarget/$flavorDir").get().asFile
-
         val lintModelDir =
                 creationConfig.paths.getIncrementalDir(
                         "${BuilderConstants.LINT}Analyze${variantName.replaceFirstChar { it.uppercase() }}")
         val lintCacheDir =
                 creationConfig.paths.intermediatesDir(
                         "${BuilderConstants.LINT}-cache").get().asFile
+        val compileAppClassesJar =
+                creationConfig.paths.intermediatesDir(
+                        "compile_app_classes_jar/${variantName}/").get().asFile.absolutePath
+        val additionalDependencyPaths = mutableListOf<String>()
+        //compileAppClassesJar jar needed for rendering; and lint does not include in its dependency lists. This will not be required in new cli tool
+        additionalDependencyPaths.add("$compileAppClassesJar/classes.jar")
 
         val previewScreenshotValidationTask = taskFactory.register(
                 PreviewScreenshotValidationTask.CreationAction(
                         creationConfig,
                         resultsDir,
                         goldenImagesDir,
-                        ideExtractionDir,
+                         creationConfig.services.layoutlibFromMaven.layoutlibDirectory,
                         lintModelDir,
                         lintCacheDir,
+                        additionalDependencyPaths
                 ))
 
         val previewScreenshotUpdateTask = taskFactory.register(
@@ -544,9 +547,10 @@ class AndroidTestTaskManager(
                         creationConfig,
                         resultsDir,
                         goldenImagesDir,
-                        ideExtractionDir,
+                        creationConfig.services.layoutlibFromMaven.layoutlibDirectory,
                         lintModelDir,
                         lintCacheDir,
+                        additionalDependencyPaths
                 ))
 
         previewScreenshotValidationTask.dependsOn("lint")

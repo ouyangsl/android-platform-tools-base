@@ -17,6 +17,8 @@
 package com.android.build.gradle.internal.tasks
 
 import com.android.Version
+import com.android.build.api.artifact.ScopedArtifact
+import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.component.AndroidTestCreationConfig
 import com.android.build.gradle.internal.component.InstrumentedTestCreationConfig
@@ -24,10 +26,12 @@ import com.android.build.gradle.internal.services.getBuildService
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
 import com.android.buildanalyzer.common.TaskCategory
 import com.android.builder.core.ComponentType
+import com.android.utils.usLocaleCapitalize
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.FileCollection
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.InputDirectory
@@ -40,6 +44,7 @@ import org.gradle.api.tasks.TaskAction
 import java.io.File
 import org.gradle.api.tasks.VerificationTask
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.tasks.Classpath
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JavaToolchainService
 
@@ -79,17 +84,27 @@ abstract class PreviewScreenshotValidationTask : NonIncrementalTask(), Verificat
     abstract val goldenImageDir: DirectoryProperty
 
     @get:OutputDirectory
-    abstract val ideExtractionDir: DirectoryProperty
-
-    @get:OutputDirectory
     abstract val imageOutputDir: DirectoryProperty
 
+    @get:Internal
+    abstract val layoutlibDir: ConfigurableFileCollection
+
+    @get:Classpath
+    abstract val testClassesDir: ConfigurableFileCollection
 
     private val cliParams: MutableMap<String, String> = mutableMapOf()
 
     @TaskAction
     override fun doTaskAction() {
+        if (goldenImageDir.asFileTree.isEmpty) {
+            throw GradleException("No screenshots were found. To generate screenshots to"
+                    + " test against, run 'previewScreenshotUpdate${variantName.usLocaleCapitalize()}AndroidTest`")
+        }
+
         cliParams["previewJar"] = screenshotCliJar.singleFile.absolutePath
+        cliParams["layoutlib.dir"] = layoutlibDir.singleFile.toPath().toString()
+        val testClassesDependencies = testClassesDir.files
+            .filter { it.exists() && it.isDirectory}.map { it.absolutePath + '/' }.joinToString(";")
 
         // invoke CLI tool
         val process = ProcessBuilder(
@@ -99,15 +114,15 @@ abstract class PreviewScreenshotValidationTask : NonIncrementalTask(), Verificat
                     "--client-version", cliParams["client.version"],
                     "--jdk-home", cliParams["java.home"],
                     "--sdk-home", cliParams["androidsdk"],
-                    "--extraction-dir", cliParams["extraction.dir"],
-                    "--jar-location", cliParams["previewJar"],
                     "--lint-model", cliParams["lint.model"],
                     "--cache-dir", cliParams["lint.cache"],
                     "--root-lint-model", cliParams["lint.model"],
                     "--output-location", cliParams["output.location"] + "/",
                     "--golden-location", cliParams["golden.location"] + "/",
-                    "--file-path", cliParams["sources"]!!.split(",").first())
-        ).apply {
+                    "--file-path", cliParams["sources"]!!.split(",").first(),
+                    "--layoutlib-dir", cliParams["layoutlib.dir"],
+                    "--additional-deps", listOf(cliParams["additional.deps"]!!, testClassesDependencies).joinToString(File.pathSeparator))
+                ).apply {
             environment().remove("TEST_WORKSPACE")
             redirectErrorStream(true)
             redirectOutput(ProcessBuilder.Redirect.INHERIT)
@@ -139,9 +154,10 @@ abstract class PreviewScreenshotValidationTask : NonIncrementalTask(), Verificat
             private val androidTestCreationConfig: AndroidTestCreationConfig,
             private val imageOutputDir: File,
             private val goldenImageDir: File,
-            private val ideExtractionDir: File,
+            private val layoutlibDir: FileCollection,
             private val lintModelDir: File,
             private val lintCacheDir: File,
+            private val additionalDependencyPaths: List<String>
     ) :
             VariantTaskCreationAction<
                     PreviewScreenshotValidationTask,
@@ -204,10 +220,6 @@ abstract class PreviewScreenshotValidationTask : NonIncrementalTask(), Verificat
             task.imageOutputDir.disallowChanges()
             task.cliParams["output.location"] = imageOutputDir.absolutePath
 
-            task.ideExtractionDir.set(ideExtractionDir)
-            task.ideExtractionDir.disallowChanges()
-            task.cliParams["extraction.dir"] = ideExtractionDir.absolutePath
-
             task.lintModelDir.set(lintModelDir)
             task.lintModelDir.disallowChanges()
             task.cliParams["lint.model"] = lintModelDir.absolutePath
@@ -218,6 +230,17 @@ abstract class PreviewScreenshotValidationTask : NonIncrementalTask(), Verificat
 
             task.cliParams["client.name"] = "Android Gradle Plugin"
             task.cliParams["client.version"] = Version.ANDROID_GRADLE_PLUGIN_VERSION
+
+            task.testClassesDir.from(creationConfig.services.fileCollection().apply {from(creationConfig
+                .artifacts.forScope(ScopedArtifacts.Scope.PROJECT)
+                .getFinalArtifacts(ScopedArtifact.CLASSES)) })
+            task.testClassesDir.disallowChanges()
+
+            task.cliParams["additional.deps"] = additionalDependencyPaths.joinToString (";")
+
+            task.layoutlibDir.from(layoutlibDir)
+            task.layoutlibDir.disallowChanges()
+
         }
 
         private fun maybeCreatePreviewlibCliToolConfiguration(project: Project) {

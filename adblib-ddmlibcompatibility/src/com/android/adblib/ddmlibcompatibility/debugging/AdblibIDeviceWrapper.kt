@@ -17,6 +17,8 @@ package com.android.adblib.ddmlibcompatibility.debugging
 
 import com.android.adblib.ConnectedDevice
 import com.android.adblib.DeviceSelector
+import com.android.adblib.INFINITE_DURATION
+import com.android.adblib.RemoteFileMode
 import com.android.adblib.availableFeatures
 import com.android.adblib.ddmlibcompatibility.AdbLibDdmlibCompatibilityProperties
 import com.android.adblib.deviceInfo
@@ -24,10 +26,14 @@ import com.android.adblib.isOffline
 import com.android.adblib.isOnline
 import com.android.adblib.property
 import com.android.adblib.serialNumber
+import com.android.adblib.syncSend
+import com.android.adblib.thisLogger
+import com.android.adblib.tools.EmulatorCommandException
 import com.android.adblib.tools.defaultAuthTokenPath
 import com.android.adblib.tools.localConsoleAddress
 import com.android.adblib.tools.openEmulatorConsole
 import com.android.adblib.withErrorTimeout
+import com.android.ddmlib.AdbCommandRejectedException
 import com.android.ddmlib.AdbHelper
 import com.android.ddmlib.AvdData
 import com.android.ddmlib.AndroidDebugBridge
@@ -38,24 +44,33 @@ import com.android.ddmlib.IDevice
 import com.android.ddmlib.IDevice.DeviceState
 import com.android.ddmlib.IDevice.RE_EMULATOR_SN
 import com.android.ddmlib.IDeviceSharedImpl
+import com.android.ddmlib.IDeviceSharedImpl.INSTALL_TIMEOUT_MINUTES
 import com.android.ddmlib.IShellOutputReceiver
+import com.android.ddmlib.InstallException
+import com.android.ddmlib.InstallMetrics
 import com.android.ddmlib.InstallReceiver
+import com.android.ddmlib.Log
 import com.android.ddmlib.PropertyFetcher
 import com.android.ddmlib.RawImage
+import com.android.ddmlib.SimpleConnectedSocket
 import com.android.ddmlib.ScreenRecorderOptions
 import com.android.ddmlib.ServiceInfo
+import com.android.ddmlib.ShellCommandUnresponsiveException
+import com.android.ddmlib.SplitApkInstaller
 import com.android.ddmlib.SyncService
-import com.android.ddmlib.clientmanager.DeviceClientManager
 import com.android.ddmlib.log.LogReceiver
 import com.android.sdklib.AndroidVersion
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.guava.asListenableFuture
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.InputStream
 import java.net.InetSocketAddress
+import java.nio.channels.SocketChannel
+import java.nio.file.Files
 import java.time.Duration
 import java.util.Collections
 import java.util.concurrent.ExecutionException
@@ -72,17 +87,21 @@ internal class AdblibIDeviceWrapper(
     bridge: AndroidDebugBridge,
 ) : IDevice {
 
+    private val logger = thisLogger(connectedDevice.session)
+
     // TODO(b/294559068): Create our own implementation of PropertyFetcher before we can get rid of ddmlib
     private val propertyFetcher = PropertyFetcher(this)
 
     private val iDeviceSharedImpl = IDeviceSharedImpl(this)
-    private val deviceClientManager by lazy {
+    private val deviceClientManager =
         AdbLibClientManagerFactory.createClientManager(connectedDevice.session)
             .createDeviceClientManager(bridge, this)
-    }
 
     /** Name and path of the AVD  */
     private val mAvdData = connectedDevice.session.scope.async { createAvdData() }
+
+    /** Information about the most recent installation via this device  */
+    private var lastInstallMetrics: InstallMetrics? = null
 
     /**
      * Returns a (humanized) name for this device. Typically, this is the AVD name for AVD's, and
@@ -98,10 +117,10 @@ internal class AdblibIDeviceWrapper(
         receiver: IShellOutputReceiver,
         maxTimeToOutputResponse: Int
     ) {
-        executeShellCommand(
+        // This matches the behavior of `DeviceImpl`
+        executeRemoteCommand(
             command,
             receiver,
-            0,
             maxTimeToOutputResponse.toLong(),
             TimeUnit.MILLISECONDS
         )
@@ -126,12 +145,32 @@ internal class AdblibIDeviceWrapper(
      * @see DdmPreferences.getTimeOut
      */
     override fun executeShellCommand(command: String, receiver: IShellOutputReceiver) {
-        executeShellCommand(
+        // This matches the behavior of `DeviceImpl`
+        executeRemoteCommand(
             command,
             receiver,
-            0,
             DdmPreferences.getTimeOut().toLong(),
             TimeUnit.MILLISECONDS
+        )
+    }
+
+    /** A version of executeShell command that can take an input stream to send through stdin. */
+    override fun executeShellCommand(
+        command: String,
+        receiver: IShellOutputReceiver,
+        maxTimeToOutputResponse: Long,
+        maxTimeUnits: TimeUnit,
+        `is`: InputStream?
+    ) {
+        // Note that `AdbHelper.AdbService.EXEC` is passed down to match the behavior of `DeviceImpl`
+        executeRemoteCommand(
+            AdbHelper.AdbService.EXEC,
+            command,
+            receiver,
+            0L,
+            maxTimeToOutputResponse,
+            maxTimeUnits,
+            `is`
         )
     }
 
@@ -171,7 +210,14 @@ internal class AdblibIDeviceWrapper(
         maxTimeToOutputResponse: Long,
         maxTimeUnits: TimeUnit
     ) {
-        executeShellCommand(command, receiver, 0, maxTimeToOutputResponse, maxTimeUnits)
+        // This matches the behavior of `DeviceImpl`
+        executeRemoteCommand(
+            command,
+            receiver,
+            0L,
+            maxTimeToOutputResponse,
+            maxTimeUnits
+        )
     }
 
     /**
@@ -211,7 +257,14 @@ internal class AdblibIDeviceWrapper(
         maxTimeToOutputResponse: Long,
         maxTimeUnits: TimeUnit
     ) {
-        executeShellCommand(connectedDevice, command, receiver, maxTimeout, maxTimeToOutputResponse, maxTimeUnits)
+        // This matches the behavior of `DeviceImpl`
+        executeRemoteCommand(
+            command,
+            receiver,
+            maxTimeout,
+            maxTimeToOutputResponse,
+            maxTimeUnits
+        )
     }
 
     /**
@@ -286,17 +339,23 @@ internal class AdblibIDeviceWrapper(
         val emulatorMatchResult = RE_EMULATOR_SN.toRegex().matchEntire(serialNumber) ?: return null
         val port = emulatorMatchResult.groupValues[1]?.toIntOrNull() ?: return null
 
-        val emulatorConsole = connectedDevice.session.openEmulatorConsole(
-            localConsoleAddress(port),
-            defaultAuthTokenPath()
-        )
+        try {
+            connectedDevice.session.openEmulatorConsole(
+                localConsoleAddress(port),
+                defaultAuthTokenPath()
+            ).use {
+                val nameResult = kotlin.runCatching { it.avdName() }
+                val avdName = nameResult.getOrNull()
+                val pathResult = kotlin.runCatching { it.avdPath() }
+                val path = pathResult.getOrNull()
 
-        val nameResult = kotlin.runCatching { emulatorConsole.avdName() }
-        val avdName = nameResult.getOrNull()
-        val pathResult = kotlin.runCatching { emulatorConsole.avdPath() }
-        val path = pathResult.getOrNull()
-
-        return AvdData(avdName, path)
+                return AvdData(avdName, path)
+            }
+        } catch (e: EmulatorCommandException) {
+            logger.warn(e, "Couldn't open emulator console")
+            return null
+        }
+        return null
     }
 
     /** Returns the state of the device.  */
@@ -619,7 +678,21 @@ internal class AdblibIDeviceWrapper(
      * @throws SyncException if the file could not be pushed
      */
     override fun pushFile(local: String, remote: String) {
-        TODO("Not yet implemented")
+        runBlockingLegacy {
+            val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+
+            val localFile = File(local).toPath()
+            val localFileDate = Files.getLastModifiedTime(localFile)
+            Log.d(LOG_TAG, "Uploading $localFile onto device '$serialNumber'")
+
+            connectedDevice.session.deviceServices.syncSend(
+                deviceSelector,
+                localFile,
+                remote,
+                RemoteFileMode.fromPath(localFile) ?: RemoteFileMode.DEFAULT,
+                localFileDate
+            )
+        }
     }
 
     /**
@@ -724,7 +797,25 @@ internal class AdblibIDeviceWrapper(
         timeout: Long,
         timeoutUnit: TimeUnit
     ) {
-        TODO("Not yet implemented")
+        lastInstallMetrics = try {
+            SplitApkInstaller.create(this, apks, reinstall, installOptions)
+                .install(timeout, timeoutUnit)
+        } catch (e: InstallException) {
+            throw e
+        } catch (e: Exception) {
+            throw InstallException(e)
+        }
+    }
+
+    override fun installPackages(
+        apks: MutableList<File>, reinstall: Boolean, installOptions: MutableList<String>
+    ) {
+        // Use the default single apk installer timeout.
+        installPackages(apks, reinstall, installOptions, INSTALL_TIMEOUT_MINUTES, TimeUnit.MINUTES)
+    }
+
+    override fun getLastInstallMetrics(): InstallMetrics? {
+        return lastInstallMetrics
     }
 
     /**
@@ -1037,7 +1128,16 @@ internal class AdblibIDeviceWrapper(
         maxTimeToOutputResponse: Long,
         maxTimeUnits: TimeUnit
     ) {
-        TODO("Not yet implemented")
+        // Note that `AdbHelper.AdbService.SHELL` is passed down to match the behavior of `DeviceImpl`
+        executeRemoteCommand(
+            AdbHelper.AdbService.SHELL,
+            command,
+            rcvr,
+            maxTimeout,
+            maxTimeToOutputResponse,
+            maxTimeUnits,
+            null /* inputStream */
+        )
     }
 
     /**
@@ -1065,7 +1165,15 @@ internal class AdblibIDeviceWrapper(
         maxTimeToOutputResponse: Long,
         maxTimeUnits: TimeUnit
     ) {
-        TODO("Not yet implemented")
+        // Note that `AdbHelper.AdbService.SHELL` is passed down to match the behavior of `DeviceImpl`
+        executeRemoteCommand(
+            AdbHelper.AdbService.SHELL,
+            command,
+            rcvr,
+            maxTimeToOutputResponse,
+            maxTimeUnits,
+            null /* inputStream */
+        )
     }
 
     /**
@@ -1099,7 +1207,15 @@ internal class AdblibIDeviceWrapper(
         maxTimeUnits: TimeUnit,
         `is`: InputStream?
     ) {
-        TODO("Not yet implemented")
+        executeRemoteCommand(
+            adbService,
+            command,
+            rcvr,
+            0L,
+            maxTimeToOutputResponse,
+            maxTimeUnits,
+            `is`
+        )
     }
 
     /**
@@ -1118,7 +1234,7 @@ internal class AdblibIDeviceWrapper(
      * of 0 means the method will wait forever for command output and never throw.
      * @param maxTimeUnits Units for non-zero `maxTimeout` and `maxTimeToOutputResponse`
      * values.
-     * @param is a optional [InputStream] to be streamed up after invoking the command and
+     * @param inputStream an optional [InputStream] to be streamed up after invoking the command and
      * before retrieving the response.
      * @throws TimeoutException in case of timeout on the connection when sending the command.
      * @throws AdbCommandRejectedException if adb rejects the command
@@ -1130,22 +1246,68 @@ internal class AdblibIDeviceWrapper(
     override fun executeRemoteCommand(
         adbService: AdbHelper.AdbService,
         command: String,
-        rcvr: IShellOutputReceiver,
+        receiver: IShellOutputReceiver,
         maxTimeout: Long,
         maxTimeToOutputResponse: Long,
         maxTimeUnits: TimeUnit,
-        `is`: InputStream?
+        inputStream: InputStream?
     ) {
-        TODO("Not yet implemented")
+        runBlockingLegacy {
+            if (adbService != AdbHelper.AdbService.ABB_EXEC) {
+                executeShellCommand(
+                    connectedDevice,
+                    command,
+                    receiver,
+                    maxTimeout,
+                    maxTimeToOutputResponse,
+                    maxTimeUnits,
+                    inputStream
+                )
+            } else {
+                val adbInputChannel = if (inputStream != null) connectedDevice.session.channelFactory.wrapInputStream(inputStream) else null
+                val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+                val timeout = if (maxTimeout > 0) Duration.ofMillis(maxTimeUnits.toMillis(maxTimeout)) else INFINITE_DURATION
+                val abbExecFlow = connectedDevice.session.deviceServices.abb_exec(
+                    deviceSelector,
+                    command.split(" "),
+                    ShellCollectorToIShellOutputReceiver(
+                        receiver
+                    ),
+                    adbInputChannel,
+                    timeout
+                )
+                abbExecFlow.first()
+            }
+        }
     }
 
+    override fun rawExec(executable: String, parameters: Array<out String>): SocketChannel {
+        throw UnsupportedOperationException("This method is not used in Android Studio outside ddmlib")
+    }
+
+    override fun rawExec2(
+        executable: String,
+        parameters: Array<out String>
+    ): SimpleConnectedSocket = runBlockingLegacy {
+        val command = StringBuilder(executable)
+        for (parameter in parameters) {
+            command.append(" ")
+            command.append(parameter)
+        }
+        val channel = connectedDevice.session.deviceServices.rawExec(
+            DeviceSelector.fromSerialNumber(
+                serialNumber
+            ), command.toString()
+        )
+        AdblibChannelWrapper(this@AdblibIDeviceWrapper, channel)
+    }
 
     /**
      * Similar to [runBlocking] but with a custom [timeout]
      *
      * @throws TimeoutException if [block] take more than [timeout] to execute
      */
-    private fun <R> runBlockingLegacy(
+    internal fun <R> runBlockingLegacy(
         timeout: Duration = connectedDevice.session.property(AdbLibDdmlibCompatibilityProperties.RUN_BLOCKING_LEGACY_DEFAULT_TIMEOUT),
         block: suspend CoroutineScope.() -> R
     ): R {
@@ -1158,6 +1320,7 @@ internal class AdblibIDeviceWrapper(
 
     companion object {
 
+        private const val LOG_TAG = "AdblibIDeviceWrapper"
         private const val GET_PROP_TIMEOUT_MS = 1000L
         private const val INITIAL_GET_PROP_TIMEOUT_MS = 5000L
     }

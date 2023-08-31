@@ -527,7 +527,8 @@ coverage_report(
         "tools/adt/idea/nav/safeargs",
     ],
     tests = [
-        "//tools/adt/idea/nav/safeargs:intellij.android.nav.safeargs.tests_tests",
+        "//tools/adt/idea/nav/safeargs/tests/common:intellij.android.nav.safeargs.tests.common_tests",
+        "//tools/adt/idea/nav/safeargs/tests/k1:intellij.android.nav.safeargs.tests.k1_tests",
     ],
 )
 
@@ -1066,7 +1067,6 @@ coverage_report(
         "//tools/adt/idea/app-quality-insights/ui:intellij.android.app-quality-insights.ui.tests_tests",
         "//tools/adt/idea/assistant:assistant-test_tests",
         "//tools/adt/idea/build-attribution:intellij.android.build-attribution.tests_tests",
-        "//tools/adt/idea/build-common:intellij.android.buildCommon_tests",
         # TODO(b/280794485): test are too flaky, disabling studio-coverage until we solve all the studio-linux flakes
         #"//tools/adt/idea/compose-designer:intellij.android.compose-designer.tests_tests",
         "//tools/adt/idea/compose-ide-plugin:intellij.android.compose-ide-plugin.tests_tests",
@@ -1098,7 +1098,8 @@ coverage_report(
         "//tools/adt/idea/mlkit:intellij.android.mlkit.tests_tests",
         "//tools/adt/idea/native-symbolizer:native-symbolizer.tests_tests",
         "//tools/adt/idea/nav/editor:intellij.android.nav.editor.tests_tests",
-        "//tools/adt/idea/nav/safeargs:intellij.android.nav.safeargs.tests_tests",
+        "//tools/adt/idea/nav/safeargs/tests/common:intellij.android.nav.safeargs.tests.common_tests",
+        "//tools/adt/idea/nav/safeargs/tests/k1:intellij.android.nav.safeargs.tests.k1_tests",
         "//tools/adt/idea/observable:intellij.android.observable_tests",
         "//tools/adt/idea/observable-ui:intellij.android.observable.ui_tests",
         "//tools/adt/idea/profilers:intellij.android.profilers_tests",

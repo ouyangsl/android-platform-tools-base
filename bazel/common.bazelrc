@@ -18,7 +18,7 @@ test --jvmopt='-Dsun.jnu.encoding=UTF-8'
 test --jvmopt='-Dfile.encoding=UTF-8'
 test --jvmopt='-Xmx4G'
 test --jvmopt='-XX:+UseG1GC'
-test --jvmopt='-XX:ErrorFile=$TEST_UNDECLARED_OUTPUTS_DIR/jvm_crash.log'
+test --jvmopt='-XX:+ErrorFileToStderr'
 test --verbose_failures
 
 # TODO(b/242203555) cleanup opens/exports that was added for JDK17 migration
@@ -39,6 +39,9 @@ test --jvmopt='--add-opens=java.base/java.time=ALL-UNNAMED'
 test --jvmopt='--add-opens=java.base/java.lang.ref=ALL-UNNAMED'
 test --jvmopt='--add-opens=java.base/sun.nio.fs=ALL-UNNAMED'
 test --jvmopt='--add-opens=jdk.jdi/com.sun.tools.jdi=ALL-UNNAMED'
+
+# TODO(b/270757509) remove after tests switched to flags from product-info.json (//tools/adt/idea/studio:default_user_jvm_args)
+test --jvmopt='-XX:CompileCommand=quiet -XX:CompileCommand=exclude,com/intellij/openapi/vfs/impl/FilePartNodeRoot,trieDescend'
 
 build --jvmopt='--add-exports java.base/jdk.internal.vm=ALL-UNNAMED'
 build --jvmopt='--add-exports=java.desktop/sun.awt.image=ALL-UNNAMED'

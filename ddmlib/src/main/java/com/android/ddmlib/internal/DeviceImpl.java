@@ -15,6 +15,8 @@
  */
 package com.android.ddmlib.internal;
 
+import static com.android.ddmlib.IDeviceSharedImpl.INSTALL_TIMEOUT_MINUTES;
+
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.annotations.concurrency.GuardedBy;
@@ -45,6 +47,8 @@ import com.android.ddmlib.RemoteSplitApkInstaller;
 import com.android.ddmlib.ScreenRecorderOptions;
 import com.android.ddmlib.ServiceInfo;
 import com.android.ddmlib.ShellCommandUnresponsiveException;
+import com.android.ddmlib.SimpleConnectedSocket;
+import com.android.ddmlib.SocketChannelWithTimeouts;
 import com.android.ddmlib.SplitApkInstaller;
 import com.android.ddmlib.SyncException;
 import com.android.ddmlib.SyncService;
@@ -126,22 +130,7 @@ public final class DeviceImpl implements IDevice {
     private static final long INITIAL_GET_PROP_TIMEOUT_MS = 5000;
     private static final int QUERY_IS_ROOT_TIMEOUT_MS = 1000;
 
-    private static final long INSTALL_TIMEOUT_MINUTES;
-
     static final int WAIT_TIME = 5; // spin-wait sleep, in ms
-
-    static {
-        String installTimeout = System.getenv("ADB_INSTALL_TIMEOUT");
-        long time = 4;
-        if (installTimeout != null) {
-            try {
-                time = Long.parseLong(installTimeout);
-            } catch (NumberFormatException e) {
-                // use default value
-            }
-        }
-        INSTALL_TIMEOUT_MINUTES = time;
-    }
 
     /**
      * Socket for the connection monitoring client connection/disconnection.
@@ -917,6 +906,12 @@ public final class DeviceImpl implements IDevice {
             throws AdbCommandRejectedException, TimeoutException, IOException {
         return AdbHelper.rawExec(
                 AndroidDebugBridge.getSocketAddress(), this, executable, parameters);
+    }
+
+    @Override
+    public SimpleConnectedSocket rawExec2(String executable, String[] parameters)
+            throws AdbCommandRejectedException, TimeoutException, IOException {
+        return SocketChannelWithTimeouts.wrap(rawExec(executable, parameters));
     }
 
     @Override
