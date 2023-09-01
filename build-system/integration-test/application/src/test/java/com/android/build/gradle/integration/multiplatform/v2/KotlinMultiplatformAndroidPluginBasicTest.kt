@@ -57,7 +57,7 @@ class KotlinMultiplatformAndroidPluginBasicTest {
             """
                 kotlin {
                     androidLibrary {
-                        withAndroidTestOnJvm()
+                        withAndroidTestOnJvm { }
                     }
                 }
             """.trimIndent()
