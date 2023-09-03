@@ -254,7 +254,7 @@ public class ResourceShrinkerCli {
         out.println("       handled if this contains other files. Several --dex_input arguments");
         out.println("       are supported");
         out.println("    --output <output-file>");
-        out.println("    --raw_resource <xml-file or res directory>");
+        out.println("    --raw_resources <xml-file or res directory>");
         out.println("      optional, more than one raw_resoures argument might be given");
         out.println("    --help prints this help message");
     }
