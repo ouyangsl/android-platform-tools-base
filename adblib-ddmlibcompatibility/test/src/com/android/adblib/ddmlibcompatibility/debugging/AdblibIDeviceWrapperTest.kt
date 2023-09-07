@@ -2,7 +2,9 @@ package com.android.adblib.ddmlibcompatibility.debugging
 
 import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
+import com.android.adblib.DeviceSelector
 import com.android.adblib.RemoteFileMode
+import com.android.adblib.SocketSpec
 import com.android.adblib.connectedDevicesTracker
 import com.android.adblib.deviceInfo
 import com.android.adblib.serialNumber
@@ -381,6 +383,20 @@ class AdblibIDeviceWrapperTest {
     }
 
     @Test
+    fun getProfileableClients() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", sdk = "31" // required for "track-app"
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        deviceState.startProfileableProcess(25, "x86", "a.b.c")
+
+        // Act / Assert
+        yieldUntil {adblibIDeviceWrapper.profileableClients.size == 1}
+        assertEquals(25, adblibIDeviceWrapper.profileableClients[0].profileableClientData.pid)
+    }
+
+    @Test
     fun pushFile() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, deviceState) = createConnectedDevice(
@@ -405,11 +421,53 @@ class AdblibIDeviceWrapperTest {
         assertEquals(fileBytes.toString(Charsets.UTF_8), remoteFile.bytes.toString(Charsets.UTF_8))
     }
 
+    @Test
+    fun testForward() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        assertEquals(0, deviceState.allPortForwarders.size)
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+
+        // Act
+        adblibIDeviceWrapper.createForward(0, 4000)
+
+        // Assert
+        assertEquals(1, deviceState.allPortForwarders.size)
+        val portForwarder = deviceState.allPortForwarders.values.asList()[0]
+        assertEquals(4000, portForwarder?.destination?.port)
+    }
+
+    @Test
+    fun testKillForward() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        val port =
+            hostServices.forward(
+                DeviceSelector.any(),
+                SocketSpec.Tcp(),
+                SocketSpec.Tcp(4000)
+            ) ?: throw Exception("`forward` command should have returned a port")
+        assertEquals(1, deviceState.allPortForwarders.size)
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+
+        // Act
+        adblibIDeviceWrapper.removeForward(Integer.valueOf(port))
+
+        // Assert
+        assertEquals(0, deviceState.allPortForwarders.size)
+    }
+
     private suspend fun createConnectedDevice(
-        serialNumber: String, deviceStatus: DeviceState.DeviceStatus
+        serialNumber: String,
+        deviceStatus: DeviceState.DeviceStatus = DeviceState.DeviceStatus.ONLINE,
+        sdk: String = "30"
     ): Pair<ConnectedDevice, DeviceState> {
         val fakeDevice = fakeAdb.connectDevice(
-            serialNumber, "test1", "test2", "model", "30", DeviceState.HostConnectionType.USB
+            serialNumber, "test1", "test2", "model", sdk, DeviceState.HostConnectionType.USB
         )
         fakeDevice.deviceStatus = deviceStatus
         val connectedDevice = waitForConnectedDevice(

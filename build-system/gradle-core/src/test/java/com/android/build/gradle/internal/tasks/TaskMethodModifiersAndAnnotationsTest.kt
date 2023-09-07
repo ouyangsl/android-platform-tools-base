@@ -45,6 +45,7 @@ import org.gradle.api.tasks.OutputFiles
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.SkipWhenEmpty
+import org.gradle.api.tasks.TaskAction
 import org.gradle.work.Incremental
 import org.junit.Test
 import java.lang.reflect.AnnotatedElement
@@ -91,6 +92,47 @@ class TaskMethodModifiersAndAnnotationsTest {
         )
     }
 
+    @Test
+    fun `check for TaskAction use in tasks that extend tasks that already define it`() {
+        val baseTaskClasses = listOf(NonIncrementalGlobalTask::class.java, NonIncrementalTask::class.java, NewIncrementalTask::class.java)
+        val extendsAgpBaseTaskClasses = tasks.filter { !baseTaskClasses.contains(it) && baseTaskClasses.any { baseClass -> baseClass.isAssignableFrom(it) } }
+        val taskActionMethods = extendsAgpBaseTaskClasses.associateWith { it.declaredMethods.filter { method -> method.getAnnotation(TaskAction::class.java) != null } }
+        val methodsThatUseTaskAction = taskActionMethods.filter { it.value.isNotEmpty() }.map { methods ->
+            methods.key.toString().substringAfter(" ") + " ${methods.value.map { it.name }}" }
+
+        if (methodsThatUseTaskAction.isEmpty()) {
+            return
+        }
+        throw AssertionError(
+                "The following classes have @TaskAction methods, and extend one of ${baseTaskClasses.map { it.simpleName }}.\n" +
+                        "Please remove the @TaskAction annotation from methods of these tasks.\n  " +
+                        methodsThatUseTaskAction.joinToString("\n  ")
+        )
+    }
+
+    @Test
+    fun `check for tasks that don't extend AndroidVariantTask`() {
+
+        val doesNotExtendAndroidVariantTask = tasks.filter { !VariantAwareTask::class.java.isAssignableFrom(it) }.map { it.name }
+        assertWithMessage("All Agp tasks should generally extend NonIncrementalTask, NonIncrementalGlobalTask or NewIncrementalTask, " +
+                "or manually implement VariantAwareTask if using a Gradle task type.")
+        // Don't add new tasks to this list
+        assertThat(doesNotExtendAndroidVariantTask).containsExactly(
+                "com.android.build.gradle.internal.lint.AndroidLintGlobalTask",
+                "com.android.build.gradle.internal.tasks.AndroidReportTask",
+                "com.android.build.gradle.internal.tasks.BaseTask",
+                "com.android.build.gradle.internal.tasks.DependencyReportTask",
+                "com.android.build.gradle.internal.tasks.DeviceSerialTestTask",
+                "com.android.build.gradle.internal.tasks.SigningReportTask",
+                "com.android.build.gradle.internal.tasks.SourceSetsTask",
+                "com.android.build.gradle.tasks.FusedLibraryBundle",
+                "com.android.build.gradle.tasks.FusedLibraryBundleAar",
+                "com.android.build.gradle.tasks.FusedLibraryBundleClasses",
+                "com.android.build.gradle.tasks.FusedLibraryMergeClasses",
+                "com.android.build.gradle.tasks.PrivacySandboxSdkGenerateJarStubsTask",
+                "com.android.build.gradle.tasks.sync.AppIdListTask",
+        )
+    }
 
     @Test
     fun `check for fields with gradle input or output annotations`() {
@@ -273,6 +315,8 @@ class TaskMethodModifiersAndAnnotationsTest {
             .filter { TypeToken.of(it.type).isSubtypeOf(fieldType) }
     }
 
+
+
     companion object {
 
         private val classPath: ClassPath by lazy(LazyThreadSafetyMode.PUBLICATION) {
@@ -302,12 +346,19 @@ class TaskMethodModifiersAndAnnotationsTest {
                     || getAnnotation(SkipWhenEmpty::class.java) != null
         }
 
+        private val comAndroidBuildClasses by lazy(LazyThreadSafetyMode.PUBLICATION) {
+            classPath.getTopLevelClassesRecursive("com.android.build")
+                .map { classInfo -> classInfo.load() as Class<*> }
+        }
+
         private val taskInputOutputMethods: List<Method> by lazy(LazyThreadSafetyMode.PUBLICATION) {
-            classPath
-                    .getTopLevelClassesRecursive("com.android.build")
-                    .map { classInfo -> classInfo.load() as Class<*> }
+            comAndroidBuildClasses
                     .flatMap { it.declaredMethods.asIterable() }
                     .filter { it.hasGradleInputOrOutputAnnotation() }
+        }
+
+        private val tasks: List<Class<out Task>> by lazy(LazyThreadSafetyMode.PUBLICATION) {
+            comAndroidBuildClasses.filterIsInstance<Class<out Task>>().filter { Task::class.java.isAssignableFrom(it) }
         }
     }
 }

@@ -49,6 +49,7 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.io.path.exists
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -81,7 +82,9 @@ class LocalEmulatorProvisionerPlugin(
   rescanPeriod: Duration = Duration.ofSeconds(10),
 ) : DeviceProvisionerPlugin {
   val logger = thisLogger(adbSession)
-
+  companion object {
+    const val PLUGIN_ID = "LocalEmulator"
+  }
   /**
    * An abstraction of the AvdManager / AvdManagerConnection classes to be injected, allowing for
    * testing and decoupling from Studio.
@@ -133,8 +136,13 @@ class LocalEmulatorProvisionerPlugin(
       // Remove any current DeviceHandles that are no longer present on disk, unless they are
       // connected. (If a client holds on to the disconnected device handle, and it gets
       // recreated with the same path, the client will get a new device handle, which is fine.)
-      deviceHandles.entries.removeIf { (path, handle) ->
-        !avdsOnDisk.containsKey(path) && handle.state is Disconnected
+      val iterator = deviceHandles.entries.iterator()
+      while (iterator.hasNext()) {
+        val (path, handle) = iterator.next()
+        if (!avdsOnDisk.containsKey(path) && handle.state is Disconnected) {
+          iterator.remove()
+          handle.scope.cancel()
+        }
       }
 
       for ((path, avdInfo) in avdsOnDisk) {
@@ -156,7 +164,10 @@ class LocalEmulatorProvisionerPlugin(
 
   private fun disconnectedState(avdInfo: AvdInfo) =
     Disconnected(
-      LocalEmulatorProperties.build(avdInfo) { icon = iconForType() },
+      LocalEmulatorProperties.build(avdInfo) {
+        populateDeviceInfoProto(PLUGIN_ID, null, emptyMap())
+        icon = iconForType()
+      },
       isTransitioning = false,
       status = "Offline",
       error = avdInfo.deviceError
@@ -230,6 +241,7 @@ class LocalEmulatorProvisionerPlugin(
       val properties =
         LocalEmulatorProperties.build(handle.avdInfo) {
           readCommonProperties(deviceProperties)
+          populateDeviceInfoProto(PLUGIN_ID, device.serialNumber, deviceProperties)
           // Device type is not always reliably read from properties
           deviceType = handle.avdInfo.tag.toDeviceType()
           density = deviceProperties[DevicePropertyNames.QEMU_SF_LCD_DENSITY]?.toIntOrNull()

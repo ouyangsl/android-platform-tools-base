@@ -18,7 +18,6 @@ package com.android.fakeadbserver
 import com.android.fakeadbserver.DeviceState.HostConnectionType
 import com.android.fakeadbserver.devicecommandhandlers.DeviceCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.HostCommandHandler
-import java.util.function.Supplier
 
 /**
  * The properties of a [FakeAdbServer] instance, that can be re-used to create
@@ -27,7 +26,7 @@ import java.util.function.Supplier
  */
 class FakeAdbServerConfig {
 
-    val hostHandlers = HashMap<String, Supplier<HostCommandHandler>>()
+    val hostHandlers = ArrayList<HostCommandHandler>()
 
     val deviceHandlers = ArrayList<DeviceCommandHandler>()
 
@@ -39,7 +38,7 @@ class FakeAdbServerConfig {
 /**
  * The properties of a [DeviceState] that can be re-used across [FakeAdbServer] instances.
  */
-class DeviceStateConfig(
+data class DeviceStateConfig(
     val serialNumber: String,
     val files: ArrayList<DeviceFileState>,
     val logcatMessages: ArrayList<String>,
@@ -51,5 +50,6 @@ class DeviceStateConfig(
     val buildVersionSdk: String,
     val cpuAbi: String,
     val properties: Map<String, String>,
-    var deviceStatus: DeviceState.DeviceStatus,
+    val deviceStatus: DeviceState.DeviceStatus,
+    val isRoot: Boolean,
 )

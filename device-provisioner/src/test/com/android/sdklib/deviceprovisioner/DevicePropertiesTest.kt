@@ -19,6 +19,8 @@ import com.android.SdkConstants
 import com.android.sdklib.AndroidVersion
 import com.android.sdklib.devices.Abi
 import com.google.common.truth.Truth.assertThat
+import com.google.wireless.android.sdk.stats.DeviceInfo
+import org.junit.Assert.fail
 import org.junit.Test
 
 class DevicePropertiesTest {
@@ -52,11 +54,46 @@ class DevicePropertiesTest {
     assertThat(props("ro.kernel.qemu" to "1").isVirtual).isTrue()
   }
 
-  private fun props(vararg pairs: Pair<String, String>) =
-    DeviceProperties.Builder()
+  @Test
+  fun parseMdnsConnectionType_notMdns() {
+    SerialNumberAndMdnsConnectionType.fromAdbSerialNumber("435DT06WH").apply {
+      assertThat(serialNumber).isEqualTo("435DT06WH")
+      assertThat(mdnsConnectionType).isEqualTo(DeviceInfo.MdnsConnectionType.MDNS_NONE)
+    }
+  }
+
+  @Test
+  fun parseMdnsConnectionType_clear() {
+    SerialNumberAndMdnsConnectionType.fromAdbSerialNumber("adb-435DT06WH-vWgJpq._adb._tcp.").apply {
+      assertThat(serialNumber).isEqualTo("435DT06WH")
+      assertThat(mdnsConnectionType)
+        .isEqualTo(DeviceInfo.MdnsConnectionType.MDNS_AUTO_CONNECT_UNENCRYPTED)
+    }
+  }
+
+  @Test
+  fun parseMdnsConnectionType_tls() {
+    SerialNumberAndMdnsConnectionType.fromAdbSerialNumber(
+        "adb-435DT06WH-vWgJpq._adb-tls-connect._tcp."
+      )
       .apply {
-        readCommonProperties(mapOf(*pairs))
-        icon = EmptyIcon.DEFAULT
+        assertThat(serialNumber).isEqualTo("435DT06WH")
+        assertThat(mdnsConnectionType)
+          .isEqualTo(DeviceInfo.MdnsConnectionType.MDNS_AUTO_CONNECT_TLS)
       }
-      .buildBase()
+  }
+
+  @Test
+  fun build() {
+    try {
+      DeviceProperties.build { icon = EmptyIcon.DEFAULT }
+      fail("Expected exception")
+    } catch (expected: Exception) {}
+  }
+
+  private fun props(vararg pairs: Pair<String, String>) =
+    DeviceProperties.buildForTest {
+      readCommonProperties(mapOf(*pairs))
+      icon = EmptyIcon.DEFAULT
+    }
 }

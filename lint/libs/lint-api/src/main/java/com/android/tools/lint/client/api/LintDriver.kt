@@ -2599,19 +2599,26 @@ class LintDriver(
       val driver = context.driver
       val issue = incident.issue
 
-      // The scope can be UAST (.kts), PSI (Groovy in Studio), or org.codehaus.groovy.ast.ASTNode
-      // (Groovy from command line). We check the type explicitly because we still want to be able
-      // to reach the error below if it is some other unexpected type.
+      // A Gradle scope can be UAST (.kts), PSI (Groovy in Studio), or
+      // org.codehaus.groovy.ast.ASTNode (Groovy from command line). We check the type explicitly
+      // because we still want to be able to reach the error below if it is some other unexpected
+      // type.
       if (
         context is GradleContext && (scope is UElement || scope is PsiElement || scope is ASTNode)
       ) {
-        // This may return false if scope is of the wrong type or from the wrong file, so we fall
-        // through in this case.
-        if (driver.isSuppressedGradle(context, issue, scope)) {
-          return true
+        try {
+          if (driver.isSuppressedGradle(context, issue, scope)) {
+            return true
+          }
+        } catch (e: ClassCastException) {
+          // Ignore such exceptions: it is currently valid for a non-Gradle scope to reach this
+          // point, and there is currently no method to ask a GradleVisitor whether a scope is of
+          // the appropriate type.
+          // TODO(b/296354590): Improve this.
         }
-        // UElement and PsiElement could be from Java/Kotlin, and so might be handled below.
-        // ASTNode can only be handled by GradleContext, so we return false early in this case.
+        // For PsiElement or UElement, we fall through, as it might be some Java/Kotlin element that
+        // is suppressed via an annotation, or some unexpected type. For ASTNode, we return early,
+        // as this is an expected type and cannot be suppressed in any other way.
         if (scope is ASTNode) {
           return false
         }

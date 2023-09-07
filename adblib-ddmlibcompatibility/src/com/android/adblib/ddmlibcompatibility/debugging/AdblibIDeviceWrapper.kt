@@ -19,6 +19,7 @@ import com.android.adblib.ConnectedDevice
 import com.android.adblib.DeviceSelector
 import com.android.adblib.INFINITE_DURATION
 import com.android.adblib.RemoteFileMode
+import com.android.adblib.SocketSpec
 import com.android.adblib.availableFeatures
 import com.android.adblib.ddmlibcompatibility.AdbLibDdmlibCompatibilityProperties
 import com.android.adblib.deviceInfo
@@ -50,6 +51,7 @@ import com.android.ddmlib.InstallException
 import com.android.ddmlib.InstallMetrics
 import com.android.ddmlib.InstallReceiver
 import com.android.ddmlib.Log
+import com.android.ddmlib.ProfileableClient
 import com.android.ddmlib.PropertyFetcher
 import com.android.ddmlib.RawImage
 import com.android.ddmlib.SimpleConnectedSocket
@@ -344,10 +346,8 @@ internal class AdblibIDeviceWrapper(
                 localConsoleAddress(port),
                 defaultAuthTokenPath()
             ).use {
-                val nameResult = kotlin.runCatching { it.avdName() }
-                val avdName = nameResult.getOrNull()
-                val pathResult = kotlin.runCatching { it.avdPath() }
-                val path = pathResult.getOrNull()
+                val avdName = kotlin.runCatching { it.avdName() }.getOrNull()
+                val path = kotlin.runCatching { it.avdPath() }.getOrNull()
 
                 return AvdData(avdName, path)
             }
@@ -545,6 +545,10 @@ internal class AdblibIDeviceWrapper(
         return clients.firstOrNull { applicationName == it.clientData.clientDescription }
     }
 
+    override fun getProfileableClients(): Array<ProfileableClient> {
+        return deviceClientManager.profileableClients.toTypedArray()
+    }
+
     /**
      * Returns a [SyncService] object to push / pull files to and from the device.
      *
@@ -637,7 +641,15 @@ internal class AdblibIDeviceWrapper(
      * @throws IOException in case of I/O error on the connection.
      */
     override fun createForward(localPort: Int, remotePort: Int) {
-        TODO("Not yet implemented")
+        runBlockingLegacy {
+            val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+            connectedDevice.session.hostServices.forward(
+                deviceSelector,
+                SocketSpec.Tcp(localPort),
+                SocketSpec.Tcp(remotePort),
+                rebind = true
+            )
+        }
     }
 
     /**
@@ -652,10 +664,41 @@ internal class AdblibIDeviceWrapper(
      */
     override fun createForward(
         localPort: Int,
-        remoteSocketName: String?,
-        namespace: IDevice.DeviceUnixSocketNamespace?
+        remoteSocketName: String,
+        namespace: IDevice.DeviceUnixSocketNamespace
     ) {
-        TODO("Not yet implemented")
+        runBlockingLegacy {
+            val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+            val remoteSocketSpec = when (namespace) {
+                IDevice.DeviceUnixSocketNamespace.ABSTRACT -> SocketSpec.LocalAbstract(
+                    remoteSocketName
+                )
+
+                IDevice.DeviceUnixSocketNamespace.RESERVED -> SocketSpec.LocalReserved(
+                    remoteSocketName
+                )
+
+                IDevice.DeviceUnixSocketNamespace.FILESYSTEM -> SocketSpec.LocalFileSystem(
+                    remoteSocketName
+                )
+            }
+            connectedDevice.session.hostServices.forward(
+                deviceSelector,
+                SocketSpec.Tcp(localPort),
+                remoteSocketSpec,
+                rebind = true
+            )
+        }
+    }
+
+    override fun removeForward(localPort: Int) {
+        runBlockingLegacy {
+            val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+            connectedDevice.session.hostServices.killForward(
+                deviceSelector,
+                SocketSpec.Tcp(localPort)
+            )
+        }
     }
 
     /**
@@ -1252,7 +1295,9 @@ internal class AdblibIDeviceWrapper(
         maxTimeUnits: TimeUnit,
         inputStream: InputStream?
     ) {
-        runBlockingLegacy {
+        val maxTimeoutDuration =
+            if (maxTimeout > 0) Duration.ofMillis(maxTimeUnits.toMillis(maxTimeout)) else INFINITE_DURATION
+        runBlockingLegacy (timeout = maxTimeoutDuration) {
             if (adbService != AdbHelper.AdbService.ABB_EXEC) {
                 executeShellCommand(
                     connectedDevice,
@@ -1266,7 +1311,6 @@ internal class AdblibIDeviceWrapper(
             } else {
                 val adbInputChannel = if (inputStream != null) connectedDevice.session.channelFactory.wrapInputStream(inputStream) else null
                 val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
-                val timeout = if (maxTimeout > 0) Duration.ofMillis(maxTimeUnits.toMillis(maxTimeout)) else INFINITE_DURATION
                 val abbExecFlow = connectedDevice.session.deviceServices.abb_exec(
                     deviceSelector,
                     command.split(" "),
@@ -1274,7 +1318,12 @@ internal class AdblibIDeviceWrapper(
                         receiver
                     ),
                     adbInputChannel,
-                    timeout
+                    maxTimeoutDuration,
+                    // TODO(b/298475728): Revisit this when we are closer to having a working implementation of `IDevice`
+                    // If `shutdownOutput` is true then we get a "java.lang.SecurityException: Files still open" exception
+                    // when executing a "package install-commit" command after the "package install-write" command
+                    // since the package manager doesn't handle shutdown correctly.
+                    shutdownOutput = false
                 )
                 abbExecFlow.first()
             }

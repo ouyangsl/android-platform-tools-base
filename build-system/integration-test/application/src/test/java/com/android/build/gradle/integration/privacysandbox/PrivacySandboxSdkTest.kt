@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.build.gradle.integration.library
+package com.android.build.gradle.integration.privacysandbox
 
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.testprojects.PluginType
@@ -26,7 +26,6 @@ import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.options.BooleanOption
 import com.android.build.gradle.options.StringOption
 import com.android.ide.common.signing.KeystoreHelper
-import com.android.ide.common.util.toPathString
 import com.android.testutils.MavenRepoGenerator
 import com.android.testutils.TestInputsGenerator
 import com.android.testutils.apk.Apk
@@ -448,9 +447,10 @@ class PrivacySandboxSdkTest {
                     )
             )
 
-            // TODO(b/295172892) permit this asset for non-sandbox deployments only, for now always package.
+            // This asset must only be packaged in non-sandbox capable devices, otherwise it may
+            // cause runtime exceptions on supported privacy sandbox platforms.
             assertThat(it.entries.map { it.toString() })
-                    .contains("/assets/RuntimeEnabledSdkTable.xml")
+                    .doesNotContain("/assets/RuntimeEnabledSdkTable.xml")
 
             val manifestContentString = manifestContent.joinToString("\n")
             assertThat(manifestContentString).contains(INTERNET_PERMISSION)
@@ -532,7 +532,10 @@ class PrivacySandboxSdkTest {
                 .filter { it.extension == "apk" }
                 .toList()
         assertThat(extractedSdkApks.map { it.name })
-                .containsExactly("comexampleprivacysandboxsdk-master.apk")
+                .containsExactly(
+                        "comexampleprivacysandboxsdkconsumer-injected-privacy-sandbox-compat.apk",
+                        "comexampleprivacysandboxsdk-master.apk"
+                )
 
         Apk(extractedSdkApks.single { it.name == "comexampleprivacysandboxsdk-master.apk" }).use {
             val manifestContent = ApkSubject.getManifestContent(it.file)

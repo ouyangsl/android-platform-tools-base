@@ -27,6 +27,9 @@ import com.android.sdklib.internal.avd.AvdInfo.AvdStatus
 import com.android.sdklib.internal.avd.AvdManager
 import com.android.sdklib.repository.targets.SystemImage
 import com.google.common.truth.Truth.assertThat
+import com.google.wireless.android.sdk.stats.DeviceInfo
+import com.google.wireless.android.sdk.stats.DeviceInfo.ApplicationBinaryInterface
+import com.google.wireless.android.sdk.stats.DeviceInfo.MdnsConnectionType
 import java.nio.file.Path
 import java.time.Duration
 import kotlinx.coroutines.channels.Channel
@@ -115,7 +118,7 @@ class LocalEmulatorProvisionerPluginTest {
       .containsExactly("Fake Device 1")
     val properties = provisioner.devices.value[0].state.properties as LocalEmulatorProperties
     checkProperties(properties)
-    assertThat(properties.androidRelease).isEqualTo("11")
+    assertThat(properties.androidRelease).isEqualTo(RELEASE)
 
     handle.deactivationAction?.deactivate()
 
@@ -143,7 +146,11 @@ class LocalEmulatorProvisionerPluginTest {
     val api29WithPlay = avdManager.makeAvdInfo(1, AndroidVersion(29), hasPlayStore = true)
     val api31NoPlay = avdManager.makeAvdInfo(2, AndroidVersion(29), hasPlayStore = false)
     val api30WithPlay = avdManager.makeAvdInfo(3, AndroidVersion(30), hasPlayStore = true)
-    fun build(info: AvdInfo) = LocalEmulatorProperties.build(info) { icon = EmptyIcon.DEFAULT }
+    fun build(info: AvdInfo) =
+      LocalEmulatorProperties.build(info) {
+        icon = EmptyIcon.DEFAULT
+        populateDeviceInfoProto("Test", null, emptyMap())
+      }
     assertThat(build(api29WithPlay).wearPairingId).isNull()
     assertThat(build(api31NoPlay).wearPairingId).isNull()
     assertThat(build(api30WithPlay).wearPairingId).isNotNull()
@@ -252,6 +259,17 @@ class LocalEmulatorProvisionerPluginTest {
     assertThat(properties.avdName).startsWith("fake_avd_")
     assertThat(properties.displayName).startsWith("Fake Device")
     assertThat(Path.of(properties.wearPairingId!!).parent).isEqualTo(Path.of("/tmp/fake_avds"))
+
+    properties.deviceInfoProto.let {
+      assertThat(it.deviceType).isEqualTo(DeviceInfo.DeviceType.LOCAL_EMULATOR)
+      assertThat(it.cpuAbi).isEqualTo(ApplicationBinaryInterface.ARM64_V8A_ABI)
+      assertThat(it.manufacturer).isEqualTo(MANUFACTURER)
+      assertThat(it.model).isEqualTo(MODEL)
+      assertThat(it.buildVersionRelease).isEqualTo(RELEASE)
+      assertThat(it.buildApiLevelFull).isEqualTo(API_LEVEL.apiStringWithExtension)
+      assertThat(it.mdnsConnectionType).isEqualTo(MdnsConnectionType.UNKNOWN_MDNS_CONNECTION_TYPE)
+      assertThat(it.deviceProvisionerId).isEqualTo(LocalEmulatorProvisionerPlugin.PLUGIN_ID)
+    }
   }
 
   companion object {
@@ -259,6 +277,6 @@ class LocalEmulatorProvisionerPluginTest {
     const val MODEL = "Pixel 6"
     val API_LEVEL = AndroidVersion(31)
     val ABI = Abi.ARM64_V8A
-    const val RELEASE = "11"
+    const val RELEASE = "12.0"
   }
 }

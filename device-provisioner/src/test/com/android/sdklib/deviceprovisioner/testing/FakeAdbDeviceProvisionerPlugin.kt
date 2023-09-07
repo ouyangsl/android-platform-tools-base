@@ -34,6 +34,7 @@ import com.android.sdklib.deviceprovisioner.TestDefaultDeviceActionPresentation
 import com.android.sdklib.deviceprovisioner.awaitDisconnection
 import com.android.sdklib.deviceprovisioner.testing.FakeAdbDeviceProvisionerPlugin.FakeDeviceHandle
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -92,6 +93,7 @@ class FakeAdbDeviceProvisionerPlugin(
   /** Makes the device unknown to the plugin; i.e. it will no longer be returned from [devices]. */
   fun removeDevice(device: FakeDeviceHandle) {
     devices.update { it - device }
+    device.scope.cancel()
   }
 
   private var serialNumber = 1
@@ -99,7 +101,7 @@ class FakeAdbDeviceProvisionerPlugin(
 
   companion object {
     val DEFAULT_PROPERTIES =
-      DeviceProperties.build {
+      DeviceProperties.buildForTest {
         manufacturer = "Google"
         model = "Pixel 6"
         androidVersion = AndroidVersion(31)
