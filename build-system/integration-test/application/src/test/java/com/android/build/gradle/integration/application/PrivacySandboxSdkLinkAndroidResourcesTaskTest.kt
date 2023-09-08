@@ -25,6 +25,7 @@ import com.android.build.gradle.internal.privaysandboxsdk.PrivacySandboxSdkInter
 import com.android.build.gradle.options.BooleanOption
 import com.android.builder.core.ToolsRevisionUtils
 import com.google.common.truth.Truth.assertThat
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.util.zip.ZipFile
@@ -104,6 +105,7 @@ internal class PrivacySandboxSdkLinkAndroidResourcesTaskTest {
             .create()
 
     @Test
+    @Ignore("Privacy sandbox SDK support is planned in AGP 8.3.0")
     fun testGeneratesLinkedBundledResources() {
         project.executor().run(":privacySdkSandbox1:linkPrivacySandboxResources")
         val privacySandboxSdk = project.getSubproject("privacySdkSandbox1")
