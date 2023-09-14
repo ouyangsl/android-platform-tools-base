@@ -73,18 +73,6 @@ class HttpURLConnectionWrapper(
         return trackedConnection.getRequestMethod()
     }
 
-    override fun getResponseCode(): Int {
-        return trackedConnection.responseCode
-    }
-
-    override fun getResponseMessage(): String? {
-        return trackedConnection.responseMessage
-    }
-
-    override fun getHeaderFieldDate(name: String?, Default: Long): Long {
-        return trackedConnection.getHeaderFieldDate(name, Default)
-    }
-
     override fun getPermission(): Permission {
         return trackedConnection.permission
     }
@@ -141,20 +129,16 @@ class HttpURLConnectionWrapper(
         return trackedConnection.lastModified
     }
 
+    /**
+     * Methods of [getHeaderFieldDate], [getHeaderFieldInt] and [getHeaderFieldLong] are derived
+     * from this method and implemented in [HttpURLConnection].
+     */
     override fun getHeaderField(name: String?): String? {
         return trackedConnection.getHeaderField(name)
     }
 
     override fun getHeaderFields(): Map<String?, List<String>> {
         return trackedConnection.headerFields
-    }
-
-    override fun getHeaderFieldInt(name: String?, Default: Int): Int {
-        return trackedConnection.getHeaderFieldInt(name, Default)
-    }
-
-    override fun getHeaderFieldLong(name: String?, Default: Long): Long {
-        return trackedConnection.getHeaderFieldLong(name, Default)
     }
 
     override fun getContent(): Any {
@@ -165,6 +149,10 @@ class HttpURLConnectionWrapper(
         return trackedConnection.getContent(classes)
     }
 
+    /**
+     * Fields of [responseCode] and [responseMessage] are derived from this method and implemented
+     * in [HttpURLConnection].
+     */
     override fun getInputStream(): InputStream {
         return trackedConnection.inputStream
     }

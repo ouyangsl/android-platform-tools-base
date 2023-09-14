@@ -585,13 +585,9 @@ abstract class SystemPropertyInputs {
     @get:Optional
     abstract val androidLintLogJarProblems: Property<String>
 
-    // Use @get:Internal because javaVendor and javaVersion act as proxy inputs for javaHome
+    // Use @get:Internal because javaVersion acts as proxy input for javaHome
     @get:Internal
     abstract val javaHome: Property<String>
-
-    @get:Input
-    @get:Optional
-    abstract val javaVendor: Property<String>
 
     @get:Input
     @get:Optional
@@ -653,7 +649,6 @@ abstract class SystemPropertyInputs {
             providerFactory.systemProperty("android.lint.log-jar-problems")
         )
         javaHome.setDisallowChanges(providerFactory.systemProperty("java.home"))
-        javaVendor.setDisallowChanges(providerFactory.systemProperty("java.vendor"))
         javaVersion.setDisallowChanges(providerFactory.systemProperty("java.version"))
         lintApiDatabase.fileProvider(
             providerFactory.systemProperty("LINT_API_DATABASE").map {
@@ -1461,9 +1456,14 @@ abstract class BuildFeaturesInput {
 }
 
 abstract class SourceProviderInput {
-    @get:InputFiles
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val manifestFiles: ListProperty<File>
+    @get:InputFiles // Note: The file may not be set or may not exist
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    @get:Optional
+    abstract val manifestFilePath: RegularFileProperty
+
+    @get:InputFiles // Note: The files may not exist
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val manifestOverlayFilePaths: ListProperty<File>
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
@@ -1497,9 +1497,9 @@ abstract class SourceProviderInput {
     @get:Optional
     abstract val assetsDirectoriesClasspath: ConfigurableFileCollection
 
-    @get:Input
+    @get:Input // Note: The files may not exist
     @get:Optional
-    abstract val manifestFilePaths: ListProperty<String>
+    abstract val manifestAbsoluteFilePaths: ListProperty<String>
 
     @get:Input
     @get:Optional
@@ -1533,9 +1533,9 @@ abstract class SourceProviderInput {
         instrumentationTestOnly: Boolean = false,
         testFixtureOnly: Boolean = false
     ): SourceProviderInput {
-        this.manifestFiles.add(sources.manifestFile)
-        this.manifestFiles.addAll(sources.manifestOverlayFiles)
-        this.manifestFiles.disallowChanges()
+        this.manifestFilePath.fileProvider(sources.manifestFile)
+        this.manifestFilePath.disallowChanges()
+        this.manifestOverlayFilePaths.setDisallowChanges(sources.manifestOverlayFiles)
 
         fun FlatSourceDirectoriesImpl.getFilteredSourceProviders(into: ConfigurableFileCollection) {
             return getVariantSources()
@@ -1571,11 +1571,8 @@ abstract class SourceProviderInput {
             this.resDirectoriesClasspath.from(resDirectories)
             this.assetsDirectoriesClasspath.from(assetsDirectories)
         } else {
-            this.manifestFilePaths.addAll(existingManifests().map { files ->
-                files.map {
-                    it.absolutePath
-                }
-            })
+            this.manifestAbsoluteFilePaths.add(manifestFilePath.map { it.asFile.absolutePath })
+            this.manifestAbsoluteFilePaths.addAll(manifestOverlayFilePaths.map { it.map(File::getAbsolutePath) })
             this.javaDirectoryPaths.set(javaDirectories.elements.map { elements ->
                 elements.map {
                     it.asFile.absolutePath
@@ -1593,7 +1590,7 @@ abstract class SourceProviderInput {
             })
         }
 
-        this.manifestFilePaths.disallowChanges()
+        this.manifestAbsoluteFilePaths.disallowChanges()
         this.javaDirectoryPaths.disallowChanges()
         this.resDirectoryPaths.disallowChanges()
         this.assetsDirectoryPaths.disallowChanges()
@@ -1607,23 +1604,13 @@ abstract class SourceProviderInput {
         return this
     }
 
-    /**
-     * Method returns list of main manifest and overlay manifest that exist
-     * List can be empty for standalone.
-     */
-    private fun existingManifests(): Provider<List<File>> =
-            manifestFiles.map {
-                if (it.isNotEmpty())
-                    it.take(1) + it.drop(1).filter(File::isFile)
-                else listOf()
-            }
-
     internal fun initializeForStandalone(
         sourceSet: SourceSet,
         lintMode: LintMode,
         unitTestOnly: Boolean
     ): SourceProviderInput {
-        this.manifestFiles.disallowChanges()
+        this.manifestFilePath.disallowChanges()
+        this.manifestOverlayFilePaths.disallowChanges()
         this.javaDirectories.fromDisallowChanges(sourceSet.allJava.sourceDirectories)
         this.resDirectories.disallowChanges()
         this.assetsDirectories.disallowChanges()
@@ -1645,7 +1632,8 @@ abstract class SourceProviderInput {
         lintMode: LintMode,
         unitTestOnly: Boolean
     ): SourceProviderInput {
-        this.manifestFiles.disallowChanges()
+        this.manifestFilePath.disallowChanges()
+        this.manifestOverlayFilePaths.disallowChanges()
         this.javaDirectories.fromDisallowChanges(sourceDirectories)
         this.resDirectories.disallowChanges()
         this.assetsDirectories.disallowChanges()
@@ -1665,7 +1653,9 @@ abstract class SourceProviderInput {
     internal fun toLintModels(): List<LintModelSourceProvider> {
         return listOf(
             DefaultLintModelSourceProvider(
-                manifestFiles = existingManifests().get(),
+                // Pass the main manifest file if it is set, without checking whether it exists.
+                // For overlay manifest files, we pass only those that exist.
+                manifestFiles = listOfNotNull(manifestFilePath.orNull?.asFile) + manifestOverlayFilePaths.get().filter(File::isFile),
                 javaDirectories = javaDirectories.files.toList(),
                 resDirectories = resDirectories.files.toList(),
                 assetsDirectories = assetsDirectories.files.toList(),
@@ -2348,8 +2338,7 @@ abstract class ArtifactInput {
             if (projectRuntimeLintModels.isPresent) {
                 val thisProject =
                     ProjectKey(
-                        artifactCollectionsInputs.projectBuildPath.get(),
-                        artifactCollectionsInputs.projectPath,
+                        artifactCollectionsInputs.projectBuildTreePath.get(),
                         artifactCollectionsInputs.variantName
                     )
                 CheckDependenciesLintModelArtifactHandler(

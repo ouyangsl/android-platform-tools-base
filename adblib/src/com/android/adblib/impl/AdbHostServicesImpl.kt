@@ -15,9 +15,12 @@ import com.android.adblib.MdnsCheckResult
 import com.android.adblib.MdnsServiceList
 import com.android.adblib.PairResult
 import com.android.adblib.SocketSpec
+import com.android.adblib.WaitForState
+import com.android.adblib.WaitForTransport
 import com.android.adblib.impl.services.AdbServiceRunner
 import com.android.adblib.impl.services.OkayDataExpectation
 import com.android.adblib.impl.services.TrackDevicesService
+import com.android.adblib.thisLogger
 import kotlinx.coroutines.flow.Flow
 import java.io.EOFException
 import java.util.concurrent.TimeUnit
@@ -31,6 +34,7 @@ internal class AdbHostServicesImpl(
 
     private val host: AdbSessionHost
         get() = session.host
+    private val logger = thisLogger(session)
     private val serviceRunner = AdbServiceRunner(session, channelProvider)
     private val deviceParser = DeviceListParser()
     private val mdnsCheckParser = MdnsCheckParser()
@@ -50,7 +54,7 @@ internal class AdbHostServicesImpl(
                     "Invalid ADB response (expected 4 digit hex. number, got \"${versionString}\" instead)",
                     e
                 )
-            host.logger.warn(error, "ADB protocol error")
+            logger.warn(error, "ADB protocol error")
             throw error
         }
     }
@@ -84,10 +88,10 @@ internal class AdbHostServicesImpl(
         try {
             val workBuffer = serviceRunner.newResizableBuffer()
             serviceRunner.startHostQuery(workBuffer, "host:kill", tracker).use {
-                host.logger.info { "ADB server was killed, timeout left is $tracker" }
+                logger.info { "ADB server was killed, timeout left is $tracker" }
             }
         } catch (e: EOFException) {
-            host.logger.info {
+            logger.info {
                 "Received EOF instead of OKAY response. This can happen, " +
                         "as server was killed just after sending OKAY"
             }
@@ -242,5 +246,28 @@ internal class AdbHostServicesImpl(
         val tracker = TimeoutTracker(host.timeProvider, timeout, unit)
         val service = "host:disconnect:$deviceAddress"
         serviceRunner.runHostQuery(service, tracker, OkayDataExpectation.NOT_EXPECTED)
+    }
+
+    override suspend fun waitFor(
+        device: DeviceSelector,
+        deviceState: WaitForState,
+        transport: WaitForTransport
+    ) {
+        // ADB client code:
+        // https://cs.android.com/android/platform/superproject/+/3a52886262ae22477a7d8ffb12adba64daf6aafa:packages/modules/adb/client/commandline.cpp;l=1068
+        //
+        // ADB Daemon code:
+        // https://cs.android.com/android/platform/superproject/+/master:packages/modules/adb/services.cpp;drc=843f191ff888a9b4c27331ea416323b8a105f56a;l=163
+        //
+        // ADB Documentation:
+        // https://cs.android.com/android/platform/superproject/+/3a52886262ae22477a7d8ffb12adba64daf6aafa:packages/modules/adb/client/commandline.cpp;l=209
+        // wait-for-TRANSPORT-STATE
+        // where TRANSPORT: "local" | "usb" | "any"
+        //           STATE: "device" | "recovery" | "rescue" | "sideload" | "bootloader" | "any" | "disconnect"
+        val tracker = TimeoutTracker(host.timeProvider, timeout, unit)
+        val service = "wait-for-${transport.toQueryString()}-${deviceState.toQueryString()}"
+        serviceRunner.runHostDeviceQuery2(device, service, tracker, OkayDataExpectation.NOT_EXPECTED).also {
+            logger.debug { "${device.shortDescription} - \"$service\": success" }
+        }
     }
 }
