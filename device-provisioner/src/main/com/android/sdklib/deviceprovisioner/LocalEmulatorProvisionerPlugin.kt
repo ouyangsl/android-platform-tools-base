@@ -18,9 +18,9 @@ package com.android.sdklib.deviceprovisioner
 import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
 import com.android.adblib.DevicePropertyNames
+import com.android.adblib.adbLogger
 import com.android.adblib.deviceProperties
 import com.android.adblib.serialNumber
-import com.android.adblib.thisLogger
 import com.android.adblib.tools.EmulatorConsole
 import com.android.adblib.tools.defaultAuthTokenPath
 import com.android.adblib.tools.localConsoleAddress
@@ -61,7 +61,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -84,7 +83,7 @@ class LocalEmulatorProvisionerPlugin(
   private val diskIoDispatcher: CoroutineDispatcher,
   rescanPeriod: Duration = Duration.ofSeconds(10),
 ) : DeviceProvisionerPlugin {
-  val logger = thisLogger(adbSession)
+  val logger = adbLogger(adbSession)
   companion object {
     const val PLUGIN_ID = "LocalEmulator"
   }
@@ -170,7 +169,7 @@ class LocalEmulatorProvisionerPlugin(
   private fun disconnectedState(avdInfo: AvdInfo) =
     Disconnected(
       LocalEmulatorProperties.build(avdInfo) {
-        populateDeviceInfoProto(PLUGIN_ID, null, emptyMap())
+        populateDeviceInfoProto(PLUGIN_ID, null, emptyMap(), "")
         icon = iconForType()
       },
       isTransitioning = false,
@@ -246,7 +245,12 @@ class LocalEmulatorProvisionerPlugin(
       val properties =
         LocalEmulatorProperties.build(handle.avdInfo) {
           readCommonProperties(deviceProperties)
-          populateDeviceInfoProto(PLUGIN_ID, device.serialNumber, deviceProperties)
+          populateDeviceInfoProto(
+            PLUGIN_ID,
+            device.serialNumber,
+            deviceProperties,
+            randomConnectionId()
+          )
           // Device type is not always reliably read from properties
           deviceType = handle.avdInfo.tag.toDeviceType()
           density = deviceProperties[DevicePropertyNames.QEMU_SF_LCD_DENSITY]?.toIntOrNull()

@@ -200,8 +200,6 @@ InternalArtifactType<T : FileSystemLocation>(
     object PACKAGED_RES: InternalArtifactType<Directory>(DIRECTORY), Replaceable
     // R.txt output for libraries - contains mock resource IDs used only at compile time.
     object COMPILE_SYMBOL_LIST: InternalArtifactType<RegularFile>(FILE), Replaceable
-    // R.txt output for applications and android tests - contains real resource IDs used at runtime.
-    object RUNTIME_SYMBOL_LIST: InternalArtifactType<RegularFile>(FILE), Replaceable
     // Synthetic artifacts
     object SYMBOL_LIST_WITH_PACKAGE_NAME: InternalArtifactType<RegularFile>(FILE), Replaceable
     //Resources defined within the current module.
@@ -609,6 +607,8 @@ InternalArtifactType<T : FileSystemLocation>(
     object RUNTIME_ENABLED_SDK_TABLE : InternalArtifactType<RegularFile>(
             FILE,
             fileName = GenerateRuntimeEnabledSdkTableTask.RUNTIME_ENABLED_SDK_TABLE_FILE_NAME)
+
+    object SCREENSHOTS_RENDERED: InternalArtifactType<Directory>(DIRECTORY), Replaceable
 
     override fun getFileSystemLocationName(): String {
         return fileName ?: super.getFileSystemLocationName()

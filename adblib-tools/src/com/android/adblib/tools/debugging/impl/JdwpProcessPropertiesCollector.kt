@@ -18,9 +18,8 @@ package com.android.adblib.tools.debugging.impl
 import com.android.adblib.AdbSession
 import com.android.adblib.ByteBufferAdbOutputChannel
 import com.android.adblib.ConnectedDevice
+import com.android.adblib.adbLogger
 import com.android.adblib.property
-import com.android.adblib.serialNumber
-import com.android.adblib.thisLogger
 import com.android.adblib.tools.AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_DEFAULT
 import com.android.adblib.tools.AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_SHORT
 import com.android.adblib.tools.AdbLibToolsProperties.PROCESS_PROPERTIES_COLLECTOR_DELAY_USE_SHORT
@@ -81,7 +80,7 @@ internal class JdwpProcessPropertiesCollector(
     private val session: AdbSession
         get() = device.session
 
-    private val logger = thisLogger(device.session)
+    private val logger = adbLogger(device.session)
         .withPrefix("${device.session} - $device - pid=$pid - ")
 
     /**
@@ -141,8 +140,8 @@ internal class JdwpProcessPropertiesCollector(
 
                     else -> {
                         logger.info(throwable) {
-                            "Exception while collecting process " +
-                                    "'${stateFlow.value.processName}' properties"
+                            "Exception while collecting process properties" +
+                                    " (processName: '${stateFlow.value.processName}')"
                         }
                         throwable // Record any other unexpected exception
                     }

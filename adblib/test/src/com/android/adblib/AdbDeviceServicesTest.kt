@@ -1305,6 +1305,7 @@ class AdbDeviceServicesTest {
         // Act
         var effectiveProtocol = ShellCommand.Protocol.SHELL_V2
         deviceServices.shellCommand(deviceSelector, "getprop")
+            .allowLegacyExec(true)
             .withTextCollector()
             .withCommandOverride { command, protocol ->
                 effectiveProtocol = protocol
@@ -1346,6 +1347,7 @@ class AdbDeviceServicesTest {
         // Act
         var effectiveProtocol = ShellCommand.Protocol.SHELL_V2
         deviceServices.shellCommand(deviceSelector, "getprop")
+            .allowLegacyExec(true)
             .withTextCollector()
             .withCommandOutputTimeout(Duration.ofSeconds(2))
             .withCommandOverride { command, protocol ->
@@ -2526,6 +2528,122 @@ class AdbDeviceServicesTest {
         // Assert
         Assert.assertTrue(sessionOpened)
     }
+
+    @Test
+    fun testShellCommandLegacyExecSupportedDefaultsToFalse(): Unit = runBlockingWithTimeout {
+        // Prepare
+        // "exec" is supported starting API 21
+        val fakeDevice = addFakeDevice(fakeAdb, 21)
+        val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
+
+        // Act
+        var effectiveProtocol = ShellCommand.Protocol.SHELL_V2
+        deviceServices.shellCommand(deviceSelector, "getprop")
+            .withTextCollector()
+            .withCommandOverride { command, protocol ->
+                effectiveProtocol = protocol
+                command
+            }.execute().collect()
+
+        // Assert: "shell_v2" fallbacks to "shell" and not to "exec"
+        Assert.assertEquals(ShellCommand.Protocol.SHELL, effectiveProtocol)
+    }
+
+    @Test
+    fun testShellCommandForceShellV2(): Unit = runBlockingWithTimeout {
+        // Prepare
+        val fakeDevice = addFakeDevice(fakeAdb)
+        val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
+
+        // Act
+        var effectiveProtocol = ShellCommand.Protocol.EXEC
+        deviceServices.shellCommand(deviceSelector, "getprop")
+            .forceShellV2()
+            .withTextCollector()
+            .withCommandOverride { command, protocol ->
+                effectiveProtocol = protocol
+                command
+            }.execute().collect()
+
+        // Assert
+        Assert.assertEquals(ShellCommand.Protocol.SHELL_V2, effectiveProtocol)
+    }
+
+    @Test
+    fun testShellCommandForceLegacyExec(): Unit = runBlockingWithTimeout {
+        // Prepare
+        val fakeDevice = addFakeDevice(fakeAdb)
+        val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
+
+        // Act
+        var effectiveProtocol = ShellCommand.Protocol.SHELL_V2
+        deviceServices.shellCommand(deviceSelector, "getprop")
+            .forceLegacyExec()
+            .withTextCollector()
+            .withCommandOverride { command, protocol ->
+                effectiveProtocol = protocol
+                command
+            }.execute().collect()
+
+        // Assert: "exec" is chosen even though the device supports shell_v2
+        Assert.assertEquals(ShellCommand.Protocol.EXEC, effectiveProtocol)
+    }
+
+    @Test
+    fun testShellCommandForceLegacyShell(): Unit = runBlockingWithTimeout {
+        // Prepare
+        val fakeDevice = addFakeDevice(fakeAdb)
+        val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
+
+        // Act
+        var effectiveProtocol = ShellCommand.Protocol.SHELL_V2
+        deviceServices.shellCommand(deviceSelector, "getprop")
+            .forceLegacyShell()
+            .withTextCollector()
+            .withCommandOverride { command, protocol ->
+                effectiveProtocol = protocol
+                command
+            }.execute().collect()
+
+        // Assert: "shell" is chosen even though the device supports shell_v2 and exec
+        Assert.assertEquals(ShellCommand.Protocol.SHELL, effectiveProtocol)
+    }
+
+    @Test
+    fun testShellCommandForceShellV2_throwsWhenDeviceDoesNotSupportShellV2(): Unit =
+        runBlockingWithTimeout {
+            // Prepare
+            val fakeDevice = addFakeDevice(fakeAdb, sdk = 21)
+            val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
+
+            // Act
+            exceptionRule.expect(IllegalArgumentException::class.java)
+            deviceServices.shellCommand(deviceSelector, "getprop")
+                .forceShellV2()
+                .withTextCollector()
+                .execute().collect()
+
+            // Assert
+            Assert.fail("Should not be reached")
+        }
+
+    @Test
+    fun testShellCommandForceLegacyExec_throwsWhenDeviceDoesNotSupportExec(): Unit =
+        runBlockingWithTimeout {
+            // Prepare
+            val fakeDevice = addFakeDevice(fakeAdb, sdk = 19)
+            val deviceSelector = DeviceSelector.fromSerialNumber(fakeDevice.deviceId)
+
+            // Act
+            exceptionRule.expect(IllegalArgumentException::class.java)
+            deviceServices.shellCommand(deviceSelector, "getprop")
+                .forceLegacyExec()
+                .withTextCollector()
+                .execute().collect()
+
+            // Assert
+            Assert.fail("Should not be reached")
+        }
 
     /**
      * Similar to [Flow.take], but allows for a [block] to process each collected element.

@@ -21,15 +21,15 @@ import com.android.adblib.AdbSession
 import com.android.adblib.DEFAULT_SHELL_BUFFER_SIZE
 import com.android.adblib.DeviceSelector
 import com.android.adblib.INFINITE_DURATION
-import com.android.adblib.ShellCommand
-import com.android.adblib.ShellCommand.Protocol
 import com.android.adblib.ShellCollector
 import com.android.adblib.ShellCollectorCapabilities
+import com.android.adblib.ShellCommand
+import com.android.adblib.ShellCommand.Protocol
 import com.android.adblib.ShellV2Collector
+import com.android.adblib.adbLogger
 import com.android.adblib.availableFeatures
 import com.android.adblib.deviceProperties
 import com.android.adblib.impl.ShellWithIdleMonitoring.Parameters
-import com.android.adblib.thisLogger
 import com.android.adblib.utils.SuspendingLazy
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -45,11 +45,11 @@ internal class ShellCommandImpl<T>(
   private val command: String,
 ) : ShellCommand<T> {
 
-    private val logger = thisLogger(session)
+    private val logger = adbLogger(session)
 
     private var _allowStripCrLfForLegacyShell: Boolean = true
     private var _allowLegacyShell: Boolean = true
-    private var _allowLegacyExec: Boolean = true
+    private var _allowLegacyExec: Boolean = false
     private var _allowShellV2: Boolean = true
     private var collector: ShellV2Collector<T>? = null
     private var commandTimeout: Duration = INFINITE_DURATION
@@ -106,6 +106,27 @@ internal class ShellCommandImpl<T>(
 
     override fun allowLegacyShell(value: Boolean): ShellCommand<T> {
         this._allowLegacyShell = value
+        return this
+    }
+
+    override fun forceShellV2(): ShellCommand<T> {
+        this._allowShellV2 = true
+        this._allowLegacyExec = false
+        this._allowLegacyShell = false
+        return this
+    }
+
+    override fun forceLegacyExec(): ShellCommand<T> {
+        this._allowShellV2 = false
+        this._allowLegacyExec = true
+        this._allowLegacyShell = false
+        return this
+    }
+
+    override fun forceLegacyShell(): ShellCommand<T> {
+        this._allowShellV2 = false
+        this._allowLegacyExec = false
+        this._allowLegacyShell = true
         return this
     }
 

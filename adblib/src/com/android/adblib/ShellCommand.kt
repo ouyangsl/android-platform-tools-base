@@ -96,7 +96,8 @@ interface ShellCommand<T> {
      * Allows [execute] to fall back to [AdbDeviceServices.exec] if [AdbDeviceServices.shellV2]
      * is not available or not allowed.
      *
-     * The default value is `true`.
+     * The default value is `false`, because exec is not as general purpose as [allowShellV2]
+     * and [allowLegacyExec] (see [AdbDeviceServices.exec] for documentation).
      */
     fun allowLegacyExec(value: Boolean): ShellCommand<T>
 
@@ -107,6 +108,27 @@ interface ShellCommand<T> {
      * The default value is `true`.
      */
     fun allowLegacyShell(value: Boolean): ShellCommand<T>
+
+    /**
+     * Force [execute] to using [AdbDeviceServices.shellV2].
+     *
+     * The default value is `false`.
+     */
+    fun forceShellV2(): ShellCommand<T>
+
+    /**
+     * Force [execute] to using [AdbDeviceServices.exec].
+     *
+     * The default value is `false`.
+     */
+    fun forceLegacyExec(): ShellCommand<T>
+
+    /**
+     * Force [execute] to using [AdbDeviceServices.shell].
+     *
+     * The default value is `false`.
+     */
+    fun forceLegacyShell(): ShellCommand<T>
 
     /**
      * When [execute] falls back to using the [AdbDeviceServices.shell] service,
@@ -585,7 +607,7 @@ class InputChannelShellCollector(
     bufferSize: Int = DEFAULT_BUFFER_SIZE
 ) : ShellV2Collector<InputChannelShellOutput>, ShellCollectorCapabilities {
 
-    private val logger = thisLogger(session)
+    private val logger = adbLogger(session)
 
     private val shellOutput = InputChannelShellOutputImpl(session, bufferSize)
 
