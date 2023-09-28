@@ -33,6 +33,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
+import java.util.zip.ZipFile
 import kotlin.io.path.pathString
 import kotlin.io.path.readText
 
@@ -125,9 +126,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
             """.trimIndent()
         )
 
-        // TODO (b/293964676): remove withFailOnWarning(false) once KMP bug is fixed
         project.executor()
-            .withFailOnWarning(false)
             .run(":kmpFirstLib:createAndroidUnitTestCoverageReport")
 
         assertWithMessage(
@@ -160,9 +159,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
             """.trimIndent()
         )
 
-        // TODO (b/293964676): remove withFailOnWarning(false) once KMP bug is fixed
         project.executor()
-            .withFailOnWarning(false)
             .run(":kmpFirstLib:createAndroidUnitTestCoverageReport")
 
         assertWithMessage(
@@ -219,15 +216,12 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
 
         assertThat(packageCoveragePercentage.trimEnd('%').toInt() > 0).isTrue()
 
-        // TODO (b/293964676): remove withFailOnWarning(false) once KMP bug is fixed
-        project.executor().withFailOnWarning(false).run(":app:testDebugUnitTest")
+        project.executor().run(":app:testDebugUnitTest")
     }
 
     @Test
     fun testAppApkContents() {
-        // TODO (b/293964676): remove withFailOnWarning(false) once KMP bug is fixed
         project.executor()
-            .withFailOnWarning(false)
             .run(":app:assembleDebug")
 
         project.getSubproject("app").getApk(GradleTestProject.ApkType.DEBUG).use { apk ->
@@ -268,17 +262,22 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
 
     @Test
     fun testKmpLibraryAarContents() {
-        // TODO (b/293964676): remove withFailOnWarning(false) once KMP bug is fixed
-        project.executor()
-            .withFailOnWarning(false)
-            .run(":kmpFirstLib:assemble")
+        val aarFile = if (publishLibs) {
+            FileUtils.join(
+                project.projectDir,
+                "testRepo",
+                "com", "example", "kmpFirstLib-android", "1.0", "kmpFirstLib-android-1.0.aar"
+            )
+        } else {
+            project.executor()
+                .run(":kmpFirstLib:assemble")
 
-        Aar(
             project.getSubproject("kmpFirstLib").getOutputFile(
                 "aar",
                 "kmpFirstLib.aar"
             )
-        ).use { aar ->
+        }
+        Aar(aarFile).use { aar ->
 
             assertThat(aar.getEntry("R.txt")).isNotNull()
 
@@ -305,6 +304,29 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
                 aar.getEntry("META-INF/com/android/build/gradle/aar-metadata.properties").readText()
             ).contains("minAndroidGradlePluginVersion=7.2.0")
          }
+
+        if (publishLibs) {
+            ZipFile(
+                FileUtils.join(
+                    project.projectDir,
+                    "testRepo",
+                    "com", "example", "kmpFirstLib-android", "1.0", "kmpFirstLib-android-1.0-sources.jar"
+                )
+            ).use { zipFile ->
+                assertThat(
+                    zipFile.getEntry("commonMain/com/example/kmpfirstlib/KmpCommonFirstLibClass.kt")
+                ).isNotNull()
+                assertThat(
+                    zipFile.getEntry("androidMain/com/example/kmpfirstlib/KmpAndroidActivity.kt")
+                ).isNotNull()
+                assertThat(
+                    zipFile.getEntry("androidMain/com/example/kmpfirstlib/KmpAndroidFirstLibClass.kt")
+                ).isNotNull()
+                assertThat(
+                    zipFile.getEntry("androidMain/com/example/kmpfirstlib/KmpAndroidFirstLibJavaClass.java")
+                ).isNotNull()
+            }
+        }
     }
 
     @Test
@@ -322,9 +344,7 @@ class KotlinMultiplatformAndroidPluginTest(private val publishLibs: Boolean) {
             """.trimIndent()
         )
 
-        // TODO (b/293964676): remove withFailOnWarning(false) once KMP bug is fixed
         project.executor()
-            .withFailOnWarning(false)
             .run(":kmpFirstLib:assembleInstrumentedTest")
 
         val testApk = project.getSubproject("kmpFirstLib").getOutputFile(

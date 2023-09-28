@@ -76,17 +76,16 @@ class KotlinMultiplatformModelSnapshotTest: BaseModelComparator {
             project = project,
             testClass = this,
             modelSnapshotTask = "dumpSourceSetDependencies",
-            taskOutputLocator = { projectPath ->
+            taskOutputsLocator = { projectPath ->
                 FileUtils.join(
                     project.getSubproject(projectPath).buildDir,
                     "ide",
                     "dependencies",
                     "json"
-                )
+                ).listFiles()!!.toList()
             }
         ).fetchAndCompareModels(
-            listOf(":kmpFirstLib", ":kmpSecondLib"),
-            false
+            listOf(":kmpFirstLib", ":kmpSecondLib")
         )
     }
 }

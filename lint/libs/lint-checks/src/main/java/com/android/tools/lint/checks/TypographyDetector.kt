@@ -189,7 +189,7 @@ class TypographyDetector : ResourceXmlDetector() {
 
         // Check for apostrophes that can be replaced by typographic apostrophes
         if (
-          quoteEnd == -1 &&
+          quoteEnd != quoteStart + 1 &&
             quoteStart > 0 &&
             (text[quoteStart - 1].isLetterOrDigit() ||
               quoteStart > 1 &&
@@ -482,6 +482,7 @@ class TypographyDetector : ResourceXmlDetector() {
       Pattern.compile(".*\\W*'[^']+'(\\W.*)?", Pattern.UNICODE_CHARACTER_CLASS)
 
     private const val FRACTION_MESSAGE = "Use fraction character %1\$c (%2\$s) instead of %3\$s?"
+
     private fun isAnalyticsTrackingId(element: Element): Boolean {
       val name = element.getAttribute(ATTR_NAME)
       return "ga_trackingId" == name

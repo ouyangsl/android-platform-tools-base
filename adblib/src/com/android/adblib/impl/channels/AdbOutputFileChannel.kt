@@ -45,7 +45,7 @@ internal class AdbOutputFileChannel(
             buffer: ByteBuffer,
             timeout: Long,
             unit: TimeUnit,
-            continuation: CancellableContinuation<Int>,
+            continuation: CancellableContinuation<Unit>,
             completionHandler: ContinuationCompletionHandler<Int>
         ) {
             // Note: Timeout is handled by base class because [supportsTimeout] is false
@@ -69,8 +69,8 @@ internal class AdbOutputFileChannel(
         fileChannel.close()
     }
 
-    override suspend fun write(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
-        return channelWriteHandler.write(buffer, timeout, unit)
+    override suspend fun writeBuffer(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+        channelWriteHandler.writeBuffer(buffer, timeout, unit)
     }
 
     override suspend fun writeExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {

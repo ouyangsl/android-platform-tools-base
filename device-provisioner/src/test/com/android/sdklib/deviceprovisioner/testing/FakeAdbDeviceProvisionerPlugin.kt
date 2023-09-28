@@ -23,6 +23,7 @@ import com.android.sdklib.AndroidVersion
 import com.android.sdklib.deviceprovisioner.ActivationAction
 import com.android.sdklib.deviceprovisioner.DeactivationAction
 import com.android.sdklib.deviceprovisioner.DeviceHandle
+import com.android.sdklib.deviceprovisioner.DeviceId
 import com.android.sdklib.deviceprovisioner.DeviceProperties
 import com.android.sdklib.deviceprovisioner.DeviceProvisionerPlugin
 import com.android.sdklib.deviceprovisioner.DeviceState
@@ -97,6 +98,7 @@ class FakeAdbDeviceProvisionerPlugin(
   }
 
   private var serialNumber = 1
+
   fun nextSerial(): String = "fake-device-${serialNumber++}"
 
   companion object {
@@ -115,6 +117,9 @@ class FakeAdbDeviceProvisionerPlugin(
     initialState: DeviceState,
     val serialNumber: String,
   ) : DeviceHandle {
+
+    override val id = DeviceId(PLUGIN_ID, false, "serial=$serialNumber")
+
     var fakeAdbDevice: com.android.fakeadbserver.DeviceState? = null
       get() =
         synchronized(this) {
@@ -129,6 +134,7 @@ class FakeAdbDeviceProvisionerPlugin(
       object : ActivationAction {
         override val presentation =
           MutableStateFlow(TestDefaultDeviceActionPresentation.fromContext())
+
         override suspend fun activate() {
           val properties = state.properties
           fakeAdbDevice =
@@ -149,6 +155,7 @@ class FakeAdbDeviceProvisionerPlugin(
       object : DeactivationAction {
         override val presentation =
           MutableStateFlow(TestDefaultDeviceActionPresentation.fromContext())
+
         override suspend fun deactivate() {
           fakeAdb.disconnectDevice(serialNumber)
           fakeAdbDevice = null
@@ -156,3 +163,5 @@ class FakeAdbDeviceProvisionerPlugin(
       }
   }
 }
+
+private val PLUGIN_ID = "FakeAdb"

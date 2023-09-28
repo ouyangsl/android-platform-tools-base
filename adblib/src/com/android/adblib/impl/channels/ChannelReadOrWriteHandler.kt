@@ -55,7 +55,7 @@ internal abstract class ChannelReadOrWriteHandler protected constructor(
     private val logger = adbLogger(host)
 
     private val completionHandler = object : ContinuationCompletionHandler<Int>() {
-        override fun completed(result: Int, continuation: CancellableContinuation<Int>) {
+        override fun completed(result: Int, continuation: CancellableContinuation<Unit>) {
             completionHandlerCompleted(result, continuation)
         }
 
@@ -133,7 +133,7 @@ internal abstract class ChannelReadOrWriteHandler protected constructor(
         buffer: ByteBuffer,
         timeout: Long,
         unit: TimeUnit,
-        continuation: CancellableContinuation<Int>,
+        continuation: CancellableContinuation<Unit>,
         completionHandler: ContinuationCompletionHandler<Int>
     )
 
@@ -143,10 +143,10 @@ internal abstract class ChannelReadOrWriteHandler protected constructor(
      */
     protected abstract fun asyncReadOrWriteCompleted(byteCount: Int)
 
-    protected suspend fun run(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
+    protected suspend fun run(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
         // Special case of 0 bytes
         if (!buffer.hasRemaining()) {
-            return 0
+            return
         }
 
         return if (supportsTimeout) {
@@ -183,7 +183,7 @@ internal abstract class ChannelReadOrWriteHandler protected constructor(
         timeoutTracker = null
     }
 
-     private fun completionHandlerCompleted(result: Int, continuation: CancellableContinuation<Int>) {
+     private fun completionHandlerCompleted(result: Int, continuation: CancellableContinuation<Unit>) {
         try {
             logger.verbose { "Async I/O operation completed successfully ($result bytes)" }
 
@@ -200,15 +200,15 @@ internal abstract class ChannelReadOrWriteHandler protected constructor(
         }
     }
 
-    private fun finalCompletionCompleted(result: Int, continuation: CancellableContinuation<Int>) {
+    private fun finalCompletionCompleted(result: Int, continuation: CancellableContinuation<Unit>) {
         try {
             asyncReadOrWriteCompleted(result)
         } finally {
-            continuation.resume(result)
+            continuation.resume(Unit)
         }
     }
 
-    private fun runExactlyCompleted(result: Int, continuation: CancellableContinuation<Int>) {
+    private fun runExactlyCompleted(result: Int, continuation: CancellableContinuation<Unit>) {
         val tempBuffer = buffer ?: internalError("buffer is null")
         if (tempBuffer.remaining() == 0) {
             return finalCompletionCompleted(result, continuation)
@@ -242,7 +242,7 @@ internal abstract class ChannelReadOrWriteHandler protected constructor(
 }
 
 /**
- * Provides services to [read] data from any NIO [Channel] that supports asynchronous
+ * Provides services to [readBuffer] data from any NIO [Channel] that supports asynchronous
  * reads, e.g. [AsynchronousFileChannel] or [AsynchronousSocketChannel].
  */
 internal abstract class ChannelReadHandler(
@@ -251,13 +251,12 @@ internal abstract class ChannelReadHandler(
 ) : ChannelReadOrWriteHandler(host, nioChannel) {
 
     /**
-     * Reads up to [ByteBuffer.remaining] bytes from the underlying channel, returning -1
-     * when EOF is reached.
+     * Reads up to [ByteBuffer.remaining] bytes from the underlying channel
      *
-     * @see AdbInputChannel.read
+     * @see AdbInputChannel.readBuffer
      */
-    suspend fun read(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
-        return run(buffer, timeout, unit)
+    suspend inline fun readBuffer(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+        run(buffer, timeout, unit)
     }
 
     /**
@@ -266,7 +265,7 @@ internal abstract class ChannelReadHandler(
      *
      * @see AdbInputChannel.readExactly
      */
-    suspend fun readExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+    suspend inline fun readExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
         runExactly(buffer, timeout, unit)
     }
 
@@ -274,7 +273,7 @@ internal abstract class ChannelReadHandler(
         buffer: ByteBuffer,
         timeout: Long,
         unit: TimeUnit,
-        continuation: CancellableContinuation<Int>,
+        continuation: CancellableContinuation<Unit>,
         completionHandler: ContinuationCompletionHandler<Int>
     ) {
         asyncRead(buffer, timeout, unit, continuation, completionHandler)
@@ -288,7 +287,7 @@ internal abstract class ChannelReadHandler(
         buffer: ByteBuffer,
         timeout: Long,
         unit: TimeUnit,
-        continuation: CancellableContinuation<Int>,
+        continuation: CancellableContinuation<Unit>,
         completionHandler: ContinuationCompletionHandler<Int>
     )
 
@@ -297,7 +296,7 @@ internal abstract class ChannelReadHandler(
 }
 
 /**
- * Provides services to [write] data from any NIO [Channel] that supports asynchronous
+ * Provides services to [writeBuffer] data from any NIO [Channel] that supports asynchronous
  * writes, e.g. [AsynchronousFileChannel] or [AsynchronousSocketChannel].
  */
 internal abstract class ChannelWriteHandler(
@@ -309,10 +308,10 @@ internal abstract class ChannelWriteHandler(
      * Writes up to [ByteBuffer.remaining] bytes to the underlying channel, returning
      * the number of bytes successfully written.
      *
-     * @see AdbOutputChannel.write
+     * @see AdbOutputChannel.writeBuffer
      */
-    suspend fun write(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
-        return run(buffer, timeout, unit)
+    suspend inline fun writeBuffer(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+        run(buffer, timeout, unit)
     }
 
     /**
@@ -320,7 +319,7 @@ internal abstract class ChannelWriteHandler(
      *
      * @see AdbOutputChannel.writeExactly
      */
-    suspend fun writeExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+    suspend inline fun writeExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
         runExactly(buffer, timeout, unit)
     }
 
@@ -328,7 +327,7 @@ internal abstract class ChannelWriteHandler(
         buffer: ByteBuffer,
         timeout: Long,
         unit: TimeUnit,
-        continuation: CancellableContinuation<Int>,
+        continuation: CancellableContinuation<Unit>,
         completionHandler: ContinuationCompletionHandler<Int>
     ) {
         asyncWrite(buffer, timeout, unit, continuation, completionHandler)
@@ -342,7 +341,7 @@ internal abstract class ChannelWriteHandler(
         buffer: ByteBuffer,
         timeout: Long,
         unit: TimeUnit,
-        continuation: CancellableContinuation<Int>,
+        continuation: CancellableContinuation<Unit>,
         completionHandler: ContinuationCompletionHandler<Int>
     )
 

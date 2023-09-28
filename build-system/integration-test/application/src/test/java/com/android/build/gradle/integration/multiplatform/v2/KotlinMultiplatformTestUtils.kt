@@ -16,7 +16,6 @@
 
 package com.android.build.gradle.integration.multiplatform.v2
 
-import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.ModelContainerV2
 import com.android.build.gradle.integration.common.utils.TestFileUtils
@@ -162,12 +161,7 @@ internal fun GradleTestProject.publishLibs(
         )
     }
 
-    // TODO (b/293964676): remove withFailOnWarning(false) once KMP bug is fixed
     projectsToPublish.forEach {
-        @Suppress("DEPRECATION") // publishing with kmp isn't configuration cache compatible (b/276472789)
-        executor()
-            .withFailOnWarning(false)
-            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF)
-            .run(":$it:publish")
+        executor().run(":$it:publish")
     }
 }

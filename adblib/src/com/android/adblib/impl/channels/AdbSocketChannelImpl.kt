@@ -30,7 +30,7 @@ internal class AdbSocketChannelImpl(
             buffer: ByteBuffer,
             timeout: Long,
             unit: TimeUnit,
-            continuation: CancellableContinuation<Int>,
+            continuation: CancellableContinuation<Unit>,
             completionHandler: ContinuationCompletionHandler<Int>
         ) {
             socketChannel.write(buffer, timeout, unit, continuation, completionHandler)
@@ -45,7 +45,7 @@ internal class AdbSocketChannelImpl(
             buffer: ByteBuffer,
             timeout: Long,
             unit: TimeUnit,
-            continuation: CancellableContinuation<Int>,
+            continuation: CancellableContinuation<Unit>,
             completionHandler: ContinuationCompletionHandler<Int>
         ) {
             socketChannel.read(buffer, timeout, unit, continuation, completionHandler)
@@ -86,21 +86,21 @@ internal class AdbSocketChannelImpl(
             }
         }
 
-        suspendChannelCoroutine<Void?>(host, socketChannel, timeout, unit) { continuation ->
+        suspendChannelCoroutine<Unit>(host, socketChannel, timeout, unit) { continuation ->
             socketChannel.connect(address, continuation, connectCompletionHandler)
         }
     }
 
-    override suspend fun read(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
-        return channelReadHandler.read(buffer, timeout, unit)
+    override suspend fun readBuffer(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+        channelReadHandler.readBuffer(buffer, timeout, unit)
     }
 
     override suspend fun readExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
         channelReadHandler.readExactly(buffer, timeout, unit)
     }
 
-    override suspend fun write(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
-        return channelWriteHandler.write(buffer, timeout, unit)
+    override suspend fun writeBuffer(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+        channelWriteHandler.writeBuffer(buffer, timeout, unit)
     }
 
     override suspend fun writeExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {

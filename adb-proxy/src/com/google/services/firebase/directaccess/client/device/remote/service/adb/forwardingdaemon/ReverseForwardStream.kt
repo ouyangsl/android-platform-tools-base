@@ -21,9 +21,11 @@ import com.android.adblib.AdbOutputChannel
 import com.android.adblib.AdbSession
 import com.android.adblib.DeviceSelector
 import com.android.adblib.RemoteFileMode
+import com.android.adblib.read
 import com.android.adblib.shellCommand
 import com.android.adblib.syncSend
 import com.android.adblib.withInputChannelCollector
+import com.android.adblib.write
 import com.google.services.firebase.directaccess.client.device.remote.service.adb.forwardingdaemon.reverse.MessageParseException
 import com.google.services.firebase.directaccess.client.device.remote.service.adb.forwardingdaemon.reverse.MessageType
 import com.google.services.firebase.directaccess.client.device.remote.service.adb.forwardingdaemon.reverse.StreamDataHeader
@@ -70,6 +72,7 @@ internal class ReverseForwardStream(
   private val openSockets = mutableMapOf<Int, Socket>()
   var localPort: String = localPort
     private set
+
   private var streamReader: StreamReader? = null
   private val outputLock = Mutex()
   private val reverseDaemonReadyLatch = CountDownLatch(1)

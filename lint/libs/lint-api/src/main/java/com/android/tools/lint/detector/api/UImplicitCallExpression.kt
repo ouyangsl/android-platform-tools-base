@@ -24,6 +24,7 @@ import com.intellij.psi.PsiParameter
 import com.intellij.psi.PsiType
 import com.intellij.psi.PsiWhiteSpace
 import com.intellij.psi.impl.source.tree.LeafPsiElement
+import org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry
 import org.jetbrains.uast.UAnnotation
 import org.jetbrains.uast.UArrayAccessExpression
 import org.jetbrains.uast.UBinaryExpression
@@ -66,26 +67,42 @@ abstract class UImplicitCallExpression(
   abstract override val valueArguments: List<UExpression>
   override val sourcePsi: PsiElement?
     get() = expression.sourcePsi
+
   override val javaPsi: PsiElement?
     get() = expression.javaPsi
+
   override val comments: List<UComment>
     get() = expression.comments
+
   override val isPsiValid: Boolean
     get() = expression.isPsiValid
+
   override val lang: Language
     get() = expression.lang
+
   override fun getExpressionType(): PsiType? = expression.getExpressionType()
+
   override fun <D, R> accept(visitor: UastTypedVisitor<D, R>, data: D): R =
     expression.accept(visitor, data)
+
   override fun accept(visitor: UastVisitor) = expression.accept(visitor)
+
   override fun evaluate(): Any? = expression.evaluate()
+
   override fun findAnnotation(fqName: String): UAnnotation? = expression.findAnnotation(fqName)
+
   override fun asRenderString(): String = expression.asRenderString()
+
   override fun asLogString(): String = expression.asLogString()
+
   override fun asSourceString(): String = expression.asSourceString()
+
   override fun equals(other: Any?): Boolean = expression == other
+
   override fun hashCode(): Int = expression.hashCode()
+
   override fun toString(): String = expression.toString()
+
   abstract fun getArgumentMapping(): Map<UExpression, PsiParameter>
 
   override val uAnnotations: List<UAnnotation>
@@ -98,19 +115,26 @@ abstract class UImplicitCallExpression(
   override val classReference: UReferenceExpression? = null
   override val kind: UastCallKind
     get() = UastCallKind.METHOD_CALL
+
   override val methodIdentifier: UIdentifier? = null
   override val methodName: String
     get() = operator.name
+
   override val returnType: PsiType?
     get() = operator.returnType
+
   override val typeArgumentCount: Int
     get() = 0
+
   override val typeArguments: List<PsiType>
     get() = emptyList()
+
   override val uastParent: UElement?
     get() = expression.uastParent
+
   override val valueArgumentCount: Int
     get() = valueArguments.size
+
   override fun getArgumentForParameter(i: Int): UExpression? {
     // `parameters` from JVM methods (i.e., compiled bytecode) can be bigger than
     // `arguments` when
@@ -128,6 +152,7 @@ abstract class UImplicitCallExpression(
     }
     return valueArguments.getOrNull(i)
   }
+
   override fun resolve(): PsiMethod = operator
 }
 
@@ -214,12 +239,16 @@ private class UnaryExpressionAsCallExpression(
 ) : UImplicitCallExpression(unary, operator) {
   override val receiver: UExpression
     get() = unary.operand
+
   override val receiverType: PsiType?
     get() = receiver.getExpressionType()
+
   override val valueArguments: List<UExpression>
     get() = emptyList()
+
   override val methodIdentifier: UIdentifier?
     get() = unary.operatorIdentifier
+
   override fun getArgumentMapping(): Map<UExpression, PsiParameter> = emptyMap()
 }
 
@@ -243,6 +272,7 @@ private class BinaryExpressionAsCallExpression(
 
   override val methodIdentifier: UIdentifier?
     get() = binary.operatorIdentifier
+
   override val receiver: UExpression?
     get() =
       when (binary.operator) {
@@ -251,8 +281,10 @@ private class BinaryExpressionAsCallExpression(
           if (isSingleParameter) if (isReversed) binary.rightOperand else binary.leftOperand
           else null
       }
+
   override val receiverType: PsiType?
     get() = receiver?.getExpressionType()
+
   private var _arguments: List<UExpression>? = null
   override val valueArguments: List<UExpression>
     get() {
@@ -322,11 +354,21 @@ private class ArrayAccessAsCallExpression(
 ) : UImplicitCallExpression(accessExpression, operator) {
   override val receiver: UExpression
     get() = accessExpression.receiver
+
   override val receiverType: PsiType?
     get() = accessExpression.getExpressionType()
+
   override val methodIdentifier: UIdentifier?
     get() {
-      var bracket = accessExpression.indices.firstOrNull()?.sourcePsi?.prevSibling
+      val indices = accessExpression.indices.firstOrNull()?.sourcePsi ?: return null
+      var bracket =
+        if (indices is KtLiteralStringTemplateEntry) {
+          // With KotlinConverter.INSTANCE.setForceUInjectionHost enabled,
+          // we have to look at the parent instead to find the left bracket
+          indices.parent.prevSibling
+        } else {
+          indices.prevSibling
+        }
       while (bracket is PsiWhiteSpace || bracket is PsiComment) {
         bracket = bracket.prevSibling
       }

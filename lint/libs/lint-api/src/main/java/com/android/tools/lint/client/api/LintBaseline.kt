@@ -107,7 +107,7 @@ class LintBaseline(
    * If non-null, a list of issues to write back out to the baseline file when the baseline is
    * closed.
    */
-  private var entriesToWrite: MutableList<ReportedEntry>? = null
+  var entriesToWrite: MutableList<ReportedEntry>? = null
 
   /**
    * Returns the number of issues that appear to have been fixed (e.g. are present in the baseline
@@ -235,9 +235,9 @@ class LintBaseline(
     val found = findAndMark(issue, location, message, severity, null)
 
     if (writeOnClose && (!removeFixed || found)) {
-      if (entriesToWrite != null && issue.id != IssueRegistry.BASELINE.id) {
+      if (entriesToWrite != null && shouldBaseline(issue.id)) {
         val project = incident.project
-        entriesToWrite!!.add(ReportedEntry(issue, project, location, message))
+        entriesToWrite!!.add(ReportedEntry(incident))
       }
     }
 
@@ -260,8 +260,7 @@ class LintBaseline(
       // Sometimes messages are changed in lint; try to gracefully handle this via #sameMessage
       val messages = idToMessages[issue.id]
       if (
-        messages != null &&
-          messages.isNotEmpty() &&
+        !messages.isNullOrEmpty() &&
           (messages.size > 1 || messages.size == 1 && messages.first() != message)
       ) {
         val checked = alreadyChecked ?: mutableSetOf<String>().apply { add(message) }
@@ -319,14 +318,15 @@ class LintBaseline(
     return false
   }
 
+  /**
+   * Sometimes the exact message format for a given error shifts over time, for example when we
+   * decide to make it clearer. Since baselines are primarily matched by the error message, any
+   * format change would mean the recorded issue in the baseline no longer matches the error, and
+   * the same error is now shown as a new error. To prevent this, the baseline mechanism will call
+   * this method to check if two messages represent the same error, and if so, we'll continue to
+   * match them. This jump table should record the various changes in error messages over time.
+   */
   fun sameMessage(issue: Issue, new: String, old: String): Boolean {
-    // Sometimes the exact message format for a given error shifts over time, for example
-    // when we decide to make it clearer. Since baselines are primarily matched by
-    // the error message, any format change would mean the recorded issue in the baseline
-    // no longer matches the error, and the same error is now shown as a new error.
-    // To prevent this, the baseline mechanism will call this method to check if
-    // two messages represent the same error, and if so, we'll continue to match them.
-    // This jump table should record the various changes in error messages over time.
     return when (issue.id) {
       "InvalidPackage" -> sameSuffixFrom("not included in", new, old)
       // See https://issuetracker.google.com/68802305
@@ -356,10 +356,11 @@ class LintBaseline(
       "InlinedApi",
       "UnusedAttribute" -> {
         // Compare character by character, and when they differ, skip the tokens if they are
-        // preceded
-        // by something from the ApiDetector error messages which indicate that they represent an
-        // API level, such as "current min is " or "API level "
-        stringsEquivalent(old, new) { s, i ->
+        // preceded by something from the ApiDetector error messages which indicate that they
+        // represent an API level, such as "current min is " or "API level "
+        val suffix = " (called from "
+        stringsEquivalent(old.substringBeforeLast(suffix), new.substringBeforeLast(suffix)) { s, i
+          ->
           s.tokenPrecededBy("min is ", i) ||
             s.tokenPrecededBy("API level ", i) ||
             s.tokenPrecededBy("version ", i)
@@ -385,7 +386,13 @@ class LintBaseline(
 
       // Sometimes we just append (or remove trailing period in error messages, now
       // flagged by lint)
-      else -> stringsEquivalent(old, new)
+      else -> {
+        stringsEquivalent(old, new) ||
+          issue.implementation.detectorClass
+            .getDeclaredConstructor()
+            .newInstance()
+            .sameMessage(issue, new, old)
+      }
     }
   }
 
@@ -560,13 +567,11 @@ class LintBaseline(
    * write a baseline file (since we need to sort them before writing out the result file, to ensure
    * stable files.)
    */
-  private inner class ReportedEntry(
-    val issue: Issue,
-    val project: Project?,
-    location: Location,
-    val message: String
-  ) : Comparable<ReportedEntry> {
-    val location = LightLocation(location)
+  inner class ReportedEntry(val incident: Incident) : Comparable<ReportedEntry> {
+    private val issue: Issue = incident.issue
+    private val project: Project? = incident.project
+    private val location: LightLocation = LightLocation(incident.location)
+    private val message: String = incident.message
 
     override fun compareTo(other: ReportedEntry): Int {
       // Sort by category, then by priority, then by id,
@@ -722,6 +727,16 @@ class LintBaseline(
     @Suppress("unused") // Used from the IDE
     fun isFixedMessage(errorMessage: String, format: TextFormat): Boolean {
       return format.toText(errorMessage).contains("perhaps they have been fixed")
+    }
+
+    /**
+     * Given an issue, determines whether it should be included in a baseline. Lint errors should
+     * not be baselined - see b/297095583.
+     */
+    fun shouldBaseline(id: String): Boolean {
+      return id != IssueRegistry.LINT_ERROR.id &&
+        id != IssueRegistry.LINT_WARNING.id &&
+        id != IssueRegistry.BASELINE.id
     }
 
     fun describeBaselineFilter(errors: Int, warnings: Int, baselineDisplayPath: String): String {
@@ -960,6 +975,8 @@ class LintBaseline(
       val n2 = s2.length
 
       while (true) {
+        while (i1 < n1 && (s1[i1].isWhitespace() || s1[i1] == '`')) i1++
+        while (i2 < n2 && (s2[i2].isWhitespace() || s2[i2] == '`')) i2++
         if (i1 >= n1) {
           return i2 >= n2
         } else if (i2 >= n2) {

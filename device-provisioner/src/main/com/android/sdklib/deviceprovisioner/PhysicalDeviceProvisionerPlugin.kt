@@ -41,6 +41,7 @@ class PhysicalDeviceProvisionerPlugin(
   companion object {
     const val PLUGIN_ID = "PhysicalDevice"
   }
+
   override val priority = 0
 
   private val devicesBySerial = hashMapOf<String, PhysicalDeviceHandle>()
@@ -121,6 +122,9 @@ private class PhysicalDeviceHandle(
   override val scope: CoroutineScope,
   initialState: Connected,
 ) : DeviceHandle {
+
+  override val id =
+    DeviceId(PhysicalDeviceProvisionerPlugin.PLUGIN_ID, false, "serial=$serialNumber")
 
   override val stateFlow: StateFlow<DeviceState>
   private val usbConnectionFlow: MutableStateFlow<DeviceState>

@@ -123,8 +123,7 @@ constructor(
   override fun toString(): String {
     project?.name?.let {
       return "Resources for $it without dependencies"
-    }
-      ?: return super.toString()
+    } ?: return super.toString()
   }
 
   internal class MergedResourceRepository(
@@ -278,8 +277,7 @@ constructor(
             library.resFolder.listFiles { folder ->
               val folderType = ResourceFolderType.getFolderType(folder.name)
               folderType != null && folderTypes.contains(folderType)
-            }
-              ?: emptyArray()
+            } ?: emptyArray()
 
           val libraryName = library.resolvedCoordinates.toString()
           for (folder in folders.sorted()) { // sorted: offer stable order in resource lists
@@ -395,7 +393,7 @@ constructor(
         return EmptyRepository
       }
 
-      val projectRepository = getForProjectOnly(client, project)
+      val projectRepository = getForProjectOnly(client, project, isModuleDependency = false)
       if (scope == ResourceRepositoryScope.PROJECT_ONLY) {
         return projectRepository
       }
@@ -408,7 +406,7 @@ constructor(
         // list to only include leaves, not nested ones
         project.allLibraries
           .filter { !it.isExternalLibrary }
-          .map { getForProjectOnly(client, it) }
+          .map { getForProjectOnly(client, it, isModuleDependency = true) }
           .forEach { repositories += it }
 
         // If we're only computing local dependencies, not library and
@@ -428,8 +426,7 @@ constructor(
             ?.dependencies
             ?.getAll()
             ?.filterIsInstance<LintModelAndroidLibrary>()
-            ?.toList()
-            ?: project.buildLibraryModel?.let { listOf(it) } ?: emptyList()
+            ?.toList() ?: project.buildLibraryModel?.let { listOf(it) } ?: emptyList()
 
         // No libraries? Just share the same repository instance as
         // local only
@@ -455,7 +452,8 @@ constructor(
       client: LintClient,
       root: File?,
       project: Project?,
-      factory: () -> LintResourceRepository
+      isModuleDependency: Boolean,
+      factory: () -> LintResourceRepository,
     ): LintResourceRepository {
       // For leaf repositories, try to load from storage
       if (serializedFile.isFile) {
@@ -465,7 +463,8 @@ constructor(
             serialized,
             client.pathVariables,
             root,
-            project
+            project,
+            allowMissingPathVariable = isModuleDependency
           )
         } catch (e: Throwable) {
           // Some sort of problem deserializing the lint resource repository. Try to gracefully
@@ -505,22 +504,29 @@ constructor(
       // Must construct from files now and cache for future use
       val repository = factory()
 
-      // Write for future usage
-      serializedFile.parentFile?.mkdirs()
-      val serialized =
-        LintResourcePersistence.serialize(repository, client.pathVariables, project?.dir)
-      serializedFile.writeText(serialized)
+      // Write for future usage unless repository is for a module dependency
+      if (!isModuleDependency) {
+        serializedFile.parentFile?.mkdirs()
+        val serialized =
+          LintResourcePersistence.serialize(repository, client.pathVariables, project?.dir)
+        serializedFile.writeText(serialized)
+      }
       return repository
     }
 
     /** Returns the resource repository for the given [project], *not* including dependencies. */
-    private fun getForProjectOnly(client: LintCliClient, project: Project): LintResourceRepository {
+    private fun getForProjectOnly(
+      client: LintCliClient,
+      project: Project,
+      isModuleDependency: Boolean
+    ): LintResourceRepository {
       return project.getClientProperty<LintResourceRepository>(ResourceRepositoryScope.PROJECT_ONLY)
         ?: getOrCreateRepository(
             client.getSerializationFile(project, XmlFileType.RESOURCE_REPOSITORY),
             client,
             project.dir,
-            project
+            project,
+            isModuleDependency
           ) {
             createFromFolder(client, project, ResourceNamespace.TODO())
           }
@@ -594,7 +600,13 @@ constructor(
       cache: MutableMap<String, LintResourceRepository>
     ): LintResourceRepository {
       return cache[hash]
-        ?: getOrCreateRepository(getFrameworkResourceCacheFile(client, hash), client, null, null) {
+        ?: getOrCreateRepository(
+            getFrameworkResourceCacheFile(client, hash),
+            client,
+            root = null,
+            project = null,
+            isModuleDependency = false
+          ) {
             createFromFolder(client, sequenceOf(res), null, null, ResourceNamespace.ANDROID)
           }
           .also { cache[hash] = it }
@@ -607,8 +619,14 @@ constructor(
       cache: MutableMap<LintModelAndroidLibrary, LintResourceRepository>
     ): LintResourceRepository {
       return cache[library]
-      // TODO: Handle relative paths over in AAR folders under ~/.gradle/
-      ?: getOrCreateRepository(getLibraryResourceCacheFile(client, library), client, null, null) {
+        // TODO: Handle relative paths over in AAR folders under ~/.gradle/
+        ?: getOrCreateRepository(
+            getLibraryResourceCacheFile(client, library),
+            client,
+            root = null,
+            project = null,
+            isModuleDependency = false
+          ) {
             LintLibraryRepository(client, library, ResourceNamespace.TODO())
           }
           .also { cache[library] = it }

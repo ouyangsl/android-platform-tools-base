@@ -16,14 +16,18 @@
 
 package com.android.build.gradle.internal.tasks
 
-import com.android.Version
 import com.android.build.gradle.internal.component.AndroidTestCreationConfig
 import com.android.build.gradle.internal.component.InstrumentedTestCreationConfig
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction
+import com.android.build.gradle.internal.testing.screenshot.ImageDetails
+import com.android.build.gradle.internal.testing.screenshot.PERIOD
+import com.android.build.gradle.internal.testing.screenshot.PreviewResult
+import com.android.build.gradle.internal.testing.screenshot.ResponseProcessor
 import com.android.buildanalyzer.common.TaskCategory
 import com.android.builder.core.ComponentType
-import org.gradle.api.Project
+import com.android.utils.FileUtils
+import org.gradle.api.GradleException
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.tasks.CacheableTask
@@ -32,7 +36,6 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
-import org.gradle.api.tasks.TaskAction
 import java.io.File
 import org.gradle.api.tasks.VerificationTask
 
@@ -42,11 +45,6 @@ import org.gradle.api.tasks.VerificationTask
 @CacheableTask
 @BuildAnalyzer(primaryTaskCategory = TaskCategory.TEST)
 abstract class PreviewScreenshotUpdateTask : NonIncrementalTask(), VerificationTask {
-
-    companion object {
-
-        const val previewlibCliToolConfigurationName = "_internal-screenshot-test-task-previewlib-cli"
-    }
 
     @Internal
     override lateinit var variantName: String
@@ -59,16 +57,36 @@ abstract class PreviewScreenshotUpdateTask : NonIncrementalTask(), VerificationT
     abstract val renderTaskOutputDir: DirectoryProperty
 
     override fun doTaskAction() {
+        //throw exception at the first encountered error
+        val response = ResponseProcessor(renderTaskOutputDir.get().asFile.toPath()).process()
+
+        val resultsToSave = mutableListOf<PreviewResult>()
+        for (previewResult in response.previewResults) {
+            saveGoldenImage(previewResult)
+        }
+    }
+
+    private fun saveGoldenImage(previewResult: PreviewResult) {
+        if (previewResult.responseCode != 0) {
+            throw GradleException(previewResult.message)
+        }
+        val screenshotName = previewResult.previewName.substring(
+            previewResult.previewName.lastIndexOf(PERIOD) + 1)
+        val screenshotNamePng = "$screenshotName.png"
+        val goldenPath = goldenImageDir.asFile.get().toPath().resolve(screenshotNamePng)
+        val goldenImageDetails = ImageDetails(goldenPath, null)
+        val actualPath = renderTaskOutputDir.asFile.get().toPath().resolve(screenshotName + "_actual.png")
+        FileUtils.copyFile(actualPath.toFile(), goldenPath.toFile())
     }
 
     class CreationAction(
-            private val androidTestCreationConfig: AndroidTestCreationConfig,
-            private val goldenImageDir: File,
+        private val androidTestCreationConfig: AndroidTestCreationConfig,
+        private val goldenImageDir: File,
     ) :
-            VariantTaskCreationAction<
-                    PreviewScreenshotUpdateTask,
-                    InstrumentedTestCreationConfig
-                    >(androidTestCreationConfig) {
+        VariantTaskCreationAction<
+                PreviewScreenshotUpdateTask,
+                InstrumentedTestCreationConfig
+                >(androidTestCreationConfig) {
 
         override val name = computeTaskName(ComponentType.PREVIEW_SCREENSHOT_UPDATE_PREFIX)
         override val type = PreviewScreenshotUpdateTask::class.java
@@ -82,31 +100,12 @@ abstract class PreviewScreenshotUpdateTask : NonIncrementalTask(), VerificationT
 
             task.group = JavaBasePlugin.VERIFICATION_GROUP
 
-            maybeCreatePreviewlibCliToolConfiguration(task.project)
-
             task.goldenImageDir.set(goldenImageDir)
             task.goldenImageDir.disallowChanges()
 
             creationConfig.artifacts.setTaskInputToFinalProduct(
                 InternalArtifactType.SCREENSHOTS_RENDERED, task.renderTaskOutputDir
             )
-
-        }
-
-        private fun maybeCreatePreviewlibCliToolConfiguration(project: Project) {
-            val container = project.configurations
-            val dependencies = project.dependencies
-            if (container.findByName(previewlibCliToolConfigurationName) == null) {
-                container.create(previewlibCliToolConfigurationName).apply {
-                    isVisible = false
-                    isTransitive = true
-                    isCanBeConsumed = false
-                    description = "A configuration to resolve PreviewLib CLI tool dependencies."
-                }
-                dependencies.add(
-                        previewlibCliToolConfigurationName,
-                        "com.android.screenshot.cli:screenshot:${Version.ANDROID_TOOLS_BASE_VERSION}")
-            }
         }
     }
 }

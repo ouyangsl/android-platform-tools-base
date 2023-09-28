@@ -45,7 +45,7 @@ internal class AdbInputFileChannel(
             buffer: ByteBuffer,
             timeout: Long,
             unit: TimeUnit,
-            continuation: CancellableContinuation<Int>,
+            continuation: CancellableContinuation<Unit>,
             completionHandler: ContinuationCompletionHandler<Int>
         ) {
             // Note: Timeout is handled by base class because [supportsTimeout] is false
@@ -69,8 +69,8 @@ internal class AdbInputFileChannel(
         fileChannel.close()
     }
 
-    override suspend fun read(buffer: ByteBuffer, timeout: Long, unit: TimeUnit): Int {
-        return channelReadHandler.read(buffer, timeout, unit)
+    override suspend fun readBuffer(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {
+        channelReadHandler.readBuffer(buffer, timeout, unit)
     }
 
     override suspend fun readExactly(buffer: ByteBuffer, timeout: Long, unit: TimeUnit) {

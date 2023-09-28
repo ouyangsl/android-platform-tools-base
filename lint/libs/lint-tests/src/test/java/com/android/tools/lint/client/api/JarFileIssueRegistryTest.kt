@@ -3835,6 +3835,7 @@ class JarFileIssueRegistryTest : AbstractCheckTest() {
                     open fun run(context: Context) {}
                     override fun beforeCheckFile(context: Context) { }
                     override fun afterCheckFile(context: Context) { }
+                    open fun sameMessage(issue: Issue, new: String, old: String): Boolean = false
                 }
                 interface FileScanner {
                     fun beforeCheckFile(context: Context)
@@ -3852,7 +3853,7 @@ class JarFileIssueRegistryTest : AbstractCheckTest() {
                     )
                 }
                 class Incident(val issue: Issue, location: Location, message: String)
-                class Issue {
+                class Issue(val id: String) {
                     companion object {
                         @JvmStatic
                         fun create(
@@ -3937,6 +3938,7 @@ class JarFileIssueRegistryTest : AbstractCheckTest() {
                             }
                         abstract val issues: List<Issue>
                         open val vendor: Vendor? = null
+                        open fun sameMessage(issue: Issue, new: String, old: String): Boolean = false
                     }
                 """
           )
@@ -3965,6 +3967,7 @@ fun createGlobalLintJarClient(lintJar: File, clientName: String? = null) =
     com.android.tools.lint.checks.infrastructure.TestLintClient(clientName ?: CLIENT_UNIT_TESTS) {
     override fun findGlobalRuleJars(driver: LintDriver?, warnDeprecated: Boolean): List<File> =
       listOf(lintJar)
+
     override fun findRuleJars(project: Project): List<File> = emptyList()
   }
 
@@ -3972,5 +3975,6 @@ fun createProjectLintJarClient(lintJar: File) =
   object : com.android.tools.lint.checks.infrastructure.TestLintClient() {
     override fun findGlobalRuleJars(driver: LintDriver?, warnDeprecated: Boolean): List<File> =
       emptyList()
+
     override fun findRuleJars(project: Project): List<File> = listOf(lintJar)
   }

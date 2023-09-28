@@ -164,8 +164,7 @@ class PermissionDataGenerator {
           permission.dangerousOut >= minApiLevel &&
           (!skipHidden || permission.field != null)
       }
-      ?.toList()
-      ?: emptyList()
+      ?.toList() ?: emptyList()
   }
 
   fun getSignaturePermissions(skipHidden: Boolean = false): List<Permission> {
@@ -176,8 +175,7 @@ class PermissionDataGenerator {
           // Specially handled by ScopedStorageDetector
           it.name != "android.permission.MANAGE_EXTERNAL_STORAGE"
       }
-      ?.toList()
-      ?: emptyList()
+      ?.toList() ?: emptyList()
   }
 
   /**
@@ -533,7 +531,7 @@ class PermissionDataGenerator {
     val stream = loader.getResourceAsStream("AndroidManifest.xml")
     val bytes = ByteStreams.toByteArray(stream)
     stream.close()
-    val xml = String(BinaryXmlParser.decodeXml("AndroidManifest.xml", bytes), UTF_8)
+    val xml = String(BinaryXmlParser.decodeXml(bytes), UTF_8)
     return XmlUtils.parseDocumentSilently(xml, true)
   }
 

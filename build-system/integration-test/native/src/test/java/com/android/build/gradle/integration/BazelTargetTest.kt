@@ -16,11 +16,8 @@
 
 package com.android.build.gradle.integration
 
-import java.io.File
+import com.android.build.gradle.integration.common.utils.checkBazelTargetsMatchTestSourceFiles
 import org.junit.Test
-import kotlin.test.fail
-import com.android.testutils.TestUtils
-import java.nio.file.Path
 
 class BazelTargetTest {
 
@@ -32,38 +29,10 @@ class BazelTargetTest {
      */
     @Test
     fun testBazelTargetsMatchTestSourceFiles() {
-
-        val workspaceRoot: Path = TestUtils.getWorkspaceRoot()
-        val sourceDir: File =
-            workspaceRoot.resolve("tools/base/build-system/integration-test/native/src/test")
-                .toFile()
-        val bazelFile: File =
-            workspaceRoot.resolve("tools/base/build-system/integration-test/native/BUILD.bazel")
-                .toFile()
-        val ignoredBazelTargets: List<String> = listOf("all_test_files", "prebuilts")
-
-        val testFileNames =
-            sourceDir.walk()
-                .filter { it.extension == "kt" || it.extension == "java" }
-                .map { it.nameWithoutExtension }
-                .toList()
-
-        val bazelTargets =
-            bazelFile.readLines()
-                .filter { it.contains("name = \"") }
-                .map { it.split("\"")[1] }
-                .filterNot { ignoredBazelTargets.contains(it) }
-
-        val missingTargets = testFileNames.filterNot { bazelTargets.contains(it) }
-
-        if (missingTargets.isNotEmpty()) {
-            fail("Missing expected Bazel targets: ${missingTargets.joinToString(", ")}")
-        }
-
-        val missingTestFiles = bazelTargets.filterNot { testFileNames.contains(it) }
-
-        if (missingTestFiles.isNotEmpty()) {
-            fail("Missing expected test files: ${missingTestFiles.joinToString(", ")}")
-        }
+        checkBazelTargetsMatchTestSourceFiles(
+            "tools/base/build-system/integration-test/native/src/test",
+            "tools/base/build-system/integration-test/native/BUILD.bazel",
+            ignoredBazelTargets = listOf("all_test_files", "prebuilts")
+        )
     }
 }

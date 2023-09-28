@@ -35,13 +35,13 @@ class KotlinMultiplatformAndroidTargetSnapshotTest: BaseModelComparator {
             project = project,
             testClass = this,
             modelSnapshotTask = "dumpAndroidTarget",
-            taskOutputLocator = { projectPath ->
+            taskOutputsLocator = { projectPath ->
                 FileUtils.join(
                     project.getSubproject(projectPath).buildDir,
                     "ide",
                     "targets"
-                )
+                ).listFiles()!!.toList()
             }
-        ).fetchAndCompareModels(listOf(":kmpFirstLib", ":kmpSecondLib"), false)
+        ).fetchAndCompareModels(listOf(":kmpFirstLib", ":kmpSecondLib"))
     }
 }

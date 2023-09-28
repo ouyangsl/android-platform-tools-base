@@ -17,6 +17,7 @@ package com.android.declarative.internal.parsers
 
 import com.android.declarative.internal.IssueLogger
 import com.android.declarative.internal.model.ProjectDependenciesDAG
+import com.android.utils.ILogger
 import com.google.common.truth.Truth
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
@@ -39,19 +40,30 @@ class DependenciesResolverTest {
         createModule("javaLib1") { "" }
         createModule("javaLib2") { "" }
         createModule("lib1") { """
-            [dependencies.api.javaLib1]
-            [dependencies.implementation.javaLib2]
+            [dependencies]
+            api = [
+                { project = ":javaLib1" },
+            ]
+            implementation = [
+                { project = ":javaLib2" },
+            ]
             """.trimIndent() }
         createModule("lib2") { """
-            [dependencies.implementation.lib1]
+            [dependencies]
+            implementation = [
+                { project = ":lib1" },
+            ]
             """.trimIndent() }
         createModule("lib3") { """
-            [dependencies.implementation.lib2]
+            [dependencies]
+            implementation = [
+                { project = ":lib2" },
+            ]
             """.trimIndent()
         }
         writeSettingsFile()
 
-        val issueLogger = Mockito.mock(IssueLogger::class.java)
+        val issueLogger = IssueLogger(false, Mockito.mock(ILogger::class.java))
         val parsedDcl = DeclarativeFileParser(issueLogger).parseDeclarativeFile(
             Paths.get(temporaryFolderRule.root.absolutePath, "settings.gradle.toml")
         )
@@ -89,7 +101,7 @@ class DependenciesResolverTest {
 
     private fun writeSettingsFile() {
         File(temporaryFolderRule.root, "settings.gradle.toml").also { settingsFile ->
-            val stringBuilder = StringBuilder("[includes]\n")
+            val stringBuilder = StringBuilder("[include]\n")
             modulesList.forEach {
                 stringBuilder.append(it).append(" = \":").append(it).append("\"\n")
             }

@@ -84,6 +84,7 @@ class LocalEmulatorProvisionerPlugin(
   rescanPeriod: Duration = Duration.ofSeconds(10),
 ) : DeviceProvisionerPlugin {
   val logger = adbLogger(adbSession)
+
   companion object {
     const val PLUGIN_ID = "LocalEmulator"
   }
@@ -93,16 +94,27 @@ class LocalEmulatorProvisionerPlugin(
    */
   interface AvdManager {
     suspend fun rescanAvds(): List<AvdInfo>
+
     suspend fun createAvd(): AvdInfo?
+
     suspend fun editAvd(avdInfo: AvdInfo): AvdInfo?
+
     suspend fun startAvd(avdInfo: AvdInfo)
+
     suspend fun coldBootAvd(avdInfo: AvdInfo)
+
     suspend fun bootAvdFromSnapshot(avdInfo: AvdInfo, snapshot: LocalEmulatorSnapshot)
+
     suspend fun stopAvd(avdInfo: AvdInfo)
+
     suspend fun showOnDisk(avdInfo: AvdInfo)
+
     suspend fun duplicateAvd(avdInfo: AvdInfo)
+
     suspend fun wipeData(avdInfo: AvdInfo)
+
     suspend fun deleteAvd(avdInfo: AvdInfo)
+
     suspend fun downloadAvdSystemImage(avdInfo: AvdInfo)
   }
 
@@ -186,8 +198,7 @@ class LocalEmulatorProvisionerPlugin(
     val authTokenPath =
       AndroidLocationsSingleton.userHomeLocation.resolve(".emulator_console_auth_token").takeIf {
         it.exists()
-      }
-        ?: defaultAuthTokenPath()
+      } ?: defaultAuthTokenPath()
     val emulatorConsole = adbSession.openEmulatorConsole(localConsoleAddress(port), authTokenPath)
     emulatorConsoles[device] = emulatorConsole
 
@@ -299,6 +310,9 @@ class LocalEmulatorProvisionerPlugin(
     initialState: DeviceState,
     initialAvdInfo: AvdInfo
   ) : DeviceHandle {
+
+    override val id = DeviceId(PLUGIN_ID, false, "path=${initialAvdInfo.dataFolderPath}")
+
     override val stateFlow = MutableStateFlow(initialState)
 
     private val avdInfoFlow = MutableStateFlow(initialAvdInfo)
@@ -547,7 +561,7 @@ class LocalEmulatorProperties(
         model = avdInfo.deviceName
         androidVersion = avdInfo.androidVersion
         androidRelease = SdkVersionInfo.getVersionString(avdInfo.androidVersion.apiLevel)
-        abi = Abi.getEnum(avdInfo.abiType)
+        abiList = listOfNotNull(Abi.getEnum(avdInfo.abiType))
         avdName = avdInfo.name
         displayName = avdInfo.displayName
         deviceType = avdInfo.tag.toDeviceType()

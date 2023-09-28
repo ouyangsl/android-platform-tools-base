@@ -90,6 +90,24 @@ enum class BooleanOption(
     USE_NON_FINAL_RES_IDS("android.nonFinalResIds", true, ApiStage.Stable),
     NON_TRANSITIVE_R_CLASS("android.nonTransitiveRClass", true, ApiStage.Stable),
 
+    /**
+     * When this option is enabled, dexing transforms will use the full classpath (if desugaring
+     * requires a classpath). This classpath consists of all external artifacts
+     * ([com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactScope.EXTERNAL])
+     * in addition to the input artifact's dependencies provided by Gradle through
+     * [org.gradle.api.artifacts.transform.InputArtifactDependencies].
+     *
+     * This option is useful when some dependencies are missing from the input artifact's
+     * dependencies (see bug 230454566), so the full classpath is needed.
+     *
+     * If dexing transforms do not require a classpath, this option is not used.
+     */
+    USE_FULL_CLASSPATH_FOR_DEXING_TRANSFORM(
+        "android.useFullClasspathForDexingTransform",
+        false,
+        ApiStage.Stable
+    ),
+
     /* ------------------
      * SUPPORTED FEATURES
      */
@@ -263,12 +281,6 @@ enum class BooleanOption(
         "android.experimental.androidTest.useUnifiedTestPlatform",
         true,
         FeatureStage.SoftlyEnforced(VERSION_9_0)
-    ),
-
-    ENABLE_DEXING_ARTIFACT_TRANSFORM(
-        "android.enableDexingArtifactTransform",
-        true,
-        FeatureStage.SoftlyEnforced(VERSION_8_3)
     ),
 
     /**
@@ -625,7 +637,7 @@ enum class BooleanOption(
         true,
         FeatureStage.Enforced(
             Version.VERSION_8_2,
-            "If you want to disable dexing in artifact transforms, use ${ENABLE_DEXING_ARTIFACT_TRANSFORM.propertyName} instead."
+            "If you run into issues with dexing transforms, try setting `${USE_FULL_CLASSPATH_FOR_DEXING_TRANSFORM.propertyName} = true` instead."
         )
     ),
 
@@ -633,6 +645,15 @@ enum class BooleanOption(
         "android.enableDexingArtifactTransformForExternalLibs",
         true,
         FeatureStage.Enforced(Version.VERSION_8_2)
+    ),
+
+    ENABLE_DEXING_ARTIFACT_TRANSFORM(
+        "android.enableDexingArtifactTransform",
+        true,
+        FeatureStage.Enforced(
+            Version.VERSION_8_3,
+            "If you run into issues with dexing transforms, try setting `${USE_FULL_CLASSPATH_FOR_DEXING_TRANSFORM.propertyName} = true` instead."
+        )
     ),
 
     /* ----------------

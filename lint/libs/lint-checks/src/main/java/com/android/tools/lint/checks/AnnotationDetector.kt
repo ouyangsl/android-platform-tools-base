@@ -25,6 +25,10 @@ import com.android.SdkConstants.TYPE_DEF_FLAG_ATTRIBUTE
 import com.android.support.AndroidxName
 import com.android.tools.lint.checks.EmptySuperDetector.Companion.EMPTY_SUPER_ANNOTATION
 import com.android.tools.lint.checks.OpenForTestingDetector.Companion.OPEN_FOR_TESTING_ANNOTATION
+import com.android.tools.lint.checks.RestrictToDetector.Companion.VISIBILITY_PRIVATE
+import com.android.tools.lint.checks.RestrictToDetector.Companion.VISIBILITY_PROTECTED
+import com.android.tools.lint.checks.RestrictToDetector.Companion.getVisibility
+import com.android.tools.lint.checks.RestrictToDetector.Companion.getVisibilityNotForTesting
 import com.android.tools.lint.checks.ReturnThisDetector.Companion.RETURN_THIS_ANNOTATION
 import com.android.tools.lint.checks.TypedefDetector.Companion.ATTR_OPEN
 import com.android.tools.lint.checks.TypedefDetector.Companion.findIntDef
@@ -69,12 +73,14 @@ import com.android.tools.lint.detector.api.isKotlin
 import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import com.intellij.psi.PsiArrayType
+import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiCompiledElement
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiLiteral
 import com.intellij.psi.PsiLocalVariable
+import com.intellij.psi.PsiMember
 import com.intellij.psi.PsiModifierListOwner
 import com.intellij.psi.PsiPrimitiveType
 import com.intellij.psi.PsiReferenceExpression
@@ -87,6 +93,7 @@ import org.jetbrains.kotlin.descriptors.annotations.AnnotationUseSiteTarget
 import org.jetbrains.kotlin.psi.KtAnnotationEntry
 import org.jetbrains.kotlin.psi.KtParameter
 import org.jetbrains.kotlin.psi.KtWhenExpression
+import org.jetbrains.kotlin.psi.psiUtil.getParentOfType
 import org.jetbrains.uast.UAnnotated
 import org.jetbrains.uast.UAnnotation
 import org.jetbrains.uast.UBinaryExpressionWithType
@@ -372,7 +379,7 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
           val attributeValue =
             annotation.findDeclaredAttributeValue(ATTR_VALUE)
               ?: annotation.findDeclaredAttributeValue(null)
-                ?: run {
+              ?: run {
                 context.report(
                   ANNOTATION_USAGE,
                   annotation,
@@ -396,6 +403,7 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
         }
         VISIBLE_FOR_TESTING_ANNOTATION.isEquals(type) -> {
           checkConstructorParameter(annotation, type)
+          checkVisibleForTestingAnnotation(annotation)
         }
         REQUIRES_API_ANNOTATION.isEquals(type) -> {
           checkRequiresApi(annotation)
@@ -593,12 +601,34 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
       val attribute = annotation.findDeclaredAttributeValue(name) ?: return null
       return context.getLocation(attribute)
     }
+
     private fun checkRequiresApi(annotation: UAnnotation) {
       if (annotation.attributeValues.isEmpty()) {
         val name = "Specify API level"
         val fix = LintFix.create().name(name).replace().end().with("(TODO)").select("TODO").build()
         val location = context.getLocation(annotation)
         context.report(ANNOTATION_USAGE, annotation, location, "Must specify an API level", fix)
+      }
+    }
+
+    private fun checkVisibleForTestingAnnotation(annotation: UAnnotation) {
+      val parentElement = skipParenthesizedExprUp(annotation.uastParent)?.sourcePsi
+      if (parentElement !is PsiClass) {
+        return
+      }
+      if (parentElement.getParentOfType<PsiClass>(strict = true) != null) {
+        return
+      }
+      val visibility =
+        getVisibilityNotForTesting(annotation, getVisibility(parentElement as PsiMember))
+
+      if (visibility == VISIBILITY_PRIVATE || visibility == VISIBILITY_PROTECTED) {
+        context.report(
+          ANNOTATION_USAGE,
+          annotation,
+          context.getLocation(annotation),
+          "Top level class can't have private or protected access level"
+        )
       }
     }
 
@@ -812,7 +842,8 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
         if (annotation != null) {
           val value =
             annotation.findAttributeValue(ATTR_VALUE)?.skipParenthesizedExprDown()
-              ?: annotation.findAttributeValue(null)?.skipParenthesizedExprDown() ?: return
+              ?: annotation.findAttributeValue(null)?.skipParenthesizedExprDown()
+              ?: return
           if (value.isArrayInitializer()) {
             val open = getAnnotationBooleanValue(annotation, ATTR_OPEN, false)
             if (open) {
@@ -890,7 +921,8 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
     private fun ensureUniqueValues(node: UAnnotation) {
       val value =
         node.findDeclaredAttributeValue(ATTR_VALUE)?.skipParenthesizedExprDown()
-          ?: node.findDeclaredAttributeValue(null)?.skipParenthesizedExprDown() ?: return
+          ?: node.findDeclaredAttributeValue(null)?.skipParenthesizedExprDown()
+          ?: return
 
       if (!value.isArrayInitializer()) {
         return
@@ -999,8 +1031,7 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
           if (resolved !is PsiCompiledElement && resolved is PsiField) {
             val initializer =
               UastFacade.getInitializerBody(resolved)?.skipParenthesizedExprDown()
-                as? ULiteralExpression
-                ?: continue
+                as? ULiteralExpression ?: continue
             val o = initializer.value as? Number ?: continue
             val value = o.toLong()
             // Allow -1, 0 and 1. You can write 1 as "1 << 0" but IntelliJ for
@@ -1088,6 +1119,7 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
       private val fields: MutableList<Any>
       private val seenValues: MutableList<Int?>
       private var reported = false
+
       override fun visitSwitchClauseExpression(node: USwitchClauseExpression): Boolean {
         if (reported) {
           return true
@@ -1114,9 +1146,9 @@ class AnnotationDetector : Detector(), SourceCodeScanner {
           } else if (caseValue is UReferenceExpression) { // default case can have null expression
             var resolved: PsiElement? =
               caseValue.resolve()
-              // If there are compilation issues (e.g. user is editing code) we
-              // can't be certain, so don't flag anything.
-              ?: return true
+                // If there are compilation issues (e.g. user is editing code) we
+                // can't be certain, so don't flag anything.
+                ?: return true
             if (resolved is PsiField) {
               // We can't just do
               //    fields.remove(resolved);
