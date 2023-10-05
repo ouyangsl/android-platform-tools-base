@@ -15,19 +15,24 @@ import com.android.ddmlib.AdbHelper
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.IDevice
 import com.android.ddmlib.IDevice.PROP_DEVICE_DENSITY
+import com.android.fakeadbserver.DeviceFileState
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.devicecommandhandlers.SyncCommandHandler
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.mapNotNull
+import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TemporaryFolder
 import java.nio.file.Files
 import java.nio.file.attribute.FileTime
+import java.nio.file.attribute.PosixFilePermission.OWNER_READ
 import java.util.concurrent.TimeUnit
+import kotlin.io.path.readBytes
 
 class AdblibIDeviceWrapperTest {
 
@@ -37,6 +42,10 @@ class AdblibIDeviceWrapperTest {
         installDefaultCommandHandlers()
         installDeviceHandler(SyncCommandHandler())
     }
+
+    @JvmField
+    @Rule
+    val temporaryFolder = TemporaryFolder()
 
     private val fakeAdb get() = fakeAdbRule.fakeAdb
     private val hostServices get() = fakeAdbRule.adbSession.hostServices
@@ -404,7 +413,7 @@ class AdblibIDeviceWrapperTest {
         )
         val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
         val lastModifiedTimeSec = 878392983L
-        val localFile = Files.createTempFile("sample", ".txt")
+        val localFile = temporaryFolder.newFile("sample.txt").toPath()
         val fileBytes = "some content".toByteArray()
         Files.write(localFile, fileBytes)
         Files.setLastModifiedTime(localFile, FileTime.from(lastModifiedTimeSec, TimeUnit.SECONDS))
@@ -419,6 +428,68 @@ class AdblibIDeviceWrapperTest {
         assertEquals(lastModifiedTimeSec, remoteFile.modifiedDate.toLong())
         assertEquals(RemoteFileMode.fromPath(localFile), RemoteFileMode.fromModeBits(remoteFile.permission))
         assertEquals(fileBytes.toString(Charsets.UTF_8), remoteFile.bytes.toString(Charsets.UTF_8))
+    }
+
+    @Test
+    fun installLegacy() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        val apk = temporaryFolder.newFile("adblib-tools_test.apk").toPath()
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+
+        // Act
+        adblibIDeviceWrapper.installPackage(apk.toAbsolutePath().toString(), false)
+
+        // Assert
+        assertEquals(1, deviceState.pmLogs.size)
+        assertEquals("install  \"/data/local/tmp/${apk.fileName}\"", deviceState.pmLogs[0])
+    }
+
+    @Test
+    fun install() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        val apk = temporaryFolder.newFile("adblib-tools_test.apk")
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+
+        // Act
+        adblibIDeviceWrapper.installPackages(
+            mutableListOf(apk),
+            false,
+            mutableListOf(),
+            0,
+            TimeUnit.SECONDS
+        )
+
+        // Assert
+        assertEquals(3, deviceState.abbLogs.size)
+        assertTrue(deviceState.abbLogs[0].matches(Regex("^package\u0000install-create.*")))
+        assertTrue(deviceState.abbLogs[1].matches(Regex("^package\u0000install-write\u0000.+adblib-tools_test.apk.*")))
+        assertTrue(deviceState.abbLogs[2].matches(Regex("^package\u0000install-commit\u0000.*")))
+    }
+
+    @Test
+    fun pullFile() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val localFile = Files.createTempFile("sample", ".txt")
+        val remoteFilePath = "/sdcard/foo/bar.bin"
+        val fileMode = RemoteFileMode.fromPosixPermissions(OWNER_READ)
+        val bytes = "abcd12345".toByteArray()
+        deviceState.createFile(DeviceFileState("/sdcard/foo/bar.bin", fileMode.modeBits, 0, bytes))
+
+        // Act
+        adblibIDeviceWrapper.pullFile(remoteFilePath, localFile.toAbsolutePath().toString())
+
+        // Assert
+        assertArrayEquals(bytes, localFile.readBytes())
     }
 
     @Test

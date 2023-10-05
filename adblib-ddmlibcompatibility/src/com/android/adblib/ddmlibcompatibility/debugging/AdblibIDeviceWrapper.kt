@@ -29,6 +29,7 @@ import com.android.adblib.deviceInfo
 import com.android.adblib.isOffline
 import com.android.adblib.isOnline
 import com.android.adblib.serialNumber
+import com.android.adblib.syncRecv
 import com.android.adblib.syncSend
 import com.android.adblib.tools.EmulatorCommandException
 import com.android.adblib.tools.defaultAuthTokenPath
@@ -47,7 +48,6 @@ import com.android.ddmlib.IDevice.RE_EMULATOR_SN
 import com.android.ddmlib.IDeviceSharedImpl
 import com.android.ddmlib.IDeviceSharedImpl.INSTALL_TIMEOUT_MINUTES
 import com.android.ddmlib.IShellOutputReceiver
-import com.android.ddmlib.InstallException
 import com.android.ddmlib.InstallMetrics
 import com.android.ddmlib.InstallReceiver
 import com.android.ddmlib.Log
@@ -57,7 +57,6 @@ import com.android.ddmlib.RawImage
 import com.android.ddmlib.ScreenRecorderOptions
 import com.android.ddmlib.ServiceInfo
 import com.android.ddmlib.SimpleConnectedSocket
-import com.android.ddmlib.SplitApkInstaller
 import com.android.ddmlib.SyncException
 import com.android.ddmlib.SyncService
 import com.android.ddmlib.log.LogReceiver
@@ -102,9 +101,6 @@ internal class AdblibIDeviceWrapper(
 
     /** Name and path of the AVD  */
     private val mAvdData = connectedDevice.session.scope.async { createAvdData() }
-
-    /** Information about the most recent installation via this device  */
-    private var lastInstallMetrics: InstallMetrics? = null
 
     override fun getName(): String {
         return iDeviceSharedImpl.name
@@ -343,7 +339,7 @@ internal class AdblibIDeviceWrapper(
     }
 
     override fun getFileListingService(): FileListingService {
-        TODO("Not yet implemented")
+        throw UnsupportedOperationException("This method is not used in Android Studio")
     }
 
     override fun getScreenshot(): RawImage {
@@ -445,37 +441,66 @@ internal class AdblibIDeviceWrapper(
         }
     }
 
-    override fun pullFile(remote: String?, local: String?) {
-        TODO("Not yet implemented")
+    override fun pullFile(remote: String, local: String) {
+        runBlockingLegacy {
+            val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+
+            val localFile = File(local).toPath()
+            Log.d(LOG_TAG, "Pull file from device '$serialNumber': `$remote` -> `$localFile`")
+
+            mapToSyncException {
+                connectedDevice.session.deviceServices.syncRecv(
+                    deviceSelector,
+                    remote,
+                    localFile
+                )
+            }
+        }
     }
 
     override fun installPackage(
-        packageFilePath: String?,
+        packageFilePath: String,
         reinstall: Boolean,
         vararg extraArgs: String?
     ) {
-        TODO("Not yet implemented")
+        // Use default basic installReceiver
+        installPackage(packageFilePath, reinstall, InstallReceiver(), *extraArgs)
     }
 
     override fun installPackage(
-        packageFilePath: String?,
+        packageFilePath: String,
         reinstall: Boolean,
-        receiver: InstallReceiver?,
+        receiver: InstallReceiver,
         vararg extraArgs: String?
     ) {
-        TODO("Not yet implemented")
+        // Use default values for some timeouts.
+        installPackage(
+            packageFilePath,
+            reinstall,
+            receiver,
+            0L,
+            INSTALL_TIMEOUT_MINUTES,
+            TimeUnit.MINUTES,
+            *extraArgs
+        )
     }
 
     override fun installPackage(
-        packageFilePath: String?,
+        packageFilePath: String,
         reinstall: Boolean,
-        receiver: InstallReceiver?,
+        receiver: InstallReceiver,
         maxTimeout: Long,
         maxTimeToOutputResponse: Long,
         maxTimeUnits: TimeUnit?,
         vararg extraArgs: String?
     ) {
-        TODO("Not yet implemented")
+        iDeviceSharedImpl.installPackage(packageFilePath,
+                                         reinstall,
+                                         receiver,
+                                         maxTimeout,
+                                         maxTimeToOutputResponse,
+                                         maxTimeUnits,
+                                         *extraArgs)
     }
 
     override fun installPackages(
@@ -485,14 +510,7 @@ internal class AdblibIDeviceWrapper(
         timeout: Long,
         timeoutUnit: TimeUnit
     ) {
-        lastInstallMetrics = try {
-            SplitApkInstaller.create(this, apks, reinstall, installOptions)
-                .install(timeout, timeoutUnit)
-        } catch (e: InstallException) {
-            throw e
-        } catch (e: Exception) {
-            throw InstallException(e)
-        }
+        iDeviceSharedImpl.installPackages(apks, reinstall, installOptions, timeout, timeoutUnit)
     }
 
     override fun installPackages(
@@ -503,11 +521,14 @@ internal class AdblibIDeviceWrapper(
     }
 
     override fun getLastInstallMetrics(): InstallMetrics? {
-        return lastInstallMetrics
+        return iDeviceSharedImpl.lastInstallMetrics
     }
 
-    override fun syncPackageToDevice(localFilePath: String?): String {
-        TODO("Not yet implemented")
+    override fun syncPackageToDevice(localFilePath: String): String {
+        val packageFileName = File(localFilePath).getName()
+        val remoteFilePath = "/data/local/tmp/$packageFileName"
+        pushFile(localFilePath, remoteFilePath)
+        return remoteFilePath
     }
 
     override fun installRemotePackage(
@@ -528,19 +549,27 @@ internal class AdblibIDeviceWrapper(
     }
 
     override fun installRemotePackage(
-        remoteFilePath: String?,
+        remoteFilePath: String,
         reinstall: Boolean,
-        receiver: InstallReceiver?,
+        receiver: InstallReceiver,
         maxTimeout: Long,
         maxTimeToOutputResponse: Long,
-        maxTimeUnits: TimeUnit?,
+        maxTimeUnits: TimeUnit,
         vararg extraArgs: String?
     ) {
-        TODO("Not yet implemented")
+        iDeviceSharedImpl.installRemotePackage(
+            remoteFilePath,
+            reinstall,
+            receiver,
+            maxTimeout,
+            maxTimeToOutputResponse,
+            maxTimeUnits,
+            *extraArgs
+        )
     }
 
     override fun removeRemotePackage(remoteFilePath: String?) {
-        TODO("Not yet implemented")
+        iDeviceSharedImpl.removeRemotePackage(remoteFilePath)
     }
 
     override fun uninstallPackage(packageName: String?): String {

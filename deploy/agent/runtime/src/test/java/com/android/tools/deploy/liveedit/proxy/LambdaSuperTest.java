@@ -62,7 +62,7 @@ public class LambdaSuperTest {
     }
 
     @Test
-    @Ignore // 263813997
+    @Ignore("b/263813997") // 263813997
     public void testSuspend() throws Exception {
         int actual = LambdasKt.testSuspend();
         Assert.assertEquals(
@@ -78,7 +78,7 @@ public class LambdaSuperTest {
     }
 
     @Test
-    @Ignore // 263813997
+    @Ignore("b/263813997") // 263813997
     public void testAsyncAwait() throws Exception {
         int actual = LambdasKt.testAsyncAwait();
         Assert.assertEquals(
@@ -90,5 +90,13 @@ public class LambdaSuperTest {
         int actual = LambdasKt.testLaunchJoin();
         Assert.assertEquals(
                 actual, LiveEditStubs.stubI(TEST_CLASS, "testLaunchJoin", "()I", new Object[2]));
+    }
+
+    @Test
+    public void testFunctionReference() throws Exception {
+        int expected = LambdasKt.testFunctionReference();
+        Assert.assertEquals(
+                expected,
+                LiveEditStubs.stubI(TEST_CLASS, "testFunctionReference", "()I", new Object[2]));
     }
 }
