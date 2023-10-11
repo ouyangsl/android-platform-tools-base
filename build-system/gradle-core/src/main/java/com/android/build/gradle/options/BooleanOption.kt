@@ -91,6 +91,16 @@ enum class BooleanOption(
     USE_NON_FINAL_RES_IDS("android.nonFinalResIds", true, ApiStage.Stable),
     NON_TRANSITIVE_R_CLASS("android.nonTransitiveRClass", true, ApiStage.Stable),
 
+    /**
+     * Setting this field to false indicates that in the current
+     * project, all the APKs installed during test will be uninstalled
+     * after test finishes. Setting it to true means that the AGP
+     * will leave the test APKs untouched after test.
+     *
+     * Default is false
+     */
+    ANDROID_TEST_LEAVE_APKS_INSTALLED_AFTER_RUN("android.injected.androidTest.leaveApksInstalledAfterRun", false, ApiStage.Stable),
+
     /* ------------------
      * SUPPORTED FEATURES
      */
