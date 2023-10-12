@@ -264,6 +264,7 @@ maven_repository(
         "@maven//:androidx.appcompat.appcompat_1.3.0-beta01",
         "@maven//:androidx.lifecycle.lifecycle-livedata-ktx_2.2.0",
         "@maven//:androidx.lifecycle.lifecycle-common-java8_2.4.0",
+        "@maven//:org.junit.junit-bom_5.9.3",
     ],
     visibility = ["//prebuilts/studio/buildbenchmarks:__subpackages__"],
 )
@@ -367,6 +368,7 @@ maven_repository(
         "//tools/base/utp/android-test-plugin-host-logcat-proto",
         "//tools/base/utp/android-test-plugin-host-retention-proto",
         "//tools/base/utp/android-test-plugin-result-listener-gradle-proto",
+        "//tools/base/utp/common",
         "//tools/base/zipflinger",
         "//tools/data-binding:tools.baseLibrary",
         "//tools/data-binding:tools.baseLibrarySupport",
@@ -382,7 +384,7 @@ maven_repository(
         "@maven//:com.google.guava.guava_23.0",
         "@maven//:com.google.jimfs.jimfs",
         "@maven//:com.google.protobuf.protobuf-gradle-plugin",
-        "@maven//:com.google.protobuf.protoc_3.19.3",
+        "@maven//:com.google.protobuf.protoc_3.19.6",
         "@maven//:com.google.testing.platform.core-proto",
         "@maven//:com.google.truth.extensions.truth-java8-extension",
         "@maven//:com.googlecode.jarjar.jarjar",
@@ -420,6 +422,7 @@ maven_repository(
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",
         "@maven//:org.jetbrains.kotlin.kotlin-test",
         "@maven//:org.jetbrains.markdown",
+        "@maven//:org.junit.junit-bom_5.9.3",
         "@maven//:org.mockito.mockito-core",
         "@maven//:org.tensorflow.tensorflow-lite-metadata",
         "@maven//:xerces.xercesImpl",
@@ -488,6 +491,7 @@ maven_repository(
     name = "metalava_tool",
     artifacts = [
         "@maven//:com.android.tools.metalava.metalava_1.0.0-alpha09",
+        "@maven//:com.google.protobuf.protobuf-bom_3.19.3",
     ],
 )
 
