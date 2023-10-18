@@ -37,7 +37,6 @@ import com.android.testutils.truth.ZipFileSubject
 import com.android.utils.FileUtils
 import com.google.common.collect.ImmutableList
 import com.google.common.truth.Truth.assertThat
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -201,7 +200,7 @@ class PrivacySandboxSdkTest {
     @Test
     fun testDexing() {
         val dexLocation = project.getSubproject(":privacy-sandbox-sdk")
-                .getIntermediateFile("dex", "single", "classes.dex")
+                .getIntermediateFile("dex", "single", "mergeDex", "classes.dex")
 
         executor().run(":privacy-sandbox-sdk:mergeDex")
 
@@ -243,7 +242,7 @@ class PrivacySandboxSdkTest {
         executor().run(":privacy-sandbox-sdk:assemble")
         val asbManifest =
                 project.getSubproject(":privacy-sandbox-sdk")
-                        .getIntermediateFile("merged_manifest", "single", "AndroidManifest.xml")
+                        .getIntermediateFile("merged_manifest", "single", "mergeManifest", "AndroidManifest.xml")
         assertThat(asbManifest).hasContents(
                 """
             <?xml version="1.0" encoding="utf-8"?>
@@ -329,7 +328,6 @@ class PrivacySandboxSdkTest {
         }
     }
 
-    @Ignore("b/304516211")
     @Test
     fun testConsumption() {
         // TODO(b/235469089) expand this to verify installation also
@@ -355,6 +353,7 @@ class PrivacySandboxSdkTest {
         val privacySandboxSdkApk = project.getSubproject(":example-app")
                 .getIntermediateFile("extracted_apks_from_privacy_sandbox_sdks",
                         "debug",
+                        "buildPrivacySandboxSdkApksForDebug",
                         "privacy-sandbox-sdk",
                         "standalone.apk")
 
@@ -366,17 +365,17 @@ class PrivacySandboxSdkTest {
             assertThat(rPackageDex.classes.keys).containsExactly("Lcom/example/privacysandboxsdk/RPackage;")
         }
 
-        // Check building the bundle to deploy to TiramisuPrivacySandbox
+        // Check building the bundle to deploy to UpsideDownCake
         val apkSelectConfig = project.file("apkSelectConfig.json")
         apkSelectConfig.writeText(
-                """{"sdk_version":32,"codename":"TiramisuPrivacySandbox","screen_density":420,"supported_abis":["x86_64","arm64-v8a"],"supported_locales":["en"]}""")
+                """{"sdk_version":34,"screen_density":420,"supported_abis":["x86_64","arm64-v8a"],"supported_locales":["en"]}""")
 
         executor()
                 .with(StringOption.IDE_APK_SELECT_CONFIG, apkSelectConfig.absolutePath)
                 .run(":example-app:extractApksFromBundleForDebug")
 
         val extractedApks = project.getSubproject(":example-app")
-                .getIntermediateFile("extracted_apks", "debug")
+                .getIntermediateFile("extracted_apks", "debug", "extractApksFromBundleForDebug")
                 .toPath()
         val baseMaster2Apk = extractedApks.resolve("base-master_2.apk")
         val baseMaster3Apk = extractedApks.resolve("base-master_3.apk")
@@ -410,7 +409,7 @@ class PrivacySandboxSdkTest {
 
         // Check building the bundle to deploy to a non-privacy sandbox device:
         apkSelectConfig.writeText(
-                """{"sdk_version":32,"codename":"Tiramisu","screen_density":420,"supported_abis":["x86_64","arm64-v8a"],"supported_locales":["en"]}""")
+                """{"sdk_version":32,"codename":"TiramisuPrivacySandbox","screen_density":420,"supported_abis":["x86_64","arm64-v8a"],"supported_locales":["en"]}""")
 
         executor()
                 .with(StringOption.IDE_APK_SELECT_CONFIG, apkSelectConfig.absolutePath)
@@ -440,14 +439,7 @@ class PrivacySandboxSdkTest {
                 .getApk(GradleTestProject.ApkType.DEBUG).file).use {
             assertThat(it).exists()
             val manifestContent = ApkSubject.getManifestContent(it.file)
-            assertThat(manifestContent).containsAtLeastElementsIn(
-                    listOf(
-                            "          E: uses-sdk-library (line=22)",
-                            "            A: http://schemas.android.com/apk/res/android:name(0x01010003)=\"com.example.privacysandboxsdk\" (Raw: \"com.example.privacysandboxsdk\")",
-                            "            A: http://schemas.android.com/apk/res/android:certDigest(0x01010548)=\"$certDigest\" (Raw: \"$certDigest\")",
-                            "            A: http://schemas.android.com/apk/res/android:versionMajor(0x01010577)=10002"
-                    )
-            )
+            assertThat(manifestContent.toString()).doesNotContain("uses-sdk-library")
 
             // This asset must only be packaged in non-sandbox capable devices, otherwise it may
             // cause runtime exceptions on supported privacy sandbox platforms.

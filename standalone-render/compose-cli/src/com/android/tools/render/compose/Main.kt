@@ -19,48 +19,25 @@ package com.android.tools.render.compose
 import com.android.tools.preview.applyTo
 import com.android.tools.preview.resolve
 import com.android.tools.render.RenderRequest
-import com.android.tools.render.compose.agp.obtainPreviewsAndSerialize
-import com.android.tools.render.compose.rubish.RenderDependencies.Companion.readFromDump
 import com.android.tools.render.render
-import java.io.File
+import javax.imageio.ImageIO
+import kotlin.io.path.Path
 
 fun main(args: Array<String>) {
-    // This is to be removed completely once AGP starts producing Json with the correct format
-    val settingsPath = if (args.isEmpty()) "rendering_settings.txt" else args[0]
-    val renderSettings = File(settingsPath).readLines().map { it.split(":") }.associate { it[0] to it[1] }
-    val layoutlibPath = renderSettings["layoutlib"]!!
-    val sdkPath = renderSettings["sdk"]!!
-    val outputFolder = renderSettings["output"]!!
+    if (args.isEmpty()) {
+        println("Path to the Compose rendering settings file is missing.")
+        return
+    }
 
-    val renderDeps = readFromDump(renderSettings["dependencies"]!!)
+    val composeRendering = readComposeRenderingJson(args[0])
 
-    val classPath = renderDeps.classesJars + listOf(renderDeps.mainClasses)
-    val packageName = renderDeps.packageName
-    val resourceApkPath = renderDeps.resourcesApk
-
-    val inputJsonFile = "json.txt"
-
-    // This should be moved to the AGP
-    obtainPreviewsAndSerialize(
-        classPath,
-        sdkPath,
-        layoutlibPath,
-        outputFolder,
-        packageName,
-        resourceApkPath,
-        inputJsonFile
-    )
-
-    // This is the first thing we should actually do in the compose-cli
-    val composeRendering = readComposeRenderingJson(inputJsonFile)
-
-    val renderRequests = composeRendering.screenshots.mapNotNull { screenshot ->
+    val requestToImageName = composeRendering.screenshots.mapNotNull { screenshot ->
         screenshot.toPreviewElement()?.let { previewElement ->
-            RenderRequest(previewElement::applyTo, screenshot.imageName) {
+            RenderRequest(previewElement::applyTo) {
                 previewElement.resolve().map { it.toPreviewXml().buildString() }
-            }
+            } to screenshot.imageName
         }
-    }.asSequence()
+    }.toMap()
 
     render(
         composeRendering.sdkPath,
@@ -68,7 +45,14 @@ fun main(args: Array<String>) {
         composeRendering.packageName,
         composeRendering.classPath,
         composeRendering.layoutlibPath,
-        renderRequests,
-        composeRendering.outputFolder,
-    )
+        requestToImageName.keys.asSequence(),
+    ) { request, i, result  ->
+        val image = result.renderedImage.copy!!
+
+        val imgFile =
+            Path(composeRendering.outputFolder).resolve("${requestToImageName[request]}_$i.png").toFile()
+
+        imgFile.createNewFile()
+        ImageIO.write(image, "png", imgFile)
+    }
 }
