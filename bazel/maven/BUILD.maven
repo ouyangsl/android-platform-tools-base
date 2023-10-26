@@ -562,12 +562,14 @@ maven_import(
     jars = [
         "repository/com/fasterxml/jackson/dataformat/jackson-dataformat-xml/2.11.1/jackson-dataformat-xml-2.11.1.jar"
     ],
+    exports = [
+        "org.codehaus.woodstox.stax2-api",
+    ],
     deps = [
         "com.fasterxml.jackson.core.jackson-core",
         "com.fasterxml.jackson.core.jackson-annotations",
         "com.fasterxml.jackson.core.jackson-databind",
         "com.fasterxml.jackson.module.jackson-module-jaxb-annotations",
-        "org.codehaus.woodstox.stax2-api",
         "com.fasterxml.woodstox.woodstox-core",
     ],
     original_deps = [
@@ -692,6 +694,37 @@ maven_import(
     pom = "repository/com/fasterxml/woodstox/woodstox-core/6.2.1/woodstox-core-6.2.1.pom",
     repo_root_path = "repository",
     repo_path = "com/fasterxml/woodstox/woodstox-core/6.2.1",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.fasterxml.aalto-xml_1.3.0",
+    pom = "repository/com/fasterxml/aalto-xml/1.3.0/aalto-xml-1.3.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/fasterxml/aalto-xml/1.3.0",
+    parent = "com.fasterxml.oss-parent_41",
+    deps = [
+        "org.codehaus.woodstox.stax2-api_4.2",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_import(
+    name = "com.fasterxml.aalto-xml",
+    classifiers = [],
+    parent = "com.fasterxml.oss-parent_41",
+    jars = [
+        "repository/com/fasterxml/aalto-xml/1.3.0/aalto-xml-1.3.0.jar"
+    ],
+    exports = [
+        "org.codehaus.woodstox.stax2-api",
+    ],
+    original_deps = [
+        "org.codehaus.woodstox.stax2-api_4.2",
+    ],
+    pom = "repository/com/fasterxml/aalto-xml/1.3.0/aalto-xml-1.3.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/fasterxml/aalto-xml/1.3.0",
     visibility = ["//visibility:public"],
 )
 
@@ -2136,10 +2169,10 @@ maven_import(
 )
 
 maven_artifact(
-    name = "com.google.testing.platform.android-driver-instrumentation_0.0.8-alpha07",
-    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07/android-driver-instrumentation-0.0.8-alpha07.pom",
+    name = "com.google.testing.platform.android-driver-instrumentation_0.0.9-alpha01",
+    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07",
+    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01",
     visibility = ["//visibility:public"],
 )
 
@@ -2147,12 +2180,12 @@ maven_import(
     name = "com.google.testing.platform.android-driver-instrumentation",
     classifiers = [],
     jars = [
-        "repository/com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07/android-driver-instrumentation-0.0.8-alpha07.jar"
+        "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.jar"
     ],
     original_deps = [],
-    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07/android-driver-instrumentation-0.0.8-alpha07.pom",
+    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.8-alpha07",
+    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01",
     visibility = ["//visibility:public"],
 )
 
@@ -7923,10 +7956,10 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.gradle.gradle-tooling-api_8.4-rc-2",
-    pom = "repository/org/gradle/gradle-tooling-api/8.4-rc-2/gradle-tooling-api-8.4-rc-2.pom",
+    name = "org.gradle.gradle-tooling-api_8.4",
+    pom = "repository/org/gradle/gradle-tooling-api/8.4/gradle-tooling-api-8.4.pom",
     repo_root_path = "repository",
-    repo_path = "org/gradle/gradle-tooling-api/8.4-rc-2",
+    repo_path = "org/gradle/gradle-tooling-api/8.4",
     deps = [
         "org.slf4j.slf4j-api_1.7.30",
     ],
@@ -7937,7 +7970,7 @@ maven_import(
     name = "org.gradle.gradle-tooling-api",
     classifiers = [],
     jars = [
-        "repository/org/gradle/gradle-tooling-api/8.4-rc-2/gradle-tooling-api-8.4-rc-2.jar"
+        "repository/org/gradle/gradle-tooling-api/8.4/gradle-tooling-api-8.4.jar"
     ],
     exports = [
         "org.slf4j.slf4j-api",
@@ -7945,9 +7978,9 @@ maven_import(
     original_deps = [
         "org.slf4j.slf4j-api_1.7.30",
     ],
-    pom = "repository/org/gradle/gradle-tooling-api/8.4-rc-2/gradle-tooling-api-8.4-rc-2.pom",
+    pom = "repository/org/gradle/gradle-tooling-api/8.4/gradle-tooling-api-8.4.pom",
     repo_root_path = "repository",
-    repo_path = "org/gradle/gradle-tooling-api/8.4-rc-2",
+    repo_path = "org/gradle/gradle-tooling-api/8.4",
     visibility = ["//visibility:public"],
 )
 
@@ -18467,6 +18500,24 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.fragment.fragment-ktx_1.5.6",
+    pom = "repository/androidx/fragment/fragment-ktx/1.5.6/fragment-ktx-1.5.6.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/fragment/fragment-ktx/1.5.6",
+    deps = [
+        "androidx.activity.activity-ktx_1.5.1",
+        "androidx.collection.collection-ktx_1.1.0",
+        "androidx.core.core-ktx_1.2.0",
+        "androidx.fragment.fragment_1.5.6",
+        "androidx.lifecycle.lifecycle-livedata-core-ktx_2.5.1",
+        "androidx.lifecycle.lifecycle-viewmodel-ktx_2.5.1",
+        "androidx.savedstate.savedstate-ktx_1.2.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.6.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.fragment.fragment_1.0.0",
     pom = "repository/androidx/fragment/fragment/1.0.0/fragment-1.0.0.pom",
     repo_root_path = "repository",
@@ -18649,6 +18700,28 @@ maven_artifact(
     pom = "repository/androidx/fragment/fragment/1.5.4/fragment-1.5.4.pom",
     repo_root_path = "repository",
     repo_path = "androidx/fragment/fragment/1.5.4",
+    deps = [
+        "androidx.activity.activity_1.5.1",
+        "androidx.annotation.annotation_1.1.0",
+        "androidx.annotation.annotation-experimental_1.0.0",
+        "androidx.collection.collection_1.1.0",
+        "androidx.core.core-ktx_1.2.0",
+        "androidx.lifecycle.lifecycle-livedata-core_2.5.1",
+        "androidx.lifecycle.lifecycle-viewmodel_2.5.1",
+        "androidx.lifecycle.lifecycle-viewmodel-savedstate_2.5.1",
+        "androidx.loader.loader_1.0.0",
+        "androidx.savedstate.savedstate_1.2.0",
+        "androidx.viewpager.viewpager_1.0.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.6.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.fragment.fragment_1.5.6",
+    pom = "repository/androidx/fragment/fragment/1.5.6/fragment-1.5.6.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/fragment/fragment/1.5.6",
     deps = [
         "androidx.activity.activity_1.5.1",
         "androidx.annotation.annotation_1.1.0",
@@ -40240,17 +40313,6 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "com.google.devtools.ksp.com.google.devtools.ksp.gradle.plugin_1.9.20-Beta-1.0.13",
-    pom = "repository/com/google/devtools/ksp/com.google.devtools.ksp.gradle.plugin/1.9.20-Beta-1.0.13/com.google.devtools.ksp.gradle.plugin-1.9.20-Beta-1.0.13.pom",
-    repo_root_path = "repository",
-    repo_path = "com/google/devtools/ksp/com.google.devtools.ksp.gradle.plugin/1.9.20-Beta-1.0.13",
-    deps = [
-        "com.google.devtools.ksp.symbol-processing-gradle-plugin_1.9.20-Beta-1.0.13",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
     name = "com.google.devtools.ksp.symbol-processing-api_1.5.30-1.0.0",
     pom = "repository/com/google/devtools/ksp/symbol-processing-api/1.5.30-1.0.0/symbol-processing-api-1.5.30-1.0.0.pom",
     repo_root_path = "repository",
@@ -40301,17 +40363,6 @@ maven_artifact(
     repo_path = "com/google/devtools/ksp/symbol-processing-api/1.9.0-1.0.11",
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.9.0",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "com.google.devtools.ksp.symbol-processing-api_1.9.20-Beta-1.0.13",
-    pom = "repository/com/google/devtools/ksp/symbol-processing-api/1.9.20-Beta-1.0.13/symbol-processing-api-1.9.20-Beta-1.0.13.pom",
-    repo_root_path = "repository",
-    repo_path = "com/google/devtools/ksp/symbol-processing-api/1.9.20-Beta-1.0.13",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.20-Beta",
     ],
     visibility = ["//visibility:public"],
 )
@@ -40369,17 +40420,6 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "com.google.devtools.ksp.symbol-processing-gradle-plugin_1.9.20-Beta-1.0.13",
-    pom = "repository/com/google/devtools/ksp/symbol-processing-gradle-plugin/1.9.20-Beta-1.0.13/symbol-processing-gradle-plugin-1.9.20-Beta-1.0.13.pom",
-    repo_root_path = "repository",
-    repo_path = "com/google/devtools/ksp/symbol-processing-gradle-plugin/1.9.20-Beta-1.0.13",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.0",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
     name = "com.google.devtools.ksp.symbol-processing_1.7.10-1.0.6",
     pom = "repository/com/google/devtools/ksp/symbol-processing/1.7.10-1.0.6/symbol-processing-1.7.10-1.0.6.pom",
     repo_root_path = "repository",
@@ -40414,18 +40454,6 @@ maven_artifact(
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
         "org.jetbrains.kotlin.kotlin-compiler-embeddable_1.8.21",
         "com.google.devtools.ksp.symbol-processing-api_1.8.21-1.0.11",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "com.google.devtools.ksp.symbol-processing_1.9.20-Beta-1.0.13",
-    pom = "repository/com/google/devtools/ksp/symbol-processing/1.9.20-Beta-1.0.13/symbol-processing-1.9.20-Beta-1.0.13.pom",
-    repo_root_path = "repository",
-    repo_path = "com/google/devtools/ksp/symbol-processing/1.9.20-Beta-1.0.13",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.20-Beta",
-        "com.google.devtools.ksp.symbol-processing-api_1.9.20-Beta-1.0.13",
     ],
     visibility = ["//visibility:public"],
 )
@@ -41548,14 +41576,6 @@ maven_artifact(
     pom = "repository/com/google/testing/platform/android-device-provider-local/0.0.8-alpha07/android-device-provider-local-0.0.8-alpha07.pom",
     repo_root_path = "repository",
     repo_path = "com/google/testing/platform/android-device-provider-local/0.0.8-alpha07",
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "com.google.testing.platform.android-driver-instrumentation_0.0.9-alpha01",
-    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.pom",
-    repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01",
     visibility = ["//visibility:public"],
 )
 
@@ -44299,6 +44319,15 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.codehaus.woodstox.stax2-api_4.2",
+    pom = "repository/org/codehaus/woodstox/stax2-api/4.2/stax2-api-4.2.pom",
+    repo_root_path = "repository",
+    repo_path = "org/codehaus/woodstox/stax2-api/4.2",
+    parent = "com.fasterxml.oss-parent_35",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.eclipse.jdt.core.compiler.ecj_4.4.2",
     pom = "repository/org/eclipse/jdt/core/compiler/ecj/4.4.2/ecj-4.4.2.pom",
     repo_root_path = "repository",
@@ -45068,12 +45097,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.android.org.jetbrains.kotlin.android.gradle.plugin_1.9.20-Beta",
-    pom = "repository/org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/1.9.20-Beta/org.jetbrains.kotlin.android.gradle.plugin-1.9.20-Beta.pom",
+    name = "org.jetbrains.kotlin.android.org.jetbrains.kotlin.android.gradle.plugin_1.9.20-RC",
+    pom = "repository/org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/1.9.20-RC/org.jetbrains.kotlin.android.gradle.plugin-1.9.20-RC.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/1.9.20-Beta",
+    repo_path = "org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/1.9.20-RC",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.20-Beta",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.20-RC",
     ],
     visibility = ["//visibility:public"],
 )
@@ -45167,23 +45196,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kapt.org.jetbrains.kotlin.kapt.gradle.plugin_1.9.0",
-    pom = "repository/org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/1.9.0/org.jetbrains.kotlin.kapt.gradle.plugin-1.9.0.pom",
+    name = "org.jetbrains.kotlin.kapt.org.jetbrains.kotlin.kapt.gradle.plugin_1.9.20-RC",
+    pom = "repository/org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/1.9.20-RC/org.jetbrains.kotlin.kapt.gradle.plugin-1.9.20-RC.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/1.9.0",
+    repo_path = "org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/1.9.20-RC",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.0",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "org.jetbrains.kotlin.kapt.org.jetbrains.kotlin.kapt.gradle.plugin_1.9.20-Beta",
-    pom = "repository/org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/1.9.20-Beta/org.jetbrains.kotlin.kapt.gradle.plugin-1.9.20-Beta.pom",
-    repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/1.9.20-Beta",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.20-Beta",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.20-RC",
     ],
     visibility = ["//visibility:public"],
 )
@@ -45740,10 +45758,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-annotation-processing-gradle_1.9.20-Beta",
-    pom = "repository/org/jetbrains/kotlin/kotlin-annotation-processing-gradle/1.9.20-Beta/kotlin-annotation-processing-gradle-1.9.20-Beta.pom",
+    name = "org.jetbrains.kotlin.kotlin-annotation-processing-gradle_1.9.20-RC",
+    pom = "repository/org/jetbrains/kotlin/kotlin-annotation-processing-gradle/1.9.20-RC/kotlin-annotation-processing-gradle-1.9.20-RC.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-annotation-processing-gradle/1.9.20-Beta",
+    repo_path = "org/jetbrains/kotlin/kotlin-annotation-processing-gradle/1.9.20-RC",
     visibility = ["//visibility:public"],
 )
 
@@ -53099,6 +53117,13 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.fasterxml.oss-parent_35",
+    pom = "repository/com/fasterxml/oss-parent/35/oss-parent-35.pom",
+    repo_root_path = "repository",
+    repo_path = "com/fasterxml/oss-parent/35",
+)
+
+maven_artifact(
     name = "com.fasterxml.oss-parent_38",
     pom = "repository/com/fasterxml/oss-parent/38/oss-parent-38.pom",
     repo_root_path = "repository",
@@ -53110,6 +53135,13 @@ maven_artifact(
     pom = "repository/com/fasterxml/oss-parent/4/oss-parent-4.pom",
     repo_root_path = "repository",
     repo_path = "com/fasterxml/oss-parent/4",
+)
+
+maven_artifact(
+    name = "com.fasterxml.oss-parent_41",
+    pom = "repository/com/fasterxml/oss-parent/41/oss-parent-41.pom",
+    repo_root_path = "repository",
+    repo_path = "com/fasterxml/oss-parent/41",
 )
 
 maven_artifact(

@@ -814,6 +814,107 @@ class DataFlowAnalyzerTest : TestCase() {
       .expectClean()
   }
 
+  fun testMethodReferences() {
+    lint()
+      .files(
+        kotlin(
+            """
+            import android.content.Context
+            import android.widget.Toast
+
+            fun test1(context: Context, s: Int, d: Int) {
+                val toast = Toast.makeText(context, s, d) // OK 1
+                val handle = Toast::show
+                handle(toast)
+            }
+
+            fun test2(context: Context, s: Int, d: Int) {
+                val toast = Toast.makeText(context, s, d) // OK 2
+                val handle = toast::show
+                handle()
+            }
+
+            private fun display(toast: Toast) {
+                toast.show()
+            }
+
+            fun test3(context: Context, s: Int, d: Int) {
+                val toast = Toast.makeText(context, s, d) // OK 3
+                toast.let(::display) // escapes
+            }
+            """
+          )
+          .indented()
+      )
+      .issues(ToastDetector.ISSUE)
+      .run()
+      .expectClean()
+  }
+
+  fun testElvis() {
+    lint()
+      .files(
+        kotlin(
+            """
+            @file:Suppress("unused")
+
+            package test.pkg
+
+            import android.content.Context
+            import android.widget.Toast
+
+            fun elvis(context: Context, backup: Toast?) {
+                val toast = backup ?: Toast.makeText(context, "message", Toast.LENGTH_LONG)
+                toast.show()
+            }
+
+            fun elvis2(context: Context, backup: Toast?) {
+                val newToast = Toast.makeText(context, "message", Toast.LENGTH_LONG)
+                val toast = backup ?: newToast
+                toast.show()
+            }
+
+            fun ifElse(context: Context, backup: Toast?) {
+                val toast = if (backup != null) backup else Toast.makeText(context, "message", Toast.LENGTH_LONG)
+                toast.show()
+            }
+            """
+          )
+          .indented()
+      )
+      .issues(ToastDetector.ISSUE)
+      .run()
+      .expectClean()
+  }
+
+  fun testDoubleBang() {
+    lint()
+      .files(
+        kotlin(
+            """
+            @file:Suppress("unused")
+
+            package test.pkg
+
+            import android.content.Context
+            import android.widget.Toast
+
+            fun doubleBang(context: Context, backup: Toast?) {
+                val toast: Toast? = Toast.makeText(context, "message", Toast.LENGTH_LONG)
+                try {
+                } finally {
+                    toast!!.show()
+                }
+            }
+            """
+          )
+          .indented()
+      )
+      .issues(ToastDetector.ISSUE)
+      .run()
+      .expectClean()
+  }
+
   fun testArgumentCalls() {
     // Make sure we visit the registerReceiver call exactly once
     val parsed =

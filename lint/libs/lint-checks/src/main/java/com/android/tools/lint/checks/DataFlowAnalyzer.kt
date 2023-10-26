@@ -35,9 +35,12 @@ import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiParameter
 import com.intellij.psi.PsiPrimitiveType
 import com.intellij.psi.PsiVariable
+import org.jetbrains.kotlin.asJava.unwrapped
 import org.jetbrains.kotlin.psi.KtCallableReferenceExpression
 import org.jetbrains.kotlin.psi.KtConstructor
+import org.jetbrains.kotlin.psi.KtNamedFunction
 import org.jetbrains.kotlin.psi.KtSecondaryConstructor
+import org.jetbrains.kotlin.psi.psiUtil.isExtensionDeclaration
 import org.jetbrains.uast.UArrayAccessExpression
 import org.jetbrains.uast.UBinaryExpression
 import org.jetbrains.uast.UBinaryExpressionWithType
@@ -47,6 +50,7 @@ import org.jetbrains.uast.UCallableReferenceExpression
 import org.jetbrains.uast.UDeclarationsExpression
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UExpression
+import org.jetbrains.uast.UExpressionList
 import org.jetbrains.uast.UField
 import org.jetbrains.uast.UIfExpression
 import org.jetbrains.uast.ULabeledExpression
@@ -70,6 +74,7 @@ import org.jetbrains.uast.UYieldExpression
 import org.jetbrains.uast.getParentOfType
 import org.jetbrains.uast.getQualifiedParentOrThis
 import org.jetbrains.uast.kotlin.KotlinPostfixOperators
+import org.jetbrains.uast.kotlin.kinds.KotlinSpecialExpressionKinds
 import org.jetbrains.uast.skipParenthesizedExprDown
 import org.jetbrains.uast.skipParenthesizedExprUp
 import org.jetbrains.uast.toUElement
@@ -104,7 +109,12 @@ abstract class DataFlowAnalyzer(
   /** The instance being tracked is being stored into an array. */
   open fun array(array: UArrayAccessExpression) {}
 
-  /** The instance being tracked is being passed in a method call. */
+  /**
+   * The instance being tracked is being passed in a method call, where [call] is the method call
+   * node, and the [reference] is the argument to the call which is passing the tracked instance.
+   * (In some cases, it can also be a [UCallableReferenceExpression] where the method reference is
+   * invoked in this call and the reference has captured one of the tracked instances.)
+   */
   open fun argument(call: UCallExpression, reference: UElement) {}
 
   /** Whether there were one or more resolve failures */
@@ -338,6 +348,29 @@ abstract class DataFlowAnalyzer(
       if (lambda != null) {
         handleLambdaSuffix(lambda, node)
       }
+
+      if (isScopingIt(node)) {
+        val arguments = node.valueArguments
+        if (arguments.size == 1) {
+          val arg = arguments[0]
+          if (arg is UCallableReferenceExpression && arg.qualifierExpression == null) {
+            // target.let(::method) -> here target is being passed as a parameter to the method
+            argument(node, receiver ?: arg)
+          }
+        }
+      }
+
+      val resolved = node.resolve()
+      if (resolved != null) {
+        val unwrapped = resolved.unwrapped
+        if (unwrapped is KtNamedFunction) {
+          if (unwrapped.isExtensionDeclaration()) {
+            // The value is really escaping into an extension function.
+            // (TODO: Consider flowing into the method and looking?)
+            argument(node, receiver ?: node)
+          }
+        }
+      }
     }
     return super.visitCallExpression(node)
   }
@@ -360,6 +393,22 @@ abstract class DataFlowAnalyzer(
     }
 
     super.afterVisitCallExpression(node)
+  }
+
+  override fun afterVisitExpressionList(node: UExpressionList) {
+    @Suppress("UnstableApiUsage")
+    if (node.kind == KotlinSpecialExpressionKinds.ELVIS) {
+      for (expression in node.expressions) {
+        if (instances.contains(expression)) {
+          track(node, expression)
+        } else if (
+          expression is UReferenceExpression && references.contains(expression.resolve())
+        ) {
+          track(node, expression)
+        }
+      }
+    }
+    super.afterVisitExpressionList(node)
   }
 
   override fun visitCallableReferenceExpression(node: UCallableReferenceExpression): Boolean {
@@ -546,6 +595,11 @@ abstract class DataFlowAnalyzer(
       val element = node.operand
       if (instances.contains(element)) {
         track(node, element)
+      } else if (element is UReferenceExpression) {
+        val resolved = element.resolve()
+        if (references.contains(resolved)) {
+          track(node, element)
+        }
       }
     }
 

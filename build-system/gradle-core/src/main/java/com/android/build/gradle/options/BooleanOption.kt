@@ -136,6 +136,7 @@ enum class BooleanOption(
     // FIXME switch to false once we know we don't use these getters internally.
     ENABLE_LEGACY_API("android.compatibility.enableLegacyApi", true, FeatureStage.Supported),
     FULL_R8("android.enableR8.fullMode", true, FeatureStage.Supported),
+    PRINT_LINT_STACK_TRACE("android.lint.printStackTrace", false, FeatureStage.Supported),
 
     /* ---------------------
      * EXPERIMENTAL FEATURES
@@ -154,7 +155,6 @@ enum class BooleanOption(
     CONDITIONAL_KEEP_RULES("android.useConditionalKeepRules", false, FeatureStage.Experimental),
     KEEP_SERVICES_BETWEEN_BUILDS("android.keepWorkerActionServicesBetweenBuilds", false, FeatureStage.Experimental),
     ENABLE_PARTIAL_R_INCREMENTAL_BUILDS("android.enablePartialRIncrementalBuilds", false, FeatureStage.Experimental),
-    ENABLE_NEW_RESOURCE_SHRINKER_PRECISE("android.experimental.enableNewResourceShrinker.preciseShrinking", false, FeatureStage.Experimental),
     ENABLE_LOCAL_TESTING("android.bundletool.enableLocalTesting", false, FeatureStage.Experimental),
     DISABLE_MINSDKLIBRARY_CHECK("android.unsafe.disable.minSdkLibraryCheck", false, FeatureStage.Experimental),
     ENABLE_INSTRUMENTATION_TEST_DESUGARING("android.experimental.library.desugarAndroidTest", false, FeatureStage.Experimental),
@@ -238,8 +238,6 @@ enum class BooleanOption(
     PRIVACY_SANDBOX_SDK_REQUIRE_SERVICES(
             "android.experimental.privacysandboxsdk.requireServices", true, FeatureStage.Experimental),
 
-    PRINT_LINT_STACK_TRACE("android.lint.printStackTrace", false, FeatureStage.Experimental),
-
     VERIFY_AAR_CLASSES("android.experimental.verifyLibraryClasses", false, FeatureStage.Experimental),
     DISABLE_COMPILE_SDK_CHECKS("android.experimental.disableCompileSdkChecks", false, FeatureStage.Experimental),
     ADDITIONAL_ARTIFACTS_IN_MODEL("android.experimental.additionalArtifactsInModel", false, FeatureStage.Experimental),
@@ -288,6 +286,12 @@ enum class BooleanOption(
 
     ANDROID_TEST_USES_UNIFIED_TEST_PLATFORM(
         "android.experimental.androidTest.useUnifiedTestPlatform",
+        true,
+        FeatureStage.SoftlyEnforced(VERSION_9_0)
+    ),
+
+    ENABLE_NEW_RESOURCE_SHRINKER_PRECISE(
+        "android.enableNewResourceShrinker.preciseShrinking",
         true,
         FeatureStage.SoftlyEnforced(VERSION_9_0)
     ),
@@ -613,7 +617,8 @@ enum class BooleanOption(
 
     ENABLE_NEW_RESOURCE_SHRINKER("android.enableNewResourceShrinker",
             true,
-            FeatureStage.Enforced(Version.VERSION_8_0)),
+            FeatureStage.Enforced(Version.VERSION_8_0)
+    ),
 
     @Suppress("unused")
     ENABLE_R_TXT_RESOURCE_SHRINKING(

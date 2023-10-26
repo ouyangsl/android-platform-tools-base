@@ -128,9 +128,14 @@ package com.android.build.api.artifact {
     field public static final com.android.build.api.artifact.MultipleArtifact.NATIVE_SYMBOL_TABLES INSTANCE;
   }
 
+  @org.gradle.api.Incubating public interface MultipleArtifactTypeOutOperationRequest<FileTypeT extends org.gradle.api.file.FileSystemLocation> {
+    method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Multiple<FileTypeT>> void toListenTo(ArtifactTypeT type);
+  }
+
   public interface OutOperationRequest<FileTypeT extends org.gradle.api.file.FileSystemLocation> {
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Multiple<FileTypeT> & com.android.build.api.artifact.Artifact.Appendable> void toAppendTo(ArtifactTypeT type);
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<FileTypeT> & com.android.build.api.artifact.Artifact.Replaceable> void toCreate(ArtifactTypeT type);
+    method @org.gradle.api.Incubating public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<FileTypeT>> void toListenTo(ArtifactTypeT type);
   }
 
   public abstract sealed class ScopedArtifact extends com.android.build.api.artifact.Artifact.Single<org.gradle.api.file.RegularFile> {
@@ -196,6 +201,7 @@ package com.android.build.api.artifact {
     method public <FileTypeT extends org.gradle.api.file.FileSystemLocation> com.android.build.api.artifact.CombiningOperationRequest<FileTypeT> wiredWith(kotlin.jvm.functions.Function1<? super TaskT,? extends org.gradle.api.provider.ListProperty<FileTypeT>> taskInput, kotlin.jvm.functions.Function1<? super TaskT,? extends org.gradle.api.file.FileSystemLocationProperty<FileTypeT>> taskOutput);
     method public com.android.build.api.artifact.InAndOutDirectoryOperationRequest<TaskT> wiredWithDirectories(kotlin.jvm.functions.Function1<? super TaskT,? extends org.gradle.api.file.DirectoryProperty> taskInput, kotlin.jvm.functions.Function1<? super TaskT,? extends org.gradle.api.file.DirectoryProperty> taskOutput);
     method public com.android.build.api.artifact.InAndOutFileOperationRequest wiredWithFiles(kotlin.jvm.functions.Function1<? super TaskT,? extends org.gradle.api.file.RegularFileProperty> taskInput, kotlin.jvm.functions.Function1<? super TaskT,? extends org.gradle.api.file.RegularFileProperty> taskOutput);
+    method @org.gradle.api.Incubating public <FileTypeT extends org.gradle.api.file.FileSystemLocation> com.android.build.api.artifact.MultipleArtifactTypeOutOperationRequest<FileTypeT> wiredWithMultiple(kotlin.jvm.functions.Function1<? super TaskT,? extends org.gradle.api.provider.ListProperty<FileTypeT>> taskInput);
   }
 
 }
@@ -347,6 +353,12 @@ package com.android.build.api.dsl {
     property public abstract String runtimeOnlyConfigurationName;
     property public abstract com.android.build.api.dsl.AndroidSourceDirectorySet shaders;
     property public abstract String wearAppConfigurationName;
+  }
+
+  @org.gradle.api.Incubating public interface AndroidTest {
+    method public boolean getEnableMinification();
+    method public void setEnableMinification(boolean);
+    property public abstract boolean enableMinification;
   }
 
   public interface AnnotationProcessorOptions {
@@ -1356,8 +1368,11 @@ package com.android.build.api.dsl {
   }
 
   public interface LibraryBuildType extends com.android.build.api.dsl.BuildType com.android.build.api.dsl.LibraryVariantDimension {
+    method @org.gradle.api.Incubating public void androidTest(kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.AndroidTest,kotlin.Unit> action);
+    method @org.gradle.api.Incubating public com.android.build.api.dsl.AndroidTest getAndroidTest();
     method public boolean isDefault();
     method public void setDefault(boolean);
+    property @org.gradle.api.Incubating public abstract com.android.build.api.dsl.AndroidTest androidTest;
     property public abstract boolean isDefault;
   }
 
@@ -2493,6 +2508,7 @@ package com.android.build.api.variant {
     method public boolean getDebuggable();
     method public com.android.build.api.variant.Instrumentation getInstrumentation();
     method @org.gradle.api.Incubating public com.android.build.api.variant.JavaCompilation getJavaCompilation();
+    method @org.gradle.api.Incubating public com.android.build.api.variant.LifecycleTasks getLifecycleTasks();
     method public org.gradle.api.provider.Provider<java.lang.String> getNamespace();
     method public org.gradle.api.artifacts.Configuration getRuntimeConfiguration();
     method public com.android.build.api.variant.Sources getSources();
@@ -2505,6 +2521,7 @@ package com.android.build.api.variant {
     property public abstract boolean debuggable;
     property public abstract com.android.build.api.variant.Instrumentation instrumentation;
     property @org.gradle.api.Incubating public abstract com.android.build.api.variant.JavaCompilation javaCompilation;
+    property @org.gradle.api.Incubating public abstract com.android.build.api.variant.LifecycleTasks lifecycleTasks;
     property public abstract org.gradle.api.provider.Provider<java.lang.String> namespace;
     property public abstract org.gradle.api.artifacts.Configuration runtimeConfiguration;
     property public abstract com.android.build.api.variant.Sources sources;
@@ -2744,11 +2761,13 @@ package com.android.build.api.variant {
     method @org.gradle.api.Incubating public com.android.build.api.artifact.Artifacts getArtifacts();
     method @org.gradle.api.Incubating public org.gradle.api.file.FileCollection getCompileClasspath();
     method @org.gradle.api.Incubating public com.android.build.api.variant.Instrumentation getInstrumentation();
+    method @org.gradle.api.Incubating public com.android.build.api.variant.LifecycleTasks getLifecycleTasks();
     method @org.gradle.api.Incubating public String getName();
     method @org.gradle.api.Incubating public java.util.List<com.android.build.api.variant.Component> getNestedComponents();
     property @org.gradle.api.Incubating public abstract com.android.build.api.artifact.Artifacts artifacts;
     property @org.gradle.api.Incubating public abstract org.gradle.api.file.FileCollection compileClasspath;
     property @org.gradle.api.Incubating public abstract com.android.build.api.variant.Instrumentation instrumentation;
+    property @org.gradle.api.Incubating public abstract com.android.build.api.variant.LifecycleTasks lifecycleTasks;
     property @org.gradle.api.Incubating public abstract String name;
     property @org.gradle.api.Incubating public abstract java.util.List<com.android.build.api.variant.Component> nestedComponents;
   }
@@ -2762,6 +2781,10 @@ package com.android.build.api.variant {
   }
 
   public interface LibraryVariantBuilder extends com.android.build.api.variant.VariantBuilder com.android.build.api.variant.CanMinifyCodeBuilder com.android.build.api.variant.HasAndroidTestBuilder com.android.build.api.variant.HasTestFixturesBuilder com.android.build.api.variant.HasUnitTestBuilder {
+  }
+
+  @org.gradle.api.Incubating public interface LifecycleTasks {
+    method public void registerPreBuild(java.lang.Object... objects);
   }
 
   @org.gradle.api.Incubating public interface LintLifecycleExtension extends com.android.build.api.variant.DslLifecycle<com.android.build.api.dsl.Lint> {

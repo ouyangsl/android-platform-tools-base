@@ -15,6 +15,7 @@ import com.android.ddmlib.AdbHelper
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.IDevice
 import com.android.ddmlib.IDevice.PROP_DEVICE_DENSITY
+import com.android.ddmlib.SyncException
 import com.android.fakeadbserver.DeviceFileState
 import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.devicecommandhandlers.SyncCommandHandler
@@ -25,8 +26,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
 import org.junit.rules.TemporaryFolder
 import java.nio.file.Files
 import java.nio.file.attribute.FileTime
@@ -42,6 +45,10 @@ class AdblibIDeviceWrapperTest {
         installDefaultCommandHandlers()
         installDeviceHandler(SyncCommandHandler())
     }
+
+    @JvmField
+    @Rule
+    val exceptionRule: ExpectedException = ExpectedException.none()
 
     @JvmField
     @Rule
@@ -508,6 +515,27 @@ class AdblibIDeviceWrapperTest {
     }
 
     @Test
+    fun pushFile_throwsSyncExceptionOnError() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, _) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val localFile = Files.createTempFile("sample", ".txt")
+        val fileBytes = "some content".toByteArray()
+        Files.write(localFile, fileBytes)
+        exceptionRule.expect(SyncException::class.java)
+        exceptionRule.expectMessage("Adb Transfer Protocol Error")
+
+        // Act
+        // Specifying an empty remote file name should fail the transfer
+        adblibIDeviceWrapper.pushFile(localFile.toAbsolutePath().toString(), remote = "")
+
+        // Assert
+        fail("Should not reach")
+    }
+
+    @Test
     fun testForward() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, deviceState) = createConnectedDevice(
@@ -547,6 +575,56 @@ class AdblibIDeviceWrapperTest {
         assertEquals(0, deviceState.allPortForwarders.size)
     }
 
+    @Test
+    fun testRoot() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+
+        // Assert
+        assertFalse(adblibIDeviceWrapper.isRoot)
+
+        // Act
+        adblibIDeviceWrapper.root()
+        val connectedDeviceAfterRestart =
+            waitForConnectedDevice(hostServices.session, "device1", DeviceState.DeviceStatus.ONLINE)
+        val adblibIDeviceWrapperAfterRestart =
+            AdblibIDeviceWrapper(connectedDeviceAfterRestart, bridge)
+
+        // Assert
+        assertTrue(adblibIDeviceWrapperAfterRestart.isRoot)
+    }
+
+    @Test
+    fun testIsRoot() = runBlockingWithTimeout {
+        // Prepare
+        val fakeDevice =
+            fakeAdb.fakeAdbServer.connectDevice(
+                "device1",
+                "test1",
+                "test2",
+                "model",
+                "30",
+                "x86_64",
+                mapOf(Pair(PROP_DEVICE_DENSITY, "120")),
+                DeviceState.HostConnectionType.USB,
+                isRoot = true
+            ).get()
+        fakeDevice.deviceStatus = DeviceState.DeviceStatus.ONLINE
+        val connectedDevice = waitForConnectedDevice(
+            hostServices.session,
+            "device1",
+            DeviceState.DeviceStatus.ONLINE
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+
+
+        // Act / Assert
+        assertTrue(adblibIDeviceWrapper.isRoot)
+    }
+
     private suspend fun createConnectedDevice(
         serialNumber: String,
         deviceStatus: DeviceState.DeviceStatus = DeviceState.DeviceStatus.ONLINE,
@@ -568,11 +646,11 @@ class AdblibIDeviceWrapperTest {
         session: AdbSession, serialNumber: String, deviceStatus: DeviceState.DeviceStatus
     ): ConnectedDevice {
         return session.connectedDevicesTracker.connectedDevices.mapNotNull { connectedDevices ->
-                connectedDevices.firstOrNull { device ->
-                    device.deviceInfo.deviceState == com.android.adblib.DeviceState.parseState(
-                        deviceStatus.state
-                    ) && device.serialNumber == serialNumber
-                }
-            }.first()
+            connectedDevices.firstOrNull { device ->
+                device.deviceInfo.deviceState == com.android.adblib.DeviceState.parseState(
+                    deviceStatus.state
+                ) && device.serialNumber == serialNumber
+            }
+        }.first()
     }
 }

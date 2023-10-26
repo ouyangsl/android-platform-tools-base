@@ -28,8 +28,8 @@ iml_module(
 maven_library(
     name = "tools.manifest-merger",
     srcs = glob([
-        "manifest-merger/src/main/java/**/*.kt",
-        "manifest-merger/src/main/java/**/*.java",
+        "manifest-merger/src/main/java/com/android/manifmerger/*.java",
+        "manifest-merger/src/main/java/com/android/manifmerger/*.kt",
     ]),
     coordinates = "com.android.tools.build:manifest-merger",
     notice = "manifest-merger/NOTICE",
@@ -48,11 +48,13 @@ maven_library(
 
 kotlin_test(
     name = "tools.manifest-merger_tests",
-    # TODO: Why are the xml files not under resources?
     srcs = glob([
-        "manifest-merger/src/test/java/**/*.kt",
-        "manifest-merger/src/test/java/**/*.java",
+        "manifest-merger/src/test/java/com/android/manifmerger/*.java",
+        "manifest-merger/src/test/java/com/android/manifmerger/testutils/*.kt",
+        "manifest-merger/src/test/java/com/android/manifmerger/unit/*.kt",
+        "manifest-merger/src/test/java/com/android/manifmerger/*.kt",
     ]),
+    # TODO: Why are the xml files not under resources?
     jvm_flags = ["-Dtest.suite.jar=tools.manifest-merger_tests.jar"],
     resources = glob(
         include = ["manifest-merger/src/test/java/**"],
@@ -93,7 +95,7 @@ maven_library(
 )
 
 # The Gradle APIs to build against and run against.
-GRADLE_VERSION = "8.4-rc-2"
+GRADLE_VERSION = "8.4"
 
 filegroup(
     name = "gradle-distrib",
@@ -216,14 +218,14 @@ java_import(
 # Latest Kotlin Gradle plugin dependencies
 # DO NOT MIX different versions in this list
 KGP_LATEST = [
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.9.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-annotation-processing-gradle_1.9.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.9.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.9.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.9.20-Beta",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.20-Beta",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.20-RC",
+    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.20-RC",
+    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.9.20-RC",
+    "@maven//:org.jetbrains.kotlin.kotlin-annotation-processing-gradle_1.9.20-RC",
+    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.9.20-RC",
+    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.9.20-RC",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.9.20-RC",
+    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.20-RC",
 ]
 
 # Kotlin Gradle plugin dependencies for projects using Compose (these are typically used when the
@@ -272,12 +274,8 @@ maven_repository(
 filegroup(
     name = "agp_gradle_build_files",
     srcs = glob([
-        "src/main/**/*.java",
-        "src/main/**/*.kt",
-        "src/main/resources/**",
-        "manifest-merger/src/main/**/*.java",
-        "manifest-merger/src/main/**/*.kt",
-        "manifest-merger/src/main/resources/**",
+        "manifest-merger/src/main/java/com/android/manifmerger/*.java",
+        "manifest-merger/src/main/java/com/android/manifmerger/*.kt",
     ]) + [
         "docs/build.gradle",
         "manifest-merger/NOTICE",
@@ -385,6 +383,7 @@ maven_repository(
         "@maven//:com.google.jimfs.jimfs",
         "@maven//:com.google.protobuf.protobuf-gradle-plugin",
         "@maven//:com.google.protobuf.protoc_3.19.6",
+        "@maven//:com.google.testing.platform.android-driver-instrumentation",
         "@maven//:com.google.testing.platform.core-proto",
         "@maven//:com.google.truth.extensions.truth-java8-extension",
         "@maven//:com.googlecode.jarjar.jarjar",
@@ -435,7 +434,7 @@ maven_repository(
     # keep sorted
     artifacts = [
         "//tools/base/testutils:tools.testutils",
-        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.9.20-Beta",
+        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.9.20-RC",
     ],
 )
 
