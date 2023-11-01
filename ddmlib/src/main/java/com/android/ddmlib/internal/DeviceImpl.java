@@ -426,7 +426,6 @@ public final class DeviceImpl implements IDevice {
     @Override
     public Map<String, ServiceInfo> services() {
 
-        CountDownLatch latch = new CountDownLatch(1);
         ServiceReceiver receiver = new ServiceReceiver();
         try {
             executeShellCommand("service list", receiver);
@@ -434,15 +433,6 @@ public final class DeviceImpl implements IDevice {
             Log.e(LOG_TAG, new RuntimeException("Error obtaining services: ", e));
             return new HashMap<>();
         }
-
-        try {
-            latch.await(LS_TIMEOUT_SEC, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            Log.e(LOG_TAG,
-                  new RuntimeException("Error obtaining services caused by interruption ", e));
-            return new HashMap<>();
-        }
-
         return receiver.getRunningServices();
     }
 
