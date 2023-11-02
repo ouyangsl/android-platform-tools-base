@@ -22,9 +22,11 @@ import com.android.tools.lint.checks.infrastructure.TestFiles.java
 import com.android.tools.lint.checks.infrastructure.TestFiles.kotlin
 import com.android.tools.lint.checks.infrastructure.dos2unix
 import com.android.tools.lint.helpers.DefaultJavaEvaluator
+import com.android.tools.lint.useFirUast
 import com.intellij.codeInsight.AnnotationTargetUtil
 import com.intellij.openapi.util.Disposer
 import com.intellij.pom.java.LanguageLevel
+import com.intellij.psi.PsiAnnotation.TargetType
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiMethod
@@ -308,9 +310,91 @@ class UastTest : TestCase() {
             if (node.qualifiedName == "test.MyNullable" && node.javaPsi != null) {
               val targets = AnnotationTargetUtil.getTargetsForLocation(node.javaPsi?.owner)
               val applicable = AnnotationTargetUtil.findAnnotationTarget(node.javaPsi!!, *targets)
-              // TODO: should be applicable!
-              //   https://youtrack.jetbrains.com/issue/KTIJ-24597
-              assertNull(applicable)
+              // https://youtrack.jetbrains.com/issue/KTIJ-24597
+              // annotation target found for K2 only
+              if (useFirUast()) {
+                assertEquals(TargetType.METHOD, applicable)
+              } else {
+                assertNull(applicable)
+              }
+            }
+
+            return super.visitAnnotation(node)
+          }
+        }
+      )
+    }
+  }
+
+  fun testJavaAnnotationTarget_fromBytecode() {
+    // Regression test from b/266740119: applicable if prebuilt bytecode is given.
+    val testFiles =
+      arrayOf(
+        java(
+            """
+                package test;
+
+                class Test {
+                    @MyNullable
+                    String foo(CharSequence cs) {
+                        return cs.toString();
+                    }
+                }
+                """
+          )
+          .indented(),
+        bytecode(
+          "libs/lib1.jar",
+          kotlin(
+              """
+                    package test
+
+                    import java.lang.annotation.ElementType.METHOD
+                    import java.lang.annotation.ElementType.PACKAGE
+
+                    @Retention(AnnotationRetention.BINARY)
+                    @Target(
+                        AnnotationTarget.FUNCTION,
+                        AnnotationTarget.FILE,
+                    )
+                    @Suppress("DEPRECATED_JAVA_ANNOTATION")
+                    @java.lang.annotation.Target(
+                      METHOD,
+                      PACKAGE,
+                    )
+                    annotation class MyNullable
+                    """
+            )
+            .indented(),
+          0xf7411d45,
+          """
+                META-INF/main.kotlin_module:
+                H4sIAAAAAAAA/2NgYGBmYGBgBGJOBihQYtBiAAD1Iry9GAAAAA==
+                """,
+          """
+                test/MyNullable.class:
+                H4sIAAAAAAAA/4VSTU9aQRQ99yGC1A/UfoDW4ifuxBp3rp4U6ot8GKBNDKsR
+                JubJ8J7xDbTs2PU/uTCkS3+U6R1NgTQvdXPnzL3nnLl3Zh6f7h8AHGOfsKRl
+                oHPlQaWnlLhSMgYiJG9EX+SU8K5z1asb2dIxRAiZSVZ4nq+Fdn0vZ49hDFHC
+                Rqnja+V605Sa1NIz6IQQ7QvVk4T9EN7Ealoxe+pU7NolYS1E0hB311Iza1Eo
+                5f+Q7ZdEQNj97wFjXbz4rZJvONUKYabolApmgtA5x4rt8HpByS733BjcStN0
+                udA4q34hxC7s/Ln9lX03w3XTo2ZfoVz4ym0NzC3mS3a9Tlj+O2RZatEWWnDN
+                6vYj/LpkwpwJIFCH8z9dsztk1P5MSI+G8YSVshJWcj3++5eVGg2PrEM6HQ0N
+                4ch4//M12JutFiaJg44mJOp+764li67iV03XetxoV353A5cJk/sOsuyKGdbP
+                mo4Y7z3HXWR57SIK/niIS8whgTcM55uwJBawaMISkqb6nFrGigmrePsieIf3
+                +MD6VBMRB2kHaw7W8ZEhNhx8QqYJCrCJLVYH2A6w8wdjiabo/wIAAA==
+                """
+        ),
+      )
+
+    check(*testFiles) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitAnnotation(node: UAnnotation): Boolean {
+            if (node.qualifiedName == "test.MyNullable" && node.javaPsi != null) {
+              val targets = AnnotationTargetUtil.getTargetsForLocation(node.javaPsi?.owner)
+              val applicable = AnnotationTargetUtil.findAnnotationTarget(node.javaPsi!!, *targets)
+              assertEquals(TargetType.METHOD, applicable)
             }
 
             return super.visitAnnotation(node)
@@ -415,97 +499,17 @@ class UastTest : TestCase() {
           }
 
           override fun visitPrefixExpression(node: UPrefixExpression): Boolean {
-            // TODO(kotlin-uast-cleanup): FIR UAST will have a correct `getExpressionType`
-            val t = node.getExpressionType() ?: node.resolveOperator()?.returnType
+            val t = node.getExpressionType()
             assertEquals("java.lang.Object", t?.canonicalText)
 
             return super.visitPrefixExpression(node)
           }
 
           override fun visitPostfixExpression(node: UPostfixExpression): Boolean {
-            // TODO(kotlin-uast-cleanup): FIR UAST will have a correct `getExpressionType`
-            val t = node.getExpressionType() ?: node.resolveOperator()?.returnType
+            val t = node.getExpressionType()
             assertEquals("test.OtherDependency", t?.canonicalText)
 
             return super.visitPostfixExpression(node)
-          }
-        }
-      )
-    }
-  }
-
-  fun testJavaAnnotationTarget_fromBytecode() {
-    // Regression test from b/266740119: applicable if prebuilt bytecode is given.
-    val testFiles =
-      arrayOf(
-        java(
-            """
-                package test;
-
-                class Test {
-                    @MyNullable
-                    String foo(CharSequence cs) {
-                        return cs.toString();
-                    }
-                }
-                """
-          )
-          .indented(),
-        bytecode(
-          "libs/lib1.jar",
-          kotlin(
-              """
-                    package test
-
-                    import java.lang.annotation.ElementType.METHOD
-                    import java.lang.annotation.ElementType.PACKAGE
-
-                    @Retention(AnnotationRetention.BINARY)
-                    @Target(
-                        AnnotationTarget.FUNCTION,
-                        AnnotationTarget.FILE,
-                    )
-                    @Suppress("DEPRECATED_JAVA_ANNOTATION")
-                    @java.lang.annotation.Target(
-                      METHOD,
-                      PACKAGE,
-                    )
-                    annotation class MyNullable
-                    """
-            )
-            .indented(),
-          0xf7411d45,
-          """
-                META-INF/main.kotlin_module:
-                H4sIAAAAAAAA/2NgYGBmYGBgBGJOBihQYtBiAAD1Iry9GAAAAA==
-                """,
-          """
-                test/MyNullable.class:
-                H4sIAAAAAAAA/4VSTU9aQRQ99yGC1A/UfoDW4ifuxBp3rp4U6ot8GKBNDKsR
-                JubJ8J7xDbTs2PU/uTCkS3+U6R1NgTQvdXPnzL3nnLl3Zh6f7h8AHGOfsKRl
-                oHPlQaWnlLhSMgYiJG9EX+SU8K5z1asb2dIxRAiZSVZ4nq+Fdn0vZ49hDFHC
-                Rqnja+V605Sa1NIz6IQQ7QvVk4T9EN7Ealoxe+pU7NolYS1E0hB311Iza1Eo
-                5f+Q7ZdEQNj97wFjXbz4rZJvONUKYabolApmgtA5x4rt8HpByS733BjcStN0
-                udA4q34hxC7s/Ln9lX03w3XTo2ZfoVz4ym0NzC3mS3a9Tlj+O2RZatEWWnDN
-                6vYj/LpkwpwJIFCH8z9dsztk1P5MSI+G8YSVshJWcj3++5eVGg2PrEM6HQ0N
-                4ch4//M12JutFiaJg44mJOp+764li67iV03XetxoV353A5cJk/sOsuyKGdbP
-                mo4Y7z3HXWR57SIK/niIS8whgTcM55uwJBawaMISkqb6nFrGigmrePsieIf3
-                +MD6VBMRB2kHaw7W8ZEhNhx8QqYJCrCJLVYH2A6w8wdjiabo/wIAAA==
-                """
-        ),
-      )
-
-    check(*testFiles) { file ->
-      file.accept(
-        object : AbstractUastVisitor() {
-          override fun visitAnnotation(node: UAnnotation): Boolean {
-            if (node.qualifiedName == "test.MyNullable" && node.javaPsi != null) {
-              val targets = AnnotationTargetUtil.getTargetsForLocation(node.javaPsi?.owner)
-              val applicable = AnnotationTargetUtil.findAnnotationTarget(node.javaPsi!!, *targets)
-              assertEquals("METHOD", applicable?.name)
-            }
-
-            return super.visitAnnotation(node)
           }
         }
       )

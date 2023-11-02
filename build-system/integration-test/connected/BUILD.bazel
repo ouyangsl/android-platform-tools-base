@@ -107,6 +107,7 @@ gradle_connected_test(
         "@maven//:androidx.test.rules_1.3.0",
         "@maven//:junit.junit_4.13.2",
         "@maven//:androidx.test.espresso.espresso-core_3.4.0",
+        "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-android_1.6.4",
         "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-core_1.6.3",
     ],
     maven_repo_zips = MAVEN_REPO_ZIPS,
@@ -781,16 +782,6 @@ gradle_connected_test(
 )
 
 gradle_connected_test(
-    name = "FailureRetentionConnectedTest",
-    srcs = "src/test/java/com/android/build/gradle/integration/connected/application/",
-    avd = ":avd",
-    data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/failureRetention"],
-    maven_repo_zips = MAVEN_REPO_ZIPS,
-    maven_repos = TEST_MAVEN_REPOS,
-    deps = TEST_DEPS,
-)
-
-gradle_connected_test(
     name = "KotlinMultiplatformAndroidConnectedTest",
     srcs = "src/test/java/com/android/build/gradle/integration/connected/library/",
     avd = ":avd",
@@ -887,10 +878,11 @@ maven_repository(
         "@maven//:com.google.android.gms.play-services-base_15.0.1",
         "@maven//:com.google.code.findbugs.jsr305_1.3.9",
         "@maven//:com.google.guava.guava_19.0",
-        "@maven//:com.google.protobuf.protobuf-java-util_3.21.8",
-        "@maven//:com.google.protobuf.protobuf-java_3.21.8",
+        "@maven//:com.google.protobuf.protobuf-java-util_3.22.3",
+        "@maven//:com.google.protobuf.protobuf-java_3.22.3",
+        "@maven//:org.codehaus.mojo.animal-sniffer-annotations_1.19",
         "@maven//:org.hamcrest.hamcrest-library_1.3",
-        "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-android_1.4.1",
+        "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-android_1.6.4",
         "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-core-common_1.3.6",
         "@maven//:org.tensorflow.tensorflow-lite-metadata_0.1.0",
         "@maven//:org.tensorflow.tensorflow-lite-support_0.1.0",

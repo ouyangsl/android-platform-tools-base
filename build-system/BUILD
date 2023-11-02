@@ -2,6 +2,7 @@ load("//tools/base/bazel:bazel.bzl", "iml_module")
 load("//tools/base/bazel:gradle.bzl", "gradle_build", "gradle_test")
 load("//tools/base/bazel:kotlin.bzl", "kotlin_test")
 load("//tools/base/bazel:maven.bzl", "maven_library", "maven_repository")
+load("//tools/base/build-system/integration-test:common-dependencies.bzl", "KGP_LATEST")
 load("//tools/base/common:version.bzl", "BASE_VERSION", "BUILD_VERSION")
 load("hybrid_build.bzl", "GRADLE_PROPERTIES")
 
@@ -215,19 +216,6 @@ java_import(
     visibility = ["//visibility:public"],
 )
 
-# Latest Kotlin Gradle plugin dependencies
-# DO NOT MIX different versions in this list
-KGP_LATEST = [
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin_1.9.20-RC",
-    "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.20-RC",
-    "@maven//:org.jetbrains.kotlin.kotlin-android-extensions-runtime_1.9.20-RC",
-    "@maven//:org.jetbrains.kotlin.kotlin-annotation-processing-gradle_1.9.20-RC",
-    "@maven//:org.jetbrains.kotlin.kotlin-script-runtime_1.9.20-RC",
-    "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.9.20-RC",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.9.20-RC",
-    "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.20-RC",
-]
-
 # Kotlin Gradle plugin dependencies for projects using Compose (these are typically used when the
 # projects can't be upgraded to the latest version of the Kotlin Gradle plugin as there isn't a
 # compatible Compose version yet).
@@ -266,6 +254,7 @@ maven_repository(
         "@maven//:androidx.appcompat.appcompat_1.3.0-beta01",
         "@maven//:androidx.lifecycle.lifecycle-livedata-ktx_2.2.0",
         "@maven//:androidx.lifecycle.lifecycle-common-java8_2.4.0",
+        "@maven//:org.junit.junit-bom_5.9.2",
         "@maven//:org.junit.junit-bom_5.9.3",
     ],
     visibility = ["//prebuilts/studio/buildbenchmarks:__subpackages__"],
@@ -372,6 +361,7 @@ maven_repository(
         "//tools/data-binding:tools.baseLibrarySupport",
         "//tools/data-binding:tools.compiler",
         "//tools/data-binding:tools.compilerCommon",
+        "@maven//:androidx.privacysandbox.tools.tools-apigenerator_1.0.0-alpha03",
         "@maven//:com.android.tools.build.bundletool",
         "@maven//:com.android.tools.build.jetifier.jetifier-processor",
         "@maven//:com.android.tools.build.transform-api",
@@ -382,7 +372,7 @@ maven_repository(
         "@maven//:com.google.guava.guava_23.0",
         "@maven//:com.google.jimfs.jimfs",
         "@maven//:com.google.protobuf.protobuf-gradle-plugin",
-        "@maven//:com.google.protobuf.protoc_3.19.6",
+        "@maven//:com.google.protobuf.protoc_3.22.3",
         "@maven//:com.google.testing.platform.android-driver-instrumentation",
         "@maven//:com.google.testing.platform.core-proto",
         "@maven//:com.google.truth.extensions.truth-java8-extension",
@@ -394,7 +384,7 @@ maven_repository(
         "@maven//:commons-io.commons-io",
         "@maven//:gradle.plugin.org.jetbrains.gradle.plugin.idea-ext.gradle-idea-ext",
         "@maven//:io.grpc.grpc-all",
-        "@maven//:io.grpc.protoc-gen-grpc-java_1.45.1",
+        "@maven//:io.grpc.protoc-gen-grpc-java_1.57.0",
         "@maven//:io.netty.netty-all",
         "@maven//:javax.annotation.javax.annotation-api",
         "@maven//:net.java.dev.jna.jna-platform",
@@ -420,11 +410,12 @@ maven_repository(
         "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",
         "@maven//:org.jetbrains.kotlin.kotlin-test",
+        "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-android",
         "@maven//:org.jetbrains.markdown",
+        "@maven//:org.junit.junit-bom_5.9.2",
         "@maven//:org.junit.junit-bom_5.9.3",
         "@maven//:org.mockito.mockito-core",
         "@maven//:org.tensorflow.tensorflow-lite-metadata",
-        "@maven//:xerces.xercesImpl",
     ],
     visibility = ["//visibility:public"],
 )

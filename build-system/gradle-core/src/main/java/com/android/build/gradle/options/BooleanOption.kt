@@ -28,6 +28,7 @@ import com.android.build.gradle.options.Version.VERSION_7_2
 import com.android.build.gradle.options.Version.VERSION_7_3
 import com.android.build.gradle.options.Version.VERSION_BEFORE_4_0
 import com.android.builder.model.AndroidProject
+import com.android.builder.model.AndroidProject.PROPERTY_AVOID_TASK_REGISTRATION
 import com.android.builder.model.AndroidProject.PROPERTY_BUILD_MODEL_ONLY
 import com.android.builder.model.PROPERTY_BUILD_MODEL_V2_ONLY
 import com.android.builder.model.PROPERTY_BUILD_WITH_STABLE_IDS
@@ -56,6 +57,7 @@ enum class BooleanOption(
     @Deprecated("Use IDE_BUILD_MODEL_ONLY_V2")
     IDE_BUILD_MODEL_FEATURE_FULL_DEPENDENCIES(AndroidProject.PROPERTY_BUILD_MODEL_FEATURE_FULL_DEPENDENCIES, false, ApiStage.Stable),
     IDE_REFRESH_EXTERNAL_NATIVE_MODEL(PROPERTY_REFRESH_EXTERNAL_NATIVE_MODEL, false, ApiStage.Stable),
+    IDE_AVOID_TASK_REGISTRATION(PROPERTY_AVOID_TASK_REGISTRATION, false, ApiStage.Stable),
     //IDE_GENERATE_SOURCES_ONLY(AndroidProject.PROPERTY_GENERATE_SOURCES_ONLY, false, ApiStage.Stable),
 
     // tell bundletool to only extract instant APKs.
@@ -117,6 +119,8 @@ enum class BooleanOption(
         ApiStage.Stable
     ),
 
+    PRINT_LINT_STACK_TRACE("android.lint.printStackTrace", false, ApiStage.Stable),
+
     /* ------------------
      * SUPPORTED FEATURES
      */
@@ -136,7 +140,6 @@ enum class BooleanOption(
     // FIXME switch to false once we know we don't use these getters internally.
     ENABLE_LEGACY_API("android.compatibility.enableLegacyApi", true, FeatureStage.Supported),
     FULL_R8("android.enableR8.fullMode", true, FeatureStage.Supported),
-    PRINT_LINT_STACK_TRACE("android.lint.printStackTrace", false, FeatureStage.Supported),
 
     /* ---------------------
      * EXPERIMENTAL FEATURES
@@ -251,11 +254,6 @@ enum class BooleanOption(
 
     FUSED_LIBRARY_SUPPORT("android.experimental.fusedLibrarySupport", false, FeatureStage.Experimental),
     SUPPORT_PAST_STUDIO_VERSIONS("android.experimental.support.past.studio.versions", false, FeatureStage.Experimental),
-
-    /**
-     * Enables task to add version control info to APKs/Bundle
-     */
-    ENABLE_VCS_INFO("android.enableVcsInfo", false, FeatureStage.Experimental),
 
     /**
      * Whether to omit line numbers when writing lint baselines
@@ -770,6 +768,9 @@ enum class BooleanOption(
 
     @Suppress("unused")
     ENABLE_TEST_SHARDING("android.androidTest.shardBetweenDevices", false, FeatureStage.Removed(Version.VERSION_8_2, "Cross device sharding is no longer supported.")),
+
+    @Suppress("unused")
+    ENABLE_VCS_INFO("android.enableVcsInfo", false, FeatureStage.Removed(Version.VERSION_8_3, "This feature is now enabled in the DSL per build type with \"vcsInfo.include = true\"."))
     ; // end of enums
 
     override val status = stage.status

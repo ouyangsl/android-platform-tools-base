@@ -25,7 +25,26 @@ import org.gradle.api.provider.MapProperty
 import java.io.Serializable
 
 /**
- * Parent interface for all types of variants.
+ * Model for variant components that only contains build-time properties
+ *
+ * Variant components are the main output of the plugin (e.g. APKs, AARs). They contain references
+ * to optional secondary components (tests, fixtures)
+ *
+ * It is the object passed to the [AndroidComponentsExtension.onVariants] method, like this:
+ *
+ * ```kotlin
+ * androidComponents {
+ *   onVariants(selector().all()) { variant: Variant ->
+ *   }
+ * }
+ * ```
+ *
+ * Note that depending on the actual implementation of [AndroidComponentsExtension], the object
+ * received may be of a child type. For instance [ApplicationAndroidComponentsExtension.onVariants]
+ * will pass [ApplicationVariant] to the lambda.
+ *
+ * See [here](https://developer.android.com/build/extend-agp#variant-api-artifacts-tasks) for
+ * more information
  */
 interface Variant : Component, HasAndroidResources {
 
