@@ -183,6 +183,8 @@ InternalArtifactType<T : FileSystemLocation>(
         "res/pngs",
     ), Replaceable
 
+    object NESTED_RESOURCES_VALIDATION_REPORT: InternalArtifactType<RegularFile>(FILE)
+
     // File containing map between a source set identifier and an absolute resource sourceset path
     // for generating absolute paths in resource linking error messages.
     object SOURCE_SET_PATH_MAP: InternalArtifactType<RegularFile>(FILE), Replaceable
@@ -603,7 +605,7 @@ InternalArtifactType<T : FileSystemLocation>(
     )
     // Directory containing the dex metadata files to be installed as baseline profiles on devices
     // It should also contain a file which writes out mappings from API level to ".dm" file
-    object DEX_METADATA_DIRECTORY: InternalArtifactType<Directory>(DIRECTORY), Replaceable
+    object DEX_METADATA_DIRECTORY: InternalArtifactType<Directory>(DIRECTORY)
 
     object VERSION_CONTROL_INFO_FILE: InternalArtifactType<RegularFile>(
         FILE,

@@ -136,6 +136,7 @@ def _iml_module_jar_impl(
     # Kotlin
     kotlin_providers = []
     if kotlin_srcs:
+        kotlinc_opts.append("-Xcontext-receivers")  # Needed to use the Kotlin K2 analysis API (b/308454624).
         kotlin_providers.append(kotlin_compile(
             ctx = ctx,
             name = module_name,
@@ -852,6 +853,7 @@ def _gen_tests(
         test_shard_count = None,
         test_tags = None,
         test_data = None,
+        visibility = [],
         **kwargs):
     """Generates potentially-split test target(s).
 
@@ -865,6 +867,7 @@ def _gen_tests(
         test_shard_count: Shard count for the generated test. Only valid for single tests.
         test_tags: optional list of tags to include for test targets.
         test_data: optional list of data to include for test targets.
+        visibility: Target visibility.
         **kwargs: Additional arguments passed to java_test().
     """
 
@@ -879,6 +882,7 @@ def _gen_tests(
             split_test_targets = split_test_targets,
             test_tags = test_tags,
             test_data = test_data,
+            visibility = visibility,
             **kwargs
         )
     else:
@@ -888,6 +892,7 @@ def _gen_tests(
             shard_count = test_shard_count,
             tags = test_tags,
             data = test_data,
+            visibility = visibility,
             **kwargs
         )
 
@@ -899,6 +904,7 @@ def _gen_split_tests(
         timeout = None,
         exec_properties = None,
         jvm_flags = [],
+        visibility = [],
         **kwargs):
     """Generates split test targets.
 
@@ -916,6 +922,7 @@ def _gen_split_tests(
         timeout: optional timeout that applies to this split test only (overriding target level).
         exec_properties: See https://bazel.build/reference/be/common-definitions#common-attributes
         jvm_flags: Extra flags passed to java_test().
+        visibility: Target visibility.
         **kwargs: Extra arguments passed to java_test().
     """
 
@@ -927,6 +934,7 @@ def _gen_split_tests(
         tags = ["manual"],
         exec_properties = exec_properties,
         jvm_flags = jvm_flags,
+        visibility = visibility,
         **kwargs
     )
     split_tests = []
@@ -961,12 +969,14 @@ def _gen_split_tests(
             tags = tags,
             exec_properties = test_exec_properties,
             jvm_flags = test_jvm_flags,
+            visibility = visibility,
             **kwargs
         )
     native.test_suite(
         name = name + "_tests",
         tags = ["manual"] if test_tags and "manual" in test_tags else [],
         tests = split_tests,
+        visibility = visibility,
     )
 
 def _get_unique_split_data(split_test_targets):

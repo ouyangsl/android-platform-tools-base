@@ -953,6 +953,113 @@ class DataFlowAnalyzerTest : TestCase() {
     Disposer.dispose(parsed.second)
   }
 
+  fun testExplicitThisWithinScope() {
+    val parsed =
+      LintUtilsTest.parse(
+        kotlin(
+            """
+                package com.pkg
+
+                class Intent {
+                  fun intentFun() {}
+
+                  class Hello {
+                    fun hello() {
+                      val intent = Intent()
+
+                      baz(this) // not tracked
+
+                      intent.let {
+                        fa(it) // argument
+                      }
+
+                      intent.apply l@ {
+                        intentFun() // receiver
+                        fb(this) // argument
+                        fc(this@l) // argument
+                        fd(this@Hello) // not tracked
+                        fe(this@Intent) // not tracked
+
+                        val anotherIntent = getIntent() // not tracked
+
+                        anotherIntent.apply {
+                          ff(this) // not tracked
+                          fg(this@apply) // not tracked
+                          fh(this@l) // argument
+                        }
+
+                      }.apply {
+                        fi(this) // argument
+                        fj(this@apply) // argument
+                        fk(this@Hello) // not tracked
+                        fl(this@Intent) // not tracked
+                      }
+                    }
+
+                    fun baz(hello: Hello) {}
+                    fun fa(intent: Intent) {}
+                    fun fb(intent: Intent) {}
+                    fun fc(intent: Intent) {}
+                    fun fd(hello: Hello) {}
+                    fun fe(intent: Intent) {}
+                    fun ff(intent: Intent) {}
+                    fun fg(intent: Intent) {}
+                    fun fh(intent: Intent) {}
+                    fun fi(intent: Intent) {}
+                    fun fj(intent: Intent) {}
+                    fun fk(intent: Intent) {}
+                    fun fl(intent: Intent) {}
+
+                    fun getIntent(): Intent {
+                      TODO()
+                    }
+                  }
+
+                }
+
+                """,
+          )
+          .indented()
+      )
+
+    val target = findMethodCall(parsed, "Intent")
+
+    val argumentCalls = mutableListOf<String>()
+    val argumentReferences = mutableListOf<String>()
+    val receivers = mutableListOf<String>()
+
+    val method = target.getParentOfType(UMethod::class.java)
+    method?.accept(
+      object : DataFlowAnalyzer(listOf(target)) {
+
+        override fun argument(call: UCallExpression, reference: UElement) {
+          assertTrue(argumentCalls.add(call.methodName!!))
+          assertTrue(argumentReferences.add(reference.sourcePsi!!.text))
+        }
+
+        override fun receiver(call: UCallExpression) {
+          assertTrue(receivers.add(call.methodName!!))
+        }
+      }
+    )
+    // TODO(b/308569204): Recent support for extension function calls on tracked instances will
+    //  typically trigger "argument()", so we might expect to see "let" and "apply" appear here. I
+    //  think the only reason we don't is that the extension function support only works for
+    //  extension functions with source. Regardless, assuming we fix this, we would like to avoid
+    //  "let" and "apply" appearing here, because we try to handle scope functions specially, such
+    //  that they don't seem like function calls at all.
+    assertEquals("fa, fb, fc, fh, fi, fj", argumentCalls.joinToString { it })
+    assertEquals(
+      "it, this, this@l, this@l, this, this@apply",
+      argumentReferences.joinToString { it }
+    )
+
+    // TODO(b/308569204): Possibly, this should just be: intentFun.
+    assertEquals("let, apply, intentFun, apply", receivers.joinToString { it })
+
+    Disposer.dispose(parsed.second)
+  }
+
   private fun lint() = TestLintTask.lint().sdkHome(TestUtils.getSdk().toFile())
 
   private val rClass: TestFile = rClass("test.pkg", "@string/app_name")

@@ -24,13 +24,14 @@ import java.net.URL
 import org.junit.Rule
 import org.junit.Test
 import studio.network.inspection.NetworkInspectorProtocol
+import studio.network.inspection.NetworkInspectorProtocol.HttpConnectionEvent.HttpTransport
 import studio.network.inspection.NetworkInspectorProtocol.InterceptCommand
 
 private const val URL_PARAMS = "activity=http"
 private val FAKE_URL = URL("https://www.google.com?$URL_PARAMS")
 private const val EXPECTED_RESPONSE = "HTTP/1.0 200 OK"
 
-class HttpUrlTest {
+internal class HttpUrlTest {
 
   @get:Rule val inspectorRule = NetworkInspectorRule()
 
@@ -47,6 +48,7 @@ class HttpUrlTest {
       )!!
     assertThat(httpRequestStarted.httpRequestStarted.url).contains(URL_PARAMS)
     assertThat(httpRequestStarted.httpRequestStarted.method).isEqualTo("GET")
+    assertThat(httpRequestStarted.httpRequestStarted.transport).isEqualTo(HttpTransport.JAVA_NET)
 
     val httpResponseStarted =
       inspectorRule.connection.findHttpEvent(
@@ -188,6 +190,7 @@ class HttpUrlTest {
       )!!
     assertThat(httpRequestStarted.httpRequestStarted.url).contains(URL_PARAMS)
     assertThat(httpRequestStarted.httpRequestStarted.method).isEqualTo("POST")
+    assertThat(httpRequestStarted.httpRequestStarted.transport).isEqualTo(HttpTransport.JAVA_NET)
 
     assertThat(
         inspectorRule.connection.findHttpEvent(

@@ -53,6 +53,7 @@ import com.android.ddmlib.IDeviceSharedImpl
 import com.android.ddmlib.IDeviceSharedImpl.INSTALL_TIMEOUT_MINUTES
 import com.android.ddmlib.IDeviceUsageTracker
 import com.android.ddmlib.IShellOutputReceiver
+import com.android.ddmlib.IUserDataMap
 import com.android.ddmlib.InstallMetrics
 import com.android.ddmlib.InstallReceiver
 import com.android.ddmlib.Log
@@ -64,6 +65,7 @@ import com.android.ddmlib.ServiceInfo
 import com.android.ddmlib.SimpleConnectedSocket
 import com.android.ddmlib.SyncException
 import com.android.ddmlib.SyncService
+import com.android.ddmlib.internal.UserDataMapImpl
 import com.android.ddmlib.log.LogReceiver
 import com.android.sdklib.AndroidVersion
 import com.google.common.util.concurrent.ListenableFuture
@@ -83,6 +85,7 @@ import java.util.concurrent.ExecutionException
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+import java.util.function.Function
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
@@ -109,6 +112,8 @@ internal class AdblibIDeviceWrapper(
 
     /** Name and path of the AVD  */
     private val mAvdData = connectedDevice.session.scope.async { createAvdData() }
+
+    private val mUserDataMap = UserDataMapImpl()
 
     override fun getName(): String {
         return iDeviceSharedImpl.name
@@ -404,8 +409,8 @@ internal class AdblibIDeviceWrapper(
                 val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
                 connectedDevice.session.hostServices.forward(
                     deviceSelector,
-                    SocketSpec.Tcp(localPort),
-                    SocketSpec.Tcp(remotePort),
+                    local = SocketSpec.Tcp(localPort),
+                    remote = SocketSpec.Tcp(remotePort),
                     rebind = true
                 )
             }
@@ -435,7 +440,7 @@ internal class AdblibIDeviceWrapper(
                 }
                 connectedDevice.session.hostServices.forward(
                     deviceSelector,
-                    SocketSpec.Tcp(localPort),
+                    local = SocketSpec.Tcp(localPort),
                     remoteSocketSpec,
                     rebind = true
                 )
@@ -449,9 +454,31 @@ internal class AdblibIDeviceWrapper(
                 val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
                 connectedDevice.session.hostServices.killForward(
                     deviceSelector,
-                    SocketSpec.Tcp(localPort)
+                    local = SocketSpec.Tcp(localPort)
                 )
             }
+        }
+    }
+
+    override fun createReverse(remotePort: Int, localPort: Int) {
+        runBlockingLegacy {
+            val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+            connectedDevice.session.deviceServices.reverseForward(
+                deviceSelector,
+                remote = SocketSpec.Tcp(remotePort),
+                local = SocketSpec.Tcp(localPort),
+                rebind = true
+            )
+        }
+    }
+
+    override fun removeReverse(remotePort: Int) {
+        runBlockingLegacy {
+            val deviceSelector = DeviceSelector.fromSerialNumber(connectedDevice.serialNumber)
+            connectedDevice.session.deviceServices.reverseKillForward(
+                deviceSelector,
+                remote = SocketSpec.Tcp(remotePort)
+            )
         }
     }
 
@@ -879,6 +906,20 @@ internal class AdblibIDeviceWrapper(
             )
             AdblibChannelWrapper(channel)
         }
+    }
+
+    override fun <T> computeUserDataIfAbsent(
+        key: IUserDataMap.Key<T>, mappingFunction: Function<IUserDataMap.Key<T>, T>
+    ): T {
+        return mUserDataMap.computeUserDataIfAbsent(key, mappingFunction)
+    }
+
+    override fun <T> getUserDataOrNull(key: IUserDataMap.Key<T>): T? {
+        return mUserDataMap.getUserDataOrNull(key)
+    }
+
+    override fun <T> removeUserData(key: IUserDataMap.Key<T>): T? {
+        return mUserDataMap.removeUserData(key)
     }
 
     /**

@@ -195,57 +195,60 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
     val target = attribute.value
     try {
       val targetSdkVersion = target.toInt()
-      val highest = context.client.highestKnownApiLevel
-      val targetSdkCheckResult =
-        checkTargetSdk(
-          context,
-          ManifestDetector.calendar ?: Calendar.getInstance(),
-          targetSdkVersion
-        )
       val location = context.getLocation(attribute)
-      if (targetSdkCheckResult is TargetSdkCheckResult.Expired) {
-        context.report(
-          EXPIRED_TARGET_SDK_VERSION,
-          element,
-          location,
-          targetSdkCheckResult.message,
-          targetSdkLintFix(targetSdkCheckResult.requiredVersion)
-        )
-      }
-      if (targetSdkCheckResult is TargetSdkCheckResult.Expiring) {
-        context.report(
-          EXPIRING_TARGET_SDK_VERSION,
-          element,
-          location,
-          targetSdkCheckResult.message,
-          targetSdkLintFix(targetSdkCheckResult.requiredVersion)
-        )
-      }
-      if (
-        context.isEnabled(TARGET_NEWER) &&
-          targetSdkCheckResult is TargetSdkCheckResult.NoIssue &&
-          targetSdkVersion < highest
+      when (
+        val tsdk =
+          checkTargetSdk(
+            context,
+            ManifestDetector.calendar ?: Calendar.getInstance(),
+            targetSdkVersion
+          )
       ) {
-        context.report(
-          TARGET_NEWER,
-          element,
-          location,
-          "Not targeting the latest versions of Android; compatibility " +
-            "modes apply. Consider testing and updating this version. " +
-            "Consult the `android.os.Build.VERSION_CODES` javadoc for details.",
-          targetSdkLintFix(highest)
-        )
+        is TargetSdkCheckResult.Expired -> {
+          context.report(
+            EXPIRED_TARGET_SDK_VERSION,
+            element,
+            location,
+            tsdk.message,
+            targetSdkLintFix(targetSdkVersion, tsdk.requiredVersion)
+          )
+        }
+        is TargetSdkCheckResult.Expiring -> {
+          context.report(
+            EXPIRING_TARGET_SDK_VERSION,
+            element,
+            location,
+            tsdk.message,
+            targetSdkLintFix(targetSdkVersion, tsdk.requiredVersion)
+          )
+        }
+        is TargetSdkCheckResult.NotLatest -> {
+          if (context.isEnabled(TARGET_NEWER)) {
+            context.report(
+              TARGET_NEWER,
+              element,
+              location,
+              tsdk.message,
+              targetSdkLintFix(targetSdkVersion, tsdk.highestVersion)
+            )
+          }
+        }
+        is TargetSdkCheckResult.NoIssue -> {}
       }
     } catch (ignore: NumberFormatException) {
       // Ignore: AAPT will enforce this.
     }
   }
 
-  private fun targetSdkLintFix(target: Int) =
-    fix()
-      .name("Update targetSdkVersion to $target")
-      .set(ANDROID_URI, ATTR_TARGET_SDK_VERSION, target.toString())
-      .build()
+  private fun targetSdkLintFix(current: Int, target: Int) =
+    if (LintClient.isStudio) {
+      fix().data("currentTargetSdkVersion", current)
+    } else {
+      fix()
+        .name("Update targetSdkVersion to $target")
+        .set(ANDROID_URI, ATTR_TARGET_SDK_VERSION, target.toString())
+        .build()
+    }
 
   // ---- Implements GradleScanner ----
 
@@ -287,45 +290,44 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       if (property == "targetSdkVersion" || property == "targetSdk") {
         val version = getSdkVersion(value, valueCookie)
         if (version > 0 && version < context.client.highestKnownApiLevel) {
-          val targetSdkCheckResult =
-            checkTargetSdk(context, calendar ?: Calendar.getInstance(), version)
-          if (targetSdkCheckResult is TargetSdkCheckResult.Expired) {
-            // Don't report if already suppressed with EXPIRING
-            val alreadySuppressed =
-              context.containsCommentSuppress() &&
-                context.isSuppressedWithComment(statementCookie, EXPIRED_TARGET_SDK_VERSION)
+          when (val tsdk = checkTargetSdk(context, calendar ?: Calendar.getInstance(), version)) {
+            is TargetSdkCheckResult.Expired -> {
+              // Don't report if already suppressed with EXPIRING
+              val alreadySuppressed =
+                context.containsCommentSuppress() &&
+                  context.isSuppressedWithComment(statementCookie, EXPIRED_TARGET_SDK_VERSION)
 
-            if (!alreadySuppressed) {
+              if (!alreadySuppressed) {
+                report(
+                  context,
+                  statementCookie,
+                  EXPIRED_TARGET_SDK_VERSION,
+                  tsdk.message,
+                  fix().data("currentTargetSdkVersion", version).takeIf { LintClient.isStudio },
+                )
+              }
+            }
+            is TargetSdkCheckResult.Expiring -> {
               report(
                 context,
                 statementCookie,
-                EXPIRED_TARGET_SDK_VERSION,
-                targetSdkCheckResult.message,
-                null
+                EXPIRING_TARGET_SDK_VERSION,
+                tsdk.message,
+                fix().data("currentTargetSdkVersion", version).takeIf { LintClient.isStudio },
               )
             }
-          }
-          if (targetSdkCheckResult is TargetSdkCheckResult.Expiring) {
-            report(
-              context,
-              statementCookie,
-              EXPIRING_TARGET_SDK_VERSION,
-              targetSdkCheckResult.message,
-              null
-            )
-          }
-
-          if (targetSdkCheckResult is TargetSdkCheckResult.NoIssue) {
-            val message =
-              "Not targeting the latest versions of Android; compatibility " +
-                "modes apply. Consider testing and updating this version. " +
-                "Consult the android.os.Build.VERSION_CODES javadoc for " +
-                "details."
-
-            val highest = context.client.highestKnownApiLevel
-            val label = "Update targetSdkVersion to $highest"
-            val fix = fix().name(label).replace().text(value).with(highest.toString()).build()
-            report(context, statementCookie, TARGET_NEWER, message, fix)
+            is TargetSdkCheckResult.NotLatest -> {
+              val highest = tsdk.highestVersion
+              val label = "Update targetSdkVersion to $highest"
+              val fix =
+                if (LintClient.isStudio) {
+                  fix().data("currentTargetSdkVersion", version)
+                } else {
+                  fix().name(label).replace().text(value).with(highest.toString()).build()
+                }
+              report(context, statementCookie, TARGET_NEWER, tsdk.message, fix)
+            }
+            is TargetSdkCheckResult.NoIssue -> {}
           }
         }
         if (version > 0) {
@@ -339,7 +341,13 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
                 "It looks like you just edited the `targetSdkVersion` from $lastTargetSdkVersion to $version in the editor. " +
                   "Be sure to consult the documentation on the behaviors that change as result of this. " +
                   "The Android SDK Upgrade Assistant can help with safely migrating."
-              report(context, statementCookie, EDITED_TARGET_SDK_VERSION, message)
+              report(
+                context,
+                statementCookie,
+                EDITED_TARGET_SDK_VERSION,
+                message,
+                fix().data("currentTargetSdkVersion", version)
+              )
             }
           }
         } else {

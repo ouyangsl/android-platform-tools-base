@@ -15,6 +15,10 @@
  */
 package com.android.tools.lint.checks
 
+import com.android.tools.lint.checks.TargetSdkCheckResult.Expired
+import com.android.tools.lint.checks.TargetSdkCheckResult.Expiring
+import com.android.tools.lint.checks.TargetSdkCheckResult.NoIssue
+import com.android.tools.lint.checks.TargetSdkCheckResult.NotLatest
 import com.android.tools.lint.checks.TargetSdkRequirements.MINIMUM_TARGET_SDK_VERSION
 import com.android.tools.lint.checks.TargetSdkRequirements.MINIMUM_TARGET_SDK_VERSION_YEAR
 import com.android.tools.lint.checks.TargetSdkRequirements.MINIMUM_WEAR_TARGET_SDK_VERSION
@@ -50,33 +54,31 @@ object TargetSdkRequirements {
 }
 
 sealed interface TargetSdkCheckResult {
-  val requiredVersion: Int
-  val message: String?
 
   data class Expired(
-    override val requiredVersion: Int,
-    override val message: String = expiredMessage(requiredVersion)
+    val requiredVersion: Int,
+    val message: String =
+      "Google Play requires that apps target API level $requiredVersion or higher."
   ) : TargetSdkCheckResult
 
   data class Expiring(
-    override val requiredVersion: Int,
-    override val message: String = expiringMessage(requiredVersion)
+    val requiredVersion: Int,
+    val message: String =
+      "Google Play will soon require that apps target API " +
+        "level $requiredVersion or higher. This will be required for new apps and updates " +
+        "starting on August 31, $MINIMUM_TARGET_SDK_VERSION_YEAR."
   ) : TargetSdkCheckResult
 
-  object NoIssue : TargetSdkCheckResult {
-    override val requiredVersion = -1
-    override val message = null
+  data class NotLatest(val highestVersion: Int) : TargetSdkCheckResult {
+    val message: String
+      get() =
+        "Not targeting the latest versions of Android; compatibility " +
+          "modes apply. Consider testing and updating this version. " +
+          "Consult the `android.os.Build.VERSION_CODES` javadoc for details."
   }
 
-  companion object {
-
-    private fun expiredMessage(required: Int) =
-      "Google Play requires that apps target API level $required or higher."
-
-    private fun expiringMessage(minimumTargetSdkVersion: Int) =
-      "Google Play will soon require that apps target API " +
-        "level $minimumTargetSdkVersion or higher. This will be required for new apps and updates " +
-        "starting on August 31, $MINIMUM_TARGET_SDK_VERSION_YEAR."
+  object NoIssue : TargetSdkCheckResult {
+    const val message: String = ""
   }
 }
 
@@ -91,22 +93,19 @@ fun checkTargetSdk(context: Context, nowCalendar: Calendar, version: Int): Targe
   val previousMinimumTargetSdkVersion =
     if (isWearProject) PREVIOUS_WEAR_MINIMUM_TARGET_SDK_VERSION
     else PREVIOUS_MINIMUM_TARGET_SDK_VERSION
+  val sdkEnforceDate =
+    Calendar.getInstance().apply { set(MINIMUM_TARGET_SDK_VERSION_YEAR, Calendar.AUGUST, 31) }
 
-  if (version < minimumTargetSdkVersion) {
-    val sdkEnforceDate =
-      Calendar.getInstance().apply { set(MINIMUM_TARGET_SDK_VERSION_YEAR, Calendar.AUGUST, 31) }
-
-    return when {
-      nowCalendar.after(sdkEnforceDate) -> {
-        // Doesn't meet this year requirement after deadline (August 31 for 2023)
-        TargetSdkCheckResult.Expired(minimumTargetSdkVersion)
-      }
-      version < previousMinimumTargetSdkVersion -> {
-        // If you're not meeting the previous year's requirement, also enforce with error severity
-        TargetSdkCheckResult.Expired(previousMinimumTargetSdkVersion)
-      }
-      else -> TargetSdkCheckResult.Expiring(minimumTargetSdkVersion)
+  return when {
+    // If the version is at least the minimum then there's no enforcement issue
+    version >= minimumTargetSdkVersion -> {
+      val highest = context.client.highestKnownApiLevel
+      if (version < highest && !isWearProject) NotLatest(highest) else NoIssue
     }
+    // Doesn't meet this year requirement after deadline (August 31 for 2023)
+    nowCalendar.after(sdkEnforceDate) -> Expired(minimumTargetSdkVersion)
+    // If you're not meeting the previous year's requirement, also enforce with error severity
+    version < previousMinimumTargetSdkVersion -> Expired(previousMinimumTargetSdkVersion)
+    else -> Expiring(minimumTargetSdkVersion)
   }
-  return TargetSdkCheckResult.NoIssue
 }

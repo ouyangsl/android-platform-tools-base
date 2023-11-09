@@ -31,13 +31,14 @@ import okio.BufferedSink
 import org.junit.Rule
 import org.junit.Test
 import studio.network.inspection.NetworkInspectorProtocol
+import studio.network.inspection.NetworkInspectorProtocol.HttpConnectionEvent.HttpTransport
 import studio.network.inspection.NetworkInspectorProtocol.InterceptCommand
 
 private const val URL_PARAMS = "activity=OkHttp2Test"
 private val FAKE_URL = URL("https://www.google.com?$URL_PARAMS")
 private const val EXPECTED_RESPONSE_CODE = "response-status-code = 200"
 
-class OkHttp2Test {
+internal class OkHttp2Test {
 
   @get:Rule val inspectorRule = NetworkInspectorRule()
 
@@ -55,6 +56,7 @@ class OkHttp2Test {
     val httpRequestStarted = inspectorRule.connection.httpData.first().httpRequestStarted
     assertThat(httpRequestStarted.url).contains(URL_PARAMS)
     assertThat(httpRequestStarted.method).isEqualTo("GET")
+    assertThat(httpRequestStarted.transport).isEqualTo(HttpTransport.OKHTTP2)
 
     val httpResponseStarted =
       inspectorRule.connection.findHttpEvent(
@@ -99,6 +101,7 @@ class OkHttp2Test {
     val httpRequestStarted = inspectorRule.connection.httpData.first().httpRequestStarted
     assertThat(httpRequestStarted.url).contains(URL_PARAMS)
     assertThat(httpRequestStarted.method).isEqualTo("POST")
+    assertThat(httpRequestStarted.transport).isEqualTo(HttpTransport.OKHTTP2)
 
     val httpRequestCompleted =
       inspectorRule.connection.findHttpEvent(

@@ -29,6 +29,8 @@ import static com.android.SdkConstants.DOT_JAR;
 import static com.android.SdkConstants.DOT_XML;
 import static com.android.SdkConstants.DOT_ZIP;
 import static com.android.SdkConstants.FD_RES_VALUES;
+import static com.android.SdkConstants.JAR_PROTOCOL;
+import static com.android.SdkConstants.JAR_SEPARATOR;
 import static com.android.SdkConstants.NEW_ID_PREFIX;
 import static com.android.SdkConstants.PREFIX_RESOURCE_REF;
 import static com.android.SdkConstants.PREFIX_THEME_REF;
@@ -49,7 +51,6 @@ import static com.android.ide.common.resources.AndroidAaptIgnoreKt.ANDROID_AAPT_
 import static com.android.ide.common.resources.ResourceItem.ATTR_EXAMPLE;
 import static com.android.ide.common.resources.ResourceItem.XLIFF_G_TAG;
 import static com.android.ide.common.resources.ResourceItem.XLIFF_NAMESPACE_PREFIX;
-import static com.intellij.util.io.URLUtil.JAR_PROTOCOL;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.android.ide.common.rendering.api.AttrResourceValue;
@@ -78,6 +79,7 @@ import com.android.resources.ResourceVisibility;
 import com.android.utils.SdkUtils;
 import com.android.utils.XmlUtils;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -89,9 +91,7 @@ import com.google.common.collect.Tables;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.io.URLUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -116,6 +116,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.kxml2.io.KXmlParser;
@@ -276,7 +277,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   @NotNull
   public final String getResourcePathPrefix() {
     if (myLoadingFromZipArchive) {
-      return portableFileName(myResourceDirectoryOrFile.toString()) + URLUtil.JAR_SEPARATOR + "res/";
+      return portableFileName(myResourceDirectoryOrFile.toString()) + JAR_SEPARATOR + "res/";
     }
     else {
       return portableFileName(myResourceDirectoryOrFile.toString()) + '/';
@@ -286,7 +287,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   @NotNull
   public final String getResourceUrlPrefix() {
     if (myLoadingFromZipArchive) {
-      return JAR_PROTOCOL + "://" + portableFileName(myResourceDirectoryOrFile.toString()) + URLUtil.JAR_SEPARATOR + "res/";
+      return JAR_PROTOCOL + "://" + portableFileName(myResourceDirectoryOrFile.toString()) + JAR_SEPARATOR + "res/";
     }
     else {
       return portableFileName(myResourceDirectoryOrFile.toString()) + '/';
@@ -756,7 +757,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     String groupName = myParser.getAttrGroupComment();
     String formatString = myParser.getAttributeValue(null, ATTR_FORMAT);
     Set<AttributeFormat> formats =
-      StringUtil.isEmpty(formatString) ? EnumSet.noneOf(AttributeFormat.class) : AttributeFormat.parse(formatString);
+      Strings.isNullOrEmpty(formatString) ? EnumSet.noneOf(AttributeFormat.class) : AttributeFormat.parse(formatString);
 
     // The average number of enum or flag values is 7 for Android framework, so start with small maps.
     Map<String, Integer> valueMap = Maps.newHashMapWithExpectedSize(8);

@@ -17,21 +17,24 @@
 package com.android.tools.appinspection.network
 
 import android.app.Application
-import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.inspection.ArtTooling
 import androidx.inspection.Connection
 import androidx.inspection.Inspector
 import androidx.inspection.InspectorEnvironment
+import com.android.tools.appinspection.network.grpc.GrpcInterceptor
 import com.android.tools.appinspection.network.httpurl.wrapURLConnection
 import com.android.tools.appinspection.network.okhttp.OkHttp2Interceptor
 import com.android.tools.appinspection.network.okhttp.OkHttp3Interceptor
 import com.android.tools.appinspection.network.rules.InterceptionRuleImpl
 import com.android.tools.appinspection.network.rules.InterceptionRuleServiceImpl
+import com.android.tools.appinspection.network.utils.Logger
+import com.android.tools.appinspection.network.utils.LoggerImpl
 import com.squareup.okhttp.Interceptor
 import com.squareup.okhttp.OkHttpClient
+import io.grpc.ManagedChannelBuilder
 import java.net.URL
 import java.net.URLConnection
-import java.util.List
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -49,11 +52,18 @@ private val INTERCEPT_COMMAND_RESPONSE =
     .build()
     .toByteArray()
 
-class NetworkInspector(
+private const val GRPC_FOR_ADDRESS_METHOD =
+  "forAddress(Ljava/lang/String;I)Lio/grpc/ManagedChannelBuilder;"
+
+private const val GRPC_FOR_TARGET_METHOD =
+  "forTarget(Ljava/lang/String;)Lio/grpc/ManagedChannelBuilder;"
+
+internal class NetworkInspector(
   connection: Connection,
   private val environment: InspectorEnvironment,
   private val trafficStatsProvider: TrafficStatsProvider = TrafficStatsProviderImpl(),
-  private val speedDataIntervalMs: Long = POLL_INTERVAL_MS
+  private val speedDataIntervalMs: Long = POLL_INTERVAL_MS,
+  private val logger: Logger = LoggerImpl(),
 ) : Inspector(connection) {
 
   private val scope =
@@ -62,7 +72,7 @@ class NetworkInspector(
   private val trackerService = HttpTrackerFactoryImpl(connection)
   private var isStarted = false
 
-  private var okHttp2Interceptors: List<Interceptor>? = null
+  private var okHttp2Interceptors: MutableList<Interceptor>? = null
 
   private val interceptionService = InterceptionRuleServiceImpl()
 
@@ -122,24 +132,15 @@ class NetworkInspector(
       // The app can have multiple Application instances. In that case, we use the first non-null
       // uid, which is most likely from the Application created by Android.
       val uid =
-        environment
-          .artTooling()
-          .findInstances(Application::class.java)
-          .mapNotNull {
-            try {
-              it.applicationInfo?.uid
-            } catch (e: Exception) {
-              null
-            }
-          }
-          .firstOrNull()
-          ?: run {
-            Log.e(
-              this::class.java.name,
-              "Failed to find application instance. Collection of network speed is not available."
-            )
-            return@launch
-          }
+        environment.artTooling().findInstances(Application::class.java).firstNotNullOfOrNull {
+          runCatching { it.applicationInfo?.uid }.getOrNull()
+        }
+      if (uid == null) {
+        logger.error(
+          "Failed to find application instance. Collection of network speed is not available."
+        )
+        return@launch
+      }
       var prevRxBytes = trafficStatsProvider.getUidRxBytes(uid)
       var prevTxBytes = trafficStatsProvider.getUidTxBytes(uid)
       var prevZero = false
@@ -186,7 +187,8 @@ class NetworkInspector(
     )
   }
 
-  private fun registerHooks() {
+  @VisibleForTesting
+  internal fun registerHooks() {
     environment
       .artTooling()
       .registerExitHook(
@@ -196,7 +198,9 @@ class NetworkInspector(
           wrapURLConnection(urlConnection, trackerService, interceptionService)
         }
       )
+    logger.debugHidden("Instrumented ${URL::class.qualifiedName}")
 
+    var okHttpInstrumented = false
     try {
       /*
        * Modifies a list of okhttp2 Interceptor in place, adding our own
@@ -214,7 +218,7 @@ class NetworkInspector(
         .registerExitHook(
           OkHttpClient::class.java,
           "networkInterceptors()Ljava/util/List;",
-          ArtTooling.ExitHook<List<Interceptor>> { list ->
+          ArtTooling.ExitHook<MutableList<Interceptor>> { list ->
             if (list.none { it is OkHttp2Interceptor }) {
               okHttp2Interceptors = list
               list.add(0, OkHttp2Interceptor(trackerService, interceptionService))
@@ -222,6 +226,8 @@ class NetworkInspector(
             list
           }
         )
+      logger.debugHidden("Instrumented ${OkHttpClient::class.qualifiedName}")
+      okHttpInstrumented = true
     } catch (e: NoClassDefFoundError) {
       // Ignore. App may not depend on OkHttp.
     }
@@ -233,14 +239,43 @@ class NetworkInspector(
           okhttp3.OkHttpClient::class.java,
           "networkInterceptors()Ljava/util/List;",
           ArtTooling.ExitHook<List<okhttp3.Interceptor>> { list ->
-            val interceptors = java.util.ArrayList<okhttp3.Interceptor>()
+            val interceptors = ArrayList<okhttp3.Interceptor>()
             interceptors.add(OkHttp3Interceptor(trackerService, interceptionService))
             interceptors.addAll(list)
-            interceptors as List<okhttp3.Interceptor>
+            interceptors
           }
         )
+      logger.debugHidden("Instrumented ${okhttp3.OkHttpClient::class.qualifiedName}")
+      okHttpInstrumented = true
     } catch (e: NoClassDefFoundError) {
       // Ignore. App may not depend on OkHttp.
+    }
+    if (!okHttpInstrumented) {
+      // Only log if both OkHttp 2 and 3 were not detected
+      logger.debug(
+        "Did not instrument OkHttpClient. App does not use OKHttp or class is omitted by app reduce"
+      )
+    }
+
+    try {
+      val grpcInterceptor = GrpcInterceptor()
+      listOf(GRPC_FOR_ADDRESS_METHOD, GRPC_FOR_TARGET_METHOD).forEach { method ->
+        environment
+          .artTooling()
+          .registerExitHook(
+            ManagedChannelBuilder::class.java,
+            method,
+            ArtTooling.ExitHook<ManagedChannelBuilder<*>> { channelBuilder ->
+              channelBuilder.intercept(grpcInterceptor)
+              channelBuilder
+            }
+          )
+      }
+      logger.debugHidden("Instrumented ${ManagedChannelBuilder::class.qualifiedName}")
+    } catch (e: NoClassDefFoundError) {
+      logger.debug(
+        "Did not instrument 'ManagedChannelBuilder'. App does not use gRPC or class is omitted by app reduce"
+      )
     }
   }
 
