@@ -2148,10 +2148,10 @@ maven_import(
 )
 
 maven_artifact(
-    name = "com.google.testing.platform.android-device-provider-local_0.0.9-alpha01",
-    pom = "repository/com/google/testing/platform/android-device-provider-local/0.0.9-alpha01/android-device-provider-local-0.0.9-alpha01.pom",
+    name = "com.google.testing.platform.android-device-provider-local_0.0.9-alpha02",
+    pom = "repository/com/google/testing/platform/android-device-provider-local/0.0.9-alpha02/android-device-provider-local-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-device-provider-local/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/android-device-provider-local/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
@@ -2159,20 +2159,20 @@ maven_import(
     name = "com.google.testing.platform.android-device-provider-local",
     classifiers = [],
     jars = [
-        "repository/com/google/testing/platform/android-device-provider-local/0.0.9-alpha01/android-device-provider-local-0.0.9-alpha01.jar"
+        "repository/com/google/testing/platform/android-device-provider-local/0.0.9-alpha02/android-device-provider-local-0.0.9-alpha02.jar"
     ],
     original_deps = [],
-    pom = "repository/com/google/testing/platform/android-device-provider-local/0.0.9-alpha01/android-device-provider-local-0.0.9-alpha01.pom",
+    pom = "repository/com/google/testing/platform/android-device-provider-local/0.0.9-alpha02/android-device-provider-local-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-device-provider-local/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/android-device-provider-local/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "com.google.testing.platform.android-driver-instrumentation_0.0.9-alpha01",
-    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.pom",
+    name = "com.google.testing.platform.android-driver-instrumentation_0.0.9-alpha02",
+    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha02/android-driver-instrumentation-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
@@ -2180,20 +2180,20 @@ maven_import(
     name = "com.google.testing.platform.android-driver-instrumentation",
     classifiers = [],
     jars = [
-        "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.jar"
+        "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha02/android-driver-instrumentation-0.0.9-alpha02.jar"
     ],
     original_deps = [],
-    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.pom",
+    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha02/android-driver-instrumentation-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "com.google.testing.platform.android-test-plugin_0.0.8-alpha07",
-    pom = "repository/com/google/testing/platform/android-test-plugin/0.0.8-alpha07/android-test-plugin-0.0.8-alpha07.pom",
+    name = "com.google.testing.platform.android-test-plugin_0.0.9-alpha02",
+    pom = "repository/com/google/testing/platform/android-test-plugin/0.0.9-alpha02/android-test-plugin-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-test-plugin/0.0.8-alpha07",
+    repo_path = "com/google/testing/platform/android-test-plugin/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
@@ -2201,20 +2201,20 @@ maven_import(
     name = "com.google.testing.platform.android-test-plugin",
     classifiers = [],
     jars = [
-        "repository/com/google/testing/platform/android-test-plugin/0.0.8-alpha07/android-test-plugin-0.0.8-alpha07.jar"
+        "repository/com/google/testing/platform/android-test-plugin/0.0.9-alpha02/android-test-plugin-0.0.9-alpha02.jar"
     ],
     original_deps = [],
-    pom = "repository/com/google/testing/platform/android-test-plugin/0.0.8-alpha07/android-test-plugin-0.0.8-alpha07.pom",
+    pom = "repository/com/google/testing/platform/android-test-plugin/0.0.9-alpha02/android-test-plugin-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/android-test-plugin/0.0.8-alpha07",
+    repo_path = "com/google/testing/platform/android-test-plugin/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "com.google.testing.platform.core-proto_0.0.9-alpha01",
-    pom = "repository/com/google/testing/platform/core-proto/0.0.9-alpha01/core-proto-0.0.9-alpha01.pom",
+    name = "com.google.testing.platform.core-proto_0.0.9-alpha02",
+    pom = "repository/com/google/testing/platform/core-proto/0.0.9-alpha02/core-proto-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/core-proto/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/core-proto/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
@@ -2222,20 +2222,20 @@ maven_import(
     name = "com.google.testing.platform.core-proto",
     classifiers = [],
     jars = [
-        "repository/com/google/testing/platform/core-proto/0.0.9-alpha01/core-proto-0.0.9-alpha01.jar"
+        "repository/com/google/testing/platform/core-proto/0.0.9-alpha02/core-proto-0.0.9-alpha02.jar"
     ],
     original_deps = [],
-    pom = "repository/com/google/testing/platform/core-proto/0.0.9-alpha01/core-proto-0.0.9-alpha01.pom",
+    pom = "repository/com/google/testing/platform/core-proto/0.0.9-alpha02/core-proto-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/core-proto/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/core-proto/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "com.google.testing.platform.core_0.0.8-alpha07",
-    pom = "repository/com/google/testing/platform/core/0.0.8-alpha07/core-0.0.8-alpha07.pom",
+    name = "com.google.testing.platform.core_0.0.9-alpha02",
+    pom = "repository/com/google/testing/platform/core/0.0.9-alpha02/core-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/core/0.0.8-alpha07",
+    repo_path = "com/google/testing/platform/core/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
@@ -2243,20 +2243,20 @@ maven_import(
     name = "com.google.testing.platform.core",
     classifiers = [],
     jars = [
-        "repository/com/google/testing/platform/core/0.0.8-alpha07/core-0.0.8-alpha07.jar"
+        "repository/com/google/testing/platform/core/0.0.9-alpha02/core-0.0.9-alpha02.jar"
     ],
     original_deps = [],
-    pom = "repository/com/google/testing/platform/core/0.0.8-alpha07/core-0.0.8-alpha07.pom",
+    pom = "repository/com/google/testing/platform/core/0.0.9-alpha02/core-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/core/0.0.8-alpha07",
+    repo_path = "com/google/testing/platform/core/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "com.google.testing.platform.launcher_0.0.9-alpha01",
-    pom = "repository/com/google/testing/platform/launcher/0.0.9-alpha01/launcher-0.0.9-alpha01.pom",
+    name = "com.google.testing.platform.launcher_0.0.9-alpha02",
+    pom = "repository/com/google/testing/platform/launcher/0.0.9-alpha02/launcher-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/launcher/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/launcher/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
@@ -2264,12 +2264,12 @@ maven_import(
     name = "com.google.testing.platform.launcher",
     classifiers = [],
     jars = [
-        "repository/com/google/testing/platform/launcher/0.0.9-alpha01/launcher-0.0.9-alpha01.jar"
+        "repository/com/google/testing/platform/launcher/0.0.9-alpha02/launcher-0.0.9-alpha02.jar"
     ],
     original_deps = [],
-    pom = "repository/com/google/testing/platform/launcher/0.0.9-alpha01/launcher-0.0.9-alpha01.pom",
+    pom = "repository/com/google/testing/platform/launcher/0.0.9-alpha02/launcher-0.0.9-alpha02.pom",
     repo_root_path = "repository",
-    repo_path = "com/google/testing/platform/launcher/0.0.9-alpha01",
+    repo_path = "com/google/testing/platform/launcher/0.0.9-alpha02",
     visibility = ["//visibility:public"],
 )
 
@@ -3073,6 +3073,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-all/1.57.0/grpc-all-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-all/1.57.0",
+    srcjar = "repository/io/grpc/grpc-all/1.57.0/grpc-all-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3163,6 +3164,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-api/1.57.0/grpc-api-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-api/1.57.0",
+    srcjar = "repository/io/grpc/grpc-api/1.57.0/grpc-api-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3200,6 +3202,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-auth/1.57.0/grpc-auth-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-auth/1.57.0",
+    srcjar = "repository/io/grpc/grpc-auth/1.57.0/grpc-auth-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3229,6 +3232,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-context/1.57.0/grpc-context-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-context/1.57.0",
+    srcjar = "repository/io/grpc/grpc-context/1.57.0/grpc-context-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3281,6 +3285,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-core/1.57.0/grpc-core-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-core/1.57.0",
+    srcjar = "repository/io/grpc/grpc-core/1.57.0/grpc-core-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3370,6 +3375,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-netty-shaded/1.57.0/grpc-netty-shaded-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-netty-shaded/1.57.0",
+    srcjar = "repository/io/grpc/grpc-netty-shaded/1.57.0/grpc-netty-shaded-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3419,6 +3425,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-netty/1.57.0/grpc-netty-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-netty/1.57.0",
+    srcjar = "repository/io/grpc/grpc-netty/1.57.0/grpc-netty-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3459,6 +3466,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-okhttp/1.57.0/grpc-okhttp-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-okhttp/1.57.0",
+    srcjar = "repository/io/grpc/grpc-okhttp/1.57.0/grpc-okhttp-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3499,6 +3507,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-protobuf-lite/1.57.0/grpc-protobuf-lite-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-protobuf-lite/1.57.0",
+    srcjar = "repository/io/grpc/grpc-protobuf-lite/1.57.0/grpc-protobuf-lite-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3545,6 +3554,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-protobuf/1.57.0/grpc-protobuf-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-protobuf/1.57.0",
+    srcjar = "repository/io/grpc/grpc-protobuf/1.57.0/grpc-protobuf-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -3746,6 +3756,7 @@ maven_import(
     pom = "repository/io/grpc/grpc-stub/1.57.0/grpc-stub-1.57.0.pom",
     repo_root_path = "repository",
     repo_path = "io/grpc/grpc-stub/1.57.0",
+    srcjar = "repository/io/grpc/grpc-stub/1.57.0/grpc-stub-1.57.0-sources.jar",
     visibility = ["//visibility:public"],
 )
 
@@ -12101,10 +12112,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "androidx.benchmark.benchmark-baseline-profile-gradle-plugin_1.2.0-rc02",
-    pom = "repository/androidx/benchmark/benchmark-baseline-profile-gradle-plugin/1.2.0-rc02/benchmark-baseline-profile-gradle-plugin-1.2.0-rc02.pom",
+    name = "androidx.benchmark.benchmark-baseline-profile-gradle-plugin_1.2.0",
+    pom = "repository/androidx/benchmark/benchmark-baseline-profile-gradle-plugin/1.2.0/benchmark-baseline-profile-gradle-plugin-1.2.0.pom",
     repo_root_path = "repository",
-    repo_path = "androidx/benchmark/benchmark-baseline-profile-gradle-plugin/1.2.0-rc02",
+    repo_path = "androidx/benchmark/benchmark-baseline-profile-gradle-plugin/1.2.0",
     deps = [
         "com.google.protobuf.protobuf-java_3.21.8",
         "com.google.testing.platform.core-proto_0.0.8-alpha08",
@@ -12113,10 +12124,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "androidx.benchmark.benchmark-gradle-plugin_1.2.0-rc02",
-    pom = "repository/androidx/benchmark/benchmark-gradle-plugin/1.2.0-rc02/benchmark-gradle-plugin-1.2.0-rc02.pom",
+    name = "androidx.benchmark.benchmark-gradle-plugin_1.2.0",
+    pom = "repository/androidx/benchmark/benchmark-gradle-plugin/1.2.0/benchmark-gradle-plugin-1.2.0.pom",
     repo_root_path = "repository",
-    repo_path = "androidx/benchmark/benchmark-gradle-plugin/1.2.0-rc02",
+    repo_path = "androidx/benchmark/benchmark-gradle-plugin/1.2.0",
     visibility = ["//visibility:public"],
 )
 
@@ -16203,6 +16214,7 @@ maven_artifact(
     repo_path = "androidx/compose/ui/ui-util-android/1.5.0",
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.21",
     ],
     visibility = ["//visibility:public"],
 )
@@ -20777,6 +20789,25 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.navigation.navigation-compose_2.6.0",
+    pom = "repository/androidx/navigation/navigation-compose/2.6.0/navigation-compose-2.6.0.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/navigation/navigation-compose/2.6.0",
+    deps = [
+        "androidx.activity.activity-compose_1.7.0",
+        "androidx.compose.animation.animation_1.0.1",
+        "androidx.compose.foundation.foundation-layout_1.0.1",
+        "androidx.compose.runtime.runtime_1.0.1",
+        "androidx.compose.runtime.runtime-saveable_1.0.1",
+        "androidx.compose.ui.ui_1.0.1",
+        "androidx.lifecycle.lifecycle-viewmodel-compose_2.6.1",
+        "androidx.navigation.navigation-runtime-ktx_2.6.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.20",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.navigation.navigation-compose_2.6.0-beta01",
     pom = "repository/androidx/navigation/navigation-compose/2.6.0-beta01/navigation-compose-2.6.0-beta01.pom",
     repo_root_path = "repository",
@@ -23445,6 +23476,25 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.wear.compose.compose-foundation_1.2.1",
+    pom = "repository/androidx/wear/compose/compose-foundation/1.2.1/compose-foundation-1.2.1.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/wear/compose/compose-foundation/1.2.1",
+    deps = [
+        "androidx.compose.foundation.foundation_1.5.0",
+        "androidx.compose.foundation.foundation-layout_1.5.0",
+        "androidx.compose.runtime.runtime_1.5.0",
+        "androidx.compose.ui.ui_1.5.0",
+        "androidx.compose.ui.ui-text_1.5.0",
+        "androidx.compose.ui.ui-util_1.5.0",
+        "androidx.core.core_1.10.0",
+        "androidx.profileinstaller.profileinstaller_1.3.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.wear.compose.compose-material-core_1.2.0-alpha10",
     pom = "repository/androidx/wear/compose/compose-material-core/1.2.0-alpha10/compose-material-core-1.2.0-alpha10.pom",
     repo_root_path = "repository",
@@ -23460,6 +23510,27 @@ maven_artifact(
         "androidx.compose.ui.ui-util_1.5.0-alpha04",
         "androidx.profileinstaller.profileinstaller_1.3.0",
         "androidx.wear.compose.compose-foundation_1.2.0-alpha10",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.wear.compose.compose-material-core_1.2.1",
+    pom = "repository/androidx/wear/compose/compose-material-core/1.2.1/compose-material-core-1.2.1.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/wear/compose/compose-material-core/1.2.1",
+    deps = [
+        "androidx.compose.animation.animation_1.5.0",
+        "androidx.compose.foundation.foundation_1.5.0",
+        "androidx.compose.material.material-icons-core_1.5.0",
+        "androidx.compose.material.material-ripple_1.5.0",
+        "androidx.compose.runtime.runtime_1.5.0",
+        "androidx.compose.ui.ui_1.5.0",
+        "androidx.compose.ui.ui-text_1.5.0",
+        "androidx.compose.ui.ui-util_1.5.0",
+        "androidx.profileinstaller.profileinstaller_1.3.0",
+        "androidx.wear.compose.compose-foundation_1.2.1",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
     ],
     visibility = ["//visibility:public"],
@@ -23483,6 +23554,29 @@ maven_artifact(
         "androidx.profileinstaller.profileinstaller_1.3.0",
         "androidx.wear.compose.compose-foundation_1.2.0-alpha10",
         "androidx.wear.compose.compose-material-core_1.2.0-alpha10",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.wear.compose.compose-material_1.2.1",
+    pom = "repository/androidx/wear/compose/compose-material/1.2.1/compose-material-1.2.1.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/wear/compose/compose-material/1.2.1",
+    deps = [
+        "androidx.compose.animation.animation_1.5.0",
+        "androidx.compose.foundation.foundation_1.5.0",
+        "androidx.compose.material.material-icons-core_1.5.0",
+        "androidx.compose.material.material-ripple_1.5.0",
+        "androidx.compose.runtime.runtime_1.5.0",
+        "androidx.compose.ui.ui_1.5.0",
+        "androidx.compose.ui.ui-text_1.5.0",
+        "androidx.compose.ui.ui-util_1.5.0",
+        "androidx.lifecycle.lifecycle-common_2.5.1",
+        "androidx.profileinstaller.profileinstaller_1.3.0",
+        "androidx.wear.compose.compose-foundation_1.2.1",
+        "androidx.wear.compose.compose-material-core_1.2.1",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
     ],
     visibility = ["//visibility:public"],
@@ -23530,6 +23624,26 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.wear.compose.compose-navigation_1.2.1",
+    pom = "repository/androidx/wear/compose/compose-navigation/1.2.1/compose-navigation-1.2.1.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/wear/compose/compose-navigation/1.2.1",
+    deps = [
+        "androidx.activity.activity-compose_1.7.0",
+        "androidx.compose.runtime.runtime_1.5.0",
+        "androidx.compose.ui.ui_1.5.0",
+        "androidx.lifecycle.lifecycle-viewmodel-compose_2.6.0",
+        "androidx.navigation.navigation-common_2.6.0",
+        "androidx.navigation.navigation-compose_2.6.0",
+        "androidx.navigation.navigation-runtime_2.6.0",
+        "androidx.profileinstaller.profileinstaller_1.3.0",
+        "androidx.wear.compose.compose-material_1.2.1",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.wear.compose.compose-ui-tooling_1.2.0-alpha10",
     pom = "repository/androidx/wear/compose/compose-ui-tooling/1.2.0-alpha10/compose-ui-tooling-1.2.0-alpha10.pom",
     repo_root_path = "repository",
@@ -23537,6 +23651,19 @@ maven_artifact(
     deps = [
         "androidx.annotation.annotation_1.5.0",
         "androidx.compose.ui.ui-tooling-preview_1.5.0-alpha04",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.wear.compose.compose-ui-tooling_1.2.1",
+    pom = "repository/androidx/wear/compose/compose-ui-tooling/1.2.1/compose-ui-tooling-1.2.1.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/wear/compose/compose-ui-tooling/1.2.1",
+    deps = [
+        "androidx.annotation.annotation_1.5.0",
+        "androidx.compose.ui.ui-tooling-preview_1.5.0",
         "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.21",
     ],
     visibility = ["//visibility:public"],
@@ -39449,6 +39576,35 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.google.android.material.material_1.10.0",
+    pom = "repository/com/google/android/material/material/1.10.0/material-1.10.0.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/android/material/material/1.10.0",
+    deps = [
+        "androidx.activity.activity_1.8.0",
+        "androidx.annotation.annotation_1.2.0",
+        "androidx.appcompat.appcompat_1.6.1",
+        "androidx.cardview.cardview_1.0.0",
+        "androidx.coordinatorlayout.coordinatorlayout_1.1.0",
+        "androidx.constraintlayout.constraintlayout_2.0.1",
+        "androidx.core.core_1.6.0",
+        "androidx.drawerlayout.drawerlayout_1.1.1",
+        "androidx.dynamicanimation.dynamicanimation_1.0.0",
+        "androidx.annotation.annotation-experimental_1.0.0",
+        "androidx.fragment.fragment_1.2.5",
+        "androidx.lifecycle.lifecycle-runtime_2.0.0",
+        "androidx.recyclerview.recyclerview_1.0.0",
+        "androidx.resourceinspection.resourceinspection-annotation_1.0.1",
+        "androidx.transition.transition_1.2.0",
+        "androidx.vectordrawable.vectordrawable_1.1.0",
+        "androidx.viewpager2.viewpager2_1.0.0",
+        "com.google.errorprone.error_prone_annotations_2.15.0",
+        "org.jetbrains.kotlin.kotlin-bom_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.google.android.material.material_1.2.0-rc01",
     pom = "repository/com/google/android/material/material/1.2.0-rc01/material-1.2.0-rc01.pom",
     repo_root_path = "repository",
@@ -41737,6 +41893,30 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.google.testing.platform.android-device-provider-local_0.0.9-alpha01",
+    pom = "repository/com/google/testing/platform/android-device-provider-local/0.0.9-alpha01/android-device-provider-local-0.0.9-alpha01.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-device-provider-local/0.0.9-alpha01",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.google.testing.platform.android-driver-instrumentation_0.0.9-alpha01",
+    pom = "repository/com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01/android-driver-instrumentation-0.0.9-alpha01.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-driver-instrumentation/0.0.9-alpha01",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.google.testing.platform.android-test-plugin_0.0.8-alpha07",
+    pom = "repository/com/google/testing/platform/android-test-plugin/0.0.8-alpha07/android-test-plugin-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/android-test-plugin/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.google.testing.platform.android-test-plugin_0.0.9-alpha01",
     pom = "repository/com/google/testing/platform/android-test-plugin/0.0.9-alpha01/android-test-plugin-0.0.9-alpha01.pom",
     repo_root_path = "repository",
@@ -41777,6 +41957,22 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.google.testing.platform.core-proto_0.0.9-alpha01",
+    pom = "repository/com/google/testing/platform/core-proto/0.0.9-alpha01/core-proto-0.0.9-alpha01.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/core-proto/0.0.9-alpha01",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.google.testing.platform.core_0.0.8-alpha07",
+    pom = "repository/com/google/testing/platform/core/0.0.8-alpha07/core-0.0.8-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/core/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.google.testing.platform.core_0.0.9-alpha01",
     pom = "repository/com/google/testing/platform/core/0.0.9-alpha01/core-0.0.9-alpha01.pom",
     repo_root_path = "repository",
@@ -41789,6 +41985,14 @@ maven_artifact(
     pom = "repository/com/google/testing/platform/launcher/0.0.8-alpha07/launcher-0.0.8-alpha07.pom",
     repo_root_path = "repository",
     repo_path = "com/google/testing/platform/launcher/0.0.8-alpha07",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "com.google.testing.platform.launcher_0.0.9-alpha01",
+    pom = "repository/com/google/testing/platform/launcher/0.0.9-alpha01/launcher-0.0.9-alpha01.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/testing/platform/launcher/0.0.9-alpha01",
     visibility = ["//visibility:public"],
 )
 
@@ -45093,10 +45297,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.compiler.compiler-hosted_1.4.5",
-    pom = "repository/org/jetbrains/compose/compiler/compiler-hosted/1.4.5/compiler-hosted-1.4.5.pom",
+    name = "org.jetbrains.compose.compiler.compiler-hosted_1.4.8.1-dev03",
+    pom = "repository/org/jetbrains/compose/compiler/compiler-hosted/1.4.8.1-dev03/compiler-hosted-1.4.8.1-dev03.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/compiler/compiler-hosted/1.4.5",
+    repo_path = "org/jetbrains/compose/compiler/compiler-hosted/1.4.8.1-dev03",
     visibility = ["//visibility:public"],
 )
 
@@ -46206,6 +46410,14 @@ maven_artifact(
     pom = "repository/org/jetbrains/kotlin/kotlin-bom/1.8.0/kotlin-bom-1.8.0.pom",
     repo_root_path = "repository",
     repo_path = "org/jetbrains/kotlin/kotlin-bom/1.8.0",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-bom_1.8.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-bom/1.8.22/kotlin-bom-1.8.22.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-bom/1.8.22",
     visibility = ["//visibility:public"],
 )
 

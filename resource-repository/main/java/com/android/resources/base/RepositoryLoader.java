@@ -76,6 +76,8 @@ import com.android.resources.FolderTypeRelationship;
 import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 import com.android.resources.ResourceVisibility;
+import com.android.tools.environment.CancellationManager;
+import com.android.tools.environment.Logger;
 import com.android.utils.SdkUtils;
 import com.android.utils.XmlUtils;
 import com.google.common.base.Preconditions;
@@ -88,10 +90,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.progress.ProcessCanceledException;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.util.containers.ContainerUtil;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -114,6 +113,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -233,7 +233,10 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
 
       List<Path> sourceFilesAndFolders = myResourceFilesAndFolders == null ?
                                          ImmutableList.of(myResourceDirectoryOrFile) :
-                                         ContainerUtil.map(myResourceFilesAndFolders, PathString::toPath);
+                                         myResourceFilesAndFolders
+                                                 .stream()
+                                                 .map(PathString::toPath)
+                                                 .collect(Collectors.toList());
       List<PathString> resourceFiles = findResourceFiles(sourceFilesAndFolders);
       for (PathString file : resourceFiles) {
         loadResourceFile(file, repository, shouldParseResourceIds);
@@ -622,7 +625,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
       return new BufferedInputStream(CancellableFileIo.newInputStream(path));
     }
     else {
-      ProgressManager.checkCanceled();
+      CancellationManager.throwIfCancelled();
       ZipEntry entry = myZipFile.getEntry(file.getPortablePath());
       if (entry == null) {
         throw new NoSuchFileException(file.getPortablePath());

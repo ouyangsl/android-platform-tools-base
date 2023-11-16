@@ -117,6 +117,7 @@ class AndroidTestApkInstallerPlugin(private val logger: Logger = getLogger()) : 
         if (installableApk != null && installableApk.installOptions.installAsSplitApk) {
             installCmd = SPLIT_APK_INSTALL_CMD.toMutableList()
         }
+        if (deviceApiLevel >= 34) installCmd.add("--bypass-low-target-sdk-block")
         // Append -t to install apk marked as testOnly.
         installCmd.add("-t")
         if (installableApk != null && installableApk.installOptions.installAsTestService) {
@@ -153,6 +154,10 @@ class AndroidTestApkInstallerPlugin(private val logger: Logger = getLogger()) : 
                         .deviceApiLevel.toInt()
         val deviceSerial = deviceController.getDevice().serial
         userId = getUserId(deviceApiLevel, deviceController, deviceSerial)
+
+        if (deviceApiLevel >= 33) {
+            deviceController.execute(listOf("shell", "settings", "put", "global", "verifier_verify_adb_installs", "0"))
+        }
 
         val installablesInstallCmd = getInstallCmd(null, deviceApiLevel)
         installables.forEach { artifact ->

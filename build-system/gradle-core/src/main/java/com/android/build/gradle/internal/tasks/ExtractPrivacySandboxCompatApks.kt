@@ -20,14 +20,13 @@ import com.android.build.api.variant.impl.BuiltArtifactImpl
 import com.android.build.api.variant.impl.BuiltArtifactsImpl
 import com.android.build.gradle.internal.AndroidJarInput
 import com.android.build.gradle.internal.LoggerWrapper
+import com.android.build.gradle.internal.component.ApplicationCreationConfig
 import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.initialize
-import com.android.build.gradle.internal.res.Aapt2FromMaven
 import com.android.build.gradle.internal.res.namespaced.Aapt2LinkRunnable
 import com.android.build.gradle.internal.scope.InternalArtifactType
 import com.android.build.gradle.internal.services.Aapt2Input
-import com.android.build.gradle.internal.services.getBuildService
 import com.android.build.gradle.internal.services.getLeasingAapt2
 import com.android.build.gradle.internal.signing.SigningConfigData
 import com.android.build.gradle.internal.signing.SigningConfigDataProvider
@@ -47,15 +46,18 @@ import com.android.tools.build.apkzlib.zfile.NativeLibrariesPackagingMode
 import com.android.utils.FileUtils
 import com.google.common.base.Charsets
 import com.google.common.collect.ImmutableList
+import com.google.common.io.Files
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.logging.Logging
 import org.gradle.api.provider.Property
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Nested
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
@@ -93,6 +95,16 @@ abstract class ExtractPrivacySandboxCompatApks: NonIncrementalTask() {
 
     @get:Input
     abstract val applicationId: Property<String>
+
+    @get:Input
+    abstract val projectBaseName: Property<String>
+
+    @get:Input
+    abstract val componentBaseName: Property<String>
+
+    @get:Input
+    @get:Optional
+    abstract val versionCode: Property<Int?>
 
     @get:Nested
     abstract val androidJarInput: AndroidJarInput
@@ -145,10 +157,7 @@ abstract class ExtractPrivacySandboxCompatApks: NonIncrementalTask() {
             val compatSplitApk = writeCompatApkSplit(
                     FileUtils.join(outputDir.get().asFile,
                             "splits",
-                            "${
-                                applicationId.get()
-                                        .replace(".", "")
-                            }-injected-privacy-sandbox-compat.apk")
+                            "${projectBaseName.get()}-${componentBaseName.get()}-injected-privacy-sandbox-compat.apk")
                             .toPath(),
                     temporaryDir,
                     runtimeEnabledSdkTableFile.get().asFile)
@@ -168,71 +177,18 @@ abstract class ExtractPrivacySandboxCompatApks: NonIncrementalTask() {
     private fun writeCompatApkSplit(
             outputApkPath: Path,
             tempDir: File, runtimeEnabledSdkTableFile: File): Path {
-        val signingConfigData: SigningConfigData = signingConfig.get().signingConfigData.get()
-                ?: throw RuntimeException("SigningConfig is not defined.")
-        val certificateInfo = KeystoreHelper.getCertificateInfo(
-                signingConfigData.storeType,
-                signingConfigData.storeFile,
-                signingConfigData.storePassword,
-                signingConfigData.keyPassword,
-                signingConfigData.keyAlias)
-        val signingOptions = SigningOptions.builder()
-                .setKey(certificateInfo.key)
-                .setCertificates(certificateInfo.certificate)
-                .setMinSdkVersion(1)
-                .setV1SigningEnabled(true)
-                .setV2SigningEnabled(true)
-                .build()
-        val creationData =
-                ApkCreatorFactory.CreationData.builder()
-                        .setNativeLibrariesPackagingMode(NativeLibrariesPackagingMode.COMPRESSED)
-                        .setApkPath(outputApkPath.toFile())
-                        .setSigningOptions(signingOptions)
-                        .build()
 
-        val apkDir =
-                FileUtils.join(tempDir, "tmp-apk-compat-privacy-sandbox-split").apply { mkdirs() }
-        val manifest = File(apkDir, "AndroidManifest.xml")
-        val manifestText =
-                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
-                        "<manifest \n" +
-                        " xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
-                        " android:isFeatureSplit=\"true\"\n" +
-                        " android:versionCode=\"1\"\n" +
-                        " split=\"${outputApkPath.toFile().nameWithoutExtension.replace("-", "")}\"\n" +
-                        " package=\"${applicationId.get()}\">\n" +
-                        "<application android:hasCode=\"false\"></application>\n" +
-                        "</manifest>"
-        val documentFactory = DocumentBuilderFactory.newInstance()
-        val xmlDocBuilder: DocumentBuilder = documentFactory.newDocumentBuilder()
-        val manifestDocument = xmlDocBuilder.parse(InputSource(StringReader(manifestText)))
-        val prettyPrintManifest = XmlPrettyPrinter.prettyPrint(manifestDocument, true)
-        com.google.common.io.Files.asCharSink(manifest, Charsets.UTF_8)
-                .write(prettyPrintManifest)
-
-        val config = AaptPackageConfig(
-                androidJarPath = androidJarInput.getAndroidJar().get().absolutePath,
-                generateProtos = false,
-                manifestFile = manifest,
-                options = AaptOptions(null, null),
-                resourceOutputApk = outputApkPath.toFile(),
-                componentType = ComponentTypeImpl.BASE_APK,
-                packageId = null,
-                resourceDirs = ImmutableList.of()
+        return generateAdditionalSplitApk(
+                outputApkPath = outputApkPath,
+                versionCode = versionCode.get(),
+                signingConfigData = signingConfig.get().signingConfigData.get()
+                        ?: throw RuntimeException("SigningConfig is not defined."),
+                tempDir = tempDir,
+                aapt2 = aapt2,
+                applicationId = applicationId.get(),
+                androidJar = androidJarInput.getAndroidJar().get(),
+                files = mapOf("assets/RuntimeEnabledSdkTable.xml" to runtimeEnabledSdkTableFile),
         )
-        aapt2.getLeasingAapt2()
-                .link(config,
-                        LoggerWrapper(Logging.getLogger(Aapt2LinkRunnable::class.java)))
-
-        ApkFlinger(creationData,
-                Deflater.BEST_SPEED,
-                true,
-                enableV3Signing = true,
-                enableV4Signing = true).use { apkCreator ->
-            apkCreator.writeFile(runtimeEnabledSdkTableFile,
-                    "assets/${runtimeEnabledSdkTableFile.name}")
-        }
-        return outputApkPath
     }
 
     private fun writeMetadata(elementList: MutableList<BuiltArtifactImpl>) {
@@ -245,8 +201,8 @@ abstract class ExtractPrivacySandboxCompatApks: NonIncrementalTask() {
         ).saveToFile(apksFromBundleIdeModel.get().asFile)
     }
 
-    class CreationAction(creationAction: ApkCreationConfig) :
-            VariantTaskCreationAction<ExtractPrivacySandboxCompatApks, ApkCreationConfig>(creationAction) {
+    class CreationAction(creationAction: ApplicationCreationConfig) :
+            VariantTaskCreationAction<ExtractPrivacySandboxCompatApks, ApplicationCreationConfig>(creationAction) {
 
         override val name: String
             get() = getTaskName(creationConfig)
@@ -278,6 +234,9 @@ abstract class ExtractPrivacySandboxCompatApks: NonIncrementalTask() {
                     creationConfig.artifacts.get(InternalArtifactType.RUNTIME_ENABLED_SDK_TABLE)
             )
             task.applicationId.setDisallowChanges(creationConfig.applicationId)
+            task.projectBaseName.setDisallowChanges(creationConfig.services.projectInfo.getProjectBaseName())
+            task.componentBaseName.setDisallowChanges(creationConfig.baseName)
+            task.versionCode.setDisallowChanges(creationConfig.outputs.getMainSplit().versionCode)
             task.privacySandboxEnabled.setDisallowChanges(
                     creationConfig.services.projectOptions[BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT])
             task.androidJarInput.initialize(creationConfig)
@@ -286,7 +245,7 @@ abstract class ExtractPrivacySandboxCompatApks: NonIncrementalTask() {
         }
 
         companion object {
-            fun getTaskName(creationAction: ComponentCreationConfig): String {
+            fun getTaskName(creationAction: ApplicationCreationConfig): String {
                 return creationAction.computeTaskName("extractApksFromSdkSplitsFor")
             }
         }

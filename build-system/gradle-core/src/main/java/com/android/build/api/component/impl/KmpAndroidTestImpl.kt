@@ -19,7 +19,7 @@ package com.android.build.api.component.impl
 import com.android.build.api.artifact.impl.ArtifactsImpl
 import com.android.build.api.component.impl.features.AndroidResourcesCreationConfigImpl
 import com.android.build.api.component.impl.features.AssetsCreationConfigImpl
-import com.android.build.api.component.impl.features.DexingCreationConfigImpl
+import com.android.build.api.component.impl.features.DexingImpl
 import com.android.build.api.component.impl.features.ManifestPlaceholdersCreationConfigImpl
 import com.android.build.api.component.impl.features.OptimizationCreationConfigImpl
 import com.android.build.api.dsl.KotlinMultiplatformAndroidCompilation
@@ -115,7 +115,7 @@ open class KmpAndroidTestImpl @Inject constructor(
     override val instrumentationRunner: Property<String> by lazy {
         internalServices.propertyOf(
             String::class.java,
-            dslInfo.getInstrumentationRunner(dexingCreationConfig.dexingType)
+            dslInfo.getInstrumentationRunner(dexing.dexingType)
         )
     }
 
@@ -160,29 +160,28 @@ open class KmpAndroidTestImpl @Inject constructor(
             androidResourcesCreationConfig
         }
 
-    override val dexingCreationConfig: DexingCreationConfig by lazy {
-        DexingCreationConfigImpl(
+    override val dexing: DexingCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
+        DexingImpl(
             this,
-            dslInfo.dexingDslInfo,
+            // TODO : Change this to VariantBuilder ?
+            dslInfo.dexingDslInfo.isMultiDexEnabled,
+            dslInfo.dexingDslInfo.multiDexKeepProguard,
+            dslInfo.dexingDslInfo.multiDexKeepFile,
             internalServices,
-            services,
         )
     }
 
     override val isCoreLibraryDesugaringEnabledLintCheck: Boolean
-        get() = dexingCreationConfig.isCoreLibraryDesugaringEnabled
+        get() = dexing.isCoreLibraryDesugaringEnabled
 
-    override val signingConfigImpl: SigningConfigImpl? by lazy {
+    override val signingConfig: SigningConfigImpl? by lazy {
         SigningConfigImpl(
-            dslInfo.signingConfig,
+            dslInfo.signingConfigResolver?.resolveConfig(profileable = false, debuggable = false),
             internalServices,
             minSdk.apiLevel,
             global.targetDeployApiFromIDE
         )
     }
-
-    override val signingConfig: SigningConfig?
-        get() = signingConfigImpl
 
     override val optimizationCreationConfig: OptimizationCreationConfig by lazy(LazyThreadSafetyMode.NONE) {
         OptimizationCreationConfigImpl(
@@ -200,6 +199,10 @@ open class KmpAndroidTestImpl @Inject constructor(
             emptyMap(),
             internalServices
         )
+    }
+
+    override fun finalizeAndLock() {
+        dexing.finalizeAndLock()
     }
 
     override val packaging: ApkPackaging by lazy {

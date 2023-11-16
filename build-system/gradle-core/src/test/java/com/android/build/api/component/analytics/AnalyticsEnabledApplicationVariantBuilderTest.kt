@@ -16,18 +16,26 @@
 
 package com.android.build.api.component.analytics
 
+import com.android.build.api.variant.AndroidTestBuilder
 import com.android.build.api.variant.ApplicationVariantBuilder
+import com.android.build.api.variant.PropertyAccessNotAllowedException
 import com.android.tools.build.gradle.internal.profile.VariantMethodType
 import com.google.common.truth.Truth
 import com.google.wireless.android.sdk.stats.GradleBuildVariant
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
 internal class AnalyticsEnabledApplicationVariantBuilderTest {
     @Mock
     lateinit var delegate: ApplicationVariantBuilder
+
+    @Mock
+    lateinit var androidTest: AndroidTestBuilder
+
 
     private val stats = GradleBuildVariant.newBuilder()
     private lateinit var proxy: AnalyticsEnabledApplicationVariantBuilder
@@ -35,6 +43,7 @@ internal class AnalyticsEnabledApplicationVariantBuilderTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
+        Mockito.`when`(delegate.androidTest).thenReturn(androidTest)
         proxy = AnalyticsEnabledApplicationVariantBuilder(delegate, stats)
     }
 
@@ -56,5 +65,26 @@ internal class AnalyticsEnabledApplicationVariantBuilderTest {
         Truth.assertThat(
             stats.variantApiAccess.variantAccessList.first().type
         ).isEqualTo(VariantMethodType.TEST_FIXTURES_ENABLED_VALUE)
+    }
+
+    @Test
+    fun testProfileableWriteOnly() {
+        proxy.profileable = true
+
+        Truth.assertThat(stats.variantApiAccess.variantAccessCount).isEqualTo(1)
+        Truth.assertThat(
+            stats.variantApiAccess.variantAccessList.first().type
+        ).isEqualTo(VariantMethodType.PROFILEABLE_ENABLED_VALUE)
+        val exception = Assert.assertThrows(PropertyAccessNotAllowedException::class.java) {
+            // direct call of proxy.profileable fails compilation
+            // we do small workaround here
+            val func = proxy::profileable
+            func.get()
+        }
+        Truth.assertThat(exception.message).isEqualTo(
+            """
+                You cannot access profileable on ApplicationVariantBuilder in the [AndroidComponentsExtension.beforeVariants]
+                callbacks. Other plugins applied later can still change this value, it is not safe
+                to read at this stage.""".trimIndent())
     }
 }

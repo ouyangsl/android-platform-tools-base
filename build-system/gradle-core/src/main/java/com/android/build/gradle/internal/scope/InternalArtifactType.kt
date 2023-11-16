@@ -20,6 +20,7 @@ import com.android.SdkConstants
 import com.android.build.api.artifact.Artifact
 import com.android.build.api.artifact.ArtifactKind
 import com.android.build.api.artifact.SingleArtifact
+import com.android.build.gradle.internal.api.BaselineProfiles
 import com.android.build.gradle.internal.tasks.GenerateRuntimeEnabledSdkTableTask
 import com.android.builder.internal.packaging.IncrementalPackager.VERSION_CONTROL_INFO_FILE_NAME
 import org.gradle.api.file.Directory
@@ -616,7 +617,14 @@ InternalArtifactType<T : FileSystemLocation>(
             FILE,
             fileName = GenerateRuntimeEnabledSdkTableTask.RUNTIME_ENABLED_SDK_TABLE_FILE_NAME)
 
+    object USES_SDK_LIBRARY_SPLIT_FOR_LOCAL_DEPLOYMENT : InternalArtifactType<RegularFile>(FILE)
+
     object SCREENSHOTS_RENDERED: InternalArtifactType<Directory>(DIRECTORY), Replaceable
+
+    object MERGED_STARTUP_PROFILE: InternalArtifactType<RegularFile>(
+        FILE,
+        fileName = BaselineProfiles.StartupProfileFileName
+    )
 
     override fun getFileSystemLocationName(): String {
         return fileName ?: super.getFileSystemLocationName()

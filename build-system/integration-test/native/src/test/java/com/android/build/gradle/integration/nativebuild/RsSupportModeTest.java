@@ -26,6 +26,7 @@ import com.android.build.gradle.integration.common.fixture.ModelContainer;
 import com.android.build.gradle.integration.common.utils.AndroidProjectUtils;
 import com.android.build.gradle.integration.common.utils.LibraryGraphHelper;
 import com.android.build.gradle.internal.cxx.configure.CMakeVersion;
+import com.android.build.gradle.options.BooleanOption;
 import com.android.builder.model.AndroidArtifact;
 import com.android.builder.model.AndroidProject;
 import com.android.builder.model.Variant;
@@ -48,15 +49,15 @@ public class RsSupportModeTest {
                     .setCmakeVersion(CMakeVersion.DEFAULT.getSdkFolderName())
                     .setWithCmakeDirInLocalProp(true)
                     .setSideBySideNdkVersion(DEFAULT_NDK_SIDE_BY_SIDE_VERSION)
+                    .addGradleProperties(BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT.getPropertyName() + "=false")
                     .create();
 
     private static ModelContainer<AndroidProject> model;
 
     @BeforeClass
     public static void setUp() throws IOException, InterruptedException {
-        model =
-                project.executeAndReturnModel(
-                        "clean", "assembleDebug", "assembleX86DebugAndroidTest");
+        project.executor().run("clean", "assembleDebug", "assembleX86DebugAndroidTest");
+        model = project.model().ignoreSyncIssues().fetchAndroidProjects();
     }
 
     @AfterClass

@@ -47,11 +47,6 @@ import com.android.tools.agent.appinspection.testutils.property.companions.ViewI
 import com.android.tools.agent.appinspection.util.ThreadUtils
 import com.android.tools.agent.appinspection.util.decompress
 import com.android.tools.agent.shared.FoldObserver
-import com.android.tools.idea.protobuf.ByteString
-import com.android.tools.layoutinspector.BITMAP_HEADER_SIZE
-import com.android.tools.layoutinspector.BitmapType
-import com.android.tools.layoutinspector.toBytes
-import com.google.common.truth.Truth.assertThat
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.Command
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.ErrorCode
@@ -62,6 +57,11 @@ import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorVie
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.Response
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.Screenshot
 import com.android.tools.idea.layoutinspector.view.inspection.LayoutInspectorViewProtocol.StopFetchCommand
+import com.android.tools.idea.protobuf.ByteString
+import com.android.tools.layoutinspector.BITMAP_HEADER_SIZE
+import com.android.tools.layoutinspector.BitmapType
+import com.android.tools.layoutinspector.toBytes
+import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -69,7 +69,6 @@ import org.junit.Test
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.CountDownLatch
-import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import kotlin.concurrent.thread
@@ -1847,8 +1846,76 @@ abstract class ViewLayoutInspectorTestBase {
         val context = Context(packageName, resources)
         val mainScreen = ViewGroup(context).apply {
             setAttachInfo(View.AttachInfo())
-            width = 0
-            height = -1
+            width = 1  // will be scaled below 1
+            height = 2 // will be scaled below 1
+        }
+        val fakeBitmapHeader = byteArrayOf(1, 2, 3) // trailed by 0s
+
+        WindowManagerGlobal.getInstance().rootViews.addAll(listOf(mainScreen))
+
+        val startFetchCommand = Command.newBuilder().apply {
+            startFetchCommandBuilder.apply {
+                continuous = true
+            }
+        }.build()
+        viewInspector.onReceiveCommand(
+            startFetchCommand.toByteArray(),
+            inspectorRule.commandCallback
+        )
+
+        ThreadUtils.runOnMainThread { }.get() // Wait for startCommand to finish initializing
+
+        val updateScreenshotTypeCommand = Command.newBuilder().apply {
+            updateScreenshotTypeCommandBuilder.apply {
+                type = Screenshot.Type.BITMAP
+                this.scale = 0.1f
+            }
+        }.build()
+        viewInspector.onReceiveCommand(
+            updateScreenshotTypeCommand.toByteArray(),
+            inspectorRule.commandCallback
+        )
+
+        mainScreen.viewRootImpl = ViewRootImpl()
+        mainScreen.viewRootImpl.mSurface = Surface()
+        mainScreen.viewRootImpl.mSurface.bitmapBytes = fakeBitmapHeader
+        mainScreen.forcePictureCapture(Picture(byteArrayOf(1)))
+
+        checkNonProgressEvent(eventQueue) { event ->
+            assertThat(event.specializedCase).isEqualTo(Event.SpecializedCase.ROOTS_EVENT)
+        }
+        val check = { event: Event ->
+            assertThat(event.specializedCase).isEqualTo(Event.SpecializedCase.LAYOUT_EVENT)
+            // verify there is no screenshot in the event
+            assertThat(event.layoutEvent.hasScreenshot()).isTrue()
+
+            event.layoutEvent.screenshot.let { screenshot ->
+                assertThat(screenshot.type).isEqualTo(Screenshot.Type.BITMAP)
+                val decompressedBytes = screenshot.bytes.toByteArray().decompress()
+
+                // The full screenshot byte array is width * height
+                assertThat(decompressedBytes.size).isEqualTo(0)
+            }
+        }
+        checkNonProgressEvent(eventQueue, check)
+        // There will be a second one to capture the end of any animation.
+        checkNonProgressEvent(eventQueue, check)
+    }
+
+    @Test
+    fun invalidSurfaceYieldsNoImage() = createViewInspector { viewInspector ->
+        val eventQueue = ArrayBlockingQueue<ByteArray>(5)
+        inspectorRule.connection.eventListeners.add { bytes ->
+            eventQueue.add(bytes)
+        }
+
+        val packageName = "view.inspector.test"
+        val resources = createResources(packageName)
+        val context = Context(packageName, resources)
+        val mainScreen = ViewGroup(context).apply {
+            setAttachInfo(View.AttachInfo())
+            width = 300
+            height = 200
         }
         val fakeBitmapHeader = byteArrayOf(1, 2, 3) // trailed by 0s
 
@@ -1867,7 +1934,7 @@ abstract class ViewLayoutInspectorTestBase {
         ThreadUtils.runOnMainThread { }.get() // Wait for startCommand to finish initializing
 
         mainScreen.viewRootImpl = ViewRootImpl()
-        mainScreen.viewRootImpl.mSurface = Surface()
+        mainScreen.viewRootImpl.mSurface = Surface().apply { isValid = false }
         mainScreen.viewRootImpl.mSurface.bitmapBytes = fakeBitmapHeader
         mainScreen.forcePictureCapture(Picture(byteArrayOf(1)))
 
