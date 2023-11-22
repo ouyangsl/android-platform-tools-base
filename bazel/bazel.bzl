@@ -532,6 +532,7 @@ def iml_module(
         data = [],
         test_main_class = None,
         lint_baseline = None,
+        lint_enabled = True,
         lint_timeout = None,
         exec_properties = {},
         kotlin_use_compose = False,
@@ -573,8 +574,11 @@ def iml_module(
         test_jvm_flags: JVM flags passed to the test process.
         test_timeout: See https://bazel.build/reference/be/common-definitions#test.timeout.
         test_class: See https://bazel.build/reference/be/java#java_test_args.
-        test_shard_count: Number of shards to use for testing.
-        split_test_targets: A dict indicating split test targets to create.
+                            Almost every test module is expected to have a class extending `IdeaTestSuiteBase` class.
+                            This class sets up the test environment for the code in the test target and allows to
+                            customize access to additional data for the testing code.
+        test_shard_count: Number of shards to use for testing, should not be used with split_test_targets.
+        split_test_targets: A dict indicating split test targets to create, should not be used with test_shard_count.
                             Each split target runs a subset of tests matching a package name or FQCN.
                             If a test target does not define a `test_filter`, it will run the set of tests that
                             excludes all the other filters. If a test target defines a `test_filter` which
@@ -592,6 +596,7 @@ def iml_module(
         data: Production runtime dependencies.
         test_main_class: See See https://bazel.build/reference/be/java#java_test_args.
         lint_baseline: See impl.
+        lint_enabled: enable or disable Lint checks
         lint_timeout: See impl.
         exec_properties: See https://bazel.build/reference/be/common-definitions#common.exec_properties
         kotlin_use_compose: See impl.
@@ -664,14 +669,10 @@ def iml_module(
     )
 
     lint_srcs = srcs.javas + srcs.kotlins + srcs.resources
-    if lint_baseline:
-        if not lint_srcs:
-            fail("lint_baseline set for iml_module that has no sources")
+    if lint_baseline and not lint_srcs:
+        fail("lint_baseline set for iml_module that has no sources")
 
-        kwargs = {}
-        if lint_timeout:
-            kwargs["timeout"] = lint_timeout
-
+    if lint_srcs and lint_enabled:
         lint_tags = tags if tags else []
         if "no_windows" not in lint_tags:
             lint_tags.append("no_windows")
@@ -684,10 +685,8 @@ def iml_module(
             custom_rules = ["//tools/base/lint:studio-checks.lint-rules.jar"],
             external_annotations = ["//tools/base/external-annotations:annotations.zip"],
             tags = lint_tags,
-            **kwargs
+            timeout = lint_timeout if lint_timeout else None,
         )
-    elif lint_timeout:
-        fail("lint_timeout set for iml_module that doesn't use lint (set lint_baseline to enable lint)")
 
     if not test_srcs:
         return

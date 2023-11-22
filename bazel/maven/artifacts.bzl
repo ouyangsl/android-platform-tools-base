@@ -183,8 +183,7 @@ ARTIFACTS = [
     "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.7.85",
     "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.7.85",
     "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.85",
-    "org.mockito:mockito-core:4.8.0",
-    "org.mockito:mockito-inline:4.8.0",
+    "org.mockito:mockito-core:5.6.0",
     "org.mortbay.jetty:jetty:6.1.26",
     "org.ow2.asm:asm:9.3",
     "org.ow2.asm:asm-analysis:9.3",
@@ -234,12 +233,9 @@ DATA = [
     "androidx.appcompat:appcompat:1.6.1",
     "androidx.benchmark:benchmark-baseline-profile-gradle-plugin:1.2.0",
     "androidx.benchmark:benchmark-gradle-plugin:1.2.0",
-    "androidx.compose.animation:animation:1.2.0-alpha05",
     "androidx.compose.animation:animation:1.3.0",
-    "androidx.compose.animation:animation:1.5.0",
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.foundation:foundation:1.2.0-alpha05",
     "androidx.compose.foundation:foundation:1.3.0",
     "androidx.compose.foundation:foundation:1.5.0",
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -257,23 +253,16 @@ DATA = [
     "androidx.compose.material:material:1.5.0",
     "androidx.compose.material:material:1.5.0-alpha04",
     "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
-    "androidx.compose.material3:material3:1.0.0-alpha02",
     "androidx.compose.material3:material3:1.0.0",
     "androidx.compose.material3:material3:1.1.1",
-    "androidx.compose.material:material-icons-extended:1.2.0-alpha05",
     "androidx.compose.material:material-icons-extended:1.3.0",
-    "androidx.compose.material:material-icons-extended:1.4.0",
-    "androidx.compose.runtime:runtime-livedata:1.2.0-alpha05",
     "androidx.compose.runtime:runtime-livedata:1.3.0",
-    "androidx.compose.runtime:runtime-livedata:1.4.0",
     "androidx.compose.ui:ui-test-junit4:1.2.0",
     "androidx.compose.ui:ui-test-junit4:1.3.0",
     "androidx.compose.ui:ui-test-junit4:1.5.0",
     "androidx.compose.ui:ui-test-junit4:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-junit4:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-junit4-android:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.ui:ui-test-manifest:1.2.0",
-    "androidx.compose.ui:ui-test-manifest:1.2.0",
     "androidx.compose.ui:ui-test-manifest:1.3.0",
     "androidx.compose.ui:ui-test-manifest:1.5.0",
     "androidx.compose.ui:ui-test-manifest:1.5.0-alpha04",
@@ -284,10 +273,9 @@ DATA = [
     "androidx.compose.ui:ui:1.5.0",
     "androidx.compose.ui:ui:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-graphics-android:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.ui:ui-tooling:1.2.0",
+    "androidx.compose.ui:ui-tooling:1.2.0",  # Still needed from //tools/data-binding/compilationTests
     "androidx.compose.ui:ui-tooling:1.3.0",  # Still needed from //tools/base/build-system/integration-tests
-    "androidx.compose.ui:ui-tooling:1.4.0",
-    "androidx.compose.ui:ui-tooling:1.4.3",
+    "androidx.compose.ui:ui-tooling:1.4.3",  # Still needed from //tools/adt/idea/integration:BuildAndRunKMPTest
     "androidx.compose.ui:ui-tooling:1.5.0",
     "androidx.compose.ui:ui-tooling:1.5.0-alpha04",
     "androidx.compose.ui:ui-tooling:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -430,7 +418,6 @@ DATA = [
     "androidx.tv:tv-foundation:1.0.0-alpha07",
     "androidx.tv:tv-material:1.0.0-alpha07",
     "androidx.wear:wear:1.2.0",
-    "androidx.wear.compose:compose-material:1.1.2",
     "androidx.wear.compose:compose-material:1.2.1",
     "androidx.wear.compose:compose-navigation:1.2.1",
     "androidx.wear.compose:compose-ui-tooling:1.2.1",
@@ -670,8 +657,8 @@ DATA = [
     "org.jetbrains.dokka:dokka-base:1.4.32",
     "org.jetbrains.dokka:javadoc-plugin:1.4.32",
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:1.9.20-RC",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge:0.9.0-ij-232",
-    "org.jetbrains.jewel:jewel-int-ui-standalone:0.9.0",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge:0.10.0-ij-232",
+    "org.jetbrains.jewel:jewel-int-ui-standalone:0.10.0",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.0",  # Remove it later (b/243935746)
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.10",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:1.7.20",
@@ -814,7 +801,7 @@ DATA = [
     "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.7.16",
     "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.7.16",
     "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.16",
-    "org.mockito:mockito-core:4.8.0",
+    "org.mockito:mockito-core:5.6.0",
     "org.robolectric:android-all-instrumented:7.0.0_r1-robolectric-r1-i4",
     "org.robolectric:robolectric:4.8.2",
     "org.tensorflow:tensorflow-lite-metadata:0.1.0",
@@ -850,11 +837,11 @@ DATA = [
     "org.jetbrains.compose.ui:ui-text-desktop:jar:sources:1.5.10",
     "org.jetbrains.compose.ui:ui-unit-desktop:jar:sources:1.5.10",
     "org.jetbrains.compose.ui:ui-util-desktop:jar:sources:1.5.10",
-    "org.jetbrains.jewel:jewel-foundation:jar:sources:0.9.0",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge:jar:sources:0.9.0-ij-232",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-platform-specific:jar:sources:0.9.0-ij-232",
-    "org.jetbrains.jewel:jewel-int-ui-standalone:jar:sources:0.9.0",
-    "org.jetbrains.jewel:jewel-ui:jar:sources:0.9.0",
+    "org.jetbrains.jewel:jewel-foundation:jar:sources:0.10.0",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge:jar:sources:0.10.0-ij-232",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-platform-specific:jar:sources:0.10.0-ij-232",
+    "org.jetbrains.jewel:jewel-int-ui-standalone:jar:sources:0.10.0",
+    "org.jetbrains.jewel:jewel-ui:jar:sources:0.10.0",
 ]
 
 REMOTE_REPOS = {

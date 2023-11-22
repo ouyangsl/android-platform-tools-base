@@ -18,8 +18,6 @@ package com.android.build.gradle.integration.common.fixture
 import com.android.SdkConstants
 import com.android.SdkConstants.NDK_DEFAULT_VERSION
 import com.android.Version
-import com.android.build.api.variant.BuiltArtifacts
-import com.android.build.api.variant.impl.BuiltArtifactsLoaderImpl.Companion.loadFromFile
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder.MemoryRequirement
 import com.android.build.gradle.integration.common.fixture.gradle_project.BuildSystem
 import com.android.build.gradle.integration.common.fixture.gradle_project.ProjectLocation
@@ -35,7 +33,6 @@ import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.internal.plugins.VersionCheckPlugin
 import com.android.build.gradle.options.BooleanOption
 import com.android.builder.core.ToolsRevisionUtils
-import com.android.builder.model.AndroidProject
 import com.android.sdklib.internal.project.ProjectProperties
 import com.android.testutils.MavenRepoGenerator
 import com.android.testutils.OsType
@@ -1329,12 +1326,6 @@ allprojects { proj ->
     }
 
     /** Fluent method to get the model.  */
-    @Deprecated("Use modelV2()")
-    fun model(): ModelBuilder {
-        return applyOptions(ModelBuilder(this, projectConnection))
-    }
-
-    /** Fluent method to get the model.  */
     fun modelV2(): ModelBuilderV2 {
         return applyOptions(ModelBuilderV2(this, projectConnection)).withPerTestPrefsRoot(true)
     }
@@ -1407,17 +1398,6 @@ allprojects { proj ->
             _buildResult = this
             exception
         }
-    }
-
-    /**
-     * Runs gradle on the project, and returns the project model. Throws exception on failure.
-     *
-     * @param tasks Variadic list of tasks to execute.
-     * @return the AndroidProject model for the project.
-     */
-    fun executeAndReturnModel(vararg tasks: String): ModelContainer<AndroidProject> {
-        _buildResult = executor().run(*tasks)
-        return model().fetchAndroidProjects()
     }
 
     override fun setLastBuildResult(lastBuildResult: GradleBuildResult) {

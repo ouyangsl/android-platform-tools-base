@@ -44,6 +44,7 @@ private const val UNKNOWN_PLATFORM_ERROR_MESSAGE =
 /**
  * Encapsulates necessary information to run tests using Unified Test Platform.
  *
+ * @property jvm the JAVA environment to run UTP on.
  * @property deviceName a displayable device name
  * @property deviceId an identifier for a device
  * @property utpOutputDir a path to the directory to store results from UTP
@@ -52,6 +53,7 @@ private const val UNKNOWN_PLATFORM_ERROR_MESSAGE =
  * @property shardConfig an information about test sharding, or null if sharding is not enabled
  */
 data class UtpRunnerConfig(
+    val jvm: File,
     val deviceName: String,
     val deviceId: String,
     val utpOutputDir: File,
@@ -229,8 +231,9 @@ private fun runUtpTestSuite(
             """.trimIndent())
     }
     workQueue.submit(RunUtpWorkAction::class.java) { params ->
-        params.launcherJar.set(utpDependencies.launcher.singleFile)
-        params.coreJar.set(utpDependencies.core.singleFile)
+        params.jvm.set(config.jvm)
+        params.launcherJar.setFrom(utpDependencies.launcher.files)
+        params.coreJar.setFrom(utpDependencies.core.files)
         params.runnerConfig.set(runnerConfigProtoFile)
         params.serverConfig.set(serverConfigProtoFile)
         params.loggingProperties.set(loggingPropertiesFile)
