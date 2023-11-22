@@ -1,5 +1,5 @@
-BASE_VERSION = "31.2.0"
-BUILD_VERSION = "8.2.0"
+BASE_VERSION = "31.2.1"
+BUILD_VERSION = "8.2.1"
 COMMANDLINE_TOOLS_VERSION = "12.0"
 
 # These are used for nightly releases
