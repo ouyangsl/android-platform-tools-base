@@ -17,21 +17,13 @@ kotlin_library(
 )
 
 downloaded_sdk = [
-    "@build_tools_zip//file",
     "@emulator_zip//file",
-    "@platform_33_zip//file",
-    "@platform_tools_zip//file",
-    "@sdk_tools_zip//file",
-    "@system_image_android-29_default_x86_zip//file",
+    "@system_image_android-29_default_x86_64//:x86_64-android-29-images",
 ]
 
 sdk_jvm_flags = [
-    "-Dsdk.repo.buildtools.zip=$(location @build_tools_zip//file)",
     "-Dsdk.repo.emulator.zip=$(location @emulator_zip//file)",
-    "-Dsdk.repo.platform.zip=$(location @platform_33_zip//file)",
-    "-Dsdk.repo.platformtools.zip=$(location @platform_tools_zip//file)",
-    "-Dsdk.repo.sdktools.zip=$(location @sdk_tools_zip//file)",
-    "-Dsdk.repo.sysimage.android29.zip=$(location @system_image_android-29_default_x86_zip//file)",
+    "-Dsdk.repo.sysimage.android29.files=\"$(locations @system_image_android-29_default_x86_64//:x86_64-android-29-images)\"",
 ]
 
 #keep sorted
@@ -109,8 +101,22 @@ gradle_connected_test(
     maven_repo_zips = MAVEN_REPO_ZIPS,
     maven_repos = TEST_MAVEN_REPOS,
     shard_count = 2,
-    # b/219103375
+
+    # b/314022353
     tags = ["very_flaky"],
+    deps = TEST_DEPS + [
+        "//tools/base/build-system/integration-test/utp",
+    ],
+)
+
+gradle_connected_test(
+    name = "UtpManagedDeviceSetupTest",
+    srcs = "src/test/java/com/android/build/gradle/integration/manageddevice/application/",
+    avd = None,
+    data = TEST_DATA + ["//tools/base/build-system/integration-test:test-projects/utp"],
+    jvm_flags = sdk_jvm_flags,
+    maven_repo_zips = MAVEN_REPO_ZIPS,
+    maven_repos = TEST_MAVEN_REPOS,
     deps = TEST_DEPS + [
         "//tools/base/build-system/integration-test/utp",
     ],
@@ -125,7 +131,7 @@ gradle_connected_test(
     maven_repo_zips = MAVEN_REPO_ZIPS,
     maven_repos = TEST_MAVEN_REPOS,
 
-    # b/219103375
+    # b/314022353
     tags = ["very_flaky"],
     deps = TEST_DEPS,
 )
@@ -139,7 +145,7 @@ gradle_connected_test(
     maven_repo_zips = MAVEN_REPO_ZIPS,
     maven_repos = TEST_MAVEN_REPOS,
 
-    # b/219103375
+    # b/314022353
     tags = ["very_flaky"],
     deps = TEST_DEPS,
 )
