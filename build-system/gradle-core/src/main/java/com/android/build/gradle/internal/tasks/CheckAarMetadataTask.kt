@@ -235,7 +235,7 @@ abstract class CheckAarMetadataTask : NonIncrementalTask() {
             task.disableCompileSdkChecks.setDisallowChanges(
                 creationConfig.services.projectOptions[BooleanOption.DISABLE_COMPILE_SDK_CHECKS]
             )
-            if (!creationConfig.services.projectOptions[BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT]) {
+            if (creationConfig.privacySandboxCreationConfig == null) {
                 task.disallowedAsarArtifacts =
                         creationConfig.variantDependencies.getArtifactCollection(
                                 AndroidArtifacts.ConsumedConfigType.RUNTIME_CLASSPATH,
@@ -269,8 +269,12 @@ abstract class CheckAarMetadataWorkAction: WorkAction<CheckAarMetadataWorkParame
                 Privacy Sandbox support to be enabled in projects that depend on it.
 
                 Recommended action: Enable privacy sandbox consumption in this project by setting
-                    ${BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT.propertyName}=true
-                in this project's gradle.properties
+                    android {
+                        privacySandbox {
+                            enable = true
+                        }
+                    }
+                in this project's build.gradle
                 """.trimIndent())
         }
         if (errorMessages.size > 0) {

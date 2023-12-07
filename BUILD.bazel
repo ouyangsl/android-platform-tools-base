@@ -15,8 +15,8 @@ maven_repository(
         "@maven//:com.github.javaparser.javaparser-core",
         "@maven//:com.google.apis.google-api-services-storage_v1-rev82-1.22.0",
         "@maven//:com.google.crypto.tink.tink",
+        "@maven//:com.google.guava.guava",
         "@maven//:com.google.guava.guava-testlib",
-        "@maven//:com.google.guava.guava_23.0",
         "@maven//:com.google.jimfs.jimfs",
         "@maven//:com.google.protobuf.protobuf-bom_3.17.2",
         "@maven//:com.google.protobuf.protobuf-gradle-plugin",
@@ -136,6 +136,7 @@ AGP_TEST_ARTIFACTS = [
     "//tools/base/lint/cli",  # TODO(b/143864616): Only used for tests
     "//tools/base/lint:tools.lint-api",  # TODO(b/143864616): Only used for tests
     "//tools/base/lint:tools.lint-checks",  # TODO(b/143864616): Only used for tests
+    "//tools/base/multipreview-asm:multipreview-asm",  # Used for preview screenshot testing
     "//tools/base/utp/android-test-plugin-host-device-info-proto",  # Used for UTP
     "//prebuilts/tools/common/lint-psi/intellij-core",  # TODO(b/143864616): Only used for tests
     "//prebuilts/tools/common/lint-psi/kotlin-compiler",  # TODO(b/143864616): Only used for tests

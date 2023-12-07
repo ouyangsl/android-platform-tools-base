@@ -57,6 +57,7 @@ kotlin_test(
     ]),
     # TODO: Why are the xml files not under resources?
     jvm_flags = ["-Dtest.suite.jar=tools.manifest-merger_tests.jar"],
+    lint_baseline = "lint_baseline_manifest_merger_tests.xml",
     resources = glob(
         include = ["manifest-merger/src/test/java/**"],
         exclude = [
@@ -368,8 +369,8 @@ maven_repository(
         "@maven//:com.github.javaparser.javaparser-core",
         "@maven//:com.google.apis.google-api-services-storage_v1-rev82-1.22.0",
         "@maven//:com.google.crypto.tink.tink",
+        "@maven//:com.google.guava.guava",
         "@maven//:com.google.guava.guava-testlib",
-        "@maven//:com.google.guava.guava_23.0",
         "@maven//:com.google.jimfs.jimfs",
         "@maven//:com.google.protobuf.protobuf-gradle-plugin",
         "@maven//:com.google.protobuf.protoc_3.22.3",

@@ -36,7 +36,6 @@ import com.android.build.gradle.internal.scope.InternalArtifactType;
 import com.android.build.gradle.internal.tasks.factory.VariantTaskCreationAction;
 import com.android.build.gradle.internal.test.BuiltArtifactsSplitOutputMatcher;
 import com.android.build.gradle.internal.testing.ConnectedDeviceProvider;
-import com.android.build.gradle.options.BooleanOption;
 import com.android.buildanalyzer.common.TaskCategory;
 import com.android.builder.internal.InstallUtils;
 import com.android.builder.testing.api.DeviceConfigProviderImpl;
@@ -69,7 +68,6 @@ import org.gradle.api.GradleException;
 import org.gradle.api.file.ConfigurableFileCollection;
 import org.gradle.api.file.Directory;
 import org.gradle.api.file.DirectoryProperty;
-import org.gradle.api.file.FileCollection;
 import org.gradle.api.logging.LogLevel;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.tasks.Input;
@@ -274,7 +272,7 @@ public abstract class InstallVariantTask extends NonIncrementalTask {
             Properties properties = new Properties();
             properties.load(inputStream);
             String dmPath;
-            if (device.getApiLevel() > ArtProfileKt.HIGHEST_DM_API_RANGE_START) {
+            if (device.getApiLevel() > ArtProfileKt.SDK_LEVEL_FOR_V0_1_5_S) {
                 dmPath = properties.getProperty(String.valueOf(Integer.MAX_VALUE));
             } else {
                 dmPath = properties.getProperty(String.valueOf(device.getApiLevel()));
@@ -401,10 +399,7 @@ public abstract class InstallVariantTask extends NonIncrementalTask {
                     .getArtifacts()
                     .setTaskInputToFinalProduct(
                             SingleArtifact.APK.INSTANCE, task.getApkDirectory());
-            if (creationConfig
-                    .getServices()
-                    .getProjectOptions()
-                    .get(BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT)) {
+            if (creationConfig.getPrivacySandboxCreationConfig() != null) {
                 task.getPrivacySandboxSdksApksFiles()
                         .setFrom(
                                 creationConfig

@@ -236,6 +236,9 @@ enum class BooleanOption(
             false,
             FeatureStage.Experimental
     ),
+    PRIVACY_SANDBOX_SDK_SUPPORT("android.experimental.privacysandboxsdk.enable",
+            false,
+            FeatureStage.Experimental),
 
     PRIVACY_SANDBOX_SDK_REQUIRE_SERVICES(
             "android.experimental.privacysandboxsdk.requireServices", true, FeatureStage.Experimental),
@@ -252,7 +255,6 @@ enum class BooleanOption(
     ),
 
     FUSED_LIBRARY_SUPPORT("android.experimental.fusedLibrarySupport", false, FeatureStage.Experimental),
-    SUPPORT_PAST_STUDIO_VERSIONS("android.experimental.support.past.studio.versions", false, FeatureStage.Experimental),
 
     /**
      * Whether to omit line numbers when writing lint baselines
@@ -308,9 +310,6 @@ enum class BooleanOption(
         true,
         FeatureStage.SoftlyEnforced(VERSION_9_0)
     ),
-    PRIVACY_SANDBOX_SDK_SUPPORT("android.privacysandboxsdk.enable",
-            true,
-            FeatureStage.SoftlyEnforced(VERSION_9_0)),
 
     /**
      * When enabled, Gradle Managed Device allows a custom managed device type that can be provided

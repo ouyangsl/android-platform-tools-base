@@ -25,6 +25,7 @@ import com.android.build.api.dsl.BuildFeatures
 import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.DefaultConfig
+import com.android.build.api.dsl.Installation
 import com.android.build.api.dsl.ProductFlavor
 import com.android.build.api.dsl.TestExtension
 import com.android.build.api.variant.ScopedArtifacts.Scope.ALL
@@ -119,12 +120,14 @@ class ModelBuilder<
         DefaultConfigT : DefaultConfig,
         ProductFlavorT : ProductFlavor,
         AndroidResourcesT : AndroidResources,
+        InstallationT : Installation,
         ExtensionT : CommonExtension<
                 BuildFeaturesT,
                 BuildTypeT,
                 DefaultConfigT,
                 ProductFlavorT,
-                AndroidResourcesT>>(
+                AndroidResourcesT,
+                InstallationT>>(
     private val project: Project,
     private val variantModel: VariantModel,
     private val extension: ExtensionT,
@@ -191,7 +194,7 @@ class ModelBuilder<
          * after the next version of Studio becomes stable, dropping support for previous
          * Android Studio versions.
          */
-        val minimumModelConsumerVersion = VersionImpl(major = 66, minor = 0, humanReadable = "Android Studio I")
+        val minimumModelConsumerVersion = VersionImpl(major = 66, minor = 1, humanReadable = "Android Studio Iguana")
         return VersionsImpl(
             agp = Version.ANDROID_GRADLE_PLUGIN_VERSION,
             versions = mutableMapOf<String, Versions.Version>(
@@ -200,11 +203,8 @@ class ModelBuilder<
                 Versions.ANDROID_DSL to v2Version,
                 Versions.VARIANT_DEPENDENCIES to v2Version,
                 Versions.NATIVE_MODULE to v2Version,
-            ).also {
-                if (variantModel.projectOptions[BooleanOption.SUPPORT_PAST_STUDIO_VERSIONS]) {
-                    it.put(Versions.MINIMUM_MODEL_CONSUMER, minimumModelConsumerVersion)
-                }
-            }
+                Versions.MINIMUM_MODEL_CONSUMER to minimumModelConsumerVersion
+            )
         )
     }
 
@@ -456,7 +456,7 @@ class ModelBuilder<
                 } else null
 
         val extensionImpl =
-            extension as? CommonExtensionImpl<*, *, *, *, *>
+            extension as? CommonExtensionImpl<*, *, *, *, *, *>
                 ?: throw RuntimeException("Wrong extension provided to v2 ModelBuilder")
         val compileSdkVersion = extensionImpl.compileSdkVersion ?: "unknown"
 
@@ -660,7 +660,7 @@ class ModelBuilder<
     }
 
     private fun createPrivacySandboxSdkInfo(component: ComponentCreationConfig): PrivacySandboxSdkInfo? {
-        if (!component.services.projectOptions[BooleanOption.PRIVACY_SANDBOX_SDK_SUPPORT]) {
+        if (component.privacySandboxCreationConfig == null) {
             return null
         }
         if (component !is ApplicationCreationConfig) {
