@@ -32,8 +32,12 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.jar.Manifest
+import java.util.zip.ZipEntry
+import java.util.Calendar
+import java.util.GregorianCalendar
 
 /** Transform that extracts an AAR file into a directory.  */
 @DisableCachingByDefault
@@ -60,7 +64,12 @@ abstract class ExtractAarTransform: TransformAction<GenericTransformParameters> 
                 FileOutputStream(classesJar).use { out ->
                     // FileOutputStream above is the actual OS resource that will get closed,
                     // JarOutputStream writes the bytes or an empty jar in it.
-                    val jarOutputStream = JarOutputStream(BufferedOutputStream(out), Manifest())
+                    val jarOutputStream = JarOutputStream(BufferedOutputStream(out))
+                    val manifestEntry = ZipEntry(JarFile.MANIFEST_NAME)
+                    manifestEntry.time = CONSTANT_TIME_FOR_ZIP_ENTRIES
+                    jarOutputStream.putNextEntry(manifestEntry)
+                    Manifest().write(BufferedOutputStream(jarOutputStream))
+                    jarOutputStream.closeEntry()
                     jarOutputStream.close()
                 }
             } catch (e: IOException) {
@@ -69,3 +78,5 @@ abstract class ExtractAarTransform: TransformAction<GenericTransformParameters> 
         }
     }
 }
+
+private val CONSTANT_TIME_FOR_ZIP_ENTRIES = GregorianCalendar(1980, 1, 1, 0, 0, 0).timeInMillis
