@@ -426,7 +426,7 @@ maven_repository(
     # keep sorted
     artifacts = [
         "//tools/base/testutils:tools.testutils",
-        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.9.20-RC",
+        "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.9.20",
     ],
 )
 

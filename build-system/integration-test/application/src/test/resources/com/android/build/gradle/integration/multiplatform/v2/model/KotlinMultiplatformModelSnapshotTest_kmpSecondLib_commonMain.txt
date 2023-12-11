@@ -17,7 +17,7 @@
   {
     "binaryType": "KOTLIN_COMPILE",
     "classpath": [
-      "{INCLUDED_BUILD(:kotlinMultiplatform)}/.gradle/kotlin/kotlinTransformedMetadataLibraries/org.jetbrains.kotlin-kotlin-stdlib-{KOTLIN_VERSION}-commonMain-SsyL5g.klib"
+      "{INCLUDED_BUILD(:kotlinMultiplatform)}/.gradle/kotlin/kotlinTransformedMetadataLibraries/org.jetbrains.kotlin-kotlin-stdlib-{KOTLIN_VERSION}-commonMain-MOJUuA.klib"
     ],
     "coordinates": {
       "group": "org.jetbrains.kotlin",
