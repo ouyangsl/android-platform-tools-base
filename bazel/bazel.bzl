@@ -117,6 +117,7 @@ def _iml_module_jar_impl(
     # Kotlin
     kotlin_providers = []
     if kotlin_srcs:
+        kotlinc_opts += ["-opt-in=org.jetbrains.kotlin.analysis.api.lifetime.KtAllowProhibitedAnalyzeFromWriteAction"]
         kotlin_providers += [kotlin_compile(
             ctx = ctx,
             name = module_name,
