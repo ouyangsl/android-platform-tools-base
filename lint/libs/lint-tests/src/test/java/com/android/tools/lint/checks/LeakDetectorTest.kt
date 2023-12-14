@@ -683,6 +683,21 @@ class LeakDetectorTest : AbstractCheckTest() {
                 """
           )
           .indented(),
+        // Regression test for b/312949131
+        kotlin(
+            """
+                package test.pkg
+
+                import android.content.Context
+                import androidx.lifecycle.ViewModel
+                import dagger.hilt.android.qualifiers.ApplicationContext
+
+                class Model2(
+                    @ApplicationContext private val context: Context
+                ) : ViewModel()
+                """
+          )
+          .indented(),
         java(
             // Stub
             """
@@ -700,6 +715,56 @@ class LeakDetectorTest : AbstractCheckTest() {
                 package androidx.lifecycle;
                 public class ViewModel { }
                 """
+          )
+          .indented()
+      )
+      .skipTestModes(TestMode.TYPE_ALIAS, TestMode.IMPORT_ALIAS)
+      .run()
+      .expectClean()
+  }
+
+  fun testConstructorAnnotation() {
+    // Regression test for b/312949131
+    lint()
+      .files(
+        java(
+            """
+            package com.example.myapplication;
+
+            import android.content.Context;
+            import androidx.lifecycle.ViewModel;
+            import dagger.hilt.android.qualifiers.ApplicationContext;
+
+            public class Model3 extends ViewModel {
+                private Context context = null;
+
+                Model3() {
+                }
+
+                Model3(@ApplicationContext Context context) {
+                    this.context = context;
+                }
+            }
+            """
+          )
+          .indented(),
+        java(
+            // Stub
+            """
+            package dagger.hilt.android.qualifiers;
+            import java.lang.annotation.ElementType;
+            import java.lang.annotation.Target;
+            @Target({ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD})
+            public @interface ApplicationContext {}
+            """
+          )
+          .indented(),
+        java(
+            // Stub
+            """
+            package androidx.lifecycle;
+            public class ViewModel { }
+            """
           )
           .indented()
       )

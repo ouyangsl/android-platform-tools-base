@@ -4324,8 +4324,11 @@ class GradleDetectorTest : AbstractCheckTest() {
             "plugins {\n" +
             "    id(\"com.android.application\") version \"2.3.3\"\n" +
             // Deprecated version of the above (shouldn't be used in real KTS file,
-            // but here to check that visitors also touch method calls
+            // but here to check that visitors also touch method calls)
             "    id(\"android\") version \"2.3.3\"\n" +
+            // Another version of the above (shouldn't be used in real KTS file, but
+            // here to check that visitors can cope with nested binary expressions)
+            "    id(\"android\") version \"2.3.3\" apply true\n" +
             "    kotlin(\"android\") version \"1.1.51\"\n" +
             "}\n" +
             "\n" +
@@ -4367,13 +4370,16 @@ class GradleDetectorTest : AbstractCheckTest() {
                 build.gradle.kts:3: Warning: 'android' is deprecated; use 'com.android.application' instead [GradleDeprecated]
                     id("android") version "2.3.3"
                         ~~~~~~~
-                build.gradle.kts:29: Warning: A newer version of com.android.support.constraint:constraint-layout than 1.0.0-alpha8 is available: 1.0.3-alpha8 [GradleDependency]
+                build.gradle.kts:4: Warning: 'android' is deprecated; use 'com.android.application' instead [GradleDeprecated]
+                    id("android") version "2.3.3" apply true
+                        ~~~~~~~
+                build.gradle.kts:30: Warning: A newer version of com.android.support.constraint:constraint-layout than 1.0.0-alpha8 is available: 1.0.3-alpha8 [GradleDependency]
                     compile("com.android.support.constraint:constraint-layout:1.0.0-alpha8")
                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                build.gradle.kts:11: Warning: The value of minSdkVersion is too low. It can be incremented without noticeably reducing the number of supported devices. [MinSdkTooLow]
+                build.gradle.kts:12: Warning: The value of minSdkVersion is too low. It can be incremented without noticeably reducing the number of supported devices. [MinSdkTooLow]
                         minSdkVersion(7)
                         ~~~~~~~~~~~~~~~~
-                0 errors, 3 warnings
+                0 errors, 4 warnings
                 """
       )
       .expectFixDiffs(
@@ -4382,14 +4388,62 @@ class GradleDetectorTest : AbstractCheckTest() {
                 @@ -3 +3
                 -     id("android") version "2.3.3"
                 +     id("com.android.application") version "2.3.3"
-                Fix for build.gradle.kts line 29: Change to 1.0.3-alpha8:
-                @@ -29 +29
+                Autofix for build.gradle.kts line 4: Replace with com.android.application:
+                @@ -4 +4
+                -     id("android") version "2.3.3" apply true
+                +     id("com.android.application") version "2.3.3" apply true
+                Fix for build.gradle.kts line 30: Change to 1.0.3-alpha8:
+                @@ -30 +30
                 -     compile("com.android.support.constraint:constraint-layout:1.0.0-alpha8")
                 +     compile("com.android.support.constraint:constraint-layout:1.0.3-alpha8")
-                Fix for build.gradle.kts line 11: Update minSdkVersion to $LOWEST_ACTIVE_API:
-                @@ -11 +11
+                Fix for build.gradle.kts line 12: Update minSdkVersion to $LOWEST_ACTIVE_API:
+                @@ -12 +12
                 -         minSdkVersion(7)
                 +         minSdkVersion($LOWEST_ACTIVE_API)
+                """
+      )
+  }
+
+  fun testGroovyPluginsDsl() {
+    // tests for the equivalent Kotlin script Plugins Dsl are in testKtsSupport()
+    lint()
+      .files(
+        gradle(
+          "" +
+            "plugins {\n" +
+            "    id 'com.android.application' version '2.3.3'\n" +
+            // Deprecated version of the above (shouldn't be used in real plugins Dsl,
+            // but here to check that visitors also touch method calls)
+            "    id 'android' version '2.3.3'\n" +
+            // Another version of the above (shouldn't be used in real KTS file, but
+            // here to check that visitors can cope with nested binary expressions)
+            "    id 'android' version '2.3.3' apply true\n" +
+            "}"
+        )
+      )
+      .issues(DEPENDENCY, DEPRECATED)
+      .run()
+      .expect(
+        """
+                build.gradle:3: Warning: 'android' is deprecated; use 'com.android.application' instead [GradleDeprecated]
+                    id 'android' version '2.3.3'
+                       ~~~~~~~~~
+                build.gradle:4: Warning: 'android' is deprecated; use 'com.android.application' instead [GradleDeprecated]
+                    id 'android' version '2.3.3' apply true
+                       ~~~~~~~~~
+                0 errors, 2 warnings
+                """
+      )
+      .expectFixDiffs(
+        """
+                Autofix for build.gradle line 3: Replace with com.android.application:
+                @@ -3 +3
+                -     id 'android' version '2.3.3'
+                +     id 'com.android.application' version '2.3.3'
+                Autofix for build.gradle line 4: Replace with com.android.application:
+                @@ -4 +4
+                -     id 'android' version '2.3.3' apply true
+                +     id 'com.android.application' version '2.3.3' apply true
                 """
       )
   }
@@ -6102,9 +6156,10 @@ class GradleDetectorTest : AbstractCheckTest() {
         gradle(
             """
             dependencies {
-                implementation(platform(libs.compose.bom)) // OK 1: newer version reported in version catalog instead
-                implementation platform("androidx.compose:compose-bom:2022.12.00") // ERROR 1
-                implementation testFixtures("androidx.compose:compose-bom:2022.12.00") // ERROR 2
+                implementation(platform(libs.compose.bom)) // OK 1g: newer version reported in version catalog instead
+                implementation platform("androidx.compose:compose-bom:2022.12.00") // ERROR 1g
+                implementation testFixtures("androidx.compose:compose-bom:2022.12.00") // ERROR 2g
+                implementation(enforcedPlatform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3g
             }
             """
           )
@@ -6112,16 +6167,17 @@ class GradleDetectorTest : AbstractCheckTest() {
         kts(
           """
           dependencies {
-            implementation(platform(libs.compose.bom)) // OK 2: newer version reported in version catalog instead
-            implementation(platform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3
-            implementation(testFixtures("androidx.compose:compose-bom:2022.12.00")) // ERROR 4
+            implementation(platform(libs.compose.bom)) // OK 1k: newer version reported in version catalog instead
+            implementation(platform("androidx.compose:compose-bom:2022.12.00")) // ERROR 1k
+            implementation(testFixtures("androidx.compose:compose-bom:2022.12.00")) // ERROR 2k
+            implementation(enforcedPlatform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3k
           }
           """
         ),
         gradleToml(
             """
             [versions]
-            composeBom = "2022.12.00" # ERROR 5
+            composeBom = "2022.12.00" # ERROR 1t
             [libraries]
             compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
             """
@@ -6133,45 +6189,59 @@ class GradleDetectorTest : AbstractCheckTest() {
       .expect(
         """
         build.gradle:3: Warning: A newer version of androidx.compose:compose-bom than 2022.12.00 is available: 2023.01.00 [GradleDependency]
-            implementation platform("androidx.compose:compose-bom:2022.12.00") // ERROR 1
+            implementation platform("androidx.compose:compose-bom:2022.12.00") // ERROR 1g
                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         build.gradle:4: Warning: A newer version of androidx.compose:compose-bom than 2022.12.00 is available: 2023.01.00 [GradleDependency]
-            implementation testFixtures("androidx.compose:compose-bom:2022.12.00") // ERROR 2
+            implementation testFixtures("androidx.compose:compose-bom:2022.12.00") // ERROR 2g
                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        build.gradle:5: Warning: A newer version of androidx.compose:compose-bom than 2022.12.00 is available: 2023.01.00 [GradleDependency]
+            implementation(enforcedPlatform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3g
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         build.gradle.kts:4: Warning: A newer version of androidx.compose:compose-bom than 2022.12.00 is available: 2023.01.00 [GradleDependency]
-                    implementation(platform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3
+                    implementation(platform("androidx.compose:compose-bom:2022.12.00")) // ERROR 1k
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         build.gradle.kts:5: Warning: A newer version of androidx.compose:compose-bom than 2022.12.00 is available: 2023.01.00 [GradleDependency]
-                    implementation(testFixtures("androidx.compose:compose-bom:2022.12.00")) // ERROR 4
+                    implementation(testFixtures("androidx.compose:compose-bom:2022.12.00")) // ERROR 2k
                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        build.gradle.kts:6: Warning: A newer version of androidx.compose:compose-bom than 2022.12.00 is available: 2023.01.00 [GradleDependency]
+                    implementation(enforcedPlatform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3k
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         ../gradle/libs.versions.toml:2: Warning: A newer version of androidx.compose:compose-bom than 2022.12.00 is available: 2023.01.00 [GradleDependency]
-        composeBom = "2022.12.00" # ERROR 5
+        composeBom = "2022.12.00" # ERROR 1t
                      ~~~~~~~~~~~~
-        0 errors, 5 warnings
+        0 errors, 7 warnings
         """
       )
       .expectFixDiffs(
         """
         Fix for build.gradle line 3: Change to 2023.01.00:
         @@ -3 +3
-        -     implementation platform("androidx.compose:compose-bom:2022.12.00") // ERROR 1
-        +     implementation platform("androidx.compose:compose-bom:2023.01.00") // ERROR 1
+        -     implementation platform("androidx.compose:compose-bom:2022.12.00") // ERROR 1g
+        +     implementation platform("androidx.compose:compose-bom:2023.01.00") // ERROR 1g
         Fix for build.gradle line 4: Change to 2023.01.00:
         @@ -4 +4
-        -     implementation testFixtures("androidx.compose:compose-bom:2022.12.00") // ERROR 2
-        +     implementation testFixtures("androidx.compose:compose-bom:2023.01.00") // ERROR 2
+        -     implementation testFixtures("androidx.compose:compose-bom:2022.12.00") // ERROR 2g
+        +     implementation testFixtures("androidx.compose:compose-bom:2023.01.00") // ERROR 2g
+        Fix for build.gradle line 5: Change to 2023.01.00:
+        @@ -5 +5
+        -     implementation(enforcedPlatform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3g
+        +     implementation(enforcedPlatform("androidx.compose:compose-bom:2023.01.00")) // ERROR 3g
         Fix for build.gradle.kts line 4: Change to 2023.01.00:
         @@ -4 +4
-        -             implementation(platform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3
-        +             implementation(platform("androidx.compose:compose-bom:2023.01.00")) // ERROR 3
+        -             implementation(platform("androidx.compose:compose-bom:2022.12.00")) // ERROR 1k
+        +             implementation(platform("androidx.compose:compose-bom:2023.01.00")) // ERROR 1k
         Fix for build.gradle.kts line 5: Change to 2023.01.00:
         @@ -5 +5
-        -             implementation(testFixtures("androidx.compose:compose-bom:2022.12.00")) // ERROR 4
-        +             implementation(testFixtures("androidx.compose:compose-bom:2023.01.00")) // ERROR 4
+        -             implementation(testFixtures("androidx.compose:compose-bom:2022.12.00")) // ERROR 2k
+        +             implementation(testFixtures("androidx.compose:compose-bom:2023.01.00")) // ERROR 2k
+        Fix for build.gradle.kts line 6: Change to 2023.01.00:
+        @@ -6 +6
+        -             implementation(enforcedPlatform("androidx.compose:compose-bom:2022.12.00")) // ERROR 3k
+        +             implementation(enforcedPlatform("androidx.compose:compose-bom:2023.01.00")) // ERROR 3k
         Fix for gradle/libs.versions.toml line 2: Change to 2023.01.00:
         @@ -2 +2
-        - composeBom = "2022.12.00" # ERROR 5
-        + composeBom = "2023.01.00" # ERROR 5
+        - composeBom = "2022.12.00" # ERROR 1t
+        + composeBom = "2023.01.00" # ERROR 1t
         """
       )
   }
@@ -7002,12 +7072,14 @@ class GradleDetectorTest : AbstractCheckTest() {
         Fix for build.gradle line 3: Change to 1.0:
         @@ -3 +3
         -   implementation 'com.example.cached:library:1.0-beta01'
+        @@ -5 +4
         +   implementation 'com.example.cached:library:1.0'
         Fix for build.gradle line 5: Change to 1.1-beta01:
         @@ -5 +5
         -   implementation 'com.example.cached:library:1.1-alpha01'
+        @@ -7 +6
         +   implementation 'com.example.cached:library:1.1-beta01'
-      """
+        """
       )
   }
 
@@ -7026,6 +7098,63 @@ class GradleDetectorTest : AbstractCheckTest() {
       .issues(DEPENDENCY)
       .run()
       .expectClean()
+  }
+
+  fun testCachedFilterGuava() {
+    // regression test for b/315310898
+    lint()
+      .files(
+        gradle(
+            """
+            dependencies {
+              implementation 'com.google.guava:spurious:16.0'
+              implementation 'com.google.guava:spurious:16.0-rc01'
+              implementation 'com.google.guava:spurious:16.0-jre'
+              implementation 'com.google.guava:spurious:16.0-android'
+            }
+          """
+          )
+          .indented()
+      )
+      .issues(DEPENDENCY)
+      .run()
+      .expect(
+        """
+          build.gradle:2: Warning: A newer version of com.google.guava:spurious than 16.0 is available: 18.0-android [GradleDependency]
+            implementation 'com.google.guava:spurious:16.0'
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:3: Warning: A newer version of com.google.guava:spurious than 16.0-rc01 is available: 18.0-android [GradleDependency]
+            implementation 'com.google.guava:spurious:16.0-rc01'
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:4: Warning: A newer version of com.google.guava:spurious than 16.0-jre is available: 18.0-jre [GradleDependency]
+            implementation 'com.google.guava:spurious:16.0-jre'
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:5: Warning: A newer version of com.google.guava:spurious than 16.0-android is available: 18.0-android [GradleDependency]
+            implementation 'com.google.guava:spurious:16.0-android'
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          0 errors, 4 warnings
+        """
+      )
+      .expectFixDiffs(
+        """
+          Fix for build.gradle line 2: Change to 18.0-android:
+          @@ -2 +2
+          -   implementation 'com.google.guava:spurious:16.0'
+          +   implementation 'com.google.guava:spurious:18.0-android'
+          Fix for build.gradle line 3: Change to 18.0-android:
+          @@ -3 +3
+          -   implementation 'com.google.guava:spurious:16.0-rc01'
+          +   implementation 'com.google.guava:spurious:18.0-android'
+          Fix for build.gradle line 4: Change to 18.0-jre:
+          @@ -4 +4
+          -   implementation 'com.google.guava:spurious:16.0-jre'
+          +   implementation 'com.google.guava:spurious:18.0-jre'
+          Fix for build.gradle line 5: Change to 18.0-android:
+          @@ -5 +5
+          -   implementation 'com.google.guava:spurious:16.0-android'
+          +   implementation 'com.google.guava:spurious:18.0-android'
+        """
+      )
   }
 
   fun testExpiredTargetSdkInManifest() {
@@ -7291,6 +7420,8 @@ class GradleDetectorTest : AbstractCheckTest() {
             "caches/modules-2/files-2.1/com.example.cached/library/1.1-beta01/sample",
             "caches/modules-2/files-2.1/com.example.cached/library/1.1-SNAPSHOT/sample",
             "caches/modules-2/files-2.1/com.google.guava/guava/17.0/sample",
+            "caches/modules-2/files-2.1/com.google.guava/spurious/18.0-android/sample",
+            "caches/modules-2/files-2.1/com.google.guava/spurious/18.0-jre/sample",
             "caches/modules-2/files-2.1/commons-io/commons-io/20030203.000550/sample",
             "caches/modules-2/files-2.1/org.apache.httpcomponents/httpcomponents-core/4.1/sample",
             "caches/modules-2/files-2.1/org.apache.httpcomponents/httpcomponents-core/4.2.1/sample",

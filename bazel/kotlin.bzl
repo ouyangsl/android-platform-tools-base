@@ -103,6 +103,7 @@ def kotlin_test(
         lint_baseline = None,
         lint_classpath = [],
         lint_enabled = True,
+        javacopts = [],
         **kwargs):
     kotlin_library(
         name = name + ".testlib",
@@ -118,6 +119,7 @@ def kotlin_test(
         visibility = visibility,
         friends = friends,
         kotlinc_opts = kotlinc_opts,
+        javacopts = javacopts,
     )
 
     coverage_java_test(
@@ -185,6 +187,7 @@ def kotlin_library(
         testonly = False,
         stdlib = "@maven//:org.jetbrains.kotlin.kotlin-stdlib",
         kotlin_use_compose = False,
+        coverage_baseline_enabled = True,
         **kwargs):
     """Compiles a library jar from Java and Kotlin sources
 
@@ -203,6 +206,7 @@ def kotlin_library(
         testonly: See impl.
         kotlin_use_compose:  See impl.
         stdlib: See impl.
+        coverage_baseline_enabled: whether to generate the coverage baseline
         **kwargs: arguments to pass through to _kotlin_library
     """
 
@@ -211,7 +215,7 @@ def kotlin_library(
     kotlinc_opts = ["-jvm-target", "11"] + kotlinc_opts
 
     # Include non-test kotlin libraries in coverage
-    if not testonly:
+    if coverage_baseline_enabled and not testonly:
         coverage_baseline(
             name = name,
             srcs = srcs,

@@ -31,17 +31,28 @@ import com.android.tools.lint.detector.api.Location
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.SourceCodeScanner
+import com.android.tools.lint.detector.api.UastLintUtils.Companion.getDefaultUseSiteAnnotations
 import com.android.tools.lint.detector.api.getMethodName
+import com.android.tools.lint.detector.api.isKotlin
 import com.intellij.openapi.util.Ref
+import com.intellij.psi.PsiAnnotation
+import com.intellij.psi.PsiAssignmentExpression
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiExpression
+import com.intellij.psi.PsiExpressionStatement
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiKeyword
 import com.intellij.psi.PsiModifier
 import com.intellij.psi.PsiModifierList
+import com.intellij.psi.PsiParameter
+import com.intellij.psi.PsiParenthesizedExpression
+import com.intellij.psi.PsiReferenceExpression
 import java.util.Locale
 import org.jetbrains.kotlin.asJava.elements.KtLightFieldForSourceDeclarationSupport
+import org.jetbrains.uast.UAnnotated
+import org.jetbrains.uast.UAnnotation
 import org.jetbrains.uast.UAnonymousClass
 import org.jetbrains.uast.UBinaryExpression
 import org.jetbrains.uast.UCallExpression
@@ -76,7 +87,7 @@ class LeakDetector : Detector(), SourceCodeScanner {
     if (isStatic || isAnonymous) { // containingClass == null: implicitly static
       // But look for fields that store contexts
       for (field in declaration.fields) {
-        checkInstanceField(context, field)
+        checkInstanceField(context, declaration, field)
       }
 
       if (!isAnonymous) {
@@ -97,7 +108,7 @@ class LeakDetector : Detector(), SourceCodeScanner {
     if (uastParent != null) {
 
       val method =
-        uastParent.getParentOfType<UMethod>(
+        uastParent.getParentOfType(
           UMethod::class.java,
           true,
           UClass::class.java,
@@ -114,9 +125,7 @@ class LeakDetector : Detector(), SourceCodeScanner {
         true,
         UMethod::class.java
       )
-
-    val location: Location
-    location =
+    val location: Location =
       if (isAnonymous && invocation != null) {
         context.getCallLocation(invocation, false, false)
       } else {
@@ -232,26 +241,77 @@ class LeakDetector : Detector(), SourceCodeScanner {
     }
   }
 
-  private fun checkInstanceField(context: JavaContext, field: UField) {
+  private fun checkInstanceField(context: JavaContext, containingClass: UClass, field: UField) {
     val type = field.type as? PsiClassType ?: return
     val fqn = type.canonicalText
     if (fqn.startsWith("java.")) {
       return
     }
-    val cls = type.resolve() ?: return
+    val typeClass = type.resolve() ?: return
 
     if (
-      isLeakCandidate(cls, context.evaluator) &&
-        !isAppContext(cls, field) &&
-        !isInitializedToAppContext(context, field, cls)
+      isLeakCandidate(typeClass, context.evaluator) &&
+        !isAppContext(typeClass, field) &&
+        !isAssignedInConstructor(context, containingClass, field) &&
+        !isInitializedToAppContext(context, field, typeClass)
     ) {
-      context.report(
-        LeakDetector.ISSUE,
-        field,
-        context.getLocation(field),
-        "This field leaks a context object"
-      )
+      context.report(ISSUE, field, context.getLocation(field), "This field leaks a context object")
     }
+  }
+
+  /**
+   * Is the given [field] in the given [containingClass] assigned in the Java constructor from an
+   * annotated parameter?
+   *
+   * (This is only looking in Java files. In Kotlin, we usually use properties for this which is
+   * already handled.)
+   */
+  // Specifically targets Java. And for Java we can directly access the constructors (UAST
+  // doesn't let us do that.)
+  @Suppress("LintImplUseUast")
+  private fun isAssignedInConstructor(
+    context: JavaContext,
+    containingClass: UClass,
+    field: UField
+  ): Boolean {
+    val targetField = field.javaPsi ?: return false
+    if (isKotlin(targetField)) {
+      return false
+    }
+    for (constructor in containingClass.constructors) {
+      val body = constructor.body ?: continue
+      for (statement in body.statements) {
+        val expression =
+          (statement as? PsiExpressionStatement)?.expression?.skipParenthesizedExprDown()
+            ?: continue
+        if (expression is PsiAssignmentExpression) {
+          val lhs = (expression.lExpression as? PsiReferenceExpression)?.resolve() ?: continue
+          if (lhs.isEquivalentTo(targetField)) {
+            val rhs = expression.rExpression?.skipParenthesizedExprDown()
+            if (rhs is PsiReferenceExpression) {
+              val resolved = rhs.resolve()
+              if (resolved is PsiParameter) {
+                val annotations = context.evaluator.getAnnotations(resolved)
+                if (annotations.any { it.isApplicationContext() }) {
+                  return true
+                }
+              }
+            }
+            break
+          }
+        }
+      }
+    }
+
+    return false
+  }
+
+  private fun PsiExpression.skipParenthesizedExprDown(): PsiExpression {
+    var expression = this
+    while (expression is PsiParenthesizedExpression) {
+      expression = expression.expression ?: break
+    }
+    return expression
   }
 
   companion object {
@@ -299,7 +359,7 @@ private const val CLASS_LIFECYCLE_OLD = "android.arch.lifecycle.Lifecycle"
 
 private fun isAppContext(cls: PsiClass, field: PsiField): Boolean {
   //noinspection ExternalAnnotations
-  if (field.annotations.any { it.qualifiedName?.endsWith("ApplicationContext") == true }) {
+  if (field.annotations.any { it.isApplicationContext() }) {
     // dagger.hilt.android.qualifiers.ApplicationContext
     // and various other ones like
     // com.google.android.apps.common.inject.annotation.ApplicationContext;
@@ -324,7 +384,21 @@ private fun isAppContext(cls: PsiClass, field: PsiField): Boolean {
     }
   }
 
+  val annotated = field as? UAnnotated
+  if (annotated != null) {
+    val defaultUseSite = getDefaultUseSiteAnnotations(annotated) ?: return false
+    return defaultUseSite.any { it.isApplicationContext() }
+  }
+
   return false
+}
+
+private fun PsiAnnotation.isApplicationContext(): Boolean {
+  return qualifiedName?.endsWith("ApplicationContext") == true
+}
+
+private fun UAnnotation.isApplicationContext(): Boolean {
+  return qualifiedName?.endsWith("ApplicationContext") == true
 }
 
 private fun isInitializedToAppContext(

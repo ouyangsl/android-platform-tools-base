@@ -115,8 +115,8 @@ public class JacocoConnectedTest {
                         + "  androidTestImplementation 'androidx.test:monitor:1.4.0-alpha06'\n"
                         + "  androidTestImplementation 'androidx.test:rules:1.4.0-alpha06'\n"
                         + "  androidTestImplementation 'androidx.test:runner:1.4.0-alpha06'\n"
-                        + "  androidTestUtil 'androidx.test.services:test-services:1.4.0-alpha06'\n"
-                        + "  androidTestUtil 'androidx.test:orchestrator:1.4.0-alpha06'\n"
+                        + "  androidTestUtil 'androidx.test.services:test-services:1.5.0-alpha02'\n"
+                        + "  androidTestUtil 'androidx.test:orchestrator:1.5.0-alpha02'\n"
                         + "}");
         TestFileUtils.appendToFile(
                 project.getGradlePropertiesFile(),
@@ -205,7 +205,7 @@ public class JacocoConnectedTest {
                         + "</class>"
                         + "<sourcefile name=\"HelloWorld.kt\">"
                         + "<line nr=\"6\" mi=\"0\" ci=\"3\" mb=\"0\" cb=\"0\"/>"
-                        + "<line nr=\"9\" mi=\"0\" ci=\"3\" mb=\"0\" cb=\"0\"/>"
+                        + "<line nr=\"9\" mi=\"0\" ci=\"2\" mb=\"0\" cb=\"0\"/>"
                         + "<line nr=\"10\" mi=\"0\" ci=\"3\" mb=\"0\" cb=\"0\"/>"
                         + "<line nr=\"12\" mi=\"0\" ci=\"1\" mb=\"0\" cb=\"0\"/>"
                         + "<counter type=\"INSTRUCTION\" missed=\"0\" covered=\"10\"/>"

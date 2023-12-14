@@ -14,13 +14,6 @@
  * limitations under the License.
  */
 
-package com.android.tools.preview.screenshot
+package com.android.tools.preview.multipreview.testclasses;
 
-/** Information required to render a screenshot of a compose preview.  */
-// TODO: Remove this when AGP serialization library is available
-data class ComposeScreenshot(
-    val methodFQN: String,
-    val methodParams: List<Map<String, String>>,
-    val previewParams: Map<String, String>,
-    val imageName: String
-)
+public sealed class WithPermittedClasses permits Permitted { }

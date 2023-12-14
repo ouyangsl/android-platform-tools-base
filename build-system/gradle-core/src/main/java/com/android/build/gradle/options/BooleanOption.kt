@@ -168,7 +168,6 @@ enum class BooleanOption(
     DISABLE_MINSDKLIBRARY_CHECK("android.unsafe.disable.minSdkLibraryCheck", false, FeatureStage.Experimental),
     ENABLE_INSTRUMENTATION_TEST_DESUGARING("android.experimental.library.desugarAndroidTest", false, FeatureStage.Experimental),
     ENABLE_EMULATOR_CONTROL("android.experimental.androidTest.enableEmulatorControl", false, FeatureStage.Experimental),
-    ENABLE_SCREENSHOT_TEST("android.experimental.enableScreenshotTest", false, FeatureStage.Experimental),
     /**
      * When enabled, incompatible APKs installed on a testing device will be uninstalled automatically
      * during an instrumentation test run (e.g. When INSTALL_FAILED_UPDATE_INCOMPATIBLE error happens
@@ -236,6 +235,11 @@ enum class BooleanOption(
             false,
             FeatureStage.Experimental
     ),
+
+    PRIVACY_SANDBOX_SDK_PLUGIN_SUPPORT("android.experimental.privacysandboxsdk.plugin.enable",
+            false,
+            FeatureStage.Experimental),
+
     PRIVACY_SANDBOX_SDK_SUPPORT("android.experimental.privacysandboxsdk.enable",
             false,
             FeatureStage.Experimental),
@@ -777,6 +781,14 @@ enum class BooleanOption(
             "android.enableDesugar",
             false,
             FeatureStage.Removed(VERSION_7_0, "Desugar tool has been removed from AGP.")
+    ),
+
+    @Suppress("unused")
+    ENABLE_SCREENSHOT_TEST(
+        "android.experimental.enableScreenshotTest",
+        false,
+        FeatureStage.Removed(Version.VERSION_8_3,
+            "The android.experimental.enableScreenshotTest property has been removed from AGP")
     ),
 
     @Suppress("unused")

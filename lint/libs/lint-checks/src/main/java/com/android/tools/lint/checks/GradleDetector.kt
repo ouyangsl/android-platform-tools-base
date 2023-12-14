@@ -500,8 +500,9 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
         var dependencyString = getStringLiteralValue(value, valueCookie)
         if (
           dependencyString == null &&
-            (value.startsWith("platform(") || value.startsWith("testFixtures(")) &&
-            value.endsWith(")")
+            (listOf("platform", "testFixtures", "enforcedPlatform").any {
+              value.startsWith("$it(")
+            } && value.endsWith(")"))
         ) {
           val argumentString = value.substring(value.indexOf('(') + 1, value.length - 1)
           dependencyString =
@@ -984,7 +985,14 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
     var newerVersion: Version? = null
 
     val sdkIndex = getGooglePlaySdkIndex(context.client)
-    val filter = getUpgradeVersionFilter(context, groupId, artifactId, version, sdkIndex)
+    val versionFilter = getUpgradeVersionFilter(context, groupId, artifactId, version)
+    val sdkIndexFilter = getGooglePlaySdkIndexFilter(context, groupId, artifactId, sdkIndex)
+    fun Predicate<Version>?.and(other: Predicate<Version>?): Predicate<Version>? =
+      when {
+        this != null && other != null -> this.and(other)
+        else -> this ?: other
+      }
+    val filter = versionFilter.and(sdkIndexFilter)
 
     when (groupId) {
       GMS_GROUP_ID,
@@ -1339,6 +1347,20 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
     }
   }
 
+  private fun getGooglePlaySdkIndexFilter(
+    context: Context,
+    groupId: String,
+    artifactId: String,
+    sdkIndex: GooglePlaySdkIndex?
+  ): Predicate<Version>? {
+    return sdkIndex?.let {
+      // Filter out versions with SDK Index errors or warnings (b/301295995)
+      Predicate { v ->
+        it.isReady() && !it.hasLibraryErrorOrWarning(groupId, artifactId, v.toString())
+      }
+    }
+  }
+
   /**
    * Returns a predicate that encapsulates version constraints for the given library, or null if
    * there are no constraints.
@@ -1347,8 +1369,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
     context: Context,
     groupId: String,
     artifactId: String,
-    version: Version,
-    sdkIndex: GooglePlaySdkIndex?
+    version: Version
   ): Predicate<Version>? {
     if (
       (groupId == "com.android.tools.build" || ALL_PLUGIN_IDS.contains(groupId)) &&
@@ -1364,11 +1385,37 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
         ((v.major == ideVersion.major && v.minor == ideVersion.minor) ||
           // Also allow matching latest current existing major/minor version
           (v.major == version.major && v.minor == version.minor))
-        // And there should not be issues in SDK Index (b/301295995)
-        &&
-          (sdkIndex == null ||
-            (sdkIndex.isReady() &&
-              !sdkIndex.hasLibraryErrorOrWarning(groupId, artifactId, v.toString())))
+      }
+    }
+
+    // Some special cases for specific artifacts that were versioned
+    // incorrectly (using a string suffix to delineate separate branches
+    // whereas Gradle will just use an alphabetical sort on these). See
+    // 171369798 for an example.
+
+    // These cases must be considered before the generic logic related to not
+    // upgrading to other versions outside a preview series, because these
+    // pseudo-version strings look like preview versions even though they're not.
+    if (groupId == "com.google.guava") {
+      val suffix = version.toString()
+      val jre = Predicate<Version> { v -> v.toString().endsWith("-jre") }
+      val android = Predicate<Version> { v -> v.toString().endsWith("-android") }
+      val neither = Predicate<Version> { v -> !v.toString().endsWith("-jre") }
+      return when {
+        suffix.endsWith("-jre") -> jre
+        suffix.endsWith("-android") -> android
+        else -> neither
+      }
+    } else if (artifactId == "kotlinx-coroutines-core") {
+      val suffix = version.toString()
+      return when {
+        suffix.contains("-native-mt-2") ->
+          Predicate<Version> { v -> v.toString().contains("-native-mt-2") }
+        suffix.contains("-native-mt") ->
+          Predicate<Version> { v ->
+            v.toString().run { contains("native-mt") && !contains("native-mt-2") }
+          }
+        else -> Predicate<Version> { v -> !v.toString().contains("-native-mt") }
       }
     }
 
@@ -1381,23 +1428,10 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       val infimum = version.previewInfimum
       val supremum = version.previewSupremum
       if (infimum != null && supremum != null) {
-        return Predicate { v ->
-          (if (v.isPreview) (infimum < v && v < supremum) else true)
-          // And there should not be issues in SDK Index (b/301295995)
-          &&
-            (sdkIndex == null ||
-              (sdkIndex.isReady() &&
-                !sdkIndex.hasLibraryErrorOrWarning(groupId, artifactId, v.toString())))
-        }
+        return Predicate { v -> (if (v.isPreview) (infimum < v && v < supremum) else true) }
       }
     }
 
-    if (sdkIndex != null) {
-      // Filter out versions with SDK Index errors or warnings (b/301295995)
-      return Predicate { v ->
-        sdkIndex.isReady() && !sdkIndex.hasLibraryErrorOrWarning(groupId, artifactId, v.toString())
-      }
-    }
     return null
   }
 
@@ -1440,13 +1474,15 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       !candidate.isSnapshot && (f == null || f.test(candidate))
     }
     return if (CancellableFileIo.exists(versionDir)) {
-      val isPreview =
-        when (val richVersion = dependency.version) {
-          null -> true
-          else ->
-            MavenRepositories.isPreview(Component(group, dependency.name, richVersion.lowerBound))
+      val name = dependency.name
+      val richVersion = dependency.version
+      val allowPreview =
+        when {
+          richVersion == null -> true
+          group == "com.google.guava" || name == "kotlinx-coroutines-core" -> true
+          else -> MavenRepositories.isPreview(Component(group, name, richVersion.lowerBound))
         }
-      MavenRepositories.getHighestVersion(versionDir, noSnapshotFilter, isPreview)
+      MavenRepositories.getHighestVersion(versionDir, noSnapshotFilter, allowPreview)
     } else null
   }
 
@@ -2004,7 +2040,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
     context: GradleContext,
     valueCookie: Any
   ) {
-    if (value.startsWith("platform(")) {
+    if (listOf("platform", "enforcedPlatform").any { value.startsWith("$it(") }) {
       return
     }
     if (
@@ -3432,6 +3468,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       val richVersion = dependency.version ?: return null
       val query = StringBuilder()
       val encoding = UTF_8.name()
+      var allowPreview = allowPreview
       try {
         query.append("https://search.maven.org/solrsearch/select?q=g:%22")
         query.append(URLEncoder.encode(group, encoding))
@@ -3445,7 +3482,8 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       if (group == "com.google.guava" || name == "kotlinx-coroutines-core") {
         // These libraries aren't releasing previews in their version strings;
         // instead, the suffix is used to indicate different variants (JRE vs Android,
-        // JVM vs Kotlin Native)
+        // JVM vs Kotlin Native).  Turn on allowPreview for the search.
+        allowPreview = true
       } else if (filter == null && allowPreview) {
         query.append("&rows=1")
       }
@@ -3516,40 +3554,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
             }
           }
         }
-      }
-
-      // Some special cases for specific artifacts that were versioned
-      // incorrectly (using a string suffix to delineate separate branches
-      // whereas Gradle will just use an alphabetical sort on these). See
-      // 171369798 for an example.
-
-      if (group == "com.google.guava") {
-        val version = richVersion.lowerBound
-        val suffix = version.toString()
-        val jre: (Version) -> Boolean = { v -> v.toString().endsWith("-jre") }
-        val android: (Version) -> Boolean = { v -> !v.toString().endsWith("-jre") }
-        return versions.filter(if (suffix.endsWith("-jre")) jre else android).maxOrNull()
-      } else if (name == "kotlinx-coroutines-core") {
-        val version = richVersion.lowerBound
-        val suffix = version.toString()
-        return versions
-          .filter(
-            when {
-              suffix.indexOf('-') == -1 -> {
-                { (allowPreview || !it.isPreview) && !it.toString().contains("-native-mt") }
-              }
-              suffix.contains("-native-mt-2") -> {
-                { it.toString().contains("-native-mt-2") }
-              }
-              suffix.contains("-native-mt") -> {
-                { it.toString().contains("-native-mt") && !it.toString().contains("-native-mt-2") }
-              }
-              else -> {
-                { (allowPreview || !it.isPreview) && !it.toString().contains("-native-mt") }
-              }
-            }
-          )
-          .maxOrNull()
       }
 
       return versions
