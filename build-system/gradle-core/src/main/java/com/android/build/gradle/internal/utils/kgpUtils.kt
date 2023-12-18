@@ -194,7 +194,8 @@ fun addComposeArgsToKotlinCompile(
     task: KotlinCompile,
     creationConfig: ComponentCreationConfig,
     compilerExtension: FileCollection,
-    useLiveLiterals: Boolean
+    useLiveLiterals: Boolean,
+    useSourceInformation: Boolean = true
 ) {
     val debuggable = if (creationConfig is ApkCreationConfig || creationConfig is LibraryCreationConfig) {
         creationConfig.debuggable
@@ -207,11 +208,11 @@ fun addComposeArgsToKotlinCompile(
     task.addPluginClasspath(kotlinVersion, compilerExtension)
 
     task.addPluginOption("androidx.compose.plugins.idea", "enabled", "true")
-    if (debuggable) {
+    if (debuggable && useSourceInformation) {
         task.addPluginOption("androidx.compose.compiler.plugins.kotlin", "sourceInformation", "true")
-        if (useLiveLiterals) {
-            task.addPluginOption("androidx.compose.compiler.plugins.kotlin", "liveLiterals", "true")
-        }
+    }
+    if (debuggable && useLiveLiterals) {
+        task.addPluginOption("androidx.compose.compiler.plugins.kotlin", "liveLiterals", "true")
     }
 
     task.kotlinOptions.freeCompilerArgs += "-Xallow-unstable-dependencies"

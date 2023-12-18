@@ -346,6 +346,7 @@ abstract class VariantTaskManager<VariantBuilderT : VariantBuilder, VariantT : V
             globalConfig.composeOptions.kotlinCompilerExtensionVersion
 
         val useLiveLiterals = globalConfig.composeOptions.useLiveLiterals
+        val useSourceInformation = globalConfig.composeOptions.useSourceInformation
 
         // record in our metrics that compose is enabled.
         getBuildService(
@@ -367,7 +368,11 @@ abstract class VariantTaskManager<VariantBuilderT : VariantBuilder, VariantT : V
         // add compose args to all kotlin compile tasks
         configureKotlinCompileTasks(project, allPropertiesList) { kotlinCompile, creationConfig ->
             addComposeArgsToKotlinCompile(
-                kotlinCompile, creationConfig, project.files(kotlinExtension), useLiveLiterals
+                task = kotlinCompile,
+                creationConfig = creationConfig,
+                compilerExtension = project.files(kotlinExtension),
+                useLiveLiterals = useLiveLiterals,
+                useSourceInformation = useSourceInformation,
             )
         }
     }

@@ -56,4 +56,22 @@ class ComposeHelloWorldTest {
         val result = executor.run("assembleDebug")
         assertThat(result.didWorkTasks).contains(":app:compileDebugKotlin")
     }
+
+    @Test
+    fun testSourceInformation() {
+        val executor = project.executor()
+            .withFailOnWarning(false) // TODO(298678053): Remove after updating TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS to 1.8.0+
+
+        // Run compilation with source information enabled
+        TestFileUtils.appendToFile(project.getSubproject("app").buildFile,
+            "android.composeOptions.useSourceInformation = true")
+        executor.run("assembleDebug")
+
+        // Turn off source information generation and run again
+        TestFileUtils.searchAndReplace(project.getSubproject("app").buildFile,
+            "android.composeOptions.useSourceInformation = true",
+            "android.composeOptions.useSourceInformation = false")
+        val result = executor.run("assembleDebug")
+        assertThat(result.didWorkTasks).contains(":app:compileDebugKotlin")
+    }
 }
