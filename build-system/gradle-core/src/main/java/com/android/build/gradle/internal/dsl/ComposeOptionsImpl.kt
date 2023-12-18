@@ -31,4 +31,5 @@ open class ComposeOptionsImpl @Inject constructor(private val dslServices: DslSe
     // Support for useLiveLiterals in the Compose compiler will be removed
     // in the future.
     override var useLiveLiterals: Boolean = false
+    override var useSourceInformation: Boolean = true
 }
