@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dd260fa_5cf81752",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2043423
+      },
+      "writtenOn": "2023-12-18T13:02:29Z",
+      "side": 1,
+      "message": "I tried to disable it via compiler plugin option \n```\n-Pplugin:androidx.compose.compiler.plugins.kotlin::sourceInformation\u003dfalse\n```\n\nBut i got the error\n```\nMultiple values are not allowed for plugin option androidx.compose.compiler.plugins.kotlin:sourceInformation\n```\n\nSo I think it would be very useful to be able to turn it off in `composeOptions`",
+      "revId": "d2cb76ce9e1def0b222379bbc7368bb92b3ed8d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
