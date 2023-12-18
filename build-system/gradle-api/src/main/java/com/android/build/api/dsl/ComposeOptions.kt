@@ -37,4 +37,9 @@ interface ComposeOptions {
      * Enables live literals in Compose
      */
     var useLiveLiterals: Boolean
+
+    /**
+     * Include source information in generated code
+     */
+    var useSourceInformation: Boolean
 }
