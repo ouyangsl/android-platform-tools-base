@@ -35,11 +35,11 @@ import com.android.tools.preview.screenshot.tasks.PreviewScreenshotValidationTas
 import com.android.tools.preview.screenshot.tasks.ScreenshotTestReportTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.provider.Provider
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.api.provider.Provider
 import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.jvm.toolchain.JavaToolchainService
 import java.io.File
@@ -50,17 +50,17 @@ import java.io.File
 class PreviewScreenshotGradlePlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.plugins.withType(AndroidBasePlugin::class.java) {
-            val agpVersion =
-                project.extensions.getByType(AndroidComponentsExtension::class.java).pluginVersion
+            val componentsExtension = project.extensions.getByType(AndroidComponentsExtension::class.java)
+            val agpVersion = componentsExtension.pluginVersion
             if (agpVersion < AndroidPluginVersion(8, 3, 0).alpha(1)) {
                 error("Android Gradle plugin version 8.3.0-alpha01 or higher is required." +
                         " Current version is $agpVersion.")
             }
-            if (agpVersion >= AndroidPluginVersion(8,4).alpha(1)) {
+            if (agpVersion >= AndroidPluginVersion(8,4).alpha(1)
+                && agpVersion.previewType != "dev") {
                 error("Preview screenshot plugin is an experimental feature. It requires Android " +
                         "Gradle plugin version 8.3.0. Current version is $agpVersion.")
             }
-            val componentsExtension = project.extensions.getByType(AndroidComponentsExtension::class.java)
 
             val sdkDirectory = componentsExtension.sdkComponents.sdkDirectory
             createPreviewlibCliToolConfiguration(project)
@@ -183,13 +183,14 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         )
 
                     project.tasks.register(
-                        "previewScreenshotUpdate${variantName}AndroidTest",
+                        "previewScreenshotUpdate${variantName.capitalized()}AndroidTest",
                         PreviewScreenshotUpdateTask::class.java
                     ) { task ->
                         task.referenceImageDir.set(referenceImageDir)
                         task.previewFile.set(previewOut)
                         task.renderTaskOutputDir.set(renderTaskProvider.flatMap { it.outputDir })
                         task.description = "Update screenshots for the $variantName build."
+                        task.group = JavaBasePlugin.VERIFICATION_GROUP
                     }
 
                     val previewScreenshotValidationTask = project.tasks.register(

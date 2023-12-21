@@ -19,6 +19,7 @@ package com.android.tools.preview.screenshot.tasks
 import com.android.SdkConstants
 import com.android.tools.preview.screenshot.configureInput
 import com.android.tools.render.compose.readComposeRenderingResultJson
+import com.android.tools.render.compose.readComposeScreenshotsJson
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
@@ -104,6 +105,10 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
 
     @TaskAction
     fun run() {
+        if (readComposeScreenshotsJson(previewsDiscovered.get().asFile.reader()).isEmpty()) {
+            return // No previews discovered to render
+        }
+
         val resourcesApk = getResourcesApk()
         val classpathJars = mutableListOf<String>()
         classpathJars.addAll(mainClassesDir.get().map{it.asFile }.toList().map { it.absolutePath })
@@ -124,20 +129,22 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
 
         val javaRuntimeVersion =
             JavaVersion.toVersion(javaLauncher.get().metadata.javaRuntimeVersion)
+        val params = listOfNotNull(
+            javaLauncher.get().executablePath.asFile.absolutePath,
+            if (javaRuntimeVersion.isCompatibleWith(JavaVersion.VERSION_17))
+                "-Djava.security.manager=allow"
+            else
+                null,
+            "-cp",
+            screenshotCliJar.singleFile.absolutePath,
+            "com.android.tools.render.compose.MainKt",
+            cliToolInput.get().asFile.absolutePath
+        )
+        if (logger.isEnabled(LogLevel.INFO)) {
+            logger.info("Render CLI command: ${params.joinToString(" ")}")
+        }
         // invoke CLI tool
-        val process = ProcessBuilder(
-            listOfNotNull(
-                javaLauncher.get().executablePath.asFile.absolutePath,
-                if (javaRuntimeVersion.isCompatibleWith(JavaVersion.VERSION_17))
-                    "-Djava.security.manager=allow"
-                else
-                    null,
-                "-cp",
-                screenshotCliJar.singleFile.absolutePath,
-                "com.android.tools.render.compose.MainKt",
-                cliToolInput.get().asFile.absolutePath
-            )
-        ).apply {
+        val process = ProcessBuilder(params).apply {
             redirectInput()
             environment().remove("TEST_WORKSPACE")
             redirectErrorStream(true)
