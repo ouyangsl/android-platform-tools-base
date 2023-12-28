@@ -35,6 +35,7 @@ import com.android.tools.preview.screenshot.tasks.PreviewScreenshotValidationTas
 import com.android.tools.preview.screenshot.tasks.ScreenshotTestReportTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.JavaBasePlugin
@@ -65,6 +66,23 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
             val sdkDirectory = componentsExtension.sdkComponents.sdkDirectory
             createPreviewlibCliToolConfiguration(project)
             val layoutlibFromMaven = LayoutlibFromMaven.create(project)
+
+            val updateAllTask = project.tasks.register(
+                "previewScreenshotUpdateAndroidTest",
+                Task::class.java
+            ) { task ->
+                task.description = "Update screenshots for all variants."
+                task.group = JavaBasePlugin.VERIFICATION_GROUP
+            }.get()
+
+            val validateAllTask = project.tasks.register(
+                "previewScreenshotAndroidTest",
+                Task::class.java
+            ) { task ->
+                task.description = "Run screenshot tests for all variants."
+                task.group = JavaBasePlugin.VERIFICATION_GROUP
+            }.get()
+
             componentsExtension.onVariants { variant ->
                 if (variant is HasAndroidTest) {
                     val variantName = variant.name
@@ -73,12 +91,13 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                     val flavorDir = if (flavor.isNullOrEmpty()) "" else "flavors/$flavor"
                     val buildDir = project.layout.buildDirectory
                     val testOutputDir = "outputs/androidTest-results/preview/$buildTarget/$flavorDir"
+                    val intermediatesDir = "intermediates/preview/$buildTarget/$flavorDir"
                     val resultsDir = buildDir.file(testOutputDir)
                     val referenceImageDir =
                         File("${project.projectDir.absolutePath}/src/androidTest/screenshot/$buildTarget/$flavorDir")
                     val renderedDir = buildDir.dir("$testOutputDir/rendered")
-                    val previewOut = buildDir.file("$testOutputDir/intermediates/previews_discovered.json")
-                    val cliInput = buildDir.file("$testOutputDir/intermediates/cli_tool_input.json")
+                    val previewOut = buildDir.file("$intermediatesDir/previews_discovered.json")
+                    val cliInput = buildDir.file("$intermediatesDir/cli_tool_input.json")
                     val testResultsDir = buildDir.dir("$testOutputDir/results")
                     val testResultsFile = buildDir.file("$testOutputDir/results/TEST-results.xml")
                     val reportsDir = buildDir.dir("reports/androidTests/preview/$buildTarget/$flavorDir")
@@ -182,7 +201,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                             PreviewScreenshotRenderTask::testClassesDir,
                         )
 
-                    project.tasks.register(
+                    val updateTask = project.tasks.register(
                         "previewScreenshotUpdate${variantName.capitalized()}AndroidTest",
                         PreviewScreenshotUpdateTask::class.java
                     ) { task ->
@@ -191,7 +210,8 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.renderTaskOutputDir.set(renderTaskProvider.flatMap { it.outputDir })
                         task.description = "Update screenshots for the $variantName build."
                         task.group = JavaBasePlugin.VERIFICATION_GROUP
-                    }
+                    }.get()
+                    updateAllTask.dependsOn(updateTask)
 
                     val previewScreenshotValidationTask = project.tasks.register(
                         "previewScreenshot${variantName.capitalized()}AndroidTest",
@@ -216,6 +236,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.resultsDir.set(testResultsDir)
                     }
                     previewScreenshotValidationTask.finalizedBy(screenshotHtmlTask)
+                    validateAllTask.dependsOn(previewScreenshotValidationTask)
                 }
             }
         }
