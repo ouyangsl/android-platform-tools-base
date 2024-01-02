@@ -33,6 +33,24 @@
       "message": "Hi - Thanks for the proposed contribution - please could you file a feature request in the external issue tracker to track this request? \nhttps://developer.android.com/studio/report-bugs#report-bug",
       "revId": "d2cb76ce9e1def0b222379bbc7368bb92b3ed8d8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "912d7d2b_4c8bc8a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2043423
+      },
+      "writtenOn": "2024-01-02T23:10:33Z",
+      "side": 1,
+      "message": "Hi. Of course https://issuetracker.google.com/issues/318384658\n\nBut seems i cannot update current changes in agp project. It works for android repo, but here when i try to upload, a new change is created \n\nNew one here https://android-review.googlesource.com/c/platform/tools/base/+/2893249",
+      "parentUuid": "bd09c2e5_b2eb902a",
+      "revId": "d2cb76ce9e1def0b222379bbc7368bb92b3ed8d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
