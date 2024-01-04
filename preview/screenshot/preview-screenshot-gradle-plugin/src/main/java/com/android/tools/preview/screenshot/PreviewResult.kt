@@ -25,23 +25,17 @@ data class PreviewResult(
     val responseCode: Int,
     val previewName: String,
     val message: String? = null,
-    val goldenImage: ImageDetails? = null,
+    val referenceImage: ImageDetails? = null,
     val actualImage: ImageDetails? = null,
     val diffImage: ImageDetails? = null
 
 ) {
 }
 
-fun Verify.AnalysisResult.toPreviewResponse(code: Int, name: String, golden: ImageDetails,
+fun Verify.AnalysisResult.toPreviewResponse(code: Int, name: String, reference: ImageDetails,
     actual: ImageDetails? = null,
     diff: ImageDetails? = null): PreviewResult{
-    return PreviewResult(code, name, message, golden, actual, diff)
-}
-
-/*
-* Response from [PreviewScreenshotRenderTask] that indicates if previews were rendered successfully and provides a list of [PreviewResult]s
-*/
-data class Response(val status: Int, val message: String, val previewResults: List<PreviewResult>) {
+    return PreviewResult(code, name, message, reference, actual, diff)
 }
 
 /**
