@@ -1546,13 +1546,11 @@ enum class ArtProfileSerializer(
             dexFileData: DexFileData,
     ) {
         val lastFlag = MethodFlags.LAST_FLAG_REGULAR
-        val numMethodIds = dexFile.header.methodIds.size
         val methodBitmapStorageSize = getMethodBitmapStorageSizeV015S(
-                methodFlags, numMethodIds
+                methodFlags, dexFile.header.methodIds.size
         )
         val bitmap = ByteArray(methodBitmapStorageSize)
         for ((methodIndex, methodData) in dexFileData.methods) {
-            var offset = 0
             var flag = MethodFlags.FIRST_FLAG
             while (flag <= lastFlag) {
                 if (flag == MethodFlags.HOT) {
@@ -1564,14 +1562,9 @@ enum class ArtProfileSerializer(
                     continue
                 }
                 if (methodData.isFlagSet(flag)) {
-                    // We use offsets to compute the bitmap indexes unlike the P format
-                    val bitIndex = methodIndex + offset * numMethodIds
-                    val bitmapIndex = bitIndex / Byte.SIZE_BITS
-                    val value = bitmap[bitmapIndex] or (1 shl (bitIndex % Byte.SIZE_BITS)).toByte()
-                    bitmap[bitmapIndex] = value
+                    setMethodBitmapBit(bitmap, flag, methodIndex, dexFile)
                 }
                 flag = flag shl 1
-                offset += 1
             }
         }
         write(bitmap)
@@ -1730,26 +1723,12 @@ enum class ArtProfileSerializer(
         )
         val methodBitmap = read(methodBitmapStorageSize)
         val bs = BitSet.valueOf(methodBitmap)
-        val lastFlag = MethodFlags.LAST_FLAG_REGULAR
-        var offset = 0
-        var flag = MethodFlags.FIRST_FLAG
-        while (flag <= lastFlag) {
-            if (flag == MethodFlags.HOT) {
-                flag = flag shl 1
-                continue
+        for (methodIndex in 0 until data.numMethodIds) {
+            val newFlags = bs.readFlagsFromBitmapV015S(methodFlags, methodIndex, data.numMethodIds)
+            if (newFlags != 0) {
+                val methodData = data.methods.computeIfAbsent(methodIndex) { MethodData(0) }
+                methodData.flags = methodData.flags or newFlags
             }
-            if (flag and methodFlags == 0) {
-                flag = flag shl 1
-                continue
-            }
-            for (methodIndex in 0 until data.numMethodIds) {
-                if (bs.get(methodIndex + offset * data.numMethodIds)) {
-                    val methodData = data.methods.computeIfAbsent(methodIndex) { MethodData(0) }
-                    methodData.flags = methodData.flags or flag
-                }
-            }
-            flag = flag shl 1
-            offset += 1
         }
     }
 

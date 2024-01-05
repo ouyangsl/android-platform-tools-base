@@ -378,25 +378,19 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
   }
 
   /** Generate a message for a library that has blocking policy issues */
-  fun generateBlockingPolicyMessages(
+  fun generateBlockingPolicyMessage(
     groupId: String,
     artifactId: String,
     versionString: String
-  ): List<String> {
-    return getPolicyLabels(getLabels(groupId, artifactId, versionString)).map { label ->
-      "$groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console"
-    }
+  ): String {
+    val policyTypeLabel = getPolicyLabel(getLabels(groupId, artifactId, versionString))
+    return "$groupId:$artifactId version $versionString has $policyTypeLabel issues that will block publishing of your app to Play Console"
   }
 
   /** Generate a message for a library that has policy issues */
-  fun generatePolicyMessages(
-    groupId: String,
-    artifactId: String,
-    versionString: String
-  ): List<String> {
-    return getPolicyLabels(getLabels(groupId, artifactId, versionString)).map { label ->
-      "$groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console in the future"
-    }
+  fun generatePolicyMessage(groupId: String, artifactId: String, versionString: String): String {
+    val policyTypeLabel = getPolicyLabel(getLabels(groupId, artifactId, versionString))
+    return "$groupId:$artifactId version $versionString has $policyTypeLabel issues that will block publishing of your app to Play Console in the future"
   }
 
   /** Generate a message for a library that has blocking critical issues */
@@ -476,22 +470,18 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
 
   @VisibleForTesting fun getLastReadSource() = lastReadSourceType
 
-  private fun getPolicyLabels(labels: LibraryVersionLabels?): List<String> {
+  private fun getPolicyLabel(labels: LibraryVersionLabels?): String {
     val defaultLabel = "policy"
     val policyViolations = extractPolicyViolations(labels)
-    val result = mutableListOf<String>()
-    var hasUnknown = false
-    for (violation in policyViolations) {
-      if (POLICY_TYPE_TO_TEXT.containsKey(violation)) {
-        result.add("${POLICY_TYPE_TO_TEXT[violation]} policy")
-      } else {
-        hasUnknown = true
-      }
+    if (policyViolations.size != 1) {
+      return defaultLabel
     }
-    if (hasUnknown || result.isEmpty()) {
-      result.add(defaultLabel)
+    val violation = policyViolations.first()
+    if (!POLICY_TYPE_TO_TEXT.containsKey(violation)) {
+      return defaultLabel
     }
-    return result
+    val type = POLICY_TYPE_TO_TEXT[violation] ?: return defaultLabel
+    return "$type policy"
   }
 
   private fun extractPolicyViolations(
