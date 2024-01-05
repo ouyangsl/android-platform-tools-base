@@ -4721,16 +4721,18 @@ class GradleDetectorTest : AbstractCheckTest() {
       """
         Show URL for build.gradle line 7: View details in Google Play SDK Index:
         http://index.example.url/
-        Show URL for build.gradle line 13: View details in Google Play SDK Index:
-        http://another.example.url/
         Show URL for build.gradle line 15: View details in Google Play SDK Index:
         http://another.example.url/
         Show URL for build.gradle line 18: View details in Google Play SDK Index:
         http://another.example.url/
         Show URL for build.gradle line 22: View details in Google Play SDK Index:
         http://another.example.url/
+        Show URL for build.gradle line 22: View details in Google Play SDK Index:
+        http://another.example.url/
         Show URL for build.gradle line 6: View details in Google Play SDK Index:
         http://index.example.url/
+        Show URL for build.gradle line 13: View details in Google Play SDK Index:
+        http://another.example.url/
         Show URL for build.gradle line 14: View details in Google Play SDK Index:
         http://another.example.url/
         Show URL for build.gradle line 16: View details in Google Play SDK Index:
@@ -4743,12 +4745,20 @@ class GradleDetectorTest : AbstractCheckTest() {
         http://another.example.url/
         Show URL for build.gradle line 21: View details in Google Play SDK Index:
         http://another.example.url/
+        Show URL for build.gradle line 21: View details in Google Play SDK Index:
+        http://another.example.url/
+        Show URL for build.gradle line 21: View details in Google Play SDK Index:
+        http://another.example.url/
+        Show URL for build.gradle line 23: View details in Google Play SDK Index:
+        http://another.example.url/
         Show URL for build.gradle line 23: View details in Google Play SDK Index:
         http://another.example.url/
         Show URL for build.gradle line 8: View details in Google Play SDK Index:
         http://index.example.url/
         Show URL for build.gradle line 5: View details in Google Play SDK Index:
         http://index.example.url/
+        Show URL for build.gradle line 13: View details in Google Play SDK Index:
+        http://another.example.url/
       """
     lint()
       .files(
@@ -4802,21 +4812,24 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:7: Error: log4j:log4j version 1.2.13 has been reported as problematic by its author and will block publishing of your app to Play Console [RiskyLibrary]
               compile 'log4j:log4j:1.2.13' // Critical BLOCKING
                       ~~~~~~~~~~~~~~~~~~~~
-          build.gradle:13: Warning: com.example.ads.third.party:example version 7.2.0 has one or more issues that could block publishing of your app to Play Console in the future [PlaySdkIndexGenericIssues]
-              compile 'com.example.ads.third.party:example:7.2.0' // Outdated + Critical + Policy (multiple issues), no severity
-                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           build.gradle:15: Error: com.example.ads.third.party:example version 7.1.1 has Device and Network Abuse policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.1' // Policy (Device and Network Abuse), blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           build.gradle:18: Error: com.example.ads.third.party:example version 7.1.4 has Permissions policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.4' // Policy (Permissions), blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:22: Error: com.example.ads.third.party:example version 7.1.8 has policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+          build.gradle:22: Error: com.example.ads.third.party:example version 7.1.8 has Malware policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.8' // Policy (multiple types), blocking
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:22: Error: com.example.ads.third.party:example version 7.1.8 has User Data policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.8' // Policy (multiple types), blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           build.gradle:6: Warning: log4j:log4j version 1.2.14 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'log4j:log4j:1.2.14' // Non compliant
                       ~~~~~~~~~~~~~~~~~~~~
+          build.gradle:13: Warning: com.example.ads.third.party:example version 7.2.0 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.2.0' // Outdated + Critical + Policy (multiple issues), no severity
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           build.gradle:14: Warning: com.example.ads.third.party:example version 7.1.0 has Ads policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.0' // Policy (Ads), non-blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -4832,10 +4845,19 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:20: Warning: com.example.ads.third.party:example version 7.1.6 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.6' // Policy (Malware), non-blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.7' // Policy (multiple types), non-blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.7' // Policy (multiple types), non-blocking
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.7' // Policy (multiple types), non-blocking
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.9' // Policy (multiple types), no severity
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.9' // Policy (multiple types), no severity
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           build.gradle:8: Error: log4j:log4j version 1.2.12 has been marked as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
@@ -4844,7 +4866,10 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:5: Warning: log4j:log4j version 1.2.15 has been marked as outdated by its author [OutdatedLibrary]
               compile 'log4j:log4j:1.2.15' // Outdated NON_BLOCKING
                       ~~~~~~~~~~~~~~~~~~~~
-          5 errors, 10 warnings
+          build.gradle:13: Warning: com.example.ads.third.party:example version 7.2.0 has been marked as outdated by its author [OutdatedLibrary]
+              compile 'com.example.ads.third.party:example:7.2.0' // Outdated + Critical + Policy (multiple issues), no severity
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          6 errors, 14 warnings
         """
       )
       .expectFixDiffs(expectedFixes)
@@ -4862,7 +4887,7 @@ class GradleDetectorTest : AbstractCheckTest() {
                 #noinspection RiskyLibrary
                 log4Suppressed = "1.2.13"       # Suppressed
                 log4Ok = "1.2.17"               # OK
-                exMultipleIssues = "7.2.0"      # Multiple issues, no severity
+                exMultipleIssues = "7.2.0"      # Critical + Outdated + Policy, no severity
                 exPolicyAds = "7.1.0"           # Policy (Ads), non-blocking
                 exPolicyDevNetBlock = "7.1.1"   # Policy (Device and Network Abuse), blocking
                 exPolicyBehavior = "7.1.2"      # Policy (Deceptive Behavior), no severity
@@ -4908,18 +4933,21 @@ class GradleDetectorTest : AbstractCheckTest() {
                 ../gradle/libs.versions.toml:4: Error: log4j:log4j version 1.2.13 has been reported as problematic by its author and will block publishing of your app to Play Console [RiskyLibrary]
                                 log4CriticalBlock = "1.2.13"    # Critical BLOCKING
                                                     ~~~~~~~~
-                ../gradle/libs.versions.toml:9: Warning: com.example.ads.third.party:example version 7.2.0 has one or more issues that could block publishing of your app to Play Console in the future [PlaySdkIndexGenericIssues]
-                                exMultipleIssues = "7.2.0"      # Multiple issues, no severity
-                                                   ~~~~~~~
                 ../gradle/libs.versions.toml:11: Error: com.example.ads.third.party:example version 7.1.1 has Device and Network Abuse policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
                                 exPolicyDevNetBlock = "7.1.1"   # Policy (Device and Network Abuse), blocking
                                                       ~~~~~~~
                 ../gradle/libs.versions.toml:14: Error: com.example.ads.third.party:example version 7.1.4 has Permissions policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
                                 exPolicyPermBlock = "7.1.4"     # Policy (Permissions), blocking
                                                     ~~~~~~~
-                ../gradle/libs.versions.toml:18: Error: com.example.ads.third.party:example version 7.1.8 has policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+                ../gradle/libs.versions.toml:18: Error: com.example.ads.third.party:example version 7.1.8 has Malware policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
                                 exPolicyMultiBlock = "7.1.8"    # Policy (multiple types), blocking
                                                      ~~~~~~~
+                ../gradle/libs.versions.toml:18: Error: com.example.ads.third.party:example version 7.1.8 has User Data policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+                                exPolicyMultiBlock = "7.1.8"    # Policy (multiple types), blocking
+                                                     ~~~~~~~
+                ../gradle/libs.versions.toml:9: Warning: com.example.ads.third.party:example version 7.2.0 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                                exMultipleIssues = "7.2.0"      # Critical + Outdated + Policy, no severity
+                                                   ~~~~~~~
                 ../gradle/libs.versions.toml:10: Warning: com.example.ads.third.party:example version 7.1.0 has Ads policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyAds = "7.1.0"           # Policy (Ads), non-blocking
                                               ~~~~~~~
@@ -4935,16 +4963,28 @@ class GradleDetectorTest : AbstractCheckTest() {
                 ../gradle/libs.versions.toml:16: Warning: com.example.ads.third.party:example version 7.1.6 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMalware = "7.1.6"       # Policy (Malware), non-blocking
                                                   ~~~~~~~
-                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMultiNon = "7.1.7"      # Policy (multiple types), non-blocking
                                                    ~~~~~~~
-                ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                                exPolicyMultiNon = "7.1.7"      # Policy (multiple types), non-blocking
+                                                   ~~~~~~~
+                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                                exPolicyMultiNon = "7.1.7"      # Policy (multiple types), non-blocking
+                                                   ~~~~~~~
+                ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                                exPolicyMulti = "7.1.9"         # Policy (multiple types), no severity
+                                                ~~~~~~~
+                ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMulti = "7.1.9"         # Policy (multiple types), no severity
                                                 ~~~~~~~
                 ../gradle/libs.versions.toml:5: Error: log4j:log4j version 1.2.12 has been marked as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
                                 log4Outdated = "1.2.12"         # Outdated NON_BLOCKING
                                                ~~~~~~~~
-                5 errors, 8 warnings
+                ../gradle/libs.versions.toml:9: Warning: com.example.ads.third.party:example version 7.2.0 has been marked as outdated by its author [OutdatedLibrary]
+                                exMultipleIssues = "7.2.0"      # Critical + Outdated + Policy, no severity
+                                                   ~~~~~~~
+                6 errors, 12 warnings
                 """
       )
   }
@@ -4966,13 +5006,15 @@ class GradleDetectorTest : AbstractCheckTest() {
         +     compile 'log4j:log4j:1.2.11' // Suggest 1.2.11 even if 1.2.12 is available (but it has SDK issues)
         Show URL for build.gradle line 2: View details in Google Play SDK Index:
         http://another.example.url/
+        Show URL for build.gradle line 2: View details in Google Play SDK Index:
+        http://another.example.url/
       """
     lint()
       .files(
         gradle(
             """
                 dependencies {
-                    compile 'com.example.ads.third.party:example:7.2.0' // Only SDK Index issue should be shown
+                    compile 'com.example.ads.third.party:example:7.2.0' // Only SDK Index issue should be shown (not NewerVersionAvailable)
                     compile 'com.example.ads.third.party:example:7.2.1' // suggest 8.0.0 since it does not have issues
                     compile 'log4j:log4j:1.2.10' // Suggest 1.2.11 even if 1.2.12 is available (but it has SDK issues)
                 }
@@ -5024,10 +5066,13 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:4: Warning: A newer version of log4j:log4j than 1.2.10 is available: 1.2.11 [NewerVersionAvailable]
               compile 'log4j:log4j:1.2.10' // Suggest 1.2.11 even if 1.2.12 is available (but it has SDK issues)
                       ~~~~~~~~~~~~~~~~~~~~
-          build.gradle:2: Warning: com.example.ads.third.party:example version 7.2.0 has one or more issues that could block publishing of your app to Play Console in the future [PlaySdkIndexGenericIssues]
-              compile 'com.example.ads.third.party:example:7.2.0' // Only SDK Index issue should be shown
+          build.gradle:2: Warning: com.example.ads.third.party:example version 7.2.0 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.2.0' // Only SDK Index issue should be shown (not NewerVersionAvailable)
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          0 errors, 3 warnings
+          build.gradle:2: Warning: com.example.ads.third.party:example version 7.2.0 has been marked as outdated by its author [OutdatedLibrary]
+              compile 'com.example.ads.third.party:example:7.2.0' // Only SDK Index issue should be shown (not NewerVersionAvailable)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          0 errors, 4 warnings
         """
       )
       .expectFixDiffs(expectedFixes)
