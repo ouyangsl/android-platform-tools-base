@@ -574,9 +574,11 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
               val versionVar = getVersionVariable(value)
               val result =
                 createMoveToTomlFix(context, tomlLibraries, dependency, valueCookie, versionVar)
-              val message = result?.first ?: "Use version catalog instead"
-              val fix = result?.second
-              report(context, valueCookie, SWITCH_TO_TOML, message, fix)
+              if (result != null) {
+                val message = result.first ?: "Use version catalog instead"
+                val fix = result.second
+                report(context, valueCookie, SWITCH_TO_TOML, message, fix)
+              }
             }
 
             // Check dependencies without the PSI read lock, because we
@@ -1192,21 +1194,23 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       var fix: LintFix? = null
       if (sdkIndex.isLibraryNonCompliant(groupId, artifactId, versionString, buildFile)) {
         fix = sdkIndex.generateSdkLinkLintFix(groupId, artifactId, versionString, buildFile)
-        val message =
+        val messages =
           if (isBlocking) {
-            sdkIndex.generateBlockingPolicyMessage(groupId, artifactId, versionString)
+            sdkIndex.generateBlockingPolicyMessages(groupId, artifactId, versionString)
           } else {
-            sdkIndex.generatePolicyMessage(groupId, artifactId, versionString)
+            sdkIndex.generatePolicyMessages(groupId, artifactId, versionString)
           }
-        hasSdkIndexIssues =
-          report(
-            context,
-            cookie,
-            PLAY_SDK_INDEX_NON_COMPLIANT,
-            message,
-            fix,
-            overrideSeverity = severity
-          )
+        for (message in messages) {
+          hasSdkIndexIssues =
+            report(
+              context,
+              cookie,
+              PLAY_SDK_INDEX_NON_COMPLIANT,
+              message,
+              fix,
+              overrideSeverity = severity
+            ) || hasSdkIndexIssues
+        }
       }
       if (
         isBlocking &&

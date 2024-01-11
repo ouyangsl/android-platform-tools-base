@@ -682,11 +682,11 @@ class GradleDetectorTest : AbstractCheckTest() {
       .window(1)
       .expectFixDiffs(
         """
-        Autofix for build.gradle.kts line 3: Replace with new library catalog declaration for lint-api:
+        Autofix for build.gradle.kts line 3: Replace with new library catalog declaration for lintApi:
         @@ -3 +3
           dependencies {
         -   implementation("com.android.tools.lint:lint-api:＄myVer")
-        +   implementation(libs.lint.api)
+        +   implementation(libs.lintApi)
             implementation("com.android.tools.lint:lint-checks:＄myVer")
         gradle/libs.versions.toml:
         @@ -3 +3
@@ -695,12 +695,12 @@ class GradleDetectorTest : AbstractCheckTest() {
 
         @@ -8 +9
           kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-        + lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "myVer" }
-        Autofix for build.gradle.kts line 4: Replace with new library catalog declaration for lint-checks:
+        + lintApi = { module = "com.android.tools.lint:lint-api", version.ref = "myVer" }
+        Autofix for build.gradle.kts line 4: Replace with new library catalog declaration for lintChecks:
         @@ -4 +4
             implementation("com.android.tools.lint:lint-api:＄myVer")
         -   implementation("com.android.tools.lint:lint-checks:＄myVer")
-        +   implementation(libs.lint.checks)
+        +   implementation(libs.lintChecks)
             testImplementation("com.google.truth:truth:1.1.3")
         gradle/libs.versions.toml:
         @@ -3 +3
@@ -709,7 +709,7 @@ class GradleDetectorTest : AbstractCheckTest() {
 
         @@ -8 +9
           kotlinTest = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
-        + lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "myVer" }
+        + lintChecks = { module = "com.android.tools.lint:lint-checks", version.ref = "myVer" }
         Autofix for build.gradle.kts line 5: Replace with new library catalog declaration for truth:
         @@ -5 +5
             implementation("com.android.tools.lint:lint-checks:＄myVer")
@@ -769,16 +769,16 @@ class GradleDetectorTest : AbstractCheckTest() {
       .window(1)
       .expectFixDiffs(
         """
-        Autofix for build.gradle.kts line 3: Replace with new library catalog declaration for lint-checks:
+        Autofix for build.gradle.kts line 3: Replace with new library catalog declaration for lintChecks:
         @@ -3 +3
           dependencies {
         -   implementation("com.android.tools.lint:lint-checks:＄{lintVersion}")
-        +   implementation(libs.lint.checks)
+        +   implementation(libs.lintChecks)
           }
         gradle/libs.versions.toml:
         @@ -7 +7
           kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-        + lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintVersion" }
+        + lintChecks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintVersion" }
         """
       )
   }
@@ -828,26 +828,26 @@ class GradleDetectorTest : AbstractCheckTest() {
       .window(1)
       .expectFixDiffs(
         """
-        Autofix for build.gradle line 3: Replace with new library catalog declaration for lint-checks:
+        Autofix for build.gradle line 3: Replace with new library catalog declaration for lintChecks:
         @@ -3 +3
           dependencies {
         -   implementation("com.android.tools.lint:lint-checks:＄lintVersion")
-        +   implementation(libs.lint.checks)
+        +   implementation(libs.lintChecks)
             implementation("com.android.tools.lint:lint-api:＄{lintVersion}")
         gradle/libs.versions.toml:
         @@ -7 +7
           kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-        + lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintVersion" }
-        Autofix for build.gradle line 4: Replace with new library catalog declaration for lint-api:
+        + lintChecks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintVersion" }
+        Autofix for build.gradle line 4: Replace with new library catalog declaration for lintApi:
         @@ -4 +4
             implementation("com.android.tools.lint:lint-checks:＄lintVersion")
         -   implementation("com.android.tools.lint:lint-api:＄{lintVersion}")
-        +   implementation(libs.lint.api)
+        +   implementation(libs.lintApi)
           }
         gradle/libs.versions.toml:
         @@ -7 +7
           kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-        + lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lintVersion" }
+        + lintApi = { module = "com.android.tools.lint:lint-api", version.ref = "lintVersion" }
         """
       )
   }
@@ -898,23 +898,23 @@ class GradleDetectorTest : AbstractCheckTest() {
         @@ -3 +3
           dependencies {
         -   implementation("com.android.tools.lint:lint-checks:＄lintVersion")
-        +   implementation(libs.lint.checks)
+        +   implementation(libs.lintChecks)
           }
         gradle/libs.versions.toml:
         @@ -7 +7
           kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-        + lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintVersion" }
+        + lintChecks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintVersion" }
         Fix for build.gradle.kts line 3: Change lintVersion to 31.1.0-alpha04:
         gradle/libs.versions.toml:
         @@ -3 +3
           kotlin = "1.7.20"
         - lintVersion = "30.0.0"
         + lintVersion = "31.1.0-alpha04"
-        Autofix for build.gradle.kts line 3: Replace with new library catalog declaration for android-lint-checks:
+        Autofix for build.gradle.kts line 3: Replace with new library catalog declaration for androidLintChecks:
         @@ -3 +3
           dependencies {
         -   implementation("com.android.tools.lint:lint-checks:＄lintVersion")
-        +   implementation(libs.android.lint.checks)
+        +   implementation(libs.androidLintChecks)
           }
         gradle/libs.versions.toml:
         @@ -3 +3
@@ -923,7 +923,7 @@ class GradleDetectorTest : AbstractCheckTest() {
           lintVersion = "30.0.0"
         @@ -6 +7
           [libraries]
-        + android-lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintChecks" }
+        + androidLintChecks = { module = "com.android.tools.lint:lint-checks", version.ref = "lintChecks" }
           kotlinStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
         """
       )
@@ -1430,6 +1430,83 @@ class GradleDetectorTest : AbstractCheckTest() {
                 + androidx-appcompat = { module = "androidx.appcompat:appcompat", version = "1.5.1" }
                 """
       )
+  }
+
+  fun testSwitchToTomlNoVersion() {
+    lint()
+      .files(
+        gradleToml(
+            """
+                # Only libraries here
+                [libraries]
+                compose-bom = { module = 'androidx.compose:compose-bom', version = '2023.10.01' }
+                """
+          )
+          .indented(),
+        gradle(
+            """
+                dependencies {
+                    implementation libs.compose.bom
+                    implementation 'androidx.compose.material3:material3'
+                }
+                """
+          )
+          .indented()
+      )
+      .issues(SWITCH_TO_TOML)
+      .sdkHome(mockSupportLibraryInstallation)
+      .run()
+      .expect(
+        """
+                build.gradle:3: Warning: Use version catalog instead [UseTomlInstead]
+                    implementation 'androidx.compose.material3:material3'
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                0 errors, 1 warnings
+                """
+      )
+      .verifyFixes()
+      .window(1)
+      .expectFixDiffs(
+        """
+                Autofix for build.gradle line 3: Replace with new library catalog declaration for material3:
+                @@ -3 +3
+                      implementation libs.compose.bom
+                -     implementation 'androidx.compose.material3:material3'
+                +     implementation libs.material3
+                  }
+                gradle/libs.versions.toml:
+                @@ -4 +4
+                  compose-bom = { module = 'androidx.compose:compose-bom', version = '2023.10.01' }
+                + material3 = { module = "androidx.compose.material3:material3" }
+                """
+      )
+  }
+
+  fun testSwitchToTomlWrongVersion() {
+    lint()
+      .files(
+        gradleToml(
+            """
+                # Only libraries here
+                [libraries]
+                compose-bom = { module = 'androidx.compose:compose-bom', version = '2023.10.01' }
+                """
+          )
+          .indented(),
+        gradle(
+            """
+                dependencies {
+                    implementation libs.compose.bom
+                    implementation 'androidx.compose.material3:material3:'
+                }
+                """
+          )
+          .indented()
+      )
+      .issues(SWITCH_TO_TOML)
+      .sdkHome(mockSupportLibraryInstallation)
+      .run()
+      .expectClean()
   }
 
   fun testSwitchToTomlEmptyVersions() {
@@ -4781,6 +4858,8 @@ class GradleDetectorTest : AbstractCheckTest() {
         http://another.example.url/
         Show URL for build.gradle line 22: View details in Google Play SDK Index:
         http://another.example.url/
+        Show URL for build.gradle line 22: View details in Google Play SDK Index:
+        http://another.example.url/
         Show URL for build.gradle line 6: View details in Google Play SDK Index:
         http://index.example.url/
         Show URL for build.gradle line 13: View details in Google Play SDK Index:
@@ -4796,6 +4875,12 @@ class GradleDetectorTest : AbstractCheckTest() {
         Show URL for build.gradle line 20: View details in Google Play SDK Index:
         http://another.example.url/
         Show URL for build.gradle line 21: View details in Google Play SDK Index:
+        http://another.example.url/
+        Show URL for build.gradle line 21: View details in Google Play SDK Index:
+        http://another.example.url/
+        Show URL for build.gradle line 21: View details in Google Play SDK Index:
+        http://another.example.url/
+        Show URL for build.gradle line 23: View details in Google Play SDK Index:
         http://another.example.url/
         Show URL for build.gradle line 23: View details in Google Play SDK Index:
         http://another.example.url/
@@ -4864,7 +4949,10 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:18: Error: com.example.ads.third.party:example version 7.1.4 has Permissions policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.4' // Policy (Permissions), blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:22: Error: com.example.ads.third.party:example version 7.1.8 has policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+          build.gradle:22: Error: com.example.ads.third.party:example version 7.1.8 has Malware policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.8' // Policy (multiple types), blocking
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:22: Error: com.example.ads.third.party:example version 7.1.8 has User Data policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.8' // Policy (multiple types), blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           build.gradle:6: Warning: log4j:log4j version 1.2.14 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
@@ -4888,10 +4976,19 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:20: Warning: com.example.ads.third.party:example version 7.1.6 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.6' // Policy (Malware), non-blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.7' // Policy (multiple types), non-blocking
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.7' // Policy (multiple types), non-blocking
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:21: Warning: com.example.ads.third.party:example version 7.1.7 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.7' // Policy (multiple types), non-blocking
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+              compile 'com.example.ads.third.party:example:7.1.9' // Policy (multiple types), no severity
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.9' // Policy (multiple types), no severity
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           build.gradle:8: Error: log4j:log4j version 1.2.12 has been marked as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
@@ -4903,7 +5000,7 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:13: Warning: com.example.ads.third.party:example version 7.2.0 has been marked as outdated by its author [OutdatedLibrary]
               compile 'com.example.ads.third.party:example:7.2.0' // Outdated + Critical + Policy (multiple issues), no severity
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          5 errors, 11 warnings
+          6 errors, 14 warnings
         """
       )
       .expectFixDiffs(expectedFixes)
@@ -4973,7 +5070,10 @@ class GradleDetectorTest : AbstractCheckTest() {
                 ../gradle/libs.versions.toml:14: Error: com.example.ads.third.party:example version 7.1.4 has Permissions policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
                                 exPolicyPermBlock = "7.1.4"     # Policy (Permissions), blocking
                                                     ~~~~~~~
-                ../gradle/libs.versions.toml:18: Error: com.example.ads.third.party:example version 7.1.8 has policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+                ../gradle/libs.versions.toml:18: Error: com.example.ads.third.party:example version 7.1.8 has Malware policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
+                                exPolicyMultiBlock = "7.1.8"    # Policy (multiple types), blocking
+                                                     ~~~~~~~
+                ../gradle/libs.versions.toml:18: Error: com.example.ads.third.party:example version 7.1.8 has User Data policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
                                 exPolicyMultiBlock = "7.1.8"    # Policy (multiple types), blocking
                                                      ~~~~~~~
                 ../gradle/libs.versions.toml:9: Warning: com.example.ads.third.party:example version 7.2.0 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
@@ -4994,10 +5094,19 @@ class GradleDetectorTest : AbstractCheckTest() {
                 ../gradle/libs.versions.toml:16: Warning: com.example.ads.third.party:example version 7.1.6 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMalware = "7.1.6"       # Policy (Malware), non-blocking
                                                   ~~~~~~~
-                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMultiNon = "7.1.7"      # Policy (multiple types), non-blocking
                                                    ~~~~~~~
-                ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                                exPolicyMultiNon = "7.1.7"      # Policy (multiple types), non-blocking
+                                                   ~~~~~~~
+                ../gradle/libs.versions.toml:17: Warning: com.example.ads.third.party:example version 7.1.7 has User Data policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                                exPolicyMultiNon = "7.1.7"      # Policy (multiple types), non-blocking
+                                                   ~~~~~~~
+                ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has Malware policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
+                                exPolicyMulti = "7.1.9"         # Policy (multiple types), no severity
+                                                ~~~~~~~
+                ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMulti = "7.1.9"         # Policy (multiple types), no severity
                                                 ~~~~~~~
                 ../gradle/libs.versions.toml:5: Error: log4j:log4j version 1.2.12 has been marked as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
@@ -5006,7 +5115,7 @@ class GradleDetectorTest : AbstractCheckTest() {
                 ../gradle/libs.versions.toml:9: Warning: com.example.ads.third.party:example version 7.2.0 has been marked as outdated by its author [OutdatedLibrary]
                                 exMultipleIssues = "7.2.0"      # Critical + Outdated + Policy, no severity
                                                    ~~~~~~~
-                5 errors, 9 warnings
+                6 errors, 12 warnings
                 """
       )
   }

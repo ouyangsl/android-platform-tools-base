@@ -53,6 +53,9 @@ import static com.android.ide.common.resources.ResourceItem.XLIFF_G_TAG;
 import static com.android.ide.common.resources.ResourceItem.XLIFF_NAMESPACE_PREFIX;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import com.android.ProgressManagerAdapter;
+import com.android.annotations.NonNull;
+import com.android.annotations.Nullable;
 import com.android.ide.common.rendering.api.AttrResourceValue;
 import com.android.ide.common.rendering.api.AttributeFormat;
 import com.android.ide.common.rendering.api.DensityBasedResourceValue;
@@ -76,7 +79,6 @@ import com.android.resources.FolderTypeRelationship;
 import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceType;
 import com.android.resources.ResourceVisibility;
-import com.android.tools.environment.CancellationManager;
 import com.android.tools.environment.Logger;
 import com.android.utils.SdkUtils;
 import com.android.utils.XmlUtils;
@@ -90,7 +92,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 import com.google.common.collect.Tables;
-import com.intellij.openapi.progress.ProcessCanceledException;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -113,12 +114,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CancellationException;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.kxml2.io.KXmlParser;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -138,30 +138,30 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   private final PatternBasedFileFilter myFileFilter
     = new PatternBasedFileFilter(new AndroidAaptIgnore(System.getenv(ANDROID_AAPT_IGNORE)));
 
-  @NotNull private final Map<ResourceType, Set<String>> myPublicResources = new EnumMap<>(ResourceType.class);
-  @NotNull private final ListMultimap<String, BasicAttrResourceItem> myAttrs = ArrayListMultimap.create();
-  @NotNull private final ListMultimap<String, BasicAttrResourceItem> myAttrCandidates = ArrayListMultimap.create();
-  @NotNull private final ListMultimap<String, BasicStyleableResourceItem> myStyleables = ArrayListMultimap.create();
-  @NotNull protected ResourceVisibility myDefaultVisibility = ResourceVisibility.PRIVATE;
+  @NonNull private final Map<ResourceType, Set<String>> myPublicResources = new EnumMap<>(ResourceType.class);
+  @NonNull private final ListMultimap<String, BasicAttrResourceItem> myAttrs = ArrayListMultimap.create();
+  @NonNull private final ListMultimap<String, BasicAttrResourceItem> myAttrCandidates = ArrayListMultimap.create();
+  @NonNull private final ListMultimap<String, BasicStyleableResourceItem> myStyleables = ArrayListMultimap.create();
+  @NonNull protected ResourceVisibility myDefaultVisibility = ResourceVisibility.PRIVATE;
   /** Cache of FolderConfiguration instances, keyed by qualifier strings (see {@link FolderConfiguration#getQualifierString()}). */
-  @NotNull protected final Map<String, FolderConfiguration> myFolderConfigCache = new HashMap<>();
-  @NotNull private final Map<FolderConfiguration, RepositoryConfiguration> myConfigCache = new HashMap<>();
-  @NotNull private final ValueResourceXmlParser myParser = new ValueResourceXmlParser();
-  @NotNull private final XmlTextExtractor myTextExtractor = new XmlTextExtractor();
-  @NotNull private final ResourceUrlParser myUrlParser = new ResourceUrlParser();
+  @NonNull protected final Map<String, FolderConfiguration> myFolderConfigCache = new HashMap<>();
+  @NonNull private final Map<FolderConfiguration, RepositoryConfiguration> myConfigCache = new HashMap<>();
+  @NonNull private final ValueResourceXmlParser myParser = new ValueResourceXmlParser();
+  @NonNull private final XmlTextExtractor myTextExtractor = new XmlTextExtractor();
+  @NonNull private final ResourceUrlParser myUrlParser = new ResourceUrlParser();
   // Used to keep track of resources defined in the current value resource file.
-  @NotNull private final Table<ResourceType, String, BasicValueResourceItemBase> myValueFileResources =
+  @NonNull private final Table<ResourceType, String, BasicValueResourceItemBase> myValueFileResources =
       Tables.newCustomTable(new EnumMap<>(ResourceType.class), LinkedHashMap::new);
-  @NotNull protected final Path myResourceDirectoryOrFile;
-  @NotNull private final PathString myResourceDirectoryOrFilePath;
+  @NonNull protected final Path myResourceDirectoryOrFile;
+  @NonNull private final PathString myResourceDirectoryOrFilePath;
   private final boolean myLoadingFromZipArchive;
 
-  @NotNull private final ResourceNamespace myNamespace;
+  @NonNull private final ResourceNamespace myNamespace;
   @Nullable private final Collection<PathString> myResourceFilesAndFolders;
   @Nullable protected ZipFile myZipFile;
 
-  public RepositoryLoader(@NotNull Path resourceDirectoryOrFile, @Nullable Collection<PathString> resourceFilesAndFolders,
-                          @NotNull ResourceNamespace namespace) {
+  public RepositoryLoader(@NonNull Path resourceDirectoryOrFile, @Nullable Collection<PathString> resourceFilesAndFolders,
+                          @NonNull ResourceNamespace namespace) {
     myResourceDirectoryOrFile = resourceDirectoryOrFile;
     myResourceDirectoryOrFilePath = new PathString(myResourceDirectoryOrFile);
     myLoadingFromZipArchive = isZipArchive(resourceDirectoryOrFile);
@@ -169,7 +169,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     myResourceFilesAndFolders = resourceFilesAndFolders;
   }
 
-  @NotNull
+  @NonNull
   public final Path getResourceDirectoryOrFile() {
     return myResourceDirectoryOrFile;
   }
@@ -178,12 +178,12 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return myLoadingFromZipArchive;
   }
 
-  @NotNull
+  @NonNull
   public final ResourceNamespace getNamespace() {
     return myNamespace;
   }
 
-  public void loadRepositoryContents(@NotNull T repository) {
+  public void loadRepositoryContents(@NonNull T repository) {
     if (myLoadingFromZipArchive) {
       loadFromZip(repository);
     }
@@ -196,7 +196,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return ImmutableList.of("public.xml");
   }
 
-  protected void loadFromZip(@NotNull T repository) {
+  protected void loadFromZip(@NonNull T repository) {
     try (ZipFile zipFile = new ZipFile(myResourceDirectoryOrFile.toFile())) {
       myZipFile = zipFile;
       loadPublicResourceNames();
@@ -209,10 +209,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
         }
       });
     }
-    catch (ProcessCanceledException e) {
-      throw e;
-    }
     catch (Exception e) {
+      ProgressManagerAdapter.throwIfCancellation(e);
       LOG.error("Failed to load resources from " + myResourceDirectoryOrFile.toString(), e);
     }
     finally {
@@ -222,7 +220,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     finishLoading(repository);
   }
 
-  protected void loadFromResFolder(@NotNull T repository) {
+  protected void loadFromResFolder(@NonNull T repository) {
     try {
       if (CancellableFileIo.notExists(myResourceDirectoryOrFile)) {
         return; // Don't report errors if the resource directory doesn't exist. This happens in some tests.
@@ -242,17 +240,15 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
         loadResourceFile(file, repository, shouldParseResourceIds);
       }
     }
-    catch (ProcessCanceledException e) {
-      throw e;
-    }
     catch (Exception e) {
+      ProgressManagerAdapter.throwIfCancellation(e);
       LOG.error("Failed to load resources from " + myResourceDirectoryOrFile.toString(), e);
     }
 
     finishLoading(repository);
   }
 
-  protected final void loadResourceFile(@NotNull PathString file, @NotNull T repository, boolean shouldParseResourceIds) {
+  protected final void loadResourceFile(@NonNull PathString file, @NonNull T repository, boolean shouldParseResourceIds) {
     String folderName = file.getParentFileName();
     if (folderName != null) {
       FolderInfo folderInfo = FolderInfo.create(folderName, myFolderConfigCache);
@@ -263,11 +259,11 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  protected void finishLoading(@NotNull T repository) {
+  protected void finishLoading(@NonNull T repository) {
     processAttrsAndStyleables();
   }
 
-  @NotNull
+  @NonNull
   public final String getSourceFileProtocol() {
     if (myLoadingFromZipArchive) {
       return JAR_PROTOCOL;
@@ -277,7 +273,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  @NotNull
+  @NonNull
   public final String getResourcePathPrefix() {
     if (myLoadingFromZipArchive) {
       return portableFileName(myResourceDirectoryOrFile.toString()) + JAR_SEPARATOR + "res/";
@@ -287,7 +283,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  @NotNull
+  @NonNull
   public final String getResourceUrlPrefix() {
     if (myLoadingFromZipArchive) {
       return JAR_PROTOCOL + "://" + portableFileName(myResourceDirectoryOrFile.toString()) + JAR_SEPARATOR + "res/";
@@ -307,7 +303,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   }
 
   @Override
-  public boolean isIgnored(@NotNull Path fileOrDirectory, @NotNull BasicFileAttributes attrs) {
+  public boolean isIgnored(@NonNull Path fileOrDirectory, @NonNull BasicFileAttributes attrs) {
     if (fileOrDirectory.equals(myResourceDirectoryOrFile)) {
       return false;
     }
@@ -396,19 +392,17 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
           }
         }
       }
-      catch (ProcessCanceledException e) {
-        throw e;
-      }
       catch (NoSuchFileException e) {
         // There is no public.xml. This not considered an error.
       }
       catch (Exception e) {
+        ProgressManagerAdapter.throwIfCancellation(e);
         LOG.error("Can't read and parse " + publicXmlFile, e);
       }
     }
   }
 
-  private boolean isPublicGroupTag(@NotNull String tag) {
+  private boolean isPublicGroupTag(@NonNull String tag) {
     return tag.equals(TAG_PUBLIC_GROUP) ||
            tag.equals(TAG_STAGING_PUBLIC_GROUP) ||
            tag.equals(TAG_STAGING_PUBLIC_GROUP_FINAL);
@@ -422,7 +416,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   /**
    * Checks if the given text contains the given word.
    */
-  private static boolean containsWord(@NotNull String text, @SuppressWarnings("SameParameterValue") @NotNull String word) {
+  private static boolean containsWord(@NonNull String text, @SuppressWarnings("SameParameterValue") @NonNull String word) {
     int end = 0;
     while (true) {
       int start = text.indexOf(word, end);
@@ -437,8 +431,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  @NotNull
-  private List<PathString> findResourceFiles(@NotNull List<Path> filesOrFolders) {
+  @NonNull
+  private List<PathString> findResourceFiles(@NonNull List<Path> filesOrFolders) {
     ResourceFileCollector fileCollector = new ResourceFileCollector(this);
     for (Path file : filesOrFolders) {
       try {
@@ -455,8 +449,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return fileCollector.resourceFiles;
   }
 
-  @NotNull
-  protected final RepositoryConfiguration getConfiguration(@NotNull T repository, @NotNull FolderConfiguration folderConfiguration) {
+  @NonNull
+  protected final RepositoryConfiguration getConfiguration(@NonNull T repository, @NonNull FolderConfiguration folderConfiguration) {
     RepositoryConfiguration repositoryConfiguration = myConfigCache.get(folderConfiguration);
     if (repositoryConfiguration != null) {
       return repositoryConfiguration;
@@ -467,7 +461,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return repositoryConfiguration;
   }
 
-  private void loadResourceFile(@NotNull PathString file, @NotNull FolderInfo folderInfo, @NotNull RepositoryConfiguration configuration,
+  private void loadResourceFile(@NonNull PathString file, @NonNull FolderInfo folderInfo, @NonNull RepositoryConfiguration configuration,
                                 boolean shouldParseResourceIds) {
     if (folderInfo.resourceType == null) {
       if (isXmlFile(file)) {
@@ -484,22 +478,22 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  protected static boolean isXmlFile(@NotNull PathString file) {
+  protected static boolean isXmlFile(@NonNull PathString file) {
     return isXmlFile(file.getFileName());
   }
 
-  protected static boolean isXmlFile(@NotNull String filename) {
+  protected static boolean isXmlFile(@NonNull String filename) {
     return SdkUtils.endsWithIgnoreCase(filename, DOT_XML);
   }
 
   @SuppressWarnings("unchecked")
-  private void addResourceItem(@NotNull BasicResourceItemBase item) {
+  private void addResourceItem(@NonNull BasicResourceItemBase item) {
     addResourceItem(item, (T)item.getRepository());
   }
 
-  protected abstract void addResourceItem(@NotNull BasicResourceItem item, @NotNull T repository);
+  protected abstract void addResourceItem(@NonNull BasicResourceItem item, @NonNull T repository);
 
-  protected final void parseValueResourceFile(@NotNull PathString file, @NotNull RepositoryConfiguration configuration) {
+  protected final void parseValueResourceFile(@NonNull PathString file, @NonNull RepositoryConfiguration configuration) {
     try (InputStream stream = getInputStream(file)) {
       ResourceSourceFile sourceFile = createResourceSourceFile(file, configuration);
       myParser.setInput(stream, null);
@@ -539,7 +533,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
         }
       } while (event != XmlPullParser.END_DOCUMENT);
     }
-    catch (ProcessCanceledException e) {
+    catch (CancellationException e) {
       throw e;
     }
     // KXmlParser throws RuntimeException for an undefined prefix and an illegal attribute name.
@@ -550,12 +544,12 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     addValueFileResources();
   }
 
-  @NotNull
-  protected ResourceSourceFile createResourceSourceFile(@NotNull PathString file, @NotNull RepositoryConfiguration configuration) {
+  @NonNull
+  protected ResourceSourceFile createResourceSourceFile(@NonNull PathString file, @NonNull RepositoryConfiguration configuration) {
     return new ResourceSourceFileImpl(getResRelativePath(file), configuration);
   }
 
-  private void addValueResourceItem(@NotNull BasicValueResourceItemBase item) {
+  private void addValueResourceItem(@NonNull BasicValueResourceItemBase item) {
     ResourceType resourceType = item.getType();
     // Add attr and styleable resources to intermediate maps to post-process them in the processAttrsAndStyleables
     // method after all resources are loaded.
@@ -580,7 +574,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     myValueFileResources.clear();
   }
 
-  protected final void parseIdGeneratingResourceFile(@NotNull PathString file, @NotNull RepositoryConfiguration configuration) {
+  protected final void parseIdGeneratingResourceFile(@NonNull PathString file, @NonNull RepositoryConfiguration configuration) {
     try (InputStream stream = getInputStream(file)) {
       ResourceSourceFile sourceFile = createResourceSourceFile(file, configuration);
       XmlPullParser parser = new KXmlParser();
@@ -602,7 +596,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
         }
       } while (event != XmlPullParser.END_DOCUMENT);
     }
-    catch (ProcessCanceledException e) {
+    catch (CancellationException e) {
       throw e;
     }
     // KXmlParser throws RuntimeException for an undefined prefix and an illegal attribute name.
@@ -613,19 +607,19 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     addValueFileResources();
   }
 
-  protected void handleParsingError(@NotNull PathString file, @NotNull Exception e) {
+  protected void handleParsingError(@NonNull PathString file, @NonNull Exception e) {
     LOG.warn("Failed to parse " + file.toString(), e);
   }
 
-  @NotNull
-  protected InputStream getInputStream(@NotNull PathString file) throws IOException {
+  @NonNull
+  protected InputStream getInputStream(@NonNull PathString file) throws IOException {
     if (myZipFile == null) {
       Path path = file.toPath();
       Preconditions.checkArgument(path != null);
       return new BufferedInputStream(CancellableFileIo.newInputStream(path));
     }
     else {
-      CancellationManager.throwIfCancelled();
+      ProgressManagerAdapter.checkCanceled();
       ZipEntry entry = myZipFile.getEntry(file.getPortablePath());
       if (entry == null) {
         throw new NoSuchFileException(file.getPortablePath());
@@ -634,7 +628,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  protected final void addIdResourceItem(@NotNull String resourceName, @NotNull ResourceSourceFile sourceFile) {
+  protected final void addIdResourceItem(@NonNull String resourceName, @NonNull ResourceSourceFile sourceFile) {
     ResourceVisibility visibility = getVisibility(ResourceType.ID, resourceName);
     BasicValueResourceItem item = new BasicValueResourceItem(ResourceType.ID, resourceName, sourceFile, visibility, null);
     if (!resourceAlreadyDefined(item)) { // Don't create duplicate ID resources.
@@ -642,9 +636,9 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  @NotNull
+  @NonNull
   private BasicFileResourceItem createFileResourceItem(
-      @NotNull PathString file, @NotNull ResourceType resourceType, @NotNull RepositoryConfiguration configuration) {
+      @NonNull PathString file, @NonNull ResourceType resourceType, @NonNull RepositoryConfiguration configuration) {
     String resourceName = SdkUtils.fileNameToResourceName(file.getFileName());
     ResourceVisibility visibility = getVisibility(resourceType, resourceName);
     Density density = null;
@@ -657,12 +651,12 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return createFileResourceItem(file, resourceType, resourceName, configuration, visibility, density);
   }
 
-  @NotNull
-  protected final BasicFileResourceItem createFileResourceItem(@NotNull PathString file,
-                                                               @NotNull ResourceType type,
-                                                               @NotNull String name,
-                                                               @NotNull RepositoryConfiguration configuration,
-                                                               @NotNull ResourceVisibility visibility,
+  @NonNull
+  protected final BasicFileResourceItem createFileResourceItem(@NonNull PathString file,
+                                                               @NonNull ResourceType type,
+                                                               @NonNull String name,
+                                                               @NonNull RepositoryConfiguration configuration,
+                                                               @NonNull ResourceVisibility visibility,
                                                                @Nullable Density density) {
     String relativePath = getResRelativePath(file);
     return density == null ?
@@ -670,9 +664,9 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
            new BasicDensityBasedFileResourceItem(type, name, configuration, visibility, relativePath, density);
   }
 
-  @NotNull
+  @NonNull
   private BasicValueResourceItemBase createResourceItem(
-      @NotNull ResourceType type, @NotNull String name, @NotNull ResourceSourceFile sourceFile)
+      @NonNull ResourceType type, @NonNull String name, @NonNull ResourceSourceFile sourceFile)
       throws IOException, XmlPullParserException, XmlSyntaxException {
     switch (type) {
       case ARRAY:
@@ -707,8 +701,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  @NotNull
-  private BasicArrayResourceItem createArrayItem(@NotNull String name, @NotNull ResourceSourceFile sourceFile)
+  @NonNull
+  private BasicArrayResourceItem createArrayItem(@NonNull String name, @NonNull ResourceSourceFile sourceFile)
       throws IOException, XmlPullParserException, XmlSyntaxException {
     String indexValue = myParser.getAttributeValue(TOOLS_URI, ATTR_INDEX);
     ResourceNamespace.Resolver namespaceResolver = myParser.getNamespaceResolver();
@@ -739,8 +733,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return item;
   }
 
-  @NotNull
-  private BasicAttrResourceItem createAttrItem(@NotNull String name, @NotNull ResourceSourceFile sourceFile)
+  @NonNull
+  private BasicAttrResourceItem createAttrItem(@NonNull String name, @NonNull ResourceSourceFile sourceFile)
       throws IOException, XmlPullParserException, XmlSyntaxException {
     ResourceNamespace.Resolver namespaceResolver = myParser.getNamespaceResolver();
     ResourceNamespace attrNamespace;
@@ -807,8 +801,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return item;
   }
 
-  @NotNull
-  private BasicPluralsResourceItem createPluralsItem(@NotNull String name, @NotNull ResourceSourceFile sourceFile)
+  @NonNull
+  private BasicPluralsResourceItem createPluralsItem(@NonNull String name, @NonNull ResourceSourceFile sourceFile)
       throws IOException, XmlPullParserException, XmlSyntaxException {
     String defaultQuantity = myParser.getAttributeValue(TOOLS_URI, ATTR_QUANTITY);
     ResourceNamespace.Resolver namespaceResolver = myParser.getNamespaceResolver();
@@ -838,9 +832,9 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return item;
   }
 
-  @NotNull
+  @NonNull
   private BasicValueResourceItem createStringItem(
-      @NotNull ResourceType type, @NotNull String name, @NotNull ResourceSourceFile sourceFile, boolean withRowXml)
+      @NonNull ResourceType type, @NonNull String name, @NonNull ResourceSourceFile sourceFile, boolean withRowXml)
       throws IOException, XmlPullParserException {
     ResourceNamespace.Resolver namespaceResolver = myParser.getNamespaceResolver();
     String text = type == ResourceType.ID ? null : myTextExtractor.extractText(myParser, withRowXml);
@@ -854,8 +848,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return item;
   }
 
-  @NotNull
-  private BasicStyleResourceItem createStyleItem(@NotNull String name, @NotNull ResourceSourceFile sourceFile)
+  @NonNull
+  private BasicStyleResourceItem createStyleItem(@NonNull String name, @NonNull ResourceSourceFile sourceFile)
       throws IOException, XmlPullParserException {
     ResourceNamespace.Resolver namespaceResolver = myParser.getNamespaceResolver();
     String parentStyle = myParser.getAttributeValue(null, ATTR_PARENT);
@@ -881,8 +875,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return item;
   }
 
-  @NotNull
-  private BasicStyleableResourceItem createStyleableItem(@NotNull String name, @NotNull ResourceSourceFile sourceFile)
+  @NonNull
+  private BasicStyleableResourceItem createStyleableItem(@NonNull String name, @NonNull ResourceSourceFile sourceFile)
       throws IOException, XmlPullParserException {
     ResourceNamespace.Resolver namespaceResolver = myParser.getNamespaceResolver();
     List<AttrResourceValue> attrs = new ArrayList<>();
@@ -913,7 +907,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return item;
   }
 
-  private static void addAttr(@NotNull BasicAttrResourceItem attr, @NotNull ListMultimap<String, BasicAttrResourceItem> map) {
+  private static void addAttr(@NonNull BasicAttrResourceItem attr, @NonNull ListMultimap<String, BasicAttrResourceItem> map) {
     List<BasicAttrResourceItem> attrs = map.get(attr.getName());
     int i = findResourceWithSameNameAndConfiguration(attr, attrs);
     if (i >= 0) {
@@ -977,8 +971,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
    * Returns a styleable with attr references replaced by attr definitions returned by
    * the {@link BasicStyleableResourceItem#getCanonicalAttr} method.
    */
-  @NotNull
-  public static BasicStyleableResourceItem resolveAttrReferences(@NotNull BasicStyleableResourceItem styleable) {
+  @NonNull
+  public static BasicStyleableResourceItem resolveAttrReferences(@NonNull BasicStyleableResourceItem styleable) {
     ResourceRepository repository = styleable.getRepository();
     List<AttrResourceValue> attributes = styleable.getAllAttributes();
     List<AttrResourceValue> resolvedAttributes = null;
@@ -1008,7 +1002,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return styleable;
   }
 
-  private void addAttrWithAdjustedFormats(@NotNull BasicAttrResourceItem attr) {
+  private void addAttrWithAdjustedFormats(@NonNull BasicAttrResourceItem attr) {
     if (attr.getFormats().isEmpty()) {
       attr = new BasicAttrResourceItem(attr.getName(), attr.getSourceFile(), attr.getVisibility(), attr.getDescription(),
                                        attr.getGroupName(), DEFAULT_ATTR_FORMATS, Collections.emptyMap(), Collections.emptyMap());
@@ -1022,13 +1016,13 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
    * @param resource the resource to check
    * @return true if a matching resource already exists
    */
-  private static boolean resourceAlreadyDefined(@NotNull BasicResourceItemBase resource) {
+  private static boolean resourceAlreadyDefined(@NonNull BasicResourceItemBase resource) {
     ResourceRepository repository = resource.getRepository();
     List<ResourceItem> items = repository.getResources(resource.getNamespace(), resource.getType(), resource.getName());
     return findResourceWithSameNameAndConfiguration(resource, items) >= 0;
   }
 
-  private static int findResourceWithSameNameAndConfiguration(@NotNull ResourceItem resource, @NotNull List<? extends ResourceItem> items) {
+  private static int findResourceWithSameNameAndConfiguration(@NonNull ResourceItem resource, @NonNull List<? extends ResourceItem> items) {
     for (int i = 0; i < items.size(); i++) {
       ResourceItem item = items.get(i);
       if (item.getConfiguration().equals(resource.getConfiguration())) {
@@ -1038,9 +1032,9 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return -1;
   }
 
-  @NotNull
+  @NonNull
   private BasicValueResourceItem createFileReferenceItem(
-      @NotNull ResourceType type, @NotNull String name, @NotNull ResourceSourceFile sourceFile)
+      @NonNull ResourceType type, @NonNull String name, @NonNull ResourceSourceFile sourceFile)
       throws IOException, XmlPullParserException {
     ResourceNamespace.Resolver namespaceResolver = myParser.getNamespaceResolver();
     String text = myTextExtractor.extractText(myParser, false).trim();
@@ -1054,7 +1048,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   }
 
   @Nullable
-  private ResourceType getResourceType(@NotNull String tagName, @NotNull PathString file) throws XmlSyntaxException {
+  private ResourceType getResourceType(@NonNull String tagName, @NonNull PathString file) throws XmlSyntaxException {
     ResourceType type = ResourceType.fromXmlTagName(tagName);
 
     if (type == null) {
@@ -1092,7 +1086,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
    * If {@code tagName} is not null, calls {@code subtagVisitor.visitTag()} for every subtag of the current tag
    * which name doesn't have a prefix and matches {@code tagName}.
    */
-  private void forSubTags(@Nullable String tagName, @NotNull XmlTagVisitor subtagVisitor) throws IOException, XmlPullParserException {
+  private void forSubTags(@Nullable String tagName, @NonNull XmlTagVisitor subtagVisitor) throws IOException, XmlPullParserException {
     int elementDepth = myParser.getDepth();
     int event;
     do {
@@ -1115,7 +1109,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     } while (event != XmlPullParser.END_DOCUMENT && (event != XmlPullParser.END_TAG || myParser.getDepth() > elementDepth));
   }
 
-  private void validateResourceName(@NotNull String resourceName, @NotNull ResourceType resourceType, @NotNull PathString file)
+  private void validateResourceName(@NonNull String resourceName, @NonNull ResourceType resourceType, @NonNull PathString file)
       throws XmlSyntaxException {
     String error = ValueResourceNameValidator.getErrorText(resourceName, resourceType);
     if (error != null) {
@@ -1123,20 +1117,20 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
   }
 
-  @NotNull
-  private String getDisplayName(@NotNull PathString file) {
+  @NonNull
+  private String getDisplayName(@NonNull PathString file) {
     return file.isAbsolute() ? file.getNativePath() : file.getPortablePath() + " in " + myResourceDirectoryOrFile.toString();
   }
 
-  @NotNull
-  private String getDisplayName(@NotNull ResourceSourceFile sourceFile) {
+  @NonNull
+  private String getDisplayName(@NonNull ResourceSourceFile sourceFile) {
     String relativePath = sourceFile.getRelativePath();
     Preconditions.checkArgument(relativePath != null);
     return getDisplayName(new PathString(relativePath));
   }
 
-  @NotNull
-  protected final ResourceVisibility getVisibility(@NotNull ResourceType resourceType, @NotNull String resourceName) {
+  @NonNull
+  protected final ResourceVisibility getVisibility(@NonNull ResourceType resourceType, @NonNull String resourceName) {
     Set<String> names = myPublicResources.get(resourceType);
     return names != null && names.contains(getKeyForVisibilityLookup(resourceName)) ? ResourceVisibility.PUBLIC : myDefaultVisibility;
   }
@@ -1144,14 +1138,14 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   /**
    * Transforms the given resource name to a key for lookup in myPublicResources.
    */
-  @NotNull
-  protected String getKeyForVisibilityLookup(@NotNull String resourceName) {
+  @NonNull
+  protected String getKeyForVisibilityLookup(@NonNull String resourceName) {
     // In public.txt all resource names are transformed by replacing dots, colons and dashes with underscores.
     return ResourcesUtil.resourceNameToFieldName(resourceName);
   }
 
-  @NotNull
-  protected final String getResRelativePath(@NotNull PathString file) {
+  @NonNull
+  protected final String getResRelativePath(@NonNull PathString file) {
     if (file.isAbsolute()) {
       return myResourceDirectoryOrFilePath.relativize(file).getPortablePath();
     }
@@ -1162,15 +1156,15 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     return file.subpath(1, file.getNameCount()).getPortablePath();
   }
 
-  private static boolean isZipArchive(@NotNull Path resourceDirectoryOrFile) {
+  private static boolean isZipArchive(@NonNull Path resourceDirectoryOrFile) {
     String filename = resourceDirectoryOrFile.getFileName().toString();
     return SdkUtils.endsWithIgnoreCase(filename, DOT_AAR) ||
            SdkUtils.endsWithIgnoreCase(filename, DOT_JAR) ||
            SdkUtils.endsWithIgnoreCase(filename, DOT_ZIP);
   }
 
-  @NotNull
-  public static String portableFileName(@NotNull String fileName) {
+  @NonNull
+  public static String portableFileName(@NonNull String fileName) {
     return fileName.replace(File.separatorChar, '/');
   }
 
@@ -1183,13 +1177,13 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
    * Information about a resource folder.
    */
   protected static class FolderInfo {
-    @NotNull public final ResourceFolderType folderType;
-    @NotNull public final FolderConfiguration configuration;
+    @NonNull public final ResourceFolderType folderType;
+    @NonNull public final FolderConfiguration configuration;
     @Nullable public final ResourceType resourceType;
     public final boolean isIdGenerating;
 
-    private FolderInfo(@NotNull ResourceFolderType folderType,
-                       @NotNull FolderConfiguration configuration,
+    private FolderInfo(@NonNull ResourceFolderType folderType,
+                       @NonNull FolderConfiguration configuration,
                        @Nullable ResourceType resourceType,
                        boolean isIdGenerating) {
       this.configuration = configuration;
@@ -1206,7 +1200,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
      * @return the FolderInfo object, or null if folderName is not a valid name of a resource folder
      */
     @Nullable
-    public static FolderInfo create(@NotNull String folderName, @NotNull Map<String, FolderConfiguration> folderConfigCache) {
+    public static FolderInfo create(@NonNull String folderName, @NonNull Map<String, FolderConfiguration> folderConfigCache) {
       ResourceFolderType folderType = ResourceFolderType.getFolderType(folderName);
       if (folderType == null) {
         return null;
@@ -1235,17 +1229,17 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   }
 
   private static class ResourceFileCollector implements FileVisitor<Path> {
-    @NotNull final List<PathString> resourceFiles = new ArrayList<>();
-    @NotNull final List<IOException> ioErrors = new ArrayList<>();
-    @NotNull final FileFilter fileFilter;
+    @NonNull final List<PathString> resourceFiles = new ArrayList<>();
+    @NonNull final List<IOException> ioErrors = new ArrayList<>();
+    @NonNull final FileFilter fileFilter;
 
-    private ResourceFileCollector(@NotNull FileFilter filter) {
+    private ResourceFileCollector(@NonNull FileFilter filter) {
       fileFilter = filter;
     }
 
     @Override
-    @NotNull
-    public FileVisitResult preVisitDirectory(@NotNull Path dir, @NotNull BasicFileAttributes attrs) {
+    @NonNull
+    public FileVisitResult preVisitDirectory(@NonNull Path dir, @NonNull BasicFileAttributes attrs) {
       if (fileFilter.isIgnored(dir, attrs)) {
         return FileVisitResult.SKIP_SUBTREE;
       }
@@ -1253,8 +1247,8 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
 
     @Override
-    @NotNull
-    public FileVisitResult visitFile(@NotNull Path file, @NotNull BasicFileAttributes attrs) {
+    @NonNull
+    public FileVisitResult visitFile(@NonNull Path file, @NonNull BasicFileAttributes attrs) {
       if (fileFilter.isIgnored(file, attrs)) {
         return FileVisitResult.SKIP_SUBTREE;
       }
@@ -1263,27 +1257,27 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
     }
 
     @Override
-    @NotNull
-    public FileVisitResult visitFileFailed(@NotNull Path file, @NotNull IOException exc) {
+    @NonNull
+    public FileVisitResult visitFileFailed(@NonNull Path file, @NonNull IOException exc) {
       ioErrors.add(exc);
       return FileVisitResult.CONTINUE;
     }
 
     @Override
-    @NotNull
-    public FileVisitResult postVisitDirectory(@NotNull Path dir, @Nullable IOException exc) {
+    @NonNull
+    public FileVisitResult postVisitDirectory(@NonNull Path dir, @Nullable IOException exc) {
       return FileVisitResult.CONTINUE;
     }
   }
 
   private static class XmlTextExtractor {
-    @NotNull private final StringBuilder text = new StringBuilder();
-    @NotNull private final StringBuilder rawXml = new StringBuilder();
-    @NotNull private final Deque<Boolean> textInclusionState = new ArrayDeque<>();
+    @NonNull private final StringBuilder text = new StringBuilder();
+    @NonNull private final StringBuilder rawXml = new StringBuilder();
+    @NonNull private final Deque<Boolean> textInclusionState = new ArrayDeque<>();
     private boolean nontrivialRawXml;
 
-    @NotNull
-    String extractText(@NotNull XmlPullParser parser, boolean withRawXml) throws IOException, XmlPullParserException {
+    @NonNull
+    String extractText(@NonNull XmlPullParser parser, boolean withRawXml) throws IOException, XmlPullParserException {
       text.setLength(0);
       rawXml.setLength(0);
       textInclusionState.clear();
@@ -1400,7 +1394,7 @@ public abstract class RepositoryLoader<T extends LoadableResourceRepository> imp
   }
 
   private static class XmlSyntaxException extends Exception {
-    XmlSyntaxException(@NotNull String error, @NotNull XmlPullParser parser, @NotNull String filename) {
+    XmlSyntaxException(@NonNull String error, @NonNull XmlPullParser parser, @NonNull String filename) {
       super(error + " at " + filename + " line " + parser.getLineNumber());
     }
   }
