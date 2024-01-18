@@ -68,7 +68,7 @@ fun findPreviewsAndSerialize(classPath: List<String>, outputFile: Path) {
 }
 
 private fun getClassName(fqcn: String): String {
-    return fqcn.substring(0, fqcn.lastIndexOf(PERIOD))
+    return fqcn.substring(0, fqcn.lastIndexOf("."))
 }
 
 private fun serializePreviews(

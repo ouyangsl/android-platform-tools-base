@@ -20,11 +20,7 @@ import com.android.testutils.MockitoKt.any
 import com.android.testutils.MockitoKt.eq
 import com.android.testutils.MockitoKt.mock
 import com.android.tools.preview.screenshot.services.AnalyticsService
-import com.google.common.truth.Truth.assertThat
-import java.io.File
-import org.gradle.api.GradleException
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -44,144 +40,8 @@ class PreviewScreenshotValidationTaskTest {
     }
 
     @Test
-    fun testImageValidationMatchingImages() {
-        val imageOutputDir = tempDirRule.newFolder("outputs")
-        val resultsFile = tempDirRule.newFile("results")
-        val referenceImageDir = tempDirRule.newFolder("references")
-        val renderOutputDir = tempDirRule.newFolder("rendered")
-        val previewsFile = tempDirRule.newFile("previews_discovered.json")
-
-        // Copy the same image to rendered output and reference images
-        val previewImageName = "com.example.project.ExampleInstrumentedTest.GreetingPreview_3d8b4969_da39a3ee"
-        previewsFile.writeText("""
-            {
-              "screenshots": [
-                {
-                  "methodFQN": "com.example.project.ExampleInstrumentedTest.GreetingPreview",
-                  "methodParams": [],
-                  "previewParams": {
-                    "showBackground": "true"
-                  },
-                  "imageName": "$previewImageName"
-                }
-              ]
-            }
-        """.trimIndent())
-        javaClass.getResourceAsStream("circle.png")!!
-            .copyTo(referenceImageDir.resolve("$previewImageName.png").canonicalFile.apply { parentFile!!.mkdirs() }.outputStream())
-        javaClass.getResourceAsStream("circle.png")!!
-            .copyTo(renderOutputDir.resolve("${previewImageName}_0.png").canonicalFile.apply { parentFile!!.mkdirs() }.outputStream())
-
-        task.previewFile.set(previewsFile)
-        task.referenceImageDir.set(referenceImageDir)
-        task.imageOutputDir.set(imageOutputDir)
-        task.renderTaskOutputDir.set(renderOutputDir)
-        task.resultsFile.set(resultsFile)
-        task.analyticsService.set(mock<AnalyticsService>())
-
-        task.run()
-
-        assertThat(resultsFile.readText().trimIndent()).isEqualTo("""
-            <?xml version='1.0' encoding='UTF-8' ?>
-            <testsuite name="com.example.project.ExampleInstrumentedTest" tests="1" failures="0" errors="zero" skipped="zero">
-              <properties />
-              <testcase name="GreetingPreview" classname="com.example.project.ExampleInstrumentedTest">
-                <success>PASSED</success>
-                <images>
-                  <reference path="${referenceImageDir.absolutePath}${File.separator}com.example.project.ExampleInstrumentedTest.GreetingPreview_3d8b4969_da39a3ee.png" />
-                  <actual path="${imageOutputDir.absolutePath}${File.separator}com.example.project.ExampleInstrumentedTest.GreetingPreview_3d8b4969_da39a3ee_actual.png" />
-                  <diff message="Images match!" />
-                </images>
-              </testcase>
-            </testsuite>
-        """.trimIndent())
-    }
-
-    @Test
-    fun testImageValidationDifferentImages() {
-        val imageOutputDir = tempDirRule.newFolder("outputs")
-        val resultsFile = tempDirRule.newFile("results")
-        val referenceImageDir = tempDirRule.newFolder("references")
-        val renderOutputDir = tempDirRule.newFolder("rendered")
-        val previewsFile = tempDirRule.newFile("previews_discovered.json")
-
-        // Copy different images to rendered output and reference images
-        val previewImageName = "com.example.project.ExampleInstrumentedTest.GreetingPreview_3d8b4969_da39a3ee"
-        previewsFile.writeText("""
-            {
-              "screenshots": [
-                {
-                  "methodFQN": "com.example.project.ExampleInstrumentedTest.GreetingPreview",
-                  "methodParams": [],
-                  "previewParams": {
-                    "showBackground": "true"
-                  },
-                  "imageName": "$previewImageName"
-                }
-              ]
-            }
-        """.trimIndent())
-        javaClass.getResourceAsStream("circle.png")!!
-            .copyTo(referenceImageDir.resolve("$previewImageName.png").canonicalFile.apply { parentFile!!.mkdirs() }.outputStream())
-        javaClass.getResourceAsStream("star.png")!!
-            .copyTo(renderOutputDir.resolve("${previewImageName}_0.png").canonicalFile.apply { parentFile!!.mkdirs() }.outputStream())
-
-        task.previewFile.set(previewsFile)
-        task.referenceImageDir.set(referenceImageDir)
-        task.imageOutputDir.set(imageOutputDir)
-        task.renderTaskOutputDir.set(renderOutputDir)
-        task.resultsFile.set(resultsFile)
-        task.analyticsService.set(mock<AnalyticsService>())
-
-        val e = assertThrows(GradleException::class.java) {
-            task.run()
-        }
-        assertThat(e.message).isEqualTo("There were failing tests")
-
-        assertThat(resultsFile.readText().trimIndent()).isEqualTo("""
-            <?xml version='1.0' encoding='UTF-8' ?>
-            <testsuite name="com.example.project.ExampleInstrumentedTest" tests="1" failures="1" errors="zero" skipped="zero">
-              <properties />
-              <testcase name="GreetingPreview" classname="com.example.project.ExampleInstrumentedTest">
-                <failure>FAILED</failure>
-                <images>
-                  <reference path="${referenceImageDir.absolutePath}${File.separator}com.example.project.ExampleInstrumentedTest.GreetingPreview_3d8b4969_da39a3ee.png" />
-                  <actual path="${imageOutputDir.absolutePath}${File.separator}com.example.project.ExampleInstrumentedTest.GreetingPreview_3d8b4969_da39a3ee_actual.png" />
-                  <diff path="${imageOutputDir.absolutePath}${File.separator}com.example.project.ExampleInstrumentedTest.GreetingPreview_3d8b4969_da39a3ee_diff.png" />
-                </images>
-              </testcase>
-            </testsuite>
-        """.trimIndent())
-    }
-
-    @Test
-    fun testImageValidationNoPreviewsToTest() {
-        val imageOutputDir = tempDirRule.newFolder("outputs")
-        val resultsFile = tempDirRule.newFile("results")
-        val referenceImageDir = tempDirRule.newFolder("references")
-        val renderOutputDir = tempDirRule.newFolder("rendered")
-        val previewsFile = tempDirRule.newFile("previews_discovered.json")
-        previewsFile.writeText("""
-            {
-              "screenshots": [
-              ]
-            }
-        """.trimIndent())
-
-        task.previewFile.set(previewsFile)
-        task.referenceImageDir.set(referenceImageDir)
-        task.imageOutputDir.set(imageOutputDir)
-        task.renderTaskOutputDir.set(renderOutputDir)
-        task.resultsFile.set(resultsFile)
-
-        task.run()
-
-        assert(resultsFile.readText().isEmpty())
-    }
-
-    @Test
     fun testReportAnalyticsData() {
-        val imageOutputDir = tempDirRule.newFolder("outputs")
+        val diffDir = tempDirRule.newFolder("diffs")
         val resultsFile = tempDirRule.newFile("results")
         val referenceImageDir = tempDirRule.newFolder("references")
         val renderOutputDir = tempDirRule.newFolder("rendered")
@@ -210,7 +70,7 @@ class PreviewScreenshotValidationTaskTest {
 
         task.previewFile.set(previewsFile)
         task.referenceImageDir.set(referenceImageDir)
-        task.imageOutputDir.set(imageOutputDir)
+        task.diffImageDir.set(diffDir)
         task.renderTaskOutputDir.set(renderOutputDir)
         task.resultsFile.set(resultsFile)
 

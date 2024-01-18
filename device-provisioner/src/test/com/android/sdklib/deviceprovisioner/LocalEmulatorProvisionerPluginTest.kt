@@ -33,8 +33,11 @@ import com.google.wireless.android.sdk.stats.DeviceInfo.ApplicationBinaryInterfa
 import com.google.wireless.android.sdk.stats.DeviceInfo.MdnsConnectionType
 import java.nio.file.Path
 import java.time.Duration
+import java.util.concurrent.atomic.AtomicInteger
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.takeWhile
 import kotlinx.coroutines.launch
@@ -132,6 +135,7 @@ class LocalEmulatorProvisionerPluginTest {
 
     assertThat(handle.state.connectedDevice).isNotNull()
 
+    handle.awaitReady()
     assertThat(provisioner.devices.value.map { it.state.properties.title })
       .containsExactly("Fake Device 1")
     val properties = provisioner.devices.value[0].state.properties as LocalEmulatorProperties
@@ -157,7 +161,14 @@ class LocalEmulatorProvisionerPluginTest {
     handle.coldBootAction?.activate()
 
     val connectedDevice = checkNotNull(handle.state.connectedDevice)
+    assertThat(handle.state.isReady).isFalse()
+
+    avdManager.finishBoot(connectedDevice)
+
+    handle.awaitReady()
+    assertThat(handle.state.isReady).isTrue()
     assertThat(connectedDevice.deviceProperties().allReadonly()["ro.test.coldboot"]).isEqualTo("1")
+    assertThat(handle.id.pluginId).isEqualTo(LocalEmulatorProvisionerPlugin.PLUGIN_ID)
   }
 
   @Test
@@ -174,6 +185,7 @@ class LocalEmulatorProvisionerPluginTest {
     handle.bootSnapshotAction?.activate(snapshot = snapshots[0])
 
     val connectedDevice = checkNotNull(handle.state.connectedDevice)
+    handle.awaitReady()
     assertThat(connectedDevice.deviceProperties().allReadonly()["ro.test.snapshot"])
       .isEqualTo(snapshotPath.toString())
   }
@@ -268,6 +280,7 @@ class LocalEmulatorProvisionerPluginTest {
     assertThat(handle.state.properties.deviceType).isEqualTo(DeviceType.TV)
 
     handle.activationAction?.activate()
+    handle.awaitReady()
 
     assertThat(handle.state.properties.deviceType).isEqualTo(DeviceType.TV)
   }
@@ -313,6 +326,23 @@ class LocalEmulatorProvisionerPluginTest {
     }
 
     job.cancel()
+  }
+
+  /** Verify that the device updates the expected number of times. */
+  @Test
+  fun updateCount() = runBlockingWithTimeout {
+    avdManager.createAvd()
+
+    yieldUntil { provisioner.devices.value.size == 1 }
+
+    val handle = provisioner.devices.value[0]
+    val updateCount = AtomicInteger(0)
+    handle.scope.launch { handle.stateFlow.collect { updateCount.incrementAndGet() } }
+
+    delay(1.seconds)
+
+    // Nothing changed, so the periodic AvdInfo rescans (every 100 ms) should not update it.
+    assertThat(updateCount.get()).isEqualTo(1)
   }
 
   private fun checkProperties(properties: LocalEmulatorProperties) {

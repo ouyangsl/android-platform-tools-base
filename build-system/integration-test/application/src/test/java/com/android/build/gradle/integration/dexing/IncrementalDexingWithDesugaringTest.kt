@@ -25,6 +25,7 @@ import com.android.build.gradle.integration.common.fixture.app.EmptyActivityProj
 import com.android.build.gradle.integration.common.runner.FilterableParameterized
 import com.android.build.gradle.integration.common.utils.ChangeType.CHANGED
 import com.android.build.gradle.integration.common.utils.ChangeType.CHANGED_TIMESTAMPS_BUT_NOT_CONTENTS
+import com.android.build.gradle.integration.common.utils.ChangeType.NEW
 import com.android.build.gradle.integration.common.utils.ChangeType.UNCHANGED
 import com.android.build.gradle.integration.common.utils.IncrementalTestHelper
 import com.android.build.gradle.integration.common.utils.TestFileUtils
@@ -347,7 +348,7 @@ class IncrementalDexingWithDesugaringTest(
     }
 
     /**
-     * Finds the dex transform directories after a build.
+     * Finds the dex transform directory after a build.
      *
      * We can't locate them before the build because they take the form of
      * `<project>/build/.transforms/<hash>` where `<hash>` is not known in advance.
@@ -363,12 +364,16 @@ class IncrementalDexingWithDesugaringTest(
             }
         }
 
-        check(dexDirs.isNotEmpty()) { "Can't find dex files in `${project.buildDir.path}`" }
-        check(dexDirs.size == 1) {
-            "Expected 1 dex directory but found multiple ones: " +
-                    dexDirs.joinToString(", ", transform = { it.path })
+        return when (dexDirs.size) {
+            0 -> error("Can't find dex files in '${project.buildDir.path}'")
+            1 -> dexDirs.single()
+            else -> {
+                // There could be multiple transform directories, get the most recently created
+                val latestTimestamp = dexDirs.maxOf { it.lastModified() }
+                dexDirs.singleOrNull { it.lastModified() == latestTimestamp }
+                    ?: error("Found multiple directories with the same timestamp: $dexDirs")
+            }
         }
-        return dexDirs[0]
     }
 
     @Test
@@ -455,18 +460,23 @@ class IncrementalDexingWithDesugaringTest(
                         classUsingInterfaceWithDefaultMethodPublishedClassFile!! to CHANGED_TIMESTAMPS_BUT_NOT_CONTENTS,
                         standAloneClassPublishedClassFile!! to UNCHANGED,
                         // Dex files
-                        interfaceWithDefaultMethodDexFile to CHANGED,
+                        interfaceWithDefaultMethodDexFile to
+                                if (withMinSdk24Plus) {
+                                    CHANGED
+                                } else {
+                                    NEW
+                                },
                         classUsingInterfaceWithDefaultMethodDexFile to
                                 if (withMinSdk24Plus) {
                                     UNCHANGED
                                 } else {
-                                    CHANGED
+                                    NEW
                                 },
                         standAloneClassDexFile to
                                 if (withMinSdk24Plus) {
                                     UNCHANGED
                                 } else {
-                                    CHANGED
+                                    NEW
                                 }
                     )
                 )
@@ -558,18 +568,23 @@ class IncrementalDexingWithDesugaringTest(
                         classUsingInterfaceWithDefaultMethodPublishedClassFile!! to CHANGED_TIMESTAMPS_BUT_NOT_CONTENTS,
                         standAloneClassPublishedClassFile!! to UNCHANGED,
                         // Dex files
-                        interfaceWithDefaultMethodDexFile to CHANGED,
+                        interfaceWithDefaultMethodDexFile to
+                                if (withMinSdk24Plus) {
+                                    CHANGED
+                                } else {
+                                    NEW
+                                },
                         classUsingInterfaceWithDefaultMethodDexFile to
                                 if (withMinSdk24Plus) {
                                     UNCHANGED
                                 } else {
-                                    CHANGED
+                                    NEW
                                 },
                         standAloneClassDexFile to
                                 if (withMinSdk24Plus) {
                                     UNCHANGED
                                 } else {
-                                    CHANGED
+                                    NEW
                                 }
                     )
                 )

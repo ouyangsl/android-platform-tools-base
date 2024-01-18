@@ -32,12 +32,6 @@ data class PreviewResult(
 ) {
 }
 
-fun Verify.AnalysisResult.toPreviewResponse(code: Int, name: String, reference: ImageDetails,
-    actual: ImageDetails? = null,
-    diff: ImageDetails? = null): PreviewResult{
-    return PreviewResult(code, name, message, reference, actual, diff)
-}
-
 /**
  * class to encapsulate comparison images to be consumed by report generator
  * In case of missing image, the message will contain the text to be displayed instead

@@ -34,6 +34,8 @@ import com.android.tools.preview.screenshot.tasks.PreviewScreenshotRenderTask
 import com.android.tools.preview.screenshot.tasks.PreviewScreenshotUpdateTask
 import com.android.tools.preview.screenshot.tasks.PreviewScreenshotValidationTask
 import com.android.tools.preview.screenshot.tasks.ScreenshotTestReportTask
+import java.io.File
+import java.lang.StringBuilder
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
@@ -44,8 +46,6 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.jvm.toolchain.JavaToolchainService
-import java.io.File
-import java.lang.StringBuilder
 
 /**
  * An entry point for Screenshot plugin that adds support for screenshot testing on Compose Previews
@@ -104,6 +104,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                     val referenceImageDir =
                         File("${project.projectDir.absolutePath}/src/androidTest/screenshot/$buildTarget/$flavorDir")
                     val renderedDir = buildDir.dir("$testOutputDir/rendered")
+                    val diffImageDir = buildDir.dir("$testOutputDir/diffs")
                     val previewOut = buildDir.file("$intermediatesDir/previews_discovered.json")
                     val cliInput = buildDir.file("$intermediatesDir/cli_tool_input.json")
                     val testResultsDir = buildDir.dir("$testOutputDir/results")
@@ -230,12 +231,23 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.previewFile.set(previewOut)
                         task.renderTaskOutputDir.set(renderTaskProvider.flatMap { it.outputDir })
                         task.resultsFile.set(testResultsFile)
-                        task.imageOutputDir.set(renderedDir)
-                        task.imageOutputDir.disallowChanges()
+                        task.diffImageDir.set(diffImageDir)
+                        task.diffImageDir.disallowChanges()
+                        task.reportFilePath.set(reportsDir)
+                        task.reportFilePath.disallowChanges()
                         task.analyticsService.set(analyticsServiceProvider)
                         task.usesService(analyticsServiceProvider)
                         task.description = "Run screenshot tests for the " + variantName + " build."
                         task.group = JavaBasePlugin.VERIFICATION_GROUP
+                        maybeCreateScreenshotTestConfiguration(project)
+                        task.useJUnitPlatform {
+                            it.includeEngines("preview-screenshot-test-engine")
+                        }
+                        task.testLogging {
+                            it.showStandardStreams = true
+                        }
+                        task.testClassesDirs = project.files(renderTaskProvider.flatMap { it.testClassesDir }) + project.files(renderTaskProvider.flatMap { it.testClasspath })
+                        task.classpath = task.project.configurations.getByName(previewScreenshotTestEngineConfigurationName) + task.testClassesDirs
                     }.get()
 
                     val screenshotHtmlTask = project.tasks.register(
@@ -244,11 +256,33 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                     ) { task ->
                         task.outputDir.set(reportsDir)
                         task.resultsDir.set(testResultsDir)
+                        task.onlyIf {previewScreenshotValidationTask.didWork }
                     }
                     previewScreenshotValidationTask.finalizedBy(screenshotHtmlTask)
                     validateAllTask.dependsOn(previewScreenshotValidationTask)
                 }
             }
+        }
+    }
+
+    private fun maybeCreateScreenshotTestConfiguration(project: Project) {
+        val container = project.configurations
+        val dependencies = project.dependencies
+        if (container.findByName(previewScreenshotTestEngineConfigurationName) == null) {
+            container.create(previewScreenshotTestEngineConfigurationName).apply {
+                isVisible = false
+                isTransitive = true
+                isCanBeConsumed = false
+                description = "A configuration to resolve preview screenshot test engine dependencies."
+            }
+            val engineVersion = "0.0.1" +
+                    if (Version.ANDROID_GRADLE_PLUGIN_VERSION.endsWith("-dev"))
+                        "-dev"
+                    else
+                        "-eap01"
+            dependencies.add(
+                previewScreenshotTestEngineConfigurationName,
+                "com.android.tools.preview.screenshot.junit.engine:junit-engine:${engineVersion}")
         }
     }
 
@@ -284,6 +318,8 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
 
     companion object {
         const val previewlibCliToolConfigurationName = "_internal-screenshot-test-task-previewlib-cli"
+        const val previewScreenshotTestEngineConfigurationName =
+            "_internal-preview-screenshot-test-engine"
         private const val ARTIFACT_IMPL = "com.android.build.api.artifact.impl.ArtifactsImpl"
         private const val ANALYTICS_ENABLED_ARTIFACTS = "com.android.build.api.component.analytics.AnalyticsEnabledArtifacts"
         private const val INTERNAL_ARTIFACT_TYPE = "com.android.build.gradle.internal.scope.InternalArtifactType"

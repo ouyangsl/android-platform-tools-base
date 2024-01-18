@@ -2861,7 +2861,7 @@ public final class SdkConstants {
      * Studio product. It need not actually be the latest version of Gradle, but it will most likely
      * be fairly recent.
      */
-    public static final String GRADLE_LATEST_VERSION = "8.4";
+    public static final String GRADLE_LATEST_VERSION = "8.6-rc-1";
 
     /**
      * The minimum released version of the Android Gradle Plugin that this version of Studio will
@@ -2886,7 +2886,7 @@ public final class SdkConstants {
      * The version of NDK to use as default. If no specific version of NDK is specified in
      * build.gradle then this is the version that will be used.
      */
-    public static final String NDK_DEFAULT_VERSION = "25.1.8937393";
+    public static final String NDK_DEFAULT_VERSION = "26.1.10909125";
 
     /** use api or implementation */
     @Deprecated public static final String GRADLE_COMPILE_CONFIGURATION = "compile";
@@ -3020,4 +3020,7 @@ public final class SdkConstants {
 
     /** Url protocol of the jar files, e.g.: jar://my_jar.jar */
     public static final String JAR_PROTOCOL = "jar";
+
+    /** Url protocol of a file. */
+    public static final String FILE_PROTOCOL = "file";
 }

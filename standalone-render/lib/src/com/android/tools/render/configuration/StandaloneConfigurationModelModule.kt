@@ -18,7 +18,6 @@ package com.android.tools.render.configuration
 
 import com.android.sdklib.IAndroidTarget
 import com.android.tools.configurations.ConfigurationModelModule
-import com.android.tools.configurations.ConfigurationStateManager
 import com.android.tools.configurations.ThemeInfoProvider
 import com.android.tools.layoutlib.LayoutlibContext
 import com.android.tools.module.AndroidModuleInfo
@@ -40,7 +39,6 @@ internal class StandaloneConfigurationModelModule(
     override val project: Project,
     override val resourcePackage: String,
     override val layoutlibContext: LayoutlibContext,
-    override val configurationStateManager: ConfigurationStateManager,
     private val layoutlibPath: String,
 ) : ConfigurationModelModule {
     override val themeInfoProvider: ThemeInfoProvider = StandaloneThemeInfoProvider()

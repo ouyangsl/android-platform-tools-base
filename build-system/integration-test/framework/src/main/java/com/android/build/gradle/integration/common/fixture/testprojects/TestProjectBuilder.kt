@@ -219,6 +219,7 @@ interface AarMetadataBuilder {
 interface BuildFeaturesBuilder {
     var aidl: Boolean?
     var buildConfig: Boolean?
+    var compose: Boolean?
     var dataBinding: Boolean?
     var prefab: Boolean?
     var prefabPublishing: Boolean?
@@ -291,8 +292,11 @@ interface DependenciesBuilder {
      */
     fun api(dependency: Any)
 
-    /** Adds a dependency to the runtimeOnly configuration. See [implementation] for details. */
+    /** Adds a dependency to the compileOnly configuration. See [implementation] for details. */
     fun compileOnly(dependency: Any)
+
+    /** Adds a dependency to the compileOnlyApi configuration. See [implementation] for details. */
+    fun compileOnlyApi(dependency: Any)
 
     /** Adds a dependency to the runtimeOnly configuration. See [implementation] for details. */
     fun runtimeOnly(dependency: Any)
