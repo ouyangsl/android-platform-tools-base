@@ -2,67 +2,67 @@
    - name                 = "basicPlayDebug"
    > mainArtifact:
       - compileDependencies:
-         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib2:unspecified:
+         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib2:unspecified:
             - requestedCoordinates = (null)
             - dependencies         = []
       - runtimeDependencies:
-         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib2:unspecified:
+         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib2:unspecified:
             - requestedCoordinates = (null)
             - dependencies:
-               - :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib3:unspecified:
+               - :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.usage>java-runtime|project:lib3:unspecified:
                   - requestedCoordinates = (null)
                   - dependencies         = []
       - unresolvedDependencies = []
    < mainArtifact
    > androidTestArtifact:
       - compileDependencies:
-         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib1:unspecified:
+         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib1:unspecified:
             - requestedCoordinates = (null)
             - dependencies         = []
-         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib2:unspecified:
+         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib2:unspecified:
             - requestedCoordinates = (null)
             - dependencies         = []
       > runtimeDependencies:
-         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib1:unspecified:
+         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib1:unspecified:
             - requestedCoordinates = (null)
             - dependencies:
-               - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib2:unspecified:
+               - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib2:unspecified:
                   - requestedCoordinates = (null)
                   - dependencies:
-                     - :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib3:unspecified:
+                     - :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.usage>java-runtime|project:lib3:unspecified:
                         - requestedCoordinates = (null)
                         - dependencies         = []
-         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib2:unspecified:
+         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib2:unspecified:
             - dependencies = "*visited*"
       < runtimeDependencies
       - unresolvedDependencies = []
    < androidTestArtifact
    > unitTestArtifact:
       - compileDependencies:
-         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib1:unspecified:
+         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib1:unspecified:
             - requestedCoordinates = (null)
             - dependencies         = []
-         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib2:unspecified:
+         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib2:unspecified:
             - requestedCoordinates = (null)
             - dependencies         = []
       > runtimeDependencies:
-         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib1:unspecified:
+         - :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib1:unspecified:
             - requestedCoordinates = (null)
             - dependencies:
-               - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib2:unspecified:
+               - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib2:unspecified:
                   - requestedCoordinates = (null)
                   - dependencies:
-                     - :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib3:unspecified:
+                     - :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.usage>java-runtime|project:lib3:unspecified:
                         - requestedCoordinates = (null)
                         - dependencies         = []
-         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib2:unspecified:
+         - :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib2:unspecified:
             - dependencies = "*visited*"
       < runtimeDependencies
       - unresolvedDependencies = []
    < unitTestArtifact
    - testFixturesArtifact = (null)
    > libraries:
-      > :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib1:unspecified:
+      > :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib1:unspecified:
          - type               = PROJECT
          - artifact           = (null)
          > projectInfo:
@@ -76,16 +76,15 @@
             - attributes:
                * "com.android.build.api.attributes.AgpVersionAttr -> {AGP_Version}"
                * "com.android.build.gradle.internal.attributes.VariantAttr -> basicPlayDebug"
-               * "org.gradle.libraryelements -> jar"
                * "org.gradle.usage -> java-api"
             - capabilities:
                * "project:lib1:unspecified"
          < projectInfo
          - libraryInfo        = (null)
-         - lintJar            = {PROJECT}/lib1/build/intermediates/lint_publish_jar/global/prepareLintJarForPublish/lint.jar{!}
+         - lintJar            = (null)
          - androidLibraryData = (null)
-      < :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib1:unspecified
-      > :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib1:unspecified:
+      < :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib1:unspecified
+      > :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib1:unspecified:
          - type               = PROJECT
          - artifact           = (null)
          > projectInfo:
@@ -99,16 +98,15 @@
             - attributes:
                * "com.android.build.api.attributes.AgpVersionAttr -> {AGP_Version}"
                * "com.android.build.gradle.internal.attributes.VariantAttr -> basicPlayDebug"
-               * "org.gradle.libraryelements -> jar"
                * "org.gradle.usage -> java-runtime"
             - capabilities:
                * "project:lib1:unspecified"
          < projectInfo
          - libraryInfo        = (null)
-         - lintJar            = {PROJECT}/lib1/build/intermediates/lint_publish_jar/global/prepareLintJarForPublish/lint.jar{!}
+         - lintJar            = (null)
          - androidLibraryData = (null)
-      < :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib1:unspecified
-      > :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib2:unspecified:
+      < :|:lib1|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib1:unspecified
+      > :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib2:unspecified:
          - type               = PROJECT
          - artifact           = (null)
          > projectInfo:
@@ -122,16 +120,15 @@
             - attributes:
                * "com.android.build.api.attributes.AgpVersionAttr -> {AGP_Version}"
                * "com.android.build.gradle.internal.attributes.VariantAttr -> basicPlayDebug"
-               * "org.gradle.libraryelements -> jar"
                * "org.gradle.usage -> java-api"
             - capabilities:
                * "project:lib2:unspecified"
          < projectInfo
          - libraryInfo        = (null)
-         - lintJar            = {PROJECT}/lib2/build/intermediates/lint_publish_jar/global/prepareLintJarForPublish/lint.jar{!}
+         - lintJar            = (null)
          - androidLibraryData = (null)
-      < :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-api|project:lib2:unspecified
-      > :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib2:unspecified:
+      < :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-api|project:lib2:unspecified
+      > :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib2:unspecified:
          - type               = PROJECT
          - artifact           = (null)
          > projectInfo:
@@ -145,16 +142,15 @@
             - attributes:
                * "com.android.build.api.attributes.AgpVersionAttr -> {AGP_Version}"
                * "com.android.build.gradle.internal.attributes.VariantAttr -> basicPlayDebug"
-               * "org.gradle.libraryelements -> jar"
                * "org.gradle.usage -> java-runtime"
             - capabilities:
                * "project:lib2:unspecified"
          < projectInfo
          - libraryInfo        = (null)
-         - lintJar            = {PROJECT}/lib2/build/intermediates/lint_publish_jar/global/prepareLintJarForPublish/lint.jar{!}
+         - lintJar            = (null)
          - androidLibraryData = (null)
-      < :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib2:unspecified
-      > :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib3:unspecified:
+      < :|:lib2|debug|market>play, model>basic|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>basicPlayDebug, org.gradle.usage>java-runtime|project:lib2:unspecified
+      > :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.usage>java-runtime|project:lib3:unspecified:
          - type               = PROJECT
          - artifact           = (null)
          > projectInfo:
@@ -167,14 +163,13 @@
             - attributes:
                * "com.android.build.api.attributes.AgpVersionAttr -> {AGP_Version}"
                * "com.android.build.gradle.internal.attributes.VariantAttr -> playDebug"
-               * "org.gradle.libraryelements -> jar"
                * "org.gradle.usage -> java-runtime"
             - capabilities:
                * "project:lib3:unspecified"
          < projectInfo
          - libraryInfo        = (null)
-         - lintJar            = {PROJECT}/lib3/build/intermediates/lint_publish_jar/global/prepareLintJarForPublish/lint.jar{!}
+         - lintJar            = (null)
          - androidLibraryData = (null)
-      < :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.libraryelements>jar, org.gradle.usage>java-runtime|project:lib3:unspecified
+      < :|:lib3|debug|market>play|com.android.build.api.attributes.AgpVersionAttr>{AGP_Version}, com.android.build.gradle.internal.attributes.VariantAttr>playDebug, org.gradle.usage>java-runtime|project:lib3:unspecified
    < libraries
 < VariantDependencies

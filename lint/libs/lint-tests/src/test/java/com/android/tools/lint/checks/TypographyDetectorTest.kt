@@ -59,7 +59,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                     <string>something somthing d\'avoir something something l\'écran.</string>
                 </resources>
 
-                """
+                """,
           )
           .indented()
       )
@@ -223,7 +223,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                   <string name="com.example.app.PrefsActivity">Preferences</string>
                   <string name="test.pkg.OnClickActivity">Clicks</string>
                 </resources>
-                """
+                """,
           )
           .indented()
       )
@@ -254,7 +254,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                         <item>``second''</item>
                     </string-array>
                 </resources>
-                """
+                """,
           )
           .indented()
       )
@@ -301,7 +301,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                 <resources>
                     <string name="test">מ– 1-2-3</string>
                 </resources>
-                """
+                """,
           )
           .indented()
       )
@@ -330,7 +330,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                     <string name="untranslatable" translatable="false">12345-1abcd.1234abcd.apps.googleusercontent.com</string>
                     <string name="default_web_client_id">12345-1abcd.1234abcd.apps.googleusercontent.com</string>
                 </resources>
-                """
+                """,
           )
           .indented()
       )
@@ -356,7 +356,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                       ]]>
                     </string>
                 </resources>
-                """
+                """,
           )
           .indented()
       )
@@ -388,7 +388,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                 <resources>
                     <string name="test">The fraction is 3 / 4 !</string>
                 </resources>
-                """
+                """,
           )
           .indented()
       )
@@ -427,7 +427,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                     <string name="test4">a\\'a</string> <!-- ok -->
                     <string name="test4">.\'a</string> <!-- ok -->
                 </resources>
-                """
+                """,
           )
           .indented()
       )
@@ -451,8 +451,8 @@ class TypographyDetectorTest : AbstractCheckTest() {
     lint()
       .files(
         xml(
-          "res/values/strings.xml",
-          """
+            "res/values/strings.xml",
+            """
                 <resources>
                     <string name="test1">Hello John's Cat</string>  <!-- error 1 -->
                     <string name="test2">Hello
@@ -460,8 +460,8 @@ class TypographyDetectorTest : AbstractCheckTest() {
                           John's Cat
                     </string>  <!-- error 1 -->
                 </resources>
-                """
-        )
+                """,
+          )
           .indented()
       )
       .run()
@@ -512,7 +512,7 @@ class TypographyDetectorTest : AbstractCheckTest() {
                     Problem\'s before 'quotes'
                 </string>
             </resources>
-          """
+          """,
           )
           .indented()
       )

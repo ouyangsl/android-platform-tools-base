@@ -38,6 +38,7 @@ import com.android.build.api.variant.impl.FlatSourceDirectoriesImpl
 import com.android.build.api.variant.impl.KotlinMultiplatformFlatSourceDirectoriesImpl
 import com.android.build.api.variant.impl.LayeredSourceDirectoriesImpl
 import com.android.build.api.variant.impl.ManifestFilesImpl
+import com.android.build.api.variant.impl.ProviderBasedDirectoryEntryImpl
 import com.android.build.api.variant.impl.SourceType
 import com.android.build.api.variant.impl.SourcesImpl
 import com.android.build.gradle.internal.api.DefaultAndroidSourceSet
@@ -60,6 +61,7 @@ import com.android.build.gradle.internal.publishing.ComponentPublishingInfo
 import com.android.build.gradle.internal.publishing.VariantPublishingInfo
 import com.android.build.gradle.internal.scope.BuildFeatureValues
 import com.android.build.gradle.internal.scope.MutableTaskContainer
+import com.android.build.gradle.internal.scope.getDirectories
 import com.android.build.gradle.internal.services.TaskCreationServices
 import com.android.build.gradle.internal.services.VariantServices
 import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfig
@@ -99,10 +101,10 @@ abstract class KmpComponentImpl<DslInfoT: KmpComponentDslInfo>(
         get() =  dslInfo.componentType
     override val description: String = "Kotlin multiplatform android plugin"
 
-    override fun computeTaskName(prefix: String, suffix: String): String =
+    override fun computeTaskNameInternal(prefix: String, suffix: String): String =
         prefix.appendCapitalized(name, suffix)
 
-    override fun computeTaskName(prefix: String): String = prefix.appendCapitalized(name)
+    override fun computeTaskNameInternal(prefix: String): String = prefix.appendCapitalized(name)
 
     override fun getArtifactName(name: String): String = name
 
@@ -198,6 +200,9 @@ abstract class KmpComponentImpl<DslInfoT: KmpComponentDslInfo>(
             )
         )
     }
+
+    override fun computeTaskName(action: String, subject: String): String =
+        computeTaskName(name, action, subject)
 
     override val lifecycleTasks = LifecycleTasksImpl()
 
@@ -379,9 +384,10 @@ abstract class KmpComponentImpl<DslInfoT: KmpComponentDslInfo>(
             services.provider {
                 androidKotlinCompilation.allKotlinSourceSets.flatMap { sourceSet ->
                     sourceSet.resources.srcDirs.map { srcDir ->
-                        FileBasedDirectoryEntryImpl(
+
+                        ProviderBasedDirectoryEntryImpl(
                             name = "Java resources",
-                            directory = srcDir,
+                            elements = services.fileCollection(srcDir).builtBy(sourceSet.resources).getDirectories(services.projectInfo.projectDirectory),
                             filter = PatternSet().exclude("**/*.java", "**/*.kt"),
                         )
                     }

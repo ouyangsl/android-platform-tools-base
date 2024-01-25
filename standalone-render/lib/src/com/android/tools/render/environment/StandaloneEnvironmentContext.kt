@@ -21,8 +21,10 @@ import com.android.ide.common.resources.ResourceResolver
 import com.android.ide.common.util.PathString
 import com.android.tools.analytics.crash.CrashReport
 import com.android.tools.analytics.crash.CrashReporter
+import com.android.tools.fonts.DownloadableFontCacheService
 import com.android.tools.idea.layoutlib.LayoutLibrary
 import com.android.tools.layoutlib.LayoutlibContext
+import com.android.tools.rendering.HtmlLinkManager
 import com.android.tools.rendering.IRenderLogger
 import com.android.tools.rendering.RenderProblem
 import com.android.tools.rendering.api.EnvironmentContext
@@ -40,7 +42,8 @@ import com.intellij.psi.PsiFile
 /** [EnvironmentContext] for the CLI case with no UI. */
 internal class StandaloneEnvironmentContext(
     private val project: Project,
-    private val moduleClassLoaderManager: ModuleClassLoaderManager<out ModuleClassLoader>
+    private val moduleClassLoaderManager: ModuleClassLoaderManager<out ModuleClassLoader>,
+    override val downloadableFontCacheService: DownloadableFontCacheService
 ) : EnvironmentContext {
     private val crashReporter = ConsoleCrashReporter()
     override val layoutlibContext: LayoutlibContext = object : LayoutlibContext {
@@ -48,8 +51,8 @@ internal class StandaloneEnvironmentContext(
         override fun register(layoutlib: LayoutLibrary) { }
     }
 
-    override val runnableFixFactory: RenderProblem.RunnableFixFactory =
-        RenderProblem.RunnableFixFactory { _, _ -> Runnable { } }
+    override val actionFixFactory: RenderProblem.ActionFixFactory =
+        RenderProblem.ActionFixFactory { _ -> HtmlLinkManager.Action { } }
 
     override fun reportMissingSdkDependency(logger: IRenderLogger) { }
 

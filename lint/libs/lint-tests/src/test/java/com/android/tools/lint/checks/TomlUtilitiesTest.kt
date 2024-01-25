@@ -60,7 +60,7 @@ class TomlUtilitiesTest {
             "google-foo",
             "google-foo-v10",
             "com-google-foo",
-            "com-google-foo-v10"
+            "com-google-foo-v10",
           )
       )
     libraryName("com-google-foo2", "com.google:foo:1.0")
@@ -73,7 +73,7 @@ class TomlUtilitiesTest {
             "google-foo",
             "google-foo-v10",
             "com-google-foo",
-            "com-google-foo-v10"
+            "com-google-foo-v10",
           )
       )
     libraryName("com-google-foo-v10-x2", "com.google:foo:1.0", includeVersions = true)
@@ -84,11 +84,11 @@ class TomlUtilitiesTest {
     // the majority of basic tests located on another level at CatalogNamingUtilTest
     versionName("foo", "com.google:foo:1.0")
     versionName("fooBar", "com.google:foo-bar:1.0", "appcompat")
-    versionName("google-foo-bar", "com.google:foo-bar:1.0", "FOO-BAR", "appcompat")
-    versionName("google-foo-bar", "com.google:foo-bar:1.0", "foo-bar")
+    versionName("foo-bar-version", "com.google:foo-bar:1.0", "FOO-BAR", "appcompat")
+    versionName("foo-bar-version", "com.google:foo-bar:1.0", "foo-bar")
 
     GradleDetector.reservedQuickfixNames = mutableMapOf("versions" to mutableSetOf("foo-bar"))
-    versionName("google-foo-bar", "com.google:foo-bar:1.0", "appcompat")
+    versionName("foo-bar-version", "com.google:foo-bar:1.0", "appcompat")
 
     // If there is a preferred version variable, use it -- unless it exists, or we allow reuse
     versionName("myVariable", "com.google:foo:1.0", versionVariable = "myVariable")
@@ -98,7 +98,7 @@ class TomlUtilitiesTest {
       "com.google:foo:1.0",
       "myVariable",
       versionVariable = "myVariable",
-      allowExistingVersionVar = true
+      allowExistingVersionVar = true,
     )
   }
 
@@ -108,7 +108,7 @@ class TomlUtilitiesTest {
     expected: String,
     coordinateString: String,
     vararg variableNames: String,
-    includeVersions: Boolean = false
+    includeVersions: Boolean = false,
   ) {
     check(
       expected,
@@ -119,7 +119,7 @@ class TomlUtilitiesTest {
       includeVersions,
       null,
       false,
-      *variableNames
+      *variableNames,
     )
   }
 
@@ -129,7 +129,7 @@ class TomlUtilitiesTest {
     vararg variableNames: String,
     includeVersions: Boolean = false,
     versionVariable: String? = null,
-    allowExistingVersionVar: Boolean = false
+    allowExistingVersionVar: Boolean = false,
   ) {
     check(
       expected,
@@ -140,7 +140,7 @@ class TomlUtilitiesTest {
       includeVersions,
       versionVariable,
       allowExistingVersionVar,
-      *variableNames
+      *variableNames,
     )
   }
 
@@ -153,12 +153,12 @@ class TomlUtilitiesTest {
         libraryMap: Map<String, LintTomlValue>,
         includeVersionInKey: Boolean,
         preferred: String?,
-        allowExisting: Boolean
+        allowExisting: Boolean,
       ) -> String,
     includeVersions: Boolean,
     versionVariable: String?,
     allowExisting: Boolean,
-    vararg variableNames: String
+    vararg variableNames: String,
   ) {
     val dependency = Dependency.parse(coordinateString)
     val map = LinkedHashMap<String, LintTomlValue>()

@@ -154,6 +154,14 @@ class ArtifactsImpl(
         )
     }
 
+    override fun <MultipleArtifactT> addStaticDirectory(
+        type: MultipleArtifactT,
+        inputLocation: Directory
+    ) where MultipleArtifactT: MultipleArtifact<Directory>,
+            MultipleArtifactT: Appendable {
+        addStaticProvider(getArtifactContainer(type), type, inputLocation)
+    }
+
     override fun <TaskT : Task> use(taskProvider: TaskProvider<TaskT>): TaskBasedOperationImpl<TaskT> {
         return TaskBasedOperationImpl(objects, this, taskProvider).also {
             outstandingRequests.add(it)
@@ -166,21 +174,21 @@ class ArtifactsImpl(
      * Returns a [File] representing the artifact type location (could be a directory or regular
      * file). forceFilename is to overwrite default fileName
      */
-    internal fun <T: FileSystemLocation> getOutputPath(type: Artifact<T>, vararg paths: String, forceFilename:String = "")=
+    internal fun <T: FileSystemLocation> getOutputPath(type: Artifact<T>, vararg paths: String, forceFilename:String? = null)=
         type.getOutputPath(buildDirectory, identifier, *paths, forceFilename = forceFilename)
 
-    private fun <T: FileSystemLocation> getIntermediateOutputPath(type: Artifact<T>, vararg paths: String, forceFilename:String = "")=
+    private fun <T: FileSystemLocation> getIntermediateOutputPath(type: Artifact<T>, vararg paths: String, forceFilename:String? = null)=
         type.getIntermediateOutputPath(buildDirectory, identifier, *paths, forceFilename = forceFilename)
 
-    fun calculateOutputPath(type: Single<*>, task: Task): File {
+    fun calculateOutputPath(type: Single<*>, task: Task, fileName: String? = null): File {
         with(getArtifactContainer(type)) {
             return when {
                 type.category == INTERMEDIATES && namingContext?.getOutputLocation() == null ->
-                    generateIntermediatePath(type, task, false)
+                    generateIntermediatePath(type, task, false, fileName)
                 //  this switching is for non-intermediate artifacts is safe as the final artifact
                 //  ends up in a completely separate directory structure
-                getFinalProvider() == null || task.name == getFinalProvider()?.name -> generateDefaultPath(type)
-                else -> generateIntermediatePath(type, task, true) // for outputs type non-final transformations
+                getFinalProvider() == null || task.name == getFinalProvider()?.name -> generateDefaultPath(type, fileName)
+                else -> generateIntermediatePath(type, task, true, fileName) // for outputs type non-final transformations
             }
         }
     }
@@ -188,9 +196,13 @@ class ArtifactsImpl(
     /**
      * Intermediate path always has task name in it
      */
-    private fun generateIntermediatePath(type: Single<*>, task: Task, ignorePredefinedLocation:Boolean): File {
+    private fun generateIntermediatePath(
+        type: Single<*>,
+        task: Task,
+        ignorePredefinedLocation:Boolean,
+        fileName: String?): File {
         val container = getArtifactContainer(type)
-        val fileName = container.namingContext?.getFilename() ?: calculateFileName(type)
+        val fileName = calculateFileName(fileName, type)
         val output = container.namingContext?.getOutputLocation()
         return if (output == null || ignorePredefinedLocation)
             getIntermediateOutputPath(
@@ -203,9 +215,9 @@ class ArtifactsImpl(
 
     }
 
-    private fun generateDefaultPath(type: Single<*>): File {
+    private fun generateDefaultPath(type: Single<*>, fileName: String?): File {
         with(getArtifactContainer(type)) {
-            val fileName = namingContext?.getFilename() ?: calculateFileName(type)
+            val fileName = calculateFileName(fileName, type)
             val output = namingContext?.getOutputLocation()
             return if (output != null)
             //final transformer with
@@ -214,6 +226,10 @@ class ArtifactsImpl(
                 getOutputPath(type, forceFilename = fileName)
         }
     }
+
+    private fun calculateFileName(fileName: String?, type: Single<*>): String =
+        fileName ?: getArtifactContainer(type).namingContext?.getFilename() ?: calculateFileName(type)
+
 
     private fun calculateFileName(type: Single<*>, ): String {
         if (type.kind is ArtifactKind.FILE) {

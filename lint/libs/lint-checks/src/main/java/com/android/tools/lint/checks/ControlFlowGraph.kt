@@ -31,6 +31,8 @@ import com.intellij.psi.PsiSynchronizedStatement
 import com.intellij.psi.PsiType
 import com.intellij.psi.util.InheritanceUtil
 import java.util.IdentityHashMap
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.kotlin.analysis.api.analyze
 import org.jetbrains.kotlin.asJava.unwrapped
 import org.jetbrains.kotlin.js.translate.declaration.hasCustomGetter
@@ -129,7 +131,7 @@ import org.objectweb.asm.tree.analysis.BasicValue
  * /usr/bin/open /tmp/image.png
  * ```
  */
-open class ControlFlowGraph<T> private constructor() {
+open class ControlFlowGraph<T : Any> private constructor() {
   /**
    * Map from instructions to nodes.
    *
@@ -152,9 +154,9 @@ open class ControlFlowGraph<T> private constructor() {
    * each separate lambda return equal and end up sharing the same graph node, which leads to an
    * invalid control flow graph.
    */
-  private val nodeMap = IdentityHashMap<T, Node>(40)
+  private val nodeMap = IdentityHashMap<T, Node<T>>(40)
   /** Nodes in insert order, since we can't use a [LinkedHashMap] */
-  private val nodeList = mutableListOf<Node>()
+  private val nodeList = mutableListOf<Node<T>>()
 
   /** Adds a control flow edge to this graph */
   internal fun addSuccessor(from: T?, to: T?, label: String? = null) {
@@ -176,24 +178,16 @@ open class ControlFlowGraph<T> private constructor() {
    * @param instruction the instruction
    * @return the control flow graph node corresponding to the given instruction
    */
-  internal open fun getOrCreate(instruction: T): Node {
-    var node = nodeMap[instruction]
-    if (node == null) {
-      node = Node(instruction)
-      nodeMap[instruction] = node
-      nodeList.add(node)
-    }
-
-    return node
-  }
+  internal open fun getOrCreate(instruction: T): Node<T> =
+    nodeMap.getOrPut(instruction) { Node(instruction).also(nodeList::add) }
 
   /** Looks up the given graph node for the given instruction. */
-  fun getNode(element: T): Node? {
+  fun getNode(element: T): Node<T>? {
     return nodeMap[element]
   }
 
   /** Returns all nodes in the graph */
-  fun getAllNodes(): Collection<Node> {
+  fun getAllNodes(): Collection<Node<T>> {
     return nodeList
   }
 
@@ -211,11 +205,8 @@ open class ControlFlowGraph<T> private constructor() {
     start: T? = null,
     end: T? = null,
     label: String? = null,
-    renderNode: (ControlFlowGraph<T>.Node) -> String = { it.instruction.toString() },
-    renderEdge: (ControlFlowGraph<T>.Node, ControlFlowGraph<T>.Edge, Int) -> String =
-      { _, edge, index ->
-        edge.label ?: "s${index}"
-      }
+    renderNode: (Node<T>) -> String = { it.instruction.toString() },
+    renderEdge: (Node<T>, Edge<T>, Int) -> String = { _, edge, index -> edge.label ?: "s${index}" },
   ): String {
     // make sure parent references are initialized since this is lazy
     val nodes = getAllNodes()
@@ -233,7 +224,7 @@ open class ControlFlowGraph<T> private constructor() {
         .trimIndent()
     )
     sb.append('\n')
-    val keys = LinkedHashMap<Node, String>()
+    val keys = LinkedHashMap<Node<T>, String>()
     var key = 0xA
     for (node in nodes) {
       val id = String.format("N%03x", key++).uppercase()
@@ -292,22 +283,58 @@ open class ControlFlowGraph<T> private constructor() {
   }
 
   /** Returns all the entry points in the graph (nodes that have no in-bound edges) */
-  fun getEntryPoints(): List<ControlFlowGraph<T>.Node> {
+  fun getEntryPoints(): List<Node<T>> {
     return nodeList.filter { it.referenceCount == 0 }
   }
 
   /** Search from the given node towards the target. */
-  fun <C> dfs(request: DfsRequest<T, C>): C {
+  fun <C> dfs(domain: Domain<C>, request: DfsRequest<T, C>): C {
     nodeMap.values.forEach { it.visit = 0 }
-    return dfs(request, request.startNode, request.initial, ArrayDeque(), seenException = false)
+
+    fun visit(node: Node<T>, initial: C, path: PersistentList<Edge<T>>, seenException: Boolean): C {
+      if (node.visit != 0) {
+        return initial
+      }
+      node.visit = 1
+
+      val status = request.visitNode(node, path, initial)
+      if (request.isDone(status)) {
+        return status
+      }
+
+      if (request.prune(node, path, status)) {
+        return status
+      }
+
+      val successors =
+        // If we're on an exceptional flow, only follow exceptional flows
+        if (seenException && request.followExceptionalFlow && node.exceptions.isNotEmpty())
+          node.exceptions.asSequence()
+        else node.successors.asSequence() + node.exceptions.asSequence()
+
+      return successors.fold(domain.id) { result, edge ->
+        domain
+          .join(
+            visit(
+              edge.to,
+              status,
+              path.add(edge),
+              (seenException || edge.isException) &&
+                (!request.followExceptionalFlow || !request.consumesException(edge)),
+            ),
+            result,
+          )
+          .also { if (request.isDone(it)) return it }
+      }
+    }
+
+    return visit(request.startNode, domain.id, persistentListOf(), seenException = false)
   }
 
   /** Configuration for a DFS search */
-  abstract class DfsRequest<T, C>(
+  abstract class DfsRequest<T : Any, C>(
     /** The node to begin the search from */
-    val startNode: ControlFlowGraph<T>.Node,
-    /** The initial value (the meaning of this is up to the client) */
-    val initial: C,
+    val startNode: Node<T>
   ) {
     /**
      * Visits a reachable control flow node. The arguments are the node itself, the path taken to
@@ -316,12 +343,10 @@ open class ControlFlowGraph<T> private constructor() {
      *
      * The method should return a new value. The [isDone] lambda will be used to determine if this
      * value means we're done.
+     *
+     * The [path] is an immutable value that's safe to share
      */
-    abstract fun visitNode(
-      node: ControlFlowGraph<T>.Node,
-      path: List<ControlFlowGraph<T>.Edge>,
-      status: C
-    ): C
+    abstract fun visitNode(node: Node<T>, path: List<Edge<T>>, status: C): C
 
     /**
      * Determines whether the currently computed value means we're done and should exit out of the
@@ -338,27 +363,10 @@ open class ControlFlowGraph<T> private constructor() {
      * we don't want to conclude that everything is safe; we need to keep searching *other* paths
      * (but not the current one, since for this particular path we've reached a release-call).
      * That's what this method is used for.
+     *
+     * The [path] is an immutable value that's safe to share
      */
-    open fun prune(
-      node: ControlFlowGraph<T>.Node,
-      path: List<ControlFlowGraph<T>.Edge>,
-      status: C
-    ): Boolean = false
-
-    /**
-     * How to merge values of [C] when combining results from visiting a branch with the result from
-     * [visitNode].
-     */
-    @Suppress("UNCHECKED_CAST")
-    open fun merge(value1: C, value2: C): C {
-      return if (value1 is Boolean && value2 is Boolean) {
-        (value1 or value2) as C
-      } else if (value1 is Int && value2 is Int) {
-        (value1 or value2) as C
-      } else {
-        value1
-      }
-    }
+    open fun prune(node: Node<T>, path: List<Edge<T>>, status: C): Boolean = false
 
     /**
      * Whether to only follow exceptional paths (when available) once we've already taken an
@@ -403,64 +411,16 @@ open class ControlFlowGraph<T> private constructor() {
      * If [followExceptionalFlow] is true, checks whether the given edge consumes the exception
      * status
      */
-    open fun consumesException(edge: ControlFlowGraph<T>.Edge): Boolean = false
+    open fun consumesException(edge: Edge<T>): Boolean = false
   }
 
-  private fun <C> dfs(
-    request: DfsRequest<T, C>,
-    node: Node,
-    initial: C,
-    path: ArrayDeque<Edge>,
-    seenException: Boolean
-  ): C {
-    if (node.visit != 0) {
-      return initial
-    }
-    node.visit = 1
+  data class Domain<C>(
+    /** Identity element of [join], i.e. forall x, join(x, initial) = join(initial, x) = x */
+    val id: C,
 
-    val status = request.visitNode(node, path, initial)
-    if (request.isDone(status)) {
-      return status
-    }
-
-    if (request.prune(node, path, initial)) {
-      return status
-    }
-
-    var result = status
-
-    val successors =
-      // If we're on an exceptional flow, only follow exceptional flows
-      if (request.followExceptionalFlow && seenException && node.exceptions.isNotEmpty())
-        node.exceptions.asSequence()
-      else node.successors.asSequence() + node.exceptions.asSequence()
-
-    for (edge in successors) {
-      try {
-        path.addLast(edge)
-
-        result =
-          request.merge(
-            dfs(
-              request,
-              edge.to,
-              status,
-              path,
-              (seenException || edge.isException) &&
-                (!request.followExceptionalFlow || !request.consumesException(edge))
-            ),
-            result
-          )
-        if (request.isDone(result)) {
-          return result
-        }
-      } finally {
-        path.removeLast()
-      }
-    }
-
-    return result
-  }
+    /** How to merge values of [C] when combining results from multiple branches */
+    val join: (C, C) -> C,
+  )
 
   /**
    * Branch decisions in the control flow graph: should we follow both branches or do we know which
@@ -473,11 +433,11 @@ open class ControlFlowGraph<T> private constructor() {
   }
 
   /** An edge in the control flow graph */
-  inner class Edge(
+  class Edge<T : Any>(
     /** Starting node */
-    val from: Node,
+    val from: Node<T>,
     /** Ending node: control flows to this node */
-    val to: Node,
+    val to: Node<T>,
     /**
      * The edge label, if any. This can for example be "else" for a node flowing out from an if
      * statement node.
@@ -489,11 +449,11 @@ open class ControlFlowGraph<T> private constructor() {
      */
     val label: String? = null,
     /** Whether this edge represents an exceptional flow. */
-    val isException: Boolean
+    val isException: Boolean,
   ) {
-    operator fun component1(): Node = from
+    operator fun component1(): Node<T> = from
 
-    operator fun component2(): Node = to
+    operator fun component2(): Node<T> = to
 
     operator fun component3(): String? = label
 
@@ -508,19 +468,19 @@ open class ControlFlowGraph<T> private constructor() {
    * A [Node] is a node in the control flow graph for a method, pointing to the instruction and its
    * possible successors
    */
-  inner class Node(
+  class Node<T : Any>(
     /** The instruction in the program */
     val instruction: T
-  ) : Sequence<Edge> {
-    private var _successors: MutableList<Edge>? = null
-    private var _exceptions: MutableList<Edge>? = null
+  ) : Sequence<Edge<T>> {
+    private var _successors: MutableList<Edge<T>>? = null
+    private var _exceptions: MutableList<Edge<T>>? = null
 
     /** Any normal successors (e.g. following instruction, or goto or conditional flow) */
-    val successors: List<Edge>
+    val successors: List<Edge<T>>
       get() = _successors ?: emptyList()
 
     /** Any abnormal successors (e.g. the handler to go to following an exception) */
-    val exceptions: List<Edge>
+    val exceptions: List<Edge<T>>
       get() {
         return _exceptions ?: emptyList()
       }
@@ -556,8 +516,8 @@ open class ControlFlowGraph<T> private constructor() {
       return _exceptions == null && _successors?.size == 1
     }
 
-    internal fun addSuccessor(node: Node, label: String? = null) {
-      val successors = _successors ?: mutableListOf<Edge>().also { _successors = it }
+    internal fun addSuccessor(node: Node<T>, label: String? = null) {
+      val successors = _successors ?: mutableListOf<Edge<T>>().also { _successors = it }
       if (successors.any { it.to == node && it.label == label }) {
         return
       }
@@ -565,11 +525,11 @@ open class ControlFlowGraph<T> private constructor() {
       node.referenceCount++
     }
 
-    internal fun addExceptionPath(node: Node, exceptionType: String) {
+    internal fun addExceptionPath(node: Node<T>, exceptionType: String) {
       // At runtime, exception handlers are searched in order, and only the first matching
       // handler is used. Ideally, we'd also check for the type's inheritance when checking
       // if the map already contains a handler for this type.
-      val exceptions = _exceptions ?: mutableListOf<Edge>().also { _exceptions = it }
+      val exceptions = _exceptions ?: mutableListOf<Edge<T>>().also { _exceptions = it }
       if (exceptions.any { it.to == node && it.label == exceptionType }) {
         return
       }
@@ -577,7 +537,7 @@ open class ControlFlowGraph<T> private constructor() {
       node.referenceCount++
     }
 
-    override fun iterator(): Iterator<Edge> {
+    override fun iterator(): Iterator<Edge<T>> {
       return (successors.asSequence() + exceptions.asSequence()).iterator()
     }
 
@@ -589,26 +549,13 @@ open class ControlFlowGraph<T> private constructor() {
      * Returns true if there is a path from this node to the given [target] node. For more general
      * purpose graph searching, see [ControlFlowGraph.dfs].
      */
-    fun flowsTo(target: ControlFlowGraph<T>.Node): Boolean {
-      return flowsTo(target, mutableSetOf())
-    }
+    fun flowsTo(target: Node<T>): Boolean {
+      val visited = hashSetOf<Node<T>>()
 
-    private fun flowsTo(
-      target: ControlFlowGraph<T>.Node,
-      visited: MutableSet<ControlFlowGraph<T>.Node>
-    ): Boolean {
-      if (!visited.add(this)) {
-        return false
-      }
-      if (this == target) {
-        return true
-      }
-      for (successor in this) {
-        if (successor.to.flowsTo(target, visited)) {
-          return true
-        }
-      }
-      return false
+      fun flowsTo(source: Node<T>, target: Node<T>): Boolean =
+        visited.add(source) && (source == target || source.any { flowsTo(it.to, target) })
+
+      return flowsTo(this, target)
     }
   }
 
@@ -629,6 +576,10 @@ open class ControlFlowGraph<T> private constructor() {
     private val DEFAULT_EXCEPTIONS_JAVA: List<String> = listOf(JAVA_LANG_RUNTIME_EXCEPTION)
     private val DEFAULT_EXCEPTIONS_KOTLIN: List<String> = listOf(JAVA_LANG_EXCEPTION)
     private val DEFAULT_EXCEPTIONS_STRICT: List<String> = listOf(JAVA_LANG_THROWABLE)
+
+    val BoolDomain = Domain(false, Boolean::or)
+    val IntBitsDomain = Domain(0, Int::or)
+    val UnitDomain = Domain(Unit) { _, _ -> }
 
     /**
      * Creates a new [ControlFlowGraph] and populates it with the flow control for the given method.
@@ -941,10 +892,7 @@ open class ControlFlowGraph<T> private constructor() {
      * - Implicit calls, e.g. "+" and "[]" overloaded operators, as well as property references
      * - Short circuit evaluation
      */
-    fun create(
-      method: UMethod,
-      builder: Builder,
-    ): ControlFlowGraph<UElement> {
+    fun create(method: UMethod, builder: Builder): ControlFlowGraph<UElement> {
       val graph =
         object : ControlFlowGraph<UElement>() {
           // There are scenarios (exposed by the unit tests) where UAST will recreate
@@ -953,9 +901,9 @@ open class ControlFlowGraph<T> private constructor() {
           // case this by using the source PSI element mappings for these. (We can't use source PSI
           // elements as map keys in general since for example for properties, we have a 1-many
           // mapping from PSI elements to UAST elements.)
-          private val lambdas = mutableMapOf<KtLambdaExpression, ControlFlowGraph<UElement>.Node>()
+          private val lambdas = mutableMapOf<KtLambdaExpression, Node<UElement>>()
 
-          override fun getOrCreate(instruction: UElement): Node {
+          override fun getOrCreate(instruction: UElement): Node<UElement> {
             if (instruction is ULambdaExpression) {
               val sourcePsi = instruction.sourcePsi
               if (sourcePsi is KtLambdaExpression) {
@@ -1054,7 +1002,7 @@ open class ControlFlowGraph<T> private constructor() {
           private fun addThrowingCall(
             node: UElement,
             types: List<String>,
-            context: UElement?
+            context: UElement?,
           ): Boolean {
             var curr = context
             while (curr != method) {
@@ -1397,7 +1345,7 @@ open class ControlFlowGraph<T> private constructor() {
           private fun addExceptions(
             node: UElement,
             call: UCallExpression,
-            method: PsiMethod? = call.resolve()
+            method: PsiMethod? = call.resolve(),
           ) {
             method ?: return // can't find method -- ignore or report? Unclear.
             val types = builder.methodThrows(call, method)
@@ -1413,7 +1361,7 @@ open class ControlFlowGraph<T> private constructor() {
           private fun findInvokedLambda(
             psiElement: PsiElement,
             node: UCallExpression,
-            resolved: PsiMethod?
+            resolved: PsiMethod?,
           ): UElement? {
             val map = functions ?: return null
 
@@ -1583,7 +1531,7 @@ open class ControlFlowGraph<T> private constructor() {
 
           private fun visitCallArguments(
             node: UCallExpression,
-            arguments: List<UExpression> = node.valueArguments
+            arguments: List<UExpression> = node.valueArguments,
           ) {
             if (builder.callLambdaParameters) {
               // For all the lambda arguments, flow from the method into the lambda, and
@@ -1708,7 +1656,7 @@ open class ControlFlowGraph<T> private constructor() {
             addThrowingCall(
               node,
               type?.canonicalText?.let(::listOf) ?: builder.getDefaultMethodExceptions(node),
-              node.uastParent
+              node.uastParent,
             )
           }
 
@@ -2121,10 +2069,10 @@ open class ControlFlowGraph<T> private constructor() {
      * Describes a path through the control flow graph of [UElement]s. Useful utility method for
      * error messages involving the control flow graph.
      */
-    fun describePath(path: List<ControlFlowGraph<UElement>.Edge>): String {
+    fun describePath(path: List<Edge<UElement>>): String {
       val sb = StringBuilder()
 
-      fun describe(node: ControlFlowGraph<UElement>.Node): String? {
+      fun describe(node: Node<UElement>): String? {
         if (node.isExit()) {
           return "exit"
         }

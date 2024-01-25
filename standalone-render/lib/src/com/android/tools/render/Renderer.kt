@@ -22,7 +22,6 @@ import com.android.ide.common.resources.configuration.FolderConfiguration
 import com.android.resources.ResourceFolderType
 import com.android.sdklib.AndroidVersion
 import com.android.tools.configurations.Configuration
-import com.android.tools.fonts.DownloadableFontCacheService
 import com.android.tools.module.ModuleKey
 import com.android.tools.render.configuration.StandaloneConfigurationModelModule
 import com.android.tools.render.configuration.StandaloneConfigurationSettings
@@ -33,8 +32,8 @@ import com.android.tools.rendering.RenderResult
 import com.android.tools.rendering.RenderService
 import com.android.tools.rendering.classloading.ModuleClassLoaderManager
 import com.android.tools.rendering.parsers.RenderXmlFileSnapshot
-import com.android.tools.res.FrameworkResourceRepositoryManager
 import com.android.tools.res.LocalResourceRepository
+import com.android.tools.res.SingleRepoResourceRepositoryManager
 import com.android.tools.res.apk.ApkResourceRepository
 import com.android.tools.res.ids.apk.ApkResourceIdManager
 import com.android.tools.sdk.AndroidPlatform
@@ -98,9 +97,6 @@ internal fun renderImpl(
     TimeZone.getDefault()
 
     StandaloneFramework(!isForTest).use { framework ->
-        framework.registerService(FrameworkResourceRepositoryManager::class.java, FrameworkResourceRepositoryManager())
-        framework.registerService(DownloadableFontCacheService::class.java, StandaloneFontCacheService(sdkPath))
-
         val resourceIdManager = ApkResourceIdManager()
         resourceApkPath?.let {
             resourceIdManager.loadApkResources(it)
@@ -120,7 +116,7 @@ internal fun renderImpl(
 
         val androidPlatform = AndroidPlatform(androidSdkData, androidTarget)
 
-        val resourceRepositoryManager = StandaloneResourceRepositoryManager(resourcesRepo)
+        val resourceRepositoryManager = SingleRepoResourceRepositoryManager(resourcesRepo)
 
         val moduleClassLoaderManager = StandaloneModuleClassLoaderManager(classPath)
 
@@ -129,7 +125,8 @@ internal fun renderImpl(
         val environment =
             StandaloneEnvironmentContext(
                 framework.project,
-                moduleClassLoaderManager
+                moduleClassLoaderManager,
+                StandaloneFontCacheService(sdkPath)
             )
         val moduleDependencies = StandaloneModuleDependencies()
         val moduleKey = ModuleKey()
@@ -140,7 +137,6 @@ internal fun renderImpl(
             androidPlatform,
             moduleKey,
             moduleDependencies,
-            framework.project,
             packageName,
             environment.layoutlibContext,
             layoutlibPath,

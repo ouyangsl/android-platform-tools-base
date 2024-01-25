@@ -61,6 +61,11 @@ interface DeviceProperties {
   val primaryAbi: Abi?
     get() = abiList.firstOrNull()
 
+    /**
+     * The ABI that should be used to build and deploy, instead of supported ABIs in [abiList].
+     * Can be null if no preferred ABI is desired.
+     */
+  val preferredAbi: String?
   val abiList: List<Abi>
 
   /**
@@ -103,7 +108,7 @@ interface DeviceProperties {
       val density = density ?: return null
       return Resolution(
         width = ceil(Density.DEFAULT_DENSITY.toDouble() * resolution.width / density).toInt(),
-        height = ceil(Density.DEFAULT_DENSITY.toDouble() * resolution.height / density).toInt()
+        height = ceil(Density.DEFAULT_DENSITY.toDouble() * resolution.height / density).toInt(),
       )
     }
 
@@ -158,6 +163,7 @@ interface DeviceProperties {
     var manufacturer: String? = null
     var model: String? = null
     var abiList: List<Abi> = emptyList()
+    var preferredAbi: String? = null
     var androidVersion: AndroidVersion? = null
     var androidRelease: String? = null
     var disambiguator: String? = null
@@ -220,7 +226,7 @@ interface DeviceProperties {
       pluginId: String,
       serialNumber: String?,
       properties: Map<String, String>,
-      connectionId: String
+      connectionId: String,
     ) {
       deviceInfoProto.anonymizedSerialNumber = Anonymizer.anonymize(serialNumber) ?: ""
       deviceInfoProto.buildTags = properties[RO_BUILD_TAGS] ?: ""
@@ -268,6 +274,7 @@ interface DeviceProperties {
         model = model,
         androidVersion = androidVersion,
         abiList = abiList,
+        preferredAbi = preferredAbi,
         androidRelease = androidRelease,
         disambiguator = disambiguator,
         deviceType = deviceType,
@@ -279,7 +286,7 @@ interface DeviceProperties {
         density = density,
         icon = checkNotNull(icon),
         connectionType = connectionType,
-        deviceInfoProto = deviceInfoProto.build()
+        deviceInfoProto = deviceInfoProto.build(),
       )
   }
 
@@ -288,6 +295,7 @@ interface DeviceProperties {
     override val model: String?,
     override val androidVersion: AndroidVersion?,
     override val abiList: List<Abi>,
+    override val preferredAbi: String?,
     override val androidRelease: String?,
     override val disambiguator: String?,
     override val deviceType: DeviceType?,
@@ -375,7 +383,7 @@ data class Resolution(val width: Int, val height: Int) {
 
 internal class SerialNumberAndMdnsConnectionType(
   val serialNumber: String,
-  val mdnsConnectionType: DeviceInfo.MdnsConnectionType
+  val mdnsConnectionType: DeviceInfo.MdnsConnectionType,
 ) {
   companion object {
     private const val ADB_MDNS_SERVICE_NAME = "adb"
@@ -397,12 +405,12 @@ internal class SerialNumberAndMdnsConnectionType(
             ADB_MDNS_TLS_SERVICE_NAME -> DeviceInfo.MdnsConnectionType.MDNS_AUTO_CONNECT_TLS
             ADB_MDNS_SERVICE_NAME -> DeviceInfo.MdnsConnectionType.MDNS_AUTO_CONNECT_UNENCRYPTED
             else -> DeviceInfo.MdnsConnectionType.MDNS_NONE
-          }
+          },
         )
       }
         ?: SerialNumberAndMdnsConnectionType(
           adbSerialNumber,
-          DeviceInfo.MdnsConnectionType.MDNS_NONE
+          DeviceInfo.MdnsConnectionType.MDNS_NONE,
         )
   }
 }

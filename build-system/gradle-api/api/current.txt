@@ -14,12 +14,14 @@ package com.android.build.api {
     method public int getMinor();
     method public int getPreview();
     method public String? getPreviewType();
+    method public String getVersion();
     method public com.android.build.api.AndroidPluginVersion rc(int rc);
     property public final int major;
     property public final int micro;
     property public final int minor;
     property public final int preview;
     property public final String? previewType;
+    property public final String version;
     field public static final com.android.build.api.AndroidPluginVersion.Companion Companion;
   }
 
@@ -98,7 +100,8 @@ package com.android.build.api.artifact {
   }
 
   public interface Artifacts {
-    method public <FileTypeT extends org.gradle.api.file.FileSystemLocation> void add(com.android.build.api.artifact.MultipleArtifact<FileTypeT> type, FileTypeT artifact);
+    method @Deprecated public <FileTypeT extends org.gradle.api.file.FileSystemLocation> void add(com.android.build.api.artifact.MultipleArtifact<FileTypeT> type, FileTypeT artifact);
+    method public <MultipleArtifactT extends com.android.build.api.artifact.MultipleArtifact<org.gradle.api.file.Directory> & java.lang.Appendable> void addStaticDirectory(MultipleArtifactT type, org.gradle.api.file.Directory inputLocation);
     method public com.android.build.api.variant.ScopedArtifacts forScope(com.android.build.api.variant.ScopedArtifacts.Scope scope);
     method public <FileTypeT extends org.gradle.api.file.FileSystemLocation> org.gradle.api.provider.Provider<FileTypeT> get(com.android.build.api.artifact.SingleArtifact<FileTypeT> type);
     method public <FileTypeT extends org.gradle.api.file.FileSystemLocation> org.gradle.api.provider.Provider<java.util.List<FileTypeT>> getAll(com.android.build.api.artifact.MultipleArtifact<FileTypeT> type);
@@ -117,6 +120,7 @@ package com.android.build.api.artifact {
 
   public interface InAndOutFileOperationRequest {
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<org.gradle.api.file.RegularFile> & com.android.build.api.artifact.Artifact.Transformable> void toTransform(ArtifactTypeT type);
+    method @org.gradle.api.Incubating public com.android.build.api.artifact.InAndOutFileOperationRequest withName(String name);
   }
 
   public abstract sealed class MultipleArtifact<FileTypeT extends org.gradle.api.file.FileSystemLocation> extends com.android.build.api.artifact.Artifact.Multiple<FileTypeT> {
@@ -142,6 +146,7 @@ package com.android.build.api.artifact {
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Multiple<FileTypeT> & com.android.build.api.artifact.Artifact.Appendable> void toAppendTo(ArtifactTypeT type);
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<FileTypeT> & com.android.build.api.artifact.Artifact.Replaceable> void toCreate(ArtifactTypeT type);
     method @org.gradle.api.Incubating public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<FileTypeT>> void toListenTo(ArtifactTypeT type);
+    method @org.gradle.api.Incubating public com.android.build.api.artifact.OutOperationRequest<FileTypeT> withName(String name);
   }
 
   public abstract sealed class ScopedArtifact extends com.android.build.api.artifact.Artifact.Single<org.gradle.api.file.RegularFile> {
@@ -2567,6 +2572,7 @@ package com.android.build.api.variant {
   }
 
   public interface Component extends com.android.build.api.variant.ComponentIdentity {
+    method @org.gradle.api.Incubating public String computeTaskName(String action, String subject);
     method public org.gradle.api.artifacts.Configuration getAnnotationProcessorConfiguration();
     method public com.android.build.api.artifact.Artifacts getArtifacts();
     method @org.gradle.api.Incubating public org.gradle.api.file.FileCollection getCompileClasspath();

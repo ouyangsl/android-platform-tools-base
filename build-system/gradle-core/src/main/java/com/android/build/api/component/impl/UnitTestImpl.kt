@@ -98,4 +98,7 @@ open class UnitTestImpl @Inject constructor(
     override val isUnitTestCoverageEnabled: Boolean
         get() = dslInfo.isUnitTestCoverageEnabled
 
+    override val isScreenshotTestCoverageEnabled: Boolean
+        get() = false
+
 }

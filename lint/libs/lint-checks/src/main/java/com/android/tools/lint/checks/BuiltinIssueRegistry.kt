@@ -91,6 +91,7 @@ open class BuiltinIssueRegistry : IssueRegistry() {
           BidirectionalTextDetector.BIDI_SPOOFING,
           BinderGetCallingInMainThreadDetector.ISSUE,
           BottomAppBarDetector.ISSUE,
+          BuildListDetector.ISSUE,
           ButtonDetector.BACK_BUTTON,
           ButtonDetector.CASE,
           ButtonDetector.ORDER,
@@ -161,6 +162,7 @@ open class BuiltinIssueRegistry : IssueRegistry() {
           GradleDetector.BUNDLED_GMS,
           GradleDetector.CHROMEOS_ABI_SUPPORT,
           GradleDetector.COMPATIBILITY,
+          GradleDetector.CREDENTIAL_DEP,
           GradleDetector.DATA_BINDING_WITHOUT_KAPT,
           GradleDetector.DEPENDENCY,
           GradleDetector.DEPRECATED,
@@ -506,7 +508,7 @@ open class BuiltinIssueRegistry : IssueRegistry() {
           WrongLocationDetector.ISSUE,
           WrongThreadInterproceduralDetector.ISSUE,
           X509TrustManagerDetector.IMPLEMENTS_CUSTOM,
-          X509TrustManagerDetector.TRUSTS_ALL
+          X509TrustManagerDetector.TRUSTS_ALL,
         )
       )
   }
@@ -585,7 +587,7 @@ open class BuiltinIssueRegistry : IssueRegistry() {
 
       // Obsolete at this point (and the associated learn-more
       // URL is now unavailable, see b/259295923)
-      "PackageManagerGetSignatures"
+      "PackageManagerGetSignatures",
     )
 
   override fun getIssueCapacity(scope: EnumSet<Scope>): Int {

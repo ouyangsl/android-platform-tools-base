@@ -62,7 +62,7 @@ class XmlReader(
   private val client: LintCliClient,
   private val registry: IssueRegistry,
   private val project: Project?,
-  xmlFile: File
+  xmlFile: File,
 ) {
   private val incidents = mutableListOf<Incident>()
   private var data: MutableMap<Issue, LintMap>? = null
@@ -472,6 +472,7 @@ class XmlReader(
     var familyName: String? = null
     var robot = false
     var independent = false
+    var sortPriority = -1
 
     val n = parser.attributeCount
     for (i in 0 until n) {
@@ -491,6 +492,7 @@ class XmlReader(
         ATTR_FAMILY -> familyName = value
         ATTR_INDEPENDENT -> independent = true
         ATTR_ROBOT -> robot = true
+        ATTR_PRIORITY -> sortPriority = value.toInt()
         // TODO
         else -> error("Unexpected note attribute: $name")
       }
@@ -512,6 +514,7 @@ class XmlReader(
       .apply { imports?.let { this.imports(*it.toTypedArray()) } }
       .repeatedly(repeatedly)
       .optional(optional)
+      .priority(sortPriority)
       .autoFix(robot, independent)
       .build()
   }
@@ -560,13 +563,13 @@ class XmlReader(
             DefaultPosition(
               if (line != null) line.toInt() - 1 else -1,
               column.toInt() - 1,
-              startOffset?.toInt() ?: -1
+              startOffset?.toInt() ?: -1,
             )
           val end =
             DefaultPosition(
               if (endLine != null) endLine.toInt() - 1 else -1,
               endColumn.toInt() - 1,
-              endOffset?.toInt() ?: -1
+              endOffset?.toInt() ?: -1,
             )
           Location.create(file, start, end)
         } catch (e: NumberFormatException) {

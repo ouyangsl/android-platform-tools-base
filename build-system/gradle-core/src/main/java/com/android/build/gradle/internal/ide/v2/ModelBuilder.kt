@@ -19,6 +19,8 @@ package com.android.build.gradle.internal.ide.v2
 import com.android.SdkConstants
 import com.android.Version
 import com.android.build.api.artifact.ScopedArtifact
+import com.android.build.api.component.impl.ScreenshotTestImpl
+import com.android.build.api.component.impl.UnitTestImpl
 import com.android.build.api.dsl.AndroidResources
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildFeatures
@@ -69,6 +71,7 @@ import com.android.build.gradle.internal.tasks.DeviceProviderInstrumentTestTask
 import com.android.build.gradle.internal.tasks.ExportConsumerProguardFilesTask.Companion.checkProguardFiles
 import com.android.build.gradle.internal.tasks.ExtractPrivacySandboxCompatApks
 import com.android.build.gradle.internal.tasks.GenerateAdditionalApkSplitForDeploymentViaApk
+import com.android.build.gradle.internal.tasks.getPublishedCustomLintChecks
 import com.android.build.gradle.internal.utils.getDesugarLibConfigFile
 import com.android.build.gradle.internal.utils.getDesugaredMethods
 import com.android.build.gradle.internal.utils.toImmutableSet
@@ -80,7 +83,9 @@ import com.android.build.gradle.tasks.BuildPrivacySandboxSdkApks
 import com.android.builder.core.ComponentTypeImpl
 import com.android.builder.errors.IssueReporter
 import com.android.builder.model.SyncIssue
+import com.android.builder.model.v2.ide.AndroidArtifact
 import com.android.builder.model.v2.ide.AndroidGradlePluginProjectFlags.BooleanFlag
+import com.android.builder.model.v2.ide.ArtifactDependencies
 import com.android.builder.model.v2.ide.ArtifactDependenciesAdjacencyList
 import com.android.builder.model.v2.ide.BasicArtifact
 import com.android.builder.model.v2.ide.BundleInfo
@@ -88,6 +93,7 @@ import com.android.builder.model.v2.ide.BytecodeTransformation
 import com.android.builder.model.v2.ide.CodeShrinker
 import com.android.builder.model.v2.ide.JavaArtifact
 import com.android.builder.model.v2.ide.PrivacySandboxSdkInfo
+import com.android.builder.model.v2.ide.SourceProvider
 import com.android.builder.model.v2.ide.SourceSetContainer
 import com.android.builder.model.v2.ide.TestInfo
 import com.android.builder.model.v2.ide.TestedTargetVariant
@@ -259,8 +265,9 @@ class ModelBuilder<
         // used by anything.
         val variantDimensionInfo = DimensionInformation.createFrom(variants)
         val androidTests = DimensionInformation.createFrom(variantModel.testComponents.filterIsInstance<AndroidTestCreationConfig>())
-        val unitTests = DimensionInformation.createFrom(variantModel.testComponents.filterIsInstance<HostTestCreationConfig>())
+        val unitTests = DimensionInformation.createFrom(variantModel.testComponents.filterIsInstance<UnitTestImpl>())
         val testFixtures = DimensionInformation.createFrom(variants.mapNotNull { (it as? HasTestFixtures)?.testFixtures })
+        val screenshotTests = DimensionInformation.createFrom(variantModel.testComponents.filterIsInstance<ScreenshotTestImpl>())
 
         // for now grab the first buildFeatureValues as they cannot be different.
         val buildFeatures = variantModel.buildFeatures
@@ -268,14 +275,25 @@ class ModelBuilder<
         // gather the default config
         val defaultConfigData = variantInputs.defaultConfigData
         val defaultConfig = if (variantDimensionInfo.isNotEmpty()) {
+
             SourceSetContainerImpl(
                 sourceProvider = defaultConfigData.sourceSet.convert(buildFeatures),
-                androidTestSourceProvider = defaultConfigData.getSourceSetForModel(ComponentTypeImpl.ANDROID_TEST)
-                    ?.takeIf { androidTests.isNotEmpty() }
-                    ?.convert(buildFeatures),
-                unitTestSourceProvider = defaultConfigData.getSourceSetForModel(ComponentTypeImpl.UNIT_TEST)
-                    ?.takeIf { unitTests.isNotEmpty() }
-                    ?.convert(buildFeatures),
+                deviceTestSourceProviders = mutableMapOf<String, SourceProvider>().apply {
+                    defaultConfigData.getSourceSetForModel(ComponentTypeImpl.ANDROID_TEST)
+                        ?.takeIf { androidTests.isNotEmpty() }
+                        ?.convert(buildFeatures)
+                        ?.let { this.put(ComponentTypeImpl.ANDROID_TEST.artifactName, it) }
+                },
+                hostTestSourceProviders = mutableMapOf<String, SourceProvider>().apply {
+                    defaultConfigData.getSourceSetForModel(ComponentTypeImpl.UNIT_TEST)
+                        ?.takeIf { unitTests.isNotEmpty() }
+                        ?.convert(buildFeatures)
+                        ?.let { this.put(ComponentTypeImpl.UNIT_TEST.artifactName, it) }
+                    defaultConfigData.getSourceSetForModel(ComponentTypeImpl.SCREENSHOT_TEST)
+                        ?.takeIf { screenshotTests.isNotEmpty() }
+                        ?.convert(buildFeatures)
+                        ?.let { this.put(ComponentTypeImpl.SCREENSHOT_TEST.artifactName, it) }
+                },
                 testFixturesSourceProvider = defaultConfigData.getSourceSetForModel(ComponentTypeImpl.TEST_FIXTURES)
                     ?.takeIf { testFixtures.isNotEmpty() }
                     ?.convert(buildFeatures)
@@ -298,13 +316,26 @@ class ModelBuilder<
                 buildTypes.add(
                     SourceSetContainerImpl(
                         sourceProvider = buildType.sourceSet.convert(buildFeatures, mixinVariantSources),
-                        androidTestSourceProvider = buildType.getSourceSetForModel(ComponentTypeImpl.ANDROID_TEST)
-                            ?.takeIf { androidTests.buildTypes.contains(buildTypeName) }
-                            ?.convert(buildFeatures),
-                        unitTestSourceProvider = buildType.getSourceSetForModel(ComponentTypeImpl.UNIT_TEST)
-                            ?.takeIf { unitTests.buildTypes.contains(buildTypeName) }
-                            ?.convert(buildFeatures),
-                        testFixturesSourceProvider = buildType.getSourceSetForModel(ComponentTypeImpl.TEST_FIXTURES)
+                        deviceTestSourceProviders = mutableMapOf<String, SourceProvider>().apply {
+                            buildType.getSourceSetForModel(ComponentTypeImpl.ANDROID_TEST)
+                                ?.takeIf { androidTests.buildTypes.contains(buildTypeName) }
+                                ?.convert(buildFeatures)
+                                ?.let {
+                                    this.put(ComponentTypeImpl.ANDROID_TEST.artifactName, it)
+                                }
+                        },
+                        hostTestSourceProviders = mutableMapOf<String, SourceProvider>().apply {
+                            buildType.getSourceSetForModel(ComponentTypeImpl.UNIT_TEST)
+                                ?.takeIf { unitTests.buildTypes.contains(buildTypeName) }
+                                ?.convert(buildFeatures)
+                                ?.let { this.put(ComponentTypeImpl.UNIT_TEST.artifactName, it) }
+                            buildType.getSourceSetForModel(ComponentTypeImpl.SCREENSHOT_TEST)
+                                ?.takeIf { screenshotTests.buildTypes.contains(buildTypeName) }
+                                ?.convert(buildFeatures)
+                                ?.let { this.put(ComponentTypeImpl.SCREENSHOT_TEST.artifactName, it) }
+                        },
+                        testFixturesSourceProvider =
+                        buildType.getSourceSetForModel(ComponentTypeImpl.TEST_FIXTURES)
                             ?.takeIf { testFixtures.buildTypes.contains(buildTypeName) }
                             ?.convert(buildFeatures)
                     )
@@ -321,13 +352,26 @@ class ModelBuilder<
                 productFlavors.add(
                     SourceSetContainerImpl(
                         sourceProvider = flavor.sourceSet.convert(buildFeatures),
-                        androidTestSourceProvider = flavor.getSourceSetForModel(ComponentTypeImpl.ANDROID_TEST)
-                            ?.takeIf { androidTests.flavors.contains(flavorDimensionName) }
-                            ?.convert(buildFeatures),
-                        unitTestSourceProvider = flavor.getSourceSetForModel(ComponentTypeImpl.UNIT_TEST)
-                            ?.takeIf { unitTests.flavors.contains(flavorDimensionName) }
-                            ?.convert(buildFeatures),
-                        testFixturesSourceProvider = flavor.getSourceSetForModel(ComponentTypeImpl.TEST_FIXTURES)
+                        deviceTestSourceProviders = mutableMapOf<String, SourceProvider>().apply {
+                            flavor.getSourceSetForModel(ComponentTypeImpl.ANDROID_TEST)
+                                ?.takeIf { androidTests.flavors.contains(flavorDimensionName)}
+                                ?.convert(buildFeatures)
+                                ?.let {
+                                    this.put(ComponentTypeImpl.ANDROID_TEST.artifactName, it)
+                                }
+                        },
+                        hostTestSourceProviders = mutableMapOf<String, SourceProvider>().apply {
+                            flavor.getSourceSetForModel(ComponentTypeImpl.UNIT_TEST)
+                                ?.takeIf { unitTests.flavors.contains(flavorDimensionName) }
+                                ?.convert(buildFeatures)
+                                ?.let { this.put(ComponentTypeImpl.UNIT_TEST.artifactName, it) }
+                            flavor.getSourceSetForModel(ComponentTypeImpl.SCREENSHOT_TEST)
+                                ?.takeIf { screenshotTests.flavors.contains(flavorDimensionName) }
+                                ?.convert(buildFeatures)
+                                ?.let { this.put(ComponentTypeImpl.SCREENSHOT_TEST.artifactName, it) }
+                        },
+                        testFixturesSourceProvider =
+                        flavor.getSourceSetForModel(ComponentTypeImpl.TEST_FIXTURES)
                             ?.takeIf { testFixtures.flavors.contains(flavorDimensionName) }
                             ?.convert(buildFeatures)
                     )
@@ -404,6 +448,8 @@ class ModelBuilder<
             ),
             lintChecksJars = getLocalCustomLintChecksForModel(project, variantModel.syncIssueReporter),
             desugarLibConfig = desugarLibConfig,
+            // Using first as we are going to use the global artifacts anyway
+            lintJar = variantModel.variants.firstOrNull()?.global?.getPublishedCustomLintChecks()?.files?.singleOrNull()
         )
     }
 
@@ -524,6 +570,40 @@ class ModelBuilder<
         val libraryService = LibraryServiceImpl(globalLibraryBuildService.libraryCache)
 
         if (adjacencyList) {
+            val deviceTestArtifacts = mutableMapOf<String, ArtifactDependenciesAdjacencyList>()
+            (variant as? HasDeviceTests)?.androidTest?.let {
+                deviceTestArtifacts.put(
+                    it.componentType.artifactName,
+                    createDependenciesWithAdjacencyList(
+                    it,
+                    libraryService,
+                    graphEdgeCache,
+                    parameter.dontBuildAndroidTestRuntimeClasspath
+                ))
+            }
+            val hostTestArtifacts = mutableMapOf<String, ArtifactDependenciesAdjacencyList>()
+            (variant as? HasHostTests)?.unitTest?.let {
+                hostTestArtifacts.put(
+                    it.componentType.artifactName,
+                    createDependenciesWithAdjacencyList(
+                            it,
+                            libraryService,
+                            graphEdgeCache,
+                            parameter.dontBuildUnitTestRuntimeClasspath
+                    )
+                )
+            }
+            (variant as? HasHostTests)?.screenshotTest?.let {
+                hostTestArtifacts.put(
+                    it.componentType.artifactName,
+                    createDependenciesWithAdjacencyList(
+                        it,
+                        libraryService,
+                        graphEdgeCache,
+                        parameter.dontBuildScreenshotTestRuntimeClasspath
+                    )
+                )
+            }
             return VariantDependenciesAdjacencyListImpl(
                     name = variantName,
                     mainArtifact = createDependenciesWithAdjacencyList(
@@ -532,33 +612,49 @@ class ModelBuilder<
                             graphEdgeCache,
                             parameter.dontBuildRuntimeClasspath
                     ),
-                    androidTestArtifact = (variant as? HasDeviceTests)?.androidTest?.let {
-                        createDependenciesWithAdjacencyList(
-                                it,
-                                libraryService,
-                                graphEdgeCache,
-                                parameter.dontBuildAndroidTestRuntimeClasspath
-                        )
-                    },
-                    unitTestArtifact = (variant as? HasHostTests)?.unitTest?.let {
-                        createDependenciesWithAdjacencyList(
-                                it,
-                                libraryService,
-                                graphEdgeCache,
-                                parameter.dontBuildUnitTestRuntimeClasspath
-                        )
-                    },
+                    deviceTestArtifacts = deviceTestArtifacts,
+                    hostTestArtifacts = hostTestArtifacts,
                     testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
                         createDependenciesWithAdjacencyList(
-                                it,
-                                libraryService,
-                                graphEdgeCache,
-                                parameter.dontBuildTestFixtureRuntimeClasspath
+                            it,
+                            libraryService,
+                            graphEdgeCache,
+                            parameter.dontBuildTestFixtureRuntimeClasspath
                         )
                     },
                     libraryService.getAllLibraries()
             )
         } else {
+            val deviceTestArtifacts = mutableMapOf<String, ArtifactDependencies>()
+            (variant as? HasDeviceTests)?.androidTest?.let {
+                deviceTestArtifacts.put(
+                        it.componentType.artifactName,
+                        createDependencies(
+                            it,
+                            libraryService,
+                            parameter.dontBuildAndroidTestRuntimeClasspath
+                        ))
+            }
+            val hostTestArtifacts = mutableMapOf<String, ArtifactDependencies>()
+            (variant as? HasHostTests)?.unitTest?.let {
+                hostTestArtifacts.put(
+                        it.componentType.artifactName,
+                        createDependencies(
+                            it,
+                            libraryService,
+                            parameter.dontBuildUnitTestRuntimeClasspath
+                        ))
+            }
+            (variant as? HasHostTests)?.screenshotTest?.let {
+                hostTestArtifacts.put(
+                        it.componentType.artifactName,
+                        createDependencies(
+                                it,
+                                libraryService,
+                                parameter.dontBuildScreenshotTestRuntimeClasspath
+                        )
+                )
+            }
             return VariantDependenciesImpl(
                     name = variantName,
                     mainArtifact = createDependencies(
@@ -566,25 +662,13 @@ class ModelBuilder<
                             libraryService,
                             parameter.dontBuildRuntimeClasspath
                     ),
-                    androidTestArtifact = (variant as? HasDeviceTests)?.androidTest?.let {
-                        createDependencies(
-                                it,
-                                libraryService,
-                                parameter.dontBuildAndroidTestRuntimeClasspath
-                        )
-                    },
-                    unitTestArtifact = (variant as? HasHostTests)?.unitTest?.let {
-                        createDependencies(
-                                it,
-                                libraryService,
-                                parameter.dontBuildUnitTestRuntimeClasspath
-                        )
-                    },
+                    deviceTestArtifacts = deviceTestArtifacts,
+                    hostTestArtifacts = hostTestArtifacts,
                     testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
                         createDependencies(
-                                it,
-                                libraryService,
-                                parameter.dontBuildTestFixtureRuntimeClasspath
+                            it,
+                            libraryService,
+                            parameter.dontBuildTestFixtureRuntimeClasspath
                         )
                     },
                     libraryService.getAllLibraries()
@@ -596,15 +680,22 @@ class ModelBuilder<
         variant: VariantCreationConfig,
         features: BuildFeatureValues
     ): BasicVariantImpl {
+        val deviceTestArtifacts = mutableMapOf<String, BasicArtifact>()
+        (variant as? HasDeviceTests)?.androidTest?.let {
+            deviceTestArtifacts.put(it.componentType.artifactName, createBasicArtifact(it, features))
+        }
+        val hostTestArtifacts = mutableMapOf<String, BasicArtifact>()
+        (variant as? HasHostTests)?.unitTest?.let {
+            hostTestArtifacts.put(it.componentType.artifactName, createBasicArtifact(it, features))
+        }
+        (variant as? HasHostTests)?.screenshotTest?.let {
+            hostTestArtifacts.put(it.componentType.artifactName, createBasicArtifact(it, features))
+        }
         return BasicVariantImpl(
             name = variant.name,
             mainArtifact = createBasicArtifact(variant, features),
-            androidTestArtifact = (variant as? HasDeviceTests)?.androidTest?.let {
-                createBasicArtifact(it, features)
-            },
-            unitTestArtifact = (variant as? HasHostTests)?.unitTest?.let {
-                createBasicArtifact(it, features)
-            },
+            deviceTestArtifacts = deviceTestArtifacts,
+            hostTestArtifacts = hostTestArtifacts,
             testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
                 createBasicArtifact(it, features)
             },
@@ -631,16 +722,23 @@ class ModelBuilder<
         variant: VariantCreationConfig,
         instantAppResultMap: MutableMap<File, Boolean>
     ): VariantImpl {
+        val deviceTestArtifacts = mutableMapOf<String, AndroidArtifact>()
+        (variant as? HasDeviceTests)?.androidTest?.let {
+            deviceTestArtifacts.put(it.componentType.artifactName, createAndroidArtifact(it))
+        }
+        val hostTestArtifacts = mutableMapOf<String, JavaArtifact>()
+        (variant as? HasHostTests)?.unitTest?.let {
+            hostTestArtifacts.put(it.componentType.artifactName, createJavaArtifact(it))
+        }
+        (variant as? HasHostTests)?.screenshotTest?.let {
+            hostTestArtifacts.put(it.componentType.artifactName, createJavaArtifact(it))
+        }
         return VariantImpl(
             name = variant.name,
             displayName = variant.baseName,
             mainArtifact = createAndroidArtifact(variant),
-            androidTestArtifact = (variant as? HasDeviceTests)?.androidTest?.let {
-                createAndroidArtifact(it)
-            },
-            unitTestArtifact = (variant as? HasHostTests)?.unitTest?.let {
-                createJavaArtifact(it)
-            },
+            deviceTestArtifacts = deviceTestArtifacts,
+            hostTestArtifacts = hostTestArtifacts,
             testFixturesArtifact = (variant as? HasTestFixtures)?.testFixtures?.let {
                 createAndroidArtifact(it)
             },
@@ -913,7 +1011,7 @@ class ModelBuilder<
         }
 
         return FullDependencyGraphBuilder(
-            { configType ->  getArtifactsForModelBuilder(component, configType) },
+            { configType, root ->  getArtifactsForModelBuilder(component, configType, root) },
             project.path,
             component.variantDependencies,
             libraryService,
@@ -1117,6 +1215,10 @@ class ModelBuilder<
             flags.put(
                 BooleanFlag.USE_ANDROID_X,
                 projectOptions[BooleanOption.USE_ANDROID_X]
+            )
+            flags.put(
+                BooleanFlag.BUILD_FEATURE_ANDROID_RESOURCES,
+                variants.any { it.buildFeatures.androidResources }
             )
 
             return AndroidGradlePluginProjectFlagsImpl(flags.build())

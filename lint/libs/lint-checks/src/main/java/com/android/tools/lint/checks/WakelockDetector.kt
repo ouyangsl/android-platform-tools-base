@@ -44,9 +44,9 @@ import org.jetbrains.uast.visitor.AbstractUastVisitor
  * Checks for problems with wakelocks (such as failing to release them) which can lead to
  * unnecessary battery usage.
  */
-private typealias Node = ControlFlowGraph<UElement>.Node
+private typealias Node = ControlFlowGraph.Node<UElement>
 
-private typealias Edge = ControlFlowGraph<UElement>.Edge
+private typealias Edge = ControlFlowGraph.Edge<UElement>
 
 class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
   companion object {
@@ -78,7 +78,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
         priority = 9,
         severity = Severity.WARNING,
         androidSpecific = true,
-        implementation = IMPLEMENTATION
+        implementation = IMPLEMENTATION,
       )
 
     /** Using non-timeout version of wakelock acquire */
@@ -99,7 +99,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
         priority = 9,
         severity = Severity.WARNING,
         androidSpecific = true,
-        implementation = IMPLEMENTATION
+        implementation = IMPLEMENTATION,
       )
 
     private const val WAKELOCK_OWNER = "android.os.PowerManager.WakeLock"
@@ -118,7 +118,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
       context.report(
         ISSUE,
         firstAcquireLocation!!,
-        "Found a wakelock `acquire()` but no `release()` calls anywhere"
+        "Found a wakelock `acquire()` but no `release()` calls anywhere",
       )
     }
   }
@@ -180,7 +180,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
             "`PowerManager.Wakelock.acquire(long timeout)`. This will ensure the OS will " +
             "cleanup any wakelocks that last longer than you intend, and will save your " +
             "user's battery.",
-          fix
+          fix,
         )
 
         // Perform flow analysis in this method to see if we're
@@ -211,7 +211,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
               ISSUE,
               node,
               context.getLocation(node),
-              "Wakelocks should be released in `onPause`, not `onDestroy`"
+              "Wakelocks should be released in `onPause`, not `onDestroy`",
             )
           }
         }
@@ -235,7 +235,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
                 context.getLocation(arguments.first()),
                 "Should not set both `PARTIAL_WAKE_LOCK` and `ACQUIRE_CAUSES_WAKEUP`. " +
                   "If you do not want the screen to turn on, get rid of " +
-                  "`ACQUIRE_CAUSES_WAKEUP`"
+                  "`ACQUIRE_CAUSES_WAKEUP`",
               )
             }
           }
@@ -311,7 +311,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
               }
               return super.checkBranchPaths(conditional)
             }
-          }
+          },
       )
 
     val exitPaths = mutableListOf<List<Edge>>()
@@ -349,7 +349,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
         context.getCallLocation(
           call as UCallExpression,
           includeReceiver = false,
-          includeArguments = false
+          includeArguments = false,
         )
       var last = location
       for (i in 1 until releaseNodes.size) {
@@ -359,7 +359,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
           context.getCallLocation(
             element as UCallExpression,
             includeReceiver = false,
-            includeArguments = false
+            includeArguments = false,
           )
         last.secondary = secondary
         last = secondary
@@ -375,25 +375,18 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
     releaseNodes: MutableList<Node>,
   ): Int {
     return graph.dfs(
-      object : ControlFlowGraph.DfsRequest<UElement, Int>(startNode, 0) {
-        override fun visitNode(
-          node: ControlFlowGraph<UElement>.Node,
-          path: List<ControlFlowGraph<UElement>.Edge>,
-          status: Int
-        ): Int {
+      ControlFlowGraph.IntBitsDomain,
+      object : ControlFlowGraph.DfsRequest<UElement, Int>(startNode) {
+        override fun visitNode(node: Node, path: List<Edge>, status: Int): Int {
           return if (node.isExit()) {
-            exitPaths.add(path.toList())
+            exitPaths.add(path)
             SEEN_EXIT or (if (path.any { it.isException }) SEEN_EXCEPTION else 0)
           } else {
             0
           }
         }
 
-        override fun prune(
-          node: ControlFlowGraph<UElement>.Node,
-          path: List<ControlFlowGraph<UElement>.Edge>,
-          status: Int
-        ): Boolean {
+        override fun prune(node: Node, path: List<Edge>, status: Int): Boolean {
           val instruction = node.instruction
           return if (instruction is UCallExpression && instruction.isReleaseCall()) {
             releaseNodes.add(node)
@@ -406,7 +399,7 @@ class WakelockDetector : Detector(), ClassScanner, SourceCodeScanner {
         override fun isDone(status: Int): Boolean {
           return (status and SEEN_EXIT) != 0
         }
-      }
+      },
     )
   }
 }
