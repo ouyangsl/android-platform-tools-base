@@ -31,6 +31,7 @@ import static com.android.SdkConstants.UNIT_MM;
 import static com.android.SdkConstants.UNIT_PX;
 import static com.android.SdkConstants.UNIT_SP;
 import static com.android.tools.lint.client.api.ResourceRepositoryScope.LOCAL_DEPENDENCIES;
+import static com.android.tools.lint.client.api.ResourceRepositoryScope.PROJECT_ONLY;
 
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
@@ -42,6 +43,7 @@ import com.android.ide.common.util.PathString;
 import com.android.resources.ResourceFolderType;
 import com.android.resources.ResourceUrl;
 import com.android.tools.lint.client.api.LintClient;
+import com.android.tools.lint.client.api.ResourceRepositoryScope;
 import com.android.tools.lint.detector.api.Category;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
@@ -215,7 +217,9 @@ public class PxUsageDetector extends LayoutDetector {
             } else if (value.startsWith(DIMEN_PREFIX)) {
                 LintClient client = context.getClient();
                 Project project = context.getProject();
-                ResourceRepository resources = client.getResources(project, LOCAL_DEPENDENCIES);
+                ResourceRepositoryScope scope =
+                        context.isGlobalAnalysis() ? LOCAL_DEPENDENCIES : PROJECT_ONLY;
+                ResourceRepository resources = client.getResources(project, scope);
                 ResourceUrl url = ResourceUrl.parse(value);
                 if (url != null) {
                     List<ResourceItem> items =

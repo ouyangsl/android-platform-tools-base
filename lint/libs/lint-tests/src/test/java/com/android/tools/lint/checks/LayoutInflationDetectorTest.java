@@ -15,10 +15,10 @@
  */
 package com.android.tools.lint.checks;
 
-import static com.android.tools.lint.checks.AbstractCheckTest.SUPPORT_ANNOTATIONS_JAR;
 import static com.android.tools.lint.checks.infrastructure.TestFiles.rClass;
 
 import com.android.annotations.NonNull;
+import com.android.tools.lint.checks.infrastructure.ProjectDescription;
 import com.android.tools.lint.checks.infrastructure.TestFile;
 import com.android.tools.lint.detector.api.Detector;
 import java.io.IOException;
@@ -139,6 +139,23 @@ public class LayoutInflationDetectorTest extends AbstractCheckTest {
                                         + "    style=\"?android:attr/listSeparatorTextViewStyle\" />\n"))
                 .run()
                 .expectClean();
+    }
+
+    public void testSplitAcrossModules() {
+        // Like testNoLayoutParams, but resources in a different project
+        ProjectDescription lib =
+                project()
+                        .files(
+                                xml(
+                                        "res/layout/your_layout.xml",
+                                        ""
+                                                + "<TextView xmlns:android=\"http://schemas.android.com/apk/res/android\"\n"
+                                                + "    android:id=\"@id/text1\"\n"
+                                                + "    style=\"?android:attr/listSeparatorTextViewStyle\" />\n"))
+                        .name("lib");
+
+        ProjectDescription app = project().files(mLayoutInflationTest).dependsOn(lib).name("app");
+        lint().projects(app, lib).run().expectClean();
     }
 
     public void testHasLayoutParams() throws IOException, XmlPullParserException {
