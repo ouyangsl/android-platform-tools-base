@@ -21,6 +21,7 @@ import com.android.resources.ResourceType
 import com.android.tools.lint.client.api.JavaEvaluator
 import com.android.tools.lint.client.api.ResourceReference.Companion.get
 import com.android.tools.lint.client.api.ResourceRepositoryScope.LOCAL_DEPENDENCIES
+import com.android.tools.lint.client.api.ResourceRepositoryScope.PROJECT_ONLY
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.Context
 import com.android.tools.lint.detector.api.Implementation
@@ -150,7 +151,8 @@ class LayoutInflationDetector : LayoutDetector(), SourceCodeScanner {
       return true // not certain
     }
     val project = context.project
-    val resources = client.getResources(project, LOCAL_DEPENDENCIES)
+    val scope = if (context.isGlobalAnalysis()) LOCAL_DEPENDENCIES else PROJECT_ONLY
+    val resources = client.getResources(project, scope)
     val items = resources.getResources(ResourceNamespace.TODO(), ResourceType.LAYOUT, name)
     if (items.isEmpty()) {
       // Couldn't find layout: uncertain

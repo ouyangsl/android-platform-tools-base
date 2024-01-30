@@ -17,6 +17,7 @@
 package com.android.tools.lint.checks
 
 import com.android.tools.lint.checks.infrastructure.TestFiles.rClass
+import com.android.tools.lint.checks.infrastructure.TestMode
 import com.android.tools.lint.detector.api.Detector
 
 class RemoteViewDetectorTest : AbstractCheckTest() {
@@ -176,5 +177,65 @@ class RemoteViewDetectorTest : AbstractCheckTest() {
       )
       .run()
       .expectClean()
+  }
+
+  fun testSplitAcrossModules() {
+    // Test where the remote layout is in a different module (same
+    // as testDocumentationExample but with code reference in its own downstream
+    // module.)
+    val lib =
+      project(
+        xml(
+            "res/layout/test.xml",
+            """
+            <merge>
+                <Button />
+                <AdapterViewFlipper />
+                <FrameLayout />
+                <GridLayout />
+                <GridView />
+                <LinearLayout />
+                <ListView />
+                <RelativeLayout />
+                <StackView />
+                <ViewFlipper />
+                <AnalogClock />
+                <Button />
+                <Chronometer />
+                <ImageButton />
+                <ImageView />
+                <ProgressBar />
+                <TextClock />
+                <TextView />
+                <DatePicker />
+                <CheckBox />
+                <Switch />
+                <RadioButton />
+                <RadioGroup />
+                <androidx.appcompat.widget.AppCompatTextView />
+            </merge>
+            """,
+          )
+          .indented()
+      )
+
+    val main = project(kotlinSample, rClass("test.pkg", "@layout/test")).dependsOn(lib)
+
+    lint()
+      .projects(lib, main)
+      .expectIdenticalTestModeOutput(false)
+      // In Iguana we're just checking layouts within the same
+      .testModes(TestMode.DEFAULT, TestMode.PARTIAL)
+      .run()
+      .expect(
+        """
+        src/test/pkg/test.kt:5: Error: @layout/test includes views not allowed in a RemoteView: CheckBox, DatePicker, RadioButton, RadioGroup, Switch, androidx.appcompat.widget.AppCompatTextView [RemoteViewLayout]
+            val remoteView = RemoteViews(packageName, R.layout.test)
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        1 errors, 0 warnings
+        """,
+        testMode = TestMode.DEFAULT
+      )
+      .expect("No warnings.", testMode = TestMode.PARTIAL)
   }
 }

@@ -26,6 +26,7 @@ import com.android.ide.common.rendering.api.ResourceNamespace.TODO
 import com.android.resources.ResourceType.LAYOUT
 import com.android.tools.lint.checks.RtlDetector.getFolderVersion
 import com.android.tools.lint.client.api.ResourceReference
+import com.android.tools.lint.client.api.ResourceRepositoryScope
 import com.android.tools.lint.client.api.ResourceRepositoryScope.LOCAL_DEPENDENCIES
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.Detector
@@ -85,9 +86,9 @@ class RemoteViewDetector : Detector(), SourceCodeScanner {
     }
 
     val client = context.client
-    val full = context.isGlobalAnalysis()
-    val project = if (full) context.mainProject else context.project
-    val resources = context.client.getResources(project, LOCAL_DEPENDENCIES)
+    val resources =
+      if (context.isGlobalAnalysis()) client.getResources(context.mainProject, LOCAL_DEPENDENCIES)
+      else client.getResources(context.project, ResourceRepositoryScope.PROJECT_ONLY)
 
     // See if the associated resource references propertyValuesHolder, and if so
     // suggest switching to AnimatorInflaterCompat.loadAnimator.

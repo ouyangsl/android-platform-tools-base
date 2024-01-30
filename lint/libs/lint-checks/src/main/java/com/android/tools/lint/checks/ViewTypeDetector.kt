@@ -39,6 +39,7 @@ import com.android.resources.ResourceType
 import com.android.resources.ResourceUrl
 import com.android.tools.lint.client.api.JavaEvaluator
 import com.android.tools.lint.client.api.ResourceRepositoryScope.LOCAL_DEPENDENCIES
+import com.android.tools.lint.client.api.ResourceRepositoryScope.PROJECT_ONLY
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.ConstantEvaluator
 import com.android.tools.lint.detector.api.Context
@@ -258,9 +259,10 @@ open class ViewTypeDetector : ResourceXmlDetector(), SourceCodeScanner {
       if (id != null || tag != null) {
         // We can't search for tags in the resource repository incrementally
         if (id != null) {
-          val full = context.isGlobalAnalysis()
-          val project = if (full) context.mainProject else context.project
-          val resources = client.getResources(project, LOCAL_DEPENDENCIES)
+          val resources =
+            if (context.isGlobalAnalysis())
+              client.getResources(context.mainProject, LOCAL_DEPENDENCIES)
+            else client.getResources(context.project, PROJECT_ONLY)
           val items = resources.getResources(ResourceNamespace.TODO(), ResourceType.ID, id)
           if (items.isNotEmpty()) {
             val compatible = HashSet<String>()

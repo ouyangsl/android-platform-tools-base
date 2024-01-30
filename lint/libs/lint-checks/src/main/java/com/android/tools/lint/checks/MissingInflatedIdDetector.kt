@@ -24,6 +24,7 @@ import com.android.resources.ResourceUrl
 import com.android.tools.lint.checks.ViewTypeDetector.Companion.FIND_VIEW_BY_ID
 import com.android.tools.lint.checks.ViewTypeDetector.Companion.REQUIRE_VIEW_BY_ID
 import com.android.tools.lint.client.api.ResourceRepositoryScope.LOCAL_DEPENDENCIES
+import com.android.tools.lint.client.api.ResourceRepositoryScope.PROJECT_ONLY
 import com.android.tools.lint.detector.api.Category
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Implementation
@@ -65,10 +66,10 @@ class MissingInflatedIdDetector : Detector(), SourceCodeScanner {
   override fun visitMethodCall(context: JavaContext, node: UCallExpression, method: PsiMethod) {
     val layoutUrl = findLayout(context, node) ?: return
     val idUrl = getFirstArgAsResource(node, context) ?: return
-
-    val full = context.isGlobalAnalysis()
-    val project = if (full) context.mainProject else context.project
-    val resources = context.client.getResources(project, LOCAL_DEPENDENCIES)
+    val client = context.client
+    val resources =
+      if (context.isGlobalAnalysis()) client.getResources(context.mainProject, LOCAL_DEPENDENCIES)
+      else client.getResources(context.project, PROJECT_ONLY)
     val items = resources.getResources(ResourceNamespace.TODO(), layoutUrl.type, layoutUrl.name)
     if (items.isEmpty()) return
     val id = idUrl.name

@@ -408,7 +408,10 @@ class StringFormatDetector
       val client = context.client
       val full = context.isGlobalAnalysis()
       val project = if (full) context.mainProject else context.project
-      val resources = client.getResources(project, ResourceRepositoryScope.LOCAL_DEPENDENCIES)
+      val scope =
+        if (full) ResourceRepositoryScope.LOCAL_DEPENDENCIES
+        else ResourceRepositoryScope.PROJECT_ONLY
+      val resources = client.getResources(project, scope)
       val items: List<ResourceItem>
       items = resources.getResources(ResourceNamespace.TODO(), ResourceType.STRING, name)
       for (item in items) {
