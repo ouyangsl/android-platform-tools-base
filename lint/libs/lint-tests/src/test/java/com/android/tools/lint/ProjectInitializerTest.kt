@@ -358,8 +358,7 @@ class ProjectInitializerTest {
 
     MainTest.checkDriver(
       """
-            baseline.xml: Information: 1 error was filtered out because it is listed in the baseline file, baseline.xml
-             [LintBaseline]
+            baseline.xml: Information: 1 error was filtered out because it is listed in the baseline file, baseline.xml [LintBaseline]
             project.xml:5: Error: test.jar (relative to ROOT) does not exist [LintError]
             <classpath jar="test.jar" />
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2789,20 +2788,20 @@ class ProjectInitializerTest {
             <src file="androidApp/src/main/java/pkg/android/MyApplicationTheme.kt" />
             <src file="androidApp/src/main/java/pkg/android/expect.kt" />
             <src file="androidApp/src/main/java/pkg/android/actual.kt" />
-            <dep module="shared" kind="dependsOn" />
+            <dep module="commonMain" kind="dependsOn" />
           </module>
 
           <module name="iosApp" android="false" library="false">
             <src file="iosApp/iosApp/ContentView.swift" />
             <src file="iosApp/iosApp/iOSApp.swift" />
-            <dep module="shared" kind="dependsOn"/>
+            <dep module="commonMain" kind="dependsOn"/>
           </module>
 
-          <module name="shared" android="false">
+          <module name="commonMain" android="false">
             <src file="shared/src/commonMain/kotlin/pkg/Platform.kt" />
             <src file="shared/src/androidMain/kotlin/pkg/Platform.kt" />
             <src file="shared/src/iosMain/kotlin/pkg/Platform.kt" />
-            <klib file="libs/SomeKlib.klib" />
+            <klib file="shared/libs/SomeKlib.klib" />
           </module>
         </project>
       """
@@ -3219,7 +3218,7 @@ src/main/AndroidManifest.xml:7: Warning: You must set android:targetSdkVersion t
             <klib file="shared/build/common.klib" kind="dependsOn"/>
           </module>
 
-          <module name="shared">
+          <module name="commonMain">
             <src file="shared/src/androidMain/kotlin/pkg/Platform.kt" />
           </module>
         </project>

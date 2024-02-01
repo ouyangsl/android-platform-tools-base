@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
- // This proto definition is copied from packages/modules/adb/proto/app_processes.proto
+package com.android.tools.preview.screenshot.junit.engine
 
- syntax = "proto3";
- option java_package = "com.android.server.adb.protos";
- option java_outer_classname = "AppProcessesProto";
- package adb.proto;
- message ProcessEntry {
-     int64 pid = 1;
-     bool debuggable = 2;
-     bool profileable = 3;
-     string architecture = 4;
- }
- message AppProcesses {
-   repeated ProcessEntry process = 1;
- }
+import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor
+import org.junit.platform.engine.TestDescriptor.Type
+
+internal class PreviewTestDescriptor(methodDescriptor: TestMethodDescriptor, methodName: String, runNumber: Int, parameterSuffix: String) :
+    AbstractTestDescriptor(methodDescriptor.uniqueId.append("run", runNumber.toString()),"${methodName}${parameterSuffix}") {
+
+    override fun getType(): Type = Type.TEST
+}

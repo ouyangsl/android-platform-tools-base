@@ -7,6 +7,7 @@ filegroup(
     name = "agp_gradle_build_files",
     srcs = glob([
         "src/main/**/*.kt",
+        "src/main/resources/**",
     ]) + [
         "build.gradle",
     ],
@@ -41,9 +42,13 @@ maven_repository(
     # keep sorted
     artifacts = [
         "//tools/base/multipreview-asm",
+        "//tools/base/standalone-render/compose-cli:standalone-render.compose-cli",
         "//tools/base/standalone-render/compose-cli-serialize:standalone-render.compose-cli-serialize",
         "//tools/base/testutils:tools.testutils",
         "@maven//:org.jetbrains.kotlin.kotlin-test-junit_1.7.10",
+    ],
+    visibility = [
+        "//tools/base/build-system/integration-test:__subpackages__",
     ],
 )
 
@@ -53,9 +58,6 @@ maven_repository(
     artifacts = [
         "//tools/base/multipreview-asm",
         "//tools/base/standalone-render/compose-cli-serialize:standalone-render.compose-cli-serialize",
-    ],
-    visibility = [
-        "//tools/base/build-system/integration-test:__subpackages__",
     ],
 )
 
@@ -74,7 +76,7 @@ gradle_build(
     tasks = [":zipPlugin"],
     visibility = [
         "//tools/base/build-system/integration-test:__subpackages__",
-        "//tools/base/gmaven:__pkg__",
+        "//tools/base/preview/screenshot:__pkg__",
     ],
 )
 

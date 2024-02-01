@@ -20,12 +20,11 @@ import com.android.tools.render.compose.readComposeScreenshotsJson
 import com.android.tools.render.compose.readComposeRenderingResultJson
 import com.android.tools.render.compose.ComposeScreenshot
 import com.android.tools.render.compose.ComposeScreenshotResult
-import com.android.utils.FileUtils
-import com.android.utils.cxx.os.getEnvironmentPaths
 import java.io.File
 import javax.imageio.ImageIO
 import org.junit.platform.engine.support.descriptor.EngineDescriptor
 import org.junit.platform.engine.EngineDiscoveryRequest
+import org.junit.platform.engine.EngineExecutionListener
 import org.junit.platform.engine.ExecutionRequest
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.TestEngine
@@ -58,7 +57,7 @@ class PreviewScreenshotTestEngine : TestEngine {
             .addClassContainerSelectorResolver { testClass ->
                 tests.classes.contains(testClass.getName())
             }
-            .addSelectorResolver { ctx -> ClassSelectorResolver(ctx.getClassNameFilter(), tests) }
+            .addSelectorResolver { ctx -> ClassSelectorResolver(ctx.classNameFilter, tests) }
             .addSelectorResolver(MethodSelectorResolver(tests))
             .build()
             .resolve(discoveryRequest, engineDescriptor)
@@ -71,35 +70,33 @@ class PreviewScreenshotTestEngine : TestEngine {
         val resultFile = File(getParam("renderTaskOutputDirPath")).toPath().resolve("results.json").toFile()
         val composeRenderingResult = readComposeRenderingResultJson(resultFile.reader())
         val screenshotResults = composeRenderingResult.screenshotResults
-        for (classDescriptor in request.getRootTestDescriptor().getChildren()) {
+        for (classDescriptor in request.rootTestDescriptor.children) {
             listener.executionStarted(classDescriptor)
-            var classTestResult = TestExecutionResult.successful()
-            for (methodDescriptor in classDescriptor.getChildren()) {
-                listener.executionStarted(methodDescriptor)
+            for (methodDescriptor in classDescriptor.children) {
+                val methodResults = mutableListOf<PreviewResult>()
                 val className: String = (methodDescriptor as TestMethodDescriptor).className
                 val methodName: String = methodDescriptor.methodName
                 val screenshots =
                     screenshotResults.filter {
                         it.resultId.contains(className) && it.resultId.contains(methodName)
                     }
-                for (screenshot in screenshots) {
-                    val imageComparison = compareImages(screenshot!!)
-                    resultsToSave.add(imageComparison)
-                }
-                val failedComparisons = resultsToSave.filter { it.responseCode != 0 }
-                val testResult = if (failedComparisons.size != 0) {
-                    val reportUrl = File(File(getParam("reportUrlPath")), "index.html").toURI().toASCIIString()
-                    classTestResult =
-                        TestExecutionResult.failed(AssertionError("There were failing tests. Creating test report at $reportUrl"))
-                    TestExecutionResult.failed(AssertionError(failedComparisons.first().message))
+                if (screenshots.size == 1) {
+                    methodResults.add(reportResult(listener, screenshots.first(), methodDescriptor))
                 } else {
-                    TestExecutionResult.successful()
+                    for ((run, screenshot) in screenshots.withIndex()) {
+                        // TODO(323000624): Gather preview parameters here instead of using a hash for the test suffix
+                        val suffix = screenshot.resultId.split(methodName).last()
+                        val previewTestDescriptor = PreviewTestDescriptor(methodDescriptor, methodName, run, suffix)
+                        methodDescriptor.addChild(previewTestDescriptor)
+                        listener.dynamicTestRegistered(previewTestDescriptor)
+                        methodResults.add(reportResult(listener, screenshot, previewTestDescriptor))
+                    }
                 }
-                listener.executionFinished(methodDescriptor, testResult)
+                resultsToSave.addAll(methodResults)
             }
-            listener.executionFinished(classDescriptor, classTestResult)
+            listener.executionFinished(classDescriptor, TestExecutionResult.successful())
         }
-        if (!resultsToSave.isEmpty()) {
+        if (resultsToSave.isNotEmpty()) {
             saveResults(resultsToSave, getParam("resultsFilePath"))
         }
     }
@@ -170,5 +167,15 @@ class PreviewScreenshotTestEngine : TestEngine {
 
     private fun getParam(key: String): String {
         return System.getProperty("com.android.tools.preview.screenshot.junit.engine.${key}")
+    }
+
+    private fun reportResult(listener: EngineExecutionListener, screenshot: ComposeScreenshotResult, testDescriptor: TestDescriptor): PreviewResult  {
+        listener.executionStarted(testDescriptor)
+        val imageComparison = compareImages(screenshot)
+        val result = if (imageComparison.responseCode != 0) {
+            TestExecutionResult.failed(AssertionError(imageComparison.message))
+        } else TestExecutionResult.successful()
+        listener.executionFinished(testDescriptor, result)
+        return imageComparison
     }
 }

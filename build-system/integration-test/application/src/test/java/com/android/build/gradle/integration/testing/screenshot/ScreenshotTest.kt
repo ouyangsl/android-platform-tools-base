@@ -16,21 +16,22 @@
 
 package com.android.build.gradle.integration.testing.screenshot
 
+import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
+import com.android.build.gradle.integration.common.fixture.GradleTaskExecutor
 import com.android.build.gradle.integration.common.fixture.testprojects.PluginType
 import com.android.build.gradle.integration.common.fixture.testprojects.createGradleProjectBuilder
 import com.android.build.gradle.integration.common.fixture.testprojects.prebuilts.setUpHelloWorld
+import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.options.BooleanOption
-import com.android.testutils.TestUtils
+import com.android.testutils.TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS
+import com.google.common.truth.Truth.assertThat
 import com.android.testutils.truth.PathSubject.assertThat
-import com.android.utils.FileUtils
-import org.junit.After
-import org.junit.Assert.assertThrows
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
+import kotlin.io.path.listDirectoryEntries
 
-@org.junit.Ignore("b/293505436: ScreenshotTest fails with IntelliJ 2023.2")
 class ScreenshotTest {
 
     @get:Rule
@@ -63,95 +64,184 @@ class ScreenshotTest {
                               "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
                             ]
                         }
+                        kotlin {
+                            jvmToolchain(17)
+                        }
+                        testOptions {
+                            unitTests.includeAndroidResources true
+                        }
                     }
                 """.trimIndent()
             }
             addFile(
-                    "src/main/kotlin/com/Example.kt", """
-                package foo
+                    "src/main/java/com/Example.kt", """
+                package pkg.name
 
-                import androidx.compose.foundation.layout.Column
                 import androidx.compose.material.Text
                 import androidx.compose.runtime.Composable
 
                 @Composable
-                fun MainView() {
-                    Column {
-                        Text(text = "Hello World")
-                    }
+                fun SimpleComposable() {
+                    Text("Hello World")
                 }
             """.trimIndent()
             )
             addFile(
-                    "src/androidTest/kotlin/com/ExampleTest.kt", """
-                package foo
+                    "src/androidTest/java/com/ExampleTest.kt", """
+                package pkg.name
 
                 import androidx.compose.ui.tooling.preview.Preview
                 import androidx.compose.runtime.Composable
 
-                @Preview(showBackground = true)
-                @Composable
-                fun MainViewTest() {
-                    MainView()
+                class ExampleTest {
+                    @Preview(showBackground = true)
+                    @Composable
+                    fun simpleComposableTest() {
+                        SimpleComposable()
+                    }
+
+                    @Preview(showBackground = true)
+                    @Preview(showBackground = false)
+                    @Composable
+                    fun multiPreviewTest() {
+                        SimpleComposable()
+                    }
                 }
             """.trimIndent()
             )
         }
     }
             .withKotlinGradlePlugin(true)
-            .withKotlinVersion(TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS)
+            .withKotlinVersion(KOTLIN_VERSION_FOR_COMPOSE_TESTS)
             .create()
 
-    @After
-    fun tearDown() {
-        // Delete any golden images saved during test
-        val goldenImageDir = File(project.projectDir.absolutePath + "/src/androidTest/screenshot")
-        FileUtils.deleteRecursivelyIfExists(goldenImageDir)
+    @Before
+    fun setUp() {
+        TestFileUtils.appendToFile(
+            project.buildFile,
+            """
+                buildscript {
+                    dependencies {
+                        classpath "com.android.tools.preview.screenshot:preview-screenshot-gradle-plugin:+"
+                    }
+                }
+                apply plugin: 'com.android.tools.preview.screenshot'
+            """.trimIndent()
+        )
     }
 
     @Test
-    fun runScreenshotTestAndRecordGolden() {
-        project.executor()
-                .with(BooleanOption.USE_ANDROID_X, true)
-                .with(BooleanOption.ENABLE_SCREENSHOT_TEST, true)
-                .run("previewScreenshotUpdateDebugAndroidTest")
-
-        assertThat(project.file(project.projectDir.absolutePath + "/src/androidTest/screenshot/debug/MainViewTest.png")).exists()
+    fun discoverPreviews() {
+        getExecutor().run("debugPreviewDiscovery")
+        val previewsDiscoveredFile  = project.buildDir.resolve("intermediates/preview/debug/previews_discovered.json")
+        assert(previewsDiscoveredFile.exists())
+        assertThat(previewsDiscoveredFile.readText()).isEqualTo("""
+            {
+              "screenshots": [
+                {
+                  "methodFQN": "pkg.name.ExampleTest.simpleComposableTest",
+                  "methodParams": [],
+                  "previewParams": {
+                    "showBackground": "true"
+                  },
+                  "imageName": "pkg.name.ExampleTest.simpleComposableTest_3d8b4969_da39a3ee"
+                },
+                {
+                  "methodFQN": "pkg.name.ExampleTest.multiPreviewTest",
+                  "methodParams": [],
+                  "previewParams": {
+                    "showBackground": "true"
+                  },
+                  "imageName": "pkg.name.ExampleTest.multiPreviewTest_3d8b4969_da39a3ee"
+                },
+                {
+                  "methodFQN": "pkg.name.ExampleTest.multiPreviewTest",
+                  "methodParams": [],
+                  "previewParams": {
+                    "showBackground": "false"
+                  },
+                  "imageName": "pkg.name.ExampleTest.multiPreviewTest_a45d2556_da39a3ee"
+                }
+              ]
+            }
+        """.trimIndent())
     }
 
     @Test
-    fun runScreenshotTestWithNoGoldenFails() {
-        assertThrows(Exception::class.java) {
-            project.executor()
-                    .with(BooleanOption.USE_ANDROID_X, true)
-                    .with(BooleanOption.ENABLE_SCREENSHOT_TEST, true)
-                    .run("previewScreenshotDebugAndroidTest")
-        }
+    fun runPreviewScreenshotTest() {
+        // Generate screenshots to be tested against
+        getExecutor().run("previewScreenshotUpdateDebugAndroidTest")
 
-        assertThat(
-                project.getOutputFile(
-                        "androidTest-results","screenshot","debug",
-                        "MainViewTest.png")).doesNotExist()
-    }
+        val simpleComposableTestScreenshot  = project.file("src/androidTest/screenshot/debug/pkg.name.ExampleTest.simpleComposableTest_3d8b4969_da39a3ee_0.png")
+        val multipreviewTestScreenshot1  = project.file("src/androidTest/screenshot/debug/pkg.name.ExampleTest.multiPreviewTest_3d8b4969_da39a3ee_0.png")
+        val multipreviewTestScreenshot2  = project.file("src/androidTest/screenshot/debug/pkg.name.ExampleTest.multiPreviewTest_a45d2556_da39a3ee_0.png")
+        assertThat(simpleComposableTestScreenshot).exists()
+        assertThat(multipreviewTestScreenshot1).exists()
+        assertThat(multipreviewTestScreenshot2).exists()
 
-    @Test
-    fun runScreenshotTestVerifyScreenshot() {
-        project.executor()
-            .with(BooleanOption.USE_ANDROID_X, true)
-            .with(BooleanOption.ENABLE_SCREENSHOT_TEST, true)
-            .run("previewScreenshotUpdateDebugAndroidTest")
-
-        assertThat(project.file(project.projectDir.absolutePath + "/src/androidTest/screenshot/debug/MainViewTest.png")).exists()
-
-        project.executor()
-            .with(BooleanOption.USE_ANDROID_X, true)
-            .with(BooleanOption.ENABLE_SCREENSHOT_TEST, true)
+        // Validate previews matches screenshots
+        getExecutor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF) // TODO(322357154) Remove this when configuration caching issues are resolved
             .run("previewScreenshotDebugAndroidTest")
 
-        assertThat(
-                project.getOutputFile(
-                        "androidTest-results","screenshot","debug",
-                        "MainViewTest_diff.png")).doesNotExist()
+        // Verify that test engine generated HTML reports and all tests pass
+        val indexHtmlReport = project.buildDir.resolve("reports/tests/previewScreenshotDebugAndroidTest/index.html")
+        val classHtmlReport = project.buildDir.resolve("reports/tests/previewScreenshotDebugAndroidTest/classes/pkg.name.ExampleTest.html")
+        val packageHtmlReport = project.buildDir.resolve("reports/tests/previewScreenshotDebugAndroidTest/packages/pkg.name.html")
+        assertThat(indexHtmlReport).exists()
+        assertThat(classHtmlReport).exists()
+        var classHtmlText = classHtmlReport.readText()
+        assertThat(classHtmlText).doesNotContain("Failed tests")
+        assertThat(classHtmlText).contains(
+            """<td class="success">simpleComposableTest</td>"""
+        )
+        assertThat(classHtmlText).contains(
+            """<td class="success">multiPreviewTest_3d8b4969_da39a3ee_0</td>"""
+        )
+        assertThat(classHtmlText).contains(
+            """<td class="success">multiPreviewTest_a45d2556_da39a3ee_0</td>"""
+        )
+        assertThat(packageHtmlReport).exists()
+
+        // Assert that no diff images were generated because screenshot matched the reference image
+        val diffDir = project.buildDir.resolve("outputs/androidTest-results/preview/debug/diffs").toPath()
+        assert(diffDir.listDirectoryEntries().isEmpty())
+
+        // Update previews to be different from the references
+        val testFile = project.projectDir.resolve("src/main/java/com/Example.kt")
+        TestFileUtils.searchAndReplace(testFile, "Hello World", "HelloWorld ")
+
+        // Rerun validation task - tests should fail and diffs are generated
+        getExecutor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.OFF) // TODO(322357154) Remove this when configuration caching issues are resolved
+            .expectFailure()
+            .run("previewScreenshotDebugAndroidTest")
+
+        assertThat(indexHtmlReport).exists()
+        assertThat(classHtmlReport).exists()
+        classHtmlText = classHtmlReport.readText()
+        assertThat(classHtmlText).contains("Failed tests")
+        assertThat(classHtmlText).contains(
+            """<td class="failures">simpleComposableTest</td>"""
+        )
+        assertThat(classHtmlText).contains(
+            """<td class="failures">multiPreviewTest_3d8b4969_da39a3ee_0</td>"""
+        )
+        assertThat(classHtmlText).contains(
+            """<td class="failures">multiPreviewTest_a45d2556_da39a3ee_0</td>"""
+        )
+        assertThat(packageHtmlReport).exists()
+
+        val simpleComposableTestDiff = diffDir.resolve("pkg.name.ExampleTest.simpleComposableTest_3d8b4969_da39a3ee_0.png")
+        val multipreviewTestDiff1 = diffDir.resolve("pkg.name.ExampleTest.multiPreviewTest_3d8b4969_da39a3ee_0.png")
+        val multipreviewTestDiff2 = diffDir.resolve("pkg.name.ExampleTest.multiPreviewTest_a45d2556_da39a3ee_0.png")
+        assertThat(simpleComposableTestDiff).exists()
+        assertThat(multipreviewTestDiff1).exists()
+        assertThat(multipreviewTestDiff2).exists()
     }
 
+    private fun getExecutor(): GradleTaskExecutor =
+        project.executor()
+            .with(BooleanOption.USE_ANDROID_X, true)
+            .withFailOnWarning(false) // TODO(298678053): Remove after updating TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS to 1.8.0+
 }
