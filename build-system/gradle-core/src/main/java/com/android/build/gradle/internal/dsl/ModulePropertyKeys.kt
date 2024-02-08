@@ -138,7 +138,20 @@ sealed interface ModulePropertyKey<OutputT> {
          * If false - Screenshot tests support will not be enabled
          * If true - Screenshot test support will be enabled
          */
-        SCREENSHOT_TEST("android.experimental.enableScreenshotTest", false)
+        SCREENSHOT_TEST("android.experimental.enableScreenshotTest", false),
+
+        /**
+         * This option only affects to running instrumented tests on devices API level 24 and above.
+         * If false - Does not run AOT compile forcibly
+         * If true - Run AOT compile forcibly after installation before running the app
+         */
+        FORCE_AOT_COMPILATION("android.experimental.force-aot-compilation", false),
+
+        /**
+         * If false - D8 will not attempt to optimize startup dex
+         * If true - D8 will optimize first dex for optimal startup performance.
+         */
+        D8_DEX_STARTUP_OPTIMIZATION("android.experimental.d8.dex-startup-optimization", false),
         ;
 
         override fun getValue(properties: Map<String, Any>): Boolean {

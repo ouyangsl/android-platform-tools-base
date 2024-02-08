@@ -34,6 +34,7 @@ import com.android.build.gradle.internal.component.features.DexingCreationConfig
 import com.android.build.gradle.internal.core.VariantSources
 import com.android.build.gradle.internal.core.dsl.ApplicationVariantDslInfo
 import com.android.build.gradle.internal.dependency.VariantDependencies
+import com.android.build.gradle.internal.dsl.ModulePropertyKey
 import com.android.build.gradle.internal.profile.ProfilingMode
 import com.android.build.gradle.internal.publishing.VariantPublishingInfo
 import com.android.build.gradle.internal.scope.BuildFeatureValues
@@ -94,8 +95,11 @@ open class ApplicationVariantImpl @Inject constructor(
         )
     }
 
-    override val androidResources: AndroidResourcesImpl by lazy {
-        getAndroidResources(dslInfo.androidResourcesDsl.androidResources)
+    override val androidResources: ApplicationAndroidResourcesImpl by lazy {
+        ApplicationAndroidResourcesImpl(
+            getAndroidResources(dslInfo.androidResourcesDsl.androidResources),
+            variantBuilder.androidResources.generateLocaleConfig,
+        )
     }
 
     override val signingConfig: SigningConfigImpl by lazy {
@@ -117,7 +121,6 @@ open class ApplicationVariantImpl @Inject constructor(
 
     override val publishInfo: VariantPublishingInfo?
         get() = dslInfo.publishInfo
-
     override var androidTest: AndroidTestImpl? = null
 
     override var testFixtures: TestFixturesImpl? = null
@@ -275,9 +278,6 @@ open class ApplicationVariantImpl @Inject constructor(
     override val isWearAppUnbundled: Boolean?
         get() = dslInfo.isWearAppUnbundled
 
-    override val generateLocaleConfig: Boolean
-        get() = dslInfo.generateLocaleConfig
-
     override val enableApiModeling: Boolean
         get() = isApiModelingEnabled()
 
@@ -286,4 +286,9 @@ open class ApplicationVariantImpl @Inject constructor(
 
     override val includeVcsInfo: Boolean?
         get() = dslInfo.includeVcsInfo
+
+    override val isForceAotCompilation: Boolean
+        get() = experimentalProperties.map {
+            ModulePropertyKey.BooleanWithDefault.FORCE_AOT_COMPILATION.getValue(it)
+        }.getOrElse(false)
 }

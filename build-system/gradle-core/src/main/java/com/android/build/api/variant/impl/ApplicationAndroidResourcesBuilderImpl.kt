@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-package com.android.builder.model.v2.ide
+package com.android.build.api.variant.impl
 
-import com.android.builder.model.v2.AndroidModel
+import com.android.build.api.variant.ApplicationAndroidResourcesBuilder
 
-/**
- * Options for adb.
- *
- * @since 4.2
- */
-interface AdbOptions: AndroidModel {
+class ApplicationAndroidResourcesBuilderImpl(
+    override var generateLocaleConfig: Boolean
+) : ApplicationAndroidResourcesBuilder {
 
-    /** The time out used for all adb operations. */
-    val timeOutInMs: Int
-
-    /** The list of APK installation options. */
-    val installOptions: Collection<String>?
 }

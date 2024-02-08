@@ -34,7 +34,6 @@ import com.android.adblib.syncRecv
 import com.android.adblib.syncSend
 import com.android.adblib.syncStat
 import com.android.adblib.tools.EmulatorCommandException
-import com.android.adblib.tools.defaultAuthTokenPath
 import com.android.adblib.tools.localConsoleAddress
 import com.android.adblib.tools.openEmulatorConsole
 import com.android.adblib.withErrorTimeout
@@ -110,7 +109,18 @@ internal class AdblibIDeviceWrapper(
 
     /** Name and path of the AVD  */
     private val mAvdData = connectedDevice.scope.async { createAvdData() }
-
+    private var mAvdName: String? = null
+    private var mAvdPath: String? = null
+    init {
+        mAvdData.invokeOnCompletion { throwable ->
+            if (throwable == null) {
+                mAvdName = mAvdData.getCompleted()?.name
+                mAvdPath = mAvdData.getCompleted()?.path
+            } else if (throwable !is CancellationException) {
+                logger.warn(throwable, "`createAvdData` completed exceptionally")
+            }
+        }
+    }
     private val mUserDataMap = UserDataMapImpl()
 
     override fun getName(): String {
@@ -217,13 +227,13 @@ internal class AdblibIDeviceWrapper(
     @Deprecated("")
     override fun getAvdName(): String? =
         logUsage(IDeviceUsageTracker.Method.GET_AVD_NAME) {
-            if (mAvdData.isCompleted) mAvdData.getCompleted()?.name else null
+            return mAvdName
         }
 
     @Deprecated("")
     override fun getAvdPath(): String? =
         logUsage(IDeviceUsageTracker.Method.GET_AVD_PATH) {
-            if (mAvdData.isCompleted) mAvdData.getCompleted()?.path else null
+            return mAvdPath
         }
 
     override fun getAvdData(): ListenableFuture<AvdData?> =
@@ -239,10 +249,7 @@ internal class AdblibIDeviceWrapper(
         val port = emulatorMatchResult.groupValues[1].toIntOrNull() ?: return null
 
         return try {
-            connectedDevice.session.openEmulatorConsole(
-                localConsoleAddress(port),
-                defaultAuthTokenPath()
-            ).use {
+            connectedDevice.session.openEmulatorConsole(localConsoleAddress(port)).use {
                 val avdName = kotlin.runCatching { it.avdName() }.getOrNull()
                 val path = kotlin.runCatching { it.avdPath() }.getOrNull()
 

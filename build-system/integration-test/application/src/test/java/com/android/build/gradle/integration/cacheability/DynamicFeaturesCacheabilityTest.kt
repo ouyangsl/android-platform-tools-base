@@ -166,6 +166,7 @@ class DynamicFeaturesCacheabilityTest {
                     ":app:mergeDebugJavaResource", /* Bug 181142260 */
                     ":app:mergeDebugJniLibFolders",
                     ":app:mergeDebugShaders",
+                    ":app:mergeDebugStartupProfile", /** Intentionally not cacheable. See [com.android.build.gradle.internal.tasks.MergeStartupProfileTask]*/
                     ":app:packageDebug", /* Bug 74595859 */
                     ":app:preDebugBuild", /** Intentionally not cacheable. See [com.android.build.gradle.internal.tasks.AppPreBuildTask]*/
                     ":app:signingConfigWriterDebug", /** Intentionally not cacheable. See [com.android.build.gradle.internal.tasks.SigningConfigWriterTask]*/
@@ -176,6 +177,7 @@ class DynamicFeaturesCacheabilityTest {
 
                     ":feature1:checkDebugAarMetadata", /** Intentionally not cacheable. See [com.android.build.gradle.internal.tasks.CheckAarMetadataTask] */
                     ":feature1:checkDebugDuplicateClasses", /** Intentionally not cacheable. See [com.android.build.gradle.internal.tasks.CheckDuplicateClassesTask] */
+                    ":feature1:copyDebugMergedManifest",
                     ":feature1:createDebugApkListingFileRedirect",
                     ":feature1:extractProguardFiles", // intentionally not cacheable
                     ":feature1:featureDebugWriter",
@@ -190,6 +192,7 @@ class DynamicFeaturesCacheabilityTest {
 
                     ":feature2:checkDebugAarMetadata", /** Intentionally not cacheable. See [com.android.build.gradle.internal.tasks.CheckAarMetadataTask] */
                     ":feature2:checkDebugDuplicateClasses", /** Intentionally not cacheable. See [com.android.build.gradle.internal.tasks.CheckDuplicateClassesTask] */
+                    ":feature2:copyDebugMergedManifest",
                     ":feature2:createDebugApkListingFileRedirect",
                     ":feature2:extractProguardFiles", // intentionally not cacheable
                     ":feature2:featureDebugWriter",
