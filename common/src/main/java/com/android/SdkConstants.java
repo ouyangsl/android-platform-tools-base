@@ -67,6 +67,8 @@ public final class SdkConstants {
 
     /** Property in local.properties file that specifies the path of the Android SDK. */
     public static final String SDK_DIR_PROPERTY = "sdk.dir";
+    /** Fallback property in local.properties file that specifies the path of the Android SDK. */
+    public static final String ANDROID_DIR_PROPERTY = "android.dir";
 
     /**
      * A maximum version of the Android SDK that this version of AGP and Android Studio IDE can
@@ -168,6 +170,8 @@ public final class SdkConstants {
     public static final String FN_GRADLE_PROPERTIES = "gradle.properties";
     /** An SDK Project's Gradle cache config.properties file */
     public static final String FN_GRADLE_CONFIG_PROPERTIES = "config.properties";
+    /** An SDK Project's Resources properties file */
+    public static final String FN_RESOURCES_PROPERTIES = "resources.properties";
     /** An SDK Project's libs.versions.toml file */
     public static final String FN_VERSION_CATALOG = "libs.versions.toml";
     /** An SDK Project's gradle daemon executable */
@@ -2865,7 +2869,7 @@ public final class SdkConstants {
      * Studio product. It need not actually be the latest version of Gradle, but it will most likely
      * be fairly recent.
      */
-    public static final String GRADLE_LATEST_VERSION = "8.6-rc-1";
+    public static final String GRADLE_LATEST_VERSION = "8.6";
 
     /**
      * The minimum released version of the Android Gradle Plugin that this version of Studio will
@@ -3027,4 +3031,7 @@ public final class SdkConstants {
 
     /** Url protocol of a file. */
     public static final String FILE_PROTOCOL = "file";
+
+    /** Sdk downloadable fonts folder. */
+    public static final String SDK_DL_FONTS_FOLDER = "fonts";
 }

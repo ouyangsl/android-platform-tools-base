@@ -236,15 +236,6 @@ java_import(
 )
 
 platform_filegroup(
-    name = "platforms/android-TiramisuPrivacySandbox",
-    visibility = [
-        "//prebuilts/studio/buildbenchmarks:__pkg__",
-        "//tools/adt/idea/project-system-gradle:__subpackages__",
-        "//tools/base/build-system/integration-test:__subpackages__",
-    ],
-)
-
-platform_filegroup(
     name = "platforms/android-34",
     visibility = ["//visibility:public"],
 )
@@ -336,12 +327,22 @@ platform_filegroup(
 
 filegroup(
     name = "emulator",
-    srcs = sdk_glob(
-        include = ["emulator/**"],
-    ),
+    srcs = select({
+        "//tools/base/bazel:darwin_arm64": [":emulator-arm64"],
+        "//conditions:default": [":emulator-x86_64"],
+    }),
     visibility = ["//visibility:public"],
 )
 
+filegroup(
+    name = "emulator-x86_64",
+    srcs = sdk_glob(include = ["emulator/**"]),
+)
+
+filegroup(
+    name = "emulator-arm64",
+    srcs = sdk_glob(include = ["emulator-arm64/**"]),
+)
 filegroup(
     name = "add-ons/addon-google_apis-google-latest",
     srcs = ["add-ons/addon-google_apis-google-24"],

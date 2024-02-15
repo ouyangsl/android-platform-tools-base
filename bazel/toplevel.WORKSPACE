@@ -143,6 +143,14 @@ http_archive(
 )
 
 http_archive(
+    name = "system_image_android-33_default_arm64",
+    build_file = "//tools/base/bazel/avd:system_images.BUILD",
+    sha256 = "55ba9a20d473dd5351c77342016956342c40375f3e073b65a43dc9db13ccc5c6",
+    strip_prefix = "arm64-v8a",
+    url = "https://dl.google.com/android/repository/sys-img/android/arm64-v8a-33_r02.zip",
+)
+
+http_archive(
     name = "system_image_android-33_aosp_atd_x86_64",
     build_file = "//tools/base/bazel/avd:system_images.BUILD",
     sha256 = "d17967001f453c4b82d09dd3d6931b938c16c9f2bf0e054b521293ca24e3b95e",
@@ -156,14 +164,6 @@ http_archive(
     sha256 = "74b0a57c2cfee755dcf7645e5da9d5468a2982af0bf012dfb46f661bc8b9f84a",
     strip_prefix = "x86_64",
     url = "https://dl.google.com/android/repository/sys-img/google_apis_playstore/x86_64-33_r07.zip",
-)
-
-http_archive(
-    name = "system_image_android-TiramisuPrivacySandbox_default_x86_64",
-    build_file = "//tools/base/bazel/avd:system_images.BUILD",
-    sha256 = "cebb267230c4a77cbf3ab984876d9715f11d9e870ebaead486bb58d2a0b28bf1",
-    strip_prefix = "x86_64",
-    url = "https://dl.google.com/android/repository/sys-img/google_apis_playstore/x86_64-TiramisuPrivacySandbox_r06.zip",
 )
 
 # Sdk components when needed by Gradle Managed Devices

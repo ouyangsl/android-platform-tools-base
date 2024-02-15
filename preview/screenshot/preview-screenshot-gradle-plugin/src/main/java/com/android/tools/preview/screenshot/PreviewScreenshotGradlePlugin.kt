@@ -22,7 +22,7 @@ import com.android.build.api.artifact.Artifact
 import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.android.build.api.variant.ApplicationVariant
-import com.android.build.api.variant.HasAndroidTest
+import com.android.build.api.variant.HasDeviceTests
 import com.android.build.api.variant.HasUnitTest
 import com.android.build.api.variant.LibraryVariant
 import com.android.build.api.variant.ScopedArtifacts
@@ -103,7 +103,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
             }
 
             componentsExtension.onVariants { variant ->
-                if (variant is HasAndroidTest) {
+                if (variant is HasDeviceTests) {
                     val variantName = variant.name
 
                     val discoveryTaskProvider =
@@ -119,7 +119,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                             task.analyticsService.set(analyticsServiceProvider)
                             task.usesService(analyticsServiceProvider)
                         }
-                    variant.androidTest?.artifacts
+                    variant.deviceTests.singleOrNull()?.artifacts
                         ?.forScope(ScopedArtifacts.Scope.ALL)
                         ?.use(discoveryTaskProvider)
                         ?.toGet(
@@ -202,7 +202,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                             PreviewScreenshotRenderTask::mainClassesDir,
                         )
 
-                    variant.androidTest?.artifacts
+                    variant.deviceTests.singleOrNull()?.artifacts
                         ?.forScope(ScopedArtifacts.Scope.ALL)
                         ?.use(renderTaskProvider)
                         ?.toGet(
@@ -234,7 +234,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.referenceImageDir.disallowChanges()
                         task.previewFile.set(buildDir.file("$PREVIEW_INTERMEDIATES/$variantSegments/previews_discovered.json"))
                         task.renderTaskOutputDir.set(renderTaskProvider.flatMap { it.outputDir })
-                        task.resultsFile.set(buildDir.file("$PREVIEW_OUTPUT/$variantSegments/results/TEST-results.xml"))
+                        task.resultsDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments/results"))
                         task.diffImageDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments/diffs"))
                         task.diffImageDir.disallowChanges()
                         task.reportFilePath.set(buildDir.dir("$PREVIEW_REPORTS/$variantSegments"))
@@ -252,7 +252,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         }
                         task.testClassesDirs = project.files(renderTaskProvider.flatMap { it.testClassesDir }) + project.files(renderTaskProvider.flatMap { it.testClasspath })
                         task.classpath = task.project.configurations.getByName(previewScreenshotTestEngineConfigurationName) + task.testClassesDirs
-                    }.get()
+                    }
 
                     val screenshotHtmlTask = project.tasks.register(
                         "${variantName}ScreenshotReport",
@@ -260,12 +260,13 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                     ) { task ->
                         val variantSegments = variant.computePathSegments()
                         task.outputDir.set(buildDir.dir("$PREVIEW_REPORTS/$variantSegments"))
-                        task.resultsDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments/results"))
+                        task.resultsDir.set(previewScreenshotValidationTask.flatMap { it.resultsDir })
                         task.analyticsService.set(analyticsServiceProvider)
                         task.usesService(analyticsServiceProvider)
-                        task.onlyIf {previewScreenshotValidationTask.didWork }
                     }
-                    previewScreenshotValidationTask.finalizedBy(screenshotHtmlTask)
+                    previewScreenshotValidationTask.configure {
+                        it.finalizedBy(screenshotHtmlTask)
+                    }
                     validateAllTask.configure { it.dependsOn(previewScreenshotValidationTask) }
                 }
             }

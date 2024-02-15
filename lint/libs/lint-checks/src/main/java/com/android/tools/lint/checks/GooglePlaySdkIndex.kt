@@ -374,7 +374,7 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     buildFile: File?,
   ): LintFix? {
     val url = getSdkUrl(groupId, artifactId)
-    return if (url != null) LintFix.ShowUrl(VIEW_DETAILS_MESSAGE, null, url) else null
+    return if (url.isNullOrBlank()) null else LintFix.ShowUrl(VIEW_DETAILS_MESSAGE, null, url)
   }
 
   /** Generate a message for a library that has blocking policy issues */
@@ -384,7 +384,7 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     versionString: String,
   ): List<String> {
     return getPolicyLabels(getLabels(groupId, artifactId, versionString)).map { label ->
-      "$groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console"
+      "[Prevents app release in Google Play Console] $groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console"
     }
   }
 
@@ -401,7 +401,7 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
 
   /** Generate a message for a library that has blocking critical issues */
   fun generateBlockingCriticalMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has been reported as problematic by its author and will block publishing of your app to Play Console"
+    "[Prevents app release in Google Play Console] $groupId:$artifactId version $versionString has been reported as problematic by its author and will block publishing of your app to Play Console"
 
   /** Generate a message for a library that has non-blocking critical issues */
   fun generateCriticalMessage(groupId: String, artifactId: String, versionString: String) =
@@ -409,11 +409,11 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
 
   /** Generate a message for a library that has blocking outdated issues */
   fun generateBlockingOutdatedMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has been marked as outdated by its author and will block publishing of your app to Play Console"
+    "[Prevents app release in Google Play Console] $groupId:$artifactId version $versionString has been reported as outdated by its author and will block publishing of your app to Play Console"
 
   /** Generate a message for a library that has non-blocking outdated issues */
   fun generateOutdatedMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has been marked as outdated by its author"
+    "$groupId:$artifactId version $versionString has been reported as outdated by its author"
 
   /** Generate a message for a library that has blocking issues */
   fun generateBlockingGenericIssueMessage(

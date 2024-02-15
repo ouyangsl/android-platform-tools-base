@@ -549,9 +549,14 @@ open class GradleTestProject @JvmOverloads constructor(
                 // plugin block should go here
                 apply from: "${File(projectParentDir, "commonHeader.gradle").toURI()}"
 
-                // Treat javac warnings as errors
-                tasks.withType(JavaCompile) {
+                tasks.withType(JavaCompile).configureEach {
+                    // Treat javac warnings as errors
                     options.compilerArgs << "-Werror"
+
+                    // Configure common java toolchain
+                    javaCompiler = javaToolchains.compilerFor {
+                        languageVersion = JavaLanguageVersion.of(17)
+                    }
                 }
 
                 """.trimIndent()
@@ -1343,13 +1348,18 @@ allprojects { proj ->
             .getProject(projectPath, buildName).issues?.syncIssues.orEmpty()
     }
 
-    fun locateBundleFileViaModel(variantName: String, projectPath: String?): File {
-        val bundleFile = modelV2().fetchModels().container.getProject(projectPath).androidProject
+    fun locateBundleFileViaModel(modelV2: ModelBuilderV2, variantName: String, projectPath: String?): File {
+        val bundleFile = modelV2.fetchModels()
+            .container.getProject(projectPath).androidProject
             ?.getVariantByName(variantName)
             ?.getBundleLocation()
 
         return bundleFile
             ?: throw RuntimeException("Failed to get bundle file for $projectPath module")
+    }
+
+    fun locateBundleFileViaModel(variantName: String, projectPath: String?): File {
+        return locateBundleFileViaModel(modelV2(), variantName, projectPath)
     }
 
     fun locateApkFolderViaModel(variantName: String, projectPath: String?): File {

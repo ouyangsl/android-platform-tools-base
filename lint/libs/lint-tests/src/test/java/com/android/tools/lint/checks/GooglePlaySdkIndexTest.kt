@@ -322,6 +322,71 @@ class GooglePlaySdkIndexTest {
                 )
             )
         )
+        // No URL set (causes blank result for indexUrl)
+        .addSdks(
+          Sdk.newBuilder()
+            .addLibraries(
+              Library.newBuilder()
+                .setLibraryId(
+                  LibraryIdentifier.newBuilder()
+                    .setMavenId(
+                      LibraryIdentifier.MavenIdentifier.newBuilder()
+                        .setGroupId("no.url")
+                        .setArtifactId("no.url")
+                        .build()
+                    )
+                )
+                // Ok, latest, no issues
+                .addVersions(
+                  LibraryVersion.newBuilder().setVersionString("2.0.0").setIsLatestVersion(true)
+                )
+                // Policy issues
+                .addVersions(
+                  LibraryVersion.newBuilder()
+                    .setVersionString("1.0.3")
+                    .setIsLatestVersion(false)
+                    .setVersionLabels(
+                      LibraryVersionLabels.newBuilder()
+                        .setPolicyIssuesInfo(
+                          LibraryVersionLabels.PolicyIssuesInfo.newBuilder()
+                            .addViolatedSdkPolicies(
+                              LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_PERMISSIONS
+                            )
+                        )
+                    )
+                )
+                // Ok, no issues
+                .addVersions(
+                  LibraryVersion.newBuilder().setVersionString("1.0.2").setIsLatestVersion(false)
+                )
+                // Ok, no issues
+                .addVersions(
+                  LibraryVersion.newBuilder().setVersionString("1.0.1").setIsLatestVersion(false)
+                )
+                // Outdated
+                .addVersions(
+                  LibraryVersion.newBuilder()
+                    .setVersionString("1.0.0")
+                    .setIsLatestVersion(false)
+                    .setVersionLabels(
+                      LibraryVersionLabels.newBuilder()
+                        .setOutdatedIssueInfo(
+                          LibraryVersionLabels.OutdatedIssueInfo.newBuilder()
+                            // A closed range
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder()
+                                .setLowerBound("1.0.1")
+                                .setUpperBound("1.0.2")
+                            )
+                            // An open range
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder().setLowerBound("2.0.0")
+                            )
+                        )
+                    )
+                )
+            )
+        )
         .build()
     index =
       object : GooglePlaySdkIndex() {
@@ -343,7 +408,7 @@ class GooglePlaySdkIndexTest {
 
   @Test
   fun `outdated issues shown`() {
-    assertThat(countOutdatedIssues()).isEqualTo(2)
+    assertThat(countOutdatedIssues()).isEqualTo(3)
   }
 
   @Test
@@ -354,7 +419,7 @@ class GooglePlaySdkIndexTest {
   @Test
   fun `policy issues shown if showPolicyIssues is enabled`() {
     index.showPolicyIssues = true
-    assertThat(countPolicyIssues()).isEqualTo(13)
+    assertThat(countPolicyIssues()).isEqualTo(14)
   }
 
   @Test
@@ -365,11 +430,11 @@ class GooglePlaySdkIndexTest {
 
   @Test
   fun `errors and warnings shown correctly`() {
-    assertThat(countHasErrorOrWarning()).isEqualTo(14)
+    assertThat(countHasErrorOrWarning()).isEqualTo(16)
   }
 
   @Test
-  fun `all links are present when showLinks is enabled`() {
+  fun `links are present when indexUrl is not blank`() {
     for (sdk in proto.sdksList) {
       val expectedUrl = sdk.indexUrl
       for (library in sdk.librariesList) {
@@ -382,9 +447,13 @@ class GooglePlaySdkIndexTest {
             versionString = "noVersion",
             buildFile = null,
           )
-        assertThat(lintLink).isNotNull()
-        assertThat(lintLink).isInstanceOf(LintFix.ShowUrl::class.java)
-        assertThat((lintLink as LintFix.ShowUrl).url).isEqualTo(expectedUrl)
+        if (expectedUrl.isNullOrBlank()) {
+          assertThat(lintLink).isNull()
+        } else {
+          assertThat(lintLink).isNotNull()
+          assertThat(lintLink).isInstanceOf(LintFix.ShowUrl::class.java)
+          assertThat((lintLink as LintFix.ShowUrl).url).isEqualTo(expectedUrl)
+        }
       }
     }
   }
@@ -468,6 +537,18 @@ class GooglePlaySdkIndexTest {
     verifyPolicyMessages("7.1.10", listOf("Permissions policy", "policy"))
   }
 
+  @Test
+  fun `no quickfix for null indexUrl`() {
+    val lintLink =
+      index.generateSdkLinkLintFix(
+        "not.existing.group",
+        "not.existing.artifact",
+        versionString = "noVersion",
+        buildFile = null,
+      )
+    assertThat(lintLink).isNull()
+  }
+
   private fun countOutdatedIssues(): Int {
     var result = 0
     for (sdk in proto.sdksList) {
@@ -536,7 +617,7 @@ class GooglePlaySdkIndexTest {
     index.showPolicyIssues = true
     val expectedBlockingMessages =
       policyTypes.map { policyType ->
-        "com.example.ads.third.party:example version $version has $policyType issues that will block publishing of your app to Play Console"
+        "[Prevents app release in Google Play Console] com.example.ads.third.party:example version $version has $policyType issues that will block publishing of your app to Play Console"
       }
     assertThat(
         index.generateBlockingPolicyMessages("com.example.ads.third.party", "example", version)
