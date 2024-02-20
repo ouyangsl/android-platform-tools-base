@@ -28,6 +28,7 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.pom.java.LanguageLevel
 import com.intellij.psi.PsiAnnotation.TargetType
 import com.intellij.psi.PsiClass
+import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMethod
@@ -70,6 +71,7 @@ import org.jetbrains.uast.ULocalVariable
 import org.jetbrains.uast.UMethod
 import org.jetbrains.uast.UPostfixExpression
 import org.jetbrains.uast.UPrefixExpression
+import org.jetbrains.uast.UQualifiedReferenceExpression
 import org.jetbrains.uast.UReferenceExpression
 import org.jetbrains.uast.UReturnExpression
 import org.jetbrains.uast.USimpleNameReferenceExpression
@@ -2933,6 +2935,77 @@ class UastTest : TestCase() {
     }
   }
 
+  fun testFunctionalInterfaceTypeForInterfaceWithoutFun() {
+    // Regression test from b/325123657
+    val testFiles =
+      arrayOf(
+        kotlin(
+          """
+            package test.pkg
+
+            class Test {
+              fun f(): A = {}
+              fun g(): B = {}
+            }
+          """
+        ),
+        kotlin(
+          """
+            package test.pkg
+
+            interface A {
+              fun f()
+            }
+          """
+        ),
+        kotlin(
+          """
+            package test.pkg
+
+            fun interface B {
+              fun g()
+            }
+          """
+        ),
+      )
+
+    // function name -> (K1, K2)
+    val expectedTypes =
+      mapOf(
+        "f" to ("test.pkg.A" to "kotlin.jvm.functions.Function0<? extends kotlin.Unit>"),
+        "g" to ("test.pkg.B" to "test.pkg.B"),
+      )
+
+    var count = 0
+    check(*testFiles) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          var method: UMethod? = null
+
+          override fun visitMethod(node: UMethod): Boolean {
+            method = node
+            return super.visitMethod(node)
+          }
+
+          override fun afterVisitMethod(node: UMethod) {
+            method = null
+            super.afterVisitMethod(node)
+          }
+
+          override fun visitLambdaExpression(node: ULambdaExpression): Boolean {
+            count++
+            val type = node.functionalInterfaceType ?: node.getExpressionType()
+            val expectedType =
+              expectedTypes[method!!.name]?.let { if (useFirUast()) it.second else it.first }
+            assertEquals(expectedType, type?.canonicalText)
+            return super.visitLambdaExpression(node)
+          }
+        }
+      )
+    }
+    assertEquals(2, count)
+  }
+
   fun testIncorrectImplicitReturnInLambda() {
     val testFiles =
       arrayOf(
@@ -3179,6 +3252,72 @@ class UastTest : TestCase() {
       )
     }
     assertEquals(expectedTypes.size, count)
+  }
+
+  fun testReferenceQualifierTypeForDispatchers() {
+    // Regression test from b/325107804
+    val testFiles =
+      arrayOf(
+        kotlin(
+            """
+        package test.pkg
+
+        //import kotlinx.coroutines.Dispatchers
+        import my.coroutines.Dispatchers
+
+        fun example() {
+          Dispatchers.IO
+          Dispatchers.Default
+          Dispatchers.Unconfined
+          Dispatchers.Main
+          Dispatchers::IO
+          Dispatchers::Default
+          Dispatchers::Unconfined
+          Dispatchers::Main
+        }
+      """
+          )
+          .indented(),
+        kotlin(
+            """
+            package my.coroutines
+
+            object Dispatchers {
+              val IO = "IO"
+              val Default = "Default"
+              val Unconfined = "Unconfined"
+              val Main = "Main"
+            }
+          """
+          )
+          .indented(),
+      )
+    var count = 0
+    check(*testFiles) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitQualifiedReferenceExpression(
+            node: UQualifiedReferenceExpression
+          ): Boolean {
+            count++
+            val expressionType =
+              node.receiver.getExpressionType() as? PsiClassType
+                ?: return super.visitQualifiedReferenceExpression(node)
+            assertEquals("my.coroutines.Dispatchers", expressionType.resolve()?.qualifiedName)
+            return super.visitQualifiedReferenceExpression(node)
+          }
+
+          override fun visitCallableReferenceExpression(
+            node: UCallableReferenceExpression
+          ): Boolean {
+            count++
+            assertEquals("my.coroutines.Dispatchers", node.qualifierType?.canonicalText)
+            return super.visitCallableReferenceExpression(node)
+          }
+        }
+      )
+    }
+    assertEquals(8, count)
   }
 
   fun testResolutionToFunWithValueClass() {
