@@ -179,7 +179,10 @@ public class DeployerRunner {
         // spawned by DDMLIB.
         AdbSession session = null;
         if (parameters.getCreateAdblibSession()) {
-            AdbLibSessionFactoryKt.createSocketConnectSession(AndroidDebugBridge::getSocketAddress);
+            session =
+                    AdbLibSessionFactoryKt.createSocketConnectSession(
+                            AndroidDebugBridge::getSocketAddress,
+                            new DeployerRunnerLoggerFactory(parameters.getLogLevel()));
         }
 
         AdbClient adb = new AdbClient(device, logger, session);

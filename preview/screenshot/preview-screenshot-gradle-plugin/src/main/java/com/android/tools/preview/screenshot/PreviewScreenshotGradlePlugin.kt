@@ -103,7 +103,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
             }
 
             componentsExtension.onVariants { variant ->
-                if (variant is HasDeviceTests) {
+                if (variant is HasDeviceTests && variant.debuggable) {
                     val variantName = variant.name
 
                     val discoveryTaskProvider =
@@ -241,7 +241,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.reportFilePath.disallowChanges()
                         task.analyticsService.set(analyticsServiceProvider)
                         task.usesService(analyticsServiceProvider)
-                        task.description = "Run screenshot tests for the " + variantName + " build."
+                        task.description = "Run screenshot tests for the $variantName build."
                         task.group = JavaBasePlugin.VERIFICATION_GROUP
                         maybeCreateScreenshotTestConfiguration(project)
                         task.useJUnitPlatform {

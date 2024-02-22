@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,25 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.android.utils
 
-package android.app;
-
-public class PendingIntent {
-
-    private final String myCreatorPackage;
-
-    private final int myCreatorUid;
-
-    public PendingIntent(int userId, String packageName) {
-        myCreatorPackage = packageName;
-        myCreatorUid = userId;
-    }
-
-    public String getCreatorPackage() {
-        return myCreatorPackage;
-    }
-
-    public int getCreatorUid() {
-        return myCreatorUid;
+object JavaVersionUtil {
+    /** Converts a class file version number JDK string like 1.6.0_65 to the corresponding class file version number, e.g. 50  */
+    fun classVersionToJdk(version: Int): String {
+        return if (version >= 53) {
+            (version - 53 + 9).toString() // 53 => 9, 55 => 11, 61 => 17, ...
+        } else "1.${version - 44}" // 47 => 1.3, 50 => 1.6, ...
     }
 }

@@ -35,9 +35,12 @@ import androidx.inspection.Connection
 import androidx.inspection.Inspector
 import androidx.inspection.InspectorEnvironment
 import androidx.inspection.InspectorFactory
+import backgroundtask.inspection.BackgroundTaskInspectorProtocol
 import backgroundtask.inspection.BackgroundTaskInspectorProtocol.Command
 import backgroundtask.inspection.BackgroundTaskInspectorProtocol.Response
 import backgroundtask.inspection.BackgroundTaskInspectorProtocol.TrackBackgroundTaskResponse
+
+typealias PendingIntentType = BackgroundTaskInspectorProtocol.PendingIntent.Type
 
 private const val BACKGROUND_INSPECTION_ID = "backgroundtask.inspection"
 
@@ -53,13 +56,16 @@ class BackgroundTaskInspector(
   private val environment: InspectorEnvironment,
 ) : Inspector(connection) {
 
-  @VisibleForTesting lateinit var alarmHandler: AlarmHandler
+  private val intentRegistry = IntentRegistry()
 
-  @VisibleForTesting lateinit var pendingIntentHandler: PendingIntentHandler
+  @VisibleForTesting val alarmHandler = AlarmHandlerImpl(connection, intentRegistry)
 
-  @VisibleForTesting lateinit var wakeLockHandler: WakeLockHandler
+  @VisibleForTesting
+  val pendingIntentHandler = PendingIntentHandlerImpl(alarmHandler, intentRegistry)
 
-  @VisibleForTesting lateinit var jobHandler: JobHandler
+  @VisibleForTesting val wakeLockHandler = WakeLockHandlerImpl(connection)
+
+  @VisibleForTesting val jobHandler = JobHandlerImpl(connection)
 
   override fun onReceiveCommand(data: ByteArray, callback: CommandCallback) {
     val command = Command.parseFrom(data)
@@ -90,7 +96,6 @@ class BackgroundTaskInspector(
   }
 
   private fun registerAlarmHooks() {
-    alarmHandler = AlarmHandlerImpl(connection)
     environment.artTooling().registerEntryHook(
       AlarmManager::class.java,
       "setImpl" +
@@ -132,17 +137,25 @@ class BackgroundTaskInspector(
   }
 
   private fun registerPendingIntentHooks() {
-    pendingIntentHandler = PendingIntentHandlerImpl(alarmHandler)
-    listOf(GET_ACTIVITY_METHOD_NAME, GET_SERVICES_METHOD_NAME, GET_BROADCAST_METHOD_NAME).forEach {
-      methodName ->
-      environment.artTooling().registerEntryHook(PendingIntent::class.java, methodName) { _, args ->
-        pendingIntentHandler.onIntentCapturedEntry((args[2] as? Intent) ?: return@registerEntryHook)
+    // TODO(b/325663988): Support all methods
+    listOf(
+        GET_ACTIVITY_METHOD_NAME to PendingIntentType.ACTIVITY,
+        GET_SERVICE_METHOD_NAME to PendingIntentType.SERVICE,
+        GET_BROADCAST_METHOD_NAME to PendingIntentType.BROADCAST,
+      )
+      .forEach { (methodName, type) ->
+        environment.artTooling().registerEntryHook(PendingIntent::class.java, methodName) { _, args
+          ->
+          val requestCode = args[1] as Int
+          val intent = args[2] as? Intent ?: return@registerEntryHook
+          val flags = args[3] as Int
+          pendingIntentHandler.onIntentCapturedEntry(type, requestCode, intent, flags)
+        }
+        environment.artTooling().registerExitHook(PendingIntent::class.java, methodName) {
+          pendingIntent: PendingIntent? ->
+          pendingIntent?.let { pendingIntentHandler.onIntentCapturedExit(it) }
+        }
       }
-      environment.artTooling().registerExitHook(PendingIntent::class.java, methodName) {
-        pendingIntent: PendingIntent? ->
-        pendingIntent?.let { pendingIntentHandler.onIntentCapturedExit(it) }
-      }
-    }
 
     listOf(
         CALL_ACTIVITY_ON_CREATE_METHOD_NAME,
@@ -181,8 +194,6 @@ class BackgroundTaskInspector(
   }
 
   private fun registerWakeLockHooks() {
-    wakeLockHandler = WakeLockHandlerImpl(connection)
-
     environment.artTooling().registerEntryHook(
       PowerManager::class.java,
       "newWakeLock" + "(ILjava/lang/String;)Landroid/os/PowerManager\$WakeLock;",
@@ -217,7 +228,6 @@ class BackgroundTaskInspector(
   }
 
   private fun registerJobHooks() {
-    jobHandler = JobHandlerImpl(connection)
     environment.artTooling().registerEntryHook(
       JobSchedulerImpl::class.java,
       "schedule(Landroid/app/job/JobInfo;)I",
