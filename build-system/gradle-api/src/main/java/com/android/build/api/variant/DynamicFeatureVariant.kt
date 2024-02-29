@@ -15,6 +15,8 @@
  */
 package com.android.build.api.variant
 
+import org.gradle.api.Incubating
+
 /**
  * Model for dynamic feature components that only contains build-time properties.
  *
@@ -27,4 +29,10 @@ interface DynamicFeatureVariant : Variant,
     HasAndroidTest,
     HasUnitTest,
     HasTestFixtures {
+
+    /**
+     * Variant's packagingOptions, initialized by the corresponding global DSL element.
+     */
+    @get:Incubating
+    override val packaging: TestedApkPackaging
 }

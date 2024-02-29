@@ -19,12 +19,6 @@
 #include "perfd/samplers/cpu_thread_sampler.h"
 #include "perfd/samplers/cpu_usage_sampler.h"
 #include "perfd/samplers/memory_usage_sampler.h"
-#include "perfd/samplers/network_connection_count_sampler.h"
-#include "perfd/samplers/network_speed_sampler.h"
-#include "perfd/samplers/network_type_sampler.h"
-#include "perfd/statsd/pulled_atoms/mobile_bytes_transfer.h"
-#include "perfd/statsd/pulled_atoms/wifi_bytes_transfer.h"
-#include "perfd/statsd/statsd_subscriber.h"
 #include "utils/device_info.h"
 #include "utils/procfs_files.h"
 #include "utils/uid_fetcher.h"
@@ -40,46 +34,13 @@ Session::Session(int64_t stream_id, int32_t pid, int64_t start_timestamp,
   info_.set_start_timestamp(start_timestamp);
   info_.set_end_timestamp(LLONG_MAX);
 
-  bool profiler_unified_pipeline =
-      daemon->config()->GetConfig().common().profiler_unified_pipeline();
-  if (profiler_unified_pipeline) {
-    samplers_.push_back(std::unique_ptr<Sampler>(
-        new profiler::NetworkConnectionCountSampler(*this, daemon->buffer())));
-    samplers_.push_back(std::unique_ptr<Sampler>(
-        new profiler::NetworkTypeSampler(*this, daemon->buffer())));
-    samplers_.push_back(
-        std::unique_ptr<Sampler>(new profiler::CpuUsageDataSampler(
-            *this, daemon->clock(), daemon->buffer())));
-    samplers_.push_back(std::unique_ptr<Sampler>(new profiler::CpuThreadSampler(
-        *this, daemon->clock(), daemon->buffer())));
-    samplers_.push_back(
-        std::unique_ptr<Sampler>(new profiler::MemoryUsageSampler(
-            *this, daemon->clock(), daemon->buffer())));
-
-    // On Q+ devices, we use statsd to collect network speed.
-    if (DeviceInfo::feature_level() < DeviceInfo::Q) {
-      samplers_.push_back(
-          std::unique_ptr<Sampler>(new profiler::NetworkSpeedSampler(
-              *this, daemon->clock(), daemon->buffer())));
-    }
-  }
-
-  // statsd is supported on Q+ devices.
-  if (DeviceInfo::feature_level() >= DeviceInfo::Q) {
-    // For legacy pipeline we initiate the network buffer on StartProfiling.
-    auto buffer = profiler_unified_pipeline ? daemon->buffer() : nullptr;
-    int32_t uid = UidFetcher::GetUid(pid);
-    Log::V(Log::Tag::PROFILER, "Subscribe to statsd atoms for pid %d (uid: %d)",
-           pid, uid);
-    if (uid >= 0) {
-      StatsdSubscriber::Instance().SubscribeToPulledAtom(
-          std::unique_ptr<WifiBytesTransfer>(
-              new WifiBytesTransfer(pid, uid, daemon->clock(), buffer)));
-      StatsdSubscriber::Instance().SubscribeToPulledAtom(
-          std::unique_ptr<MobileBytesTransfer>(
-              new MobileBytesTransfer(pid, uid, daemon->clock(), buffer)));
-    }
-  }
+  samplers_.push_back(
+      std::unique_ptr<Sampler>(new profiler::CpuUsageDataSampler(
+          *this, daemon->clock(), daemon->buffer())));
+  samplers_.push_back(std::unique_ptr<Sampler>(new profiler::CpuThreadSampler(
+      *this, daemon->clock(), daemon->buffer())));
+  samplers_.push_back(std::unique_ptr<Sampler>(new profiler::MemoryUsageSampler(
+      *this, daemon->clock(), daemon->buffer())));
 }
 
 bool Session::IsActive() const { return info_.end_timestamp() == LLONG_MAX; }
@@ -88,19 +49,11 @@ void Session::StartSamplers() {
   for (auto& sampler : samplers_) {
     sampler->Start();
   }
-
-  if (DeviceInfo::feature_level() >= DeviceInfo::Q) {
-    StatsdSubscriber::Instance().Run();
-  }
 }
 
 void Session::StopSamplers() {
   for (auto& sampler : samplers_) {
     sampler->Stop();
-  }
-
-  if (DeviceInfo::feature_level() >= DeviceInfo::Q) {
-    StatsdSubscriber::Instance().Stop();
   }
 }
 

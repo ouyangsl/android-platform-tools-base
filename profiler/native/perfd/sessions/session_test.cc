@@ -22,9 +22,6 @@
 #include "daemon/event_buffer.h"
 #include "perfd/samplers/sampler.h"
 #include "perfd/sessions/session.h"
-#include "perfd/statsd/pulled_atoms/mobile_bytes_transfer.h"
-#include "perfd/statsd/pulled_atoms/wifi_bytes_transfer.h"
-#include "perfd/statsd/statsd_subscriber.h"
 #include "utils/clock.h"
 #include "utils/daemon_config.h"
 #include "utils/device_info.h"
@@ -37,9 +34,11 @@ namespace profiler {
 namespace {
 class MockSampler final : public Sampler {
  public:
-  MockSampler(const profiler::Session& session, EventBuffer* buffer,
-              int64_t sample_interval_ms)
-      : Sampler(session, buffer, sample_interval_ms) {}
+  MockSampler(const profiler::Session& session, Clock* clock,
+              EventBuffer* buffer, int64_t sample_interval_ms)
+      : Sampler(session, clock, buffer, sample_interval_ms) {}
+
+  virtual void Sample() override {}
 
   // Recommended approach to mock destructors from
   // https://github.com/abseil/googletest/blob/master/googlemock/docs/CookBook.md#mocking-destructors
@@ -48,7 +47,7 @@ class MockSampler final : public Sampler {
 };
 }  // namespace
 
-TEST(Session, SamplersAddedForNewPipeline) {
+TEST(Session, SamplersAdded) {
   FakeClock clock;
   EventBuffer event_buffer(&clock);
   FileCache file_cache(std::unique_ptr<FileSystem>(new MemoryFileSystem()),
@@ -57,13 +56,12 @@ TEST(Session, SamplersAddedForNewPipeline) {
   DaemonConfig config1(daemon_config);
   Daemon daemon1(&clock, &config1, &file_cache, &event_buffer);
   Session session1(0, 0, 0, &daemon1);
-  EXPECT_EQ(session1.samplers().size(), 0);
+  EXPECT_EQ(session1.samplers().size(), 3);
 
-  daemon_config.mutable_common()->set_profiler_unified_pipeline(true);
   DaemonConfig config2(daemon_config);
   Daemon daemon2(&clock, &config2, &file_cache, &event_buffer);
   Session session2(0, 0, 0, &daemon2);
-  EXPECT_GT(session2.samplers().size(), 0);
+  EXPECT_EQ(session2.samplers().size(), 3);
 }
 
 TEST(Session, SamplerDeallocatedWhenSessionDies) {
@@ -75,44 +73,20 @@ TEST(Session, SamplerDeallocatedWhenSessionDies) {
   DaemonConfig config1(daemon_config);
   Daemon daemon1(&clock, &config1, &file_cache, &event_buffer);
   Session session1(0, 0, 0, &daemon1);
-  EXPECT_EQ(session1.samplers().size(), 0);
+  EXPECT_EQ(session1.samplers().size(), 3);
 
-  daemon_config.mutable_common()->set_profiler_unified_pipeline(true);
   DaemonConfig config2(daemon_config);
   Daemon daemon2(&clock, &config2, &file_cache, &event_buffer);
   Session session2(0, 0, 0, &daemon2);
-  EXPECT_GT(session2.samplers().size(), 0);
+  EXPECT_EQ(session2.samplers().size(), 3);
 
   // Create a new instance of sampler that's mocked to monitor the destructor.
-  auto* sampler = new MockSampler(session2, &event_buffer, 1000);
+  auto* sampler = new MockSampler(session2, &clock, &event_buffer, 1000);
   // The test will fail if commenting the following line with reset().
   session2.samplers()[0].reset(sampler);
   // When session2 is out of scope, its samplers are expected to be
   // deallocated.
   EXPECT_CALL(*sampler, Die());
-}
-
-TEST(Session, UsesStatsdForQ) {
-  FakeClock clock;
-  EventBuffer event_buffer(&clock);
-  FileCache file_cache(std::unique_ptr<FileSystem>(new MemoryFileSystem()),
-                       "/");
-  DaemonConfig config(proto::DaemonConfig::default_instance());
-  Daemon daemon(&clock, &config, &file_cache, &event_buffer);
-
-  DeviceInfoHelper::SetDeviceInfo(DeviceInfo::P);
-  Session session1(0, 1, 0, &daemon);
-  EXPECT_EQ(nullptr,
-            StatsdSubscriber::Instance().FindAtom<WifiBytesTransfer>(10000));
-  EXPECT_EQ(nullptr,
-            StatsdSubscriber::Instance().FindAtom<MobileBytesTransfer>(10002));
-
-  DeviceInfoHelper::SetDeviceInfo(DeviceInfo::Q);
-  Session session2(0, 1, 0, &daemon);
-  EXPECT_NE(nullptr,
-            StatsdSubscriber::Instance().FindAtom<WifiBytesTransfer>(10000));
-  EXPECT_NE(nullptr,
-            StatsdSubscriber::Instance().FindAtom<MobileBytesTransfer>(10002));
 }
 
 }  // namespace profiler

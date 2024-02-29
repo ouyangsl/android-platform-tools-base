@@ -85,8 +85,18 @@ import org.jetbrains.uast.visitor.AbstractUastVisitor
 
 // Misc tests to verify type handling in the Kotlin UAST initialization.
 class UastTest : TestCase() {
-  private fun check(source: TestFile, check: (UFile) -> Unit) {
-    check(sources = arrayOf(source), check = check)
+  private fun check(
+    source: TestFile,
+    javaLanguageLevel: LanguageLevel? = null,
+    kotlinLanguageLevel: LanguageVersionSettings? = null,
+    check: (UFile) -> Unit,
+  ) {
+    check(
+      sources = arrayOf(source),
+      javaLanguageLevel = javaLanguageLevel,
+      kotlinLanguageLevel = kotlinLanguageLevel,
+      check = check,
+    )
   }
 
   private fun check(
@@ -3571,5 +3581,160 @@ class UastTest : TestCase() {
         }
       )
     }
+  }
+
+  fun testResolutionToJavaMock_source() {
+    // Regression from b/325564559
+    val testFiles =
+      arrayOf(
+        java(
+            "Test.java",
+            """
+            import static my.mockito.Mockito.mock;
+
+            class Foo {}
+
+            public class Test {
+                private Foo fooMock;
+                public void foo() {
+                    fooMock = mock(Foo.class);
+                }
+            }
+          """,
+          )
+          .indented(),
+        java(
+            """
+            package my.mockito;
+
+            public final class Mockito {
+                @SafeVarargs
+                public static <T> T mock(T... reified) {
+                    return null;
+                }
+                public static <T> T mock(Class<T> clazz) {
+                    return null;
+                }
+            }
+          """
+          )
+          .indented(),
+      )
+    check(*testFiles) { file -> checkJavaMock(file) }
+  }
+
+  fun testResolutionToJavaMock_fromBytecode() {
+    // Regression from b/325564559
+    val testFiles =
+      arrayOf(
+        java(
+            "Test.java",
+            """
+            import static my.mockito.Mockito.mock;
+
+            class Foo {}
+
+            public class Test {
+                private Foo fooMock;
+                public void foo() {
+                    fooMock = mock(Foo.class);
+                }
+            }
+          """,
+          )
+          .indented(),
+        bytecode(
+          "libs/lib1.jar",
+          java(
+              """
+            package my.mockito;
+
+            public final class Mockito {
+                @SafeVarargs
+                public static <T> T mock(T... reified) {
+                    return null;
+                }
+                public static <T> T mock(Class<T> clazz) {
+                    return null;
+                }
+            }
+          """
+            )
+            .indented(),
+          0x8ae22c11,
+          """
+                my/mockito/Mockito.class:
+                H4sIAAAAAAAA/31QwU7CQBB9Q6FYREHUGE2MJ2PhYMNVkMSQeEJNpOHCacGV
+                LNJt0m5N/AT/Rk8mHvwAP8o4xR4IqJvsvtm3783MzufX+weAc+yWkINVRL6M
+                AmxCdSoehTcTeuLdjKZybAh2W2llOgTLrQ+KWCPUgicvCMcPyoTe1Q8S8t3w
+                ThIqPaXldRKMZOSL0YyZfColnLjD3nLyVn2VIjh9NdHCJBGbj9r+2aqm4w59
+                v1XnTdi/TbRRgRyoWHG9C61DI4wKdUzYW7D2xb0ciEhEk5hdx+7CU3cm4vj3
+                Xpp/1F92t7mXTtZRqR8m0VheqvT35WxAp6kBTRR53umyQOnE+XT4dshIjIXG
+                G+iVA87Cpz0nLTxjHWXGVHqQSXP0sqSzsZHy2EQl46qMDnu3mP3f62TeGt+2
+                59HON0mxyb0kAgAA
+                """,
+        ),
+      )
+
+    check(*testFiles) { file -> checkJavaMock(file) }
+  }
+
+  private fun checkJavaMock(file: UFile) {
+    var count = 0
+    file.accept(
+      object : AbstractUastVisitor() {
+        override fun visitCallExpression(node: UCallExpression): Boolean {
+          count++
+          val resolved = node.resolve()
+          assertNotNull(resolved)
+          val params = resolved!!.parameterList.parameters
+          assertEquals(1, params.size)
+          assertEquals("java.lang.Class<T>", params.single().type.canonicalText)
+          assertEquals("Foo", node.getExpressionType()?.canonicalText)
+          return super.visitCallExpression(node)
+        }
+      }
+    )
+    assertEquals(1, count)
+  }
+
+  fun testJavaAnonymousClassImportSTR() {
+    // Regression test from b/322179541
+    val source =
+      java(
+        "Test.java",
+        """
+        class Test {
+          void enclosingMethod() {
+            new Object() {
+              Object anonymousClassMethod() {
+                return new Object();
+              }
+
+              void test() {
+                anonymousClassMethod();
+              }
+            };
+          }
+        }
+      """,
+      )
+
+    var count = 0
+    check(source, javaLanguageLevel = LanguageLevel.JDK_21) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitClass(node: UClass): Boolean {
+            count++
+            val superTypes = node.superTypes
+            assertEquals(1, superTypes.size)
+            assertEquals("java.lang.Object", superTypes.single().canonicalText)
+            return super.visitClass(node)
+          }
+        }
+      )
+    }
+    // Test and anonymous Object
+    assertEquals(2, count)
   }
 }

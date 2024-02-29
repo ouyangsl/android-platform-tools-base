@@ -128,6 +128,17 @@ TEST_F(TransportServiceTest, TestBeginSessionCommand) {
   EXPECT_TRUE(event->has_session());
   EXPECT_TRUE(event->session().has_session_started());
 
+  // Consume events from samplers. We get one CPU_USAGE, and one MEMORY_USAGE
+  // event. We don't get CPU_THREAD events because this test does not set up a
+  // fake procfs.
+  const int NUM_EVENTS = 2;
+  for (int i = 0; i < NUM_EVENTS; i++) {
+    event = PopEvent();
+    EXPECT_NE(nullptr, event);
+    EXPECT_NE(proto::Event::SESSION, event->kind());
+  }
+  EXPECT_EQ(nullptr, PopEvent());
+
   clock_.SetCurrentTime(4);
   grpc::ClientContext context2;
   command->set_stream_id(100);
@@ -144,5 +155,13 @@ TEST_F(TransportServiceTest, TestBeginSessionCommand) {
   EXPECT_FALSE(event->is_ended());
   EXPECT_TRUE(event->has_session());
   EXPECT_TRUE(event->session().has_session_started());
+
+  // Consume events from samplers.
+  for (int i = 0; i < NUM_EVENTS; i++) {
+    event = PopEvent();
+    EXPECT_NE(nullptr, event);
+    EXPECT_NE(proto::Event::SESSION, event->kind());
+  }
+  EXPECT_EQ(nullptr, PopEvent());
 }
 }  // namespace profiler

@@ -22,6 +22,7 @@
 
 #include "daemon/event_buffer.h"
 #include "proto/profiler.grpc.pb.h"
+#include "utils/clock.h"
 #include "utils/log.h"
 
 namespace profiler {
@@ -35,7 +36,7 @@ class Session;
 // profiled, and to insert the data into the event buffer.
 class Sampler {
  public:
-  Sampler(const profiler::Session& session, EventBuffer* buffer,
+  Sampler(const profiler::Session& session, Clock* clock, EventBuffer* buffer,
           int64_t sample_interval_ms);
   virtual ~Sampler();
 
@@ -45,8 +46,8 @@ class Sampler {
   // Stops the sampling worker thread. No-op if the thread has not been started.
   void Stop();
 
-  // Collect data related to the session that s currently being sampled.
-  virtual void Sample() {}
+  // Collect data related to the session that is currently being sampled.
+  virtual void Sample() = 0;
 
  protected:
   const profiler::Session& session() const { return session_; }
@@ -57,11 +58,16 @@ class Sampler {
   // construction of the sampler instace, so no explicit start is required.
   void SamplingThread();
 
+  // Sleeps the calling thread until clock reaches or goes past:
+  //   start_ns + sample_interval_ns_
+  void SleepUntilNextSample(int64_t start_ns);
+
   // For debugging purposes - used for setting the sampling threads name and
   // inserting systrace markers.
   virtual const char* name() { return ""; }
 
   const profiler::Session& session_;
+  Clock* clock_;
   EventBuffer* buffer_;
   int64_t sample_interval_ns_;
   std::atomic_bool is_running_;

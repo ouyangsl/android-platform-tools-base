@@ -24,5 +24,5 @@ import org.junit.platform.engine.TestDescriptor.Type
 internal class TestMethodDescriptor(uniqueId: UniqueId, val methodName: String, val className: String) :
     AbstractTestDescriptor(uniqueId, methodName, MethodSource.from(className, methodName)) {
 
-    override fun getType(): Type = Type.TEST
+    override fun getType(): Type = Type.CONTAINER_AND_TEST
 }

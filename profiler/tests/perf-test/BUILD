@@ -12,32 +12,9 @@ dex_library(
 )
 
 perf_test(
-    name = "BasicTest",
-    size = "small",
-    srcs = ["testSrcs/com/android/tools/profiler/BasicTest.java"],
-    test_app = "//tools/base/profiler/tests/test-app:test-app",
-    deps = ["@maven//:com.google.truth.truth"],
-)
-
-perf_test(
-    name = "NetworkTest",
-    size = "large",
-    srcs = [
-        "testSrcs/com/android/tools/profiler/network/HttpUrlTest.java",
-        "testSrcs/com/android/tools/profiler/network/OkHttpTest.java",
-        "testSrcs/com/android/tools/profiler/network/UnifiedPipelineHttpUrlTest.java",
-        "testSrcs/com/android/tools/profiler/network/UnifiedPipelineOkHttpTest.java",
-    ],
-    test_app = "//tools/base/profiler/tests/test-app:test-app",
-    deps = ["@maven//:com.google.truth.truth"],
-)
-
-perf_test(
     name = "MemoryTest",
     size = "medium",
     srcs = [
-        "testSrcs/com/android/tools/profiler/memory/JniTest.java",
-        "testSrcs/com/android/tools/profiler/memory/MemoryTest.java",
         "testSrcs/com/android/tools/profiler/memory/UnifiedPipelineJniTest.java",
         "testSrcs/com/android/tools/profiler/memory/UnifiedPipelineMemoryTest.java",
     ],

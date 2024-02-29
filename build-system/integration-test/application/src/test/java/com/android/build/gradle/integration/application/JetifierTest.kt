@@ -17,7 +17,6 @@
 package com.android.build.gradle.integration.application
 
 import com.android.build.gradle.integration.common.fixture.ANDROID_ARCH_VERSION
-import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.runner.FilterableParameterized
 import com.android.build.gradle.integration.common.truth.ApkSubject.assertThat
@@ -253,39 +252,24 @@ class JetifierTest(private val withKotlin: Boolean) {
         assumeFalse(withKotlin)
 
         prepareProjectForAndroidX()
-        // Add android.arch dependencies
+        // Add an invalid android.arch dependency
         TestFileUtils.appendToFile(
                 project.getSubproject(":app").buildFile,
                 """
                 dependencies {
-                    // Invalid dependency
                     annotationProcessor 'android.arch.persistence.room:compiler:2.0.0'
-                    // Valid dependency
-                    annotationProcessor 'android.arch.persistence.room:common:$ANDROID_ARCH_VERSION'
                 }
                 """.trimIndent()
         )
 
-        // todo re-enable config caching b/247126887
-        val configCacheOption =
-            if (Runtime.version().feature() >= 17)
-                BaseGradleExecutor.ConfigurationCaching.OFF
-            else
-                BaseGradleExecutor.ConfigurationCaching.ON
-
         val result = project.executor()
-                .withConfigurationCaching(configCacheOption)
                 .with(BooleanOption.USE_ANDROID_X, true)
                 .with(BooleanOption.ENABLE_JETIFIER, true)
                 .expectFailure()
                 .run("assembleDebug")
 
-        // Check that an error was thrown for the invalid dependency, but not for the valid
-        // dependency
-        assertThat(result.failureMessage)
-                .contains("Could not find android.arch.persistence.room:compiler:2.0.0")
-        assertThat(result.failureMessage)
-                .doesNotContain("Could not find android.arch.persistence.room:common:$ANDROID_ARCH_VERSION")
+        // Check that the invalid dependency was not substituted and an error was thrown for it
+        result.assertErrorContains("Could not find android.arch.persistence.room:compiler:2.0.0")
     }
 
     /**
