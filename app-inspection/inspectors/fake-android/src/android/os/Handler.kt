@@ -16,18 +16,23 @@
 
 package android.os
 
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit.MILLISECONDS
+
 open class Handler() {
+  private val executor = Executors.newScheduledThreadPool(5)
+
   constructor(looper: Looper) : this()
 
   constructor(runnable: Runnable) : this()
 
   fun postDelayed(runnable: Runnable, delayMillis: Long): Boolean {
-    runnable.run()
+    executor.schedule(runnable, delayMillis, MILLISECONDS)
     return true
   }
 
   fun post(runnable: Runnable): Boolean {
-    runnable.run()
+    executor.execute(runnable)
     return true
   }
 }

@@ -56,14 +56,14 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
         project.plugins.withType(AndroidBasePlugin::class.java) {
             val componentsExtension = project.extensions.getByType(AndroidComponentsExtension::class.java)
             val agpVersion = componentsExtension.pluginVersion
-            if (agpVersion < AndroidPluginVersion(8, 3, 0).alpha(1)) {
-                error("Android Gradle plugin version 8.3.0-alpha01 or higher is required." +
+            if (agpVersion < AndroidPluginVersion(8, 4, 0).alpha(9)) {
+                error("Android Gradle plugin version 8.4.0-alpha09 or higher is required." +
                         " Current version is $agpVersion.")
             }
             if (agpVersion >= AndroidPluginVersion(8,5).alpha(1)
                 && agpVersion.previewType != "dev") {
                 error("Preview screenshot plugin is an experimental feature. It requires Android " +
-                        "Gradle plugin version 8.3 / 8.4. Current version is $agpVersion.")
+                        "Gradle plugin version 8.4 (alpha09+). Current version is $agpVersion.")
             }
 
             val analyticsServiceProvider = project.gradle.sharedServices.registerIfAbsent(
@@ -189,7 +189,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         resourceFileProvider?.let { task.resourceFile.set(it) }
 
                         task.packageName.set(variant.namespace)
-                        task.cliToolInput.set(buildDir.file("$PREVIEW_INTERMEDIATES/$variantSegments/cli_tool_input.json"))
+                        task.cliToolArgumentsFile.set(buildDir.file("$PREVIEW_INTERMEDIATES/$variantSegments/cli_tool_arguments.json"))
 
                         val toolchain = project.extensions.getByType(JavaPluginExtension::class.java).toolchain
                         val service = project.extensions.getByType(JavaToolchainService::class.java)

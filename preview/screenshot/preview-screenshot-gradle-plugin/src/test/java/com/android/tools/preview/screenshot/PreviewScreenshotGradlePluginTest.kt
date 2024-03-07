@@ -63,12 +63,13 @@ class PreviewScreenshotGradlePluginTest {
     @Test
     fun agpVersionCheck() {
         val unsupportedVersionsTooOld = listOf(
-                AndroidPluginVersion(8, 1, 0).alpha(9),
-                AndroidPluginVersion(8, 2),
+                AndroidPluginVersion(8, 4, 0).alpha(8),
+                AndroidPluginVersion(8, 3),
         )
         val supportedVersions = listOf(
-                AndroidPluginVersion(8, 3).dev(),
-                AndroidPluginVersion(8, 3, 0).alpha(1),
+                AndroidPluginVersion(8, 5).dev(),
+                AndroidPluginVersion(8, 4, 0).alpha(9),
+                AndroidPluginVersion(8, 4, 0).alpha(12),
         )
         val unsupportedVersionsTooNew = listOf(
             AndroidPluginVersion(8, 5, 0).alpha(9),
@@ -79,7 +80,7 @@ class PreviewScreenshotGradlePluginTest {
                 applyScreenshotPlugin(it)
             }
             assertThat(e).hasMessageThat()
-                    .contains("Android Gradle plugin version 8.3.0-alpha01 or higher is required.")
+                    .contains("Android Gradle plugin version 8.4.0-alpha09 or higher is required.")
         }
         supportedVersions.forEach {
             applyScreenshotPlugin(it)
@@ -90,7 +91,7 @@ class PreviewScreenshotGradlePluginTest {
             }
             assertThat(e).hasMessageThat()
                 .contains("Preview screenshot plugin is an experimental feature. It requires Android " +
-                    "Gradle plugin version 8.3 / 8.4")
+                    "Gradle plugin version 8.4 (alpha09+).")
         }
     }
 }

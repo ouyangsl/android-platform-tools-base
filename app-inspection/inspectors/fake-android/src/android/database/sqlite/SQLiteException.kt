@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-package android.content.pm
+package android.database.sqlite
 
-class ApplicationInfo {
-  val uid: Int = 0
-}
+class SQLiteException(message: String? = null, cause: Throwable? = null) :
+  RuntimeException(message, cause)

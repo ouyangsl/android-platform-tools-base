@@ -17,9 +17,14 @@
 package android.app
 
 import android.content.pm.ApplicationInfo
+import java.io.File
 
 class Application {
   @Suppress("RedundantNullableReturnType")
   val applicationInfo: ApplicationInfo?
     get() = ApplicationInfo()
+
+  fun databaseList() = arrayOf("app.db")
+
+  fun getDatabasePath(name: String): File = File(name)
 }

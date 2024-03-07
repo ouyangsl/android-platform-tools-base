@@ -38,6 +38,9 @@ class GroovyGradleVisitorTest {
 
   // Keep this test in sync with LintIdeGradleVisitorTest#testBasic!
   // (and in general, all the tests here)
+  // Also keep this test, and other applicable ones, in sync with
+  // UastGradleVisitorTest#testBasic (with adaptations for the
+  // differences between Kotlin and Groovy).
   @Test
   fun testBasic() {
     check(

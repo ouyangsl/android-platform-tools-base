@@ -16,7 +16,6 @@
 
 package com.android.tools.preview.screenshot
 
-import com.android.SdkConstants
 import com.android.tools.preview.multipreview.BaseAnnotationRepresentation
 import com.android.tools.preview.multipreview.MethodRepresentation
 import com.android.tools.preview.multipreview.MultipreviewSettings
@@ -41,7 +40,7 @@ fun configureInput (
     outputFolder: String,
     packageName: String,
     resourceApkPath: String,
-    cliToolInputFilePath: File,
+    cliToolArgumentsFile: File,
     previewsFile: File
 ) {
     if (!File(outputFolder).exists()) {
@@ -57,7 +56,7 @@ fun configureInput (
         resourceApkPath,
         previews
     )
-    writeComposeRenderingToJson(cliToolInputFilePath.writer(), composeRendering)
+    writeComposeRenderingToJson(cliToolArgumentsFile.writer(), composeRendering)
 }
 
 fun findPreviewsAndSerialize(classPath: List<String>, outputFile: Path) {
@@ -66,7 +65,8 @@ fun findPreviewsAndSerialize(classPath: List<String>, outputFile: Path) {
         "androidx.compose.ui.tooling.preview.PreviewParameter"
     )
     val multipreview = buildMultipreview(settings, classPath) {
-        getClassName(it).endsWith("Test")
+        val className = getClassName(it)
+        className.endsWith("Test") || className.endsWith("TestKt")
     }
     val previews =  multipreview.methods.flatMap { method ->
         multipreview.getAnnotations(method).map { baseAnnotation ->
