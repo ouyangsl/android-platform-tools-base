@@ -693,6 +693,23 @@ class LintBaselineTest {
           "`<vector>` requires API level 21 (current min is 1) or building with Android Gradle plugin 1.4.0 or higher",
       )
     )
+
+    assertFalse(
+      baseline.sameMessage(
+        ApiDetector.UNSUPPORTED,
+        "Cast from `Cursor` to `Closeable` requires API level 16 (current min is 14)",
+        "Implicit cast from `Cursor` to `Closeable` requires API level 16 (current min is 14)",
+      )
+    )
+
+    assertTrue(
+      baseline.sameMessage(
+        ApiDetector.UNSUPPORTED,
+        new =
+          "Call requires API level 24, or core library desugaring (current min is 1): `java.util.Map#getOrDefault`",
+        old = "Call requires API level 24 (current min is 1): `java.util.Map#getOrDefault`",
+      )
+    )
   }
 
   @Test
@@ -737,6 +754,27 @@ class LintBaselineTest {
         RtlDetector.COMPAT,
         "To support older versions than API 17 (project specifies 11) you should also add android:layout_alignParentLeft=\"true\"",
         "To support older versions than API 17 (project specifies 14) you should also add android:layout_alignParentLeft=\"true\"",
+      )
+    )
+  }
+
+  @Test
+  fun tolerateNewlineChanges() {
+    // Regression test for b/328444663
+    val baseline = LintBaseline(ToolsBaseTestLintClient(), File(""))
+    assertTrue(
+      baseline.sameMessage(
+        RtlDetector.COMPAT,
+        "\n  This is text\n  that could be trim \n  indented.\n",
+        "This is text\nthat could be trim indented.",
+      )
+    )
+
+    assertTrue(
+      baseline.sameMessage(
+        RtlDetector.COMPAT,
+        "This is text\nthat could be trim indented.",
+        "\n  This is text\n  that could be trim \n  indented.\n",
       )
     )
   }

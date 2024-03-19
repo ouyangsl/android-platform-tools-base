@@ -49,6 +49,7 @@ import com.android.tools.lint.checks.GradleDetector.Companion.KAPT_USAGE_INSTEAD
 import com.android.tools.lint.checks.GradleDetector.Companion.KTX_EXTENSION_AVAILABLE
 import com.android.tools.lint.checks.GradleDetector.Companion.LIFECYCLE_ANNOTATION_PROCESSOR_WITH_JAVA8
 import com.android.tools.lint.checks.GradleDetector.Companion.MIN_SDK_TOO_LOW
+import com.android.tools.lint.checks.GradleDetector.Companion.MULTIPLE_VERSIONS_DEPENDENCY
 import com.android.tools.lint.checks.GradleDetector.Companion.NOT_INTERPOLATED
 import com.android.tools.lint.checks.GradleDetector.Companion.PATH
 import com.android.tools.lint.checks.GradleDetector.Companion.PLAY_SDK_INDEX_GENERIC_ISSUES
@@ -487,6 +488,68 @@ class GradleDetectorTest : AbstractCheckTest() {
                 +     implementation libs.androidx.appCompat
                   }
                 """
+      )
+  }
+
+  fun testVersionCatalogWithSimilarLibraryDependencies() {
+    lint()
+      .files(
+        gradleToml(
+            """
+                [versions]
+                jodaVersion = "2.1"
+                dagger="1.2.0"
+
+                [libraries]
+                joda_library = { module = "joda-time:joda-time", version.ref = "jodaVersion"}
+                joda_library2 = { module = "joda-time:joda-time", version = "2.0"}
+                dagger-lib = { group = "com.squareup.dagger", name ="dagger", version.ref = "dagger" }
+                """
+          )
+          .indented()
+      )
+      .issues(MULTIPLE_VERSIONS_DEPENDENCY)
+      .run()
+      .expect(
+        """
+        ../gradle/libs.versions.toml:6: Information: There are multiple dependencies joda-time:joda-time but with different version [SimilarGradleDependency]
+        joda_library = { module = "joda-time:joda-time", version.ref = "jodaVersion"}
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        ../gradle/libs.versions.toml:7: Information: There are multiple dependencies joda-time:joda-time but with different version [SimilarGradleDependency]
+        joda_library2 = { module = "joda-time:joda-time", version = "2.0"}
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        0 errors, 0 warnings
+        """
+      )
+  }
+
+  fun testVersionCatalogWithSimilarPlugins() {
+    lint()
+      .files(
+        gradleToml(
+            """
+                [versions]
+                kotlin = "1.7.20"
+
+                [plugins]
+                kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+                kotlinJvm2 = "org.jetbrains.kotlin.jvm:1.7.19"
+                """
+          )
+          .indented()
+      )
+      .issues(MULTIPLE_VERSIONS_DEPENDENCY)
+      .run()
+      .expect(
+        """
+         ../gradle/libs.versions.toml:5: Information: There are multiple dependencies org.jetbrains.kotlin.jvm but with different version [SimilarGradleDependency]
+         kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         ../gradle/libs.versions.toml:6: Information: There are multiple dependencies org.jetbrains.kotlin.jvm but with different version [SimilarGradleDependency]
+         kotlinJvm2 = "org.jetbrains.kotlin.jvm:1.7.19"
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         0 errors, 0 warnings
+         """
       )
   }
 
@@ -1646,6 +1709,40 @@ class GradleDetectorTest : AbstractCheckTest() {
           "@@ -13 +13\n" +
           "-     compile 'com.google.firebase:firebase-messaging:10.2.1'\n" +
           "+     compile 'com.google.firebase:firebase-messaging:11.0.0'\n"
+      )
+  }
+
+  fun testPluginsVersionFromGradleCache() {
+    lint()
+      .files(
+        gradle(
+          "" +
+            "buildscript {\n" +
+            "  repositories {\n" +
+            "    google()\n" +
+            "  }\n" +
+            "}\n" +
+            "\n" +
+            "plugins {\n" +
+            "  id 'com.android.application' version '3.4.0-alpha03'\n" +
+            "}\n"
+        )
+      )
+      .issues(DEPENDENCY, AGP_DEPENDENCY)
+      .run()
+      .expect(
+        "" +
+          "build.gradle:8: Warning: A newer version of com.android.application than 3.4.0-alpha03 is available: 8.0.2 [AndroidGradlePluginVersion]\n" +
+          "  id 'com.android.application' version '3.4.0-alpha03'\n" +
+          "                                       ~~~~~~~~~~~~~~~\n" +
+          "0 errors, 1 warnings\n"
+      )
+      .expectFixDiffs(
+        "" +
+          "Fix for build.gradle line 8: Change to 8.0.2:\n" +
+          "@@ -8 +8\n" +
+          "-   id 'com.android.application' version '3.4.0-alpha03'\n" +
+          "+   id 'com.android.application' version '8.0.2'\n"
       )
   }
 

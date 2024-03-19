@@ -63,6 +63,10 @@ import com.android.resources.ResourceType
 import com.android.sdklib.SdkVersionInfo
 import com.android.tools.lint.checks.ApiLookup.equivalentName
 import com.android.tools.lint.checks.ApiLookup.startsWithEquivalentPrefix
+import com.android.tools.lint.checks.DesugaredMethodLookup.Companion.canBeDesugaredLater
+import com.android.tools.lint.checks.DesugaredMethodLookup.Companion.isDesugaredClass
+import com.android.tools.lint.checks.DesugaredMethodLookup.Companion.isDesugaredField
+import com.android.tools.lint.checks.DesugaredMethodLookup.Companion.isDesugaredMethod
 import com.android.tools.lint.checks.RtlDetector.ATTR_SUPPORTS_RTL
 import com.android.tools.lint.client.api.JavaEvaluator
 import com.android.tools.lint.client.api.ResourceReference
@@ -88,13 +92,13 @@ import com.android.tools.lint.detector.api.JavaContext
 import com.android.tools.lint.detector.api.LintFix
 import com.android.tools.lint.detector.api.LintMap
 import com.android.tools.lint.detector.api.Location
-import com.android.tools.lint.detector.api.Project
 import com.android.tools.lint.detector.api.ResourceContext
 import com.android.tools.lint.detector.api.ResourceFolderScanner
 import com.android.tools.lint.detector.api.ResourceXmlDetector
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.Severity
 import com.android.tools.lint.detector.api.SourceCodeScanner
+import com.android.tools.lint.detector.api.SourceSetType
 import com.android.tools.lint.detector.api.UastLintUtils.Companion.getLongAttribute
 import com.android.tools.lint.detector.api.VersionChecks
 import com.android.tools.lint.detector.api.VersionChecks.Companion.REQUIRES_API_ANNOTATION
@@ -964,14 +968,30 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
     }
 
     val desugaring = map.getInt(KEY_DESUGAR, null)?.let { Desugaring.fromConstant(it) }
+    var libraryDesugaring = false
     if ((desugaring == null || desugaring == Desugaring.JAVA_8_LIBRARY)) {
       if (mainProject.isDesugaring(Desugaring.JAVA_8_LIBRARY)) {
+        libraryDesugaring = true
         // See if library desugaring is turned on in the main project
         val owner = map.getString(KEY_OWNER, null)
-        owner?.let {
+        if (owner != null && canBeDesugaredLater(owner)) {
           val name = map.getString(KEY_NAME)
-          if (isLibraryDesugared(mainProject, owner, name)) {
-            return false
+          val desc = map.getString(KEY_DESC)
+          val sourceSet =
+            map.getString(KEY_SOURCE_SET)?.let { SourceSetType.valueOf(it) } ?: SourceSetType.MAIN
+
+          if (name != null && desc != null) {
+            if (isDesugaredMethod(owner, name, desc, sourceSet, mainProject, null)) {
+              return false
+            }
+          } else if (name != null) {
+            if (isDesugaredField(owner, name, sourceSet, mainProject, null)) {
+              return false
+            }
+          } else {
+            if (isDesugaredClass(owner, sourceSet, mainProject)) {
+              return false
+            }
           }
         }
       }
@@ -993,25 +1013,40 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
 
     // Update the minSdkVersion included in the message
     val formatString = map.getString(KEY_MESSAGE) ?: return false
-    incident.message = String.format(formatString, minSdk)
-    return true
-  }
+    val message = String.format(formatString, minSdk)
+    incident.message = message
 
-  private fun isLibraryDesugared(context: Context, owner: String?, name: String?): Boolean {
-    val project = if (context.isGlobalAnalysis()) context.mainProject else context.project
-    return isLibraryDesugared(project, owner, name)
-  }
-
-  private fun isLibraryDesugared(project: Project, owner: String?, name: String?): Boolean {
-    if (
-      owner != null &&
-        (owner.startsWith("java/") || owner.startsWith("java.")) &&
-        project.isDesugaring(Desugaring.JAVA_8_LIBRARY) &&
-        isApiDesugared(project, owner.replace('/', '.'), name)
-    ) {
-      return true
+    if (!libraryDesugaring) {
+      val owner = map.getString(KEY_OWNER, null)
+      if (owner != null && canBeDesugaredLater(owner)) {
+        val name = map.getString(KEY_NAME)
+        val desc = map.getString(KEY_DESC)
+        val lookup = DesugaredMethodLookup.getBundledLibraryDesugaringRules(mainProject)
+        var isDesugarable = false
+        if (name != null && desc != null) {
+          if (lookup.isDesugaredMethod(owner, name, desc)) {
+            isDesugarable = true
+          }
+        } else if (name != null) {
+          if (lookup.isDesugaredField(owner, name)) {
+            isDesugarable = true
+          }
+        } else if (lookup.isDesugaredClass(owner)) {
+          isDesugarable = true
+        }
+        if (isDesugarable) {
+          val index = message.indexOf(" (")
+          if (index != -1) {
+            incident.message =
+              message.substring(0, index) +
+                ", or core library desugaring" +
+                message.substring(index)
+          }
+        }
+      }
     }
-    return false
+
+    return true
   }
 
   private fun report(
@@ -1105,15 +1140,11 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
       fix: LintFix? = null,
       owner: String? = null,
       name: String? = null,
-      @Suppress("UNUSED_PARAMETER") desc: String? = null,
+      desc: String? = null,
       requires: ApiConstraint,
       min: ApiConstraint,
       desugaring: Desugaring? = null,
     ) {
-      // Java 8 API desugaring?
-      if (isLibraryDesugared(context, owner, name)) {
-        return
-      }
       val incident =
         Incident(
           issue = issue,
@@ -1127,27 +1158,24 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
           put(KEY_REQUIRES_API, requires)
           put(KEY_MIN_API, max(min, getTargetApi(node)))
           put(KEY_MESSAGE, formatString)
-          if (owner != null && canBeDesugaredLater(owner, name)) {
+          if (owner != null && canBeDesugaredLater(owner)) {
             put(KEY_OWNER, owner)
-            name?.let { put(KEY_NAME, it) }
+            if (name != null) {
+              put(KEY_NAME, name)
+              if (desc != null) {
+                put(KEY_DESC, desc)
+              }
+            }
+            val sourceSetType = context.sourceSetType
+            if (sourceSetType != SourceSetType.INVALID && sourceSetType != SourceSetType.MAIN) {
+              put(KEY_SOURCE_SET, sourceSetType.name)
+            }
           }
           if (desugaring != null) {
             put(KEY_DESUGAR, desugaring.constant)
           }
         }
       context.report(incident, map)
-    }
-
-    /**
-     * Returns true if this looks like a reference that can be desugared in a consuming library.
-     * This will return true if the API is in a package known to be related to library desugaring,
-     * and library desugaring is **not** turned on for this library.
-     */
-    private fun canBeDesugaredLater(owner: String?, name: String?): Boolean {
-      val project = if (context.isGlobalAnalysis()) context.mainProject else context.project
-      return owner != null &&
-        (owner.startsWith("java/") || owner.startsWith("java.")) &&
-        !project.isDesugaring(Desugaring.JAVA_8_LIBRARY)
     }
 
     override fun visitSimpleNameReferenceExpression(node: USimpleNameReferenceExpression) {
@@ -1249,7 +1277,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
         }
       }
 
-      checkCast(expression, operandType, castType)
+      checkCast(expression, operandType, castType, implicit = false)
     }
 
     private fun checkClassReference(node: UElement, classType: PsiClassType): Boolean {
@@ -1282,14 +1310,19 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
       return false
     }
 
-    private fun checkCast(node: UElement, classType: PsiClassType, interfaceType: PsiClassType) {
+    private fun checkCast(
+      node: UElement,
+      classType: PsiClassType,
+      interfaceType: PsiClassType,
+      implicit: Boolean = true,
+    ) {
       if (classType == interfaceType) {
         return
       }
       val evaluator = context.evaluator
       val classTypeInternal = evaluator.getQualifiedName(classType)
       val interfaceTypeInternal = evaluator.getQualifiedName(interfaceType)
-      checkCast(node, classTypeInternal, interfaceTypeInternal, implicit = false)
+      checkCast(node, classTypeInternal, interfaceTypeInternal, implicit)
     }
 
     private fun checkCast(
@@ -1396,7 +1429,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
         location,
         message,
         apiLevelFix(api, minSdk),
-        classType,
+        owner = classType,
         requires = api,
         min = minSdk,
       )
@@ -1674,7 +1707,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
       ) {
         return
       }
-      checkCast(argument, argumentType, parameterType)
+      checkCast(argument, argumentType, parameterType, implicit = true)
     }
 
     private fun visitCall(
@@ -1925,7 +1958,14 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
 
       // Builtin R8 desugaring, such as rewriting compare calls (see b/36390874)
       if (
-        DesugaredMethodLookup.isDesugared(owner, name, desc, context.sourceSetType, context.project)
+        isDesugaredMethod(
+          owner,
+          name,
+          desc,
+          context.sourceSetType,
+          if (context.driver.isGlobalAnalysis()) context.mainProject else context.project,
+          containingClass,
+        )
       ) {
         return
       }
@@ -2168,7 +2208,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
         return
       }
 
-      checkCast(initializer, initializerType, interfaceType)
+      checkCast(initializer, initializerType, interfaceType, implicit = false)
     }
 
     override fun visitArrayAccessExpression(node: UArrayAccessExpression) {
@@ -2209,7 +2249,7 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
           return
         }
 
-        checkCast(rExpression, rhsType, interfaceType)
+        checkCast(rExpression, rhsType, interfaceType, implicit = true)
       }
     }
 
@@ -2560,6 +2600,19 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
           return
         }
 
+        // R8 desugaring, such as rewriting NIO field references (see b/36390874)
+        if (
+          isDesugaredField(
+            owner,
+            name,
+            context.sourceSetType,
+            if (context.driver.isGlobalAnalysis()) context.mainProject else context.project,
+            containingClass,
+          )
+        ) {
+          return
+        }
+
         // If the reference is a qualified expression, don't just highlight the
         // field name itself; include the qualifiers too
         var locationNode = node
@@ -2688,7 +2741,9 @@ class ApiDetector : ResourceXmlDetector(), SourceCodeScanner, ResourceFolderScan
     private const val KEY_MESSAGE = "message"
     private const val KEY_OWNER = "owner"
     private const val KEY_NAME = "name"
+    private const val KEY_DESC = "desc"
     private const val KEY_DESUGAR = "desugar"
+    private const val KEY_SOURCE_SET = "sourceSet"
 
     private const val SDK_SUPPRESS_ANNOTATION = "android.support.test.filters.SdkSuppress"
     private const val ANDROIDX_SDK_SUPPRESS_ANNOTATION = "androidx.test.filters.SdkSuppress"

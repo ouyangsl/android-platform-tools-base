@@ -22,11 +22,11 @@ import androidx.inspection.ArtTooling
 import androidx.inspection.testing.DefaultTestInspectorEnvironment
 import androidx.inspection.testing.InspectorTester
 import androidx.inspection.testing.TestInspectorExecutors
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol.Command
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol.DatabaseOpenedEvent
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol.Event
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol.Response
+import androidx.sqlite.inspection.SqliteInspectorProtocol
+import androidx.sqlite.inspection.SqliteInspectorProtocol.Command
+import androidx.sqlite.inspection.SqliteInspectorProtocol.DatabaseOpenedEvent
+import androidx.sqlite.inspection.SqliteInspectorProtocol.Event
+import androidx.sqlite.inspection.SqliteInspectorProtocol.Response
 import com.google.common.truth.Truth.assertThat
 import java.util.concurrent.Executor
 import kotlin.test.fail
@@ -35,34 +35,29 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.runBlocking
 import org.junit.rules.ExternalResource
+import org.robolectric.shadows.ShadowLog
 
 private const val SQLITE_INSPECTOR_ID = "androidx.sqlite.inspection"
 
-class SqliteInspectorTestEnvironment(val ioExecutorOverride: Executor? = null) :
-  ExternalResource() {
-  private lateinit var inspectorTester: InspectorTester
-  private lateinit var artTooling: FakeArtTooling
+class SqliteInspectorTestEnvironment(ioExecutorOverride: Executor? = null) : ExternalResource() {
+  private val artTooling = FakeArtTooling()
   private val job = Job()
+  private val inspectorEnvironment =
+    DefaultTestInspectorEnvironment(TestInspectorExecutors(job, ioExecutorOverride), artTooling)
+  private val inspectorTester: InspectorTester = runBlocking {
+    InspectorTester(inspectorId = SQLITE_INSPECTOR_ID, environment = inspectorEnvironment)
+  }
 
   override fun before() {
-
-    artTooling = FakeArtTooling()
-    inspectorTester = runBlocking {
-      InspectorTester(
-        inspectorId = SQLITE_INSPECTOR_ID,
-        environment =
-          DefaultTestInspectorEnvironment(
-            TestInspectorExecutors(job, ioExecutorOverride),
-            artTooling,
-          ),
-      )
-    }
+    ShadowLog.stream = System.out
   }
 
   override fun after() {
     inspectorTester.dispose()
     runBlocking { job.cancelAndJoin() }
   }
+
+  fun getLooper() = inspectorEnvironment.executors().handler().looper
 
   @OptIn(ExperimentalCoroutinesApi::class)
   fun assertNoQueuedEvents() {
@@ -108,7 +103,7 @@ suspend fun SqliteInspectorTestEnvironment.issueQuery(
   databaseId: Int,
   command: String,
   queryParams: List<String?>? = null,
-): DatabaseInspectorProtocol.QueryResponse {
+): SqliteInspectorProtocol.QueryResponse {
   val response = sendCommand(MessageFactory.createQueryCommand(databaseId, command, queryParams))
   if (response.hasErrorOccurred()) {
     fail("Unexpected error: $${response.errorOccurred.content.stackTrace}")

@@ -3963,10 +3963,10 @@ public class ApiDetectorTest extends AbstractCheckTest {
                         + "src/test/pkg/LambdaTest.java:9: Error: Call requires API level 23 (current min is 1): android.view.View#performContextClick [NewApi]\n"
                         + "    private View.OnTouchListener myListener = (v, event) -> v.performContextClick();\n"
                         + "                                                              ~~~~~~~~~~~~~~~~~~~\n"
-                        + "src/test/pkg/LambdaTest.java:12: Error: Call requires API level 24 (current min is 1): java.util.Map#forEach [NewApi]\n"
+                        + "src/test/pkg/LambdaTest.java:12: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#forEach [NewApi]\n"
                         + "        map.forEach((t, u) -> Log.i(\"tag\", t + u));\n"
                         + "            ~~~~~~~\n"
-                        + "2 errors, 0 warnings\n";
+                        + "2 errors, 0 warnings";
         //noinspection all // Sample code
         lint().files(
                         java(
@@ -4381,10 +4381,10 @@ public class ApiDetectorTest extends AbstractCheckTest {
                         + "src/test/pkg/ImplicitCastTest.java:14: Error: Cast from Cursor to Closeable requires API level 16 (current min is 14) [NewApi]\n"
                         + "        Closeable closeable = c;\n"
                         + "                              ~\n"
-                        + "src/test/pkg/ImplicitCastTest.java:26: Error: Cast from Cursor to Closeable requires API level 16 (current min is 14) [NewApi]\n"
+                        + "src/test/pkg/ImplicitCastTest.java:26: Error: Implicit cast from Cursor to Closeable requires API level 16 (current min is 14) [NewApi]\n"
                         + "        closeable = c;\n"
                         + "                    ~\n"
-                        + "src/test/pkg/ImplicitCastTest.java:36: Error: Cast from ParcelFileDescriptor to Closeable requires API level 16 (current min is 14) [NewApi]\n"
+                        + "src/test/pkg/ImplicitCastTest.java:36: Error: Implicit cast from ParcelFileDescriptor to Closeable requires API level 16 (current min is 14) [NewApi]\n"
                         + "        safeClose(pfd);\n"
                         + "                  ~~~\n"
                         + "src/test/pkg/ImplicitCastTest.java:47: Error: Cast from AccelerateDecelerateInterpolator to BaseInterpolator requires API level 22 (current min is 14) [NewApi]\n"
@@ -5373,24 +5373,27 @@ public class ApiDetectorTest extends AbstractCheckTest {
     public void test263526227() {
         // Regression test for
         // 263526227: Lint doesn't check valid casts for call receivers
+        // This unit test used to be for TypedArray.close, but that method
+        // is now automatically desugared by R8, so pick a different
+        // example.
         lint().files(
-                        manifest().minSdk(24),
+                        manifest().minSdk(23),
                         java(
                                 ""
                                         + "package test.pkg;\n"
-                                        + "import android.content.res.TypedArray;\n"
-                                        + "public class Test {\n"
-                                        + "    public void testAutoCloseable(TypedArray array) {\n"
-                                        + "        array.close(); // ERROR 1\n"
-                                        + "    }\n"
+                                        + "import android.net.wifi.p2p.WifiP2pManager;\n"
                                         + "\n"
-                                        + "}"))
+                                        + "public class Test {\n"
+                                        + "    public void test(WifiP2pManager.Channel channel) {\n"
+                                        + "        channel.close(); // ERROR 1\n"
+                                        + "    }\n"
+                                        + "}\n"))
                 .run()
                 .expect(
                         ""
-                                + "src/test/pkg/Test.java:5: Error: Call requires API level 31 (current min is 24): android.content.res.TypedArray#close [NewApi]\n"
-                                + "        array.close(); // ERROR 1\n"
-                                + "              ~~~~~\n"
+                                + "src/test/pkg/Test.java:6: Error: Call requires API level 27 (current min is 23): android.net.wifi.p2p.WifiP2pManager.Channel#close [NewApi]\n"
+                                + "        channel.close(); // ERROR 1\n"
+                                + "                ~~~~~\n"
                                 + "1 errors, 0 warnings");
     }
 
@@ -5494,7 +5497,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
                                         + "\n"
                                         + "class TryTest {\n"
                                         + "    fun testAutoCloseable() {\n"
-                                        + "        createArray().close() // ERROR 1\n"
+                                        + "        createArray().close() // OK: Now desugared by R8\n"
                                         + "        createArray().use { array -> // ERROR 2\n"
                                         + "            array.getDrawable(0)\n"
                                         + "        }\n"
@@ -5508,7 +5511,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
                                         + "    fun testCloseable() {\n"
                                         + "        try {\n"
                                         + "            createSocket().close() // OK: since 1\n"
-                                        + "            createSocket().use { socket ->  // ERROR 5: Requires API 28\n"
+                                        + "            createSocket().use { socket ->  // ERROR 1: Requires API 28\n"
                                         + "                socket.accept()\n"
                                         + "            }\n"
                                         + "        } catch (ignore: IOException) {\n"
@@ -5521,9 +5524,6 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/test/pkg/TryTest.kt:10: Error: Call requires API level 31 (current min is 24): android.content.res.TypedArray#close [NewApi]\n"
-                                + "        createArray().close() // ERROR 1\n"
-                                + "                      ~~~~~\n"
                                 + "src/test/pkg/TryTest.kt:11: Error: Implicit cast from TypedArray to AutoCloseable requires API level 31 (current min is 24) [NewApi]\n"
                                 + "        createArray().use { array -> // ERROR 2\n"
                                 + "                      ~~~\n"
@@ -5534,9 +5534,9 @@ public class ApiDetectorTest extends AbstractCheckTest {
                                 + "        val closeable2: AutoCloseable = socket // ERROR 4: requires max(API 28, API 19)\n"
                                 + "                                        ~~~~~~\n"
                                 + "src/test/pkg/TryTest.kt:24: Error: Implicit cast from LocalServerSocket to Closeable requires API level 28 (current min is 24) [NewApi]\n"
-                                + "            createSocket().use { socket ->  // ERROR 5: Requires API 28\n"
+                                + "            createSocket().use { socket ->  // ERROR 1: Requires API 28\n"
                                 + "                           ~~~\n"
-                                + "5 errors, 0 warnings");
+                                + "4 errors, 0 warnings");
     }
 
     @SuppressWarnings("EmptyTryBlock")
@@ -5750,10 +5750,10 @@ public class ApiDetectorTest extends AbstractCheckTest {
     public void testConcurrentHashMapUsage() {
         String expected =
                 ""
-                        + "src/test/pkg/MapUsage.java:7: Error: The type of the for loop iterated value is java.util.concurrent.ConcurrentHashMap.KeySetView<java.lang.String,java.lang.Object>, which requires API level 24 (current min is 1); to work around this, add an explicit cast to (Map) before the keySet call. [NewApi]\n"
+                        + "src/test/pkg/MapUsage.java:7: Error: The type of the for loop iterated value is java.util.concurrent.ConcurrentHashMap.KeySetView<java.lang.String,java.lang.Object>, which requires API level 24, or core library desugaring (current min is 1); to work around this, add an explicit cast to (Map) before the keySet call. [NewApi]\n"
                         + "        for (String key : map.keySet()) {\n"
                         + "                          ~~~~~~~~~~~~\n"
-                        + "src/test/pkg/MapUsage.java:11: Error: The type of the for loop iterated value is java.util.concurrent.ConcurrentHashMap.KeySetView<java.lang.String,java.lang.Object>, which requires API level 24 (current min is 21); to work around this, add an explicit cast to (Map) before the keySet call. [NewApi]\n"
+                        + "src/test/pkg/MapUsage.java:11: Error: The type of the for loop iterated value is java.util.concurrent.ConcurrentHashMap.KeySetView<java.lang.String,java.lang.Object>, which requires API level 24, or core library desugaring (current min is 21); to work around this, add an explicit cast to (Map) before the keySet call. [NewApi]\n"
                         + "            for (String key : map.keySet()) {\n"
                         + "                              ~~~~~~~~~~~~\n"
                         + "2 errors, 0 warnings";
@@ -6010,10 +6010,10 @@ public class ApiDetectorTest extends AbstractCheckTest {
         // Regression test for https://issuetracker.google.com/37137282
         String expected =
                 ""
-                        + "src/test/pkg/MapApiTest.java:8: Error: Call requires API level 24 (current min is 1): java.util.Map#getOrDefault [NewApi]\n"
+                        + "src/test/pkg/MapApiTest.java:8: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#getOrDefault [NewApi]\n"
                         + "        map.getOrDefault(\"foo\", \"bar\");\n"
                         + "            ~~~~~~~~~~~~\n"
-                        + "1 errors, 0 warnings\n";
+                        + "1 errors, 0 warnings";
         //noinspection all // Sample code
         lint().files(
                         java(
@@ -6059,7 +6059,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/test/pkg/TestClass.kt:12: Error: Call requires API level 24 (current min is 14): java.util.Map#getOrDefault (called from kotlin.collections.Map#getOrDefault) [NewApi]\n"
+                                + "src/test/pkg/TestClass.kt:12: Error: Call requires API level 24, or core library desugaring (current min is 14): java.util.Map#getOrDefault (called from kotlin.collections.Map#getOrDefault) [NewApi]\n"
                                 + "        map.getOrDefault(key1, 0F)\n"
                                 + "            ~~~~~~~~~~~~\n"
                                 + "src/test/pkg/TestClass.kt:13: Error: Call requires API level 24 (current min is 14): java.util.HashMap#getOrDefault [NewApi]\n"
@@ -6087,16 +6087,16 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/test.kt:3: Error: Call requires API level 24 (current min is 1): java.util.Map#getOrDefault [NewApi]\n"
+                                + "src/test.kt:3: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#getOrDefault [NewApi]\n"
                                 + "    map.getOrDefault(\"foo\", \"bar\")\n"
                                 + "        ~~~~~~~~~~~~\n"
-                                + "src/test.kt:4: Error: Call requires API level 24 (current min is 1): java.util.Map#remove [NewApi]\n"
+                                + "src/test.kt:4: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#remove [NewApi]\n"
                                 + "    map.remove(\"foo\", \"bar\")\n"
                                 + "        ~~~~~~\n"
-                                + "src/test.kt:9: Error: Call requires API level 24 (current min is 1): java.util.Map#getOrDefault (called from kotlin.collections.Map#getOrDefault) [NewApi]\n"
+                                + "src/test.kt:9: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#getOrDefault (called from kotlin.collections.Map#getOrDefault) [NewApi]\n"
                                 + "    map.getOrDefault(\"foo\", null)\n"
                                 + "        ~~~~~~~~~~~~\n"
-                                + "src/test.kt:10: Error: Call requires API level 24 (current min is 1): java.util.Map#remove [NewApi]\n"
+                                + "src/test.kt:10: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#remove [NewApi]\n"
                                 + "    map.remove(\"foo\", \"bar\")\n"
                                 + "        ~~~~~~\n"
                                 + "4 errors, 0 warnings");
@@ -6430,16 +6430,16 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/test/pkg/JavaForEach.java:8: Error: Call requires API level 24 (current min is 21): java.lang.Iterable#forEach [NewApi]\n"
+                                + "src/test/pkg/JavaForEach.java:8: Error: Call requires API level 24, or core library desugaring (current min is 21): java.lang.Iterable#forEach [NewApi]\n"
                                 + "        list.forEach(new Consumer<String>() {\n"
                                 + "             ~~~~~~~\n"
-                                + "src/test/pkg/JavaForEach.java:8: Error: Class requires API level 24 (current min is 21): java.util.function.Consumer [NewApi]\n"
+                                + "src/test/pkg/JavaForEach.java:8: Error: Class requires API level 24, or core library desugaring (current min is 21): java.util.function.Consumer [NewApi]\n"
                                 + "        list.forEach(new Consumer<String>() {\n"
                                 + "                         ~~~~~~~~~~~~~~~~\n"
-                                + "src/test/pkg/JavaForEach.java:15: Error: Call requires API level 24 (current min is 23): java.lang.Iterable#forEach [NewApi]\n"
+                                + "src/test/pkg/JavaForEach.java:15: Error: Call requires API level 24, or core library desugaring (current min is 23): java.lang.Iterable#forEach [NewApi]\n"
                                 + "            list.forEach(new Consumer<String>() {\n"
                                 + "                 ~~~~~~~\n"
-                                + "src/test/pkg/JavaForEach.java:15: Error: Class requires API level 24 (current min is 23): java.util.function.Consumer [NewApi]\n"
+                                + "src/test/pkg/JavaForEach.java:15: Error: Class requires API level 24, or core library desugaring (current min is 23): java.util.function.Consumer [NewApi]\n"
                                 + "            list.forEach(new Consumer<String>() {\n"
                                 + "                             ~~~~~~~~~~~~~~~~\n"
                                 + "4 errors, 0 warnings");
@@ -6479,25 +6479,25 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/test/pkg/Used.java:9: Error: Call requires API level 24 (current min is 15): java.util.Collection#stream [NewApi]\n"
+                                + "src/test/pkg/Used.java:9: Error: Call requires API level 24, or core library desugaring (current min is 15): java.util.Collection#stream [NewApi]\n"
                                 + "        return list.stream().map((Function<String, Object>) s -> \n"
                                 + "                    ~~~~~~\n"
-                                + "src/test/pkg/Used.java:9: Error: Call requires API level 24 (current min is 15): java.util.stream.Stream#map [NewApi]\n"
+                                + "src/test/pkg/Used.java:9: Error: Call requires API level 24, or core library desugaring (current min is 15): java.util.stream.Stream#map [NewApi]\n"
                                 + "        return list.stream().map((Function<String, Object>) s -> \n"
                                 + "                             ~~~\n"
-                                + "src/test/pkg/Used.java:10: Error: Call requires API level 24 (current min is 15): java.util.stream.Collectors#toList [NewApi]\n"
+                                + "src/test/pkg/Used.java:10: Error: Call requires API level 24, or core library desugaring (current min is 15): java.util.stream.Collectors#toList [NewApi]\n"
                                 + "                fromNullable(s)).collect(Collectors.toList());\n"
                                 + "                                                    ~~~~~~\n"
-                                + "src/test/pkg/Used.java:10: Error: Call requires API level 24 (current min is 15): java.util.stream.Stream#collect [NewApi]\n"
+                                + "src/test/pkg/Used.java:10: Error: Call requires API level 24, or core library desugaring (current min is 15): java.util.stream.Stream#collect [NewApi]\n"
                                 + "                fromNullable(s)).collect(Collectors.toList());\n"
                                 + "                                 ~~~~~~~\n"
-                                + "src/test/pkg/Used.java:14: Error: Call requires API level 24 (current min is 15): java.util.Collection#stream [NewApi]\n"
+                                + "src/test/pkg/Used.java:14: Error: Call requires API level 24, or core library desugaring (current min is 15): java.util.Collection#stream [NewApi]\n"
                                 + "        list.stream().map(new Function<String, Object>() {\n"
                                 + "             ~~~~~~\n"
-                                + "src/test/pkg/Used.java:14: Error: Call requires API level 24 (current min is 15): java.util.stream.Stream#map [NewApi]\n"
+                                + "src/test/pkg/Used.java:14: Error: Call requires API level 24, or core library desugaring (current min is 15): java.util.stream.Stream#map [NewApi]\n"
                                 + "        list.stream().map(new Function<String, Object>() {\n"
                                 + "                      ~~~\n"
-                                + "src/test/pkg/Used.java:14: Error: Class requires API level 24 (current min is 15): java.util.function.Function [NewApi]\n"
+                                + "src/test/pkg/Used.java:14: Error: Class requires API level 24, or core library desugaring (current min is 15): java.util.function.Function [NewApi]\n"
                                 + "        list.stream().map(new Function<String, Object>() {\n"
                                 + "                              ~~~~~~~~~~~~~~~~~~~~~~~~\n"
                                 + "7 errors, 0 warnings");
@@ -7505,7 +7505,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
                                         + "\n"
                                         + "fun testJava8() {\n"
                                         + "    // Error, Api 24, Java8\n"
-                                        + "    mutableListOf(1, 2, 3)./*Call requires API level 24 (current min is 1): java.util.Collection#removeIf*/removeIf/**/ {\n"
+                                        + "    mutableListOf(1, 2, 3)./*Call requires API level 24, or core library desugaring (current min is 1): java.util.Collection#removeIf*/removeIf/**/ {\n"
                                         + "        true\n"
                                         + "    }\n"
                                         + "\n"
@@ -7515,7 +7515,7 @@ public class ApiDetectorTest extends AbstractCheckTest {
                                         + "    }\n"
                                         + "\n"
                                         + "    // Error, Api 24, Java8\n"
-                                        + "    mapOf(1 to 2)./*Call requires API level 24 (current min is 1): java.util.Map#forEach*/forEach/**/ { key, value -> key + value }\n"
+                                        + "    mapOf(1 to 2)./*Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#forEach*/forEach/**/ { key, value -> key + value }\n"
                                         + "\n"
                                         + "    // Ok, Kotlin\n"
                                         + "    mapOf(1 to 2).forEach { (key, value) -> key + value }\n"
@@ -7756,10 +7756,10 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/test/pkg/test.kt:4: Error: Call requires API level 24 (current min is 1): java.util.Map#getOrDefault [NewApi]\n"
+                                + "src/test/pkg/test.kt:4: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#getOrDefault [NewApi]\n"
                                 + "    map.getOrDefault(\"a\", \"b\")\n"
                                 + "        ~~~~~~~~~~~~\n"
-                                + "src/test/pkg/test.kt:5: Error: Call requires API level 24 (current min is 1): java.util.Map#remove [NewApi]\n"
+                                + "src/test/pkg/test.kt:5: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Map#remove [NewApi]\n"
                                 + "    map.remove(\"a\", \"b\")\n"
                                 + "        ~~~~~~\n"
                                 + "2 errors, 0 warnings");
@@ -7994,8 +7994,8 @@ public class ApiDetectorTest extends AbstractCheckTest {
                                         + "\n"
                                         + "fun testArrayIndex() {\n"
                                         + "    val array = SparseArray<String>()\n"
-                                        + "    array[1] = \"one\" // ERROR\n"
-                                        + "    array.set(1, \"one\") // ERROR\n"
+                                        + "    array[1] = \"one\" // OK\n"
+                                        + "    array.set(1, \"one\") // OK\n"
                                         + "}\n"))
                 .run()
                 .expectClean();
@@ -8105,16 +8105,16 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24 (current min is 1): java.util.Collection#stream [NewApi]\n"
+                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.Collection#stream [NewApi]\n"
                                 + "        return appenders.stream().map(AppenderControl::getAppender).collect(Collectors.toList());\n"
                                 + "                         ~~~~~~\n"
-                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24 (current min is 1): java.util.stream.Collectors#toList [NewApi]\n"
+                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.stream.Collectors#toList [NewApi]\n"
                                 + "        return appenders.stream().map(AppenderControl::getAppender).collect(Collectors.toList());\n"
                                 + "                                                                                       ~~~~~~\n"
-                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24 (current min is 1): java.util.stream.Stream#collect [NewApi]\n"
+                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.stream.Stream#collect [NewApi]\n"
                                 + "        return appenders.stream().map(AppenderControl::getAppender).collect(Collectors.toList());\n"
                                 + "                                                                    ~~~~~~~\n"
-                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24 (current min is 1): java.util.stream.Stream#map [NewApi]\n"
+                                + "src/org/apache/logging/log4j/core/appender/AsyncAppenderEventDispatcher.java:12: Error: Call requires API level 24, or core library desugaring (current min is 1): java.util.stream.Stream#map [NewApi]\n"
                                 + "        return appenders.stream().map(AppenderControl::getAppender).collect(Collectors.toList());\n"
                                 + "                                  ~~~\n"
                                 + "4 errors, 0 warnings");
@@ -9157,13 +9157,13 @@ public class ApiDetectorTest extends AbstractCheckTest {
                 .run()
                 .expect(
                         ""
-                                + "src/test/pkg/CastTestJava.java:14: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestJava.java:14: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "        addListeners(0, listener1);  // ERROR 1\n"
                                 + "                        ~~~~~~~~~\n"
-                                + "src/test/pkg/CastTestJava.java:16: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestJava.java:16: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "                listener1,           // ERROR 2\n"
                                 + "                ~~~~~~~~~\n"
-                                + "src/test/pkg/CastTestJava.java:17: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestJava.java:17: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "                listener2,           // ERROR 3\n"
                                 + "                ~~~~~~~~~\n"
                                 + "src/test/pkg/CastTestJava.java:24: Error: Cast from LinkedList to Deque requires API level 9 (current min is 1) [NewApi]\n"
@@ -9172,19 +9172,19 @@ public class ApiDetectorTest extends AbstractCheckTest {
                                 + "src/test/pkg/CastTestJava.java:25: Error: Cast from LinkedList to Deque requires API level 9 (current min is 1) [NewApi]\n"
                                 + "        Deque<? super Number> deque2 = list2; // ERROR 5\n"
                                 + "                                       ~~~~~\n"
-                                + "src/test/pkg/CastTestKotlin.kt:17: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestKotlin.kt:17: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "            0, listener1,                    // ERROR 6\n"
                                 + "               ~~~~~~~~~\n"
-                                + "src/test/pkg/CastTestKotlin.kt:18: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestKotlin.kt:18: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "            listener2)                       // ERROR 7\n"
                                 + "            ~~~~~~~~~\n"
-                                + "src/test/pkg/CastTestKotlin.kt:19: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestKotlin.kt:19: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "        activity.addListeners(1, listener1)  // ERROR 8\n"
                                 + "                                 ~~~~~~~~~\n"
-                                + "src/test/pkg/CastTestKotlin.kt:21: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestKotlin.kt:21: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "            2, listener1,                    // ERROR 9\n"
                                 + "               ~~~~~~~~~\n"
-                                + "src/test/pkg/CastTestKotlin.kt:22: Error: Cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
+                                + "src/test/pkg/CastTestKotlin.kt:22: Error: Implicit cast from AnimatorListenerAdapter to AnimatorPauseListener requires API level 19 (current min is 1) [NewApi]\n"
                                 + "            listener2,                       // ERROR 10\n"
                                 + "            ~~~~~~~~~\n"
                                 + "10 errors, 0 warnings");

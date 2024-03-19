@@ -1,5 +1,6 @@
 package com.android.adblib.ddmlibcompatibility.debugging
 
+import com.android.adblib.AdbDeviceFailResponseException
 import com.android.adblib.AdbSession
 import com.android.adblib.ConnectedDevice
 import com.android.adblib.DeviceSelector
@@ -11,6 +12,7 @@ import com.android.adblib.serialNumber
 import com.android.adblib.testingutils.CoroutineTestUtils.runBlockingWithTimeout
 import com.android.adblib.testingutils.CoroutineTestUtils.yieldUntil
 import com.android.adblib.testingutils.FakeAdbServerProviderRule
+import com.android.ddmlib.AdbCommandRejectedException
 import com.android.ddmlib.AdbHelper
 import com.android.ddmlib.AndroidDebugBridge
 import com.android.ddmlib.IDevice
@@ -22,6 +24,7 @@ import com.android.fakeadbserver.DeviceState
 import com.android.fakeadbserver.devicecommandhandlers.SyncCommandHandler
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.mapNotNull
+import org.hamcrest.CoreMatchers
 import org.junit.Assert.assertArrayEquals
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -202,6 +205,24 @@ class AdblibIDeviceWrapperTest {
         assertTrue(uncaughtException.get() is IOException)
         assertEquals("Operation interrupted", uncaughtException.get()?.message)
     }
+
+    @Test
+    fun executeShellCommand_mapsAdbDeviceFailResponseException_toAdbCommandRejectedException() =
+        runBlockingWithTimeout {
+            // Prepare
+            val (connectedDevice, _) = createConnectedDevice(
+                "device1", DeviceState.DeviceStatus.BOOTLOADER
+            )
+            val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+            exceptionRule.expect(AdbCommandRejectedException::class.java)
+            exceptionRule.expectCause(CoreMatchers.isA(AdbDeviceFailResponseException::class.java))
+
+            // Act
+            adblibIDeviceWrapper.executeShellCommand("non-existant-command", ListReceiver())
+
+            // Assert
+            fail("Should not reach")
+        }
 
     @Test
     fun executeRemoteCommandCanHandleAbbExec() = runBlockingWithTimeout {
@@ -573,6 +594,24 @@ class AdblibIDeviceWrapperTest {
 
         // Assert
         assertNull(fileStat)
+    }
+
+    @Test
+    fun statFile_throwsAdbCommandRejectedException_whenSyncCommandFails() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, deviceState) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.ONLINE
+        )
+        deviceState.acceptsSyncServiceRequests = false
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        exceptionRule.expect(AdbCommandRejectedException::class.java)
+        exceptionRule.expectCause(CoreMatchers.isA(AdbDeviceFailResponseException::class.java))
+
+        // Act
+        adblibIDeviceWrapper.statFile("/sdcard/foo/bar.bin")
+
+        // Assert
+        fail("Should not reach")
     }
 
     @Test

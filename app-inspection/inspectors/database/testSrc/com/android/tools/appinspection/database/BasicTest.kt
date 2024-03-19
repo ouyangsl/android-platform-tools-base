@@ -17,8 +17,8 @@
 package com.android.tools.appinspection.database
 
 import android.os.Build
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol.Command
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol.ErrorContent.ErrorCode.ERROR_UNRECOGNISED_COMMAND_VALUE
+import androidx.sqlite.inspection.SqliteInspectorProtocol.Command
+import androidx.sqlite.inspection.SqliteInspectorProtocol.ErrorContent.ErrorCode.ERROR_UNRECOGNISED_COMMAND_VALUE
 import com.android.tools.appinspection.database.testing.MessageFactory
 import com.android.tools.appinspection.database.testing.SqliteInspectorTestEnvironment
 import com.google.common.truth.Truth.assertThat
@@ -31,7 +31,11 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.SQLiteMode
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE, sdk = [Build.VERSION_CODES.P])
+@Config(
+  manifest = Config.NONE,
+  minSdk = Build.VERSION_CODES.O,
+  maxSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
+)
 @SQLiteMode(SQLiteMode.Mode.NATIVE)
 class BasicTest {
   @get:Rule val testEnvironment = SqliteInspectorTestEnvironment()

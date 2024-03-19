@@ -18,8 +18,8 @@ package com.android.tools.appinspection.database
 
 import android.database.sqlite.SQLiteDatabase
 import android.os.Build
+import androidx.sqlite.inspection.SqliteInspectorProtocol.ErrorContent.ErrorCode.ERROR_NO_OPEN_DATABASE_WITH_REQUESTED_ID_VALUE
 import com.android.testutils.CloseablesRule
-import com.android.tools.appinspection.database.proto.DatabaseInspectorProtocol.ErrorContent.ErrorCode.ERROR_NO_OPEN_DATABASE_WITH_REQUESTED_ID_VALUE
 import com.android.tools.appinspection.database.testing.Column
 import com.android.tools.appinspection.database.testing.Database
 import com.android.tools.appinspection.database.testing.MessageFactory.createGetSchemaCommand
@@ -41,7 +41,11 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.SQLiteMode
 
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE, sdk = [Build.VERSION_CODES.P])
+@Config(
+  manifest = Config.NONE,
+  minSdk = Build.VERSION_CODES.O,
+  maxSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
+)
 @SQLiteMode(SQLiteMode.Mode.NATIVE)
 class GetSchemaTest {
   private val testEnvironment = SqliteInspectorTestEnvironment()
