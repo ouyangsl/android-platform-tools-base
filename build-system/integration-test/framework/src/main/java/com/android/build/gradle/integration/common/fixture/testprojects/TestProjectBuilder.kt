@@ -59,6 +59,7 @@ fun createGradleProjectBuilder(
         .apply { name?.let { withName(it) } }
         .fromTestApp(builder)
         .withKotlinGradlePlugin(builder.withKotlinPlugin)
+        .withKotlinVersion(builder.kotlinVersion)
         .withAdditionalMavenRepo(builder.mavenRepoGenerator)
 }
 
@@ -72,6 +73,8 @@ interface TestProjectBuilder {
     var buildFileType: BuildFileType
 
     var withKotlinPlugin: Boolean
+
+    var kotlinVersion: String?
 
     fun settings(action: SettingsBuilder.() -> Unit)
 
@@ -319,6 +322,16 @@ interface DependenciesBuilder {
      * adds a dependency
      */
     fun include(dependency: Any)
+
+    /**
+     * Adds a dependency (to privacy sandbox sdk) declaring dependent sdk modules should be 'installed'.
+     */
+    fun requiredSdk(dependency: Any)
+
+    /**
+     * Adds a dependency to (to privacy sandbox sdk) declaring its dependent sdks are optional.
+     */
+    fun optionalSdk(dependency: Any)
 
     /**
      * adds a dependency in the lintPublish scope.

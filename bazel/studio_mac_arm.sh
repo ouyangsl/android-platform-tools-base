@@ -40,7 +40,8 @@ readonly config_options="--config=release --config=ants --config=rcache"
         "${conditional_flags[@]}" \
         -- \
         //tools/base/bazel/... \
-        //tools/base/dynamic-layout-inspector/skia:skiaparser \
+        //tools/vendor/google/skia:skiaparser \
+        //tools/vendor/google/skia:skia_test_support \
         //tools/adt/idea/android/src/com/android/tools/idea/diagnostics/heap/native/...
 
 readonly bazel_status=$?
@@ -50,9 +51,10 @@ if [[ -d "${dist_dir}" ]]; then
   # affect info, so we need to pass only --config=release here in order to fetch the proper
   # binaries
   readonly bin_dir="$("${script_dir}"/bazel --output_base="${TMPDIR}" info --config=release bazel-bin)"
-  cp -a ${bin_dir}/tools/base/dynamic-layout-inspector/skia/skiaparser.zip ${dist_dir}
   cp -a ${bin_dir}/tools/base/profiler/native/trace_processor_daemon/trace_processor_daemon ${dist_dir}
   cp -a ${bin_dir}/tools/adt/idea/android/src/com/android/tools/idea/diagnostics/heap/native/libjni_object_tagger.dylib ${dist_dir}
+  cp -a ${bin_dir}/tools/vendor/google/skia/skiaparser.zip ${dist_dir}
+  cp -a ${bin_dir}/tools/vendor/google/skia/skia_test_support.zip ${dist_dir}
   #echo "<head><meta http-equiv=\"refresh\" content=\"0; URL='https://fusion2.corp.google.com/invocations/${invocation_id}'\" /></head>" > "${dist_dir}"/sponge_test_results.html
 fi
 

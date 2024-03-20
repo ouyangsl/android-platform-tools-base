@@ -40,7 +40,8 @@ iml_module(
     exports = ["//tools/base/annotations:studio.android.sdktools.android-annotations"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/base/annotations:studio.android.sdktools.android-annotations[module]",
     ],
 )
@@ -70,7 +71,7 @@ maven_library(
         "src/main/java/com/android/xml/sax/*.java",
     ]),
     bundled_deps = [
-        "//tools/base/common/version",
+        "//tools/base/common/agp-version",
     ],
     coordinates = "com.android.tools:common",
     description = "common library used by other Android tools libraries.",
@@ -136,7 +137,8 @@ iml_module(
     exports = ["//tools/base/annotations:studio.android.sdktools.android-annotations"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/adt/idea/.idea/libraries:kotlin-test[test]",
         "//tools/base/testutils:studio.android.sdktools.testutils[module, test]",
         "//tools/base/annotations:studio.android.sdktools.android-annotations[module]",
@@ -174,7 +176,8 @@ iml_module(
     exports = ["//tools/base/annotations:studio.android.sdktools.android-annotations"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/base/annotations:studio.android.sdktools.android-annotations[module]",
         "//tools/base/common:studio.android.sdktools.common[module]",
     ],

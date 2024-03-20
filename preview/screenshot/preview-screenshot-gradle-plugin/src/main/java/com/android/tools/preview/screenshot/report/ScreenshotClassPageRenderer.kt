@@ -16,7 +16,6 @@
 
 package com.android.tools.preview.screenshot.report
 
-import org.gradle.internal.ErroringAction
 import java.io.IOException
 
 internal class ScreenshotClassPageRenderer: PageRenderer<ClassTestResults>() {

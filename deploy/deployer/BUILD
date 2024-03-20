@@ -24,7 +24,8 @@ iml_module(
     exports = ["//tools/base/deploy/deployer:deploy_java_proto"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/base/common:studio.android.sdktools.common[module]",
         "//tools/base/ddmlib:studio.android.sdktools.ddmlib[module]",
         "//tools/base/testutils:studio.android.sdktools.testutils[module, test]",

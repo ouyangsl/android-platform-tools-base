@@ -14,7 +14,8 @@ iml_module(
     exports = ["//tools/base/common:studio.android.sdktools.common"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/base/common:studio.android.sdktools.common[module]",
     ],
 )

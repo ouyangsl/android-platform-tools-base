@@ -118,7 +118,8 @@ iml_module(
         "//tools/base/lint:studio.android.sdktools.lint-model[module]",
         "//tools/base/lint:studio.android.sdktools.lint-checks[module]",
         "//tools/base/lint/cli:studio.android.sdktools.lint.cli[module]",
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
     ],
 )
 
@@ -149,7 +150,8 @@ iml_module(
         "//tools/adt/idea/.idea/libraries:mockito[test]",
         "//tools/base/common:studio.android.sdktools.common.testfixtures[module, test]",
         "//tools/base/lint:studio.android.sdktools.lint-checks[module, test]",
-        "//prebuilts/studio/intellij-sdk:studio-sdk[test]",
+        "@intellij//:intellij-sdk[test]",
+        "@intellij//:com.intellij.java",
         "//tools/base/lint/libs/lint-tests:liblint-checks-proto",
         "//tools/adt/idea/.idea/libraries:kotlin-test[test]",
         "//tools/adt/idea/.idea/libraries:agp-version[test]",

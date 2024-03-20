@@ -11,12 +11,12 @@ fileset(
         "src/fromGradle/resources/**",
     ]) + [
         "//prebuilts/tools/common/aapt:aapt2_version.properties",
-        "//tools/base/common/version/com/android:version.properties",
+        "//tools/base/common/agp-version/com/android:version.properties",
     ],
     mappings = {
         "src/main/resources/": "",
         "src/fromGradle/resources/": "",
-        "//tools/base/common/version/com/android:version.properties": "com/android/build/api/extension/impl/version.properties",
+        "//tools/base/common/agp-version/com/android:version.properties": "com/android/build/api/extension/impl/version.properties",
         "//prebuilts/tools/common/aapt:aapt2_version.properties": "com/android/build/gradle/internal/res/aapt2_version.properties",
     },
 )
@@ -46,6 +46,13 @@ kotlin_library(
     # See http://b/293274645 on why we need this kotlinc option.
     kotlinc_opts = ["-XXLanguage:-TypeEnhancementImprovementsInStrictMode"],
     lint_baseline = "lint_baseline.xml",
+    lint_custom_rules = [
+        "@maven//:androidx.lint.lint-gradle",  # For gradle-specific lint checks
+    ],
+    lint_extra_args = [
+        "--disable",
+        "InternalGradleApiUsage",
+    ],
     lint_timeout = "long",
     module_name = "gradle_core",
     resource_strip_prefix = "tools/base/build-system/gradle-core",

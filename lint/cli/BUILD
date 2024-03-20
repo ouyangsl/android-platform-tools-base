@@ -91,7 +91,8 @@ iml_module(
         "//tools/base/sdklib:studio.android.sdktools.sdklib[module]",
         "//tools/base/sdk-common:studio.android.sdktools.sdk-common[module]",
         "//tools/base/layoutlib-api:studio.android.sdktools.layoutlib-api[module]",
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/adt/idea/.idea/libraries:agp-version",
     ],
 )

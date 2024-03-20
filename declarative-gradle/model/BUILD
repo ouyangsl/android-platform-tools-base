@@ -50,7 +50,8 @@ iml_module(
     deps = [
         "//tools/base/common:studio.android.sdktools.common[module]",
         "//tools/adt/idea/.idea/libraries:tomlj",
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/adt/idea/android-common:intellij.android.common[module]",
     ],
 )
@@ -66,9 +67,10 @@ iml_module(
         "//tools/base/declarative-gradle/model:studio.declarative-gradle.model[module, test]",
         "//tools/base/common:studio.android.sdktools.common[module, test]",
         "//tools/adt/idea/.idea/libraries:tomlj[test]",
-        "//prebuilts/studio/intellij-sdk:studio-sdk[test]",
+        "@intellij//:intellij-sdk[test]",
+        "@intellij//:com.intellij.java",
         "//tools/adt/idea/android-common:intellij.android.common[module, test]",
-        "//prebuilts/studio/intellij-sdk:studio-sdk-plugin-junit[test]",
+        "@intellij//:JUnit[test]",
         "//tools/adt/idea/.idea/libraries:truth[test]",
         "//tools/adt/idea/.idea/libraries:mockito[test]",
     ],

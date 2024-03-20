@@ -11,7 +11,10 @@ iml_module(
     resources = ["src/main/resources"],
     visibility = ["//visibility:public"],
     # do not sort: must match IML order
-    deps = ["//prebuilts/studio/intellij-sdk:studio-sdk"],
+    deps = [
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
+    ],
 )
 
 # added manually to match build.gradle file

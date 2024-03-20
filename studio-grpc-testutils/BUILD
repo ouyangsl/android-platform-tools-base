@@ -23,7 +23,8 @@ iml_module(
     # do not sort: must match IML order
     deps = [
         "//tools/adt/idea/.idea/libraries:studio-grpc[test]",
-        "//prebuilts/studio/intellij-sdk:studio-sdk[test]",
+        "@intellij//:intellij-sdk[test]",
+        "@intellij//:com.intellij.java",
         "//tools/adt/idea/android-test-framework:intellij.android.testFramework[module, test]",
     ],
 )

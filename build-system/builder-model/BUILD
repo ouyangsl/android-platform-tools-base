@@ -6,8 +6,8 @@ load("//tools/base/common:version.bzl", "BUILD_VERSION")
 
 fileset(
     name = "version.properties",
-    srcs = ["//tools/base/common/version/com/android:version.properties"],
-    mappings = {"//tools/base/common/version/com/android:": "com/android/builder/model/"},
+    srcs = ["//tools/base/common/agp-version/com/android:version.properties"],
+    mappings = {"//tools/base/common/agp-version/com/android:": "com/android/builder/model/"},
 )
 
 # managed by go/iml_to_build
@@ -24,7 +24,8 @@ iml_module(
     visibility = ["//visibility:public"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/base/annotations:studio.android.sdktools.android-annotations[module]",
     ],
 )
@@ -98,7 +99,8 @@ iml_module(
     visibility = ["//visibility:public"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk[test]",
+        "@intellij//:intellij-sdk[test]",
+        "@intellij//:com.intellij.java",
         "//tools/base/annotations:studio.android.sdktools.android-annotations[module, test]",
         "//tools/base/build-system/builder-model:studio.android.sdktools.builder-model[module, test]",
         "//tools/base/testutils:studio.android.sdktools.testutils[module, test]",

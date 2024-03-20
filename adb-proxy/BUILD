@@ -17,7 +17,8 @@ iml_module(
     exports = ["//tools/base/adb-proxy:adb_proxy_proto"],
     # do not sort: must match IML order
     deps = [
-        "//prebuilts/studio/intellij-sdk:studio-sdk",
+        "@intellij//:intellij-sdk",
+        "@intellij//:com.intellij.java",
         "//tools/base/adb-proxy:adb_proxy_proto",
         "//tools/base/adblib:studio.android.sdktools.adblib[module]",
         "//tools/adt/idea/.idea/libraries:mockito[test]",
