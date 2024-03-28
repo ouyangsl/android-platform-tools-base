@@ -7,7 +7,7 @@ package com.android.build.api {
     method public com.android.build.api.AndroidPluginVersion alpha(int alpha);
     method public com.android.build.api.AndroidPluginVersion beta(int beta);
     method public int compareTo(com.android.build.api.AndroidPluginVersion other);
-    method @org.gradle.api.Incubating public com.android.build.api.AndroidPluginVersion dev();
+    method public com.android.build.api.AndroidPluginVersion dev();
     method public static com.android.build.api.AndroidPluginVersion getCurrent();
     method public int getMajor();
     method public int getMicro();
@@ -120,7 +120,7 @@ package com.android.build.api.artifact {
 
   public interface InAndOutFileOperationRequest {
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<org.gradle.api.file.RegularFile> & com.android.build.api.artifact.Artifact.Transformable> void toTransform(ArtifactTypeT type);
-    method @org.gradle.api.Incubating public com.android.build.api.artifact.InAndOutFileOperationRequest withName(String name);
+    method public com.android.build.api.artifact.InAndOutFileOperationRequest withName(String name);
   }
 
   public abstract sealed class MultipleArtifact<FileTypeT extends org.gradle.api.file.FileSystemLocation> extends com.android.build.api.artifact.Artifact.Multiple<FileTypeT> {
@@ -145,8 +145,8 @@ package com.android.build.api.artifact {
   public interface OutOperationRequest<FileTypeT extends org.gradle.api.file.FileSystemLocation> {
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Multiple<FileTypeT> & com.android.build.api.artifact.Artifact.Appendable> void toAppendTo(ArtifactTypeT type);
     method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<FileTypeT> & com.android.build.api.artifact.Artifact.Replaceable> void toCreate(ArtifactTypeT type);
-    method @org.gradle.api.Incubating public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<FileTypeT>> void toListenTo(ArtifactTypeT type);
-    method @org.gradle.api.Incubating public com.android.build.api.artifact.OutOperationRequest<FileTypeT> withName(String name);
+    method public <ArtifactTypeT extends com.android.build.api.artifact.Artifact.Single<FileTypeT>> void toListenTo(ArtifactTypeT type);
+    method public com.android.build.api.artifact.OutOperationRequest<FileTypeT> withName(String name);
   }
 
   public abstract sealed class ScopedArtifact extends com.android.build.api.artifact.Artifact.Single<org.gradle.api.file.RegularFile> {
@@ -236,12 +236,12 @@ package com.android.build.api.attributes {
   }
 
   public interface ProductFlavorAttr extends org.gradle.api.Named {
-    method @org.gradle.api.Incubating public static org.gradle.api.attributes.Attribute<com.android.build.api.attributes.ProductFlavorAttr> of(String flavorDimension);
+    method public static org.gradle.api.attributes.Attribute<com.android.build.api.attributes.ProductFlavorAttr> of(String flavorDimension);
     field public static final com.android.build.api.attributes.ProductFlavorAttr.Companion Companion;
   }
 
-  @org.gradle.api.Incubating public static final class ProductFlavorAttr.Companion {
-    method @org.gradle.api.Incubating public org.gradle.api.attributes.Attribute<com.android.build.api.attributes.ProductFlavorAttr> of(String flavorDimension);
+  public static final class ProductFlavorAttr.Companion {
+    method public org.gradle.api.attributes.Attribute<com.android.build.api.attributes.ProductFlavorAttr> of(String flavorDimension);
   }
 
 }
@@ -259,15 +259,15 @@ package com.android.build.api.dsl {
   }
 
   public interface AarMetadata {
-    method @org.gradle.api.Incubating public String? getMinAgpVersion();
+    method public String? getMinAgpVersion();
     method public Integer? getMinCompileSdk();
-    method @org.gradle.api.Incubating public Integer? getMinCompileSdkExtension();
-    method @org.gradle.api.Incubating public void setMinAgpVersion(String?);
+    method public Integer? getMinCompileSdkExtension();
+    method public void setMinAgpVersion(String?);
     method public void setMinCompileSdk(Integer?);
-    method @org.gradle.api.Incubating public void setMinCompileSdkExtension(Integer?);
-    property @org.gradle.api.Incubating public abstract String? minAgpVersion;
+    method public void setMinCompileSdkExtension(Integer?);
+    property public abstract String? minAgpVersion;
     property public abstract Integer? minCompileSdk;
-    property @org.gradle.api.Incubating public abstract Integer? minCompileSdkExtension;
+    property public abstract Integer? minCompileSdkExtension;
   }
 
   public interface AbiSplit extends com.android.build.api.dsl.Split {
@@ -501,7 +501,7 @@ package com.android.build.api.dsl {
     method @org.gradle.api.Incubating public boolean getEnableBaselineProfile();
     method @org.gradle.api.Incubating public void setEnableBaselineProfile(boolean);
     property @org.gradle.api.Incubating public abstract boolean enableBaselineProfile;
-    property @org.gradle.api.Incubating public abstract java.util.List<java.lang.String> installOptions;
+    property public abstract java.util.List<java.lang.String> installOptions;
   }
 
   public interface ApplicationProductFlavor extends com.android.build.api.dsl.ApplicationBaseFlavor com.android.build.api.dsl.ProductFlavor {
@@ -1163,12 +1163,12 @@ package com.android.build.api.dsl {
   }
 
   public interface Installation {
-    method @org.gradle.api.Incubating public java.util.List<java.lang.String> getInstallOptions();
+    method public java.util.List<java.lang.String> getInstallOptions();
     method public int getTimeOutInMs();
     method @Deprecated public void installOptions(String option);
     method @Deprecated public void installOptions(java.lang.String... options);
     method public void setTimeOutInMs(int);
-    property @org.gradle.api.Incubating public abstract java.util.List<java.lang.String> installOptions;
+    property public abstract java.util.List<java.lang.String> installOptions;
     property public abstract int timeOutInMs;
   }
 
@@ -1188,13 +1188,13 @@ package com.android.build.api.dsl {
     method public java.util.Set<java.lang.String> getExcludes();
     method public java.util.Set<java.lang.String> getKeepDebugSymbols();
     method public java.util.Set<java.lang.String> getPickFirsts();
-    method @org.gradle.api.Incubating public java.util.Set<java.lang.String> getTestOnly();
+    method public java.util.Set<java.lang.String> getTestOnly();
     method public Boolean? getUseLegacyPackaging();
     method public void setUseLegacyPackaging(Boolean?);
     property public abstract java.util.Set<java.lang.String> excludes;
     property public abstract java.util.Set<java.lang.String> keepDebugSymbols;
     property public abstract java.util.Set<java.lang.String> pickFirsts;
-    property @org.gradle.api.Incubating public abstract java.util.Set<java.lang.String> testOnly;
+    property public abstract java.util.Set<java.lang.String> testOnly;
     property public abstract Boolean? useLegacyPackaging;
   }
 
@@ -2419,7 +2419,7 @@ package com.android.build.api.variant {
     method public void onVariants(optional com.android.build.api.variant.VariantSelector selector, kotlin.jvm.functions.Function1<? super VariantT,kotlin.Unit> callback);
     method public void onVariants(optional com.android.build.api.variant.VariantSelector selector, org.gradle.api.Action<VariantT> callback);
     method @org.gradle.api.Incubating public void registerExtension(com.android.build.api.variant.DslExtension dslExtension, kotlin.jvm.functions.Function1<? super com.android.build.api.variant.VariantExtensionConfig<VariantT>,? extends com.android.build.api.variant.VariantExtension> configurator);
-    method @org.gradle.api.Incubating public void registerSourceType(String name);
+    method public void registerSourceType(String name);
     method public com.android.build.api.variant.VariantSelector selector();
   }
 
@@ -2720,7 +2720,7 @@ package com.android.build.api.variant {
     method public com.android.build.api.variant.DslExtension.Builder extendProjectWith(Class<?> typeExtension);
   }
 
-  @org.gradle.api.Incubating public interface DslLifecycle<T> {
+  public interface DslLifecycle<T> {
     method public void finalizeDsl(kotlin.jvm.functions.Function1<? super T,kotlin.Unit> callback);
     method public void finalizeDsl(org.gradle.api.Action<T> callback);
   }
@@ -3056,7 +3056,7 @@ package com.android.build.api.variant {
     method public com.android.build.api.variant.SourceDirectories.Flat? getAidl();
     method public com.android.build.api.variant.SourceDirectories.Layered? getAssets();
     method public com.android.build.api.variant.SourceDirectories.Flat? getBaselineProfiles();
-    method @org.gradle.api.Incubating public com.android.build.api.variant.SourceDirectories.Flat getByName(String name);
+    method public com.android.build.api.variant.SourceDirectories.Flat getByName(String name);
     method public com.android.build.api.variant.SourceDirectories.Flat? getJava();
     method public com.android.build.api.variant.SourceDirectories.Layered? getJniLibs();
     method @org.gradle.api.Incubating public com.android.build.api.variant.SourceDirectories.Flat? getKotlin();

@@ -33,6 +33,7 @@ dependencies {
     testImplementation project(':base:builder-model')
     testImplementation libs.com.android.tools.annotations
     testImplementation libs.com.android.tools.common
+    testImplementation libs.com.android.tools.sdkCommon
     testImplementation libs.mockito_core
     testImplementation libs.equalsverifier
 }
@@ -62,9 +63,15 @@ def updateDeprecatedApi = tasks.register('updateDeprecatedApi', JavaExec) {
     mainClass = 'com.android.build.api.DeprecatedApiUpdater'
 }
 
+def updateIncubatingApi = tasks.register('updateIncubatingApi', JavaExec) {
+    classpath(sourceSets['test'].output.classesDirs, sourceSets['test'].runtimeClasspath)
+    mainClass = 'com.android.build.api.IncubatingApiUpdater'
+}
+
 def updateApi = tasks.register('updateApi') {
     dependsOn('updateMetalavaApi')
     dependsOn(updateDeprecatedApi)
+    dependsOn(updateIncubatingApi)
 }
 
 tasks.jar {

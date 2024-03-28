@@ -44,7 +44,6 @@ interface OutOperationRequest<FileTypeT: FileSystemLocation> {
      * @param name file or directory name
      * @return itself
      */
-    @Incubating
     fun withName(name: String): OutOperationRequest<FileTypeT>
 
     /**
@@ -174,7 +173,6 @@ interface OutOperationRequest<FileTypeT: FileSystemLocation> {
      *
      * @param type the [Artifact.Single] artifact identifier.
      */
-    @Incubating
     fun <ArtifactTypeT> toListenTo(type: ArtifactTypeT)
             where ArtifactTypeT : Artifact.Single<FileTypeT>
 }
@@ -242,7 +240,6 @@ interface InAndOutFileOperationRequest {
      * @param name file name in the output folder.
      * @return itself
      */
-    @Incubating
     fun withName(name: String): InAndOutFileOperationRequest
 
     /**

@@ -258,6 +258,8 @@ public final class SdkConstants {
     public static final String FN_BINARY_ART_PROFILE = "baseline.prof";
     public static final String FN_BINARY_ART_PROFILE_METADATA = "baseline.profm";
     public static final String FN_DEX_METADATA_PROP = "dex-metadata-map.properties";
+    /** name of baseline profiles folder in outputs */
+    public static final String FN_OUTPUT_BASELINE_PROFILES = "baselineProfiles";
 
     /** aapt executable (with extension for the current OS) */
     public static final String FN_AAPT =
@@ -2089,8 +2091,8 @@ public final class SdkConstants {
     public static final String VALUE_DELIMITER_PIPE = "|";
 
     // Pseudolocale Values
-    public static final String EN_XA = "en-XA";
-    public static final String AR_XB = "ar-XB";
+    public static final String EN_XA = "en-rXA";
+    public static final String AR_XB = "ar-rXB";
 
     // Menus
     public static final String ATTR_CHECKABLE = "checkable";

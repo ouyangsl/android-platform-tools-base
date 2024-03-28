@@ -193,8 +193,11 @@ class LocalEmulatorProvisionerPluginTest {
 
   @Test
   fun bootFailure(): Unit = runBlockingWithTimeout {
-    val avdInfo = avdManager.createAvd()
-    avdManager.breakAvd(avdInfo, "AVD is broken")
+    val avdInfo =
+      avdManager.makeAvdInfo(1).let {
+        it.copy(properties = it.properties + (LAUNCH_EXCEPTION_MESSAGE to "AVD is broken"))
+      }
+    avdManager.createAvd(avdInfo)
 
     yieldUntil { provisioner.devices.value.size == 1 }
 
@@ -207,7 +210,9 @@ class LocalEmulatorProvisionerPluginTest {
       assertThat(expected.message).isEqualTo("AVD is broken")
     }
 
-    assertThat(handle.state.isTransitioning).isFalse()
+    // This flag is reset immediately after the DeviceActionException is thrown, but we still need
+    // to wait for it to happen
+    yieldUntil { !handle.state.isTransitioning }
     assertThat(handle.state.isOnline()).isFalse()
   }
 
