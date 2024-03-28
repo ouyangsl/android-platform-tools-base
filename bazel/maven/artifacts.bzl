@@ -901,6 +901,8 @@ DATA = [
     "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.7.16",
     "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.7.16",
     "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.16",
+    "org.jetbrains.skiko:skiko-awt:0.7.7",
+    "org.jetbrains.skiko:skiko:0.7.7",
     "org.junit.platform:junit-platform-engine:1.10.1",
     "org.junit:junit-bom:pom:5.10.0",
     "org.junit:junit-bom:pom:5.9.2",

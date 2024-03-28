@@ -196,22 +196,6 @@ class ScreenshotTest {
             {
               "screenshots": [
                 {
-                  "methodFQN": "pkg.name.ExampleTest.simpleComposableTest",
-                  "methodParams": [],
-                  "previewParams": {
-                    "showBackground": "true"
-                  },
-                  "imageName": "pkg.name.ExampleTest.simpleComposableTest_3d8b4969_da39a3ee"
-                },
-                {
-                  "methodFQN": "pkg.name.ExampleTest.simpleComposableTest2",
-                  "methodParams": [],
-                  "previewParams": {
-                    "showBackground": "true"
-                  },
-                  "imageName": "pkg.name.ExampleTest.simpleComposableTest2_3d8b4969_da39a3ee"
-                },
-                {
                   "methodFQN": "pkg.name.ExampleTest.multiPreviewTest",
                   "methodParams": [],
                   "previewParams": {
@@ -236,6 +220,22 @@ class ScreenshotTest {
                   ],
                   "previewParams": {},
                   "imageName": "pkg.name.ExampleTest.parameterProviderTest_da39a3ee_77e30523"
+                },
+                {
+                  "methodFQN": "pkg.name.ExampleTest.simpleComposableTest2",
+                  "methodParams": [],
+                  "previewParams": {
+                    "showBackground": "true"
+                  },
+                  "imageName": "pkg.name.ExampleTest.simpleComposableTest2_3d8b4969_da39a3ee"
+                },
+                {
+                  "methodFQN": "pkg.name.ExampleTest.simpleComposableTest",
+                  "methodParams": [],
+                  "previewParams": {
+                    "showBackground": "true"
+                  },
+                  "imageName": "pkg.name.ExampleTest.simpleComposableTest_3d8b4969_da39a3ee"
                 },
                 {
                   "methodFQN": "pkg.name.TopLevelPreviewTestKt.simpleComposableTest_3",
