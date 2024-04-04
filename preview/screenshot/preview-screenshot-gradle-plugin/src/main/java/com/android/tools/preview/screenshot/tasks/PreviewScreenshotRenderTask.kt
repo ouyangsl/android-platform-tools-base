@@ -22,6 +22,7 @@ import com.android.tools.preview.screenshot.services.AnalyticsService
 import com.android.tools.render.compose.readComposeScreenshotsJson
 import com.android.utils.FileUtils
 import org.gradle.api.DefaultTask
+import org.gradle.api.JavaVersion
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
@@ -84,7 +85,7 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
     abstract val outputDir: DirectoryProperty
 
     @get:Input
-    abstract val packageName: Property<String>
+    abstract val namespace: Property<String>
 
     @get:InputFile
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
@@ -135,6 +136,10 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
         if (classpathJars.none { regex.containsMatchIn(it) }) {
             throw RuntimeException("Missing required runtime dependency. Please add androidx.compose.ui:ui-tooling to your testing module's dependencies.")
         }
+        val javaSecManagerArg: String? = if (JavaVersion.toVersion(javaLauncher.get().metadata.javaRuntimeVersion).isCompatibleWith(JavaVersion.VERSION_17))
+            "-Djava.security.manager=allow"
+        else
+            null
 
         val fontsDir = sdkFontsDir.orNull?.asFile?.absolutePath
         configureInput(
@@ -142,14 +147,16 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
             fontsDir,
             layoutlibDir.singleFile.absolutePath + "/layoutlib/",
             outputDir.get().asFile.absolutePath,
-            packageName.get(),
+            namespace.get(),
             getResourcesApk(),
             cliToolArgumentsFile.get().asFile,
             previewsDiscovered.get().asFile
         )
 
         // invoke CLI tool
-        val workerQueue = workerExecutor.processIsolation()
+        val workerQueue = workerExecutor.processIsolation{spec ->
+            javaSecManagerArg?.let { spec.forkOptions.jvmArgs(listOf(it)) } // needed to allow security manager in jdk18 +
+        }
         workerQueue.submit(PreviewRenderWorkAction::class.java) { parameters ->
             parameters.cliToolArgumentsFile.set(cliToolArgumentsFile)
             parameters.toolJarPath.setFrom(screenshotCliJar)

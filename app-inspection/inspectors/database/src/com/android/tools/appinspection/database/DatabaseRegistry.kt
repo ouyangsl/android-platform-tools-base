@@ -129,7 +129,9 @@ internal class DatabaseRegistry(
    */
   fun notifyKeepOpenToggle(setEnabled: Boolean) {
     synchronized(lock) {
-      if (keepDatabasesOpen == setEnabled) {
+      if (keepDatabasesOpen == setEnabled || forceOpen) {
+        // forceOpen implies keepDatabasesOpen so ignore toggle commands. They will be disabled in
+        // the UI anyway.
         return // no change
       }
       keepDatabasesOpen = setEnabled
@@ -216,16 +218,11 @@ internal class DatabaseRegistry(
         // will be announced as the currently processed database will keep at least one open
         // connection.
         val references = getReferences(id)
-        if (references.isEmpty()) {
+        if (references.isEmpty() || references.hasForcedConnections()) {
           notifyOpenedId = id
-        } else {
           // TODO(aalbert): Maybe actually close the forced connection. This would require either:
           //   1. Reopen a forced connection when all connections are closed
           //   2. Implicitly enabling keep-open when is-forced.
-          if (references.hasForcedConnections()) {
-            notifyClosedId = id
-            notifyOpenedId = id
-          }
         }
 
         registerReference(id, database)
@@ -244,13 +241,16 @@ internal class DatabaseRegistry(
             notifyClosedId = id
           } else if (referencesPost.hasOnlyForcedConnections()) {
             notifyOpenedId = id
-            notifyClosedId = id
             isForced = true
           }
         }
       }
 
-      secureKeepOpenReference(id)
+      if (!isForced) {
+        // This connection will not yet be registered as forced, so we don't want to use it as a
+        // `keep-open` reference
+        secureKeepOpenReference(id)
+      }
 
       // notify of changes if any. We could have a `close` event followed by an `open` when
       // switching from forcedOpen to native connection.
@@ -342,7 +342,8 @@ internal class DatabaseRegistry(
 
   @GuardedBy("lock")
   private fun secureKeepOpenReference(id: Int) {
-    if (!keepDatabasesOpen || keepOpenReferences.containsKey(id)) {
+    val shouldKeepOpen = keepDatabasesOpen || forceOpen
+    if (!(shouldKeepOpen) || keepOpenReferences.containsKey(id)) {
       // Keep-open is disabled, or we already have a keep-open-reference for that id.
       return
     }
@@ -429,6 +430,12 @@ internal class DatabaseRegistry(
       if (forcedOpen.contains(this@getStatus)) {
         append("|Forced")
       }
+    }
+  }
+
+  fun getIdForPath(path: String): Int? {
+    synchronized(lock) {
+      return pathToId[path]
     }
   }
 

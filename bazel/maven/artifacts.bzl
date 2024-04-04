@@ -91,6 +91,7 @@ ARTIFACTS = [
     "com.googlecode.jarjar:jarjar:1.3",
     "com.googlecode.juniversalchardet:juniversalchardet:1.0.3",
     "com.nothome:javaxdelta:2.0.1",
+    "com.squareup.okhttp3:mockwebserver:3.12.0",
     "com.squareup.okhttp3:okhttp:3.12.0",
     "com.squareup.okhttp:okhttp:2.5.0",
     "com.squareup.okio:okio-jvm:3.0.0",
@@ -368,6 +369,9 @@ DATA = [
     "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2",
     "androidx.lifecycle:lifecycle-runtime:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
     "androidx.lifecycle:lifecycle-runtime:2.6.1",
+    "androidx.lifecycle:lifecycle-runtime:2.8.0-alpha02",  # Needed for kmp consumption test
+    "androidx.lifecycle:lifecycle-runtime-android:2.8.0-alpha02",  # Needed for kmp consumption test
+    "androidx.lifecycle:lifecycle-runtime-desktop:2.8.0-alpha02",  # Needed for kmp consumption test
     "androidx.lifecycle:lifecycle-service:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
     "androidx.lifecycle:lifecycle-service:2.6.1",
     "androidx.lifecycle:lifecycle-service:2.6.2",
@@ -620,7 +624,7 @@ DATA = [
     "com.android.tools:desugar_jdk_libs_nio:2.0.4",
     "com.crashlytics.sdk.android:crashlytics:2.6.8",
     "com.github.bumptech.glide:glide:4.11.0",
-    "com.google.ai.client.generativeai:generativeai:0.1.1",
+    "com.google.ai.client.generativeai:generativeai:0.2.2",
     "com.google.android.gms:play-services-ads:20.6.0",
     "com.google.android.gms:play-services-ads:21.5.0",
     "com.google.android.gms:play-services-base:15.0.1",
@@ -712,11 +716,11 @@ DATA = [
     "com.squareup:kotlinpoet:1.12.0",
     "commons-codec:commons-codec:1.9",
     "commons-lang:commons-lang:2.4",
-    "io.ktor:ktor-client-content-negotiation-jvm:2.3.5",
-    "io.ktor:ktor-client-core-jvm:2.3.5",
-    "io.ktor:ktor-client-logging-jvm:2.3.5",
-    "io.ktor:ktor-client-okhttp-jvm:2.3.5",
-    "io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.5",
+    "io.ktor:ktor-client-content-negotiation-jvm:2.3.2",
+    "io.ktor:ktor-client-core-jvm:2.3.2",
+    "io.ktor:ktor-client-logging-jvm:2.3.2",
+    "io.ktor:ktor-client-okhttp-jvm:2.3.2",
+    "io.ktor:ktor-serialization-kotlinx-json-jvm:2.3.2",
     "io.opentracing:opentracing-impl:0.13.0",
     "javax.annotation:javax.annotation-api:1.2",
     "javax.annotation:jsr250-api:1.0",
@@ -907,6 +911,7 @@ DATA = [
     "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3",
     "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.7.3",
+    "org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:1.7.3",
     "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3",
     "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC2",

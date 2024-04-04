@@ -54,9 +54,7 @@ internal class StandaloneModuleClassLoaderManager(
         classPath: List<String>,
     ) : DelegatingClassLoader.Loader {
         val classesToPaths = mutableMapOf<String, String>()
-        private val classTransforms = toClassTransform(
-            { CodeExecutionTrackerTransform(it, "") }
-        )
+        private val classTransforms = toClassTransform()
 
         private val loader: DelegatingClassLoader.Loader
         init {
