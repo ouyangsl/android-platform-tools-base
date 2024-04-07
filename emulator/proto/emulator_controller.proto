@@ -1299,7 +1299,7 @@ message Posture {
         POSTURE_OPENED = 3;
         POSTURE_FLIPPED = 4;
         POSTURE_TENT = 5;
-        POSTURE_MAX = 6;
+        POSTURE_MAX = 9;
     }
     PostureValue value = 3;
 }
