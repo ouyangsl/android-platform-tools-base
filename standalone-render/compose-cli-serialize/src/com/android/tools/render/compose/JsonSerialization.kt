@@ -25,7 +25,8 @@ private const val FONTS_PATH = "fontsPath"
 private const val LAYOUTLIB_PATH = "layoutlibPath"
 private const val OUTPUT_FOLDER = "outputFolder"
 private const val CLASS_PATH = "classPath"
-private const val PACKAGE_NAME = "packageName"
+private const val PROJECT_CLASS_PATH = "projectClassPath"
+private const val NAMESPACE = "namespace"
 private const val RESOURCE_APK_PATH = "resourceApkPath"
 private const val SCREENSHOTS = "screenshots"
 private const val METHOD_FQN = "methodFQN"
@@ -54,7 +55,8 @@ fun readComposeRenderingJson(jsonReader: Reader): ComposeRendering {
     var layoutlibPath: String? = null
     var outputFolder: String? = null
     val classPath = mutableListOf<String>()
-    var packageName: String? = null
+    val projectClassPath = mutableListOf<String>()
+    var namespace: String? = null
     var resourceApkPath: String? = null
     var screenshots: List<ComposeScreenshot>? = null
     var resultsFileName: String? = null
@@ -72,7 +74,14 @@ fun readComposeRenderingJson(jsonReader: Reader): ComposeRendering {
                     }
                     reader.endArray()
                 }
-                PACKAGE_NAME -> { packageName = reader.nextString() }
+                PROJECT_CLASS_PATH -> {
+                    reader.beginArray()
+                    while (reader.hasNext()) {
+                        projectClassPath.add(reader.nextString())
+                    }
+                    reader.endArray()
+                }
+                NAMESPACE -> { namespace = reader.nextString() }
                 RESOURCE_APK_PATH -> { resourceApkPath = reader.nextString() }
                 SCREENSHOTS -> {
                     screenshots = readComposeScreenshots(reader)
@@ -95,7 +104,8 @@ fun readComposeRenderingJson(jsonReader: Reader): ComposeRendering {
         layoutlibPath ?: throw IllegalArgumentException("Layoutlib path is missing"),
         outputFolder ?: throw IllegalArgumentException("Output folder path is missing"),
         classPath,
-        packageName ?: throw IllegalArgumentException("Package name"),
+        projectClassPath,
+        namespace ?: throw IllegalArgumentException("Namespace is missing"),
         resourceApkPath ?: throw IllegalArgumentException("Resource APK path is missing"),
         screenshots ?: emptyList(),
         resultsFileName ?: "results.json"
@@ -182,7 +192,11 @@ fun writeComposeRenderingToJson(
         writer.beginArray()
         composeRendering.classPath.forEach { writer.value(it) }
         writer.endArray()
-        writer.name(PACKAGE_NAME).value(composeRendering.packageName)
+        writer.name(PROJECT_CLASS_PATH)
+        writer.beginArray()
+        composeRendering.projectClassPath.forEach { writer.value(it) }
+        writer.endArray()
+        writer.name(NAMESPACE).value(composeRendering.namespace)
         writer.name(RESOURCE_APK_PATH).value(composeRendering.resourceApkPath)
         writer.name(SCREENSHOTS)
         writeComposeScreenshots(writer, composeRendering.screenshots)

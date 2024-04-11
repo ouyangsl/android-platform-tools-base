@@ -60,10 +60,11 @@ class PreviewFinderTest {
             }
         """.trimIndent())
         configureInput(classpath,
+            classpath,
             "fontsPath",
             "layoutlibpath",
             "outputFolder",
-            "packageName",
+            "namespace",
             "resourceApkPath",
             cliToolArgumentsFile,
             previewsFile)
@@ -76,7 +77,11 @@ class PreviewFinderTest {
                 "path/to/classes.jar",
                 "path/to/R.jar"
               ],
-              "packageName": "packageName",
+              "projectClassPath": [
+                "path/to/classes.jar",
+                "path/to/R.jar"
+              ],
+              "namespace": "namespace",
               "resourceApkPath": "resourceApkPath",
               "screenshots": [
                 {

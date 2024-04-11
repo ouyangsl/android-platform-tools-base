@@ -33,6 +33,7 @@ import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactSco
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactType.JAR
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ConsumedConfigType.ANNOTATION_PROCESSOR
 import com.android.build.gradle.internal.services.getBuildService
+import com.android.build.gradle.options.BooleanOption
 import com.android.builder.errors.DefaultIssueReporter
 import com.android.builder.errors.IssueReporter
 import com.android.sdklib.AndroidTargetHash
@@ -43,7 +44,6 @@ import com.google.wireless.android.sdk.stats.AnnotationProcessorInfo
 import com.google.wireless.android.sdk.stats.GradleBuildProject
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
 import org.gradle.api.file.FileCollection
 import org.gradle.api.provider.Provider
@@ -111,7 +111,8 @@ fun JavaCompile.configureProperties(creationConfig: ComponentCreationConfig) {
 
     checkReleaseOption(creationConfig.services.issueReporter)
     checkDeprecatedSourceAndTargetAtExecutionTime(
-        compileOptions.sourceCompatibility, compileOptions.targetCompatibility
+        compileOptions.sourceCompatibility, compileOptions.targetCompatibility,
+        creationConfig.services.projectOptions.get(BooleanOption.JAVA_COMPILE_SUPPRESS_SOURCE_TARGET_DEPRECATION_WARNING)
     )
 }
 
@@ -182,9 +183,10 @@ data class SerializableArtifact(
  *
  * @return the map from annotation processors to [ProcessorInfo].
  */
-fun detectAnnotationProcessors(
+fun detectAnnotationAndKspProcessors(
     apOptionClassNames: List<String>,
-    processorClasspath: Collection<SerializableArtifact>
+    annotationProcessorClasspath: Collection<SerializableArtifact>,
+    kspClasspath: Collection<SerializableArtifact>,
 ): Map<String, ProcessorInfo> {
     val processors = mutableMapOf<String, ProcessorInfo>()
 
@@ -196,19 +198,17 @@ fun detectAnnotationProcessors(
             // annotation processor or compile classpath.
             processors[processor] = ProcessorInfo.NON_INCREMENTAL_AP
         }
-
-        // KSP processors are always applied when there are in processor classpath.
-        val processorArtifacts = detectAnnotationProcessors(processorClasspath).filter {
-            it.value == ProcessorInfo.KSP_PROCESSOR
-        }
-
-        processors.putAll(processorArtifacts.mapKeys { it.key.displayName })
     } else {
         // If the processor names are not specified, the Java compiler will auto-detect them on the
         // annotation processor classpath.
-        val processorArtifacts = detectAnnotationProcessors(processorClasspath)
+        findAllAnnotationProcessors(annotationProcessorClasspath).forEach {
+            processors[it.key.displayName] = it.value
+        }
+    }
 
-        processors.putAll(processorArtifacts.mapKeys { it.key.displayName })
+    // KSP processors are always applied when there are in processor classpath.
+    findAllKspProcessors(kspClasspath).forEach {
+        processors[it.key.displayName] = it.value
     }
 
     return processors
@@ -220,43 +220,67 @@ fun detectAnnotationProcessors(
  *
  * @return the map from annotation processors to [ProcessorInfo]
  */
-fun detectAnnotationProcessors(
+private fun findAllAnnotationProcessors(
     artifacts: Collection<SerializableArtifact>
 ): Map<SerializableArtifact, ProcessorInfo> {
     // TODO We assume that an artifact has an annotation processor if it contains
     // ANNOTATION_PROCESSORS_INDICATOR_FILE, and the processor is incremental if it contains
     // INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE. We need to revisit this assumption as the
     // processors may register as incremental dynamically.
+    return detectProcessors(artifacts, dirFilter = { dir ->
+        if (File(dir, ANNOTATION_PROCESSORS_INDICATOR_FILE).exists()) {
+            if (File(dir, INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE).exists()) {
+                ProcessorInfo.INCREMENTAL_AP
+            } else {
+                ProcessorInfo.NON_INCREMENTAL_AP
+            }
+        } else null
+    }, jarFilter = { jarFile ->
+        if (jarFile.getJarEntry(ANNOTATION_PROCESSORS_INDICATOR_FILE) != null) {
+            if (jarFile.getJarEntry(INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE) != null) {
+                ProcessorInfo.INCREMENTAL_AP
+            } else {
+                ProcessorInfo.NON_INCREMENTAL_AP
+            }
+        } else null
+    })
+}
+
+private fun findAllKspProcessors(
+    artifacts: Collection<SerializableArtifact>
+): Map<SerializableArtifact, ProcessorInfo> {
+    return detectProcessors(artifacts, dirFilter = { dir ->
+        if (File(dir, KSP_PROCESSORS_INDICATOR_FILE).exists()) {
+            ProcessorInfo.KSP_PROCESSOR
+        } else null
+    }, jarFilter = { jarFile ->
+        if (jarFile.getJarEntry(KSP_PROCESSORS_INDICATOR_FILE) != null) {
+            ProcessorInfo.KSP_PROCESSOR
+        } else null
+    })
+}
+
+private fun detectProcessors(
+    artifacts: Collection<SerializableArtifact>,
+    dirFilter: (File) -> ProcessorInfo?,
+    jarFilter: (JarFile) -> ProcessorInfo?,
+): Map<SerializableArtifact, ProcessorInfo> {
     val processors = mutableMapOf<SerializableArtifact, ProcessorInfo>()
 
     for (artifact in artifacts) {
         val artifactFile = artifact.file
         if (artifactFile.isDirectory) {
-            if (File(artifactFile, ANNOTATION_PROCESSORS_INDICATOR_FILE).exists()) {
-                if (File(artifactFile, INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE).exists()) {
-                    processors[artifact] = ProcessorInfo.INCREMENTAL_AP
-                } else {
-                    processors[artifact] = ProcessorInfo.NON_INCREMENTAL_AP
-                }
-            }
-            if (File(artifactFile, KSP_PROCESSORS_INDICATOR_FILE).exists()) {
-                processors[artifact] = ProcessorInfo.KSP_PROCESSOR
+            dirFilter(artifactFile)?.let {
+                processors[artifact] = it
             }
         } else if (artifactFile.isFile) {
             try {
                 JarFile(artifactFile).use { jarFile ->
-                    if (jarFile.getJarEntry(ANNOTATION_PROCESSORS_INDICATOR_FILE) != null) {
-                        if (jarFile.getJarEntry(INCREMENTAL_ANNOTATION_PROCESSORS_INDICATOR_FILE) != null) {
-                            processors[artifact] = ProcessorInfo.INCREMENTAL_AP
-                        } else {
-                            processors[artifact] = ProcessorInfo.NON_INCREMENTAL_AP
-                        }
-                    }
-                    if (jarFile.getJarEntry(KSP_PROCESSORS_INDICATOR_FILE) != null) {
-                        processors[artifact] = ProcessorInfo.KSP_PROCESSOR
+                    jarFilter(jarFile)?.let {
+                        processors[artifact] = it
                     }
                 }
-            } catch (e: IOException) {
+            } catch (_: IOException) {
                 // Can happen when we encounter a folder instead of a jar; for instance, in
                 // sub-modules. We're just displaying a warning, so there's no need to stop the
                 // build here. See http://issuetracker.google.com/64283041.
@@ -287,7 +311,7 @@ fun writeAnnotationProcessorsToJsonFile(
  * Returns the map from annotation processors to [ProcessorInfo], from the given Json file.
  *
  * NOTE: The format of the annotation processor names is currently not consistent. See
- * [detectAnnotationProcessors] where the processors are detected.
+ * [detectAnnotationAndKspProcessors] where the processors are detected.
  */
 fun readAnnotationProcessorsFromJsonFile(
     processorListFile: File
@@ -386,7 +410,8 @@ private fun JavaCompile.checkReleaseOption(issueReporter: IssueReporter) {
 
 private fun JavaCompile.checkDeprecatedSourceAndTargetAtExecutionTime(
     sourceCompatibility: JavaVersion,
-    targetCompatibility: JavaVersion
+    targetCompatibility: JavaVersion,
+    suppressWarning: Boolean
 ) {
     // Run this check at execution time as we don't want to run it if the task doesn't run (e.g.,
     // when there are no Java sources).
@@ -395,6 +420,7 @@ private fun JavaCompile.checkDeprecatedSourceAndTargetAtExecutionTime(
             (it as JavaCompile).javaCompiler.get().metadata.languageVersion.asJavaVersion(),
             sourceCompatibility,
             targetCompatibility,
+            suppressWarning,
             DefaultIssueReporter(LoggerWrapper(logger)),
         )
     }
@@ -404,26 +430,33 @@ private fun checkDeprecatedSourceAndTarget(
     javacVersion: JavaVersion,
     sourceCompatibility: JavaVersion,
     targetCompatibility: JavaVersion,
+    suppressWarning: Boolean,
     issueReporter: IssueReporter
 ) {
-    val severity =
-        determineJavacSupportForSourceAndTarget(javacVersion, sourceCompatibility, targetCompatibility)
-        ?: return
+    val severity = determineJavacSupportForSourceAndTarget(javacVersion, sourceCompatibility, targetCompatibility)
+    if (severity == null || severity == IssueReporter.Severity.WARNING && suppressWarning) {
+        return
+    }
+
     val removedOrDeprecated = when (severity) {
         IssueReporter.Severity.ERROR -> "removed"
         IssueReporter.Severity.WARNING -> "deprecated"
     }
+    val suppressWarningMessage = if (severity == IssueReporter.Severity.WARNING) {
+        "To suppress this warning, set ${BooleanOption.JAVA_COMPILE_SUPPRESS_SOURCE_TARGET_DEPRECATION_WARNING.propertyName}=true in gradle.properties."
+    } else null
     val message =
         """
         Java compiler version $javacVersion has $removedOrDeprecated support for compiling with source/target version ${min(sourceCompatibility.majorVersion.toInt(), targetCompatibility.majorVersion.toInt())}.
         Try one of the following options:
-            1. [Recommended] Set a lower Java compiler version (using Java toolchain)
+            1. [Recommended] Use Java toolchain with a lower language version
             2. Set a higher source/target version
-            3. If you don't want to use Java toolchain, try using a lower version of the JDK running the build
-               (e.g., by setting the `JAVA_HOME` environment variable or the `org.gradle.java.home` Gradle property)
+            3. Use a lower version of the JDK running the build (if you're not using Java toolchain)
         For more details on how to configure these settings, see https://developer.android.com/build/jdks.
-        """.trimIndent()
+        """.trimIndent() + suppressWarningMessage?.let { "\n" + it }
+
     val data = "javacVersion=$javacVersion,sourceCompatibility=$sourceCompatibility,targetCompatibility=$targetCompatibility"
+
     when (severity) {
         IssueReporter.Severity.ERROR -> issueReporter.reportError(IssueReporter.Type.GENERIC, message, data)
         IssueReporter.Severity.WARNING -> issueReporter.reportWarning(IssueReporter.Type.GENERIC, message, data)

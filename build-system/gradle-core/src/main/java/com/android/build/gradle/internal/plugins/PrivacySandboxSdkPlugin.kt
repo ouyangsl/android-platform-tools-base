@@ -18,7 +18,7 @@ package com.android.build.gradle.internal.plugins
 
 import com.android.build.api.attributes.BuildTypeAttr
 import com.android.build.api.dsl.PrivacySandboxSdkExtension
-import com.android.build.gradle.internal.dependency.KotlinPlatformAttribute
+import com.android.build.gradle.internal.dependency.configureKotlinPlatformAttribute
 import com.android.build.gradle.internal.dsl.InternalPrivacySandboxSdkExtension
 import com.android.build.gradle.internal.dsl.PrivacySandboxSdkExtensionImpl
 import com.android.build.gradle.internal.fusedlibrary.configureElements
@@ -237,7 +237,7 @@ class PrivacySandboxSdkPlugin @Inject constructor(
             }
 
         if (!projectServices.projectOptions[BooleanOption.DISABLE_KOTLIN_ATTRIBUTE_SETUP]) {
-            KotlinPlatformAttribute.configureKotlinPlatformAttribute(
+            configureKotlinPlatformAttribute(
                 listOf(includeApiClasspath, includeRuntimeClasspath),
                 project
             )
@@ -260,10 +260,12 @@ class PrivacySandboxSdkPlugin @Inject constructor(
         // this is the outgoing configuration for JAVA_API scoped declarations
         project.configurations.create("apiElements") { apiElements ->
             configurePrivacySandboxElements(apiElements, Usage.JAVA_API)
+            apiElements.extendsFrom(requiredSdkConfiguration)
         }
         // this is the outgoing configuration for JAVA_RUNTIME scoped declarations
         project.configurations.create("runtimeElements") { runtimeElements ->
             configurePrivacySandboxElements(runtimeElements, Usage.JAVA_RUNTIME)
+            runtimeElements.extendsFrom(requiredSdkConfiguration)
         }
         val incomingConfigurationsToAdd = listOf(includeApiClasspath, includeRuntimeClasspath)
         incomingConfigurationsToAdd.forEach { configuration ->

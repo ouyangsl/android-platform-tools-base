@@ -49,6 +49,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
 import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.jvm.toolchain.JavaToolchainService
+import java.util.Locale
 import java.util.UUID
 
 private val minAgpVersion = AndroidPluginVersion(8, 4, 0).alpha(9)
@@ -82,7 +83,11 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
          *  version.
          */
         private val perClassLoaderConstant = UUID.randomUUID().toString()
+
+        const val ST_SOURCE_SET_ENABLED = "android.experimental.enableScreenshotTest"
         private const val LAYOUTLIB_VERSION = "14.0.4"
+        private const val LAYOUTLIB_RUNTIME_VERSION = "14.0.4"
+        private const val LAYOUTLIB_RESOURCES_VERSION = "14.0.4"
     }
 
     override fun apply(project: Project) {
@@ -94,6 +99,15 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                     """
                     Preview screenshot plugin requires Android Gradle plugin version between ${minAgpVersion.toVersionString()} and ${maxAgpVersion.major}.${maxAgpVersion.minor}.
                     Current version is $agpVersion.
+                    """.trimIndent()
+                )
+            }
+            val screenshotSourcesetEnabled = project.findProperty(ST_SOURCE_SET_ENABLED)
+            if (screenshotSourcesetEnabled.toString().lowercase(Locale.US) != "true") {
+                error(
+                    """
+                    Please enable screenshotTest source set first to run the screenshot test plugin.
+                    Add "$ST_SOURCE_SET_ENABLED=true" to gradle.properties
                     """.trimIndent()
                 )
             }
@@ -140,9 +154,10 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
             }
 
             componentsExtension.beforeVariants {
-                // TODO(b/330377509): Remove this test option once the screenshotTest source set is in use.
+                // TODO(b/330377509): Remove the unit test isIncludeAndroidResources option once the screenshotTest source set is in use.
                 val extension = project.extensions.getByType(CommonExtension::class.java)
                 extension.testOptions.unitTests.isIncludeAndroidResources = true
+                extension.experimentalProperties.put(ST_SOURCE_SET_ENABLED, true)
             }
 
             componentsExtension.onVariants { variant ->
@@ -251,8 +266,8 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         .use(renderTaskProvider)
                         .toGet(
                             ScopedArtifact.CLASSES,
-                            PreviewScreenshotRenderTask::mainClasspath,
-                            PreviewScreenshotRenderTask::mainClassesDir,
+                            PreviewScreenshotRenderTask::mainClasspathAll,
+                            PreviewScreenshotRenderTask::mainClassesDirAll,
                         )
 
                     variant.deviceTests.singleOrNull()?.artifacts
@@ -260,9 +275,27 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         ?.use(renderTaskProvider)
                         ?.toGet(
                             ScopedArtifact.CLASSES,
-                            PreviewScreenshotRenderTask::testClasspath,
-                            PreviewScreenshotRenderTask::testClassesDir,
+                            PreviewScreenshotRenderTask::testClasspathAll,
+                            PreviewScreenshotRenderTask::testClassesDirAll,
                         )
+
+                    variant.artifacts
+                            .forScope(ScopedArtifacts.Scope.PROJECT)
+                            .use(renderTaskProvider)
+                            .toGet(
+                                    ScopedArtifact.CLASSES,
+                                    PreviewScreenshotRenderTask::mainClasspathProject,
+                                    PreviewScreenshotRenderTask::mainClassesDirProject,
+                            )
+
+                    variant.deviceTests.singleOrNull()?.artifacts
+                            ?.forScope(ScopedArtifacts.Scope.PROJECT)
+                            ?.use(renderTaskProvider)
+                            ?.toGet(
+                                    ScopedArtifact.CLASSES,
+                                    PreviewScreenshotRenderTask::testClasspathProject,
+                                    PreviewScreenshotRenderTask::testClassesDirProject,
+                            )
 
                     val updateTask = project.tasks.register(
                         "previewScreenshotUpdate${variantName.capitalized()}AndroidTest",
@@ -303,7 +336,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.testLogging {
                             it.showStandardStreams = true
                         }
-                        task.testClassesDirs = project.files(renderTaskProvider.flatMap { it.testClassesDir }) + project.files(renderTaskProvider.flatMap { it.testClasspath })
+                        task.testClassesDirs = project.files(renderTaskProvider.flatMap { it.testClassesDirAll }) + project.files(renderTaskProvider.flatMap { it.testClasspathAll })
                         task.classpath = task.project.configurations.getByName(previewScreenshotTestEngineConfigurationName) + task.testClassesDirs
                     }
 
@@ -341,9 +374,10 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         "-dev"
                     else
                         "-eap03"
+            dependencies.add(previewScreenshotTestEngineConfigurationName, "org.junit.platform:junit-platform-launcher")
             dependencies.add(
                 previewScreenshotTestEngineConfigurationName,
-                "com.android.tools.screenshot:screenshot-test-junit-engine:${engineVersion}")
+                "com.android.tools.compose:compose-preview-validation-junit-engine:${engineVersion}")
         }
     }
 
@@ -395,7 +429,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                 isCanBeConsumed = false
                 description = "A configuration to resolve layoutlib runtime data dependencies."
             }
-            val version = LAYOUTLIB_VERSION
+            val version = LAYOUTLIB_RUNTIME_VERSION
             dependencies.add(
                 layoutlibRunTimeConfigurationName,
                 "com.android.tools.layoutlib:layoutlib-runtime:$version")
@@ -412,7 +446,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                 isCanBeConsumed = false
                 description = "A configuration to resolve render CLI tool dependencies."
             }
-            val version = LAYOUTLIB_VERSION
+            val version = LAYOUTLIB_RESOURCES_VERSION
             dependencies.add(
                 layoutlibResourcesConfigurationName,
                 "com.android.tools.layoutlib:layoutlib-resources:$version")
@@ -430,7 +464,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
 }
 
 private const val previewlibCliToolConfigurationName = "_internal-screenshot-test-task-previewlib-cli"
-private const val previewScreenshotTestEngineConfigurationName = "_internal-screenshot-test-junit-engine"
+private const val previewScreenshotTestEngineConfigurationName = "_internal-compose-preview-validation-junit-engine"
 private const val layoutlibJarConfigurationName = "_internal-screenshot-test-task-layoutlib"
 private const val layoutlibRunTimeConfigurationName = "_internal-screenshot-test-task-layoutlib-data"
 private const val layoutlibResourcesConfigurationName = "_internal-screenshot-test-task-layoutlib-res"
@@ -441,4 +475,3 @@ private const val INTERNAL_ARTIFACT_TYPE = "com.android.build.gradle.internal.sc
 private const val PREVIEW_OUTPUT = "outputs/androidTest-results/preview"
 private const val PREVIEW_INTERMEDIATES = "intermediates/preview"
 private const val PREVIEW_REPORTS = "reports/androidTests/preview"
-

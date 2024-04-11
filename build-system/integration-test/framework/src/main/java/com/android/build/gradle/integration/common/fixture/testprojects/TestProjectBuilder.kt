@@ -172,6 +172,7 @@ interface AndroidProjectBuilder {
     var targetProjectPath: String?
     var renderscriptTargetApi: Int?
     var renderscriptSupportModeEnabled: Boolean?
+    var privacySandboxEnabled: Boolean?
     var hasInstrumentationTests: Boolean?
     val dynamicFeatures: MutableSet<String>
 
@@ -310,6 +311,9 @@ interface DependenciesBuilder {
      * See [implementation] for details
      */
     fun testImplementation(dependency: Any)
+
+    /** Adds a dependency to the testRuntimeOnly configuration. See [implementation] for details. */
+    fun testRuntimeOnly(dependency: Any)
 
     /**
      * adds a dependency in the androidTestImplementation scope.

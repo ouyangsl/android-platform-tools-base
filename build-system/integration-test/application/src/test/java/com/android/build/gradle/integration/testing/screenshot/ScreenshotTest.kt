@@ -28,6 +28,7 @@ import com.android.build.gradle.integration.common.truth.forEachLine
 import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.options.BooleanOption
+import com.android.testutils.TestUtils
 import com.android.testutils.TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS
 import com.android.testutils.truth.PathSubject.assertThat
 import com.android.tools.build.gradle.internal.profile.GradleTaskExecutionType
@@ -70,6 +71,10 @@ class ScreenshotTest {
         project.buildFile.writeText("""
             apply from: "../commonHeader.gradle"
         """.trimIndent())
+        TestFileUtils.appendToFile(
+            project.gradlePropertiesFile,
+            "${BooleanOption.ENABLE_SCREENSHOT_TEST.propertyName}=true"
+        )
     }
 
     @JvmField
@@ -127,6 +132,9 @@ class ScreenshotTest {
                     freeCompilerArgs += [
                       "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
                     ]
+                }
+                composeOptions {
+                    kotlinCompilerExtensionVersion = "${TestUtils.COMPOSE_COMPILER_FOR_TESTS}"
                 }
                 kotlin {
                     jvmToolchain(17)
@@ -223,8 +231,6 @@ class ScreenshotTest {
     private fun getExecutor(): GradleTaskExecutor =
         project.executor()
             .with(BooleanOption.USE_ANDROID_X, true)
-            .withFailOnWarning(false) // TODO(298678053): Remove after updating TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS to 1.8.0+
-
 
     @Test
     fun discoverPreviews() {
@@ -426,7 +432,9 @@ class ScreenshotTest {
         val referenceScreenshotDir = appProject.projectDir.resolve("src/androidTest/screenshot/debug/").toPath()
         assertThat(referenceScreenshotDir.listDirectoryEntries()).isEmpty()
 
-        getExecutor().run(":app:previewScreenshotDebugAndroidTest")
+        getExecutor()
+            .withFailOnWarning(false) // TODO(b/333398506): remove once fixed
+            .run(":app:previewScreenshotDebugAndroidTest")
 
         val indexHtmlReport = appProject.buildDir.resolve("reports/tests/previewScreenshotDebugAndroidTest/index.html")
         assertThat(indexHtmlReport).exists()
