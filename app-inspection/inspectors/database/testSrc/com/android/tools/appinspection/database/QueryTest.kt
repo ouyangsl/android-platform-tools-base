@@ -25,6 +25,7 @@ import androidx.sqlite.inspection.SqliteInspectorProtocol.ErrorContent.ErrorCode
 import androidx.sqlite.inspection.SqliteInspectorProtocol.QueryResponse
 import androidx.sqlite.inspection.SqliteInspectorProtocol.Row
 import com.android.testutils.CloseablesRule
+import com.android.tools.appinspection.common.testing.LogPrinterRule
 import com.android.tools.appinspection.database.testing.*
 import com.android.tools.appinspection.database.testing.MessageFactory.createGetSchemaCommand
 import com.android.tools.appinspection.database.testing.MessageFactory.createQueryCommand
@@ -41,6 +42,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.SQLiteMode
+import org.robolectric.junit.rules.CloseGuardRule
 
 @RunWith(RobolectricTestRunner::class)
 @Config(
@@ -57,7 +59,11 @@ class QueryTest {
 
   @get:Rule
   val rule: RuleChain =
-    RuleChain.outerRule(testEnvironment).around(temporaryFolder).around(closeablesRule)
+    RuleChain.outerRule(CloseGuardRule())
+      .around(closeablesRule)
+      .around(testEnvironment)
+      .around(temporaryFolder)
+      .around(LogPrinterRule())
 
   private val table1: Table =
     Table(
@@ -617,11 +623,6 @@ class QueryTest {
     val database = Database("db1").createInstance(closeablesRule, temporaryFolder)
     testEnvironment.registerApplication(database)
     testEnvironment.sendCommand(createTrackDatabasesCommand(forceOpen = true))
-    val hooks = testEnvironment.consumeRegisteredHooks()
-    testEnvironment.getDatabaseRegistry().forcedOpen.forEach {
-      // We need to trigger the hooks ourselves
-      hooks.triggerOnOpenedExit(it)
-    }
     val databaseId = testEnvironment.awaitDatabaseOpenedEvent(database.displayName).databaseId
 
     val response = issueQuery(databaseId, "SELECT 1")

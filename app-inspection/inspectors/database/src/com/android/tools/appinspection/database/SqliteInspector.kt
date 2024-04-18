@@ -161,10 +161,11 @@ private val HIDDEN_TABLES = setOf("android_metadata", "sqlite_sequence")
 internal class SqliteInspector(
   connection: Connection,
   private val environment: InspectorEnvironment,
+  testMode: Boolean = false,
 ) : Inspector(connection) {
   @VisibleForTesting
   internal val databaseRegistry =
-    DatabaseRegistry(::dispatchDatabaseOpenedEvent, ::dispatchDatabaseClosedEvent)
+    DatabaseRegistry(::dispatchDatabaseOpenedEvent, ::dispatchDatabaseClosedEvent, testMode)
   private val databaseLockRegistry = DatabaseLockRegistry(databaseRegistry)
   private val ioExecutor = environment.executors().io()
 
@@ -215,6 +216,7 @@ internal class SqliteInspector(
   override fun onDispose() {
     super.onDispose()
     databaseRegistry.dispose()
+    databaseLockRegistry.dispose()
   }
 
   private fun handleTrackDatabases(command: TrackDatabasesCommand, callback: CommandCallback) {
@@ -525,7 +527,12 @@ internal class SqliteInspector(
     return if (string is String) string else null
   }
 
-  private fun dispatchDatabaseOpenedEvent(databaseId: Int, path: String, isForced: Boolean) {
+  private fun dispatchDatabaseOpenedEvent(
+    databaseId: Int,
+    path: String,
+    isForced: Boolean,
+    isReadOnly: Boolean,
+  ) {
     Log.v(HIDDEN_TAG, "dispatchDatabaseOpenedEvent: ${path.substringAfterLast("/")}")
     connection.sendEvent(
       Event.newBuilder()
@@ -534,6 +541,7 @@ internal class SqliteInspector(
             .setDatabaseId(databaseId)
             .setPath(path)
             .setIsForcedConnection(isForced)
+            .setIsReadOnly(isReadOnly)
         )
         .build()
         .toByteArray()

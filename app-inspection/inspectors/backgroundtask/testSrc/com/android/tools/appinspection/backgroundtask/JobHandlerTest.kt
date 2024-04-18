@@ -27,12 +27,15 @@ import backgroundtask.inspection.BackgroundTaskInspectorProtocol.JobInfo.Backoff
 import backgroundtask.inspection.BackgroundTaskInspectorProtocol.JobInfo.NetworkType
 import com.android.tools.appinspection.backgroundtask.testing.BackgroundTaskInspectorRule
 import com.android.tools.appinspection.backgroundtask.testing.put
+import com.android.tools.appinspection.common.testing.LogPrinterRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.robolectric.junit.rules.CloseGuardRule
 
 private typealias JobInfoProto = BackgroundTaskInspectorProtocol.JobInfo
 
@@ -45,8 +48,11 @@ private typealias JobInfoProtoBuilder = BackgroundTaskInspectorProtocol.JobInfo.
   maxSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
 )
 class JobHandlerTest {
+  private val inspectorRule = BackgroundTaskInspectorRule()
 
-  @get:Rule val inspectorRule = BackgroundTaskInspectorRule()
+  @get:Rule
+  val rule: RuleChain =
+    RuleChain.outerRule(CloseGuardRule()).around(inspectorRule).around(LogPrinterRule())
 
   private val fakeParameters =
     JobParametersWrapper(

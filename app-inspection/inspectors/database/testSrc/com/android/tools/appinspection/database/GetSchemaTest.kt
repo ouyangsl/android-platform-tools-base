@@ -20,6 +20,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.os.Build
 import androidx.sqlite.inspection.SqliteInspectorProtocol.ErrorContent.ErrorCode.ERROR_NO_OPEN_DATABASE_WITH_REQUESTED_ID_VALUE
 import com.android.testutils.CloseablesRule
+import com.android.tools.appinspection.common.testing.LogPrinterRule
 import com.android.tools.appinspection.database.testing.*
 import com.android.tools.appinspection.database.testing.MessageFactory.createGetSchemaCommand
 import com.android.tools.appinspection.database.testing.MessageFactory.createTrackDatabasesCommand
@@ -34,6 +35,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.SQLiteMode
+import org.robolectric.junit.rules.CloseGuardRule
 
 @RunWith(RobolectricTestRunner::class)
 @Config(
@@ -49,7 +51,11 @@ class GetSchemaTest {
 
   @get:Rule
   val rule: RuleChain =
-    RuleChain.outerRule(testEnvironment).around(temporaryFolder).around(closeablesRule)
+    RuleChain.outerRule(CloseGuardRule())
+      .around(closeablesRule)
+      .around(testEnvironment)
+      .around(temporaryFolder)
+      .around(LogPrinterRule())
 
   @Test
   fun test_get_schema_complex_tables() {
@@ -195,11 +201,6 @@ class GetSchemaTest {
     val database = Database("db1").createInstance(closeablesRule, temporaryFolder)
     testEnvironment.registerApplication(database)
     testEnvironment.sendCommand(createTrackDatabasesCommand(forceOpen = true))
-    val hooks = testEnvironment.consumeRegisteredHooks()
-    testEnvironment.getDatabaseRegistry().forcedOpen.forEach {
-      // We need to trigger the hooks ourselves
-      hooks.triggerOnOpenedExit(it)
-    }
     val databaseId = testEnvironment.awaitDatabaseOpenedEvent(database.displayName).databaseId
 
     val response = testEnvironment.sendCommand(createGetSchemaCommand(databaseId))

@@ -31,7 +31,6 @@ import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.api.variant.Variant
 import com.android.build.gradle.api.AndroidBasePlugin
 import com.android.tools.preview.screenshot.layoutlibExtractor.LayoutlibDataFromMaven
-import com.android.tools.preview.screenshot.layoutlibExtractor.LayoutlibFromMaven
 import com.android.tools.preview.screenshot.services.AnalyticsService
 import com.android.tools.preview.screenshot.tasks.PreviewDiscoveryTask
 import com.android.tools.preview.screenshot.tasks.PreviewScreenshotRenderTask
@@ -86,7 +85,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
 
         const val ST_SOURCE_SET_ENABLED = "android.experimental.enableScreenshotTest"
         private const val LAYOUTLIB_VERSION = "14.0.4"
-        private const val LAYOUTLIB_RUNTIME_VERSION = "14.0.4"
+        private const val LAYOUTLIB_RUNTIME_VERSION = "14.0.6"
         private const val LAYOUTLIB_RESOURCES_VERSION = "14.0.4"
     }
 
@@ -123,8 +122,8 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
             createLayoutlibConfiguration(project)
             createLayoutlibRuntimeConfiguration(project)
             createLayoutlibResourcesConfiguration(project)
-            val layoutlibFromMaven = LayoutlibFromMaven.create(project)
-            val layoutlibDataFromMaven = LayoutlibDataFromMaven.create(project, LAYOUTLIB_VERSION)
+            val layoutlibDataFromMaven = LayoutlibDataFromMaven.create(project, LAYOUTLIB_RUNTIME_VERSION,
+              project.configurations.getByName(layoutlibResourcesConfigurationName))
 
             val updateAllTask = project.tasks.register(
                 "previewScreenshotUpdateAndroidTest",
@@ -243,9 +242,6 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.screenshotCliJar.from(task.project.configurations.getByName(previewlibCliToolConfigurationName))
                         task.layoutlibJar.from(task.project.configurations.getByName(
                             layoutlibJarConfigurationName))
-                        task.frameworkResJar.from(task.project.configurations.getByName(
-                            layoutlibResourcesConfigurationName))
-                        task.layoutlibDir.setFrom(layoutlibFromMaven.layoutlibDirectory)
                         task.layoutlibDataDir.setFrom(layoutlibDataFromMaven.layoutlibDataDirectory)
                         resourceDirProvider?.let { task.resourcesDir.set(it) }
                         resourceFileProvider?.let { task.resourceFile.set(it) }

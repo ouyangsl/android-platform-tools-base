@@ -81,14 +81,8 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
     @get:OutputFile
     abstract val cliToolArgumentsFile: RegularFileProperty
 
-    @get:Internal
-    abstract val layoutlibDir: ConfigurableFileCollection
-
     @get:Classpath
     abstract val layoutlibJar: ConfigurableFileCollection
-
-    @get:Classpath
-    abstract val frameworkResJar: ConfigurableFileCollection
 
     @get:Classpath
     abstract val layoutlibDataDir: ConfigurableFileCollection
@@ -164,7 +158,7 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
             classpathJars,
             projectClassPath,
             fontsDir,
-            layoutlibDir.singleFile.absolutePath + "/layoutlib/",
+            layoutlibDataDir.singleFile.absolutePath + "/",
             outputDir.get().asFile.absolutePath,
             namespace.get(),
             getResourcesApk(),

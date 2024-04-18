@@ -8941,12 +8941,12 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.22/kotlin-gradle-plugin-annotations-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.20/kotlin-gradle-plugin-annotations-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.20",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
     visibility = ["//visibility:public"],
 )
@@ -8955,28 +8955,28 @@ maven_import(
     name = "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.22/kotlin-gradle-plugin-annotations-1.9.22.jar"
+        "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.20/kotlin-gradle-plugin-annotations-1.9.20.jar"
     ],
     original_deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.22/kotlin-gradle-plugin-annotations-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.20/kotlin-gradle-plugin-annotations-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.20",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.22/kotlin-gradle-plugin-api-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.20/kotlin-gradle-plugin-api-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.20",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.22",
-        "org.jetbrains.kotlin.kotlin-native-utils_1.9.22",
-        "org.jetbrains.kotlin.kotlin-project-model_1.9.22",
-        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.20",
+        "org.jetbrains.kotlin.kotlin-native-utils_1.9.20",
+        "org.jetbrains.kotlin.kotlin-project-model_1.9.20",
+        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
     visibility = ["//visibility:public"],
 )
@@ -8985,7 +8985,7 @@ maven_import(
     name = "org.jetbrains.kotlin.kotlin-gradle-plugin-api",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.22/kotlin-gradle-plugin-api-1.9.22.jar"
+        "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.20/kotlin-gradle-plugin-api-1.9.20.jar"
     ],
     exports = [
         "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations",
@@ -8994,15 +8994,15 @@ maven_import(
         "org.jetbrains.kotlin.kotlin-tooling-core",
     ],
     original_deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.22",
-        "org.jetbrains.kotlin.kotlin-native-utils_1.9.22",
-        "org.jetbrains.kotlin.kotlin-project-model_1.9.22",
-        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.20",
+        "org.jetbrains.kotlin.kotlin-native-utils_1.9.20",
+        "org.jetbrains.kotlin.kotlin-project-model_1.9.20",
+        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.22/kotlin-gradle-plugin-api-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.20/kotlin-gradle-plugin-api-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.20",
     visibility = ["//visibility:public"],
 )
 
@@ -9160,10 +9160,10 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.22/kotlin-gradle-plugins-bom-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.20/kotlin-gradle-plugins-bom-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.20",
     visibility = ["//visibility:public"],
 )
 
@@ -9173,9 +9173,9 @@ maven_import(
     jars = [
     ],
     original_deps = [],
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.22/kotlin-gradle-plugins-bom-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.20/kotlin-gradle-plugins-bom-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.20",
     visibility = ["//visibility:public"],
 )
 
@@ -9209,14 +9209,14 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-native-utils_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.22/kotlin-native-utils-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-native-utils_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.20/kotlin-native-utils-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/1.9.20",
     deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
-        "org.jetbrains.kotlin.kotlin-util-klib_1.9.22",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
+        "org.jetbrains.kotlin.kotlin-util-klib_1.9.20",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9225,30 +9225,30 @@ maven_import(
     name = "org.jetbrains.kotlin.kotlin-native-utils",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.22/kotlin-native-utils-1.9.22.jar"
+        "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.20/kotlin-native-utils-1.9.20.jar"
     ],
     exports = [
         "org.jetbrains.kotlin.kotlin-util-io",
         "org.jetbrains.kotlin.kotlin-util-klib",
     ],
     original_deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
-        "org.jetbrains.kotlin.kotlin-util-klib_1.9.22",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
+        "org.jetbrains.kotlin.kotlin-util-klib_1.9.20",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
-    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.22/kotlin-native-utils-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.20/kotlin-native-utils-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/1.9.20",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-project-model_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.22/kotlin-project-model-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-project-model_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.20/kotlin-project-model-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-project-model/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-project-model/1.9.20",
     deps = [
-        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
+        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9257,17 +9257,17 @@ maven_import(
     name = "org.jetbrains.kotlin.kotlin-project-model",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.22/kotlin-project-model-1.9.22.jar"
+        "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.20/kotlin-project-model-1.9.20.jar"
     ],
     exports = [
         "org.jetbrains.kotlin.kotlin-tooling-core",
     ],
     original_deps = [
-        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
+        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
     ],
-    pom = "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.22/kotlin-project-model-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.20/kotlin-project-model-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-project-model/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-project-model/1.9.20",
     visibility = ["//visibility:public"],
 )
 
@@ -9607,12 +9607,12 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.22/kotlin-tooling-core-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.20/kotlin-tooling-core-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/1.9.20",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9621,22 +9621,22 @@ maven_import(
     name = "org.jetbrains.kotlin.kotlin-tooling-core",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.22/kotlin-tooling-core-1.9.22.jar"
+        "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.20/kotlin-tooling-core-1.9.20.jar"
     ],
     original_deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
     ],
-    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.22/kotlin-tooling-core-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.20/kotlin-tooling-core-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/1.9.20",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.22/kotlin-util-io-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.20/kotlin-util-io-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-io/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-io/1.9.20",
     visibility = ["//visibility:public"],
 )
 
@@ -9644,22 +9644,22 @@ maven_import(
     name = "org.jetbrains.kotlin.kotlin-util-io",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.22/kotlin-util-io-1.9.22.jar"
+        "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.20/kotlin-util-io-1.9.20.jar"
     ],
     original_deps = [],
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.22/kotlin-util-io-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.20/kotlin-util-io-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-io/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-io/1.9.20",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-util-klib_1.9.22",
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.22/kotlin-util-klib-1.9.22.pom",
+    name = "org.jetbrains.kotlin.kotlin-util-klib_1.9.20",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.20/kotlin-util-klib-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/1.9.20",
     deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
+        "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9668,17 +9668,17 @@ maven_import(
     name = "org.jetbrains.kotlin.kotlin-util-klib",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.22/kotlin-util-klib-1.9.22.jar"
+        "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.20/kotlin-util-klib-1.9.20.jar"
     ],
     exports = [
         "org.jetbrains.kotlin.kotlin-util-io",
     ],
     original_deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
+        "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
     ],
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.22/kotlin-util-klib-1.9.22.pom",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.20/kotlin-util-klib-1.9.20.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/1.9.22",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/1.9.20",
     visibility = ["//visibility:public"],
 )
 
@@ -9715,14 +9715,14 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-android_1.6.4",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.6.4/kotlinx-coroutines-android-1.6.4.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-android_1.7.1",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.7.1/kotlinx-coroutines-android-1.7.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-android/1.6.4",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-android/1.7.1",
     deps = [
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.7.1",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9731,28 +9731,28 @@ maven_import(
     name = "org.jetbrains.kotlinx.kotlinx-coroutines-android",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.6.4/kotlinx-coroutines-android-1.6.4.jar"
+        "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.7.1/kotlinx-coroutines-android-1.7.1.jar"
     ],
     exports = [
         "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm",
         "org.jetbrains.kotlin.kotlin-stdlib-jdk8",
     ],
     original_deps = [
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.7.1",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.6.4/kotlinx-coroutines-android-1.6.4.pom",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.7.1/kotlinx-coroutines-android-1.7.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-android/1.6.4",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-android/1.7.1",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.6.4/kotlinx-coroutines-bom-1.6.4.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.7.1/kotlinx-coroutines-bom-1.7.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.6.4",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.7.1",
     visibility = ["//visibility:public"],
 )
 
@@ -9762,21 +9762,22 @@ maven_import(
     jars = [
     ],
     original_deps = [],
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.6.4/kotlinx-coroutines-bom-1.6.4.pom",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.7.1/kotlinx-coroutines-bom-1.7.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.6.4",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.7.1",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4/kotlinx-coroutines-core-jvm-1.6.4.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.7.1",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.7.1/kotlinx-coroutines-core-jvm-1.7.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.7.1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.6.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.annotations_23.0.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.20",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9785,21 +9786,22 @@ maven_import(
     name = "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4/kotlinx-coroutines-core-jvm-1.6.4.jar"
+        "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.7.1/kotlinx-coroutines-core-jvm-1.7.1.jar"
     ],
     exports = [
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8",
+        "org.jetbrains.annotations",
         "org.jetbrains.kotlin.kotlin-stdlib-common",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8",
     ],
     original_deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.6.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.annotations_23.0.0",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.20",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4/kotlinx-coroutines-core-jvm-1.6.4.pom",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.7.1/kotlinx-coroutines-core-jvm-1.7.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4",
-    srcjar = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4/kotlinx-coroutines-core-jvm-1.6.4-sources.jar",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.7.1",
     visibility = ["//visibility:public"],
 )
 
@@ -9810,7 +9812,7 @@ maven_artifact(
     repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core/1.6.4",
     deps = [
         "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9826,7 +9828,7 @@ maven_import(
     ],
     original_deps = [
         "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
     pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.6.4/kotlinx-coroutines-core-1.6.4.pom",
     repo_root_path = "repository",
@@ -9843,7 +9845,7 @@ maven_artifact(
         "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
         "com.google.guava.guava_31.0.1-jre",
         "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -9863,7 +9865,7 @@ maven_import(
         "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
         "com.google.guava.guava_31.0.1-jre",
         "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
     ],
     pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-guava/1.6.4/kotlinx-coroutines-guava-1.6.4.pom",
     repo_root_path = "repository",
@@ -9872,10 +9874,10 @@ maven_import(
 )
 
 maven_artifact(
-    name = "org.jetbrains.annotations_13.0",
-    pom = "repository/org/jetbrains/annotations/13.0/annotations-13.0.pom",
+    name = "org.jetbrains.annotations_23.0.0",
+    pom = "repository/org/jetbrains/annotations/23.0.0/annotations-23.0.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/annotations/13.0",
+    repo_path = "org/jetbrains/annotations/23.0.0",
     visibility = ["//visibility:public"],
 )
 
@@ -9883,13 +9885,12 @@ maven_import(
     name = "org.jetbrains.annotations",
     classifiers = [],
     jars = [
-        "repository/org/jetbrains/annotations/13.0/annotations-13.0.jar"
+        "repository/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar"
     ],
     original_deps = [],
-    pom = "repository/org/jetbrains/annotations/13.0/annotations-13.0.pom",
+    pom = "repository/org/jetbrains/annotations/23.0.0/annotations-23.0.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/annotations/13.0",
-    srcjar = "repository/org/jetbrains/annotations/13.0/annotations-13.0-sources.jar",
+    repo_path = "org/jetbrains/annotations/23.0.0",
     visibility = ["//visibility:public"],
 )
 
@@ -12365,10 +12366,32 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.annotation.annotation-jvm_1.7.0",
+    pom = "repository/androidx/annotation/annotation-jvm/1.7.0/annotation-jvm-1.7.0.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/annotation/annotation-jvm/1.7.0",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.7.10",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.annotation.annotation-jvm_1.8.0-alpha01",
     pom = "repository/androidx/annotation/annotation-jvm/1.8.0-alpha01/annotation-jvm-1.8.0-alpha01.pom",
     repo_root_path = "repository",
     repo_path = "androidx/annotation/annotation-jvm/1.8.0-alpha01",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.7.10",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.annotation.annotation-jvm_1.8.0-beta01",
+    pom = "repository/androidx/annotation/annotation-jvm/1.8.0-beta01/annotation-jvm-1.8.0-beta01.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/annotation/annotation-jvm/1.8.0-beta01",
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.7.10",
     ],
@@ -12939,6 +12962,18 @@ maven_artifact(
     repo_path = "androidx/cardview/cardview/1.0.0",
     deps = [
         "androidx.annotation.annotation_1.0.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.collection.collection-jvm_1.4.0",
+    pom = "repository/androidx/collection/collection-jvm/1.4.0/collection-jvm-1.4.0.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/collection/collection-jvm/1.4.0",
+    deps = [
+        "androidx.annotation.annotation-jvm_1.7.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
     ],
     visibility = ["//visibility:public"],
 )
@@ -17149,6 +17184,19 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.core.core-ktx_1.12.0",
+    pom = "repository/androidx/core/core-ktx/1.12.0/core-ktx-1.12.0.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/core/core-ktx/1.12.0",
+    deps = [
+        "androidx.annotation.annotation_1.1.0",
+        "androidx.core.core_1.12.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.core.core-ktx_1.12.0-alpha05",
     pom = "repository/androidx/core/core-ktx/1.12.0-alpha05/core-ktx-1.12.0-alpha05.pom",
     repo_root_path = "repository",
@@ -17300,19 +17348,6 @@ maven_artifact(
         "androidx.annotation.annotation_1.1.0",
         "androidx.core.core_1.11.0-beta01",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.21",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "androidx.core.core-ktx_1.12.0",
-    pom = "repository/androidx/core/core-ktx/1.12.0/core-ktx-1.12.0.pom",
-    repo_root_path = "repository",
-    repo_path = "androidx/core/core-ktx/1.12.0",
-    deps = [
-        "androidx.annotation.annotation_1.1.0",
-        "androidx.core.core_1.12.0",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
     ],
     visibility = ["//visibility:public"],
 )
@@ -19368,6 +19403,19 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.lifecycle.lifecycle-common-jvm_2.8.0-alpha04",
+    pom = "repository/androidx/lifecycle/lifecycle-common-jvm/2.8.0-alpha04/lifecycle-common-jvm-2.8.0-alpha04.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/lifecycle/lifecycle-common-jvm/2.8.0-alpha04",
+    deps = [
+        "androidx.annotation.annotation-jvm_1.8.0-beta01",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.7.3",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.lifecycle.lifecycle-common_2.0.0",
     pom = "repository/androidx/lifecycle/lifecycle-common/2.0.0/lifecycle-common-2.0.0.pom",
     repo_root_path = "repository",
@@ -20118,6 +20166,20 @@ maven_artifact(
         "androidx.annotation.annotation-jvm_1.8.0-alpha01",
         "androidx.arch.core.core-common_2.2.0",
         "androidx.lifecycle.lifecycle-common-jvm_2.8.0-alpha02",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.lifecycle.lifecycle-runtime-desktop_2.8.0-alpha04",
+    pom = "repository/androidx/lifecycle/lifecycle-runtime-desktop/2.8.0-alpha04/lifecycle-runtime-desktop-2.8.0-alpha04.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/lifecycle/lifecycle-runtime-desktop/2.8.0-alpha04",
+    deps = [
+        "androidx.annotation.annotation-jvm_1.8.0-beta01",
+        "androidx.arch.core.core-common_2.2.0",
+        "androidx.lifecycle.lifecycle-common-jvm_2.8.0-alpha04",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
     ],
     visibility = ["//visibility:public"],
@@ -22151,6 +22213,22 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.privacysandbox.sdkruntime.sdkruntime-client_1.0.0-alpha13",
+    pom = "repository/androidx/privacysandbox/sdkruntime/sdkruntime-client/1.0.0-alpha13/sdkruntime-client-1.0.0-alpha13.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/sdkruntime/sdkruntime-client/1.0.0-alpha13",
+    deps = [
+        "androidx.activity.activity_1.8.0",
+        "androidx.core.core_1.12.0",
+        "androidx.core.core-ktx_1.12.0",
+        "androidx.privacysandbox.sdkruntime.sdkruntime-core_1.0.0-alpha13",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.7.3",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.privacysandbox.sdkruntime.sdkruntime-core_1.0.0-alpha03",
     pom = "repository/androidx/privacysandbox/sdkruntime/sdkruntime-core/1.0.0-alpha03/sdkruntime-core-1.0.0-alpha03.pom",
     repo_root_path = "repository",
@@ -22192,6 +22270,21 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.privacysandbox.sdkruntime.sdkruntime-core_1.0.0-alpha13",
+    pom = "repository/androidx/privacysandbox/sdkruntime/sdkruntime-core/1.0.0-alpha13/sdkruntime-core-1.0.0-alpha13.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/sdkruntime/sdkruntime-core/1.0.0-alpha13",
+    deps = [
+        "androidx.activity.activity_1.8.0",
+        "androidx.annotation.annotation_1.6.0",
+        "androidx.core.core_1.12.0",
+        "androidx.core.core-ktx_1.12.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.privacysandbox.tools.tools-apicompiler_1.0.0-alpha03",
     pom = "repository/androidx/privacysandbox/tools/tools-apicompiler/1.0.0-alpha03/tools-apicompiler-1.0.0-alpha03.pom",
     repo_root_path = "repository",
@@ -22215,6 +22308,21 @@ maven_artifact(
         "androidx.privacysandbox.tools.tools_1.0.0-alpha05",
         "androidx.privacysandbox.tools.tools-core_1.0.0-alpha05",
         "com.google.devtools.ksp.symbol-processing-api_1.9.0-1.0.11",
+        "com.squareup.kotlinpoet_1.14.2",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.privacysandbox.tools.tools-apicompiler_1.0.0-alpha08",
+    pom = "repository/androidx/privacysandbox/tools/tools-apicompiler/1.0.0-alpha08/tools-apicompiler-1.0.0-alpha08.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/tools/tools-apicompiler/1.0.0-alpha08",
+    deps = [
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha08",
+        "androidx.privacysandbox.tools.tools-core_1.0.0-alpha08",
+        "com.google.devtools.ksp.symbol-processing-api_1.9.22-1.0.17",
         "com.squareup.kotlinpoet_1.14.2",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
     ],
@@ -22256,6 +22364,23 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.privacysandbox.tools.tools-apigenerator_1.0.0-alpha08",
+    pom = "repository/androidx/privacysandbox/tools/tools-apigenerator/1.0.0-alpha08/tools-apigenerator-1.0.0-alpha08.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/tools/tools-apigenerator/1.0.0-alpha08",
+    deps = [
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha08",
+        "androidx.privacysandbox.tools.tools-core_1.0.0-alpha08",
+        "com.squareup.kotlinpoet_1.14.2",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+        "org.jetbrains.kotlinx.kotlinx-metadata-jvm_0.9.0",
+        "org.ow2.asm.asm_9.3",
+        "org.ow2.asm.asm-commons_9.3",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.privacysandbox.tools.tools-apipackager_1.0.0-alpha03",
     pom = "repository/androidx/privacysandbox/tools/tools-apipackager/1.0.0-alpha03/tools-apipackager-1.0.0-alpha03.pom",
     repo_root_path = "repository",
@@ -22279,6 +22404,22 @@ maven_artifact(
     deps = [
         "androidx.privacysandbox.tools.tools_1.0.0-alpha05",
         "androidx.privacysandbox.tools.tools-core_1.0.0-alpha05",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.22",
+        "org.ow2.asm.asm_9.3",
+        "org.ow2.asm.asm-commons_9.3",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.privacysandbox.tools.tools-apipackager_1.0.0-alpha08",
+    pom = "repository/androidx/privacysandbox/tools/tools-apipackager/1.0.0-alpha08/tools-apipackager-1.0.0-alpha08.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/tools/tools-apipackager/1.0.0-alpha08",
+    deps = [
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha08",
+        "androidx.privacysandbox.tools.tools-core_1.0.0-alpha08",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
         "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.22",
         "org.ow2.asm.asm_9.3",
@@ -22332,6 +22473,21 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.privacysandbox.tools.tools-core_1.0.0-alpha08",
+    pom = "repository/androidx/privacysandbox/tools/tools-core/1.0.0-alpha08/tools-core-1.0.0-alpha08.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/tools/tools-core/1.0.0-alpha08",
+    deps = [
+        "androidx.privacysandbox.tools.tools_1.0.0-alpha08",
+        "com.google.guava.guava_31.1-jre",
+        "com.google.protobuf.protobuf-java_3.22.3",
+        "com.squareup.kotlinpoet_1.14.2",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.privacysandbox.tools.tools_1.0.0-alpha03",
     pom = "repository/androidx/privacysandbox/tools/tools/1.0.0-alpha03/tools-1.0.0-alpha03.pom",
     repo_root_path = "repository",
@@ -22360,6 +22516,18 @@ maven_artifact(
     pom = "repository/androidx/privacysandbox/tools/tools/1.0.0-alpha05/tools-1.0.0-alpha05.pom",
     repo_root_path = "repository",
     repo_path = "androidx/privacysandbox/tools/tools/1.0.0-alpha05",
+    deps = [
+        "androidx.annotation.annotation_1.3.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.privacysandbox.tools.tools_1.0.0-alpha08",
+    pom = "repository/androidx/privacysandbox/tools/tools/1.0.0-alpha08/tools-1.0.0-alpha08.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/tools/tools/1.0.0-alpha08",
     deps = [
         "androidx.annotation.annotation_1.3.0",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
@@ -22400,6 +22568,22 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.privacysandbox.ui.ui-client_1.0.0-alpha07",
+    pom = "repository/androidx/privacysandbox/ui/ui-client/1.0.0-alpha07/ui-client-1.0.0-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/ui/ui-client/1.0.0-alpha07",
+    deps = [
+        "androidx.annotation.annotation_1.1.0",
+        "androidx.core.core_1.12.0-alpha05",
+        "androidx.lifecycle.lifecycle-common_2.2.0",
+        "androidx.privacysandbox.sdkruntime.sdkruntime-client_1.0.0-alpha08",
+        "androidx.privacysandbox.ui.ui-core_1.0.0-alpha07",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.privacysandbox.ui.ui-core_1.0.0-alpha04",
     pom = "repository/androidx/privacysandbox/ui/ui-core/1.0.0-alpha04/ui-core-1.0.0-alpha04.pom",
     repo_root_path = "repository",
@@ -22424,6 +22608,18 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "androidx.privacysandbox.ui.ui-core_1.0.0-alpha07",
+    pom = "repository/androidx/privacysandbox/ui/ui-core/1.0.0-alpha07/ui-core-1.0.0-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/ui/ui-core/1.0.0-alpha07",
+    deps = [
+        "androidx.annotation.annotation_1.1.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "androidx.privacysandbox.ui.ui-provider_1.0.0-alpha05",
     pom = "repository/androidx/privacysandbox/ui/ui-provider/1.0.0-alpha05/ui-provider-1.0.0-alpha05.pom",
     repo_root_path = "repository",
@@ -22432,6 +22628,21 @@ maven_artifact(
         "androidx.annotation.annotation_1.1.0",
         "androidx.core.core_1.12.0-alpha05",
         "androidx.privacysandbox.ui.ui-core_1.0.0-alpha05",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.7.1",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "androidx.privacysandbox.ui.ui-provider_1.0.0-alpha07",
+    pom = "repository/androidx/privacysandbox/ui/ui-provider/1.0.0-alpha07/ui-provider-1.0.0-alpha07.pom",
+    repo_root_path = "repository",
+    repo_path = "androidx/privacysandbox/ui/ui-provider/1.0.0-alpha07",
+    deps = [
+        "androidx.annotation.annotation_1.1.0",
+        "androidx.core.core_1.12.0-alpha05",
+        "androidx.privacysandbox.ui.ui-core_1.0.0-alpha07",
         "org.jetbrains.kotlin.kotlin-stdlib_1.8.22",
         "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.7.1",
     ],
@@ -33383,10 +33594,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "com.android.tools.layoutlib.layoutlib-runtime_14.0.4",
-    pom = "repository/com/android/tools/layoutlib/layoutlib-runtime/14.0.4/layoutlib-runtime-14.0.4.pom",
+    name = "com.android.tools.layoutlib.layoutlib-runtime_14.0.6",
+    pom = "repository/com/android/tools/layoutlib/layoutlib-runtime/14.0.6/layoutlib-runtime-14.0.6.pom",
     repo_root_path = "repository",
-    repo_path = "com/android/tools/layoutlib/layoutlib-runtime/14.0.4",
+    repo_path = "com/android/tools/layoutlib/layoutlib-runtime/14.0.6",
     visibility = ["//visibility:public"],
 )
 
@@ -41987,6 +42198,17 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "com.google.devtools.ksp.symbol-processing-api_1.9.22-1.0.17",
+    pom = "repository/com/google/devtools/ksp/symbol-processing-api/1.9.22-1.0.17/symbol-processing-api-1.9.22-1.0.17.pom",
+    repo_root_path = "repository",
+    repo_path = "com/google/devtools/ksp/symbol-processing-api/1.9.22-1.0.17",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "com.google.devtools.ksp.symbol-processing-gradle-plugin_1.7.10-1.0.6",
     pom = "repository/com/google/devtools/ksp/symbol-processing-gradle-plugin/1.7.10-1.0.6/symbol-processing-gradle-plugin-1.7.10-1.0.6.pom",
     repo_root_path = "repository",
@@ -46763,6 +46985,15 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.commonmark.commonmark_0.22.0",
+    pom = "repository/org/commonmark/commonmark/0.22.0/commonmark-0.22.0.pom",
+    repo_root_path = "repository",
+    repo_path = "org/commonmark/commonmark/0.22.0",
+    parent = "org.commonmark.commonmark-parent_0.22.0",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.eclipse.jdt.core.compiler.ecj_4.6.1",
     pom = "repository/org/eclipse/jdt/core/compiler/ecj/4.6.1/ecj-4.6.1.pom",
     repo_root_path = "repository",
@@ -46830,6 +47061,44 @@ maven_artifact(
     repo_root_path = "repository",
     repo_path = "org/glassfish/jaxb/txw2/2.3.1",
     parent = "com.sun.xml.bind.mvn.jaxb-txw-parent_2.3.1",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.gradle.gradle-base-annotations_8.8-20240328140806+0000",
+    pom = "repository/org/gradle/gradle-base-annotations/8.8-20240328140806+0000/gradle-base-annotations-8.8-20240328140806+0000.pom",
+    repo_root_path = "repository",
+    repo_path = "org/gradle/gradle-base-annotations/8.8-20240328140806+0000",
+    deps = [
+        "com.google.code.findbugs.jsr305_3.0.2",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.gradle.gradle-declarative-dsl-api_8.8-20240328140806+0000",
+    pom = "repository/org/gradle/gradle-declarative-dsl-api/8.8-20240328140806+0000/gradle-declarative-dsl-api-8.8-20240328140806+0000.pom",
+    repo_root_path = "repository",
+    repo_path = "org/gradle/gradle-declarative-dsl-api/8.8-20240328140806+0000",
+    deps = [
+        "org.gradle.gradle-base-annotations_8.8-20240328140806+0000",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.gradle.gradle-declarative-dsl-core_8.8-20240328140806+0000",
+    pom = "repository/org/gradle/gradle-declarative-dsl-core/8.8-20240328140806+0000/gradle-declarative-dsl-core-8.8-20240328140806+0000.pom",
+    repo_root_path = "repository",
+    repo_path = "org/gradle/gradle-declarative-dsl-core/8.8-20240328140806+0000",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-compiler-embeddable_1.9.22",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.22",
+        "org.gradle.gradle-declarative-dsl-api_8.8-20240328140806+0000",
+        "org.jetbrains.kotlin.kotlin-reflect_1.9.22",
+        "org.jetbrains.kotlinx.kotlinx-serialization-core-jvm_1.6.2",
+        "org.jetbrains.kotlinx.kotlinx-serialization-json-jvm_1.6.2",
+    ],
     visibility = ["//visibility:public"],
 )
 
@@ -47074,241 +47343,257 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.animation.animation-core-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/animation/animation-core-desktop/1.6.0-dev1369/animation-core-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.animation.animation-core-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/animation/animation-core-desktop/1.6.10-dev1584/animation-core-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/animation/animation-core-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/animation/animation-core-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.1",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0-RC2",
+        "androidx.annotation.annotation-jvm_1.7.1",
+        "androidx.collection.collection-jvm_1.4.0",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.2",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.animation.animation-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/animation/animation-desktop/1.6.0-dev1369/animation-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.animation.animation-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/animation/animation-desktop/1.6.10-dev1584/animation-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/animation/animation-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/animation/animation-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.animation.animation-core-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.foundation.foundation-layout-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "org.jetbrains.compose.animation.animation-core-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.foundation.foundation-layout-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.foundation.foundation-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/foundation/foundation-desktop/1.6.0-dev1369/foundation-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.foundation.foundation-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/foundation/foundation-desktop/1.6.10-dev1584/foundation-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/foundation/foundation-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/foundation/foundation-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.animation.animation-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.foundation.foundation-layout-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-text-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.1",
-        "org.jetbrains.skiko.skiko-awt_0.7.90",
+        "androidx.annotation.annotation-jvm_1.7.1",
+        "androidx.collection.collection-jvm_1.4.0",
+        "org.jetbrains.compose.animation.animation-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.foundation.foundation-layout-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-text-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.2",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.foundation.foundation-layout-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/foundation/foundation-layout-desktop/1.6.0-dev1369/foundation-layout-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.foundation.foundation-layout-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/foundation/foundation-layout-desktop/1.6.10-dev1584/foundation-layout-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/foundation/foundation-layout-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/foundation/foundation-layout-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "androidx.annotation.annotation-jvm_1.7.1",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/runtime/runtime-desktop/1.6.0-dev1369/runtime-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/runtime/runtime-desktop/1.6.10-dev1584/runtime-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/runtime/runtime-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/runtime/runtime-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.1",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0-RC2",
+        "androidx.collection.collection-jvm_1.4.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.2",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.runtime.runtime-saveable-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/runtime/runtime-saveable-desktop/1.6.0-dev1369/runtime-saveable-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.runtime.runtime-saveable-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/runtime/runtime-saveable-desktop/1.6.10-dev1584/runtime-saveable-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/runtime/runtime-saveable-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/runtime/runtime-saveable-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-desktop/1.6.0-dev1369/ui-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-desktop/1.6.10-dev1584/ui-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.runtime.runtime-saveable-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-graphics-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-text-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.21",
-        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.1",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0-RC2",
-        "org.jetbrains.skiko.skiko-awt_0.7.90",
+        "androidx.annotation.annotation-jvm_1.7.1",
+        "androidx.collection.collection-jvm_1.4.0",
+        "androidx.lifecycle.lifecycle-common-jvm_2.8.0-alpha04",
+        "androidx.lifecycle.lifecycle-runtime-desktop_2.8.0-alpha04",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.runtime.runtime-saveable-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-graphics-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-text-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.23",
+        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.2",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-geometry-desktop/1.6.0-dev1369/ui-geometry-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-geometry-desktop/1.6.10-dev1584/ui-geometry-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-geometry-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-geometry-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-graphics-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-graphics-desktop/1.6.0-dev1369/ui-graphics-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-graphics-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-graphics-desktop/1.6.10-dev1584/ui-graphics-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-graphics-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-graphics-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.21",
-        "org.jetbrains.skiko.skiko-awt_0.7.90",
+        "androidx.annotation.annotation-jvm_1.7.1",
+        "androidx.collection.collection-jvm_1.4.0",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.23",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-test-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-test-desktop/1.6.0-dev1369/ui-test-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-test-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-test-desktop/1.6.10-dev1584/ui-test-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-test-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-test-desktop/1.6.10-dev1584",
     deps = [
+        "androidx.annotation.annotation-jvm_1.7.1",
         "com.google.truth.truth_1.0.1",
         "junit.junit_4.13.2",
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-text-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0-RC2",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-test-jvm_1.8.0-RC2",
-        "org.jetbrains.skiko.skiko-awt_0.7.90",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-text-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-test-jvm_1.8.0",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-test-junit4-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-test-junit4-desktop/1.6.0-dev1369/ui-test-junit4-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-test-junit4-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-test-junit4-desktop/1.6.10-dev1584/ui-test-junit4-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-test-junit4-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-test-junit4-desktop/1.6.10-dev1584",
     deps = [
+        "androidx.annotation.annotation-jvm_1.7.1",
         "com.google.truth.truth_1.0.1",
         "junit.junit_4.13.2",
-        "org.jetbrains.compose.ui.ui-test-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0-RC2",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-test-jvm_1.8.0-RC2",
-        "org.jetbrains.skiko.skiko-awt_0.7.90",
+        "org.jetbrains.compose.ui.ui-test-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-test-jvm_1.8.0",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-text-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-text-desktop/1.6.0-dev1369/ui-text-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-text-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-text-desktop/1.6.10-dev1584/ui-text-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-text-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-text-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.runtime.runtime-saveable-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-graphics-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
-        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.1",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0-RC2",
-        "org.jetbrains.skiko.skiko-awt_0.7.90",
+        "androidx.annotation.annotation-jvm_1.7.1",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.runtime.runtime-saveable-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-graphics-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-unit-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+        "org.jetbrains.kotlinx.atomicfu-jvm_0.23.2",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-unit-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-unit-desktop/1.6.0-dev1369/ui-unit-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-unit-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-unit-desktop/1.6.10-dev1584/ui-unit-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-unit-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-unit-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.compose.runtime.runtime-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.0-dev1369",
-        "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "androidx.annotation.annotation-jvm_1.7.1",
+        "org.jetbrains.compose.runtime.runtime-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-geometry-desktop_1.6.10-dev1584",
+        "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.compose.ui.ui-util-desktop_1.6.0-dev1369",
-    pom = "repository/org/jetbrains/compose/ui/ui-util-desktop/1.6.0-dev1369/ui-util-desktop-1.6.0-dev1369.pom",
+    name = "org.jetbrains.compose.ui.ui-util-desktop_1.6.10-dev1584",
+    pom = "repository/org/jetbrains/compose/ui/ui-util-desktop/1.6.10-dev1584/ui-util-desktop-1.6.10-dev1584.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/compose/ui/ui-util-desktop/1.6.0-dev1369",
+    repo_path = "org/jetbrains/compose/ui/ui-util-desktop/1.6.10-dev1584",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
     ],
     visibility = ["//visibility:public"],
 )
@@ -47401,57 +47686,80 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.jewel.jewel-foundation_0.13.2",
-    pom = "repository/org/jetbrains/jewel/jewel-foundation/0.13.2/jewel-foundation-0.13.2.pom",
+    name = "org.jetbrains.jewel.jewel-foundation-241_0.17.3",
+    pom = "repository/org/jetbrains/jewel/jewel-foundation-241/0.17.3/jewel-foundation-241-0.17.3.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/jewel/jewel-foundation/0.13.2",
+    repo_path = "org/jetbrains/jewel/jewel-foundation-241/0.17.3",
     deps = [
-        "org.jetbrains.compose.foundation.foundation-desktop_1.6.0-dev1369",
+        "org.jetbrains.compose.foundation.foundation-desktop_1.6.10-dev1584",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.jewel.jewel-ide-laf-bridge-platform-specific_0.13.2-ij-233",
-    pom = "repository/org/jetbrains/jewel/jewel-ide-laf-bridge-platform-specific/0.13.2-ij-233/jewel-ide-laf-bridge-platform-specific-0.13.2-ij-233.pom",
+    name = "org.jetbrains.jewel.jewel-ide-laf-bridge-241_0.17.3",
+    pom = "repository/org/jetbrains/jewel/jewel-ide-laf-bridge-241/0.17.3/jewel-ide-laf-bridge-241-0.17.3.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/jewel/jewel-ide-laf-bridge-platform-specific/0.13.2-ij-233",
+    repo_path = "org/jetbrains/jewel/jewel-ide-laf-bridge-241/0.17.3",
     deps = [
-        "org.jetbrains.jewel.jewel-ui_0.13.2",
+        "org.jetbrains.jewel.jewel-ui-241_0.17.3",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.jewel.jewel-ide-laf-bridge_0.13.2-ij-233",
-    pom = "repository/org/jetbrains/jewel/jewel-ide-laf-bridge/0.13.2-ij-233/jewel-ide-laf-bridge-0.13.2-ij-233.pom",
+    name = "org.jetbrains.jewel.jewel-int-ui-standalone-241_0.17.3",
+    pom = "repository/org/jetbrains/jewel/jewel-int-ui-standalone-241/0.17.3/jewel-int-ui-standalone-241-0.17.3.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/jewel/jewel-ide-laf-bridge/0.13.2-ij-233",
+    repo_path = "org/jetbrains/jewel/jewel-int-ui-standalone-241/0.17.3",
     deps = [
-        "org.jetbrains.jewel.jewel-ui_0.13.2",
-        "org.jetbrains.jewel.jewel-ide-laf-bridge-platform-specific_0.13.2-ij-233",
+        "org.jetbrains.jewel.jewel-ui-241_0.17.3",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.jewel.jewel-int-ui-standalone_0.13.2",
-    pom = "repository/org/jetbrains/jewel/jewel-int-ui-standalone/0.13.2/jewel-int-ui-standalone-0.13.2.pom",
+    name = "org.jetbrains.jewel.jewel-markdown-core-241_0.17.3",
+    pom = "repository/org/jetbrains/jewel/jewel-markdown-core-241/0.17.3/jewel-markdown-core-241-0.17.3.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/jewel/jewel-int-ui-standalone/0.13.2",
+    repo_path = "org/jetbrains/jewel/jewel-markdown-core-241/0.17.3",
     deps = [
-        "org.jetbrains.jewel.jewel-ui_0.13.2",
+        "org.jetbrains.jewel.jewel-ui-241_0.17.3",
+        "org.commonmark.commonmark_0.22.0",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.jewel.jewel-ui_0.13.2",
-    pom = "repository/org/jetbrains/jewel/jewel-ui/0.13.2/jewel-ui-0.13.2.pom",
+    name = "org.jetbrains.jewel.jewel-markdown-extension-gfm-alerts-241_0.17.3",
+    pom = "repository/org/jetbrains/jewel/jewel-markdown-extension-gfm-alerts-241/0.17.3/jewel-markdown-extension-gfm-alerts-241-0.17.3.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/jewel/jewel-ui/0.13.2",
+    repo_path = "org/jetbrains/jewel/jewel-markdown-extension-gfm-alerts-241/0.17.3",
     deps = [
-        "org.jetbrains.jewel.jewel-foundation_0.13.2",
+        "org.jetbrains.jewel.jewel-markdown-core-241_0.17.3",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.jewel.jewel-markdown-ide-laf-bridge-styling-241_0.17.3",
+    pom = "repository/org/jetbrains/jewel/jewel-markdown-ide-laf-bridge-styling-241/0.17.3/jewel-markdown-ide-laf-bridge-styling-241-0.17.3.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/jewel/jewel-markdown-ide-laf-bridge-styling-241/0.17.3",
+    deps = [
+        "org.jetbrains.jewel.jewel-markdown-core-241_0.17.3",
+        "org.jetbrains.jewel.jewel-ide-laf-bridge-241_0.17.3",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.jewel.jewel-ui-241_0.17.3",
+    pom = "repository/org/jetbrains/jewel/jewel-ui-241/0.17.3/jewel-ui-241-0.17.3.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/jewel/jewel-ui-241/0.17.3",
+    deps = [
+        "org.jetbrains.jewel.jewel-foundation-241_0.17.3",
     ],
     visibility = ["//visibility:public"],
 )
@@ -47567,12 +47875,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.android.org.jetbrains.kotlin.android.gradle.plugin_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/2.0.0-Beta5/org.jetbrains.kotlin.android.gradle.plugin-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.android.org.jetbrains.kotlin.android.gradle.plugin_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/2.0.0-RC1/org.jetbrains.kotlin.android.gradle.plugin-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/android/org.jetbrains.kotlin.android.gradle.plugin/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -47666,12 +47974,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.jvm.org.jetbrains.kotlin.jvm.gradle.plugin_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/jvm/org.jetbrains.kotlin.jvm.gradle.plugin/2.0.0-Beta5/org.jetbrains.kotlin.jvm.gradle.plugin-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.jvm.org.jetbrains.kotlin.jvm.gradle.plugin_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/jvm/org.jetbrains.kotlin.jvm.gradle.plugin/2.0.0-RC1/org.jetbrains.kotlin.jvm.gradle.plugin-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/jvm/org.jetbrains.kotlin.jvm.gradle.plugin/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/jvm/org.jetbrains.kotlin.jvm.gradle.plugin/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -47699,12 +48007,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kapt.org.jetbrains.kotlin.kapt.gradle.plugin_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/2.0.0-Beta5/org.jetbrains.kotlin.kapt.gradle.plugin-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kapt.org.jetbrains.kotlin.kapt.gradle.plugin_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/2.0.0-RC1/org.jetbrains.kotlin.kapt.gradle.plugin-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kapt/org.jetbrains.kotlin.kapt.gradle.plugin/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -47905,12 +48213,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-android-extensions-runtime_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-android-extensions-runtime/2.0.0-Beta5/kotlin-android-extensions-runtime-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-android-extensions-runtime_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-android-extensions-runtime/2.0.0-RC1/kotlin-android-extensions-runtime-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-android-extensions-runtime/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-android-extensions-runtime/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -48103,12 +48411,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-android-extensions_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-android-extensions/2.0.0-Beta5/kotlin-android-extensions-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-android-extensions_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-android-extensions/2.0.0-RC1/kotlin-android-extensions-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-android-extensions/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-android-extensions/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -48299,10 +48607,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-annotation-processing-gradle_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-annotation-processing-gradle/2.0.0-Beta5/kotlin-annotation-processing-gradle-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-annotation-processing-gradle_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-annotation-processing-gradle/2.0.0-RC1/kotlin-annotation-processing-gradle-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-annotation-processing-gradle/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-annotation-processing-gradle/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -48427,20 +48735,20 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-build-common_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-build-common/2.0.0-Beta5/kotlin-build-common-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-build-common_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-build-common/2.0.0-RC1/kotlin-build-common-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-build-common/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-build-common/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-build-statistics_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-build-statistics/2.0.0-Beta5/kotlin-build-statistics-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-build-statistics_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-build-statistics/2.0.0-RC1/kotlin-build-statistics-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-build-statistics/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-build-statistics/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-RC1",
         "com.google.code.gson.gson_2.8.9",
     ],
     visibility = ["//visibility:public"],
@@ -48463,25 +48771,25 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-build-tools-api/2.0.0-Beta5/kotlin-build-tools-api-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-build-tools-api/2.0.0-RC1/kotlin-build-tools-api-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-build-tools-api/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-build-tools-api/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-build-tools-impl_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-build-tools-impl/2.0.0-Beta5/kotlin-build-tools-impl-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-build-tools-impl_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-build-tools-impl/2.0.0-RC1/kotlin-build-tools-impl-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-build-tools-impl/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-build-tools-impl/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-compiler-runner_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-scripting-compiler-embeddable_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-scripting-compiler-impl-embeddable_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-compiler-runner_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-scripting-compiler-embeddable_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-scripting-compiler-impl-embeddable_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -48722,6 +49030,9 @@ maven_artifact(
     repo_root_path = "repository",
     repo_path = "org/jetbrains/kotlin/kotlin-compiler-embeddable/1.9.22",
     deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.22",
+        "org.jetbrains.kotlin.kotlin-script-runtime_1.9.22",
+        "org.jetbrains.kotlin.kotlin-reflect_1.6.10",
         "org.jetbrains.kotlin.kotlin-daemon-embeddable_1.9.22",
         "org.jetbrains.intellij.deps.trove4j_1.0.20200330",
     ],
@@ -48729,15 +49040,15 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-compiler-embeddable/2.0.0-Beta5/kotlin-compiler-embeddable-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-compiler-embeddable/2.0.0-RC1/kotlin-compiler-embeddable-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-compiler-embeddable/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-compiler-embeddable/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-RC1",
         "org.jetbrains.kotlin.kotlin-reflect_1.6.10",
-        "org.jetbrains.kotlin.kotlin-daemon-embeddable_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-daemon-embeddable_2.0.0-RC1",
         "org.jetbrains.intellij.deps.trove4j_1.0.20200330",
     ],
     visibility = ["//visibility:public"],
@@ -48973,15 +49284,15 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-compiler-runner_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-compiler-runner/2.0.0-Beta5/kotlin-compiler-runner-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-compiler-runner_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-compiler-runner/2.0.0-RC1/kotlin-compiler-runner-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-compiler-runner/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-compiler-runner/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-build-common_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-daemon-client_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-build-common_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-daemon-client_2.0.0-RC1",
         "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.5.0",
-        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -49073,13 +49384,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-compiler_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-compiler/2.0.0-Beta5/kotlin-compiler-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-compiler_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-compiler/2.0.0-RC1/kotlin-compiler-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-compiler/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-compiler/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-RC1",
         "org.jetbrains.kotlin.kotlin-reflect_1.6.10",
         "org.jetbrains.intellij.deps.trove4j_1.0.20200330",
         "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.5.0",
@@ -49265,12 +49576,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-daemon-client_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-daemon-client/2.0.0-Beta5/kotlin-daemon-client-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-daemon-client_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-daemon-client/2.0.0-RC1/kotlin-daemon-client-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-daemon-client/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-daemon-client/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -49396,10 +49707,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-daemon-embeddable_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-daemon-embeddable/2.0.0-Beta5/kotlin-daemon-embeddable-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-daemon-embeddable_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-daemon-embeddable/2.0.0-RC1/kotlin-daemon-embeddable-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-daemon-embeddable/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-daemon-embeddable/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -49437,23 +49748,23 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.20/kotlin-gradle-plugin-annotations-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.22/kotlin-gradle-plugin-annotations-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/1.9.22",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/2.0.0-Beta5/kotlin-gradle-plugin-annotations-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/2.0.0-RC1/kotlin-gradle-plugin-annotations-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-annotations/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -49649,30 +49960,30 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.20/kotlin-gradle-plugin-api-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-api_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.22/kotlin-gradle-plugin-api-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/1.9.22",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.20",
-        "org.jetbrains.kotlin.kotlin-native-utils_1.9.20",
-        "org.jetbrains.kotlin.kotlin-project-model_1.9.20",
-        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_1.9.22",
+        "org.jetbrains.kotlin.kotlin-native-utils_1.9.22",
+        "org.jetbrains.kotlin.kotlin-project-model_1.9.22",
+        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-api_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/2.0.0-Beta5/kotlin-gradle-plugin-api-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-api_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-api/2.0.0-RC1/kotlin-gradle-plugin-api-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-api/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-native-utils_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-tooling-core_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-native-utils_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-tooling-core_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -49766,12 +50077,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-idea-proto_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-idea-proto/2.0.0-Beta5/kotlin-gradle-plugin-idea-proto-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-idea-proto_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-idea-proto/2.0.0-RC1/kotlin-gradle-plugin-idea-proto-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-idea-proto/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-idea-proto/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-idea_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-idea_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -49885,13 +50196,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-idea_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-idea/2.0.0-Beta5/kotlin-gradle-plugin-idea-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-idea_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-idea/2.0.0-RC1/kotlin-gradle-plugin-idea-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-idea/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-idea/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-tooling-core_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-tooling-core_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-annotations_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -50057,12 +50368,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-model_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-model/2.0.0-Beta5/kotlin-gradle-plugin-model-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin-model_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin-model/2.0.0-RC1/kotlin-gradle-plugin-model-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-model/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin-model/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -50477,22 +50788,22 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin/2.0.0-Beta5/kotlin-gradle-plugin-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugin_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugin/2.0.0-RC1/kotlin-gradle-plugin-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugin/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-api_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-model_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-idea_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-gradle-plugin-idea-proto_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-klib-commonizer-api_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-build-statistics_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-compiler-runner_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-util-klib_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-api_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-model_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-idea_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-gradle-plugin-idea-proto_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-klib-commonizer-api_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-build-tools-api_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-build-statistics_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-compiler-runner_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-util-klib_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -50522,18 +50833,18 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.20/kotlin-gradle-plugins-bom-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.22/kotlin-gradle-plugins-bom-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/1.9.22",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/2.0.0-Beta5/kotlin-gradle-plugins-bom-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-gradle-plugins-bom/2.0.0-RC1/kotlin-gradle-plugins-bom-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-gradle-plugins-bom/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -50681,12 +50992,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-klib-commonizer-api_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-klib-commonizer-api/2.0.0-Beta5/kotlin-klib-commonizer-api-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-klib-commonizer-api_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-klib-commonizer-api/2.0.0-RC1/kotlin-klib-commonizer-api-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-klib-commonizer-api/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-klib-commonizer-api/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-native-utils_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-native-utils_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -50704,22 +51015,22 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-klib-commonizer-embeddable_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-klib-commonizer-embeddable/2.0.0-Beta5/kotlin-klib-commonizer-embeddable-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-klib-commonizer-embeddable_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-klib-commonizer-embeddable/2.0.0-RC1/kotlin-klib-commonizer-embeddable-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-klib-commonizer-embeddable/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-klib-commonizer-embeddable/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-compiler-embeddable_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-native-prebuilt_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-native-prebuilt/2.0.0-Beta5/kotlin-native-prebuilt-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-native-prebuilt_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-native-prebuilt/2.0.0-RC1/kotlin-native-prebuilt-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-native-prebuilt/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-native-prebuilt/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -50883,27 +51194,27 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-native-utils_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.20/kotlin-native-utils-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-native-utils_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/1.9.22/kotlin-native-utils-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/1.9.22",
     deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
-        "org.jetbrains.kotlin.kotlin-util-klib_1.9.20",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
+        "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
+        "org.jetbrains.kotlin.kotlin-util-klib_1.9.22",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-native-utils_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/2.0.0-Beta5/kotlin-native-utils-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-native-utils_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-native-utils/2.0.0-RC1/kotlin-native-utils-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-native-utils/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-util-klib_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-util-io_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-util-klib_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -51055,12 +51366,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-project-model_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.20/kotlin-project-model-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-project-model_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-project-model/1.9.22/kotlin-project-model-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-project-model/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-project-model/1.9.22",
     deps = [
-        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
+        "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
     ],
     visibility = ["//visibility:public"],
 )
@@ -51341,12 +51652,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-reflect_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-reflect/2.0.0-Beta5/kotlin-reflect-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-reflect_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-reflect/2.0.0-RC1/kotlin-reflect-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-reflect/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-reflect/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -51488,10 +51799,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-script-runtime/2.0.0-Beta5/kotlin-script-runtime-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-script-runtime/2.0.0-RC1/kotlin-script-runtime-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-script-runtime/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-script-runtime/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -51640,12 +51951,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-scripting-common_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-common/2.0.0-Beta5/kotlin-scripting-common-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-scripting-common_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-common/2.0.0-RC1/kotlin-scripting-common-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-scripting-common/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-scripting-common/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -51838,13 +52149,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-scripting-compiler-embeddable_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-compiler-embeddable/2.0.0-Beta5/kotlin-scripting-compiler-embeddable-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-scripting-compiler-embeddable_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-compiler-embeddable/2.0.0-RC1/kotlin-scripting-compiler-embeddable-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-scripting-compiler-embeddable/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-scripting-compiler-embeddable/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-scripting-compiler-impl-embeddable_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-scripting-compiler-impl-embeddable_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -52049,14 +52360,14 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-scripting-compiler-impl-embeddable_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-compiler-impl-embeddable/2.0.0-Beta5/kotlin-scripting-compiler-impl-embeddable-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-scripting-compiler-impl-embeddable_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-compiler-impl-embeddable/2.0.0-RC1/kotlin-scripting-compiler-impl-embeddable-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-scripting-compiler-impl-embeddable/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-scripting-compiler-impl-embeddable/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-scripting-common_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-scripting-jvm_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-scripting-common_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-scripting-jvm_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -52244,14 +52555,14 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-scripting-jvm_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-jvm/2.0.0-Beta5/kotlin-scripting-jvm-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-scripting-jvm_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-scripting-jvm/2.0.0-RC1/kotlin-scripting-jvm-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-scripting-jvm/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-scripting-jvm/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-scripting-common_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-script-runtime_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-scripting-common_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -52593,10 +52904,18 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib-common_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-common/2.0.0-Beta5/kotlin-stdlib-common-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.23",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-common/1.9.23/kotlin-stdlib-common-1.9.23.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-common/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-common/1.9.23",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-stdlib-common_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-common/2.0.0-RC1/kotlin-stdlib-common-2.0.0-RC1.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-common/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -52931,12 +53250,23 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk7_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.0.0-Beta5/kotlin-stdlib-jdk7-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.9.23",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.23/kotlin-stdlib-jdk7-1.9.23.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk7/1.9.23",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk7_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.0.0-RC1/kotlin-stdlib-jdk7-2.0.0-RC1.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.0.0-RC1",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -53302,13 +53632,25 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk8_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.0.0-Beta5/kotlin-stdlib-jdk8-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.23",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.23/kotlin-stdlib-jdk8-1.9.23.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk8/1.9.23",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk7_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk7_1.9.23",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-stdlib-jdk8_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.0.0-RC1/kotlin-stdlib-jdk8-2.0.0-RC1.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.0.0-RC1",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk7_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -53905,10 +54247,21 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib/2.0.0-Beta5/kotlin-stdlib-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-stdlib_1.9.23",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib/1.9.23/kotlin-stdlib-1.9.23.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-stdlib/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib/1.9.23",
+    deps = [
+        "org.jetbrains.annotations_13.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-stdlib/2.0.0-RC1/kotlin-stdlib-2.0.0-RC1.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlin/kotlin-stdlib/2.0.0-RC1",
     deps = [
         "org.jetbrains.annotations_13.0",
     ],
@@ -53928,12 +54281,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-test-junit_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-test-junit/2.0.0-Beta5/kotlin-test-junit-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-test-junit_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-test-junit/2.0.0-RC1/kotlin-test-junit-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-test-junit/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-test-junit/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-test_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-test_2.0.0-RC1",
         "junit.junit_4.13.2",
     ],
     visibility = ["//visibility:public"],
@@ -53951,12 +54304,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-test_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-test/2.0.0-Beta5/kotlin-test-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-test_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-test/2.0.0-RC1/kotlin-test-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-test/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-test/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-stdlib_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -54043,24 +54396,21 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-tooling-core_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.20/kotlin-tooling-core-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-tooling-core_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/1.9.22/kotlin-tooling-core-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/1.9.22",
     deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.20",
+        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_1.9.22",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-tooling-core_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/2.0.0-Beta5/kotlin-tooling-core-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-tooling-core_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-tooling-core/2.0.0-RC1/kotlin-tooling-core-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/2.0.0-Beta5",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-gradle-plugins-bom_2.0.0-Beta5",
-    ],
+    repo_path = "org/jetbrains/kotlin/kotlin-tooling-core/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -54238,18 +54588,18 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.20/kotlin-util-io-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/1.9.22/kotlin-util-io-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-io/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-io/1.9.22",
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-util-io_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/2.0.0-Beta5/kotlin-util-io-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-util-io_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-io/2.0.0-RC1/kotlin-util-io-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-io/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-io/2.0.0-RC1",
     visibility = ["//visibility:public"],
 )
 
@@ -54410,23 +54760,23 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-util-klib_1.9.20",
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.20/kotlin-util-klib-1.9.20.pom",
+    name = "org.jetbrains.kotlin.kotlin-util-klib_1.9.22",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/1.9.22/kotlin-util-klib-1.9.22.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/1.9.20",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/1.9.22",
     deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_1.9.20",
+        "org.jetbrains.kotlin.kotlin-util-io_1.9.22",
     ],
     visibility = ["//visibility:public"],
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlin.kotlin-util-klib_2.0.0-Beta5",
-    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/2.0.0-Beta5/kotlin-util-klib-2.0.0-Beta5.pom",
+    name = "org.jetbrains.kotlin.kotlin-util-klib_2.0.0-RC1",
+    pom = "repository/org/jetbrains/kotlin/kotlin-util-klib/2.0.0-RC1/kotlin-util-klib-2.0.0-RC1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/2.0.0-Beta5",
+    repo_path = "org/jetbrains/kotlin/kotlin-util-klib/2.0.0-RC1",
     deps = [
-        "org.jetbrains.kotlin.kotlin-util-io_2.0.0-Beta5",
+        "org.jetbrains.kotlin.kotlin-util-io_2.0.0-RC1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -54456,13 +54806,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.atomicfu-jvm_0.23.1",
-    pom = "repository/org/jetbrains/kotlinx/atomicfu-jvm/0.23.1/atomicfu-jvm-0.23.1.pom",
+    name = "org.jetbrains.kotlinx.atomicfu-jvm_0.23.2",
+    pom = "repository/org/jetbrains/kotlinx/atomicfu-jvm/0.23.2/atomicfu-jvm-0.23.2.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/atomicfu-jvm/0.23.1",
+    repo_path = "org/jetbrains/kotlinx/atomicfu-jvm/0.23.2",
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
     ],
     visibility = ["//visibility:public"],
 )
@@ -54575,14 +54924,14 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-android_1.7.1",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.7.1/kotlinx-coroutines-android-1.7.1.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-android_1.6.4",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.6.4/kotlinx-coroutines-android-1.6.4.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-android/1.7.1",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-android/1.6.4",
     deps = [
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.7.1",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
     ],
     visibility = ["//visibility:public"],
 )
@@ -54617,10 +54966,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.7.1/kotlinx-coroutines-bom-1.7.1.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.6.4/kotlinx-coroutines-bom-1.6.4.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.7.1",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.6.4",
     visibility = ["//visibility:public"],
 )
 
@@ -54633,10 +54982,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.8.0-RC",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.8.0-RC/kotlinx-coroutines-bom-1.8.0-RC.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.8.0",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.8.0/kotlinx-coroutines-bom-1.8.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.8.0-RC",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-bom/1.8.0",
     visibility = ["//visibility:public"],
 )
 
@@ -54733,15 +55082,14 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.7.1",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.7.1/kotlinx-coroutines-core-jvm-1.7.1.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.6.4",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4/kotlinx-coroutines-core-jvm-1.6.4.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.7.1",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.6.4",
     deps = [
-        "org.jetbrains.annotations_23.0.0",
-        "org.jetbrains.kotlin.kotlin-stdlib-common_1.8.20",
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.7.1",
+        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.6.21",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.6.21",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.6.4",
     ],
     visibility = ["//visibility:public"],
 )
@@ -54761,14 +55109,14 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.8.0-RC",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.8.0-RC/kotlinx-coroutines-core-jvm-1.8.0-RC.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.8.0",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.8.0/kotlinx-coroutines-core-jvm-1.8.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.8.0-RC",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core-jvm/1.8.0",
     deps = [
         "org.jetbrains.annotations_23.0.0",
         "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.8.0-RC",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.8.0",
     ],
     visibility = ["//visibility:public"],
 )
@@ -54945,13 +55293,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0-RC2",
-    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.8.0-RC2/kotlinx-coroutines-core-1.8.0-RC2.pom",
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-core_1.8.0",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.8.0/kotlinx-coroutines-core-1.8.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core/1.8.0-RC2",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-core/1.8.0",
     deps = [
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.8.0-RC2",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.8.0-RC2",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.8.0",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.8.0",
     ],
     visibility = ["//visibility:public"],
 )
@@ -55108,6 +55456,20 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.jetbrains.kotlinx.kotlinx-coroutines-test-jvm_1.8.0",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-test-jvm/1.8.0/kotlinx-coroutines-test-jvm-1.8.0.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-coroutines-test-jvm/1.8.0",
+    deps = [
+        "org.jetbrains.annotations_23.0.0",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.8.0",
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-bom_1.8.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.jetbrains.kotlinx.kotlinx-coroutines-test-jvm_1.8.0-RC2",
     pom = "repository/org/jetbrains/kotlinx/kotlinx-coroutines-test-jvm/1.8.0-RC2/kotlinx-coroutines-test-jvm-1.8.0-RC2.pom",
     repo_root_path = "repository",
@@ -55238,6 +55600,17 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.jetbrains.kotlinx.kotlinx-metadata-jvm_0.9.0",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-metadata-jvm/0.9.0/kotlinx-metadata-jvm-0.9.0.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-metadata-jvm/0.9.0",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.jetbrains.kotlinx.kotlinx-serialization-bom_1.5.1",
     pom = "repository/org/jetbrains/kotlinx/kotlinx-serialization-bom/1.5.1/kotlinx-serialization-bom-1.5.1.pom",
     repo_root_path = "repository",
@@ -55250,6 +55623,14 @@ maven_artifact(
     pom = "repository/org/jetbrains/kotlinx/kotlinx-serialization-bom/1.6.0/kotlinx-serialization-bom-1.6.0.pom",
     repo_root_path = "repository",
     repo_path = "org/jetbrains/kotlinx/kotlinx-serialization-bom/1.6.0",
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.kotlinx.kotlinx-serialization-bom_1.6.2",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-serialization-bom/1.6.2/kotlinx-serialization-bom-1.6.2.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-serialization-bom/1.6.2",
     visibility = ["//visibility:public"],
 )
 
@@ -55287,6 +55668,19 @@ maven_artifact(
         "org.jetbrains.kotlin.kotlin-stdlib_1.9.0",
         "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.0",
         "org.jetbrains.kotlinx.kotlinx-serialization-bom_1.6.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.jetbrains.kotlinx.kotlinx-serialization-core-jvm_1.6.2",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/1.6.2/kotlinx-serialization-core-jvm-1.6.2.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-serialization-core-jvm/1.6.2",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "org.jetbrains.kotlinx.kotlinx-serialization-bom_1.6.2",
     ],
     visibility = ["//visibility:public"],
 )
@@ -55341,6 +55735,20 @@ maven_artifact(
 )
 
 maven_artifact(
+    name = "org.jetbrains.kotlinx.kotlinx-serialization-json-jvm_1.6.2",
+    pom = "repository/org/jetbrains/kotlinx/kotlinx-serialization-json-jvm/1.6.2/kotlinx-serialization-json-jvm-1.6.2.pom",
+    repo_root_path = "repository",
+    repo_path = "org/jetbrains/kotlinx/kotlinx-serialization-json-jvm/1.6.2",
+    deps = [
+        "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
+        "org.jetbrains.kotlin.kotlin-stdlib-common_1.9.21",
+        "org.jetbrains.kotlinx.kotlinx-serialization-core-jvm_1.6.2",
+        "org.jetbrains.kotlinx.kotlinx-serialization-bom_1.6.2",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
     name = "org.jetbrains.kotlinx.kotlinx-serialization-json_1.5.1",
     pom = "repository/org/jetbrains/kotlinx/kotlinx-serialization-json/1.5.1/kotlinx-serialization-json-1.5.1.pom",
     repo_root_path = "repository",
@@ -55385,12 +55793,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.skiko.skiko-awt-runtime-linux-x64_0.7.85.4",
-    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-linux-x64/0.7.85.4/skiko-awt-runtime-linux-x64-0.7.85.4.pom",
+    name = "org.jetbrains.skiko.skiko-awt-runtime-linux-x64_0.8.1",
+    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-linux-x64/0.8.1/skiko-awt-runtime-linux-x64-0.8.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-linux-x64/0.7.85.4",
+    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-linux-x64/0.8.1",
     deps = [
-        "org.jetbrains.skiko.skiko-awt_0.7.85.4",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -55404,12 +55812,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.skiko.skiko-awt-runtime-macos-arm64_0.7.85.4",
-    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-macos-arm64/0.7.85.4/skiko-awt-runtime-macos-arm64-0.7.85.4.pom",
+    name = "org.jetbrains.skiko.skiko-awt-runtime-macos-arm64_0.8.1",
+    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-macos-arm64/0.8.1/skiko-awt-runtime-macos-arm64-0.8.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-macos-arm64/0.7.85.4",
+    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-macos-arm64/0.8.1",
     deps = [
-        "org.jetbrains.skiko.skiko-awt_0.7.85.4",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -55423,12 +55831,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.skiko.skiko-awt-runtime-macos-x64_0.7.85.4",
-    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-macos-x64/0.7.85.4/skiko-awt-runtime-macos-x64-0.7.85.4.pom",
+    name = "org.jetbrains.skiko.skiko-awt-runtime-macos-x64_0.8.1",
+    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-macos-x64/0.8.1/skiko-awt-runtime-macos-x64-0.8.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-macos-x64/0.7.85.4",
+    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-macos-x64/0.8.1",
     deps = [
-        "org.jetbrains.skiko.skiko-awt_0.7.85.4",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -55442,12 +55850,12 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.skiko.skiko-awt-runtime-windows-x64_0.7.85.4",
-    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-windows-x64/0.7.85.4/skiko-awt-runtime-windows-x64-0.7.85.4.pom",
+    name = "org.jetbrains.skiko.skiko-awt-runtime-windows-x64_0.8.1",
+    pom = "repository/org/jetbrains/skiko/skiko-awt-runtime-windows-x64/0.8.1/skiko-awt-runtime-windows-x64-0.8.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-windows-x64/0.7.85.4",
+    repo_path = "org/jetbrains/skiko/skiko-awt-runtime-windows-x64/0.8.1",
     deps = [
-        "org.jetbrains.skiko.skiko-awt_0.7.85.4",
+        "org.jetbrains.skiko.skiko-awt_0.8.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -55467,39 +55875,13 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.skiko.skiko-awt_0.7.85.4",
-    pom = "repository/org/jetbrains/skiko/skiko-awt/0.7.85.4/skiko-awt-0.7.85.4.pom",
+    name = "org.jetbrains.skiko.skiko-awt_0.8.1",
+    pom = "repository/org/jetbrains/skiko/skiko-awt/0.8.1/skiko-awt-0.8.1.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/skiko/skiko-awt/0.7.85.4",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.8.20",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.7.3",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "org.jetbrains.skiko.skiko-awt_0.7.85.5",
-    pom = "repository/org/jetbrains/skiko/skiko-awt/0.7.85.5/skiko-awt-0.7.85.5.pom",
-    repo_root_path = "repository",
-    repo_path = "org/jetbrains/skiko/skiko-awt/0.7.85.5",
-    deps = [
-        "org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.8.20",
-        "org.jetbrains.kotlin.kotlin-stdlib_1.8.20",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.7.3",
-    ],
-    visibility = ["//visibility:public"],
-)
-
-maven_artifact(
-    name = "org.jetbrains.skiko.skiko-awt_0.7.90",
-    pom = "repository/org/jetbrains/skiko/skiko-awt/0.7.90/skiko-awt-0.7.90.pom",
-    repo_root_path = "repository",
-    repo_path = "org/jetbrains/skiko/skiko-awt/0.7.90",
+    repo_path = "org/jetbrains/skiko/skiko-awt/0.8.1",
     deps = [
         "org.jetbrains.kotlin.kotlin-stdlib_1.9.21",
-        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.8.0-RC",
+        "org.jetbrains.kotlinx.kotlinx-coroutines-core-jvm_1.8.0",
     ],
     visibility = ["//visibility:public"],
 )
@@ -55526,10 +55908,10 @@ maven_artifact(
 )
 
 maven_artifact(
-    name = "org.jetbrains.annotations_23.0.0",
-    pom = "repository/org/jetbrains/annotations/23.0.0/annotations-23.0.0.pom",
+    name = "org.jetbrains.annotations_13.0",
+    pom = "repository/org/jetbrains/annotations/13.0/annotations-13.0.pom",
     repo_root_path = "repository",
-    repo_path = "org/jetbrains/annotations/23.0.0",
+    repo_path = "org/jetbrains/annotations/13.0",
     visibility = ["//visibility:public"],
 )
 
@@ -55630,6 +56012,19 @@ maven_artifact(
         "org.opentest4j.opentest4j_1.2.0",
         "org.junit.platform.junit-platform-commons_1.7.0",
         "org.junit.junit-bom_5.7.0",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+maven_artifact(
+    name = "org.junit.platform.junit-platform-launcher_1.10.1",
+    pom = "repository/org/junit/platform/junit-platform-launcher/1.10.1/junit-platform-launcher-1.10.1.pom",
+    repo_root_path = "repository",
+    repo_path = "org/junit/platform/junit-platform-launcher/1.10.1",
+    deps = [
+        "org.junit.platform.junit-platform-engine_1.10.1",
+        "org.apiguardian.apiguardian-api_1.1.2",
+        "org.junit.junit-bom_5.10.1",
     ],
     visibility = ["//visibility:public"],
 )
@@ -58358,6 +58753,13 @@ maven_artifact(
     pom = "repository/org/commonmark/commonmark-parent/0.20.0/commonmark-parent-0.20.0.pom",
     repo_root_path = "repository",
     repo_path = "org/commonmark/commonmark-parent/0.20.0",
+)
+
+maven_artifact(
+    name = "org.commonmark.commonmark-parent_0.22.0",
+    pom = "repository/org/commonmark/commonmark-parent/0.22.0/commonmark-parent-0.22.0.pom",
+    repo_root_path = "repository",
+    repo_path = "org/commonmark/commonmark-parent/0.22.0",
 )
 
 maven_artifact(

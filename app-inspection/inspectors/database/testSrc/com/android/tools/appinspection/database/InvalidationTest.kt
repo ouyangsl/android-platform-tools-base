@@ -27,6 +27,7 @@ import androidx.inspection.ArtTooling
 import androidx.sqlite.inspection.SqliteInspectorProtocol
 import androidx.sqlite.inspection.SqliteInspectorProtocol.Event.OneOfCase.DATABASE_POSSIBLY_CHANGED
 import com.android.testutils.CloseablesRule
+import com.android.tools.appinspection.common.testing.LogPrinterRule
 import com.android.tools.appinspection.database.testing.Column
 import com.android.tools.appinspection.database.testing.Database
 import com.android.tools.appinspection.database.testing.Hook
@@ -49,6 +50,7 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.SQLiteMode
+import org.robolectric.junit.rules.CloseGuardRule
 
 @RunWith(RobolectricTestRunner::class)
 @Config(
@@ -64,7 +66,11 @@ class InvalidationTest {
 
   @get:Rule
   val rule: RuleChain =
-    RuleChain.outerRule(testEnvironment).around(temporaryFolder).around(closeablesRule)
+    RuleChain.outerRule(CloseGuardRule())
+      .around(closeablesRule)
+      .around(testEnvironment)
+      .around(temporaryFolder)
+      .around(LogPrinterRule())
 
   private val shadowLooper = shadowOf(testEnvironment.getLooper())
 

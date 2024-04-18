@@ -154,19 +154,58 @@ class PrivacySandboxSdkTest {
                 "${SdkConstants.FD_LOGS}/manifest-merger-mergeManifest-report.txt")
         assertThat(asbManifest).hasContents(
                 """
-            <?xml version="1.0" encoding="utf-8"?>
-            <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                package="com.example.privacysandboxsdk" >
+                <?xml version="1.0" encoding="utf-8"?>
+                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+                    package="com.example.privacysandboxsdk" >
 
-                <uses-sdk
-                    android:minSdkVersion="23"
-                    android:targetSdkVersion="34" />
+                    <uses-sdk
+                        android:minSdkVersion="23"
+                        android:targetSdkVersion="34" />
 
-                <uses-permission android:name="android.permission.INTERNET" />
+                    <uses-permission android:name="android.permission.INTERNET" />
 
-                <application android:appComponentFactory="androidx.core.app.CoreComponentFactory" />
+                    <permission
+                        android:name="com.example.privacysandboxsdk.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+                        android:protectionLevel="signature" />
 
-            </manifest>
+                    <uses-permission android:name="com.example.privacysandboxsdk.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+
+                    <application android:appComponentFactory="androidx.core.app.CoreComponentFactory" >
+                        <activity
+                            android:name="androidx.privacysandbox.sdkruntime.client.activity.SdkActivity"
+                            android:exported="true" />
+
+                        <provider
+                            android:name="androidx.startup.InitializationProvider"
+                            android:authorities="com.example.privacysandboxsdk.androidx-startup"
+                            android:exported="false" >
+                            <meta-data
+                                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+                                android:value="androidx.startup" />
+                        </provider>
+
+                        <receiver
+                            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+                            android:directBootAware="false"
+                            android:enabled="true"
+                            android:exported="true"
+                            android:permission="android.permission.DUMP" >
+                            <intent-filter>
+                                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+                            </intent-filter>
+                            <intent-filter>
+                                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+                            </intent-filter>
+                            <intent-filter>
+                                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+                            </intent-filter>
+                            <intent-filter>
+                                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+                            </intent-filter>
+                        </receiver>
+                    </application>
+
+                </manifest>
         """.trimIndent())
         assertThat(asbManifestBlameReport.exists()).isTrue()
         assertThat(asbFile.exists()).isTrue()
@@ -300,83 +339,5 @@ class PrivacySandboxSdkTest {
             ""
         )
         executor().run(":privacy-sandbox-sdk:generatePrivacySandboxProguardRules")
-    }
-
-    @Test
-    fun testSdkToSdk() {
-        // There is usage of the privacy-sandbox-sdk-b Shim generated symbols in
-        // privacy-sandbox-sdk, therefore the test passes if the project compiles.
-        TestFileUtils.searchAndReplace(
-                project.getSubproject(":sdk-impl-a")
-                        .mainSrcDir.resolve("com/example/sdkImplA/Example.kt"),
-                "companion object {}",
-                "companion object {\n" +
-                        "    val useSymbolFromPrivacySandboxB = object : com.example.sdkImplB.MySdkB {\n" +
-                        "        override suspend fun f1(p1: Int): Int {\n" +
-                        "            return p1\n" +
-                        "        }\n" +
-                        "    }\n" +
-                        "}")
-        executor().run(":sdk-impl-a:assembleDebug")
-
-        val aar =
-                FileUtils.join(project.getSubproject(":sdk-impl-a").outputDir,
-                        "aar",
-                        "sdk-impl-a-debug.aar")
-        Apk(aar).use { sdkImplAAar ->
-            val entries = sdkImplAAar.entries.map { it.name }
-            assertThat(entries).contains(
-                    SdkConstants.FN_CLASSES_JAR
-            )
-            ZipFile(sdkImplAAar.getEntryAsFile("/${SdkConstants.FN_CLASSES_JAR}")
-                    .toFile()).use { sdkImplAClassesJar ->
-                assertThat(sdkImplAClassesJar.entries()
-                        .toList()
-                        .map { it.name }
-                        .filter { it.endsWith(SdkConstants.EXT_CLASS) }).containsExactly(
-                        "com/example/sdkImplA/Example\$Companion\$useSymbolFromPrivacySandboxB$1.class",
-                        "com/example/sdkImplA/Example\$Companion.class",
-                        "com/example/sdkImplA/Example.class"
-                )
-            }
-        }
-
-        executor().run(":example-app:buildPrivacySandboxSdkApksForDebug")
-
-        val standaloneSdkApk =
-                project.getSubproject(":example-app")
-                        .getIntermediateFile(InternalArtifactType.EXTRACTED_APKS_FROM_PRIVACY_SANDBOX_SDKs.getFolderName(),
-                                "debug",
-                                "buildPrivacySandboxSdkApksForDebug",
-                                "privacy-sandbox-sdk",
-                                "standalone.apk")
-        val protoApkDump =
-                AaptInvoker(TestUtils.getAapt2(), StdLogger(StdLogger.Level.VERBOSE)).dumpResources(
-                        standaloneSdkApk)
-        val dumpedRes =
-                protoApkDump.map { it.trim().removeSuffix(" PUBLIC") }
-                        .filter { it.startsWith("resource") }
-                        .map { it.substringAfterLast("/") }
-        // Verify that resources from non directly used SDKs are excluded from the APK.
-        assertThat(dumpedRes).contains("string_from_sdk_impl_a")
-        assertThat(dumpedRes).doesNotContain("string_from_sdk_impl_b")
-
-        // Verify resources from an SDK are not able to be referenced from another SDK.
-        val sdkImplAResValues = FileUtils.join(
-                project.getSubproject(":sdk-impl-a").mainResDir, "values")
-        sdkImplAResValues.also {
-            it.mkdirs()
-            // Referencing a resource from another SDK should not be possible, expect a failure
-            File(it, "strings.xml").writeText("""
-              <resources>
-                <string name="ref_to_sdk_lib_b">@string/string_from_sdk_impl_b</string>
-              </resources>""".trimIndent()
-            )
-        }
-        val buildFailureDuringResourceLinking =
-                executor().expectFailure().run(":privacy-sandbox-sdk:linkPrivacySandboxResources")
-        buildFailureDuringResourceLinking.assertErrorContains(
-                "error: resource string/string_from_sdk_impl_b (aka com.example.privacysandboxsdk:string/string_from_sdk_impl_b) not found.")
-        Files.delete(sdkImplAResValues.resolve("strings.xml").toPath())
     }
 }

@@ -21,13 +21,16 @@ import android.os.PowerManager
 import backgroundtask.inspection.BackgroundTaskInspectorProtocol.WakeLockAcquired
 import backgroundtask.inspection.BackgroundTaskInspectorProtocol.WakeLockReleased
 import com.android.tools.appinspection.backgroundtask.testing.BackgroundTaskInspectorRule
+import com.android.tools.appinspection.common.testing.LogPrinterRule
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+import org.robolectric.junit.rules.CloseGuardRule
 
 @RunWith(RobolectricTestRunner::class)
 @Config(
@@ -36,7 +39,11 @@ import org.robolectric.annotation.Config
   maxSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
 )
 class WakeLockHandlerTest {
-  @get:Rule val inspectorRule = BackgroundTaskInspectorRule()
+  private val inspectorRule = BackgroundTaskInspectorRule()
+
+  @get:Rule
+  val rule: RuleChain =
+    RuleChain.outerRule(CloseGuardRule()).around(inspectorRule).around(LogPrinterRule())
 
   private val powerManager =
     RuntimeEnvironment.getApplication().getSystemService(PowerManager::class.java)

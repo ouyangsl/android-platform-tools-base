@@ -2,6 +2,7 @@ package com.android.tools.appinspection.network.reporters
 
 import android.os.Build
 import androidx.inspection.Connection
+import com.android.tools.appinspection.common.testing.LogPrinterRule
 import com.android.tools.appinspection.network.reporters.StreamReporter.BufferHelper
 import com.android.tools.appinspection.network.reporters.StreamReporter.InputStreamReporter
 import com.android.tools.appinspection.network.reporters.StreamReporter.OutputStreamReporter
@@ -9,10 +10,13 @@ import com.android.tools.appinspection.network.testing.FakeConnection
 import com.android.tools.appinspection.network.testing.getLogLines
 import com.android.tools.idea.protobuf.ByteString
 import com.google.common.truth.Truth.assertThat
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import org.robolectric.junit.rules.CloseGuardRule
 
 /** Tests for [StreamReporter] */
 @RunWith(RobolectricTestRunner::class)
@@ -22,6 +26,8 @@ import org.robolectric.annotation.Config
   maxSdk = Build.VERSION_CODES.UPSIDE_DOWN_CAKE,
 )
 class StreamReporterTest {
+  @get:Rule val rule: RuleChain = RuleChain.outerRule(CloseGuardRule()).around(LogPrinterRule())
+
   private val connection = FakeConnection()
 
   private val threadReporter =

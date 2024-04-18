@@ -22,25 +22,24 @@ import androidx.inspection.ArtTooling
 import androidx.inspection.testing.DefaultTestInspectorEnvironment
 import androidx.inspection.testing.InspectorTester
 import androidx.inspection.testing.TestInspectorExecutors
-import androidx.sqlite.inspection.SqliteInspectorProtocol
-import androidx.sqlite.inspection.SqliteInspectorProtocol.Command
-import androidx.sqlite.inspection.SqliteInspectorProtocol.DatabaseOpenedEvent
-import androidx.sqlite.inspection.SqliteInspectorProtocol.Event
-import androidx.sqlite.inspection.SqliteInspectorProtocol.Response
+import androidx.sqlite.inspection.SqliteInspectorProtocol.*
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
-import java.util.concurrent.Executor
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit.SECONDS
 import kotlin.test.fail
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.runBlocking
 import org.junit.rules.ExternalResource
-import org.robolectric.shadows.ShadowLog
 
 internal const val SQLITE_INSPECTOR_ID = "androidx.sqlite.inspection"
 
-class SqliteInspectorTestEnvironment(ioExecutorOverride: Executor? = null) : ExternalResource() {
+class SqliteInspectorTestEnvironment(
+  private val ioExecutorOverride: ExecutorService = Executors.newFixedThreadPool(4)
+) : ExternalResource() {
   private val artTooling = FakeArtTooling()
   private val job = Job()
   private val inspectorEnvironment =
@@ -50,16 +49,16 @@ class SqliteInspectorTestEnvironment(ioExecutorOverride: Executor? = null) : Ext
     InspectorTester(SQLITE_INSPECTOR_ID, inspectorEnvironment, inspectorFactory)
   }
 
-  override fun before() {
-    ShadowLog.stream = System.out
+  init {
+    // TODO(b/334351830): Remove when bug is fixed
+    job.invokeOnCompletion { ioExecutorOverride.shutdown() }
   }
 
   override fun after() {
     inspectorTester.dispose()
     runBlocking { job.cancelAndJoin() }
+    assertThat(ioExecutorOverride.awaitTermination(5, SECONDS)).isTrue()
   }
-
-  internal fun getDatabaseRegistry() = inspectorFactory.getSqliteInspector().databaseRegistry
 
   fun getLooper() = inspectorEnvironment.executors().handler().looper
 
@@ -120,7 +119,7 @@ suspend fun SqliteInspectorTestEnvironment.issueQuery(
   databaseId: Int,
   command: String,
   queryParams: List<String?>? = null,
-): SqliteInspectorProtocol.QueryResponse {
+): QueryResponse {
   val response = sendCommand(MessageFactory.createQueryCommand(databaseId, command, queryParams))
   if (response.hasErrorOccurred()) {
     fail("Unexpected error: $${response.errorOccurred.content.stackTrace}")
