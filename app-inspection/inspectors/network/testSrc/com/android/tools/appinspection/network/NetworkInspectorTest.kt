@@ -20,6 +20,7 @@ import android.os.Build
 import androidx.inspection.ArtTooling
 import androidx.inspection.InspectorEnvironment
 import androidx.inspection.InspectorExecutors
+import com.android.tools.appinspection.common.testing.FakeArtTooling
 import com.android.tools.appinspection.common.testing.LogPrinterRule
 import com.android.tools.appinspection.network.testing.FakeConnection
 import com.android.tools.appinspection.network.testing.FakeEnvironment
@@ -28,12 +29,18 @@ import com.android.tools.appinspection.network.testing.NetworkInspectorRule
 import com.android.tools.appinspection.network.testing.getLogLines
 import com.android.tools.appinspection.network.testing.getVisibleLogLines
 import com.google.common.truth.Truth.assertThat
+import io.grpc.ClientInterceptor
+import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
+import org.mockito.Mockito.any
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.junit.rules.CloseGuardRule
@@ -117,15 +124,20 @@ internal class NetworkInspectorTest {
 
     val (javaNet, okhttp, grpc) = networkInspector.registerHooks()
 
-    // Note that `AndroidChannelBuilder` is not hooked. This is because we didn't add a build
-    // dependency on `grpc-android`. The test still verifies that we attempt to hook it.
+    // Note that `AndroidChannelBuilder` and `OkHttpChannelBuilder` are not hooked. This is because
+    // we didn't add a build dependency on `grpc-android` and `grpc-okhttp`.
+    // The test still verifies that we attempt to hook it.
     assertThat(getLogLines())
       .containsExactly(
         "DEBUG: studio.inspectors: Instrumented java.net.URL",
         "DEBUG: studio.inspectors: Instrumented com.squareup.okhttp.OkHttpClient",
         "DEBUG: studio.inspectors: Instrumented okhttp3.OkHttpClient",
-        "DEBUG: studio.inspectors: Instrumented io.grpc.ManagedChannelBuilder",
-        "DEBUG: studio.inspectors: Could not load class io.grpc.android.AndroidChannelBuilder",
+        "DEBUG: studio.inspectors: Instrumented io.grpc.ManagedChannelBuilder#forAddress",
+        "DEBUG: studio.inspectors: Instrumented io.grpc.ManagedChannelBuilder#forTarget",
+        "DEBUG: studio.inspectors: Instrumented io.grpc.okhttp.OkHttpChannelBuilder#forAddress",
+        "DEBUG: studio.inspectors: Instrumented io.grpc.okhttp.OkHttpChannelBuilder#forTarget",
+        "DEBUG: studio.inspectors: Could not load class io.grpc.android.AndroidChannelBuilder#forAddress",
+        "DEBUG: studio.inspectors: Could not load class io.grpc.android.AndroidChannelBuilder#forTarget",
       )
     assertThat(javaNet).isTrue()
     assertThat(okhttp).isTrue()
@@ -188,6 +200,26 @@ internal class NetworkInspectorTest {
     assertThat(javaNet).isTrue()
     assertThat(okhttp).isTrue()
     assertThat(grpc).isFalse()
+  }
+
+  @Test
+  fun hookGrpcChannelBuilder_chainedCalls_installOnce() {
+    inspectorRule.start()
+    val artTooling = inspectorRule.environment.artTooling() as FakeArtTooling
+    val mockChannelBuilder = mock<ManagedChannelBuilder<*>>()
+    // In reality, chained calls will not be recursive, but it's simpler to test with the same class
+    // and method.
+    val clazz = ManagedChannelBuilder::class.java
+    val method = "forTarget(Ljava/lang/String;)Lio/grpc/ManagedChannelBuilder;"
+
+    artTooling.triggerEntryHook(clazz, method, null, emptyList())
+    artTooling.triggerEntryHook(clazz, method, null, emptyList())
+    artTooling.triggerEntryHook(clazz, method, null, emptyList())
+    artTooling.triggerExitHook(clazz, method, mockChannelBuilder)
+    artTooling.triggerExitHook(clazz, method, mockChannelBuilder)
+    artTooling.triggerExitHook(clazz, method, mockChannelBuilder)
+
+    verify(mockChannelBuilder, times(1)).intercept(any<ClientInterceptor>())
   }
 
   private inner class TestInspectorEnvironment(private val rejectClassName: String) :

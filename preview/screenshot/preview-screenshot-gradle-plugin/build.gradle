@@ -29,7 +29,7 @@ base {
 }
 
 if (findProperty("release")?.toBoolean()) {
-    version = '0.0.1-eap03'
+    version = '0.0.1-alpha01'
 } else {
     version = '0.0.1-dev'
 }
@@ -49,7 +49,7 @@ dependencies {
     compileOnly libs.com.android.tools.analyticsLibrary.shared
     compileOnly libs.com.android.tools.common
     implementation libs.com.android.tools.compose.composePreviewDetector
-    implementation libs.com.android.tools.composecli.serialize
+    implementation libs.com.android.tools.compose.composePreviewRendererModel
     implementation libs.gson
     implementation libs.kxml
     testImplementation libs.junit

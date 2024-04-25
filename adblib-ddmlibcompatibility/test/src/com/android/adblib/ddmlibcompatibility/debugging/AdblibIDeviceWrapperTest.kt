@@ -75,7 +75,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             serialNumber, DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act / Assert
         assertEquals(serialNumber, adblibIDeviceWrapper.serialNumber)
@@ -87,10 +87,48 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.FASTBOOTD
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act / Assert
         assertEquals(IDevice.DeviceState.FASTBOOTD, adblibIDeviceWrapper.state)
+    }
+
+    @Test
+    fun getStateReturnsNull_whenNotExplicitlySet() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, _) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.FASTBOOTD
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+
+        // Act / Assert
+        assertNull(adblibIDeviceWrapper.state)
+    }
+
+    @Test
+    fun getState_usesExplicitlySetValue() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, _) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.OFFLINE
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        adblibIDeviceWrapper.deviceState = com.android.adblib.DeviceState.FASTBOOTD
+
+        // Act / Assert
+        assertEquals(IDevice.DeviceState.FASTBOOTD, adblibIDeviceWrapper.state)
+    }
+
+    @Test
+    fun getState_forDisconnectedDevice() = runBlockingWithTimeout {
+        // Prepare
+        val (connectedDevice, _) = createConnectedDevice(
+            "device1", DeviceState.DeviceStatus.OFFLINE
+        )
+        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        adblibIDeviceWrapper.deviceState = com.android.adblib.DeviceState.DISCONNECTED
+
+        // Act / Assert
+        assertEquals(IDevice.DeviceState.DISCONNECTED, adblibIDeviceWrapper.state)
     }
 
     @Test
@@ -100,7 +138,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             serialNumber, DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act / Assert
         assertEquals(serialNumber, adblibIDeviceWrapper.toString())
@@ -113,7 +151,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             serialNumber, DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         yieldUntil { adblibIDeviceWrapper.avdData.isDone }
 
         // Act / Assert
@@ -129,7 +167,7 @@ class AdblibIDeviceWrapperTest {
     fun isOnline() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act / Assert
         assertTrue(adblibIDeviceWrapper.isOnline)
@@ -142,7 +180,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.OFFLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act / Assert
         assertTrue(adblibIDeviceWrapper.isOffline)
@@ -155,7 +193,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.BOOTLOADER
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act / Assert
         assertTrue(adblibIDeviceWrapper.isBootLoader)
@@ -167,7 +205,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.BOOTLOADER
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val listReceiver = ListReceiver()
 
         // Act
@@ -185,7 +223,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.BOOTLOADER
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val listReceiver = ListReceiver()
         // Introduce a delay to give a thread a chance to get interrupted
         deviceState.delayStdout = 2.toDuration(DurationUnit.SECONDS)
@@ -213,7 +251,7 @@ class AdblibIDeviceWrapperTest {
             val (connectedDevice, _) = createConnectedDevice(
                 "device1", DeviceState.DeviceStatus.BOOTLOADER
             )
-            val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+            val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
             exceptionRule.expect(AdbCommandRejectedException::class.java)
             exceptionRule.expectCause(CoreMatchers.isA(AdbDeviceFailResponseException::class.java))
 
@@ -230,7 +268,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.BOOTLOADER
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val listReceiver = ListReceiver()
         val appId = "com.foo.bar.app"
 
@@ -254,7 +292,7 @@ class AdblibIDeviceWrapperTest {
     fun getProperty() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val propertyValue = adblibIDeviceWrapper.getProperty("ro.serialno")
@@ -267,7 +305,7 @@ class AdblibIDeviceWrapperTest {
     fun getSystemProperty() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val propertyValue = adblibIDeviceWrapper.getSystemProperty("ro.serialno").get()
@@ -281,7 +319,7 @@ class AdblibIDeviceWrapperTest {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
         val adblibIDeviceWrapper =
-            AdblibIDeviceWrapper(
+            createAdblibIDeviceWrapper(
                 connectedDevice,
                 bridge
             )
@@ -300,7 +338,7 @@ class AdblibIDeviceWrapperTest {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
         val adblibIDeviceWrapper =
-            AdblibIDeviceWrapper(
+            createAdblibIDeviceWrapper(
                 connectedDevice,
                 bridge
             )
@@ -319,7 +357,7 @@ class AdblibIDeviceWrapperTest {
     fun arePropertiesSet() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Assert
         assertFalse(adblibIDeviceWrapper.arePropertiesSet())
@@ -336,7 +374,7 @@ class AdblibIDeviceWrapperTest {
     fun getVersion() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val version = adblibIDeviceWrapper.version
@@ -349,7 +387,7 @@ class AdblibIDeviceWrapperTest {
     fun getAbis() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val abis = adblibIDeviceWrapper.abis
@@ -379,7 +417,7 @@ class AdblibIDeviceWrapperTest {
             DeviceState.DeviceStatus.ONLINE
         )
 
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val density = adblibIDeviceWrapper.density
@@ -392,7 +430,7 @@ class AdblibIDeviceWrapperTest {
     fun supportsFeature() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val supportsShellV2 = adblibIDeviceWrapper.supportsFeature(IDevice.Feature.SHELL_V2)
@@ -405,7 +443,7 @@ class AdblibIDeviceWrapperTest {
     fun supportsFeature_doesNotThrow_whenInterrupted() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, deviceState) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         // Introduce a delay to give a thread a chance to get interrupted
         deviceState.delayStdout = 2.toDuration(DurationUnit.SECONDS)
 
@@ -429,7 +467,7 @@ class AdblibIDeviceWrapperTest {
     fun supportsHardwareFeature() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val supportsWatch = adblibIDeviceWrapper.supportsFeature(IDevice.HardwareFeature.WATCH)
@@ -442,7 +480,7 @@ class AdblibIDeviceWrapperTest {
     fun getName() = runBlockingWithTimeout {
         // Prepare
         val (connectedDevice, _) = createConnectedDevice("device1", DeviceState.DeviceStatus.ONLINE)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act/Assert
         assertEquals("test1-test2-device1", adblibIDeviceWrapper.name)
@@ -454,7 +492,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         deviceState.startClient(10, 0, "a.b.c", false)
 
         // Act / Assert
@@ -469,7 +507,7 @@ class AdblibIDeviceWrapperTest {
             val (connectedDevice, deviceState) = createConnectedDevice(
                 "device1", DeviceState.DeviceStatus.OFFLINE
             )
-            val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+            val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
             // Act
             deviceState.startClient(10, 0, "a.b.c", false)
@@ -487,7 +525,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         deviceState.startClient(10, 0, "processName1", "packageName1", false)
 
         // Act / Assert
@@ -502,7 +540,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", sdk = "31" // required for "track-app"
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         deviceState.startProfileableProcess(25, "x86", "a.b.c")
 
         // Act / Assert
@@ -516,7 +554,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         deviceState.startClient(10, 0, "processName1", "packageName1", false)
 
         // Act / Assert
@@ -531,7 +569,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val lastModifiedTimeSec = 878392983L
         val localFile = temporaryFolder.newFile("sample.txt").toPath()
         val fileBytes = "some content".toByteArray()
@@ -556,7 +594,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val remoteFilePath = "/sdcard/foo/bar.bin"
         val fileMode = RemoteFileMode.fromPosixPermissions(OWNER_READ)
         val fileDate = FileTime.from(1_000_000, TimeUnit.SECONDS)
@@ -586,7 +624,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val remoteFilePath = "/sdcard/foo/bar.bin"
 
         // Act
@@ -603,7 +641,7 @@ class AdblibIDeviceWrapperTest {
             "device1", DeviceState.DeviceStatus.ONLINE
         )
         deviceState.acceptsSyncServiceRequests = false
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         exceptionRule.expect(AdbCommandRejectedException::class.java)
         exceptionRule.expectCause(CoreMatchers.isA(AdbDeviceFailResponseException::class.java))
 
@@ -621,7 +659,7 @@ class AdblibIDeviceWrapperTest {
             "device1", DeviceState.DeviceStatus.ONLINE
         )
         val apk = temporaryFolder.newFile("adblib-tools_test.apk").toPath()
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         adblibIDeviceWrapper.installPackage(apk.toAbsolutePath().toString(), false)
@@ -638,7 +676,7 @@ class AdblibIDeviceWrapperTest {
             "device1", DeviceState.DeviceStatus.ONLINE
         )
         val apk = temporaryFolder.newFile("adblib-tools_test.apk")
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         adblibIDeviceWrapper.installPackages(
@@ -662,7 +700,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         // Note that `com.android.fakeadbserver.services.PackageManager` that we rely on will
@@ -679,7 +717,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, deviceState) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val localFile = Files.createTempFile("sample", ".txt")
         val remoteFilePath = "/sdcard/foo/bar.bin"
         val fileMode = RemoteFileMode.fromPosixPermissions(OWNER_READ)
@@ -699,7 +737,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val localFile = Files.createTempFile("sample", ".txt")
         val fileBytes = "some content".toByteArray()
         Files.write(localFile, fileBytes)
@@ -721,7 +759,7 @@ class AdblibIDeviceWrapperTest {
             "device1", DeviceState.DeviceStatus.ONLINE
         )
         assertEquals(0, deviceState.allPortForwarders.size)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         adblibIDeviceWrapper.createForward(0, 4000)
@@ -741,7 +779,7 @@ class AdblibIDeviceWrapperTest {
         assertEquals(0, deviceState.allPortForwarders.size)
         // Introduce a delay to give a thread a chance to get interrupted
         deviceState.delayStdout = 2.toDuration(DurationUnit.SECONDS)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         val thread = Thread {
@@ -772,7 +810,7 @@ class AdblibIDeviceWrapperTest {
                 SocketSpec.Tcp(4000)
             ) ?: throw Exception("`forward` command should have returned a port")
         assertEquals(1, deviceState.allPortForwarders.size)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         adblibIDeviceWrapper.removeForward(Integer.valueOf(port))
@@ -788,7 +826,7 @@ class AdblibIDeviceWrapperTest {
             "device1", DeviceState.DeviceStatus.ONLINE
         )
         assertEquals(0, deviceState.allPortForwarders.size)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         adblibIDeviceWrapper.createReverse(1000, 2000)
@@ -813,7 +851,7 @@ class AdblibIDeviceWrapperTest {
                 SocketSpec.Tcp(2000)
             ) ?: throw Exception("`forward` command should have returned a port")
         assertEquals(1, deviceState.allReversePortForwarders.size)
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Act
         adblibIDeviceWrapper.removeReverse(Integer.valueOf(port))
@@ -828,7 +866,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
         // Assert
         assertFalse(adblibIDeviceWrapper.isRoot)
@@ -838,7 +876,7 @@ class AdblibIDeviceWrapperTest {
         val connectedDeviceAfterRestart =
             waitForConnectedDevice(hostServices.session, "device1", DeviceState.DeviceStatus.ONLINE)
         val adblibIDeviceWrapperAfterRestart =
-            AdblibIDeviceWrapper(connectedDeviceAfterRestart, bridge)
+            createAdblibIDeviceWrapper(connectedDeviceAfterRestart, bridge)
 
         // Assert
         assertTrue(adblibIDeviceWrapperAfterRestart.isRoot)
@@ -865,7 +903,7 @@ class AdblibIDeviceWrapperTest {
             "device1",
             DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
 
 
         // Act / Assert
@@ -878,7 +916,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val key = IUserDataMap.Key<MyUserDataClass>()
 
         // Act
@@ -896,7 +934,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val key = IUserDataMap.Key<MyUserDataClass>()
         adblibIDeviceWrapper.computeUserDataIfAbsent(key) { myKey -> MyUserDataClass(myKey) }
 
@@ -914,7 +952,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val key = IUserDataMap.Key<MyUserDataClass>()
 
         // Act
@@ -930,7 +968,7 @@ class AdblibIDeviceWrapperTest {
         val (connectedDevice, _) = createConnectedDevice(
             "device1", DeviceState.DeviceStatus.ONLINE
         )
-        val adblibIDeviceWrapper = AdblibIDeviceWrapper(connectedDevice, bridge)
+        val adblibIDeviceWrapper = createAdblibIDeviceWrapper(connectedDevice, bridge)
         val key = IUserDataMap.Key<MyUserDataClass>()
         val value = adblibIDeviceWrapper.computeUserDataIfAbsent(key) { myKey -> MyUserDataClass(myKey) }
 
@@ -969,6 +1007,16 @@ class AdblibIDeviceWrapperTest {
                 ) && device.serialNumber == serialNumber
             }
         }.first()
+    }
+
+    private fun createAdblibIDeviceWrapper(
+        connectedDevice: ConnectedDevice,
+        bridge: AndroidDebugBridge
+    ): AdblibIDeviceWrapper {
+        return AdblibIDeviceWrapper(connectedDevice, bridge).also {
+            it.deviceState =
+                connectedDevice.deviceInfo.deviceState
+        }
     }
 
     private class MyUserDataClass(val key: IUserDataMap.Key<MyUserDataClass>)

@@ -12,14 +12,14 @@ maven_library(
     resource_strip_prefix = "tools/base/preview/screenshot/compose-preview-validation-junit-engine/src/main/resources/",
     resources = glob(["src/main/resources/**"]),
     version = select({
-        "//tools/base/bazel:release": TEST_ENGINE_VERSION + "-eap03",
+        "//tools/base/bazel:release": TEST_ENGINE_VERSION + "-alpha01",
         "//conditions:default": TEST_ENGINE_VERSION + "-dev",
     }),
     visibility = ["//visibility:public"],
     deps = [
         "//tools/base/common:tools.common",
         "//tools/base/multipreview-asm:compose-preview-detector",
-        "//tools/base/standalone-render/compose-cli-serialize:standalone-render.compose-cli-serialize",
+        "//tools/base/standalone-render/compose-cli-serialize:compose-preview-renderer-model",
         "@maven//:net.sf.kxml.kxml2",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",
         "@maven//:org.junit.platform.junit-platform-engine",

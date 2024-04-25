@@ -21,11 +21,12 @@ import com.android.build.api.component.UnitTest
 import com.android.build.api.component.impl.features.AndroidResourcesCreationConfigImpl
 import com.android.build.api.variant.AndroidVersion
 import com.android.build.api.variant.ComponentIdentity
-import com.android.build.gradle.internal.component.HostTestCreationConfig
+import com.android.build.api.variant.HostTestBuilder
 import com.android.build.api.variant.impl.AndroidResourcesImpl
+import com.android.build.api.variant.impl.HostTestBuilderImpl
+import com.android.build.gradle.internal.component.HostTestCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.component.features.AndroidResourcesCreationConfig
-import com.android.build.gradle.internal.component.features.BuildConfigCreationConfig
 import com.android.build.gradle.internal.core.VariantSources
 import com.android.build.gradle.internal.core.dsl.HostTestComponentDslInfo
 import com.android.build.gradle.internal.dependency.VariantDependencies
@@ -36,6 +37,7 @@ import com.android.build.gradle.internal.services.VariantServices
 import com.android.build.gradle.internal.tasks.factory.GlobalTaskCreationConfig
 import com.android.build.gradle.internal.variant.BaseVariantData
 import com.android.build.gradle.internal.variant.VariantPathHelper
+import com.android.builder.core.ComponentTypeImpl
 import org.gradle.api.tasks.TaskProvider
 import org.gradle.api.tasks.testing.Test
 import javax.inject.Inject
@@ -53,7 +55,8 @@ open class UnitTestImpl @Inject constructor(
     testedVariant: VariantCreationConfig,
     internalServices: VariantServices,
     taskCreationServices: TaskCreationServices,
-    global: GlobalTaskCreationConfig
+    global: GlobalTaskCreationConfig,
+    hostTestBuilder: HostTestBuilderImpl,
 ) : HostTestImpl(
     componentIdentity,
     buildFeatureValues,
@@ -67,8 +70,9 @@ open class UnitTestImpl @Inject constructor(
     testedVariant,
     internalServices,
     taskCreationServices,
-    global
-), UnitTest, HostTestCreationConfig {
+    global,
+    hostTestBuilder,
+), HostTestCreationConfig, UnitTest {
 
     /**
      * In unit tests, we don't produce an apk. However, we still need to set the target sdk version
@@ -98,11 +102,6 @@ open class UnitTestImpl @Inject constructor(
     override val androidResources: AndroidResourcesImpl =
             getAndroidResources(dslInfo.androidResourcesDsl!!.androidResources)
 
-    // these would normally be public but not for unit-test. They are there to feed the
-    // manifest but aren't actually used.
-    override val isCoverageEnabled: Boolean
-        get() = dslInfo.isCoverageEnabled
-
     private val testTaskConfigActions = mutableListOf<(Test) -> Unit>()
 
     @Synchronized
@@ -116,4 +115,8 @@ open class UnitTestImpl @Inject constructor(
             testTaskProvider.configure { testTask -> it(testTask) }
         }
     }
+
+    override val hostTestName: String = HostTestBuilder.UNIT_TEST_TYPE
+
+    override val type = ComponentTypeImpl.UNIT_TEST
 }

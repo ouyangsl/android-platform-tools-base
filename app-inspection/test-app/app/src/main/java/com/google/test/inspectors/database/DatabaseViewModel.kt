@@ -24,7 +24,15 @@ import android.database.sqlite.SQLiteDatabase.OpenParams
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
+import androidx.room.InvalidationTracker
+import androidx.room.Room
+import androidx.sqlite.db.SupportSQLiteDatabase
+import app.cash.sqldelight.Query
+import app.cash.sqldelight.db.QueryResult
+import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.google.test.inspectors.Logger
+import com.google.test.inspectors.SqlDelightDatabase
+import com.google.test.inspectors.database.room.RoomDatabase
 import com.google.test.inspectors.ui.scafold.AppScaffoldViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -48,9 +56,26 @@ private const val NATIVE_DATABASE_CREATE =
   )
   """
 
+private val SYSTEM_TABLES =
+  listOf("sqlite_sequence", "room_master_table", "android_metadata").joinToString { "'$it'" }
+
+private val QUERY_TABLES =
+  """
+    SELECT name FROM sqlite_master
+      WHERE
+        type = 'table' AND
+        name NOT IN ($SYSTEM_TABLES)
+  """
+
 @HiltViewModel
 internal class DatabaseViewModel @Inject constructor(application: Application) :
   AppScaffoldViewModel(), DatabaseActions {
+
+  private val roomDatabase =
+    Room.databaseBuilder(application, RoomDatabase::class.java, "room-database.db").build()
+
+  private val sqldelightDriver =
+    AndroidSqliteDriver(SqlDelightDatabase.Schema, application, "sqldelight-database.db")
 
   private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
     setSnack("Error: ${throwable.message}")
@@ -63,6 +88,17 @@ internal class DatabaseViewModel @Inject constructor(application: Application) :
   private val readWriteDatabaseFlow: MutableStateFlow<SQLiteDatabase?> = MutableStateFlow(null)
   @RequiresApi(28) private val readOnlyDatabaseOpenHelper = ReadOnlyDatabaseOpenHelper(application)
   private val readOnlyDatabaseFlow: MutableStateFlow<SQLiteDatabase?> = MutableStateFlow(null)
+
+  init {
+    scope.launch(IO) {
+      val roomTables = roomDatabase.openHelper.readableDatabase.use { it.getTables() }
+      roomDatabase.invalidationTracker.addObserver(RoomObserver(roomTables))
+
+      sqldelightDriver.getTables().forEach {
+        sqldelightDriver.addListener(it, listener = SqlDelightListener(it))
+      }
+    }
+  }
 
   val readWriteDatabaseState: StateFlow<Boolean> =
     readWriteDatabaseFlow.map { it != null }.stateIn(viewModelScope, WhileUiSubscribed, false)
@@ -128,4 +164,46 @@ internal class DatabaseViewModel @Inject constructor(application: Application) :
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {}
   }
+
+  private inner class RoomObserver(tables: List<String>) :
+    InvalidationTracker.Observer(tables.toTypedArray()) {
+
+    override fun onInvalidated(tables: Set<String>) {
+      setSnack("Room tables [${tables.joinToString { it }}]  updated")
+    }
+  }
+
+  private inner class SqlDelightListener(val table: String) : Query.Listener {
+    override fun queryResultsChanged() {
+      setSnack("SqlDelight table `$table` updated")
+    }
+  }
 }
+
+private fun SupportSQLiteDatabase.getTables() =
+  query(QUERY_TABLES).use { cursor ->
+    buildList {
+      while (cursor.moveToNext()) {
+        this.add(cursor.getString(0))
+      }
+    }
+  }
+
+private fun AndroidSqliteDriver.getTables() =
+  executeQuery(
+      null,
+      QUERY_TABLES,
+      { cursor ->
+        val tables = buildList {
+          while (cursor.next().value) {
+            val table = cursor.getString(0)
+            if (table != null) {
+              add(table)
+            }
+          }
+        }
+        QueryResult.Value(tables)
+      },
+      0,
+    )
+    .value

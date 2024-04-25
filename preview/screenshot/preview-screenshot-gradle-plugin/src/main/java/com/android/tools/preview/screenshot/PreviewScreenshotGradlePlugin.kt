@@ -172,7 +172,6 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                             task.previewsOutputFile.set(buildDir.file("$PREVIEW_INTERMEDIATES/$variantSegments/previews_discovered.json"))
                             task.previewsOutputFile.disallowChanges()
                             task.resultsDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments"))
-                            task.referenceImageDir.set(project.layout.projectDirectory.dir("src/androidTest/screenshot/$variantSegments"))
                             task.analyticsService.set(analyticsServiceProvider)
                             task.usesService(analyticsServiceProvider)
                         }
@@ -332,6 +331,9 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         task.testLogging {
                             it.showStandardStreams = true
                         }
+                        // TODO(b/325320710): Use the standard test report when extension points for
+                        //  adding custom information become available
+                        task.reports { it.html.required.set(false) }
                         task.testClassesDirs = project.files(renderTaskProvider.flatMap { it.testClassesDirAll }) + project.files(renderTaskProvider.flatMap { it.testClasspathAll })
                         task.classpath = task.project.configurations.getByName(previewScreenshotTestEngineConfigurationName) + task.testClassesDirs
                     }
@@ -369,7 +371,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                     if (Version.ANDROID_GRADLE_PLUGIN_VERSION.endsWith("-dev"))
                         "-dev"
                     else
-                        "-eap03"
+                        "-alpha01"
             dependencies.add(previewScreenshotTestEngineConfigurationName, "org.junit.platform:junit-platform-launcher")
             dependencies.add(
                 previewScreenshotTestEngineConfigurationName,
@@ -394,7 +396,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         "-alpha01"
             dependencies.add(
                 previewlibCliToolConfigurationName,
-                "com.android.tools:standalone-render.compose-cli:$version")
+                "com.android.tools.compose:compose-preview-renderer:$version")
         }
     }
 

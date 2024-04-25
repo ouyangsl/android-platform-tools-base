@@ -5,7 +5,7 @@ load(":merge_deps.bzl", "merge_deps")
 COMPOSE_CLI_VERSION = "0.0.1"
 
 kotlin_library(
-    name = "tools.standalone-render.compose-cli",
+    name = "tools.compose-preview-renderer",
     srcs = glob([
         "src/**/*.kt",
     ]),
@@ -13,7 +13,7 @@ kotlin_library(
     deps = [
         "//tools/adt/idea/preview-elements:tools.preview-elements",
         "//tools/base/multipreview-asm:tools.compose-preview-detector",
-        "//tools/base/standalone-render/compose-cli-serialize:tools.standalone-render.compose-cli-serialize",
+        "//tools/base/standalone-render/compose-cli-serialize:tools.compose-preview-renderer-model",
         "//tools/base/standalone-render/lib:tools.standalone-render.lib",
     ],
 )
@@ -21,7 +21,7 @@ kotlin_library(
 merge_deps(
     name = "bundled_deps",
     srcs = [
-        ":tools.standalone-render.compose-cli",
+        ":tools.compose-preview-renderer",
         "//prebuilts/studio/layoutlib/data:layoutlib",  # Should be runtime
         "//prebuilts/tools/common/lint-psi/intellij-core",
         "//tools/adt/idea/compose-designer:ui-animation-tooling-internal",
@@ -42,7 +42,7 @@ merge_deps(
         "//tools/base/resource-repository:tools.resource-repository",
         "//tools/base/sdk-common:tools.sdk-common",
         "//tools/base/sdklib:tools.sdklib",
-        "//tools/base/standalone-render/compose-cli-serialize:tools.standalone-render.compose-cli-serialize",
+        "//tools/base/standalone-render/compose-cli-serialize:tools.compose-preview-renderer-model",
         "//tools/base/standalone-render/lib:tools.standalone-render.lib",
         "//tools/base/zipflinger",
         "@maven//:com.google.code.gson.gson",
@@ -63,12 +63,12 @@ java_import(
 )
 
 maven_library(
-    name = "standalone-render.compose-cli",
+    name = "compose-preview-renderer",
     srcs = [],
     bundled_deps = [":bundled_deps_java_library"],
-    coordinates = "com.android.tools:standalone-render.compose-cli",
-    description = "Screenshot render tools",
-    module_name = "standalone-render.compose-cli",
+    coordinates = "com.android.tools.compose:compose-preview-renderer",
+    description = "Compose screenshot rendering tools",
+    module_name = "compose-preview-renderer",
     version = select({
         "//tools/base/bazel:release": COMPOSE_CLI_VERSION + "-alpha01",
         "//conditions:default": COMPOSE_CLI_VERSION + "-dev",
@@ -122,8 +122,8 @@ kotlin_test(
     srcs = glob(["perf/testSrc/**/*.kt"]),
     # keep sorted
     data = [
+        ":compose-preview-renderer",
         ":compose_project_deps",
-        ":standalone-render.compose-cli",
         "//prebuilts/studio/layoutlib:build.prop",
         "//prebuilts/studio/layoutlib/data",
         "//prebuilts/studio/layoutlib/data:framework_res.jar",
@@ -144,9 +144,9 @@ kotlin_test(
     ],
     test_class = "com.android.tools.render.compose.PerfMainTest",
     deps = [
-        ":tools.standalone-render.compose-cli",
+        ":tools.compose-preview-renderer",
         "//tools/base/perf-logger:studio.perf-logger_testlib",
-        "//tools/base/standalone-render/compose-cli-serialize:tools.standalone-render.compose-cli-serialize",
+        "//tools/base/standalone-render/compose-cli-serialize:tools.compose-preview-renderer-model",
         "//tools/base/testutils:tools.testutils",
         "@maven//:junit.junit",
     ],

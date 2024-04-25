@@ -26,8 +26,6 @@ import com.android.adblib.SocketSpec
 import com.android.adblib.adbLogger
 import com.android.adblib.availableFeatures
 import com.android.adblib.ddmlibcompatibility.IDeviceUsageTrackerImpl
-import com.android.adblib.deviceInfo
-import com.android.adblib.isOnline
 import com.android.adblib.rootAndWait
 import com.android.adblib.scope
 import com.android.adblib.serialNumber
@@ -113,6 +111,7 @@ internal class AdblibIDeviceWrapper(
     private val mAvdData = connectedDevice.scope.async { createAvdData() }
     private var mAvdName: String? = null
     private var mAvdPath: String? = null
+
     init {
         mAvdData.invokeOnCompletion { throwable ->
             if (throwable == null) {
@@ -123,7 +122,15 @@ internal class AdblibIDeviceWrapper(
             }
         }
     }
+
     private val mUserDataMap = UserDataMapImpl()
+
+    /**
+     * Note that we do not get the deviceState value from the `connectedDevice` so that
+     * the listeners of `IDeviceChangeListener.deviceChanged(device, CHANGE_STATE)` would not
+     * be getting unpredictable device state values, and would in fact observe state transitions.
+     */
+    internal var deviceState : com.android.adblib.DeviceState? = null
 
     override fun getName(): String {
         return iDeviceSharedImpl.name
@@ -267,7 +274,14 @@ internal class AdblibIDeviceWrapper(
     }
 
     override fun getState(): DeviceState? {
-        return DeviceState.getState(connectedDevice.deviceInfo.deviceState.state)
+        return deviceState?.let {
+            // `DISCONNECTED` is not a device state returned from `adb devices` and so we should not
+            // use `DeviceState.getState` method which is not reliable in this case.
+            if (it == com.android.adblib.DeviceState.DISCONNECTED) {
+                return DeviceState.DISCONNECTED
+            }
+            DeviceState.getState(it.state)
+        }
     }
 
     @Deprecated("")
@@ -358,7 +372,7 @@ internal class AdblibIDeviceWrapper(
 
     override fun isOnline(): Boolean =
         logUsage(IDeviceUsageTracker.Method.IS_ONLINE) {
-            connectedDevice.isOnline
+            deviceState == com.android.adblib.DeviceState.ONLINE
         }
 
     override fun isEmulator(): Boolean {
@@ -366,11 +380,11 @@ internal class AdblibIDeviceWrapper(
     }
 
     override fun isOffline(): Boolean {
-        return connectedDevice.deviceInfo.deviceState == com.android.adblib.DeviceState.OFFLINE
+        return deviceState == com.android.adblib.DeviceState.OFFLINE
     }
 
     override fun isBootLoader(): Boolean {
-        return connectedDevice.deviceInfo.deviceState == com.android.adblib.DeviceState.BOOTLOADER
+        return deviceState == com.android.adblib.DeviceState.BOOTLOADER
     }
 
     override fun hasClients(): Boolean {
