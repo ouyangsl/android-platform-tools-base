@@ -41,6 +41,8 @@ import java.lang.StringBuilder
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.attributes.Attribute
+import org.gradle.api.attributes.Usage
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.JavaBasePlugin
@@ -50,6 +52,9 @@ import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.jvm.toolchain.JavaToolchainService
 import java.util.Locale
 import java.util.UUID
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.component.ModuleComponentIdentifier
+import org.gradle.api.artifacts.result.ResolvedDependencyResult
 
 private val minAgpVersion = AndroidPluginVersion(8, 4, 0).alpha(9)
 private val maxAgpVersion = AndroidPluginVersion(8,5,255)
@@ -158,10 +163,11 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                 extension.testOptions.unitTests.isIncludeAndroidResources = true
                 extension.experimentalProperties.put(ST_SOURCE_SET_ENABLED, true)
             }
-
             componentsExtension.onVariants { variant ->
                 if (variant is HasDeviceTests && variant.debuggable) {
                     val variantName = variant.name
+
+                    val screenshotTestComponent = variant.deviceTests.singleOrNull() ?: return@onVariants
 
                     val discoveryTaskProvider =
                         project.tasks.register(
@@ -174,17 +180,31 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                             task.resultsDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments"))
                             task.analyticsService.set(analyticsServiceProvider)
                             task.usesService(analyticsServiceProvider)
+
+                            val dependencyArtifacts = screenshotTestComponent.runtimeConfiguration.incoming.artifactView { it ->
+                                it.attributes.apply {
+                                    attribute(
+                                        Attribute.of("artifactType", String::class.java),
+                                        "android-classes"
+                                    )
+                                }
+                            }.artifacts
+
+                            task.dependencies.from(dependencyArtifacts.artifactFiles)
+                            task.dependencies.disallowChanges()
                         }
-                    variant.deviceTests.singleOrNull()?.artifacts
-                        ?.forScope(ScopedArtifacts.Scope.ALL)
-                        ?.use(discoveryTaskProvider)
-                        ?.toGet(
+
+                    screenshotTestComponent.artifacts
+                        .forScope(ScopedArtifacts.Scope.PROJECT)
+                        .use(discoveryTaskProvider)
+                        .toGet(
                             ScopedArtifact.CLASSES,
                             PreviewDiscoveryTask::testJars,
                             PreviewDiscoveryTask::testClassesDir,
                         )
+
                     variant.artifacts
-                        .forScope(ScopedArtifacts.Scope.ALL)
+                        .forScope(ScopedArtifacts.Scope.PROJECT)
                         .use(discoveryTaskProvider)
                         .toGet(
                             ScopedArtifact.CLASSES,
@@ -254,6 +274,23 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
 
                         task.analyticsService.set(analyticsServiceProvider)
                         task.usesService(analyticsServiceProvider)
+                    }
+
+                    // Rendering requires androidx.compose.ui:ui-tooling as a runtime dependency
+                    variant.runtimeConfiguration.checkUiToolingPresent { isPresent ->
+                        if (!isPresent) {
+                            val errorMessage = "Missing required runtime dependency. Please add androidx.compose.ui:ui-tooling to your testing module's dependencies."
+                            if (variant.deviceTests.isEmpty()) {
+                                throw RuntimeException(errorMessage)
+                            }
+                            else {
+                                variant.deviceTests[0].runtimeConfiguration.checkUiToolingPresent { isPresentInDeviceTests ->
+                                    if (!isPresentInDeviceTests) {
+                                        throw RuntimeException(errorMessage)
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     variant.artifacts
@@ -453,12 +490,25 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
 
     private fun AndroidPluginVersion.toVersionString(): String {
         val builder = StringBuilder("$major.$minor.$micro")
-        previewType?.let { builder.append("-$it")}
+        previewType?.let { builder.append("-$it") }
         if (preview > 0) {
             builder.append(preview.toString().padStart(2, '0'))
         }
         return builder.toString()
     }
+
+    private fun Configuration.checkUiToolingPresent(callback: (Boolean) -> Unit) {
+        incoming.afterResolve {
+            val isPresent = it.resolutionResult.allDependencies
+                .filterIsInstance<ResolvedDependencyResult>()
+                .map { result -> result.selected.id }
+                .filterIsInstance<ModuleComponentIdentifier>()
+                .any { identifier -> identifier.group == "androidx.compose.ui" && identifier.module == "ui-tooling"
+                }
+            callback(isPresent)
+        }
+    }
+
 }
 
 private const val previewlibCliToolConfigurationName = "_internal-screenshot-test-task-previewlib-cli"
