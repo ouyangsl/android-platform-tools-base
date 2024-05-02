@@ -140,6 +140,7 @@ class ScreenshotTest {
                 kotlin {
                     jvmToolchain(17)
                 }
+                experimentalProperties["android.experimental.enableScreenshotTest"] = true
 
             }
             """.trimIndent()
@@ -433,6 +434,9 @@ class ScreenshotTest {
 
         val referenceScreenshotDir = appProject.projectDir.resolve("src/androidTest/screenshot/debug/").toPath()
         assertThat(referenceScreenshotDir.listDirectoryEntries()).isEmpty()
+
+        val resultsJson = appProject.buildDir.resolve("outputs/androidTest-results/preview/debug/results.json")
+        assertThat(resultsJson.readText()).contains(""""screenshotResults": []""")
 
         getExecutor()
             .withFailOnWarning(false) // TODO(b/333398506): remove once fixed

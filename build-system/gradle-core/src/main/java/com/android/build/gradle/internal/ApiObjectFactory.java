@@ -19,8 +19,8 @@ package com.android.build.gradle.internal;
 import com.android.annotations.NonNull;
 import com.android.build.VariantOutput;
 import com.android.build.api.variant.HostTestBuilder;
+import com.android.build.api.variant.impl.HasDeviceTestsCreationConfig;
 import com.android.build.api.variant.impl.HasHostTestsCreationConfig;
-import com.android.build.api.variant.impl.InternalHasDeviceTests;
 import com.android.build.gradle.BaseExtension;
 import com.android.build.gradle.TestedAndroidConfig;
 import com.android.build.gradle.internal.api.ApkVariantOutputImpl;
@@ -30,8 +30,8 @@ import com.android.build.gradle.internal.api.ReadOnlyObjectProvider;
 import com.android.build.gradle.internal.api.TestVariantImpl;
 import com.android.build.gradle.internal.api.TestedVariant;
 import com.android.build.gradle.internal.api.UnitTestVariantImpl;
-import com.android.build.gradle.internal.component.AndroidTestCreationConfig;
 import com.android.build.gradle.internal.component.ComponentCreationConfig;
+import com.android.build.gradle.internal.component.DeviceTestCreationConfig;
 import com.android.build.gradle.internal.component.HostTestCreationConfig;
 import com.android.build.gradle.internal.component.VariantCreationConfig;
 import com.android.build.gradle.internal.crash.ExternalApiUsageException;
@@ -71,12 +71,12 @@ public class ApiObjectFactory {
 
         if (variantFactory.getComponentType().getHasTestComponents()) {
 
-            AndroidTestCreationConfig androidTestVariantProperties = null;
+            DeviceTestCreationConfig androidTestVariantProperties = null;
 
-            if (variant instanceof InternalHasDeviceTests) {
+            if (variant instanceof HasDeviceTestsCreationConfig) {
                 androidTestVariantProperties =
-                        (AndroidTestCreationConfig)
-                                ((InternalHasDeviceTests) variant).getDefaultDeviceTest();
+                        (DeviceTestCreationConfig)
+                                ((HasDeviceTestsCreationConfig) variant).getDefaultDeviceTest();
             }
 
             if (androidTestVariantProperties != null) {

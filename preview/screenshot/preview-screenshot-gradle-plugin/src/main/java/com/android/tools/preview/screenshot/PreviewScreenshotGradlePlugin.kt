@@ -42,7 +42,6 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.attributes.Attribute
-import org.gradle.api.attributes.Usage
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.JavaBasePlugin
@@ -110,7 +109,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
             if (screenshotSourcesetEnabled.toString().lowercase(Locale.US) != "true") {
                 error(
                     """
-                    Please enable screenshotTest source set first to run the screenshot test plugin.
+                    Please enable screenshotTest source set first to apply the screenshot test plugin.
                     Add "$ST_SOURCE_SET_ENABLED=true" to gradle.properties
                     """.trimIndent()
                 )
@@ -161,7 +160,15 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                 // TODO(b/330377509): Remove the unit test isIncludeAndroidResources option once the screenshotTest source set is in use.
                 val extension = project.extensions.getByType(CommonExtension::class.java)
                 extension.testOptions.unitTests.isIncludeAndroidResources = true
-                extension.experimentalProperties.put(ST_SOURCE_SET_ENABLED, true)
+                val screenshotSourceSetEnabledInModule = extension.experimentalProperties[ST_SOURCE_SET_ENABLED]
+                if (screenshotSourceSetEnabledInModule.toString().lowercase(Locale.US) != "true") {
+                    error(
+                        """
+                    Please enable screenshotTest source set in module first to apply the screenshot test plugin.
+                    Add "experimentalProperties["$ST_SOURCE_SET_ENABLED"] = true" to the android block of the module's build file: ${project.buildFile.toURI()}
+                    """.trimIndent()
+                    )
+                }
             }
             componentsExtension.onVariants { variant ->
                 if (variant is HasDeviceTests && variant.debuggable) {
@@ -181,7 +188,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                             task.analyticsService.set(analyticsServiceProvider)
                             task.usesService(analyticsServiceProvider)
 
-                            val dependencyArtifacts = screenshotTestComponent.runtimeConfiguration.incoming.artifactView { it ->
+                            val dependencyArtifacts = screenshotTestComponent.runtimeConfiguration.incoming.artifactView {
                                 it.attributes.apply {
                                     attribute(
                                         Attribute.of("artifactType", String::class.java),
@@ -250,7 +257,9 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         PreviewScreenshotRenderTask::class.java
                     ) { task ->
                         val variantSegments = variant.computePathSegments()
-                        task.outputDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments/rendered"))
+                        val output = "$PREVIEW_OUTPUT/$variantSegments"
+                        task.outputDir.set(buildDir.dir("$output/rendered"))
+                        task.resultsFile.set(buildDir.file("$output/results.json"))
 
                         // need to use project.providers as a workaround to gradle issue: https://github.com/gradle/gradle/issues/12388
                         task.sdkFontsDir.set(project.providers.provider {
@@ -336,6 +345,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         val variantSegments = variant.computePathSegments()
                         task.referenceImageDir.set(project.layout.projectDirectory.dir("src/androidTest/screenshot/$variantSegments"))
                         task.renderTaskOutputDir.set(renderTaskProvider.flatMap { it.outputDir })
+                        task.renderTaskResultFile.set(renderTaskProvider.flatMap { it.resultsFile })
                         task.description = "Update screenshots for the $variantName build."
                         task.group = JavaBasePlugin.VERIFICATION_GROUP
                         task.analyticsService.set(analyticsServiceProvider)
@@ -350,8 +360,9 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                         val variantSegments = variant.computePathSegments()
                         task.referenceImageDir.set(project.layout.projectDirectory.dir("src/androidTest/screenshot/$variantSegments"))
                         task.referenceImageDir.disallowChanges()
-                        task.previewFile.set(buildDir.file("$PREVIEW_INTERMEDIATES/$variantSegments/previews_discovered.json"))
+                        task.previewFile.set(discoveryTaskProvider.flatMap { it.previewsOutputFile })
                         task.renderTaskOutputDir.set(renderTaskProvider.flatMap { it.outputDir })
+                        task.renderTaskOutputFile.set(renderTaskProvider.flatMap { it.resultsFile })
                         task.resultsDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments/results"))
                         task.diffImageDir.set(buildDir.dir("$PREVIEW_OUTPUT/$variantSegments/diffs"))
                         task.diffImageDir.disallowChanges()

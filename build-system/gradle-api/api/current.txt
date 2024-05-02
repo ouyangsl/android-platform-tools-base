@@ -371,9 +371,9 @@ package com.android.build.api.dsl {
   }
 
   @org.gradle.api.Incubating public interface AndroidTest {
-    method public boolean getEnableMinification();
-    method public void setEnableMinification(boolean);
-    property public abstract boolean enableMinification;
+    method @org.gradle.api.Incubating public boolean getEnableMinification();
+    method @org.gradle.api.Incubating public void setEnableMinification(boolean);
+    property @org.gradle.api.Incubating public abstract boolean enableMinification;
   }
 
   public interface AnnotationProcessorOptions {
@@ -2675,21 +2675,23 @@ package com.android.build.api.variant {
   @org.gradle.api.Incubating public interface DeviceTest extends com.android.build.api.variant.GeneratesTestApk com.android.build.api.variant.HasAndroidResources com.android.build.api.variant.TestComponent {
     method @org.gradle.api.Incubating public org.gradle.api.provider.Property<java.lang.String> getApplicationId();
     method @org.gradle.api.Incubating public org.gradle.api.provider.MapProperty<java.lang.String,? extends com.android.build.api.variant.BuildConfigField<? extends java.io.Serializable>> getBuildConfigFields();
+    method public boolean getCodeCoverageEnabled();
     method @org.gradle.api.Incubating public org.gradle.api.provider.ListProperty<org.gradle.api.file.RegularFile> getProguardFiles();
     method @org.gradle.api.Incubating public com.android.build.api.variant.SigningConfig? getSigningConfig();
     property @org.gradle.api.Incubating public abstract org.gradle.api.provider.Property<java.lang.String> applicationId;
     property @org.gradle.api.Incubating public abstract org.gradle.api.provider.MapProperty<java.lang.String,? extends com.android.build.api.variant.BuildConfigField<? extends java.io.Serializable>> buildConfigFields;
+    property public abstract boolean codeCoverageEnabled;
     property @org.gradle.api.Incubating public abstract org.gradle.api.provider.ListProperty<org.gradle.api.file.RegularFile> proguardFiles;
     property @org.gradle.api.Incubating public abstract com.android.build.api.variant.SigningConfig? signingConfig;
   }
 
-  @org.gradle.api.Incubating public interface DeviceTestBuilder {
+  @org.gradle.api.Incubating public interface DeviceTestBuilder extends com.android.build.api.variant.GeneratesApkBuilder {
     method @org.gradle.api.Incubating public boolean getEnable();
-    method @Deprecated public Boolean? getEnableMultiDex();
+    method @Deprecated @org.gradle.api.Incubating public boolean getEnableCodeCoverage();
     method @org.gradle.api.Incubating public void setEnable(boolean);
-    method @Deprecated @org.gradle.api.Incubating public void setEnableMultiDex(Boolean?);
+    method @Deprecated @org.gradle.api.Incubating public void setEnableCodeCoverage(boolean);
     property @org.gradle.api.Incubating public abstract boolean enable;
-    property @Deprecated public abstract Boolean? enableMultiDex;
+    property @Deprecated @org.gradle.api.Incubating public abstract boolean enableCodeCoverage;
   }
 
   public interface DexPackagingOptions {
@@ -2889,8 +2891,8 @@ package com.android.build.api.variant {
 
   @org.gradle.api.Incubating public interface HostTest extends com.android.build.api.variant.TestComponent {
     method @org.gradle.api.Incubating public void configureTestTask(kotlin.jvm.functions.Function1<? super org.gradle.api.tasks.testing.Test,kotlin.Unit> action);
-    method @org.gradle.api.Incubating public boolean isCodeCoverageEnabled();
-    property @org.gradle.api.Incubating public abstract boolean isCodeCoverageEnabled;
+    method @org.gradle.api.Incubating public boolean getCodeCoverageEnabled();
+    property @org.gradle.api.Incubating public abstract boolean codeCoverageEnabled;
   }
 
   @org.gradle.api.Incubating public interface HostTestBuilder {

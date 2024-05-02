@@ -32,7 +32,6 @@ import com.android.build.api.variant.CanMinifyAndroidResourcesBuilder
 import com.android.build.api.variant.CanMinifyCodeBuilder
 import com.android.build.api.variant.Component
 import com.android.build.api.variant.DeviceTest
-import com.android.build.api.variant.HostTest
 import com.android.build.api.variant.KotlinMultiplatformAndroidVariant
 import com.android.build.api.variant.TestedComponentPackaging
 import com.android.build.gradle.internal.KotlinMultiplatformCompileOptionsImpl
@@ -80,7 +79,7 @@ open class KmpVariantImpl @Inject constructor(
     global,
     androidKotlinCompilation,
     manifestFile,
-), KotlinMultiplatformAndroidVariant, KmpCreationConfig, InternalHasDeviceTests {
+), KotlinMultiplatformAndroidVariant, KmpCreationConfig, HasDeviceTestsCreationConfig {
 
     override val aarOutputFileName: Property<String> =
         internalServices.newPropertyBackingDeprecatedApi(
@@ -119,14 +118,15 @@ open class KmpVariantImpl @Inject constructor(
 
     override var unitTest: KmpHostTestImpl? = null
 
-    override val deviceTests = mutableListOf<DeviceTest>()
+    override val deviceTests: List<DeviceTest>
+        get() = internalDeviceTests
     override val hostTests = mutableMapOf<String, HostTestCreationConfig>()
 
     override val androidDeviceTest: KmpAndroidTestImpl?
         get() = deviceTests.filterIsInstance<KmpAndroidTestImpl>().firstOrNull()
 
-    override val isAndroidTestCoverageEnabled: Boolean
-        get() = androidDeviceTest?.isAndroidTestCoverageEnabled ?: false
+    override val codeCoverageEnabled: Boolean
+        get() = androidDeviceTest?.codeCoverageEnabled ?: false
 
     override val nestedComponents: List<KmpComponentImpl<*>>
         get() = listOfNotNull(
@@ -187,5 +187,11 @@ open class KmpVariantImpl @Inject constructor(
     override val nativeBuildCreationConfig: NativeBuildCreationConfig? = null
 
     override fun finalizeAndLock() {
+    }
+
+    private val internalDeviceTests = mutableListOf<DeviceTest>()
+
+    override fun addDeviceTest(deviceTest: DeviceTest) {
+        internalDeviceTests.add(deviceTest)
     }
 }

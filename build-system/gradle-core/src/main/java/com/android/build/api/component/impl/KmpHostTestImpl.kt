@@ -114,7 +114,7 @@ open class KmpHostTestImpl @Inject constructor(
         }
     }
 
-    override val isCodeCoverageEnabled: Boolean
+    override val codeCoverageEnabled: Boolean
         get() = global.androidTestOptions.codeCoverageEnabled
 
     override fun <ParamT : InstrumentationParameters> transformClassesWith(
@@ -159,6 +159,4 @@ open class KmpHostTestImpl @Inject constructor(
 
     override val hostTestName: String
         get() = HostTestBuilder.UNIT_TEST_TYPE
-    override val type
-        get() = ComponentTypeImpl.UNIT_TEST
 }

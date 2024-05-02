@@ -19,7 +19,9 @@ package com.android.tools.preview.screenshot.tasks
 import com.android.SdkConstants
 import com.android.tools.preview.screenshot.configureInput
 import com.android.tools.preview.screenshot.services.AnalyticsService
+import com.android.tools.render.compose.ComposeRenderingResult
 import com.android.tools.render.compose.readComposeScreenshotsJson
+import com.android.tools.render.compose.writeComposeRenderingResult
 import com.android.utils.FileUtils
 import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion
@@ -81,6 +83,9 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
     @get:OutputFile
     abstract val cliToolArgumentsFile: RegularFileProperty
 
+    @get:OutputFile
+    abstract val resultsFile: RegularFileProperty
+
     @get:Classpath
     abstract val layoutlibJar: ConfigurableFileCollection
 
@@ -127,8 +132,11 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
     @TaskAction
     fun run() = analyticsService.get().recordTaskAction(path) {
         FileUtils.cleanOutputDir(outputDir.get().asFile)
+        FileUtils.deleteIfExists(resultsFile.get().asFile)
         if (readComposeScreenshotsJson(previewsDiscovered.get().asFile.reader()).isEmpty()) {
-            return@recordTaskAction // No previews discovered to render
+            // No previews discovered to render
+            writeComposeRenderingResult(resultsFile.get().asFile.writer(), ComposeRenderingResult(null, listOf()))
+            return@recordTaskAction
         }
 
         val classpathJars = mutableListOf<String>()
@@ -158,7 +166,8 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
             namespace.get(),
             getResourcesApk(),
             cliToolArgumentsFile.get().asFile,
-            previewsDiscovered.get().asFile
+            previewsDiscovered.get().asFile,
+            resultsFile.get().asFile.absolutePath
         )
 
         // invoke CLI tool
@@ -168,8 +177,8 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
         workerQueue.submit(PreviewRenderWorkAction::class.java) { parameters ->
             parameters.cliToolArgumentsFile.set(cliToolArgumentsFile)
             parameters.toolJarPath.setFrom(screenshotCliJar)
-            parameters.outputDir.set(outputDir)
             parameters.layoutlibJar.setFrom(layoutlibJar)
+            parameters.resultsFile.set(resultsFile)
         }
 
     }

@@ -42,12 +42,11 @@ import com.android.build.gradle.internal.DependencyConfigurator
 import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.TaskManager
 import com.android.build.gradle.internal.VariantManager.Companion.finalizeAllComponents
-import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.core.dsl.KmpComponentDslInfo
 import com.android.build.gradle.internal.core.dsl.impl.KmpAndroidTestDslInfoImpl
 import com.android.build.gradle.internal.core.dsl.impl.KmpUnitTestDslInfoImpl
 import com.android.build.gradle.internal.core.dsl.impl.KmpVariantDslInfoImpl
-import com.android.build.gradle.internal.core.dsl.impl.features.KmpAndroidTestOptionsDslInfoImpl
+import com.android.build.gradle.internal.core.dsl.impl.features.KmpDeviceTestOptionsDslInfoImpl
 import com.android.build.gradle.internal.dependency.AgpVersionCompatibilityRule
 import com.android.build.gradle.internal.dependency.JacocoInstrumentationService
 import com.android.build.gradle.internal.dependency.ModelArtifactCompatibilityRule.Companion.setUp
@@ -354,7 +353,7 @@ class KotlinMultiplatformAndroidPlugin @Inject constructor(
 
         mainVariant.unitTest = unitTest
         androidTest?.let {
-            mainVariant.deviceTests.add(it)
+            mainVariant.addDeviceTest(it)
         }
 
         val stats = configuratorService.getVariantBuilder(
@@ -386,7 +385,7 @@ class KotlinMultiplatformAndroidPlugin @Inject constructor(
             bootClasspathConfig = global
         )
 
-        if (androidTest?.isAndroidTestCoverageEnabled == true) {
+        if (androidTest?.codeCoverageEnabled == true) {
             dependencyConfigurator.configureJacocoTransforms()
         }
 
@@ -647,7 +646,7 @@ class KotlinMultiplatformAndroidPlugin @Inject constructor(
     }
 
     val managedDeviceRegistry: ManagedDeviceRegistry by lazy(LazyThreadSafetyMode.NONE) {
-        ManagedDeviceRegistry(KmpAndroidTestOptionsDslInfoImpl(androidExtension))
+        ManagedDeviceRegistry(KmpDeviceTestOptionsDslInfoImpl(androidExtension))
     }
 
     private fun createComponentExtension(
