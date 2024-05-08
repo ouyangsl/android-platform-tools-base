@@ -20,10 +20,12 @@ import com.android.adblib.testingutils.CloseablesRule
 import com.android.adblib.testingutils.CoroutineTestUtils.runBlockingWithTimeout
 import com.android.adblib.testingutils.FakeAdbServerProvider
 import com.android.adblib.testingutils.TestingAdbSessionHost
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -35,6 +37,7 @@ import java.nio.ByteBuffer
 import java.nio.channels.AsynchronousSocketChannel
 import java.util.concurrent.TimeUnit
 import kotlin.coroutines.cancellation.CancellationException
+import kotlin.test.assertEquals
 
 class AdbSocketChannelImplTest {
 
@@ -146,5 +149,37 @@ class AdbSocketChannelImplTest {
             }
             throw CancellationException("My Message")
         }
+    }
+
+    @Test
+    fun readingFromAbruptlyClosingPeerReturnsMinusOne(): Unit = runBlockingWithTimeout {
+        // Prepare
+        // Note: We don't really need fake adb for this test, we just need a socket server that
+        // does nothing, but we get that for free with fake adb.
+        val fakeAdb = registerCloseable(FakeAdbServerProvider().buildDefault().start())
+        val host = registerCloseable(TestingAdbSessionHost())
+        val socketChannel = AsynchronousSocketChannel.open(host.asynchronousChannelGroup)
+        val channel = registerCloseable(AdbSocketChannelImpl(host, socketChannel))
+
+        // Act
+        val connected = CompletableDeferred<Unit>()
+        val deferredByteCount = async {
+            channel.connect(fakeAdb.socketAddress, 10_000, TimeUnit.MILLISECONDS)
+            connected.complete(Unit)
+            val buffer = ByteBuffer.allocate(10)
+            channel.read(buffer)
+        }
+        connected.await()
+
+        launch {
+            // Delay `fakeAdb.close()` for `channel.read()` to start
+            delay(100)
+            fakeAdb.close()
+        }
+
+        deferredByteCount.await()
+
+        // Assert
+        assertEquals(-1, deferredByteCount.await())
     }
 }

@@ -95,6 +95,9 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
     @get:OutputDirectory
     abstract val outputDir: DirectoryProperty
 
+    @get:OutputDirectory
+    abstract val metaDataDir: DirectoryProperty
+
     @get:Input
     abstract val namespace: Property<String>
 
@@ -106,11 +109,6 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
     @get:Optional
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
     abstract val resourceFile: RegularFileProperty
-
-    @get:InputDirectory
-    @get:Optional
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val resourcesDir: DirectoryProperty
 
     @get:Classpath
     abstract val screenshotCliJar: ConfigurableFileCollection
@@ -163,8 +161,9 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
             fontsDir,
             layoutlibDataDir.singleFile.absolutePath + "/",
             outputDir.get().asFile.absolutePath,
+            metaDataDir.get().asFile.absolutePath,
             namespace.get(),
-            getResourcesApk(),
+            resourceFile.get().asFile.absolutePath,
             cliToolArgumentsFile.get().asFile,
             previewsDiscovered.get().asFile,
             resultsFile.get().asFile.absolutePath
@@ -181,16 +180,6 @@ abstract class PreviewScreenshotRenderTask : DefaultTask(), VerificationTask {
             parameters.resultsFile.set(resultsFile)
         }
 
-    }
-
-    private fun getResourcesApk(): String {
-        return if (resourcesDir.isPresent ) {
-            resourcesDir.get().asFile.listFiles { _, name -> name.endsWith(SdkConstants.EXT_RES) }
-                ?.get(0)?.absolutePath!!
-        } else if (resourceFile.isPresent)
-            resourceFile.get().asFile.absolutePath
-        else
-            throw RuntimeException("Resources file missing")
     }
 }
 

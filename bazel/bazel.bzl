@@ -680,7 +680,7 @@ def iml_module(
         target_compatible_with = target_compatible_with,
     )
 
-    if srcs.javas + srcs.kotlins:
+    if srcs.javas + srcs.kotlins and not compatible_intellij_platforms:
         coverage_baseline(
             name = name,
             srcs = srcs.javas + srcs.kotlins,
@@ -711,7 +711,7 @@ def iml_module(
             srcs = lint_srcs,
             baseline = lint_baseline,
             deps = prod_deps,
-            custom_rules = ["//tools/base/lint:studio-checks.lint-rules.jar"],
+            custom_rules = ["//tools/base/lint:studio-checks.lint-rules.jar", "//tools/base/lint/studio-checks/compose-desktop-checks"],
             external_annotations = ["//tools/base/external-annotations:annotations.zip"],
             tags = lint_tags,
             timeout = lint_timeout if lint_timeout else None,

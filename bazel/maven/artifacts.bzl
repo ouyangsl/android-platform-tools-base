@@ -129,6 +129,7 @@ ARTIFACTS = [
     "net.sf.kxml:kxml2:2.3.0",
     "net.sf.proguard:proguard-gradle:5.2.1",
     "nl.jqno.equalsverifier:equalsverifier:3.15.6",
+    "org.apache.bcel:bcel:6.9.0",
     "org.apache.commons:commons-compress:1.21",
     "org.apache.httpcomponents:httpclient:4.5.6",
     "org.apache.httpcomponents:httpcore:4.4.10",
@@ -226,9 +227,10 @@ DATA = [
     "androidx.appcompat:appcompat:1.3.0-beta01",
     "androidx.appcompat:appcompat:1.4.1",
     "androidx.appcompat:appcompat:1.6.1",
-    "androidx.benchmark:benchmark-baseline-profile-gradle-plugin:1.2.3",
-    "androidx.benchmark:benchmark-gradle-plugin:1.2.3",
+    "androidx.benchmark:benchmark-baseline-profile-gradle-plugin:1.2.4",
+    "androidx.benchmark:benchmark-gradle-plugin:1.2.4",
     "androidx.cardview:cardview:1.0.0",
+    "androidx.collection:collection:1.4.0",
     "androidx.compose.animation:animation:1.3.0",
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -278,6 +280,7 @@ DATA = [
     "androidx.compose.ui:ui-tooling-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling-data-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling-preview:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-tooling-preview:1.6.5",
     "androidx.compose.ui:ui-tooling-preview-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-unit-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.constraintlayout:constraintlayout:1.1.3",
@@ -742,10 +745,10 @@ DATA = [
     "org.jetbrains.compose.ui:ui-test-junit4-desktop:1.6.10-dev1584",
     "org.jetbrains.dokka:dokka-base:1.4.32",
     "org.jetbrains.dokka:javadoc-plugin:1.4.32",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:0.17.3",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-241:0.17.3",
-    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-241:0.17.3",
-    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-241:0.17.3",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:0.18.1",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-241:0.18.1",
+    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-241:0.18.1",
+    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-241:0.18.1",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.0",  # Remove it later (b/243935746)
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.10",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.20",
@@ -969,9 +972,9 @@ DATA = [
     "org.jetbrains.compose.ui:ui-text-desktop:jar:sources:1.6.10-dev1584",
     "org.jetbrains.compose.ui:ui-unit-desktop:jar:sources:1.6.10-dev1584",
     "org.jetbrains.compose.ui:ui-util-desktop:jar:sources:1.6.10-dev1584",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:jar:sources:0.17.3",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-241:jar:sources:0.17.3",
-    "org.jetbrains.jewel:jewel-ui-241:jar:sources:0.17.3",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:jar:sources:0.18.1",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-241:jar:sources:0.18.1",
+    "org.jetbrains.jewel:jewel-ui-241:jar:sources:0.18.1",
     "org.jetbrains.kotlin:kotlin-stdlib:jar:sources:1.9.22",
     "org.jetbrains.kotlin:kotlin-test:jar:sources:1.9.22",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:jar:sources:1.6.4",
