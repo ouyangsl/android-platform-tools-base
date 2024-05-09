@@ -233,7 +233,9 @@ DATA = [
     "androidx.collection:collection:1.4.0",
     "androidx.compose.animation:animation:1.3.0",
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.animation:animation-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.animation:animation-core-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.compiler:compiler:1.2.0",
     "androidx.compose.compiler:compiler:1.3.2",
     "androidx.compose.compiler:compiler:1.4.7",
@@ -248,18 +250,25 @@ DATA = [
     "androidx.compose.foundation:foundation:1.5.0",
     "androidx.compose.foundation:foundation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.foundation:foundation-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.material:material:1.3.0",  # Needed by //tools/base/build-system/integration-test/...
     "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
     "androidx.compose.material:material:1.5.0",
     "androidx.compose.material:material:1.5.0-alpha04",
+    "androidx.compose.material:material-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.material:material-icons-extended:1.3.0",
     "androidx.compose.material3:material3:1.0.0",
     "androidx.compose.material3:material3:1.1.1",
+    "androidx.compose.material3:material3-android:1.2.1",  # Compose Desktop Lint checks
+    "androidx.compose.runtime:runtime-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.runtime:runtime-livedata:1.3.0",
+    "androidx.compose.runtime:runtime-saveable-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui:1.3.0",
     "androidx.compose.ui:ui:1.5.0",
     "androidx.compose.ui:ui:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui-graphics-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-graphics-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui-test-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-junit4:1.2.0",
     "androidx.compose.ui:ui-test-junit4:1.3.0",
@@ -271,6 +280,7 @@ DATA = [
     "androidx.compose.ui:ui-test-manifest:1.5.0",
     "androidx.compose.ui:ui-test-manifest:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-manifest:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-test-manifest:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui-tooling:1.2.0",  # Still needed from //tools/data-binding/compilationTests
     "androidx.compose.ui:ui-tooling:1.3.0",  # Still needed from //tools/base/build-system/integration-tests
     "androidx.compose.ui:ui-tooling:1.4.3",  # Still needed from //tools/adt/idea/integration:BuildAndRunKMPTest
@@ -647,15 +657,15 @@ DATA = [
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:1.7.10-1.0.6",
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:1.8.21-1.0.11",
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:1.9.0-1.0.11",
-    "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:2.0.0-RC1-1.0.20",
+    "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:2.0.0-RC2-1.0.20",
     "com.google.devtools.ksp:symbol-processing:1.7.10-1.0.6",
     "com.google.devtools.ksp:symbol-processing:1.8.10-1.0.9",
     "com.google.devtools.ksp:symbol-processing:1.8.21-1.0.11",
-    "com.google.devtools.ksp:symbol-processing:2.0.0-RC1-1.0.20",
+    "com.google.devtools.ksp:symbol-processing:2.0.0-RC2-1.0.20",
     "com.google.devtools.ksp:symbol-processing-api:1.7.10-1.0.6",
     "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.7.10-1.0.6",
     "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.8.21-1.0.11",
-    "com.google.devtools.ksp:symbol-processing-gradle-plugin:2.0.0-RC1-1.0.20",
+    "com.google.devtools.ksp:symbol-processing-gradle-plugin:2.0.0-RC2-1.0.20",
     "com.google.firebase:firebase-common:12.0.1",
     "com.google.firebase:firebase-crashlytics-gradle:2.5.1",
     "com.google.guava:guava:20.0",
@@ -758,7 +768,7 @@ DATA = [
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.8.21",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.0",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.22",
-    "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.0.0-RC1",
+    "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.0.0-RC2",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.6.10",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.6.21",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.7.0",
@@ -767,11 +777,11 @@ DATA = [
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.7.21",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.8.10",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.9.22",
-    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.0.0-RC1",
+    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.0.0-RC2",
     "org.jetbrains.kotlin:jvm-abi-gen:1.9.21",
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:1.9.22",
-    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:2.0.0-RC1",
-    "org.jetbrains.kotlin:kotlin-android-extensions:2.0.0-RC1",
+    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:2.0.0-RC2",
+    "org.jetbrains.kotlin:kotlin-android-extensions:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.41",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.72",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.4.32",
@@ -787,19 +797,19 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.8.21",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.9.0",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.9.22",
-    "org.jetbrains.kotlin:kotlin-android-extensions-runtime:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-android-extensions-runtime:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-annotation-processing-gradle:1.9.22",
-    "org.jetbrains.kotlin:kotlin-annotation-processing-gradle:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-annotation-processing-gradle:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-bom:pom:1.8.0",
     "org.jetbrains.kotlin:kotlin-bom:pom:1.8.22",
-    "org.jetbrains.kotlin:kotlin-build-tools-impl:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-build-tools-impl:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.0",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.20",
     "org.jetbrains.kotlin:kotlin-compiler:1.8.10",
     "org.jetbrains.kotlin:kotlin-compiler:1.8.21",
     "org.jetbrains.kotlin:kotlin-compiler:1.9.21",
     "org.jetbrains.kotlin:kotlin-compiler:1.9.22",
-    "org.jetbrains.kotlin:kotlin-compiler:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-compiler:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.0",
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.20",
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21",
@@ -817,7 +827,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22",
-    "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.0",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.10",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.20",
@@ -834,7 +844,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.8.10",
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.8.21",
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.9.22",
-    "org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:jar:gradle70:1.7.0",
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:jar:gradle70:1.7.10",
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:jar:gradle70:1.7.20",
@@ -844,11 +854,11 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:jar:gradle76:1.8.0",
     "org.jetbrains.kotlin:kotlin-gradle-plugin-api:jar:gradle76:1.8.10",
     "org.jetbrains.kotlin:kotlin-klib-commonizer-embeddable:1.8.21",
-    "org.jetbrains.kotlin:kotlin-klib-commonizer-embeddable:2.0.0-RC1",
-    "org.jetbrains.kotlin:kotlin-native-prebuilt:linux-x86_64:2.0.0-RC1",
-    "org.jetbrains.kotlin:kotlin-native-prebuilt:osx-aarch_64:2.0.0-RC1",
-    "org.jetbrains.kotlin:kotlin-native-prebuilt:osx-x86_64:2.0.0-RC1",
-    "org.jetbrains.kotlin:kotlin-native-prebuilt:windows-x86_64:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-klib-commonizer-embeddable:2.0.0-RC2",
+    "org.jetbrains.kotlin:kotlin-native-prebuilt:tar.gz:linux-x86_64:2.0.0-RC2",
+    "org.jetbrains.kotlin:kotlin-native-prebuilt:tar.gz:macos-aarch64:2.0.0-RC2",
+    "org.jetbrains.kotlin:kotlin-native-prebuilt:tar.gz:macos-x86_64:2.0.0-RC2",
+    "org.jetbrains.kotlin:kotlin-native-prebuilt:zip:windows-x86_64:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-parcelize-compiler:1.7.20",
     "org.jetbrains.kotlin:kotlin-parcelize-runtime:1.7.20",
     "org.jetbrains.kotlin:kotlin-reflect:1.4.31",
@@ -866,7 +876,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-reflect:1.9.10",
     "org.jetbrains.kotlin:kotlin-reflect:1.9.20",
     "org.jetbrains.kotlin:kotlin-reflect:1.9.22",
-    "org.jetbrains.kotlin:kotlin-reflect:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-reflect:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.5.21",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.6.10",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.6.21",
@@ -877,9 +887,9 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-script-runtime:1.8.10",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.8.21",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.9.0",
-    "org.jetbrains.kotlin:kotlin-script-runtime:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-script-runtime:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-stdlib-common:1.9.22",
-    "org.jetbrains.kotlin:kotlin-stdlib-common:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-stdlib-common:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21",
@@ -894,10 +904,10 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0",
-    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-stdlib-js:1.7.0",
     "org.jetbrains.kotlin:kotlin-test-junit:1.7.10",
-    "org.jetbrains.kotlin:kotlin-test-junit:2.0.0-RC1",
+    "org.jetbrains.kotlin:kotlin-test-junit:2.0.0-RC2",
     "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multiplatform.gradle.plugin:pom:1.8.21",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6",

@@ -52,10 +52,8 @@ import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
 
-private val minAgpVersion = AndroidPluginVersion(8, 5, 0).alpha(8)
-//temporarily added target version so that integration tests running on release version 8.5.0-alpha08 can run successfully
-private val targetAgpVersion = AndroidPluginVersion(8, 5, 0).beta(1)
-private val maxAgpVersion = AndroidPluginVersion(8,5    ,255)
+private val minAgpVersion = AndroidPluginVersion(8, 5, 0).beta(1)
+private val maxAgpVersion = AndroidPluginVersion(8,6    ,255)
 
 /**
  * An entry point for Screenshot plugin that adds support for screenshot testing on Compose Previews
@@ -101,13 +99,6 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                     """
                     Preview screenshot plugin requires Android Gradle plugin version between ${minAgpVersion.toVersionString()} and ${maxAgpVersion.major}.${maxAgpVersion.minor}.
                     Current version is $agpVersion.
-                    """.trimIndent()
-                )
-            }
-            if (agpVersion < targetAgpVersion) {
-                project.logger.warn(
-                    """
-                    For best experience, please use ${targetAgpVersion.toVersionString()}. Current version is $agpVersion.
                     """.trimIndent()
                 )
             }
@@ -406,7 +397,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
             dependencies.add(previewScreenshotTestEngineConfigurationName, "org.junit.platform:junit-platform-launcher")
             dependencies.add(
                 previewScreenshotTestEngineConfigurationName,
-                "com.android.tools.compose:compose-preview-validation-junit-engine:${engineVersion}")
+                "com.android.tools.screenshot:screenshot-validation-junit-engine:${engineVersion}")
         }
     }
 
@@ -506,7 +497,7 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
 }
 
 private const val previewlibCliToolConfigurationName = "_internal-screenshot-test-task-previewlib-cli"
-private const val previewScreenshotTestEngineConfigurationName = "_internal-compose-preview-validation-junit-engine"
+private const val previewScreenshotTestEngineConfigurationName = "_internal-screenshot-validation-junit-engine"
 private const val layoutlibJarConfigurationName = "_internal-screenshot-test-task-layoutlib"
 private const val layoutlibRunTimeConfigurationName = "_internal-screenshot-test-task-layoutlib-data"
 private const val layoutlibResourcesConfigurationName = "_internal-screenshot-test-task-layoutlib-res"
