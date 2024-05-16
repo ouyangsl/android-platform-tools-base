@@ -101,17 +101,17 @@ ARTIFACTS = [
     "io.grpc:protoc-gen-grpc-java:exe:osx-aarch_64:1.57.0",
     "io.grpc:protoc-gen-grpc-java:exe:osx-x86_64:1.57.0",
     "io.grpc:protoc-gen-grpc-java:exe:windows-x86_64:1.57.0",
-    "io.netty:netty-all:4.1.72.Final",
-    "io.netty:netty-buffer:4.1.72.Final",
-    "io.netty:netty-codec:4.1.72.Final",
-    "io.netty:netty-codec-http:4.1.72.Final",
-    "io.netty:netty-codec-http2:4.1.72.Final",
-    "io.netty:netty-codec-socks:4.1.72.Final",
-    "io.netty:netty-common:4.1.72.Final",
-    "io.netty:netty-handler:4.1.72.Final",
-    "io.netty:netty-handler-proxy:4.1.72.Final",
-    "io.netty:netty-resolver:4.1.72.Final",
-    "io.netty:netty-transport:4.1.72.Final",
+    "io.netty:netty-all:4.1.93.Final",
+    "io.netty:netty-buffer:4.1.93.Final",
+    "io.netty:netty-codec:4.1.93.Final",
+    "io.netty:netty-codec-http:4.1.93.Final",
+    "io.netty:netty-codec-http2:4.1.93.Final",
+    "io.netty:netty-codec-socks:4.1.93.Final",
+    "io.netty:netty-common:4.1.93.Final",
+    "io.netty:netty-handler:4.1.93.Final",
+    "io.netty:netty-handler-proxy:4.1.93.Final",
+    "io.netty:netty-resolver:4.1.93.Final",
+    "io.netty:netty-transport:4.1.93.Final",
     "io.opencensus:opencensus-api:0.21.0",
     "io.opencensus:opencensus-contrib-grpc-metrics:0.21.0",
     "io.perfmark:perfmark-api:0.17.0",
@@ -231,8 +231,10 @@ DATA = [
     "androidx.benchmark:benchmark-gradle-plugin:1.2.4",
     "androidx.cardview:cardview:1.0.0",
     "androidx.collection:collection:1.4.0",
+    "androidx.collection:collection-ktx:1.4.0",  # Compose BOM 2024.04.01
     "androidx.compose.animation:animation:1.3.0",
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.animation:animation:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.animation:animation-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.animation:animation-core-android:1.6.5",  # Compose Desktop Lint checks
@@ -245,48 +247,56 @@ DATA = [
     "androidx.compose:compose-bom:pom:2022.10.00",
     "androidx.compose:compose-bom:pom:2023.03.00",
     "androidx.compose:compose-bom:pom:2023.06.00",
-    "androidx.compose:compose-bom:pom:2023.08.00",
+    "androidx.compose:compose-bom:pom:2024.04.01",
     "androidx.compose.foundation:foundation:1.3.0",
-    "androidx.compose.foundation:foundation:1.5.0",
     "androidx.compose.foundation:foundation:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.foundation:foundation:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.foundation:foundation-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation-android:1.6.5",  # Compose Desktop Lint checks
+    "androidx.compose.foundation:foundation-layout:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.material:material:1.3.0",  # Needed by //tools/base/build-system/integration-test/...
     "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
-    "androidx.compose.material:material:1.5.0",
     "androidx.compose.material:material:1.5.0-alpha04",
+    "androidx.compose.material:material:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.material:material-android:1.6.5",  # Compose Desktop Lint checks
+    "androidx.compose.material:material-icons-core:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.material:material-icons-extended:1.3.0",
+    "androidx.compose.material:material-ripple:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.material3:material3:1.0.0",
     "androidx.compose.material3:material3:1.1.1",
+    "androidx.compose.material3:material3:1.2.1",  # Compose BOM 2024.04.01
     "androidx.compose.material3:material3-android:1.2.1",  # Compose Desktop Lint checks
+    "androidx.compose.runtime:runtime:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.runtime:runtime-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.runtime:runtime-livedata:1.3.0",
+    "androidx.compose.runtime:runtime-saveable:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.runtime:runtime-saveable-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui:1.3.0",
-    "androidx.compose.ui:ui:1.5.0",
     "androidx.compose.ui:ui:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.ui:ui-android:1.6.5",  # Compose Desktop Lint checks
+    "androidx.compose.ui:ui-graphics:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.ui:ui-graphics-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-graphics-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui-test-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-junit4:1.2.0",
     "androidx.compose.ui:ui-test-junit4:1.3.0",
-    "androidx.compose.ui:ui-test-junit4:1.5.0",
     "androidx.compose.ui:ui-test-junit4:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-junit4:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-test-junit4:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.ui:ui-test-junit4-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-manifest:1.3.0",
-    "androidx.compose.ui:ui-test-manifest:1.5.0",
     "androidx.compose.ui:ui-test-manifest:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-manifest:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-manifest:1.6.5",  # Compose Desktop Lint checks
+    "androidx.compose.ui:ui-test-manifest:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.ui:ui-tooling:1.2.0",  # Still needed from //tools/data-binding/compilationTests
     "androidx.compose.ui:ui-tooling:1.3.0",  # Still needed from //tools/base/build-system/integration-tests
     "androidx.compose.ui:ui-tooling:1.4.3",  # Still needed from //tools/adt/idea/integration:BuildAndRunKMPTest
-    "androidx.compose.ui:ui-tooling:1.5.0",
     "androidx.compose.ui:ui-tooling:1.5.0-alpha04",
     "androidx.compose.ui:ui-tooling:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-tooling:1.6.5",
+    "androidx.compose.ui:ui-tooling:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.ui:ui-tooling-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling-data-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling-preview:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -755,10 +765,11 @@ DATA = [
     "org.jetbrains.compose.ui:ui-test-junit4-desktop:1.6.10-dev1584",
     "org.jetbrains.dokka:dokka-base:1.4.32",
     "org.jetbrains.dokka:javadoc-plugin:1.4.32",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:0.18.1",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-241:0.18.1",
-    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-241:0.18.1",
-    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-241:0.18.1",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:0.19.3",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-241:0.19.3",
+    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-241:0.19.3",
+    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-241:0.19.3",
+    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-241:0.19.3",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.0",  # Remove it later (b/243935746)
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.10",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.20",
@@ -769,6 +780,7 @@ DATA = [
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.0",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.22",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.0.0-RC2",
+    "org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.0.0-RC2",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.6.10",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.6.21",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.7.0",
@@ -814,6 +826,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.20",
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21",
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.8.10",
+    "org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable:2.0.0-RC2",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32",
@@ -909,6 +922,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-test-junit:1.7.10",
     "org.jetbrains.kotlin:kotlin-test-junit:2.0.0-RC2",
     "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multiplatform.gradle.plugin:pom:1.8.21",
+    "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.0.0-RC2",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1",
@@ -982,9 +996,10 @@ DATA = [
     "org.jetbrains.compose.ui:ui-text-desktop:jar:sources:1.6.10-dev1584",
     "org.jetbrains.compose.ui:ui-unit-desktop:jar:sources:1.6.10-dev1584",
     "org.jetbrains.compose.ui:ui-util-desktop:jar:sources:1.6.10-dev1584",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:jar:sources:0.18.1",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-241:jar:sources:0.18.1",
-    "org.jetbrains.jewel:jewel-ui-241:jar:sources:0.18.1",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-241:jar:sources:0.19.3",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-241:jar:sources:0.19.3",
+    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-241:jar:sources:0.19.3",
+    "org.jetbrains.jewel:jewel-ui-241:jar:sources:0.19.3",
     "org.jetbrains.kotlin:kotlin-stdlib:jar:sources:1.9.22",
     "org.jetbrains.kotlin:kotlin-test:jar:sources:1.9.22",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:jar:sources:1.6.4",

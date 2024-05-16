@@ -1058,10 +1058,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
             newerVersion = newerVersion maxAgpOrNull findCachedNewerVersion(dependency, filter)
           }
 
-          // Compare with IDE's repository cache, if available.
-          newerVersion =
-            newerVersion maxAgpOrNull context.client.getHighestKnownVersion(dependency, filter)
-
           // Don't just offer the latest available version, but if that is more than
           // a micro-level different, and there is a newer micro version of the
           // version that the user is currently using, offer that one as well as it
@@ -1243,9 +1239,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
 
     // Compare with what's in the Gradle cache.
     newerVersion = newerVersion maxOrNull findCachedNewerVersion(dependency, filter)
-
-    // Compare with IDE's repository cache, if available.
-    newerVersion = newerVersion maxOrNull context.client.getHighestKnownVersion(dependency, filter)
 
     // If it's available in maven.google.com, fetch latest available version.
     newerVersion = newerVersion maxOrNull getGoogleMavenRepoVersion(context, dependency, filter)
@@ -2625,7 +2618,8 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
     return googlePlaySdkIndex
       ?: run {
         val cacheDir = client.getCacheDir(GOOGLE_PLAY_SDK_INDEX_KEY, true)
-        val repository = playSdkIndexFactory(cacheDir?.toPath(), client)
+        val repository =
+          playSdkIndexFactory(cacheDir?.toPath(), client, getGoogleMavenRepository(client))
         googlePlaySdkIndex = repository
         repository
       }
@@ -4100,8 +4094,8 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
     }
 
     @JvmStatic
-    var playSdkIndexFactory: (Path?, LintClient) -> GooglePlaySdkIndex =
-      { path: Path?, client: LintClient ->
+    var playSdkIndexFactory: (Path?, LintClient, GoogleMavenRepository) -> GooglePlaySdkIndex =
+      { path: Path?, client: LintClient, gmaven: GoogleMavenRepository ->
         val index =
           object : GooglePlaySdkIndex(path) {
             public override fun readUrlData(url: String, timeout: Int, lastModified: Long) =
@@ -4111,7 +4105,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
               client.log(throwable, message)
             }
           }
-        index.initialize()
+        index.initialize(googleMaven = gmaven)
         index
       }
   }

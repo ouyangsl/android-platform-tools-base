@@ -17,8 +17,6 @@ package com.android.tools.lint.checks
 
 import com.android.SdkConstants.GRADLE_PLUGIN_MINIMUM_VERSION
 import com.android.SdkConstants.GRADLE_PLUGIN_RECOMMENDED_VERSION
-import com.android.ide.common.gradle.Dependency
-import com.android.ide.common.gradle.Version
 import com.android.ide.common.repository.GoogleMavenRepository.Companion.MAVEN_GOOGLE_CACHE_DIR_KEY
 import com.android.sdklib.SdkVersionInfo.HIGHEST_KNOWN_STABLE_API
 import com.android.sdklib.SdkVersionInfo.LOWEST_ACTIVE_API
@@ -79,7 +77,6 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.util.Calendar
-import java.util.function.Predicate
 import java.util.zip.GZIPOutputStream
 import junit.framework.TestCase
 import org.junit.rules.TemporaryFolder
@@ -1898,36 +1895,6 @@ class GradleDetectorTest : AbstractCheckTest() {
           }
         }
     }
-  }
-
-  fun testVersionFromIDE() {
-    // Hardcoded cache lookup for the test in GroovyGradleDetector below. In the IDE
-    // it consults SDK lib.
-    val expected =
-      "" +
-        "build.gradle:2: Warning: A newer version of com.android.support.constraint:constraint-layout than 1.0.1 is available: 1.0.2 [GradleDependency]\n" +
-        "    compile 'com.android.support.constraint:constraint-layout:1.0.1'\n" +
-        "            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-        "build.gradle:4: Warning: A newer version of com.android.support.constraint:constraint-layout than 1.0.3-alpha5 is available: 1.0.3-alpha8 [GradleDependency]\n" +
-        "    compile 'com.android.support.constraint:constraint-layout:1.0.3-alpha5'\n" +
-        "            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-        "0 errors, 2 warnings\n"
-
-    lint()
-      .files(
-        gradle(
-          "" +
-            "dependencies {\n" +
-            "    compile 'com.android.support.constraint:constraint-layout:1.0.1'\n" +
-            "    compile 'com.android.support.constraint:constraint-layout:1.0.2'\n" +
-            "    compile 'com.android.support.constraint:constraint-layout:1.0.3-alpha5'\n" +
-            "    compile 'com.android.support.constraint:constraint-layout:1.0.+'\n" +
-            "}\n"
-        )
-      )
-      .issues(DEPENDENCY)
-      .run()
-      .expect(expected)
   }
 
   fun testWorkManager() {
@@ -4543,13 +4510,10 @@ class GradleDetectorTest : AbstractCheckTest() {
                 build.gradle.kts:4: Warning: 'android' is deprecated; use 'com.android.application' instead [GradleDeprecated]
                     id("android") version "2.3.3" apply true
                        ~~~~~~~~~
-                build.gradle.kts:30: Warning: A newer version of com.android.support.constraint:constraint-layout than 1.0.0-alpha8 is available: 1.0.3-alpha8 [GradleDependency]
-                    compile("com.android.support.constraint:constraint-layout:1.0.0-alpha8")
-                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 build.gradle.kts:12: Warning: The value of minSdkVersion is too low. It can be incremented without noticeably reducing the number of supported devices. [MinSdkTooLow]
                         minSdkVersion(7)
                         ~~~~~~~~~~~~~~~~
-                0 errors, 4 warnings
+                0 errors, 3 warnings
                 """
       )
       .expectFixDiffs(
@@ -4562,10 +4526,6 @@ class GradleDetectorTest : AbstractCheckTest() {
                 @@ -4 +4
                 -     id("android") version "2.3.3" apply true
                 +     id("com.android.application") version "2.3.3" apply true
-                Fix for build.gradle.kts line 30: Change to 1.0.3-alpha8:
-                @@ -30 +30
-                -     compile("com.android.support.constraint:constraint-layout:1.0.0-alpha8")
-                +     compile("com.android.support.constraint:constraint-layout:1.0.3-alpha8")
                 Fix for build.gradle.kts line 12: Update minSdkVersion to $LOWEST_ACTIVE_API:
                 @@ -12 +12
                 -         minSdkVersion(7)
@@ -5084,7 +5044,11 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.9' // Policy (multiple types), no severity
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:8: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
+          build.gradle:8: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console.
+          The library author recommends using versions:
+            - 1.2.17
+            - 1.2.18 or higher
+          These versions have not been reviewed by Google Play. They could contain vulnerabilities or policy violations. Carefully evaluate any third-party SDKs before integrating them into your app. [OutdatedLibrary]
               compile 'log4j:log4j:1.2.12' // OUTDATED BLOCKING
                       ~~~~~~~~~~~~~~~~~~~~
           build.gradle:5: Warning: log4j:log4j version 1.2.15 has been reported as outdated by its author [OutdatedLibrary]
@@ -5202,7 +5166,11 @@ class GradleDetectorTest : AbstractCheckTest() {
                 ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMulti = "7.1.9"         # Policy (multiple types), no severity
                                                 ~~~~~~~
-                ../gradle/libs.versions.toml:5: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
+                ../gradle/libs.versions.toml:5: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console.
+                The library author recommends using versions:
+                  - 1.2.17
+                  - 1.2.18 or higher
+                These versions have not been reviewed by Google Play. They could contain vulnerabilities or policy violations. Carefully evaluate any third-party SDKs before integrating them into your app. [OutdatedLibrary]
                                 log4Outdated = "1.2.12"         # Outdated NON_BLOCKING
                                                ~~~~~~~~
                 ../gradle/libs.versions.toml:9: Warning: com.example.ads.third.party:example version 7.2.0 has been reported as outdated by its author [OutdatedLibrary]
@@ -5440,7 +5408,9 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:2: Error: [Prevents app release in Google Play Console] androidx.slidingpanelayout:slidingpanelayout version 1.1.0 has Permissions policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
               compile 'androidx.slidingpanelayout:slidingpanelayout:1.1.0' // Current has issues but there is a custom message
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:3: Warning: com.google.android.gms:play-services-maps version 18.1.0 has been reported as outdated by its author [OutdatedLibrary]
+          build.gradle:3: Warning: com.google.android.gms:play-services-maps version 18.1.0 has been reported as outdated by its author.
+          The library author recommends using versions:
+            - 18.3.0 or higher [OutdatedLibrary]
               compile 'com.google.android.gms:play-services-maps:18.1.0' // Current has issues but there is a custom message
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           1 errors, 4 warnings
@@ -8049,7 +8019,7 @@ class GradleDetectorTest : AbstractCheckTest() {
                   .addVersions(
                     LibraryVersion.newBuilder().setVersionString("1.2.18").setIsLatestVersion(true)
                   )
-                  // Ok, latest, no issues
+                  // Ok
                   .addVersions(
                     LibraryVersion.newBuilder().setVersionString("1.2.17").setIsLatestVersion(false)
                   )
@@ -8103,7 +8073,17 @@ class GradleDetectorTest : AbstractCheckTest() {
                       .setIsLatestVersion(false)
                       .setVersionLabels(
                         LibraryVersionLabels.newBuilder()
-                          .setOutdatedIssueInfo(LibraryVersionLabels.OutdatedIssueInfo.newBuilder())
+                          .setOutdatedIssueInfo(
+                            LibraryVersionLabels.OutdatedIssueInfo.newBuilder()
+                              .addRecommendedVersions(
+                                LibraryVersionRange.newBuilder()
+                                  .setLowerBound("1.2.17")
+                                  .setUpperBound("1.2.17")
+                              )
+                              .addRecommendedVersions(
+                                LibraryVersionRange.newBuilder().setLowerBound("1.2.18")
+                              )
+                          )
                           .setSeverity(LibraryVersionLabels.Severity.BLOCKING_SEVERITY)
                       )
                   )
@@ -8358,7 +8338,12 @@ class GradleDetectorTest : AbstractCheckTest() {
                       .setIsLatestVersion(false)
                       .setVersionLabels(
                         LibraryVersionLabels.newBuilder()
-                          .setOutdatedIssueInfo(LibraryVersionLabels.OutdatedIssueInfo.newBuilder())
+                          .setOutdatedIssueInfo(
+                            LibraryVersionLabels.OutdatedIssueInfo.newBuilder()
+                              .addRecommendedVersions(
+                                LibraryVersionRange.newBuilder().setLowerBound("18.3.0")
+                              )
+                          )
                           .setSeverity(LibraryVersionLabels.Severity.NON_BLOCKING_SEVERITY)
                       )
                   )
@@ -8428,23 +8413,6 @@ class GradleDetectorTest : AbstractCheckTest() {
               return task.sdkHome
             }
             return mockSupportLibraryInstallation
-          }
-
-          override fun getHighestKnownVersion(
-            dependency: Dependency,
-            filter: Predicate<Version>?,
-          ): Version? {
-            // Hardcoded for unit test to ensure stable data
-            return if (
-              "com.android.support.constraint" == dependency.group &&
-                "constraint-layout" == dependency.name
-            ) {
-              if (dependency.version?.lowerBound?.isPreview != false) {
-                Version.parse("1.0.3-alpha8")
-              } else {
-                Version.parse("1.0.2")
-              }
-            } else null
           }
         }
       })
