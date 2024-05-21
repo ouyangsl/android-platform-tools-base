@@ -182,11 +182,13 @@ def local_platform(name, target, spec):
 #       name: The name of this platform, to be used in the platforms attribute of intellij_plugin
 #       url: Where to download this platform from
 #       sha256: The file's sha256.
-def remote_platform(name, sha256, url):
+# For AOSP: support 'plugins' list for remote platforms.
+def remote_platform(name, sha256, url, plugins = []):
     return struct(
         name = name,
         sha256 = sha256,
         url = url,
+        plugins = plugins,
     )
 
 def setup_platforms(repos):
@@ -204,7 +206,10 @@ def setup_platforms(repos):
                 sha256 = repo.sha256,
                 url = repo.url,
             )
-            targets.append((repo.name, "@" + repo.name + "//:" + repo.name, "[]"))
+            # For AOSP: support 'plugins' list for remote platforms.
+            plugin_names = ['"' + name + '"' for name in repo.plugins]
+            plugin_list = "[" + ",".join(plugin_names) + "]"
+            targets.append((repo.name, "@" + repo.name + "//:" + repo.name, plugin_list))
         elif hasattr(repo, "target"):
             content += "load('" + repo.spec + "', " + _normalize(repo.name) + " = 'SPEC')\n"
             targets.append((repo.name, repo.target, _normalize(repo.name) + ".plugin_jars.keys()"))
