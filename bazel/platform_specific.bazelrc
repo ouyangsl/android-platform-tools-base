@@ -1,9 +1,11 @@
+# In AOSP, the Android SDK and NDK must be downloaded manually.
+# For now we assume they are downloaded under /tmp/android-sdk.
+common --repo_env=ANDROID_HOME=/tmp/android-sdk
+common --repo_env=ANDROID_NDK_HOME=/tmp/android-sdk/ndk/20.1.5948944
+
 #
 # Linux
 #
-common:linux --repo_env=ANDROID_NDK_HOME=prebuilts/studio/sdk/linux/ndk/20.1.5948944
-common:linux --repo_env=ANDROID_HOME=prebuilts/studio/sdk/linux
-
 build:linux --bes_keywords=linux
 build:linux --host_platform=//tools/base/bazel/platforms:linux
 build:linux --platforms=//tools/base/bazel/platforms:linux
@@ -14,9 +16,6 @@ build:linux --dynamic_local_strategy=worker,sandboxed,local
 #
 # Windows
 #
-common:windows --repo_env=ANDROID_NDK_HOME=prebuilts/studio/sdk/windows/ndk/20.1.5948944
-common:windows --repo_env=ANDROID_HOME=prebuilts/studio/sdk/windows
-
 build:windows --bes_keywords=windows
 build:windows --host_platform=//tools/base/bazel/platforms:windows
 build:windows --platforms=//tools/base/bazel/platforms:windows
@@ -32,9 +31,6 @@ build:windows --nobuild_python_zip
 #
 # Mac
 #
-common:macos --repo_env=ANDROID_NDK_HOME=prebuilts/studio/sdk/darwin/ndk/20.1.5948944
-common:macos --repo_env=ANDROID_HOME=prebuilts/studio/sdk/darwin
-
 build:macos --bes_keywords=macos
 build:macos --host_platform=//tools/base/bazel/platforms:macos
 build:macos --platforms=//tools/base/bazel/platforms:macos
