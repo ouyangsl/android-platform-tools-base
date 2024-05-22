@@ -1,0 +1,250 @@
+{
+  "comments": [
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "181a4f8b_a96dfdd7",
+        "filename": "intellij-bazel/intellij.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "File is not formatted. Run `buildifier intellij-bazel/intellij.bzl` to format the file, or apply the suggested fix.",
+      "tag": "",
+      "fixSuggestions": [
+        {
+          "fixId": "e192e689_9b9b7c3c",
+          "description": "Buildifier Suggestion",
+          "replacements": [
+            {
+              "path": "intellij-bazel/intellij.bzl",
+              "range": {
+                "startLine": 209,
+                "startChar": 0,
+                "endLine": 209,
+                "endChar": 0
+              },
+              "replacement": "\n"
+            }
+          ]
+        }
+      ],
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "edbd94dc_af61eafd",
+        "filename": "intellij-bazel/intellij.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "Calls to \u0027provider\u0027 should provide a documentation:\\n  provider(\"description\", fields \u003d [...]) http://go/buildifier-warnings#provider-params",
+      "range": {
+        "startLine": 10,
+        "startChar": 21,
+        "endLine": 10,
+        "endChar": 52
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "5147d826_f993eddc",
+        "filename": "intellij-bazel/intellij.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "Variable \"settings\" is unused. Please remove it. http://go/buildifier-warnings#unused-variable",
+      "range": {
+        "startLine": 20,
+        "startChar": 39,
+        "endLine": 20,
+        "endChar": 47
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "b417d467_36e6176c",
+        "filename": "intellij-bazel/intellij.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "The function \"setup_intellij_platforms\" has no docstring.\nA docstring is a string literal (not a comment) which should be the first statement of a function body (it may follow comment lines). http://go/buildifier-warnings#function-docstring",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 35
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "58af9872_9bb0ae5e",
+        "filename": "intellij-bazel/intellij.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "The macro \"setup_intellij_platforms\" should have a keyword argument called \"name\".\n\nIt is considered a macro because it calls a rule or another macro \"native.config_setting\" on line 101.\n\nBy convention, every public macro needs a \"name\" argument (even if it doesn\u0027t use it).\nThis is important for tooling and automation.\n\n  * If this function is a helper function that\u0027s not supposed to be used outside of this file,\n    please make it private (e.g. rename it to \"_setup_intellij_platforms\").\n  * Otherwise, add a \"name\" argument. If possible, use that name when calling other macros/rules. http://go/buildifier-warnings#unnamed-macro",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 35
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "780994ca_f08a5267",
+        "filename": "intellij-bazel/intellij.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "The macro \"setup_platforms\" should have a keyword argument called \"name\".\n\nIt is considered a macro because it calls a rule or another macro \"native.new_local_repository\" on line 226.\n\nBy convention, every public macro needs a \"name\" argument (even if it doesn\u0027t use it).\nThis is important for tooling and automation.\n\n  * If this function is a helper function that\u0027s not supposed to be used outside of this file,\n    please make it private (e.g. rename it to \"_setup_platforms\").\n  * Otherwise, add a \"name\" argument. If possible, use that name when calling other macros/rules. http://go/buildifier-warnings#unnamed-macro",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 26
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "0e66bb0f_734052dc",
+        "filename": "intellij-bazel/intellij.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "The function \"setup_platforms\" has no docstring.\nA docstring is a string literal (not a comment) which should be the first statement of a function body (it may follow comment lines). http://go/buildifier-warnings#function-docstring",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 26
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "cac9a0b0_97ca8983",
+        "filename": "intellij-bazel/platforms.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "The file has no module docstring.\nA module docstring is a string literal (not a comment) which should be the first statement of a file (it may follow comment lines). http://go/buildifier-warnings#module-docstring",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745140",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096898?revision\u003d1",
+      "key": {
+        "uuid": "2e30fc2f_1c74a394",
+        "filename": "intellij-bazel/platforms.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "Loaded symbol \"local_platform\" is unused. Please remove it.\nTo disable the warning, add \u0027@unused\u0027 in a comment.\nIf you want to re-export a symbol, use the following pattern:\n\n    load(..., _local_platform \u003d \"local_platform\", ...)\n    local_platform \u003d _local_platform\n http://go/buildifier-warnings#load",
+      "range": {
+        "startLine": 1,
+        "startChar": 50,
+        "endLine": 1,
+        "endChar": 64
+      },
+      "tag": "",
+      "revId": "496332660558c7b1ea5b6e1b1c59d2bc57e15171",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
