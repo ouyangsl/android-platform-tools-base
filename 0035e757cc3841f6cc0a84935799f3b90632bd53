@@ -31,6 +31,32 @@
       "robotRunId": "AR00000000000078745135",
       "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
       "key": {
+        "uuid": "907eee73_0685a8f3",
+        "filename": "bazel/android.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:17:05Z",
+      "side": 1,
+      "message": "The file has no module docstring.\nA module docstring is a string literal (not a comment) which should be the first statement of a file (it may follow comment lines). http://go/buildifier-warnings#module-docstring",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "tag": "",
+      "revId": "0035e757cc3841f6cc0a84935799f3b90632bd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745135",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
+      "key": {
         "uuid": "38b441fa_74c7dd56",
         "filename": "bazel/android.bzl",
         "patchSetId": 1
@@ -40,6 +66,32 @@
         "id": 1757831
       },
       "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "Prefer using \".append()\" to adding a single element list. http://go/buildifier-warnings#list-append",
+      "range": {
+        "startLine": 67,
+        "startChar": 8,
+        "endLine": 67,
+        "endChar": 51
+      },
+      "tag": "",
+      "revId": "0035e757cc3841f6cc0a84935799f3b90632bd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745135",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
+      "key": {
+        "uuid": "486941f4_b09fa752",
+        "filename": "bazel/android.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:17:05Z",
       "side": 1,
       "message": "Prefer using \".append()\" to adding a single element list. http://go/buildifier-warnings#list-append",
       "range": {
@@ -83,6 +135,32 @@
       "robotRunId": "AR00000000000078745135",
       "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
       "key": {
+        "uuid": "a2a69f3f_8aa0ecac",
+        "filename": "bazel/android.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:17:05Z",
+      "side": 1,
+      "message": "cfg \u003d \"host\" for attr definitions should be replaced by cfg \u003d \"exec\". http://go/buildifier-warnings#attr-cfg",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 24
+      },
+      "tag": "",
+      "revId": "0035e757cc3841f6cc0a84935799f3b90632bd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745135",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
+      "key": {
         "uuid": "67e2ab88_e46acaff",
         "filename": "bazel/android.bzl",
         "patchSetId": 1
@@ -92,6 +170,32 @@
         "id": 1757831
       },
       "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "The docstring for the function \"_aidl_to_java\" should start with a one-line summary. http://go/buildifier-warnings#function-docstring-header",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 112,
+        "endChar": 35
+      },
+      "tag": "",
+      "revId": "0035e757cc3841f6cc0a84935799f3b90632bd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745135",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
+      "key": {
+        "uuid": "d87565cb_402ff6f7",
+        "filename": "bazel/android.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:17:05Z",
       "side": 1,
       "message": "The docstring for the function \"_aidl_to_java\" should start with a one-line summary. http://go/buildifier-warnings#function-docstring-header",
       "range": {
@@ -135,6 +239,32 @@
       "robotRunId": "AR00000000000078745135",
       "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
       "key": {
+        "uuid": "db9c2ff8_7a7b959e",
+        "filename": "bazel/android.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:17:05Z",
+      "side": 1,
+      "message": "Function \"_parent_directory\" is unused. Please remove it. http://go/buildifier-warnings#unused-variable",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 34
+      },
+      "tag": "",
+      "revId": "0035e757cc3841f6cc0a84935799f3b90632bd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745135",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
+      "key": {
         "uuid": "08894e93_a7ae9ed2",
         "filename": "bazel/android.bzl",
         "patchSetId": 1
@@ -161,6 +291,32 @@
       "robotRunId": "AR00000000000078745135",
       "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
       "key": {
+        "uuid": "f8018e7f_981f3ea9",
+        "filename": "bazel/android.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:17:05Z",
+      "side": 1,
+      "message": "Arguments \"name\", \"srcs\", \"visibility\", \"tags\", \"deps\" are not documented.\n\nIf the documentation for the arguments exists but is not recognized by Buildifier\nmake sure it follows the line \"Args:\" which has the same indentation as the opening \"\"\",\nand the argument description starts with \"\u003cargument_name\u003e:\" and indented with at least\none (preferably two) space more than \"Args:\", for example:\n\n    def aidl_library(name):\n        \"\"\"Function description.\n\n        Args:\n          name: argument description, can be\n            multiline with additional indentation.\n        \"\"\" http://go/buildifier-warnings#function-docstring-args",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 51
+      },
+      "tag": "",
+      "revId": "0035e757cc3841f6cc0a84935799f3b90632bd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745135",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
+      "key": {
         "uuid": "293400be_2a2c5a88",
         "filename": "bazel/android.bzl",
         "patchSetId": 1
@@ -170,6 +326,32 @@
         "id": 1757831
       },
       "writtenOn": "2024-05-22T02:16:53Z",
+      "side": 1,
+      "message": "The function \"dex_library\" has no docstring.\nA docstring is a string literal (not a comment) which should be the first statement of a function body (it may follow comment lines). http://go/buildifier-warnings#function-docstring",
+      "range": {
+        "startLine": 155,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 103
+      },
+      "tag": "",
+      "revId": "0035e757cc3841f6cc0a84935799f3b90632bd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "robotId": "ayeaye",
+      "robotRunId": "AR00000000000078745135",
+      "url": "https://android-build.googleplex.com/builds/treetop/android-review/3096901?revision\u003d1",
+      "key": {
+        "uuid": "bfebcc36_c0daf20d",
+        "filename": "bazel/android.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1757831
+      },
+      "writtenOn": "2024-05-22T02:17:05Z",
       "side": 1,
       "message": "The function \"dex_library\" has no docstring.\nA docstring is a string literal (not a comment) which should be the first statement of a function body (it may follow comment lines). http://go/buildifier-warnings#function-docstring",
       "range": {
