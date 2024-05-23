@@ -1,4 +1,4 @@
-load("//tools/base/bazel/sdk:sdk_utils.bzl", "platform_filegroup", "sdk_glob", "sdk_path")
+load("//tools/base/bazel/sdk:sdk_utils.bzl", "platform_filegroup", "sdk_glob")
 
 filegroup(
     name = "licenses",
@@ -8,29 +8,9 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
-java_import(
-    name = "dxlib-preview",
-    jars = sdk_path(["build-tools/26.0.0/lib/dx.jar"]),
-)
-
-java_binary(
-    name = "dx-preview",
-    main_class = "com.android.dx.command.Main",
-    visibility = ["//visibility:public"],
-    runtime_deps = [":dxlib-preview"],
-)
-
 filegroup(
     name = "build-tools/latest",
     srcs = [":build-tools/34.0.0"],
-    visibility = ["//visibility:public"],
-)
-
-filegroup(
-    name = "build-tools/latest/aidl",
-    srcs = sdk_glob(
-        include = ["build-tools/34.0.0/aidl"],
-    ),
     visibility = ["//visibility:public"],
 )
 
@@ -190,14 +170,6 @@ filegroup(
 )
 
 filegroup(
-    name = "platforms/latest/framework.aidl",
-    srcs = sdk_glob(
-        include = ["platforms/android-34/framework.aidl"],
-    ),
-    visibility = ["//visibility:public"],
-)
-
-filegroup(
     name = "patcher/v4",
     srcs = glob(
         include = ["*/patcher/v4/**"],
@@ -209,7 +181,7 @@ filegroup(
 # Note: these stubbed classes will not be available at runtime.
 java_import(
     name = "platforms/latest_jar",
-    jars = sdk_path(["platforms/android-34/android.jar"]),
+    jars = ["@androidsdk//:platforms/android-34/android.jar"],
     neverlink = 1,
     visibility = [
         "//tools/adt/idea/streaming/screen-sharing-agent:__pkg__",
@@ -228,7 +200,7 @@ java_import(
 java_import(
     name = "platforms/latest_runtime_jar",
     testonly = 1,
-    jars = sdk_path(["platforms/android-34/android.jar"]),
+    jars = ["@androidsdk//:platforms/android-34/android.jar"],
     visibility = [
         "//tools/base/app-inspection/inspectors:__subpackages__",
         "//tools/base/dynamic-layout-inspector/agent:__subpackages__",

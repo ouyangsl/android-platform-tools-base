@@ -44,10 +44,6 @@ _git = [
         "path": "external/perfetto",
     },
     {
-        "name": "protobuf_repo",
-        "path": "external/protobuf",
-    },
-    {
         "name": "nanopb_repo",
         "path": "external/nanopb-c",
     },
@@ -147,28 +143,34 @@ _archives = [
         "build_file": "@perfetto//bazel:linenoise.BUILD",
     },
     {
-        "name": "perfetto-sqlite-amalgamation-3250300",
-        "archive": "//prebuilts/tools/common/external-src-archives/sqlite-amalgamation/3250300:sqlite-amalgamation-3250300.zip",
-        "strip_prefix": "sqlite-amalgamation-3250300",
+        "name": "perfetto-sqlite-amalgamation-3450300",
+        "archive": "//prebuilts/tools/common/external-src-archives/sqlite-amalgamation/3450300:sqlite-amalgamation-3450300.zip",
+        "strip_prefix": "sqlite-amalgamation-3450300",
         "build_file": "@perfetto//bazel:sqlite.BUILD",
     },
     {
-        "name": "perfetto-sqlite-src-3250300",
-        "archive": "//prebuilts/tools/common/external-src-archives/sqlite-src/3250300:sqlite-src-3250300.zip",
-        "strip_prefix": "sqlite-src-3250300",
+        "name": "perfetto-sqlite-src-3450300",
+        "archive": "//prebuilts/tools/common/external-src-archives/sqlite-src/3450300:sqlite-src-3450300.zip",
+        "strip_prefix": "sqlite-src-3450300",
         "build_file": "@perfetto//bazel:sqlite.BUILD",
+    },
+    {
+        "name": "perfetto-llvm-project-3b4c59c156919902c785ce3cbae0eee2ee53064d",
+        "archive": "//prebuilts/tools/common/external-src-archives/perfetto-llvm/3b4c59c156919902c785ce3cbae0eee2ee53064d:llvm-3b4c59c156919902c785ce3cbae0eee2ee53064d.tgz",
+        "strip_prefix": "llvm-project",
+        "build_file": "@perfetto//bazel:llvm_demangle.BUILD",
     },
     # End Perfetto Dependencies.
 ]
 
 _binds = {
     "slicer": "@slicer_repo//:slicer",
-    "protobuf_clib": "@protobuf_repo//:protoc_lib",
+    "protobuf_clib": "@com_google_protobuf//:protoc_lib",
     "nanopb": "@nanopb_repo//:nanopb",
     "zlib": "@zlib_repo//:zlib",
-    "protobuf_headers": "@protobuf_repo//:protobuf_headers",
-    "protobuf": "@protobuf_repo//:protobuf",
-    "protoc": "@protobuf_repo//:protoc",
+    "protobuf_headers": "@com_google_protobuf//:protobuf_headers",
+    "protobuf": "@com_google_protobuf//:protobuf",
+    "protoc": "@com_google_protobuf//:protoc",
     "grpc_cpp_plugin": "@grpc_repo//:grpc_cpp_plugin",
     "grpc++_unsecure": "@grpc_repo//:grpc++_unsecure",
     "madler_zlib": "@zlib_repo//:zlib",  # Needed for grpc

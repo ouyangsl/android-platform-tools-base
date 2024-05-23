@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.manifmerger
+package com.android.sdklib.internal.avd
 
-import com.google.common.collect.ImmutableList
-import org.w3c.dom.Element
+import com.google.common.truth.Truth.assertThat
+import org.junit.Test
 
-internal class CombinedNodeKeyResolver(
-    private val resolvers: List<NodeKeyResolver>,
-) : NodeKeyResolver {
-
-    override val keyAttributesNames: ImmutableList<String> = ImmutableList.copyOf(resolvers.flatMap { it.keyAttributesNames }.distinct())
-
-    override fun getKey(element: Element): String {
-        return resolvers.map { it.getKey(element) }.joinToString("+")
-    }
+class SdCardsTest {
+  @Test
+  fun testParseSdCard() {
+    assertThat(parseSdCard("1G")).isEqualTo(InternalSdCard(1024 * 1024 * 1024))
+    assertThat(parseSdCard("300M")).isEqualTo(InternalSdCard(300 * 1024 * 1024))
+    assertThat(parseSdCard("1000000K")).isEqualTo(InternalSdCard(1000000 * 1024))
+    assertThat(parseSdCard("4")).isEqualTo(ExternalSdCard("4"))
+    assertThat(runCatching { parseSdCard("1K") }.exceptionOrNull())
+      .isInstanceOf(IllegalArgumentException::class.java)
+  }
 }

@@ -154,7 +154,6 @@ TEST_DATA = [
     "//tools/base/build-system/integration-test:test-projects/shrink",
     "//tools/base/build-system/integration-test:test-projects/shrinkDynamicFeatureModules",
     "//tools/base/build-system/integration-test:test-projects/simpleCompositeBuild",
-    "//tools/base/build-system/integration-test:test-projects/simpleManifestMergingTask",
     "//tools/base/build-system/integration-test:test-projects/simpleMicroApp",
     "//tools/base/build-system/integration-test:test-projects/sourceDependency",
     "//tools/base/build-system/integration-test:test-projects/testDependency",
@@ -718,7 +717,7 @@ gradle_integration_test(
     data = TEST_DATA,
     maven_repo_zips = [
         "//tools/base/build-system:android_gradle_plugin",
-        "//tools/base/preview/screenshot:preview_screenshot_maven_repo",
+        "//tools/base/preview/screenshot:preview_screenshot_maven_repo_all",
     ],
     maven_repos = [
         "//tools/base/build-system:android_gradle_plugin_runtime_dependencies",

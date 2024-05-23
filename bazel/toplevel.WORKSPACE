@@ -50,7 +50,7 @@ register_toolchains("@windows_toolchains//:python_toolchain")
 
 local_repository(
     name = "bazel_skylib",
-    path = "prebuilts/tools/common/external-src-archives/bazel-skylib/bazel-skylib-1.0.2",
+    path = "prebuilts/tools/common/external-src-archives/bazel-skylib/bazel-skylib-1.6.1",
 )
 
 local_repository(
@@ -206,6 +206,7 @@ http_archive(
     patches = [
         "@//tools/adt/idea/compose-ide-plugin/compose-compiler:suppress-kotlinc-version-check.patch",
         "@//tools/adt/idea/compose-ide-plugin/compose-compiler:support-k2-registrar.patch",
+        "@//tools/adt/idea/compose-ide-plugin/compose-compiler:strong-skipping-for-1.9.patch",
     ],
     sha256 = "5b04a71825eff8fbcf6a02807167681837d7af8ca4f1ec6408ba1509ffa5c518",
     # The following URL comes from https://androidx.dev/storage/compose-compiler/repository.
@@ -238,4 +239,3 @@ http_archive(
 load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
 
 rules_pkg_dependencies()
-

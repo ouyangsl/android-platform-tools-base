@@ -64,7 +64,7 @@ _android_cc_binary = rule(
 def android_cc_binary(name, binary, abis, filename, **kwargs):
     outs = []
     for abi in abis:
-        outs += [name + "/" + abi + "/" + filename]
+        outs.append(name + "/" + abi + "/" + filename)
     _android_cc_binary(
         name = name,
         abis = abis,
@@ -82,7 +82,7 @@ jni_library = rule(
         ),
         "_zipper": attr.label(
             default = Label("@bazel_tools//tools/zip:zipper"),
-            cfg = "host",
+            cfg = "exec",
             executable = True,
         ),
     },
@@ -116,12 +116,6 @@ def _aidl_to_java(filename, output_dir):
     segments = filename.split("/")
     return output_dir + "/" + "/".join(segments[segments.index("aidl") + 1:])
 
-def _parent_directory(file):
-    """Returns the name of the directory containg the file."""
-
-    segments = file.split("/")
-    return "/".join(segments[:-1])
-
 def _name(file):
     """Returns the name of the file."""
 
@@ -129,27 +123,18 @@ def _name(file):
 
 def aidl_library(name, srcs = [], visibility = None, tags = [], deps = []):
     """Builds a Java library out of .aidl files."""
-
-    tools = [
-        "//prebuilts/studio/sdk:build-tools/latest",
-        "//prebuilts/studio/sdk:build-tools/latest/aidl",
-        "//prebuilts/studio/sdk:platforms/latest/framework.aidl",
-    ]
     gen_dir = name + "_gen_aidl"
     for src in srcs:
         gen_name = name + "_gen_" + _name(src).replace(".", "_")
         java_file = _aidl_to_java(src, gen_dir)
-        cmd = ("LD_LIBRARY_PATH=$(location //prebuilts/studio/sdk:build-tools/latest/aidl)/../lib64" +
-               " $(location //prebuilts/studio/sdk:build-tools/latest/aidl)" +
-               " -p$(location //prebuilts/studio/sdk:platforms/latest/framework.aidl)" +
-               " $< -o$(RULEDIR)/" + gen_dir)
+        cmd = "$(location @androidsdk//:aidl_binary) $< -o$(RULEDIR)/" + gen_dir
         native.genrule(
             name = gen_name,
             srcs = [src],
             outs = [java_file],
             tags = tags,
             cmd = cmd,
-            tools = tools,
+            tools = ["@androidsdk//:aidl_binary"],
         )
 
     intermediates = [_aidl_to_java(src, gen_dir) for src in srcs]
@@ -161,26 +146,15 @@ def aidl_library(name, srcs = [], visibility = None, tags = [], deps = []):
         deps = deps,
     )
 
-def dex_library(name, jars = [], output = None, visibility = None, tags = [], flags = [], dexer = "D8"):
-    if dexer == "DX":
-        cmd = "$(location //prebuilts/studio/sdk:dx-preview) --dex --output=./$@ ./$(SRCS)"
-        tools = ["//prebuilts/studio/sdk:dx-preview"]
-    else:
-        cmd = "$(location //prebuilts/r8:d8) --output ./$@ " + " ".join(flags) + " ./$(SRCS)"
-        tools = ["//prebuilts/r8:d8"]
-
-    if output == None:
-        outs = [name + ".jar"]
-    else:
-        outs = [output]
+def dex_library(name, jars = [], output = None, visibility = None, tags = [], flags = []):
     native.genrule(
         name = name,
         srcs = jars,
-        outs = outs,
+        outs = [output] if output != None else [name + ".jar"],
         visibility = visibility,
         tags = tags,
-        cmd = cmd,
-        tools = tools,
+        cmd = "$(location //prebuilts/r8:d8) --output ./$@ " + " ".join(flags) + " ./$(SRCS)",
+        tools = ["//prebuilts/r8:d8"],
     )
 
 ANDROID_COPTS = select_android(

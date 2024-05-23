@@ -15,7 +15,6 @@
  */
 package com.android.tools.appinspection.network.okhttp
 
-import com.android.tools.appinspection.common.logError
 import com.android.tools.appinspection.network.HttpTrackerFactory
 import com.android.tools.appinspection.network.rules.FIELD_RESPONSE_STATUS_CODE
 import com.android.tools.appinspection.network.rules.InterceptionRuleService
@@ -25,9 +24,12 @@ import com.android.tools.appinspection.network.trackers.HttpConnectionTracker
 import java.io.IOException
 import okhttp3.Headers
 import okhttp3.Interceptor
+import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.asResponseBody
+import okio.BufferedSource
 import okio.buffer
 import okio.sink
 import okio.source
@@ -43,14 +45,8 @@ class OkHttp3Interceptor(
     var tracker: HttpConnectionTracker? = null
     try {
       tracker = trackRequest(request)
-    } catch (ex: Exception) {
-      logError("Could not track an OkHttp3 request", ex)
-    } catch (error: NoSuchMethodError) {
-      logError(
-        "Could not track an OkHttp3 request due to a missing method, which could" +
-          " happen if your project uses proguard to remove unused code",
-        error,
-      )
+    } catch (e: Throwable) {
+      logInterceptionError(e, "OkHttp3 request")
     }
     var response: Response
     response =
@@ -64,14 +60,8 @@ class OkHttp3Interceptor(
       if (tracker != null) {
         response = trackResponse(tracker, request, response)
       }
-    } catch (ex: Exception) {
-      logError("Could not track an OkHttp3 response", ex)
-    } catch (error: NoSuchMethodError) {
-      logError(
-        "Could not track an OkHttp3 response due to a missing method, which could" +
-          " happen if your project uses proguard to remove unused code",
-        error,
-      )
+    } catch (e: Throwable) {
+      logInterceptionError(e, "OkHttp3 response")
     }
     return response
   }
@@ -116,12 +106,13 @@ class OkHttp3Interceptor(
       interceptedResponse.responseHeaders,
     )
     val source = tracker.trackResponseBody(interceptedResponse.body).source().buffer()
-    val responseBody = source.asResponseBody(body.contentType(), body.contentLength())
+
+    val responseBody = source.safeAsResponseBody(body.contentType(), body.contentLength())
     if (interceptedResponse.responseHeaders.containsKey(null)) {
       throw Exception("OkHttp3 does not allow null in headers")
     }
     val headers =
-      Headers.headersOf(
+      headersOf(
         *interceptedResponse.responseHeaders.entries
           .flatMap { entry -> entry.value.map { listOf(entry.key, it) } }
           .flatten()
@@ -130,5 +121,52 @@ class OkHttp3Interceptor(
       )
     val code = headers[FIELD_RESPONSE_STATUS_CODE]?.toIntOrNull() ?: response.code
     return response.newBuilder().headers(headers).code(code).body(responseBody).build()
+  }
+}
+
+/**
+ * A safe way to call [BufferedSource.asResponseBody]
+ *
+ * Try new `asResponseBody` first. If app is using an old version of OkHttp3, use the deprecated
+ * `create` method.
+ *
+ * Note that it's not possible to call the deprecated method directly because Kotlin assumes it's in
+ * a companion object which doesn't exist in the old Java implementation.
+ */
+private fun BufferedSource.safeAsResponseBody(
+  contentType: MediaType?,
+  contentLength: Long,
+): ResponseBody {
+  return try {
+    asResponseBody(contentType, contentLength)
+  } catch (e: Throwable) {
+    val method =
+      ResponseBody::class
+        .java
+        .getDeclaredMethod(
+          "create",
+          MediaType::class.java,
+          Long::class.java,
+          BufferedSource::class.java,
+        )
+    method.invoke(null, contentType, contentLength, this) as ResponseBody
+  }
+}
+
+/**
+ * A safe way to call [Headers.headersOf]
+ *
+ * Try new `headersOf` first. If app is using an old version of OkHttp3, use the deprecated `of`
+ * method.
+ *
+ * Note that it's not possible to call the deprecated method directly because Kotlin assumes it's in
+ * a companion object which doesn't exist in the old Java implementation.
+ */
+private fun headersOf(vararg namesAndValues: String): Headers {
+  return try {
+    Headers.headersOf(*namesAndValues)
+  } catch (e: Throwable) {
+    val method = Headers::class.java.getDeclaredMethod("of", Array<String>::class.java)
+    method.invoke(null, namesAndValues) as Headers
   }
 }

@@ -110,6 +110,7 @@ import org.jetbrains.uast.UExpression
 import org.jetbrains.uast.ULambdaExpression
 import org.jetbrains.uast.UMethod
 import org.jetbrains.uast.UObjectLiteralExpression
+import org.jetbrains.uast.UParameter
 import org.jetbrains.uast.UParenthesizedExpression
 import org.jetbrains.uast.UQualifiedReferenceExpression
 import org.jetbrains.uast.UReferenceExpression
@@ -318,6 +319,13 @@ internal class AnnotationHandler(
     }
   }
 
+  fun visitParameter(context: JavaContext, node: UParameter) {
+    val annotations = mutableListOf<AnnotationInfo>()
+    val psiParameter = node.javaPsi as? PsiParameter ?: return
+    annotations.addAnnotations(context.evaluator, psiParameter, PARAMETER, inHierarhcy = false)
+    checkAnnotations(context, node, DEFINITION, psiParameter, annotations)
+  }
+
   /**
    * Adds all the relevant annotations associated with this modifier list owner, and returns the
    * number of annotations added.
@@ -327,8 +335,9 @@ internal class AnnotationHandler(
     owner: PsiModifierListOwner,
     source: AnnotationOrigin,
     prepend: Boolean = false,
+    inHierarhcy: Boolean = true,
   ): Int {
-    val annotations = getRelevantAnnotations(evaluator, owner)
+    val annotations = getRelevantAnnotations(evaluator, owner, inHierarhcy)
     val count = addAnnotations(owner, annotations, source, prepend)
     if (source == PARAMETER || source == METHOD || source == FIELD) {
       return addDefaultAnnotations(evaluator, owner) + count
@@ -450,8 +459,9 @@ internal class AnnotationHandler(
   private fun getRelevantAnnotations(
     evaluator: JavaEvaluator,
     owner: PsiModifierListOwner,
+    inHierarchy: Boolean = true,
   ): List<UAnnotation> {
-    val allAnnotations = evaluator.getAnnotations(owner, inHierarchy = true)
+    val allAnnotations = evaluator.getAnnotations(owner, inHierarchy)
     return filterRelevantAnnotations(evaluator, allAnnotations)
   }
 
@@ -1129,56 +1139,64 @@ internal class AnnotationHandler(
     if (length == 0) {
       return annotations
     }
-    for (annotation in annotations) {
-      val signature = annotation.qualifiedName ?: continue
-      val name = signature.substringAfterLast('.')
-      val relevant = relevantAnnotations.contains(signature) || relevantAnnotations.contains(name)
-      if (relevant) {
-        // Common case: there's just one annotation; no need to create a list copy
-        if (length == 1) {
-          return annotations
+    val visitedAnnotations = mutableSetOf<UAnnotation>()
+    val wave = mutableListOf<List<UAnnotation>>()
+    wave.add(annotations)
+    while (wave.isNotEmpty() && result == null) {
+      val annotationsAtWave = wave.removeFirst()
+      for (annotation in annotationsAtWave) {
+        if (!visitedAnnotations.add(annotation)) continue
+        val signature = annotation.qualifiedName ?: continue
+        val name = signature.substringAfterLast('.')
+        val relevant = relevantAnnotations.contains(signature) || relevantAnnotations.contains(name)
+        if (relevant) {
+          // Common case: there's just one annotation; no need to create a list copy
+          if (length == 1) {
+            return annotations
+          }
+          if (result == null) {
+            result = ArrayList(2)
+          }
+          result.add(annotation)
+          continue
+        } else if (signature.startsWith("java.") || signature.startsWith("kotlin.")) {
+          // @Override, @SuppressWarnings etc. Ignore, because they're not a possible typedef match,
+          // which
+          // is the only remaining thing we're looking for.
+          continue
+        } else if (isPlatformAnnotation(signature)) {
+          if (result == null) {
+            result = ArrayList(2)
+          }
+          result.add(annotation.fromPlatformAnnotation(signature))
+          continue
         }
-        if (result == null) {
-          result = ArrayList(2)
-        }
-        result.add(annotation)
-        continue
-      } else if (signature.startsWith("java.") || signature.startsWith("kotlin.")) {
-        // @Override, @SuppressWarnings etc. Ignore, because they're not a possible typedef match,
-        // which
-        // is the only remaining thing we're looking for.
-        continue
-      } else if (isPlatformAnnotation(signature)) {
-        if (result == null) {
-          result = ArrayList(2)
-        }
-        result.add(annotation.fromPlatformAnnotation(signature))
-        continue
-      }
 
-      // Special case @IntDef and @StringDef: These are used on annotations
-      // themselves. For example, you create a new annotation named @foo.bar.Baz,
-      // annotate it with @IntDef, and then use @foo.bar.Baz in your signatures.
-      // Here we want to map from @foo.bar.Baz to the corresponding int def.
-      // Don't need to compute this if performing @IntDef or @StringDef lookup
-      val cls = annotation.resolve()
-      if (cls == null || !cls.isAnnotationType) {
-        continue
-      }
-      val metaAnnotations = evaluator.getAnnotations(cls, inHierarchy = false)
-      for (j in metaAnnotations.indices) {
-        val inner = metaAnnotations[j]
-        val innerName = inner.qualifiedName ?: continue
-        if (relevantAnnotations.contains(innerName)) {
-          if (result == null) {
-            result = ArrayList(2)
+        // Special case @IntDef and @StringDef: These are used on annotations
+        // themselves. For example, you create a new annotation named @foo.bar.Baz,
+        // annotate it with @IntDef, and then use @foo.bar.Baz in your signatures.
+        // Here we want to map from @foo.bar.Baz to the corresponding int def.
+        // Don't need to compute this if performing @IntDef or @StringDef lookup
+        val cls = annotation.resolve()
+        if (cls == null || !cls.isAnnotationType) {
+          continue
+        }
+        val metaAnnotations = evaluator.getAnnotations(cls, inHierarchy = false)
+        wave.add(metaAnnotations)
+        for (j in metaAnnotations.indices) {
+          val inner = metaAnnotations[j]
+          val innerName = inner.qualifiedName ?: continue
+          if (relevantAnnotations.contains(innerName)) {
+            if (result == null) {
+              result = ArrayList(2)
+            }
+            result.add(inner)
+          } else if (isPlatformAnnotation(innerName)) {
+            if (result == null) {
+              result = ArrayList(2)
+            }
+            result.add(inner.fromPlatformAnnotation(innerName))
           }
-          result.add(inner)
-        } else if (isPlatformAnnotation(innerName)) {
-          if (result == null) {
-            result = ArrayList(2)
-          }
-          result.add(inner.fromPlatformAnnotation(innerName))
         }
       }
     }
