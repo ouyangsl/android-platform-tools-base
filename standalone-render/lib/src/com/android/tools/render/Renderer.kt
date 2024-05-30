@@ -43,6 +43,7 @@ import com.android.tools.res.apk.ApkResourceRepository
 import com.android.tools.res.ids.apk.ApkResourceIdManager
 import com.android.tools.sdk.AndroidPlatform
 import com.android.tools.sdk.AndroidSdkData
+import com.intellij.openapi.util.Disposer
 import java.io.Closeable
 import java.io.File
 import java.nio.file.Path
@@ -68,7 +69,7 @@ class Renderer private constructor(
 
         val moduleClassLoaderManager = StandaloneModuleClassLoaderManager(classPath, projectClassPath)
 
-        framework = StandaloneFramework(!isForTest)
+        framework = StandaloneFramework(stopExecutor = false)
 
         val resourceIdManager = ApkResourceIdManager()
         resourceApkPath?.let {
@@ -155,6 +156,7 @@ class Renderer private constructor(
         renderRequests.forEach { request ->
             request.configurationModifier(configuration)
             request.xmlLayoutsProvider().forEachIndexed { i, layout ->
+                val disposable = Disposer.newDisposable()
                 val logger = RenderLogger()
                 var usedPaths = emptySet<String>()
                 val result = try {
@@ -167,6 +169,9 @@ class Renderer private constructor(
                         }
                         .withRenderingMode(SessionParams.RenderingMode.SHRINK)
                         .build().get()
+                    Disposer.register(disposable) {
+                        renderTask.dispose()
+                    }
 
                     val xmlFile =
                         RenderXmlFileSnapshot(
@@ -194,6 +199,7 @@ class Renderer private constructor(
                     )
                 } finally {
                     ClassesTracker.clear(CLASSES_TRACKER_KEY)
+                    Disposer.dispose(disposable)
                 }
                 try {
                     onRenderResult(request, i, result, usedPaths)
@@ -205,13 +211,7 @@ class Renderer private constructor(
     }
 
     override fun close() {
-        try {
-            RenderService.shutdownRenderExecutor()
-        } catch (t: Throwable) {
-            t.printStackTrace()
-        } finally {
-            framework.close()
-        }
+        framework.close()
     }
 
     companion object {

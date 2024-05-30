@@ -5,6 +5,9 @@ startup --windows_enable_symlinks
 # Platform specific config automatically applies --config=(linux|macos|windows)
 common --enable_platform_specific_config
 
+# See b/340640065 for progress on using bzlmod.
+common --noenable_bzlmod
+
 # Remote Build Execution requires a strong hash function, such as SHA256.
 startup --host_jvm_args=-Dbazel.DigestFunction=SHA256
 
@@ -124,7 +127,9 @@ build --strategy=lnzipper=local
 build --action_env=BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
 
 # default android native abis
-build --fat_apk_cpu=x86,x86_64,armeabi-v7a,arm64-v8a
+# LINT.IfChange(android_platforms)
+common --android_platforms=@rules_android//:x86,@rules_android//:x86_64,@rules_android//:armeabi-v7a,@rules_android//:arm64-v8a
+# LINT.ThenChange(/bazel/android.bzl:android_platforms)
 
 ## Options to make bazel less memory/cpu intensive.
 ## Recommended to use with rcache config to avoid building outputs already
@@ -209,7 +214,9 @@ build:remote --config=sponge
 
 ## Config used for continous integration testing scripts.
 build:ci --config=_remote_base
-build:ci --config=dynamic
+# TODO(b/173153395) Switch back to dynamic after Bazel issue is resolved.
+# See https://github.com/bazelbuild/bazel/issues/22482
+build:ci --config=remote-exec
 build:ci --config=sponge
 build:ci --config=release
 # Increase worker visibility in case there are issues.

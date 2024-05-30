@@ -1,5 +1,4 @@
 load("//tools/base/bazel:android.bzl", "select_android")
-load("@bazel_skylib//lib:selects.bzl", "selects")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -7,11 +6,11 @@ cc_library(
     name = "utils",
     srcs = glob(["**/*.h"]) + [
         "activity_manager.cc",
+        "agent_task.cc",
         "background_queue.cc",
         "bash_command.cc",
         "current_process.cc",
         "daemon_config.cc",
-        "agent_task.cc",
         "fd_utils.cc",
         "file_cache.cc",
         "file_reader.cc",
@@ -33,8 +32,8 @@ cc_library(
         "tokenizer.cc",
         "trace.cc",
         "uid_fetcher.cc",
-    ] + selects.with_or({
-        ("//tools/base/bazel:darwin", "//tools/base/bazel:darwin_arm64"): [
+    ] + select({
+        "@platforms//os:macos": [
             "clock.mac.cc",
             "current_process.mac.cc",
             "filesystem_notifier.mac.cc",

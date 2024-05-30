@@ -71,7 +71,6 @@ _intellij_plugin = rule(
             cfg = "exec",
             executable = True,
         ),
-        "_whitelist_function_transition": attr.label(default = "@bazel_tools//tools/whitelists/function_transition_whitelist"),
     },
     implementation = _intellij_plugin_impl,
 )
@@ -85,9 +84,10 @@ def intellij_plugin(name, plugin_id, platforms, **kwargs):
         name = name,
         plugin = ":%s" % plugin_id,
         platforms = select({
-            "//tools/base/bazel:windows": ["studio-sdk"],
+            "@platforms//os:windows": ["studio-sdk"],
             "//conditions:default": platforms,
         }),
+        visibility = ["@bazel_tools//tools/whitelists/function_transition_whitelist"] + kwargs.get("visibility", []),
     )
 
 def setup_intellij_platforms(specs):
