@@ -52,6 +52,7 @@ import com.android.build.gradle.internal.publishing.AndroidArtifacts.ArtifactSco
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.ConsumedConfigType
 import com.android.build.gradle.internal.publishing.AndroidArtifacts.PublishedConfigType
 import com.android.build.gradle.internal.publishing.PublishedConfigSpec
+import com.android.build.gradle.internal.res.ConvertProtoResourcesTask
 import com.android.build.gradle.internal.res.GenerateLibraryRFileTask
 import com.android.build.gradle.internal.res.LinkAndroidResForBundleTask
 import com.android.build.gradle.internal.res.LinkApplicationAndroidResourcesTask
@@ -113,6 +114,7 @@ import com.android.build.gradle.internal.tasks.UninstallTask
 import com.android.build.gradle.internal.tasks.ValidateResourcesTask
 import com.android.build.gradle.internal.tasks.ValidateSigningTask
 import com.android.build.gradle.internal.tasks.VerifyLibraryClassesTask
+import com.android.build.gradle.internal.tasks.checkIfR8VersionMatches
 import com.android.build.gradle.internal.tasks.databinding.DataBindingCompilerArguments.Companion.createArguments
 import com.android.build.gradle.internal.tasks.databinding.DataBindingGenBaseClassesTask
 import com.android.build.gradle.internal.tasks.databinding.DataBindingMergeDependencyArtifactsTask
@@ -509,10 +511,9 @@ abstract class TaskManager(
             flags: Set<MergeResources.Flag>,
             taskProviderCallback: TaskProviderCallback<MergeResources>?
     ): TaskProvider<MergeResources> {
-        val mergedNotCompiledDir = if (alsoOutputNotCompiledResources) File(
-                creationConfig.services.projectInfo.getIntermediatesDir()
-                        .toString() + "/merged-not-compiled-resources/"
-                        + creationConfig.dirName) else null
+        val mergedNotCompiledDir = if (alsoOutputNotCompiledResources)
+                creationConfig.services.projectInfo.intermediatesDirectory.map { it.dir("merged-not-compiled-resources").dir(creationConfig.dirName) }
+            else null
         val mergeResourcesTask: TaskProvider<MergeResources> = taskFactory.register(
                 MergeResources.CreationAction(
                         creationConfig,
@@ -1187,6 +1188,7 @@ abstract class TaskManager(
         if (creationConfig.componentType.isDynamicFeature) {
             taskFactory.register(FeatureDexMergeTask.CreationAction(creationConfig))
         }
+        checkIfR8VersionMatches(creationConfig.services.issueReporter)
         createDexTasks(creationConfig, creationConfig.dexing.dexingType)
     }
 
@@ -1778,6 +1780,7 @@ abstract class TaskManager(
         // Shrink resources in APK with a new resource shrinker and produce stripped res
         // package.
         taskFactory.register(ShrinkResourcesNewShrinkerTask.CreationAction(creationConfig))
+        taskFactory.register(ConvertProtoResourcesTask.CreationAction(creationConfig))
         // Shrink resources in bundles with new resource shrinker.
         taskFactory.register(ShrinkAppBundleResourcesTask.CreationAction(creationConfig))
     }

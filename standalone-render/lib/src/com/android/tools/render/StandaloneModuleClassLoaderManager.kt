@@ -27,6 +27,8 @@ import com.android.tools.rendering.classloading.ModuleClassLoaderDiagnosticsRead
 import com.android.tools.rendering.classloading.ModuleClassLoaderManager
 import com.android.tools.rendering.classloading.Preloader
 import com.android.tools.rendering.classloading.PseudoClassLocatorForLoader
+import com.android.tools.rendering.classloading.ResourcesCompatTransform
+import com.android.tools.rendering.classloading.SdkIntReplacer
 import com.android.tools.rendering.classloading.loaders.AsmTransformingLoader
 import com.android.tools.rendering.classloading.loaders.ClassLoaderLoader
 import com.android.tools.rendering.classloading.loaders.DelegatingClassLoader
@@ -67,9 +69,13 @@ internal class StandaloneModuleClassLoaderManager(
         projectClassPath: List<String>,
     ) : DelegatingClassLoader.Loader {
         val classesToPaths = mutableMapOf<String, String>()
-        private val classTransforms = toClassTransform()
+        private val classTransforms = toClassTransform(
+            ::ResourcesCompatTransform,
+            ::SdkIntReplacer,
+        )
         private val projectClassTransforms = toClassTransform(
-            { CodeExecutionTrackerTransform(it, CLASSES_TRACKER_KEY) }
+            { CodeExecutionTrackerTransform(it, CLASSES_TRACKER_KEY) },
+            ::SdkIntReplacer,
         )
 
         private val loader: DelegatingClassLoader.Loader

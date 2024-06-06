@@ -51,12 +51,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
-${renderIf(applicationPackage != null) { "import ${escapeKotlinIdentifier(applicationPackage.toString())}.R" }}
+import androidx.wear.tooling.preview.devices.WearDevices
+import ${escapeKotlinIdentifier(applicationPackage)}.R
 import ${escapeKotlinIdentifier(packageName)}.presentation.theme.${themeName}
 
 class $activityClass : ComponentActivity() {
@@ -98,7 +98,7 @@ fun ${greeting}(greetingName: String) {
     )
 }
 
-@Preview(device = Devices.WEAR_OS_SMALL_ROUND, showSystemUi = true)
+@Preview(device = WearDevices.SMALL_ROUND, showSystemUi = true)
 @Composable
 fun ${defaultPreview}() {
     ${wearAppName}("Preview Android")
