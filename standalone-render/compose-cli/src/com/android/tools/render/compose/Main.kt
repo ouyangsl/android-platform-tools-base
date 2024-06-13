@@ -17,10 +17,14 @@
 package com.android.tools.render.compose
 
 import com.android.ide.common.rendering.api.Result
+import com.android.sdklib.devices.screenShape
 import com.android.tools.preview.applyTo
 import com.android.tools.render.RenderRequest
 import com.android.tools.render.Renderer
 import com.android.tools.rendering.RenderResult
+import java.awt.AlphaComposite
+import java.awt.Dimension
+import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 import kotlin.io.path.Path
 import java.io.File
@@ -51,31 +55,49 @@ fun renderCompose(composeRendering: ComposeRendering): ComposeRenderingResult = 
         composeRendering.layoutlibPath,
     )
     val screenshotResults = mutableListOf<ComposeScreenshotResult>()
-    val requestToImageName = composeRendering.screenshots.mapNotNull { screenshot ->
+    val requestToPreviewId = composeRendering.screenshots.mapNotNull { screenshot ->
         screenshot.toPreviewElement()?.let { previewElement ->
             RenderRequest(previewElement::applyTo) {
                 previewElement.resolve().map { it.toPreviewXml().buildString() }
-            } to screenshot.imageName
+            } to screenshot.previewId
         }
     }.toMap()
 
     r.use { renderer ->
-        renderer.render(requestToImageName.keys.asSequence()) { request, i, result, usedPaths ->
-            val resultId = "${requestToImageName[request]}_$i"
+        renderer.render(requestToPreviewId.keys.asSequence()) { request, config, i, result, usedPaths ->
+            val previewId = requestToPreviewId[request]!!
+            val resultId = "${previewId}_$i"
+            val imageName = "$resultId.png"
             val screenshotResult = try {
-                val imagePath = result.renderedImage.copy?.let { image ->
+                val imageRendered = result.renderedImage.copy
+                imageRendered?.let { image ->
+                    val screenShape = config.device?.screenShape(0.0, 0.0, Dimension(image.width, image.height))
+                    val shapedImage = screenShape?.let { shape ->
+                        val newImage = BufferedImage(image.width, image.height, BufferedImage.TYPE_INT_ARGB)
+                        val g = newImage.createGraphics()
+                        try {
+                            g.composite = AlphaComposite.Clear
+                            g.fillRect(0, 0, image.width, image.height)
+                            g.composite = AlphaComposite.Src
+                            g.clip = shape
+                            g.drawImage(image, 0, 0, null)
+                        } finally {
+                            g.dispose()
+                        }
+                        newImage
+                    } ?: image
                     val imgFile =
-                        Path(composeRendering.outputFolder).resolve("$resultId.png")
+                        Path(composeRendering.outputFolder).resolve(imageName)
                             .toFile()
 
                     imgFile.createNewFile()
-                    ImageIO.write(image, "png", imgFile)
-                    imgFile.absolutePath
+                    ImageIO.write(shapedImage, "png", imgFile)
                 }
-                val screenshotError = extractError(result, imagePath)
-                ComposeScreenshotResult(resultId, imagePath, screenshotError)
+                val screenshotError = extractError(result, imageRendered, composeRendering.outputFolder)
+                ComposeScreenshotResult(previewId, imageName, screenshotError)
+
             } catch (t: Throwable) {
-                ComposeScreenshotResult(resultId, null, ScreenshotError(t))
+                ComposeScreenshotResult(previewId, imageName, ScreenshotError(t))
             }
             screenshotResults.add(screenshotResult)
             val classesUsed = Path(composeRendering.metaDataFolder).resolve("$resultId.classes.txt").toFile()
@@ -86,19 +108,19 @@ fun renderCompose(composeRendering: ComposeRendering): ComposeRenderingResult = 
             }
         }
     }
-    ComposeRenderingResult(null, screenshotResults.sortedBy {it.resultId})
+    ComposeRenderingResult(null, screenshotResults.sortedBy {it.imageName})
 } catch (t: Throwable) {
     ComposeRenderingResult(t.stackTraceToString(), emptyList())
 }
 
 
-private fun extractError(renderResult: RenderResult, imagePath: String?): ScreenshotError? {
+private fun extractError(renderResult: RenderResult, imageRendered: BufferedImage?, outputFolder: String): ScreenshotError? {
     if (renderResult.renderResult.status == Result.Status.SUCCESS
-        && !renderResult.logger.hasErrors() && imagePath != null) {
+        && !renderResult.logger.hasErrors() && imageRendered != null) {
         return null
     }
     val errorMessage = when {
-        imagePath == null && renderResult.renderResult.status == Result.Status.SUCCESS -> "Nothing to render in Preview. Cannot generate image"
+        imageRendered != null && renderResult.renderResult.status == Result.Status.SUCCESS -> "Nothing to render in Preview. Cannot generate image"
         else -> renderResult.renderResult.errorMessage ?: ""
     }
     return ScreenshotError(

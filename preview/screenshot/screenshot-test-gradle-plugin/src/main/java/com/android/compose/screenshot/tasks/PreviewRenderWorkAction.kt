@@ -16,27 +16,35 @@
 
 package com.android.compose.screenshot.tasks
 
+import com.android.tools.render.compose.readComposeRenderingJson
 import com.android.tools.render.compose.readComposeRenderingResultJson
 import org.gradle.api.GradleException
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.ListProperty
+import org.gradle.process.ExecOperations
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
+import java.io.File
 import java.util.logging.Level
 import java.util.logging.Logger
+import javax.inject.Inject
 
 abstract class PreviewRenderWorkAction: WorkAction<PreviewRenderWorkAction.RenderWorkActionParameters> {
     companion object {
-        const val MAIN_METHOD = "main"
-        const val MAIN_CLASS = "com.android.tools.render.compose.MainKt"
-        val logger = Logger.getLogger(PreviewRenderWorkAction::class.qualifiedName)
+        private const val MAIN_CLASS = "com.android.tools.render.compose.MainKt"
+        private val logger: Logger = Logger.getLogger(PreviewRenderWorkAction::class.qualifiedName)
     }
     abstract class RenderWorkActionParameters : WorkParameters {
+        abstract val jvmArgs: ListProperty<String>
         abstract val layoutlibJar: ConfigurableFileCollection
         abstract val cliToolArgumentsFile: RegularFileProperty
         abstract val toolJarPath: ConfigurableFileCollection
         abstract val resultsFile: RegularFileProperty
     }
+
+    @get:Inject
+    abstract val execOperations: ExecOperations
 
     override fun execute() {
         render()
@@ -44,9 +52,12 @@ abstract class PreviewRenderWorkAction: WorkAction<PreviewRenderWorkAction.Rende
     }
 
     private fun render() {
-        val cls = PreviewRenderWorkAction.javaClass.classLoader.loadClass(MAIN_CLASS)
-        val method = cls.getMethod(MAIN_METHOD, Array<String>::class.java)
-        method(null, arrayOf(parameters.cliToolArgumentsFile.get().asFile.absolutePath))
+        execOperations.javaexec { spec ->
+            spec.mainClass.set(MAIN_CLASS)
+            spec.classpath = parameters.layoutlibJar + parameters.toolJarPath
+            spec.jvmArgs = parameters.jvmArgs.get()
+            spec.args = listOf(parameters.cliToolArgumentsFile.asFile.get().absolutePath)
+        }.rethrowFailure().assertNormalExitValue()
     }
 
     private fun verifyRender() {
@@ -55,8 +66,9 @@ abstract class PreviewRenderWorkAction: WorkAction<PreviewRenderWorkAction.Rende
             throw GradleException("There was an error with the rendering process.")
         }
         val composeRenderingResult = readComposeRenderingResultJson(resultFile.reader())
+        val outputFolder = readComposeRenderingJson(parameters.cliToolArgumentsFile.get().asFile.reader()).outputFolder
         val renderingErrors =
-            composeRenderingResult.screenshotResults.count { it.imagePath == null && it.error != null && it.error!!.status != "SUCCESS" }
+            composeRenderingResult.screenshotResults.count { !File(outputFolder, it.imageName).exists() || (it.error != null && it.error!!.status != "SUCCESS") }
         if (composeRenderingResult.globalError != null || renderingErrors > 0) {
             throw GradleException("Rendering failed for one or more previews. For more details, check ${resultFile.absolutePath}")
         }
