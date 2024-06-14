@@ -17,6 +17,7 @@
 package com.android.testutils;
 
 import static com.android.SdkConstants.FD_PLATFORMS;
+
 import static org.junit.Assume.assumeFalse;
 
 import com.android.SdkConstants;
@@ -24,6 +25,12 @@ import com.android.annotations.NonNull;
 import com.android.annotations.concurrency.GuardedBy;
 import com.android.utils.FileUtils;
 import com.android.utils.PathUtils;
+
+import org.apache.commons.compress.archivers.ArchiveOutputStream;
+import org.apache.commons.compress.archivers.zip.UnixStat;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,10 +45,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import org.apache.commons.compress.archivers.ArchiveOutputStream;
-import org.apache.commons.compress.archivers.zip.UnixStat;
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
-import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 
 /**
  * Utility methods to deal with loading the test data.
@@ -551,7 +554,7 @@ public class TestUtils {
         if (testType == TestType.AGP) {
             return "android-" + ANDROID_PLATFORM_FOR_AGP_UNIT_TESTS;
         }
-        return "android-34";
+        return "android-35";
     }
 
     /**
