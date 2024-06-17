@@ -26,7 +26,8 @@ import org.gradle.api.Project
 
 class AssetPackPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        val extension = project.extensions.create(AssetPackExtension::class.java, "assetPack", AssetPackExtensionImpl::class.java)
+        val assetPackExtension = project.extensions.create(AssetPackExtension::class.java, "assetPack", AssetPackExtensionImpl::class.java)
+        val aiPackExtension = project.extensions.create(AiPackExtension::class.java, "aiPack", AiPackExtensionImpl::class.java)
 
         val manifestGenerationTaskProvider = project.tasks.register(
             "generateAssetPackManifest",
@@ -38,9 +39,17 @@ class AssetPackPlugin : Plugin<Project> {
                     SdkConstants.FD_INTERMEDIATES
                 ).dir("asset_pack_manifest").file(SdkConstants.FN_ANDROID_MANIFEST_XML)
             )
-            manifestGenerationTask.packName.setDisallowChanges(extension.packName)
-            manifestGenerationTask.deliveryType.setDisallowChanges(extension.dynamicDelivery.deliveryType)
-            manifestGenerationTask.instantDeliveryType.setDisallowChanges(extension.dynamicDelivery.instantDeliveryType)
+            if (!assetPackExtension.packName.isEmpty()) {
+                manifestGenerationTask.packName.setDisallowChanges(assetPackExtension.packName)
+                manifestGenerationTask.deliveryType.setDisallowChanges(assetPackExtension.dynamicDelivery.deliveryType)
+                manifestGenerationTask.instantDeliveryType.setDisallowChanges(assetPackExtension.dynamicDelivery.instantDeliveryType)
+            } else {
+                manifestGenerationTask.isAiPack.setDisallowChanges(true)
+                manifestGenerationTask.packName.setDisallowChanges(aiPackExtension.packName)
+                manifestGenerationTask.deliveryType.setDisallowChanges(aiPackExtension.dynamicDelivery.deliveryType)
+                manifestGenerationTask.instantDeliveryType.setDisallowChanges(aiPackExtension.dynamicDelivery.instantDeliveryType)
+            }
+            
         }
 
         val assetPackFiles = project.configurations.maybeCreate("packElements")
