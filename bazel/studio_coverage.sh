@@ -78,7 +78,7 @@ fi
   --build_metadata=ab_target=studio-coverage \
   --jvmopt="-Dstudio.is.coverage.build=true" \
   ${auth_options} \
-  --test_tag_filters=-no_linux,-no_test_linux,-perfgate \
+  --test_tag_filters=-no_linux,-no_test_linux,-perfgate,-perfgate-release \
   --define agent_coverage=true \
   "${extra_test_flags[@]}" \
   -- \
