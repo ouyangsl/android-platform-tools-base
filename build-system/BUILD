@@ -106,6 +106,12 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
+filegroup(
+    name = "gradle-distrib-latest-snapshot",
+    srcs = ["//tools/external/gradle:gradle-distrib-latest-snapshot"],
+    visibility = ["//visibility:public"],
+)
+
 # See https://docs.gradle.org/current/userguide/compatibility.html#kotlin
 maven_repository(
     name = "gradle-runtime-maven",
@@ -550,7 +556,11 @@ gradle_build(
         "//tools/base:agp_artifacts",
         ":metalava_tool",
     ],
-    tags = ["no_windows"],  # TODO(b/202837927) Investigate getting Dackka to run on windows
+    target_compatible_with = select({
+        # TODO(b/202837927) Investigate getting Dackka to run on windows
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
     tasks = [":base:build-system:docs:dackkaZip"],
     visibility = ["//visibility:public"],
 )
@@ -578,7 +588,11 @@ gradle_build(
         "//tools/base:agp_artifacts",
         ":metalava_tool",
     ],
-    tags = ["no_windows"],  # TODO(b/202837927) Investigate getting metalava to run on windows
+    target_compatible_with = select({
+        # TODO(b/202837927) Investigate getting metalava to run on windows
+        "@platforms//os:windows": ["@platforms//:incompatible"],
+        "//conditions:default": [],
+    }),
     tasks = [":base:gradle-api:distMetalavaApiZip"],
     visibility = ["//visibility:public"],
 )

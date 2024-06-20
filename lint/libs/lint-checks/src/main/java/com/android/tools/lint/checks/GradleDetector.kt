@@ -18,7 +18,6 @@ package com.android.tools.lint.checks
 import com.android.SdkConstants
 import com.android.SdkConstants.ANDROID_URI
 import com.android.SdkConstants.ATTR_TARGET_SDK_VERSION
-import com.android.SdkConstants.DOT_TOML
 import com.android.SdkConstants.GRADLE_PLUGIN_MINIMUM_VERSION
 import com.android.SdkConstants.GRADLE_PLUGIN_RECOMMENDED_VERSION
 import com.android.SdkConstants.PLATFORM_WINDOWS
@@ -68,7 +67,6 @@ import com.android.tools.lint.detector.api.XmlScanner
 import com.android.tools.lint.detector.api.getLanguageLevel
 import com.android.tools.lint.detector.api.guessGradleLocation
 import com.android.tools.lint.detector.api.isNumberString
-import com.android.tools.lint.detector.api.minSdkLessThan
 import com.android.tools.lint.detector.api.readUrlData
 import com.android.tools.lint.detector.api.readUrlDataAsString
 import com.android.tools.lint.model.LintModelArtifactType
@@ -1029,11 +1027,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
 
         checkPlayServices(context, dependency, version, cookie, statementCookie)
       }
-      "androidx.credentials" -> {
-        if (artifactId == "credentials") {
-          checkCredentialDependency(context, cookie, statementCookie)
-        }
-      }
       "com.android.base",
       "com.android.application",
       "com.android.library",
@@ -1648,21 +1641,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       return true
     }
     return false
-  }
-
-  private fun checkCredentialDependency(context: Context, valueCookie: Any, statementCookie: Any) {
-    if (context.project.dependsOn("androidx.credentials:credentials-play-services-auth") == true) {
-      return
-    }
-
-    val cookie = if (context.file.path.endsWith(DOT_TOML)) statementCookie else valueCookie
-    report(
-      context,
-      cookie,
-      CREDENTIAL_DEP,
-      "In Android 13 or lower, `credentials-play-services-auth` is required when using `androidx.credentials:credentials`",
-      constraint = minSdkLessThan(34),
-    )
   }
 
   private fun checkPlayServices(
@@ -2704,26 +2682,6 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
         priority = 4,
         severity = Severity.INFORMATIONAL,
         implementation = IMPLEMENTATION_WITH_TOML,
-      )
-
-    @JvmField
-    val CREDENTIAL_DEP =
-      Issue.create(
-        id = "CredentialDependency",
-        briefDescription = "`credentials-play-services-auth` is Required",
-        explanation =
-          """
-          The dependency `androidx.credentials:credentials-play-services-auth` is required \
-          to get support from Play services for the  Credential Manager API to work. \
-          For Android 14 or higher, this is optional. Please check release notes for the \
-          latest version.
-          """,
-        moreInfo = "https://developer.android.com/jetpack/androidx/releases/credentials",
-        category = Category.CORRECTNESS,
-        priority = 5,
-        severity = Severity.WARNING,
-        implementation = IMPLEMENTATION_WITH_TOML,
-        androidSpecific = true,
       )
 
     /**

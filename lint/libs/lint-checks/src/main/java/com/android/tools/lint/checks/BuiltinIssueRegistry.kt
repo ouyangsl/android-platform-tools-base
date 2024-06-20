@@ -46,6 +46,9 @@ open class BuiltinIssueRegistry : IssueRegistry() {
       unmodifiableList(
         listOf(
           AccessibilityDetector.ISSUE,
+          AccessibilityForceFocusDetector.ISSUE,
+          AccessibilityViewScrollActionsDetector.ISSUE,
+          AccessibilityWindowStateChangedDetector.ISSUE,
           ActionsXmlDetector.ISSUE,
           ActivityIconColorDetector.ISSUE,
           AddJavascriptInterfaceDetector.ISSUE,
@@ -123,6 +126,7 @@ open class BuiltinIssueRegistry : IssueRegistry() {
           CommunicationDeviceDetector.ISSUE,
           ConstraintLayoutDetector.ISSUE,
           CordovaVersionDetector.ISSUE,
+          CredentialManagerDependencyDetector.CREDENTIAL_DEP,
           CustomViewDetector.ISSUE,
           CutPasteDetector.ISSUE,
           DataBindingDetector.ESCAPE_XML,
@@ -162,7 +166,6 @@ open class BuiltinIssueRegistry : IssueRegistry() {
           GradleDetector.BUNDLED_GMS,
           GradleDetector.CHROMEOS_ABI_SUPPORT,
           GradleDetector.COMPATIBILITY,
-          GradleDetector.CREDENTIAL_DEP,
           GradleDetector.DATA_BINDING_WITHOUT_KAPT,
           GradleDetector.DEPENDENCY,
           GradleDetector.DEPRECATED,

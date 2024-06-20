@@ -27,6 +27,7 @@ import com.android.sdklib.devices.Abi
 import com.android.sdklib.internal.avd.AvdInfo
 import com.android.sdklib.internal.avd.AvdInfo.AvdStatus
 import com.android.sdklib.internal.avd.AvdManager
+import com.android.sdklib.internal.avd.AvdManager.USER_SETTINGS_INI_PREFERRED_ABI
 import com.google.common.truth.Truth.assertThat
 import com.google.wireless.android.sdk.stats.DeviceInfo
 import com.google.wireless.android.sdk.stats.DeviceInfo.ApplicationBinaryInterface
@@ -74,6 +75,8 @@ class LocalEmulatorProvisionerPluginTest {
         TestDefaultDeviceActionPresentation,
         Dispatchers.IO,
         Duration.ofMillis(100),
+        pluginExtensions = listOf(TestExtension::class providedBy { LocalEmulatorTestExtension() }),
+        handleExtensions = listOf(TestExtension::class providedBy { LocalEmulatorTestExtension() }),
       )
     provisioner = DeviceProvisioner.create(session, listOf(plugin), deviceIcons)
   }
@@ -403,7 +406,9 @@ class LocalEmulatorProvisionerPluginTest {
 
     // Check if editing the AVD name works while offline.
     val originalName = info.name
-    avdManager.avdEditor = { avdInfo: AvdInfo -> avdInfo.copy("New $originalName") }
+    avdManager.avdEditor = { avdInfo: AvdInfo ->
+      avdInfo.copy(avdInfo.iniFile.resolveSibling("New $originalName"))
+    }
 
     handle.editAction?.edit()
     channel.receiveUntilPassing { newState ->
@@ -417,11 +422,13 @@ class LocalEmulatorProvisionerPluginTest {
     }
 
     // Editing metadata while running shouldn't have problems.
-    avdManager.avdEditor = { avdInfo: AvdInfo -> avdInfo.copy("Final AVD name") }
+    avdManager.avdEditor = { avdInfo: AvdInfo ->
+      avdInfo.copy(userSettings = mapOf(USER_SETTINGS_INI_PREFERRED_ABI to "arm64-v8a"))
+    }
     handle.editAction?.edit()
     channel.receiveUntilPassing { newState ->
-      assertThat((newState.properties as LocalEmulatorProperties).avdName)
-        .isEqualTo("Final AVD name")
+      assertThat((newState.properties as LocalEmulatorProperties).preferredAbi)
+        .isEqualTo("arm64-v8a")
       assertThat(newState.error).isNull()
     }
 
@@ -443,6 +450,19 @@ class LocalEmulatorProvisionerPluginTest {
 
     // Nothing changed, so the periodic AvdInfo rescans (every 100 ms) should not update it.
     assertThat(updateCount.get()).isEqualTo(1)
+  }
+
+  @Test
+  fun extension() {
+    checkNotNull(plugin.extension<TestExtension>())
+    runBlockingWithTimeout {
+      avdManager.createAvd()
+
+      yieldUntil { provisioner.devices.value.size == 1 }
+
+      val handle = provisioner.devices.value[0]
+      checkNotNull(handle.extension<TestExtension>())
+    }
   }
 
   private fun checkProperties(properties: LocalEmulatorProperties) {
@@ -475,4 +495,10 @@ class LocalEmulatorProvisionerPluginTest {
     val ABI = Abi.ARM64_V8A
     const val RELEASE = "12.0"
   }
+}
+
+private interface TestExtension : Extension
+
+private class LocalEmulatorTestExtension : TestExtension {
+  // Don't need to do anything, this is just testing the extension mechanism
 }
