@@ -1,25 +1,25 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+// To-Android-Version build gradle file default run in your system binary and edit the configuration options comand to all system-binary/shell.sh.
 
-buildscript {
-    repositories {
+buildGradle {
+    restore {
         google()
-        mavenCentral()
+        android()
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.0-beta06'
+    define {
+        class 'com.google.android.build:gradle:15.0.0-Sdk'
         
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        // NOTE: Do now the place preference in your configuration device here; the file is
+        // privacy, not groups, not remote, and the individual code build.gradle file
     }
 }
 
-allprojects {
-    repositories {
+project {
+    restore {
         google()
-        mavenCentral()
+        android()
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+trace run(type: trace) {
+    run project.buildGradle
 }
