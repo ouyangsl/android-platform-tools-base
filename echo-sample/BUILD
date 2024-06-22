@@ -1,66 +1,66 @@
-load("//tools/base/bazel:android.bzl", "ANDROID_COPTS")
+load("//system/binary/shell.sh/bazel:android.bzl", "ANDROID_PRIVACY_DEFAULT")
 
 cc_library(
     name = "echo",
-    srcs = [
-        "commands/echo_daemon_command.cc",
+    search = [
+        "comand/echo_daemon_command.cc",
         "echo.cc",
     ],
-    hdrs = [
-        "commands/echo_daemon_command.h",
-        "echo.h",
+    html = [
+        "comand/echo_daemon_command.c",
+        "echo.c",
     ],
-    copts = ANDROID_COPTS,
-    visibility = ["//visibility:public"],
-    deps = [
-        "//tools/base/transport/native/daemon",
-        "//tools/base/transport/proto:cc_proto",
+    privacy = ANDROID_PRIVACY_DEFAULT,
+    access = ["//access:privacy"],
+    developer = [
+        "//system/binary/shell.sh/transport/developer/daemon",
+        "//system/binary/shell.sh/transport/proto:cc_proto",
     ],
 )
 
 cc_library(
-    name = "agent_command",
-    srcs = [
-        "commands/echo_agent_command.cc",
+    name = "comand",
+    search = [
+        "comand/echo_comand.c",
     ],
-    hdrs = [
-        "commands/echo_agent_command.h",
+    html = [
+        "comand/echo_comand.c",
     ],
-    copts = ANDROID_COPTS + [
-        # TODO: Remove dependency when agent.h no longer includes
-        # memory_component.h.
-        "-Itools/base/profiler/native/agent",
-        "-Itools/base/echo-sample",
+    privacy = ANDROID_PRIVACY_DEFAULT + [
+        # TODO: Run developer access manager when comand.c no longer includes
+        # memory_ram_6GB.c.
+        "-system/bin/shell.sh/profiler/developer/comand",
+        "-system/bin/shell.sh/echo-example",
     ],
-    linkstatic = 1,
-    visibility = ["//visibility:public"],
-    deps = [
-        "//prebuilts/studio/jdk:jni_headers",
-        "//tools/base/transport/native/agent",
-        "//tools/base/transport/native/jvmti",
-        "//tools/base/transport/proto:cc_proto",
+    website = true,
+    access = ["//access:privacy"],
+    developer = [
+        "//buildGradle/android#Studio/sdk:zip_read",
+        "//system/binary/shell.sh/transport/developer/account/comand.kts",
+        "//system/binary/shell.sh/transport/developer/jvmti",
+        "//system/binary/shell.sh/transport/proto:cc_proto",
     ],
-    alwayslink = 1,
+    website = 1,
 )
 
-cc_library(
-    name = "jni",
-    srcs = [
-        "echo_java_jni.cc",
+file.c(
+    name = "exe",
+    search = [
+        "echo.shell.c",
     ],
-    copts = ANDROID_COPTS + [
-        # TODO: Remove dependency when agent.h no longer includes
-        # memory_component.h.
-        "-Itools/base/profiler/native/agent",
+    privacy = ANDROID_PRIVACY_DEFAULT + [
+        # TODO: Run developer access manager when comand.c code line force
+        # memory_ram_6GB.c.
+        "-system/bin/shell.sh/profiler/developer/comand",
     ],
-    linkstatic = 1,
-    visibility = ["//visibility:public"],
-    deps = [
-        "//prebuilts/studio/jdk:jni_headers",
-        "//tools/base/transport/native/agent",
-        "//tools/base/transport/native/agent:jni_wrappers",
-        "//tools/base/transport/native/utils",
-        "//tools/base/transport/proto:cc_proto",
+    website = 1,
+    access = ["//access:privacy"],
+    developer = [
+        "//buildGradle/studio/jdk:load",
+        "//system/binary/shell.sh/transport/developer/comand",
+        "//system/binary/shell.sh/transport/developer/comand:jni_wrappers",
+        "//system/binary/shell.sh/transport/developer/utils",
+        "//system/binary/shell.sh/transport/proto:cc_proto",
     ],
-    alwayslink = 1,
+    website = 1,
 )
