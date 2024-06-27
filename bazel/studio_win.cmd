@@ -57,7 +57,7 @@ setlocal
     set CONDITIONAL_FLAGS=!NOCACHE! !ANTS! !AB_POSTSUBMIT!
   )
 
-  set TESTTAGFILTERS=-no_windows,-no_test_windows,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate,-perfgate-release
+  set TESTTAGFILTERS=-no_windows,-noci:studio-win,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release
 
   @rem Generate a UUID for use as the Bazel invocation ID
   for /f "tokens=*" %%f in ('uuidgen') do (
@@ -88,7 +88,6 @@ setlocal
   --build_metadata=ab_build_id=%BUILDNUMBER% ^
   --build_metadata=ab_target=studio-win ^
   --experimental_enable_execution_graph_log ^
-  --experimental_stream_log_file_uploads ^
   --experimental_execution_graph_log_dep_type=all ^
   --profile=%DISTDIR%\winprof%BUILDNUMBER%.json.gz ^
   %CONDITIONAL_FLAGS% ^

@@ -118,16 +118,18 @@ internal class UElementVisitor
 constructor(driver: LintDriver, private val parser: UastParser, detectors: List<Detector>) {
 
   private val methodDetectors =
-    Maps.newHashMapWithExpectedSize<String, MutableList<VisitingDetector>>(120)
+    Maps.newHashMapWithExpectedSize<String, MutableList<SourceCodeScanner>>(120)
   private val constructorDetectors =
-    Maps.newHashMapWithExpectedSize<String, MutableList<VisitingDetector>>(16)
+    Maps.newHashMapWithExpectedSize<String, MutableList<SourceCodeScanner>>(16)
   private val referenceDetectors =
-    Maps.newHashMapWithExpectedSize<String, MutableList<VisitingDetector>>(12)
-  private val resourceFieldDetectors = ArrayList<VisitingDetector>()
-  private val allDetectors = ArrayList<VisitingDetector>(detectors.size)
-  private val nodePsiTypeDetectors =
-    Maps.newHashMapWithExpectedSize<Class<out UElement>, MutableList<VisitingDetector>>(25)
-  private val superClassDetectors = HashMap<String, MutableList<VisitingDetector>>(40)
+    Maps.newHashMapWithExpectedSize<String, MutableList<SourceCodeScanner>>(12)
+  private val resourceFieldDetectors = ArrayList<SourceCodeScanner>()
+  private val allDetectors = ArrayList<SourceCodeScannerWithContext>(detectors.size)
+  private val uastHandlerDetectors =
+    Maps.newHashMapWithExpectedSize<Class<out UElement>, MutableList<SourceCodeScannerWithContext>>(
+      25
+    )
+  private val superClassDetectors = HashMap<String, MutableList<SourceCodeScanner>>(40)
   private val annotationHandler: AnnotationHandler?
   private val callGraphDetectors = ArrayList<SourceCodeScanner>()
 
@@ -145,20 +147,21 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
     val annotationScanners = HashMap<String, MutableList<SourceCodeScanner>>()
 
     for (detector in detectors) {
-      val uastScanner = detector as SourceCodeScanner
-      val v = VisitingDetector(detector, uastScanner)
+      val v = SourceCodeScannerWithContext(detector as SourceCodeScanner)
 
       allDetectors.add(v)
-      if (detector.appliesToResourceRefs()) resourceFieldDetectors.add(v)
-      if (uastScanner.isCallGraphRequired()) callGraphDetectors.add(uastScanner)
+      if (detector.appliesToResourceRefs()) resourceFieldDetectors.add(detector)
+      if (detector.isCallGraphRequired()) callGraphDetectors.add(detector)
 
       with(detector) {
-        getApplicableMethodNames()?.ensureNotAll()?.associateWith(v, methodDetectors)
-        applicableSuperClasses()?.associateWith(v, superClassDetectors)
-        getApplicableUastTypes()?.associateWith(v, nodePsiTypeDetectors)
-        getApplicableConstructorTypes()?.ensureNotAll()?.associateWith(v, constructorDetectors)
-        getApplicableReferenceNames()?.ensureNotAll()?.associateWith(v, referenceDetectors)
-        applicableAnnotations()?.associateWith(uastScanner, annotationScanners)
+        getApplicableMethodNames()?.ensureNotAll()?.associateWith(detector, methodDetectors)
+        applicableSuperClasses()?.associateWith(detector, superClassDetectors)
+        getApplicableUastTypes()?.associateWith(v, uastHandlerDetectors)
+        getApplicableConstructorTypes()
+          ?.ensureNotAll()
+          ?.associateWith(detector, constructorDetectors)
+        getApplicableReferenceNames()?.ensureNotAll()?.associateWith(detector, referenceDetectors)
+        applicableAnnotations()?.associateWith(detector, annotationScanners)
       }
     }
 
@@ -188,13 +191,13 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
         client.runReadAction {
           for (v in allDetectors) {
             v.setContext(context)
-            v.detector.beforeCheckFile(context)
+            v.beforeCheckFile(context)
           }
         }
 
         if (superClassDetectors.isNotEmpty()) {
           client.runReadAction {
-            val visitor = SuperclassPsiVisitor(context)
+            val visitor = SuperclassUastVisitor(context)
             uFile.acceptSourceFile(visitor)
           }
         }
@@ -208,15 +211,15 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
         ) {
           client.runReadAction {
             // TODO: Do we need to break this one up into finer grain locking units
-            val visitor = DelegatingPsiVisitor(context)
+            val visitor = DelegatingUastVisitor(context)
             uFile.acceptSourceFile(visitor)
           }
         } else {
           // Note that the DelegatingPsiVisitor is a subclass of DispatchPsiVisitor
           // so the above includes the below as well (through super classes)
-          if (nodePsiTypeDetectors.isNotEmpty()) {
+          if (uastHandlerDetectors.isNotEmpty()) {
             client.runReadAction {
-              val visitor = DispatchPsiVisitor()
+              val visitor = DispatchUastVisitor()
               uFile.acceptSourceFile(visitor)
             }
           }
@@ -225,7 +228,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
         client.runReadAction {
           for (v in allDetectors) {
             ProgressManager.checkCanceled()
-            v.detector.afterCheckFile(context)
+            v.afterCheckFile(context)
           }
         }
       } finally {
@@ -313,31 +316,31 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
     }
   }
 
-  private class VisitingDetector(val detector: Detector, val uastScanner: SourceCodeScanner) {
-    private var mVisitor: UElementHandler? = null
-    private var mContext: JavaContext? = null
+  /**
+   * A stateful [SourceCodeScanner] that can [setContext] then remember a (lazily created)
+   * [uastHandler]. (In contrast, a vanilla [SourceCodeScanner] would [createUastHandler] each
+   * time).
+   */
+  private class SourceCodeScannerWithContext(private val uastScanner: SourceCodeScanner) :
+    SourceCodeScanner by uastScanner {
+    private var cache: UElementHandler? = null
+    private lateinit var context: JavaContext
 
-    val visitor: UElementHandler
+    val uastHandler: UElementHandler
       get() {
-        if (mVisitor == null) {
-          mVisitor = detector.createUastHandler(mContext!!)
-          if (mVisitor == null) {
-            mVisitor = UElementHandler.NONE
-          }
+        if (cache == null) {
+          cache = uastScanner.createUastHandler(context) ?: UElementHandler.NONE
         }
-        return mVisitor!!
+        return cache!!
       }
 
     fun setContext(context: JavaContext) {
-      mContext = context
-
-      // The visitors are one-per-context, so clear them out here and construct
-      // lazily only if needed
-      mVisitor = null
+      this.context = context
+      cache = null
     }
   }
 
-  private inner class SuperclassPsiVisitor(private val context: JavaContext) :
+  private inner class SuperclassUastVisitor(private val context: JavaContext) :
     AbstractUastVisitor() {
 
     override fun visitLambdaExpression(node: ULambdaExpression): Boolean {
@@ -345,8 +348,8 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
       if (type is PsiClassType) {
         val resolved = type.resolve()
         if (resolved != null) {
-          for (detector in getRelevantDetectors(resolved)) {
-            detector.uastScanner.visitClass(context, node)
+          for (uastScanner in getRelevantDetectors(resolved)) {
+            uastScanner.visitClass(context, node)
           }
         }
       }
@@ -355,13 +358,13 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
 
     override fun visitClass(node: UClass): Boolean {
       val result = super.visitClass(node)
-      for (detector in getRelevantDetectors(node)) {
-        detector.uastScanner.visitClass(context, node)
+      for (uastScanner in getRelevantDetectors(node)) {
+        uastScanner.visitClass(context, node)
       }
       return result
     }
 
-    private fun getRelevantDetectors(klass: PsiClass): Sequence<VisitingDetector> {
+    private fun getRelevantDetectors(klass: PsiClass): Sequence<SourceCodeScanner> {
       if (klass is PsiTypeParameter)
         return sequenceOf() // See Javadoc for SourceCodeScanner.visitClass.
       val superClasses = InheritanceUtil.getSuperClasses(klass).asSequence()
@@ -372,7 +375,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
     }
   }
 
-  private open inner class DispatchPsiVisitor : AbstractUastVisitor() {
+  private open inner class DispatchUastVisitor : AbstractUastVisitor() {
 
     override fun visitAnnotation(node: UAnnotation): Boolean {
       eachDetectorVisit(node, UElementHandler::visitAnnotation)
@@ -650,15 +653,15 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
     private inline fun <reified Node : UElement> eachDetectorVisit(
       node: Node,
       visit: UElementHandler.(Node) -> Unit,
-    ) = nodePsiTypeDetectors[Node::class.java]?.forEach { it.visitor.visit(node) }
+    ) = uastHandlerDetectors[Node::class.java]?.forEach { it.uastHandler.visit(node) }
   }
 
   /**
    * Performs common AST searches for method calls and R-type-field references. Note that this is a
-   * specialized form of the [DispatchPsiVisitor].
+   * specialized form of the [DispatchUastVisitor].
    */
-  private inner class DelegatingPsiVisitor constructor(private val mContext: JavaContext) :
-    DispatchPsiVisitor() {
+  private inner class DelegatingUastVisitor constructor(private val mContext: JavaContext) :
+    DispatchUastVisitor() {
     private val mVisitResources: Boolean = resourceFieldDetectors.isNotEmpty()
     private val mVisitMethods: Boolean = methodDetectors.isNotEmpty()
     private val mVisitConstructors: Boolean = constructorDetectors.isNotEmpty()
@@ -681,8 +684,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
         if (list != null) {
           val referenced = node.resolve()
           if (referenced != null) {
-            for (v in list) {
-              val uastScanner = v.uastScanner
+            for (uastScanner in list) {
               uastScanner.visitReference(mContext, node, referenced)
             }
           }
@@ -693,8 +695,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
           if (referenced is PsiNamedElement) {
             val name = referenced.name
             if (name != null && name != identifier) {
-              referenceDetectors[name]?.forEach { v ->
-                val uastScanner = v.uastScanner
+              referenceDetectors[name]?.forEach { uastScanner ->
                 uastScanner.visitReference(mContext, node, referenced)
               }
             }
@@ -705,8 +706,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
       if (mVisitResources) {
         val reference = ResourceReference.get(node)
         if (reference != null) {
-          for (v in resourceFieldDetectors) {
-            val uastScanner = v.uastScanner
+          for (uastScanner in resourceFieldDetectors) {
             uastScanner.visitResourceReference(
               mContext,
               reference.node,
@@ -727,8 +727,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
                   ktImport.importedReference
                     ?.let { it.toUElement() }
                     ?.let { ResourceReference.get(it) } ?: continue
-                for (v in resourceFieldDetectors) {
-                  val uastScanner = v.uastScanner
+                for (uastScanner in resourceFieldDetectors) {
                   uastScanner.visitResourceReference(
                     mContext,
                     resource.node,
@@ -773,8 +772,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
           if (list != null) {
             val function = node.resolve()
             if (function != null) {
-              for (v in list) {
-                val scanner = v.uastScanner
+              for (scanner in list) {
                 scanner.visitMethodCall(mContext, node, function)
               }
             }
@@ -796,8 +794,7 @@ constructor(driver: LintDriver, private val parser: UastParser, detectors: List<
         if (resolvedClass != null) {
           val list = constructorDetectors[resolvedClass.qualifiedName]
           if (list != null) {
-            for (v in list) {
-              val javaPsiScanner = v.uastScanner
+            for (javaPsiScanner in list) {
               javaPsiScanner.visitConstructor(mContext, node, method)
             }
           }

@@ -70,8 +70,7 @@ sh_test(
         ":maven_artifact_list",
     ],
     tags = [
-        "no_test_mac",
-        "no_test_windows",
+        "noci:studio-win",
     ],
 )
 
@@ -137,7 +136,7 @@ coverage_java_test(
     ],
     tags = [
         "block-network",
-        "no_test_windows",  # b/73306170
+        "noci:studio-win",  # b/73306170
     ],
     test_class = "com.android.testutils.JarTestSuite",
     runtime_deps = [

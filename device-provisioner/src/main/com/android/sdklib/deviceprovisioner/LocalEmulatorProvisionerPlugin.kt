@@ -36,8 +36,8 @@ import com.android.sdklib.deviceprovisioner.LocalEmulatorProvisionerPlugin.Compa
 import com.android.sdklib.devices.Abi
 import com.android.sdklib.internal.avd.AvdInfo
 import com.android.sdklib.internal.avd.AvdInfo.AvdStatus
-import com.android.sdklib.internal.avd.AvdManager.USER_SETTINGS_INI_PREFERRED_ABI
 import com.android.sdklib.internal.avd.HardwareProperties
+import com.android.sdklib.internal.avd.UserSettingsKey.PREFERRED_ABI
 import com.google.wireless.android.sdk.stats.DeviceInfo
 import com.intellij.icons.AllIcons
 import java.io.IOException
@@ -837,11 +837,9 @@ data class LocalEmulatorProperties(
     fun isPairable(): Boolean {
       val apiLevel = androidVersion?.apiLevel ?: return false
       return when (deviceType) {
-        DeviceType.TV,
-        DeviceType.AUTOMOTIVE,
-        null -> false
         DeviceType.HANDHELD -> apiLevel >= 30 && hasPlayStore
         DeviceType.WEAR -> apiLevel >= 28
+        else -> false
       }
     }
 
@@ -861,7 +859,7 @@ data class LocalEmulatorProperties(
       density = avdInfo.density
       resolution = avdInfo.resolution
       isDebuggable = !avdInfo.hasPlayStore()
-      preferredAbi = avdInfo.userSettings[USER_SETTINGS_INI_PREFERRED_ABI]
+      preferredAbi = avdInfo.userSettings[PREFERRED_ABI]
       avdConfigProperties.putAll(avdInfo.properties)
     }
 
@@ -965,6 +963,7 @@ private fun AvdInfo.toDeviceType(): DeviceType {
     SystemImageTags.isTvImage(tags) -> DeviceType.TV
     SystemImageTags.isAutomotiveImage(tags) -> DeviceType.AUTOMOTIVE
     SystemImageTags.isWearImage(tags) -> DeviceType.WEAR
+    SystemImageTags.isDesktopImage(tags) -> DeviceType.DESKTOP
     else -> DeviceType.HANDHELD
   }
 }

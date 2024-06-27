@@ -771,12 +771,14 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
                     // configurations for tools it uses. Only register them if privacy sandbox
                     // consumption is enabled.
                     if (anyVariantSupportsSdkConsumption) {
-                        configurePrivacySandboxSdkConsumerTransforms()
+                        configurePrivacySandboxSdkConsumerTransforms(
+                            globalConfig.compileSdkHashString,
+                            globalConfig.buildToolsRevision,
+                            globalConfig,
+                            variants.map { it.variant }
+                        )
                         configurePrivacySandboxSdkVariantTransforms(
                                 variants.map { it.variant },
-                                globalConfig.compileSdkHashString,
-                                globalConfig.buildToolsRevision,
-                                globalConfig
                         )
                     }
                 }
@@ -796,6 +798,9 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
 
         // Make sure no SourceSets were added through the DSL without being properly configured
         variantInputModel.sourceSetManager.checkForUnconfiguredSourceSets()
+
+        // Check for usage of deprecated configuration - wearApp
+        variantInputModel.sourceSetManager.checkForWearAppConfigurationUsage()
 
         // configure compose related tasks.
         taskManager.createPostApiTasks()

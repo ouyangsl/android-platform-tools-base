@@ -39,9 +39,9 @@ kotlin_test(
     name = "perfgate-compose-preview-detector-tests",
     srcs = glob(["perf/testSrc/**/*.kt"]),
     tags = [
-        "no_mac",
-        "no_test_windows",
-        "perfgate",
+        "noci:studio-win",
+        "noci:studio-linux",
+        "ci:perfgate-linux",
     ],
     test_class = "com.android.tools.preview.multipreview.PerfArtificialDataMultipreviewTest",
     deps = [

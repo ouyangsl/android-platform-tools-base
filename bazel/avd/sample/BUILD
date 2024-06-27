@@ -2,8 +2,6 @@ load("//tools/base/bazel/avd:avd.bzl", "avd", "DEFAULT_AVD_IMAGE")
 
 # This test demonstrates running an emulator on RBE and using it for a Java
 # test.
-# Note the attribute: tags = ["no_mac", "no_windows"]. This is because emulator
-# tests only run on Linux.
 avd(
     name = "emulator_test_device",
     image = select({
@@ -21,9 +19,9 @@ java_test(
         "//prebuilts/studio/sdk:platform-tools",
     ],
     tags = [
-        # This test passes on mac-arm64, but there is no label to make it run only on mac-arm64.
-        "no_mac",
-        "no_windows",
+        "ci:studio-mac-arm",
+        "cpu:2",
+        "noci:studio-win",
     ],
     test_class = "EmulatorTest",
     deps = [

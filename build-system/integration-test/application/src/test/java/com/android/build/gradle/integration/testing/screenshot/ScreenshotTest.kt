@@ -214,14 +214,19 @@ class ScreenshotTest {
                         "Primary text", "Secondary text"
                     )
                 }
-
-                class AnotherPreviewParameterProvider : PreviewParameterProvider<String> {
-                    override val values = sequenceOf(
-                        "text 1", "text 2"
-                    )
-                }
             """.trimIndent()
         )
+        addFile("src/screenshotTest/java/com/AnotherPreviewParameterProvider.kt", """
+            package pkg.name
+
+            import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+
+            class AnotherPreviewParameterProvider : PreviewParameterProvider<String> {
+                override val values = sequenceOf(
+                    "text 1", "text 2"
+                )
+            }
+        """.trimIndent())
         addFile(
                 "src/screenshotTest/java/com/ExampleTest.kt", """
 
@@ -398,18 +403,21 @@ class ScreenshotTest {
         // Generate screenshots to be tested against
         getExecutor().run(":app:updateDebugScreenshotTest")
 
-        val referenceScreenshotDir = appProject.projectDir.resolve("src/debug/screenshotTest/reference").toPath()
-        assertThat(referenceScreenshotDir.listDirectoryEntries().map { it.name }).containsExactly(
-            "pkg.name.ExampleTest.simpleComposableTest_simpleComposable_7759f1e3_da39a3ee_0.png",
-            "pkg.name.ExampleTest.simpleComposableTest2_simpleComposable_05ad9183_da39a3ee_0.png",
-            "pkg.name.ExampleTest.multiPreviewTest_with_Background_e1f26d19_da39a3ee_0.png",
-            "pkg.name.ExampleTest.multiPreviewTest_withoutBackground_5676c0a6_da39a3ee_0.png",
-            "pkg.name.ExampleTest.multipleParameterProviderTest_da39a3ee_b3bbe100_1.png",
-            "pkg.name.ExampleTest.multipleParameterProviderTest_da39a3ee_b3bbe100_0.png",
-            "pkg.name.ExampleTest.parameterProviderTest_simplePreviewParameterProvider_e3342a25_77e30523_1.png",
-            "pkg.name.ExampleTest.parameterProviderTest_simplePreviewParameterProvider_e3342a25_77e30523_0.png",
-            "pkg.name.ExampleTest.previewNameCannotBeUsedAsFileNameTest_b249e5c1_da39a3ee_0.png",
-            "pkg.name.TopLevelPreviewTestKt.simpleComposableTest_3_3d8b4969_da39a3ee_0.png"
+        val exampleTestReferenceScreenshotDir = appProject.projectDir.resolve("src/debug/screenshotTest/reference/pkg/name/ExampleTest").toPath()
+        val topLevelTestReferenceScreenshotDir = appProject.projectDir.resolve("src/debug/screenshotTest/reference/pkg/name/TopLevelPreviewTestKt").toPath()
+        assertThat(exampleTestReferenceScreenshotDir.listDirectoryEntries().map { it.name }).containsExactly(
+            "simpleComposableTest_simpleComposable_7759f1e3_da39a3ee_0.png",
+            "simpleComposableTest2_simpleComposable_05ad9183_da39a3ee_0.png",
+            "multiPreviewTest_with_Background_e1f26d19_da39a3ee_0.png",
+            "multiPreviewTest_withoutBackground_5676c0a6_da39a3ee_0.png",
+            "multipleParameterProviderTest_da39a3ee_b3bbe100_1.png",
+            "multipleParameterProviderTest_da39a3ee_b3bbe100_0.png",
+            "parameterProviderTest_simplePreviewParameterProvider_e3342a25_77e30523_1.png",
+            "parameterProviderTest_simplePreviewParameterProvider_e3342a25_77e30523_0.png",
+            "previewNameCannotBeUsedAsFileNameTest_b249e5c1_da39a3ee_0.png",
+        )
+        assertThat(topLevelTestReferenceScreenshotDir.listDirectoryEntries().map { it.name }).containsExactly(
+            "simpleComposableTest_3_3d8b4969_da39a3ee_0.png"
         )
 
         // Validate previews matches screenshots
@@ -441,8 +449,10 @@ class ScreenshotTest {
         assertThat(packageHtmlReport).exists()
 
         // Assert that no diff images were generated because screenshot matched the reference image
-        val diffDir = appProject.buildDir.resolve("outputs/screenshotTest-results/preview/debug/diffs").toPath()
-        assert(diffDir.listDirectoryEntries().isEmpty())
+        val exampleTestDiffDir = appProject.buildDir.resolve("outputs/screenshotTest-results/preview/debug/diffs/pkg/name/ExampleTest").toPath()
+        val topLevelTestDiffDir = appProject.buildDir.resolve("outputs/screenshotTest-results/preview/debug/diffs/pkg/name/TopLevelPreviewTestKt").toPath()
+        assert(exampleTestDiffDir.listDirectoryEntries().isEmpty())
+        assert(topLevelTestDiffDir.listDirectoryEntries().isEmpty())
 
         // Update previews to be different from the references
         val testFile = appProject.projectDir.resolve("src/main/java/com/Example.kt")
@@ -474,15 +484,16 @@ class ScreenshotTest {
         assertThat(class2HtmlReport.readText()).contains("""<h3 class="failures">simpleComposableTest_3</h3>""")
         assertThat(packageHtmlReport).exists()
 
-        assertThat(diffDir).exists()
-        assertThat(diffDir.listDirectoryEntries().map { it.name }).containsExactly(
-            "pkg.name.ExampleTest.simpleComposableTest_simpleComposable_7759f1e3_da39a3ee_0.png",
-            "pkg.name.ExampleTest.simpleComposableTest2_simpleComposable_05ad9183_da39a3ee_0.png",
-            "pkg.name.ExampleTest.multiPreviewTest_with_Background_e1f26d19_da39a3ee_0.png",
-            "pkg.name.ExampleTest.multiPreviewTest_withoutBackground_5676c0a6_da39a3ee_0.png",
-            "pkg.name.ExampleTest.parameterProviderTest_simplePreviewParameterProvider_e3342a25_77e30523_0.png",
-            "pkg.name.ExampleTest.previewNameCannotBeUsedAsFileNameTest_b249e5c1_da39a3ee_0.png",
-            "pkg.name.TopLevelPreviewTestKt.simpleComposableTest_3_3d8b4969_da39a3ee_0.png"
+        assertThat(exampleTestDiffDir.listDirectoryEntries().map { it.name }).containsExactly(
+            "simpleComposableTest_simpleComposable_7759f1e3_da39a3ee_0.png",
+            "simpleComposableTest2_simpleComposable_05ad9183_da39a3ee_0.png",
+            "multiPreviewTest_with_Background_e1f26d19_da39a3ee_0.png",
+            "multiPreviewTest_withoutBackground_5676c0a6_da39a3ee_0.png",
+            "parameterProviderTest_simplePreviewParameterProvider_e3342a25_77e30523_0.png",
+            "previewNameCannotBeUsedAsFileNameTest_b249e5c1_da39a3ee_0.png",
+        )
+        assertThat(topLevelTestDiffDir.listDirectoryEntries().map { it.name }).containsExactly(
+            "simpleComposableTest_3_3d8b4969_da39a3ee_0.png"
         )
     }
 
@@ -541,6 +552,7 @@ class ScreenshotTest {
         // Delete test classes so that there are no source files in screenshotTest source set
         appProject.projectDir.resolve("src/screenshotTest/java/com/ExampleTest.kt").toPath().deleteExisting()
         appProject.projectDir.resolve("src/screenshotTest/java/com/TopLevelPreviewTest.kt").toPath().deleteExisting()
+        appProject.projectDir.resolve("src/screenshotTest/java/com/AnotherPreviewParameterProvider.kt").toPath().deleteExisting()
 
         getExecutor().run(":app:updateDebugScreenshotTest")
 
@@ -618,6 +630,18 @@ class ScreenshotTest {
     }
 
     @Test
+    fun runScreenshotTestWithEmptyPreview() {
+        val testFile = appProject.projectDir.resolve("src/screenshotTest/java/com/TopLevelPreviewTest.kt")
+        TestFileUtils.searchAndReplace(testFile, "SimpleComposable()", "")
+        getExecutor().run(":app:tasks")
+
+        val result =
+            getExecutor().expectFailure().run(":app:updateDebugScreenshotTest")
+
+        result.assertErrorContains("Rendering failed for one or more previews. For more details, check") //Exception thrown in Render task
+    }
+
+    @Test
     fun runPreviewScreenshotTestsOnMultipleFlavors() {
         TestFileUtils.appendToFile(
             appProject.buildFile,
@@ -644,12 +668,12 @@ class ScreenshotTest {
         getExecutor().run(":app:updateScreenshotTest")
 
         // Verify that reference images are created for both flavors
-        val flavor1ReferenceScreenshotDir = appProject.projectDir.resolve("src/flavor1Debug/screenshotTest/reference").toPath()
-        val flavor2ReferenceScreenshotDir = appProject.projectDir.resolve("src/flavor2Debug/screenshotTest/reference").toPath()
+        val flavor1ReferenceScreenshotDir = appProject.projectDir.resolve("src/flavor1Debug/screenshotTest/reference/pkg/name/TopLevelPreviewTestKt").toPath()
+        val flavor2ReferenceScreenshotDir = appProject.projectDir.resolve("src/flavor2Debug/screenshotTest/reference/pkg/name/TopLevelPreviewTestKt").toPath()
         assertThat(flavor1ReferenceScreenshotDir.listDirectoryEntries().single().name)
-            .isEqualTo("pkg.name.TopLevelPreviewTestKt.simpleComposableTest_3_3d8b4969_da39a3ee_0.png")
+            .isEqualTo("simpleComposableTest_3_3d8b4969_da39a3ee_0.png")
         assertThat(flavor2ReferenceScreenshotDir.listDirectoryEntries().single().name)
-            .isEqualTo("pkg.name.TopLevelPreviewTestKt.simpleComposableTest_3_3d8b4969_da39a3ee_0.png")
+            .isEqualTo("simpleComposableTest_3_3d8b4969_da39a3ee_0.png")
 
         getExecutor().run(":app:validateScreenshotTest")
 
@@ -675,8 +699,8 @@ class ScreenshotTest {
         assertThat(flavor2PackageHtmlReport).exists()
 
         // Assert that no diff images were generated because screenshots matched the reference images
-        val diffDir1 = appProject.buildDir.resolve("outputs/screenshotTest-results/preview/debug/flavor1/diffs").toPath()
-        val diffDir2 = appProject.buildDir.resolve("outputs/screenshotTest-results/preview/debug/flavor2/diffs").toPath()
+        val diffDir1 = appProject.buildDir.resolve("outputs/screenshotTest-results/preview/debug/flavor1/diffs/pkg/name/TopLevelPreviewTestKt").toPath()
+        val diffDir2 = appProject.buildDir.resolve("outputs/screenshotTest-results/preview/debug/flavor2/diffs/pkg/name/TopLevelPreviewTestKt").toPath()
         assert(diffDir1.listDirectoryEntries().isEmpty())
         assert(diffDir2.listDirectoryEntries().isEmpty())
     }

@@ -75,7 +75,6 @@ import com.android.build.gradle.internal.utils.getDesugaredMethods
 import com.android.build.gradle.internal.utils.toImmutableSet
 import com.android.build.gradle.internal.variant.VariantModel
 import com.android.build.gradle.options.BooleanOption
-import com.android.build.gradle.options.ProjectOptionService
 import com.android.build.gradle.options.ProjectOptions
 import com.android.build.gradle.tasks.BuildPrivacySandboxSdkApks
 import com.android.builder.core.ComponentTypeImpl
@@ -788,11 +787,7 @@ class ModelBuilder<
         component.androidResourcesCreationConfig?.compiledRClassArtifact?.get()?.asFile?.let {
             classesFolders.add(it)
         }
-        if (component.useBuiltInKotlinSupport) {
-            classesFolders.add(
-                component.artifacts.get(InternalArtifactType.KOTLINC).get().asFile
-            )
-        }
+        component.getBuiltInKotlincOutput()?.orNull?.asFile?.let { classesFolders.add(it) }
 
         val generatedClassPaths = addGeneratedClassPaths(component, classesFolders)
 
@@ -938,9 +933,7 @@ class ModelBuilder<
             classesFolders.addAll(it.variantData.allPreJavacGeneratedBytecode.files)
             classesFolders.addAll(it.variantData.allPostJavacGeneratedBytecode.files)
         }
-        if (component.useBuiltInKotlinSupport) {
-            classesFolders.add(component.artifacts.get(InternalArtifactType.KOTLINC).get().asFile)
-        }
+        component.getBuiltInKotlincOutput()?.orNull?.asFile?.let { classesFolders.add(it) }
         // The separately compile R class, if applicable.
         if (extension.testOptions.unitTests.isIncludeAndroidResources ||
             component.componentType.isForScreenshotPreview) {
@@ -994,31 +987,15 @@ class ModelBuilder<
         component: ComponentCreationConfig,
         libraryService: LibraryService,
         graphEdgeCache: GraphEdgeCache? = null,
-    ): FullDependencyGraphBuilder {
-        if (dontBuildRuntimeClasspath && component.variantDependencies.isLibraryConstraintsApplied) {
-            variantModel.syncIssueReporter.reportWarning(
-                IssueReporter.Type.GENERIC, """
-                    You have experimental IDE flag gradle.ide.gradle.skip.runtime.classpath.for.libraries enabled,
-                    but AGP boolean option ${BooleanOption.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS.propertyName} is not used.
-
-                    Please set below in gradle.properties:
-
-                    ${BooleanOption.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS.propertyName}=true
-
-                """.trimIndent()
-            )
-        }
-
-        return FullDependencyGraphBuilder(
-            { configType, root ->  getArtifactsForModelBuilder(component, configType, root) },
-            project.path,
-            component.variantDependencies,
-            libraryService,
-            graphEdgeCache,
-            component.services.projectOptions.get(BooleanOption.ADDITIONAL_ARTIFACTS_IN_MODEL),
-            dontBuildRuntimeClasspath
-        )
-    }
+    ) = FullDependencyGraphBuilder(
+        { configType, root ->  getArtifactsForModelBuilder(component, configType, root) },
+        project.path,
+        component.variantDependencies,
+        libraryService,
+        graphEdgeCache,
+        component.services.projectOptions.get(BooleanOption.ADDITIONAL_ARTIFACTS_IN_MODEL),
+        dontBuildRuntimeClasspath
+    )
 
     private fun getBundleInfo(
         component: ComponentCreationConfig
@@ -1218,6 +1195,10 @@ class ModelBuilder<
             flags.put(
                 BooleanFlag.BUILD_FEATURE_ANDROID_RESOURCES,
                 variants.any { it.buildFeatures.androidResources }
+            )
+            flags.put(
+                BooleanFlag.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS,
+                projectOptions[BooleanOption.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS]
             )
 
             return AndroidGradlePluginProjectFlagsImpl(flags.build())

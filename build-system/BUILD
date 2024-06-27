@@ -66,7 +66,7 @@ kotlin_test(
             "manifest-merger/src/test/java/**/*.kt",
         ],
     ),
-    tags = ["no_test_windows"],  # b/77288863
+    tags = ["noci:studio-win"],  # b/77288863
     test_class = "com.android.testutils.JarTestSuite",
     runtime_deps = ["//tools/base/testutils:tools.testutils"],
     deps = [
@@ -115,6 +115,22 @@ filegroup(
 # See https://docs.gradle.org/current/userguide/compatibility.html#kotlin
 maven_repository(
     name = "gradle-runtime-maven",
+    # keep sorted
+    artifacts = [
+        "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.9.20",
+        "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8_1.9.20",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "gradle-distrib-8.7",
+    srcs = ["//tools/external/gradle:gradle-distrib-8.7"],
+    visibility = ["//visibility:public"],
+)
+
+maven_repository(
+    name = "gradle-8.7-runtime-maven",
     # keep sorted
     artifacts = [
         "@maven//:org.jetbrains.kotlin.kotlin-reflect_1.9.20",

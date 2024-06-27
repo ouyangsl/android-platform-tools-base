@@ -28,6 +28,7 @@ import java.awt.image.BufferedImage
 import javax.imageio.ImageIO
 import kotlin.io.path.Path
 import java.io.File
+import java.nio.file.Files
 
 fun main(args: Array<String>) {
     if (args.isEmpty()) {
@@ -55,19 +56,22 @@ fun renderCompose(composeRendering: ComposeRendering): ComposeRenderingResult = 
         composeRendering.layoutlibPath,
     )
     val screenshotResults = mutableListOf<ComposeScreenshotResult>()
-    val requestToPreviewId = composeRendering.screenshots.mapNotNull { screenshot ->
+    val requestToScreenshotInfo = composeRendering.screenshots.mapNotNull { screenshot ->
         screenshot.toPreviewElement()?.let { previewElement ->
             RenderRequest(previewElement::applyTo) {
                 previewElement.resolve().map { it.toPreviewXml().buildString() }
-            } to screenshot.previewId
+            } to ScreenshotInfo(screenshot.previewId, screenshot.methodFQN)
         }
     }.toMap()
 
     r.use { renderer ->
-        renderer.render(requestToPreviewId.keys.asSequence()) { request, config, i, result, usedPaths ->
-            val previewId = requestToPreviewId[request]!!
-            val resultId = "${previewId}_$i"
+        renderer.render(requestToScreenshotInfo.keys.asSequence()) { request, config, i, result, usedPaths ->
+            val requestToScreenshotInfoValue = requestToScreenshotInfo[request]!!
+            val previewId = requestToScreenshotInfoValue.previewId
+            val resultId = "${previewId.substringAfterLast(".")}_$i"
             val imageName = "$resultId.png"
+            val methodFQN = requestToScreenshotInfoValue.methodFQN
+            val imagePackageStructure = methodFQN.substringBeforeLast(".").replace(".", "/")
             val screenshotResult = try {
                 val imageRendered = result.renderedImage.copy
                 imageRendered?.let { image ->
@@ -86,18 +90,17 @@ fun renderCompose(composeRendering: ComposeRendering): ComposeRenderingResult = 
                         }
                         newImage
                     } ?: image
-                    val imgFile =
-                        Path(composeRendering.outputFolder).resolve(imageName)
-                            .toFile()
+                    val imagePath = Path("${composeRendering.outputFolder}/$imagePackageStructure")
+                    Files.createDirectories(imagePath)
+                    val imgFile = imagePath.resolve(imageName).toFile()
 
                     imgFile.createNewFile()
                     ImageIO.write(shapedImage, "png", imgFile)
                 }
                 val screenshotError = extractError(result, imageRendered, composeRendering.outputFolder)
-                ComposeScreenshotResult(previewId, imageName, screenshotError)
-
+                ComposeScreenshotResult(previewId, methodFQN, imageName, screenshotError)
             } catch (t: Throwable) {
-                ComposeScreenshotResult(previewId, imageName, ScreenshotError(t))
+                ComposeScreenshotResult(previewId, methodFQN, imageName, ScreenshotError(t))
             }
             screenshotResults.add(screenshotResult)
             val classesUsed = Path(composeRendering.metaDataFolder).resolve("$resultId.classes.txt").toFile()
@@ -120,7 +123,7 @@ private fun extractError(renderResult: RenderResult, imageRendered: BufferedImag
         return null
     }
     val errorMessage = when {
-        imageRendered != null && renderResult.renderResult.status == Result.Status.SUCCESS -> "Nothing to render in Preview. Cannot generate image"
+        imageRendered == null && renderResult.renderResult.status == Result.Status.SUCCESS -> "Nothing to render in Preview. Cannot generate image"
         else -> renderResult.renderResult.errorMessage ?: ""
     }
     return ScreenshotError(
@@ -132,3 +135,5 @@ private fun extractError(renderResult: RenderResult, imageRendered: BufferedImag
         renderResult.logger.missingClasses.toList(),
     )
 }
+
+data class ScreenshotInfo(val previewId: String, val methodFQN: String)

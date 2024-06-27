@@ -7,9 +7,7 @@ iml_module(
     srcs = ["src/main/java"],
     iml_files = ["android.sdktools.deployer.iml"],
     lint_baseline = "lint_baseline.xml",
-    tags = [
-        "no_mac",
-    ],
+    tags = ["noci:studio-win"],
     test_data = glob(["src/test/resource/**"]) + select({
         "@platforms//os:windows": [],
         "//conditions:default": [
@@ -123,9 +121,8 @@ coverage_java_test(
         "-javaagent:$(location //tools/base/tracer:trace_agent)=$(location //tools/base/deploy/deployer:src/test/resource/deployer.profile)",
     ],
     tags = [
-        "no_mac",
         "no_rbe_windows",
-        "no_test_windows",  # b/116693861
+        "noci:studio-win",  # b/116693861
     ],
     test_class = "com.android.testutils.JarTestSuite",
     deps = [

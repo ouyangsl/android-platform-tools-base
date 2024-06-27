@@ -128,6 +128,7 @@ kotlin_test(
         "//prebuilts/studio/layoutlib/data/fonts",
         "//prebuilts/studio/layoutlib/data/icu",
         "//prebuilts/studio/layoutlib/data/keyboards",
+        "//prebuilts/studio/layoutlib/data/overlays",
         "//prebuilts/studio/layoutlib/data/res",
         "//prebuilts/studio/sdk:build-tools/34.0.0",
         "//prebuilts/studio/sdk:platforms/android-34",
@@ -135,9 +136,9 @@ kotlin_test(
         "//tools/base/standalone-render/compose-cli/testData",
     ],
     tags = [
-        "no_mac",
-        "no_test_windows",
-        "perfgate",
+        "noci:studio-win",
+        "noci:studio-linux",
+        "ci:perfgate-linux",
     ],
     test_class = "com.android.tools.render.compose.PerfMainTest",
     deps = [

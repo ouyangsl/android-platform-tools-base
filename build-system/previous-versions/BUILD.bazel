@@ -2,6 +2,21 @@ load("//tools/base/bazel:gradle.bzl", "gradle_build")
 load("//tools/base/bazel:maven.bzl", "maven_repository")
 
 #keep sorted
+AGP_8_5_0_ARTIFACTS = [
+    "@maven//:com.android.application.com.android.application.gradle.plugin_8.5.0",
+    "@maven//:com.android.library.com.android.library.gradle.plugin_8.5.0",
+    "@maven//:com.android.tools.build.aapt2_8.5.0-11315950",
+    "@maven//:com.android.tools.build.gradle_8.5.0",
+    "@maven//:com.android.tools.lint.lint-gradle_31.5.0",
+]
+
+maven_repository(
+    name = "8.5.0",
+    artifacts = AGP_8_5_0_ARTIFACTS,
+    visibility = ["//visibility:public"],
+)
+
+#keep sorted
 AGP_8_4_0_ARTIFACTS = [
     "@maven//:com.android.application.com.android.application.gradle.plugin_8.4.0",
     "@maven//:com.android.library.com.android.library.gradle.plugin_8.4.0",
@@ -238,7 +253,7 @@ gradle_build(
         "tests/3.5.0/src/main/AndroidManifest.xml",
         "//prebuilts/studio/sdk:build-tools/latest",
         "//prebuilts/studio/sdk:platform-tools",
-        "//tools/base/build-system:android_platform_for_tests",
+        "//prebuilts/studio/sdk:platforms/android-34",
     ],
     gradle_version = "6.5",  # AGP 3.5 is not supported by Gradle 7.0+
     java_version = 11,
@@ -247,10 +262,7 @@ gradle_build(
     repos = [
         ":3.5.0",
     ],
-    tags = [
-        "no_mac",
-        "no_windows",
-    ],
+    target_compatible_with = ["@platforms//os:linux"],
     tasks = ["assembleRelease"],
 )
 
@@ -272,7 +284,7 @@ gradle_build(
         "tests/3.3.2/src/main/AndroidManifest.xml",
         "//prebuilts/studio/sdk:build-tools/latest",
         "//prebuilts/studio/sdk:platform-tools",
-        "//tools/base/build-system:android_platform_for_tests",
+        "//prebuilts/studio/sdk:platforms/android-34",
     ],
     gradle_version = "5.5",
     java_version = 11,
@@ -281,10 +293,7 @@ gradle_build(
     repos = [
         ":3.3.2",
     ],
-    tags = [
-        "no_mac",
-        "no_windows",
-    ],
+    target_compatible_with = ["@platforms//os:linux"],
     tasks = ["assembleRelease"],
 )
 
@@ -315,9 +324,6 @@ gradle_build(
     repos = [
         ":3.0.0",
     ],
-    tags = [
-        "no_mac",
-        "no_windows",
-    ],
+    target_compatible_with = ["@platforms//os:linux"],
     tasks = ["listDependencies"],
 )
