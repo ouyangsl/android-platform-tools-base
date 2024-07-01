@@ -16,8 +16,5 @@
 
 package com.android.build.api.dsl
 
-import org.gradle.declarative.dsl.model.annotations.Restricted
-
-@Restricted
 @Deprecated("Renamed to AndroidResources", replaceWith = ReplaceWith("AndroidResources"))
 interface AaptOptions : AndroidResources

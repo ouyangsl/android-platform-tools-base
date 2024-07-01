@@ -54,7 +54,6 @@ interface BuildFeatures : ExtensionAware {
      * More information about this feature at: TBD
      */
     @get:Restricted
-    @set:Restricted
     var buildConfig: Boolean?
 
     /**

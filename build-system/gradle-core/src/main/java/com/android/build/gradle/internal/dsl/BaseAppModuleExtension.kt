@@ -37,7 +37,6 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
 import javax.inject.Inject
 
 /** The `android` extension for base feature module (application plugin).  */
-@Restricted
 open class BaseAppModuleExtension @Inject constructor(
     dslServices: DslServices,
     bootClasspathConfig: BootClasspathConfig,

@@ -24,7 +24,6 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
  *
  * This is accessed via [CommonExtension.androidResources]
  */
-@Restricted
 interface AndroidResources {
     /**
      * Pattern describing assets to be ignored.
@@ -32,7 +31,6 @@ interface AndroidResources {
      * This is [ignoreAssetsPatterns] joined by ':'.
      */
     @get:Restricted
-    @set:Restricted
     var ignoreAssetsPattern: String?
 
     /**

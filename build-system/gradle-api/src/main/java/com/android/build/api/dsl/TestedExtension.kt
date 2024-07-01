@@ -26,7 +26,6 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
  *
  * Only the Android Gradle Plugin should create instances of this interface.
  */
-@Restricted
 interface TestedExtension {
     /**
      * Specifies the

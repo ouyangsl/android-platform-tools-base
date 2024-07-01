@@ -127,7 +127,6 @@ interface Lint {
 
     /** Whether lint should set the exit code of the process if errors are found */
     @get:Restricted
-    @set:Restricted
     var abortOnError: Boolean
 
     /**
@@ -135,7 +134,6 @@ interface Lint {
      * to the path lint was invoked from.
      */
     @get:Restricted
-    @set:Restricted
     var absolutePaths: Boolean
 
     /**
@@ -143,7 +141,6 @@ interface Lint {
      * default)
      */
     @get:Restricted
-    @set:Restricted
     var noLines: Boolean
 
     /**
@@ -151,22 +148,18 @@ interface Lint {
      * report files written)
      */
     @get:Restricted
-    @set:Restricted
     var quiet: Boolean
 
     /** Whether lint should check all warnings, including those off by default */
     @get:Restricted
-    @set:Restricted
     var checkAllWarnings: Boolean
 
     /** Returns whether lint will only check for errors (ignoring warnings) */
     @get:Restricted
-    @set:Restricted
     var ignoreWarnings: Boolean
 
     /** Whether lint should treat all warnings as errors */
     @get:Restricted
-    @set:Restricted
     var warningsAsErrors: Boolean
 
     /**
@@ -175,7 +168,6 @@ interface Lint {
      * errors, or checks that need to consider testing code such as the unused resource detector)
      */
     @get:Restricted
-    @set:Restricted
     var checkTestSources: Boolean
 
     /**
@@ -184,24 +176,20 @@ interface Lint {
      * look at test sources, such as the unused resource check.
      */
     @get:Restricted
-    @set:Restricted
     var ignoreTestSources: Boolean
 
     /**
      * Whether lint should ignore all testFixtures sources.
      */
     @get:Restricted
-    @set:Restricted
     var ignoreTestFixturesSources: Boolean
 
     /** Returns whether lint should run checks on generated sources. */
     @get:Restricted
-    @set:Restricted
     var checkGeneratedSources: Boolean
 
     /** Whether lint should check all dependencies too as part of its analysis. Default is false. */
     @get:Restricted
-    @set:Restricted
     var checkDependencies: Boolean
 
     /**
@@ -209,7 +197,6 @@ interface Lint {
      * intentionally do this unconditionally, ignoring this setting.)
      */
     @get:Restricted
-    @set:Restricted
     var explainIssues: Boolean
 
     /**
@@ -217,7 +204,6 @@ interface Lint {
      * long messages, etc.)
      */
     @get:Restricted
-    @set:Restricted
     var showAll: Boolean
 
     /**
@@ -225,7 +211,6 @@ interface Lint {
      * with severity "fatal" are found, the release build is aborted.
      */
     @get:Restricted
-    @set:Restricted
     var checkReleaseBuilds: Boolean
 
     /**
@@ -233,7 +218,6 @@ interface Lint {
      * severities etc to use when a project does not have more specific information.
      */
     @get:Restricted
-    @set:Restricted
     var lintConfig: File?
 
     /**
@@ -248,7 +232,6 @@ interface Lint {
      * will be copied to the specified location.
      */
     @get:Restricted
-    @set:Restricted
     var textReport: Boolean
 
     /**
@@ -256,7 +239,6 @@ interface Lint {
      * [htmlOutput].
      */
     @get:Restricted
-    @set:Restricted
     var htmlReport: Boolean
 
     /**
@@ -264,7 +246,6 @@ interface Lint {
      * Default is false. The location can be controlled by [sarifOutput].
      */
     @get:Restricted
-    @set:Restricted
     var sarifReport: Boolean
 
     /**
@@ -272,7 +253,6 @@ interface Lint {
      * [xmlOutput].
      */
     @get:Restricted
-    @set:Restricted
     var xmlReport: Boolean
 
     /**
@@ -281,7 +261,6 @@ interface Lint {
      * To output the lint report to `stdout` set [textReport]`=true`, and leave [textOutput] unset.
      */
     @get:Restricted
-    @set:Restricted
     var textOutput: File?
 
     /**

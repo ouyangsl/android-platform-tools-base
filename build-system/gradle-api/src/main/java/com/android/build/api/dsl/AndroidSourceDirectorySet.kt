@@ -19,12 +19,10 @@ package com.android.build.api.dsl
 import org.gradle.api.Incubating
 import org.gradle.api.Named
 import org.gradle.declarative.dsl.model.annotations.Adding
-import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * An AndroidSourceDirectorySet represents a set of directory inputs for an Android project.
  */
-@Restricted
 interface AndroidSourceDirectorySet : Named {
 
     /**

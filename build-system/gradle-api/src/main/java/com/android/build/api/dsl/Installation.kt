@@ -25,7 +25,6 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
 interface Installation {
     /** The time out used for all adb operations. */
     @get:Restricted
-    @set:Restricted
     var timeOutInMs: Int
 
     /** The list of FULL_APK installation options. */

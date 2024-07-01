@@ -24,7 +24,6 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
  *
  * This metadata is used by consumers of the AAR to control their behavior.
  */
-@Restricted
 interface AarMetadata {
     /**
      * The minimum compileSdkVersion required by any consuming module.
@@ -35,7 +34,6 @@ interface AarMetadata {
      * processing.
      */
     @get:Restricted
-    @set:Restricted
     var minCompileSdk: Int?
 
     /**
@@ -44,7 +42,6 @@ interface AarMetadata {
     @get:Incubating
     @set:Incubating
     @get:Restricted
-    @set:Restricted
     var minCompileSdkExtension: Int?
 
     /**
@@ -60,6 +57,5 @@ interface AarMetadata {
     @get:Incubating
     @set:Incubating
     @get:Restricted
-    @set:Restricted
     var minAgpVersion: String?
 }

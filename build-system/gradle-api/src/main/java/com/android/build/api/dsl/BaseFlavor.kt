@@ -41,7 +41,6 @@ interface BaseFlavor : VariantDimension {
      * See [uses-sdk element documentation](http://developer.android.com/guide/topics/manifest/uses-sdk-element.html).
      */
     @get:Restricted
-    @set:Restricted
     var minSdk: Int?
 
     @Deprecated("Replaced by minSdk property")
@@ -100,7 +99,6 @@ interface BaseFlavor : VariantDimension {
      * See [instrumentation](http://developer.android.com/guide/topics/manifest/instrumentation-element.html).
      */
     @get:Restricted
-    @set:Restricted
     var testInstrumentationRunner: String?
 
     /**

@@ -37,10 +37,8 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
  * [configuring build types](https://developer.android.com/studio/build#build-config)
  * for more information.
  */
-@Restricted
 interface BuildType : Named, VariantDimension, ExtensionAware {
 
-    @get:Restricted
     val dependencies: DependenciesExtension
     @Configuring
     fun dependencies(configure: DependenciesExtension.() -> Unit)
@@ -149,7 +147,6 @@ interface BuildType : Named, VariantDimension, ExtensionAware {
      * [Shrink Your Code and Resources](https://developer.android.com/studio/build/shrink-code.html).
      */
     @get:Restricted
-    @set:Restricted
     var isMinifyEnabled: Boolean
 
     /**

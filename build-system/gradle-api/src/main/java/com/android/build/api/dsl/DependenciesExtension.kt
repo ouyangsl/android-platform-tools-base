@@ -18,9 +18,7 @@ package com.android.build.api.dsl
 
 import org.gradle.api.artifacts.dsl.DependencyCollector
 import org.gradle.api.artifacts.dsl.GradleDependencies
-import org.gradle.declarative.dsl.model.annotations.Restricted
 
-@Restricted
 interface DependenciesExtension : GradleDependencies {
     fun getApi(): DependencyCollector
     fun getImplementation(): DependencyCollector

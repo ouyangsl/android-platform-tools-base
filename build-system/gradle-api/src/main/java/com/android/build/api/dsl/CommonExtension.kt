@@ -29,7 +29,6 @@ import java.io.File
  *
  * Only the Android Gradle Plugin should create instances of this interface.
  */
-@Restricted
 interface CommonExtension<
         BuildFeaturesT : BuildFeatures,
         BuildTypeT : BuildType,
@@ -39,7 +38,6 @@ interface CommonExtension<
         InstallationT: Installation> {
 
 
-    @get:Restricted
     val allDependencies: DependenciesExtension
     @Configuring
     fun allDependencies(configure: DependenciesExtension.() -> Unit)
@@ -51,7 +49,6 @@ interface CommonExtension<
      */
     @Suppress("DEPRECATION")
     @Deprecated("Replaced by ", replaceWith = ReplaceWith("androidResources"))
-    @get:Restricted
     val aaptOptions: AaptOptions
 
     /**
@@ -69,8 +66,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AndroidResources].
      */
-// TODO: generics are not supported in DCL
-//    @get:Restricted
     val androidResources: AndroidResourcesT
 
     /**
@@ -111,8 +106,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AdbOptions].
      */
-// TODO: generics are not supported in DCL
-//    @get:Restricted
     val installation: InstallationT
 
     /**
@@ -132,7 +125,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [CompileOptions].
      */
-    @get:Restricted
     val compileOptions: CompileOptions
 
     /**
@@ -148,8 +140,6 @@ interface CommonExtension<
     /**
      * A list of build features that can be enabled or disabled on the Android Project.
      */
-// TODO: generics are not supported in DCL
-//    @get:Restricted
     val buildFeatures: BuildFeaturesT
 
     /**
@@ -224,7 +214,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DataBinding]
      */
-    @get:Restricted
     val dataBinding: DataBinding
 
     /**
@@ -243,7 +232,6 @@ interface CommonExtension<
      * For more information about the properties you can configure in this block, see [ViewBinding]
      */
 
-    @get:Restricted
     val viewBinding: ViewBinding
 
     /**
@@ -263,7 +251,6 @@ interface CommonExtension<
     @Suppress("DEPRECATION")
     @get:Incubating
     @Deprecated("Renamed to testCoverage", replaceWith = ReplaceWith("testCoverage"))
-    @get:Restricted
     val jacoco: JacocoOptions
 
     /**
@@ -293,7 +280,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [TestCoverage].
      */
-    @get:Restricted
     val testCoverage: TestCoverage
 
     /**
@@ -320,7 +306,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Lint].
      */
-    @get:Restricted
     val lint: Lint
 
     /**
@@ -375,7 +360,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Packaging].
      */
-    @get:Restricted
     val packaging: Packaging
 
     /**
@@ -447,8 +431,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DefaultConfig].
      */
-// TODO: generics are not supported in DCL
-//    @get:Restricted
     val defaultConfig: DefaultConfigT
 
     /**
@@ -511,7 +493,6 @@ interface CommonExtension<
      *
      * since 2.2.0
      */
-    @get:Restricted
     val externalNativeBuild: ExternalNativeBuild
     /**
      * Specifies options for external native build using [CMake](https://cmake.org/) or
@@ -540,7 +521,6 @@ interface CommonExtension<
      * For more information about the properties you can configure in this block, see [TestOptions].
      */
     @get:Incubating
-    @get:Restricted
     val testOptions: TestOptions
 
     /**
@@ -559,7 +539,6 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Splits].
      */
-    @get:Restricted
     val splits: Splits
 
     /**
@@ -572,7 +551,6 @@ interface CommonExtension<
     @Configuring
     fun splits(action: Splits.() -> Unit)
 
-    @get:Restricted
     val composeOptions: ComposeOptions
 
     @Configuring
@@ -584,7 +562,6 @@ interface CommonExtension<
      * Note that the Android plugin uses its own implementation of source sets. For more
      * information about the properties you can configure in this block, see [AndroidSourceSet].
      */
-    @get:Restricted
     val sourceSets: SourceSetContainer
 
     /**
@@ -688,7 +665,6 @@ interface CommonExtension<
      * ```
      */
     @get:Restricted
-    @set:Restricted
     var resourcePrefix: String?
 
     /**
@@ -726,7 +702,6 @@ interface CommonExtension<
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.ndkVersion]
      */
     @get:Restricted
-    @set:Restricted
     var ndkVersion: String
 
     /**
@@ -750,7 +725,6 @@ interface CommonExtension<
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.ndkPath]
      */
     @get:Restricted
-    @set:Restricted
     var ndkPath: String?
 
     /**
@@ -781,7 +755,6 @@ interface CommonExtension<
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.buildToolsVersion]
      */
     @get:Restricted
-    @set:Restricted
     var buildToolsVersion: String
 
     @Deprecated("Replaced by buildToolsVersion property")
@@ -866,7 +839,6 @@ interface CommonExtension<
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.compileSdk]
      */
     @get:Restricted
-    @set:Restricted
     var compileSdk: Int?
 
     /**
@@ -877,7 +849,6 @@ interface CommonExtension<
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.compileSdkExtension]
      */
     @get:Restricted
-    @set:Restricted
     var compileSdkExtension: Int?
 
     /**
@@ -891,7 +862,6 @@ interface CommonExtension<
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.compileSdkPreview]
      */
     @get:Restricted
-    @set:Restricted
     var compileSdkPreview: String?
 
     /**
@@ -916,7 +886,6 @@ interface CommonExtension<
      * any relative class names that are declared in the AndroidManifest.xml.
      */
     @get:Restricted
-    @set:Restricted
     var namespace: String?
 
     @Restricted

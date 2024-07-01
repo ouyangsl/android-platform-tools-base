@@ -26,7 +26,6 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
  *
  * Only the Android Gradle Plugin should create instances of interfaces in com.android.build.api.dsl.
  */
-@Restricted
 interface ApplicationExtension :
     CommonExtension<
             ApplicationBuildFeatures,
@@ -40,14 +39,12 @@ interface ApplicationExtension :
     // TODO(b/140406102)
 
     /** Specify whether to include SDK dependency information in APKs and Bundles. */
-    @get:Restricted
     val dependenciesInfo: DependenciesInfo
 
     /** Specify whether to include SDK dependency information in APKs and Bundles. */
     @Configuring
     fun dependenciesInfo(action: DependenciesInfo.() -> Unit)
 
-    @get:Restricted
     val bundle: Bundle
 
     @Configuring
@@ -67,7 +64,6 @@ interface ApplicationExtension :
      *
      * For more information about the properties you can configure in this block, see [ApplicationPublishing]
      */
-    @get:Restricted
     val publishing: ApplicationPublishing
 
     /**

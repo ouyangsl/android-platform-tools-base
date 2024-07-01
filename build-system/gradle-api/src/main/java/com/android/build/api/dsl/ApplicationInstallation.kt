@@ -27,6 +27,5 @@ interface ApplicationInstallation: Installation {
     @get:Incubating
     @set:Incubating
     @get:Restricted
-    @set:Restricted
     var enableBaselineProfile: Boolean
 }

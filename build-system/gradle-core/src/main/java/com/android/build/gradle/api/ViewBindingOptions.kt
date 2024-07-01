@@ -18,11 +18,9 @@ package com.android.build.gradle.api
 
 import org.gradle.declarative.dsl.model.annotations.Restricted
 
-@Restricted
 interface ViewBindingOptions {
 
     @get:Restricted
-    @set:Restricted
     /** Whether to enable view binding.  */
     var isEnabled: Boolean
 }

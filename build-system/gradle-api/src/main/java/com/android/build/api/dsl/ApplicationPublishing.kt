@@ -65,5 +65,4 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
  * }
  * ```
  */
-@Restricted
 interface ApplicationPublishing : Publishing<ApplicationSingleVariant>

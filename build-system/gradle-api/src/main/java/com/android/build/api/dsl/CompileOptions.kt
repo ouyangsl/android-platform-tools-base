@@ -22,7 +22,6 @@ import org.gradle.declarative.dsl.model.annotations.Restricted
 /**
  * Java compilation options.
  */
-@Restricted
 interface CompileOptions {
     // Because expressions that reference enums are not supported, this is a factory func that returns an enum
     @Restricted
@@ -42,7 +41,6 @@ interface CompileOptions {
      * - `"Version_1_6"`
      */
     @get:Restricted
-    @set:Restricted
     var sourceCompatibility: JavaVersion
 
     /**
@@ -71,7 +69,6 @@ interface CompileOptions {
      * - `"Version_1_6"`
      */
     @get:Restricted
-    @set:Restricted
     var targetCompatibility: JavaVersion
 
     /**
@@ -90,11 +87,9 @@ interface CompileOptions {
 
     /** Java source files encoding. */
     @get:Restricted
-    @set:Restricted
     var encoding: String
 
     /** Whether core library desugaring is enabled. */
     @get:Restricted
-    @set:Restricted
     var isCoreLibraryDesugaringEnabled: Boolean
 }
