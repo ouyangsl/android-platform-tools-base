@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.build.api.dsl
+package com.android.build.gradle.internal.plugins;
 
-import org.gradle.api.Incubating
-import org.gradle.declarative.dsl.model.annotations.Restricted
+import org.gradle.api.Plugin;
+import org.gradle.api.initialization.Settings;
+import org.gradle.api.internal.plugins.software.RegistersSoftwareTypes;
 
-interface ApplicationInstallation: Installation {
-    /** The list of FULL_APK installation options. */
-    override val installOptions: List<String>
+@RegistersSoftwareTypes({AppPlugin.class})
+public class AndroidEcoPlugin implements Plugin<Settings> {
 
-    /** Whether to generate per-SDK level baseline profiles to install with an APK. */
-    @get:Incubating
-    @set:Incubating
-    @get:Restricted
-    @set:Restricted
-    var enableBaselineProfile: Boolean
+    @Override
+    public void apply(Settings target) {}
 }

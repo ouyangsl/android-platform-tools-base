@@ -19,8 +19,10 @@ package com.android.build.gradle.internal.dsl;
 import com.android.annotations.NonNull;
 import com.android.build.gradle.internal.services.DslServices;
 import com.android.builder.core.ComponentType;
+
 import org.gradle.api.NamedDomainObjectFactory;
 import org.gradle.api.model.ObjectFactory;
+import org.gradle.declarative.dsl.model.annotations.Adding;
 
 /** Factory to create BuildType object using an {@link ObjectFactory} to add the DSL methods. */
 public class BuildTypeFactory implements NamedDomainObjectFactory<BuildType> {
@@ -36,6 +38,7 @@ public class BuildTypeFactory implements NamedDomainObjectFactory<BuildType> {
 
     @NonNull
     @Override
+    @Adding
     public BuildType create(@NonNull String name) {
         return dslServices.newDecoratedInstance(BuildType.class, name, dslServices, componentType);
     }

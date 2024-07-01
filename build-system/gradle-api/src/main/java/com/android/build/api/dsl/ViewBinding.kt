@@ -16,11 +16,16 @@
 
 package com.android.build.api.dsl
 
+import org.gradle.declarative.dsl.model.annotations.Restricted
+
 /**
  * DSL object for configuring viewbinding options.
  */
+@Restricted
 interface ViewBinding {
 
+    @get:Restricted
+    @set:Restricted
     /** Whether to enable view binding. */
     var enable: Boolean
 }

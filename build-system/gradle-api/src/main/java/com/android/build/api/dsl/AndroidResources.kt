@@ -17,18 +17,22 @@
 package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * DSL object for configuring Android resource options.
  *
  * This is accessed via [CommonExtension.androidResources]
  */
+@Restricted
 interface AndroidResources {
     /**
      * Pattern describing assets to be ignored.
      *
      * This is [ignoreAssetsPatterns] joined by ':'.
      */
+    @get:Restricted
+    @set:Restricted
     var ignoreAssetsPattern: String?
 
     /**

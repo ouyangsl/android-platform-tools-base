@@ -65,19 +65,19 @@ abstract class CompileOptions : CompileOptions {
 
     private var sourceAndTargetFinalized: Boolean = false
 
-    override fun sourceCompatibility(sourceCompatibility: Any) {
+    override fun sourceCompatibility(sourceCompatibility: String) {
         _sourceCompatibility = parseJavaVersion(sourceCompatibility)
     }
 
-    fun setSourceCompatibility(sourceCompatibility: Any) {
+    fun setSourceCompatibility(sourceCompatibility: String) {
         sourceCompatibility(sourceCompatibility)
     }
 
-    override fun targetCompatibility(targetCompatibility: Any) {
+    override fun targetCompatibility(targetCompatibility: String) {
         _targetCompatibility = parseJavaVersion(targetCompatibility)
     }
 
-    fun setTargetCompatibility(targetCompatibility: Any) {
+    fun setTargetCompatibility(targetCompatibility: String) {
         targetCompatibility(targetCompatibility)
     }
 

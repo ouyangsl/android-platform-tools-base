@@ -16,6 +16,7 @@
 
 package com.android.build.api.dsl
 
+import org.gradle.declarative.dsl.model.annotations.Restricted
 import java.io.File
 
 /**
@@ -125,33 +126,47 @@ interface Lint {
     val checkOnly: MutableSet<String>
 
     /** Whether lint should set the exit code of the process if errors are found */
+    @get:Restricted
+    @set:Restricted
     var abortOnError: Boolean
 
     /**
      * Whether lint should display full paths in the error output. By default the paths are relative
      * to the path lint was invoked from.
      */
+    @get:Restricted
+    @set:Restricted
     var absolutePaths: Boolean
 
     /**
      * Whether lint should include the source lines in the output where errors occurred (true by
      * default)
      */
+    @get:Restricted
+    @set:Restricted
     var noLines: Boolean
 
     /**
      * Whether lint should be quiet (for example, not write informational messages such as paths to
      * report files written)
      */
+    @get:Restricted
+    @set:Restricted
     var quiet: Boolean
 
     /** Whether lint should check all warnings, including those off by default */
+    @get:Restricted
+    @set:Restricted
     var checkAllWarnings: Boolean
 
     /** Returns whether lint will only check for errors (ignoring warnings) */
+    @get:Restricted
+    @set:Restricted
     var ignoreWarnings: Boolean
 
     /** Whether lint should treat all warnings as errors */
+    @get:Restricted
+    @set:Restricted
     var warningsAsErrors: Boolean
 
     /**
@@ -159,6 +174,8 @@ interface Lint {
      * that have been specifically written to include tests (e.g. checks looking for specific test
      * errors, or checks that need to consider testing code such as the unused resource detector)
      */
+    @get:Restricted
+    @set:Restricted
     var checkTestSources: Boolean
 
     /**
@@ -166,41 +183,57 @@ interface Lint {
      * skips analyzing tests -- meaning that it also ignores checks that have explicitly asked to
      * look at test sources, such as the unused resource check.
      */
+    @get:Restricted
+    @set:Restricted
     var ignoreTestSources: Boolean
 
     /**
      * Whether lint should ignore all testFixtures sources.
      */
+    @get:Restricted
+    @set:Restricted
     var ignoreTestFixturesSources: Boolean
 
     /** Returns whether lint should run checks on generated sources. */
+    @get:Restricted
+    @set:Restricted
     var checkGeneratedSources: Boolean
 
     /** Whether lint should check all dependencies too as part of its analysis. Default is false. */
+    @get:Restricted
+    @set:Restricted
     var checkDependencies: Boolean
 
     /**
      * Whether lint should include explanations for issue errors. (Note that HTML and XML reports
      * intentionally do this unconditionally, ignoring this setting.)
      */
+    @get:Restricted
+    @set:Restricted
     var explainIssues: Boolean
 
     /**
      * Whether lint should include all output (e.g. include all alternate locations, not truncating
      * long messages, etc.)
      */
+    @get:Restricted
+    @set:Restricted
     var showAll: Boolean
 
     /**
      * Whether lint should check for fatal errors during release builds. Default is true. If issues
      * with severity "fatal" are found, the release build is aborted.
      */
+    @get:Restricted
+    @set:Restricted
     var checkReleaseBuilds: Boolean
 
     /**
      * The default config file to use as a fallback. This corresponds to a `lint.xml` file with
      * severities etc to use when a project does not have more specific information.
      */
+    @get:Restricted
+    @set:Restricted
     var lintConfig: File?
 
     /**
@@ -214,24 +247,32 @@ interface Lint {
      * lint task, rather than just a summary. When [textOutput] is set, the full text report
      * will be copied to the specified location.
      */
+    @get:Restricted
+    @set:Restricted
     var textReport: Boolean
 
     /**
      * Whether we should write an HTML report. Default is true. The location can be controlled by
      * [htmlOutput].
      */
+    @get:Restricted
+    @set:Restricted
     var htmlReport: Boolean
 
     /**
      * Whether we should write a SARIF (OASIS Static Analysis Results Interchange Format) report.
      * Default is false. The location can be controlled by [sarifOutput].
      */
+    @get:Restricted
+    @set:Restricted
     var sarifReport: Boolean
 
     /**
      * Whether we should write an XML report. Default is true. The location can be controlled by
      * [xmlOutput].
      */
+    @get:Restricted
+    @set:Restricted
     var xmlReport: Boolean
 
     /**
@@ -239,6 +280,8 @@ interface Lint {
      *
      * To output the lint report to `stdout` set [textReport]`=true`, and leave [textOutput] unset.
      */
+    @get:Restricted
+    @set:Restricted
     var textOutput: File?
 
     /**

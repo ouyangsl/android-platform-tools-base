@@ -16,11 +16,12 @@
 
 package com.android.build.gradle.internal.api
 
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.gradle.api.AndroidSourceSet
 import org.gradle.api.NamedDomainObjectContainer
 
 class LazyAndroidSourceSet(
-    private val sourceSetsContainer: NamedDomainObjectContainer<AndroidSourceSet>,
+    private val sourceSetsContainer: SourceSetContainer,
     private val sourceSetName: String
 ) {
     private val sourceSet = lazy {

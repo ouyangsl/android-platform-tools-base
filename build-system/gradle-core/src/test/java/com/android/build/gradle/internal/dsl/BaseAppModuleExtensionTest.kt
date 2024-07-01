@@ -16,6 +16,7 @@
 package com.android.build.gradle.internal.dsl
 
 import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.internal.ExtraModelInfo
 import com.android.build.gradle.internal.SdkComponentsBuildService
 import com.android.build.gradle.internal.dependency.SourceSetManager
@@ -66,7 +67,7 @@ class BaseAppModuleExtensionTest {
         appExtension = BaseAppModuleExtension(
             dslServices,
             Mockito.mock(BootClasspathConfig::class.java),
-            Mockito.mock(NamedDomainObjectContainer::class.java) as NamedDomainObjectContainer<BaseVariantOutput>,
+            Mockito.mock(BaseVariantOutputContainer::class.java) as BaseVariantOutputContainer,
             variantInputModel.sourceSetManager,
             Mockito.mock(ExtraModelInfo::class.java),
             extension

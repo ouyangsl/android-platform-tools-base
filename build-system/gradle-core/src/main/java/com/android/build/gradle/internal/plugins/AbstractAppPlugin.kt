@@ -28,8 +28,10 @@ import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.core.dsl.VariantDslInfo
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.google.wireless.android.sdk.stats.GradleBuildProject
 import org.gradle.api.component.SoftwareComponentFactory
+import org.gradle.api.internal.plugins.software.SoftwareType
 import org.gradle.build.event.BuildEventsListenerRegistry
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry
 import javax.inject.Inject

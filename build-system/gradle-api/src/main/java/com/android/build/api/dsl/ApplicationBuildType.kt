@@ -16,6 +16,9 @@
 
 package com.android.build.api.dsl
 
+import org.gradle.declarative.dsl.model.annotations.Configuring
+import org.gradle.declarative.dsl.model.annotations.Restricted
+
 /**
  * Build types define certain properties that Gradle uses when building and packaging your app, and
  * are typically configured for different stages of your development lifecycle.

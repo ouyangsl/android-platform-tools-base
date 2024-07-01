@@ -18,6 +18,9 @@ package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.declarative.dsl.model.annotations.Adding
+import org.gradle.declarative.dsl.model.annotations.Configuring
+import org.gradle.declarative.dsl.model.annotations.Restricted
 import java.io.File
 
 /**
@@ -26,6 +29,7 @@ import java.io.File
  *
  * Only the Android Gradle Plugin should create instances of this interface.
  */
+@Restricted
 interface CommonExtension<
         BuildFeaturesT : BuildFeatures,
         BuildTypeT : BuildType,
@@ -34,6 +38,12 @@ interface CommonExtension<
         AndroidResourcesT : AndroidResources,
         InstallationT: Installation> {
 
+
+    @get:Restricted
+    val allDependencies: DependenciesExtension
+    @Configuring
+    fun allDependencies(configure: DependenciesExtension.() -> Unit)
+
     /**
      * Specifies options for the Android Asset Packaging Tool (AAPT).
      *
@@ -41,6 +51,7 @@ interface CommonExtension<
      */
     @Suppress("DEPRECATION")
     @Deprecated("Replaced by ", replaceWith = ReplaceWith("androidResources"))
+    @get:Restricted
     val aaptOptions: AaptOptions
 
     /**
@@ -50,6 +61,7 @@ interface CommonExtension<
      */
     @Suppress("DEPRECATION")
     @Deprecated("Replaced by ", replaceWith = ReplaceWith("androidResources"))
+    @Configuring
     fun aaptOptions(action: AaptOptions.() -> Unit)
 
     /**
@@ -57,6 +69,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AndroidResources].
      */
+    @get:Restricted
     val androidResources: AndroidResourcesT
 
     /**
@@ -64,6 +77,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AndroidResources].
      */
+    @Configuring
     fun androidResources(action: AndroidResourcesT.() -> Unit)
 
     /**
@@ -95,6 +109,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AdbOptions].
      */
+    @get:Restricted
     val installation: InstallationT
 
     /**
@@ -104,6 +119,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AdbOptions].
      */
+    @Configuring
     fun installation(action: InstallationT.() -> Unit)
 
     /**
@@ -112,6 +128,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [CompileOptions].
      */
+    @get:Restricted
     val compileOptions: CompileOptions
 
     /**
@@ -120,16 +137,20 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [CompileOptions].
      */
+
+    @Configuring
     fun compileOptions(action: CompileOptions.() -> Unit)
 
     /**
      * A list of build features that can be enabled or disabled on the Android Project.
      */
+    @get:Restricted
     val buildFeatures: BuildFeaturesT
 
     /**
      * A list of build features that can be enabled or disabled on the Android Project.
      */
+    @Configuring
     fun buildFeatures(action: BuildFeaturesT.() -> Unit)
 
     /**
@@ -149,6 +170,7 @@ interface CommonExtension<
      *
      * @see BuildType
      */
+
     val buildTypes: NamedDomainObjectContainer<out BuildTypeT>
 
     /**
@@ -156,6 +178,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [BuildType]
      */
+
     fun buildTypes(action: NamedDomainObjectContainer<BuildTypeT>.() -> Unit)
 
     /**
@@ -195,6 +218,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DataBinding]
      */
+    @get:Restricted
     val dataBinding: DataBinding
 
     /**
@@ -203,6 +227,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DataBinding]
      */
+    @Configuring
     fun dataBinding(action: DataBinding.() -> Unit)
 
     /**
@@ -211,6 +236,8 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [ViewBinding]
      */
+
+    @get:Restricted
     val viewBinding: ViewBinding
 
     /**
@@ -219,6 +246,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [ViewBinding]
      */
+    @Configuring
     fun viewBinding(action: ViewBinding.() -> Unit)
 
     /**
@@ -229,6 +257,7 @@ interface CommonExtension<
     @Suppress("DEPRECATION")
     @get:Incubating
     @Deprecated("Renamed to testCoverage", replaceWith = ReplaceWith("testCoverage"))
+    @get:Restricted
     val jacoco: JacocoOptions
 
     /**
@@ -239,6 +268,7 @@ interface CommonExtension<
     @Suppress("DEPRECATION")
     @Incubating
     @Deprecated("Renamed to testCoverage", replaceWith = ReplaceWith("testCoverage"))
+    @Configuring
     fun jacoco(action: JacocoOptions.() -> Unit)
 
     /**
@@ -257,6 +287,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [TestCoverage].
      */
+    @get:Restricted
     val testCoverage: TestCoverage
 
     /**
@@ -275,6 +306,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [TestCoverage].
      */
+    @Configuring
     fun testCoverage(action: TestCoverage.() -> Unit)
 
     /**
@@ -282,6 +314,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Lint].
      */
+    @get:Restricted
     val lint: Lint
 
     /**
@@ -289,6 +322,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Lint].
      */
+    @Configuring
     fun lint(action: Lint.() -> Unit)
 
     /**
@@ -335,6 +369,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Packaging].
      */
+    @get:Restricted
     val packaging: Packaging
 
     /**
@@ -343,6 +378,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Packaging].
      */
+    @Configuring
     fun packaging(action: Packaging.() -> Unit)
 
     /**
@@ -405,6 +441,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DefaultConfig].
      */
+    @get:Restricted
     val defaultConfig: DefaultConfigT
 
     /**
@@ -416,6 +453,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DefaultConfig].
      */
+    @Configuring
     fun defaultConfig(action: DefaultConfigT.() -> Unit)
 
 
@@ -465,7 +503,7 @@ interface CommonExtension<
      *
      * since 2.2.0
      */
-
+    @get:Restricted
     val externalNativeBuild: ExternalNativeBuild
     /**
      * Specifies options for external native build using [CMake](https://cmake.org/) or
@@ -485,6 +523,7 @@ interface CommonExtension<
      *
      * since 2.2.0
      */
+    @Configuring
     fun externalNativeBuild(action: ExternalNativeBuild.()->Unit)
 
     /**
@@ -493,6 +532,7 @@ interface CommonExtension<
      * For more information about the properties you can configure in this block, see [TestOptions].
      */
     @get:Incubating
+    @get:Restricted
     val testOptions: TestOptions
 
     /**
@@ -501,6 +541,7 @@ interface CommonExtension<
      * For more information about the properties you can configure in this block, see [TestOptions].
      */
     @Incubating
+    @Configuring
     fun testOptions(action: TestOptions.() -> Unit)
 
     /**
@@ -510,6 +551,7 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Splits].
      */
+    @get:Restricted
     val splits: Splits
 
     /**
@@ -519,10 +561,13 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [Splits].
      */
+    @Configuring
     fun splits(action: Splits.() -> Unit)
 
+    @get:Restricted
     val composeOptions: ComposeOptions
 
+    @Configuring
     fun composeOptions(action: ComposeOptions.() -> Unit)
 
     /**
@@ -531,7 +576,8 @@ interface CommonExtension<
      * Note that the Android plugin uses its own implementation of source sets. For more
      * information about the properties you can configure in this block, see [AndroidSourceSet].
      */
-    val sourceSets: NamedDomainObjectContainer<out AndroidSourceSet>
+    @get:Restricted
+    val sourceSets: SourceSetContainer
 
     /**
      * Encapsulates source set configurations for all variants.
@@ -539,7 +585,8 @@ interface CommonExtension<
      * Note that the Android plugin uses its own implementation of source sets. For more
      * information about the properties you can configure in this block, see [AndroidSourceSet].
      */
-    fun sourceSets(action: NamedDomainObjectContainer<out AndroidSourceSet>.() -> Unit)
+    @Configuring
+    fun sourceSets(action: SourceSetContainer.() -> Unit)
 
     /**
      * Specifies the names of product flavor dimensions for this project.
@@ -632,6 +679,8 @@ interface CommonExtension<
      * resourcePrefix 'mylib_'
      * ```
      */
+    @get:Restricted
+    @set:Restricted
     var resourcePrefix: String?
 
     /**
@@ -668,6 +717,8 @@ interface CommonExtension<
      *
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.ndkVersion]
      */
+    @get:Restricted
+    @set:Restricted
     var ndkVersion: String
 
     /**
@@ -690,6 +741,8 @@ interface CommonExtension<
      *
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.ndkPath]
      */
+    @get:Restricted
+    @set:Restricted
     var ndkPath: String?
 
     /**
@@ -719,6 +772,8 @@ interface CommonExtension<
      *
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.buildToolsVersion]
      */
+    @get:Restricted
+    @set:Restricted
     var buildToolsVersion: String
 
     @Deprecated("Replaced by buildToolsVersion property")
@@ -747,6 +802,7 @@ interface CommonExtension<
      *
      * @param name the name of the library.
      */
+    @Adding
     fun useLibrary(name: String)
 
     /**
@@ -774,6 +830,7 @@ interface CommonExtension<
      * @param required if using the library requires a manifest entry, the entry will indicate that
      *     the library is not required.
      */
+    @Adding
     fun useLibrary(name: String, required: Boolean)
 
     @get:Deprecated(
@@ -800,6 +857,8 @@ interface CommonExtension<
      *
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.compileSdk]
      */
+    @get:Restricted
+    @set:Restricted
     var compileSdk: Int?
 
     /**
@@ -809,6 +868,8 @@ interface CommonExtension<
      *
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.compileSdkExtension]
      */
+    @get:Restricted
+    @set:Restricted
     var compileSdkExtension: Int?
 
     /**
@@ -821,6 +882,8 @@ interface CommonExtension<
      *
      * This can be set on all Gradle projects with [com.android.build.api.dsl.SettingsExtension.compileSdkPreview]
      */
+    @get:Restricted
+    @set:Restricted
     var compileSdkPreview: String?
 
     /**
@@ -844,9 +907,15 @@ interface CommonExtension<
      * The namespace of the generated R and BuildConfig classes. Also, the namespace used to resolve
      * any relative class names that are declared in the AndroidManifest.xml.
      */
+    @get:Restricted
+    @set:Restricted
     var namespace: String?
 
+    @Restricted
     fun getDefaultProguardFile(name: String): File
+
+
+    fun getSomeProguardFile(name: String): String
 
     /**
      * Additional per module experimental properties.

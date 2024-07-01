@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.internal.dependency
 
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.internal.api.AndroidSourceSetName
 import com.android.build.gradle.internal.api.LazyAndroidSourceSet
@@ -37,9 +38,9 @@ class SourceSetManager(
         publishPackage: Boolean,
         private val dslServices : DslServices,
         private val buildArtifactActions: DelayedActionsExecutor) {
-    val sourceSetsContainer: NamedDomainObjectContainer<AndroidSourceSet> = project.container(
-            AndroidSourceSet::class.java,
-            AndroidSourceSetFactory(project, publishPackage, dslServices))
+    val sourceSetsContainer: SourceSetContainer = SourceSetContainer(project.container(
+            com.android.build.api.dsl.AndroidSourceSet::class.java,
+            AndroidSourceSetFactory(project, publishPackage, dslServices)))
     private val configurations: ConfigurationContainer = project.configurations
     private val logger: Logger = Logging.getLogger(this.javaClass)
 
@@ -63,6 +64,7 @@ class SourceSetManager(
 
     private fun createConfigurationsForSourceSet(name: String, isTestComponent: Boolean) {
         val sourceSetName = AndroidSourceSetName(name)
+        println("Creating configuration for $name")
         val apiName = sourceSetName.apiConfigurationName
         val implementationName = sourceSetName.implementationConfigurationName
         val runtimeOnlyName = sourceSetName.runtimeOnlyConfigurationName
@@ -111,7 +113,7 @@ class SourceSetManager(
      */
     private fun createConfiguration(
             name: String, description: String, canBeResolved: Boolean = false): Configuration {
-        logger.debug("Creating configuration {}", name)
+        println("Creating configuration $name")
 
         val configuration = configurations.maybeCreate(name)
 
@@ -139,11 +141,11 @@ class SourceSetManager(
         }
     }
 
-    fun executeAction(action: Action<NamedDomainObjectContainer<out AndroidSourceSet>>) {
+    fun executeAction(action: Action<SourceSetContainer>) {
         action.execute(sourceSetsContainer)
     }
 
-    fun executeAction(action: NamedDomainObjectContainer<out AndroidSourceSet>.() -> Unit) {
+    fun executeAction(action: SourceSetContainer.() -> Unit) {
         action.invoke(sourceSetsContainer)
     }
 

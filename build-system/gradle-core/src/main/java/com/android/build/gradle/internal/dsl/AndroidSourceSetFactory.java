@@ -17,9 +17,10 @@
 package com.android.build.gradle.internal.dsl;
 
 import com.android.annotations.NonNull;
-import com.android.build.gradle.api.AndroidSourceSet;
+import com.android.build.api.dsl.AndroidSourceSet;
 import com.android.build.gradle.internal.api.DefaultAndroidSourceSet;
 import com.android.build.gradle.internal.services.DslServices;
+
 import org.gradle.api.NamedDomainObjectFactory;
 import org.gradle.api.Project;
 import org.gradle.api.model.ObjectFactory;
@@ -27,7 +28,8 @@ import org.gradle.api.model.ObjectFactory;
 /**
  * Factory to create AndroidSourceSet object using an {@link ObjectFactory} to add the DSL methods.
  */
-public class AndroidSourceSetFactory implements NamedDomainObjectFactory<AndroidSourceSet> {
+public class AndroidSourceSetFactory
+        implements NamedDomainObjectFactory<com.android.build.api.dsl.AndroidSourceSet> {
 
     @NonNull private final Project project;
     private final boolean publishPackage;

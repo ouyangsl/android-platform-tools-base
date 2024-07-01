@@ -16,9 +16,10 @@
 
 package com.android.build.gradle.internal.dsl
 
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.api.AndroidSourceSet
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.internal.ExtraModelInfo
 import com.android.build.gradle.internal.dependency.SourceSetManager
 import com.android.build.gradle.internal.services.DslServices
@@ -30,14 +31,15 @@ import org.gradle.api.NamedDomainObjectContainer
 abstract class DynamicFeatureExtension(
     dslServices: DslServices,
     bootClasspathConfig: BootClasspathConfig,
-    buildOutputs: NamedDomainObjectContainer<BaseVariantOutput>,
+    //buildOutputs: BaseVariantOutputContainer,
     sourceSetManager: SourceSetManager,
     extraModelInfo: ExtraModelInfo,
     private val publicExtensionImpl: DynamicFeatureExtensionImpl
 ) : AppExtension(
     dslServices,
     bootClasspathConfig,
-    buildOutputs, sourceSetManager, extraModelInfo, false
+    //buildOutputs,
+    sourceSetManager, extraModelInfo, false
 ), InternalDynamicFeatureExtension by publicExtensionImpl {
 
     // Overrides to make the parameterized types match, due to BaseExtension being part of
@@ -48,8 +50,8 @@ abstract class DynamicFeatureExtension(
         get() = publicExtensionImpl.defaultConfig as DefaultConfig
     override val productFlavors: NamedDomainObjectContainer<ProductFlavor>
         get() = publicExtensionImpl.productFlavors as NamedDomainObjectContainer<ProductFlavor>
-    override val sourceSets: NamedDomainObjectContainer<AndroidSourceSet>
-        get() = publicExtensionImpl.sourceSets
+    override val sourceSets: SourceSetContainer
+        get() = publicExtensionImpl.sourceSets as SourceSetContainer
 
     override val flavorDimensionList: MutableList<String>
         get() = flavorDimensions

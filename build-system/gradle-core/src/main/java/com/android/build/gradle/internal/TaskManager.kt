@@ -1996,7 +1996,7 @@ abstract class TaskManager(
         fun createTasksBeforeEvaluate(
             project: Project,
             componentType: ComponentType,
-            sourceSetContainer: Iterable<AndroidSourceSet?>,
+            sourceSetContainer: Iterable<com.android.build.api.dsl.AndroidSourceSet>,
             globalConfig: GlobalTaskCreationConfig
         )  {
             val taskFactory = TaskFactoryImpl(project.tasks)
@@ -2027,7 +2027,7 @@ abstract class TaskManager(
             taskFactory.register(ExtractProguardFiles.CreationAction(globalConfig)).configure {
                 it.dependsOn(globalConfig.taskNames.mainPreBuild)
             }
-            taskFactory.register(SourceSetsTask.CreationAction(sourceSetContainer))
+            //taskFactory.register(SourceSetsTask.CreationAction(sourceSetContainer))
             taskFactory.register(
                 ASSEMBLE_ANDROID_TEST
             ) { assembleAndroidTestTask: Task ->

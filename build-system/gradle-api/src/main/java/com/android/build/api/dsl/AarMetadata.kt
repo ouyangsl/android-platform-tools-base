@@ -17,12 +17,14 @@
 package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * DSL object for configuring metadata that is embedded in the AAR.
  *
  * This metadata is used by consumers of the AAR to control their behavior.
  */
+@Restricted
 interface AarMetadata {
     /**
      * The minimum compileSdkVersion required by any consuming module.
@@ -32,11 +34,17 @@ interface AarMetadata {
      * version to match, rather than getting a 'resource not found' error during resource
      * processing.
      */
+    @get:Restricted
+    @set:Restricted
     var minCompileSdk: Int?
 
     /**
      * The minimum compileSdkExtension required by any consuming module.
      */
+    @get:Incubating
+    @set:Incubating
+    @get:Restricted
+    @set:Restricted
     var minCompileSdkExtension: Int?
 
     /**
@@ -49,5 +57,9 @@ interface AarMetadata {
      * minAgpVersion must be a stable AGP version, and it must be formatted with major, minor, and
      * micro values (for example, "4.0.0").
      */
+    @get:Incubating
+    @set:Incubating
+    @get:Restricted
+    @set:Restricted
     var minAgpVersion: String?
 }

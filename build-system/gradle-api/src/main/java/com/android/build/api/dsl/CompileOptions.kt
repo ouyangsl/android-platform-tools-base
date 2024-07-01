@@ -17,11 +17,19 @@
 package com.android.build.api.dsl
 
 import org.gradle.api.JavaVersion
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * Java compilation options.
  */
+@Restricted
 interface CompileOptions {
+    // Because expressions that reference enums are not supported, this is a factory func that returns an enum
+    @Restricted
+    fun getjava17(): JavaVersion {
+        return JavaVersion.VERSION_17
+    }
+
     /**
      * Language level of the java source code.
      *
@@ -33,6 +41,8 @@ interface CompileOptions {
      * - `JavaVersion.Version_1_6`
      * - `"Version_1_6"`
      */
+    @get:Restricted
+    @set:Restricted
     var sourceCompatibility: JavaVersion
 
     /**
@@ -46,7 +56,8 @@ interface CompileOptions {
      * - `JavaVersion.Version_1_6`
      * - `"Version_1_6"`
      */
-    fun sourceCompatibility(sourceCompatibility: Any)
+    @Restricted
+    fun sourceCompatibility(sourceCompatibility: String)
 
     /**
      * Version of the generated Java bytecode.
@@ -59,6 +70,8 @@ interface CompileOptions {
      * - `JavaVersion.Version_1_6`
      * - `"Version_1_6"`
      */
+    @get:Restricted
+    @set:Restricted
     var targetCompatibility: JavaVersion
 
     /**
@@ -72,11 +85,16 @@ interface CompileOptions {
      * - `JavaVersion.Version_1_6`
      * - `"Version_1_6"`
      */
-    fun targetCompatibility(targetCompatibility: Any)
+    @Restricted
+    fun targetCompatibility(targetCompatibility: String)
 
     /** Java source files encoding. */
+    @get:Restricted
+    @set:Restricted
     var encoding: String
 
     /** Whether core library desugaring is enabled. */
+    @get:Restricted
+    @set:Restricted
     var isCoreLibraryDesugaringEnabled: Boolean
 }

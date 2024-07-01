@@ -15,9 +15,10 @@
  */
 package com.android.build.gradle
 
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.api.LibraryVariant
 import com.android.build.gradle.internal.ExtraModelInfo
 import com.android.build.gradle.internal.dependency.SourceSetManager
@@ -30,6 +31,7 @@ import com.android.build.gradle.internal.services.DslServices
 import com.android.build.gradle.internal.tasks.factory.BootClasspathConfig
 import com.android.builder.core.LibraryRequest
 import com.android.repository.Revision
+import org.gradle.api.Action
 import org.gradle.api.DomainObjectSet
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.internal.DefaultDomainObjectSet
@@ -45,14 +47,14 @@ import java.util.Collections
 open class LibraryExtension(
     dslServices: DslServices,
     bootClasspathConfig: BootClasspathConfig,
-    buildOutputs: NamedDomainObjectContainer<BaseVariantOutput>,
+    //buildOutputs: BaseVariantOutputContainer,
     sourceSetManager: SourceSetManager,
     extraModelInfo: ExtraModelInfo,
     private val publicExtensionImpl: LibraryExtensionImpl
 ) : TestedExtension(
     dslServices,
     bootClasspathConfig,
-    buildOutputs,
+    //buildOutputs,
     sourceSetManager,
     extraModelInfo,
     false
@@ -67,8 +69,8 @@ open class LibraryExtension(
         get() = publicExtensionImpl.defaultConfig as DefaultConfig
     override val productFlavors: NamedDomainObjectContainer<ProductFlavor>
         get() = publicExtensionImpl.productFlavors as NamedDomainObjectContainer<ProductFlavor>
-    override val sourceSets: NamedDomainObjectContainer<AndroidSourceSet>
-        get() = publicExtensionImpl.sourceSets
+    override val sourceSets: SourceSetContainer
+        get() = publicExtensionImpl.sourceSets as SourceSetContainer
 
     private val libraryVariantList: DomainObjectSet<LibraryVariant> =
         dslServices.domainObjectSet(LibraryVariant::class.java)
@@ -97,6 +99,7 @@ open class LibraryExtension(
      */
     val libraryVariants: DefaultDomainObjectSet<LibraryVariant>
         get() = libraryVariantList as DefaultDomainObjectSet<LibraryVariant>
+
 
     override fun addVariant(variant: BaseVariant) {
         libraryVariantList.add(variant as LibraryVariant)

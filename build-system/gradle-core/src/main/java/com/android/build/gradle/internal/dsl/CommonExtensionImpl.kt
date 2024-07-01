@@ -22,9 +22,11 @@ import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.BuildFeatures
 import com.android.build.api.dsl.ComposeOptions
 import com.android.build.api.dsl.DefaultConfig
+import com.android.build.api.dsl.DependenciesExtension
 import com.android.build.api.dsl.Installation
 import com.android.build.api.dsl.Packaging
 import com.android.build.api.dsl.SdkComponents
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.api.dsl.TestCoverage
 import com.android.build.api.dsl.ViewBinding
 import com.android.build.gradle.ProguardFiles
@@ -61,6 +63,14 @@ abstract class CommonExtensionImpl<
         ProductFlavorT,
         AndroidResourcesT,
         InstallationT> {
+
+    override val allDependencies: DependenciesExtension by lazy {
+        dslServices.newInstance(DependenciesExtension::class.java)
+    }
+
+    override fun allDependencies(configure: DependenciesExtension.() -> Unit) {
+        configure.invoke(allDependencies)
+    }
 
     private val sourceSetManager = dslContainers.sourceSetManager
 
@@ -399,14 +409,14 @@ abstract class CommonExtensionImpl<
         action.invoke(signingConfigs)
     }
 
-    override val sourceSets: NamedDomainObjectContainer<AndroidSourceSet>
-        get() = sourceSetManager.sourceSetsContainer
+    override val sourceSets: SourceSetContainer
+        get() = sourceSetManager.sourceSetsContainer as SourceSetContainer
 
-    override fun sourceSets(action: NamedDomainObjectContainer<out com.android.build.api.dsl.AndroidSourceSet>.() -> Unit) {
+    override fun sourceSets(action: SourceSetContainer.() -> Unit) {
         sourceSetManager.executeAction(action)
     }
 
-    override fun sourceSets(action: Action<NamedDomainObjectContainer<AndroidSourceSet>>) {
+    override fun sourceSets(action: Action<SourceSetContainer>) {
         action.execute(sourceSets)
     }
 
@@ -458,6 +468,10 @@ abstract class CommonExtensionImpl<
                 )
         }
         return ProguardFiles.getDefaultProguardFile(name, dslServices.buildDirectory)
+    }
+
+    override fun getSomeProguardFile(name: String): String {
+        return name
     }
 
     override val experimentalProperties: MutableMap<String, Any> = mutableMapOf()

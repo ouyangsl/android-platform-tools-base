@@ -27,7 +27,7 @@ import com.android.build.api.variant.DynamicFeatureAndroidComponentsExtension;
 import com.android.build.api.variant.DynamicFeatureVariant;
 import com.android.build.api.variant.DynamicFeatureVariantBuilder;
 import com.android.build.gradle.BaseExtension;
-import com.android.build.gradle.api.BaseVariantOutput;
+import com.android.build.gradle.api.BaseVariantOutputContainer;
 import com.android.build.gradle.internal.ExtraModelInfo;
 import com.android.build.gradle.internal.component.DynamicFeatureCreationConfig;
 import com.android.build.gradle.internal.component.TestComponentCreationConfig;
@@ -52,16 +52,19 @@ import com.android.build.gradle.internal.variant.ComponentInfo;
 import com.android.build.gradle.internal.variant.DynamicFeatureVariantFactory;
 import com.android.build.gradle.options.BooleanOption;
 import com.android.builder.model.v2.ide.ProjectType;
+
 import com.google.wireless.android.sdk.stats.GradleBuildProject;
-import java.util.Collection;
-import javax.inject.Inject;
-import org.gradle.api.NamedDomainObjectContainer;
+
 import org.gradle.api.Project;
 import org.gradle.api.component.SoftwareComponentFactory;
 import org.gradle.api.configuration.BuildFeatures;
 import org.gradle.api.reflect.TypeOf;
 import org.gradle.build.event.BuildEventsListenerRegistry;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
+
+import java.util.Collection;
+
+import javax.inject.Inject;
 
 /** Gradle plugin class for 'application' projects, applied on an optional APK module */
 public class DynamicFeaturePlugin
@@ -124,7 +127,7 @@ public class DynamicFeaturePlugin
                             DslContainerProvider<
                                             DefaultConfig, BuildType, ProductFlavor, SigningConfig>
                                     dslContainers,
-                    @NonNull NamedDomainObjectContainer<BaseVariantOutput> buildOutputs,
+                    @NonNull BaseVariantOutputContainer buildOutputs,
                     @NonNull ExtraModelInfo extraModelInfo,
                     VersionedSdkLoaderService versionedSdkLoaderService) {
         DynamicFeatureExtensionImpl dynamicFeatureExtension =

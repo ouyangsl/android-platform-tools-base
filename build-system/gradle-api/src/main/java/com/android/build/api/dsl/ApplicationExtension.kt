@@ -16,6 +16,9 @@
 
 package com.android.build.api.dsl
 
+import org.gradle.declarative.dsl.model.annotations.Configuring
+import org.gradle.declarative.dsl.model.annotations.Restricted
+
 /**
  * Extension for the Android Gradle Plugin Application plugin.
  *
@@ -23,6 +26,7 @@ package com.android.build.api.dsl
  *
  * Only the Android Gradle Plugin should create instances of interfaces in com.android.build.api.dsl.
  */
+@Restricted
 interface ApplicationExtension :
     CommonExtension<
             ApplicationBuildFeatures,
@@ -36,13 +40,17 @@ interface ApplicationExtension :
     // TODO(b/140406102)
 
     /** Specify whether to include SDK dependency information in APKs and Bundles. */
+    @get:Restricted
     val dependenciesInfo: DependenciesInfo
 
     /** Specify whether to include SDK dependency information in APKs and Bundles. */
+    @Configuring
     fun dependenciesInfo(action: DependenciesInfo.() -> Unit)
 
+    @get:Restricted
     val bundle: Bundle
 
+    @Configuring
     fun bundle(action: Bundle.() -> Unit)
 
     val dynamicFeatures: MutableSet<String>
@@ -50,6 +58,7 @@ interface ApplicationExtension :
     /**
      * Set of asset pack subprojects to be included in the app's bundle.
      */
+    @get:Restricted
     val assetPacks: MutableSet<String>
 
     /**
@@ -57,6 +66,7 @@ interface ApplicationExtension :
      *
      * For more information about the properties you can configure in this block, see [ApplicationPublishing]
      */
+    @get:Restricted
     val publishing: ApplicationPublishing
 
     /**
@@ -64,11 +74,13 @@ interface ApplicationExtension :
      *
      * For more information about the properties you can configure in this block, see [ApplicationPublishing]
      */
+    @Configuring
     fun publishing(action: ApplicationPublishing.() -> Unit)
 
     override val androidResources: ApplicationAndroidResources
 
     override val installation: ApplicationInstallation
+
 
     /** Options related to the consumption of privacy sandbox libraries */
     val privacySandbox: PrivacySandbox

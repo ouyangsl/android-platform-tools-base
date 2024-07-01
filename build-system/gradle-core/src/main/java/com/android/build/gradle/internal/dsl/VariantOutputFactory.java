@@ -26,7 +26,10 @@ import com.android.build.gradle.internal.api.BaseVariantImpl;
 import com.android.build.gradle.internal.scope.TaskContainer;
 import com.android.build.gradle.internal.services.BaseServices;
 import com.android.builder.core.ComponentType;
+
 import com.google.common.collect.ImmutableList;
+
+import org.gradle.declarative.dsl.model.annotations.Adding;
 
 /**
  * Factory for the {@link BaseVariantOutput} for each variant output that will be added to the
@@ -56,11 +59,12 @@ public class VariantOutputFactory {
         this.extension = extension;
     }
 
+    @Adding
     public VariantOutput create(VariantOutputImpl variantApi) {
         BaseVariantOutput variantOutput =
                 services.newInstance(
                         targetClass, taskContainer, services, variantApi, componentType);
-        extension.getBuildOutputs().add(variantOutput);
+        // extension.getBuildOutputs().getContainer().add(variantOutput);
         if (deprecatedVariantPublicApi != null) {
             deprecatedVariantPublicApi.addOutputs(ImmutableList.of(variantOutput));
         }

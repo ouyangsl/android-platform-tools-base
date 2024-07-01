@@ -19,44 +19,58 @@ package com.android.build.api.dsl
 import org.gradle.api.Action
 import org.gradle.api.Incubating
 import org.gradle.api.Named
+import org.gradle.declarative.dsl.model.annotations.Configuring
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * An AndroidSourceSet represents a logical group of Java, aidl and RenderScript sources
  * as well as Android and non-Android (Java-style) resources.
  */
+@Restricted
 interface AndroidSourceSet : Named {
 
     /** Returns the name of this source set. */
     override fun getName(): String
 
     /** The Java source for this source-set */
+    @get:Restricted
     val java: AndroidSourceDirectorySet
     /** The Java source for this source-set */
+    @Configuring
     fun java(action: AndroidSourceDirectorySet.() -> Unit)
 
     /** The Kotlin source for this source-set */
+    @get:Restricted
     val kotlin: AndroidSourceDirectorySet
     /** The Java source for this source-set */
+    @Configuring
     fun kotlin(action: Action<AndroidSourceDirectorySet>)
 
     /** The Java-style resources for this source-set */
+    @get:Restricted
     val resources: AndroidSourceDirectorySet
     /** The Java-style resources for this source-set */
+    @Configuring
     fun resources(action: AndroidSourceDirectorySet.() -> Unit)
 
     /** The Android Manifest file for this source-set. */
+    @get:Restricted
     val manifest: AndroidSourceFile
     /** The Android Manifest file for this source-set. */
+    @Configuring
     fun manifest(action: AndroidSourceFile.() -> Unit)
 
     /** The Android Resources directory for this source-set. */
+    @get:Restricted
     val res: AndroidSourceDirectorySet
     /** The Android Resources directory for this source-set. */
+    @Configuring
     fun res(action: AndroidSourceDirectorySet.() -> Unit)
 
     /** The Android Assets directory for this source set.*/
     val assets: AndroidSourceDirectorySet
     /** The Android Assets directory for this source set.*/
+    @Configuring
     fun assets(action: AndroidSourceDirectorySet.() -> Unit)
 
     /** The Android AIDL source directory for this source set. */
@@ -74,6 +88,7 @@ interface AndroidSourceSet : Named {
     val baselineProfiles: AndroidSourceDirectorySet
     /** The Android Baseline Profiles source directory for this source set. */
     @Incubating
+    @Configuring
     fun baselineProfiles(action: AndroidSourceDirectorySet.() -> Unit)
 
     /**

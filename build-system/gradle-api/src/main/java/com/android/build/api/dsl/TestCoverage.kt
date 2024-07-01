@@ -16,10 +16,15 @@
 
 package com.android.build.api.dsl
 
+import org.gradle.declarative.dsl.model.annotations.Restricted
+
 /** Settings related to the gathering of code-coverage data from tests */
+@Restricted
 interface TestCoverage {
     /**
      * The version of JaCoCo to use.
      */
+    @get:Restricted
+    @set:Restricted
     var jacocoVersion: String
 }

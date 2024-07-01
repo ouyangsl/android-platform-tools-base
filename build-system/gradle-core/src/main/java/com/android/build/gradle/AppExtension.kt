@@ -16,12 +16,11 @@
 
 package com.android.build.gradle
 
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.internal.ExtraModelInfo
 import com.android.build.gradle.internal.dependency.SourceSetManager
 import com.android.build.gradle.internal.services.DslServices
 import com.android.build.gradle.internal.tasks.factory.BootClasspathConfig
-import org.gradle.api.NamedDomainObjectContainer
 
 /**
  * AppExtension is used directly by build.gradle.kts when configuring project so adding generics
@@ -30,14 +29,13 @@ import org.gradle.api.NamedDomainObjectContainer
 abstract class AppExtension(
     dslServices: DslServices,
     bootClasspathConfig: BootClasspathConfig,
-    buildOutputs: NamedDomainObjectContainer<BaseVariantOutput>,
+    //buildOutputs: BaseVariantOutputContainer,
     sourceSetManager: SourceSetManager,
     extraModelInfo: ExtraModelInfo,
     isBaseModule: Boolean
 ) : AbstractAppExtension(
     dslServices,
     bootClasspathConfig,
-    buildOutputs,
     sourceSetManager,
     extraModelInfo,
     isBaseModule

@@ -19,6 +19,8 @@ package com.android.build.api.dsl
 import org.gradle.api.Incubating
 import org.gradle.api.Named
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.declarative.dsl.model.annotations.Configuring
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * Build types define certain properties that Gradle uses when building and packaging your app, and
@@ -35,7 +37,13 @@ import org.gradle.api.plugins.ExtensionAware
  * [configuring build types](https://developer.android.com/studio/build#build-config)
  * for more information.
  */
+@Restricted
 interface BuildType : Named, VariantDimension, ExtensionAware {
+
+    @get:Restricted
+    val dependencies: DependenciesExtension
+    @Configuring
+    fun dependencies(configure: DependenciesExtension.() -> Unit)
     /**
      * Whether test coverage is enabled for this build type.
      *
@@ -140,6 +148,8 @@ interface BuildType : Named, VariantDimension, ExtensionAware {
      * To learn more, read
      * [Shrink Your Code and Resources](https://developer.android.com/studio/build/shrink-code.html).
      */
+    @get:Restricted
+    @set:Restricted
     var isMinifyEnabled: Boolean
 
     /**

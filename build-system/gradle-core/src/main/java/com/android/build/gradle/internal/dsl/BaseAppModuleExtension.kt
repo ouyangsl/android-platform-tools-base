@@ -17,30 +17,38 @@
 package com.android.build.gradle.internal.dsl
 
 import com.android.build.api.dsl.ApplicationAndroidResources
+import com.android.build.api.dsl.ApplicationBuildType
+import com.android.build.api.dsl.ApplicationBuildTypeContainer
 import com.android.build.api.dsl.ComposeOptions
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.api.AndroidSourceSet
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.internal.ExtraModelInfo
 import com.android.build.gradle.internal.dependency.SourceSetManager
 import com.android.build.gradle.internal.services.DslServices
 import com.android.build.gradle.internal.tasks.factory.BootClasspathConfig
 import com.android.builder.core.LibraryRequest
 import com.android.repository.Revision
+import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.declarative.dsl.model.annotations.Configuring
+import org.gradle.declarative.dsl.model.annotations.Restricted
+import javax.inject.Inject
 
 /** The `android` extension for base feature module (application plugin).  */
-open class BaseAppModuleExtension(
+@Restricted
+open class BaseAppModuleExtension @Inject constructor(
     dslServices: DslServices,
     bootClasspathConfig: BootClasspathConfig,
-    buildOutputs: NamedDomainObjectContainer<BaseVariantOutput>,
+    //buildOutputs: BaseVariantOutputContainer,
     sourceSetManager: SourceSetManager,
     extraModelInfo: ExtraModelInfo,
     private val publicExtensionImpl: ApplicationExtensionImpl
 ) : AppExtension(
     dslServices,
     bootClasspathConfig,
-    buildOutputs,
+    //buildOutputs,
     sourceSetManager,
     extraModelInfo,
     true
@@ -48,13 +56,22 @@ open class BaseAppModuleExtension(
 
     // Overrides to make the parameterized types match, due to BaseExtension being part of
     // the previous public API and not wanting to paramerterize that.
-    override val buildTypes: NamedDomainObjectContainer<BuildType>
-        get() = publicExtensionImpl.buildTypes as NamedDomainObjectContainer<BuildType>
+    @get:Restricted
+    override val buildTypes: ApplicationBuildTypeContainer
+        get() = ApplicationBuildTypeContainer(publicExtensionImpl.buildTypes)
+
+    @Configuring
+    fun appBuildTypes(action: ApplicationBuildTypeContainer.() -> Unit) {
+        action.invoke(buildTypes)
+    }
+
+
+
     override val defaultConfig: DefaultConfig
         get() = publicExtensionImpl.defaultConfig as DefaultConfig
     override val productFlavors: NamedDomainObjectContainer<ProductFlavor>
         get() = publicExtensionImpl.productFlavors as NamedDomainObjectContainer<ProductFlavor>
-    override val sourceSets: NamedDomainObjectContainer<AndroidSourceSet>
+    override val sourceSets: SourceSetContainer
         get() = publicExtensionImpl.sourceSets
 
     override val composeOptions: ComposeOptions = publicExtensionImpl.composeOptions

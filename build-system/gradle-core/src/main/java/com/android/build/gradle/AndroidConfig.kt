@@ -16,10 +16,11 @@
 
 package com.android.build.gradle
 
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.api.transform.Transform
 import com.android.build.api.variant.VariantFilter
 import com.android.build.gradle.api.AndroidSourceSet
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.internal.CompileOptions
 import com.android.build.gradle.internal.coverage.JacocoOptions
 import com.android.build.gradle.internal.dsl.AaptOptions
@@ -42,6 +43,7 @@ import org.gradle.api.Action
 import org.gradle.api.Incubating
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.tasks.Internal
+import org.gradle.declarative.dsl.model.annotations.Restricted
 import java.io.File
 
 /**
@@ -80,6 +82,7 @@ interface AndroidConfig {
      * Note that the value assigned to this property is parsed and stored in a normalized form,
      * so reading it back may give a slightly different result.
      */
+    @get:Restricted
     val buildToolsVersion: String
 
     /**
@@ -100,6 +103,7 @@ interface AndroidConfig {
      * The value you assign to this property is parsed and stored in a normalized form, so
      * reading it back may return a slightly different value.
      */
+    @get:Restricted
     val compileSdkVersion: String?
 
     /**
@@ -112,6 +116,7 @@ interface AndroidConfig {
      * instead.
      */
     @get:Internal
+    @get:Restricted
     val buildToolsRevision: Revision
 
     /**
@@ -391,7 +396,7 @@ interface AndroidConfig {
     val productFlavors: Collection<CoreProductFlavor>
 
     /** Replaced by [com.android.build.api.dsl.CommonExtension.buildTypes] */
-    val buildTypes: Collection<CoreBuildType>
+    //val buildTypes: Collection<CoreBuildType>
 
     /** Replaced by [com.android.build.api.dsl.CommonExtension.signingConfigs] */
     val signingConfigs: Collection<SigningConfig>
@@ -514,10 +519,10 @@ interface AndroidConfig {
      *
      * @see com.android.build.gradle.internal.dsl.AndroidSourceSetFactory
      */
-    val sourceSets: NamedDomainObjectContainer<AndroidSourceSet>
+    val sourceSets: NamedDomainObjectContainer<com.android.build.api.dsl.AndroidSourceSet>
 
     /** build outputs for all variants  */
-    val buildOutputs: Collection<BaseVariantOutput>
+    //val buildOutputs: BaseVariantOutputContainer
 
     @get:Suppress("WrongTerminology")
     @Deprecated("Use aidlPackagedList instead", ReplaceWith("aidlPackagedList"))

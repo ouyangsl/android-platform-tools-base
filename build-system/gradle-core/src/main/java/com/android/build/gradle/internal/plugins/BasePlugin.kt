@@ -17,6 +17,7 @@
 package com.android.build.gradle.internal.plugins
 
 import com.android.SdkConstants
+import com.android.build.api.dsl.AndroidSourceSet
 import com.android.build.api.dsl.BuildFeatures
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.SettingsExtension
@@ -26,6 +27,8 @@ import com.android.build.api.variant.Variant
 import com.android.build.api.variant.VariantBuilder
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.api.AndroidBasePlugin
+import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.internal.ApiObjectFactory
 import com.android.build.gradle.internal.AvdComponentsBuildService
 import com.android.build.gradle.internal.BadPluginException
@@ -50,6 +53,7 @@ import com.android.build.gradle.internal.dependency.CONFIG_NAME_ANDROID_JDK_IMAG
 import com.android.build.gradle.internal.dependency.JacocoInstrumentationService
 import com.android.build.gradle.internal.dependency.SourceSetManager
 import com.android.build.gradle.internal.dependency.VariantDependencies
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.android.build.gradle.internal.dsl.BuildType
 import com.android.build.gradle.internal.dsl.CommonExtensionImpl
 import com.android.build.gradle.internal.dsl.DefaultConfig
@@ -105,13 +109,13 @@ import com.google.common.annotations.VisibleForTesting
 import com.google.common.base.Preconditions.checkState
 import com.google.wireless.android.sdk.stats.GradleBuildProfileSpan.ExecutionType
 import com.google.wireless.android.sdk.stats.GradleBuildProject
-import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.repositories.ArtifactRepository
 import org.gradle.api.artifacts.repositories.FlatDirectoryArtifactRepository
 import org.gradle.api.component.SoftwareComponentFactory
+import org.gradle.api.internal.plugins.software.SoftwareType
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.provider.Provider
@@ -177,11 +181,11 @@ abstract class BasePlugin<
 
     @Suppress("DEPRECATION")
     private val buildOutputs by lazy {
-        withProject("buildOutputs") {
-            it.container(
-                com.android.build.gradle.api.BaseVariantOutput::class.java
-            )
-        }
+        BaseVariantOutputContainer(
+            withProject("buildOutputs") {
+                it.container(BaseVariantOutput::class.java)
+            }
+        )
     }
 
     private val extensionData by lazy {
@@ -196,7 +200,10 @@ abstract class BasePlugin<
 
     // TODO: BaseExtension should be changed into AndroidT
     @Deprecated("use newExtension")
+    //@get:SoftwareType(name = "android", modelPublicType = BaseExtension::class)
     val extension: BaseExtension by lazy { extensionData.oldExtension }
+
+    //@get:SoftwareType(name = "androidApp", modelPublicType = CommonExtension::class)
     private val newExtension: AndroidT by lazy { extensionData.newExtension }
 
     private val variantApiOperations by lazy {
@@ -318,7 +325,7 @@ abstract class BasePlugin<
         dslServices: DslServices,
         dslContainers: DslContainerProvider<DefaultConfig, BuildType, ProductFlavor, SigningConfig>,
         @Suppress("DEPRECATION")
-        buildOutputs: NamedDomainObjectContainer<com.android.build.gradle.api.BaseVariantOutput>,
+        buildOutputs: BaseVariantOutputContainer,
         extraModelInfo: ExtraModelInfo,
         versionedSdkLoaderService: VersionedSdkLoaderService
     ): ExtensionData<BuildFeaturesT, BuildTypeT, DefaultConfigT, ProductFlavorT, AndroidResourcesT, InstallationT, AndroidT>
@@ -353,6 +360,24 @@ abstract class BasePlugin<
             basePluginApply(project, gradleBuildFeatures)
             pluginSpecificApply(project)
             project.pluginManager.apply(AndroidBasePlugin::class.java)
+
+            println("Wiring dependency collectors")
+            project.configurations.getByName("api")
+                .fromDependencyCollector(newExtension.allDependencies.getApi())
+            project.configurations.getByName("implementation")
+                .fromDependencyCollector(newExtension.allDependencies.getImplementation())
+
+
+            project.configurations
+                .getByName("debugApi")
+                .fromDependencyCollector(newExtension.buildTypes.getByName("debug").dependencies.getApi())
+            project.configurations
+                .getByName("debugImplementation")
+                .fromDependencyCollector(newExtension.buildTypes.getByName("debug").dependencies.getImplementation())
+
+
+            project.configurations.getByName("testImplementation")
+                .fromDependencyCollector(newExtension.allDependencies.getTestImplementation())
         }
     }
 
@@ -529,6 +554,8 @@ abstract class BasePlugin<
         // create default Objects, signingConfig first as it's used by the BuildTypes.
         variantFactory.createDefaultComponents(variantInputModel)
         createAndroidTestUtilConfiguration(project)
+
+
     }
 
     protected open fun registerModels(
@@ -706,7 +733,7 @@ To learn more, go to https://d.android.com/r/tools/java-8-support-message.html
                 extension
                     .sourceSets
                     .forEach(
-                        Consumer { androidSourceSet: com.android.build.gradle.api.AndroidSourceSet? ->
+                        Consumer { androidSourceSet: AndroidSourceSet? ->
                             if (androidSourceSet is DefaultAndroidSourceSet) {
                                 androidSourceSet.extras.create(name)
                             }

@@ -16,11 +16,11 @@
 
 package com.android.build.gradle.internal.dsl
 
-
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.ComposeOptions
 import com.android.build.api.dsl.Lint
 import com.android.build.api.dsl.Packaging
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.api.dsl.TestCoverage
 import org.gradle.api.Action
 import org.gradle.api.NamedDomainObjectContainer
@@ -92,7 +92,7 @@ interface InternalCommonExtension<
     fun lintOptions(action: Action<LintOptionsImpl>)
     fun packaging(action: Action<Packaging>)
     fun packagingOptions(action: Action<PackagingImpl>)
-    fun sourceSets(action: Action<NamedDomainObjectContainer<com.android.build.gradle.api.AndroidSourceSet>>)
+    fun sourceSets(action: Action<SourceSetContainer>)
     fun splits(action: Action<SplitsImpl>)
     fun testCoverage(action: Action<TestCoverage>)
     fun testOptions(action: Action<TestOptionsImpl>)

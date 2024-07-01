@@ -1,6 +1,6 @@
 package com.android.build.gradle
 
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.api.TestVariant
 import com.android.build.gradle.api.UnitTestVariant
 import com.android.build.gradle.internal.ExtraModelInfo
@@ -8,7 +8,6 @@ import com.android.build.gradle.internal.dependency.SourceSetManager
 import com.android.build.gradle.internal.services.DslServices
 import com.android.build.gradle.internal.tasks.factory.BootClasspathConfig
 import org.gradle.api.DomainObjectSet
-import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.file.FileCollection
 
 /**
@@ -21,14 +20,14 @@ import org.gradle.api.file.FileCollection
 abstract class TestedExtension(
     dslServices: DslServices,
     bootClasspathConfig: BootClasspathConfig,
-    buildOutputs: NamedDomainObjectContainer<BaseVariantOutput>,
+    //buildOutputs: BaseVariantOutputContainer,
     sourceSetManager: SourceSetManager,
     extraModelInfo: ExtraModelInfo,
     isBaseModule: Boolean
 ) : BaseExtension(
     dslServices,
     bootClasspathConfig,
-    buildOutputs,
+    //buildOutputs,
     sourceSetManager,
     extraModelInfo,
     isBaseModule

@@ -17,6 +17,7 @@
 package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * Common extension properties for the Android Application. Library and Dynamic Feature Plugins that
@@ -25,6 +26,7 @@ import org.gradle.api.Incubating
  *
  * Only the Android Gradle Plugin should create instances of this interface.
  */
+@Restricted
 interface TestedExtension {
     /**
      * Specifies the

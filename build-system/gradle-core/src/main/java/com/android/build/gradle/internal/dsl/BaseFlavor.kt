@@ -30,6 +30,7 @@ import com.android.builder.core.AbstractProductFlavor
 import com.android.builder.core.BuilderConstants
 import com.android.builder.core.DefaultApiVersion
 import com.android.builder.internal.ClassFieldImpl
+import com.android.builder.model.ApiVersion
 import com.android.builder.model.BaseConfig
 import com.android.builder.model.ProductFlavor
 import com.google.common.collect.Iterables
@@ -253,13 +254,18 @@ abstract class BaseFlavor(name: String, private val dslServices: DslServices) :
     override val proguardFiles: MutableList<File>
         get() = super.proguardFiles
 
-    override fun proguardFile(proguardFile: Any) {
+    override fun proguardFile(proguardFile: File) {
         proguardFiles.add(dslServices.file(proguardFile))
     }
 
+    override fun proguardFile(fileName: String) {
+        proguardFiles.add(dslServices.file(fileName))
+    }
+
+
     override fun proguardFiles(vararg files: Any) {
         for (file in files) {
-            proguardFile(file)
+            //proguardFile(file)
         }
     }
 

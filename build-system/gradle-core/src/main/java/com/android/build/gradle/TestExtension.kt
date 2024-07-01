@@ -1,10 +1,10 @@
 package com.android.build.gradle
 
-import com.android.build.api.dsl.PrivacySandbox
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.api.ApplicationVariant
 import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.internal.ExtraModelInfo
 import com.android.build.gradle.internal.dependency.SourceSetManager
 import com.android.build.gradle.internal.dsl.BuildType
@@ -24,14 +24,14 @@ import org.gradle.api.internal.DefaultDomainObjectSet
 open class TestExtension(
     dslServices: DslServices,
     bootClasspathConfig: BootClasspathConfig,
-    buildOutputs: NamedDomainObjectContainer<BaseVariantOutput>,
+    //buildOutputs: BaseVariantOutputContainer,
     sourceSetManager: SourceSetManager,
     extraModelInfo: ExtraModelInfo,
     private val publicExtensionImpl: TestExtensionImpl
 ) : BaseExtension(
     dslServices,
     bootClasspathConfig,
-    buildOutputs,
+    //buildOutputs,
     sourceSetManager,
     extraModelInfo,
     false
@@ -46,8 +46,8 @@ open class TestExtension(
         get() = publicExtensionImpl.defaultConfig as DefaultConfig
     override val productFlavors: NamedDomainObjectContainer<ProductFlavor>
         get() = publicExtensionImpl.productFlavors as NamedDomainObjectContainer<ProductFlavor>
-    override val sourceSets: NamedDomainObjectContainer<AndroidSourceSet>
-        get() = publicExtensionImpl.sourceSets
+    override val sourceSets: SourceSetContainer
+        get() = publicExtensionImpl.sourceSets as SourceSetContainer
 
     private val applicationVariantList: DomainObjectSet<ApplicationVariant> =
         dslServices.domainObjectSet(ApplicationVariant::class.java)

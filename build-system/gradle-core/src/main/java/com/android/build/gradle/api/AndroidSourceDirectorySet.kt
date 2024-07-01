@@ -32,6 +32,8 @@ interface AndroidSourceDirectorySet : PatternFilterable, com.android.build.api.d
 
     override fun srcDir(srcDir: Any): AndroidSourceDirectorySet
 
+    override fun srcDir(srcDir: String): AndroidSourceDirectorySet
+
     override fun srcDirs(vararg srcDirs: Any): AndroidSourceDirectorySet
 
     override fun setSrcDirs(srcDirs: Iterable<*>): AndroidSourceDirectorySet

@@ -15,19 +15,19 @@
  */
 package com.android.build.gradle
 
-import com.android.SdkConstants
 import com.android.annotations.NonNull
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildFeatures
 import com.android.build.api.dsl.ComposeOptions
 import com.android.build.api.dsl.DynamicFeatureExtension
 import com.android.build.api.dsl.LibraryExtension
+import com.android.build.api.dsl.SourceSetContainer
 import com.android.build.api.dsl.TestExtension
 import com.android.build.api.transform.Transform
 import com.android.build.api.variant.VariantFilter
 import com.android.build.gradle.api.AndroidSourceSet
 import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.api.BaseVariantOutput
+import com.android.build.gradle.api.BaseVariantOutputContainer
 import com.android.build.gradle.api.ViewBindingOptions
 import com.android.build.gradle.internal.CompileOptions
 import com.android.build.gradle.internal.ExtraModelInfo
@@ -101,7 +101,7 @@ abstract class BaseExtension protected constructor(
     protected val dslServices: DslServices,
     protected val bootClasspathConfig: BootClasspathConfig,
     /** All build outputs for all variants, can be used by users to customize a build output. */
-    override val buildOutputs: NamedDomainObjectContainer<BaseVariantOutput>,
+    //val buildOutputs: BaseVariantOutputContainer,
     private val sourceSetManager: SourceSetManager,
     private val extraModelInfo: ExtraModelInfo,
     private val isBaseModule: Boolean
@@ -177,7 +177,7 @@ abstract class BaseExtension protected constructor(
         flavorDimensionList.addAll(dimensions)
     }
 
-    abstract fun sourceSets(action: Action<NamedDomainObjectContainer<AndroidSourceSet>>)
+    abstract fun sourceSets(action: Action<SourceSetContainer>)
 
     abstract fun aaptOptions(action: Action<AaptOptions>)
 
@@ -466,7 +466,7 @@ abstract class BaseExtension protected constructor(
 
     abstract override val adbOptions: AdbOptions
 
-    abstract override val buildTypes: NamedDomainObjectContainer<BuildType>
+    //abstract override val buildTypes: NamedDomainObjectContainer<out BuildType>
     abstract fun buildTypes(action: Action<in NamedDomainObjectContainer<BuildType>>)
 
     abstract override val compileOptions: CompileOptions
@@ -490,7 +490,7 @@ abstract class BaseExtension protected constructor(
     abstract override val signingConfigs: NamedDomainObjectContainer<SigningConfig>
     abstract fun signingConfigs(action: Action<NamedDomainObjectContainer<SigningConfig>>)
 
-    abstract override val sourceSets: NamedDomainObjectContainer<AndroidSourceSet>
+    abstract override val sourceSets: NamedDomainObjectContainer<com.android.build.api.dsl.AndroidSourceSet>
 
     abstract override val splits: Splits
 

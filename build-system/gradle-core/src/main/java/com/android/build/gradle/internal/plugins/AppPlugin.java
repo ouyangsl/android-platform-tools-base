@@ -32,7 +32,7 @@ import com.android.build.api.variant.ApplicationAndroidComponentsExtension;
 import com.android.build.api.variant.ApplicationVariant;
 import com.android.build.api.variant.ApplicationVariantBuilder;
 import com.android.build.gradle.BaseExtension;
-import com.android.build.gradle.api.BaseVariantOutput;
+import com.android.build.gradle.api.BaseVariantOutputContainer;
 import com.android.build.gradle.internal.ExtraModelInfo;
 import com.android.build.gradle.internal.component.ApplicationCreationConfig;
 import com.android.build.gradle.internal.component.TestComponentCreationConfig;
@@ -57,18 +57,21 @@ import com.android.build.gradle.internal.variant.ApplicationVariantFactory;
 import com.android.build.gradle.internal.variant.ComponentInfo;
 import com.android.build.gradle.options.BooleanOption;
 import com.android.builder.model.v2.ide.ProjectType;
-import java.util.Collection;
-import javax.inject.Inject;
-import org.gradle.api.NamedDomainObjectContainer;
+
 import org.gradle.api.Project;
 import org.gradle.api.component.SoftwareComponentFactory;
 import org.gradle.api.configuration.BuildFeatures;
+import org.gradle.api.internal.plugins.software.SoftwareType;
 import org.gradle.api.reflect.TypeOf;
 import org.gradle.build.event.BuildEventsListenerRegistry;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 
+import java.util.Collection;
+
+import javax.inject.Inject;
+
 /** Gradle plugin class for 'application' projects, applied on the base application module */
-public class AppPlugin
+public abstract class AppPlugin
         extends AbstractAppPlugin<
                 ApplicationBuildFeatures,
                 ApplicationBuildType,
@@ -95,6 +98,9 @@ public class AppPlugin
     protected void pluginSpecificApply(@NonNull Project project) {
     }
 
+    @SoftwareType(name = "androidApp", modelPublicType = BaseAppModuleExtension.class)
+    public abstract BaseAppModuleExtension getAndroidApp();
+
     @NonNull
     @Override
     protected ExtensionData<
@@ -111,7 +117,7 @@ public class AppPlugin
                             DslContainerProvider<
                                             DefaultConfig, BuildType, ProductFlavor, SigningConfig>
                                     dslContainers,
-                    @NonNull NamedDomainObjectContainer<BaseVariantOutput> buildOutputs,
+                    @NonNull BaseVariantOutputContainer buildOutputs,
                     @NonNull ExtraModelInfo extraModelInfo,
                     @NonNull VersionedSdkLoaderService versionedSdkLoaderService) {
         ApplicationExtensionImpl applicationExtension =
@@ -141,7 +147,7 @@ public class AppPlugin
                                             instanceType,
                                             dslServices,
                                             bootClasspathConfig,
-                                            buildOutputs,
+                                            // buildOutputs,
                                             dslContainers.getSourceSetManager(),
                                             extraModelInfo,
                                             applicationExtension);
@@ -153,6 +159,13 @@ public class AppPlugin
 
             initExtensionFromSettings(applicationExtension);
 
+            project.getConfigurations()
+                    .getByName("api")
+                    .fromDependencyCollector(android.getAllDependencies().getApi());
+            project.getConfigurations()
+                    .getByName("implementation")
+                    .fromDependencyCollector(android.getAllDependencies().getImplementation());
+
             return new ExtensionData<>(android, applicationExtension, bootClasspathConfig);
         }
 
@@ -163,11 +176,12 @@ public class AppPlugin
                                 BaseAppModuleExtension.class,
                                 dslServices,
                                 bootClasspathConfig,
-                                buildOutputs,
+                                // buildOutputs,
                                 dslContainers.getSourceSetManager(),
                                 extraModelInfo,
                                 applicationExtension);
         initExtensionFromSettings(android);
+
         return new ExtensionData<>(android, applicationExtension, bootClasspathConfig);
     }
 

@@ -17,6 +17,9 @@
 package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
+import org.gradle.declarative.dsl.model.annotations.Adding
+import org.gradle.declarative.dsl.model.annotations.Configuring
+import org.gradle.declarative.dsl.model.annotations.Restricted
 import java.io.File
 
 /**
@@ -86,7 +89,13 @@ interface VariantDimension {
      *
      * This method has a return value for legacy reasons.
      */
-    fun proguardFile(proguardFile: Any): Any
+
+    @Adding
+    fun proguardFile(proguardFile: File)
+
+    @Adding
+    fun proguardFile(fileName: String)
+
 
     /**
      * Adds new ProGuard configuration files.
@@ -157,15 +166,19 @@ interface VariantDimension {
     fun setManifestPlaceholders(manifestPlaceholders: Map<String, Any>): Void?
 
     /** Options for configuring Java compilation. */
+    @get:Restricted
     val javaCompileOptions: JavaCompileOptions
 
     /** Options for configuring Java compilation. */
+    @Configuring
     fun javaCompileOptions(action: JavaCompileOptions.() -> Unit)
 
     /** Options for configuring the shader compiler.  */
+    @get:Restricted
     val shaders: Shaders
 
     /** Configure the shader compiler options. */
+    @Configuring
     fun shaders(action: Shaders.() -> Unit)
 
     /**
@@ -200,6 +213,7 @@ interface VariantDimension {
      * @param name the name of the field
      * @param value the value of the field
      */
+    @Adding
     fun buildConfigField(type: String, name: String, value: String)
 
     /**
@@ -215,11 +229,14 @@ interface VariantDimension {
      * @param name the name of the resource
      * @param value the value of the resource
      */
+    @Adding
     fun resValue(type: String, name: String, value: String)
 
     @get:Incubating
+    @get:Restricted
     val optimization: Optimization
 
     @Incubating
+    @Configuring
     fun optimization(action: Optimization.() -> Unit)
 }

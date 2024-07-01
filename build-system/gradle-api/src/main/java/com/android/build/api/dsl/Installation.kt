@@ -17,16 +17,21 @@
 package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * Local installation options for the adb tool.
  */
 interface Installation {
     /** The time out used for all adb operations. */
+    @get:Restricted
+    @set:Restricted
     var timeOutInMs: Int
 
     /** The list of FULL_APK installation options. */
-    val installOptions: MutableList<String>
+    @get:Incubating
+    @get:Restricted
+    val installOptions: List<String>
 
     /** Sets the list of FULL_APK installation options */
     @Deprecated("To be removed in AGP 9.0")

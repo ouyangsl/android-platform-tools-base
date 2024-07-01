@@ -518,11 +518,11 @@ internal class CompileOptionsImpl: CompileOptions {
 
     override var targetCompatibility: JavaVersion = JAVA_VERSION_NOT_SET
 
-    override fun sourceCompatibility(sourceCompatibility: Any) {
+    override fun sourceCompatibility(sourceCompatibility: String) {
         throw RuntimeException("Not yet implemented")
     }
 
-    override fun targetCompatibility(targetCompatibility: Any) {
+    override fun targetCompatibility(targetCompatibility: String) {
         throw RuntimeException("Not yet implemented")
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,17 @@
 
 package com.android.build.api.dsl
 
-import org.gradle.api.Incubating
+import org.gradle.api.artifacts.dsl.DependencyCollector
+import org.gradle.api.artifacts.dsl.GradleDependencies
 import org.gradle.declarative.dsl.model.annotations.Restricted
 
-interface ApplicationInstallation: Installation {
-    /** The list of FULL_APK installation options. */
-    override val installOptions: List<String>
+@Restricted
+interface DependenciesExtension : GradleDependencies {
+    fun getApi(): DependencyCollector
+    fun getImplementation(): DependencyCollector
+    fun getCompileOnly(): DependencyCollector
 
-    /** Whether to generate per-SDK level baseline profiles to install with an APK. */
-    @get:Incubating
-    @set:Incubating
-    @get:Restricted
-    @set:Restricted
-    var enableBaselineProfile: Boolean
+    fun getTestImplementation(): DependencyCollector
+
+
 }

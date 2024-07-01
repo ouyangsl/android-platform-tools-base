@@ -125,6 +125,10 @@ gradlePlugin {
             id = "com.android.kotlin.multiplatform.library"
             implementationClass = "com.android.build.gradle.api.KotlinMultiplatformAndroidPlugin"
         }
+        comAndroidEcoPlugin {
+            id = "com.android.ecosystem.plugin"
+            implementationClass = "com.android.build.gradle.internal.plugins.AndroidEcoPlugin"
+        }
     }
 }
 

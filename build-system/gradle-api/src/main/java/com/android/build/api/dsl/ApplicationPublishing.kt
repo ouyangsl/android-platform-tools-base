@@ -16,6 +16,8 @@
 
 package com.android.build.api.dsl
 
+import org.gradle.declarative.dsl.model.annotations.Restricted
+
 /**
  * Maven publishing DSL object for configuring options related to publishing APK and AAB.
  *
@@ -63,4 +65,5 @@ package com.android.build.api.dsl
  * }
  * ```
  */
+@Restricted
 interface ApplicationPublishing : Publishing<ApplicationSingleVariant>

@@ -18,10 +18,13 @@ package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
 import org.gradle.api.Named
+import org.gradle.declarative.dsl.model.annotations.Adding
+import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
  * An AndroidSourceDirectorySet represents a set of directory inputs for an Android project.
  */
+@Restricted
 interface AndroidSourceDirectorySet : Named {
 
     /**
@@ -37,6 +40,9 @@ interface AndroidSourceDirectorySet : Named {
      * This method has a return value for legacy reasons.
      */
     fun srcDir(srcDir: Any): Any
+
+    @Adding
+    fun srcDir(srcDir: String): AndroidSourceDirectorySet
 
     /**
      * Allows to add source directories to this list. `Directories` provides `MutableList` style access to all

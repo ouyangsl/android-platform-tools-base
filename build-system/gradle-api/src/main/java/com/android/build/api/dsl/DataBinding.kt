@@ -16,11 +16,16 @@
 
 package com.android.build.api.dsl
 
+import org.gradle.declarative.dsl.model.annotations.Restricted
+
 /**
  * DSL object for configuring databinding options.
  */
+@Restricted
 interface DataBinding {
     /** The version of data binding to use. */
+    @get:Restricted
+    @set:Restricted
     var version: String?
 
     /** Whether to add the default data binding adapters. */
@@ -32,6 +37,8 @@ interface DataBinding {
      * The default value can be tweaked globally using the
      * `android.defaults.databinding.addKtx` gradle property.
      */
+    @get:Restricted
+    @set:Restricted
     var addKtx: Boolean?
 
     @Deprecated("deprecated, use enableForTests", ReplaceWith("enableForTests"))

@@ -17,6 +17,7 @@ package com.android.build.gradle.internal.dsl
 
 import com.android.build.api.dsl.ApkSigningConfig
 import com.android.build.api.dsl.ApplicationBuildType
+import com.android.build.api.dsl.DependenciesExtension
 import com.android.build.api.dsl.DynamicFeatureBuildType
 import com.android.build.api.dsl.LibraryBuildType
 import com.android.build.api.dsl.Ndk
@@ -58,6 +59,14 @@ abstract class BuildType @Inject @WithLazyInitialization(methodName="lazyInit") 
     DynamicFeatureBuildType,
     TestBuildType,
     InternalBuildType {
+
+    override val dependencies: DependenciesExtension by lazy {
+        dslServices.newInstance(DependenciesExtension::class.java)
+    }
+
+    override fun dependencies(configure: DependenciesExtension.() -> Unit) {
+        configure.invoke(dependencies)
+    }
 
     fun lazyInit() {
         renderscriptOptimLevel = 3
@@ -308,14 +317,17 @@ abstract class BuildType @Inject @WithLazyInitialization(methodName="lazyInit") 
             setProguardFiles(value)
         }
 
-    override fun proguardFile(proguardFile: Any): BuildType {
+    override fun proguardFile(proguardFile: File) {
         proguardFiles.add(dslServices.file(proguardFile))
-        return this
+    }
+
+    override fun proguardFile(fileName: String) {
+        proguardFiles.add(dslServices.file(fileName))
     }
 
     override fun proguardFiles(vararg files: Any): BuildType {
         for (file in files) {
-            proguardFile(file)
+            //proguardFile(file)
         }
         return this
     }

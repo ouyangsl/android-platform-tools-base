@@ -109,6 +109,10 @@ class DefaultAndroidSourceDirectorySet(
         return this
     }
 
+    override fun srcDir(srcDir: String): AndroidSourceDirectorySet {
+        return setSrcDirs(listOf(srcDir))
+    }
+
     override fun srcDirs(vararg srcDirs: Any): AndroidSourceDirectorySet {
         for (dir in srcDirs) {
             srcDir(dir)
@@ -268,4 +272,3 @@ class DefaultAndroidSourceDirectorySet(
         lateAdditionsDelegates += lateAdditionDelegate
     }
 }
-
