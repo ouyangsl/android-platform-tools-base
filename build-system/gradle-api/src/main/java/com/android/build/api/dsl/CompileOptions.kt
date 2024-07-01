@@ -17,6 +17,7 @@
 package com.android.build.api.dsl
 
 import org.gradle.api.JavaVersion
+import org.gradle.declarative.dsl.model.annotations.Adding
 import org.gradle.declarative.dsl.model.annotations.Restricted
 
 /**
@@ -54,7 +55,7 @@ interface CompileOptions {
      * - `JavaVersion.Version_1_6`
      * - `"Version_1_6"`
      */
-    @Restricted
+    @Adding
     fun sourceCompatibility(sourceCompatibility: String)
 
     /**
@@ -82,7 +83,7 @@ interface CompileOptions {
      * - `JavaVersion.Version_1_6`
      * - `"Version_1_6"`
      */
-    @Restricted
+    @Adding
     fun targetCompatibility(targetCompatibility: String)
 
     /** Java source files encoding. */
