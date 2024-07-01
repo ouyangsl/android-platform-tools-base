@@ -57,11 +57,13 @@ import com.google.wireless.android.sdk.stats.GradleBuildProject;
 import org.gradle.api.Project;
 import org.gradle.api.component.SoftwareComponentFactory;
 import org.gradle.api.configuration.BuildFeatures;
+import org.gradle.api.internal.plugins.software.SoftwareType;
 import org.gradle.api.reflect.TypeOf;
 import org.gradle.build.event.BuildEventsListenerRegistry;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -80,6 +82,13 @@ public class LibraryPlugin
                 LibraryVariantDslInfo,
                 LibraryCreationConfig,
                 LibraryVariant> {
+
+    @SoftwareType(name = "androidLibrary")
+    public com.android.build.gradle.LibraryExtension getAndroidLibrary() {
+        return ((com.android.build.gradle.LibraryExtension) Objects.requireNonNull(project)
+                .getExtensions()
+                .getByName("android"));
+    }
 
     @Inject
     public LibraryPlugin(

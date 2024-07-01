@@ -20,9 +20,13 @@ import org.gradle.api.Plugin;
 import org.gradle.api.initialization.Settings;
 import org.gradle.api.internal.plugins.software.RegistersSoftwareTypes;
 
-@RegistersSoftwareTypes({AppPlugin.class})
+@RegistersSoftwareTypes({
+        AppPlugin.class,
+        LibraryPlugin.class
+})
 public class AndroidEcoPlugin implements Plugin<Settings> {
 
     @Override
-    public void apply(Settings target) {}
+    public void apply(Settings target) {
+    }
 }

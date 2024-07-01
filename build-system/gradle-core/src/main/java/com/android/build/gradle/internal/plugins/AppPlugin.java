@@ -57,7 +57,6 @@ import com.android.build.gradle.internal.variant.ApplicationVariantFactory;
 import com.android.build.gradle.internal.variant.ComponentInfo;
 import com.android.build.gradle.options.BooleanOption;
 import com.android.builder.model.v2.ide.ProjectType;
-
 import org.gradle.api.Project;
 import org.gradle.api.component.SoftwareComponentFactory;
 import org.gradle.api.configuration.BuildFeatures;
@@ -66,9 +65,9 @@ import org.gradle.api.reflect.TypeOf;
 import org.gradle.build.event.BuildEventsListenerRegistry;
 import org.gradle.tooling.provider.model.ToolingModelBuilderRegistry;
 
-import java.util.Collection;
-
 import javax.inject.Inject;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Gradle plugin class for 'application' projects, applied on the base application module */
 public abstract class AppPlugin
@@ -98,8 +97,12 @@ public abstract class AppPlugin
     protected void pluginSpecificApply(@NonNull Project project) {
     }
 
-    @SoftwareType(name = "androidApp", modelPublicType = BaseAppModuleExtension.class)
-    public abstract BaseAppModuleExtension getAndroidApp();
+    @SoftwareType(name = "androidApp")
+    public BaseAppModuleExtension getAndroidApp() {
+        return ((BaseAppModuleExtension) Objects.requireNonNull(project)
+                .getExtensions()
+                .getByName("android"));
+    }
 
     @NonNull
     @Override

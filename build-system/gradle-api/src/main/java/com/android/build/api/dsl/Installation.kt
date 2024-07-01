@@ -30,7 +30,8 @@ interface Installation {
 
     /** The list of FULL_APK installation options. */
     @get:Incubating
-    @get:Restricted
+// TODO: collections are not supported in DCL
+//    @get:Restricted
     val installOptions: List<String>
 
     /** Sets the list of FULL_APK installation options */

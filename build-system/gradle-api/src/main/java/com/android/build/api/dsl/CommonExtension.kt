@@ -69,7 +69,8 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AndroidResources].
      */
-    @get:Restricted
+// TODO: generics are not supported in DCL
+//    @get:Restricted
     val androidResources: AndroidResourcesT
 
     /**
@@ -77,7 +78,8 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AndroidResources].
      */
-    @Configuring
+// TODO: generics are not supported in DCL
+//    @Configuring
     fun androidResources(action: AndroidResourcesT.() -> Unit)
 
     /**
@@ -109,7 +111,8 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AdbOptions].
      */
-    @get:Restricted
+// TODO: generics are not supported in DCL
+//    @get:Restricted
     val installation: InstallationT
 
     /**
@@ -119,7 +122,8 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [AdbOptions].
      */
-    @Configuring
+// TODO: generics are not supported in DCL
+//    @Configuring
     fun installation(action: InstallationT.() -> Unit)
 
     /**
@@ -144,13 +148,15 @@ interface CommonExtension<
     /**
      * A list of build features that can be enabled or disabled on the Android Project.
      */
-    @get:Restricted
+// TODO: generics are not supported in DCL
+//    @get:Restricted
     val buildFeatures: BuildFeaturesT
 
     /**
      * A list of build features that can be enabled or disabled on the Android Project.
      */
-    @Configuring
+// TODO: generics are not supported in DCL
+//    @Configuring
     fun buildFeatures(action: BuildFeaturesT.() -> Unit)
 
     /**
@@ -441,7 +447,8 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DefaultConfig].
      */
-    @get:Restricted
+// TODO: generics are not supported in DCL
+//    @get:Restricted
     val defaultConfig: DefaultConfigT
 
     /**
@@ -453,7 +460,8 @@ interface CommonExtension<
      *
      * For more information about the properties you can configure in this block, see [DefaultConfig].
      */
-    @Configuring
+// TODO: generics are not supported in DCL
+//    @Configuring
     fun defaultConfig(action: DefaultConfigT.() -> Unit)
 
 

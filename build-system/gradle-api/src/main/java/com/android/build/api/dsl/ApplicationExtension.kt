@@ -58,7 +58,8 @@ interface ApplicationExtension :
     /**
      * Set of asset pack subprojects to be included in the app's bundle.
      */
-    @get:Restricted
+// TODO: collections are not supported in DCL
+//    @get:Restricted
     val assetPacks: MutableSet<String>
 
     /**
