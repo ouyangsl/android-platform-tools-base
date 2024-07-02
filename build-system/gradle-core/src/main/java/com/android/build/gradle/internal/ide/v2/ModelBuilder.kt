@@ -1200,6 +1200,10 @@ class ModelBuilder<
                 BooleanFlag.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS,
                 projectOptions[BooleanOption.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS]
             )
+            flags.put(
+                BooleanFlag.DATA_BINDING_ENABLED,
+                variants.any { it.buildFeatures.dataBinding }
+            )
 
             return AndroidGradlePluginProjectFlagsImpl(flags.build())
         }
