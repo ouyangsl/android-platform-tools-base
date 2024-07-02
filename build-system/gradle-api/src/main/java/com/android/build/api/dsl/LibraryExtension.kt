@@ -18,6 +18,7 @@ package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.declarative.dsl.model.annotations.Configuring
 
 /**
  * Extension for the Android Library Gradle Plugin.
@@ -63,4 +64,7 @@ interface LibraryExtension :
 
     val privacySandbox: PrivacySandbox
     fun privacySandbox(action: PrivacySandbox.() -> Unit)
+
+    @Configuring
+    override fun defaultConfig(action: LibraryDefaultConfig.() -> Unit)
 }
