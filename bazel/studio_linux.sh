@@ -177,6 +177,7 @@ function run_bazel_test() {
       //tools/base/profiler/native/trace_processor_daemon
       //tools/base/deploy/deployer:deployer.runner_deploy.jar
       //tools/base/preview/screenshot:preview_screenshot_maven_repo.zip
+      //tools/base/firebase/testlab/testlab-gradle-plugin:testlab-gradle-plugin.zip
       //tools/adt/idea/studio:test_studio
       //tools/vendor/google/game-tools/packaging:packaging-linux
       //tools/vendor/google/game-tools/packaging:packaging-win
@@ -203,6 +204,7 @@ function run_bazel_test() {
     test \
     ${CONFIG_OPTIONS} --config=ants \
     --build_manual_tests \
+    --//tools/base/bazel/ci:ab_target="studio-linux" \
     --worker_max_instances=${worker_instances} \
     --invocation_id=${invocation_id} \
     --build_tag_filters=${build_tag_filters} \

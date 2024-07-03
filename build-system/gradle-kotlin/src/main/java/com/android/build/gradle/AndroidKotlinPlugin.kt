@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package com.android.leakcanarylib
+package com.android.build.gradle
 
-class LeakCanarySerializer {
-    var logcatMessage: String = ""
+import com.android.build.gradle.internal.plugins.AndroidKotlinPlugin as InternalAndroidKotlinPlugin
+import org.gradle.api.Plugin
+import org.gradle.api.Project
 
-    /** Test function **/
-    fun test(logcatMessage: String): String {
-        return logcatMessage
+@Suppress("unused")
+class AndroidKotlinPlugin : Plugin<Project> {
+
+    override fun apply(project: Project) {
+        project.plugins.apply(InternalAndroidKotlinPlugin::class.java)
     }
 }
 

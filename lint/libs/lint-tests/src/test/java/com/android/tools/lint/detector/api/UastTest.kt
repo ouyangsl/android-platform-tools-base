@@ -27,20 +27,25 @@ import com.intellij.codeInsight.AnnotationTargetUtil
 import com.intellij.openapi.util.Disposer
 import com.intellij.pom.java.LanguageLevel
 import com.intellij.psi.PsiAnnotation.TargetType
+import com.intellij.psi.PsiArrayInitializerMemberValue
 import com.intellij.psi.PsiClass
 import com.intellij.psi.PsiClassType
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiField
 import com.intellij.psi.PsiMethod
+import com.intellij.psi.PsiModifierListOwner
 import com.intellij.psi.PsiParameter
 import com.intellij.psi.PsiRecursiveElementVisitor
 import com.intellij.psi.PsiType
 import com.intellij.psi.PsiTypeParameter
 import junit.framework.TestCase
 import org.jetbrains.annotations.NotNull
+import org.jetbrains.kotlin.analysis.api.KtAnalysisSession
 import org.jetbrains.kotlin.analysis.api.analyze
 import org.jetbrains.kotlin.analysis.api.calls.singleFunctionCallOrNull
 import org.jetbrains.kotlin.analysis.api.calls.symbol
+import org.jetbrains.kotlin.analysis.api.types.KtClassErrorType
+import org.jetbrains.kotlin.analysis.api.types.KtType
 import org.jetbrains.kotlin.asJava.elements.KotlinLightTypeParameterBuilder
 import org.jetbrains.kotlin.asJava.unwrapped
 import org.jetbrains.kotlin.config.LanguageVersionSettings
@@ -50,6 +55,7 @@ import org.jetbrains.kotlin.psi.KtCallExpression
 import org.jetbrains.kotlin.psi.KtClassOrObject
 import org.jetbrains.kotlin.psi.KtConstructor
 import org.jetbrains.kotlin.psi.KtElement
+import org.jetbrains.kotlin.psi.KtExpression
 import org.jetbrains.kotlin.psi.KtLambdaArgument
 import org.jetbrains.kotlin.psi.KtModifierListOwner
 import org.jetbrains.kotlin.psi.KtPropertyAccessor
@@ -62,10 +68,12 @@ import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UCallableReferenceExpression
 import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UClassLiteralExpression
+import org.jetbrains.uast.UDeclaration
 import org.jetbrains.uast.UElement
 import org.jetbrains.uast.UExpression
 import org.jetbrains.uast.UFile
 import org.jetbrains.uast.UForEachExpression
+import org.jetbrains.uast.ULabeledExpression
 import org.jetbrains.uast.ULambdaExpression
 import org.jetbrains.uast.ULocalVariable
 import org.jetbrains.uast.UMethod
@@ -79,6 +87,7 @@ import org.jetbrains.uast.USimpleNameReferenceExpression
 import org.jetbrains.uast.UThisExpression
 import org.jetbrains.uast.UastCallKind
 import org.jetbrains.uast.analysis.KotlinExtensionConstants
+import org.jetbrains.uast.getParentOfType
 import org.jetbrains.uast.skipParenthesizedExprDown
 import org.jetbrains.uast.toUElement
 import org.jetbrains.uast.toUElementOfType
@@ -2755,6 +2764,100 @@ class UastTest : TestCase() {
     }
   }
 
+  fun disabledTestFunInterfaceTypeForLambdaWithLabels() {
+    // TODO: https://youtrack.jetbrains.com/issue/KT-69453
+    // Regression test from b/347626696
+    val source =
+      kotlin(
+          """
+          package test.pkg
+
+          import java.io.Closeable
+
+          internal class CloseMe() : Closeable {
+            override fun close() {
+            }
+          }
+
+          internal fun makeCloseMe(): CloseMe = CloseMe()
+
+          fun interface ResourceFactory {
+            fun getResource(): Closeable
+          }
+
+          fun consumeCloseable(factory: ResourceFactory) = factory.getResource().use {  }
+
+          fun testReturnToImplicitLambdaLabel() {
+            consumeCloseable {
+              return@consumeCloseable makeCloseMe()
+            }
+          }
+
+          fun testReturnToExplicitLambdaLabel() {
+            consumeCloseable label@{
+              return@label makeCloseMe()
+            }
+          }
+        """
+        )
+        .indented()
+
+    check(source) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitReturnExpression(node: UReturnExpression): Boolean {
+            // Skip implicit return
+            if (node.sourcePsi == null) {
+              return super.visitReturnExpression(node)
+            }
+            val type =
+              when (val jumpTarget = node.jumpTarget) {
+                is ULambdaExpression -> {
+                  getFunctionalInterfaceType(jumpTarget.sourcePsi as KtExpression, jumpTarget)
+                }
+                is ULabeledExpression -> {
+                  val lambda = jumpTarget.expression as ULambdaExpression
+                  getFunctionalInterfaceType(lambda.sourcePsi as KtExpression, lambda)
+                }
+                else -> null
+              }
+            assertEquals("test.pkg.ResourceFactory", type?.canonicalText)
+            return super.visitReturnExpression(node)
+          }
+
+          // Copied from google3 utils
+          private fun getFunctionalInterfaceType(
+            ktExpression: KtExpression,
+            source: UExpression,
+          ): PsiClassType? {
+            return analyze(ktExpression) {
+              val samType = getSamType(ktExpression) ?: return null
+              val psiTypeParent =
+                source.getParentOfType(UDeclaration::class.java, strict = false)?.javaPsi
+                  as? PsiModifierListOwner ?: ktExpression
+              try {
+                samType.asPsiType(psiTypeParent, allowErrorTypes = true) as? PsiClassType
+              } catch (e: IllegalArgumentException) {
+                // E.g., kotlin/Array<out ft<kotlin/Any, kotlin/Any?>>?>
+                // non-simple array argument
+                null
+              }
+            }
+          }
+
+          // Copied from google3 utils
+          private fun KtAnalysisSession.getSamType(ktExpression: KtExpression): KtType? {
+            // E.g. `FunInterface(::method)` or `call(..., ::method, ...)`
+            return ktExpression
+              .getExpectedType()
+              ?.takeIf { it !is KtClassErrorType && it.isFunctionalInterfaceType }
+              ?.lowerBoundIfFlexible()
+          }
+        }
+      )
+    }
+  }
+
   fun testResolveToInlineInLibrary() {
     val testFiles =
       arrayOf(
@@ -4284,6 +4387,62 @@ class UastTest : TestCase() {
             assertEquals("ownPropGetter", resolved?.name)
 
             return super.visitSimpleNameReferenceExpression(node)
+          }
+        }
+      )
+    }
+  }
+
+  fun disabledTestStringConcatInAnnotationValue() {
+    // TODO: https://youtrack.jetbrains.com/issue/KT-69452
+    // Regression test from b/347629388
+    val testFiles =
+      arrayOf(
+        kotlin(
+          """
+            @MyAnnotation(
+              password = [
+                "nananananana, " +
+                  "batman"
+              ]
+            )
+            fun test() {}
+          """
+            .trimIndent()
+        ),
+        java(
+          """
+            import java.lang.annotation.ElementType;
+            import java.lang.annotation.Retention;
+            import java.lang.annotation.RetentionPolicy;
+            import java.lang.annotation.Target;
+
+            @Retention(RetentionPolicy.CLASS)
+            @Target({ElementType.METHOD})
+            public @interface MyAnnotation {
+              String[] password() default {};
+            }
+          """
+        ),
+      )
+    check(*testFiles) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitMethod(node: UMethod): Boolean {
+            val psiAnnotation = node.annotations.single()
+            val attributeValue = psiAnnotation.findAttributeValue("password")
+            assertNotNull(attributeValue)
+            val initializer =
+              (attributeValue as PsiArrayInitializerMemberValue).initializers.single()
+
+            val uExpression = initializer.toUElementOfType<UExpression>()
+            val uEval = uExpression?.evaluate()
+            assertEquals("nananananana, batman", uEval)
+
+            val eval = ConstantEvaluator().evaluate(initializer)
+            assertEquals("nananananana, batman", eval)
+
+            return super.visitMethod(node)
           }
         }
       )
