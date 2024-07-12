@@ -12,18 +12,15 @@ readonly script_name="$(basename "$0")"
 # Invocation ID must be lower case in Upsalite URL
 readonly invocation_id=$(uuidgen | tr A-F a-f)
 
-readonly config_options="--config=local --config=_remote_base --config=sponge"
+readonly config_options="--config=local --config=rcache --config=ants --config=_remote_base"
 readonly target_filters="qa_smoke,ui_test,-qa_unreliable,-no_test_mac,-requires_emulator"
-
-# The BAZEL_* variable is configured on the Mac Host.
-export GOOGLE_APPLICATION_CREDENTIALS=$BAZEL_GOOGLE_APPLICATION_CREDENTIALS
 
 # Use test strategy to run 1 test at a time after all build dependencies are built
 "${script_dir}/../bazel" \
         --max_idle_secs=60 \
         test \
         --keep_going \
-        ${config_options} --config=ants \
+        ${config_options} \
         --test_strategy=exclusive \
         --strategy=TestRunner=local \
         --invocation_id=${invocation_id} \
@@ -33,6 +30,9 @@ export GOOGLE_APPLICATION_CREDENTIALS=$BAZEL_GOOGLE_APPLICATION_CREDENTIALS
         --build_tag_filters=${target_filters} \
         --test_tag_filters=${target_filters} \
         --tool_tag=${script_name} \
+	--remote_upload_local_results \
+	--bes_upload_mode="wait_for_upload_complete" \
+	--bes_timeout="600s" \
         -- \
         //tools/adt/idea/android-uitests/...
 

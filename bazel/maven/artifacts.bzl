@@ -39,6 +39,7 @@ ARTIFACTS = [
     "com.google.code.findbugs:jsr305:3.0.2",
     "com.google.code.gson:gson:2.10.1",
     "com.google.crypto.tink:tink:1.7.0",
+    "com.google.errorprone:error_prone_annotations:2.28.0",
     "com.google.flatbuffers:flatbuffers-java:1.12.0",
     "com.google.flogger:flogger:0.8",
     "com.google.flogger:flogger-system-backend:0.8",
@@ -140,7 +141,7 @@ ARTIFACTS = [
     "org.bouncycastle:bcpkix-jdk18on:1.77",
     "org.bouncycastle:bcprov-jdk18on:1.77",
     "org.bytedeco:ffmpeg:6.0-1.5.9",
-    "org.codehaus.groovy:groovy-all:pom:3.0.17",
+    "org.codehaus.groovy:groovy-all:pom:3.0.21",
     "org.commonmark:commonmark:0.22.0",
     "org.eclipse.aether:aether-connector-basic:1.0.2.v20150114",
     "org.eclipse.aether:aether-transport-file:1.0.2.v20150114",
@@ -152,7 +153,7 @@ ARTIFACTS = [
     "org.eclipse.emf:org.eclipse.emf.ecore:2.12.0",
     "org.glassfish.jaxb:jaxb-runtime:2.3.2",
     "org.glassfish.jaxb:jaxb-xjc:2.3.2",
-    "org.gradle:gradle-tooling-api:8.7",
+    "org.gradle:gradle-tooling-api:8.8",
     "org.hamcrest:hamcrest-core:1.3",
     "org.hamcrest:hamcrest-library:1.3",
     "org.hdrhistogram:HdrHistogram:2.1.12",
@@ -213,6 +214,7 @@ DATA = [
     "android.arch.navigation:navigation-ui:1.0.0",
     "android.arch.persistence.room:runtime:1.0.0",
     "androidx.activity:activity-compose:1.5.1",  # Still needed from //tools/base/build-system/integration-tests
+    "androidx.activity:activity-compose:1.6.1",  # Dependency of architecture-samples
     "androidx.activity:activity-compose:1.7.2",  # Still needed from //tools/base/android-templates/BUILD
     "androidx.activity:activity-compose:1.8.0",
     "androidx.activity:activity-ktx:1.4.0",
@@ -228,6 +230,7 @@ DATA = [
     "androidx.appcompat:appcompat:1.3.0-beta01",
     "androidx.appcompat:appcompat:1.4.1",
     "androidx.appcompat:appcompat:1.6.1",
+    "androidx.arch.core:core-testing:2.1.0",  # Dependency of architecture-samples
     "androidx.benchmark:benchmark-baseline-profile-gradle-plugin:1.2.4",
     "androidx.benchmark:benchmark-gradle-plugin:1.2.4",
     "androidx.cardview:cardview:1.0.0",
@@ -237,23 +240,28 @@ DATA = [
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.animation:animation:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.animation:animation-android:1.6.5",  # Compose Desktop Lint checks
+    "androidx.compose.animation:animation-core:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.animation:animation-core-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.compiler:compiler:1.2.0",
     "androidx.compose.compiler:compiler:1.3.2",
+    "androidx.compose.compiler:compiler:1.4.3",  # Dependency of architecture-samples
     "androidx.compose.compiler:compiler:1.4.7",
     "androidx.compose.compiler:compiler:1.5.1",
     "androidx.compose.compiler:compiler:1.5.11",
     "androidx.compose.compiler:compiler-hosted:1.5.7",
     "androidx.compose:compose-bom:pom:2022.10.00",
+    "androidx.compose:compose-bom:pom:2023.01.00",  # Dependency of architecture-samples
     "androidx.compose:compose-bom:pom:2023.03.00",
     "androidx.compose:compose-bom:pom:2023.06.00",
     "androidx.compose:compose-bom:pom:2024.04.01",
     "androidx.compose.foundation:foundation:1.3.0",
+    "androidx.compose.foundation:foundation:1.3.1",  # Dependency of architecture-samples
     "androidx.compose.foundation:foundation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.foundation:foundation-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation-android:1.6.5",  # Compose Desktop Lint checks
+    "androidx.compose.foundation:foundation-layout:1.3.1",  # Dependency of architecture-samples
     "androidx.compose.foundation:foundation-layout:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.material:material:1.3.0",  # Needed by //tools/base/build-system/integration-test/...
     "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
@@ -267,9 +275,11 @@ DATA = [
     "androidx.compose.material3:material3:1.1.1",
     "androidx.compose.material3:material3:1.2.1",  # Compose BOM 2024.04.01
     "androidx.compose.material3:material3-android:1.2.1",  # Compose Desktop Lint checks
+    "androidx.compose.runtime:runtime:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.runtime:runtime:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.runtime:runtime-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.runtime:runtime-livedata:1.3.0",
+    "androidx.compose.runtime:runtime-saveable:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.runtime:runtime-saveable:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.runtime:runtime-saveable-android:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui:1.3.0",
@@ -282,17 +292,21 @@ DATA = [
     "androidx.compose.ui:ui-test-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-junit4:1.2.0",
     "androidx.compose.ui:ui-test-junit4:1.3.0",
+    "androidx.compose.ui:ui-test-junit4:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.ui:ui-test-junit4:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-junit4:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-junit4:1.6.6",  # Compose BOM 2024.04.01
     "androidx.compose.ui:ui-test-junit4-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-manifest:1.3.0",
+    "androidx.compose.ui:ui-test-manifest:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.ui:ui-test-manifest:1.5.0-alpha04",
     "androidx.compose.ui:ui-test-manifest:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-manifest:1.6.5",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui-test-manifest:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.ui:ui-text:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.ui:ui-tooling:1.2.0",  # Still needed from //tools/data-binding/compilationTests
     "androidx.compose.ui:ui-tooling:1.3.0",  # Still needed from //tools/base/build-system/integration-tests
+    "androidx.compose.ui:ui-tooling:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.ui:ui-tooling:1.4.3",  # Still needed from //tools/adt/idea/integration:BuildAndRunKMPTest
     "androidx.compose.ui:ui-tooling:1.5.0-alpha04",
     "androidx.compose.ui:ui-tooling:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -304,6 +318,7 @@ DATA = [
     "androidx.compose.ui:ui-tooling-preview:1.6.5",
     "androidx.compose.ui:ui-tooling-preview-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-unit-android:1.5.0-beta01",  # Necessary for Compose for TV.
+    "androidx.compose.ui:ui-util:1.3.3",  # Dependency of architecture-samples
     "androidx.constraintlayout:constraintlayout:1.1.3",
     "androidx.constraintlayout:constraintlayout:2.1.3",
     "androidx.constraintlayout:constraintlayout:2.1.4",
@@ -352,6 +367,7 @@ DATA = [
     "androidx.lifecycle:lifecycle-common-java8:2.6.1",
     "androidx.lifecycle:lifecycle-common-java8:2.6.2",
     "androidx.lifecycle:lifecycle-extensions:2.2.0",
+    "androidx.lifecycle:lifecycle-livedata:2.6.0-alpha03",  # Dependency of architecture-samples
     "androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2",
     "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
     "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1",
@@ -367,15 +383,18 @@ DATA = [
     "androidx.lifecycle:lifecycle-runtime:2.6.1",
     "androidx.lifecycle:lifecycle-runtime:2.8.0-alpha02",  # Needed for kmp consumption test
     "androidx.lifecycle:lifecycle-runtime-android:2.8.0-alpha02",  # Needed for kmp consumption test
+    "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03",  # Dependency of architecture-samples
     "androidx.lifecycle:lifecycle-runtime-compose:2.6.1",
     "androidx.lifecycle:lifecycle-runtime-desktop:2.8.0-alpha02",  # Needed for kmp consumption test
     "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
     "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1",
     "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2",
+    "androidx.lifecycle:lifecycle-runtime-testing:2.6.0-alpha03",  # Dependency of architecture-samples
     "androidx.lifecycle:lifecycle-service:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
     "androidx.lifecycle:lifecycle-service:2.6.1",
     "androidx.lifecycle:lifecycle-service:2.6.2",
     "androidx.lifecycle:lifecycle-viewmodel:2.6.2",
+    "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha03",  # Dependency of architecture-samples
     "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1",
     "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1",  # Needed for AndroidTestRunConfigurationTest#testCanRunLibTestsInDebugBuildWithNoAndroidManifest
     "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
@@ -389,6 +408,7 @@ DATA = [
     "androidx.multidex:multidex:2.0.0",
     "androidx.multidex:multidex:2.0.1",
     "androidx.multidex:multidex-instrumentation:2.0.0",
+    "androidx.navigation:navigation-compose:2.5.3",  # Dependency of architecture-samples
     "androidx.navigation:navigation-fragment:2.0.0",
     "androidx.navigation:navigation-fragment:2.5.2",
     "androidx.navigation:navigation-fragment:2.5.3",
@@ -402,6 +422,7 @@ DATA = [
     "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.2",
     "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.3",
     "androidx.navigation:navigation-safe-args-gradle-plugin:2.6.0",
+    "androidx.navigation:navigation-testing:2.5.3",  # Dependency of architecture-samples
     "androidx.navigation:navigation-ui:2.5.2",
     "androidx.navigation:navigation-ui:2.5.3",
     "androidx.navigation:navigation-ui:2.6.0",
@@ -418,11 +439,11 @@ DATA = [
     "androidx.privacysandbox.plugins:plugins-privacysandbox-library:1.0.0-alpha02",
     "androidx.privacysandbox.sdkruntime:sdkruntime-client:1.0.0-alpha13",
     "androidx.privacysandbox.sdkruntime:sdkruntime-core:1.0.0-alpha13",
-    "androidx.privacysandbox.tools:tools:1.0.0-alpha08",
-    "androidx.privacysandbox.tools:tools-apicompiler:1.0.0-alpha08",
-    "androidx.privacysandbox.tools:tools-apigenerator:1.0.0-alpha08",
-    "androidx.privacysandbox.tools:tools-apipackager:1.0.0-alpha08",
-    "androidx.privacysandbox.tools:tools-core:1.0.0-alpha08",
+    "androidx.privacysandbox.tools:tools:1.0.0-alpha09",
+    "androidx.privacysandbox.tools:tools-apicompiler:1.0.0-alpha09",
+    "androidx.privacysandbox.tools:tools-apigenerator:1.0.0-alpha09",
+    "androidx.privacysandbox.tools:tools-apipackager:1.0.0-alpha09",
+    "androidx.privacysandbox.tools:tools-core:1.0.0-alpha09",
     "androidx.privacysandbox.ui:ui-client:1.0.0-alpha07",
     "androidx.privacysandbox.ui:ui-core:1.0.0-alpha07",
     "androidx.privacysandbox.ui:ui-provider:1.0.0-alpha07",
@@ -430,27 +451,36 @@ DATA = [
     "androidx.recyclerview:recyclerview:1.2.1",
     "androidx.recyclerview:recyclerview:1.3.0",
     "androidx.room:room-compiler:2.0.0",
+    "androidx.room:room-compiler:2.5.0-rc01",  # Dependency of architecture-samples
+    "androidx.room:room-ktx:2.5.0-rc01",  # Dependency of architecture-samples
     "androidx.room:room-runtime:2.0.0",
+    "androidx.room:room-testing:2.5.0-rc01",  # Dependency of architecture-samples
     "androidx.savedstate:savedstate-ktx:1.2.1",
     "androidx.slice:slice-builders:1.0.0",
     "androidx.startup:startup-runtime:1.1.1",
     "androidx.test:core:1.3.0",  # TODO: To be removed once dependent tests pass b/273872043
     "androidx.test:core:1.4.0-alpha06",
     "androidx.test:core:1.5.0",
+    "androidx.test:core-ktx:1.5.0",  # Dependency of architecture-samples
+    "androidx.test.espresso:espresso-contrib:3.5.0",  # Dependency of architecture-samples
     "androidx.test.espresso:espresso-contrib:3.5.1",
     "androidx.test.espresso:espresso-core:3.1.0",
     "androidx.test.espresso:espresso-core:3.2.0",
     "androidx.test.espresso:espresso-core:3.4.0",
     "androidx.test.espresso:espresso-core:3.5.1",
+    "androidx.test.espresso:espresso-intents:3.5.0",  # Dependency of architecture-samples
+    "androidx.test.espresso.idling:idling-concurrent:3.5.0",  # Dependency of architecture-samples
     "androidx.test.ext:junit:1.1.2",  # TODO: To be removed once dependent tests pass b/273872043
     "androidx.test.ext:junit:1.1.3-alpha02",
     "androidx.test.ext:junit:1.1.5",
+    "androidx.test.ext:junit-ktx:1.1.4",  # Dependency of architecture-samples
     "androidx.test:monitor:1.6.1",
     "androidx.test:orchestrator:1.5.0-alpha02",
     "androidx.test:rules:1.1.0",
     "androidx.test:rules:1.3.0",
     "androidx.test:rules:1.4.0-alpha06",
     "androidx.test:runner:1.4.0-alpha06",
+    "androidx.test:runner:1.5.2",
     "androidx.test.services:test-services:1.5.0-alpha02",
     "androidx.tracing:tracing-perfetto-handshake:1.0.0-beta02",
     "androidx.tv:tv-foundation:1.0.0-alpha07",
@@ -466,6 +496,7 @@ DATA = [
     "androidx.wear:wear:1.2.0",
     "androidx.wear:wear-tooling-preview:1.0.0",
     "com.android.application:com.android.application.gradle.plugin:pom:7.2.0",
+    "com.android.application:com.android.application.gradle.plugin:pom:7.4.0",  # Dependency of architecture-samples
     "com.android.application:com.android.application.gradle.plugin:pom:7.4.1",
     "com.android.application:com.android.application.gradle.plugin:pom:7.4.2",
     "com.android.application:com.android.application.gradle.plugin:pom:8.0.2",
@@ -475,7 +506,38 @@ DATA = [
     "com.android.application:com.android.application.gradle.plugin:pom:8.3.1",
     "com.android.application:com.android.application.gradle.plugin:pom:8.4.0",
     "com.android.application:com.android.application.gradle.plugin:pom:8.5.0",
+    "com.android.databinding:adapters:4.0.0",
+    "com.android.databinding:adapters:4.1.0",
+    "com.android.databinding:adapters:4.2.0",
+    "com.android.databinding:adapters:7.0.0",
+    "com.android.databinding:adapters:7.1.0",
+    "com.android.databinding:adapters:7.2.0",
+    "com.android.databinding:adapters:7.3.0",
+    "com.android.databinding:adapters:7.4.1",
+    "com.android.databinding:adapters:8.0.2",
+    "com.android.databinding:adapters:8.1.0",
+    "com.android.databinding:adapters:8.2.0",
+    "com.android.databinding:adapters:8.2.2",
+    "com.android.databinding:adapters:8.3.1",
+    "com.android.databinding:adapters:8.4.0",
+    "com.android.databinding:adapters:8.5.0",
+    "com.android.databinding:viewbinding:4.0.0",
+    "com.android.databinding:viewbinding:4.1.0",
+    "com.android.databinding:viewbinding:4.2.0",
+    "com.android.databinding:viewbinding:7.0.0",
+    "com.android.databinding:viewbinding:7.1.0",
+    "com.android.databinding:viewbinding:7.2.0",
+    "com.android.databinding:viewbinding:7.3.0",
+    "com.android.databinding:viewbinding:7.4.1",
+    "com.android.databinding:viewbinding:8.0.2",
+    "com.android.databinding:viewbinding:8.1.0",
+    "com.android.databinding:viewbinding:8.2.0",
+    "com.android.databinding:viewbinding:8.2.2",
+    "com.android.databinding:viewbinding:8.3.1",
+    "com.android.databinding:viewbinding:8.4.0",
+    "com.android.databinding:viewbinding:8.5.0",
     "com.android.library:com.android.library.gradle.plugin:pom:7.2.0",
+    "com.android.library:com.android.library.gradle.plugin:pom:7.4.0",  # Dependency of architecture-samples
     "com.android.library:com.android.library.gradle.plugin:pom:7.4.1",
     "com.android.library:com.android.library.gradle.plugin:pom:7.4.2",
     "com.android.library:com.android.library.gradle.plugin:pom:8.0.2",
@@ -633,6 +695,8 @@ DATA = [
     "com.android.tools.utp:android-test-plugin-result-listener-gradle:jar:31.1.0",
     "com.crashlytics.sdk.android:crashlytics:2.6.8",
     "com.github.bumptech.glide:glide:4.11.0",
+    "com.google.accompanist:accompanist-appcompat-theme:0.28.0",  # Dependency of architecture-samples
+    "com.google.accompanist:accompanist-swiperefresh:0.28.0",  # Dependency of architecture-samples
     "com.google.ai.client.generativeai:generativeai:0.2.2",
     "com.google.android:android:4.1.1.4",
     "com.google.android.gms:play-services-ads:20.6.0",
@@ -679,10 +743,13 @@ DATA = [
     "com.google.crypto.tink:tink:1.3.0-rc2",
     "com.google.dagger:dagger-compiler:2.28.3",
     "com.google.dagger:dagger-compiler:2.6",
+    "com.google.dagger.hilt.android:com.google.dagger.hilt.android.gradle.plugin:pom:2.44.2",  # Dependency of architecture-samples
     "com.google.dagger:hilt-android:2.40.1",
     "com.google.dagger:hilt-android-gradle-plugin:2.40.1",
+    "com.google.dagger:hilt-android-testing:2.44.2",  # Dependency of architecture-samples
     "com.google.dagger:hilt-compiler:2.40.1",
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:1.7.10-1.0.6",
+    "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:1.8.10-1.0.9",  # Dependency of architecture-samples
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:1.8.21-1.0.11",
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:1.9.0-1.0.11",
     "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:pom:2.0.20-Beta1-1.0.22",
@@ -742,6 +809,7 @@ DATA = [
     "com.jakewharton:butterknife:7.0.1",
     "com.jakewharton:butterknife-gradle-plugin:9.0.0-rc1",
     "com.jakewharton:butterknife-gradle-plugin:9.0.0-rc2",
+    "com.jakewharton.timber:timber:5.0.1",  # Dependency of architecture-samples
     "com.linkedin.testbutler:test-butler-app:1.3.1",
     "com.squareup.dagger:dagger-compiler:1.2.2",
     "com.squareup:kotlinpoet:1.12.0",
@@ -802,6 +870,7 @@ DATA = [
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.0",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.22",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.23",
+    "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.0.20-Beta1",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.0.20-Beta2-1",
     "org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.0.20-Beta1",
@@ -817,6 +886,7 @@ DATA = [
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.0.20-Beta1",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.0.20-Beta2-1",
     "org.jetbrains.kotlin:jvm-abi-gen:1.9.21",
+    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:1.8.10",  # Dependency of architecture-samples
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:1.9.22",
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:1.9.23",
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:2.0.20-Beta1",
@@ -844,6 +914,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-annotation-processing-gradle:2.0.20-Beta1",
     "org.jetbrains.kotlin:kotlin-bom:pom:1.8.0",
     "org.jetbrains.kotlin:kotlin-bom:pom:1.8.22",
+    "org.jetbrains.kotlin:kotlin-build-tools-impl:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin:kotlin-build-tools-impl:2.0.20-Beta1",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.0",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.20",
@@ -857,6 +928,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.20",
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.21",
     "org.jetbrains.kotlin:kotlin-compiler-embeddable:1.8.10",
+    "org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable:2.0.20-Beta1",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.41",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.72",
@@ -938,6 +1010,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-script-runtime:2.0.20-Beta1",
     "org.jetbrains.kotlin:kotlin-stdlib-common:1.9.22",
     "org.jetbrains.kotlin:kotlin-stdlib-common:1.9.23",
+    "org.jetbrains.kotlin:kotlin-stdlib-common:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin:kotlin-stdlib-common:2.0.20-Beta1",
     "org.jetbrains.kotlin:kotlin-stdlib-common:2.0.20-Beta2-1",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32",
@@ -954,12 +1027,14 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.0",
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.20-Beta1",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.20-Beta2-1",
     "org.jetbrains.kotlin:kotlin-stdlib-js:1.7.0",
     "org.jetbrains.kotlin:kotlin-test-junit:1.7.10",
     "org.jetbrains.kotlin:kotlin-test-junit:2.0.20-Beta1",
     "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multiplatform.gradle.plugin:pom:1.8.21",
+    "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.0.20-Beta1",
     "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.0.20-Beta2-1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1",

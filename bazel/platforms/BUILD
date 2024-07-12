@@ -1,10 +1,24 @@
+load("@bazel_skylib//lib:dicts.bzl", "dicts")
 load(
     "@bazel_toolchains//rules/exec_properties:exec_properties.bzl",
     "create_rbe_exec_properties_dict",
 )
-load("@bazel_skylib//lib:dicts.bzl", "dicts")
 
 package(default_visibility = ["//visibility:public"])
+
+# Hack to select on the host platform. It should be avoided whenever possible.
+# https://bazel.build/docs/configurable-attributes#what_if_i_really_really_want_to_select_on_the_platform
+config_setting(
+    name = "windows_host",
+    values = {
+        "host_platform": "//tools/base/bazel/platforms:windows",
+    },
+    visibility = [
+        "//tools/adt/idea/streaming/integration/event-logger:__pkg__",
+        "//tools/adt/idea/streaming/integration/languages:__pkg__",
+        "//tools/adt/idea/streaming/testSrc/testApp/src/main:__pkg__",
+    ],
+)
 
 config_setting(
     name = "macos-arm64",
@@ -67,4 +81,3 @@ platform(
     # N.B. we pick the CPU based on the host (x86_64 or arm64).
     parents = ["@local_config_platform//:host"],
 )
-

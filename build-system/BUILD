@@ -98,7 +98,7 @@ maven_library(
 )
 
 # The Gradle APIs to build against and run against.
-GRADLE_VERSION = "8.7"
+GRADLE_VERSION = "8.8"
 
 filegroup(
     name = "gradle-distrib",
@@ -461,7 +461,7 @@ maven_repository(
         "//tools/data-binding:tools.baseLibrarySupport",
         "//tools/data-binding:tools.compiler",
         "//tools/data-binding:tools.compilerCommon",
-        "@maven//:androidx.privacysandbox.tools.tools-apigenerator_1.0.0-alpha08",
+        "@maven//:androidx.privacysandbox.tools.tools-apigenerator_1.0.0-alpha09",
         "@maven//:com.android.tools.build.bundletool",
         "@maven//:com.android.tools.build.jetifier.jetifier-processor",
         "@maven//:com.android.tools.build.transform-api",

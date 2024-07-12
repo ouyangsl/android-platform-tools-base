@@ -18,7 +18,10 @@ package com.android.backup.testing
 
 import ai.grazie.utils.dropPrefix
 import com.android.backup.AbstractBackupServices
+import com.android.backup.BackupException
+import com.android.backup.ErrorCode
 import com.android.tools.environment.log.NoopLogger
+import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -30,14 +33,34 @@ private const val INIT_TRANSPORT = "bmgr init "
 private const val BACKUP_NOW = "bmgr backupnow "
 private const val RESTORE = "bmgr restore "
 private const val DELETE_FILES = "rm -rf "
+private const val DUMPSYS_GMSCORE = "dumpsys package com.google.android.gms"
 
 /** A fake [com.android.backup.BackupServices] */
 internal class FakeBackupServices(serialNumber: String, totalSteps: Int) :
   AbstractBackupServices(serialNumber, NoopLogger(), FakeProgressListener(), totalSteps) {
 
+  sealed class CommandOverride(val command: String) {
+    class Output(command: String, val output: String) : CommandOverride(command) {
+
+      override fun handle(errorCode: ErrorCode) = output
+    }
+
+    class Throw(command: String) : CommandOverride(command) {
+
+      override fun handle(errorCode: ErrorCode): String {
+        throw BackupException(errorCode, "Fake failure")
+      }
+    }
+
+    abstract fun handle(errorCode: ErrorCode): String
+  }
+
+  private val commandOverrides = mutableMapOf<String, CommandOverride>()
+
   var bmgrEnabled = false
+  var failSync = false
   var testMode = 0
-  private var transports =
+  var transports =
     listOf(
       "com.android.localtransport/.LocalTransport",
       "com.google.android.gms/.backup.migrate.service.D2dTransport",
@@ -51,8 +74,12 @@ internal class FakeBackupServices(serialNumber: String, totalSteps: Int) :
 
   fun getProgress() = (progressListener as FakeProgressListener).getSteps()
 
-  override suspend fun executeCommand(command: String): String {
+  override suspend fun executeCommand(command: String, errorCode: ErrorCode): String {
     commands.add(command)
+    val result = commandOverrides[command]?.handle(errorCode)
+    if (result != null) {
+      return result
+    }
     return when {
       command == "bmgr enabled" -> handleBmgrEnabled()
       command.startsWith(BMGR_ENABLE) -> handleEnableBmgr(command)
@@ -63,20 +90,32 @@ internal class FakeBackupServices(serialNumber: String, totalSteps: Int) :
       command.startsWith(BACKUP_NOW) -> handleBackupNow()
       command.startsWith(RESTORE) -> handleRestore()
       command.startsWith(DELETE_FILES) -> ""
+      command == DUMPSYS_GMSCORE -> handleDumpsysGmsCore()
       else -> throw NotImplementedError("Command '$command' is not implemented")
     }
   }
 
   @Suppress("BlockingMethodInNonBlockingContext")
   override suspend fun syncRecv(outputStream: OutputStream, remoteFilePath: String) {
+    if (failSync) {
+      throw IOException()
+    }
     outputStream.write(remoteFilePath.toByteArray())
     // AdbLib closes the stream after a recv, so we do as well.
     outputStream.close()
   }
 
   override suspend fun syncSend(inputStream: InputStream, remoteFilePath: String) {
+    if (failSync) {
+      throw IOException()
+    }
     pushedFiles.add(remoteFilePath)
     @Suppress("BlockingMethodInNonBlockingContext") inputStream.close()
+  }
+
+  fun addCommandOverride(override: CommandOverride): FakeBackupServices {
+    commandOverrides[override.command] = override
+    return this
   }
 
   private fun handleBmgrEnabled(): String {
@@ -117,6 +156,19 @@ internal class FakeBackupServices(serialNumber: String, totalSteps: Int) :
       true -> "Initialization result: 0"
       false -> "Error: $transport not supported"
     }
+  }
+
+  private fun handleDumpsysGmsCore(): String {
+    // Small extract of actual command
+    return """
+      Packages:
+        Package [com.google.android.gms] (19e117e):
+          userId=10105
+          versionCode=242335038 minSdk=31 targetSdk=34
+          minExtensionVersions=[]
+          versionName=24.23.35 (190400-646585959)
+    """
+      .trimIndent()
   }
 
   private fun handleBackupNow(): String {

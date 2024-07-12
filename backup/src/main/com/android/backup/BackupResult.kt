@@ -16,9 +16,15 @@
 
 package com.android.backup
 
+import com.android.backup.BackupResult.Error
+import com.android.backup.ErrorCode.UNEXPECTED_ERROR
+
 /** The result of a backup/restore operation */
 sealed class BackupResult {
   data object Success : BackupResult()
 
-  class Error(val throwable: Throwable) : BackupResult()
+  data class Error(val errorCode: ErrorCode, val throwable: Throwable) : BackupResult()
 }
+
+internal fun Throwable.toBackupResult() =
+  if (this is BackupException) Error(errorCode, this) else Error(UNEXPECTED_ERROR, this)

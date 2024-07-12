@@ -35,6 +35,7 @@ import com.android.build.api.variant.impl.BuiltArtifactsImpl
 import com.android.build.api.variant.impl.HasHostTestsCreationConfig
 import com.android.build.api.variant.impl.HasTestFixtures
 import com.android.build.api.variant.impl.HasDeviceTestsCreationConfig
+import com.android.build.api.variant.impl.ManifestFilesImpl
 import com.android.build.gradle.internal.component.DeviceTestCreationConfig
 import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.ApplicationCreationConfig
@@ -206,7 +207,7 @@ class ModelBuilder<
          * method not called by current versions of Studio, the MINIMUM_MODEL_CONSUMER version must
          * be increased to exclude all older versions of Studio that called that method.
          */
-        val modelProducer = VersionImpl(8, 9, humanReadable = "Android Gradle Plugin 8.4")
+        val modelProducer = VersionImpl(9, 0, humanReadable = "Android Gradle Plugin 8.7")
         /**
          * The minimum required model consumer version, to allow AGP to control support for older
          * versions of Android Studio.
@@ -1032,7 +1033,19 @@ class ModelBuilder<
 
         // get the manifest in descending order of priority. First one to return
         val manifests = mutableListOf<File>()
-        manifests.addAll(component.sources.manifestOverlayFiles.get().filter { it.isFile })
+        // add the static overlays, we cannot at this time process the generated ones since they
+        // depends on tasks execution. This means that if the user is setting the instant app
+        // flag in the generated manifest only, then we will not see it.
+        // The solution to this problem (and cleaning up this rather ugly code is to introduce
+        // a specific dsl flag instead of poking the manifests at model building, see  b/160970116
+        val manifestSources = component.sources.manifests as ManifestFilesImpl
+        manifests.addAll(manifestSources.allStatic.map {
+            // `allStatic` is ordered from most prioritized to less prioritizes (main manifest)
+            // need to remove main manifest and reverse order from less to the most prioritized
+            files -> files.dropLast(1).reversed().map { it.asFile }
+        }.get().filter { it.isFile }
+        )
+
         val mainManifest = component.sources.manifestFile.get()
         if (mainManifest.isFile) {
             manifests.add(mainManifest)
@@ -1199,6 +1212,10 @@ class ModelBuilder<
             flags.put(
                 BooleanFlag.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS,
                 projectOptions[BooleanOption.EXCLUDE_LIBRARY_COMPONENTS_FROM_CONSTRAINTS]
+            )
+            flags.put(
+                BooleanFlag.DATA_BINDING_ENABLED,
+                variants.any { it.buildFeatures.dataBinding }
             )
 
             return AndroidGradlePluginProjectFlagsImpl(flags.build())

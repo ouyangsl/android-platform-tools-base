@@ -26,18 +26,17 @@ import com.android.build.api.variant.ResValue
 import com.android.build.api.variant.ScopedArtifacts
 import com.android.build.api.variant.impl.FlatSourceDirectoriesImpl
 import com.android.build.api.variant.impl.LayeredSourceDirectoriesImpl
-import com.android.build.gradle.internal.component.DeviceTestCreationConfig
 import com.android.build.gradle.internal.component.ApkCreationConfig
 import com.android.build.gradle.internal.component.ComponentCreationConfig
 import com.android.build.gradle.internal.component.ConsumableCreationConfig
+import com.android.build.gradle.internal.component.DeviceTestCreationConfig
+import com.android.build.gradle.internal.component.HostTestCreationConfig
 import com.android.build.gradle.internal.component.KmpComponentCreationConfig
 import com.android.build.gradle.internal.component.LibraryCreationConfig
 import com.android.build.gradle.internal.component.TestFixturesCreationConfig
-import com.android.build.gradle.internal.component.HostTestCreationConfig
 import com.android.build.gradle.internal.component.VariantCreationConfig
 import com.android.build.gradle.internal.dependency.VariantDependencies
 import com.android.build.gradle.internal.dsl.LintImpl
-import com.android.build.gradle.internal.ide.Utils.getGeneratedResourceFoldersFileCollection
 import com.android.build.gradle.internal.ide.Utils.getGeneratedSourceFoldersFileCollection
 import com.android.build.gradle.internal.ide.dependencies.ArtifactCollectionsInputs
 import com.android.build.gradle.internal.ide.dependencies.ArtifactCollectionsInputsImpl
@@ -47,6 +46,8 @@ import com.android.build.gradle.internal.ide.dependencies.MavenCoordinatesCacheB
 import com.android.build.gradle.internal.ide.dependencies.getDependencyGraphBuilder
 import com.android.build.gradle.internal.publishing.AndroidArtifacts
 import com.android.build.gradle.internal.scope.InternalArtifactType
+import com.android.build.gradle.internal.scope.InternalArtifactType.GENERATED_RES
+import com.android.build.gradle.internal.scope.InternalArtifactType.RENDERSCRIPT_GENERATED_RES
 import com.android.build.gradle.internal.scope.ProjectInfo
 import com.android.build.gradle.internal.services.LintClassLoaderBuildService
 import com.android.build.gradle.internal.services.LintParallelBuildService
@@ -98,6 +99,7 @@ import com.android.utils.PathUtils
 import com.android.utils.appendCapitalized
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.UnknownDomainObjectException
 import org.gradle.api.artifacts.ArtifactCollection
 import org.gradle.api.artifacts.Configuration
@@ -114,6 +116,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.provider.ProviderFactory
 import org.gradle.api.provider.SetProperty
+import org.gradle.api.services.BuildServiceParameters
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFile
@@ -199,9 +202,12 @@ abstract class LintTool {
     @get:Internal
     abstract val lintClassLoaderBuildService: Property<LintClassLoaderBuildService>
 
-    fun initialize(taskCreationServices: TaskCreationServices, taskName: String) {
+    fun initialize(taskCreationServices: TaskCreationServices, task: Task) {
         classpath.fromDisallowChanges(taskCreationServices.lintFromMaven.files)
-        lintClassLoaderBuildService.setDisallowChanges(getBuildService(taskCreationServices.buildServiceRegistry))
+        getBuildService<LintClassLoaderBuildService, BuildServiceParameters.None>(taskCreationServices.buildServiceRegistry).let {
+            lintClassLoaderBuildService.setDisallowChanges(it)
+            task.usesService(it)
+        }
         versionKey.setDisallowChanges(deriveVersionKey(taskCreationServices, lintClassLoaderBuildService))
         val projectOptions = taskCreationServices.projectOptions
         runInProcess.setDisallowChanges(projectOptions.getProvider(BooleanOption.RUN_LINT_IN_PROCESS))
@@ -209,7 +215,7 @@ abstract class LintTool {
         lintCacheDirectory.setDisallowChanges(
             taskCreationServices.projectInfo
                 .buildDirectory
-                .dir("${SdkConstants.FD_INTERMEDIATES}/lint-cache/$taskName")
+                .dir("${SdkConstants.FD_INTERMEDIATES}/lint-cache/${task.name}")
         )
     }
 
@@ -1785,9 +1791,7 @@ abstract class AndroidArtifactInput : ArtifactInput() {
             )
         }
         generatedSourceFolders.disallowChanges()
-        generatedResourceFolders.fromDisallowChanges(
-            getGeneratedResourceFoldersFileCollection(creationConfig)
-        )
+        generatedResourceFolders.fromDisallowChanges(getGeneratedResourceFolders(creationConfig))
         if (includeClassesOutputDirectories) {
             if (creationConfig is KmpComponentCreationConfig) {
                 classesOutputDirectories.from(
@@ -1986,6 +1990,33 @@ abstract class AndroidArtifactInput : ArtifactInput() {
             classesOutputDirectories.files.toList(),
             type
         )
+    }
+
+    private fun getGeneratedResourceFolders(component: ComponentCreationConfig): FileCollection {
+        val fileCollection = component.services.fileCollection()
+        component.sources
+            .res { resSources ->
+                resSources.forAllSources { directoryEntry ->
+                    if (directoryEntry.isUserAdded && directoryEntry.isGenerated) {
+                        fileCollection.from(
+                            directoryEntry.asFiles(
+                                component.services
+                                    .provider { component.services.projectInfo.projectDirectory }
+                            )
+                        )
+                    }
+                }
+            }
+        if (component.buildFeatures.renderScript) {
+            fileCollection.from(component.artifacts.get(RENDERSCRIPT_GENERATED_RES))
+        }
+        if (component.buildFeatures.androidResources) {
+            if (component.artifacts.get(GENERATED_RES).isPresent) {
+                fileCollection.from(component.artifacts.get(GENERATED_RES))
+            }
+        }
+        fileCollection.disallowChanges()
+        return fileCollection
     }
 }
 

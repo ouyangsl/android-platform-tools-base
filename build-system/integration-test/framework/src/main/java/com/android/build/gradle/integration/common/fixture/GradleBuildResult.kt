@@ -49,11 +49,31 @@ class GradleBuildResult(
     val stderr
         get() = Scanner(stderrFile)
 
+    @Suppress("unused") // Keep this property as it is useful for debugging
+    val stderrAsText: String by lazy { stderr.asText() }
+
     /**
      * Returns a new [Scanner] for the stdout messages. This instance MUST be closed when done.
      */
     val stdout
         get() = Scanner(stdoutFile)
+
+    @Suppress("unused") // Keep this property as it is useful for debugging
+    @Deprecated(
+        "This property is used for debugging only," +
+                " do not actually use it in tests because stdout is often large" +
+                " and can cause memory issues if loaded as a string" +
+                " (stderr is fine)"
+    )
+    val stdoutAsTextForDebug: String by lazy { stdout.asText() }
+
+    private fun Scanner.asText(): String = use {
+        StringBuilder().apply {
+            while (it.hasNextLine()) {
+                appendLine(it.nextLine())
+            }
+        }.toString()
+    }
 
     /**
      * Most tests don't examine the state of the build's tasks and [TaskStateList] is relatively

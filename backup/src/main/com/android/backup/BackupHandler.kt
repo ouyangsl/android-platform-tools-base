@@ -16,15 +16,16 @@
 package com.android.backup
 
 import com.android.adblib.AdbSession
-import com.android.backup.BackupResult.Error
 import com.android.backup.BackupResult.Success
 import com.android.backup.BackupServices.Companion.BACKUP_DIR
 import com.android.backup.BackupServices.Companion.BACKUP_METADATA_FILES
+import com.android.backup.ErrorCode.BACKUP_FAILED
 import com.android.tools.environment.Logger
 import java.io.OutputStream
 import java.nio.file.Path
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
+import kotlin.io.path.deleteIfExists
 import kotlin.io.path.outputStream
 
 private const val TRANSPORT = "com.google.android.gms/.backup.migrate.service.D2dTransport"
@@ -33,7 +34,7 @@ private const val TRANSPORT = "com.google.android.gms/.backup.migrate.service.D2
 class BackupHandler
 internal constructor(
   private val backupServices: BackupServices,
-  private val path: Path,
+  private val backupFile: Path,
   private val applicationId: String,
 ) {
 
@@ -70,21 +71,22 @@ internal constructor(
       }
       Success
     } catch (e: Throwable) {
-      Error(e)
+      backupFile.deleteIfExists()
+      e.toBackupResult()
     }
   }
 
   private suspend fun doBackup() {
     with(backupServices) {
-      val out = executeCommand("bmgr backupnow $applicationId")
+      val out = executeCommand("bmgr backupnow $applicationId", BACKUP_FAILED)
       if (out.lines().last() != "Backup finished with result: Success") {
-        throw BackupException("Failed to backup '$applicationId`: $out")
+        throw BackupException(BACKUP_FAILED, "Failed to backup '$applicationId`: $out")
       }
     }
   }
 
   private suspend fun pullBackup() {
-    ZipOutputStream(path.outputStream()).use { zip ->
+    ZipOutputStream(backupFile.outputStream()).use { zip ->
       (BACKUP_METADATA_FILES + applicationId).forEach {
         zip.putNextEntry(ZipEntry(it))
         backupServices.syncRecv(KeepOpenOutputStream(zip), "$BACKUP_DIR/$it")
@@ -105,6 +107,6 @@ internal constructor(
   }
 
   companion object {
-    const val NUMBER_OF_STEPS = 10
+    const val NUMBER_OF_STEPS = 11
   }
 }

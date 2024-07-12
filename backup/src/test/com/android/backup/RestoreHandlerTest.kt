@@ -16,21 +16,34 @@
 
 package com.android.backup
 
+import com.android.backup.BackupResult.Error
 import com.android.backup.BackupResult.Success
+import com.android.backup.ErrorCode.CANNOT_ENABLE_BMGR
+import com.android.backup.ErrorCode.INVALID_BACKUP_FILE
+import com.android.backup.ErrorCode.RESTORE_FAILED
+import com.android.backup.ErrorCode.TRANSPORT_NOT_SELECTED
 import com.android.backup.RestoreHandler.Companion.validateBackupFile
 import com.android.backup.testing.FakeBackupServices
+import com.android.backup.testing.FakeBackupServices.CommandOverride.Output
+import com.android.backup.testing.FakeBackupServices.CommandOverride.Throw
+import com.android.backup.testing.asBackupResult
 import com.google.common.truth.Truth.assertThat
+import com.jetbrains.rd.generator.nova.fail
 import java.nio.file.Path
 import java.util.zip.ZipEntry
 import java.util.zip.ZipException
 import java.util.zip.ZipOutputStream
 import kotlin.io.path.createFile
 import kotlin.io.path.outputStream
+import kotlin.io.path.pathString
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertThrows
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
+
+private const val TRANSPORT_NOT_SET_MESSAGE =
+  "Requested transport was not set: Selected transport com.google.android.gms/.backup.BackupTransportService (formerly com.google.android.gms/.backup.BackupTransportService)"
 
 /** Tests for [RestoreHandler] */
 class RestoreHandlerTest {
@@ -49,6 +62,7 @@ class RestoreHandlerTest {
     assertThat(result).isEqualTo(Success)
     assertThat(backupServices.getCommands())
       .containsExactly(
+        "dumpsys package com.google.android.gms",
         "bmgr enabled",
         "bmgr enable true",
         "settings put secure backup_enable_android_studio_mode 1",
@@ -73,6 +87,7 @@ class RestoreHandlerTest {
 
     assertThat(backupServices.getCommands())
       .containsExactly(
+        "dumpsys package com.google.android.gms",
         "bmgr enabled",
         "settings put secure backup_enable_android_studio_mode 1",
         "bmgr transport com.google.android.gms/.backup.BackupTransportService",
@@ -94,6 +109,7 @@ class RestoreHandlerTest {
 
     assertThat(backupServices.getCommands())
       .containsExactly(
+        "dumpsys package com.google.android.gms",
         "bmgr enabled",
         "bmgr enable true",
         "settings put secure backup_enable_android_studio_mode 1",
@@ -117,16 +133,17 @@ class RestoreHandlerTest {
 
     assertThat(backupServices.getProgress())
       .containsExactly(
-        "1/8: Pushing backup file",
-        "2/8: Checking if BMGR is enabled",
-        "3/10: Enabling BMGR",
-        "4/10: Enabling test mode",
-        "5/10: Setting backup transport",
-        "6/10: Restoring com.app",
-        "7/10: Disabling test mode",
-        "8/10: Disabling BMGR",
-        "9/10: Deleting backup directory",
-        "10/10: Done",
+        "1/9: Pushing backup file",
+        "2/9: Verifying Google services",
+        "3/9: Checking if BMGR is enabled",
+        "4/11: Enabling BMGR",
+        "5/11: Enabling test mode",
+        "6/11: Setting backup transport",
+        "7/11: Restoring com.app",
+        "8/11: Disabling test mode",
+        "9/11: Disabling BMGR",
+        "10/11: Deleting backup directory",
+        "11/11: Done",
       )
       .inOrder()
   }
@@ -184,6 +201,52 @@ class RestoreHandlerTest {
         )
       )
     }
+  }
+
+  @Test
+  fun restore_enableBmgrFails(): Unit = runBlocking {
+    val backupFile = createBackupFile("com.app", "11223344556677889900")
+    val handler = RestoreHandler(backupServices, backupFile)
+    backupServices.addCommandOverride(Throw("bmgr enabled"))
+
+    val result = handler.restore()
+
+    assertThat(result).isEqualTo(CANNOT_ENABLE_BMGR.asBackupResult())
+  }
+
+  @Test
+  fun restore_setTransportFails(): Unit = runBlocking {
+    val backupFile = createBackupFile("com.app", "11223344556677889900")
+    val handler = RestoreHandler(backupServices, backupFile)
+    backupServices.addCommandOverride(Output("bmgr list transports", ""))
+
+    val result = handler.restore()
+
+    assertThat(result).isEqualTo(TRANSPORT_NOT_SELECTED.asBackupResult(TRANSPORT_NOT_SET_MESSAGE))
+  }
+
+  @Test
+  fun restore_invalidBackupFile(): Unit = runBlocking {
+    val backupFile = createZipFile(FileInfo("some-file", ""))
+
+    val handler = RestoreHandler(backupServices, backupFile)
+
+    val error = handler.restore() as? Error ?: fail("Expected an Error")
+
+    assertThat(error.errorCode).isEqualTo(INVALID_BACKUP_FILE)
+    assertThat(error.throwable.message)
+      .isEqualTo("Backup file does not contain a valid token: ${backupFile.pathString}")
+  }
+
+  @Test
+  fun restore_restoreFailed(): Unit = runBlocking {
+    val backupFile = createBackupFile("com.app", "11223344556677889900")
+    val handler = RestoreHandler(backupServices, backupFile)
+    backupServices.addCommandOverride(Output("bmgr restore 9bc1546914997f6c com.app", "Error"))
+
+    val result = handler.restore()
+
+    assertThat(result).isEqualTo(RESTORE_FAILED.asBackupResult("Error restoring app: Error"))
   }
 
   @Suppress("SameParameterValue")

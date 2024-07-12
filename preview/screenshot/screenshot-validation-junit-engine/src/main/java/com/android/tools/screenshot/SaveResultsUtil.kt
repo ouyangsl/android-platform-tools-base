@@ -16,6 +16,7 @@
 
 package com.android.tools.screenshot
 
+import com.android.tools.render.compose.ScreenshotError
 import org.kxml2.io.KXmlSerializer
 import java.io.BufferedOutputStream
 import java.io.File
@@ -28,6 +29,7 @@ const val CLASSNAME = "classname"
 const val COLON = ":"
 const val DIFF = "diff"
 const val TIME = "time"
+const val ERROR = "error"
 const val ERRORS = "errors"
 const val FAILURE = "failure"
 const val FAILURES = "failures"
@@ -46,6 +48,24 @@ const val VALUE = "value"
 const val ZERO = "zero"
 
 val NAMESPACE = null
+
+/*
+  ScreenshotError object may contain multiple errors, this method returns one of them to show to the user.
+*/
+fun getFirstError(screenshotError: ScreenshotError?): String {
+    if (screenshotError != null) {
+        if (screenshotError.message.isNotEmpty()) return screenshotError.message
+        if (screenshotError.stackTrace.isNotEmpty()) return screenshotError.stackTrace
+        for (problem in screenshotError.problems) {
+            if (!problem.stackTrace.isNullOrEmpty()) return problem.stackTrace!!
+        }
+        for (brokenClass in screenshotError.brokenClasses) {
+            if (brokenClass.stackTrace.isNotEmpty()) return "Rendering failed with issue. Broken class ${brokenClass.className}: ${brokenClass.stackTrace}"
+        }
+        if (screenshotError.missingClasses.isNotEmpty()) return "Rendering failed with issue: Missing class(es): ${screenshotError.missingClasses.joinToString(", ")}"
+    }
+    return "Rendering failed"
+}
 
 fun saveResults(
     previewResults: List<PreviewResult>,
@@ -80,9 +100,9 @@ private fun printTestResults(
     )
     serializer.attribute(
         NAMESPACE, FAILURES,
-        previewResults.filter { it.responseCode == 1 || it.responseCode == 2 }.size.toString()
+        previewResults.filter { it.responseCode == 1 }.size.toString()
     )
-    serializer.attribute(NAMESPACE, ERRORS, ZERO) //errors are not read by html report generator
+    serializer.attribute(NAMESPACE, ERRORS, previewResults.filter { it.responseCode == 2 }.size.toString())
     serializer.attribute(NAMESPACE, SKIPPED, ZERO)
     serializer.startTag(NAMESPACE, PROPERTIES)
     for ((key, value) in getPropertiesAttributes(xmlProperties).entries) {
@@ -113,7 +133,7 @@ private fun printTest(serializer: KXmlSerializer, result: PreviewResult) {
     when (result.responseCode) {
         0 -> printImages(serializer, SUCCESS, result.message!!, result)
         1 -> printImages(serializer, FAILURE, result.message!!, result)
-        2 -> printImages(serializer, FAILURE, result.message!!, result) //errors are not read by html report generator
+        2 -> printImages(serializer, ERROR, result.message!!, result)
     }
 
     serializer.endTag(NAMESPACE, TESTCASE)
