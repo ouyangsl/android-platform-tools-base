@@ -13,6 +13,7 @@ from tools.base.bazel.ci import errors
 from tools.base.bazel.ci import query_checks
 from tools.base.bazel.ci import studio_linux
 from tools.base.bazel.ci import studio_win
+from tools.base.bazel.ci import studio_mac
 
 
 class CI:
@@ -100,12 +101,18 @@ def main():
       studio_build_checks(ci)
     case 'studio-linux':
       ci.run(studio_linux.studio_linux)
+    case 'studio-linux-large':
+      ci.run(studio_linux.studio_linux_large)
     case 'studio-linux_very_flaky':
       ci.run(studio_linux.studio_linux_very_flaky)
     case 'studio-linux-k2':
       ci.run(studio_linux.studio_linux_k2)
     case 'studio-win':
       ci.run(studio_win.studio_win)
+    case 'studio-mac':
+      ci.run(studio_mac.studio_mac)
+    case 'studio-mac-arm':
+      ci.run(studio_mac.studio_mac_arm)
     case _:
       raise NotImplementedError(f'target: "{args.target}" does not exist')
 

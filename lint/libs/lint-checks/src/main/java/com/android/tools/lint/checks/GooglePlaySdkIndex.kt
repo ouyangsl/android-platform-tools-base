@@ -35,6 +35,12 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
   companion object {
     const val SDK_INDEX_SNAPSHOT_TEST_BASE_URL_ENV_VAR = "SDK_INDEX_TEST_BASE_URL"
     private const val DEFAULT_SDK_INDEX_SNAPSHOT_BASE_URL = "https://dl.google.com/play-sdk/index/"
+    // DEFAULT_SHOW_NOTES_FROM_DEVELOPER should match
+    // StudioFlags.SHOW_SDK_INDEX_NOTES_FROM_DEVELOPER for consistency between CLI and AS
+    const val DEFAULT_SHOW_NOTES_FROM_DEVELOPER = true
+    // DEFAULT_SHOW_RECOMMENDED_VERSIONS should match
+    // StudioFlags.SHOW_SDK_INDEX_RECOMMENDED_VERSIONS for consistency between CLI and AS
+    const val DEFAULT_SHOW_RECOMMENDED_VERSIONS = true
     const val GOOGLE_PLAY_SDK_INDEX_SNAPSHOT_FILE = "snapshot.gz"
     const val GOOGLE_PLAY_SDK_INDEX_SNAPSHOT_RESOURCE = "sdk-index-offline-snapshot.proto.gz"
     val GOOGLE_PLAY_SDK_INDEX_SNAPSHOT_URL =
@@ -63,6 +69,8 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
   private var initialized: Boolean = false
   private var status: GooglePlaySdkIndexStatus = GooglePlaySdkIndexStatus.NOT_READY
   private val libraryToSdk = HashMap<String, LibraryToSdk>()
+  var showNotesFromDeveloper = DEFAULT_SHOW_NOTES_FROM_DEVELOPER
+  var showRecommendedVersions = DEFAULT_SHOW_RECOMMENDED_VERSIONS
 
   /**
    * Read Index snapshot (locally if it is not old and remotely if old and network is available) and
@@ -271,6 +279,7 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
       return null
     }
     val sdk = getSdk(groupId, artifactId) ?: return null
+    if (sdk.sdk.indexAvailability == Sdk.IndexAvailability.NOT_AVAILABLE) return null
     return sdk.sdk.indexUrl
   }
 
@@ -381,8 +390,9 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     artifactId: String,
     versionString: String,
   ): List<String> {
+    val recommendedVersions = getPolicyRecommendedVersions(groupId, artifactId, versionString)
     return getPolicyLabels(getLabels(groupId, artifactId, versionString)).map { label ->
-      "**[Prevents app release in Google Play Console]** $groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console"
+      "**[Prevents app release in Google Play Console]** $groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console$recommendedVersions"
     }
   }
 
@@ -392,8 +402,9 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     artifactId: String,
     versionString: String,
   ): List<String> {
+    val recommendedVersions = getPolicyRecommendedVersions(groupId, artifactId, versionString)
     return getPolicyLabels(getLabels(groupId, artifactId, versionString)).map { label ->
-      "$groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console in the future"
+      "$groupId:$artifactId version $versionString has $label issues that will block publishing of your app to Play Console in the future$recommendedVersions"
     }
   }
 
@@ -403,12 +414,15 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     artifactId: String,
     versionString: String,
   ): String {
-    return "**[Prevents app release in Google Play Console]** $groupId:$artifactId version $versionString has been reported as problematic by its author and will block publishing of your app to Play Console"
+    val note = getNoteFromDeveloper(groupId, artifactId, versionString)
+    return "**[Prevents app release in Google Play Console]** $groupId:$artifactId version $versionString has been reported as problematic by its author and will block publishing of your app to Play Console$note"
   }
 
   /** Generate a message for a library that has non-blocking critical issues */
-  fun generateCriticalMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has an associated message from its author"
+  fun generateCriticalMessage(groupId: String, artifactId: String, versionString: String): String {
+    val note = getNoteFromDeveloper(groupId, artifactId, versionString)
+    return "$groupId:$artifactId version $versionString has an associated message from its author$note"
+  }
 
   /** Generate a message for a library that has blocking outdated issues */
   fun generateBlockingOutdatedMessage(
@@ -416,24 +430,15 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     artifactId: String,
     versionString: String,
   ): String {
-    return "**[Prevents app release in Google Play Console]** $groupId:$artifactId version $versionString has been reported as outdated by its author and will block publishing of your app to Play Console"
+    val recommendedVersions = getOutdatedRecommendedVersions(groupId, artifactId, versionString)
+    return "**[Prevents app release in Google Play Console]** $groupId:$artifactId version $versionString has been reported as outdated by its author and will block publishing of your app to Play Console$recommendedVersions"
   }
 
   /** Generate a message for a library that has non-blocking outdated issues */
-  fun generateOutdatedMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has been reported as outdated by its author"
-
-  /** Generate a message for a library that has blocking issues */
-  fun generateBlockingGenericIssueMessage(
-    groupId: String,
-    artifactId: String,
-    versionString: String,
-  ) =
-    "$groupId:$artifactId version $versionString has one or more issues that will block publishing of your app to Play Console"
-
-  /** Generate a message for a library that has non-blocking issues */
-  fun generateGenericIssueMessage(groupId: String, artifactId: String, versionString: String) =
-    "$groupId:$artifactId version $versionString has one or more issues that could block publishing of your app to Play Console in the future"
+  fun generateOutdatedMessage(groupId: String, artifactId: String, versionString: String): String {
+    val recommendedVersions = getOutdatedRecommendedVersions(groupId, artifactId, versionString)
+    return "$groupId:$artifactId version $versionString has been reported as outdated by its author$recommendedVersions"
+  }
 
   protected open fun logHasCriticalIssues(
     groupId: String,
@@ -514,5 +519,78 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
       result.addAll(types)
     }
     return result
+  }
+
+  private fun getNoteFromDeveloper(
+    groupId: String,
+    artifactId: String,
+    versionString: String,
+  ): String {
+    if (!showNotesFromDeveloper) return ""
+    val labels = getLabels(groupId, artifactId, versionString) ?: return ""
+    val criticalIssue = labels.criticalIssueInfo ?: return ""
+    val message = criticalIssue.description
+    if (message.isNullOrBlank()) return ""
+    return ".\n**Note:** $message"
+  }
+
+  private fun getOutdatedRecommendedVersions(
+    groupId: String,
+    artifactId: String,
+    versionString: String,
+  ): String {
+    if (!showRecommendedVersions) return ""
+    val labels = getLabels(groupId, artifactId, versionString) ?: return ""
+    val outdatedIssue = labels.outdatedIssueInfo ?: return ""
+    return generateRecommendedList(
+      outdatedIssue.recommendedVersionsList,
+      isThirdPartyLibrary(groupId, artifactId),
+    )
+  }
+
+  private fun getPolicyRecommendedVersions(
+    groupId: String,
+    artifactId: String,
+    versionString: String,
+  ): String {
+    if (!showRecommendedVersions) return ""
+    val labels = getLabels(groupId, artifactId, versionString) ?: return ""
+    val policyIssue = labels.policyIssuesInfo ?: return ""
+    return generateRecommendedList(
+      policyIssue.recommendedVersionsList,
+      isThirdPartyLibrary(groupId, artifactId),
+    )
+  }
+
+  private fun isThirdPartyLibrary(groupId: String, artifactId: String): Boolean {
+    // Check first if there is information available in the SDK Index itself
+    val coordinate = createCoordinateString(groupId, artifactId)
+    val sdk = libraryToSdk[coordinate]
+    if (sdk != null) {
+      return !sdk.sdk.isGoogleOwned
+    }
+    // Not possible to tell from the Index data, assume everything is 3rd party
+    return true
+  }
+
+  private fun generateRecommendedList(
+    listOfVersions: List<LibraryVersionRange?>?,
+    isThirdParty: Boolean,
+  ): String {
+    val ranges =
+      (listOfVersions ?: return "").filterNotNull().joinToString("\n") { range ->
+        if (range.upperBound.isNullOrBlank()) {
+          "  - ${range.lowerBound} or higher"
+        } else if (range.upperBound != range.lowerBound) {
+          "  - From ${range.lowerBound} to ${range.upperBound}"
+        } else {
+          "  - ${range.lowerBound}"
+        }
+      }
+    if (ranges.isEmpty()) return ""
+    return ".\nThe library author recommends using versions:\n$ranges\n${
+      if (isThirdParty) "These versions have not been reviewed by Google Play. They could contain vulnerabilities or policy violations. Carefully evaluate any third-party SDKs before integrating them into your app."
+      else ""
+    }"
   }
 }

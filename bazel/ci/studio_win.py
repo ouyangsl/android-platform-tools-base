@@ -1,8 +1,6 @@
 """Implements studio-win CI script."""
 
-import os
 import pathlib
-import subprocess
 import tempfile
 
 from tools.base.bazel.ci import bazel
@@ -19,6 +17,9 @@ def studio_win(build_env: bazel.BuildEnv):
   profile_path = dist_path / f'winprof{build_env.build_number}.json.gz'
 
   flags = [
+      # TODO(b/173153395) Switch back to dynamic after Bazel issue is resolved.
+      # See https://github.com/bazelbuild/bazel/issues/22482
+      '--config=remote-exec',
       f'--profile={profile_path}',
 
       '--test_tag_filters=-noci:studio-win,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release',
@@ -46,7 +47,6 @@ def studio_win(build_env: bazel.BuildEnv):
           ('tools/base/profiler/native/trace_processor_daemon/trace_processor_daemon.exe', ''),
       ],
   )
-  build_launcher(build_env)
   studio.collect_logs(build_env, test_result.bes_path)
 
   bazel.BazelCmd(build_env).shutdown()
@@ -58,19 +58,3 @@ def studio_win(build_env: bazel.BuildEnv):
     return
 
   raise studio.BazelTestError(exit_code=test_result.exit_code)
-
-
-def build_launcher(build_env: bazel.BuildEnv):
-  """Builds the Windows launcher."""
-  cmd = [
-      pathlib.Path(build_env.workspace_dir) / 'tools/base/intellij-native/build-win-launcher.cmd',
-      'out',
-      build_env.dist_dir,
-      build_env.build_number,
-  ]
-  subprocess.run(
-      cmd,
-      capture_output=False,
-      check=True,
-      cwd=build_env.workspace_dir,
-  )

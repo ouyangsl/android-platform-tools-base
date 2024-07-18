@@ -2,6 +2,8 @@
 
 import dataclasses
 import enum
+import json
+import os
 import pathlib
 import shutil
 from typing import Iterable, List, Sequence, Tuple
@@ -90,11 +92,8 @@ def run_bazel_test(
       '--experimental_enable_execution_graph_log',
       '--experimental_execution_graph_log_dep_type=all',
   ])
-  if build_env.is_ci():
-    flags.append('--//tools/base/bazel/ci:is_ci')
 
   bazel_cmd = bazel.BazelCmd(build_env)
-  bazel_cmd.startup_options = ['--max_idle_secs=60']
   result = bazel_cmd.test(*flags, '--', *targets)
 
   return BazelTestResult(
@@ -142,6 +141,20 @@ def copy_artifacts(build_env: bazel.BuildEnv, files: Iterable[Tuple[str,str]]) -
   result = bazel_cmd.info('--config=ci', 'bazel-bin')
   bin_path = pathlib.Path(result.stdout.decode('utf-8').strip())
 
+  binary_sizes = {}
   for src_glob, dest in files:
     for src in bin_path.glob(src_glob):
       shutil.copy2(src, dist_path / dest)
+      binary_sizes[f'{src}[bytes]'] = os.stat(src).st_size
+  with open(dist_path / 'bloatbuster_report.binary_sizes.json', 'w') as f:
+    json.dump(binary_sizes, f)
+
+
+def is_build_successful(result: BazelTestResult) -> bool:
+  """Returns True if the build portion of the bazel test was successful."""
+  return result.exit_code in {
+      bazel.EXITCODE_SUCCESS,
+      # Test failures are handled elsewhere, so build is considered successful.
+      bazel.EXITCODE_TEST_FAILURES,
+      bazel.EXITCODE_NO_TESTS_FOUND,
+  }

@@ -31,7 +31,7 @@ def no_local_genrules(build_env: bazel.BuildEnv):
     BuildGraphException: If build targets are using local=True.
   """
   bazel_cmd = bazel.BazelCmd(build_env)
-  result = bazel_cmd.query('attr("local", "1", //...)')
+  result = bazel_cmd.query('attr("local", "1", //tools/...)')
   query_targets = result.stdout.decode('utf8').splitlines(keepends=True)
   with open('tools/base/bazel/ci/data/allowlist-targets-local-strategy.txt', encoding='utf8') as f:
     golden_targets = f.readlines()
@@ -49,7 +49,7 @@ def require_cpu_tags(build_env: bazel.BuildEnv):
   """Require certain targets have cpu:N tags."""
   bazel_cmd = bazel.BazelCmd(build_env)
   result = bazel_cmd.query(
-    'attr(tags, "ci:studio-mac", //...) except attr(tags, "cpu:[0-9]+", //...)')
+    'attr(tags, "ci:studio-mac", //tools/...) except attr(tags, "cpu:[0-9]+", //tools/...)')
   if not result.stdout:
     return
 
@@ -63,8 +63,8 @@ def require_cpu_tags(build_env: bazel.BuildEnv):
 def gradle_requires_cpu4_or_more(build_env: bazel.BuildEnv):
   """Tests running on MacOS using Gradle must declare cpu:4 or higher."""
   bazel_cmd = bazel.BazelCmd(build_env)
-  studio_mac_tags = 'attr(tags, "ci:studio-mac", //...)'
-  high_cpu_tags = 'attr(tags, "cpu:([4-9]|[1-9][1-9])", //...)'
+  studio_mac_tags = 'attr(tags, "ci:studio-mac", //tools/...)'
+  high_cpu_tags = 'attr(tags, "cpu:([4-9]|[1-9][1-9])", //tools/...)'
   paths_to_gradle = f'allpaths({studio_mac_tags} except {high_cpu_tags}, //tools/base/build-system:gradle-distrib)'
 
   result = bazel_cmd.query(paths_to_gradle, '--output=minrank')
@@ -74,7 +74,6 @@ def gradle_requires_cpu4_or_more(build_env: bazel.BuildEnv):
   # --output=minrank will prefix each target with a number, where 0 represents
   # root targets.
   query_targets = [s.removeprefix('0') for s in query_targets if s.startswith('0')]
-  msg = 'ERROR: The following targets depend on //tools/base/build-system:gradle-distrib and must have the tag cpu:4 or greater.'
   raise BuildGraphException(
         title='Gradle tests need cpu:4 or greater',
         go_link='go/studio-ci#macos',

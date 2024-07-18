@@ -40,8 +40,7 @@ _EXTRA_TARGETS = [
     '//tools/base/build-system:documentation.zip',
     '//tools/vendor/google/adrt:android-studio-cros-skeleton.zip',
     '//tools/vendor/google/adrt:android-studio-nsis-prebuilt.zip',
-    '//tools/vendor/google/asfp/studio:asfp',
-    '//tools/vendor/google/asfp/studio:asfp-linux-deb.zip',
+    '//tools/vendor/google/asfp/studio:asfp_build_manifest.textproto',
     '//tools/vendor/google/asfp/studio:asfp.deb',
     '//tools/vendor/intel:android-studio-intel-haxm.zip',
     '//tools/vendor/google/ml:aiplugin',
@@ -61,9 +60,7 @@ _ARTIFACTS = [
     ('tools/vendor/google/adrt/android-studio-cros-skeleton.zip', 'artifacts'),
     ('tools/vendor/google/adrt/android-studio-nsis-prebuilt.zip', 'artifacts'),
     ('tools/vendor/intel/android-studio-intel-haxm.zip', 'artifacts'),
-    ('tools/vendor/google/asfp/studio/asfp.linux.zip', 'artifacts'),
-    ('tools/vendor/google/asfp/studio/asfp_build_manifest.textproto', 'artifacts/asfp_build_manifest.textproto'),
-    ('tools/vendor/google/asfp/studio/asfp-linux-deb.zip', 'artifacts'),
+    ('tools/vendor/google/asfp/studio/asfp_build_manifest.textproto', 'artifacts'),
     ('tools/vendor/google/asfp/studio/asfp.deb', 'artifacts'),
     ('tools/vendor/google/aswb/android-studio-with-blaze-channel.deb', 'artifacts'),
     ('tools/vendor/google/aswb/android-studio-with-blaze.mac.zip', 'artifacts'),
@@ -95,12 +92,27 @@ def studio_linux(build_env: bazel.BuildEnv) -> None:
   setup_environment(build_env)
   flags = build_flags(
       build_env,
-      '-noci:studio-linux,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release,-very_flaky',
+      test_tag_filters='-noci:studio-linux,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release',
   )
   result = run_tests(build_env, flags, _BASE_TARGETS + _EXTRA_TARGETS)
   copy_agp_supported_versions(build_env)
-  if is_build_successful(result):
+  if studio.is_build_successful(result):
     copy_artifacts(build_env)
+    if result.exit_code != bazel.EXITCODE_NO_TESTS_FOUND:
+      return
+
+  raise studio.BazelTestError(exit_code=result.exit_code)
+
+
+def studio_linux_large(build_env: bazel.BuildEnv) -> None:
+  """Runs studio-linux-large target."""
+  setup_environment(build_env)
+  flags = build_flags(
+      build_env,
+      test_tag_filters='ci:studio-linux_large',
+  )
+  result = run_tests(build_env, flags, _BASE_TARGETS)
+  if studio.is_build_successful(result):
     if result.exit_code != bazel.EXITCODE_NO_TESTS_FOUND:
       return
 
@@ -112,12 +124,12 @@ def studio_linux_very_flaky(build_env: bazel.BuildEnv) -> None:
   setup_environment(build_env)
   flags = build_flags(
       build_env,
-      'very_flaky',
-  ) + [
-      '--build_tests_only',
-  ]
+      test_tag_filters='ci:studio-linux_very_flaky',
+  )
+  flags.append('--build_tests_only')
+
   result = run_tests(build_env, flags, _BASE_TARGETS + _EXTRA_TARGETS)
-  if is_build_successful(result):
+  if studio.is_build_successful(result):
     return
 
   raise studio.BazelTestError(exit_code=result.exit_code)
@@ -128,14 +140,16 @@ def studio_linux_k2(build_env: bazel.BuildEnv) -> None:
   setup_environment(build_env)
   flags = build_flags(
       build_env,
-      '-noci:studio-linux,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release,-very_flaky,-no_k2,-kotlin-plugin-k2',
-  ) + [
+      test_tag_filters='-noci:studio-linux,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release,-no_k2,-kotlin-plugin-k2',
+  )
+  flags.extend([
       '--bes_keywords=k2',
-      '--jvmopt="-Didea.kotlin.plugin.use.k2=true -Dlint.use.fir.uast=true"',
-  ]
+      '--jvmopt=-Didea.kotlin.plugin.use.k2=true',
+      '--jvmopt=-Dlint.use.fir.uast=true',
+  ])
   result = run_tests(build_env, flags, _BASE_TARGETS)
   copy_agp_supported_versions(build_env)
-  if is_build_successful(result) and result.exit_code != bazel.EXITCODE_NO_TESTS_FOUND:
+  if studio.is_build_successful(result) and result.exit_code != bazel.EXITCODE_NO_TESTS_FOUND:
     return
 
   raise studio.BazelTestError(exit_code=result.exit_code)
@@ -150,14 +164,21 @@ def setup_environment(build_env: bazel.BuildEnv) -> None:
 
 def build_flags(
     build_env: bazel.BuildEnv,
+    *,
     test_tag_filters: str = '',
   ) -> List[str]:
   """Returns the flags to use for testing."""
   dist_path = pathlib.Path(build_env.dist_dir)
-  as_build_number = build_env.build_number.replace('P', '0')
+  as_build_number = build_env.build_number
+  if as_build_number.startswith('P'):
+    as_build_number = '0' + as_build_number[1:]
   profile_path = dist_path / f'profile-{build_env.build_number}.json.gz'
 
   return [
+      # TODO(b/173153395) Switch back to dynamic after Bazel issue is resolved.
+      # See https://github.com/bazelbuild/bazel/issues/22482
+      '--config=remote-exec',
+
       '--build_manual_tests',
 
       f'--define=meta_android_build_number={build_env.build_number}',
@@ -168,8 +189,6 @@ def build_flags(
 
       '--tool_tag=studio_linux.sh',
       f'--embed_label={as_build_number}',
-
-      '--runs_per_test=//tools/base/bazel:iml_to_build_consistency_test@2',
 
       '--jobs=500',
   ]
@@ -233,13 +252,3 @@ def copy_artifacts(build_env: bazel.BuildEnv) -> None:
   (dist_path / 'artifacts').mkdir(parents=True, exist_ok=True)
   studio.copy_artifacts(build_env, _ARTIFACTS)
   write_owners_zip(build_env)
-
-
-def is_build_successful(result: studio.BazelTestResult) -> bool:
-  """Returns True if the build portion of the bazel test was successful."""
-  return result.exit_code in {
-      bazel.EXITCODE_SUCCESS,
-      # Test failures are handled elsewhere, so build is considered successful.
-      bazel.EXITCODE_TEST_FAILURES,
-      bazel.EXITCODE_NO_TESTS_FOUND,
-  }

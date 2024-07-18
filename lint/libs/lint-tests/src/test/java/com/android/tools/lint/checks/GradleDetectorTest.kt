@@ -5043,7 +5043,11 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:23: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
               compile 'com.example.ads.third.party:example:7.1.9' // Policy (multiple types), no severity
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:8: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
+          build.gradle:8: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console.
+          The library author recommends using versions:
+            - 1.2.17
+            - 1.2.18 or higher
+          These versions have not been reviewed by Google Play. They could contain vulnerabilities or policy violations. Carefully evaluate any third-party SDKs before integrating them into your app. [OutdatedLibrary]
               compile 'log4j:log4j:1.2.12' // OUTDATED BLOCKING
                       ~~~~~~~~~~~~~~~~~~~~
           build.gradle:5: Warning: log4j:log4j version 1.2.15 has been reported as outdated by its author [OutdatedLibrary]
@@ -5161,7 +5165,11 @@ class GradleDetectorTest : AbstractCheckTest() {
                 ../gradle/libs.versions.toml:19: Warning: com.example.ads.third.party:example version 7.1.9 has Permissions policy issues that will block publishing of your app to Play Console in the future [PlaySdkIndexNonCompliant]
                                 exPolicyMulti = "7.1.9"         # Policy (multiple types), no severity
                                                 ~~~~~~~
-                ../gradle/libs.versions.toml:5: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console [OutdatedLibrary]
+                ../gradle/libs.versions.toml:5: Error: [Prevents app release in Google Play Console] log4j:log4j version 1.2.12 has been reported as outdated by its author and will block publishing of your app to Play Console.
+                The library author recommends using versions:
+                  - 1.2.17
+                  - 1.2.18 or higher
+                These versions have not been reviewed by Google Play. They could contain vulnerabilities or policy violations. Carefully evaluate any third-party SDKs before integrating them into your app. [OutdatedLibrary]
                                 log4Outdated = "1.2.12"         # Outdated NON_BLOCKING
                                                ~~~~~~~~
                 ../gradle/libs.versions.toml:9: Warning: com.example.ads.third.party:example version 7.2.0 has been reported as outdated by its author [OutdatedLibrary]
@@ -5349,10 +5357,6 @@ class GradleDetectorTest : AbstractCheckTest() {
         @@ -4 +4
         -     compile 'com.google.android.gms:play-services-maps:18.2.0' // There is a custom message but no issues
         +     compile 'com.google.android.gms:play-services-maps:18.3.0' // There is a custom message but no issues
-        Show URL for build.gradle line 2: View details in Google Play SDK Index:
-        http://sdk.google.com/
-        Show URL for build.gradle line 3: View details in Google Play SDK Index:
-        http://sdk.google.com/
       """
     lint()
       .files(
@@ -5391,7 +5395,9 @@ class GradleDetectorTest : AbstractCheckTest() {
           build.gradle:2: Error: [Prevents app release in Google Play Console] androidx.slidingpanelayout:slidingpanelayout version 1.1.0 has Permissions policy issues that will block publishing of your app to Play Console [PlaySdkIndexNonCompliant]
               compile 'androidx.slidingpanelayout:slidingpanelayout:1.1.0' // Current has issues but there is a custom message
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          build.gradle:3: Warning: com.google.android.gms:play-services-maps version 18.1.0 has been reported as outdated by its author [OutdatedLibrary]
+          build.gradle:3: Warning: com.google.android.gms:play-services-maps version 18.1.0 has been reported as outdated by its author.
+          The library author recommends using versions:
+            - 18.3.0 or higher [OutdatedLibrary]
               compile 'com.google.android.gms:play-services-maps:18.1.0' // Current has issues but there is a custom message
                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           1 errors, 4 warnings
@@ -8014,9 +8020,11 @@ class GradleDetectorTest : AbstractCheckTest() {
       // ensure stable SDK library suggestions in the tests
       val index =
         Index.newBuilder()
+          // Source not defined (should behave as coming from SDK Index)
           .addSdks(
             Sdk.newBuilder()
               .setIndexUrl("http://index.example.url/")
+              .setIndexAvailability(Sdk.IndexAvailability.UNKNOWN_INDEX_AVAILABILITY)
               .addLibraries(
                 Library.newBuilder()
                   .setLibraryId(
@@ -8032,7 +8040,7 @@ class GradleDetectorTest : AbstractCheckTest() {
                   .addVersions(
                     LibraryVersion.newBuilder().setVersionString("1.2.18").setIsLatestVersion(true)
                   )
-                  // Ok, latest, no issues
+                  // Ok
                   .addVersions(
                     LibraryVersion.newBuilder().setVersionString("1.2.17").setIsLatestVersion(false)
                   )
@@ -8086,15 +8094,27 @@ class GradleDetectorTest : AbstractCheckTest() {
                       .setIsLatestVersion(false)
                       .setVersionLabels(
                         LibraryVersionLabels.newBuilder()
-                          .setOutdatedIssueInfo(LibraryVersionLabels.OutdatedIssueInfo.newBuilder())
+                          .setOutdatedIssueInfo(
+                            LibraryVersionLabels.OutdatedIssueInfo.newBuilder()
+                              .addRecommendedVersions(
+                                LibraryVersionRange.newBuilder()
+                                  .setLowerBound("1.2.17")
+                                  .setUpperBound("1.2.17")
+                              )
+                              .addRecommendedVersions(
+                                LibraryVersionRange.newBuilder().setLowerBound("1.2.18")
+                              )
+                          )
                           .setSeverity(LibraryVersionLabels.Severity.BLOCKING_SEVERITY)
                       )
                   )
               )
           )
+          // From SDK Index
           .addSdks(
             Sdk.newBuilder()
               .setIndexUrl("http://another.example.url/")
+              .setIndexAvailability(Sdk.IndexAvailability.AVAILABLE_IN_PUBLIC_SDK_INDEX)
               .addLibraries(
                 Library.newBuilder()
                   .setLibraryId(
@@ -8312,9 +8332,12 @@ class GradleDetectorTest : AbstractCheckTest() {
                   )
               )
           )
+          // From Console
           .addSdks(
             Sdk.newBuilder()
+              .setIsGoogleOwned(true)
               .setIndexUrl("http://sdk.google.com/")
+              .setIndexAvailability(Sdk.IndexAvailability.NOT_AVAILABLE)
               .addLibraries(
                 Library.newBuilder()
                   .setLibraryId(
@@ -8330,7 +8353,7 @@ class GradleDetectorTest : AbstractCheckTest() {
                   .addVersions(
                     LibraryVersion.newBuilder().setVersionString("18.3.0").setIsLatestVersion(true)
                   )
-                  // Ok, latest, no issues
+                  // Ok, no issues
                   .addVersions(
                     LibraryVersion.newBuilder().setVersionString("18.2.0").setIsLatestVersion(false)
                   )
@@ -8341,7 +8364,12 @@ class GradleDetectorTest : AbstractCheckTest() {
                       .setIsLatestVersion(false)
                       .setVersionLabels(
                         LibraryVersionLabels.newBuilder()
-                          .setOutdatedIssueInfo(LibraryVersionLabels.OutdatedIssueInfo.newBuilder())
+                          .setOutdatedIssueInfo(
+                            LibraryVersionLabels.OutdatedIssueInfo.newBuilder()
+                              .addRecommendedVersions(
+                                LibraryVersionRange.newBuilder().setLowerBound("18.3.0")
+                              )
+                          )
                           .setSeverity(LibraryVersionLabels.Severity.NON_BLOCKING_SEVERITY)
                       )
                   )

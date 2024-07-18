@@ -389,6 +389,7 @@ gradle_integration_test(
         "//tools/base/build-system/integration-test:kotlin_gradle_plugin_for_compose_prebuilts",
         "//tools/base/build-system/integration-test:kotlin_gradle_plugin_prebuilts",
     ],
+    shard_count = 2,
     deps = TEST_DEPS,
 )
 
@@ -988,7 +989,8 @@ maven_repository(
         "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-android_1.7.1",
         "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-core-common_1.3.6",
         "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-core_1.6.3",
-        "@maven//:org.mockito.mockito-core_5.6.0",
+        "@maven//:org.jetbrains.kotlinx.kotlinx-serialization-core_1.6.3",
+        "@maven//:org.mockito.mockito-core_5.12.0",
         "@maven//:org.robolectric.robolectric_4.8.2",
         "@maven//:org.tensorflow.tensorflow-lite-metadata_0.1.0",
         "@maven//:org.tensorflow.tensorflow-lite-support_0.1.0",

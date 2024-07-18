@@ -55,7 +55,7 @@ class GooglePlaySdkIndexTest {
                 .addVersions(
                   LibraryVersion.newBuilder().setVersionString("1.2.17").setIsLatestVersion(false)
                 )
-                // Critical
+                // Critical (with description)
                 .addVersions(
                   LibraryVersion.newBuilder()
                     .setVersionString("1.2.16")
@@ -86,6 +86,16 @@ class GooglePlaySdkIndexTest {
                     .setVersionLabels(
                       LibraryVersionLabels.newBuilder()
                         .setPolicyIssuesInfo(LibraryVersionLabels.PolicyIssuesInfo.newBuilder())
+                    )
+                )
+                // Critical (without description)
+                .addVersions(
+                  LibraryVersion.newBuilder()
+                    .setVersionString("1.2.13")
+                    .setIsLatestVersion(false)
+                    .setVersionLabels(
+                      LibraryVersionLabels.newBuilder()
+                        .setCriticalIssueInfo(LibraryVersionLabels.CriticalIssueInfo.newBuilder())
                     )
                 )
             )
@@ -284,6 +294,19 @@ class GooglePlaySdkIndexTest {
                             .addViolatedSdkPolicies(
                               LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_MALWARE
                             )
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder()
+                                .setLowerBound("7.1.9")
+                                .setUpperBound("7.1.9")
+                            )
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder()
+                                .setLowerBound("7.2.1")
+                                .setUpperBound("7.3.0")
+                            )
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder().setLowerBound("8.0.0")
+                            )
                         )
                         .setSeverity(LibraryVersionLabels.Severity.BLOCKING_SEVERITY)
                     )
@@ -337,8 +360,8 @@ class GooglePlaySdkIndexTest {
                   LibraryIdentifier.newBuilder()
                     .setMavenId(
                       LibraryIdentifier.MavenIdentifier.newBuilder()
-                        .setGroupId("no.url")
-                        .setArtifactId("no.url")
+                        .setGroupId("no.url.group")
+                        .setArtifactId("no.url.artifact")
                         .build()
                     )
                 )
@@ -383,6 +406,11 @@ class GooglePlaySdkIndexTest {
                               LibraryVersionRange.newBuilder()
                                 .setLowerBound("1.0.1")
                                 .setUpperBound("1.0.2")
+                            )
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder()
+                                .setLowerBound("1.0.4")
+                                .setUpperBound("1.0.4")
                             )
                             // An open range
                             .addRecommendedVersions(
@@ -440,6 +468,48 @@ class GooglePlaySdkIndexTest {
                 )
             )
         )
+        // First party libraries
+        .addSdks(
+          Sdk.newBuilder()
+            .setIsGoogleOwned(true)
+            .setIndexUrl("http://google.com")
+            .addLibraries(
+              Library.newBuilder()
+                .setLibraryId(
+                  LibraryIdentifier.newBuilder()
+                    .setMavenId(
+                      LibraryIdentifier.MavenIdentifier.newBuilder()
+                        .setGroupId("android.arch.core")
+                        .setArtifactId("common")
+                        .build()
+                    )
+                )
+                .addVersions(
+                  LibraryVersion.newBuilder()
+                    .setVersionString("1.1.1")
+                    .setIsLatestVersion(false)
+                    .setVersionLabels(
+                      LibraryVersionLabels.newBuilder()
+                        .setOutdatedIssueInfo(
+                          LibraryVersionLabels.OutdatedIssueInfo.newBuilder()
+                            // Add recommended version to make sure the note is not added
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder().setLowerBound("1.1.2")
+                            )
+                        )
+                        .setPolicyIssuesInfo(
+                          LibraryVersionLabels.PolicyIssuesInfo.newBuilder()
+                            .addViolatedSdkPolicies(
+                              LibraryVersionLabels.PolicyIssuesInfo.SdkPolicy.SDK_POLICY_PERMISSIONS
+                            )
+                            .addRecommendedVersions(
+                              LibraryVersionRange.newBuilder().setLowerBound("1.1.3")
+                            )
+                        )
+                    )
+                )
+            )
+        )
         .build()
     index =
       object : GooglePlaySdkIndex() {
@@ -459,28 +529,29 @@ class GooglePlaySdkIndexTest {
 
   @Test
   fun `outdated issues shown`() {
-    assertThat(countOutdatedIssues()).isEqualTo(3)
+    assertThat(countOutdatedIssues()).isEqualTo(4)
   }
 
   @Test
   fun `critical issues shown`() {
-    assertThat(countCriticalIssues()).isEqualTo(2)
+    assertThat(countCriticalIssues()).isEqualTo(3)
   }
 
   @Test
   fun `policy issues shown`() {
-    assertThat(countPolicyIssues()).isEqualTo(15)
+    assertThat(countPolicyIssues()).isEqualTo(16)
   }
 
   @Test
   fun `errors and warnings shown correctly`() {
-    assertThat(countHasErrorOrWarning()).isEqualTo(17)
+    assertThat(countHasErrorOrWarning()).isEqualTo(18)
   }
 
   @Test
-  fun `links are present when indexUrl is not blank`() {
+  fun `links are present when indexUrl is not blank and is available in SDK Index`() {
     for (sdk in proto.sdksList) {
-      val expectedUrl = sdk.indexUrl
+      val isFromIndex = sdk.indexAvailability != Sdk.IndexAvailability.NOT_AVAILABLE
+      val expectedUrl = if (isFromIndex) sdk.indexUrl else null
       for (library in sdk.librariesList) {
         val group = library.libraryId.mavenId.groupId
         val artifact = library.libraryId.mavenId.artifactId
@@ -511,7 +582,7 @@ class GooglePlaySdkIndexTest {
 
         override fun error(throwable: Throwable, message: String?) {}
       }
-    offlineIndex.initialize()
+    offlineIndex.initialize(null)
     assertThat(offlineIndex.isReady()).isTrue()
     assertThat(offlineIndex.getLastReadSource()).isEqualTo(NetworkCache.DataSourceType.DEFAULT_DATA)
   }
@@ -575,6 +646,32 @@ class GooglePlaySdkIndexTest {
   }
 
   @Test
+  fun `multiple policy types issue message with recommended versions`() {
+    index.showRecommendedVersions = true
+    verifyPolicyMessages(
+      "7.1.8",
+      listOf("User Data policy", "Malware policy"),
+      recommendedVersions =
+        ".\nThe library author recommends using versions:\n" +
+          "  - 7.1.9\n" +
+          "  - From 7.2.1 to 7.3.0\n" +
+          "  - 8.0.0 or higher\n" +
+          "These versions have not been reviewed by Google Play. They could contain vulnerabilities or policy violations. " +
+          "Carefully evaluate any third-party SDKs before integrating them into your app.",
+    )
+  }
+
+  @Test
+  fun `multiple policy types issue message with recommended versions but flag not set`() {
+    index.showRecommendedVersions = false
+    verifyPolicyMessages(
+      "7.1.8",
+      listOf("User Data policy", "Malware policy"),
+      recommendedVersions = "",
+    )
+  }
+
+  @Test
   fun `unknown policy type issue message`() {
     verifyPolicyMessages("7.1.10", listOf("Permissions policy", "policy"))
   }
@@ -589,6 +686,100 @@ class GooglePlaySdkIndexTest {
         buildFile = null,
       )
     assertThat(lintLink).isNull()
+  }
+
+  @Test
+  fun `There is a note if description is present in blocking critical`() {
+    index.showNotesFromDeveloper = true
+    val expectedMessage =
+      "**[Prevents app release in Google Play Console]** log4j:log4j version 1.2.16 has been reported as problematic by its author and will block publishing of your app to Play Console.\n**Note:** This is a custom message from sdk developer."
+    assertThat(index.generateBlockingCriticalMessage("log4j", "log4j", "1.2.16"))
+      .isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `There is a note if description is present in non blocking critical`() {
+    index.showNotesFromDeveloper = true
+    val expectedMessage =
+      "log4j:log4j version 1.2.16 has an associated message from its author.\n**Note:** This is a custom message from sdk developer."
+    assertThat(index.generateCriticalMessage("log4j", "log4j", "1.2.16")).isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `There is not a note if description is present in non blocking critical but flag is false`() {
+    index.showNotesFromDeveloper = false
+    val expectedMessage = "log4j:log4j version 1.2.16 has an associated message from its author"
+    assertThat(index.generateCriticalMessage("log4j", "log4j", "1.2.16")).isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `There is not a note if description is present in blocking critical but flag is false`() {
+    index.showNotesFromDeveloper = false
+    val expectedMessage =
+      "**[Prevents app release in Google Play Console]** log4j:log4j version 1.2.16 has been reported as problematic by its author and will block publishing of your app to Play Console"
+    assertThat(index.generateBlockingCriticalMessage("log4j", "log4j", "1.2.16"))
+      .isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `Note not present if description is not present in blocking critical`() {
+    index.showNotesFromDeveloper = true
+    val expectedMessage =
+      "**[Prevents app release in Google Play Console]** log4j:log4j version 1.2.13 has been reported as problematic by its author and will block publishing of your app to Play Console"
+    assertThat(index.generateBlockingCriticalMessage("log4j", "log4j", "1.2.13"))
+      .isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `Note not present if description is not present in non blocking critical`() {
+    index.showNotesFromDeveloper = true
+    val expectedMessage = "log4j:log4j version 1.2.13 has an associated message from its author"
+    assertThat(index.generateCriticalMessage("log4j", "log4j", "1.2.13")).isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `Outdated issue with recommended versions`() {
+    index.showRecommendedVersions = true
+    val expectedMessage =
+      "no.url.group:no.url.artifact version 1.0.0 has been reported as outdated by its author.\n" +
+        "The library author recommends using versions:\n" +
+        "  - From 1.0.1 to 1.0.2\n" +
+        "  - 1.0.4\n" +
+        "  - 2.0.0 or higher\n" +
+        "These versions have not been reviewed by Google Play. They could contain vulnerabilities or policy violations. " +
+        "Carefully evaluate any third-party SDKs before integrating them into your app."
+    assertThat(index.generateOutdatedMessage("no.url.group", "no.url.artifact", "1.0.0"))
+      .isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `Outdated issue with recommended versions but flag not set`() {
+    index.showRecommendedVersions = false
+    val expectedMessage =
+      "no.url.group:no.url.artifact version 1.0.0 has been reported as outdated by its author"
+    assertThat(index.generateOutdatedMessage("no.url.group", "no.url.artifact", "1.0.0"))
+      .isEqualTo(expectedMessage)
+  }
+
+  fun `Outdated issue with recommended versions for first party`() {
+    val expectedMessage =
+      "android.arch.core:common version 1.1.1 has been reported as outdated by its author.\n" +
+        "The library author recommends using versions:\n" +
+        "  - 1.1.2 or higher\n"
+    assertThat(index.generateOutdatedMessage("android.arch.core", "common", "1.1.1"))
+      .isEqualTo(expectedMessage)
+  }
+
+  @Test
+  fun `Policy with recommended versions first party`() {
+    val expectedMessages =
+      listOf(
+        "android.arch.core:common version 1.1.1 has Permissions policy issues that will block publishing of your app to Play Console in the future.\n" +
+          "The library author recommends using versions:\n" +
+          "  - 1.1.3 or higher\n"
+      )
+    assertThat(index.generatePolicyMessages("android.arch.core", "common", "1.1.1"))
+      .isEqualTo(expectedMessages)
   }
 
   private fun countOutdatedIssues(): Int {
@@ -655,10 +846,14 @@ class GooglePlaySdkIndexTest {
     return result
   }
 
-  private fun verifyPolicyMessages(version: String, policyTypes: List<String>) {
+  private fun verifyPolicyMessages(
+    version: String,
+    policyTypes: List<String>,
+    recommendedVersions: String = "",
+  ) {
     val expectedBlockingMessages =
       policyTypes.map { policyType ->
-        "**[Prevents app release in Google Play Console]** com.example.ads.third.party:example version $version has $policyType issues that will block publishing of your app to Play Console"
+        "**[Prevents app release in Google Play Console]** com.example.ads.third.party:example version $version has $policyType issues that will block publishing of your app to Play Console$recommendedVersions"
       }
     assertThat(
         index.generateBlockingPolicyMessages("com.example.ads.third.party", "example", version)
@@ -666,7 +861,7 @@ class GooglePlaySdkIndexTest {
       .isEqualTo(expectedBlockingMessages)
     val expectedNonBlockingMessages =
       policyTypes.map { policyType ->
-        "com.example.ads.third.party:example version $version has $policyType issues that will block publishing of your app to Play Console in the future"
+        "com.example.ads.third.party:example version $version has $policyType issues that will block publishing of your app to Play Console in the future$recommendedVersions"
       }
     assertThat(index.generatePolicyMessages("com.example.ads.third.party", "example", version))
       .isEqualTo(expectedNonBlockingMessages)
