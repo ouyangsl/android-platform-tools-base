@@ -38,11 +38,13 @@ import com.android.fakeadbserver.hostcommandhandlers.KillCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.KillForwardAllCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.KillForwardCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.ListDevicesCommandHandler
+import com.android.fakeadbserver.hostcommandhandlers.ListDevicesCommandHandler.Companion.DEFAULT_SPEED
 import com.android.fakeadbserver.hostcommandhandlers.ListForwardCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.MdnsCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.NetworkConnectCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.NetworkDisconnectCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.PairCommandHandler
+import com.android.fakeadbserver.hostcommandhandlers.ServerStatusCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.TrackDevicesCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.VersionCommandHandler
 import com.android.fakeadbserver.hostcommandhandlers.WaitForCommandHandler
@@ -256,7 +258,9 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
         cpuAbi: String,
         properties: Map<String, String>,
         hostConnectionType: HostConnectionType,
-        isRoot: Boolean = false
+        isRoot: Boolean = false,
+        maxSpeedMbps: Long = 0,
+        negotiatedSpeedMbps: Long = 0,
     ): Future<DeviceState> {
         val device = DeviceState(
             this,
@@ -269,7 +273,9 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
             properties,
             hostConnectionType,
             newTransportId(),
-            isRoot
+            isRoot,
+            maxSpeedMbps,
+            negotiatedSpeedMbps
         )
         return connectDevice(device)
     }
@@ -290,13 +296,16 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
         }
     }
 
+    @JvmOverloads
     fun connectDevice(
         deviceId: String,
         manufacturer: String,
         deviceModel: String,
         release: String,
         sdk: String,
-        hostConnectionType: HostConnectionType
+        hostConnectionType: HostConnectionType,
+        maxSpeedMbps: Long = DEFAULT_SPEED,
+        negotiatedSpeedMbps: Long = DEFAULT_SPEED,
     ): Future<DeviceState> {
         return connectDevice(
             deviceId,
@@ -306,7 +315,9 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
             sdk,
             "x86_64",
             emptyMap(),
-            hostConnectionType
+            hostConnectionType,
+            maxSpeedMbps = maxSpeedMbps,
+            negotiatedSpeedMbps = negotiatedSpeedMbps
         )
     }
 
@@ -323,7 +334,9 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
         release: String,
         sdk: String,
         hostConnectionType: HostConnectionType,
-        isRoot: Boolean = false
+        isRoot: Boolean = false,
+        maxSpeedMbps: Long,
+        negotiatedSpeedMbps: Long,
     ) {
         val device = DeviceState(
             this,
@@ -336,7 +349,9 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
             emptyMap(),
             hostConnectionType,
             newTransportId(),
-            isRoot
+            isRoot,
+            maxSpeedMbps,
+            negotiatedSpeedMbps,
         )
         mNetworkDevices[address] = device
     }
@@ -538,6 +553,7 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
             addHostHandler(NetworkConnectCommandHandler())
             addHostHandler(NetworkDisconnectCommandHandler())
             addHostHandler(WaitForCommandHandler())
+            addHostHandler(ServerStatusCommandHandler())
 
             addDeviceHandler(TrackJdwpCommandHandler())
             addDeviceHandler(TrackAppCommandHandler())
@@ -554,6 +570,7 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
             addDeviceHandler(PackageManagerCommandHandler(ShellProtocolType.EXEC))
             addDeviceHandler(PackageManagerCommandHandler(ShellProtocolType.SHELL))
             addDeviceHandler(WindowManagerCommandHandler(ShellProtocolType.SHELL))
+            addDeviceHandler(WindowManagerCommandHandler(ShellProtocolType.SHELL_V2))
             addDeviceHandler(CmdCommandHandler(ShellProtocolType.EXEC))
             addDeviceHandler(CmdCommandHandler(ShellProtocolType.SHELL))
             addDeviceHandler(DumpsysCommandHandler(ShellProtocolType.SHELL))
@@ -616,7 +633,9 @@ class FakeAdbServer private constructor(var features: Set<String> = DEFAULT_FEAT
                     "cmd",
                     "abb",
                     "abb_exec",
-                    "track_app"
+                    "track_app",
+                    "server_status",
+                    "devicetracker_proto_format",
                 )
             )
         )

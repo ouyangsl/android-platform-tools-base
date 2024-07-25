@@ -34,6 +34,7 @@ import static com.android.utils.SdkUtils.escapePropertyValue;
 import com.android.annotations.NonNull;
 import com.android.annotations.Nullable;
 import com.android.ide.common.gradle.Component;
+import com.android.tools.lint.ClassName;
 import com.android.utils.SdkUtils;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
@@ -713,8 +714,9 @@ public class TestFile {
 
         public GradleTestFile(@NonNull String to, @NonNull @Language("Groovy") String source) {
             to(to).withSource(source);
-            if (!to.endsWith(DOT_GRADLE)) {
-                throw new IllegalArgumentException("Expected .gradle suffix for Gradle test file");
+            if (!to.endsWith(DOT_GRADLE) && !to.endsWith(DOT_KTS)) {
+                throw new IllegalArgumentException(
+                        "Expected .gradle or .gradle.kts suffix for Gradle test files");
             }
         }
 

@@ -20,6 +20,7 @@ import com.android.testutils.TestUtils
 import com.android.tools.lint.LintIssueDocGenerator.Companion.computeResultMap
 import com.android.tools.lint.LintIssueDocGenerator.Companion.getOutputIncidents
 import com.android.tools.lint.LintIssueDocGenerator.Companion.getOutputLines
+import com.android.tools.lint.LintIssueDocGenerator.Companion.isStubSource
 import com.android.tools.lint.checks.infrastructure.dos2unix
 import com.android.tools.lint.client.api.LintClient
 import java.io.File
@@ -27,6 +28,8 @@ import java.io.File.pathSeparator
 import java.io.PrintWriter
 import java.io.StringWriter
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
@@ -646,6 +649,7 @@ class LintIssueDocGeneratorTest {
             --no-severity                     Do not include the red, orange or green
                                               informational boxes showing the severity of
                                               each issue
+            --verbose                         Verbose output
             """
         .trimIndent()
         .trim(),
@@ -655,7 +659,6 @@ class LintIssueDocGeneratorTest {
 
   @Test
   fun testCodeSample() {
-    // TODO: Point it to source and test classes
     val sources = temporaryFolder.newFolder("sources")
     val testSources = temporaryFolder.newFolder("test-sources")
     val outputFolder = temporaryFolder.newFolder("report")
@@ -686,7 +689,9 @@ class LintIssueDocGeneratorTest {
                                                     + "package test.pkg\n"
                                                     + "import android.support.v7.widget.RecyclerView // should be rewritten to AndroidX in docs\n"
                                                     + "class MyTest {\n"
+                                                    + "    /* Don't reference an /sdcard path here: */\n"
                                                     + "    val s: String = \"/sdcard/mydir\"\n"
+                                                    + "    val other: String = \"/other/string\"\n"
                                                     + "}\n"),
                                     gradle(""))
                             .run()
@@ -716,6 +721,8 @@ class LintIssueDocGeneratorTest {
             """
     )
 
+    val examples = temporaryFolder.newFile("examples.jsonl")
+
     LintIssueDocGenerator.run(
       arrayOf(
         "--md",
@@ -731,6 +738,8 @@ class LintIssueDocGeneratorTest {
         "--no-suppress-info",
         "--output",
         outputFolder.path,
+        "--examples",
+        examples.path,
       )
     )
     val files = outputFolder.listFiles()!!.sortedBy { it.name }
@@ -770,7 +779,6 @@ class LintIssueDocGeneratorTest {
             src/main/kotlin/test/pkg/MyTest.kt:4:Warning: Do not hardcode
             "/sdcard/"; use Environment.getExternalStorageDirectory().getPath()
             instead [SdCardPath]
-
                 val s: String = "/sdcard/mydir"
                                  ~~~~~~~~~~~~~
             ```
@@ -782,7 +790,9 @@ class LintIssueDocGeneratorTest {
             package test.pkg
             import androidx.recyclerview.widget.RecyclerView // should be rewritten to AndroidX in docs
             class MyTest {
+                /* Don't reference an /sdcard path here: */
                 val s: String = "/sdcard/mydir"
+                val other: String = "/other/string"
             }
             ```
 
@@ -797,6 +807,55 @@ class LintIssueDocGeneratorTest {
             """
         .trimIndent(),
       text,
+    )
+
+    val evals =
+      examples
+        .readText()
+        .
+        // Trim trailing spaces and remove the added timestamp which varies by run
+        lines()
+        .filterNot { it.startsWith("  added: ") }
+        .joinToString("\n") { it.trimEnd() }
+    assertEquals(
+      """
+      {
+          "id": "SdCardPath",
+          "summary": "Hardcoded reference to `/sdcard`",
+          "explanation": "Your code should not reference the `/sdcard` path directly; instead use `Environment.getExternalStorageDirectory().getPath()`.\n\nSimilarly, do not reference the `/data/data/` path directly; it can vary in multi-user scenarios. Instead, use `Context.getFilesDir().getPath()`.",
+          "main-files": [
+              {
+                  "path": "src/main/kotlin/test/pkg/MyTest.kt",
+                  "type": "kotlin",
+                  "contents": "package test.pkg\nimport androidx.recyclerview.widget.RecyclerView\nclass MyTest {\n    \n    val s: String = \"/sdcard/mydir\"\n    val other: String = \"/other/string\"\n}"
+              }
+          ],
+          "target-issues": [
+            {
+              "file": "src/main/kotlin/test/pkg/MyTest.kt",
+              "lineNumber": "5",
+              "lineContents": "val s: String = \"/sdcard/mydir\"",
+              "message": "Do not hardcode \"/sdcard/\"; use Environment.getExternalStorageDirectory().getPath() instead."
+            }
+          ],
+          "year": "2020",
+          "severity": "warning",
+          "category": "Correctness",
+          "documentation": "https://googlesamples.github.io/android-custom-lint-rules/checks/SdCardPath.md.html",
+          "priority": "6",
+          "enabled-by-default": "true",
+          "library": "built-in",
+          "languages": "kotlin",
+          "more-info-urls": [
+              "https://developer.android.com/training/data-storage#filesExternal"
+          ],
+          "android-specific": "true",
+          "source": "SdCardDetector.testKotlin"
+      }
+      """
+        .trimIndent()
+        .trim(),
+      evals,
     )
   }
 
@@ -916,7 +975,6 @@ class LintIssueDocGeneratorTest {
             src/Test.java:6:Error: Wrong argument type for formatting argument '#1'
             in score: conversion is 'd', received boolean (argument #2 in method
             call) (Did you mean formatting character b?) [StringFormatMatches]
-
                 String output4 = String.format(score, true);  // wrong
                                                       ~~~~
             ```
@@ -1379,6 +1437,17 @@ class LintIssueDocGeneratorTest {
         " sourceLine2=    ^)]",
       incidents.toString(),
     )
+  }
+
+  @Test
+  fun testIsStub() {
+    assertTrue(isStubSource(""))
+    assertTrue(isStubSource(" "))
+    assertTrue(isStubSource("package android.app;\nclass Activity {}"))
+    assertTrue(isStubSource("class Test { // This is a stub source\n}"))
+    assertFalse(isStubSource("class Test { // This stubbornly refuses to work\n}"))
+    assertTrue(isStubSource("class Test { /* HIDE-FROM-DOCUMENTATION */ }"))
+    assertTrue(isStubSource("class R { };"))
   }
 
   companion object {

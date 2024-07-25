@@ -89,6 +89,10 @@ _ARTIFACTS = [
 
 def studio_linux(build_env: bazel.BuildEnv) -> None:
   """Runs studio-linux target."""
+  build_type = studio.BuildType.from_build_number(build_env.build_number)
+  if build_type == studio.BuildType.POSTSUBMIT:
+    studio.generate_and_upload_hash_file(build_env)
+
   setup_environment(build_env)
   flags = build_flags(
       build_env,
@@ -109,7 +113,7 @@ def studio_linux_large(build_env: bazel.BuildEnv) -> None:
   setup_environment(build_env)
   flags = build_flags(
       build_env,
-      test_tag_filters='ci:studio-linux_large',
+      test_tag_filters='ci:studio-linux-large',
   )
   result = run_tests(build_env, flags, _BASE_TARGETS)
   if studio.is_build_successful(result):
