@@ -22,7 +22,6 @@ import com.intellij.core.CoreApplicationEnvironment
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProject
 import com.intellij.openapi.Disposable
-import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.diagnostic.DefaultLogger
 import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.progress.ProgressManager
@@ -30,19 +29,8 @@ import com.intellij.openapi.progress.impl.CoreProgressManager
 import com.intellij.openapi.roots.LanguageLevelProjectExtension
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.registry.Registry
-import com.intellij.openapi.vfs.CompactVirtualFileSet
-import com.intellij.openapi.vfs.VirtualFile
-import com.intellij.openapi.vfs.VirtualFileSet
-import com.intellij.openapi.vfs.VirtualFileSetFactory
 import com.intellij.pom.java.LanguageFeatureProvider
-import it.unimi.dsi.fastutil.ints.IntSet
-import java.nio.file.Files
 import java.util.concurrent.locks.ReentrantLock
-import kotlin.io.path.pathString
-import org.jetbrains.kotlin.analysis.api.KtAnalysisApiInternals
-import org.jetbrains.kotlin.analysis.api.lifetime.KtDefaultLifetimeTokenProvider
-import org.jetbrains.kotlin.analysis.api.lifetime.KtLifetimeTokenProvider
-import org.jetbrains.kotlin.analysis.api.standalone.KtAlwaysAccessibleLifetimeTokenProvider
 import org.jetbrains.kotlin.cli.common.CLIConfigurationKeys
 import org.jetbrains.kotlin.cli.common.CompilerSystemProperties
 import org.jetbrains.kotlin.cli.common.messages.GradleStyleMessageRenderer
@@ -85,13 +73,6 @@ internal fun createCommonKotlinCompilerConfig(): CompilerConfiguration {
 
   config.put(JVMConfigurationKeys.NO_JDK, true)
 
-  // To work around any `bin/idea.properties` issues, e.g.,
-  // https://youtrack.jetbrains.com/issue/KT-56279 (IJ 223)
-  // https://youtrack.jetbrains.com/issue/KT-62039 (IJ 232)
-  val bin = Files.createTempDirectory("fake_bin")
-  bin.toFile().deleteOnExit()
-  System.setProperty(PathManager.PROPERTY_HOME_PATH, bin.pathString)
-
   return config
 }
 
@@ -130,17 +111,6 @@ internal fun configureProjectEnvironment(
   @Suppress("DEPRECATION") project.registerService(UastContext::class.java, UastContext(project))
 }
 
-@OptIn(KtAnalysisApiInternals::class)
-internal fun MockProject.registerKtLifetimeTokenProvider() {
-  // TODO: remove this after a couple release cycles
-  //  to make sure Lint clients, including androidx runtime, catch up.
-  @Suppress("DEPRECATION") registerService(KtDefaultLifetimeTokenProvider::class.java)
-  registerService(
-    KtLifetimeTokenProvider::class.java,
-    KtAlwaysAccessibleLifetimeTokenProvider::class.java,
-  )
-}
-
 // In parallel builds the Kotlin compiler will reuse the application environment
 // (see KotlinCoreEnvironment.getOrCreateApplicationEnvironmentForProduction).
 // So we need a lock to ensure that we only configure the application environment once.
@@ -164,14 +134,14 @@ internal fun configureApplicationEnvironment(
 
   // The Kotlin compiler does not use UAST, so we must configure it ourselves.
   CoreApplicationEnvironment.registerApplicationExtensionPoint(
-    UastLanguagePlugin.extensionPointName,
+    UastLanguagePlugin.EP,
     UastLanguagePlugin::class.java,
   )
   CoreApplicationEnvironment.registerApplicationExtensionPoint(
     UEvaluatorExtension.EXTENSION_POINT_NAME,
     UEvaluatorExtension::class.java,
   )
-  appEnv.addExtension(UastLanguagePlugin.extensionPointName, JavaUastLanguagePlugin())
+  appEnv.addExtension(UastLanguagePlugin.EP, JavaUastLanguagePlugin())
 
   appEnv.addExtension(UEvaluatorExtension.EXTENSION_POINT_NAME, KotlinEvaluatorExtension())
 
@@ -210,20 +180,6 @@ internal fun reRegisterProgressManager(application: MockApplication) {
       override fun isInNonCancelableSection() = true
     },
   )
-}
-
-// KT-56277: [CompactVirtualFileSetFactory] is package-private, so we introduce our own default-ish
-// implementation.
-internal object LintVirtualFileSetFactory : VirtualFileSetFactory {
-  override fun createCompactVirtualFileSet(): VirtualFileSet {
-    return CompactVirtualFileSet(IntSet.of())
-  }
-
-  override fun createCompactVirtualFileSet(
-    files: MutableCollection<out VirtualFile>
-  ): VirtualFileSet {
-    return CompactVirtualFileSet(IntSet.of()).apply { addAll(files) }
-  }
 }
 
 // Most Logger.error() calls exist to trigger bug reports but are

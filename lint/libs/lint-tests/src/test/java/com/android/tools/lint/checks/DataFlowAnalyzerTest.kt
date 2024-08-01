@@ -728,7 +728,7 @@ class DataFlowAnalyzerTest : TestCase() {
                     val toast = Toast.makeText(c, r, d) // ERROR
                     // Both of these calls should be ignored via ignoreArgument so shouldn't be considered an escape
                     println(toast)
-                    Log.d("tag", toast.toString())
+                    Log.d("tag", toast)
                 }
                 """
           )
@@ -1690,6 +1690,117 @@ class DataFlowAnalyzerTest : TestCase() {
     assertEquals(
       """
       receiver(...something...)
+      """
+        .trimIndent(),
+      dfa.events.joinToString(separator = "\n") { it },
+    )
+    Disposer.dispose(parsed.second)
+  }
+
+  fun testKotlinSyntheticGetterOfJavaClass() {
+    // Regression test for b/355184283
+    // The test ensures that tracking for a Java getter call is propagated to
+    // the parent expression when called via a Kotlin property access.
+    // See UCallExpression.isSyntheticJavaGetterSetterCallForPropertyAccess.
+    val parsed =
+      LintUtilsTest.parse(
+        kotlin(
+            """
+            package com.pkg
+
+            import android.content.ContentResolver
+            import android.content.Context
+
+            fun foo(context: Context) {
+                val contentResolver: ContentResolver = context.contentResolver
+                bar(contentResolver)
+            }
+
+            fun bar(contentResolver: ContentResolver) {}
+            """
+          )
+          .indented()
+      )
+
+    val target = findMethodCall(parsed, "getContentResolver")
+    val method = target.getParentOfType(UMethod::class.java)
+    val dfa = LoggingDataFlowAnalyzer(listOf(target))
+    method?.accept(dfa)
+    assertEquals(
+      """
+      argument(bar(contentResolver), contentResolver)
+      """
+        .trimIndent(),
+      dfa.events.joinToString(separator = "\n") { it },
+    )
+    Disposer.dispose(parsed.second)
+  }
+
+  fun disabledTestScopeArgumentPropagation1() {
+    val parsed =
+      LintUtilsTest.parse(
+        kotlin(
+            """
+            package com.pkg
+
+            import android.content.ContentResolver
+            import android.content.Context
+
+            fun foo(context: Context) {
+                with (context.contentResolver) {
+                  bar(this)
+                }
+            }
+
+            fun bar(contentResolver: ContentResolver) {}
+            """
+          )
+          .indented()
+      )
+
+    val target = findMethodCall(parsed, "getContentResolver")
+    val method = target.getParentOfType(UMethod::class.java)
+    val dfa = LoggingDataFlowAnalyzer(listOf(target))
+    method?.accept(dfa)
+    assertEquals(
+      """
+      argument(bar(this), this)
+      """
+        .trimIndent(),
+      dfa.events.joinToString(separator = "\n") { it },
+    )
+    Disposer.dispose(parsed.second)
+  }
+
+  fun disabledTestScopeArgumentPropagation2() {
+    val parsed =
+      LintUtilsTest.parse(
+        kotlin(
+            """
+            package com.pkg
+
+            import android.content.Intent
+
+            fun foo() {
+                val intent = Intent()
+                with (intent!!) {
+                    bar(this)
+                }
+            }
+
+            fun bar(intent: Intent) {}
+            """
+          )
+          .indented()
+      )
+
+    val target = findMethodCall(parsed, "Intent")
+    val method = target.getParentOfType(UMethod::class.java)
+    val dfa = LoggingDataFlowAnalyzer(listOf(target))
+    method?.accept(dfa)
+    assertEquals(
+      """
+      argument(bar(this), this)
       """
         .trimIndent(),
       dfa.events.joinToString(separator = "\n") { it },

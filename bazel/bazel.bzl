@@ -140,7 +140,7 @@ def _iml_module_jar_impl(
         kotlinc_opts.append("-Xcontext-receivers")  # Needed to use the Kotlin K2 analysis API (b/308454624).
 
         # TODO(b/310045274): remove this usage of KtAllowProhibitedAnalyzeFromWriteAction.
-        kotlinc_opts.append("-opt-in=org.jetbrains.kotlin.analysis.api.lifetime.KtAllowProhibitedAnalyzeFromWriteAction")
+        kotlinc_opts.append("-opt-in=org.jetbrains.kotlin.analysis.api.permissions.KaAllowProhibitedAnalyzeFromWriteAction")
         kotlin_providers.append(kotlin_compile(
             ctx = ctx,
             name = module_name,
@@ -714,7 +714,7 @@ def iml_module(
             srcs = lint_srcs,
             baseline = lint_baseline,
             deps = prod_deps,
-            custom_rules = ["//tools/base/lint:studio-checks.lint-rules.jar", "//tools/base/lint/studio-checks/compose-desktop-checks"],
+            custom_rules = ["//tools/base/lint:studio-checks.lint-rules.jar"],
             external_annotations = ["//tools/base/external-annotations:annotations.zip"],
             tags = lint_tags,
             timeout = lint_timeout if lint_timeout else None,

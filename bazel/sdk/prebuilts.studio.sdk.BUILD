@@ -208,6 +208,11 @@ java_import(
 )
 
 platform_filegroup(
+    name = "platforms/android-35",
+    visibility = ["//visibility:public"],
+)
+
+platform_filegroup(
     name = "platforms/android-34",
     visibility = ["//visibility:public"],
 )
@@ -315,6 +320,7 @@ filegroup(
     name = "emulator-arm64",
     srcs = sdk_glob(include = ["emulator-arm64/**"]),
 )
+
 filegroup(
     name = "add-ons/addon-google_apis-google-latest",
     srcs = ["add-ons/addon-google_apis-google-24"],
@@ -347,13 +353,13 @@ filegroup(
 filegroup(
     name = "ndk",
     srcs = sdk_glob(
-        include = ["ndk/26.1.10909125/**"],
+        include = ["ndk/27.0.12077973/**"],
         exclude = [
             # Bazel can't handle paths with spaces in them.
-            "ndk/26.1.10909125/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.10/site-packages/setuptools/command/launcher manifest.xml",
-            "ndk/26.1.10909125/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.10/site-packages/setuptools/script (dev).tmpl",
-            "ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.10/site-packages/setuptools/command/launcher manifest.xml",
-            "ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.10/site-packages/setuptools/script (dev).tmpl",
+            "ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.10/site-packages/setuptools/command/launcher manifest.xml",
+            "ndk/27.0.12077973/toolchains/llvm/prebuilt/linux-x86_64/python3/lib/python3.10/site-packages/setuptools/script (dev).tmpl",
+            "ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.10/site-packages/setuptools/command/launcher manifest.xml",
+            "ndk/27.0.12077973/toolchains/llvm/prebuilt/darwin-x86_64/python3/lib/python3.10/site-packages/setuptools/script (dev).tmpl",
         ],
     ),
     visibility = ["//visibility:public"],
@@ -364,16 +370,6 @@ filegroup(
     name = "ndk-20",
     srcs = sdk_glob(
         include = ["ndk/20.1.5948944/**"],
-    ),
-    visibility = ["//visibility:public"],
-)
-
-# NDK r27 is used for AGP tests that need Ndk with Riscv support.
-filegroup(
-    name = "ndk-27",
-    srcs = sdk_glob(
-        include = ["ndk/27.0.11246959/**"],
-        exclude = ["ndk/27.0.11246959/sources/third_party/googletest/test/BUILD.bazel"],
     ),
     visibility = ["//visibility:public"],
 )

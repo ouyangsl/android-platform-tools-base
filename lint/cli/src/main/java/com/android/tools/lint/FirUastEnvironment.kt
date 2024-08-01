@@ -19,23 +19,24 @@ import com.android.tools.lint.UastEnvironment.Companion.getKlibPaths
 import com.android.tools.lint.UastEnvironment.Module.Variant.Companion.toTargetPlatform
 import com.android.tools.lint.detector.api.GraphUtils
 import com.android.tools.lint.detector.api.Project
+import com.android.tools.lint.uast.DecompiledPsiDeclarationProvider
+import com.android.tools.lint.uast.KotlinPsiDeclarationProviderFactory
+import com.android.tools.lint.uast.KotlinStaticPsiDeclarationProviderFactory
 import com.intellij.core.CoreApplicationEnvironment
 import com.intellij.mock.MockApplication
 import com.intellij.mock.MockProject
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.util.Disposer
-import com.intellij.openapi.vfs.VirtualFileSetFactory
-import com.intellij.pom.java.InternalPersistentJavaLanguageLevelReaderService
 import com.intellij.pom.java.LanguageLevel
 import java.io.File
 import java.nio.file.Path
 import kotlin.concurrent.withLock
 import org.jetbrains.kotlin.analysis.api.impl.base.util.LibraryUtils
+import org.jetbrains.kotlin.analysis.api.projectStructure.KaModule
 import org.jetbrains.kotlin.analysis.api.resolve.extensions.KtResolveExtensionProvider
 import org.jetbrains.kotlin.analysis.api.standalone.StandaloneAnalysisAPISession
 import org.jetbrains.kotlin.analysis.api.standalone.buildStandaloneAnalysisAPISession
 import org.jetbrains.kotlin.analysis.decompiled.light.classes.ClsJavaStubByVirtualFileCache
-import org.jetbrains.kotlin.analysis.project.structure.KtModule
 import org.jetbrains.kotlin.analysis.project.structure.builder.KtModuleBuilder
 import org.jetbrains.kotlin.analysis.project.structure.builder.buildKtLibraryModule
 import org.jetbrains.kotlin.analysis.project.structure.builder.buildKtSdkModule
@@ -54,6 +55,7 @@ import org.jetbrains.uast.kotlin.BaseKotlinUastResolveProviderService
 import org.jetbrains.uast.kotlin.FirKotlinUastLanguagePlugin
 import org.jetbrains.uast.kotlin.FirKotlinUastResolveProviderService
 import org.jetbrains.uast.kotlin.internal.FirCliKotlinUastResolveProviderService
+import org.jetbrains.uast.kotlin.internal.FirKotlinUastLibraryPsiProviderService
 
 /**
  * This class is FIR (or K2) version of [UastEnvironment]
@@ -143,7 +145,6 @@ private fun createAnalysisSession(
   val analysisSession =
     buildStandaloneAnalysisAPISession(
       projectDisposable = parentDisposable,
-      withPsiDeclarationFromBinaryModuleProvider = true,
       compilerConfiguration = config.kotlinCompilerConfig,
     ) {
       CoreApplicationEnvironment.registerExtensionPoint(
@@ -151,7 +152,6 @@ private fun createAnalysisSession(
         KtResolveExtensionProvider.EP_NAME.name,
         KtResolveExtensionProvider::class.java,
       )
-      (project as MockProject).registerKtLifetimeTokenProvider()
       registerProjectService(
         ClsJavaStubByVirtualFileCache::class.java,
         ClsJavaStubByVirtualFileCache(),
@@ -160,24 +160,6 @@ private fun createAnalysisSession(
       appLock.withLock {
         // TODO: Avoid creating AA session per test mode, while app env. is not disposed,
         //  which led to duplicate app-level service registration.
-        if (application.getServiceIfCreated(VirtualFileSetFactory::class.java) == null) {
-          // Note that this app-level service should be initialized before any other entities
-          // attempt to instantiate [FilesScope]
-          // For FIR UAST, the first attempt will be made while building the module structure below.
-          registerApplicationService(VirtualFileSetFactory::class.java, LintVirtualFileSetFactory)
-        }
-        // This app-level service should be registered before building project structure
-        // which attempt to read JvmRoots for java files
-        if (
-          application.getServiceIfCreated(
-            InternalPersistentJavaLanguageLevelReaderService::class.java
-          ) == null
-        ) {
-          registerApplicationService(
-            InternalPersistentJavaLanguageLevelReaderService::class.java,
-            InternalPersistentJavaLanguageLevelReaderService.DefaultImpl(),
-          )
-        }
         // We need to re-register Application-level service before AA session is built.
         reRegisterProgressManager(application as MockApplication)
       }
@@ -192,7 +174,7 @@ private fun createAnalysisSession(
           GraphUtils.reverseTopologicalSort(config.modules.map { it.name }) {
             uastEnvModuleByName[it]!!.directDependencies.map { (depName, _) -> depName }
           }
-        val builtKtModuleByName = hashMapOf<String, KtModule>() // incrementally added below
+        val builtKtModuleByName = hashMapOf<String, KaModule>() // incrementally added below
         val configKlibPaths = config.kotlinCompilerConfig.getKlibPaths().map(Path::of)
 
         uastEnvModuleOrder.forEach { name ->
@@ -225,7 +207,7 @@ private fun createAnalysisSession(
                   buildKtSdkModule {
                     platform = mPlatform
                     addBinaryRoots(LibraryUtils.findClassesFromJdkHome(jdkHomePath, isJre = true))
-                    sdkName = "JDK for $moduleName"
+                    libraryName = "JDK for $moduleName"
                   }
                 )
               }
@@ -330,11 +312,21 @@ private fun configureFirProjectEnvironment(
   val project = analysisAPISession.mockProject
 
   configureProjectEnvironment(project, config)
+
+  project.registerService(
+    KotlinPsiDeclarationProviderFactory::class.java,
+    KotlinStaticPsiDeclarationProviderFactory::class.java,
+  )
 }
 
 private fun configureFirApplicationEnvironment(appEnv: CoreApplicationEnvironment) {
   configureApplicationEnvironment(appEnv) {
-    it.addExtension(UastLanguagePlugin.extensionPointName, FirKotlinUastLanguagePlugin())
+    it.addExtension(UastLanguagePlugin.EP, FirKotlinUastLanguagePlugin())
+
+    it.application.registerService(
+      FirKotlinUastLibraryPsiProviderService::class.java,
+      DecompiledPsiDeclarationProvider::class.java,
+    )
 
     it.application.registerService(
       BaseKotlinUastResolveProviderService::class.java,
