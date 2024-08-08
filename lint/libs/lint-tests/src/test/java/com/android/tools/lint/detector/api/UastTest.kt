@@ -41,12 +41,12 @@ import com.intellij.psi.PsiTypeParameter
 import junit.framework.TestCase
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.kotlin.analysis.api.KaExperimentalApi
-import org.jetbrains.kotlin.analysis.api.KtAnalysisSession
+import org.jetbrains.kotlin.analysis.api.KaSession
 import org.jetbrains.kotlin.analysis.api.analyze
 import org.jetbrains.kotlin.analysis.api.resolution.singleFunctionCallOrNull
 import org.jetbrains.kotlin.analysis.api.resolution.symbol
-import org.jetbrains.kotlin.analysis.api.types.KtClassErrorType
-import org.jetbrains.kotlin.analysis.api.types.KtType
+import org.jetbrains.kotlin.analysis.api.types.KaClassErrorType
+import org.jetbrains.kotlin.analysis.api.types.KaType
 import org.jetbrains.kotlin.asJava.elements.KotlinLightTypeParameterBuilder
 import org.jetbrains.kotlin.asJava.unwrapped
 import org.jetbrains.kotlin.config.LanguageVersionSettings
@@ -2757,8 +2757,8 @@ class UastTest : TestCase() {
   }
 
   @OptIn(KaExperimentalApi::class)
-  fun disabledTestFunInterfaceTypeForLambdaWithLabels() {
-    // TODO: https://youtrack.jetbrains.com/issue/KT-69453
+  fun testFunInterfaceTypeForLambdaWithLabels() {
+    // https://youtrack.jetbrains.com/issue/KT-69453
     // Regression test from b/347626696
     val source =
       kotlin(
@@ -2830,7 +2830,7 @@ class UastTest : TestCase() {
                   as? PsiModifierListOwner ?: ktExpression
               try {
                 samType.asPsiType(psiTypeParent, allowErrorTypes = true) as? PsiClassType
-              } catch (e: IllegalArgumentException) {
+              } catch (_: IllegalArgumentException) {
                 // E.g., kotlin/Array<out ft<kotlin/Any, kotlin/Any?>>?>
                 // non-simple array argument
                 null
@@ -2839,10 +2839,10 @@ class UastTest : TestCase() {
           }
 
           // Copied from google3 utils
-          private fun KtAnalysisSession.getSamType(ktExpression: KtExpression): KtType? {
+          private fun KaSession.getSamType(ktExpression: KtExpression): KaType? {
             // E.g. `FunInterface(::method)` or `call(..., ::method, ...)`
             return ktExpression.expectedType
-              ?.takeIf { it !is KtClassErrorType && it.isFunctionalInterface }
+              ?.takeIf { it !is KaClassErrorType && it.isFunctionalInterface }
               ?.lowerBoundIfFlexible()
           }
         }
@@ -4207,6 +4207,84 @@ class UastTest : TestCase() {
             assertTrue(resolved!!.isConstructor)
             assertEquals(expectedClassNames.removeFirst(), resolved.name)
             return super.visitCallExpression(node)
+          }
+        }
+      )
+    }
+  }
+
+  fun testResolutionToInternal_binary() {
+    // b/347623812
+    val testFiles =
+      arrayOf(
+        kotlin(
+          """
+            package pkg
+
+            fun foo() {
+              Lib.internalFun()
+              Lib.internalVal
+            }
+          """
+        ),
+        bytecode(
+          "libs/lib.jar",
+          kotlin(
+              """
+              package pkg
+
+              object Lib {
+                internal fun internalFun() {}
+                internal val internalVal = 42
+              }
+            """
+            )
+            .indented(),
+          0xcc4d4078,
+          """
+                META-INF/main.kotlin_module:
+                H4sIAAAAAAAA/2NgYGBmYGBgBGJOBijg4uViLshOF2ILSS0u8S5RYtBiAABU
+                vEmiJwAAAA==
+                """,
+          """
+                pkg/Lib.class:
+                H4sIAAAAAAAA/2VRTW/TQBB9u3YSx0lbpy2QpHy3QBpQ3VbcqJBKocIoDVJb
+                RaBISE5ihU0cG8WbiGNO/BDOXEoPlUBCUbnxoxCzxrRVseydmbfz3qzf/vr9
+                7QeAx3jEkPnQ79o10cqAMVg9d+zavht07detnteWGWgM6S0RCPmUQausNvJI
+                IW1CR4ZBl+9FxJCtJRpPSEEE0hsGrr87ClYGrggYFrqedBK04foJSloOQ06c
+                bzAwJ49ZzGXBYTEYW20/HmxSTdMMp35wuF3feZHHIkzVdIVhuRYOu3bPk60h
+                yUa2GwShdKUIKa+Hsj7yfTpVodYPJYnZe550O650CeODsUYmMLVk1QI6QJ/w
+                j0JV65R1NhjeTSdlkxe5ya3pxOSGSgyKGkVuTifGz0+8OJ1s8nX2LGPw089p
+                wl/NWJkyXzdeTicKMLL7i5ZGgP7mdPKcEIOIZd1IWWk1ZZOp2bkLzpHnZOda
+                XzIs7Y8CKQaeE4xFJFq+t33+h3QDO2HHY5iricCrjwYtb3joUg/DfC1sK1eH
+                QtUJaB6Eo2Hb2xWqKCXCjf9ksUHe6uQBR0lZTYe7T1Wa4jWKZXVHFHXaT8Xo
+                A6psZR/FVPUExlFMriQkQMMqrfm/DciSJFBA7oz8MHafvstE/QKRnRHzmEmI
+                a8lU/SsKXy5xUxe4esI1MH82tELd6rG+g789wcIxrlrVYxSO4ln/dEzS4ajG
+                2vfigzqEFgktNaE5KDtYcnAdNyjFTQe3cLsJFuEO7jZhRupdjpCOMBsn+Qgz
+                EVbiPPcH4t7VsogDAAA=
+                """,
+        ),
+      )
+    check(*testFiles) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitCallExpression(node: UCallExpression): Boolean {
+            val resolved = node.resolve()
+            assertNotNull(resolved)
+            assertEquals("internalFun\$main", resolved?.name)
+            return super.visitCallExpression(node)
+          }
+
+          override fun visitSimpleNameReferenceExpression(
+            node: USimpleNameReferenceExpression
+          ): Boolean {
+            if (node.sourcePsi?.text != "internalVal") {
+              return super.visitSimpleNameReferenceExpression(node)
+            }
+            val resolved = node.resolve()
+            assertTrue(resolved is PsiField)
+            assertEquals("internalVal", (resolved as? PsiField)?.name)
+            return super.visitSimpleNameReferenceExpression(node)
           }
         }
       )

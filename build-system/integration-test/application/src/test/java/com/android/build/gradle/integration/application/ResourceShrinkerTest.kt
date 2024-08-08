@@ -17,6 +17,7 @@
 package com.android.build.gradle.integration.application
 
 import com.android.SdkConstants
+import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.ApkType.Companion.DEBUG
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.ApkType.Companion.RELEASE
@@ -55,7 +56,9 @@ class ResourceShrinkerTest {
 
     @Test
     fun `shrink resources for APKs with R8`() {
-        project.executor().run("clean", "assembleDebug", "assembleRelease")
+        project.executor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
+            .run("clean", "assembleDebug", "assembleRelease")
         val debugApk = project.getApk(DEBUG)
         val releaseApk = project.getApk(RELEASE)
         // Check that unused resources are replaced in shrunk apk.
@@ -270,6 +273,7 @@ class ResourceShrinkerTest {
     @Test
     fun `shrink resources in single module bundles`() {
         project.executor()
+                .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
                 .run(
                         "clean",
                         "packageDebugUniversalApk",
@@ -506,7 +510,9 @@ class ResourceShrinkerTest {
         )
 
 
-        project.executor().run("clean", "abisplits:assembleRelease")
+        project.executor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
+            .run("clean", "abisplits:assembleRelease")
         val shrunkUniversalApk =
                 FileUtils.join(abiSplitsSubproject.outputDir,
                         "apk",

@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.integration.multiplatform.v2.model
 
+import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder
 import com.android.build.gradle.integration.common.fixture.model.BaseModelComparator
 import com.android.build.gradle.integration.multiplatform.v2.publishLibs
@@ -33,7 +34,7 @@ class KotlinMultiplatformPublicationModelSnapshotTest: BaseModelComparator {
     @Test
     fun testModelsWhenLibsArePublished() {
         project.publishLibs(
-            publishKmpFirstLib = false
+            configCacheMode = BaseGradleExecutor.ConfigurationCaching.ON
         )
 
         val moduleFilesComparator = KmpModelComparator(
@@ -53,11 +54,12 @@ class KotlinMultiplatformPublicationModelSnapshotTest: BaseModelComparator {
                         "$projectName-1.0.module"
                     )
                 )
-            }
+            },
+            configCacheMode = BaseGradleExecutor.ConfigurationCaching.ON
         )
 
         moduleFilesComparator.fetchAndCompareModels(
-            projects = listOf(":kmpJvmOnly", ":kmpSecondLib")
+            projects = listOf(":kmpJvmOnly", ":kmpSecondLib", ":kmpLibraryPlugin", ":kmpFirstLib")
         )
 
         val sourceSetsComparator = KmpModelComparator(
@@ -71,7 +73,8 @@ class KotlinMultiplatformPublicationModelSnapshotTest: BaseModelComparator {
                     "dependencies",
                     "json"
                 ).listFiles()!!.toList()
-            }
+            },
+            configCacheMode = BaseGradleExecutor.ConfigurationCaching.ON
         )
 
         sourceSetsComparator.fetchAndCompareModels(

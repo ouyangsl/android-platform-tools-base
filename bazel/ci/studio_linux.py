@@ -2,6 +2,7 @@
 
 import itertools
 import pathlib
+import logging
 import shutil
 import tempfile
 from typing import List, Sequence
@@ -20,6 +21,7 @@ _BASE_TARGETS = [
 
 
 _EXTRA_TARGETS = [
+    '//tools/base/bazel:iml_to_build_consistency_test',
     '//tools/adt/idea/studio:android-studio',
     '//tools/adt/idea/studio:updater_deploy.jar',
     '//tools/vendor/google/aswb:aswb.linux.zip',
@@ -90,16 +92,31 @@ _ARTIFACTS = [
 
 def studio_linux(build_env: bazel.BuildEnv) -> None:
   """Runs studio-linux target."""
+  setup_environment(build_env)
+  test_tag_filters = '-noci:studio-linux,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release'
+
+  flags = build_flags(
+      build_env,
+      test_tag_filters=test_tag_filters,
+  )
+
   build_type = studio.BuildType.from_build_number(build_env.build_number)
   if build_type == studio.BuildType.POSTSUBMIT:
     presubmit.generate_and_upload_hash_file(build_env)
 
-  setup_environment(build_env)
-  flags = build_flags(
-      build_env,
-      test_tag_filters='-noci:studio-linux,-qa_smoke,-qa_fast,-qa_unreliable,-perfgate-release',
-  )
-  result = run_tests(build_env, flags, _BASE_TARGETS + _EXTRA_TARGETS)
+  targets = _BASE_TARGETS
+  if build_type == studio.BuildType.PRESUBMIT:
+    result = presubmit.find_test_targets(
+        build_env,
+        _BASE_TARGETS,
+        test_tag_filters,
+    )
+    targets = result.targets
+    flags.extend(result.flags)
+    logging.info('Using selective presubmit: %s', str(result.found))
+  targets += _EXTRA_TARGETS
+
+  result = run_tests(build_env, flags, targets)
   copy_agp_supported_versions(build_env)
   if studio.is_build_successful(result):
     copy_artifacts(build_env)

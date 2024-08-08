@@ -5,6 +5,7 @@
   androidx/databinding:databinding-ktx
   androidx/databinding:databinding-runtime
   androidx/databinding:viewbinding
+  com/android/ai-pack:com.android.ai-pack.gradle.plugin
   com/android/application:com.android.application.gradle.plugin
   com/android/asset-pack-bundle:com.android.asset-pack-bundle.gradle.plugin
   com/android/asset-pack:com.android.asset-pack.gradle.plugin
@@ -17,6 +18,7 @@
   com/android/fused-library:com.android.fused-library.gradle.plugin
   com/android/internal/settings:com.android.internal.settings.gradle.plugin
   com/android/kotlin/multiplatform/library:com.android.kotlin.multiplatform.library.gradle.plugin
+  com/android/legacy-kapt:com.android.legacy-kapt.gradle.plugin
   com/android/library:com.android.library.gradle.plugin
   com/android/lint:com.android.lint.gradle.plugin
   com/android/privacy-sandbox-sdk:com.android.privacy-sandbox-sdk.gradle.plugin

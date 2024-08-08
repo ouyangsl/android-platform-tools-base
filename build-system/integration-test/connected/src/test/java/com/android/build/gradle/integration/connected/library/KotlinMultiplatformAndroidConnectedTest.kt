@@ -17,6 +17,7 @@
 package com.android.build.gradle.integration.connected.library
 
 import com.android.build.gradle.integration.common.fixture.ANDROIDX_TEST_ESPRESSO_ESPRESSO_CORE_VERSION
+import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder
 import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.build.gradle.integration.connected.utils.getEmulator
@@ -68,12 +69,15 @@ class KotlinMultiplatformAndroidConnectedTest {
         project.addAdbTimeout()
         // run the uninstall tasks in order to (1) make sure nothing is installed at the beginning
         // of each test and (2) check the adb connection before taking the time to build anything.
-        project.executor().run("androidUninstallAll")
+        project.executor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
+            .run("androidUninstallAll")
     }
 
     @Test
     fun connectedKmpLibraryTests() {
         project.executor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
             .run(":kmpFirstLib:androidConnectedCheck")
 
         val testResultFolder = FileUtils.join(

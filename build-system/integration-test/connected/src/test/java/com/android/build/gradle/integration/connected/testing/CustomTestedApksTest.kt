@@ -17,6 +17,7 @@ package com.android.build.gradle.integration.connected.testing
 
 import com.android.SdkConstants
 import com.android.build.api.variant.impl.BuiltArtifactsLoaderImpl
+import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.app.MinimalSubProject
 import com.android.build.gradle.integration.common.fixture.app.MultiModuleTestProject
@@ -185,12 +186,16 @@ class CustomTestedApksTest {
         project.addAdbTimeout()
         // run the uninstall tasks in order to (1) make sure nothing is installed at the beginning
         // of each test and (2) check the adb connection before taking the time to build anything.
-        project.execute("uninstallAll")
+        project.executor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
+            .run("uninstallAll")
     }
 
     @Test
     fun connectedCheckInstalls() {
-        project.execute(":test:connectedCheck")
+        project.executor()
+            .withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
+            .run(":test:connectedCheck")
         val androidProject = project.modelV2().fetchModels().container.getProject(":test")
             .androidProject!!
 

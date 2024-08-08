@@ -21,6 +21,7 @@ import com.android.backup.AdbServices.Companion.BACKUP_DIR
 import com.android.backup.BackupProgressListener.Step
 import com.android.backup.ErrorCode.BACKUP_FAILED
 import com.android.backup.ErrorCode.CANNOT_ENABLE_BMGR
+import com.android.backup.ErrorCode.GMSCORE_IS_TOO_OLD
 import com.android.backup.ErrorCode.GMSCORE_NOT_FOUND
 import com.android.backup.ErrorCode.TRANSPORT_INIT_FAILED
 import com.android.backup.ErrorCode.TRANSPORT_NOT_SELECTED
@@ -36,6 +37,7 @@ abstract class AbstractAdbServices(
   protected val logger: Logger,
   protected val progressListener: BackupProgressListener?,
   private var totalSteps: Int,
+  private var minGmsVersion: Int,
 ) : AdbServices {
 
   private var step = 0
@@ -62,22 +64,22 @@ abstract class AbstractAdbServices(
 
   override suspend fun initializeTransport(transport: String) {
     val out = executeCommand("bmgr init $transport", TRANSPORT_INIT_FAILED)
-    if (out.lines().last() != "Initialization result: 0") {
+    if (out.stdout.lines().last() != "Initialization result: 0") {
       throw BackupException(TRANSPORT_INIT_FAILED, "Failed to initialize '$transport`: $out")
     }
   }
 
   override suspend fun backupNow(applicationId: String) {
     val out = executeCommand("bmgr backupnow $applicationId", BACKUP_FAILED)
-    if (out.lines().last() != "Backup finished with result: Success") {
-      throw BackupException(BACKUP_FAILED, "Failed to backup '$applicationId`: $out")
+    if (out.stdout.lines().last() != "Backup finished with result: Success") {
+      throw BackupException(BACKUP_FAILED, "Failed to backup '$applicationId`: ${out.stdout}")
     }
   }
 
   override suspend fun restore(token: String, applicationId: String) {
     val out = executeCommand("bmgr restore $token $applicationId", ErrorCode.RESTORE_FAILED)
-    if (out.indexOf("restoreFinished: 0\n") < 0) {
-      throw BackupException(ErrorCode.RESTORE_FAILED, "Error restoring app: $out")
+    if (out.stdout.indexOf("restoreFinished: 0\n") < 0) {
+      throw BackupException(ErrorCode.RESTORE_FAILED, "Error restoring app: ${out.stdout}")
     }
   }
 
@@ -101,14 +103,22 @@ abstract class AbstractAdbServices(
 
   private suspend fun verifyGmsCore() {
     reportProgress("Verifying Google services")
-    val lines = executeCommand("dumpsys package com.google.android.gms").lineSequence()
+    val lines =
+      executeCommand("dumpsys package com.google.android.gms").stdout.lineSequence().dropWhile {
+        it != "Packages:"
+      }
     val versionMatch = lines.firstNotNullOfOrNull { PACKAGE_VERSION_CODE_REGEX.matchEntire(it) }
     if (versionMatch == null) {
       throw BackupException(GMSCORE_NOT_FOUND, "Google Services not found on device")
     }
-    val version = versionMatch.getGroup("version")
-    // TODO(b/348406593): Verify version
-    logger.debug("GmsCore version: $version")
+    val versionString = versionMatch.getGroup("version")
+    val version = versionString.toIntOrNull() ?: 0
+    if (version < minGmsVersion) {
+      throw BackupException(
+        GMSCORE_IS_TOO_OLD,
+        "Google Services version is too old ($versionString).  Min version is $minGmsVersion",
+      )
+    }
   }
 
   private suspend fun withTestMode(block: suspend () -> Unit) {
@@ -144,7 +154,7 @@ abstract class AbstractAdbServices(
   }
 
   private suspend fun isBmgrEnabled(): Boolean {
-    return when (val out = executeCommand("bmgr enabled", CANNOT_ENABLE_BMGR).trim()) {
+    return when (val out = executeCommand("bmgr enabled", CANNOT_ENABLE_BMGR).stdout.trim()) {
       "Backup Manager currently enabled" -> true
       "Backup Manager currently disabled" -> false
       else ->
@@ -153,7 +163,7 @@ abstract class AbstractAdbServices(
   }
 
   private suspend fun setTransport(transport: String, verify: Boolean): String {
-    val out = executeCommand("bmgr transport $transport", TRANSPORT_NOT_SELECTED).trim()
+    val out = executeCommand("bmgr transport $transport", TRANSPORT_NOT_SELECTED).stdout.trim()
     val result =
       TRANSPORT_COMMAND_REGEX.matchEntire(out)
         ?: throw BackupException(
@@ -162,7 +172,7 @@ abstract class AbstractAdbServices(
         )
 
     if (verify) {
-      val transports = executeCommand("bmgr list transports", TRANSPORT_NOT_SELECTED).lines()
+      val transports = executeCommand("bmgr list transports", TRANSPORT_NOT_SELECTED).stdout.lines()
       val currentTransport = transports.find { it.startsWith("  *") }?.dropPrefix("  * ")
       if (currentTransport != transport) {
         throw throw BackupException(TRANSPORT_NOT_SELECTED, "Requested transport was not set: $out")

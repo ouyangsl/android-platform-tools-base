@@ -39,6 +39,7 @@ class AssetPackPlugin : Plugin<Project> {
                     SdkConstants.FD_INTERMEDIATES
                 ).dir("asset_pack_manifest").file(SdkConstants.FN_ANDROID_MANIFEST_XML)
             )
+            manifestGenerationTask.aiPack.setDisallowChanges(false)
             manifestGenerationTask.packName.setDisallowChanges(extension.packName)
             manifestGenerationTask.deliveryType.setDisallowChanges(extension.dynamicDelivery.deliveryType)
             manifestGenerationTask.instantDeliveryType.setDisallowChanges(extension.dynamicDelivery.instantDeliveryType)

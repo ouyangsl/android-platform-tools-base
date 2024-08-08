@@ -18,6 +18,7 @@ package com.android.backup.testing
 
 import ai.grazie.utils.dropPrefix
 import com.android.backup.AbstractAdbServices
+import com.android.backup.AdbServices.AdbOutput
 import com.android.backup.BackupException
 import com.android.backup.ErrorCode
 import com.android.tools.environment.log.NoopLogger
@@ -36,8 +37,18 @@ private const val DELETE_FILES = "rm -rf "
 private const val DUMPSYS_GMSCORE = "dumpsys package com.google.android.gms"
 
 /** A fake [com.android.backup.AdbServices] */
-internal class FakeAdbServices(serialNumber: String, totalSteps: Int) :
-  AbstractAdbServices(serialNumber, NoopLogger(), FakeProgressListener(), totalSteps) {
+internal class FakeAdbServices(
+  serialNumber: String = "serial",
+  totalSteps: Int = 10,
+  minGmsVersion: Int = 100,
+) :
+  AbstractAdbServices(
+    serialNumber,
+    NoopLogger(),
+    FakeProgressListener(),
+    totalSteps,
+    minGmsVersion,
+  ) {
 
   sealed class CommandOverride(val command: String) {
     class Output(command: String, val output: String) : CommandOverride(command) {
@@ -74,13 +85,13 @@ internal class FakeAdbServices(serialNumber: String, totalSteps: Int) :
 
   fun getProgress() = (progressListener as FakeProgressListener).getSteps()
 
-  override suspend fun executeCommand(command: String, errorCode: ErrorCode): String {
+  override suspend fun executeCommand(command: String, errorCode: ErrorCode): AdbOutput {
     commands.add(command)
     val result = commandOverrides[command]?.handle(errorCode)
     if (result != null) {
-      return result
+      return AdbOutput(result, "")
     }
-    return when {
+    val stdout = when {
       command == "bmgr enabled" -> handleBmgrEnabled()
       command.startsWith(BMGR_ENABLE) -> handleEnableBmgr(command)
       command.startsWith(SET_TEST_MODE) -> handleSetTestMode(command)
@@ -93,6 +104,7 @@ internal class FakeAdbServices(serialNumber: String, totalSteps: Int) :
       command == DUMPSYS_GMSCORE -> handleDumpsysGmsCore()
       else -> throw NotImplementedError("Command '$command' is not implemented")
     }
+    return AdbOutput(stdout, "")
   }
 
   @Suppress("BlockingMethodInNonBlockingContext")

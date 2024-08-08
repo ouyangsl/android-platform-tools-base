@@ -29,7 +29,7 @@ class AndroidKotlinPlugin : Plugin<Project> {
             throw GradleException(
                 """
                     The "$incompatiblePlugin" plugin has been applied, but it is not compatible with
-                    the "com.android.experimental.built-in-kotlin" plugin.
+                    the "$ANDROID_BUILT_IN_KOTLIN_PLUGIN_ID" plugin.
                     Remove the "$incompatiblePlugin" plugin from ${project.buildFile.toURI()}.
                    """.trimMargin()
             )
@@ -37,4 +37,6 @@ class AndroidKotlinPlugin : Plugin<Project> {
         project.plugins.apply(KotlinBaseApiPlugin::class.java)
     }
 }
+
+internal const val ANDROID_BUILT_IN_KOTLIN_PLUGIN_ID = "com.android.experimental.built-in-kotlin"
 
