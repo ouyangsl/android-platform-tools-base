@@ -21,7 +21,4 @@ import org.gradle.api.Incubating
 @Incubating
 interface LibraryProductFlavor<SigningConfigT : SigningConfig> :
     LibraryBaseFlavor<SigningConfigT>,
-    ProductFlavor {
-    /** Whether this product flavor should be selected in Studio by default  */
-    var isDefault: Boolean
-}
+    DefaultableProductFlavour
