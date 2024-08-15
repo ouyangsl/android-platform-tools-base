@@ -21,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import java.io.File
+import java.lang.StringBuilder
 import java.nio.file.Files
 import java.util.zip.ZipInputStream
 
@@ -55,58 +56,72 @@ class MultipreviewAnnotationResolverTest {
         )
     }
 
-    @Test
-    fun knownPreviewAnnotationsShouldBeResolvedToTrue() {
-        assertThat(resolver.isMultipreviewAnnotation(
-            "Landroidx/compose/ui/tooling/preview/Preview;")).isTrue()
-        assertThat(resolver.isMultipreviewAnnotation(
-            "Landroidx/compose/ui/tooling/preview/Preview\$Container;")).isTrue()
-    }
+    private fun getPreviewAnnotationsForClass(annotationClassDescriptor: String): String {
+        val previewAnnotations = mutableSetOf<BaseAnnotationRepresentation>()
+        resolver.findAllPreviewAnnotations(annotationClassDescriptor, previewAnnotations::addAll)
 
-    @Test
-    fun nonMultipreviewAnnotationsShouldBeResolvedToFalse() {
-        assertThat(resolver.isMultipreviewAnnotation("Lorg/junit/Rule;")).isFalse()
-        assertThat(resolver.isMultipreviewAnnotation("Lorg/junit/Test;")).isFalse()
-    }
-
-    @Test
-    fun invalidInputShouldBeResolvedToFalse() {
-        assertThat(resolver.isMultipreviewAnnotation("")).isFalse()
-        assertThat(resolver.isMultipreviewAnnotation("invalid input")).isFalse()
+        val debugString = StringBuilder()
+        debugString.appendLine("size = ${previewAnnotations.size}")
+        previewAnnotations.forEach {
+            it.parameters.entries.forEach { (key, value) ->
+                debugString.appendLine("$key: $value")
+            }
+            debugString.appendLine("----")
+        }
+        return debugString.toString().trim()
     }
 
     @Test
     fun multipreviewIsDefinedInTestSource() {
-        assertThat(resolver.isMultipreviewAnnotation(
+        assertThat(getPreviewAnnotationsForClass(
             "Lcom/example/myscreenshottestexample/screenshottest/MyCustomMultipreviewAnnotation;"))
-            .isTrue()
+            .isEqualTo("""
+                size = 2
+                showBackground: true
+                ----
+                showBackground: false
+                ----
+            """.trimIndent())
     }
 
     @Test
     fun multipreviewIsDefinedInMainSource() {
-        assertThat(resolver.isMultipreviewAnnotation(
+        assertThat(getPreviewAnnotationsForClass(
             "Lcom/example/myscreenshottestexample/MyCustomMultipreviewAnnotationInMain;"))
-            .isTrue()
+            .isEqualTo("""
+                size = 1
+                showBackground: true
+                ----
+            """.trimIndent())
     }
 
     @Test
     fun multipreviewIsDefinedInDependency() {
-        assertThat(resolver.isMultipreviewAnnotation(
+        assertThat(getPreviewAnnotationsForClass(
             "Lcom/example/mylibrary/MyCustomPreviewAnnotationInLibrary;"))
-            .isTrue()
+            .isEqualTo("""
+                size = 1
+                ----
+            """.trimIndent())
     }
 
     @Test
-    fun cyclicPreviewableAnnotation() {
-        assertThat(resolver.isMultipreviewAnnotation(
+    fun cyclicPreviewAnnotation() {
+        assertThat(getPreviewAnnotationsForClass(
             "Lcom/example/myscreenshottestexample/screenshottest/CyclicPreviewableAnnotation;"))
-            .isTrue()
+            .isEqualTo("""
+                size = 2
+                showBackground: true
+                ----
+                showBackground: false
+                ----
+            """.trimIndent())
     }
 
     @Test
-    fun cyclicNonPreviewableAnnotation() {
-        assertThat(resolver.isMultipreviewAnnotation(
+    fun cyclicNonPreviewAnnotation() {
+        assertThat(getPreviewAnnotationsForClass(
             "Lcom/example/myscreenshottestexample/screenshottest/CyclicNonPreviewableAnnotation;"))
-            .isFalse()
+            .isEqualTo("size = 0")
     }
 }

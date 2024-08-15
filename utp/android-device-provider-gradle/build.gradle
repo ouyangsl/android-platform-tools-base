@@ -31,6 +31,7 @@ dependencies {
     implementation libs.kotlin_stdlib
     implementation libs.protobuf
     implementation libs.com.android.tools.utp.androidDeviceProviderGradleProto
+    implementation project(":base:utp:android-device-provider-profile")
     implementation libs.unified_test_platform
     implementation libs.unified_test_platform_device_provider
     compileOnly libs.unified_test_platform_launcher

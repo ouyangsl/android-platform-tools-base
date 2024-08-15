@@ -18,10 +18,16 @@ package com.android.build.gradle.tasks
 
 import com.android.build.api.artifact.impl.ArtifactsImpl
 import com.android.build.api.artifact.impl.SingleInitialProviderRequestImpl
-import com.android.build.gradle.internal.fusedlibrary.FusedLibraryVariantScope
-import com.android.build.gradle.internal.fusedlibrary.FusedLibraryVariantScopeImpl
+import com.android.build.gradle.internal.fixtures.FakeConfigurableFileCollection
+import com.android.build.gradle.internal.fusedlibrary.FusedLibraryConfigurations
+import com.android.build.gradle.internal.fusedlibrary.FusedLibraryGlobalScope
+import com.android.build.gradle.internal.fusedlibrary.FusedLibraryGlobalScopeImpl
 import com.google.common.truth.Truth
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.DependencySet
+import org.gradle.api.artifacts.FileCollectionDependency
+import org.gradle.api.attributes.Usage.JAVA_RUNTIME
 import org.gradle.api.file.RegularFile
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Rule
@@ -51,11 +57,21 @@ internal class FusedLibraryBundleTest {
         val project: Project = ProjectBuilder.builder().withProjectDir(temporaryFolder.root).build()
         val taskProvider = project.tasks.register("bundle", T::class.java)
 
-        val variantScope = Mockito.mock(FusedLibraryVariantScopeImpl::class.java)
+        val variantScope = Mockito.mock(FusedLibraryGlobalScopeImpl::class.java)
         val artifacts = Mockito.mock(ArtifactsImpl::class.java)
-        Mockito.`when`(variantScope.artifacts).thenReturn(artifacts)
+        val incomingConfigurations = Mockito.mock(FusedLibraryConfigurations::class.java)
+        val configuration = Mockito.mock(Configuration::class.java)
+        val dependencySet = Mockito.mock(DependencySet::class.java)
+        val fileCollectionDependency = Mockito.mock(FileCollectionDependency::class.java)
 
-        Mockito.`when`(variantScope.layout).thenReturn(project.layout)
+        Mockito.`when`(variantScope.artifacts).thenReturn(artifacts)
+        Mockito.`when`(variantScope.projectLayout).thenReturn(project.layout)
+        Mockito.`when`(variantScope.incomingConfigurations).thenReturn(incomingConfigurations)
+        Mockito.`when`(incomingConfigurations.getConfiguration(JAVA_RUNTIME)).thenReturn(configuration)
+
+        Mockito.`when`(configuration.allDependencies).thenReturn(dependencySet)
+        Mockito.`when`(fileCollectionDependency.files).thenReturn(FakeConfigurableFileCollection(File("someJar.jar")))
+        Mockito.`when`(dependencySet.iterator()).thenReturn(mutableSetOf(fileCollectionDependency).iterator())
 
         @Suppress("UNCHECKED_CAST")
         val request = Mockito.mock(SingleInitialProviderRequestImpl::class.java)
@@ -64,7 +80,7 @@ internal class FusedLibraryBundleTest {
         Mockito.`when`(artifacts.setInitialProvider(taskProvider, FusedLibraryBundle::outputFile))
                 .thenReturn(request)
 
-        val creationAction = U::class.java.getDeclaredConstructor(FusedLibraryVariantScope::class.java)
+        val creationAction = U::class.java.getDeclaredConstructor(FusedLibraryGlobalScope::class.java)
             .newInstance(variantScope)
         creationAction.handleProvider(taskProvider)
 

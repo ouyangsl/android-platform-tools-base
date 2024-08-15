@@ -19,6 +19,7 @@ package com.android.build.gradle.integration.library
 import com.android.SdkConstants
 import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
+import com.android.build.gradle.integration.common.fixture.GradleTestProject.ApkType.Companion.DEBUG
 import com.android.build.gradle.integration.common.fixture.testprojects.PluginType
 import com.android.build.gradle.integration.common.fixture.testprojects.createGradleProjectBuilder
 import com.android.build.gradle.integration.common.truth.TruthHelper.assertThat
@@ -27,6 +28,7 @@ import com.android.build.gradle.options.BooleanOption
 import com.android.testutils.MavenRepoGenerator
 import com.android.testutils.TestInputsGenerator
 import com.android.testutils.generateAarWithContent
+import com.android.testutils.truth.ZipFileSubject
 import com.android.utils.FileUtils
 import com.google.common.collect.ImmutableList
 import org.gradle.api.JavaVersion
@@ -36,6 +38,7 @@ import org.junit.rules.TemporaryFolder
 import java.io.File
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
+import kotlin.io.path.deleteIfExists
 
 /**
  * Tests to verify the classes that are packaged within the AAR are correct or cause an expected
@@ -166,6 +169,25 @@ class FusedLibraryClassesVerificationTest {
                 implementation("com.externaldep:externalaar:1")
             }
         }
+        subProject(":$ANDROID_LIB_WITH_DATABINDING") {
+            plugins.add(PluginType.ANDROID_LIB)
+            plugins.add(PluginType.KOTLIN_ANDROID)
+            android {
+                defaultCompileSdk()
+                namespace = "com.example.androidLibWithDatabinding"
+                compileOptions {
+                    sourceCompatibility = JavaVersion.VERSION_1_8
+                    targetCompatibility = JavaVersion.VERSION_1_8
+                }
+                kotlinOptions {
+                    jvmTarget = "1.8"
+                }
+                buildFeatures {
+                    dataBinding = true
+                    viewBinding = true
+                }
+            }
+        }
         subProject(":$FUSED_LIBRARY_PROJECT_NAME") {
             plugins.add(PluginType.FUSED_LIBRARY)
             androidFusedLibrary {
@@ -175,8 +197,21 @@ class FusedLibraryClassesVerificationTest {
             // Use addDependenciesToFusedLibProject() for setting dependencies.
             dependencies {}
         }
+        subProject(":app") {
+            plugins.add(PluginType.ANDROID_APP)
+            plugins.add(PluginType.KOTLIN_ANDROID)
+            android {
+                defaultCompileSdk()
+                minSdk = 34
+                namespace = "com.example.myapp"
+            }
+            dependencies {
+                implementation(project(":$FUSED_LIBRARY_PROJECT_NAME"))
+            }
+        }
         gradleProperties {
             set(BooleanOption.FUSED_LIBRARY_SUPPORT, true)
+            set(BooleanOption.USE_ANDROID_X, true)
         }
         withKotlinPlugin = true
     }
@@ -195,7 +230,7 @@ class FusedLibraryClassesVerificationTest {
             "com/example/androidlib1/ClassFromAndroidLib1.class",
         )
 
-        assertFusedLibAarContainsExpectedClasses(classesFromDirectDependencies + FUSED_LIBRARY_R_CLASS)
+        assertFusedLibAarContainsExpectedClasses(classesFromDirectDependencies)
     }
 
     @Test
@@ -213,7 +248,71 @@ class FusedLibraryClassesVerificationTest {
             "com/example/androidlib1/ClassFromAndroidLib1.class" // From :androidLib1
         )
 
-        assertFusedLibAarContainsExpectedClasses(classesFromDirectDependencies + FUSED_LIBRARY_R_CLASS)
+        assertFusedLibAarContainsExpectedClasses(classesFromDirectDependencies)
+    }
+
+    @Test
+    fun checkFusedLibraryAarForClassesFromLocalJarDependencies() {
+        val localProjectTestJar = project.projectDir.resolve("testClass.jar")
+        val appProject = project.getSubproject(":app")
+        val fusedLib1Project = project.getSubproject(":$FUSED_LIBRARY_PROJECT_NAME")
+        val localResourceJar =
+            TestInputsGenerator.jarWithClasses(mutableListOf(TestClass::class.java) as Collection<Class<*>>?)
+
+        localProjectTestJar.writeBytes(localResourceJar)
+        val dependenciesBlock = """
+            include(files("${localProjectTestJar.invariantSeparatorsPath}"))
+        """.trimIndent()
+
+        addDependenciesToFusedLibProject(dependenciesBlock)
+        project.execute(":$FUSED_LIBRARY_PROJECT_NAME:bundle")
+
+        val aar = FileUtils.join(fusedLib1Project.buildDir, "bundle", "bundle.aar")
+        ZipFileSubject.assertThat(aar) {
+            it.contains("libs/testClass.jar")
+        }
+
+        FileUtils.join(fusedLib1Project.mainSrcDir, "com", "example", "myapp", "AppClass.kt").also {
+            it.parentFile.mkdirs()
+            it.writeText(
+                //language=kotlin
+                """
+            package com.example.myapp
+            import com.android.build.gradle.integration.library.TestClass
+
+            class AppClass {
+                abstract fun aFunctionThatReturnsATypeFromFusedLibraryLibsJars(): TestClass
+            }
+        """.trimIndent()
+            )
+        }
+
+        project.execute(":app:assembleDebug")
+        localProjectTestJar.toPath().deleteIfExists()
+
+        appProject.getApk(DEBUG).use {
+            assertThat(it).hasClass("Lcom/android/build/gradle/integration/library/TestClass;") }
+    }
+
+    @Test
+    fun checkBuildFailsForLibrariesWithDatabinding() {
+        val dependenciesBlock = """
+
+            include(project(":androidLib1"))
+            include(project(":$ANDROID_LIB_WITH_DATABINDING"))
+        """.trimIndent()
+
+        addDependenciesToFusedLibProject(dependenciesBlock)
+        for (enableAndroidx in listOf(true, false)) {
+            val failure =
+                project.executor()
+                    .with(BooleanOption.USE_ANDROID_X, enableAndroidx)
+                    .expectFailure()
+                    .run(":$FUSED_LIBRARY_PROJECT_NAME:bundle")
+
+            failure.assertErrorContains(
+                "Fused Library plugin does not allow dependencies with databinding.")
+        }
     }
 
     private fun addDependenciesToFusedLibProject(dependenciesBlock: String) {
@@ -252,7 +351,8 @@ class FusedLibraryClassesVerificationTest {
                 it.entries().toList().map { it.toString() }
             ).containsAtLeastElementsIn(listOf(SdkConstants.FN_CLASSES_JAR))
             classesJar.writeBytes(
-                it.getInputStream(ZipEntry(SdkConstants.FN_CLASSES_JAR)).readAllBytes())
+                it.getInputStream(ZipEntry(SdkConstants.FN_CLASSES_JAR)).readAllBytes()
+            )
         }
         return classesJar
     }
@@ -260,6 +360,9 @@ class FusedLibraryClassesVerificationTest {
     companion object {
         const val FUSED_LIBRARY_PROJECT_NAME = "fusedLib1"
         const val ANDROID_LIB_WITH_EXTERNAL_LIB_DEPENDENCY = "androidLib3"
+        const val ANDROID_LIB_WITH_DATABINDING = "androidLibWithDatabinding"
         const val FUSED_LIBRARY_R_CLASS = "com/example/fusedLib1/R.class"
     }
 }
+
+private class TestClass

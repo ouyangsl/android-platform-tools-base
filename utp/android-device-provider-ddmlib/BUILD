@@ -16,6 +16,7 @@ maven_library(
         "//tools/base/common:tools.common",
         "//tools/base/ddmlib:tools.ddmlib",
         "//tools/base/utp/android-device-provider-ddmlib-proto",
+        "//tools/base/utp/android-device-provider-profile",
         "@maven//:org.jetbrains.kotlinx.kotlinx-coroutines-core",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",
         "@maven//:com.google.protobuf.protobuf-java",

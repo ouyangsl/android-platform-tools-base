@@ -43,7 +43,6 @@ maven_library(
         "//tools/base/sdk-common:tools.sdk-common",
         "//tools/base/sdklib:tools.sdklib",
         "@maven//:com.google.code.gson.gson",
-        "@maven//:net.sf.kxml.kxml2",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",
     ],
 )
@@ -448,6 +447,7 @@ maven_repository(
         "//tools/base/signflinger",
         "//tools/base/utp/android-device-provider-ddmlib-proto",
         "//tools/base/utp/android-device-provider-gradle-proto",
+        "//tools/base/utp/android-device-provider-profile-proto",
         "//tools/base/utp/android-test-plugin-host-additional-test-output-proto",
         "//tools/base/utp/android-test-plugin-host-apk-installer-proto",
         "//tools/base/utp/android-test-plugin-host-coverage-proto",
@@ -490,7 +490,6 @@ maven_repository(
         "@maven//:javax.annotation.javax.annotation-api",
         "@maven//:net.java.dev.jna.jna-platform",
         "@maven//:net.sf.jopt-simple.jopt-simple",
-        "@maven//:net.sf.kxml.kxml2",
         "@maven//:net.sf.proguard.proguard-gradle",
         "@maven//:nl.jqno.equalsverifier.equalsverifier",
         "@maven//:org.apache.commons.commons-compress",
@@ -677,7 +676,7 @@ gradle_test(
 # tools/base/testutils/src/main/java/com/android/testutils/TestUtils.ANDROID_PLATFORM_FOR_AGP_UNIT_TESTS
 filegroup(
     name = "android_platform_for_tests",
-    srcs = ["//prebuilts/studio/sdk:platforms/android-34"],
+    srcs = ["//prebuilts/studio/sdk:platforms/android-35"],
     visibility = ["//visibility:public"],
 )
 

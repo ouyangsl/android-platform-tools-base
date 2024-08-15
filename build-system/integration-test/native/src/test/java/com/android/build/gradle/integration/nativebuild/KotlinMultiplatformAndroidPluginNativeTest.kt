@@ -212,16 +212,23 @@ class KotlinMultiplatformAndroidPluginNativeTest {
         }
     }
 
-    // Disabled for Gradle 8.9 upgrade
-    // Fix needed: b/356881462
-    //@Test
+    @Test
     fun publicationMetadataDoesNotIncludeNativeLib() {
         TestFileUtils.searchAndReplace(
             project.getSubproject("kmpFirstLib").ktsBuildFile,
             "plugins {",
             "plugins {\n  id(\"maven-publish\")"
         )
-
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("kmpSecondLib").ktsBuildFile,
+            "plugins {",
+            "plugins {\n  id(\"maven-publish\")"
+        )
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("kmpJvmOnly").ktsBuildFile,
+            "plugins {",
+            "plugins {\n  id(\"maven-publish\")"
+        )
         TestFileUtils.appendToFile(project.getSubproject("kmpFirstLib").ktsBuildFile,
             """
                 group = "com.example"
@@ -237,7 +244,6 @@ class KotlinMultiplatformAndroidPluginNativeTest {
         )
 
         executor().run(":kmpFirstLib:publish")
-
 
         // Assert that maven metadata and gradle module metadata files have no mention of the native
         // lib dependency.
