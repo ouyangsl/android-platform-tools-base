@@ -120,13 +120,12 @@ def _find_impacted_test_targets(
 
     exclude_query.append(f'attr(target_compatible_with, "@platforms//:incompatible", {target})')
 
-  bazel_cmd = bazel.BazelCmd(build_env)
   query = (
       ' union '.join(include_query) +
       ' except ' +
       ' except '.join(exclude_query)
   )
-  result = bazel_cmd.query(query)
+  result = build_env.bazel_query(query)
 
   return list(set(targets) & set(result.stdout.decode('utf-8').splitlines()))
 
@@ -226,17 +225,20 @@ def find_test_targets(
   else:
     logging.info('Not using selective presubmit')
 
+  flags = [
+      f'--build_metadata=selective_presubmit_found={found}',
+      f'--build_metadata=selective_presubmit_impacted_target_count={impacted_target_count}',
+      f'--build_metadata=gerrit_owner={change.owner}',
+      f'--build_metadata=gerrit_change_id={change.change_id}',
+      f'--build_metadata=gerrit_change_number={change.change_number}',
+      f'--build_metadata=gerrit_change_patchset={change.patchset}',
+  ]
+  if change.topic:
+    flags.append(f'--build_metadata=gerrit_topic={change.topic}')
   return SelectivePresubmitResult(
       found=found,
       targets=targets,
-      flags=[
-          f'--build_metadata=selective_presubmit_found={found}',
-          f'--build_metadata=selective_presubmit_impacted_target_count={impacted_target_count}',
-          f'--build_metadata=gerrit_owner={change.owner}',
-          f'--build_metadata=gerrit_change_id={change.change_id}',
-          f'--build_metadata=gerrit_change_number={change.change_number}',
-          f'--build_metadata=gerrit_change_patchset={change.patchset}',
-      ],
+      flags=flags,
   )
 
 

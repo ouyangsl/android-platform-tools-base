@@ -16,7 +16,6 @@
 package com.android.sdklib.internal.avd
 
 import com.android.resources.ScreenOrientation
-import com.android.resources.ScreenSize
 import com.android.sdklib.AndroidVersion
 import com.android.sdklib.ISystemImage
 import com.android.sdklib.devices.Device
@@ -100,12 +99,9 @@ class AvdBuilder(var metadataIniPath: Path, var avdFolder: Path, var device: Dev
         GenericSkin(it.width, it.height)
       }
 
-    if (ram.size == 0L || ram.size > EmulatedProperties.MAX_DEFAULT_RAM_SIZE.size) {
-      ram = EmulatedProperties.MAX_DEFAULT_RAM_SIZE
-    }
-    val size = ScreenSize.getScreenSize(device.defaultHardware.screen.diagonalLength)
-    val density = device.defaultHardware.screen.pixelDensity
-    vmHeap = EmulatedProperties.calculateDefaultVmHeapSize(size, density, Device.isWear(device))
+    ram = EmulatedProperties.defaultRamSize(device)
+    vmHeap = EmulatedProperties.defaultVmHeapSize(device)
+    internalStorage = EmulatedProperties.defaultInternalStorage(device)
   }
 
   /** Returns a Map representing the contents of config.ini. */
