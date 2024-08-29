@@ -23,7 +23,7 @@ class BuildGraphException(errors.CIError):
 
 def cquery_all(build_env: bazel.BuildEnv):
   """Run cquery and validate default target configurations."""
-  build_env.bazel_cquery('//tools/...')
+  build_env.bazel_cquery('//tools/...', 'union', '//prebuilts/...')
 
 
 def no_local_genrules(build_env: bazel.BuildEnv):

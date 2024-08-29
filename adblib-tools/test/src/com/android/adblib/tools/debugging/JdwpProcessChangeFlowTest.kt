@@ -34,7 +34,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.util.concurrent.CopyOnWriteArrayList
 
-class DeviceDebuggableProcessesTest {
+class JdwpProcessChangeFlowTest {
 
     @JvmField
     @Rule
@@ -63,10 +63,10 @@ class DeviceDebuggableProcessesTest {
                 with(processUpdatesList[0]) {
                     assertEquals(this::class, JdwpProcessChange.Added::class)
                     val processAdded = this as JdwpProcessChange.Added
-                    assertTrue(processAdded.added.properties.pid == pid10)
+                    assertTrue(processAdded.processInfo.properties.pid == pid10)
                 }
 
-                // Wait a little and asserts that the `deviceDebuggableProcessesFlow` didn't
+                // Wait a little and assert that the `jdwpProcessChangeFlow` didn't
                 // collect some unexpected update
                 delay(200)
                 assertEquals(1, processUpdatesList.size)
@@ -75,7 +75,7 @@ class DeviceDebuggableProcessesTest {
             }
 
             connectedDevice.scope.launch {
-                connectedDevice.deviceDebuggableProcessesFlow.collect {
+                connectedDevice.jdwpProcessChangeFlow.collect {
                     processUpdatesList.add(it)
                 }
             }.join()
@@ -110,21 +110,21 @@ class DeviceDebuggableProcessesTest {
                 with(processUpdatesList[0]) {
                     assertEquals(this::class, JdwpProcessChange.Added::class)
                     val processAdded = this as JdwpProcessChange.Added
-                    assertTrue(processAdded.added.properties.pid == pid10)
+                    assertTrue(processAdded.processInfo.properties.pid == pid10)
                 }
                 // remaining items in the processUpdatesList should be about property updates
                 yieldUntil {
-                    (processUpdatesList.drop(1).last() as? JdwpProcessChange.Updated)?.updated
+                    (processUpdatesList.drop(1).last() as? JdwpProcessChange.Updated)?.processInfo
                         ?.properties?.packageName != null
                 }
                 val lastUpdate = processUpdatesList.last() as JdwpProcessChange.Updated
-                assertTrue(lastUpdate.updated.properties.pid == pid10)
-                assertEquals("a.b.c.e", lastUpdate.updated.properties.packageName)
+                assertTrue(lastUpdate.processInfo.properties.pid == pid10)
+                assertEquals("a.b.c.e", lastUpdate.processInfo.properties.packageName)
                 fakeAdb.disconnectDevice(fakeDevice.deviceId)
             }
 
             connectedDevice.scope.launch {
-                connectedDevice.deviceDebuggableProcessesFlow.collect {
+                connectedDevice.jdwpProcessChangeFlow.collect {
                     processUpdatesList.add(it)
                 }
             }.join()
@@ -151,7 +151,7 @@ class DeviceDebuggableProcessesTest {
                 with(processUpdatesList[0]) {
                     assertEquals(this::class, JdwpProcessChange.Added::class)
                     val processAdded = this as JdwpProcessChange.Added
-                    assertTrue(processAdded.added.properties.pid == pid10)
+                    assertTrue(processAdded.processInfo.properties.pid == pid10)
                 }
 
                 // Wait a little to make sure we don't receive any additional updates.
@@ -164,14 +164,14 @@ class DeviceDebuggableProcessesTest {
                 with(processUpdatesList[1]) {
                     assertEquals(this::class, JdwpProcessChange.Removed::class)
                     val processRemoved = this as JdwpProcessChange.Removed
-                    assertTrue(processRemoved.removed.properties.pid == pid10)
+                    assertTrue(processRemoved.processInfo.properties.pid == pid10)
                 }
 
                 fakeAdb.disconnectDevice(fakeDevice.deviceId)
             }
 
             connectedDevice.scope.launch {
-                connectedDevice.deviceDebuggableProcessesFlow.collect {
+                connectedDevice.jdwpProcessChangeFlow.collect {
                     processUpdatesList.add(it)
                 }
             }.join()
@@ -209,14 +209,14 @@ class DeviceDebuggableProcessesTest {
                 with(processUpdatesList[0]) {
                     assertEquals(this::class, JdwpProcessChange.Added::class)
                     val processAdded = this as JdwpProcessChange.Added
-                    assertTrue(processAdded.added.properties.pid == pid10)
+                    assertTrue(processAdded.processInfo.properties.pid == pid10)
                 }
 
                 fakeAdb.disconnectDevice(fakeDevice.deviceId)
             }
 
             connectedDevice.scope.launch {
-                connectedDevice.deviceDebuggableProcessesFlow.collect {
+                connectedDevice.jdwpProcessChangeFlow.collect {
                     processUpdatesList.add(it)
                 }
             }.join()
@@ -247,9 +247,9 @@ class DeviceDebuggableProcessesTest {
                 // is `removed` with optional `updated` changes in between.
                 processUpdatesList.map { processChange ->
                     when (processChange) {
-                        is JdwpProcessChange.Added -> processChange.added.properties.pid to "Added"
-                        is JdwpProcessChange.Updated -> processChange.updated.properties.pid to "Updated"
-                        is JdwpProcessChange.Removed -> processChange.removed.properties.pid to "Removed"
+                        is JdwpProcessChange.Added -> processChange.processInfo.properties.pid to "Added"
+                        is JdwpProcessChange.Updated -> processChange.processInfo.properties.pid to "Updated"
+                        is JdwpProcessChange.Removed -> processChange.processInfo.properties.pid to "Removed"
                         else -> throw IllegalStateException("Unexpected JdwpProcessChange type")
                     }
                 }.groupBy { it.first }.forEach {
@@ -266,7 +266,7 @@ class DeviceDebuggableProcessesTest {
             }
 
             connectedDevice.scope.launch {
-                connectedDevice.deviceDebuggableProcessesFlow.collect {
+                connectedDevice.jdwpProcessChangeFlow.collect {
                     processUpdatesList.add(it)
                 }
             }.join()

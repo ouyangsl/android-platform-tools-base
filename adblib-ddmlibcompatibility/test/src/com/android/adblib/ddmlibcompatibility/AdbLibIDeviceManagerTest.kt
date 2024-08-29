@@ -64,8 +64,6 @@ class AdbLibIDeviceManagerTest {
     fun tracksDeviceStateChanges() = runBlockingWithTimeout {
         // Prepare
         val iDeviceManagerListener = TestIDeviceManagerListener()
-        val deviceManager =
-            AdbLibIDeviceManager(fakeAdbRule.adbSession, bridge, iDeviceManagerListener)
         val fakeDevice = fakeAdb.connectDevice(
             "dev1234",
             "test1",
@@ -74,17 +72,23 @@ class AdbLibIDeviceManagerTest {
             "sdk",
             DeviceState.HostConnectionType.USB
         )
-        fakeDevice.deviceStatus = DeviceState.DeviceStatus.FASTBOOTD
+        fakeDevice.deviceStatus = DeviceState.DeviceStatus.BOOTLOADER
 
         // Act / Assert
-        yieldUntil { deviceManager.devices.size == 1 }
-        // Wait a little for the `IDeviceManagerListener` events to get processed
-        delay(100)
+        val deviceManager =
+            AdbLibIDeviceManager(fakeAdbRule.adbSession, bridge, iDeviceManagerListener)
+        // Wait until receiving `IDeviceManagerListener.addedDevices` event
+        yieldUntil { iDeviceManagerListener.events.size == 1 }
+        assertEquals(1, deviceManager.devices.size)
         assertFalse(deviceManager.devices[0].isOnline)
+        assertArrayEquals(
+            arrayOf(TestIDeviceManagerListener.EventType.Added),
+            iDeviceManagerListener.events.toTypedArray()
+        )
 
         fakeDevice.deviceStatus = DeviceState.DeviceStatus.ONLINE
-        // Wait a little for the `IDeviceManagerListener` events to get processed
-        delay(100)
+        // Wait until also receiving `IDeviceManagerListener.deviceStateChanged` event
+        yieldUntil { iDeviceManagerListener.events.size == 2 }
         assertTrue(deviceManager.devices[0].isOnline)
         assertArrayEquals(
             arrayOf(
@@ -93,9 +97,17 @@ class AdbLibIDeviceManagerTest {
             ), iDeviceManagerListener.events.toTypedArray()
         )
         assertArrayEquals(
+            arrayOf(IDevice.DeviceState.BOOTLOADER),
+            iDeviceManagerListener.addedDevicesStateValues.toTypedArray()
+        )
+        assertArrayEquals(
             arrayOf(IDevice.DeviceState.ONLINE),
             iDeviceManagerListener.deviceStateChangedValues.toTypedArray()
         )
+
+        // Wait a little longer to ensure `IDeviceManagerListener` doesn't get any additional unexpected events
+        delay(200)
+        assertEquals(2, iDeviceManagerListener.events.size)
     }
 
     @Test
@@ -103,8 +115,6 @@ class AdbLibIDeviceManagerTest {
         // Prepare
         val deviceId = "dev1234"
         val iDeviceManagerListener = TestIDeviceManagerListener()
-        val deviceManager =
-            AdbLibIDeviceManager(fakeAdbRule.adbSession, bridge, iDeviceManagerListener)
         val fakeDevice = fakeAdb.connectDevice(
             deviceId,
             "test1",
@@ -116,25 +126,37 @@ class AdbLibIDeviceManagerTest {
         fakeDevice.deviceStatus = DeviceState.DeviceStatus.ONLINE
 
         // Act / Assert
-        yieldUntil { deviceManager.devices.size == 1 }
-        // Wait a little for the `IDeviceManagerListener` events to get processed
-        delay(100)
+        val deviceManager =
+            AdbLibIDeviceManager(fakeAdbRule.adbSession, bridge, iDeviceManagerListener)
+        // Wait until receiving `IDeviceManagerListener.addedDevices` event
+        yieldUntil { iDeviceManagerListener.events.size == 1 }
+        assertArrayEquals(
+            arrayOf(TestIDeviceManagerListener.EventType.Added),
+            iDeviceManagerListener.events.toTypedArray()
+        )
+        assertEquals(1, deviceManager.devices.size)
         val device = deviceManager.devices[0]
         assertTrue(device.isOnline)
 
         fakeAdb.disconnectDevice(deviceId)
-        yieldUntil { deviceManager.devices.size == 0 }
-        // Wait a little for the `IDeviceManagerListener` events to get processed
-        delay(100)
-        assertEquals(IDevice.DeviceState.DISCONNECTED, device.state)
+        // Wait until also receiving `IDeviceManagerListener.removedDevices` event
+        yieldUntil { iDeviceManagerListener.events.size == 2 }
         assertArrayEquals(
             arrayOf(
                 TestIDeviceManagerListener.EventType.Added,
                 TestIDeviceManagerListener.EventType.Removed
             ), iDeviceManagerListener.events.toTypedArray()
         )
-        // Assert that `DISCONNECTED` device state changed event didn't trigger
-        assertTrue(iDeviceManagerListener.deviceStateChangedValues.isEmpty())
+        assertArrayEquals(
+            arrayOf(IDevice.DeviceState.DISCONNECTED),
+            iDeviceManagerListener.removedDevicesStateValues.toTypedArray()
+        )
+        assertTrue(deviceManager.devices.isEmpty())
+
+        // Wait a little longer to ensure that the `DISCONNECTED` deviceStateChanged event
+        // wasn't triggered, and neither did any other events.
+        delay(200)
+        assertEquals(2, iDeviceManagerListener.events.size)
     }
 
     @Test
@@ -220,15 +242,19 @@ class AdbLibIDeviceManagerTest {
 
         val events = mutableListOf<EventType>()
 
+        val addedDevicesStateValues = mutableListOf<IDevice.DeviceState?>()
+        val removedDevicesStateValues = mutableListOf<IDevice.DeviceState?>()
         val deviceStateChangedValues = mutableListOf<IDevice.DeviceState?>()
 
         @WorkerThread
         override fun addedDevices(deviceList: MutableList<IDevice>) {
+            deviceList.forEach { addedDevicesStateValues.add(it.state) }
             events.add(EventType.Added)
         }
 
         @WorkerThread
         override fun removedDevices(deviceList: MutableList<IDevice>) {
+            deviceList.forEach { removedDevicesStateValues.add(it.state) }
             events.add(EventType.Removed)
         }
 

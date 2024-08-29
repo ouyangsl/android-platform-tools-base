@@ -157,7 +157,9 @@ class ThreadDetector : AbstractAnnotationDetector(), SourceCodeScanner {
     callerThreads: List<String>,
     calleeThreads: List<String>,
   ) {
-    if (calleeThreads.any { isCompatibleThread(callerThreads, it) }) {
+    // ALL calling contexts must be valid
+    assert(callerThreads.isNotEmpty())
+    if (isCompatibleThread(callerThreads, calleeThreads)) {
       return
     }
 
@@ -166,18 +168,6 @@ class ThreadDetector : AbstractAnnotationDetector(), SourceCodeScanner {
       // The post()/postDelayed() methods are (currently) missing
       // metadata (@AnyThread); they're on a class marked @UiThread
       // but these specific methods are not @UiThread.
-      return
-    }
-
-    if (calleeThreads.containsAll(callerThreads)) {
-      return
-    }
-
-    if (
-      calleeThreads.contains(ANY_THREAD_ANNOTATION.oldName()) ||
-        calleeThreads.contains(ANY_THREAD_ANNOTATION.newName())
-    ) {
-      // Any thread allowed? Then we're good!
       return
     }
 
@@ -233,20 +223,11 @@ class ThreadDetector : AbstractAnnotationDetector(), SourceCodeScanner {
       }
     }
 
-  /** returns true if the two threads are compatible */
-  private fun isCompatibleThread(callers: List<String>, callee: String): Boolean {
-    // ALL calling contexts must be valid
-    assert(callers.isNotEmpty())
-    for (caller in callers) {
-      if (!isCompatibleThread(caller, callee)) {
-        return false
-      }
-    }
+  /** returns if all caller's thread annotations are accommodated by some from callee's */
+  private fun isCompatibleThread(callers: List<String>, callees: List<String>): Boolean =
+    callers.all { caller -> callees.any { callee -> isCompatibleThread(caller, callee) } }
 
-    return true
-  }
-
-  /** returns true if the two threads are compatible */
+  /** returns if callee's thread annotation accommodates caller's */
   private fun isCompatibleThread(caller: String, callee: String): Boolean {
     if (callee == caller) {
       return true
