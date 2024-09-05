@@ -18,6 +18,7 @@ package com.android.build.gradle.integration.common.fixture
 import com.android.SdkConstants
 import com.android.SdkConstants.NDK_DEFAULT_VERSION
 import com.android.Version
+import com.android.build.gradle.integration.common.fixture.GradleTestProject.Companion.GRADLE_TEST_VERSION
 import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder.MemoryRequirement
 import com.android.build.gradle.integration.common.fixture.ModelContainerV2.Companion.ROOT_BUILD_ID
 import com.android.build.gradle.integration.common.fixture.gradle_project.BuildSystem
@@ -55,6 +56,7 @@ import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableMap
 import com.google.common.collect.Lists
 import com.google.common.truth.Truth
+import org.gradle.launcher.daemon.client.NoUsableDaemonFoundException
 import org.gradle.tooling.GradleConnectionException
 import org.gradle.tooling.GradleConnector
 import org.gradle.tooling.ProjectConnection
@@ -66,8 +68,10 @@ import org.junit.runners.model.Statement
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.Arrays
+import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 import java.util.function.Consumer
@@ -213,7 +217,7 @@ open class GradleTestProject @JvmOverloads constructor(
         fun mavenSnippet(repo: Path): String {
             return String.format(
                 """maven {
-  url '%s'
+  url = uri("%s")
   metadataSources {
     mavenPom()
     artifact()
@@ -499,7 +503,11 @@ open class GradleTestProject @JvmOverloads constructor(
                     base.evaluate()
                 } catch (e: Throwable) {
                     testFailed = true
-                    throw e
+                    if (e is GradleConnectionException) {
+                        debugGradleConnectionExceptionThenRethrow(e, TestUtils.getTestOutputDir().toFile())
+                    } else {
+                        throw e
+                    }
                 } finally {
                     for (tmpApkFile in tmpApkFiles) {
                         try {
@@ -613,7 +621,7 @@ open class GradleTestProject @JvmOverloads constructor(
         for (includedBuild in  parentTestProject.includedBuilds) {
             val includedProjectDir = parentDir.resolve(includedBuild.name)
             createSettingsFile(
-                File(includedProjectDir, "settings.gradle"),
+                getSettingsFile(includedProjectDir),
                 rootProjectName = null
             )
             createLocalProp(includedProjectDir)
@@ -753,9 +761,9 @@ allprojects { proj ->
     val mainResDir: File
         get() = FileUtils.join(projectDir, "src", "main", "res")
 
-    /** Return the settings.gradle of the test project.  */
+    /** Return the settings.gradle/settings.gradle.kts of the test project.  */
     val settingsFile: File
-        get() = File(projectDir, "settings.gradle")
+        get() = getSettingsFile(projectDir)
 
     /** Return the gradle.properties file of the test project.  */
     val gradlePropertiesFile: File
@@ -799,6 +807,16 @@ allprojects { proj ->
 
     val generatedDir: File
         get() = FileUtils.join(projectDir, "build", SdkConstants.FD_GENERATED)
+
+    private fun getSettingsFile(projectDir: File): File {
+        val settingsGradle = File(projectDir, "settings.gradle")
+
+        return if (settingsGradle.exists()) {
+            settingsGradle
+        } else {
+            File(projectDir, "settings.gradle.kts")
+        }
+    }
 
     /**
      * Returns the directory in which profiles will be generated. A null value indicates that
@@ -1486,7 +1504,8 @@ allprojects { proj ->
     }
 
     /**
-     * Creates settings.gradle unless settings.gradle.kts exists in the same directory.
+     * Creates a single settings script, either settings.gradle or settings.gradle.kts, depending
+     * on whether settings.gradle originally exists or not
      */
     private fun createSettingsFile(
         settingsFile: File,
@@ -1497,9 +1516,15 @@ allprojects { proj ->
         if (withPluginManagementBlock) {
             val projectParentDir = projectDir.parent
 
+            val commonLocalRepoPath = "${File(projectParentDir, "commonLocalRepo.gradle").toURI()}"
+            val applyCommonLocalRepo = if (settingsFile.name.endsWith(".kts")) {
+                "apply(from = \"$commonLocalRepoPath\", to=pluginManagement)"
+            } else {
+                "apply from: \"$commonLocalRepoPath\", to: this"
+            }
             settingsContent = """
-            pluginManagement { t ->
-                apply from: "${File(projectParentDir, "commonLocalRepo.gradle").toURI()}", to: t
+            pluginManagement {
+                $applyCommonLocalRepo
 
                 resolutionStrategy {
                     eachPlugin {
@@ -1518,19 +1543,28 @@ allprojects { proj ->
                 """
 
 dependencyResolutionManagement {
-    RepositoriesMode.PREFER_SETTINGS
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     ${generateProjectRepoScript()}
 }
 
                     """.trimIndent()
         }
 
-        settingsContent +=
-                """
+        val versionCatalogPath = "${File(projectDir.parent, "versionCatalog.gradle").toURI()}"
+        settingsContent += if (settingsFile.name.endsWith(".kts")) {
+            """
 
-                apply from: "${File(projectDir.parent, "versionCatalog.gradle").toURI()}"
+apply(from = "$versionCatalogPath")
 
-                """.trimIndent()
+                    """.trimIndent()
+        } else {
+            """
+
+apply from: "$versionCatalogPath"
+
+                    """.trimIndent()
+        }
+
 
         if (gradleBuildCacheDirectory != null) {
             val absoluteFile: File = if (gradleBuildCacheDirectory.isAbsolute)
@@ -1554,9 +1588,7 @@ buildCache {
                     """.trimIndent()
         }
 
-        val settingsKtsExist = settingsFile.parentFile.resolve("settings.gradle.kts").exists()
-
-        if (!settingsKtsExist && settingsContent.isNotEmpty()) {
+        if (settingsContent.isNotEmpty()) {
             settingsFile.writeText(settingsContent)
         }
     }
@@ -1663,10 +1695,87 @@ buildCache {
             )
         } catch (e: Throwable) { }
 
-        val includedProjects = projects.joinToString(separator = ",") { "'$it'" }
+        val includedProjects = projects.joinToString(separator = ",") { "\"$it\"" }
         settingsFile.appendText("""
 
-            include $includedProjects
+            include($includedProjects)
         """.trimIndent())
     }
+}
+
+/**
+ * Collects some info to debug [GradleConnectionException]/[NoUsableDaemonFoundException]
+ * (b/353867542), then rethrows the exception.
+ */
+private fun debugGradleConnectionExceptionThenRethrow(
+    gradleConnectionException: GradleConnectionException,
+    testOutputDir: File
+): Nothing {
+    // For some reason, the `NoUsableDaemonFoundException` class could be loaded in a different
+    // classloader, so we need to detect the class by name and not cast it.
+    val noUsableDaemonFoundException: Throwable =
+        if (gradleConnectionException.cause?.javaClass?.name == NoUsableDaemonFoundException::class.java.name) {
+            gradleConnectionException.cause!!
+        } else {
+            throw gradleConnectionException
+        }
+
+    // Find the daemon log file
+    val message = noUsableDaemonFoundException.message!!
+    val daemonInfo = message.substringAfter("DaemonInfo{").substringBefore("}")
+    val daemonRegistryDir = daemonInfo.substringAfter("daemonRegistryDir=").substringBefore(",")
+    val daemonPid = daemonInfo.substringAfter("pid=").substringBefore(",")
+    val daemonLogFile = File(daemonRegistryDir).resolve("$GRADLE_TEST_VERSION/daemon-$daemonPid.out.log")
+
+    // Copy daemon log file to testOutputDir
+    if (daemonLogFile.exists()) {
+        daemonLogFile.copyTo(testOutputDir.resolve(daemonLogFile.name), overwrite = true)
+    }
+
+    fun getJpsOutput(): String {
+        val process = try {
+            ProcessBuilder().command("jps").start()
+        } catch (e: Throwable) {
+            return "Unable to run `jps`: $e"
+        }
+        return process.waitFor(10, TimeUnit.SECONDS).let { success ->
+            if (success) {
+                process.inputStream.use { it.readBytes() }.decodeToString()
+            } else {
+                "Timeout (10s) waiting for `jps` command to finish"
+            }
+        }
+    }
+
+    fun printDaemonLogs(daemonLogFile: File): String {
+        return daemonLogFile.readLines().run {
+            if (size > 100) {
+                "========== START of the first 50/$size lines of daemon log file ==========\n" +
+                subList(0, 50).joinToString("\n") + "\n" +
+                "========== END of the first 50/$size lines of daemon log file ==========\n" +
+                "========== START of the last 50/$size lines of daemon log file ==========\n" +
+                subList(size - 50, size).joinToString("\n") + "\n" +
+                "========== END of the last 50/$size lines of daemon log file ==========\n"
+            } else {
+                "========== START of daemon log file ==========\n" +
+                joinToString("\n") + "\n" +
+                "========== END of daemon log file ==========\n"
+            }
+        }
+    }
+
+    throw RuntimeException(
+        "${NoUsableDaemonFoundException::class.java.simpleName}: Can't connect to Gradle daemon. Printing some diagnostics below:\n" +
+                "  - Current time = ${SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.US).format(Date())}\n" +
+                "  - Daemon pid = $daemonPid\n" +
+                "  - `jps` output:\n" +
+                getJpsOutput() +
+                if (daemonLogFile.exists()) {
+                    "  - Daemon log file: $daemonLogFile (copied to: $testOutputDir)\n" +
+                    printDaemonLogs(daemonLogFile)
+                } else {
+                    "  - Daemon log file: $daemonLogFile (does not exist)\n"
+                },
+        gradleConnectionException
+    )
 }

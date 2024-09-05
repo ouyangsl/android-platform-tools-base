@@ -30,6 +30,7 @@ interface BackupService {
   suspend fun backup(
     serialNumber: String,
     applicationId: String,
+    type: BackupType,
     backupFile: Path,
     listener: BackupProgressListener?,
   ): BackupResult
@@ -41,6 +42,10 @@ interface BackupService {
   ): BackupResult
 
   suspend fun sendUpdateGmsIntent(serialNumber: String): BackupResult
+
+  suspend fun getForegroundApplicationId(serialNumber: String): String
+
+  suspend fun isInstalled(serialNumber: String, applicationId: String): Boolean
 
   companion object {
 
@@ -91,6 +96,20 @@ interface BackupService {
           e,
         )
       }
+    }
+
+    fun getApplicationId(backupFile: Path): String {
+      val zipFile =
+        try {
+          ZipFile(backupFile.toFile())
+        } catch (e: Exception) {
+          throw BackupException(
+            INVALID_BACKUP_FILE,
+            "File is not a valid backup file: $backupFile",
+            e,
+          )
+        }
+      return zipFile.getApplicationId()
     }
   }
 }

@@ -13,18 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.backuprestore
 
-import android.app.Application
-import androidx.room.Room
-import com.example.backuprestore.db.AppDatabase
-import kotlin.LazyThreadSafetyMode.NONE
+package com.android.backup
 
-internal class App : Application() {
-  val db by
-    lazy(NONE) { Room.databaseBuilder(this, AppDatabase::class.java, "pad-database.db").build() }
-
-  override fun onCreate() {
-    super.onCreate()
-  }
+enum class BackupType(val displayName: String, internal val transport: String) {
+  CLOUD("Cloud", "com.google.android.gms/.backup.BackupTransportService"),
+  DEVICE_TO_DEVICE(
+    "Device to Device",
+    "com.google.android.gms/.backup.migrate.service.D2dTransport",
+  ),
 }

@@ -88,7 +88,14 @@ private fun View.toNodeImpl(
 
             val transform = Matrix()
             view.transformMatrixToGlobal(transform)
+
+            // Move the transformation to (0,0) before checking for identity.
+            // An identity would then mean the shape is the same as the bounds
+            // computed above - so no need to send Quad coordinates.
+            // A rotation will typically require Quad coordinates.
+            transform.postTranslate(-absPos.x.toFloat(), -absPos.y.toFloat())
             if (!transform.isIdentity) {
+                transform.postTranslate(absPos.x.toFloat(), absPos.y.toFloat())
                 val w = view.width.toFloat()
                 val h = view.height.toFloat()
                 val corners = floatArrayOf(
@@ -171,31 +178,19 @@ fun View.createAppContext(stringTable: StringTable): AppContext {
         LayoutInspectorViewProtocol.DisplayType.SECONDARY_DISPLAY
     }
 
+    val point = getDefaultDisplaySize()
+    val bounds = getWindowBounds(point)
     return AppContext.newBuilder().apply {
         createResource(stringTable, context.themeResId)?.let { themeResource ->
             theme = themeResource
         }
-        val point = getDefaultDisplaySize()
         mainDisplayWidth = point.x
         mainDisplayHeight = point.y
         mainDisplayOrientation = getDefaultDisplayRotation()
         displayType = appDisplayType
+        windowBounds = bounds
     }.build()
 }
-
-private val View.windowSize: Point
-  get() {
-      val windowManager = context.getSystemService(WindowManager::class.java)
-      return if (Build.VERSION.SDK_INT >= 30) {
-          val bounds = windowManager.currentWindowMetrics.bounds
-          Point(bounds.width(), bounds.height())
-      } else {
-          val display = getDefaultDisplay()
-          val size = Point()
-          display.getRealSize(size)
-          size
-      }
-  }
 
 fun View.createConfiguration(stringTable: StringTable) =
     context.resources.configuration.convert(stringTable)
@@ -228,6 +223,21 @@ fun View.getDefaultDisplaySize(): Point {
         val point = Point()
         display.getRealSize(point)
         return point
+    }
+}
+
+fun View.getWindowBounds(displaySize: Point): Rect {
+    if (Build.VERSION.SDK_INT >= 30) {
+        val windowManager = context.getSystemService(WindowManager::class.java)
+        return windowManager.getCurrentWindowMetrics().getBounds().toRect()
+    }
+    else {
+        // We cannot get the window bounds for API 29.
+        // Assume the app is in full screen mode.
+        return Rect.newBuilder().apply {
+            w = displaySize.x
+            h = displaySize.y
+        }.build()
     }
 }
 
@@ -311,3 +321,10 @@ private fun View.createPropertyGroupImpl(stringTable: StringTable): PropertyGrou
             .forEach { property -> this.addProperty(property) }
     }.build()
 }
+
+fun android.graphics.Rect.toRect(): Rect = Rect.newBuilder().apply {
+    x = left
+    y = top
+    w = width()
+    h = height()
+}.build()

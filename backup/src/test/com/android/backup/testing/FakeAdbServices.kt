@@ -36,6 +36,8 @@ private const val RESTORE = "bmgr restore "
 private const val DELETE_FILES = "rm -rf "
 private const val DUMPSYS_GMSCORE = "dumpsys package com.google.android.gms"
 private const val LAUNCH_PLAY_STORE = "am start market://details?id=com.google.android.gms"
+private const val DUMPSYS_ACTIVITY = "dumpsys activity"
+private const val LIST_PACKAGES = "pm list packages"
 
 /** A fake [com.android.backup.AdbServices] */
 internal class FakeAdbServices(
@@ -104,8 +106,10 @@ internal class FakeAdbServices(
         command.startsWith(BACKUP_NOW) -> handleBackupNow(command)
         command.startsWith(RESTORE) -> handleRestore()
         command.startsWith(DELETE_FILES) -> "".asStdout()
+        command.startsWith(LIST_PACKAGES) -> handleListPackages()
         command == DUMPSYS_GMSCORE -> handleDumpsysGmsCore()
         command == LAUNCH_PLAY_STORE -> handleLaunchPlayStore()
+        command == DUMPSYS_ACTIVITY -> handleDumpsysActivity()
         else -> throw NotImplementedError("Command '$command' is not implemented")
       }
     return out
@@ -195,12 +199,28 @@ internal class FakeAdbServices(
     return """
     Package $applicationId with result: Success
     Backup finished with result: Success
-  """.trimIndent()
+  """
+      .trimIndent()
       .asStdout()
   }
 
   private fun handleLaunchPlayStore(): AdbOutput {
     return "Starting: Intent { act=android.intent.action.VIEW dat=market://details/... }".asStdout()
+  }
+
+  private fun handleDumpsysActivity(): AdbOutput {
+    return """
+      ACTIVITY MANAGER SETTINGS (dumpsys activity settings) activity_manager_constants:
+      ...
+        mFocusedApp=ActivityRecord{b47d1f u0 com.app/.MainActivity t224}
+      ...
+    """
+      .trimIndent()
+      .asStdout()
+  }
+
+  private fun handleListPackages(): AdbOutput {
+    return "".asStdout()
   }
 
   private fun handleRestore(): AdbOutput {

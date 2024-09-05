@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.tools.leakcanarylib
 
-import com.android.tools.leakcanarylib.data.Analysis
+package com.android.build.gradle.internal.utils
 
-/**
- * This class provides a method to parse LeakCanary logcat messages into structured `Analysis` object.
- */
-class LeakCanarySerializer {
+import com.android.build.api.variant.ApkInstallGroup
+import com.android.build.api.variant.DeviceSpec
 
+interface DeviceApkOutput {
     /**
-     * Parses a LeakCanary logcat message into an `Analysis` object.
+     * Returns an ordered collection of co-installable APK batches targeted for a specific device.
      *
-     * @param message The LeakCanary logcat message to parse.
-     * @return An `Analysis` object representing the parsed analysis result, which can be either an `AnalysisSuccess` or an
-     * `AnalysisFailure`.
+     * @param deviceSpec An object that describes the device on which we intend to install Apks.
      */
-    fun parseLogcatMessage(message: String): Analysis {
-        return Analysis.fromString(message)
-    }
+    fun getApks(deviceSpec: DeviceSpec): List<ApkInstallGroup>
 }
+
+
+

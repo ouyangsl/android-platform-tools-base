@@ -45,7 +45,6 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Provider
-import org.gradle.configurationcache.extensions.capitalized
 import org.gradle.jvm.toolchain.JavaToolchainService
 import java.util.Locale
 import java.util.Properties
@@ -55,7 +54,7 @@ import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 import org.gradle.api.artifacts.result.ResolvedDependencyResult
 
 private val minAgpVersion = AndroidPluginVersion(8, 5, 0).beta(1)
-private val maxAgpVersion = AndroidPluginVersion(8,7    ,255)
+private val maxAgpVersion = AndroidPluginVersion(8, 8,255)
 
 /**
  * An entry point for Screenshot plugin that adds support for screenshot testing on Compose Previews
@@ -516,6 +515,10 @@ class PreviewScreenshotGradlePlugin : Plugin<Project> {
                 }
             callback(isPresent)
         }
+    }
+
+    private fun String.capitalized(): String {
+        return replaceFirstChar { it.uppercase() }
     }
 
 }
