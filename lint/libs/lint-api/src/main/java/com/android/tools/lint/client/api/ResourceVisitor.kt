@@ -17,7 +17,10 @@ package com.android.tools.lint.client.api
 
 import com.android.SdkConstants.ANDROID_MANIFEST_XML
 import com.android.SdkConstants.ANDROID_URI
+import com.android.SdkConstants.ATTR_CONTENT_DESCRIPTION
+import com.android.SdkConstants.ATTR_HINT
 import com.android.SdkConstants.ATTR_NAME
+import com.android.SdkConstants.ATTR_TEXT
 import com.android.tools.lint.client.api.LintDriver.Companion.handleDetectorError
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.ResourceContext
@@ -126,7 +129,8 @@ internal class ResourceVisitor(
   }
 
   private fun String.isLikelyClassName(): Boolean {
-    if (indexOf('.') != -1 && length >= 2) {
+    val inPackage = indexOf('.') != -1
+    if (inPackage && length >= 2) {
       var prev = '.'
       for (c in this) {
         if (c == '.' && prev != '.') {
@@ -139,6 +143,20 @@ internal class ResourceVisitor(
           return false
         }
         prev = c
+      }
+      // e.g. "Nov."
+      return prev != '.'
+    } else if (!inPackage && isNotEmpty()) {
+      var index = 0
+      for (c in this) {
+        if (index == 0 && c.isJavaIdentifierStart()) {
+          // ok
+        } else if (c.isJavaIdentifierPart()) {
+          // ok
+        } else {
+          return false
+        }
+        index++
       }
       return true
     }
@@ -155,7 +173,8 @@ internal class ResourceVisitor(
       val attributes = element.attributes
       for (i in 0 until attributes.length) {
         val attribute = attributes.item(i) as Attr
-        val name = attribute.localName ?: attribute.name
+        val localName = attribute.localName
+        val name = localName ?: attribute.name
         attributeToCheck[name]?.forEach { check -> check.visitAttribute(context, attribute) }
         allAttributeDetectors.forEach { check -> check.visitAttribute(context, attribute) }
 
@@ -165,15 +184,23 @@ internal class ResourceVisitor(
           if (
             className.startsWith(".") &&
               context.file.path.endsWith(ANDROID_MANIFEST_XML) &&
-              attribute.localName == ATTR_NAME &&
+              localName == ATTR_NAME &&
               attribute.namespaceURI == ANDROID_URI
           ) {
             // Manifest? Resolve package names:
             className = resolveManifestName(element, context.project)
           }
 
-          if (className.isLikelyClassName()) {
-            visitClassReference(className, context, attribute)
+          if (
+            localName != ATTR_TEXT &&
+              localName != ATTR_HINT &&
+              localName != ATTR_CONTENT_DESCRIPTION
+          ) {
+            // Check and visit likely class reference only if local name is
+            // not "text", "hint", nor "contentDescription".
+            if (className.isLikelyClassName()) {
+              visitClassReference(className, context, attribute)
+            }
           }
         }
       }

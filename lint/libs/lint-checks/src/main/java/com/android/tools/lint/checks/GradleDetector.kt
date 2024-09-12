@@ -1206,6 +1206,7 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
       // Report all SDK Index issues without grouping them following this order (b/316038712):
       //  - Policy
       //  - Critical (if blocking)
+      //  - Vulnerability
       //  - Outdated
       var fix: LintFix? = null
       if (sdkIndex.isLibraryNonCompliant(groupId, artifactId, versionString, buildFile)) {
@@ -1240,6 +1241,32 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
         hasSdkIndexIssues =
           report(context, cookie, RISKY_LIBRARY, message, fix, overrideSeverity = severity) ||
             hasSdkIndexIssues
+      }
+      if (sdkIndex.hasLibraryVulnerabilityIssues(groupId, artifactId, versionString, buildFile)) {
+        if (fix == null) {
+          fix = sdkIndex.generateSdkLinkLintFix(groupId, artifactId, versionString, buildFile)
+        }
+        val messages = sdkIndex.generateVulnerabilityMessages(groupId, artifactId, versionString)
+        for (message in messages) {
+          val compositeFix = LintFix.create().alternatives()
+          if (fix != null) {
+            compositeFix.add(fix)
+          }
+          if (!message.link.isNullOrBlank()) {
+            compositeFix.add(
+              LintFix.ShowUrl("Learn more about ${message.name} vulnerability", null, message.link)
+            )
+          }
+          hasSdkIndexIssues =
+            report(
+              context,
+              cookie,
+              PLAY_SDK_INDEX_VULNERABILITY,
+              message.description,
+              compositeFix.build(),
+              overrideSeverity = severity,
+            ) || hasSdkIndexIssues
+        }
       }
       if (sdkIndex.isLibraryOutdated(groupId, artifactId, versionString, buildFile)) {
         if (fix == null) {
@@ -1596,6 +1623,17 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
           .with("com.google.firebase:firebase-appindexing:10.2.1")
           .build()
       report(context, cookie, DEPRECATED, message, fix)
+    }
+
+    if (GMS_GROUP_ID == groupId && "play-services-fido" == artifactId) {
+      report(
+        context,
+        cookie,
+        DEPENDENCY,
+        "Prefer to migrate to the Credential Manager API (androidx.credentials:credentials)",
+        fix().url("https://developer.android.com/identity/sign-in/fido2-migration").build(),
+      )
+      return
     }
 
     if (GMS_GROUP_ID == groupId || FIREBASE_GROUP_ID == groupId) {
@@ -3328,6 +3366,21 @@ open class GradleDetector : Detector(), GradleScanner, TomlScanner, XmlScanner {
         briefDescription = "Library has policy issues in SDK Index",
         explanation =
           "This library version has policy issues that will block publishing in the Google Play Store.",
+        category = Category.COMPLIANCE,
+        priority = 8,
+        severity = Severity.ERROR,
+        implementation = IMPLEMENTATION_WITH_TOML,
+        moreInfo = GOOGLE_PLAY_SDK_INDEX_URL,
+        androidSpecific = true,
+      )
+
+    @JvmField
+    val PLAY_SDK_INDEX_VULNERABILITY =
+      Issue.create(
+        id = "PlaySdkIndexVulnerability",
+        briefDescription = "Library has vulnerability issues in SDK Index",
+        explanation =
+          "This library version has vulnerability issues that could block publishing in the Google Play Store.",
         category = Category.COMPLIANCE,
         priority = 8,
         severity = Severity.ERROR,

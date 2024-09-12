@@ -430,8 +430,10 @@ package com.android.build.api.dsl {
 
   public interface ApplicationAndroidResources extends com.android.build.api.dsl.AndroidResources {
     method @org.gradle.api.Incubating public boolean getGenerateLocaleConfig();
+    method @org.gradle.api.Incubating public java.util.Set<java.lang.String> getLocaleFilters();
     method @org.gradle.api.Incubating public void setGenerateLocaleConfig(boolean);
     property @org.gradle.api.Incubating public abstract boolean generateLocaleConfig;
+    property @org.gradle.api.Incubating public abstract java.util.Set<java.lang.String> localeFilters;
   }
 
   public interface ApplicationBaseFlavor extends com.android.build.api.dsl.BaseFlavor com.android.build.api.dsl.ApplicationVariantDimension {
@@ -594,7 +596,7 @@ package com.android.build.api.dsl {
     method public Boolean? getRenderscriptSupportModeBlasEnabled();
     method public Boolean? getRenderscriptSupportModeEnabled();
     method public Integer? getRenderscriptTargetApi();
-    method public java.util.Set<java.lang.String> getResourceConfigurations();
+    method @Deprecated public java.util.Set<java.lang.String> getResourceConfigurations();
     method public String? getTestApplicationId();
     method public Boolean? getTestFunctionalTest();
     method public Boolean? getTestHandleProfiling();
@@ -636,7 +638,7 @@ package com.android.build.api.dsl {
     property public abstract Boolean? renderscriptSupportModeBlasEnabled;
     property public abstract Boolean? renderscriptSupportModeEnabled;
     property public abstract Integer? renderscriptTargetApi;
-    property public abstract java.util.Set<java.lang.String> resourceConfigurations;
+    property @Deprecated public abstract java.util.Set<java.lang.String> resourceConfigurations;
     property public abstract String? testApplicationId;
     property public abstract Boolean? testFunctionalTest;
     property public abstract Boolean? testHandleProfiling;
@@ -2539,7 +2541,9 @@ package com.android.build.api.variant {
 
   @org.gradle.api.Incubating public interface ApplicationAndroidResources extends com.android.build.api.variant.AndroidResources {
     method @org.gradle.api.Incubating public boolean getGenerateLocaleConfig();
+    method @org.gradle.api.Incubating public org.gradle.api.provider.SetProperty<java.lang.String> getLocaleFilters();
     property @org.gradle.api.Incubating public abstract boolean generateLocaleConfig;
+    property @org.gradle.api.Incubating public abstract org.gradle.api.provider.SetProperty<java.lang.String> localeFilters;
   }
 
   @org.gradle.api.Incubating public interface ApplicationAndroidResourcesBuilder extends com.android.build.api.variant.AndroidResourcesBuilder {
@@ -3238,9 +3242,11 @@ package com.android.build.api.variant {
 
   public interface TestVariant extends com.android.build.api.variant.GeneratesTestApk com.android.build.api.variant.Variant {
     method public org.gradle.api.provider.Property<java.lang.String> getApplicationId();
+    method @org.gradle.api.Incubating public com.android.build.api.variant.ApkOutputProviders getOutputProviders();
     method @org.gradle.api.Incubating public org.gradle.api.provider.Provider<org.gradle.api.file.Directory> getTestedApks();
     method public org.gradle.api.provider.Provider<java.lang.String> getTestedApplicationId();
     property public abstract org.gradle.api.provider.Property<java.lang.String> applicationId;
+    property @org.gradle.api.Incubating public abstract com.android.build.api.variant.ApkOutputProviders outputProviders;
     property @org.gradle.api.Incubating public abstract org.gradle.api.provider.Provider<org.gradle.api.file.Directory> testedApks;
     property public abstract org.gradle.api.provider.Provider<java.lang.String> testedApplicationId;
   }

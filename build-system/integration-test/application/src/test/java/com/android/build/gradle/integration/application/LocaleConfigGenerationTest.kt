@@ -17,6 +17,7 @@
 package com.android.build.gradle.integration.application
 
 import com.android.SdkConstants
+import com.android.build.gradle.integration.common.fixture.DEFAULT_COMPILE_SDK_VERSION
 import com.android.build.gradle.integration.common.fixture.GradleTestProject
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.Companion.builder
 import com.android.build.gradle.integration.common.fixture.app.MinimalSubProject
@@ -230,14 +231,18 @@ class LocaleConfigGenerationTest {
 
     private fun validateLocalesInLocaleConfigAndApk(
         expectedLocaleList: List<String>,
-        defaultLocale: String? = "en-US"
+        defaultLocale: String = "en-US",
+        isRelease: Boolean = false
     ) {
-        assertLocaleConfig("debug").isEqualTo(expectedLocaleList)
+        if (isRelease) assertLocaleConfig("release").isEqualTo(expectedLocaleList)
+        else assertLocaleConfig("debug").isEqualTo(expectedLocaleList)
 
         // The APK locale list will return the default locale as "--_--" in this method
         val apkLocaleList = expectedLocaleList.map { if (it == defaultLocale) "--_--" else it }
+        val apkType =
+            if (isRelease) GradleTestProject.ApkType.RELEASE else GradleTestProject.ApkType.DEBUG
         TruthHelper.assertThat(
-            project.getSubproject("app").getApk(GradleTestProject.ApkType.DEBUG))
+            project.getSubproject("app").getApk(apkType))
             .locales()
             .containsExactlyElementsIn(apkLocaleList)
     }
@@ -666,5 +671,91 @@ class LocaleConfigGenerationTest {
             lib1Locales = listOf(),
             lib2Locales = listOf()
         ).execute("assembleDebug")
+    }
+
+    @Test
+    fun `Test default locale for API level`() {
+        buildDsl(generateLocaleConfig = true)
+        project.withLocales(
+            appLocales = listOf(DEFAULT),
+            lib1Locales = listOf(),
+            lib2Locales = listOf()
+        ).execute("assembleDebug")
+        val localeConfig = project.getSubproject("app").file(
+            "$localeConfigPath/debug/xml/$LOCALE_CONFIG_FILE_NAME.xml"
+        )
+        Truth.assertThat(localeConfig.readText()).contains("android:defaultLocale=\"en-US\"")
+
+        // In API level before 35, the default locale should not be present in the locale config
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("app").buildFile,
+            "compileSdkVersion " + DEFAULT_COMPILE_SDK_VERSION,
+            "compileSdkVersion 34"
+        )
+        project.execute("assembleDebug")
+        Truth.assertThat(localeConfig.readText()).doesNotContain("android:defaultLocale")
+    }
+
+    @Test
+    fun `Test localeFilters`() {
+        buildDsl(generateLocaleConfig = true, defaultLocale = RU.standardName)
+
+        project.getSubproject("app").buildFile.appendText(
+            """
+                android.androidResources.localeFilters += ["b+zh+Hant+TW", "de-rDE"]
+            """.trimIndent()
+        )
+
+        project.withLocales(
+            appLocales = listOf(DEFAULT, ZH_HANT, ZH_HANT_TW),
+            lib1Locales = listOf(EN_GB, DE_DE),
+            lib2Locales = listOf(ES_419, DE)
+        ).execute("assembleDebug")
+
+        // Having "b+zh+Hant+TW" in localeFilters should match both "zh-Hant" and "zh-Hant-TW"
+        // Having "de-rDE" in resConfigs should match both "de" and "de-DE"
+        validateLocalesInLocaleConfigAndApk(
+            listOf("ru-RU", "zh-Hant", "zh-Hant-TW", "de-DE", "de"), defaultLocale = RU.standardName)
+
+        // Test invalid locale error
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("app").buildFile, "de-rDE", "long")
+
+        var result = project.executor().expectFailure().run("assembleDebug")
+        ScannerSubject.assertThat(result.stderr).contains("The locale in localeFilters \"long\" is invalid.")
+
+        // Test error when using localeFilters and resourceConfigurations
+        TestFileUtils.searchAndReplace(
+            project.getSubproject("app").buildFile, "long", "de-rDE")
+        project.getSubproject("app").buildFile.appendText(
+            "\nandroid.defaultConfig.resourceConfigurations += [\"en-GB\"]")
+        result = project.executor().expectFailure().run("assembleDebug")
+        ScannerSubject.assertThat(result.stderr).contains("When localeFilters are specified, " +
+            "resourceConfigurations cannot include locale qualifiers. Please move all locale " +
+                "qualifiers to localeFilters."
+        )
+    }
+
+    @Test
+    fun `Test localeFilters variant API`() {
+        buildDsl(generateLocaleConfig = true)
+
+        project.getSubproject("app").buildFile.appendText(
+            """
+                androidComponents {
+                    onVariants(selector().withName("release")) { variant ->
+                        variant.androidResources.localeFilters.add("en-rGB")
+                    }
+                }
+            """.trimIndent()
+        )
+
+        project.withLocales(
+            appLocales = listOf(DEFAULT, ZH_HANT),
+            lib1Locales = listOf(EN_GB),
+            lib2Locales = listOf(ES_419)
+        ).execute("assembleRelease")
+
+        validateLocalesInLocaleConfigAndApk(listOf("en-US", "en-GB"), isRelease = true)
     }
 }
