@@ -46,8 +46,10 @@ import com.intellij.psi.PsiLiteralExpression
 import com.intellij.psi.PsiMethod
 import com.intellij.psi.PsiModifier
 import com.intellij.psi.PsiModifierListOwner
+import com.intellij.psi.PsiPrimitiveType
 import com.intellij.psi.PsiTypes
 import com.intellij.psi.PsiVariable
+import com.intellij.psi.impl.PsiJavaParserFacadeImpl
 import org.jetbrains.uast.UAnnotation
 import org.jetbrains.uast.UBinaryExpression
 import org.jetbrains.uast.UBlockExpression
@@ -61,6 +63,7 @@ import org.jetbrains.uast.UMethod
 import org.jetbrains.uast.UParenthesizedExpression
 import org.jetbrains.uast.UPolyadicExpression
 import org.jetbrains.uast.UPrefixExpression
+import org.jetbrains.uast.UQualifiedReferenceExpression
 import org.jetbrains.uast.UReferenceExpression
 import org.jetbrains.uast.UResolvable
 import org.jetbrains.uast.UReturnExpression
@@ -438,6 +441,49 @@ class TypedefDetector : AbstractAnnotationDetector(), SourceCodeScanner {
         }
 
         if (!hadTypeDef && resolvedArgument is PsiMethod) {
+
+          fun PsiMethod.isPrimitiveTypeMethod(
+            paramCount: Int,
+            nameFilter: (String) -> Boolean,
+          ): Boolean {
+            // TODO(jsjeon): no longer allow `null` return type after 243
+            if (returnType != null && returnType !is PsiPrimitiveType) return false
+            if (parameterList.parametersCount > paramCount) return false
+            return nameFilter.invoke(name)
+          }
+
+          fun PsiMethod.isPrimitiveTypeConvertingMethod(): Boolean =
+            isPrimitiveTypeMethod(0) { name ->
+              name.substring(0, 2) == "to" &&
+                PsiJavaParserFacadeImpl.getPrimitiveType(name.substring(2).lowercase()) != null
+            }
+
+          fun PsiMethod.isPrimitiveTypeReturningMethod(): Boolean =
+            isPrimitiveTypeMethod(1) { name ->
+              name == "inv" || name == "and" || name == "or" || name == "xor"
+            }
+
+          if (
+            resolvedArgument.isPrimitiveTypeConvertingMethod() ||
+              resolvedArgument.isPrimitiveTypeReturningMethod()
+          ) {
+            val receiver = (argument as? UQualifiedReferenceExpression)?.receiver
+            if (receiver != null) {
+              // e.g., RECEIVER.toLong(), we should check if RECEIVER is allowed instead.
+              checkTypeDefConstant(context, annotation, receiver, errorNode, flag, usageInfo)
+              val parameterCount = resolvedArgument.parameterList.parametersCount
+              // e.g., RECEIVER.xor(ARGUMENT)
+              if (parameterCount == 1) {
+                val callExpression = argument.selector as? UCallExpression
+                val callArgument = callExpression?.valueArguments?.firstOrNull()
+                checkTypeDefConstant(context, annotation, callArgument, errorNode, flag, usageInfo)
+              }
+            }
+            // TODO: how to handle implicit receiver in general?
+            // NB: we bail out early to avoid any further false positives.
+            return
+          }
+
           // Called some random method which has not been annotated.
           // Let's peek inside to see if we can figure out more about it; if not,
           // we don't want to flag it since it could get noisy with false
