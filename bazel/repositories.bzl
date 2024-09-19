@@ -21,7 +21,7 @@ _git = [
         "path": "external/googletest",
     },
     {
-        "name": "slicer_repo",
+        "name": "slicer",
         "build_file": "//tools/base/profiler:native/external/slicer.BUILD",
         "path": "external/dexter/slicer",
     },
@@ -171,18 +171,13 @@ filegroup(
     # End Perfetto Dependencies.
 ]
 
+# Needed for grpc.
 _binds = {
-    "slicer": "@slicer_repo//:slicer",
     "protobuf_clib": "@com_google_protobuf//:protoc_lib",
     "nanopb": "@nanopb_repo//:nanopb",
-    "zlib": "@zlib_repo//:zlib",
+    "madler_zlib": "@zlib_repo//:zlib",
     "protobuf_headers": "@com_google_protobuf//:protobuf_headers",
-    "protobuf": "@com_google_protobuf//:protobuf",
     "protoc": "@com_google_protobuf//:protoc",
-    "grpc_cpp_plugin": "@grpc_repo//:grpc_cpp_plugin",
-    "grpc++_unsecure": "@grpc_repo//:grpc++_unsecure",
-    "madler_zlib": "@zlib_repo//:zlib",  # Needed for grpc
-    "grpc-all-java": "@maven//:io.grpc.grpc-all",
 }
 
 def _local_archive_impl(ctx):

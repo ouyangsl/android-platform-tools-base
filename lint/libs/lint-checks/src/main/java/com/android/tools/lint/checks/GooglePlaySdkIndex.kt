@@ -464,6 +464,14 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
     return sdk.sdk.indexUrl
   }
 
+  /** Get latest version known by the SDK Index for a particular library (if available) */
+  fun getLatestVersion(groupId: String, artifactId: String): String? {
+    if (!isReady()) {
+      return null
+    }
+    return libraryToSdk[createCoordinateString(groupId, artifactId)]?.getLatestVersion()
+  }
+
   private fun getLabels(
     groupId: String,
     artifactId: String,
@@ -530,6 +538,10 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
 
     fun getVersion(versionString: String): LibraryVersion? {
       return versionToLibraryVersion[versionString]
+    }
+
+    fun getLatestVersion(): String? {
+      return latestVersion
     }
   }
 
@@ -637,6 +649,28 @@ abstract class GooglePlaySdkIndex(cacheDir: Path? = null) :
         message.link,
       )
     }
+  }
+
+  /**
+   * Generate a list of versions that the library owner has recommended to use instead of the passed
+   * version.
+   */
+  fun recommendedVersions(
+    groupId: String,
+    artifactId: String,
+    versionString: String,
+  ): Collection<LibraryVersionRange> {
+    val recommendations = LinkedHashSet<LibraryVersionRange>()
+    val labels = getLabels(groupId, artifactId, versionString)
+    if (labels != null) {
+      labels.policyIssuesInfo.recommendedVersionsList?.filterNotNull()?.forEach {
+        recommendations.add(it)
+      }
+      labels.outdatedIssueInfo.recommendedVersionsList?.filterNotNull()?.forEach {
+        recommendations.add(it)
+      }
+    }
+    return recommendations
   }
 
   protected open fun logHasCriticalIssues(

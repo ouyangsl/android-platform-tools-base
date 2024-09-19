@@ -133,8 +133,9 @@ public final class SdkConstants {
     /** An SDK Project's AndroidManifest.xml file */
     public static final String FN_ANDROID_MANIFEST_XML = "AndroidManifest.xml";
 
-    public static final String FN_SHARED_LIBRARY_ANDROID_MANIFEST_XML =
+    public static final String FN_NAMESPACED_SHARED_LIBRARY_ANDROID_MANIFEST_XML =
             "SharedLibraryAndroidManifest.xml";
+
     /** pre-dex jar filename. i.e. "classes.jar" */
     public static final String FN_CLASSES_JAR = "classes.jar";
     /** api.jar filename */
@@ -1269,6 +1270,7 @@ public final class SdkConstants {
 
     // Tags: Drawables
     public static final String TAG_ANIMATION_LIST = "animation-list";
+    public static final String TAG_ANIMATED_IMAGE = "animated-image";
     public static final String TAG_ANIMATED_SELECTOR = "animated-selector";
     public static final String TAG_ANIMATED_VECTOR = "animated-vector";
     public static final String TAG_BITMAP = "bitmap";
