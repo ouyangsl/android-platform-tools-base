@@ -223,6 +223,24 @@ class InteroperabilityDetector : Detector(), SourceCodeScanner {
         qualifiedName.endsWith("Nonnull")
     }
 
+    private fun isNullnessAnnotation(qualifiedName: String?): Boolean {
+      return qualifiedName != null &&
+        (isNullableAnnotation(qualifiedName) || isNonNullAnnotation(qualifiedName))
+    }
+
+    private fun JavaContext.hasNullnessAnnotation(
+      node: PsiModifierListOwner,
+      type: PsiType?,
+    ): Boolean {
+      // Check both the annotations from the evaluator (which will include external annotations from
+      // XML files) and the annotations on the node (which will include nullness annotations for
+      // Kotlin not present in source), as well as annotations on the type
+      @Suppress("ExternalAnnotations")
+      return evaluator.getAnnotations(node, false).any { isNullnessAnnotation(it.qualifiedName) } ||
+        node.annotations.any { isNullnessAnnotation(it.qualifiedName) } ||
+        type?.annotations?.any { isNullnessAnnotation(it.qualifiedName) } == true
+    }
+
     private fun isApi(context: JavaContext, declaration: UDeclaration): Boolean {
       val evaluator = context.evaluator
       if (evaluator.isPublic(declaration) || evaluator.isProtected(declaration)) {
@@ -264,7 +282,7 @@ class InteroperabilityDetector : Detector(), SourceCodeScanner {
         }
 
         // Already annotated?
-        if (hasNullnessAnnotation(node as UAnnotated)) {
+        if (context.hasNullnessAnnotation(node, uastType)) {
           return
         }
 
@@ -334,26 +352,6 @@ class InteroperabilityDetector : Detector(), SourceCodeScanner {
         "Should explicitly declare type here since implicit type does not specify nullness" +
           if (typeString != null) " ($typeString)" else "",
       )
-    }
-
-    private fun hasNullnessAnnotation(node: UAnnotated): Boolean {
-      for (annotation in context.evaluator.getAllAnnotations(node, false)) {
-        val name = annotation.qualifiedName ?: continue
-        if (isNullableAnnotation(name) || isNonNullAnnotation(name)) {
-          return true
-        }
-      }
-      return false
-    }
-
-    private fun hasNullnessAnnotation(node: PsiModifierListOwner): Boolean {
-      for (annotation in context.evaluator.getAnnotations(node, false)) {
-        val name = annotation.qualifiedName ?: continue
-        if (isNullableAnnotation(name) || isNonNullAnnotation(name)) {
-          return true
-        }
-      }
-      return false
     }
   }
 
@@ -763,9 +761,10 @@ class InteroperabilityDetector : Detector(), SourceCodeScanner {
           val superParameters = superMethod.parameterList.parameters
           val parameterIndex = method.uastParameters.indexOf(node)
           if (parameterIndex >= 0 && parameterIndex < superParameters.size) {
+            val superParameter = superParameters[parameterIndex]
             if (
               isPlatformMethod(superMethod) &&
-                !hasNullnessAnnotation(superParameters[parameterIndex])
+                !context.hasNullnessAnnotation(superParameter, superParameter.type)
             ) {
               return true
             }
@@ -774,7 +773,10 @@ class InteroperabilityDetector : Detector(), SourceCodeScanner {
         }
       } else if (node is UMethod && !node.isConstructor) {
         val superMethod = node.findRootMethod() ?: return false
-        if (isPlatformMethod(superMethod) && !hasNullnessAnnotation(superMethod)) {
+        if (
+          isPlatformMethod(superMethod) &&
+            !context.hasNullnessAnnotation(superMethod, superMethod.returnType)
+        ) {
           return true
         }
       }
@@ -792,16 +794,6 @@ class InteroperabilityDetector : Detector(), SourceCodeScanner {
       val containingClass = method.containingClass ?: return false
       val name = containingClass.qualifiedName ?: return false
       return name.startsWith("android.") || name.startsWith("java.")
-    }
-
-    private fun hasNullnessAnnotation(corresponding: PsiModifierListOwner): Boolean {
-      for (annotation in context.evaluator.getAllAnnotations(corresponding, false)) {
-        val name = annotation.qualifiedName ?: continue
-        if (isNullableAnnotation(name) || isNonNullAnnotation(name)) {
-          return true
-        }
-      }
-      return false
     }
 
     private fun isEqualsParameter(node: UDeclaration): Boolean {

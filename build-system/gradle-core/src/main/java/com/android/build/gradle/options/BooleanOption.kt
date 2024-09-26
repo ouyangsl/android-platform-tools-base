@@ -71,6 +71,7 @@ enum class BooleanOption(
 
     // Features' default values
     BUILD_FEATURE_DATABINDING("android.defaults.buildfeatures.databinding", false, ApiStage.Stable),
+    // TODO(b/366029616) deprecate and then remove BUILD_FEATURE_RESVALUES
     BUILD_FEATURE_RESVALUES("android.defaults.buildfeatures.resvalues", true, ApiStage.Stable),
     BUILD_FEATURE_SHADERS("android.defaults.buildfeatures.shaders", true, ApiStage.Stable),
     BUILD_FEATURE_VIEWBINDING("android.defaults.buildfeatures.viewbinding", false, ApiStage.Stable),
@@ -336,6 +337,19 @@ enum class BooleanOption(
         FeatureStage.Experimental
     ),
 
+    /**
+     * When enabled, the R8 task will perform resource shrinking in addition to code shrinking.
+     * When disabled, resource shrinking will be performed in a separate task after the R8 task has
+     * run.
+     *
+     * Note: If resource shrinking is not enabled, this flag has no effect.
+     */
+    R8_INTEGRATED_RESOURCE_SHRINKING(
+        "android.r8.integratedResourceShrinking",
+        false,
+        FeatureStage.Experimental
+    ),
+
     /* ------------------------
      * SOFTLY-ENFORCED FEATURES
      */
@@ -388,18 +402,21 @@ enum class BooleanOption(
      * DEPRECATED FEATURES
      */
 
+    // TODO(b/254305041) move to ApiStage.Removed
     BUILD_FEATURE_AIDL(
         "android.defaults.buildfeatures.aidl",
         false,
         ApiStage.Deprecated(VERSION_9_0)
     ),
 
+    // TODO(b/254305041) move to ApiStage.Removed
     BUILD_FEATURE_RENDERSCRIPT(
         "android.defaults.buildfeatures.renderscript",
         false,
         ApiStage.Deprecated(VERSION_9_0)
     ),
 
+    // TODO(b/254305041) move to ApiStage.Removed
     BUILD_FEATURE_BUILDCONFIG(
         "android.defaults.buildfeatures.buildconfig",
         false,

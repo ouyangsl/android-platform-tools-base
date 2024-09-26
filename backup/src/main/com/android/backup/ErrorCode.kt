@@ -17,6 +17,7 @@
 package com.android.backup
 
 enum class ErrorCode {
+  SUCCESS,
   CANNOT_ENABLE_BMGR,
   TRANSPORT_NOT_SELECTED,
   TRANSPORT_INIT_FAILED,
