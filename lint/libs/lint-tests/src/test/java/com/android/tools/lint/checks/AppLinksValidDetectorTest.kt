@@ -463,13 +463,10 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
   fun testUrlMatchingWithOnlyPort() {
     val expected =
       """
-    AndroidManifest.xml:8: Error: At least one host must be specified [AppLinkUrlError]
-                    <data android:scheme="http"/>
-                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    AndroidManifest.xml:9: Error: The port must be specified in the same <data> element as the host [AppLinkUrlError]
-                    <data android:port="8000" />
-                                        ~~~~
-    2 errors, 0 warnings
+      AndroidManifest.xml:9: Error: The port must be specified in the same <data> element as the host [AppLinkUrlError]
+                      <data android:port="8000" />
+                                          ~~~~
+      1 errors, 0 warnings
       """
     lint()
       .files(
@@ -2037,10 +2034,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
           AndroidManifest.xml:71: Error: Missing required elements/attributes for Android App Links [AppLinkUrlError]
                       <intent-filter android:autoVerify="true"> <!-- Missing host -->
                       ^
-          AndroidManifest.xml:76: Error: At least one host must be specified [AppLinkUrlError]
-                          <data android:scheme="http" />
-                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-          7 errors, 0 warnings
+          6 errors, 0 warnings
         """
       )
   }
@@ -2270,7 +2264,8 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                                 <category android:name="android.intent.category.BROWSABLE" />
 
                                 <data android:scheme="http" />
-                                <data android:port='8080' />'
+                                <data android:port="8080" />
+                                <data android:path="/path" />
                             </intent-filter>
                         </activity>
                     </application>
@@ -2289,7 +2284,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                           <data android:scheme="http" />
                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
           AndroidManifest.xml:21: Error: The port must be specified in the same <data> element as the host [AppLinkUrlError]
-                          <data android:port='8080' />'
+                          <data android:port="8080" />
                                               ~~~~
           3 errors, 0 warnings
       """
