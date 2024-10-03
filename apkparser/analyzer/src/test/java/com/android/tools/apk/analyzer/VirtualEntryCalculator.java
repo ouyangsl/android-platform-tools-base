@@ -16,7 +16,6 @@
 
 package com.android.tools.apk.analyzer;
 
-import com.android.tools.apk.analyzer.internal.GzipSizeCalculator;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -37,8 +36,7 @@ public class VirtualEntryCalculator {
                 new ZipInputStream(new BufferedInputStream(Files.newInputStream(path)))) {
             ZipEntry ze;
             while ((ze = zis.getNextEntry()) != null) {
-                System.out.println(ze.getName());
-                if (GzipSizeCalculator.isVirtualEntry(ze)) {
+                if (GzipSizeCalculatorTest.isVirtualEntry(ze.getName())) {
                     count += 1;
                 }
             }

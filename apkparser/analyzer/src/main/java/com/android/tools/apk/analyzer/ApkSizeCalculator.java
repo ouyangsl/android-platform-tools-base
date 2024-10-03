@@ -18,6 +18,7 @@ package com.android.tools.apk.analyzer;
 
 import com.android.annotations.NonNull;
 import com.android.tools.apk.analyzer.internal.GzipSizeCalculator;
+
 import java.nio.file.Path;
 import java.util.Map;
 
@@ -30,7 +31,7 @@ public interface ApkSizeCalculator {
     Map<String, Long> getDownloadSizePerFile(@NonNull Path apk);
 
     @NonNull
-    Map<String, Long> getRawSizePerFile(@NonNull Path apk);
+    Map<String, ZipEntryInfo> getInfoPerFile(@NonNull Path apk);
 
     @NonNull
     static ApkSizeCalculator getDefault() {

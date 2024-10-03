@@ -16,39 +16,41 @@
 
 package com.android.tools.apk.analyzer.internal;
 
-import com.android.SdkConstants;
+import static com.android.tools.apk.analyzer.ZipEntryInfo.Alignment.ALIGNMENT_16K;
+import static com.android.tools.apk.analyzer.ZipEntryInfo.Alignment.ALIGNMENT_4K;
+import static com.android.tools.apk.analyzer.ZipEntryInfo.Alignment.ALIGNMENT_NONE;
+
 import com.android.annotations.NonNull;
 import com.android.tools.apk.analyzer.ApkSizeCalculator;
+import com.android.tools.apk.analyzer.ZipEntryInfo;
+import com.android.zipflinger.Entry;
+import com.android.zipflinger.ZipRepo;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteStreams;
 import com.google.common.io.CountingOutputStream;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Enumeration;
+import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Logger;
 import java.util.zip.Deflater;
 import java.util.zip.GZIPOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 
 public class GzipSizeCalculator implements ApkSizeCalculator {
 
-    public static final String VIRTUAL_ENTRY_NAME = "";
+    private static final long OFFSET_4K = 4 * 1024;
+
+    private static final long OFFSET_16K = 16 * 1024;
 
     public GzipSizeCalculator() {}
 
     private static void verify(@NonNull Path apk) {
-        //noinspection EmptyTryBlock
-        try (ZipFile zf = new ZipFile(apk.toFile())) {
+        //noinspection EmptyTryBlock,unused
+        try (ZipRepo zip = new ZipRepo(apk)) {
         } catch (IOException e) {
             // Ignore exceptions if the file doesn't exist (b/351919218)
             if (Files.exists(apk)) {
@@ -60,22 +62,18 @@ public class GzipSizeCalculator implements ApkSizeCalculator {
     @Override
     public long getFullApkDownloadSize(@NonNull Path apk) {
         verify(apk);
-        CountingOutputStream out = new CountingOutputStream(ByteStreams.nullOutputStream());
-
         // There is a difference between uncompressing the apk, and then compressing again using
         // "gzip -9", versus just compressing the apk itself using "gzip -9". But the difference
         // seems to be negligible, and we are only aiming at an estimate of what Play provides, so
         // this should suffice. This also seems to be the same approach taken by
         // https://github.com/googlesamples/apk-patch-size-estimator
 
-        try (GZIPOutputStream zos = new MaxGzipOutputStream(out)) {
+        try (MaxGzipCountingOutputStream zos = new MaxGzipCountingOutputStream()) {
             Files.copy(apk, zos);
-            zos.flush();
+            return zos.getSize();
         } catch (IOException e) {
             return -1;
         }
-
-        return out.getCount();
     }
 
     @Override
@@ -85,7 +83,7 @@ public class GzipSizeCalculator implements ApkSizeCalculator {
             return Files.size(apk);
         } catch (IOException e) {
             Logger.getLogger(GzipSizeCalculator.class.getName())
-                    .severe("Error obtaining size of the APK: " + e.toString());
+                    .severe("Error obtaining size of the APK: " + e);
             return -1;
         }
     }
@@ -94,16 +92,23 @@ public class GzipSizeCalculator implements ApkSizeCalculator {
     @Override
     public Map<String, Long> getDownloadSizePerFile(@NonNull Path apk) {
         verify(apk);
-        try {
-            Path rezippedApk = Files.createTempFile("analyzer", SdkConstants.DOT_ZIP);
-            reCompressWithZip(apk, rezippedApk);
-            Map<String, Long> compressedSizePerFile = getCompressedSizePerFile(rezippedApk);
-            Files.delete(rezippedApk);
-            return compressedSizePerFile;
+        try (ZipRepo zipRepo = new ZipRepo(apk)) {
+            ImmutableMap.Builder<String, Long> sizes = new ImmutableMap.Builder<>();
+            for (Entry entry : zipRepo.getEntries().values()) {
+                if (entry.isDirectory()) {
+                    continue;
+                }
+                String name = entry.getName();
+                try (InputStream zip = zipRepo.getInputStream(name);
+                        MaxGzipCountingOutputStream gzip = new MaxGzipCountingOutputStream()) {
+                    ByteStreams.copy(zip, gzip);
+                    sizes.put("/" + name, gzip.getSize());
+                }
+            }
+            return sizes.build();
         } catch (IOException e) {
             String msg =
-                    "Error while re-compressing apk to determine file by file download sizes: "
-                            + e.toString();
+                    "Error while re-compressing apk to determine file by file download sizes: " + e;
             Logger.getLogger(GzipSizeCalculator.class.getName()).severe(msg);
             return ImmutableMap.of();
         }
@@ -111,26 +116,28 @@ public class GzipSizeCalculator implements ApkSizeCalculator {
 
     @NonNull
     @Override
-    public Map<String, Long> getRawSizePerFile(@NonNull Path apk) {
+    public Map<String, ZipEntryInfo> getInfoPerFile(@NonNull Path apk) {
         verify(apk);
-        return getCompressedSizePerFile(apk);
-    }
+        ImmutableMap.Builder<String, ZipEntryInfo> sizes = new ImmutableMap.Builder<>();
 
-    private static Map<String, Long> getCompressedSizePerFile(Path apk) {
-        ImmutableMap.Builder<String, Long> sizes = new ImmutableMap.Builder<>();
-
-        try (ZipFile zf = new ZipFile(apk.toFile())) {
-            Enumeration<? extends ZipEntry> entries = zf.entries();
-            while (entries.hasMoreElements()) {
-                ZipEntry zipEntry = entries.nextElement();
-                // In dev mode, zipflinger may generate virtual entries which must be
-                // ignored.
-                if (isVirtualEntry(zipEntry)) {
+        try (ZipRepo zip = new ZipRepo(apk)) {
+            Collection<Entry> entries = zip.getEntries().values();
+            for (Entry entry : entries) {
+                if (entry.isDirectory()) {
                     continue;
                 }
-                if (!zipEntry.isDirectory()) {
-                    sizes.put("/" + zipEntry.getName(), zipEntry.getCompressedSize());
+                long size = entry.getCompressedSize();
+                boolean isCompressed = entry.isCompressed();
+                long location = entry.getPayloadLocation().first;
+                final ZipEntryInfo.Alignment alignment;
+                if (location % OFFSET_16K == 0) {
+                    alignment = ALIGNMENT_16K;
+                } else if (location % OFFSET_4K == 0) {
+                    alignment = ALIGNMENT_4K;
+                } else {
+                    alignment = ALIGNMENT_NONE;
                 }
+                sizes.put("/" + entry.getName(), new ZipEntryInfo(size, alignment, isCompressed));
             }
         } catch (IOException ignored) {
         }
@@ -138,52 +145,17 @@ public class GzipSizeCalculator implements ApkSizeCalculator {
         return sizes.build();
     }
 
-    /**
-     * Provides a zip archive that is compressed at level 9, but still maintains archive
-     * information. This implies that it will be slightly larger than compressing using gzip (which
-     * only compresses a single file, not an archive). But having compression information per file
-     * is useful to get an approximate idea of how well each file compresses.
-     */
-    private static void reCompressWithZip(@NonNull Path from, @NonNull Path to) throws IOException {
-        // copy entire contents of one zip file to another, where the destination zip is written to
-        // with the maximum compression level
-        try (ZipInputStream zis =
-                        new ZipInputStream(new BufferedInputStream(Files.newInputStream(from)));
-                ZipOutputStream zos =
-                        new MaxZipOutputStream(
-                                new BufferedOutputStream(Files.newOutputStream(to)))) {
-            ZipEntry ze;
-            while ((ze = zis.getNextEntry()) != null) {
-                // In dev mode, zipflinger may generate virtual entries which must be
-                // ignored.
-                if (isVirtualEntry(ze)) {
-                    continue;
-                }
-                ZipEntry compressedZe = new ZipEntry(ze.getName());
-                compressedZe.setMethod(ZipEntry.DEFLATED);
-                compressedZe.setTime(ze.getTime());
-                zos.putNextEntry(compressedZe);
-                ByteStreams.copy(zis, zos);
-            }
-        }
-    }
+    private static final class MaxGzipCountingOutputStream extends GZIPOutputStream {
 
-    private static final class MaxGzipOutputStream extends GZIPOutputStream {
-        public MaxGzipOutputStream(OutputStream out) throws IOException {
-            super(out);
+        public MaxGzipCountingOutputStream() throws IOException {
+            super(new CountingOutputStream(ByteStreams.nullOutputStream()));
             // Google Play serves an APK that is compressed using gzip -9
             def.setLevel(Deflater.BEST_COMPRESSION);
         }
-    }
 
-    private static final class MaxZipOutputStream extends ZipOutputStream {
-        public MaxZipOutputStream(OutputStream out) throws IOException {
-            super(out);
-            def.setLevel(Deflater.BEST_COMPRESSION);
+        public long getSize() throws IOException {
+            close();
+            return ((CountingOutputStream) out).getCount();
         }
-    }
-
-    public static boolean isVirtualEntry(ZipEntry e) {
-        return VIRTUAL_ENTRY_NAME.equals(e.getName());
     }
 }

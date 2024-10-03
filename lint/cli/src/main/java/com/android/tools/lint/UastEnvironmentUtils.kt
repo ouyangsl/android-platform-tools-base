@@ -141,28 +141,28 @@ internal fun configureAnalysisApiProjectStructure(
   // The platform of the module provider, not individual modules
   platform = if (isKMP) CommonPlatforms.defaultCommonPlatform else JvmPlatforms.defaultJvmPlatform
 
-  val uastEnvModuleByName = config.modules.associateBy(UastEnvironment.Module::name)
+  val uastEnvModuleByProject = config.modules.associateBy(UastEnvironment.Module::project)
   val uastEnvModuleOrder = // We need to start from the leaves of the dependency
-    GraphUtils.reverseTopologicalSort(config.modules.map { it.name }) {
-      uastEnvModuleByName[it]!!.directDependencies.map { (depName, _) -> depName }
+    GraphUtils.reverseTopologicalSort(uastEnvModuleByProject.keys) {
+      uastEnvModuleByProject[it]!!.directDependencies.map { (depProject, _) -> depProject }
     }
-  val builtKtModuleByName = hashMapOf<String, KaModule>() // incrementally added below
+  val builtKtModuleByName = hashMapOf<Project, KaModule>() // incrementally added below
   val configKlibPaths = config.kotlinCompilerConfig.getKlibPaths().map(Path::of)
 
-  uastEnvModuleOrder.forEach { name ->
-    val m = uastEnvModuleByName[name]!!
+  for (proj in uastEnvModuleOrder) {
+    val m = uastEnvModuleByProject[proj]!!
     val mPlatform = m.variant.toTargetPlatform()
 
-    fun KtModuleBuilder.addModuleDependencies(moduleName: String) {
-      val classPaths =
-        if (mPlatform.has<JvmPlatform>()) {
-            // Include boot classpath in [config.classPaths], except for non-JVM modules
-            m.classpathRoots + config.classPaths
-          } else {
-            m.classpathRoots
-          }
-          .toPathCollection()
+    val classPaths =
+      if (mPlatform.has<JvmPlatform>()) {
+          // Include boot classpath in [config.classPaths], except for non-JVM modules
+          m.classpathRoots + config.classPaths
+        } else {
+          m.classpathRoots
+        }
+        .toPathCollection()
 
+    fun KtModuleBuilder.addModuleDependencies(moduleName: String) {
       if (classPaths.isNotEmpty()) {
         addRegularDependency(
           buildKtLibraryModule {
@@ -239,29 +239,45 @@ internal fun configureAnalysisApiProjectStructure(
     }
     */
 
-    val ktModule = buildKtSourceModule {
-      languageVersionSettings =
-        if (isKMP) m.kotlinLanguageLevel.withKMPEnabled() else m.kotlinLanguageLevel
-      addModuleDependencies(m.name)
-      platform = mPlatform
-      moduleName = m.name
+    val ktModule =
+      when {
+        m.sourceRoots.isNotEmpty() -> {
+          buildKtSourceModule {
+            languageVersionSettings =
+              if (isKMP) m.kotlinLanguageLevel.withKMPEnabled() else m.kotlinLanguageLevel
+            addModuleDependencies(m.name)
+            platform = mPlatform
+            moduleName = m.name
 
-      m.directDependencies.forEach { (depName, depKind) ->
-        builtKtModuleByName[depName]?.let { depKtModule ->
-          when (depKind) {
-            Project.DependencyKind.Regular -> addRegularDependency(depKtModule)
-            Project.DependencyKind.DependsOn -> addDependsOnDependency(depKtModule)
+            m.directDependencies.forEach { (depProj, depKind) ->
+              builtKtModuleByName[depProj]?.let { depKtModule ->
+                when (depKind) {
+                  Project.DependencyKind.Regular -> addRegularDependency(depKtModule)
+                  Project.DependencyKind.DependsOn -> addDependsOnDependency(depKtModule)
+                }
+              }
+                ?: System.err.println(
+                  "Dependency named `${depProj.name}` (pkg: `${depProj.`package`}`) ignored because module not found"
+                )
+            }
+
+            // NB: This should include both .kt and .java sources if any,
+            //  and thus we don't need to specify the reified type for the return file type.
+            addSourcePaths(getSourceFilePaths(m.sourceRoots, includeDirectoryRoot = true))
           }
-        } ?: System.err.println("Dependency named `$depName` ignored because module not found")
+        }
+        classPaths.isNotEmpty() -> {
+          buildKtLibraryModule {
+            platform = mPlatform
+            addBinaryPaths(classPaths)
+            libraryName = m.name
+          }
+        }
+        else -> continue
       }
 
-      // NB: This should include both .kt and .java sources if any,
-      //  and thus we don't need to specify the reified type for the return file type.
-      addSourcePaths(getSourceFilePaths(m.sourceRoots, includeDirectoryRoot = true))
-    }
-
     addModule(ktModule)
-    builtKtModuleByName[name] = ktModule
+    builtKtModuleByName[proj] = ktModule
   }
 }
 

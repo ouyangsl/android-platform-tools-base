@@ -81,7 +81,6 @@ import com.android.xml.AndroidManifest.NODE_ACTION
 import com.android.xml.AndroidManifest.NODE_DATA
 import com.google.common.base.Joiner
 import com.google.common.collect.Lists
-import com.intellij.openapi.util.io.FileUtil
 import java.net.MalformedURLException
 import java.net.URL
 import java.util.function.Consumer
@@ -376,9 +375,9 @@ class AppLinksValidDetector : Detector(), XmlScanner {
     }
 
     // Gather data about scheme, host, port, path, mimeType tags so that we can check them
-    var schemes: MutableList<String>? = null
-    val hostPortPairs: MutableList<Pair<String?, String?>> = mutableListOf()
-    var paths: MutableList<AndroidPatternMatcher>? = null
+    val schemes = mutableSetOf<String>()
+    val hostPortPairs = mutableSetOf<Pair<String?, String?>>()
+    val paths = mutableSetOf<AndroidPatternMatcher>()
     var hasMimeType = false
     var data = firstData
     while (data != null) {
@@ -404,7 +403,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
 
       // Multiple checks for "valid attributes" (Schemes, hosts, ports, paths all pass validation
       // (see validateAttribute, and requireNonEmpty below))
-      schemes = addAttribute(context, ATTR_SCHEME, schemes, data)
+      addAttribute(context, ATTR_SCHEME, schemes, data)
       val host = checkAndGetAttributeValue(context, ATTR_HOST, data)
       val port = checkAndGetAttributeValue(context, ATTR_PORT, data)
       // Don't add ports on their own to hostPortPairs to make it simpler to check whether there are
@@ -412,23 +411,22 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       if (host != null) {
         hostPortPairs.add(Pair(host, port))
       }
-      paths = addMatcher(context, ATTR_PATH, PATTERN_LITERAL, paths, data)
-      paths = addMatcher(context, ATTR_PATH_PREFIX, PATTERN_PREFIX, paths, data)
-      paths = addMatcher(context, ATTR_PATH_PATTERN, PATTERN_SIMPLE_GLOB, paths, data)
-      paths = addMatcher(context, ATTR_PATH_ADVANCED_PATTERN, PATTERN_ADVANCED_GLOB, paths, data)
-      paths = addMatcher(context, ATTR_PATH_SUFFIX, PATTERN_SUFFIX, paths, data)
+      addMatcher(context, ATTR_PATH, PATTERN_LITERAL, paths, data)
+      addMatcher(context, ATTR_PATH_PREFIX, PATTERN_PREFIX, paths, data)
+      addMatcher(context, ATTR_PATH_PATTERN, PATTERN_SIMPLE_GLOB, paths, data)
+      addMatcher(context, ATTR_PATH_ADVANCED_PATTERN, PATTERN_ADVANCED_GLOB, paths, data)
+      addMatcher(context, ATTR_PATH_SUFFIX, PATTERN_SUFFIX, paths, data)
       data = XmlUtils.getNextTagByName(data, TAG_DATA)
     }
     var isHttp = false
     var implicitSchemes = false
     var hasSubstitutedScheme = false
-    if (schemes == null) {
+    if (schemes.isEmpty()) {
       if (hasMimeType) {
         // Per documentation
         //   https://developer.android.com/guide/topics/manifest/data-element.html
         // "If the filter has a data type set (the mimeType attribute) but no scheme, the
         //  content: and file: schemes are assumed."
-        schemes = Lists.newArrayList()
         schemes.add("content")
         schemes.add("file")
         implicitSchemes = true
@@ -442,7 +440,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       }
     }
 
-    val hasExplicitScheme = schemes != null && !implicitSchemes
+    val hasExplicitScheme = schemes.isNotEmpty() && !implicitSchemes
 
     // Validation
     // autoVerify means this is an Android App Link:
@@ -468,7 +466,8 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       )
     }
 
-    val showMissingSchemeCheck = !hasExplicitScheme && (paths != null || hostPortPairs.isNotEmpty())
+    val showMissingSchemeCheck =
+      !hasExplicitScheme && (paths.isNotEmpty() || hostPortPairs.isNotEmpty())
 
     // --- Check "missing scheme" ---
     // If there are hosts, paths, or ports, then there should be a scheme.
@@ -496,7 +495,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
     // --- Check "missing URI" (This intent filter has a view action but no URI) ---
     // We only show this check if the "missing scheme check" isn't already showing, because they're
     // very similar.
-    val showMissingUriCheck = schemes == null && actionView
+    val showMissingUriCheck = schemes.isEmpty() && actionView
     if (!showMissingSchemeCheck && showMissingUriCheck) {
       reportUrlError(
         context,
@@ -514,7 +513,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
     // --- Check "missing host" (Hosts are required when a path is used. ) ---
     // We insist on this because paths will be ignored if there is no host, which makes the intent
     // filter very misleading.
-    if ((paths != null) && hostPortPairs.all { (host, _) -> host.isNullOrBlank() }) {
+    if (paths.isNotEmpty() && hostPortPairs.all { (host, _) -> host.isNullOrBlank() }) {
       val fix = LintFix.create().set().todo(ANDROID_URI, ATTR_HOST).build()
       reportUrlError(
         context,
@@ -644,13 +643,10 @@ class AppLinksValidDetector : Detector(), XmlScanner {
   private fun addAttribute(
     context: XmlContext?,
     attributeName: String,
-    existing: MutableList<String>?,
+    existing: MutableSet<String>,
     data: Element,
-  ): MutableList<String>? {
-    val attributeValue = checkAndGetAttributeValue(context, attributeName, data) ?: return existing
-    val result = existing ?: mutableListOf()
-    result.add(attributeValue)
-    return result
+  ) {
+    checkAndGetAttributeValue(context, attributeName, data)?.let { existing.add(it) }
   }
 
   private fun validateAttribute(
@@ -730,24 +726,18 @@ class AppLinksValidDetector : Detector(), XmlScanner {
     context: XmlContext?,
     attributeName: String,
     type: Int,
-    matcher: MutableList<AndroidPatternMatcher>?,
+    matcher: MutableSet<AndroidPatternMatcher>,
     data: Element,
-  ): MutableList<AndroidPatternMatcher>? {
-    var current = matcher
+  ) {
     val attribute = data.getAttributeNodeNS(ANDROID_URI, attributeName)
     if (attribute != null) {
       var value = attribute.value
-      if (requireNonEmpty(context, attribute, value)) {
-        return current
-      }
-      if (current == null) {
-        current = Lists.newArrayListWithCapacity(4)
-      }
+      if (requireNonEmpty(context, attribute, value)) return
       if (value.startsWith(PREFIX_RESOURCE_REF) || value.startsWith(PREFIX_THEME_REF)) {
         value = replaceUrlWithValue(context, value)
       }
       val currentMatcher = AndroidPatternMatcher(value, type)
-      current?.add(currentMatcher)
+      matcher.add(currentMatcher)
       if (context != null && !isSubstituted(value) && !value.startsWith(PREFIX_RESOURCE_REF)) {
         if (!value.startsWith("/") && attributeName in setOf(ATTR_PATH, ATTR_PATH_PREFIX)) {
           val fix = LintFix.create().replace().text(attribute.value).with("/$value").build()
@@ -771,7 +761,6 @@ class AppLinksValidDetector : Detector(), XmlScanner {
         }
       }
     }
-    return current
   }
 
   private fun requireNonEmpty(context: XmlContext?, attribute: Attr, value: String?): Boolean {
@@ -788,11 +777,13 @@ class AppLinksValidDetector : Detector(), XmlScanner {
   }
 
   /** URL information from an intent filter */
-  data class UriInfo(
-    val schemes: List<String>?,
-    val hostPortPairs: List<Pair<String?, String?>>,
-    val paths: List<AndroidPatternMatcher>?,
+  class UriInfo(
+    val schemes: Set<String>,
+    val hostPortPairs: Set<Pair<String?, String?>>,
+    val paths: Set<AndroidPatternMatcher>,
   ) {
+    val isEmpty = schemes.isEmpty() && hostPortPairs.isEmpty() && paths.isEmpty()
+
     /**
      * Matches a URL against this info, and returns null if successful or the failure reason if not
      * a match
@@ -801,12 +792,10 @@ class AppLinksValidDetector : Detector(), XmlScanner {
      * @return null for a successful match or the failure reason
      */
     fun match(testUrl: URL): String? {
-      if (schemes != null) {
-        val schemeOk =
-          schemes.any { scheme: String -> scheme == testUrl.protocol || isSubstituted(scheme) }
-        if (!schemeOk) {
-          return "did not match scheme ${Joiner.on(", ").join(schemes)}"
-        }
+      val schemeOk =
+        schemes.any { scheme: String -> scheme == testUrl.protocol || isSubstituted(scheme) }
+      if (!schemeOk) {
+        return "did not match scheme ${Joiner.on(", ").join(schemes)}"
       }
       if (hostPortPairs.isNotEmpty()) {
         val hostOk =
@@ -820,7 +809,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
           }"
         }
       }
-      if (paths != null) {
+      if (paths.isNotEmpty()) {
         val testPath = testUrl.path
         val pathOk = paths.any { isSubstituted(it.path) || it.match(testPath) }
         if (!pathOk) {
@@ -843,8 +832,8 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       return null // OK
     }
 
-    private fun containsUpperCase(matchers: List<AndroidPatternMatcher>?): Boolean {
-      return matchers != null && matchers.any { CharSequences.containsUpperCase(it.path) }
+    private fun containsUpperCase(matchers: Set<AndroidPatternMatcher>): Boolean {
+      return matchers.any { CharSequences.containsUpperCase(it.path) }
     }
 
     /**
@@ -873,13 +862,13 @@ class AppLinksValidDetector : Detector(), XmlScanner {
     }
 
     override fun toString(): String {
-      return "URIs(schemes=${schemes?.let { asSortedMarkdownCodes(it) }}" +
+      return "URIs(schemes=${asSortedMarkdownCodes(schemes)}" +
         (if (hostPortPairs.isEmpty()) {
           ""
         } else {
           ", hosts=${asSortedMarkdownCodes(hostPortPairs.map { it.first + if (it.second.isNullOrBlank()) "" else ":${it.second}" })}"
         }) +
-        (if (paths == null || paths.all { it.path.isBlank() }) {
+        (if (paths.isEmpty()) {
           ""
         } else {
           ", paths=${asSortedMarkdownCodes(paths.map { it.path })}"
@@ -893,7 +882,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
        * backticks to prevent asterisks in paths from creating italics. We sort for consistency in
        * tests.
        */
-      private fun asSortedMarkdownCodes(strings: List<String>): List<String> {
+      private fun asSortedMarkdownCodes(strings: Collection<String>): List<String> {
         return strings.map { "`${it}`" }.sorted()
       }
 
@@ -918,35 +907,33 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       }
 
       fun calculateUriIntersection(uriInfo1: UriInfo, uriInfo2: UriInfo): UriInfo? {
-        if (uriInfo1.schemes == null || uriInfo2.schemes == null) return null
+        if (uriInfo1.schemes.isEmpty() || uriInfo2.schemes.isEmpty()) return null
         val schemeIntersection = uriInfo1.schemes.intersect(uriInfo2.schemes)
         if (schemeIntersection.isEmpty()) return null
         if (uriInfo1.hostPortPairs.isEmpty() != uriInfo2.hostPortPairs.isEmpty()) return null
-        val hostPortsIntersection = uriInfo1.hostPortPairs.intersect(uriInfo2.hostPortPairs.toSet())
+        val hostPortsIntersection = uriInfo1.hostPortPairs.intersect(uriInfo2.hostPortPairs)
         if (uriInfo1.hostPortPairs.isNotEmpty() && hostPortsIntersection.isEmpty()) return null
-        if ((uriInfo1.paths.isNullOrEmpty()) != (uriInfo2.paths.isNullOrEmpty())) return null
+        if (uriInfo1.paths.isEmpty() != uriInfo2.paths.isEmpty()) return null
+        val uriInfo1PathStrings = uriInfo1.paths.mapTo(mutableSetOf()) { asString(it) }
+        val uriInfo2PathStrings = uriInfo2.paths.mapTo(mutableSetOf()) { asString(it) }
         val pathsIntersection =
-          uriInfo1.paths
-            ?.map { asString(it) }
-            ?.intersect((uriInfo2.paths?.map { asString(it) } ?: emptySet()).toSet()) ?: emptySet()
-        if (!uriInfo1.paths.isNullOrEmpty() && pathsIntersection.isEmpty()) return null
-        return UriInfo(
-          schemeIntersection.toList(),
-          hostPortsIntersection.toList(),
-          pathsIntersection.map { AndroidPatternMatcher(it, PATTERN_ADVANCED_GLOB) },
-        )
+          uriInfo1PathStrings.intersect(uriInfo2PathStrings).mapTo(mutableSetOf()) {
+            AndroidPatternMatcher(it, PATTERN_ADVANCED_GLOB)
+          }
+        if (uriInfo1.paths.isNotEmpty() && pathsIntersection.isEmpty()) return null
+        return UriInfo(schemeIntersection, hostPortsIntersection, pathsIntersection)
       }
     }
   }
 
-  override fun checkMergedProject(context: Context) {
+  override fun afterCheckRootProject(context: Context) {
     if (!context.isEnabled(INTERSECTING_DEEP_LINKS)) return
-    if (context.mainProject.isLibrary) return
+    if (context.project.isLibrary) return
     if (context.project.applicationId == null) return
 
-    val uriInfos = mutableListOf<Pair<DeepLinkDataForIntersectionCheck, Location>>()
-    val mergedManifestDocumentElement =
-      context.mainProject.mergedManifest?.documentElement ?: return
+    val uriInfos =
+      mutableListOf<Pair<String, List<Pair<DeepLinkDataForIntersectionCheck, Location>>>>()
+    val mergedManifestDocumentElement = context.project.mergedManifest?.documentElement ?: return
     for (node in mergedManifestDocumentElement) {
       if (node.tagName == TAG_APPLICATION) {
         for (applicationChild in node) {
@@ -957,10 +944,11 @@ class AppLinksValidDetector : Detector(), XmlScanner {
           val activityLocation = context.getLocation(applicationChild)
           val source = activityLocation.source
           if (source is Node && context.driver.isSuppressed(null, INTERSECTING_DEEP_LINKS, source))
-            continue // TODO(b/368627164): Cover this behavior in automated testing.
+            continue
           val activityIcon = applicationChild.getAttributeNS(ANDROID_URI, ATTR_ICON)
           val activityLabel = applicationChild.getAttributeNS(ANDROID_URI, ATTR_LABEL)
-          val activityName = applicationChild.getAttributeNS(ANDROID_URI, ATTRIBUTE_NAME)
+          val fqActivityName = applicationChild.getAttributeNS(ANDROID_URI, ATTRIBUTE_NAME)
+          val urisForActivity = mutableListOf<Pair<DeepLinkDataForIntersectionCheck, Location>>()
           for (activityChild in applicationChild) {
             if (activityChild.tagName != TAG_INTENT_FILTER) continue
             val intentFilterIcon = activityChild.getAttributeNS(ANDROID_URI, ATTR_ICON)
@@ -968,13 +956,14 @@ class AppLinksValidDetector : Detector(), XmlScanner {
             // If there was an intent filter with a huge number of data tags, then just abort the
             // whole thing
             val data = getIntentFilterData(ElementWrapper(activityChild, context)) ?: return
+            if (data.uriInfo.isEmpty) continue
             if (
               data.autoVerify ||
                 (data.actions.contains(ACTION_VIEW) &&
                   data.categories.contains(CATEGORY_BROWSABLE) &&
                   data.categories.contains(CATEGORY_DEFAULT))
             ) {
-              uriInfos.add(
+              urisForActivity.add(
                 Pair(
                   DeepLinkDataForIntersectionCheck(
                     data.uriInfo,
@@ -982,52 +971,57 @@ class AppLinksValidDetector : Detector(), XmlScanner {
                     data.priority,
                     if (!intentFilterIcon.isNullOrBlank()) intentFilterIcon else activityIcon,
                     if (!intentFilterLabel.isNullOrBlank()) intentFilterLabel else activityLabel,
-                    activityName,
+                    fqActivityName,
                   ),
                   activityLocation,
                 )
               )
             }
           }
+          uriInfos.add(Pair(fqActivityName, urisForActivity))
         }
       }
     }
 
     // Now report intersections
     for (i in 0 until uriInfos.size) {
-      val (data1, location1) = uriInfos[i]
-      for (j in i + 1 until uriInfos.size) {
-        val (data2, location2) = uriInfos[j]
-        val uriIntersection = getReportInfo(data1, location1, data2, location2) ?: continue
-        context.report(
-          INTERSECTING_DEEP_LINKS,
-          // visible = false means the location won't be rendered in IDE. We do this because we have
-          // special treatment for IDE (see below).
-          location1.withSecondary(
-            location2.apply { visible = false },
-            constructOtherLocationMessage(uriIntersection, data1.parentActivityName),
-          ),
-          constructOtherLocationMessage(uriIntersection, data2.parentActivityName),
-        )
-        // When we're in Studio, we create a second report with the primary and secondary locations
-        // swapped. This allows us to create a quick-fix which jumps from the location of the
-        // reported incident to its secondary.
-        // (See JumpToIntersectingDeepLinkFix.)
-        // (Also note that this second report is needed because secondary locations don't have
-        // references back to their primary, so the quickfix can only work on the "primary"
-        // location.)
-        if (LintClient.isStudio) {
-          // Make copies of the location's file, start, and end fields to prevent cycles
-          val loc1 = location1.copy()
-          val loc2 = location2.copy()
-          context.report(
-            INTERSECTING_DEEP_LINKS,
-            loc2.withSecondary(
-              loc1.apply { visible = false },
-              constructOtherLocationMessage(uriIntersection, data2.parentActivityName),
-            ),
-            constructOtherLocationMessage(uriIntersection, data1.parentActivityName),
-          )
+      for ((data1, location1) in uriInfos[i].second) {
+        for (j in i + 1 until uriInfos.size) {
+          for ((data2, location2) in uriInfos[j].second) {
+            val uriIntersection = getReportInfo(data1, data2) ?: continue
+            context.report(
+              INTERSECTING_DEEP_LINKS,
+              // visible = false means the location won't be rendered in IDE. We do this because we
+              // have
+              // special treatment for IDE (see below).
+              location1.withSecondary(
+                location2.apply { visible = false },
+                constructOtherLocationMessage(uriIntersection, data1.parentActivityFqName),
+              ),
+              constructOtherLocationMessage(uriIntersection, data2.parentActivityFqName),
+            )
+            // When we're in Studio, we create a second report with the primary and secondary
+            // locations
+            // swapped. This allows us to create a quick-fix which jumps from the location of the
+            // reported incident to its secondary.
+            // (See JumpToIntersectingDeepLinkFix.)
+            // (Also note that this second report is needed because secondary locations don't have
+            // references back to their primary, so the quickfix can only work on the "primary"
+            // location.)
+            if (LintClient.isStudio) {
+              // Make copies of the location's file, start, and end fields to prevent cycles
+              val loc1 = location1.copy()
+              val loc2 = location2.copy()
+              context.report(
+                INTERSECTING_DEEP_LINKS,
+                loc2.withSecondary(
+                  loc1.apply { visible = false },
+                  constructOtherLocationMessage(uriIntersection, data2.parentActivityFqName),
+                ),
+                constructOtherLocationMessage(uriIntersection, data1.parentActivityFqName),
+              )
+            }
+          }
         }
       }
     }
@@ -1134,7 +1128,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       val paths: Set<AndroidPatternMatcher>,
       val mimeTypes: Set<String>,
     ) {
-      val uriInfo = UriInfo(schemes.toList(), hostPortPairs.toList(), paths.toList())
+      val uriInfo = UriInfo(schemes, hostPortPairs, paths)
     }
 
     /**
@@ -1214,19 +1208,15 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       val priority: Int,
       val icon: String,
       val label: String,
-      val parentActivityName: String,
+      val parentActivityFqName: String,
     )
 
     private fun getReportInfo(
       data1: DeepLinkDataForIntersectionCheck,
-      location1: Location,
       data2: DeepLinkDataForIntersectionCheck,
-      location2: Location,
     ): UriInfo? {
-      if (FileUtil.filesEqual(location1.file, location2.file) && location1.start == location2.start)
-        return null // If the intent filters are in the same activity, it's not a problem.
       val uriIntersection = calculateUriIntersection(data1.uriInfo, data2.uriInfo) ?: return null
-      if (uriIntersection.schemes == null) return null
+      if (uriIntersection.schemes.isEmpty()) return null
       // Figure out if these intent filters are still intersecting when priority, icons, and labels
       // are considered. Note that if we ever want to check for intersecting intent filters across
       // different application IDs, then we will also want to consider order for custom-scheme

@@ -73,8 +73,8 @@ public class ArchiveTreeStructureTest {
     }
 
     @Test
-    public void updateRawFileSizes() {
-        ArchiveTreeStructure.updateRawFileSizes(root, ApkSizeCalculator.getDefault());
+    public void updateFileInfo() {
+        ArchiveTreeStructure.updateFileInfo(root, ApkSizeCalculator.getDefault());
         String actual =
                 dumpTree(
                         root,
@@ -82,25 +82,26 @@ public class ArchiveTreeStructureTest {
                             ArchiveEntry entry = n.getData();
                             return String.format(
                                     Locale.US,
-                                    "%1$-10d %2$s",
+                                    "%1$-10d %2$-15s %3$s",
                                     entry.getRawFileSize(),
+                                    getCompressedString(n),
                                     entry.getSummaryDisplayString());
                         });
         String expected =
-                "251        /\n"
-                    + "6          /res/\n"
-                    + "6          /res/anim/\n"
-                    + "6          /res/anim/fade.xml\n"
-                    + "150        /instant-run.zip\n"
-                    + "2          /instant-run.zip/instant-run/\n"
-                    + "2          /instant-run.zip/instant-run/classes1.dex\n"
-                    + "75         /instant-run-truncated.zip\n"
-                    + "0          /instant-run-truncated.zip/ - Error processing entry:"
-                    + " java.io.EOFException\n"
-                    + "9          /bar.jar\n"
-                    + "0          /bar.jar/ - Error processing entry: java.util.zip.ZipError: No"
-                    + " valid contents inside\n"
-                    + "11         /AndroidManifest.xml";
+                "251                        /\n"
+                    + "6                          /res/\n"
+                    + "6                          /res/anim/\n"
+                    + "6          Uncompressed    /res/anim/fade.xml\n"
+                    + "150                        /instant-run.zip\n"
+                    + "2                          /instant-run.zip/instant-run/\n"
+                    + "2          Uncompressed    /instant-run.zip/instant-run/classes1.dex\n"
+                    + "75                         /instant-run-truncated.zip\n"
+                    + "0          Uncompressed    /instant-run-truncated.zip/ - Error processing"
+                    + " entry: java.io.EOFException\n"
+                    + "9                          /bar.jar\n"
+                    + "0          Uncompressed    /bar.jar/ - Error processing entry:"
+                    + " java.util.zip.ZipError: No valid contents inside\n"
+                    + "11         Compressed      /AndroidManifest.xml";
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -120,26 +121,26 @@ public class ArchiveTreeStructureTest {
                                     entry.getSummaryDisplayString());
                         });
         String expected =
-                "259        /\n"
-                    + "8          /res/\n"
-                    + "8          /res/anim/\n"
-                    + "8          /res/anim/fade.xml\n"
-                    + "153        /instant-run.zip\n"
-                    + "4          /instant-run.zip/instant-run/\n"
-                    + "4          /instant-run.zip/instant-run/classes1.dex\n"
-                    + "76         /instant-run-truncated.zip\n"
+                "349        /\n"
+                    + "26         /res/\n"
+                    + "26         /res/anim/\n"
+                    + "26         /res/anim/fade.xml\n"
+                    + "171        /instant-run.zip\n"
+                    + "22         /instant-run.zip/instant-run/\n"
+                    + "22         /instant-run.zip/instant-run/classes1.dex\n"
+                    + "94         /instant-run-truncated.zip\n"
                     + "0          /instant-run-truncated.zip/ - Error processing entry:"
                     + " java.io.EOFException\n"
-                    + "11         /bar.jar\n"
+                    + "29         /bar.jar\n"
                     + "0          /bar.jar/ - Error processing entry: java.util.zip.ZipError: No"
                     + " valid contents inside\n"
-                    + "11         /AndroidManifest.xml";
+                    + "29         /AndroidManifest.xml";
         assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     public void sort() {
-        ArchiveTreeStructure.updateRawFileSizes(root, ApkSizeCalculator.getDefault());
+        ArchiveTreeStructure.updateFileInfo(root, ApkSizeCalculator.getDefault());
         ArchiveTreeStructure.sort(
                 root,
                 (o1, o2) ->
@@ -180,7 +181,7 @@ public class ArchiveTreeStructureTest {
                 Archives.open(TestResources.getFile("/test_collision.apk").toPath(), logger);
         root = ArchiveTreeStructure.create(archiveContext);
 
-        ArchiveTreeStructure.updateRawFileSizes(root, ApkSizeCalculator.getDefault());
+        ArchiveTreeStructure.updateFileInfo(root, ApkSizeCalculator.getDefault());
         ArchiveTreeStructure.sort(
                 root,
                 (o1, o2) ->
@@ -211,5 +212,12 @@ public class ArchiveTreeStructureTest {
     private static String dumpTree(
             @NonNull ArchiveNode root, @NonNull Function<ArchiveNode, String> mapper) {
         return ArchiveTreeStream.preOrderStream(root).map(mapper).collect(Collectors.joining("\n"));
+    }
+
+    private String getCompressedString(ArchiveNode node) {
+        if (!node.isLeaf()) {
+            return "";
+        }
+        return node.getData().isFileCompressed() ? "Compressed" : "Uncompressed";
     }
 }

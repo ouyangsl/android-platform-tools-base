@@ -50,7 +50,10 @@ platform(
             docker_network = "off",
             docker_privileged = True,  # This is required to support emulators/nested KVM.
             docker_use_urandom = True,
-            labels = {"machine-size": "default"},
+            labels = {
+                "machine-size": "default",
+                "image-family": "default",
+            },
             os_family = "Linux",
         ),
         # cache-silo-key: this is essentially a "salt" added to the remote cache key.
@@ -67,9 +70,12 @@ platform(
     ],
     exec_properties = dicts.add(
         create_rbe_exec_properties_dict(
-            container_image = "docker://gcr.io/google.com/android-studio-alphasource/rbe-windows2019-as@sha256:1ad1aa4e016b0b9ee41e5c0d587c3fc51033485b0242fb7ee9fdd242c7598879",
+            container_image = "docker://us-central1-docker.pkg.dev/google.com/android-studio-alphasource/rbe/windows-2022-test@sha256:eaa19f67a1b92739a3d87e64bfa005bbedcbd217869efdd8c08d4070ac0ab52a",
             docker_network = "off",
-            labels = {"machine-size": "default"},
+            labels = {
+                "machine-size": "default",
+                "image-family": "2022",
+            },
             os_family = "Windows",
         ),
         # cache-silo-key: this is essentially a "salt" added to the remote cache key.
