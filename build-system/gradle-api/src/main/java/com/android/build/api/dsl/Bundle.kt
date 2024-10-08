@@ -18,6 +18,7 @@ package com.android.build.api.dsl
 
 import org.gradle.api.Incubating
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.RegularFileProperty
 
 /** Features that apply to distribution by the bundle  */
 interface Bundle {
@@ -43,6 +44,9 @@ interface Bundle {
 
     @get:Incubating
     val countrySet: BundleCountrySet
+
+    @get:Incubating
+    val deviceGroupConfig: RegularFileProperty
 
     fun abi(action: BundleAbi.() -> Unit)
 

@@ -389,6 +389,16 @@ abstract class PackageBundleTask : NonIncrementalTask() {
                 )
             }
 
+            parameters.bundleOptions.get().deviceGroupConfig.asFile.orNull?.let {
+                if (it.isFile) {
+                    command.addMetadataFile(
+                        "com.android.tools.build.bundletool",
+                        "DeviceGroupConfig.json",
+                        it.toPath()
+                    )
+                }
+            }
+
             parameters.integrityConfigFile.asFile.orNull?.let {
                 if (it.isFile) {
                     command.addMetadataFile(
@@ -471,6 +481,9 @@ abstract class PackageBundleTask : NonIncrementalTask() {
         @get:Input
         @get:Optional
         val defaultCountrySet: String?,
+        @get:Input
+        @get:Optional
+        val deviceGroupConfig: String?,
     ) : Serializable
 
     data class AssetPackOptionsForAssetPackBundle(
