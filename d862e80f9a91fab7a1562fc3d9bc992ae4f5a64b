@@ -1,0 +1,75 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff2113a3_a2a864c8",
+        "filename": "build-system/gradle-api/src/main/java/com/android/build/api/dsl/Bundle.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2005565
+      },
+      "writtenOn": "2024-10-08T16:25:09Z",
+      "side": 1,
+      "message": "we will also need a new field BundleDeviceGroup and depreacte this field (in order to target by groups instead of tiers. see AGP doc \n\ndid you plan to do this in a separate CL? we can also do it here IMO",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 55
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "4dee5bb8_30961324",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "build-system/gradle-api/src/main/java/com/android/build/api/dsl/Bundle.kt",
+              "range": {
+                "startLine": 35,
+                "startChar": 0,
+                "endLine": 35,
+                "endChar": 0
+              },
+              "replacement": "    @Deprecated(\"Use deviceGroup instead\")\n"
+            },
+            {
+              "path": "build-system/gradle-api/src/main/java/com/android/build/api/dsl/Bundle.kt",
+              "range": {
+                "startLine": 37,
+                "startChar": 0,
+                "endLine": 37,
+                "endChar": 0
+              },
+              "replacement": "    @get:Incubating\n    val deviceGroup: BundleDeviceGroup\n\n"
+            },
+            {
+              "path": "build-system/gradle-api/src/main/java/com/android/build/api/dsl/Bundle.kt",
+              "range": {
+                "startLine": 60,
+                "startChar": 0,
+                "endLine": 60,
+                "endChar": 0
+              },
+              "replacement": "    @Deprecated(\"Use deviceGroup instead\")\n"
+            },
+            {
+              "path": "build-system/gradle-api/src/main/java/com/android/build/api/dsl/Bundle.kt",
+              "range": {
+                "startLine": 62,
+                "startChar": 0,
+                "endLine": 62,
+                "endChar": 0
+              },
+              "replacement": "    @Incubating\n    fun deviceGroup(action: BundleDeviceGroup.() -\u003e Unit)\n\n"
+            }
+          ]
+        }
+      ],
+      "revId": "d862e80f9a91fab7a1562fc3d9bc992ae4f5a64b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
