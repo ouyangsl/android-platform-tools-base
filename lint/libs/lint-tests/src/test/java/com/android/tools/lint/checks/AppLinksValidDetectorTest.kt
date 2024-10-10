@@ -15,10 +15,8 @@
  */
 package com.android.tools.lint.checks
 
+import com.android.tools.lint.checks.AppLinksValidDetector.Companion.APP_LINK_WARNING
 import com.android.tools.lint.checks.AppLinksValidDetector.Companion.VALIDATION
-import com.android.tools.lint.checks.AppLinksValidDetector.UriInfo
-import com.android.tools.lint.client.api.LintClient
-import com.android.tools.lint.client.api.LintClient.Companion.CLIENT_STUDIO
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.XmlContext
 import com.android.utils.XmlUtils
@@ -395,7 +393,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                         android:allowBackup="true"
                         android:icon="@mipmap/ic_launcher" >
                         <activity android:name=".MainActivity">
-                            <intent-filter>
+                            <intent-filter android:autoVerify="true">
                                 <action android:name="android.intent.action.VIEW" />
                                 <category android:name="android.intent.category.DEFAULT" />
                                 <category android:name="android.intent.category.BROWSABLE" />
@@ -442,7 +440,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                         android:allowBackup="true"
                         android:icon="@mipmap/ic_launcher" >
                         <activity android:name=".MainActivity">
-                            <intent-filter>
+                            <intent-filter android:autoVerify="true">
                                 <action android:name="android.intent.action.VIEW" />
                                 <category android:name="android.intent.category.DEFAULT" />
                                 <category android:name="android.intent.category.BROWSABLE" />
@@ -624,7 +622,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                     package="test.pkg" >
                     <application>
                         <activity android:name=".MainActivity">
-                            <intent-filter>
+                            <intent-filter android:autoVerify="true">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"/>
                                 <data android:host="example.com"
@@ -883,7 +881,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                     package="test.pkg" >
                     <application>
                         <activity android:name=".MainActivity">
-                            <intent-filter>
+                            <intent-filter android:autoVerify="true">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                       android:host="example.com"
@@ -979,7 +977,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                             android:configChanges="orientation|keyboardHidden|screenSize"
                             android:label="@string/title_activity_fullscreen"
                             android:theme="@style/FullscreenTheme" >
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                     android:host="example.com"
@@ -1026,7 +1024,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                             android:configChanges="orientation|keyboardHidden|screenSize"
                             android:label="@string/title_activity_fullscreen"
                             android:theme="@style/FullscreenTheme" >
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                     android:host="example.com"
@@ -1191,7 +1189,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                             android:configChanges="orientation|keyboardHidden|screenSize"
                             android:label="@string/title_activity_fullscreen"
                             android:theme="@style/FullscreenTheme" >
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http" />
                                 <data android:host="example.com" />
@@ -1235,7 +1233,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                                 <action android:name="android.intent.action.MAIN" />
                                 <category android:name="android.intent.category.LAUNCHER" />
                             </intent-filter>
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                     android:host="example.com"
@@ -1338,7 +1336,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                         <activity android:name=".MainActivity"
                             android:exported="false"
                             android:theme="@style/FullscreenTheme" >
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                     android:host="example1.com"
@@ -1346,7 +1344,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                                 <category android:name="android.intent.category.DEFAULT" />
                                 <category android:name="android.intent.category.BROWSABLE" />
                             </intent-filter>
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                     android:host="example2.com"
@@ -1356,11 +1354,11 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                             </intent-filter>
                         </activity>
                         <activity android:name=".SecondActivity" android:exported="true">
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                     android:host="example1.com"
-                                    android:pathPrefix="/gizmos2" />
+                                    android:pathPrefix="/gizmos" />
                                 <category android:name="android.intent.category.DEFAULT" />
                                 <category android:name="android.intent.category.BROWSABLE" />
                             </intent-filter>
@@ -1395,7 +1393,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                                 android:configChanges="orientation|keyboardHidden|screenSize"
                                 android:label="@string/title_activity_fullscreen"
                                 android:theme="@style/FullscreenTheme" >
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                       android:host="example.com"
@@ -1458,7 +1456,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                                 android:configChanges="orientation|keyboardHidden|screenSize"
                                 android:label="@string/title_activity_fullscreen"
                                 android:theme="@style/FullscreenTheme" >
-                            <intent-filter android:label="@string/title_activity_fullscreen">
+                            <intent-filter android:autoVerify="true" android:label="@string/title_activity_fullscreen">
                                 <action android:name="android.intent.action.VIEW" />
                                 <data android:scheme="http"
                                       android:host="example.com"
@@ -1936,10 +1934,13 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
     assertThat(activity).isNotNull()
 
     val detector = AppLinksValidDetector()
-    fun createUriInfos(activity: Element, context: XmlContext): List<UriInfo> =
+    fun createUriInfos(
+      activity: Element,
+      context: XmlContext,
+    ): List<AppLinksValidDetector.UriInfo> =
       detector.checkActivityIntentFiltersAndGetUriInfos(activity, context)
 
-    fun testElement(testUrl: URL, infos: List<UriInfo>): String? =
+    fun testElement(testUrl: URL, infos: List<AppLinksValidDetector.UriInfo>): String? =
       detector.checkTestUrlMatchesAtLeastOneInfo(testUrl, infos)
 
     val infos =
@@ -1947,7 +1948,9 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
         activity!!,
         mock<XmlContext>().apply {
           whenever(getLocation(any())).thenReturn(mock())
+          whenever(client).thenReturn(mock())
           whenever(driver).thenReturn(mock())
+          whenever(project).thenReturn(mock())
         },
       )
     assertThat(testElement(URL("http://example.com/literal/path"), infos)).isNull() // success
@@ -2095,6 +2098,129 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
                       ^
           8 errors, 0 warnings
         """
+      )
+  }
+
+  fun testAddAutoVerifySuggestion() {
+    lint()
+      .issues(APP_LINK_WARNING)
+      .files(
+        xml(
+            "AndroidManifest.xml",
+            """
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+              package="com.example.helloworld" >
+
+              <application>
+                  <activity android:name=".FullscreenActivity">
+                      <intent-filter> <!-- We expect a warning here -->
+                          <action android:name="android.intent.action.VIEW" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="android.intent.category.BROWSABLE" />
+
+                          <data android:scheme="http" />
+                          <data android:scheme="https" />
+
+                          <data android:host="example.com" />
+                          <data android:pathPrefix="/gizmos" />
+                      </intent-filter>
+
+                      <intent-filter> <!-- Missing VIEW -->
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="android.intent.category.BROWSABLE" />
+
+                          <data android:scheme="http" />
+                          <data android:scheme="https" />
+
+                          <data android:host="example.com" />
+                          <data android:pathPrefix="/gizmos" />
+                      </intent-filter>
+
+                      <intent-filter> <!-- Missing DEFAULT -->
+                          <action android:name="android.intent.action.VIEW" />
+                          <category android:name="android.intent.category.BROWSABLE" />
+
+                          <data android:scheme="http" />
+                          <data android:scheme="https" />
+
+                          <data android:host="example.com" />
+                          <data android:pathPrefix="/gizmos" />
+                      </intent-filter>
+
+                      <intent-filter> <!-- Missing BROWSABLE -->
+                          <action android:name="android.intent.action.VIEW" />
+                          <category android:name="android.intent.category.DEFAULT" />
+
+                          <data android:scheme="http" />
+                          <data android:scheme="https" />
+
+                          <data android:host="example.com" />
+                          <data android:pathPrefix="/gizmos" />
+                      </intent-filter>
+
+                      <intent-filter> <!-- Has custom scheme, missing http -->
+                          <action android:name="android.intent.action.VIEW" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="android.intent.category.BROWSABLE" />
+
+                          <data android:scheme="other" />
+
+                          <data android:host="example.com" />
+                          <data android:pathPrefix="/gizmos" />
+                      </intent-filter>
+
+                      <intent-filter> <!-- Has no scheme -->
+                          <action android:name="android.intent.action.VIEW" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="android.intent.category.BROWSABLE" />
+
+                          <data android:host="example.com" />
+                          <data android:pathPrefix="/gizmos" />
+                      </intent-filter>
+
+                      <intent-filter> <!-- Missing host -->
+                          <action android:name="android.intent.action.VIEW" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="android.intent.category.BROWSABLE" />
+
+                          <data android:scheme="http" />
+                          <data android:scheme="https" />
+                      </intent-filter>
+
+                      <intent-filter android:autoVerify="false"> <!-- We would usually expect a warning here, but it has autoVerify="false" -->
+                          <action android:name="android.intent.action.VIEW" />
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="android.intent.category.BROWSABLE" />
+
+                          <data android:scheme="http" />
+                          <data android:scheme="https" />
+
+                          <data android:host="example.com" />
+                          <data android:pathPrefix="/gizmos" />
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          """,
+          )
+          .indented()
+      )
+      .run()
+      .expect(
+        """
+        AndroidManifest.xml:6: Warning: This intent filter has the format of an Android App Link but is missing the autoVerify attribute; add android:autoVerify="true" to ensure your domain will be validated and enable App Link-related Lint warnings. If you do not want clicked URLs to bring the user to your app, remove the android.intent.category.BROWSABLE category, or set android:autoVerify="false" to make it clear this is not intended to be an Android App Link. [AppLinkWarning]
+                    <intent-filter> <!-- We expect a warning here -->
+                     ~~~~~~~~~~~~~
+        0 errors, 1 warnings
+        """
+      )
+      .expectFixDiffs(
+        """
+      Fix for AndroidManifest.xml line 6: Set autoVerify="true":
+      @@ -7 +7
+      -             <intent-filter> <!-- We expect a warning here -->
+      +             <intent-filter android:autoVerify="true" > <!-- We expect a warning here -->
+      """
       )
   }
 
@@ -2477,7 +2603,7 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
       .isTrue()
   }
 
-  fun testIntersection_sameManifest_appLinks() {
+  fun test_queryParameter() {
     lint()
       .files(
         xml(
@@ -2485,13 +2611,10 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
             """
                 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
                     package="com.example.helloworld" >
+                    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="35" />
 
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
+                    <application>
+                        <activity android:name=".FullscreenActivity" android:exported="true">
 
                             <intent-filter android:autoVerify="true">
                                 <action android:name="android.intent.action.VIEW" />
@@ -2500,10 +2623,119 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
 
                                 <data android:scheme="http" />
                                 <data android:host="example.com" />
-                                <data android:pathPrefix="/path" />
+                                <data android:path="/gizmos?queryParam=1&amp;otherParam=2" />
+                                <data android:pathPrefix="/gizmos?queryParam" />
+                                <data android:pathSuffix="/gizmos?queryParam" />
+                                <data android:pathPattern="/gizmos?queryParam" />
+                                <data android:pathAdvancedPattern="/gizmos?queryParam" />
+                            </intent-filter>
+                            <intent-filter>
+                                <action android:name="android.intent.action.VIEW" />
+                                <category android:name="android.intent.category.DEFAULT" />
+                                <category android:name="android.intent.category.BROWSABLE" />
+
+                                <data android:scheme="custom" />
+                                <data android:host="example.com" />
+                                <data android:path="/gizmos?queryParam=1&amp;otherParam=2" />
+                                <data android:pathPrefix="/gizmos?queryParam" />
+                                <data android:pathSuffix="/gizmos?queryParam" />
+                                <data android:pathPattern="/gizmos?queryParam" />
+                                <data android:pathAdvancedPattern="/gizmos?queryParam" />
                             </intent-filter>
                         </activity>
-                        <activity android:name=".SettingsActivity" >
+                    </application>
+                </manifest>
+                """,
+          )
+          .indented()
+      )
+      .run()
+      .expect(
+        """
+        AndroidManifest.xml:15: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:path="/gizmos?queryParam=1&amp;otherParam=2" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:16: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathPrefix="/gizmos?queryParam" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:17: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathSuffix="/gizmos?queryParam" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:18: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathPattern="/gizmos?queryParam" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:18: Error: pathPattern does not support ? as a Regex character [AppLinkUrlError]
+                        <data android:pathPattern="/gizmos?queryParam" />
+                                                   ~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:19: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathAdvancedPattern="/gizmos?queryParam" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:19: Error: pathAdvancedPattern does not support ? as a Regex character [AppLinkUrlError]
+                        <data android:pathAdvancedPattern="/gizmos?queryParam" />
+                                                           ~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:31: Error: pathPattern does not support ? as a Regex character [AppLinkUrlError]
+                        <data android:pathPattern="/gizmos?queryParam" />
+                                                   ~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:32: Error: pathAdvancedPattern does not support ? as a Regex character [AppLinkUrlError]
+                        <data android:pathAdvancedPattern="/gizmos?queryParam" />
+                                                           ~~~~~~~~~~~~~~~~~~
+        9 errors, 0 warnings
+      """
+      )
+      .expectFixDiffs(
+        """
+        Fix for AndroidManifest.xml line 15: Replace with <uri-relative-filter-group>...:
+        @@ -15 +15
+        -                 <data android:path="/gizmos?queryParam=1&amp;otherParam=2" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:path="/gizmos" />
+        +                     <data android:query="otherParam=2" />
+        +                     <data android:query="queryParam=1" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 16: Replace with <uri-relative-filter-group>...:
+        @@ -16 +16
+        -                 <data android:pathPrefix="/gizmos?queryParam" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathPrefix="/gizmos" />
+        +                     <data android:query="queryParam" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 17: Replace with <uri-relative-filter-group>...:
+        @@ -17 +17
+        -                 <data android:pathSuffix="/gizmos?queryParam" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathSuffix="/gizmos" />
+        +                     <data android:query="queryParam" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 18: Replace with <uri-relative-filter-group>...:
+        @@ -18 +18
+        -                 <data android:pathPattern="/gizmos?queryParam" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathPattern="/gizmos" />
+        +                     <data android:query="queryParam" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 19: Replace with <uri-relative-filter-group>...:
+        @@ -19 +19
+        -                 <data android:pathAdvancedPattern="/gizmos?queryParam" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathAdvancedPattern="/gizmos" />
+        +                     <data android:query="queryParam" />
+        +                 </uri-relative-filter-group>
+      """
+      )
+  }
+
+  fun test_fragment() {
+    lint()
+      .files(
+        xml(
+            "AndroidManifest.xml",
+            """
+                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+                    package="com.example.helloworld" >
+                    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="35" />
+
+                    <application>
+                        <activity android:name=".FullscreenActivity" android:exported="true">
 
                             <intent-filter android:autoVerify="true">
                                 <action android:name="android.intent.action.VIEW" />
@@ -2512,69 +2744,24 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
 
                                 <data android:scheme="http" />
                                 <data android:host="example.com" />
-                                <data android:pathPattern="/path.*" />
+                                <data android:path="/gizmos#fragment=1&amp;otherFragment=2" />
+                                <data android:pathPrefix="/gizmos#fragment!" /> <!-- Special character -->
+                                <data android:pathSuffix="/gizmos#fragment" />
+                                <data android:pathPattern="/gizmos#fragment" />
+                                <data android:pathAdvancedPattern="/gizmos#fragment" />
                             </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expect(
-        """
-        AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[http], hosts=[example.com], paths=[/path.*]) with activity com.example.helloworld.SettingsActivity [IntersectingDeepLinks]
-                <activity android:name=".FullscreenActivity" >
-                 ~~~~~~~~
-            AndroidManifest.xml:21: Deep link URI intersection URIs(schemes=[http], hosts=[example.com], paths=[/path.*]) with activity com.example.helloworld.FullscreenActivity
-                <activity android:name=".SettingsActivity" >
-                 ~~~~~~~~
-        0 errors, 1 warnings
-        """
-      )
-  }
-
-  fun testIntersection_sameManifest_appLinks_differentPriority() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter
-                                android:autoVerify="true"
-                                android:priority="0">
+                            <intent-filter>
                                 <action android:name="android.intent.action.VIEW" />
                                 <category android:name="android.intent.category.DEFAULT" />
                                 <category android:name="android.intent.category.BROWSABLE" />
 
-                                <data android:scheme="http" />
+                                <data android:scheme="custom" />
                                 <data android:host="example.com" />
-                                <data android:pathPrefix="/path" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter
-                                android:autoVerify="true"
-                                android:priority="-100">
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                                <data android:pathPattern="/path.*" />
+                                <data android:path="/gizmos#fragment=1&amp;otherFragment=2" />
+                                <data android:pathPrefix="/gizmos#fragment" />
+                                <data android:pathSuffix="/gizmos#fragment" />
+                                <data android:pathPattern="/gizmos#fragment" />
+                                <data android:pathAdvancedPattern="/gizmos#fragment" />
                             </intent-filter>
                         </activity>
                     </application>
@@ -2586,184 +2773,66 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
       .run()
       .expect(
         """
-        AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[http], hosts=[example.com], paths=[/path.*]) with activity com.example.helloworld.SettingsActivity [IntersectingDeepLinks]
-                <activity android:name=".FullscreenActivity" >
-                 ~~~~~~~~
-            AndroidManifest.xml:23: Deep link URI intersection URIs(schemes=[http], hosts=[example.com], paths=[/path.*]) with activity com.example.helloworld.FullscreenActivity
-                <activity android:name=".SettingsActivity" >
-                 ~~~~~~~~
-        0 errors, 1 warnings
+        AndroidManifest.xml:15: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:path="/gizmos#fragment=1&amp;otherFragment=2" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:16: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathPrefix="/gizmos#fragment!" /> <!-- Special character -->
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:17: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathSuffix="/gizmos#fragment" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:18: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathPattern="/gizmos#fragment" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:19: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:pathAdvancedPattern="/gizmos#fragment" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        5 errors, 0 warnings
+      """
+      )
+      .expectFixDiffs(
         """
-      )
-  }
-
-  fun testIntersection_sameManifest_customSchemeDeepLinks_withHost() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                                <data android:host="example.com" android:port="8000" />
-                                <data android:pathPrefix="/path" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                                <data android:host="example.com" android:port="8000" />
-                                <data android:pathPattern="/path.*" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expect(
-        """
-        AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[customscheme], hosts=[example.com:8000], paths=[/path.*]) with activity com.example.helloworld.SettingsActivity [IntersectingDeepLinks]
-                <activity android:name=".FullscreenActivity" >
-                 ~~~~~~~~
-            AndroidManifest.xml:21: Deep link URI intersection URIs(schemes=[customscheme], hosts=[example.com:8000], paths=[/path.*]) with activity com.example.helloworld.FullscreenActivity
-                <activity android:name=".SettingsActivity" >
-                 ~~~~~~~~
-        0 errors, 1 warnings
-        """
-      )
-  }
-
-  fun testIntersection_sameManifest_differentPriorities() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter android:priority="-100">
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                                <data android:host="www.example.com" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter android:priority="0">
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                                <data android:host="www.example.com" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_withMultipleOverlaps() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:scheme="customscheme" />
-                                <data android:host="example.com" android:port="8000" />
-                                <data android:host="example.com" android:port="8080" />
-                                <data android:pathPrefix="/path" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:scheme="customscheme" />
-                                <data android:host="example.com" android:port="8000" />
-                                <data android:host="example.com" android:port="8080" />
-                                <data android:pathPattern="/path.*" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expect(
-        """
-      AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[customscheme, http], hosts=[example.com:8000, example.com:8080], paths=[/path.*]) with activity com.example.helloworld.SettingsActivity [IntersectingDeepLinks]
-              <activity android:name=".FullscreenActivity" >
-               ~~~~~~~~
-          AndroidManifest.xml:23: Deep link URI intersection URIs(schemes=[customscheme, http], hosts=[example.com:8000, example.com:8080], paths=[/path.*]) with activity com.example.helloworld.FullscreenActivity
-              <activity android:name=".SettingsActivity" >
-               ~~~~~~~~
-      0 errors, 1 warnings
+        Fix for AndroidManifest.xml line 15: Replace with <uri-relative-filter-group>...:
+        @@ -15 +15
+        -                 <data android:path="/gizmos#fragment=1&amp;otherFragment=2" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:path="/gizmos" />
+        +                     <data android:fragment="fragment=1&otherFragment=2" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 16: Replace with <uri-relative-filter-group>...:
+        @@ -16 +16
+        -                 <data android:pathPrefix="/gizmos#fragment!" /> <!-- Special character -->
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathPrefix="/gizmos" />
+        +                     <data android:fragment="fragment!" />
+        +                 </uri-relative-filter-group> <!-- Special character -->
+        Fix for AndroidManifest.xml line 17: Replace with <uri-relative-filter-group>...:
+        @@ -17 +17
+        -                 <data android:pathSuffix="/gizmos#fragment" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathSuffix="/gizmos" />
+        +                     <data android:fragment="fragment" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 18: Replace with <uri-relative-filter-group>...:
+        @@ -18 +18
+        -                 <data android:pathPattern="/gizmos#fragment" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathPattern="/gizmos" />
+        +                     <data android:fragment="fragment" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 19: Replace with <uri-relative-filter-group>...:
+        @@ -19 +19
+        -                 <data android:pathAdvancedPattern="/gizmos#fragment" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:pathAdvancedPattern="/gizmos" />
+        +                     <data android:fragment="fragment" />
+        +                 </uri-relative-filter-group>
       """
       )
   }
 
-  fun testIntersection_sameManifest_sameExactIntentFilterText_noHostAndPath() {
+  fun test_queryParamAndFragment() {
     lint()
       .files(
         xml(
@@ -2771,30 +2840,20 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
             """
                 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
                     package="com.example.helloworld" >
+                    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="35" />
 
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
+                    <application>
+                        <activity android:name=".FullscreenActivity" android:exported="true">
 
-                            <intent-filter>
+                            <intent-filter android:autoVerify="true">
                                 <action android:name="android.intent.action.VIEW" />
                                 <category android:name="android.intent.category.DEFAULT" />
                                 <category android:name="android.intent.category.BROWSABLE" />
 
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
+                                <data android:scheme="http" />
+                                <data android:host="example.com" />
+                                <data android:path="/gizmos?queryParam#fragment" />
+                                <data android:path="/gizmos#fragment?queryParam" />
                             </intent-filter>
                         </activity>
                     </application>
@@ -2806,682 +2865,118 @@ class AppLinksValidDetectorTest : AbstractCheckTest() {
       .run()
       .expect(
         """
-        AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[customscheme]) with activity com.example.helloworld.SettingsActivity [IntersectingDeepLinks]
-                <activity android:name=".FullscreenActivity" >
-                 ~~~~~~~~
-            AndroidManifest.xml:19: Deep link URI intersection URIs(schemes=[customscheme]) with activity com.example.helloworld.FullscreenActivity
-                <activity android:name=".SettingsActivity" >
-                 ~~~~~~~~
-        0 errors, 1 warnings
+        AndroidManifest.xml:15: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:path="/gizmos?queryParam#fragment" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:16: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:path="/gizmos#fragment?queryParam" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        2 errors, 0 warnings
+      """
+      )
+      .expectFixDiffs(
         """
-      )
-  }
-
-  fun testIntersection_sameManifest_sameExactIntentFilterText_noPath() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expect(
-        """
-        AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.SettingsActivity [IntersectingDeepLinks]
-                <activity android:name=".FullscreenActivity" >
-                 ~~~~~~~~
-            AndroidManifest.xml:20: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.FullscreenActivity
-                <activity android:name=".SettingsActivity" >
-                 ~~~~~~~~
-        0 errors, 1 warnings
-        """
-      )
-  }
-
-  fun testIntersection_sameManifest_notDeepLinksButSameData() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-
-                                <data android:scheme="customscheme" />
-                                <data android:host="example.com" />
-                                <data android:path="/path" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-
-                                <data android:scheme="customscheme" />
-                                <data android:host="example.com" />
-                                <data android:path="/path" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_customSchemeLinks_differentActivityLabel() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity
-                            android:name=".FullscreenActivity"
-                            android:label="FullscreenActivityLabel" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                        <activity
-                            android:name=".SettingsActivity"
-                            android:label="SettingsActivityLabel" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_customSchemeLinks_differentActivityIcon() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity
-                            android:name=".FullscreenActivity"
-                            android:icon="@drawable/fullscreen-activity-icon" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_customSchemeLinks_differentLabel() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter android:label="IntentFilterLabel">
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                        <activity
-                            android:name=".SettingsActivity"
-                            android:label="ActivityLabel" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_customSchemeLinks_differentIcon() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter android:icon="@drawable/intentfilter-1">
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="customscheme" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_appLinks_differentIcon() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter android:icon="@drawable/intentfilter-1">
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expect(
-        """
-        AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.SettingsActivity [IntersectingDeepLinks]
-                <activity android:name=".FullscreenActivity" >
-                 ~~~~~~~~
-            AndroidManifest.xml:20: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.FullscreenActivity
-                <activity android:name=".SettingsActivity" >
-                 ~~~~~~~~
-        0 errors, 1 warnings
-        """
-      )
-  }
-
-  fun testIntersection_sameManifest_butOneNotEnabled() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                        <activity android:name=".SettingsActivity" android:enabled="false" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_sameActivity() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .run()
-      .expectClean()
-  }
-
-  fun testIntersection_sameManifest_activityAlias_ide() {
-    lint()
-      .files(
-        xml(
-            "AndroidManifest.xml",
-            """
-                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    package="com.example.helloworld" >
-
-                    <application
-                        android:allowBackup="true"
-                        android:icon="@mipmap/ic_launcher"
-                        android:label="@string/app_name"
-                        android:theme="@style/AppTheme" >
-                        <activity android:name=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity>
-                        <activity-alias
-                            android:name=".Alias"
-                            android:exported="true"
-                            android:targetActivity=".FullscreenActivity" >
-
-                            <intent-filter>
-                                <action android:name="android.intent.action.VIEW" />
-                                <category android:name="android.intent.category.DEFAULT" />
-                                <category android:name="android.intent.category.BROWSABLE" />
-
-                                <data android:scheme="http" />
-                                <data android:host="example.com" />
-                            </intent-filter>
-                        </activity-alias>
-                    </application>
-                </manifest>
-                """,
-          )
-          .indented()
-      )
-      .clientFactory {
-        val client = com.android.tools.lint.checks.infrastructure.TestLintClient()
-        LintClient.clientName = CLIENT_STUDIO
-        client
-      }
-      .allowDuplicates()
-      .run()
-      .expect(
-        """
-      AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.Alias [IntersectingDeepLinks]
-              <activity android:name=".FullscreenActivity" >
-               ~~~~~~~~
-          AndroidManifest.xml:20: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.FullscreenActivity
-              <activity-alias
-               ~~~~~~~~~~~~~~
-      AndroidManifest.xml:20: Warning: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.FullscreenActivity [IntersectingDeepLinks]
-              <activity-alias
-               ~~~~~~~~~~~~~~
-          AndroidManifest.xml:9: Deep link URI intersection URIs(schemes=[http], hosts=[example.com]) with activity com.example.helloworld.Alias
-              <activity android:name=".FullscreenActivity" >
-               ~~~~~~~~
-      0 errors, 2 warnings
+        Fix for AndroidManifest.xml line 15: Replace with <uri-relative-filter-group>...:
+        @@ -15 +15
+        -                 <data android:path="/gizmos?queryParam#fragment" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:path="/gizmos" />
+        +                     <data android:query="queryParam" />
+        +                     <data android:fragment="fragment" />
+        +                 </uri-relative-filter-group>
+        Fix for AndroidManifest.xml line 16: Replace with <uri-relative-filter-group>...:
+        @@ -16 +16
+        -                 <data android:path="/gizmos#fragment?queryParam" />
+        +                 <uri-relative-filter-group>
+        +                     <data android:path="/gizmos" />
+        +                     <data android:query="queryParam" />
+        +                     <data android:fragment="fragment" />
+        +                 </uri-relative-filter-group>
       """
       )
   }
 
-  fun testIntersection_library() {
+  fun test_queryParameter_andFragment_belowAndroidV() {
     lint()
-      .projects(
-        project(
-            manifest(
-                """
-            <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      .files(
+        xml(
+            "AndroidManifest.xml",
+            """
+                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
                     package="com.example.helloworld" >
+                    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="34" />
 
-                <application
-                    android:allowBackup="true"
-                    android:icon="@mipmap/ic_launcher"
-                    android:label="@string/app_name"
-                    android:theme="@style/AppTheme" >
-                    <activity android:name=".FullscreenActivity" >
+                    <application>
+                        <activity android:name=".FullscreenActivity" android:exported="true">
 
-                        <intent-filter>
-                            <action android:name="android.intent.action.VIEW" />
-                            <category android:name="android.intent.category.DEFAULT" />
-                            <category android:name="android.intent.category.BROWSABLE" />
+                            <intent-filter android:autoVerify="true">
+                                <action android:name="android.intent.action.VIEW" />
+                                <category android:name="android.intent.category.DEFAULT" />
+                                <category android:name="android.intent.category.BROWSABLE" />
 
-                            <data android:scheme="customscheme" />
-                            <data android:host="example.com" />
-                            <data android:pathPattern="/path" />
-                        </intent-filter>
-                    </activity>
-                    <activity
-                        android:name="com.example.library.SettingsActivity"
-                        android:exported="true" />
-                </application>
-            </manifest>
-            """
-              )
-              .indented(),
-            projectProperties().dependsOn("../library").manifestMerger(true),
+                                <data android:scheme="http" />
+                                <data android:host="example.com" />
+                                <data android:path="/gizmos?queryParam" />
+                                <data android:path="/gizmos#fragment" />
+                            </intent-filter>
+                        </activity>
+                    </application>
+                </manifest>
+                """,
           )
-          .name("app")
-          .dependsOn(
-            project(
-                manifest(
-                    """
-            <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                package="com.example.library" >
-
-                <application
-                    android:allowBackup="true"
-                    android:icon="@mipmap/ic_launcher"
-                    android:label="@string/app_name"
-                    android:theme="@style/AppTheme" >
-                    <activity android:name=".SettingsActivity" >
-
-                        <intent-filter>
-                            <action android:name="android.intent.action.VIEW" />
-                            <category android:name="android.intent.category.DEFAULT" />
-                            <category android:name="android.intent.category.BROWSABLE" />
-
-                            <data android:scheme="customscheme" />
-                            <data android:host="example.com" />
-                            <data android:path="/path" />
-                        </intent-filter>
-                    </activity>
-                </application>
-            </manifest>
-            """
-                  )
-                  .indented(),
-                projectProperties().library(true),
-              )
-              .name("library")
-          )
+          .indented()
       )
       .run()
       .expect(
         """
-      AndroidManifest.xml:9: Warning: Deep link URI intersection URIs(schemes=[customscheme], hosts=[example.com], paths=[/path]) with activity com.example.library.SettingsActivity [IntersectingDeepLinks]
-              <activity android:name=".FullscreenActivity" >
-               ~~~~~~~~
-          AndroidManifest.xml:21: Deep link URI intersection URIs(schemes=[customscheme], hosts=[example.com], paths=[/path]) with activity com.example.helloworld.FullscreenActivity
-              <activity
-               ~~~~~~~~
-      0 errors, 1 warnings
+        AndroidManifest.xml:15: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:path="/gizmos?queryParam" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        AndroidManifest.xml:16: Error: App link matching does not support query parameters or fragments, unless using <uri-relative-filter-group> (introduced in Android 15) [AppLinkUrlError]
+                        <data android:path="/gizmos#fragment" />
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        2 errors, 0 warnings
       """
       )
+      .expectFixDiffs("")
   }
 
-  fun testIntersection_library_noAlert_ifIntentFilterExcludedWithToolsNodeRemove() {
-    // Note: putting tools:node="remove" on the intent filter or main activity tag doesn't actually
-    // remove anything from the merged manifest!
-    lint()
-      .projects(
-        project(
-            manifest(
-                """
-            <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    package="com.example.helloworld" >
-
-                <application
-                    android:allowBackup="true"
-                    android:icon="@mipmap/ic_launcher"
-                    android:label="@string/app_name"
-                    android:theme="@style/AppTheme" >
-                    <activity
-                        android:name=".FullscreenActivity"
-                        android:label="@string/title_activity_fullscreen" >
-
-                        <intent-filter>
-                            <action android:name="android.intent.action.VIEW" />
-                            <category android:name="android.intent.category.DEFAULT" />
-                            <category android:name="android.intent.category.BROWSABLE" />
-
-                            <data android:scheme="customscheme" />
-                            <data android:host="example.com" />
-                            <data android:pathPattern="/path" />
-                        </intent-filter>
-                    </activity>
-                    <activity
-                        android:name="com.example.library.SettingsActivity"
-                        android:exported="true"
-                        tools:node="remove" />
-                </application>
-            </manifest>
-            """
-              )
-              .indented(),
-            projectProperties().dependsOn("../library").manifestMerger(true),
-          )
-          .name("app")
-          .dependsOn(
-            project(
-                manifest(
-                    """
-            <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                package="com.example.library" >
-
-                <application
-                    android:allowBackup="true"
-                    android:icon="@mipmap/ic_launcher"
-                    android:label="@string/app_name"
-                    android:theme="@style/AppTheme" >
-                    <activity
-                        android:name=".SettingsActivity"
-                        android:label="LibrarySettingsActivity" >
-
-                        <intent-filter >
-                            <action android:name="android.intent.action.VIEW" />
-                            <category android:name="android.intent.category.DEFAULT" />
-                            <category android:name="android.intent.category.BROWSABLE" />
-
-                            <data android:scheme="customscheme" />
-                            <data android:host="example.com" />
-                            <data android:path="/path" />
-                        </intent-filter>
-                    </activity>
-                </application>
-            </manifest>
-            """
-                  )
-                  .indented(),
-                projectProperties().library(true),
-              )
-              .name("library")
-          )
-      )
-      .run()
-      .expectClean()
+  fun test_queryParameter_andFragment_insideUriRelativeFilterGroup() {
+    // TODO(b/370997994): Allow <data> tags inside <uri-relative-filter-group> to be visited, then
+    // enable this test.
+    //    lint()
+    //      .files(
+    //        xml(
+    //          "AndroidManifest.xml",
+    //          """
+    //                <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    //                    package="com.example.helloworld" >
+    //                    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="35" />
+    //
+    //                    <application>
+    //                        <activity android:name=".FullscreenActivity" android:exported="true">
+    //
+    //                            <intent-filter android:autoVerify="true">
+    //                                <action android:name="android.intent.action.VIEW" />
+    //                                <category android:name="android.intent.category.DEFAULT" />
+    //                                <category android:name="android.intent.category.BROWSABLE" />
+    //
+    //                                <data android:scheme="http" />
+    //                                <data android:host="example.com" />
+    //                                <uri-relative-filter-group>
+    //                                    <data android:path="/gizmos?queryParam" />
+    //                                    <data android:path="/gizmos#fragment" />
+    //                                </uri-relative-filter-group>
+    //                            </intent-filter>
+    //                        </activity>
+    //                    </application>
+    //                </manifest>
+    //                """,
+    //        )
+    //          .indented()
+    //      )
+    //      .run()
+    //      .expect("")
+    //      .expectFixDiffs("")
   }
 }

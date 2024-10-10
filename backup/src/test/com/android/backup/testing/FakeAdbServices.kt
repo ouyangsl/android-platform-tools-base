@@ -25,15 +25,16 @@ import com.android.tools.environment.log.NoopLogger
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import kotlin.coroutines.EmptyCoroutineContext
 
 private const val BMGR_ENABLE = "bmgr enable "
 private const val SET_TEST_MODE = "settings put secure backup_enable_android_studio_mode "
+private const val SET_BACKUP_TYPE = "settings put secure backup_android_studio_mode_backup_type "
 private const val SET_TRANSPORT = "bmgr transport "
 private const val LIST_TRANSPORT = "bmgr list transports"
 private const val INIT_TRANSPORT = "bmgr init "
 private const val BACKUP_NOW = "bmgr backupnow "
 private const val RESTORE = "bmgr restore "
-private const val DELETE_FILES = "rm -rf "
 private const val DUMPSYS_GMSCORE = "dumpsys package com.google.android.gms"
 private const val LAUNCH_PLAY_STORE = "am start market://details?id=com.google.android.gms"
 private const val DUMPSYS_ACTIVITY = "dumpsys activity"
@@ -52,6 +53,8 @@ internal class FakeAdbServices(
     totalSteps,
     minGmsVersion,
   ) {
+
+  override val ioContext = EmptyCoroutineContext
 
   sealed class CommandOverride(val command: String) {
     class Output(command: String, private val stdout: String, private val stderr: String = "") :
@@ -73,7 +76,7 @@ internal class FakeAdbServices(
   private val commandOverrides = mutableMapOf<String, CommandOverride>()
 
   var bmgrEnabled = false
-  var failSync = false
+  var failReadWriteContent = false
   var testMode = 0
   var transports =
     listOf(
@@ -103,9 +106,9 @@ internal class FakeAdbServices(
         command.startsWith(SET_TRANSPORT) -> handleSetTransport(command)
         command == LIST_TRANSPORT -> handleListTransports()
         command.startsWith(INIT_TRANSPORT) -> handleInitTransport(command)
+        command.startsWith(SET_BACKUP_TYPE) -> handleBackupType()
         command.startsWith(BACKUP_NOW) -> handleBackupNow(command)
         command.startsWith(RESTORE) -> handleRestore()
-        command.startsWith(DELETE_FILES) -> "".asStdout()
         command.startsWith(LIST_PACKAGES) -> handleListPackages()
         command == DUMPSYS_GMSCORE -> handleDumpsysGmsCore()
         command == LAUNCH_PLAY_STORE -> handleLaunchPlayStore()
@@ -116,21 +119,18 @@ internal class FakeAdbServices(
   }
 
   @Suppress("BlockingMethodInNonBlockingContext")
-  override suspend fun syncRecv(outputStream: OutputStream, remoteFilePath: String) {
-    if (failSync) {
+  override suspend fun readContent(outputStream: OutputStream, uri: String) {
+    if (failReadWriteContent) {
       throw IOException()
     }
-    outputStream.write(remoteFilePath.toByteArray())
-    // AdbLib closes the stream after a recv, so we do as well.
-    outputStream.close()
+    outputStream.write(uri.toByteArray())
   }
 
-  override suspend fun syncSend(inputStream: InputStream, remoteFilePath: String) {
-    if (failSync) {
+  override suspend fun writeContent(inputStream: InputStream, uri: String) {
+    if (failReadWriteContent) {
       throw IOException()
     }
-    pushedFiles.add(remoteFilePath)
-    @Suppress("BlockingMethodInNonBlockingContext") inputStream.close()
+    pushedFiles.add(uri)
   }
 
   fun addCommandOverride(override: CommandOverride): FakeAdbServices {
@@ -152,6 +152,10 @@ internal class FakeAdbServices(
 
   private fun handleSetTestMode(command: String): AdbOutput {
     testMode = command.dropPrefix(SET_TEST_MODE).toInt()
+    return "".asStdout()
+  }
+
+  private fun handleBackupType(): AdbOutput {
     return "".asStdout()
   }
 
@@ -195,7 +199,7 @@ internal class FakeAdbServices(
   }
 
   private fun handleBackupNow(command: String): AdbOutput {
-    val applicationId = command.substringAfterLast(" ")
+    val applicationId = command.split(' ')[3]
     return """
     Package $applicationId with result: Success
     Backup finished with result: Success
