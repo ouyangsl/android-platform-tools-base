@@ -22,9 +22,11 @@ iml_module(
         "@intellij//:com.intellij.java",
         "//tools/base/adb-proxy:adb_proxy_proto",
         "//tools/base/adblib:studio.android.sdktools.adblib[module]",
+        "//tools/adt/idea/.idea/libraries:junit4[test]",
         "//tools/adt/idea/.idea/libraries:mockito[test]",
         "//tools/base/testutils:studio.android.sdktools.testutils[module, test]",
         "//tools/adt/idea/.idea/libraries:truth[test]",
+        "//tools/adt/idea/.idea/libraries:mockito-kotlin[test]",
     ],
 )
 

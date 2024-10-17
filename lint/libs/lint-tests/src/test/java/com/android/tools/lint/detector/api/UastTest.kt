@@ -2489,6 +2489,47 @@ class UastTest : TestCase() {
     }
   }
 
+  fun testConstructorDelegationType() {
+    // https://youtrack.jetbrains.com/issue/KTIJ-31633
+    val source =
+      kotlin(
+          """
+          class Constructors {
+            class ThisCall {
+              constructor() // (1)
+              constructor(i: Int) : this() // (2)
+            }
+            open class SuperCallToImplicit {
+              class C : SuperCallToImplicit {
+                constructor() : super() // (3)
+              }
+            }
+            open class SuperCallToExplicit {
+              constructor() // (4)
+              class C : SuperCallToExplicit {
+                constructor() : super() // (5)
+              }
+            }
+          }
+        """
+        )
+        .indented()
+    var count = 0
+    check(source) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitCallExpression(node: UCallExpression): Boolean {
+            val t = node.getExpressionType()
+            assertNull(node.sourcePsi?.text ?: "<null source PSI>", t)
+            count++
+            return super.visitCallExpression(node)
+          }
+        }
+      )
+    }
+    assertEquals(5, count)
+  }
+
   fun testConstructorReferences() {
     val source =
       kotlin(
@@ -4867,6 +4908,53 @@ class UastTest : TestCase() {
             assertEquals("nananananana, batman", eval)
 
             return super.visitMethod(node)
+          }
+        }
+      )
+    }
+  }
+
+  fun testLocalPropertyEvaluation() {
+    // https://youtrack.jetbrains.com/issue/KTIJ-30649
+    val source =
+      kotlin(
+        """
+          class Test {
+            val foo = "foo"
+
+            fun test(): String {
+              val bar = "bar"
+              return foo + bar
+            }
+
+            fun poly(): String {
+              val na = "na"
+              val b = "batman"
+              return na + na + na + na + na + na + na + na + ", " + b
+            }
+          }
+        """
+      )
+    val names = listOf("foo", "bar", "na", "batman")
+    check(source) { file ->
+      file.accept(
+        object : AbstractUastVisitor() {
+          override fun visitSimpleNameReferenceExpression(
+            node: USimpleNameReferenceExpression
+          ): Boolean {
+            val eval = node.evaluate()
+            assertTrue(node.sourcePsi?.text, eval in names)
+            return super.visitSimpleNameReferenceExpression(node)
+          }
+
+          override fun visitReturnExpression(node: UReturnExpression): Boolean {
+            val eval = node.returnExpression?.evaluate()
+            if ((node.jumpTarget as? UMethod)?.name == "poly") {
+              assertEquals("nananananananana, batman", eval)
+            } else {
+              assertEquals("foobar", eval)
+            }
+            return super.visitReturnExpression(node)
           }
         }
       )
