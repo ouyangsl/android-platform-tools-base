@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475c6609_b40f575d",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/client/api/LintJarApiMigration.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1075064
+      },
+      "writtenOn": "2024-10-24T21:04:12Z",
+      "side": 1,
+      "message": "Is it safer to use `startsWith`?",
+      "range": {
+        "startLine": 952,
+        "startChar": 16,
+        "endLine": 952,
+        "endChar": 24
+      },
+      "revId": "584aa7f2d531a9f63257818d6adb151e676692c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
