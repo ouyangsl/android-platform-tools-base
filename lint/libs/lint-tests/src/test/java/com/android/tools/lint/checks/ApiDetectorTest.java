@@ -2347,6 +2347,10 @@ public class ApiDetectorTest extends AbstractCheckTest {
     }
 
     public void test38195() {
+        // TODO(b/350744053)
+        if (UastEnvironmentKt.useFirUast()) {
+            return;
+        }
         // See https://issuetracker.google.com/36956365
         String expected =
                 ""
