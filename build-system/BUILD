@@ -25,6 +25,7 @@ iml_module(
         "//tools/base/sdk-common:studio.android.sdktools.sdk-common[module]",
         "//tools/base/testutils:studio.android.sdktools.testutils[module, test]",
         "//tools/adt/idea/.idea/libraries:truth[test]",
+        "//tools/adt/idea/.idea/libraries:mockito-kotlin[test]",
     ],
 )
 
@@ -80,6 +81,7 @@ kotlin_test(
         "@maven//:com.google.guava.guava",
         "@maven//:com.google.truth.truth",
         "@maven//:junit.junit",
+        "@maven//:org.mockito.kotlin.mockito-kotlin",
         "@maven//:org.mockito.mockito-core",
     ],
 )
@@ -403,6 +405,7 @@ ANDROID_GRADLE_PLUGIN_SOURCE_FILES = [
     "//tools/base/build-system/builder-test-api:agp_gradle_build_files",
     "//tools/base/build-system/gradle-api:agp_gradle_build_files",
     "//tools/base/build-system/gradle-core:agp_gradle_build_files",
+    "//tools/base/build-system/gradle-dcl-ecosystem:agp_gradle_build_files",
     "//tools/base/build-system/gradle-kotlin:agp_gradle_build_files",
     "//tools/base/build-system/gradle-settings:agp_gradle_build_files",
     "//tools/base/build-system/gradle-settings-api:agp_gradle_build_files",
@@ -523,6 +526,8 @@ maven_repository(
         "@maven//:org.jacoco.org.jacoco.report",
         "@maven//:org.jetbrains.dokka.dokka-core",
         "@maven//:org.jetbrains.kotlin.jvm.org.jetbrains.kotlin.jvm.gradle.plugin",
+        "@maven//:org.jetbrains.kotlin.kotlin-build-common_2.0.21",
+        "@maven//:org.jetbrains.kotlin.kotlin-build-tools-impl_2.0.21",
         "@maven//:org.jetbrains.kotlin.kotlin-compiler",
         "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin-api",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",

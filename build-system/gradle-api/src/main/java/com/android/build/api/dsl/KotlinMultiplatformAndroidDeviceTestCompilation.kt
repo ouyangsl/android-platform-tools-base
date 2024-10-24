@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package com.android.build.gradle.internal.dsl
+package com.android.build.api.dsl
 
-import com.android.build.api.dsl.KotlinMultiplatformAndroidTestOnJvm
-import com.android.build.gradle.internal.services.DslServices
-import javax.inject.Inject
+import org.gradle.api.Incubating
 
-abstract class KotlinMultiplatformAndroidTestOnJvmImpl @Inject constructor(
-    val dslServices: DslServices,
-): KotlinMultiplatformAndroidTestOnJvm {
-    override var isReturnDefaultValues: Boolean = false
-    override var isIncludeAndroidResources: Boolean = false
-    override var enableCoverage: Boolean = false
-}
+@Incubating
+@Deprecated("Use KotlinMultiplatformAndroidDeviceTestCompilation. This interface will be removed in AGP 9.0")
+interface KotlinMultiplatformAndroidTestOnDeviceCompilation:
+    KotlinMultiplatformAndroidDeviceTest,
+    KotlinMultiplatformAndroidCompilation
+
+interface KotlinMultiplatformAndroidDeviceTestCompilation:
+    KotlinMultiplatformAndroidDeviceTest,
+    KotlinMultiplatformAndroidCompilation

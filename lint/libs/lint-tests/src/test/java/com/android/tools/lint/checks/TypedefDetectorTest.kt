@@ -16,6 +16,7 @@
 
 package com.android.tools.lint.checks
 
+import com.android.tools.lint.checks.infrastructure.TestLintTask
 import com.android.tools.lint.checks.infrastructure.TestMode
 import com.android.tools.lint.client.api.LintBaseline
 import com.android.tools.lint.detector.api.Detector
@@ -24,6 +25,10 @@ import org.junit.ComparisonFailure
 
 class TypedefDetectorTest : AbstractCheckTest() {
   override fun getDetector(): Detector = TypedefDetector()
+
+  override fun lint(): TestLintTask {
+    return super.lint().allowNonAlphabeticalFixOrder(true)
+  }
 
   fun testDocumentationExample() {
     lint()
@@ -823,9 +828,10 @@ class TypedefDetectorTest : AbstractCheckTest() {
             "        Object error1 = context.bindService(intent,\n" +
             "                Context.BIND_ABOVE_CLIENT | /*Must be one or more of: Context.BIND_AUTO_CREATE, Context.BIND_DEBUG_UNBIND, Context.BIND_NOT_FOREGROUND, Context.BIND_ABOVE_CLIENT, Context.BIND_ALLOW_OOM_MANAGEMENT, Context.BIND_WAIVE_PRIORITY, Context.BIND_IMPORTANT, Context.BIND_ADJUST_WITH_ACTIVITY, Context.BIND_NOT_PERCEPTIBLE, Context.BIND_ALLOW_ACTIVITY_STARTS, Context.BIND_INCLUDE_CAPABILITIES, Context.BIND_SHARED_ISOLATED_PROCESS, Context.BIND_EXTERNAL_SERVICE*/Context.CONTEXT_IGNORE_SECURITY/**/,\n" +
             "                executor, connection);\n" +
-            "        int flags2 = Context.BIND_ABOVE_CLIENT | Context.CONTEXT_IGNORE_SECURITY;\n" +
-            "             Object error2 = context.bindService(intent, context.bindService(intent, /*Must be one or more of: Context.BIND_AUTO_CREATE, Context.BIND_DEBUG_UNBIND, Context.BIND_NOT_FOREGROUND, Context.BIND_ABOVE_CLIENT, Context.BIND_ALLOW_OOM_MANAGEMENT, Context.BIND_WAIVE_PRIORITY, Context.BIND_IMPORTANT, Context.BIND_ADJUST_WITH_ACTIVITY, Context.BIND_NOT_PERCEPTIBLE, Context.BIND_ALLOW_ACTIVITY_STARTS, Context.BIND_INCLUDE_CAPABILITIES, Context.BIND_SHARED_ISOLATED_PROCESS, Context.BIND_EXTERNAL_SERVICE*/flags2/**/,\n" +
-            "             executor, connection);\n" +
+            "        int flags2 = Context.BIND_ABOVE_CLIENT | /*Must be one or more of: Context.BIND_AUTO_CREATE, Context.BIND_DEBUG_UNBIND, Context.BIND_NOT_FOREGROUND, Context.BIND_ABOVE_CLIENT, Context.BIND_ALLOW_OOM_MANAGEMENT, Context.BIND_WAIVE_PRIORITY, Context.BIND_IMPORTANT, Context.BIND_ADJUST_WITH_ACTIVITY, Context.BIND_NOT_PERCEPTIBLE, Context.BIND_ALLOW_ACTIVITY_STARTS, Context.BIND_INCLUDE_CAPABILITIES, Context.BIND_SHARED_ISOLATED_PROCESS, Context.BIND_EXTERNAL_SERVICE*/Context.CONTEXT_IGNORE_SECURITY/**/;\n" +
+            "        Object error2 = context.bindService(intent,\n" +
+            "                flags2,\n" +
+            "                executor, connection);\n" +
             "    }\n" +
             "}\n"
         ),
@@ -1221,6 +1227,30 @@ class TypedefDetectorTest : AbstractCheckTest() {
           "        wantInt(giveWrongIntAnnotated()) //ERROR\n" +
           "                ~~~~~~~~~~~~~~~~~~~~~~~\n" +
           "5 errors, 0 warnings"
+      )
+      .expectFixDiffs(
+        """
+        Fix for src/test/pkg/IntDefTest.kt line 6: Change to TestType.LOL:
+        @@ -6 +6
+        -         wantInt(100) // ERROR
+        +         wantInt(TestType.LOL) // ERROR
+        Fix for src/test/pkg/IntDefTest.kt line 7: Change to TestType.LOL:
+        @@ -7 +7
+        -         wantInt(WrongType.NO) // ERROR
+        +         wantInt(TestType.LOL) // ERROR
+        Fix for src/test/pkg/IntDefTest.kt line 8: Change to TestType.LOL:
+        @@ -8 +8
+        -         wantInt(giveRandomInt()) // ERROR
+        +         wantInt(TestType.LOL) // ERROR
+        Fix for src/test/pkg/IntDefTest.kt line 9: Change to TestType.LOL:
+        @@ -9 +9
+        -         wantInt(giveWrongInt()) //ERROR
+        +         wantInt(TestType.LOL) //ERROR
+        Fix for src/test/pkg/IntDefTest.kt line 10: Change to TestType.LOL:
+        @@ -10 +10
+        -         wantInt(giveWrongIntAnnotated()) //ERROR
+        +         wantInt(TestType.LOL) //ERROR
+        """
       )
   }
 
@@ -1867,11 +1897,15 @@ class TypedefDetectorTest : AbstractCheckTest() {
       )
       .expectFixDiffs(
         """
-            Fix for src/com/example/android/linttest/MainActivity.java line 15: Change to FragmentNames.HOME:
-            @@ -15 +15
-            -         toastFragmentNameAndText(getSomeTextFromThisClass(), FragmentNames.HOME); // ERROR
-            +         toastFragmentNameAndText(FragmentNames.HOME, FragmentNames.HOME); // ERROR
-            """
+        Fix for src/com/example/android/linttest/MainActivity.java line 15: Change to FragmentNames.HOME:
+        @@ -15 +15
+        -         toastFragmentNameAndText(getSomeTextFromThisClass(), FragmentNames.HOME); // ERROR
+        +         toastFragmentNameAndText(FragmentNames.HOME, FragmentNames.HOME); // ERROR
+        Fix for src/com/example/android/linttest/MainActivity.java line 16: Change to FragmentNames.HOME:
+        @@ -16 +16
+        -         toastFragmentNameAndText(FragmentUtils.getSomeTextFromOtherClass(), FragmentNames.HOME); // ERROR
+        +         toastFragmentNameAndText(FragmentNames.HOME, FragmentNames.HOME); // ERROR
+        """
       )
   }
 
@@ -2048,14 +2082,24 @@ class TypedefDetectorTest : AbstractCheckTest() {
       )
       .run()
       .expect(
-        // , but could be X, Y or Z
-        // and add baseline matching
         """
             src/androidx/camera/view/CameraController.java:14: Error: Must be one of: AspectRatio.RATIO_4_3, AspectRatio.RATIO_16_9, but could be OutputSize.UNASSIGNED_ASPECT_RATIO [WrongConstant]
                                     builder.setTargetAspectRatio(outputSize.getAspectRatio()); // ERROR
                                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~
             1 errors, 0 warnings
             """
+      )
+      .expectFixDiffs(
+        """
+        Fix for src/androidx/camera/view/CameraController.java line 14: Change to AspectRatio.RATIO_4_3:
+        @@ -14 +14
+        -                         builder.setTargetAspectRatio(outputSize.getAspectRatio()); // ERROR
+        +                         builder.setTargetAspectRatio(AspectRatio.RATIO_4_3); // ERROR
+        Fix for src/androidx/camera/view/CameraController.java line 14: Change to AspectRatio.RATIO_16_9:
+        @@ -14 +14
+        -                         builder.setTargetAspectRatio(outputSize.getAspectRatio()); // ERROR
+        +                         builder.setTargetAspectRatio(AspectRatio.RATIO_16_9); // ERROR
+        """
       )
   }
 
@@ -2225,18 +2269,37 @@ class TypedefDetectorTest : AbstractCheckTest() {
                 @Thing const val ONE = 1
                 @Thing const val ANSWER = 42
                 @Thing const val HUNDRED = 100
+
+                fun thingConsumer(@Thing t: Int) {
+                }
+
+                fun test(b: Boolean, i: Int?) {
+                  thingConsumer(if (b) 200 else 300)
+                  thingConsumer(i ?: 3_000)
+                }
                 """
           )
           .indented(),
         SUPPORT_ANNOTATIONS_JAR,
       )
+      // Intended to test if/else expressions
+      .skipTestModes(TestMode.BODY_REMOVAL, TestMode.IF_TO_WHEN, TestMode.JVM_OVERLOADS)
       .run()
       .expect(
         """
             src/Thing.kt:11: Error: Must be one of: 1, 0, -1, 42 [WrongConstant]
             @Thing const val HUNDRED = 100
                                        ~~~
-            1 errors, 0 warnings
+            src/Thing.kt:17: Error: Must be one of: 1, 0, -1, 42 [WrongConstant]
+              thingConsumer(if (b) 200 else 300)
+                                   ~~~
+            src/Thing.kt:17: Error: Must be one of: 1, 0, -1, 42 [WrongConstant]
+              thingConsumer(if (b) 200 else 300)
+                                            ~~~
+            src/Thing.kt:18: Error: Must be one of: 1, 0, -1, 42 [WrongConstant]
+              thingConsumer(i ?: 3_000)
+                                 ~~~~~
+            4 errors, 0 warnings
             """
       )
   }
@@ -2373,6 +2436,18 @@ class TypedefDetectorTest : AbstractCheckTest() {
                         first   // ERROR 2
                         ~~~~~
         2 errors, 0 warnings
+        """
+      )
+      .expectFixDiffs(
+        """
+        Fix for src/test/pkg/Playground.java line 21: Change to FirstIntDef.CONST_0:
+        @@ -21 +21
+        -                 second, // ERROR 1
+        +                 Playground.FirstIntDef.CONST_0, // ERROR 1
+        Fix for src/test/pkg/Playground.java line 22: Change to SecondIntDef.ANOTHER_0:
+        @@ -22 +22
+        -                 first   // ERROR 2
+        +                 Playground.SecondIntDef.ANOTHER_0   // ERROR 2
         """
       )
   }
@@ -2594,10 +2669,10 @@ src/DetailInfoTab.kt:17: Error: Must be one of: DetailInfoTabKt.CONST_1, DetailI
       .run()
       .expect(
         """
-src/DetailInfoTab.kt:17: Error: Must be one of: CONST_1.toLong(), CONST_2.toLong() [WrongConstant]
-                test(UNRELATED) // ERROR - not part of the @DetailsInfoTab list
-                     ~~~~~~~~~
-1 errors, 0 warnings
+        src/DetailInfoTab.kt:17: Error: Must be one of: CONST_1.toLong(), CONST_2.toLong() [WrongConstant]
+                        test(UNRELATED) // ERROR - not part of the @DetailsInfoTab list
+                             ~~~~~~~~~
+        1 errors, 0 warnings
         """
       )
   }
@@ -2687,7 +2762,7 @@ src/DetailInfoTab.kt:17: Error: Must be one of: CONST_1.toLong(), CONST_2.toLong
               flags = flags.and(MyIntent.UNRELATED.inv()) // ERROR 2
             }
 
-            fun test(i : MyIntent) {
+            fun test(i: MyIntent, j: MyIntent?) {
               i.flags = MyIntent.FLAG_1 or i.flags // OK
               i.flags = MyIntent.UNRELATED.or(i.flags) // ERROR 3
               i.flags = i.flags.and(MyIntent.FLAG_2) // OK
@@ -2695,6 +2770,8 @@ src/DetailInfoTab.kt:17: Error: Must be one of: CONST_1.toLong(), CONST_2.toLong
               i.flags = i.flags.xor(MyIntent.UNRELATED) // ERROR 5
               i.flags = MyIntent.UNRELATED or MyIntent.UNRELATED // ERROR 6
               i.flags = MyIntent.UNRELATED.or(MyIntent.UNRELATED) // ERROR 7
+              j?.flags = j?.flags?.or(MyIntent.FLAG_1 or MyIntent.FLAG_2) // OK
+              j?.flags = j?.flags?.or(MyIntent.UNRELATED or MyIntent.UNRELATED) // ERROR 8
             }
           """
         ),
@@ -2731,8 +2808,120 @@ src/DetailInfoTab.kt:17: Error: Must be one of: CONST_1.toLong(), CONST_2.toLong
         src/test.kt:16: Error: Must be one or more of: MyIntent.FLAG_1, FLAG_2 [WrongConstant]
                       i.flags = MyIntent.UNRELATED.or(MyIntent.UNRELATED) // ERROR 7
                                                       ~~~~~~~~~~~~~~~~~~
-        9 errors, 0 warnings
+        src/test.kt:18: Error: Must be one or more of: MyIntent.FLAG_1, FLAG_2 [WrongConstant]
+                      j?.flags = j?.flags?.or(MyIntent.UNRELATED or MyIntent.UNRELATED) // ERROR 8
+                                              ~~~~~~~~~~~~~~~~~~
+        src/test.kt:18: Error: Must be one or more of: MyIntent.FLAG_1, FLAG_2 [WrongConstant]
+                      j?.flags = j?.flags?.or(MyIntent.UNRELATED or MyIntent.UNRELATED) // ERROR 8
+                                                                    ~~~~~~~~~~~~~~~~~~
+        11 errors, 0 warnings
         """
       )
+  }
+
+  fun testConstructorDelegation_differentConstants() {
+    // b/373506497
+    lint()
+      .files(
+        java(
+            """
+            import androidx.annotation.IntDef;
+            public class Autocomplete {
+              public abstract static class SelectionOption<T> {
+                @IntDef(
+                  flag = true,
+                  value = {Hint.NONE, Hint.GENERATED, Hint.INSECURE_FORM}
+                )
+                public @interface SelectOptionHint {}
+
+                public static class Hint {
+                  public static final int NONE = 0;
+                  public static final int GENERATED = 1 << 0;
+                  public static final int INSECURE_FORM = 1 << 1;
+                }
+
+                public SelectionOption(final T value, final @SelectOptionHint int hint) {
+                }
+              }
+
+              public static class CreditCardSelectOption extends SelectionOption<String> {
+                @IntDef(
+                  flag = true,
+                  value = {Hint.NONE, Hint.INSECURE_FORM}
+                )
+                public @interface CreditCardSelectHint {}
+
+                public static class Hint {
+                  public static final int NONE = 0;
+                  public static final int INSECURE_FORM = 1 << 1;
+                }
+
+                CreditCardSelectOption(
+                    final String value, final @CreditCardSelectHint int hint) {
+                  super(value, hint); // ERROR
+                }
+              }
+            }
+          """
+          )
+          .indented(),
+        SUPPORT_ANNOTATIONS_JAR,
+      )
+      .run()
+      .expect(
+        """
+src/Autocomplete.java:34: Error: Must be one or more of: Hint.NONE, Hint.GENERATED, Hint.INSECURE_FORM, but could be Hint.NONE, Hint.INSECURE_FORM [WrongConstant]
+      super(value, hint); // ERROR
+                   ~~~~
+1 errors, 0 warnings
+        """
+      )
+  }
+
+  fun testConstructorDelegation_sharedConstant() {
+    // b/373506497
+    lint()
+      .files(
+        java(
+            """
+            import androidx.annotation.IntDef;
+            public class Autocomplete {
+              public static class Hint {
+                public static final int NONE = 0;
+                public static final int GENERATED = 1 << 0;
+                public static final int INSECURE_FORM = 1 << 1;
+              }
+
+              public abstract static class SelectionOption<T> {
+                @IntDef(
+                  flag = true,
+                  value = {Hint.NONE, Hint.GENERATED, Hint.INSECURE_FORM}
+                )
+                public @interface SelectOptionHint {}
+
+                public SelectionOption(final T value, final @SelectOptionHint int hint) {
+                }
+              }
+
+              public static class CreditCardSelectOption extends SelectionOption<String> {
+                @IntDef(
+                  flag = true,
+                  value = {Hint.NONE, Hint.INSECURE_FORM}
+                )
+                public @interface CreditCardSelectHint {}
+
+                CreditCardSelectOption(
+                    final String value, final @CreditCardSelectHint int hint) {
+                  super(value, hint);
+                }
+              }
+            }
+          """
+          )
+          .indented(),
+        SUPPORT_ANNOTATIONS_JAR,
+      )
+      .run()
+      .expectClean()
   }
 }

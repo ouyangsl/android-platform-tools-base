@@ -19,12 +19,12 @@ import com.android.SdkConstants
 import com.android.SdkConstants.NDK_DEFAULT_VERSION
 import com.android.Version
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.Companion.GRADLE_TEST_VERSION
-import com.android.build.gradle.integration.common.fixture.GradleTestProjectBuilder.MemoryRequirement
 import com.android.build.gradle.integration.common.fixture.ModelContainerV2.Companion.ROOT_BUILD_ID
 import com.android.build.gradle.integration.common.fixture.gradle_project.BuildSystem
 import com.android.build.gradle.integration.common.fixture.gradle_project.ProjectLocation
 import com.android.build.gradle.integration.common.fixture.gradle_project.initializeProjectLocation
 import com.android.build.gradle.integration.common.fixture.testprojects.TestProjectBuilder
+import com.android.build.gradle.integration.common.fixture.testprojects.prebuilts.privacysandbox.androidxPrivacySandboxLibraryPluginVersion
 import com.android.build.gradle.integration.common.truth.AarSubject
 import com.android.build.gradle.integration.common.truth.forEachLine
 import com.android.build.gradle.integration.common.utils.TestFileUtils
@@ -63,6 +63,7 @@ import org.gradle.tooling.ProjectConnection
 import org.gradle.tooling.internal.consumer.DefaultGradleConnector
 import org.gradle.util.GradleVersion
 import org.junit.Assert
+import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 import java.io.File
@@ -98,11 +99,10 @@ open class GradleTestProject @JvmOverloads constructor(
     private val targetGradleVersion: String?,
     private val targetGradleInstallation: File?,
     private val withDependencyChecker: Boolean,
-    override val withConfigurationCaching: BaseGradleExecutor.ConfigurationCaching,
+    val gradleOptions: GradleOptions,
     private val gradleProperties: Collection<String>,
-    override val heapSize: MemoryRequirement,
     private val compileSdkVersion: String = DEFAULT_COMPILE_SDK_VERSION,
-    private val profileDirectory: Path?,
+    private val _profileDirectory: Path?,
     // CMake's version to be used
     private val cmakeVersion: String?,
     // Indicates if CMake's directory information needs to be saved in local.properties
@@ -112,6 +112,7 @@ open class GradleTestProject @JvmOverloads constructor(
     private val withSdk: Boolean,
     private val withAndroidGradlePlugin: Boolean,
     private val withKotlinGradlePlugin: Boolean,
+    private val withAndroidxPrivacySandboxLibraryPlugin:Boolean,
     private val withExtraPluginClasspath: String?,
     private val withBuiltInKotlinSupport: Boolean,
     private val withPluginManagementBlock: Boolean,
@@ -129,7 +130,7 @@ open class GradleTestProject @JvmOverloads constructor(
     private val openConnections: MutableList<ProjectConnection>? = mutableListOf(),
     /** root project if one exist. This is null for the actual root */
     private val _rootProject: GradleTestProject? = null
-) : GradleTestRule {
+) : GradleTestInfo, TestRule {
     companion object {
         const val ENV_CUSTOM_REPO = "CUSTOM_REPO"
 
@@ -387,10 +388,11 @@ open class GradleTestProject @JvmOverloads constructor(
     override val additionalMavenRepoDir: Path?
         get() = _additionalMavenRepoDir
 
-    /** \Returns the latest build result.  */
+    /** Returns the latest build result.  */
     private var _buildResult: GradleBuildResult? = null
 
     /** Returns the latest build result.  */
+    @Deprecated("Consider getting the result from the execute command directly")
     val buildResult: GradleBuildResult
         get() = _buildResult ?: throw RuntimeException("No result available. Run Gradle first.")
 
@@ -443,11 +445,10 @@ open class GradleTestProject @JvmOverloads constructor(
             targetGradleVersion = rootProject.targetGradleVersion,
             targetGradleInstallation = rootProject.targetGradleInstallation,
             withDependencyChecker = rootProject.withDependencyChecker,
-            withConfigurationCaching = rootProject.withConfigurationCaching,
+            gradleOptions = rootProject.gradleOptions,
             gradleProperties = ImmutableList.of(),
-            heapSize = rootProject.heapSize,
             compileSdkVersion = rootProject.compileSdkVersion,
-            profileDirectory = rootProject.profileDirectory,
+            _profileDirectory = rootProject._profileDirectory,
             cmakeVersion = rootProject.cmakeVersion,
             withCmakeDirInLocalProp = rootProject.withCmakeDirInLocalProp,
             relativeNdkSymlinkPath = rootProject.relativeNdkSymlinkPath,
@@ -455,6 +456,7 @@ open class GradleTestProject @JvmOverloads constructor(
             withSdk = rootProject.withSdk,
             withAndroidGradlePlugin = rootProject.withAndroidGradlePlugin,
             withKotlinGradlePlugin = rootProject.withKotlinGradlePlugin,
+            withAndroidxPrivacySandboxLibraryPlugin = rootProject.withAndroidxPrivacySandboxLibraryPlugin,
             withExtraPluginClasspath = rootProject.withExtraPluginClasspath,
             withBuiltInKotlinSupport = rootProject.withBuiltInKotlinSupport,
             withPluginManagementBlock = rootProject.withPluginManagementBlock,
@@ -687,6 +689,7 @@ ext {
     kotlinVersion = '%4${"$"}s'
     composeVersion = '%5${"$"}s'
     composeCompilerVersion = '%6${"$"}s'
+    androidxPrivacySandboxLibraryVersion = '%7${"$"}s'
 }
 """,
             DEFAULT_BUILD_TOOL_VERSION,
@@ -695,6 +698,7 @@ ext {
             kotlinVersion,
             TaskManager.COMPOSE_UI_VERSION,
             TestUtils.COMPOSE_COMPILER_FOR_TESTS,
+            androidxPrivacySandboxLibraryPluginVersion
         )
         if (APPLY_DEVICEPOOL_PLUGIN) {
             result += """
@@ -722,6 +726,7 @@ allprojects { proj ->
             .getCommonBuildScriptContent(
                 withAndroidGradlePlugin,
                 withKotlinGradlePlugin,
+                withAndroidxPrivacySandboxLibraryPlugin,
                 withDeviceProvider,
                 withExtraPluginClasspath,
                 withBuiltInKotlinSupport
@@ -829,13 +834,14 @@ allprojects { proj ->
      * profiles may not be generated, though setting [ ][com.android.build.gradle.options.StringOption.PROFILE_OUTPUT_DIR] in gradle.properties will
      * induce profile generation without affecting this return value
      */
-    override fun getProfileDirectory(): Path? {
-        return if (profileDirectory == null || profileDirectory.isAbsolute) {
-            profileDirectory
-        } else {
-            rootProject.projectDir.toPath().resolve(profileDirectory)
+    override val profileDirectory: Path?
+        get() {
+            return if (_profileDirectory == null || _profileDirectory.isAbsolute) {
+                _profileDirectory
+            } else {
+                rootProject.projectDir.toPath().resolve(_profileDirectory)
+            }
         }
-    }
 
     /**
      * Return the output apk File from the application plugin for the given dimension.
@@ -893,7 +899,7 @@ allprojects { proj ->
             }
             tmpApkFiles.add(apk)
         } else {
-            // the IDE erroneously indicate to use try-with-resources because APK is a autocloseable
+            // the IDE erroneously indicate to use try-with-resources because APK is an autocloseable
             // but nothing is opened here.
             apk = Apk(apkFile)
         }
@@ -1367,12 +1373,16 @@ allprojects { proj ->
 
     /** Fluent method to run a build.  */
     fun executor(): GradleTaskExecutor {
-        return applyOptions(GradleTaskExecutor(this, projectConnection))
+        return applyOptions(GradleTaskExecutor(this, gradleOptions, projectConnection) { it ->
+            setLastBuildResult(it)
+        })
     }
 
     /** Fluent method to get the model.  */
     fun modelV2(): ModelBuilderV2 {
-        return applyOptions(ModelBuilderV2(this, projectConnection)).withPerTestPrefsRoot(true)
+        return applyOptions(ModelBuilderV2(this, gradleOptions, projectConnection) {
+            setLastBuildResult(it)
+        }).withPerTestPrefsRoot(true)
     }
 
     /** Returns [SyncIssue]s after fetching the model. */
@@ -1441,25 +1451,17 @@ allprojects { proj ->
      *
      * @param tasks Variadic list of tasks to execute.
      */
-    fun execute(vararg tasks: String) {
-        _buildResult = executor().run(*tasks)
-    }
+    fun execute(vararg tasks: String): GradleBuildResult = executor().run(*tasks)
 
-    fun execute(
-        arguments: List<String>,
-        vararg tasks: String
-    ) {
-        _buildResult = executor().withArguments(arguments).run(*tasks)
+    fun execute(arguments: List<String>, vararg tasks: String): GradleBuildResult {
+        return executor().withArguments(arguments).run(*tasks)
     }
 
     fun executeExpectingFailure(vararg tasks: String): GradleConnectionException? {
-        return executor().expectFailure().run(*tasks).run {
-            _buildResult = this
-            exception
-        }
+        return executor().expectFailure().run(*tasks).exception
     }
 
-    override fun setLastBuildResult(lastBuildResult: GradleBuildResult) {
+    fun setLastBuildResult(lastBuildResult: GradleBuildResult) {
         _buildResult = lastBuildResult
     }
 
@@ -1628,7 +1630,8 @@ buildCache {
                         + "version('kotlinVersion', '%s')%n"
                         + "version('kotlinVersionForCompose', '%s')%n"
                         + "version('composeVersion', '%s')%n"
-                        + "version('composeCompilerVersion', '%s')%n",
+                        + "version('composeCompilerVersion', '%s')%n"
+                        + "version('androidxPrivacySandboxLibraryVersion', '%s')%n",
                 Version.ANDROID_GRADLE_PLUGIN_VERSION,
                 Version.ANDROID_TOOLS_BASE_VERSION,
                 SUPPORT_LIB_VERSION,
@@ -1643,6 +1646,7 @@ buildCache {
                 TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS,
                 TaskManager.COMPOSE_UI_VERSION,
                 TestUtils.COMPOSE_COMPILER_FOR_TESTS,
+                androidxPrivacySandboxLibraryPluginVersion
         )
     }
 

@@ -31,14 +31,22 @@ class BazelTargetTest {
             "tools/base/build-system/integration-test/connected/src/test",
             "tools/base/build-system/integration-test/connected/BUILD.bazel",
             ignoredBazelTargets = listOf(
+                "privacy-sandbox-connected-tests",
                 "all_test_files",
                 "avd",
                 "avd_32",
+                "avd_34",
                 "avd_default_30",
                 "avd_old_emulator_binary",
                 "connected",
                 "databinding_prebuilts",
                 "prebuilts"
+            ),
+            ignoreTestSourceFiles = listOf(
+                "PrivacySandboxSdkTestBase",
+                "PrivacySandboxSdkAppConnectedTest",
+                "PrivacySandboxSdkDynamicFeatureConnectedTest",
+                "PrivacySandboxSdkTestModuleConnectedTest"
             )
         )
     }

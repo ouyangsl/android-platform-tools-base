@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-package com.android.build.api.dsl
+class ByteCodeClass {
 
-import org.gradle.api.Incubating
+  fun invokeMath(v: Int): Int {
+    var a = v
+    a += 1
+    a -= 2
+    a *= 2
+    a /= 2
+    return a
+  }
 
-@Incubating
-interface KotlinMultiplatformAndroidTestOnJvmCompilation:
-    KotlinMultiplatformAndroidTestOnJvm,
-    KotlinMultiplatformAndroidCompilation
+  fun multiInstructionPerLine(v: Int): Int {
+    var a = v
+    a = v + v + v + v + v
+    return a
+  }
+}

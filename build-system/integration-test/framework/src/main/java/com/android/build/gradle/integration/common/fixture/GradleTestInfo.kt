@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,12 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.android.build.gradle.integration.common.fixture
 
-package com.android.build.api.dsl
+import com.android.build.gradle.integration.common.fixture.gradle_project.ProjectLocation
+import org.junit.rules.TestRule
+import java.io.File
+import java.nio.file.Path
 
-import org.gradle.api.Incubating
+/**
+ * Specialization of [TestRule] for Android related projects.
+ */
+interface GradleTestInfo {
+    val androidSdkDir: File?
+    val androidNdkSxSRootSymlink: File?
+    val additionalMavenRepoDir: Path?
+    val location: ProjectLocation
+    val profileDirectory: Path?
+}
 
-@Incubating
-interface KotlinMultiplatformAndroidTestOnDeviceCompilation:
-    KotlinMultiplatformAndroidTestOnDevice,
-    KotlinMultiplatformAndroidCompilation
