@@ -22,6 +22,30 @@
       },
       "revId": "584aa7f2d531a9f63257818d6adb151e676692c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6e5559a_dec8dd66",
+        "filename": "lint/libs/lint-api/src/main/java/com/android/tools/lint/client/api/LintJarApiMigration.kt",
+        "patchSetId": 1
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 1442279
+      },
+      "writtenOn": "2024-10-24T22:17:55Z",
+      "side": 1,
+      "message": "Yep, I agree. Done.",
+      "parentUuid": "475c6609_b40f575d",
+      "range": {
+        "startLine": 952,
+        "startChar": 16,
+        "endLine": 952,
+        "endChar": 24
+      },
+      "revId": "584aa7f2d531a9f63257818d6adb151e676692c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
