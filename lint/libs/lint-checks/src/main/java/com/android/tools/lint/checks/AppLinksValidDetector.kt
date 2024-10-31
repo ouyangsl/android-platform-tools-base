@@ -45,7 +45,6 @@ import com.android.SdkConstants.VALUE_TRUE
 import com.android.ide.common.rendering.api.ResourceNamespace
 import com.android.resources.ResourceType
 import com.android.resources.ResourceUrl
-import com.android.sdklib.AndroidVersion
 import com.android.sdklib.AndroidVersion.VersionCodes
 import com.android.tools.lint.checks.AndroidPatternMatcher.PATTERN_ADVANCED_GLOB
 import com.android.tools.lint.checks.AndroidPatternMatcher.PATTERN_LITERAL
@@ -508,7 +507,8 @@ class AppLinksValidDetector : Detector(), XmlScanner {
           "Missing required elements/attributes for Android App Links",
           fix,
         )
-      } else {
+      }
+      /* else {
         // If intent filter contains both web and non-web schemes
         val webSchemes = intentFilterData.schemes.filter { isWebScheme(it) }
         val customSchemes = intentFilterData.schemes.filterNot { isWebScheme(it) }
@@ -519,6 +519,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
           val indentDiff = intentFilterIndent - parentIndent
           val startIndent = " ".repeat(intentFilterIndent)
           val intentFilterChildIndent = " ".repeat(intentFilterIndent + indentDiff)
+          val namespace = intentFilter.lookupPrefix(ANDROID_URI) ?: ANDROID_NS_NAME
 
           val webSchemeIntentFilterText = StringBuilder("<")
           // We know that this intentFilter has autoVerify, so copy it over
@@ -549,12 +550,12 @@ class AppLinksValidDetector : Detector(), XmlScanner {
           for (scheme in webSchemes.sorted()) {
             webSchemeIntentFilterText.append("\n")
             webSchemeIntentFilterText.append(intentFilterChildIndent)
-            webSchemeIntentFilterText.append("""<data android:scheme="$scheme" />""")
+            webSchemeIntentFilterText.append("""<data $namespace:scheme="$scheme" />""")
           }
           for (scheme in customSchemes.sorted()) {
             customSchemeIntentFilterText.append("\n")
             customSchemeIntentFilterText.append(intentFilterChildIndent)
-            customSchemeIntentFilterText.append("""<data android:scheme="$scheme" />""")
+            customSchemeIntentFilterText.append("""<data $namespace:scheme="$scheme" />""")
           }
           val intentFilterTextAfterSchemes = StringBuilder()
           for ((host, port) in
@@ -563,9 +564,9 @@ class AppLinksValidDetector : Detector(), XmlScanner {
             )) {
             intentFilterTextAfterSchemes.append("\n")
             intentFilterTextAfterSchemes.append(intentFilterChildIndent)
-            intentFilterTextAfterSchemes.append("""<data android:host="$host"""")
+            intentFilterTextAfterSchemes.append("""<data $namespace:host="$host"""")
             if (!port.isNullOrBlank()) {
-              intentFilterTextAfterSchemes.append(""" android:port="$port"""")
+              intentFilterTextAfterSchemes.append(""" $namespace:port="$port"""")
             }
             intentFilterTextAfterSchemes.append(" />")
           }
@@ -573,13 +574,13 @@ class AppLinksValidDetector : Detector(), XmlScanner {
             intentFilterTextAfterSchemes.append("\n")
             intentFilterTextAfterSchemes.append(intentFilterChildIndent)
             intentFilterTextAfterSchemes.append(
-              """<data android:${path.attributeName}="${path.attributeValue}" />"""
+              """<data $namespace:${path.attributeName}="${path.attributeValue}" />"""
             )
           }
           for (mimeType in intentFilterData.rawMimeTypes.sorted()) {
             intentFilterTextAfterSchemes.append("\n")
             intentFilterTextAfterSchemes.append(intentFilterChildIndent)
-            intentFilterTextAfterSchemes.append("""<data android:mimeType="$mimeType" />""")
+            intentFilterTextAfterSchemes.append("""<data $namespace:mimeType="$mimeType" />""")
           }
           intentFilterTextAfterSchemes.append("\n")
           intentFilterTextAfterSchemes.append(startIndent)
@@ -600,7 +601,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
             fix().replace().with(replacementText.toString()).build(),
           )
         }
-      }
+      } */
     }
 
     val showMissingSchemeCheck =
@@ -940,7 +941,8 @@ class AppLinksValidDetector : Detector(), XmlScanner {
             // The query/fragment string, as specified in the Android manifest, should not be
             // URI-encoded.
             // See getQueryAndFragmentParameters below.
-            val queries = queryParameters.sorted().map { """<data android:query="$it" />""" }
+            val namespace = intentFilter.lookupPrefix(ANDROID_URI) ?: ANDROID_NS_NAME
+            val queries = queryParameters.sorted().map { """<data $namespace:query="$it" />""" }
             val pathBeforeQueryAndFragment = value.split('?', '#')[0]
             val dataIndent = context.getLocation(data).start?.column ?: DEFAULT_INDENT_AMOUNT
             val fixText =
@@ -951,9 +953,10 @@ class AppLinksValidDetector : Detector(), XmlScanner {
                   val newLineAndIndentedFragment =
                     when (fragmentInUri) {
                       "" -> ""
-                      else -> """$newLineAndDataIndent<data android:fragment="$fragmentInUri" />"""
+                      else ->
+                        """$newLineAndDataIndent<data $namespace:fragment="$fragmentInUri" />"""
                     }
-                  "<data android:$attributeName=$pathBeforeQueryAndFragment />" +
+                  "<data $namespace:$attributeName=$pathBeforeQueryAndFragment />" +
                     concatenateWithIndent(queries, newLineAndDataIndent) +
                     newLineAndIndentedFragment
                 }
@@ -966,10 +969,11 @@ class AppLinksValidDetector : Detector(), XmlScanner {
                   val newLineAndIndentedFragment =
                     when (fragmentInUri) {
                       "" -> ""
-                      else -> """$newLineAndInnerIndent<data android:fragment="$fragmentInUri" />"""
+                      else ->
+                        """$newLineAndInnerIndent<data $namespace:fragment="$fragmentInUri" />"""
                     }
                   "<uri-relative-filter-group>" +
-                    """$newLineAndInnerIndent<data android:$attributeName="$pathBeforeQueryAndFragment" />""" +
+                    """$newLineAndInnerIndent<data $namespace:$attributeName="$pathBeforeQueryAndFragment" />""" +
                     concatenateWithIndent(queries, newLineAndInnerIndent) +
                     newLineAndIndentedFragment +
                     "\n$startingIndent</uri-relative-filter-group>"
@@ -984,8 +988,9 @@ class AppLinksValidDetector : Detector(), XmlScanner {
               "App link matching does not support query parameters or fragments, " +
                 "unless using `<uri-relative-filter-group>` (introduced in Android 15)",
               if (
-                (context.project.targetSdkVersion ?: AndroidVersion.DEFAULT) <
-                  AndroidVersion(VersionCodes.VANILLA_ICE_CREAM) || fixText == null
+                (context.project.buildSdk < VersionCodes.VANILLA_ICE_CREAM) ||
+                  (context.project.targetSdk < VersionCodes.VANILLA_ICE_CREAM) ||
+                  fixText == null
               ) {
                 null
               } else {
@@ -1229,7 +1234,12 @@ class AppLinksValidDetector : Detector(), XmlScanner {
         val attributeNode =
           element.getAttributeNodeNS(ANDROID_URI, attrName) ?: return fallbackReturnValue
         // The below can actually be null, so the ?: return is needed.
-        val location = context.getValueLocation(attributeNode) ?: return fallbackReturnValue
+        val location =
+          try {
+            context.getValueLocation(attributeNode)
+          } catch (_: StringIndexOutOfBoundsException) {
+            null
+          } ?: return fallbackReturnValue
         val start = location.start?.offset ?: return fallbackReturnValue
         val end = location.end?.offset ?: return fallbackReturnValue
         return context.getContents()?.substring(start, end) ?: fallbackReturnValue

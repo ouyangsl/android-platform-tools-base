@@ -24,8 +24,10 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.InputFile
 import org.gradle.api.tasks.Internal
@@ -33,6 +35,7 @@ import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.options.Option
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -58,6 +61,14 @@ abstract class PreviewScreenshotUpdateTask : DefaultTask() {
     @get:Internal
     abstract val analyticsService: Property<AnalyticsService>
 
+    @get:Input
+    abstract val filterPattens : ListProperty<String>
+
+    @Option(option = "updateFilter", description = "Filter for the update task")
+    fun setUpdateFilter(filterPatterns: List<String>) {
+        filterPattens.set(filterPatterns)
+    }
+
     @TaskAction
     fun run() = analyticsService.get().recordTaskAction(path) {
         val resultFile = renderTaskResultFile.get().asFile
@@ -65,12 +76,47 @@ abstract class PreviewScreenshotUpdateTask : DefaultTask() {
         verifyRender(results)
         removeUnusedRefImages()
         if (results.isNotEmpty()) {
-            for (result in results) {
+            val filteredResults = if (!filterPattens.get().isNullOrEmpty()) {
+                results.filter { result ->
+                    filterPattens.get().any { pattern ->
+                        result.methodFQN.matches(wildcardToRegex(pattern))
+                    }
+                }
+            } else results
+            for (result in filteredResults) {
                 saveReferenceImage(result)
             }
         } else {
             this.logger.lifecycle("No reference images were updated because no previews were found.")
         }
+    }
+
+    /**
+     * Converts a wildcard pattern to a regular expression.
+     *
+     * This method takes a string containing a wildcard pattern and converts it into
+     * a regular expression that can be used for pattern matching.
+     *
+     * For example:
+     * - The wildcard pattern "ab*cd*ef" is converted to the regular expression "ab.*cd.*ef".
+     * - The wildcard pattern "*com.example*" is converted to the regular expression ".*com\.example.*".
+     * 
+     * Reference from https://github.com/gradle/gradle/blob/2afedb20b3ba147a16c82a0221399fbf0527a21b/platforms/software/testing-base-infrastructure/src/main/java/org/gradle/api/internal/tasks/testing/filter/TestSelectionMatcher.java#L167
+     */
+    private fun wildcardToRegex(input: String): Regex {
+        val pattern = StringBuilder()
+        val split = input.split('*')
+        for ((index, s) in split.withIndex()) {
+            if (s.isEmpty()) {
+                pattern.append(".*")
+            } else {
+                if (index > 0) {
+                    pattern.append(".*")
+                }
+                pattern.append(Regex.escape(s))
+            }
+        }
+        return pattern.toString().toRegex()
     }
 
     private fun removeUnusedRefImages() {
@@ -80,8 +126,8 @@ abstract class PreviewScreenshotUpdateTask : DefaultTask() {
         referenceDir.walkTopDown().forEach { refFile ->
             if (refFile.isFile) {
                 val relativePath = refFile.relativeTo(referenceDir).path
-                val correspondingRenderFile = File(renderDir, relativePath)
 
+                val correspondingRenderFile = File(renderDir, relativePath)
                 if (!correspondingRenderFile.exists()) {
                     FileUtils.delete(refFile)
                 }
@@ -114,3 +160,4 @@ abstract class PreviewScreenshotUpdateTask : DefaultTask() {
         }
     }
 }
+
