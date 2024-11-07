@@ -19,14 +19,16 @@ package kexter.core
 import kexter.Dex
 import kexter.Logger
 
-internal class DexImpl(val bytes: ByteArray, val logger: Logger) : Dex() {
+internal class DexImpl(private val bytes: ByteArray, val logger: Logger) : Dex() {
 
-  val reader = DexReader(bytes)
-  val header: DexHeader = DexHeader(reader)
+  fun reader(position: UInt) = DexReader(bytes, position)
+
+  val header: DexHeader = DexHeader(reader(0u))
   val stringIds: StringIds = StringIds(header.stringIds, this)
   val classDefs: ClassDefs = ClassDefs(header.classDefs, this)
   val methodIds: MethodIds = MethodIds(header.methodsIds, this)
   val protoIds: ProtoIds = ProtoIds(header.protoIds, this)
+  val typeIds: TypeIds = TypeIds(this)
 
   override val classes by lazy(LazyThreadSafetyMode.NONE) { retrieveClasses() }
 

@@ -66,7 +66,7 @@ internal class DexMethodImpl(
   override val byteCode by lazy(LazyThreadSafetyMode.NONE) { retrieveByteCode() }
 
   override val type: String by
-    lazy(LazyThreadSafetyMode.NONE) { TypeIds.get(dex, methodId.classIndex.toUInt()) }
+    lazy(LazyThreadSafetyMode.NONE) { dex.typeIds.get(methodId.classIndex.toUInt()) }
 
   override val isNative: Boolean
     get() = byteCode.instructions.size == 0
@@ -74,8 +74,13 @@ internal class DexMethodImpl(
   override val shorty: String
     get() = dex.stringIds.get(protoId.shortyIndex)
 
+  override val params: List<String> by lazy(LazyThreadSafetyMode.NONE) { retrieveParams() }
+
   override val returnType: String
-    get() = TypeIds.get(dex, protoId.returnTypeIndex)
+    get() = dex.typeIds.get(protoId.returnTypeIndex)
+
+  override val index: UInt
+    get() = method.methodIndex
 
   private val methodId by lazy(LazyThreadSafetyMode.NONE) { dex.methodIds.get(method.methodIndex) }
   private val protoId by lazy(LazyThreadSafetyMode.NONE) { dex.protoIds.get(methodId.protoIndex) }
@@ -90,8 +95,8 @@ internal class DexMethodImpl(
         // Native method don't have bytecode
         ByteArray(0)
       } else {
-        dex.reader.position = method.codeOffset
-        val codeItem = CodeItem.from(dex.reader)
+        val reader = dex.reader(method.codeOffset)
+        val codeItem = CodeItem.from(reader)
         codeItem.instructions
       }
 
@@ -106,9 +111,24 @@ internal class DexMethodImpl(
   }
 
   private fun retrieveDebugInfo(): DexMethodDebugInfo {
-    dex.reader.position = method.codeOffset
-    val codeItem = CodeItem.from(dex.reader)
-    dex.reader.position = codeItem.debugInfoOffset
-    return kexter.core.DexMethodDebugInfo.fromReader(dex.reader, dex.logger)
+    val reader = dex.reader(method.codeOffset)
+    val codeItem = CodeItem.from(reader)
+    reader.position = codeItem.debugInfoOffset
+    return kexter.core.DexMethodDebugInfo.fromReader(reader, dex.logger)
+  }
+
+  private fun retrieveParams(): List<String> {
+    if (protoId.parameterOffset == 0u) {
+      return emptyList()
+    }
+
+    val params = mutableListOf<String>()
+    val reader = dex.reader(protoId.parameterOffset)
+    val size = reader.uint()
+    repeat(size.toInt()) {
+      val typeIdx = reader.ushort()
+      params.add(dex.typeIds.get(typeIdx.toUInt()))
+    }
+    return params
   }
 }

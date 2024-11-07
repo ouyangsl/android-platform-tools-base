@@ -161,14 +161,14 @@ ARTIFACTS = [
     "org.jacoco:org.jacoco.report:0.8.12",
     "org.jetbrains.dokka:dokka-core:1.4.32",
     "org.jetbrains.intellij.deps:asm-all:8.0.1",
-    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.0.21",
-    "org.jetbrains.kotlin:kotlin-compiler:2.0.21",
-    "org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.0.21",
-    "org.jetbrains.kotlin:kotlin-reflect:2.0.21",
-    "org.jetbrains.kotlin:kotlin-stdlib-common:2.0.21",
-    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21",
-    "org.jetbrains.kotlin:kotlin-test:2.0.21",
-    "org.jetbrains.kotlin:kotlin-test-junit:2.0.21",
+    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.1.0-Beta2",
+    "org.jetbrains.kotlin:kotlin-compiler:2.1.0-Beta2",
+    "org.jetbrains.kotlin:kotlin-gradle-plugin-api:2.1.0-Beta2",
+    "org.jetbrains.kotlin:kotlin-reflect:2.1.0-Beta2",
+    "org.jetbrains.kotlin:kotlin-stdlib:2.1.0-Beta2",
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-Beta2",
+    "org.jetbrains.kotlin:kotlin-test:2.1.0-Beta2",
+    "org.jetbrains.kotlin:kotlin-test-junit:2.1.0-Beta2",
     "org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4",
@@ -236,7 +236,7 @@ DATA = [
     "androidx.collection:collection-ktx:1.4.0",  # Compose BOM 2024.04.01
     "androidx.compose.animation:animation:1.3.0",
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.animation:animation:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.animation:animation:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.animation:animation:1.7.0-beta05",
     "androidx.compose.animation:animation-android:1.8.0-alpha03",  # Compose Desktop Lint checks
     "androidx.compose.animation:animation-core:1.3.3",  # Dependency of architecture-samples
@@ -252,39 +252,39 @@ DATA = [
     "androidx.compose:compose-bom:pom:2023.01.00",  # Dependency of architecture-samples
     "androidx.compose:compose-bom:pom:2023.03.00",
     "androidx.compose:compose-bom:pom:2023.06.00",
-    "androidx.compose:compose-bom:pom:2024.04.01",
+    "androidx.compose:compose-bom:pom:2024.09.00",
     "androidx.compose.foundation:foundation:1.3.0",
     "androidx.compose.foundation:foundation:1.3.1",  # Dependency of architecture-samples
     "androidx.compose.foundation:foundation:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.foundation:foundation:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.foundation:foundation:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.foundation:foundation-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation-android:1.8.0-alpha03",  # Compose Desktop Lint checks
     "androidx.compose.foundation:foundation-layout:1.3.1",  # Dependency of architecture-samples
-    "androidx.compose.foundation:foundation-layout:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.foundation:foundation-layout:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.material:material:1.3.0",  # Needed by //tools/base/build-system/integration-test/...
     "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
     "androidx.compose.material:material:1.5.0-alpha04",
-    "androidx.compose.material:material:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.material:material:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.material:material-android:1.8.0-alpha03",  # Compose Desktop Lint checks
-    "androidx.compose.material:material-icons-core:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.material:material-icons-core:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.material:material-icons-extended:1.3.0",
-    "androidx.compose.material:material-ripple:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.material:material-ripple:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.material3:material3:1.0.0",
     "androidx.compose.material3:material3:1.1.1",
-    "androidx.compose.material3:material3:1.2.1",  # Compose BOM 2024.04.01
+    "androidx.compose.material3:material3:1.3.0",  # Compose BOM 2024.09.00
     "androidx.compose.material3:material3-android:1.3.0",  # Compose Desktop Lint checks
     "androidx.compose.runtime:runtime:1.3.3",  # Dependency of architecture-samples
-    "androidx.compose.runtime:runtime:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.runtime:runtime:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.runtime:runtime-android:1.8.0-alpha03",  # Compose Desktop Lint checks
     "androidx.compose.runtime:runtime-livedata:1.3.0",
     "androidx.compose.runtime:runtime-saveable:1.3.3",  # Dependency of architecture-samples
-    "androidx.compose.runtime:runtime-saveable:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.runtime:runtime-saveable:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.runtime:runtime-saveable-android:1.8.0-alpha03",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui:1.3.0",
     "androidx.compose.ui:ui:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.ui:ui:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.ui:ui:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.ui:ui-android:1.8.0-alpha03",  # Compose Desktop Lint checks
-    "androidx.compose.ui:ui-graphics:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.ui:ui-graphics:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.ui:ui-graphics-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-graphics-android:1.8.0-alpha03",  # Compose Desktop Lint checks
     "androidx.compose.ui:ui-test-android:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -292,14 +292,15 @@ DATA = [
     "androidx.compose.ui:ui-test-junit4:1.3.0",
     "androidx.compose.ui:ui-test-junit4:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.ui:ui-test-junit4:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.ui:ui-test-junit4:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.ui:ui-test-junit4:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.ui:ui-test-junit4:1.7.0-beta03",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.compose.ui:ui-test-junit4:1.7.0-beta05",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.compose.ui:ui-test-junit4-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-manifest:1.3.0",
     "androidx.compose.ui:ui-test-manifest:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.ui:ui-test-manifest:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.ui:ui-test-manifest:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.ui:ui-test-manifest:1.6.5",  # Compose Desktop Lint checks
+    "androidx.compose.ui:ui-test-manifest:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.ui:ui-test-manifest:1.7.0-beta03",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.compose.ui:ui-test-manifest:1.7.0-beta05",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.compose.ui:ui-test-manifest:1.8.0-alpha03",  # Compose Desktop Lint checks
@@ -310,8 +311,8 @@ DATA = [
     "androidx.compose.ui:ui-tooling:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.ui:ui-tooling:1.4.3",  # Still needed from //tools/adt/idea/integration:BuildAndRunKMPTest
     "androidx.compose.ui:ui-tooling:1.5.0-beta01",  # Necessary for Compose for TV.
-    "androidx.compose.ui:ui-tooling:1.6.5",
-    "androidx.compose.ui:ui-tooling:1.6.6",  # Compose BOM 2024.04.01
+    "androidx.compose.ui:ui-tooling:1.6.6",
+    "androidx.compose.ui:ui-tooling:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.ui:ui-tooling:1.7.0-beta03",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.compose.ui:ui-tooling:1.7.0-beta05",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.compose.ui:ui-tooling-android:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -372,6 +373,7 @@ DATA = [
     "androidx.lifecycle:lifecycle-common-java8:2.4.0",
     "androidx.lifecycle:lifecycle-common-java8:2.6.1",
     "androidx.lifecycle:lifecycle-common-java8:2.6.2",
+    "androidx.lifecycle:lifecycle-common-java8:2.8.3",
     "androidx.lifecycle:lifecycle-extensions:2.2.0",
     "androidx.lifecycle:lifecycle-livedata:2.6.0-alpha03",  # Dependency of architecture-samples
     "androidx.lifecycle:lifecycle-livedata:2.8.3",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
@@ -867,7 +869,7 @@ DATA = [
     "com.squareup.okio:okio:3.4.0",
     "commons-codec:commons-codec:1.9",
     "commons-lang:commons-lang:2.4",
-    "io.grpc:grpc-inprocess:1.63.0",
+    "io.grpc:grpc-inprocess:1.66.0",
     "io.ktor:ktor-client-content-negotiation-jvm:2.3.2",
     "io.ktor:ktor-client-core-jvm:2.3.2",
     "io.ktor:ktor-client-logging-jvm:2.3.2",
@@ -909,12 +911,12 @@ DATA = [
     "org.jetbrains.compose.ui:ui-test-junit4-desktop:1.7.0",
     "org.jetbrains.dokka:dokka-base:1.4.32",
     "org.jetbrains.dokka:javadoc-plugin:1.4.32",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-242:0.26.2",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-242:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-autolink-242:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-242:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-242:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-242:0.26.2",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-243:0.26.2",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-243:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-extension-autolink-243:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-243:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-243:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-243:0.26.2",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.0",  # Remove it later (b/243935746)
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.10",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.20",
@@ -928,7 +930,7 @@ DATA = [
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.9.24",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.1.0-Beta2",
-    "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.1.20-dev-1129",
+    "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:2.1.0-dev-9026",
     "org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.1.0-Beta2",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.6.10",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.6.21",
@@ -940,13 +942,13 @@ DATA = [
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.9.22",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:1.9.23",
     "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.1.0-Beta2",
-    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.1.20-dev-1129",
+    "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin:pom:2.1.0-dev-9026",
     "org.jetbrains.kotlin:jvm-abi-gen:2.0.21",
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:1.8.10",  # Dependency of architecture-samples
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:1.9.22",
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:1.9.23",
     "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:2.1.0-Beta2",
-    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:2.1.20-dev-1129",
+    "org.jetbrains.kotlin.kapt:org.jetbrains.kotlin.kapt.gradle.plugin:pom:2.1.0-dev-9026",
     "org.jetbrains.kotlin:kotlin-android-extensions:2.1.0-Beta2",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.41",
     "org.jetbrains.kotlin:kotlin-android-extensions-runtime:1.3.72",
@@ -971,9 +973,8 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-annotation-processing-gradle:2.1.0-Beta2",
     "org.jetbrains.kotlin:kotlin-bom:pom:1.8.0",
     "org.jetbrains.kotlin:kotlin-bom:pom:1.8.22",
-    "org.jetbrains.kotlin:kotlin-build-common:2.0.21",
+    "org.jetbrains.kotlin:kotlin-build-common:2.1.0-Beta2",
     "org.jetbrains.kotlin:kotlin-build-tools-impl:2.0.0",  # Compose/Kotlin 2.0.0 templates
-    "org.jetbrains.kotlin:kotlin-build-tools-impl:2.0.21",
     "org.jetbrains.kotlin:kotlin-build-tools-impl:2.1.0-Beta2",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.0",
     "org.jetbrains.kotlin:kotlin-compiler:1.7.20",
@@ -1006,7 +1007,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.23",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0-Beta2",
-    "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.20-dev-1129",
+    "org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.0-dev-9026",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.0",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.10",
     "org.jetbrains.kotlin:kotlin-gradle-plugin:jar:gradle70:1.7.20",
@@ -1073,11 +1074,11 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-script-runtime:1.9.24",
     "org.jetbrains.kotlin:kotlin-script-runtime:2.1.0-Beta2",
     "org.jetbrains.kotlin:kotlin-stdlib:2.1.0-Beta2",
-    "org.jetbrains.kotlin:kotlin-stdlib:2.1.20-dev-1129",
     "org.jetbrains.kotlin:kotlin-stdlib-common:1.9.22",
     "org.jetbrains.kotlin:kotlin-stdlib-common:1.9.23",
     "org.jetbrains.kotlin:kotlin-stdlib-common:1.9.24",
     "org.jetbrains.kotlin:kotlin-stdlib-common:2.0.0",  # Compose/Kotlin 2.0.0 templates
+    "org.jetbrains.kotlin:kotlin-stdlib-common:2.1.0-dev-9026",
     "org.jetbrains.kotlin:kotlin-stdlib-common:pom:2.1.0-Beta2",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.31",
@@ -1096,7 +1097,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24",
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-Beta2",
-    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.20-dev-1129",
+    "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0-dev-9026",
     "org.jetbrains.kotlin:kotlin-stdlib-js:1.7.0",
     "org.jetbrains.kotlin:kotlin-test:1.9.24",
     "org.jetbrains.kotlin:kotlin-test-junit:1.7.10",
@@ -1105,7 +1106,7 @@ DATA = [
     "org.jetbrains.kotlin.multiplatform:org.jetbrains.kotlin.multiplatform.gradle.plugin:pom:1.8.21",
     "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.0.0",  # Compose/Kotlin 2.0.0 templates
     "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.1.0-Beta2",
-    "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.1.20-dev-1129",
+    "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.1.0-dev-9026",
     "org.jetbrains.kotlin.plugin.parcelize:org.jetbrains.kotlin.plugin.parcelize.gradle.plugin:pom:2.1.0-Beta2",  # Used by com.android.tools.idea.benchmarks.tests.JetNewsBenchmarkTest
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6",
@@ -1194,15 +1195,15 @@ DATA = [
     "org.jetbrains.compose.ui:ui-text-desktop:jar:sources:1.7.0",
     "org.jetbrains.compose.ui:ui-unit-desktop:jar:sources:1.7.0",
     "org.jetbrains.compose.ui:ui-util-desktop:jar:sources:1.7.0",
-    "org.jetbrains.jewel:jewel-foundation-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-core-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-autolink-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-242:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-ui-242:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-foundation-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-core-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-extension-autolink-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-243:jar:sources:0.26.2",
+    "org.jetbrains.jewel:jewel-ui-243:jar:sources:0.26.2",
     "org.jetbrains.kotlin:kotlin-stdlib:jar:sources:1.9.22",
     "org.jetbrains.kotlin:kotlin-stdlib:jar:sources:1.9.23",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:jar:sources:1.6.4",
