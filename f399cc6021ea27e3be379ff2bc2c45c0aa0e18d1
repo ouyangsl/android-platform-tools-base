@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc697a67_31d67d7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1887910
+      },
+      "writtenOn": "2024-11-12T14:02:04Z",
+      "side": 1,
+      "message": "Let me know if you\u0027d prefer me to abandon this to get it off everyones\u0027 lists.",
+      "revId": "f399cc6021ea27e3be379ff2bc2c45c0aa0e18d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
