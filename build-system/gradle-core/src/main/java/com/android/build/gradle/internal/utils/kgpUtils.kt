@@ -313,6 +313,8 @@ private fun KotlinVersion?.isVersionAtLeast(major: Int, minor: Int, patch: Int? 
 fun syncAgpAndKgpSources(
     project: Project, sourceSets: NamedDomainObjectContainer<out AndroidSourceSet>
 ) {
+    val builtInKotlinSupportEnabled =
+        project.pluginManager.hasPlugin(ANDROID_BUILT_IN_KOTLIN_PLUGIN_ID)
     val hasMpp = KOTLIN_MPP_PLUGIN_IDS.any { project.pluginManager.hasPlugin(it) }
     // TODO(b/246910305): Remove once it is gone from Gradle
     val hasConventionSupport = try {
@@ -323,6 +325,10 @@ fun syncAgpAndKgpSources(
     }
 
     val kotlinSourceSets by lazy {
+        // TODO("https://youtrack.jetbrains.com/issue/KT-72467"): Support for AGP's built-in Kotlin
+        if (builtInKotlinSupportEnabled) {
+            return@lazy null
+        }
         val kotlinExtension = project.extensions.findByName("kotlin") ?: return@lazy null
 
         kotlinExtension::class.java.getMethod("getSourceSets")
@@ -400,21 +406,25 @@ internal fun checkKotlinStdLibIsInDependencies(
     // TODO(b/259523353): add DSL flag to ignore this check
     fun Configuration.checkKotlinStdlibPresent() {
         incoming.afterResolve {
-            val hasKotlinStdLib = it.resolutionResult.allDependencies
-                .filterIsInstance<ResolvedDependencyResult>()
-                .map { it.selected.id }
-                .filterIsInstance<ModuleComponentIdentifier>()
-                .any {
-                    it.group == KOTLIN_GROUP && (it.module == "kotlin-stdlib" || it.module == "kotlin-stdlib-jdk8")
-                }
-            if (!hasKotlinStdLib) {
-                creationConfig.services.issueReporter.reportError(
-                    IssueReporter.Type.GENERIC,
-                    """
+            // This check will filter out configurations that have been copied from existing configuration
+            // like the one we do in ModelBuilder.buildProjectGraphModel()
+            if (this.name == it.name) {
+                val hasKotlinStdLib = it.resolutionResult.allDependencies
+                    .filterIsInstance<ResolvedDependencyResult>()
+                    .map { it.selected.id }
+                    .filterIsInstance<ModuleComponentIdentifier>()
+                    .any {
+                        it.group == KOTLIN_GROUP && (it.module == "kotlin-stdlib" || it.module == "kotlin-stdlib-jdk8")
+                    }
+                if (!hasKotlinStdLib) {
+                    creationConfig.services.issueReporter.reportError(
+                        IssueReporter.Type.GENERIC,
+                        """
 Kotlin standard library is missing from ${this.name}. Please add a dependency on
 "$KOTLIN_GROUP:kotlin-stdlib:$defaultVersion" to your build file: `${project.buildFile.toURI()}`
                 """.trimIndent()
-                )
+                    )
+                }
             }
         }
     }

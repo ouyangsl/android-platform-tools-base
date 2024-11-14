@@ -16,7 +16,6 @@
 
 package com.android.build.gradle.integration.common.fixture.dsl
 
-import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
@@ -25,21 +24,45 @@ import java.lang.reflect.Type
 import java.lang.reflect.TypeVariable
 import java.lang.reflect.WildcardType
 
-class DslProxy(
+/**
+ * a Proxy class over all the Android DSL interfaces.
+ *
+ * The proxy records all calls to the class and stores them (in [DslContentHolder]) so that they
+ * can be rewritten in build files, with a choice of format (groovy, kts, declarative).
+ */
+class DslProxy private constructor(
     private val theInterface: Class<*>,
-    private val contentHolder: DslContentHolder
+    private val contentHolder: DslContentHolder,
+    /** whether the proxy represents one of the root extension (CommonExtension and its extensions */
+    private val rootExtensionProxy: Boolean = false,
 ): InvocationHandler {
 
     companion object {
-        fun <T> createProxy(theClass: Class<T>, contentHolder: DslContentHolder): T {
+
+        /**
+         * Creates a Java proxy for type `theClass`
+         */
+        fun <T> createProxy(
+            theClass: Class<T>,
+            contentHolder: DslContentHolder,
+            rootExtensionProxy: Boolean = false
+        ): T {
             @Suppress("UNCHECKED_CAST")
             return Proxy.newProxyInstance(
                 DslProxy::class.java.classLoader,
                 arrayOf(theClass),
-                DslProxy(theClass, contentHolder)
+                DslProxy(theClass, contentHolder, rootExtensionProxy)
             ) as T
         }
     }
+
+    /**
+     * Special handling for the namespace property. Because we need the value to finish creating
+     * projects (to set the value in the manifest and/or to generate java code in the right
+     * folder), we need to not just record calls setting the values, but we need to keep
+     * track of the current value, and allow doing a get (which we do not allow for other values).
+     */
+    private var namespace: String? = null
 
     override fun invoke(
         proxy: Any,
@@ -63,6 +86,9 @@ class DslProxy(
             if (r.validResult) return r.value
         }
 
+        // if we land here, it means it's just a method call. let's record it
+        if (handleMethodCall(method, args)) return null
+
         throw Error("$method not supported")
     }
 
@@ -73,26 +99,36 @@ class DslProxy(
         val matcher = regex.matchEntire(method.name) ?: return false
         val matchedName = matcher.groups[1]?.value ?: throw Error("Expected prop name but null")
 
+        val propName = matchedName.replaceFirstChar { c -> c.lowercaseChar() }
+
         val param = method.parameters.first()
-        val propName = (if (param.type == Boolean::class.java) {
+        val isNotation = if (param.type == Boolean::class.java) {
             // we have to check whether the prop is
             //    foo: Boolean
             // or
             //    isFoo: Boolean
             // So we search for the getter
-            theInterface.methods.firstOrNull { it.name == "is$matchedName" }?.name
-        } else null) ?: matchedName.replaceFirstChar { c -> c.lowercaseChar() }
+            theInterface.methods.any { it.name == "is$matchedName" }
+        } else false
 
         val value = args.first()
 
         // nullable primitive types are showing up as java types, not Kotlin types, so need to check
         // for both
         when (param.type) {
-            String::class.java,
-            java.lang.Integer::class.java,
-            Int::class.java,
-            java.lang.Boolean::class.java,
-            Boolean::class.java -> contentHolder.set(propName, value)
+            java.lang.Integer::class.java, Int::class.java -> {
+                contentHolder.set(propName, value)
+            }
+            java.lang.Boolean::class.java, Boolean::class.java -> {
+                contentHolder.setBoolean(propName, value, isNotation)
+            }
+            String::class.java -> {
+                contentHolder.set(propName, value)
+                if (rootExtensionProxy && propName == "namespace") {
+                    namespace = value as String?
+                }
+            }
+
             else -> throw IllegalArgumentException("Does not support type ${param.type} for method ${method.name}")
         }
 
@@ -118,6 +154,12 @@ class DslProxy(
         val returnValue = when (method.returnType) {
             MutableList::class.java -> contentHolder.getList(propName)
             MutableSet::class.java -> contentHolder.getSet(propName)
+            java.lang.String::class.java -> {
+                if (rootExtensionProxy && propName == "namespace") {
+                    return GetterResult(true, namespace)
+                }
+                throw Error("Unsupported getter type ${method.returnType} for method ${method.name}")
+            }
             else -> {
                 // we may get here if the type is a nested block.
                 if (method.returnType.name.startsWith("com.android.build.api")) {
@@ -132,7 +174,7 @@ class DslProxy(
                         )
                     }
                 } else {
-                    throw Error("Unsupported getter type ${method.returnType}")
+                    throw Error("Unsupported getter type ${method.returnType} for method ${method.name}")
                 }
             }
         }
@@ -178,6 +220,11 @@ class DslProxy(
             (args[0] as Function1<Any,*>).invoke(this)
         }
 
+        return true
+    }
+
+    private fun handleMethodCall(method: Method, args: Array<out Any?>?): Boolean {
+        contentHolder.call(method.name, args?.toList() ?: listOf(), method.isVarArgs)
         return true
     }
 

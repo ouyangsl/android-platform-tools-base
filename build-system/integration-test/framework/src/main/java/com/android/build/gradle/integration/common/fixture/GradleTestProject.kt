@@ -112,6 +112,7 @@ open class GradleTestProject @JvmOverloads constructor(
     private val withSdk: Boolean,
     private val withAndroidGradlePlugin: Boolean,
     private val withKotlinGradlePlugin: Boolean,
+    private val withKspGradlePlugin: Boolean,
     private val withAndroidxPrivacySandboxLibraryPlugin:Boolean,
     private val withExtraPluginClasspath: String?,
     private val withBuiltInKotlinSupport: Boolean,
@@ -364,7 +365,7 @@ open class GradleTestProject @JvmOverloads constructor(
     override val androidNdkSxSRootSymlink: File?
         get() = ndkSymlinkPath?.resolve(SdkConstants.FD_NDK_SIDE_BY_SIDE)
 
-    override val location: ProjectLocation
+    val location: ProjectLocation
         get() = mutableProjectLocation ?: error("Project location has not been initialized yet")
 
     val buildFile: File
@@ -456,6 +457,7 @@ open class GradleTestProject @JvmOverloads constructor(
             withSdk = rootProject.withSdk,
             withAndroidGradlePlugin = rootProject.withAndroidGradlePlugin,
             withKotlinGradlePlugin = rootProject.withKotlinGradlePlugin,
+            withKspGradlePlugin = rootProject.withKspGradlePlugin,
             withAndroidxPrivacySandboxLibraryPlugin = rootProject.withAndroidxPrivacySandboxLibraryPlugin,
             withExtraPluginClasspath = rootProject.withExtraPluginClasspath,
             withBuiltInKotlinSupport = rootProject.withBuiltInKotlinSupport,
@@ -690,6 +692,7 @@ ext {
     composeVersion = '%5${"$"}s'
     composeCompilerVersion = '%6${"$"}s'
     androidxPrivacySandboxLibraryVersion = '%7${"$"}s'
+    kspVersion = '%8${"$"}s'
 }
 """,
             DEFAULT_BUILD_TOOL_VERSION,
@@ -698,7 +701,8 @@ ext {
             kotlinVersion,
             TaskManager.COMPOSE_UI_VERSION,
             TestUtils.COMPOSE_COMPILER_FOR_TESTS,
-            androidxPrivacySandboxLibraryPluginVersion
+            androidxPrivacySandboxLibraryPluginVersion,
+            TestUtils.KSP_VERSION_FOR_TESTS
         )
         if (APPLY_DEVICEPOOL_PLUGIN) {
             result += """
@@ -726,6 +730,7 @@ allprojects { proj ->
             .getCommonBuildScriptContent(
                 withAndroidGradlePlugin,
                 withKotlinGradlePlugin,
+                withKspGradlePlugin,
                 withAndroidxPrivacySandboxLibraryPlugin,
                 withDeviceProvider,
                 withExtraPluginClasspath,
@@ -1373,14 +1378,14 @@ allprojects { proj ->
 
     /** Fluent method to run a build.  */
     fun executor(): GradleTaskExecutor {
-        return applyOptions(GradleTaskExecutor(this, gradleOptions, projectConnection) { it ->
+        return applyOptions(GradleTaskExecutor(location,this, gradleOptions, projectConnection) { it ->
             setLastBuildResult(it)
         })
     }
 
     /** Fluent method to get the model.  */
     fun modelV2(): ModelBuilderV2 {
-        return applyOptions(ModelBuilderV2(this, gradleOptions, projectConnection) {
+        return applyOptions(ModelBuilderV2(location, this, gradleOptions, projectConnection) {
             setLastBuildResult(it)
         }).withPerTestPrefsRoot(true)
     }
@@ -1631,7 +1636,8 @@ buildCache {
                         + "version('kotlinVersionForCompose', '%s')%n"
                         + "version('composeVersion', '%s')%n"
                         + "version('composeCompilerVersion', '%s')%n"
-                        + "version('androidxPrivacySandboxLibraryVersion', '%s')%n",
+                        + "version('androidxPrivacySandboxLibraryVersion', '%s')%n"
+                        + "version('kspVersion', '%s')%n",
                 Version.ANDROID_GRADLE_PLUGIN_VERSION,
                 Version.ANDROID_TOOLS_BASE_VERSION,
                 SUPPORT_LIB_VERSION,
@@ -1646,7 +1652,8 @@ buildCache {
                 TestUtils.KOTLIN_VERSION_FOR_COMPOSE_TESTS,
                 TaskManager.COMPOSE_UI_VERSION,
                 TestUtils.COMPOSE_COMPILER_FOR_TESTS,
-                androidxPrivacySandboxLibraryPluginVersion
+                androidxPrivacySandboxLibraryPluginVersion,
+                TestUtils.KSP_VERSION_FOR_TESTS
         )
     }
 
@@ -1722,7 +1729,7 @@ buildCache {
  * Collects some info to debug [GradleConnectionException]/[NoUsableDaemonFoundException]
  * (b/353867542), then rethrows the exception.
  */
-private fun debugGradleConnectionExceptionThenRethrow(
+internal fun debugGradleConnectionExceptionThenRethrow(
     gradleConnectionException: GradleConnectionException,
     testOutputDir: File
 ): Nothing {

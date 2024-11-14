@@ -56,6 +56,7 @@ import com.android.tools.lint.detector.api.SourceCodeScanner
 import com.android.tools.lint.detector.api.XmlContext
 import com.android.tools.lint.detector.api.getFileNameWithParent
 import com.android.tools.lint.detector.api.isEnglishResource
+import com.android.tools.lint.detector.api.isErroneous
 import com.android.tools.lint.detector.api.isKotlin
 import com.android.utils.CharSequences
 import com.google.common.annotations.VisibleForTesting
@@ -77,7 +78,6 @@ import org.jetbrains.uast.UCallExpression
 import org.jetbrains.uast.UExpression
 import org.jetbrains.uast.ULiteralExpression
 import org.jetbrains.uast.UReferenceExpression
-import org.jetbrains.uast.UastErrorType
 import org.jetbrains.uast.UastFacade
 import org.jetbrains.uast.skipParenthesizedExprDown
 import org.jetbrains.uast.util.isArrayInitializer
@@ -181,7 +181,11 @@ class StringFormatDetector : ResourceXmlDetector(), SourceCodeScanner {
   }
 
   override fun getApplicableMethodNames(): List<String> {
-    return listOf(SdkConstants.FORMAT_METHOD, SdkConstants.GET_STRING_METHOD)
+    return listOf(
+      SdkConstants.FORMAT_METHOD,
+      SdkConstants.GET_STRING_METHOD,
+      STRING_RESOURCE_METHOD,
+    )
   }
 
   override fun visitMethodCall(context: JavaContext, node: UCallExpression, method: PsiMethod) {
@@ -219,6 +223,13 @@ class StringFormatDetector : ResourceXmlDetector(), SourceCodeScanner {
 
         // TODO: Consider also enforcing
         // java.util.Formatter#format(String string, Object... formatArgs)
+      }
+    } else if (methodName == STRING_RESOURCE_METHOD) {
+      if (method.parameterList.parametersCount == 2) {
+        val name = method.containingClass?.qualifiedName
+        if (name == "androidx.compose.ui.res.StringResources_androidKt") {
+          checkStringFormatCall(context, method, node, 0)
+        }
       }
     } else {
       // Look up any of these string formatting methods:
@@ -465,7 +476,7 @@ class StringFormatDetector : ResourceXmlDetector(), SourceCodeScanner {
             if (isInStringExpression(call, expression)) {
               type = getStringType(context, expression)
             }
-            if (type != null && type !is UastErrorType) {
+            if (type != null && !type.isErroneous()) {
               var valid = true
               val formatType = getFormatArgumentType(s, i) ?: continue
               val last = formatType[formatType.length - 1]
@@ -955,6 +966,8 @@ This will ensure that in other languages the right set of translations are provi
         .addMoreInfo(
           "https://developer.android.com/guide/topics/resources/string-resource.html#Plurals"
         )
+
+    private const val STRING_RESOURCE_METHOD = "stringResource"
 
     /**
      * Removes all the unescaped quotes. See

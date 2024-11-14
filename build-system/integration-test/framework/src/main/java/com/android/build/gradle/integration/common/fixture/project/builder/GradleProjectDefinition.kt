@@ -19,12 +19,21 @@ package com.android.build.gradle.integration.common.fixture.project.builder
 import com.android.build.gradle.integration.common.fixture.testprojects.DependenciesBuilder
 import com.android.build.gradle.integration.common.fixture.testprojects.DependenciesBuilderImpl
 import com.android.build.gradle.integration.common.fixture.testprojects.PluginType
-import com.android.build.gradle.integration.common.fixture.testprojects.SourceFile
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
 import kotlin.io.path.writeText
 
-interface GradleProjectDefinition {
+/**
+ * Represents a Gradle Project that can be configured before being written on disk
+ */
+interface GradleProjectDefinition: BaseGradleProjectDefinition {
+    fun files(action: GradleProjectFiles.() -> Unit)
+}
+
+/**
+ * Base interface for [GradleProjectDefinition] and [AndroidProjectDefinition]
+ */
+interface BaseGradleProjectDefinition {
     val path: String
 
     val plugins: MutableList<PluginType>
@@ -32,7 +41,7 @@ interface GradleProjectDefinition {
     var group: String?
     var version: String?
 
-    fun layout(action: GradleProjectLayout.() -> Unit)
+    val files: GradleProjectFiles
 
     /**
      * Configures dependencies of the project
@@ -45,7 +54,25 @@ interface GradleProjectDefinition {
     fun wrap(library: ByteArray, fileName: String)
 }
 
-internal open class GradleProjectDefinitionImpl(override val path: String): GradleProjectDefinition {
+/**
+ * Default implementation for [GradleProjectDefinition]
+ */
+internal class GradleProjectDefinitionImpl(path: String): BaseGradleProjectDefinitionImpl(path),
+    GradleProjectDefinition {
+
+    override val files: GradleProjectFiles = GradleProjectFilesImpl()
+
+    override fun files (action: GradleProjectFiles.() -> Unit) {
+        action(files)
+    }
+}
+
+/**
+ * Implementation shared between [GradleProjectDefinition] and [AndroidProjectDefinition]
+ */
+internal abstract class BaseGradleProjectDefinitionImpl(
+    override val path: String
+): BaseGradleProjectDefinition {
 
     override val plugins = mutableListOf<PluginType>()
     override var group: String? = null
@@ -61,15 +88,12 @@ internal open class GradleProjectDefinitionImpl(override val path: String): Grad
         throw RuntimeException("todo")
     }
 
-    override fun layout(action: GradleProjectLayout.() -> Unit) {
-        throw RuntimeException("todo")
-    }
-
     internal fun writeSubProject(
         location: Path,
+        buildFileOnly: Boolean = false,
         writerProvider: WriterProvider
     ) {
-        write(location, listOf(), isRoot = false, writerProvider)
+        write(location, listOf(), isRoot = false, buildFileOnly = buildFileOnly, writerProvider)
     }
 
     internal fun writeRoot(
@@ -77,13 +101,18 @@ internal open class GradleProjectDefinitionImpl(override val path: String): Grad
         rootPlugins: Collection<PluginType>,
         writerProvider: WriterProvider
     ) {
-        write(location, rootPlugins, isRoot = true, writerProvider)
+        write(location, rootPlugins, isRoot = true, buildFileOnly = false, writerProvider)
+    }
+
+    protected open fun writeAndroid(writer: BuildWriter) {
+        // nothing to do here
     }
 
     private fun write(
         location: Path,
         rootPlugins: Collection<PluginType>,
         isRoot: Boolean,
+        buildFileOnly: Boolean,
         writerProvider: WriterProvider
     ) {
         location.createDirectories()
@@ -110,6 +139,16 @@ internal open class GradleProjectDefinitionImpl(override val path: String): Grad
                 }
             }
 
+            group?.let {
+                set("group", it)
+            }
+            version?.let {
+                set("version", it)
+            }
+
+            // write the Android extension if it exist
+            writeAndroid(this)
+
             dependencies.write(this, location)
         }.also {
             val file = location.resolve(it.buildFileName)
@@ -117,6 +156,8 @@ internal open class GradleProjectDefinitionImpl(override val path: String): Grad
         }
 
         // write the rest of the content.
-        // FIXME
+        if (!buildFileOnly) {
+            (files as GradleProjectFilesImpl).write(location)
+        }
     }
 }

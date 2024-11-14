@@ -15,7 +15,7 @@ from tools.base.bazel.ci import bazel_diff
 from tools.base.bazel.ci import gce
 
 _HASH_FILE_BUCKET = 'adt-byob'
-_HASH_FILE_NAME = 'bazel-diff-hashes/{bid}-{target}.json'
+_HASH_FILE_NAME = 'bazel-diff-hashes/v8/{bid}-{target}.json'
 _MAX_RUNS_PER_TEST = 200
 _LOCAL_REPOSITORIES = [
     'intellij',
@@ -82,7 +82,7 @@ def _find_impacted_targets(build_env: bazel.BuildEnv) -> List[str] | None:
       logging.warning('generate-hashes timed out after %f seconds.', e.timeout)
       return None
 
-    impacted_targets = temp_path / 'impacted-targets.txt'
+    impacted_targets = pathlib.Path(build_env.dist_dir) / 'impacted-targets.txt'
     bazel_diff.get_impacted_targets(
         build_env,
         base_hashes,

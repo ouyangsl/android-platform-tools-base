@@ -16,12 +16,12 @@
 
 package com.android.build.gradle.integration.kotlin
 
-import com.android.build.gradle.integration.common.fixture.BaseGradleExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.ApkType.Companion.ANDROIDTEST_DEBUG
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.ApkType.Companion.DEBUG
 import com.android.build.gradle.integration.common.fixture.testprojects.PluginType
 import com.android.build.gradle.integration.common.fixture.testprojects.createGradleProjectBuilder
 import com.android.build.gradle.integration.common.fixture.testprojects.prebuilts.setUpHelloWorld
+import com.android.build.gradle.integration.common.truth.ScannerSubject
 import com.android.build.gradle.integration.common.truth.TruthHelper.assertThat
 import com.android.build.gradle.integration.common.utils.TestFileUtils
 import com.android.build.gradle.internal.dsl.ModulePropertyKey.BooleanWithDefault.SCREENSHOT_TEST
@@ -356,48 +356,35 @@ class BuiltInKotlinForAppTest {
     }
 
     @Test
-    fun testBuiltInKotlinSupportAndKagpUsedInDifferentModules() {
-        val lib = project.getSubproject(":lib")
-        TestFileUtils.searchAndReplace(
-            lib.buildFile,
-            PluginType.ANDROID_BUILT_IN_KOTLIN.id,
-            PluginType.KOTLIN_ANDROID.id
-        )
-        TestFileUtils.appendToFile(
-            lib.buildFile,
-            """
-                android.kotlinOptions.jvmTarget = "1.8"
-                """.trimIndent()
-        )
-        lib.getMainSrcDir("java")
-            .resolve("LibFoo.kt")
-            .let {
-                it.parentFile.mkdirs()
-                it.writeText(
-                    """
-                        package com.foo.library
-                        class LibFoo
-                        """.trimIndent()
-                )
-            }
+    fun testKotlinDsl() {
         val app = project.getSubproject(":app")
+        // Add some kotlin code that will fail the build when kotlin.explicitApi is set to Strict.
         app.getMainSrcDir("kotlin")
-            .resolve("AppFoo.kt")
+            .resolve("KotlinAppFoo.kt")
             .let {
                 it.parentFile.mkdirs()
                 it.writeText(
                     """
                         package com.foo.application
-                        val l = com.foo.library.LibFoo()
+
+                        // This will cause the build to fail because it's missing an explicit
+                        // visibility modifier.
+                        fun publicFunction() {}
                         """.trimIndent()
                 )
             }
-        project.executor().withConfigurationCaching(BaseGradleExecutor.ConfigurationCaching.ON)
-            .run(":app:assembleDebug")
-        app.getApk(DEBUG).use {
-            assertThat(it).hasClass("Lcom/foo/application/AppFooKt;")
-            assertThat(it).hasClass("Lcom/foo/library/LibFoo;")
-        }
+        TestFileUtils.appendToFile(
+            app.buildFile,
+            // language=groovy
+            """
+                kotlin {
+                    explicitApi()
+                }
+                """.trimIndent()
+        )
+        val result = project.executor().expectFailure().run(":app:compileDebugKotlin")
+        ScannerSubject.assertThat(result.stderr)
+            .contains("Visibility must be specified in explicit API mode")
     }
 }
 

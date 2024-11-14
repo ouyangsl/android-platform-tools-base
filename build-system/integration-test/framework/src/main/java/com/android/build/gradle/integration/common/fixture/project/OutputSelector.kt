@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-package com.android.build.gradle.integration.common.fixture.project.builder
-
-import java.nio.file.Path
+package com.android.build.gradle.integration.common.fixture.project
 
 /**
- * Allows manipulating files of a [GradleProjectDefinition]
+ * Represents an output location, based on parameters like build type, and flavors.
+ *
+ * All these parameters influences the path to the file.
  */
-interface GradleProjectLayout {
+interface OutputSelector {
+
+    val buildType: String
+    val flavors: List<String>
+    val fromIntermediates: Boolean
+
+    val outputType: String
+    val hasDimensionInPath: Boolean
 
     /**
-     * Adds a file to the given location with the given content.
+     * Returns the filename of the output file for the given selection.
      */
-    fun addFile(relativePath: String, content: String)
-
-    /**
-     * Change the content of a file
-     */
-    fun changeFile(relativePath: String, action: (String) -> String)
-
-    /**
-     * Removes the file at the given location
-     */
-    fun removeFile(relativePath: String)
+    fun getFileName(projectName: String): String
 }
