@@ -24,8 +24,9 @@ import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.integration.common.fixture.project.builder.AndroidProjectDefinition
 import com.android.build.gradle.integration.common.fixture.project.builder.AndroidProjectDefinitionImpl
 import com.android.build.gradle.integration.common.fixture.project.builder.AndroidProjectFiles
+import com.android.build.gradle.integration.common.fixture.project.builder.BuildWriter
 import com.android.build.gradle.integration.common.fixture.project.builder.DirectAndroidProjectFilesImpl
-import com.android.build.gradle.integration.common.fixture.project.builder.WriterProvider
+import com.android.build.gradle.integration.common.fixture.project.builder.GradleBuildDefinitionImpl
 import com.android.build.gradle.integration.common.truth.AarSubject
 import com.android.build.gradle.integration.common.truth.ApkSubject
 import com.android.testutils.apk.Aar
@@ -39,7 +40,13 @@ import kotlin.io.path.name
  * a subproject part of a [GradleBuild], specifically for projects with Android plugins.
  */
 interface AndroidProject<T: CommonExtension<*, *, *, *, *, *>>: GradleProject {
+
+    /**
+     * The namespace of the project.
+     */
     val namespace: String
+
+    /** the object that allows to add/update/remove files from the project */
     override val files: AndroidProjectFiles
 
     /**
@@ -49,15 +56,58 @@ interface AndroidProject<T: CommonExtension<*, *, *, *, *, *>>: GradleProject {
      *
      * This can also be used to update [AndroidProjectFiles], but when only touching project files
      * (and not the build files) consider using [AndroidProject.files] instead
+     *
+     * @param buildFileOnly whether to only update the build files, or do a full reset, including files added via [AndroidProjectFiles]
+     * @param action the action to configure the [AndroidProjectDefinition]
+     *
      */
     fun reconfigure(buildFileOnly: Boolean = false, action: AndroidProjectDefinition<T>.() -> Unit)
 
+    /**
+     * Runs the action with a provided instance of [Apk].
+     *
+     * It is possible to return a value from the action, but it should not be [Apk] as this
+     * may not be safe. [Apk] is a [AutoCloseable] and should be treated as such.
+     */
     fun <R> withApk(apkSelector: ApkSelector, action: Apk.() -> R): R
+    /**
+     * Runs the action with a provided [ApkSubject]
+     */
     fun assertApk(apkSelector: ApkSelector, action: ApkSubject.() -> Unit)
+
+    /**
+     * Returns whether or not the APK exists.
+     *
+     * To assert validity, prefer using
+     * ```
+     * project.assertApk(ApkSelector.DEBUG) {
+     *   exists()
+     * }
+     * ```
+     */
     fun hasApk(apkSelector: ApkSelector): Boolean
 
+    /**
+     * Runs the action with a provided instance of [Aar].
+     *
+     * It is possible to return a value from the action, but it should not be [Aar] as this
+     * may not be safe. [Aar] is a [AutoCloseable] and should be treated as such.
+     */
     fun <R> withAar(aarSelector: AarSelector, action: Aar.() -> R): R
+    /**
+     * Runs the action with a provided [AarSubject]
+     */
     fun assertAar(aarSelector: AarSelector, action: AarSubject.() -> Unit)
+    /**
+     * Returns whether or not the AAR exists.
+     *
+     * To assert validity, prefer using
+     * ```
+     * project.assertAar(ApkSelector.DEBUG) {
+     *   exists()
+     * }
+     * ```
+     */
     fun hasAar(aarSelector: AarSelector): Boolean
 
 
@@ -75,10 +125,12 @@ interface AndroidProject<T: CommonExtension<*, *, *, *, *, *>>: GradleProject {
  */
 internal abstract class AndroidProjectImpl<T: CommonExtension<*, *, *, *, *, *>>(
     location: Path,
+    localProjectDefinition: AndroidProjectDefinition<T>,
     final override val namespace: String,
-): GradleProjectImpl(location), AndroidProject<T> {
+    parentBuild: GradleBuildDefinitionImpl,
+): GradleProjectImpl(location, localProjectDefinition, parentBuild), AndroidProject<T> {
 
-    protected abstract val projectDefinition: AndroidProjectDefinition<T>
+    override abstract val projectDefinition: AndroidProjectDefinition<T>
 
     override val files: AndroidProjectFiles = DirectAndroidProjectFilesImpl(location, namespace)
 
@@ -120,19 +172,7 @@ internal abstract class AndroidProjectImpl<T: CommonExtension<*, *, *, *, *, *>>
             outputsDir
         }
 
-        val path = if (outputSelector.hasDimensionInPath) {
-            // path is apk/flavors/buildType/
-            // where flavors is flavor1Flavor2Flavor3, etc...
-            if (outputSelector.flavors.isEmpty()) {
-                "${outputSelector.outputType}/${outputSelector.buildType}"
-            } else {
-                "${outputSelector.outputType}/${outputSelector.flavors.combineAsCamelCase()}/${outputSelector.buildType}"
-            }
-        } else {
-            outputSelector.outputType
-        }
-
-        return root.resolve(path).resolve(outputSelector.getFileName(location.name))
+        return root.resolve(outputSelector.getPath() + outputSelector.getFileName(location.name))
     }
 }
 
@@ -140,8 +180,9 @@ internal class AndroidApplicationImpl(
     location: Path,
     override val projectDefinition: AndroidProjectDefinition<ApplicationExtension>,
     namespace: String,
-    private val writerProvider: WriterProvider,
-): AndroidProjectImpl<ApplicationExtension>(location, namespace) {
+    private val buildWriter: () -> BuildWriter,
+    parentBuild: GradleBuildDefinitionImpl,
+): AndroidProjectImpl<ApplicationExtension>(location, projectDefinition, namespace, parentBuild) {
 
     override fun reconfigure(
         buildFileOnly: Boolean,
@@ -149,8 +190,11 @@ internal class AndroidApplicationImpl(
     ) {
         action(projectDefinition)
 
+        // we need to query the other projects for their plugins
+        val allPlugins = parentBuild.computeAllPluginMap()
+
         projectDefinition as AndroidProjectDefinitionImpl<ApplicationExtension>
-        projectDefinition.writeSubProject(location, buildFileOnly, writerProvider)
+        projectDefinition.writeSubProject(location, buildFileOnly, allPlugins, buildWriter)
     }
 
     override fun <T> withAar(aarSelector: AarSelector, action: Aar.() -> T): T {
@@ -170,8 +214,9 @@ internal class AndroidLibraryImpl(
     location: Path,
     override val projectDefinition: AndroidProjectDefinition<LibraryExtension>,
     namespace: String,
-    private val writerProvider: WriterProvider,
-): AndroidProjectImpl<LibraryExtension>(location, namespace) {
+    private val buildWriter: () -> BuildWriter,
+    parentBuild: GradleBuildDefinitionImpl,
+): AndroidProjectImpl<LibraryExtension>(location, projectDefinition, namespace, parentBuild) {
 
     override fun reconfigure(
         buildFileOnly: Boolean,
@@ -179,8 +224,11 @@ internal class AndroidLibraryImpl(
     ) {
         action(projectDefinition)
 
+        // we need to query the other projects for their plugins
+        val allPlugins = parentBuild.computeAllPluginMap()
+
         projectDefinition as AndroidProjectDefinitionImpl<LibraryExtension>
-        projectDefinition.writeSubProject(location, buildFileOnly, writerProvider)
+        projectDefinition.writeSubProject(location, buildFileOnly, allPlugins, buildWriter)
     }
 
     override fun <R> withApk(apkSelector: ApkSelector, action: Apk.() -> R): R{
@@ -231,8 +279,9 @@ internal class AndroidFeatureImpl(
     location: Path,
     override val projectDefinition: AndroidProjectDefinition<DynamicFeatureExtension>,
     namespace: String,
-    private val writerProvider: WriterProvider,
-): AndroidProjectImpl<DynamicFeatureExtension>(location, namespace) {
+    private val buildWriter: () -> BuildWriter,
+    parentBuild: GradleBuildDefinitionImpl,
+): AndroidProjectImpl<DynamicFeatureExtension>(location, projectDefinition, namespace, parentBuild) {
 
     override fun reconfigure(
         buildFileOnly: Boolean,
@@ -240,8 +289,11 @@ internal class AndroidFeatureImpl(
     ) {
         action(projectDefinition)
 
+        // we need to query the other projects for their plugins
+        val allPlugins = parentBuild.computeAllPluginMap()
+
         projectDefinition as AndroidProjectDefinitionImpl<DynamicFeatureExtension>
-        projectDefinition.writeSubProject(location, buildFileOnly, writerProvider)
+        projectDefinition.writeSubProject(location, buildFileOnly, allPlugins, buildWriter)
     }
 
     override fun <R> withAar(aarSelector: AarSelector, action: Aar.() -> R): R {

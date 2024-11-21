@@ -13,13 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.android.adblib.testing
 
-package com.android.build.gradle.integration.common.fixture.project.builder
+import com.android.adblib.AdbUsageTracker
+import java.util.Collections
 
-/**
- * Provider a [BuildWriter] instance of the right type
- */
-interface WriterProvider {
+class FakeAdbUsageTracker: AdbUsageTracker {
+  private val loggedAdbUsageEvents: MutableList<AdbUsageTracker.Event> =
+        Collections.synchronizedList(mutableListOf<AdbUsageTracker.Event>())
 
-    fun getBuildWriter(): BuildWriter
+  override fun logUsage(event: AdbUsageTracker.Event) {
+    loggedAdbUsageEvents.add(event)
+  }
+
+  fun getLoggedEvents(): List<AdbUsageTracker.Event> {
+    synchronized(loggedAdbUsageEvents) {
+      return loggedAdbUsageEvents.toList()
+    }
+  }
 }

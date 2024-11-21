@@ -21,6 +21,10 @@ class FakeAdbSessionHost : AdbSessionHost() {
 
     override val loggerFactory = FakeAdbLoggerFactory()
 
+    override val timeProvider: FakeNanoTimeProvider = FakeNanoTimeProvider()
+
+    override val usageTracker: FakeAdbUsageTracker = FakeAdbUsageTracker()
+
     override fun close() {
     }
 }

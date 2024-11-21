@@ -50,7 +50,7 @@ data class GradleLocation(
     }
 }
 
-class GradleLocationDelegate(): GradleLocationBuilder {
+class GradleLocationDelegate: GradleLocationBuilder {
     private var customGradleInstallation: File? = null // FIXME is this needed?
     private var gradleVersion: String? = null
     private var gradleDistributionDirectory: File? = null
@@ -77,4 +77,21 @@ class GradleLocationDelegate(): GradleLocationBuilder {
             gradleVersion ?: GRADLE_TEST_VERSION,
             gradleDistributionDirectory ?: TestUtils.resolveWorkspacePath("tools/external/gradle").toFile()
         )
+
+    internal fun mergeWith(other: GradleLocationDelegate) {
+        other.customGradleInstallation?.let {
+            customGradleInstallation = it
+        }
+
+        // must be done after the customGradleInstallation above
+        other.gradleVersion?.let {
+            version(it)
+        }
+
+        other.gradleDistributionDirectory?.let {
+            gradleDistributionDirectory = it
+        }
+
+    }
 }
+

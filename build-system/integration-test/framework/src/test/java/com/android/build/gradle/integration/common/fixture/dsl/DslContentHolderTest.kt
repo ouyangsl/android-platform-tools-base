@@ -28,7 +28,8 @@ class DslContentHolderTest {
     fun simple() {
         val contentHolder = DefaultDslContentHolder()
         contentHolder.runNestedBlock(
-            "address",
+            name = "address",
+            parameters = listOf(),
             instanceProvider = { AddressImpl(it) }
         ) {
             street = "foo"
@@ -53,6 +54,7 @@ class DslContentHolderTest {
         val contentHolder = DefaultDslContentHolder()
         contentHolder.runNestedBlock(
             "person",
+            parameters = listOf(),
             instanceProvider = { PersonImpl(it) }
         ) {
             name = "bob"
@@ -87,6 +89,7 @@ class DslContentHolderTest {
         val contentHolder = DefaultDslContentHolder()
         contentHolder.runNestedBlock(
             "person",
+            parameters = listOf(),
             instanceProvider = { PersonImpl(it) }
         ) {
             name = "bob"
@@ -107,6 +110,7 @@ class DslContentHolderTest {
         val contentHolder = DefaultDslContentHolder()
         contentHolder.runNestedBlock(
             "person",
+            parameters = listOf(),
             instanceProvider = { PersonImpl(it) }
         ) {
             name = "bo"
@@ -147,6 +151,7 @@ class DslContentHolderTest {
         val contentHolder = DefaultDslContentHolder()
         contentHolder.runNestedBlock(
             "person",
+            parameters = listOf(),
             instanceProvider = { PersonImpl(it) }
         ) {
             name = "bob"
@@ -173,10 +178,12 @@ class DslContentHolderTest {
         val contentHolder = DefaultDslContentHolder()
         contentHolder.runNestedBlock(
             "person",
+            parameters = listOf(),
             instanceProvider = { PersonImpl(it) }
         ) {
             name = "bob"
             sendMessage("Hello!")
+            something("one", "two")
         }
 
         val writer = GroovyBuildWriter()
@@ -185,6 +192,29 @@ class DslContentHolderTest {
             person {
               name = 'bob'
               sendMessage('Hello!')
+              something('one', 'two')
+            }
+
+        """.trimIndent())
+    }
+
+    @Test
+    fun mapPut() {
+
+        val contentHolder = DefaultDslContentHolder()
+        contentHolder.runNestedBlock(
+            "address",
+            parameters = listOf(),
+            instanceProvider = { AddressImpl(it) }
+        ) {
+            properties["foo"] = "bar"
+        }
+
+        val writer = GroovyBuildWriter()
+        contentHolder.writeContent(writer)
+        Truth.assertThat(writer.toString()).isEqualTo("""
+            address {
+              properties.put('foo', 'bar')
             }
 
         """.trimIndent())
@@ -233,13 +263,14 @@ class PersonImpl(private val dslContentHolder: DslContentHolder): Person {
     override fun address(action: Address.() -> Unit) {
         (dslContentHolder as DefaultDslContentHolder).runNestedBlock(
             "address",
+            parameters = listOf(),
             { AddressImpl(it) }
         ) {
             action()
         }
     }
 
-    override fun sendMessage(message: String) {
+    override fun sendMessage(message: String?) {
         dslContentHolder.call("sendMessage", listOf(message),false)
     }
 
@@ -257,6 +288,10 @@ class PersonImpl(private val dslContentHolder: DslContentHolder): Person {
 }
 
 class AddressImpl(private val dslContentHolder: DslContentHolder): Address {
+
+    @Suppress("UNCHECKED_CAST")
+    override val properties: MutableMap<String, String>
+        get() = dslContentHolder.getMap("properties") as MutableMap<String, String>
 
     override var street: String
         get() = throw RuntimeException("get not supported")

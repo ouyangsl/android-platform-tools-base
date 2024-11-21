@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.integration.common.fixture.dsl
 
+import com.android.build.api.dsl.Address
 import com.android.build.api.dsl.California
 import com.android.build.api.dsl.Town
 import com.android.build.gradle.integration.common.fixture.project.builder.GroovyBuildWriter
@@ -28,7 +29,7 @@ class CollectionDslProxyTest {
     @Test
     fun listAdd() {
         val contentHolder = DefaultDslContentHolder()
-        contentHolder.runNestedBlock("town", Town::class.java) {
+        contentHolder.runNestedBlock("town", listOf(), Town::class.java) {
             places += "Post Office"
         }
 
@@ -45,7 +46,7 @@ class CollectionDslProxyTest {
     @Test
     fun listAddAll() {
         val contentHolder = DefaultDslContentHolder()
-        contentHolder.runNestedBlock("town", Town::class.java) {
+        contentHolder.runNestedBlock("town", listOf(), Town::class.java) {
             places += listOf("Post Office", "City Hall")
         }
 
@@ -72,7 +73,7 @@ class CollectionDslProxyTest {
     @Test
     fun chainedListUsage() {
         val contentHolder = DefaultDslContentHolder()
-        contentHolder.runNestedBlock("california", California::class.java) {
+        contentHolder.runNestedBlock("california", listOf(), California::class.java) {
             mountainView.places += listOf("Post Office", "City Hall")
         }
 
@@ -81,6 +82,23 @@ class CollectionDslProxyTest {
         Truth.assertThat(groovy.toString()).isEqualTo("""
             california {
               mountainView.places += ['Post Office', 'City Hall']
+            }
+
+        """.trimIndent())
+    }
+
+    @Test
+    fun mapPut() {
+        val contentHolder = DefaultDslContentHolder()
+        contentHolder.runNestedBlock("address", listOf(), Address::class.java) {
+            properties["foo"] = "bar"
+        }
+
+        val groovy = GroovyBuildWriter()
+        contentHolder.writeContent(groovy)
+        Truth.assertThat(groovy.toString()).isEqualTo("""
+            address {
+              properties.put('foo', 'bar')
             }
 
         """.trimIndent())

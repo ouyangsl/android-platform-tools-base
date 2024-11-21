@@ -16,7 +16,10 @@
 
 package com.android.build.gradle.integration.common.fixture.dsl
 
+import com.android.build.api.dsl.BuildType
+import com.android.build.api.dsl.ProductFlavor
 import com.android.build.gradle.integration.common.fixture.project.builder.BuildWriter
+import org.gradle.api.provider.Property
 
 /**
  * Class that contains the actual content of a DSL class that's generated on the fly.
@@ -70,14 +73,37 @@ interface DslContentHolder {
     fun getSet(name: String): MutableSet<*>
 
     /**
+     * Returns a proxied [MutableMap]
+     */
+    fun getMap(name: String): MutableMap<*,*>
+
+    /**
+     * Returns a proxied Gradle Property
+     */
+    fun getProperty(name: String): Property<Any>
+
+    fun <T : BuildType> buildTypes(
+        theInterface: Class<T>,
+        parentChain: List<String> = listOf(),
+        action: NamedDomainObjectContainerProxy<T>.() -> Unit,
+    )
+
+    fun <T : ProductFlavor> productFlavors(
+        theInterface: Class<T>,
+        parentChain: List<String> = listOf(),
+        action: NamedDomainObjectContainerProxy<T>.() -> Unit,
+    )
+
+    /**
      * records a nested block. The block must be run as part of `action`
      */
     fun <T> runNestedBlock(
         name: String,
+        parameters: List<Any>,
         theInterface: Class<T>,
         parentChain: List<String> = listOf(),
         action: T.() -> Unit,
-    )
+    ): T
 
     /**
      * Create an instance of T via a chained proxy.
@@ -138,6 +164,11 @@ internal class DefaultDslContentHolder(override val name: String = ""): DslConte
         val usingIsNotation: Boolean
     )
 
+    data class NestedBlockData(
+        val contentHolder: DslContentHolder,
+        val args: List<Any>
+    )
+
     private val eventList = mutableListOf<Event>()
 
     override fun set(name: String, value: Any?, parentChain: List<String>) {
@@ -165,6 +196,14 @@ internal class DefaultDslContentHolder(override val name: String = ""): DslConte
         return SetProxy<Any>(name, this)
     }
 
+    override fun getMap(name: String): MutableMap<*, *> {
+        return MapProxy<Any,Any>(name, this)
+    }
+
+    override fun getProperty(name: String): Property<Any> {
+        return PropertyProxy<Any>(name, this)
+    }
+
     override fun collectionAddAll(
         name: String,
         value: Collection<Any?>?,
@@ -177,14 +216,48 @@ internal class DefaultDslContentHolder(override val name: String = ""): DslConte
         eventList += Event(EventType.COLLECTION_ADD, NamedData(name, value), parentChain)
     }
 
+    override fun <T : BuildType> buildTypes(
+        theInterface: Class<T>,
+        parentChain: List<String>,
+        action: NamedDomainObjectContainerProxy<T>.() -> Unit
+    ) {
+        runNestedBlock(
+            name = "buildTypes",
+            parameters = listOf(),
+            instanceProvider = {
+                NamedDomainObjectContainerProxy<T>(theInterface, it)
+            },
+            parentChain = parentChain,
+            action = action,
+        )
+    }
+
+    override fun <T : ProductFlavor> productFlavors(
+        theInterface: Class<T>,
+        parentChain: List<String>,
+        action: NamedDomainObjectContainerProxy<T>.() -> Unit
+    ) {
+        runNestedBlock(
+            name = "productFlavors",
+            parameters = listOf(),
+            instanceProvider = {
+                NamedDomainObjectContainerProxy<T>(theInterface, it)
+            },
+            parentChain = parentChain,
+            action = action,
+        )
+    }
+
     override fun <T> runNestedBlock(
         name: String,
+        parameters: List<Any>,
         theInterface: Class<T>,
         parentChain: List<String>,
         action: T.() -> Unit,
-    ) {
-        runNestedBlock(
+    ): T {
+        return runNestedBlock(
             name = name,
+            parameters = parameters,
             instanceProvider = {
                 DslProxy.createProxy(theInterface, it)
             },
@@ -196,6 +269,7 @@ internal class DefaultDslContentHolder(override val name: String = ""): DslConte
     // for testing
     internal fun <T> runNestedBlock(
         name: String,
+        parameters: List<Any>,
         instanceProvider: (DslContentHolder) -> T,
         parentChain: List<String> = listOf(),
         action: T.() -> Unit,
@@ -205,7 +279,11 @@ internal class DefaultDslContentHolder(override val name: String = ""): DslConte
         val instance = instanceProvider(contentHolder)
         action(instance)
 
-        eventList += Event(EventType.NESTED_BLOCK, contentHolder, parentChain)
+        eventList += Event(
+            EventType.NESTED_BLOCK,
+            NestedBlockData(contentHolder, parameters),
+            parentChain
+        )
 
         return instance
     }
@@ -235,8 +313,12 @@ internal class DefaultDslContentHolder(override val name: String = ""): DslConte
                     writer.method(computeParentChain(info.name, event.parentChain), info.args, info.isVarArgs)
                 }
                 EventType.NESTED_BLOCK -> {
-                    val holder = event.payload as DslContentHolder
-                    writer.block(computeParentChain(holder.name, event.parentChain), holder) {
+                    val data = event.payload as NestedBlockData
+                    writer.block(
+                        computeParentChain(data.contentHolder.name, event.parentChain),
+                        data.args,
+                        data.contentHolder
+                    ) {
                         it.writeContent(this)
                     }
                 }
@@ -317,13 +399,43 @@ internal class ChainedDslContentHolder(
         return SetProxy<Any>(name, this)
     }
 
+    override fun getMap(name: String): MutableMap<*, *> {
+        return MapProxy<Any,Any>(name, this)
+    }
+
+    override fun getProperty(name: String): Property<Any> {
+        return PropertyProxy(name, this)
+    }
+
+    override fun <T : BuildType> buildTypes(
+        theInterface: Class<T>,
+        parentChain: List<String>,
+        action: NamedDomainObjectContainerProxy<T>.() -> Unit
+    ) {
+        parent.buildTypes(theInterface, parentChain + this.name, action)
+    }
+
+    override fun <T : ProductFlavor> productFlavors(
+        theInterface: Class<T>,
+        parentChain: List<String>,
+        action: NamedDomainObjectContainerProxy<T>.() -> Unit
+    ) {
+        parent.productFlavors(theInterface, parentChain + this.name, action)
+    }
+
     override fun <T> runNestedBlock(
         name: String,
+        parameters: List<Any>,
         theInterface: Class<T>,
         parentChain: List<String>,
         action: T.() -> Unit,
-    ) {
-        parent.runNestedBlock(name, theInterface, parentChain + this.name, action)
+    ): T {
+        return parent.runNestedBlock(
+            name,
+            parameters,
+            theInterface,
+            parentChain + this.name,
+            action)
     }
 
     override fun <T> chainedProxy(name: String, theInterface: Class<T>): T =

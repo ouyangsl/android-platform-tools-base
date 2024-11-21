@@ -16,6 +16,7 @@
 
 package com.android.build.gradle.internal.plugins
 
+import com.android.SdkConstants
 import com.android.build.api.artifact.ScopedArtifact
 import com.android.build.api.artifact.impl.InternalScopedArtifacts
 import com.android.build.api.attributes.BuildTypeAttr
@@ -49,6 +50,7 @@ import com.android.build.gradle.tasks.FusedLibraryMergeClasses
 import com.android.build.gradle.tasks.FusedLibraryMergeResourceCompileSymbolsTask
 import com.android.build.gradle.tasks.FusedLibraryMergeResourcesTask
 import com.android.build.gradle.tasks.FusedLibraryReportTask
+import com.android.builder.errors.IssueReporter
 import com.google.wireless.android.sdk.stats.GradleBuildProject
 import groovy.namespace.QName
 import groovy.util.Node
@@ -174,6 +176,7 @@ class FusedLibraryPlugin @Inject constructor(
             it.dependencies.addAllLater(fusedAarRuntimeDependenciesProvider)
             it.outgoing.artifact(bundleTaskProvider) { artifact ->
                 artifact.type = AndroidArtifacts.ArtifactType.AAR.type
+                artifact.extension = SdkConstants.EXT_AAR
             }
         }
 
@@ -261,9 +264,20 @@ class FusedLibraryPlugin @Inject constructor(
     override fun apply(project: Project) {
         super.basePluginApply(project, buildFeatures)
 
-        if (!projectServices.projectOptions[BooleanOption.FUSED_LIBRARY_SUPPORT]) {
-            throw GradleException(
-                "The fused library plugin does not work yet."
+        val unstableNotice =
+            "*Important* Fused Library Plugin is currently in an early testing phase. Artifacts published by the\n" +
+                    "plugin and plugin behaviour may not be stable at this time. Take caution before distributing\n" +
+                    "published artifacts created by the plugin; there is no guarantee of correctness.\n" +
+                    "As an early adopter, please be aware that there may be frequent breaking changes that may require\n" +
+                    "you to make changes to your project.\n"
+        if (projectServices.projectOptions[BooleanOption.FUSED_LIBRARY_SUPPORT]) {
+            syncIssueReporter.reportWarning(IssueReporter.Type.GENERIC, unstableNotice)
+        }
+        else {
+            syncIssueReporter.reportError(IssueReporter.Type.GENERIC,
+                unstableNotice +
+                        "If you still wish to use the plugin, acknowledge the warning by " +
+                        "setting `${BooleanOption.FUSED_LIBRARY_SUPPORT.propertyName}=true` to gradle.properties"
             )
         }
 

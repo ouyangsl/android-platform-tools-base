@@ -21,6 +21,7 @@ import com.android.build.api.dsl.DynamicFeatureExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.integration.common.fixture.testprojects.GradlePropertiesBuilder
 import com.android.build.gradle.integration.common.fixture.testprojects.GradlePropertiesBuilderImpl
+import com.android.build.gradle.integration.common.fixture.testprojects.PluginType
 import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.createDirectories
@@ -104,6 +105,8 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
         path: String,
         action: GradleProjectDefinition.() -> Unit
     ): GradleProjectDefinition {
+        if (path == ":") return rootProject
+
         val project = subProjects.computeIfAbsent(path) {
             GradleProjectDefinitionImpl(it)
         }
@@ -123,6 +126,8 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
         path: String,
         action: AndroidProjectDefinition<ApplicationExtension>.() -> Unit
     ): AndroidProjectDefinition<ApplicationExtension> {
+        if (path == ":") throw RuntimeException("root project cannot be an android project")
+
         val project = subProjects.computeIfAbsent(path) {
             AndroidApplicationDefinitionImpl(it)
         }
@@ -141,6 +146,8 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
         path: String,
         action: AndroidProjectDefinition<LibraryExtension>.() -> Unit
     ): AndroidProjectDefinition<LibraryExtension> {
+        if (path == ":") throw RuntimeException("root project cannot be an android project")
+
         val project = subProjects.computeIfAbsent(path) {
             AndroidLibraryDefinitionImpl(it)
         }
@@ -158,6 +165,8 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
         path: String,
         action: AndroidProjectDefinition<DynamicFeatureExtension>.() -> Unit
     ): AndroidProjectDefinition<DynamicFeatureExtension> {
+        if (path == ":") throw RuntimeException("root project cannot be an android project")
+
         val project = subProjects.computeIfAbsent(path) {
             AndroidDynamicFeatureDefinitionImpl(it)
         }
@@ -197,12 +206,12 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
     internal fun write(
         location: Path,
         repositories: Collection<Path>,
-        writerProvider: WriterProvider
+        buildWriter: () -> BuildWriter,
     ) {
         location.createDirectories()
 
-        // gather all the plugins so that the settings file can declare them as needed.
-        val allPlugins = (subProjects.values.flatMap { it.plugins } + rootProject.plugins).toSet()
+        // gather all the plugins and all their versions so that the settings file can declare them as needed.
+        val allPlugins = computeAllPluginMap()
 
         // write settings with the list of plugins
         settings.write(
@@ -210,23 +219,38 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
             repositories = repositories,
             includedBuildNames = includedBuilds.values.map { it.name},
             subProjectPaths = subProjects.values.map { it.path },
-            writerProvider = writerProvider
+            buildWriter = buildWriter,
         )
 
         // write all the projects
-        rootProject.writeRoot(location, allPlugins, writerProvider)
+        rootProject.writeRoot(location, allPlugins, buildWriter)
         subProjects.values.forEach {
             it.writeSubProject(
                 location.resolveGradlePath(it.path),
                 buildFileOnly = false,
-                writerProvider
+                allPlugins,
+                buildWriter
             )
         }
 
         // and the included builds
         includedBuilds.values.forEach {
-            it.write(location.resolve(it.name), repositories, writerProvider)
+            it.write(location.resolve(it.name), repositories, buildWriter)
         }
+    }
+
+    internal fun computeAllPluginMap(): Map<PluginType, Set<String>> {
+        val allPlugins = mutableMapOf<PluginType, Set<String>>()
+        (subProjects.values + rootProject).forEach { project ->
+            project.plugins.forEach { entry ->
+                val set = allPlugins.computeIfAbsent(entry.plugin) {
+                    mutableSetOf()
+                } as MutableSet<String>
+
+                set.add(entry.version)
+            }
+        }
+        return allPlugins
     }
 }
 

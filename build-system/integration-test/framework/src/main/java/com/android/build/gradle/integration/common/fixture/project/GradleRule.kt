@@ -17,7 +17,8 @@
 package com.android.build.gradle.integration.common.fixture.project
 
 import com.android.SdkConstants
-import com.android.build.gradle.integration.common.fixture.GradleOptions
+import com.android.build.gradle.integration.common.fixture.ConfigurationCacheReportChecker
+import com.android.build.gradle.integration.common.fixture.GradleBuildResult
 import com.android.build.gradle.integration.common.fixture.GradleTaskExecutor
 import com.android.build.gradle.integration.common.fixture.GradleTestInfo
 import com.android.build.gradle.integration.common.fixture.GradleTestProject.Companion.GRADLE_DEAMON_IDLE_TIME_IN_SECONDS
@@ -32,13 +33,13 @@ import com.android.build.gradle.integration.common.fixture.project.GradleRule.Co
 import com.android.build.gradle.integration.common.fixture.project.builder.AndroidApplicationDefinitionImpl
 import com.android.build.gradle.integration.common.fixture.project.builder.AndroidDynamicFeatureDefinitionImpl
 import com.android.build.gradle.integration.common.fixture.project.builder.AndroidLibraryDefinitionImpl
-import com.android.build.gradle.integration.common.fixture.project.builder.AndroidProjectDefinitionImpl
+import com.android.build.gradle.integration.common.fixture.project.builder.BuildWriter
 import com.android.build.gradle.integration.common.fixture.project.builder.GradleBuildDefinition
 import com.android.build.gradle.integration.common.fixture.project.builder.GradleBuildDefinitionImpl
 import com.android.build.gradle.integration.common.fixture.project.builder.GroovyBuildWriter
 import com.android.build.gradle.integration.common.fixture.project.builder.KtsBuildWriter
-import com.android.build.gradle.integration.common.fixture.project.builder.WriterProvider
 import com.android.build.gradle.integration.common.fixture.testprojects.TestProjectBuilder
+import com.android.build.gradle.integration.common.truth.forEachLine
 import com.android.sdklib.internal.project.ProjectProperties
 import com.android.testutils.TestUtils
 import com.android.utils.FileUtils
@@ -61,13 +62,7 @@ import java.util.concurrent.TimeUnit
 class GradleRule internal constructor(
     val name: String,
     private val gradleBuild: GradleBuildDefinitionImpl,
-
-    // options
-    private val gradleLocation: GradleLocation,
-    private val sdkConfiguration: SdkConfiguration,
-    private val gradleOptions: GradleOptions,
-    private val gradleProperties: List<String>,
-
+    private val ruleOptionBuilder: DefaultRuleOptionBuilder,
 ): TestRule {
     private var status = Status.PENDING
 
@@ -75,6 +70,9 @@ class GradleRule internal constructor(
     private var mutableProjectLocation: ProjectLocation? = null
 
     private val openConnections = mutableListOf<ProjectConnection>()
+
+    /** The last build result. this is only used to log it in case of a test failure */
+    private var lastBuildResult: GradleBuildResult? = null
 
     companion object {
         /**
@@ -104,7 +102,10 @@ class GradleRule internal constructor(
      * The generated [GradleBuild].
      *
      * Once this is called the project is written on disk and it's not possible to change
-     * its structure (source files can be added via [ProjectContentWriter])
+     * its structure.
+     *
+     * It is possible after the fact to add more source files can be added via [GradleProject.files]
+     * and it's possible to amend the build file with [AndroidProject.reconfigure]
      */
     val build: GradleBuild by lazy {
         if (!status.written) {
@@ -113,29 +114,26 @@ class GradleRule internal constructor(
 
         computeGradleBuild(
             gradleBuild,
-            mutableProjectLocation?.projectDir?.toPath() ?: throw RuntimeException("Location not set!")
+            mutableProjectLocation ?: throw RuntimeException("Location not set!")
         )
     }
 
-    private val writerProvider by lazy {
-        val buildWriterProvider = if (true) {
-            object: WriterProvider {
-                override fun getBuildWriter() = GroovyBuildWriter()
-            }
+    private val buildWriter: () -> BuildWriter by lazy {
+        if (true) {
+            { GroovyBuildWriter() }
         } else {
-            object: WriterProvider {
-                override fun getBuildWriter() = KtsBuildWriter()
-            }
+            { KtsBuildWriter() }
         }
-
-        buildWriterProvider
     }
 
     /**
      * Configures the build with one final action and returns the [GradleBuild]
      *
      * Once this is called the project is written on disk and it's not possible to change
-     * its structure (source files can be added via [ProjectContentWriter])
+     * its structure.
+     *
+     * It is possible after the fact to add more source files can be added via [GradleProject.files]
+     * and it's possible to amend the build file with [AndroidProject.reconfigure]
      */
     fun configureBuild(action: GradleBuildDefinition.() -> Unit): GradleBuild {
         // cannot reconfigure the build since static rules creates a single build for all test methods.
@@ -150,6 +148,22 @@ class GradleRule internal constructor(
         return build
     }
 
+    /**
+     * Configures the build with multi-step actions before returning the [GradleBuild]
+     *
+     * The returned instance of [LocalRuleOptionBuilder] allows configuring many Gradle options.
+     *
+     * The gradle build must be queried at the end with either versions of
+     * [LocalRuleOptionBuilder.from]
+     *
+     * Once this is called the project is written on disk and it's not possible to change
+     * its structure.
+     *
+     * It is possible after the fact to add more source files can be added via [GradleProject.files]
+     * and it's possible to amend the build file with [AndroidProject.reconfigure]
+     */
+    fun configure(): LocalRuleOptionBuilder = LocalRuleOptionBuilderImpl(this, this.ruleOptionBuilder)
+
     private fun doWriteBuild() {
         val location = mutableProjectLocation ?: throw RuntimeException("Location not set before writing!")
 
@@ -159,7 +173,7 @@ class GradleRule internal constructor(
 
         val localRepositories = BuildSystem.get().localRepositories
 
-        gradleBuild.write(projectDir.toPath(), localRepositories, writerProvider)
+        gradleBuild.write(projectDir.toPath(), localRepositories, buildWriter)
 
         createLocalProp()
         createGradleProp()
@@ -167,44 +181,72 @@ class GradleRule internal constructor(
         status = Status.WRITTEN_USER
     }
 
-    private fun computeGradleBuild(build: GradleBuildDefinitionImpl, buildDir: Path): GradleBuild {
+    /**
+     * compute a [GradleBuild].
+     *
+     * For included builds, the location is the modified [location] so that `projectDir` is updated to be
+     * the included directory.
+     */
+    private fun computeGradleBuild(
+        build: GradleBuildDefinitionImpl,
+        location: ProjectLocation
+    ): GradleBuild {
+        val rootFolder = location.projectDir.toPath()
+
         val includedBuilds = build.includedBuilds.values.associate {
-            it.name to computeGradleBuild(it, buildDir.resolve(it.name))
+            it.name to computeGradleBuild(
+                it,
+                ProjectLocation(rootFolder.resolve(it.name).toFile(), location.testLocation)
+            )
         }
 
         val subProjects = build.subProjects.values.associate { definition ->
             when (definition) {
                 is AndroidApplicationDefinitionImpl -> definition.path to AndroidApplicationImpl(
-                    computeSubProjectPath(buildDir, definition.path),
+                    computeSubProjectPath(rootFolder, definition.path),
                     definition,
                     definition.namespace,
-                    writerProvider
+                    buildWriter,
+                    build
                 )
 
                 is AndroidLibraryDefinitionImpl -> definition.path to AndroidLibraryImpl(
-                    computeSubProjectPath(buildDir, definition.path),
+                    computeSubProjectPath(rootFolder, definition.path),
                     definition,
                     definition.namespace,
-                    writerProvider
+                    buildWriter,
+                    build
                 )
 
                 is AndroidDynamicFeatureDefinitionImpl -> definition.path to AndroidFeatureImpl(
-                    computeSubProjectPath(buildDir, definition.path),
+                    computeSubProjectPath(rootFolder, definition.path),
                     definition,
                     definition.namespace,
-                    writerProvider
+                    buildWriter,
+                    build
                 )
 
-                else -> definition.path to GradleProjectImpl(computeSubProjectPath(buildDir, definition.path))
+                else -> definition.path to GradleProjectImpl(
+                    computeSubProjectPath(rootFolder, definition.path),
+                    definition,
+                    build
+                )
             }
         }
 
         return GradleBuildImpl(
-            buildDir,
-            subProjects = subProjects,
+            rootFolder,
+            subProjects = subProjects + mapOf(
+                ":" to GradleProjectImpl(
+                    computeSubProjectPath(
+                        rootFolder,
+                        ":"
+                    ), build.rootProject, build
+                )
+            ),
             includedBuilds = includedBuilds,
-            executorProvider = this::instantiateExecutor,
-            modelBuilderProvider = this::instantiateModelBuilder,
+            executorProvider = { instantiateExecutor(location) },
+            modelBuilderProvider = { instantiateModelBuilder(location) },
         )
     }
 
@@ -219,19 +261,19 @@ class GradleRule internal constructor(
         return rootDir.resolve(newPath.replace(':', '/'))
     }
 
-    private fun instantiateExecutor(): GradleTaskExecutor =
-        GradleTaskExecutor(location, getTestInfo(), gradleOptions, projectConnection) {
-            // handle build result or not?
+    private fun instantiateExecutor(location: ProjectLocation): GradleTaskExecutor =
+        GradleTaskExecutor(location, getTestInfo(), ruleOptionBuilder.gradleOptions, projectConnection) {
+            lastBuildResult = it
         }
 
-    private fun instantiateModelBuilder(): ModelBuilderV2 =
-        ModelBuilderV2(location, getTestInfo(), gradleOptions, projectConnection) {
-            // handle build result.
+    private fun instantiateModelBuilder(location: ProjectLocation): ModelBuilderV2 =
+        ModelBuilderV2(location, getTestInfo(), ruleOptionBuilder.gradleOptions, projectConnection) {
+            lastBuildResult = it
         }.withPerTestPrefsRoot(true)
 
     private fun getTestInfo(): GradleTestInfo = object : GradleTestInfo {
         override val androidSdkDir: File?
-            get() = sdkConfiguration.sdkDir
+            get() = ruleOptionBuilder.sdkConfiguration.sdkDir?.toFile()
         override val androidNdkSxSRootSymlink: File?
             get() = location.testLocation.buildDir.resolve(".").canonicalFile.resolve(SdkConstants.FD_NDK_SIDE_BY_SIDE) // FIXME
         override val additionalMavenRepoDir: Path?
@@ -253,9 +295,9 @@ class GradleRule internal constructor(
         // class
         val jdkVersionForGradle = System.getProperty("gradle.java.version");
         val propList = if (jdkVersionForGradle != null && jdkVersionForGradle == "17") {
-            gradleProperties + "org.gradle.java.home=${TestUtils.getJava17Jdk().toString().replace("\\", "/")}"
+            ruleOptionBuilder.gradleProperties + "org.gradle.java.home=${TestUtils.getJava17Jdk().toString().replace("\\", "/")}"
         } else {
-            gradleProperties
+            ruleOptionBuilder.gradleProperties
         }
 
         if (propList.isEmpty()) {
@@ -273,8 +315,9 @@ class GradleRule internal constructor(
         val localProp = ProjectPropertiesWorkingCopy.create(
             destinationDir.absolutePath, ProjectPropertiesWorkingCopy.PropertyType.LOCAL
         )
-        if (sdkConfiguration.sdkDir != null) {
-            localProp.setProperty(ProjectProperties.PROPERTY_SDK, sdkConfiguration.sdkDir.absolutePath)
+
+        ruleOptionBuilder.sdkConfiguration.sdkDir?.let {
+            localProp.setProperty(ProjectProperties.PROPERTY_SDK, it.toString())
         }
 
 //        if (withCmakeDirInLocalProp && cmakeVersion != null && cmakeVersion.isNotEmpty()) {
@@ -304,6 +347,9 @@ class GradleRule internal constructor(
                     )
                 }
 
+                // log the location to help with debugging if needed
+                println("Project location for ${description}: ${mutableProjectLocation!!.projectDir}")
+
                 // the rule is static, then it's created just once for all the test methods and therefore
                 // we write it now.
                 if (staticRule) {
@@ -322,10 +368,15 @@ class GradleRule internal constructor(
                         throw e
                     }
                 } finally {
-
-
                     openConnections.forEach(ProjectConnection::close)
 
+                    if (!System.getProperty("os.name").contains("Windows")) {
+                        checkConfigurationCache()
+                    }
+
+                    if (testFailed) {
+                        logBuildResult(description)
+                    }
                 }
             }
         }
@@ -347,6 +398,8 @@ class GradleRule internal constructor(
             .useGradleUserHomeDir(location.testLocation.gradleUserHome.toFile())
             .forProjectDirectory(location.projectDir)
 
+        val gradleLocation = ruleOptionBuilder.gradleLocation
+
         if (gradleLocation.customGradleInstallation != null) {
             connector.useInstallation(gradleLocation.customGradleInstallation)
         } else {
@@ -358,11 +411,41 @@ class GradleRule internal constructor(
         }
     }
 
+    private fun checkConfigurationCache() {
+        val checker = ConfigurationCacheReportChecker()
+        build.subProject(":").location.resolve("build/reports").toFile().walk()
+            .filter { it.isFile }
+            .filter { it.name != "configuration-cache.html" }
+            .forEach(checker::checkReport)
+    }
+
+    private fun logBuildResult(description: Description) {
+        lastBuildResult?.let {
+            System.err
+                .println("""
+                    ==============================================
+                    = Test $description failed. Last build:
+                    ==============================================
+                    =================== Stderr ===================
+                """.trimIndent())
+            // All output produced during build execution is written to the standard
+            // output file handle since Gradle 4.7. This should be empty.
+            it.stderr.forEachLine { System.err.println(it) }
+            System.err
+                .println("=================== Stdout ===================")
+            it.stdout.forEachLine { System.err.println(it) }
+            System.err
+                .println("""
+                    ==============================================
+                    =============== End last build ===============
+                    ==============================================
+                """.trimIndent())
+        }
+    }
+
     private enum class Status(
         val written: Boolean = false,
     ) {
         PENDING, WRITTEN_STATIC(true), WRITTEN_USER(true)
     }
 }
-
-

@@ -49,7 +49,10 @@ interface BuildWriter {
     fun rawMethod(name: String, params: List<Pair<String, Any>>): RawString
 
     /** Writes a block with a sub item */
+    fun <T> block(name: String, parameters: List<Any>, item: T, action: BuildWriter.(T) -> Unit): BuildWriter
+    /** Writes a block with a sub item, and parameters passed to the block */
     fun <T> block(name: String, item: T, action: BuildWriter.(T) -> Unit): BuildWriter
+    /** Writes a block without an item or parameters */
     fun block(name: String, action: BuildWriter.() -> Unit): BuildWriter
 
     /**
@@ -132,24 +135,35 @@ internal abstract class BaseBuildWriter(indentLevel: Int): IndentHandler(indentL
     protected abstract fun quoteString(value: String): String
     protected abstract fun newBuilder(indentLevel: Int): BaseBuildWriter
 
-    private fun Any?.toFormattedString(isVarArg: Boolean = false): String = when (this) {
-        null -> "null"
-        is String -> quoteString(this)
-        is BuildWriter.RawString -> value
-        is Array<*> -> {
-            val allItems = joinToString(separator = ", ") { it ->
-                it.toFormattedString()
-            }
+    private fun Any?.toFormattedString(isVarArg: Boolean = false): String {
 
-            // var args, we're going to expect these to be at the end, and all we'll do
-            // is add all of them
-            if (!isVarArg) {
-                arrayOf(allItems)
-            } else {
-                allItems
-            }
+        // have to check this outside of when due to scope conflict between the
+        // this for this method and the this of the builder.
+        val enum = this?.javaClass?.isEnum ?: false
+        if (enum) {
+            return "${this?.javaClass?.typeName}.$this"
         }
-        else -> toString()
+
+        return when (this) {
+            null -> "null"
+            is String -> quoteString(this)
+            is BuildWriter.RawString -> value
+            is Array<*> -> {
+                val allItems = joinToString(separator = ", ") { it ->
+                    it.toFormattedString()
+                }
+
+                // var args, we're going to expect these to be at the end, and all we'll do
+                // is add all of them
+                if (!isVarArg) {
+                    arrayOf(allItems)
+                } else {
+                    allItems
+                }
+            }
+            else -> toString()
+
+        }
     }
 
     override fun set(name: String, value: Any?): BuildWriter {
@@ -266,17 +280,36 @@ internal abstract class BaseBuildWriter(indentLevel: Int): IndentHandler(indentL
 
     override fun <T> block(
         name: String,
+        parameters: List<Any>,
         item: T,
         action: BuildWriter.(T) -> Unit
     ): BuildWriter {
         val blockBuilder = newBuilder(indentLevel + 2)
 
-        indent().put(name).put(" {").endLine()
+        val writer = indent().put(name)
+
+        if (parameters.isNotEmpty()) {
+            writer
+                .put('(')
+                .put(parameters.joinToString(separator = ", ") { it.toFormattedString(false) })
+                .put(')')
+        }
+
+        writer.put(" {").endLine()
+
         action(blockBuilder, item)
         flatten(blockBuilder)
 
         indent().put('}').endLine()
         return this
+    }
+
+    override fun <T> block(
+        name: String,
+        item: T,
+        action: BuildWriter.(T) -> Unit
+    ): BuildWriter {
+        return block(name, listOf(), item, action)
     }
 
     override fun block(

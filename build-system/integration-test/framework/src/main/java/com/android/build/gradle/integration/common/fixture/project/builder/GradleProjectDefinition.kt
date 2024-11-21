@@ -36,7 +36,22 @@ interface GradleProjectDefinition: BaseGradleProjectDefinition {
 interface BaseGradleProjectDefinition {
     val path: String
 
-    val plugins: MutableList<PluginType>
+    /**
+     * Applies a plugin with an optional version string. If null, the default version is used.
+     *
+     * For core gradle plugin, the version should always be null.
+     *
+     * @param type the type of the plugin to apply
+     * @param version the version of the plugin.
+     * @param applyFirst if true, applies this plugin first, before other plugins
+     */
+    fun applyPlugin(type: PluginType, version: String? = null, applyFirst: Boolean = false)
+    /**
+     * Replaces an applied plugin, with a provided version
+     *
+     * This replaces the plugin in the same place as the previous one.
+     */
+    fun replaceAppliedPlugin(type: PluginType, version: String)
 
     var group: String?
     var version: String?
@@ -47,6 +62,7 @@ interface BaseGradleProjectDefinition {
      * Configures dependencies of the project
      */
     fun dependencies(action: DependenciesBuilder.() -> Unit)
+    val dependencies: DependenciesBuilder
 
     /**
      * Wraps a library binary with a module
@@ -73,12 +89,42 @@ internal class GradleProjectDefinitionImpl(path: String): BaseGradleProjectDefin
 internal abstract class BaseGradleProjectDefinitionImpl(
     override val path: String
 ): BaseGradleProjectDefinition {
+    data class AppliedPlugin(
+        val plugin: PluginType,
+        val version: String
+    )
 
-    override val plugins = mutableListOf<PluginType>()
+    internal val plugins = mutableListOf<AppliedPlugin>()
+
     override var group: String? = null
     override var version: String? = null
 
-    private val dependencies: DependenciesBuilderImpl = DependenciesBuilderImpl()
+    override fun applyPlugin(type: PluginType, version: String?, applyFirst: Boolean) {
+        // search for existing one
+        plugins.firstOrNull { it.plugin == type }?.let {
+            throw RuntimeException("Plugin $type is already applied! (version: ${it.version}")
+        }
+
+        val appliedPlugin = AppliedPlugin(type, version ?: type.version ?: INTERNAL_PLUGIN_VERSION)
+        if (applyFirst) {
+            plugins.add(0, appliedPlugin)
+        } else {
+            plugins += appliedPlugin
+        }
+    }
+
+    override fun replaceAppliedPlugin(type: PluginType, version: String) {
+        val match = plugins.firstOrNull { it.plugin == type }
+            ?: throw RuntimeException("Plugin $type not yet applied")
+
+        val appliedPlugin = AppliedPlugin(type, version)
+        val index = plugins.indexOf(match)
+        plugins[index] = appliedPlugin
+    }
+
+    internal fun hasPlugin(plugin: PluginType): Boolean = plugins.any { it.plugin == plugin }
+
+    override val dependencies: DependenciesBuilderImpl = DependenciesBuilderImpl()
 
     override fun dependencies(action: DependenciesBuilder.() -> Unit) {
         action(dependencies)
@@ -91,17 +137,18 @@ internal abstract class BaseGradleProjectDefinitionImpl(
     internal fun writeSubProject(
         location: Path,
         buildFileOnly: Boolean = false,
-        writerProvider: WriterProvider
+        allPlugins: Map<PluginType, Set<String>>,
+        buildWriter: () -> BuildWriter,
     ) {
-        write(location, listOf(), isRoot = false, buildFileOnly = buildFileOnly, writerProvider)
+        write(location, allPlugins, isRoot = false, buildFileOnly = buildFileOnly, buildWriter)
     }
 
     internal fun writeRoot(
         location: Path,
-        rootPlugins: Collection<PluginType>,
-        writerProvider: WriterProvider
+        allPlugins: Map<PluginType, Set<String>>,
+        buildWriter: () -> BuildWriter,
     ) {
-        write(location, rootPlugins, isRoot = true, buildFileOnly = false, writerProvider)
+        write(location, allPlugins, isRoot = true, buildFileOnly = false, buildWriter)
     }
 
     protected open fun writeAndroid(writer: BuildWriter) {
@@ -110,30 +157,42 @@ internal abstract class BaseGradleProjectDefinitionImpl(
 
     private fun write(
         location: Path,
-        rootPlugins: Collection<PluginType>,
+        allPlugins: Map<PluginType, Set<String>>,
         isRoot: Boolean,
         buildFileOnly: Boolean,
-        writerProvider: WriterProvider
+        buildWriter: () -> BuildWriter,
     ) {
         location.createDirectories()
 
-        writerProvider.getBuildWriter().apply {
+        buildWriter().apply {
             block("plugins") {
                 // write the plugins used by this project
-                for (plugin in plugins.toSet()) {
-                    // this is used by this project, but we have to display a version if this is
-                    // the root project only.
-                    pluginId(plugin.id, if (isRoot) plugin.version else null)
+                for ((plugin, version) in plugins) {
+                    // we display the version if:
+                    // - this is the root project
+                    // - this is not the root project, but there are 2+ versions used in the build
+                    // If the version is INTERNAL_PLUGIN_VERSION then we also skip it
+                    val versionToWrite =
+                        if ((isRoot || allPlugins[plugin]!!.size > 2) && version != INTERNAL_PLUGIN_VERSION)
+                            version
+                        else null
+                    pluginId(plugin.id, versionToWrite)
                 }
 
                 // write the plugins used by the other projects (only for root project)
-                if (rootPlugins.isNotEmpty()) {
-                    val remainingPlugins = rootPlugins - plugins.toSet()
+                if (isRoot) {
+                    val remainingPlugins = allPlugins - plugins.map { it.plugin }.toSet()
 
                     // we can exclude plugin with no versions
-                    for (plugin in remainingPlugins.filter { it.version != null }) {
-                        // always write the version is available.
-                        // don't apply these
+                    for ((plugin, versions) in remainingPlugins) {
+                        // if there are 2+ versions we don't write it there.
+                        if (versions.size > 1) continue
+
+                        val version = versions.first()
+                        // no need to write core plugins since there's no version to define
+                        // (if it's used by this project, it's written above)
+                        if (version == INTERNAL_PLUGIN_VERSION) continue
+
                         pluginId(plugin.id, plugin.version, apply = false)
                     }
                 }
@@ -161,3 +220,5 @@ internal abstract class BaseGradleProjectDefinitionImpl(
         }
     }
 }
+
+internal const val INTERNAL_PLUGIN_VERSION: String = "__internal_version__"

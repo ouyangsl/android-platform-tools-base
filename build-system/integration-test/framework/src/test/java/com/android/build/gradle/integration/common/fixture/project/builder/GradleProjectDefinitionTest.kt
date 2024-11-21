@@ -41,9 +41,9 @@ class GradleProjectDefinitionTest {
         val location = temporaryFolder.newFolder().toPath()
         project.writeSubProject(
             location = location,
-            writerProvider = object : WriterProvider {
-                override fun getBuildWriter() = GroovyBuildWriter()
-            }
+            buildFileOnly = false,
+            allPlugins = mapOf(),
+            buildWriter = { GroovyBuildWriter() },
         )
 
         val fooFile = location.resolve("foo.txt")
@@ -63,9 +63,9 @@ class GradleProjectDefinitionTest {
         val location = temporaryFolder.newFolder().toPath()
         project.writeSubProject(
             location = location,
-            writerProvider = object : WriterProvider {
-                override fun getBuildWriter() = GroovyBuildWriter()
-            }
+            buildFileOnly = false,
+            allPlugins = mapOf(),
+            buildWriter = { GroovyBuildWriter() },
         )
 
         val fooFile = location.resolve("foo.txt")
@@ -86,9 +86,9 @@ class GradleProjectDefinitionTest {
         val location = temporaryFolder.newFolder().toPath()
         project.writeSubProject(
             location = location,
-            writerProvider = object : WriterProvider {
-                override fun getBuildWriter() = GroovyBuildWriter()
-            }
+            buildFileOnly = false,
+            allPlugins = mapOf(),
+            buildWriter = { GroovyBuildWriter() },
         )
 
         val fooFile = location.resolve("foo.txt")

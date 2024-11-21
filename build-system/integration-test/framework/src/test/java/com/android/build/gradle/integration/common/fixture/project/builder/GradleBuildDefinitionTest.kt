@@ -128,10 +128,10 @@ class GradleBuildDefinitionTest {
     fun testPlugins() {
         val folder = writeBuild {
             subProject(":app") {
-                plugins.add(PluginType.ANDROID_APP)
+                applyPlugin(PluginType.ANDROID_APP)
             }
             subProject(":library") {
-                plugins.add(PluginType.JAVA_LIBRARY)
+                applyPlugin(PluginType.JAVA_LIBRARY)
             }
         }
 
@@ -219,9 +219,7 @@ class GradleBuildDefinitionTest {
         build.write(
             location = folder,
             repositories = repositories,
-            writerProvider = object : WriterProvider {
-                override fun getBuildWriter() = GroovyBuildWriter()
-            }
+            buildWriter = { GroovyBuildWriter() }
         )
 
         return folder

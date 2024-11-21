@@ -44,12 +44,14 @@ kotlin_library(
         "@maven//:com.google.truth.truth",
         "@maven//:commons-io.commons-io",  # TODO: remove?
         "@maven//:commons-lang.commons-lang",  # TODO: remove?
+        "@maven//:net.bytebuddy.byte-buddy",
         "@maven//:org.jacoco.org.jacoco.agent",
         "@maven//:org.jacoco.org.jacoco.core",
         "@maven//:org.jacoco.org.jacoco.report",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk7",
         "@maven//:org.jetbrains.kotlin.kotlin-stdlib-jdk8",
+        "@maven//:org.jetbrains.kotlin.kotlin-gradle-plugin",
     ],
 )
 
