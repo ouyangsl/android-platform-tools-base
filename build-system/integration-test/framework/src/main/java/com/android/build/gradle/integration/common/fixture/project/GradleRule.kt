@@ -30,17 +30,20 @@ import com.android.build.gradle.integration.common.fixture.gradle_project.Projec
 import com.android.build.gradle.integration.common.fixture.gradle_project.initializeProjectLocation
 import com.android.build.gradle.integration.common.fixture.project.GradleRule.Companion.configure
 import com.android.build.gradle.integration.common.fixture.project.GradleRule.Companion.from
-import com.android.build.gradle.integration.common.fixture.project.builder.AndroidApplicationDefinitionImpl
-import com.android.build.gradle.integration.common.fixture.project.builder.AndroidDynamicFeatureDefinitionImpl
-import com.android.build.gradle.integration.common.fixture.project.builder.AndroidLibraryDefinitionImpl
 import com.android.build.gradle.integration.common.fixture.project.builder.BuildWriter
 import com.android.build.gradle.integration.common.fixture.project.builder.GradleBuildDefinition
 import com.android.build.gradle.integration.common.fixture.project.builder.GradleBuildDefinitionImpl
+import com.android.build.gradle.integration.common.fixture.project.builder.GradleProjectDefinitionImpl
 import com.android.build.gradle.integration.common.fixture.project.builder.GroovyBuildWriter
 import com.android.build.gradle.integration.common.fixture.project.builder.KtsBuildWriter
+import com.android.build.gradle.integration.common.fixture.project.options.DefaultRuleOptionBuilder
+import com.android.build.gradle.integration.common.fixture.project.options.LocalRuleOptionBuilder
+import com.android.build.gradle.integration.common.fixture.testprojects.BuildFileType
 import com.android.build.gradle.integration.common.fixture.testprojects.TestProjectBuilder
 import com.android.build.gradle.integration.common.truth.forEachLine
 import com.android.sdklib.internal.project.ProjectProperties
+import com.android.testutils.MavenRepoGenerator
+import com.android.testutils.MavenRepoGenerator.Library
 import com.android.testutils.TestUtils
 import com.android.utils.FileUtils
 import org.gradle.tooling.GradleConnectionException
@@ -63,6 +66,7 @@ class GradleRule internal constructor(
     val name: String,
     private val gradleBuild: GradleBuildDefinitionImpl,
     private val ruleOptionBuilder: DefaultRuleOptionBuilder,
+    private val externalLibraries: List<Library>
 ): TestRule {
     private var status = Status.PENDING
 
@@ -118,14 +122,6 @@ class GradleRule internal constructor(
         )
     }
 
-    private val buildWriter: () -> BuildWriter by lazy {
-        if (true) {
-            { GroovyBuildWriter() }
-        } else {
-            { KtsBuildWriter() }
-        }
-    }
-
     /**
      * Configures the build with one final action and returns the [GradleBuild]
      *
@@ -135,7 +131,7 @@ class GradleRule internal constructor(
      * It is possible after the fact to add more source files can be added via [GradleProject.files]
      * and it's possible to amend the build file with [AndroidProject.reconfigure]
      */
-    fun configureBuild(action: GradleBuildDefinition.() -> Unit): GradleBuild {
+    fun build(action: GradleBuildDefinition.() -> Unit): GradleBuild {
         // cannot reconfigure the build since static rules creates a single build for all test methods.
         if (status == Status.WRITTEN_STATIC) {
             throw RuntimeException("Build from static GradleRule cannot be reconfigured")
@@ -154,7 +150,7 @@ class GradleRule internal constructor(
      * The returned instance of [LocalRuleOptionBuilder] allows configuring many Gradle options.
      *
      * The gradle build must be queried at the end with either versions of
-     * [LocalRuleOptionBuilder.from]
+     * [LocalRuleOptionBuilder.build]
      *
      * Once this is called the project is written on disk and it's not possible to change
      * its structure.
@@ -162,7 +158,20 @@ class GradleRule internal constructor(
      * It is possible after the fact to add more source files can be added via [GradleProject.files]
      * and it's possible to amend the build file with [AndroidProject.reconfigure]
      */
-    fun configure(): LocalRuleOptionBuilder = LocalRuleOptionBuilderImpl(this, this.ruleOptionBuilder)
+    fun configure(): LocalRuleOptionBuilder = LocalRuleOptionBuilder(this, this.ruleOptionBuilder)
+
+    private val buildWriter: () -> BuildWriter by lazy {
+        when (ruleOptionBuilder.creationOptions.buildFileType) {
+            BuildFileType.GROOVY -> {
+                // need to keep the braces to return a lambda
+                { GroovyBuildWriter() }
+            }
+            BuildFileType.KTS -> {
+                // need to keep the braces to return a lambda
+                { KtsBuildWriter() }
+            }
+        }
+    }
 
     private fun doWriteBuild() {
         val location = mutableProjectLocation ?: throw RuntimeException("Location not set before writing!")
@@ -171,7 +180,16 @@ class GradleRule internal constructor(
         FileUtils.deleteRecursivelyIfExists(projectDir)
         FileUtils.mkdirs(projectDir)
 
-        val localRepositories = BuildSystem.get().localRepositories
+        val localRepositories = mutableListOf<Path>().also {
+            it += BuildSystem.get().localRepositories
+        }
+
+        if (externalLibraries.isNotEmpty()) {
+            val repoPath = location.projectDir.toPath().resolve("_maven_repo")
+            MavenRepoGenerator(externalLibraries).generate(repoPath)
+
+            localRepositories.add(repoPath)
+        }
 
         gradleBuild.write(projectDir.toPath(), localRepositories, buildWriter)
 
@@ -226,11 +244,29 @@ class GradleRule internal constructor(
                     build
                 )
 
-                else -> definition.path to GradleProjectImpl(
+                is PrivacySandboxSdkDefinitionImpl -> definition.path to AndroidPrivacySandboxSdkImpl(
                     computeSubProjectPath(rootFolder, definition.path),
                     definition,
+                    definition.namespace,
+                    buildWriter,
                     build
                 )
+
+                is AndroidAiPackDefinitionImpl -> definition.path to AndroidAiPackImpl(
+                    computeSubProjectPath(rootFolder, definition.path),
+                    definition,
+                    buildWriter,
+                    build
+                )
+
+                is GradleProjectDefinitionImpl -> definition.path to GradleProjectImpl(
+                    computeSubProjectPath(rootFolder, definition.path),
+                    definition,
+                    buildWriter,
+                    build
+                )
+
+                else -> throw RuntimeException("Unsupported GradleProjectDefinition type")
             }
         }
 
@@ -241,7 +277,7 @@ class GradleRule internal constructor(
                     computeSubProjectPath(
                         rootFolder,
                         ":"
-                    ), build.rootProject, build
+                    ), build.rootProject, buildWriter, build
                 )
             ),
             includedBuilds = includedBuilds,
@@ -330,7 +366,6 @@ class GradleRule internal constructor(
         localProp.save()
     }
 
-
     override fun apply(
         base: Statement,
         description: Description
@@ -413,7 +448,11 @@ class GradleRule internal constructor(
 
     private fun checkConfigurationCache() {
         val checker = ConfigurationCacheReportChecker()
-        build.subProject(":").location.resolve("build/reports").toFile().walk()
+        (build as GradleBuildImpl).subProject(":")
+            .location
+            .resolve("build/reports")
+            .toFile()
+            .walk()
             .filter { it.isFile }
             .filter { it.name != "configuration-cache.html" }
             .forEach(checker::checkReport)

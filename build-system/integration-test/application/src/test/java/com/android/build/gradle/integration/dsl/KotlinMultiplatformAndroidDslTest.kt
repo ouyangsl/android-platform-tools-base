@@ -78,7 +78,6 @@ class KotlinMultiplatformAndroidDslTest {
             // Managed by the kotlin plugin DSL
             "public abstract com.android.build.api.variant.JavaCompilation getJavaCompilation()",
             "public abstract org.gradle.api.artifacts.Configuration getAnnotationProcessorConfiguration()", // kapt-ksp
-            "public abstract org.gradle.api.artifacts.Configuration getCompileConfiguration()",
             "public abstract org.gradle.api.artifacts.Configuration getRuntimeConfiguration()",
 
             // Exposed on the extension-level only. Since this is a single variant, it doesn't make
@@ -89,7 +88,6 @@ class KotlinMultiplatformAndroidDslTest {
 
             // Exposed on the extension-level only. Since this is a single variant, users can wrap
             // the DSL value in a provider to get the final value directly.
-            "public abstract com.android.build.api.variant.AndroidVersion getMinSdk()",
             "public abstract java.lang.Integer getMaxSdk()",
             "public abstract org.gradle.api.provider.Provider getNamespace()",
 

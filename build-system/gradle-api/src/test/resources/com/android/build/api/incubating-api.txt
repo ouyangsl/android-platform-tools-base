@@ -238,6 +238,7 @@ https://issuetracker.google.com/328748772
   * com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension implements com.android.build.api.variant.DslLifecycle, com.android.build.api.variant.AndroidComponents
   * com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension.onVariant: void (kotlin.jvm.functions.Function1<? super com.android.build.api.variant.KotlinMultiplatformAndroidVariant, kotlin.Unit>)
   * com.android.build.api.variant.KotlinMultiplatformAndroidComponentsExtension.onVariant: void (org.gradle.api.Action<com.android.build.api.variant.KotlinMultiplatformAndroidVariant>)
+  * com.android.build.api.variant.KotlinMultiplatformAndroidVariant.getMinSdk: com.android.build.api.variant.AndroidVersion ()
 https://issuetracker.google.com/328748780
   * com.android.build.api.dsl.AssetPackBundleExtension.countrySet: void (kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.BundleCountrySet, kotlin.Unit>)
   * com.android.build.api.dsl.AssetPackBundleExtension.getCountrySet: com.android.build.api.dsl.BundleCountrySet ()
@@ -329,6 +330,7 @@ https://issuetracker.google.com/328748877
 https://issuetracker.google.com/328748878
   * com.android.build.api.variant.KotlinMultiplatformAndroidVariant.getArtifacts: com.android.build.api.artifact.Artifacts ()
   * com.android.build.api.variant.KotlinMultiplatformAndroidVariant.getCompileClasspath: org.gradle.api.file.FileCollection ()
+  * com.android.build.api.variant.KotlinMultiplatformAndroidVariant.getCompileConfiguration: org.gradle.api.artifacts.Configuration ()
   * com.android.build.api.variant.KotlinMultiplatformAndroidVariant.getInstrumentation: com.android.build.api.variant.Instrumentation ()
   * com.android.build.api.variant.KotlinMultiplatformAndroidVariant.getLifecycleTasks: com.android.build.api.variant.LifecycleTasks ()
   * com.android.build.api.variant.KotlinMultiplatformAndroidVariant.getName: java.lang.String ()
@@ -725,3 +727,6 @@ https://issuetracker.google.com/362941219
 https://issuetracker.google.com/368059518
   * com.android.build.api.dsl.PrivacySandboxSdkExtension.getLint: com.android.build.api.dsl.Lint ()
   * com.android.build.api.dsl.PrivacySandboxSdkExtension.lint: void (kotlin.jvm.functions.Function1<? super com.android.build.api.dsl.Lint, kotlin.Unit>)
+https://issuetracker.google.com/379870599
+  * com.android.build.api.dsl.FusedLibraryExtension.getManifestPlaceholders: java.util.Map<java.lang.String, java.lang.String> ()
+  * com.android.build.api.dsl.FusedLibraryExtension.setManifestPlaceholders: void (java.util.Map<java.lang.String, java.lang.String>)

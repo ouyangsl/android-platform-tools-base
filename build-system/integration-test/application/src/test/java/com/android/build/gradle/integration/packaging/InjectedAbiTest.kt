@@ -16,8 +16,7 @@
 
 package com.android.build.gradle.integration.packaging
 
-import com.android.build.api.dsl.ApplicationExtension
-import com.android.build.gradle.integration.common.fixture.project.AndroidProject
+import com.android.build.gradle.integration.common.fixture.project.AndroidApplicationProject
 import com.android.build.gradle.integration.common.fixture.project.ApkSelector
 import com.android.build.gradle.integration.common.fixture.project.ApkSelector.Companion.DEBUG
 import com.android.build.gradle.integration.common.fixture.project.GradleProject
@@ -31,19 +30,13 @@ import com.android.build.gradle.integration.common.truth.ScannerSubject
 import com.android.build.gradle.internal.core.Abi
 import com.android.build.gradle.options.BooleanOption
 import com.android.build.gradle.options.StringOption
-import com.android.testutils.apk.Apk
 import com.android.testutils.truth.PathSubject
-import com.android.testutils.truth.ZipFileSubject
-import com.android.testutils.truth.ZipFileSubject.assertThat
 import com.android.utils.FileUtils
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
-import java.nio.file.Path
 import kotlin.io.path.listDirectoryEntries
 import kotlin.io.path.name
-import kotlin.test.assertContains
 import kotlin.test.fail
 
 /** Test APK is packaged correctly when injected ABI exists or changes */
@@ -69,7 +62,7 @@ class InjectedAbiTest {
 
     @Test
     fun testInjectedAbiChange_WithSplits() {
-        val build = rule.configureBuild {
+        val build = rule.build {
             enableSplits(listOf("x86", "armeabi-v7a", "x86_64", "arm64-v8a"))
         }
         val project = build.androidApplication(":app")
@@ -270,7 +263,7 @@ class InjectedAbiTest {
 
     @Test
     fun testMissingSoFiles_WithSplits() {
-        val build = rule.configureBuild {
+        val build = rule.build {
             enableSplits(listOf("x86", "armeabi-v7a", "x86_64", "arm64-v8a"))
         }
         val project = build.androidApplication(":app")
@@ -322,7 +315,7 @@ class InjectedAbiTest {
     @Test
     fun testPackagingTargetAbiCanBeDisabled() {
         val build = rule.build
-        val project = build.androidProject(":app")
+        val project = build.androidApplication(":app")
 
         // Run the build with target ABI but set BUILD_ONLY_TARGET_ABI to false,
         // check that APK contains native libraries for multiple ABIs
@@ -337,7 +330,7 @@ class InjectedAbiTest {
         }
     }
 
-    private fun AndroidProject<ApplicationExtension>.assertCorrectApk(
+    private fun AndroidApplicationProject.assertCorrectApk(
         apkSelector: ApkSelector,
         action: (ApkSubject.() -> Unit)? = null
     ) {
@@ -352,7 +345,7 @@ class InjectedAbiTest {
         }
     }
 
-    private fun AndroidProject<ApplicationExtension>.assertDoesNotExist(apkSelector: ApkSelector) {
+    private fun AndroidApplicationProject.assertDoesNotExist(apkSelector: ApkSelector) {
         if (this.hasApk(apkSelector)) {
             fail("APK ($apkSelector) exist for ${this.location}")
         }
@@ -366,7 +359,7 @@ class InjectedAbiTest {
         add("src/main/jniLibs/$abi/$filename", content)
     }
 
-    private fun GradleProject.removeSoFiles(abis: List<String>) {
+    private fun AndroidApplicationProject.removeSoFiles(abis: List<String>) {
         abis.forEach {
             val folder = location.resolve("src/main/jniLibs/$it")
             FileUtils.deleteRecursivelyIfExists(folder.toFile())

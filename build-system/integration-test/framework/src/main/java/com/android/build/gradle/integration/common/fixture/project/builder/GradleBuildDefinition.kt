@@ -19,8 +19,13 @@ package com.android.build.gradle.integration.common.fixture.project.builder
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.DynamicFeatureExtension
 import com.android.build.api.dsl.LibraryExtension
-import com.android.build.gradle.integration.common.fixture.testprojects.GradlePropertiesBuilder
-import com.android.build.gradle.integration.common.fixture.testprojects.GradlePropertiesBuilderImpl
+import com.android.build.api.dsl.PrivacySandboxSdkExtension
+import com.android.build.gradle.integration.common.fixture.project.AiPackDefinition
+import com.android.build.gradle.integration.common.fixture.project.AndroidAiPackDefinitionImpl
+import com.android.build.gradle.integration.common.fixture.project.AndroidApplicationDefinitionImpl
+import com.android.build.gradle.integration.common.fixture.project.AndroidDynamicFeatureDefinitionImpl
+import com.android.build.gradle.integration.common.fixture.project.AndroidLibraryDefinitionImpl
+import com.android.build.gradle.integration.common.fixture.project.PrivacySandboxSdkDefinitionImpl
 import com.android.build.gradle.integration.common.fixture.testprojects.PluginType
 import java.io.File
 import java.nio.file.Path
@@ -65,10 +70,30 @@ interface GradleBuildDefinition {
     /**
      * Configures a subProject with the Android Dynamic Feature plugin, creating it if needed.
      */
-    fun androidFeature(path: String, action: AndroidProjectDefinition<DynamicFeatureExtension>.() -> Unit): AndroidProjectDefinition<DynamicFeatureExtension>
+    fun androidFeature(
+        path: String,
+        action: AndroidProjectDefinition<DynamicFeatureExtension>.() -> Unit
+    ): AndroidProjectDefinition<DynamicFeatureExtension>
 
-    fun gradleProperties(action: GradlePropertiesBuilder.() -> Unit)
+    /**
+     * Configures a subProject with the Android Privacy Sandbox SDK plugin, creating it if needed.
+     */
+    fun privacySandboxSdk(
+        path: String,
+        action: AndroidProjectDefinition<PrivacySandboxSdkExtension>.() -> Unit
+    ): AndroidProjectDefinition<PrivacySandboxSdkExtension>
 
+    /**
+     * Configures a subProject with the Android AI Pack SDK plugin, creating it if needed.
+     */
+    fun androidAiPack(
+        path: String,
+        action: AiPackDefinition.() -> Unit
+    ): AiPackDefinition
+
+    /**
+     * Configures a maven repositories with custom artifacts
+     */
     fun mavenRepository(action: MavenRepository.() -> Unit)
 }
 
@@ -78,8 +103,6 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
     internal val includedBuilds = mutableMapOf<String, GradleBuildDefinitionImpl>()
     internal val rootProject = GradleProjectDefinitionImpl(":")
     internal val subProjects = mutableMapOf<String, BaseGradleProjectDefinitionImpl>()
-
-    private val gradlePropertiesBuilder = GradlePropertiesBuilderImpl()
 
     override fun settings(action: GradleSettingsDefinition.() -> Unit) {
         action(settings)
@@ -132,10 +155,7 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
             AndroidApplicationDefinitionImpl(it)
         }
 
-        // Attempting to create a module $path of type Application, but a module $path of type XXX already exists.
-
-        @Suppress("UNCHECKED_CAST")
-        project as? AndroidProjectDefinition<ApplicationExtension>
+        project as? AndroidApplicationDefinitionImpl
             ?: errorOnWrongType(project, path, "Android Application")
         action(project)
 
@@ -152,8 +172,7 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
             AndroidLibraryDefinitionImpl(it)
         }
 
-        @Suppress("UNCHECKED_CAST")
-        project as? AndroidProjectDefinition<LibraryExtension>
+        project as? AndroidLibraryDefinitionImpl
             ?: errorOnWrongType(project, path, "Android Library")
 
         action(project)
@@ -171,9 +190,44 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
             AndroidDynamicFeatureDefinitionImpl(it)
         }
 
-        @Suppress("UNCHECKED_CAST")
-        project as? AndroidProjectDefinition<DynamicFeatureExtension>
+        project as? AndroidDynamicFeatureDefinitionImpl
             ?: errorOnWrongType(project, path, "Android Dynamic Feature")
+
+        action(project)
+
+        return project
+    }
+
+    override fun privacySandboxSdk(
+        path: String,
+        action: AndroidProjectDefinition<PrivacySandboxSdkExtension>.() -> Unit
+    ): AndroidProjectDefinition<PrivacySandboxSdkExtension> {
+        if (path == ":") throw RuntimeException("root project cannot be a privacy sandbox sdk")
+
+        val project = subProjects.computeIfAbsent(path) {
+            PrivacySandboxSdkDefinitionImpl(it)
+        }
+
+        project as? PrivacySandboxSdkDefinitionImpl
+            ?: errorOnWrongType(project, path, "Android Privacy Sandbox SDK")
+
+        action(project)
+
+        return project
+    }
+
+    override fun androidAiPack(
+        path: String,
+        action: AiPackDefinition.() -> Unit
+    ): AiPackDefinition {
+        if (path == ":") throw RuntimeException("root project cannot be a privacy sandbox sdk")
+
+        val project = subProjects.computeIfAbsent(path) {
+            AndroidAiPackDefinitionImpl(it)
+        }
+
+        project as? AiPackDefinition
+            ?: errorOnWrongType(project, path, "Android AI Pack")
 
         action(project)
 
@@ -189,14 +243,11 @@ internal class GradleBuildDefinitionImpl(override val name: String): GradleBuild
             is AndroidApplicationDefinitionImpl -> "Android Application"
             is AndroidLibraryDefinitionImpl -> "Android Library"
             is AndroidDynamicFeatureDefinitionImpl -> "Android Dynamic Feature"
+            is PrivacySandboxSdkDefinitionImpl -> "Android Privacy Sandbox SDK"
             else -> project.javaClass.name
         }
 
         throw RuntimeException("Attempting to create a module with path '$path' of type '$expectedType', but a module of type '$wrongType' already exists.")
-    }
-
-    override fun gradleProperties(action: GradlePropertiesBuilder.() -> Unit) {
-        action(gradlePropertiesBuilder)
     }
 
     override fun mavenRepository(action: MavenRepository.() -> Unit) {

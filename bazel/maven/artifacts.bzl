@@ -92,8 +92,7 @@ ARTIFACTS = [
     "com.squareup.okio:okio-jvm:3.0.0",
     "com.sun.activation:javax.activation:1.2.0",
     "commons-cli:commons-cli:1.4",
-    "commons-codec:commons-codec:1.10",
-    "commons-io:commons-io:2.13.0",
+    "commons-io:commons-io:2.16.1",
     "commons-lang:commons-lang:2.6",
     "commons-logging:commons-logging:1.2",
     "gradle.plugin.org.jetbrains.gradle.plugin.idea-ext:gradle-idea-ext:0.8.1",
@@ -147,11 +146,11 @@ ARTIFACTS = [
     "org.apache.httpcomponents:httpmime:4.5.6",
     "org.apache.maven:maven-aether-provider:3.3.9",
     "org.apache.maven:maven-model-builder:3.9.1",
-    "org.bouncycastle:bcpkix-jdk18on:1.77",
-    "org.bouncycastle:bcprov-jdk18on:1.77",
+    "org.bouncycastle:bcpkix-jdk18on:1.79",
+    "org.bouncycastle:bcprov-jdk18on:1.79",
     "org.bytedeco:ffmpeg:6.0-1.5.9",
     "org.codehaus.groovy:groovy-all:pom:3.0.22",
-    "org.commonmark:commonmark:0.22.0",
+    "org.commonmark:commonmark:0.24.0",
     "org.eclipse.aether:aether-connector-basic:1.0.2.v20150114",
     "org.eclipse.aether:aether-transport-file:1.0.2.v20150114",
     "org.eclipse.aether:aether-transport-http:1.0.2.v20150114",
@@ -162,7 +161,7 @@ ARTIFACTS = [
     "org.eclipse.emf:org.eclipse.emf.ecore:2.12.0",
     "org.glassfish.jaxb:jaxb-runtime:2.3.2",
     "org.glassfish.jaxb:jaxb-xjc:2.3.2",
-    "org.gradle:gradle-tooling-api:8.10.2",
+    "org.gradle:gradle-tooling-api:8.11.1",
     "org.hamcrest:hamcrest-core:1.3",
     "org.hamcrest:hamcrest-library:1.3",
     "org.hdrhistogram:HdrHistogram:2.1.12",
@@ -226,6 +225,7 @@ DATA = [
     "androidx.activity:activity-compose:1.6.1",  # Dependency of architecture-samples
     "androidx.activity:activity-compose:1.7.2",  # Still needed from //tools/base/android-templates/BUILD
     "androidx.activity:activity-compose:1.8.0",
+    "androidx.activity:activity-compose:1.9.3",
     "androidx.activity:activity-ktx:1.4.0",
     "androidx.activity:activity-ktx:1.6.0",  # Still needed from navigation-fragment-ktx:2.5.3
     "androidx.activity:activity-ktx:1.7.0",
@@ -239,16 +239,20 @@ DATA = [
     "androidx.appcompat:appcompat:1.3.0-beta01",
     "androidx.appcompat:appcompat:1.4.1",
     "androidx.appcompat:appcompat:1.6.1",
+    "androidx.appcompat:appcompat:1.7.0",
     "androidx.arch.core:core-testing:2.1.0",  # Dependency of architecture-samples
     "androidx.benchmark:benchmark-baseline-profile-gradle-plugin:1.2.4",
     "androidx.benchmark:benchmark-gradle-plugin:1.2.4",
     "androidx.cardview:cardview:1.0.0",
     "androidx.collection:collection:1.4.0",
+    "androidx.collection:collection:1.5.0-alpha06",
     "androidx.collection:collection-ktx:1.4.0",  # Compose BOM 2024.04.01
+    "androidx.collection:collection-ktx:1.5.0-alpha06",
     "androidx.compose.animation:animation:1.3.0",
     "androidx.compose.animation:animation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.animation:animation:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.animation:animation:1.7.0-beta05",
+    "androidx.compose.animation:animation:1.8.0-alpha06",
     "androidx.compose.animation:animation-core:1.3.3",  # Dependency of architecture-samples
     "androidx.compose.animation:animation-core-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.compiler:compiler:1.2.0",
@@ -266,6 +270,7 @@ DATA = [
     "androidx.compose.foundation:foundation:1.3.1",  # Dependency of architecture-samples
     "androidx.compose.foundation:foundation:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation:1.7.0",  # Compose BOM 2024.09.00
+    "androidx.compose.foundation:foundation:1.8.0-alpha06",
     "androidx.compose.foundation:foundation-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.foundation:foundation-layout:1.3.1",  # Dependency of architecture-samples
     "androidx.compose.foundation:foundation-layout:1.7.0",  # Compose BOM 2024.09.00
@@ -273,6 +278,7 @@ DATA = [
     "androidx.compose.material:material:1.4.3",  # Necessary for Compose for TV.
     "androidx.compose.material:material:1.5.0-alpha04",
     "androidx.compose.material:material:1.7.0",  # Compose BOM 2024.09.00
+    "androidx.compose.material:material:1.8.0-alpha06",
     "androidx.compose.material:material-icons-core:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.material:material-icons-extended:1.3.0",
     "androidx.compose.material:material-ripple:1.7.0",  # Compose BOM 2024.09.00
@@ -287,6 +293,7 @@ DATA = [
     "androidx.compose.ui:ui:1.3.0",
     "androidx.compose.ui:ui:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui:1.7.0",  # Compose BOM 2024.09.00
+    "androidx.compose.ui:ui:1.7.5",
     "androidx.compose.ui:ui-graphics:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.ui:ui-graphics-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-test-android:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -314,6 +321,7 @@ DATA = [
     "androidx.compose.ui:ui-tooling:1.7.0",  # Compose BOM 2024.09.00
     "androidx.compose.ui:ui-tooling:1.7.0-beta03",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.compose.ui:ui-tooling:1.7.0-beta05",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
+    "androidx.compose.ui:ui-tooling:1.8.0-alpha06",
     "androidx.compose.ui:ui-tooling-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling-data-android:1.5.0-beta01",  # Necessary for Compose for TV.
     "androidx.compose.ui:ui-tooling-preview:1.5.0-beta01",  # Necessary for Compose for TV.
@@ -337,6 +345,7 @@ DATA = [
     "androidx.core:core-ktx:1.12.0-alpha05",
     "androidx.core:core-ktx:1.13.0",
     "androidx.core:core-ktx:1.13.1",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
+    "androidx.core:core-ktx:1.15.0",
     "androidx.core:core-ktx:1.2.0",
     "androidx.core:core-ktx:1.3.0",
     "androidx.core:core-ktx:1.3.2",
@@ -376,6 +385,8 @@ DATA = [
     "androidx.lifecycle:lifecycle-extensions:2.2.0",
     "androidx.lifecycle:lifecycle-livedata:2.6.0-alpha03",  # Dependency of architecture-samples
     "androidx.lifecycle:lifecycle-livedata:2.8.3",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
+    "androidx.lifecycle:lifecycle-livedata:2.8.7",
+    "androidx.lifecycle:lifecycle-livedata-core:2.8.7",
     "androidx.lifecycle:lifecycle-livedata-core-ktx:2.6.2",
     "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0",
     "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1",
@@ -388,6 +399,7 @@ DATA = [
     "androidx.lifecycle:lifecycle-process:2.6.1",
     "androidx.lifecycle:lifecycle-process:2.6.2",
     "androidx.lifecycle:lifecycle-process:2.8.3",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
+    "androidx.lifecycle:lifecycle-process:2.8.7",
     "androidx.lifecycle:lifecycle-reactivestreams:2.6.2",
     "androidx.lifecycle:lifecycle-runtime:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
     "androidx.lifecycle:lifecycle-runtime:2.6.1",
@@ -400,6 +412,7 @@ DATA = [
     "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
     "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1",
     "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2",
+    "androidx.lifecycle:lifecycle-runtime-ktx:2.8.7",
     "androidx.lifecycle:lifecycle-runtime-testing:2.6.0-alpha03",  # Dependency of architecture-samples
     "androidx.lifecycle:lifecycle-service:2.4.0",  # Needed for tools/data-binding:runtimeLibrariesAndroidX
     "androidx.lifecycle:lifecycle-service:2.6.1",
@@ -417,6 +430,7 @@ DATA = [
     "androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.3",  # Needed for TemplateTest#testNewComposeWearActivityWithTileAndComplication
     "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1",
     "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.2",
+    "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7",
     "androidx.media:media:1.5.0",
     "androidx.media:media:1.6.0",
     "androidx.multidex:multidex:2.0.0",
@@ -866,7 +880,6 @@ DATA = [
     "com.squareup.dagger:dagger-compiler:1.2.2",
     "com.squareup:kotlinpoet:1.12.0",
     "com.squareup.okio:okio:3.4.0",
-    "commons-codec:commons-codec:1.9",
     "commons-lang:commons-lang:2.4",
     "io.grpc:grpc-inprocess:1.66.0",
     "io.ktor:ktor-client-content-negotiation-jvm:2.3.2",
@@ -905,17 +918,17 @@ DATA = [
     "org.jdeferred:jdeferred-android-aar:1.2.2",
     "org.jdeferred:jdeferred-android-aar:1.2.3",
     "org.jetbrains:annotations-java5:jar:24.0.0",
-    "org.jetbrains.compose.components:components-resources:1.7.0",
-    "org.jetbrains.compose.components:components-resources-desktop:1.7.0",
-    "org.jetbrains.compose.ui:ui-test-junit4-desktop:1.7.0",
+    "org.jetbrains.compose.components:components-resources:1.7.1",
+    "org.jetbrains.compose.components:components-resources-desktop:1.7.1",
+    "org.jetbrains.compose.ui:ui-test-junit4-desktop:1.7.1",
     "org.jetbrains.dokka:dokka-base:1.4.32",
     "org.jetbrains.dokka:javadoc-plugin:1.4.32",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-243:0.26.2",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-243:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-autolink-243:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-243:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-243:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-243:0.26.2",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-243:0.27.0",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-243:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-extension-autolink-243:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-243:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-243:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-243:0.27.0",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.0",  # Remove it later (b/243935746)
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.10",
     "org.jetbrains.kotlin.android:org.jetbrains.kotlin.android.gradle.plugin:pom:1.7.20",
@@ -1058,6 +1071,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-reflect:1.9.22",
     "org.jetbrains.kotlin:kotlin-reflect:1.9.23",
     "org.jetbrains.kotlin:kotlin-reflect:1.9.24",
+    "org.jetbrains.kotlin:kotlin-reflect:2.0.20",
     "org.jetbrains.kotlin:kotlin-reflect:2.1.0-RC",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.5.21",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.6.10",
@@ -1072,6 +1086,7 @@ DATA = [
     "org.jetbrains.kotlin:kotlin-script-runtime:1.9.20",
     "org.jetbrains.kotlin:kotlin-script-runtime:1.9.24",
     "org.jetbrains.kotlin:kotlin-script-runtime:2.1.0-RC",
+    "org.jetbrains.kotlin:kotlin-stdlib:2.0.20",
     "org.jetbrains.kotlin:kotlin-stdlib:2.1.0-RC",
     "org.jetbrains.kotlin:kotlin-stdlib:2.1.20-dev-2943",
     "org.jetbrains.kotlin:kotlin-stdlib-common:1.9.22",
@@ -1108,6 +1123,7 @@ DATA = [
     "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.1.0-RC",
     "org.jetbrains.kotlin.plugin.compose:org.jetbrains.kotlin.plugin.compose.gradle.plugin:pom:2.1.20-dev-2943",
     "org.jetbrains.kotlin.plugin.parcelize:org.jetbrains.kotlin.plugin.parcelize.gradle.plugin:pom:2.1.0-RC",  # Used by com.android.tools.idea.benchmarks.tests.JetNewsBenchmarkTest
+    "org.jetbrains.kotlinx:atomicfu:0.21.0",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6",
     "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1",
@@ -1130,16 +1146,17 @@ DATA = [
     "org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.3",
     "org.jetbrains.skiko:skiko:0.7.7",  # used by //tools/base/build-system/integration-test/lint and ASwB query sync
     "org.jetbrains.skiko:skiko-awt:0.7.7",
-    "org.jetbrains.skiko:skiko-awt:0.8.17",
+    "org.jetbrains.skiko:skiko-awt:0.8.18",
     "org.jetbrains.skiko:skiko-awt-runtime-linux-x64:0.7.16",
-    "org.jetbrains.skiko:skiko-awt-runtime-linux-x64:0.8.17",
+    "org.jetbrains.skiko:skiko-awt-runtime-linux-x64:0.8.18",
     "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.7.16",
-    "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.8.17",
+    "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.8.18",
     "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.7.16",
-    "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.8.17",
+    "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.8.18",
     "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.16",
-    "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.8.17",
+    "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.8.18",
     "org.junit:junit-bom:pom:5.10.0",
+    "org.junit:junit-bom:pom:5.10.2",
     "org.junit:junit-bom:pom:5.9.2",
     "org.junit:junit-bom:pom:5.9.3",
     "org.junit.platform:junit-platform-engine:1.10.1",
@@ -1179,41 +1196,42 @@ DATA = [
     "org.brotli:dec:jar:sources:0.1.2",
     "org.commonmark:commonmark:jar:sources:0.22.0",
     "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose-desktop:jar:sources:2.8.2",
-    "org.jetbrains.compose.animation:animation-core-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.animation:animation-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.components:components-resources:jar:sources:1.7.0",
-    "org.jetbrains.compose.components:components-resources-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.foundation:foundation-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.foundation:foundation-layout-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.runtime:runtime-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.runtime:runtime-saveable-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-geometry-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-graphics-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-test-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-test-junit4-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-text-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-unit-desktop:jar:sources:1.7.0",
-    "org.jetbrains.compose.ui:ui-util-desktop:jar:sources:1.7.0",
-    "org.jetbrains.jewel:jewel-foundation-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-ide-laf-bridge-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-int-ui-standalone-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-core-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-autolink-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-243:jar:sources:0.26.2",
-    "org.jetbrains.jewel:jewel-ui-243:jar:sources:0.26.2",
+    "org.jetbrains.compose.animation:animation-core-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.animation:animation-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.components:components-resources:jar:sources:1.7.1",
+    "org.jetbrains.compose.components:components-resources-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.foundation:foundation-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.foundation:foundation-layout-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.runtime:runtime-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.runtime:runtime-saveable-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-geometry-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-graphics-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-test-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-test-junit4-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-text-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-unit-desktop:jar:sources:1.7.1",
+    "org.jetbrains.compose.ui:ui-util-desktop:jar:sources:1.7.1",
+    "org.jetbrains.jewel:jewel-foundation-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-ide-laf-bridge-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-int-ui-standalone-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-core-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-extension-autolink-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-extension-gfm-alerts-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-ide-laf-bridge-styling-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling-243:jar:sources:0.27.0",
+    "org.jetbrains.jewel:jewel-ui-243:jar:sources:0.27.0",
     "org.jetbrains.kotlin:kotlin-stdlib:jar:sources:1.9.22",
     "org.jetbrains.kotlin:kotlin-stdlib:jar:sources:1.9.23",
     "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:jar:sources:1.6.4",
     "org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:jar:sources:1.6.4",
     "org.jetbrains.kotlinx:kotlinx-coroutines-test-jvm:jar:sources:1.8.0-RC2",
-    "org.jetbrains.skiko:skiko-awt:jar:sources:0.8.17",
-    "org.jetbrains.skiko:skiko-awt-runtime-linux-x64:jar:sources:0.8.17",
-    "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:jar:sources:0.8.17",
-    "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:jar:sources:0.8.17",
-    "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:jar:sources:0.8.17",
+    "org.jetbrains.skiko:skiko-awt:jar:sources:0.8.18",
+    "org.jetbrains.skiko:skiko-awt-runtime-linux-x64:jar:sources:0.8.18",
+    "org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:jar:sources:0.8.18",
+    "org.jetbrains.skiko:skiko-awt-runtime-macos-x64:jar:sources:0.8.18",
+    "org.jetbrains.skiko:skiko-awt-runtime-windows-x64:jar:sources:0.8.18",
+    "org.mockito:mockito-core:4.3.1",
     "org.robolectric:plugins-maven-dependency-resolver:jar:sources:4.8.2",
     "org.robolectric:robolectric:jar:sources:4.8.2",
 ]

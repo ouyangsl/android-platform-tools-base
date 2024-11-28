@@ -17,8 +17,14 @@ package com.android.tools.lint.checks
 
 import com.android.SdkConstants.ANDROID_NS_NAME
 import com.android.SdkConstants.ANDROID_URI
+import com.android.SdkConstants.ATTR_ALLOW
 import com.android.SdkConstants.ATTR_AUTO_VERIFY
 import com.android.SdkConstants.ATTR_EXPORTED
+import com.android.SdkConstants.ATTR_FRAGMENT
+import com.android.SdkConstants.ATTR_FRAGMENT_ADVANCED_PATTERN
+import com.android.SdkConstants.ATTR_FRAGMENT_PATTERN
+import com.android.SdkConstants.ATTR_FRAGMENT_PREFIX
+import com.android.SdkConstants.ATTR_FRAGMENT_SUFFIX
 import com.android.SdkConstants.ATTR_HOST
 import com.android.SdkConstants.ATTR_MIME_TYPE
 import com.android.SdkConstants.ATTR_ORDER
@@ -29,6 +35,11 @@ import com.android.SdkConstants.ATTR_PATH_PREFIX
 import com.android.SdkConstants.ATTR_PATH_SUFFIX
 import com.android.SdkConstants.ATTR_PORT
 import com.android.SdkConstants.ATTR_PRIORITY
+import com.android.SdkConstants.ATTR_QUERY
+import com.android.SdkConstants.ATTR_QUERY_ADVANCED_PATTERN
+import com.android.SdkConstants.ATTR_QUERY_PATTERN
+import com.android.SdkConstants.ATTR_QUERY_PREFIX
+import com.android.SdkConstants.ATTR_QUERY_SUFFIX
 import com.android.SdkConstants.ATTR_SCHEME
 import com.android.SdkConstants.PREFIX_RESOURCE_REF
 import com.android.SdkConstants.PREFIX_THEME_REF
@@ -67,14 +78,15 @@ import com.android.tools.lint.detector.api.XmlScanner
 import com.android.tools.lint.detector.api.isDataBindingExpression
 import com.android.tools.lint.detector.api.isManifestPlaceHolderExpression
 import com.android.tools.lint.detector.api.resolvePlaceHolders
-import com.android.utils.CharSequences
 import com.android.utils.XmlUtils
 import com.android.utils.iterator
 import com.android.utils.subtagCount
 import com.android.xml.AndroidManifest.ATTRIBUTE_NAME
 import com.google.common.base.Joiner
+import java.lang.Character.isUpperCase
 import java.net.MalformedURLException
 import java.net.URL
+import java.net.URLDecoder
 import java.util.regex.Pattern
 import org.jetbrains.annotations.VisibleForTesting
 import org.w3c.dom.Attr
@@ -144,7 +156,25 @@ class AppLinksValidDetector : Detector(), XmlScanner {
   }
 
   private fun checkActivity(context: XmlContext, element: Element) {
-    val infos = checkActivityIntentFiltersAndGetUriInfos(element, context)
+    val infos =
+      XmlUtils.getSubTagsByName(element, TAG_INTENT_FILTER).map {
+        handleIntentFilterInActivity(context, it)
+      }
+    // Check that if any intent filter uses ACTION_VIEW, the activity is exported
+    val isExported =
+      element.getAttributeNodeNS(ANDROID_URI, ATTR_EXPORTED)?.value.let {
+        it.isNullOrBlank() || it == VALUE_TRUE
+      }
+    if (!isExported && infos.any { it.actionSet.contains(ACTION_VIEW) }) {
+      // Report error if the activity supporting action view is not exported.
+      reportUrlError(
+        context,
+        element,
+        context.getLocation(element),
+        "Activity supporting ACTION_VIEW is not exported",
+      )
+    }
+    // Check that any tools:testUrl tags match at least one intent filter
     var current = XmlUtils.getFirstSubTagByName(element, TAG_VALIDATION)
     while (current != null) {
       if (TOOLS_URI == current.namespaceURI) {
@@ -222,61 +252,18 @@ class AppLinksValidDetector : Detector(), XmlScanner {
   }
 
   /**
-   * Given an activity (or activity alias) element, looks up the intent filters that contain URIs,
-   * reports incidents for them, and creates a list of [UriInfo] objects to describe them.
-   *
-   * @param activity the activity
-   * @param context a Lint context to validate the activity attributes and report link-related
-   *   problems (such as unknown scheme, wrong port number, etc.)
-   * @return a list of URI infos, if any
-   */
-  @VisibleForTesting
-  fun checkActivityIntentFiltersAndGetUriInfos(
-    activity: Element,
-    context: XmlContext,
-  ): List<UriInfo> {
-    val result = mutableListOf<UriInfo>()
-    var anyIntentFilterHasActionView = false
-    val isExported =
-      activity.getAttributeNodeNS(ANDROID_URI, ATTR_EXPORTED)?.value.let {
-        it.isNullOrBlank() || it == VALUE_TRUE
-      }
-    for (intentFilter in XmlUtils.getSubTagsByName(activity, TAG_INTENT_FILTER)) {
-      val (hasActionView, uriInfos) = handleIntentFilterInActivity(context, intentFilter)
-      anyIntentFilterHasActionView = anyIntentFilterHasActionView || hasActionView
-      uriInfos?.let { result.add(it) }
-    }
-    if (anyIntentFilterHasActionView && !isExported) {
-      // Report error if the activity supporting action view is not exported.
-      reportUrlError(
-        context,
-        activity,
-        context.getLocation(activity),
-        "Activity supporting ACTION_VIEW is not exported",
-      )
-    }
-    return result
-  }
-
-  /**
-   * Given a test URL and a list of URI infos (previously returned from
-   * [checkActivityIntentFiltersAndGetUriInfos]) this method checks whether the URL matches, and if
-   * so returns null, otherwise returning the reason for the mismatch.
+   * Given a test URL and a list of [IntentFilterData], this method checks whether the URL matches,
+   * and if so returns null, otherwise returning the reason for the mismatch.
    *
    * @param testUrl the URL to test
    * @param infos the URL information
    * @return null for a match, otherwise the failure reason
    */
   @VisibleForTesting
-  fun checkTestUrlMatchesAtLeastOneInfo(testUrl: URL, infos: List<UriInfo>): String? {
+  fun checkTestUrlMatchesAtLeastOneInfo(testUrl: URL, infos: List<IntentFilterData>): String? {
     val reasons = mutableListOf<String>()
     for (info in infos) {
-      val infoWithImplicitSchemes =
-        when {
-          info.schemes.isEmpty() -> UriInfo(IMPLICIT_SCHEMES, info.hostPortPairs, info.paths)
-          else -> info
-        }
-      val reason = infoWithImplicitSchemes.match(testUrl) ?: return null // found a match
+      val reason = info.match(testUrl) ?: return null // found a match
       if (!reasons.contains(reason)) {
         reasons.add(reason)
       }
@@ -297,14 +284,12 @@ class AppLinksValidDetector : Detector(), XmlScanner {
    * called for intent filters inside an activity, whereas [checkIntentFilter] is called for all
    * intent filters (including those inside a <service>, <receiver>, etc.).
    *
-   * @return Whether the intent filter uses the VIEW action (this is used to perform a check at the
-   *   Activity level), and the [UriInfo] containing the schemes, hosts, ports, and paths within
-   *   this intent filter.
+   * @return the [IntentFilterData] for this intent filter
    */
   private fun handleIntentFilterInActivity(
     context: XmlContext,
     intentFilter: Element,
-  ): Pair<Boolean, UriInfo?> {
+  ): IntentFilterData {
     val intentFilterData = getIntentFilterData(ElementWrapper(intentFilter, context))
 
     // --- Check "missing data node" (Intent filter has ACTION_VIEW & CATEGORY_BROWSABLE, but no
@@ -322,7 +307,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
           "Missing data element",
         )
       }
-      return Pair(hasActionView, null)
+      return intentFilterData
     }
 
     // --- Check mimeType ---
@@ -762,7 +747,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
 
     val firstData =
       (intentFilterData.dataTags.firstOrNull() as? ElementWrapper)?.element
-        ?: return Pair(hasActionView, UriInfo())
+        ?: return intentFilterData
 
     // --- Check "missing scheme" ---
     // If there are hosts, paths, or ports, then there should be a scheme.
@@ -841,97 +826,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
         "Activity supporting ACTION_VIEW is not set as BROWSABLE",
       )
     }
-    return Pair(
-      hasActionView,
-      UriInfo(
-        intentFilterData.dataTags.schemes,
-        intentFilterData.dataTags.hostPortPairs,
-        intentFilterData.dataTags.paths,
-      ),
-    )
-  }
-
-  /** URL information from an intent filter */
-  data class UriInfo(
-    val schemes: Set<String>,
-    val hostPortPairs: Set<Pair<String, String?>>,
-    val paths: Set<Path>,
-  ) {
-    constructor() : this(emptySet(), emptySet(), emptySet())
-
-    /**
-     * Matches a URL against this info, and returns null if successful or the failure reason if not
-     * a match
-     *
-     * @param testUrl the URL to match
-     * @return null for a successful match or the failure reason
-     */
-    fun match(testUrl: URL): String? {
-      val schemeOk =
-        schemes.any { scheme: String -> scheme == testUrl.protocol || isSubstituted(scheme) }
-      if (!schemeOk) {
-        return "did not match scheme ${Joiner.on(", ").join(schemes)}"
-      }
-      if (hostPortPairs.isNotEmpty()) {
-        val hostOk =
-          hostPortPairs.any { (host, port) ->
-            host.let { matchesHost(testUrl.host, it) || isSubstituted(it) } &&
-              (port?.let { testUrl.port.toString() == port || isSubstituted(port) } != false)
-          }
-        if (!hostOk) {
-          return "did not match${if (hostPortPairs.size > 1) " any of" else ""} ${
-            hostPortPairs.joinToString(", ") { (host, port) -> if (port != null) "host+port $host:$port" else "host $host" }
-          }"
-        }
-      }
-      if (paths.isNotEmpty()) {
-        val testPath = testUrl.path
-        val pathOk =
-          paths.any { isSubstituted(it.attributeValue) || it.toPatternMatcher().match(testPath) }
-        if (!pathOk) {
-          val sb = StringBuilder()
-          paths.forEach { sb.append("path ").append(it.toString()).append(", ") }
-          if (CharSequences.endsWith(sb, ", ", true)) {
-            sb.setLength(sb.length - 2)
-          }
-          var message = "did not match $sb"
-          if (containsUpperCase(paths) || CharSequences.containsUpperCase(testPath)) {
-            message += " Note that matching is case sensitive."
-          }
-          return message
-        }
-      }
-      return null // OK
-    }
-
-    private fun containsUpperCase(matchers: Set<Path>): Boolean {
-      return matchers.any { CharSequences.containsUpperCase(it.attributeValue) }
-    }
-
-    /**
-     * Check whether a given host matches the hostRegex. The hostRegex could be a regular host name,
-     * or it could contain only one '*', such as *.example.com, where '*' matches any string whose
-     * length is at least 1.
-     *
-     * @param actualHost The actual host we want to check.
-     * @param hostPattern The criteria host, which could contain a '*'.
-     * @return Whether the actualHost matches the hostRegex
-     */
-    private fun matchesHost(actualHost: String, hostPattern: String): Boolean {
-      // Per https://developer.android.com/guide/topics/manifest/data-element.html
-      // the asterisk must be the first character
-      return if (!hostPattern.startsWith("*")) {
-        actualHost == hostPattern
-      } else
-        try {
-          val pattern = Regex(".*${Pattern.quote(hostPattern.substring(1))}")
-          actualHost.matches(pattern)
-        } catch (_: Throwable) {
-          // Make sure we don't fail to compile the regex, though with the quote call
-          // above this really shouldn't happen
-          false
-        }
-    }
+    return intentFilterData
   }
 
   companion object {
@@ -950,6 +845,22 @@ class AppLinksValidDetector : Detector(), XmlScanner {
         ATTR_PATH_PATTERN,
         ATTR_PATH_ADVANCED_PATTERN,
         ATTR_PATH_SUFFIX,
+      )
+    internal val QUERY_ATTRIBUTES =
+      listOf(
+        ATTR_QUERY,
+        ATTR_QUERY_PREFIX,
+        ATTR_QUERY_PATTERN,
+        ATTR_QUERY_ADVANCED_PATTERN,
+        ATTR_QUERY_SUFFIX,
+      )
+    internal val FRAGMENT_ATTRIBUTES =
+      listOf(
+        ATTR_FRAGMENT,
+        ATTR_FRAGMENT_PREFIX,
+        ATTR_FRAGMENT_PATTERN,
+        ATTR_FRAGMENT_ADVANCED_PATTERN,
+        ATTR_FRAGMENT_SUFFIX,
       )
     private const val HTTP = "http"
     private const val HTTPS = "https"
@@ -978,11 +889,21 @@ class AppLinksValidDetector : Detector(), XmlScanner {
 
     internal fun attrToAndroidPatternMatcher(attr: String): Int {
       return when (attr) {
-        ATTR_PATH -> PATTERN_LITERAL
-        ATTR_PATH_PREFIX -> PATTERN_PREFIX
-        ATTR_PATH_PATTERN -> PATTERN_SIMPLE_GLOB
-        ATTR_PATH_ADVANCED_PATTERN -> PATTERN_ADVANCED_GLOB
-        ATTR_PATH_SUFFIX -> PATTERN_SUFFIX
+        ATTR_PATH,
+        ATTR_QUERY,
+        ATTR_FRAGMENT -> PATTERN_LITERAL
+        ATTR_PATH_PREFIX,
+        ATTR_QUERY_PREFIX,
+        ATTR_FRAGMENT_PREFIX -> PATTERN_PREFIX
+        ATTR_PATH_PATTERN,
+        ATTR_QUERY_PATTERN,
+        ATTR_FRAGMENT_PATTERN -> PATTERN_SIMPLE_GLOB
+        ATTR_PATH_ADVANCED_PATTERN,
+        ATTR_QUERY_ADVANCED_PATTERN,
+        ATTR_FRAGMENT_ADVANCED_PATTERN -> PATTERN_ADVANCED_GLOB
+        ATTR_PATH_SUFFIX,
+        ATTR_QUERY_SUFFIX,
+        ATTR_FRAGMENT_SUFFIX -> PATTERN_SUFFIX
         else ->
           throw AssertionError(
             "Input was required to be one of the <data> path attributes, but was $attr"
@@ -1035,15 +956,62 @@ class AppLinksValidDetector : Detector(), XmlScanner {
     }
 
     data class Query(val attributeValue: String, val attributeName: String) : Comparable<Query> {
+      private val patternTypeString =
+        when (attributeName) {
+          ATTR_QUERY -> "LITERAL"
+          ATTR_QUERY_PREFIX -> "PREFIX"
+          ATTR_QUERY_PATTERN -> "GLOB"
+          ATTR_QUERY_ADVANCED_PATTERN -> "ADVANCED_GLOB"
+          ATTR_QUERY_SUFFIX -> "SUFFIX"
+          else -> "UNKNOWN"
+        }
+
       override fun compareTo(other: Query): Int {
         return compareValuesBy(this, other, { it.attributeName }, { it.attributeValue })
+      }
+
+      fun match(queryString: String): Boolean {
+        // See
+        // https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/content/UriRelativeFilter.java;l=150;drc=36303b838229bcd21b0d72278dd6879497bc285b
+        val patternMatcher =
+          AndroidPatternMatcher(attributeValue, attrToAndroidPatternMatcher(attributeName))
+        var paramsToMatch = queryString.split('&')
+        if (paramsToMatch.size == 1) paramsToMatch = queryString.split(';')
+        return paramsToMatch.any { patternMatcher.match(URLDecoder.decode(it, Charsets.UTF_8)) }
+      }
+
+      // See
+      // https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/content/UriRelativeFilter.java;l=212;drc=53969265f52c07741c3dba5365be231ce3c55817
+      override fun toString(): String {
+        return "UriRelativeFilter { uriPart = QUERY, patternType = $patternTypeString, filter = $attributeValue }"
       }
     }
 
     data class Fragment(val attributeValue: String, val attributeName: String) :
       Comparable<Fragment> {
+      private val patternTypeString =
+        when (attributeName) {
+          ATTR_FRAGMENT -> "LITERAL"
+          ATTR_FRAGMENT_PREFIX -> "PREFIX"
+          ATTR_FRAGMENT_PATTERN -> "GLOB"
+          ATTR_FRAGMENT_ADVANCED_PATTERN -> "ADVANCED_GLOB"
+          ATTR_FRAGMENT_SUFFIX -> "SUFFIX"
+          else -> "UNKNOWN"
+        }
+
       override fun compareTo(other: Fragment): Int {
         return compareValuesBy(this, other, { it.attributeName }, { it.attributeValue })
+      }
+
+      fun match(fragmentString: String): Boolean {
+        return AndroidPatternMatcher(attributeValue, attrToAndroidPatternMatcher(attributeName))
+          .match(URLDecoder.decode(fragmentString, Charsets.UTF_8))
+      }
+
+      // See
+      // https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/content/UriRelativeFilter.java;l=212;drc=53969265f52c07741c3dba5365be231ce3c55817
+      override fun toString(): String {
+        return "UriRelativeFilter { uriPart = FRAGMENT, patternType = $patternTypeString, filter = $attributeValue }"
       }
     }
 
@@ -1112,12 +1080,115 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       val actions: List<AttributeWrapper>,
       val categories: List<AttributeWrapper>,
       val dataTags: DataTagInfo,
+      // uri-relative-filter-groups need to be a list because they're evaluated in declaration order
       val uriRelativeFilterGroups: List<UriRelativeFilterGroup>,
     ) {
       val actionSet by
         lazy(LazyThreadSafetyMode.NONE) { actions.mapTo(mutableSetOf()) { it.substitutedValue } }
       val categorySet by
         lazy(LazyThreadSafetyMode.NONE) { categories.mapTo(mutableSetOf()) { it.substitutedValue } }
+
+      /**
+       * Matches a URL against this info, and returns null if successful or the failure reason if
+       * not a match
+       *
+       * @param testUrl the URL to match
+       * @return null for a successful match or the failure reason
+       */
+      fun match(testUrl: URL): String? {
+        val schemesIncludingImplicitSchemes =
+          when {
+            dataTags.schemes.isEmpty() && dataTags.mimeTypes.isNotEmpty() -> IMPLICIT_SCHEMES
+            else -> dataTags.schemes
+          }
+        val schemeOk =
+          schemesIncludingImplicitSchemes.any { scheme: String ->
+            scheme == testUrl.protocol || isSubstituted(scheme)
+          }
+        if (!schemeOk) {
+          return "did not match scheme ${Joiner.on(", ").join(dataTags.schemes)}"
+        }
+        if (dataTags.hostPortPairs.isNotEmpty()) {
+          val hostOk =
+            dataTags.hostPortPairs.any { (host, port) ->
+              host.let { matchesHost(testUrl.host, it) || isSubstituted(it) } &&
+                (port?.let { testUrl.port.toString() == port || isSubstituted(port) } != false)
+            }
+          if (!hostOk) {
+            return "did not match${if (dataTags.hostPortPairs.size > 1) " any of" else ""} ${
+              dataTags.hostPortPairs.joinToString(", ") { (host, port) -> if (port != null) "host+port $host:$port" else "host $host" }
+            }"
+          }
+        }
+        if (dataTags.paths.isNotEmpty() || uriRelativeFilterGroups.isNotEmpty()) {
+          val testPath = testUrl.path
+
+          // First, check to see whether any paths specified in the intent-filter's direct <data>
+          // children match the URI.
+          // This is evaluated before any URI relative filter group is evaluated.
+          val pathMatchFound =
+            dataTags.paths.any {
+              isSubstituted(it.attributeValue) || it.toPatternMatcher().match(testPath)
+            }
+          if (pathMatchFound) return null // OK
+
+          // uri-relative-filter-groups are evaluated in order, so we find the first matching one
+          val matchedUriRelativeFilter = uriRelativeFilterGroups.firstOrNull { it.match(testUrl) }
+          // If there was a match,
+          if (matchedUriRelativeFilter != null) {
+            return if (matchedUriRelativeFilter.allow) {
+              // If the rule was an allow rule, the testUrl matches, so everything is OK
+              null
+            } else {
+              // If the rule was an exclusion rule, the testUrl will match it and be excluded, so we
+              // report an error
+              return "matched exclusion rule $matchedUriRelativeFilter"
+            }
+          }
+
+          val sb = StringBuilder()
+          dataTags.paths.forEach { sb.append("path ").append(it).append(", ") }
+          uriRelativeFilterGroups.forEach { sb.append(it).append(", ") }
+          if (sb.endsWith(", ")) {
+            sb.setLength(sb.length - 2)
+          }
+          var message = "did not match $sb"
+          if (
+            dataTags.paths.any {
+              !isSubstituted(it.attributeValue) && it.attributeValue.any(::isUpperCase)
+            } || uriRelativeFilterGroups.any { it.hasUppercase } || testPath.any(::isUpperCase)
+          ) {
+            message += " Note that matching is case sensitive."
+          }
+          return message
+        }
+        return null // OK
+      }
+
+      /**
+       * Check whether a given host matches the hostRegex. The hostRegex could be a regular host
+       * name, or it could contain only one '*', such as *.example.com, where '*' matches any string
+       * whose length is at least 1.
+       *
+       * @param actualHost The actual host we want to check.
+       * @param hostPattern The criteria host, which could contain a '*'.
+       * @return Whether the actualHost matches the hostRegex
+       */
+      private fun matchesHost(actualHost: String, hostPattern: String): Boolean {
+        // Per https://developer.android.com/guide/topics/manifest/data-element.html
+        // the asterisk must be the first character
+        return if (!hostPattern.startsWith("*")) {
+          actualHost == hostPattern
+        } else
+          try {
+            val pattern = Regex(".*${Pattern.quote(hostPattern.substring(1))}")
+            actualHost.matches(pattern)
+          } catch (_: Throwable) {
+            // Make sure we don't fail to compile the regex, though with the quote call
+            // above this really shouldn't happen
+            false
+          }
+      }
     }
 
     /** Information collected from all data tags within the parent. */
@@ -1196,16 +1267,109 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       override fun iterator(): Iterator<TagWrapper> = dataTagElements.iterator()
     }
 
-    data class UriRelativeFilterGroup(
-      val allow: Boolean,
-      val dataTagInfo: DataTagInfo,
-      val queries: Set<Query>,
-      val rawQueries: Set<Query>,
-      val queryElements: List<TagWrapper>,
-      val fragments: Set<Fragment>,
-      val rawFragments: Set<Fragment>,
-      val fragmentElements: List<TagWrapper>,
-    )
+    data class UriRelativeFilterGroup(private val tagWrapper: TagWrapper) {
+      val allow: Boolean by
+        lazy(LazyThreadSafetyMode.NONE) {
+          tagWrapper.getAttributeWrapper(ATTR_ALLOW)?.substitutedValue.let {
+            it == null || it == VALUE_TRUE
+          }
+        }
+      val dataTagInfo: DataTagInfo by
+        lazy(LazyThreadSafetyMode.NONE) {
+          DataTagInfo(tagWrapper.subTags.filter { it.name == TAG_DATA })
+        }
+      val queries: Set<Query> by
+        lazy(LazyThreadSafetyMode.NONE) {
+          queryElements.mapNotNullTo(mutableSetOf()) { attr ->
+            attr.substitutedValue?.let { Query(attributeValue = it, attributeName = attr.name) }
+          }
+        }
+      val rawQueries: Set<Query> by
+        lazy(LazyThreadSafetyMode.NONE) {
+          queryElements.mapNotNullTo(mutableSetOf()) { attr ->
+            attr.rawValue?.let { Query(attributeValue = it, attributeName = attr.name) }
+          }
+        }
+      val queryElements: Set<AttributeWrapper> by
+        lazy(LazyThreadSafetyMode.NONE) {
+          val result = mutableSetOf<AttributeWrapper>()
+          for (subTag in tagWrapper.subTags.filter { it.name == TAG_DATA }) {
+            for (value in QUERY_ATTRIBUTES) {
+              subTag.getAttributeWrapper(value)?.let { result.add(it) }
+            }
+          }
+          result
+        }
+      val fragments: Set<Fragment> by
+        lazy(LazyThreadSafetyMode.NONE) {
+          fragmentElements.mapNotNullTo(mutableSetOf()) { attr ->
+            attr.substitutedValue?.let { Fragment(attributeValue = it, attributeName = attr.name) }
+          }
+        }
+      val rawFragments: Set<Fragment> by
+        lazy(LazyThreadSafetyMode.NONE) {
+          fragmentElements.mapNotNullTo(mutableSetOf()) { attr ->
+            attr.rawValue?.let { Fragment(attributeValue = it, attributeName = attr.name) }
+          }
+        }
+      val fragmentElements: Set<AttributeWrapper> by
+        lazy(LazyThreadSafetyMode.NONE) {
+          val result = mutableSetOf<AttributeWrapper>()
+          for (subTag in tagWrapper.subTags.filter { it.name == TAG_DATA }) {
+            for (value in FRAGMENT_ATTRIBUTES) {
+              subTag.getAttributeWrapper(value)?.let { result.add(it) }
+            }
+          }
+          result
+        }
+      val hasUppercase by
+        lazy(LazyThreadSafetyMode.NONE) {
+          dataTagInfo.paths.any {
+            !isSubstituted(it.attributeValue) && it.attributeValue.any(::isUpperCase)
+          } ||
+            queries.any {
+              !isSubstituted(it.attributeValue) && it.attributeValue.any(::isUpperCase)
+            } ||
+            fragments.any {
+              !isSubstituted(it.attributeValue) && it.attributeValue.any(::isUpperCase)
+            }
+        }
+
+      /** Returns whether this matches the path + query + fragment part of [url]. */
+      fun match(url: URL): Boolean {
+        val pathOk =
+          dataTagInfo.paths.all {
+            isSubstituted(it.attributeValue) ||
+              (url.path != null && it.toPatternMatcher().match(url.path))
+          }
+        if (!pathOk) return false
+        val queryOk =
+          queries.all {
+            isSubstituted(it.attributeValue) || (url.query != null && it.match(url.query))
+          }
+        if (!queryOk) return false
+        val fragmentOk =
+          fragments.all {
+            isSubstituted(it.attributeValue) || (url.ref != null && it.match(url.ref))
+          }
+        return fragmentOk
+      }
+
+      // See
+      // https://cs.android.com/android/platform/superproject/main/+/main:frameworks/base/core/java/android/content/UriRelativeFilterGroup.java;l=225;drc=53969265f52c07741c3dba5365be231ce3c55817
+      override fun toString(): String {
+        val sb =
+          StringBuilder("UriRelativeFilterGroup { allow = ")
+            .append(allow)
+            .append(", uri_filters = ")
+        dataTagInfo.paths.forEach { sb.append(it).append(", ") }
+        queries.forEach { sb.append(it).append(", ") }
+        fragments.forEach { sb.append(it).append(", ") }
+        if (sb.endsWith(", ")) sb.setLength(sb.length - 2)
+        sb.append(" }")
+        return sb.toString()
+      }
+    }
 
     fun getIntentFilterData(intentFilter: TagWrapper): IntentFilterData {
       val autoVerify = intentFilter.getAttributeWrapper(ATTR_AUTO_VERIFY)?.substitutedValue
@@ -1221,11 +1385,14 @@ class AppLinksValidDetector : Detector(), XmlScanner {
       val actions = mutableListOf<AttributeWrapper>()
       val categories = mutableListOf<AttributeWrapper>()
       val dataTagElements = mutableListOf<TagWrapper>()
+      val uriRelativeFilterGroups = mutableListOf<UriRelativeFilterGroup>()
       for (subTag in intentFilter.subTags) {
         when (subTag.name) {
           TAG_ACTION -> subTag.getAttributeWrapper(ATTRIBUTE_NAME)?.let { actions.add(it) }
           TAG_CATEGORY -> subTag.getAttributeWrapper(ATTRIBUTE_NAME)?.let { categories.add(it) }
           TAG_DATA -> dataTagElements.add(subTag)
+          TAG_URI_RELATIVE_FILTER_GROUP ->
+            uriRelativeFilterGroups.add(UriRelativeFilterGroup(subTag))
         }
       }
       return IntentFilterData(
@@ -1235,7 +1402,7 @@ class AppLinksValidDetector : Detector(), XmlScanner {
         actions,
         categories,
         DataTagInfo(dataTagElements),
-        listOf(), // TODO(b/370997994)
+        uriRelativeFilterGroups,
       )
     }
 
